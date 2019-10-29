@@ -619,7 +619,7 @@ class SetupController extends Controller
         ->join('company_admin', 'company_admin.id', '=', 'admin_id')
         ->select('merchants.*','company_admin.name AS admin_name','joint_companies.name AS exec_name')
         ->where('merchants.id', $id)
-        ->first();
+        ->get();
 
         //clean data
         $merchantsdata = [];
@@ -763,7 +763,7 @@ class SetupController extends Controller
         ->join('branch_admin', 'branch_admin.id', '=', 'branch_admin_id')
         ->select('company_branches.*','merchants.merchant_name AS merchant_name','branch_super_executive.name AS exec_name','branch_admin.name AS admin_name')
        ->where('company_branches.id', $id)
-       ->first();
+       ->get();
 
         //clean data
         $branchessdata = [];

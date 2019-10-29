@@ -270,7 +270,7 @@ class FormsController extends Controller
         ->join('merchants', 'merchants.id', '=', 'merchant_id')
         ->select('forms.*','merchants.merchant_name AS merchant_name')
         ->where('form_code', $code)
-        ->first();
+        ->get();
       
         //clean data
         $formdata = [];

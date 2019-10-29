@@ -53,7 +53,7 @@ class ClientController extends Controller
         //get all registered companies 
         $getclient = DB::table('client')
         ->where('id', $id)
-        ->first();
+        ->get();
       
         //clean data
         $clientdata = [];

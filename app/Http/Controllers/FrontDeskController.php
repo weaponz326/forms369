@@ -17,8 +17,7 @@ class FrontDeskController extends Controller
      * @return void\Illuminate\Http\Response all details of submitted form
      */
     protected function getAllSubmittedForms(Request $request){
-
-        //get all registered companies 
+ 
         $getsubmittedform = DB::table('submitted_forms')
         ->join('users', 'users.id', '=', 'client_id')
         ->join('forms', 'forms.form_code', '=', 'form_id')
@@ -64,7 +63,6 @@ class FrontDeskController extends Controller
      */
     protected function getAllSubmittedFormsByMerchant(Request $request, $id){
 
-        //get all registered companies 
         $getsubmittedform = DB::table('submitted_forms')
         ->join('users', 'users.id', '=', 'client_id')
         ->join('forms', 'forms.form_code', '=', 'form_id')
@@ -110,7 +108,6 @@ class FrontDeskController extends Controller
      */
     protected function getSubmittedFormByCode(Request $request, $code){
 
-        //get all registered companies 
         $getsubmittedform = DB::table('submitted_forms')
         ->join('users', 'users.id', '=', 'client_id')
         ->join('forms', 'forms.form_code', '=', 'form_id')
@@ -118,7 +115,7 @@ class FrontDeskController extends Controller
         ->select('submitted_forms.*','merchants.merchant_name AS merchant_name',
         'users.name', 'users.email', 'forms.name AS form_name', 'forms.form_fields')
         ->where('submission_code', $code)
-        ->first();
+        ->get();
       
         //clean data
         $submittedformdata = [];
@@ -159,7 +156,7 @@ class FrontDeskController extends Controller
      */
     protected function getSubmittedFormByStatusAndMerchant(Request $request, $status, $id){
 
-        //get all registered companies 
+       
         $getsubmittedforms = DB::table('submitted_forms')
         ->join('users', 'users.id', '=', 'client_id')
         ->join('forms', 'forms.form_code', '=', 'form_id')
@@ -196,5 +193,68 @@ class FrontDeskController extends Controller
         return response()->json($response, 200);
 
     }
+
+
+    /**
+     * processSubmitForm process a submitted form that has not been fully processed
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @param $code submission code that is being processed 
+     * @param $status new processing state stage
+     * @return void\Illuminate\Http\Response error or success message
+     */
+    public function processSubmitForm(Request $request, $code, $status)
+    {
+         $message = 'Ok';
+
+         //get all registered companies 
+        $getsubmittedform = DB::table('submitted_forms')
+        ->where('submission_code', $code)
+        ->first();
+
+        if($getsubmittedform->status == 'processed'){
+
+            return response()->json([
+                'message' => 'Form already processed'
+            ], 200);
+
+        }
+
+         //get, encode and encrypt all user details in teh form
+         $data = $request->all();
+         $encodeddata = json_encode($data);
+         $encrypteddata = Crypt::encryptString($encodeddata);
+
+         $last_processed = now();
+         $user = $request->user();
+         $userid = $user['id'];
+     
+         //save new client in the database
+         try {
+             DB::table('submitted_forms')
+             ->where('submission_code',$code)
+             ->update(
+                 [
+                     'client_details' => $encrypteddata,
+                     'last_processed' => $last_processed, 
+                     'processed_by' => $userid,
+                     'status' => $status
+                 ]
+             );
+ 
+             $message = 'Ok';
+ 
+         }catch(Exception $e) {
+             $message = "Failed";
+         }   
+ 
+        
+        return response()->json([
+            'message' => $message
+        ], 200);
+            
+    }
+
+
 
 }

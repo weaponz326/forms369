@@ -87,6 +87,8 @@ Route::group(['middleware' => ['auth:api'], 'prefix' => 'v1'], function(){
   Route::get('getAllSubmittedFormsByMerchant/{id}', 'FrontDeskController@getAllSubmittedFormsByMerchant')->name('getAllSubmittedFormsByMerchant')->middleware('scope:GIT_Admin,frontdesk');
   Route::get('getSubmittedFormByCode/{code}', 'FrontDeskController@getSubmittedFormByCode')->name('getSubmittedFormByCode')->middleware('scope:GIT_Admin,frontdesk');
   Route::get('getSubmittedFormByStatusAndMerchant/{status}/{id}', 'FrontDeskController@getSubmittedFormByStatusAndMerchant')->name('getSubmittedFormByStatusAndMerchant')->middleware('scope:GIT_Admin,frontdesk');
+  Route::get('processSubmitForm/{code}/{status}', 'FrontDeskController@processSubmitForm')->name('processSubmitForm')->middleware('scope:frontdesk');
+  
   
   
   

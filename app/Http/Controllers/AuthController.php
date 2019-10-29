@@ -626,7 +626,7 @@ class AuthController extends Controller
          ->join('company_branches', 'company_branches.id', '=', 'branch_id')
          ->select('users.*','merchants.merchant_name AS merchant_name','company_branches.branchname AS branch_name')
         ->where('users.id', $id)
-        ->first();
+        ->get();
  
          //clean data
          $userdata = [];
