@@ -30,6 +30,9 @@ Route::group(['middleware' => ['auth:api'], 'prefix' => 'v1'], function(){
     //use endpoints 
     Route::post('editUser/{id}', 'AuthController@editUser')->name('editUser');
     Route::get('getUser/{id}', 'AuthController@getUserDetails')->name('getUser');
+    Route::post('diableUser/{id}', 'AuthController@diableUser')->name('diableUser')->middleware('scope:GIT_Admin,company_admin');
+    Route::post('enableUser/{id}', 'AuthController@enableUser')->name('enableUser')->middleware('scope:GIT_Admin,company_admin');
+    
     
 
     //merchant setup, view and update apis
@@ -87,6 +90,20 @@ Route::group(['middleware' => ['auth:api'], 'prefix' => 'v1'], function(){
   Route::get('getAllSubmittedFormsByMerchant/{id}', 'FrontDeskController@getAllSubmittedFormsByMerchant')->name('getAllSubmittedFormsByMerchant')->middleware('scope:GIT_Admin,frontdesk');
   Route::get('getSubmittedFormByCode/{code}', 'FrontDeskController@getSubmittedFormByCode')->name('getSubmittedFormByCode')->middleware('scope:GIT_Admin,frontdesk');
   Route::get('getSubmittedFormByStatusAndMerchant/{status}/{id}', 'FrontDeskController@getSubmittedFormByStatusAndMerchant')->name('getSubmittedFormByStatusAndMerchant')->middleware('scope:GIT_Admin,frontdesk');
+  Route::post('processSubmitForm/{code}/{status}', 'FrontDeskController@processSubmitForm')->name('processSubmitForm')->middleware('scope:frontdesk');
+
+  //get forms processed by a front desk person within a particular datetime range. NB: end date exclusive
+  Route::get('FormsProcessedByFrontDeskPerson/{id}/{startdate}/{enddate}', 'FrontDeskController@FormsProcessedByFrontDeskPerson')->name('FormsProcessedByFrontDeskPerson')->middleware('scope:GIT_Admin,company_admin,branch_admin,frontdesk');
+  Route::get('numFormsProcessedByFrontDeskPerson/{id}/{startdate}/{enddate}', 'FrontDeskController@numFormsProcessedByFrontDeskPerson')->name('numFormsProcessedByFrontDeskPerson')->middleware('scope:GIT_Admin,company_admin,branch_admin,frontdesk,branch_executive,super_executive');
+
+  //get forms processed by a front desk person of all time. NB: end date exclusive
+  Route::get('getAllFormsProcessedByFrontDeskPerson/{id}', 'FrontDeskController@getAllFormsProcessedByFrontDeskPerson')->name('getAllFormsProcessedByFrontDeskPerson')->middleware('scope:GIT_Admin,company_admin,branch_admin,frontdesk');
+  Route::get('getNumAllFormsProcessedByFrontDeskPerson/{id}', 'FrontDeskController@getNumAllFormsProcessedByFrontDeskPerson')->name('getNumAllFormsProcessedByFrontDeskPerson')->middleware('scope:GIT_Admin,company_admin,branch_admin,frontdesk,branch_executive,super_executive');
+
+  
+  
+  
+  
   
   
   

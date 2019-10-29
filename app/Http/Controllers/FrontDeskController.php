@@ -17,8 +17,7 @@ class FrontDeskController extends Controller
      * @return void\Illuminate\Http\Response all details of submitted form
      */
     protected function getAllSubmittedForms(Request $request){
-
-        //get all registered companies 
+ 
         $getsubmittedform = DB::table('submitted_forms')
         ->join('users', 'users.id', '=', 'client_id')
         ->join('forms', 'forms.form_code', '=', 'form_id')
@@ -64,7 +63,6 @@ class FrontDeskController extends Controller
      */
     protected function getAllSubmittedFormsByMerchant(Request $request, $id){
 
-        //get all registered companies 
         $getsubmittedform = DB::table('submitted_forms')
         ->join('users', 'users.id', '=', 'client_id')
         ->join('forms', 'forms.form_code', '=', 'form_id')
@@ -110,7 +108,6 @@ class FrontDeskController extends Controller
      */
     protected function getSubmittedFormByCode(Request $request, $code){
 
-        //get all registered companies 
         $getsubmittedform = DB::table('submitted_forms')
         ->join('users', 'users.id', '=', 'client_id')
         ->join('forms', 'forms.form_code', '=', 'form_id')
@@ -118,7 +115,7 @@ class FrontDeskController extends Controller
         ->select('submitted_forms.*','merchants.merchant_name AS merchant_name',
         'users.name', 'users.email', 'forms.name AS form_name', 'forms.form_fields')
         ->where('submission_code', $code)
-        ->first();
+        ->get();
       
         //clean data
         $submittedformdata = [];
@@ -159,7 +156,7 @@ class FrontDeskController extends Controller
      */
     protected function getSubmittedFormByStatusAndMerchant(Request $request, $status, $id){
 
-        //get all registered companies 
+       
         $getsubmittedforms = DB::table('submitted_forms')
         ->join('users', 'users.id', '=', 'client_id')
         ->join('forms', 'forms.form_code', '=', 'form_id')
@@ -196,5 +193,225 @@ class FrontDeskController extends Controller
         return response()->json($response, 200);
 
     }
+
+
+    /**
+     * processSubmitForm process a submitted form that has not been fully processed
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @param $code submission code that is being processed 
+     * @param $status new processing state stage
+     * @return void\Illuminate\Http\Response error or success message
+     */
+    protected function processSubmitForm(Request $request, $code, $status)
+    {
+         $message = 'Ok';
+
+         //get all registered companies 
+        $getsubmittedform = DB::table('submitted_forms')
+        ->where('submission_code', $code)
+        ->first();
+
+        if($getsubmittedform->status == 'processed'){
+
+            return response()->json([
+                'message' => 'Form already processed'
+            ], 200);
+
+        }
+
+         //get, encode and encrypt all user details in teh form
+         $data = $request->all();
+         $encodeddata = json_encode($data);
+         $encrypteddata = Crypt::encryptString($encodeddata);
+
+         $last_processed = now();
+         $user = $request->user();
+         $userid = $user['id'];
+     
+         //save new client in the database
+         try {
+             DB::table('submitted_forms')
+             ->where('submission_code',$code)
+             ->update(
+                 [
+                     'client_details' => $encrypteddata,
+                     'last_processed' => $last_processed, 
+                     'processed_by' => $userid,
+                     'status' => $status
+                 ]
+             );
+ 
+             $message = 'Ok';
+ 
+         }catch(Exception $e) {
+             $message = "Failed";
+         }   
+ 
+        
+        return response()->json([
+            'message' => $message
+        ], 200);
+            
+    }
+
+
+     /**
+     * FormsProcessedByFrontDeskPerson forms processed by a particular front desk person
+     * on a particular date range
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @param $id of front desk person
+     * @param $startdate start date range 
+     * @param $enddate start date range 
+     * @return void\Illuminate\Http\Response all details of submitted form
+     * 
+     */
+    protected function FormsProcessedByFrontDeskPerson(Request $request, $id, $startdate, $enddate)
+    {
+        
+        $getprocessedforms = DB::table('submitted_forms')
+        ->join('users', 'users.id', '=', 'client_id')
+        ->join('forms', 'forms.form_code', '=', 'form_id')
+        ->join('merchants', 'merchants.id', '=', 'forms.merchant_id')
+        ->select('submitted_forms.*','merchants.merchant_name AS merchant_name',
+        'users.name', 'users.email', 'forms.name AS form_name', 'forms.form_fields')
+        ->where('submitted_forms.processed_by', $id)
+        ->whereBetween('last_processed', [$startdate, $enddate])
+        ->simplePaginate(15);
+      
+        //clean data
+        $submittedformdata = [];
+
+        $processedforms = $getprocessedforms->map(function($items){
+            $submittedformdata['submission_code'] = $items->submission_code;
+            $submittedformdata['form_code'] = $items->form_id;
+            $submittedformdata['form_name'] = Crypt::decryptString($items->form_name);
+            $submittedformdata['form_fields'] = json_decode(Crypt::decryptString($items->form_fields));
+            $submittedformdata['merchant_name'] = Crypt::decryptString($items->merchant_name);
+            $submittedformdata['client_name'] = $items->name;
+            $submittedformdata['email'] = $items->email;
+            $submittedformdata['client_submitted_details'] = json_decode(Crypt::decryptString($items->client_details));
+            $submittedformdata['form_status'] = $items->status;
+            $submittedformdata['submitted_at'] = $items->submitted_at;
+            $submittedformdata['last_processed'] = $items->last_processed;
+            $submittedformdata['processed_by'] = $items->processed_by;
+
+            return $submittedformdata;
+         });
+
+         $response = [
+            'processed_forms' => $processedforms
+        ];
+        return response()->json($response, 200);
+    }
+
+
+    /**
+     * numFormsProcessedByFrontDeskPerson get the number of forms processed by a particular front desk person
+     * on a particular date range
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @param $id of front desk person
+     * @param $startdate start date range 
+     * @param $enddate start date range 
+     * @return int number of forms processed
+     */
+    protected function numFormsProcessedByFrontDeskPerson(Request $request, $id, $startdate, $enddate)
+    {
+        
+        $getnumprocessedforms = DB::table('submitted_forms')
+        ->join('users', 'users.id', '=', 'client_id')
+        ->join('forms', 'forms.form_code', '=', 'form_id')
+        ->join('merchants', 'merchants.id', '=', 'forms.merchant_id')
+        ->select('submitted_forms.*','merchants.merchant_name AS merchant_name',
+        'users.name', 'users.email', 'forms.name AS form_name', 'forms.form_fields')
+        ->where('submitted_forms.processed_by', $id)
+        ->whereBetween('last_processed', [$startdate, $enddate])
+        ->count();
+      
+
+         $response = [
+            'num_processed_forms' => $getnumprocessedforms
+        ];
+        return response()->json($response, 200);
+    }
+
+
+    /**
+     * getAllFormsProcessedByFrontDeskPerson forms processed by a particular front desk person
+     * of all time
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @param $id of front desk person
+     * @return void\Illuminate\Http\Response all details of submitted form
+     * 
+     */
+    protected function getAllFormsProcessedByFrontDeskPerson(Request $request, $id)
+    {
+        
+        $getprocessedforms = DB::table('submitted_forms')
+        ->join('users', 'users.id', '=', 'client_id')
+        ->join('forms', 'forms.form_code', '=', 'form_id')
+        ->join('merchants', 'merchants.id', '=', 'forms.merchant_id')
+        ->select('submitted_forms.*','merchants.merchant_name AS merchant_name',
+        'users.name', 'users.email', 'forms.name AS form_name', 'forms.form_fields')
+        ->where('submitted_forms.processed_by', $id)
+        ->simplePaginate(15);
+      
+        //clean data
+        $submittedformdata = [];
+
+        $processedforms = $getprocessedforms->map(function($items){
+            $submittedformdata['submission_code'] = $items->submission_code;
+            $submittedformdata['form_code'] = $items->form_id;
+            $submittedformdata['form_name'] = Crypt::decryptString($items->form_name);
+            $submittedformdata['form_fields'] = json_decode(Crypt::decryptString($items->form_fields));
+            $submittedformdata['merchant_name'] = Crypt::decryptString($items->merchant_name);
+            $submittedformdata['client_name'] = $items->name;
+            $submittedformdata['email'] = $items->email;
+            $submittedformdata['client_submitted_details'] = json_decode(Crypt::decryptString($items->client_details));
+            $submittedformdata['form_status'] = $items->status;
+            $submittedformdata['submitted_at'] = $items->submitted_at;
+            $submittedformdata['last_processed'] = $items->last_processed;
+            $submittedformdata['processed_by'] = $items->processed_by;
+
+            return $submittedformdata;
+         });
+
+         $response = [
+            'processed_forms' => $processedforms
+        ];
+        return response()->json($response, 200);
+    }
+
+
+    /**
+     * getNumAllFormsProcessedByFrontDeskPerson get num of forms processed by a particular front desk person
+     * of all time
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @param $id of front desk person
+     * @return void\Illuminate\Http\Response all details of submitted form
+     * 
+     */
+    protected function getNumAllFormsProcessedByFrontDeskPerson(Request $request, $id)
+    {
+        
+        $getprocessedforms = DB::table('submitted_forms')
+        ->join('users', 'users.id', '=', 'client_id')
+        ->join('forms', 'forms.form_code', '=', 'form_id')
+        ->join('merchants', 'merchants.id', '=', 'forms.merchant_id')
+        ->select('submitted_forms.*','merchants.merchant_name AS merchant_name',
+        'users.name', 'users.email', 'forms.name AS form_name', 'forms.form_fields')
+        ->where('submitted_forms.processed_by', $id)
+        ->count();
+
+         $response = [
+            'num_processed_forms' => $getprocessedforms
+        ];
+        return response()->json($response, 200);
+    }
+
 
 }

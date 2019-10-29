@@ -218,7 +218,7 @@ class FormsController extends Controller
      * deleteForm deleted or archive a form
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \Illuminate\Http\Request  $code code of the form to be deleted 
+     * @param $code code of the form to be deleted 
      *
      * @return void\Illuminate\Http\Response success or error message
      */
@@ -270,7 +270,7 @@ class FormsController extends Controller
         ->join('merchants', 'merchants.id', '=', 'merchant_id')
         ->select('forms.*','merchants.merchant_name AS merchant_name')
         ->where('form_code', $code)
-        ->first();
+        ->get();
       
         //clean data
         $formdata = [];
@@ -473,6 +473,7 @@ class FormsController extends Controller
 
     }
 
+    
     
 
 
