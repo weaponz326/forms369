@@ -743,4 +743,316 @@ class AuthController extends Controller
             'message' => $message
         ]);
     }
+
+
+
+    /**
+     * getAllUsersByMerchant get the details of users
+     *
+     * @param  mixed $request
+     * @param  mixed $id of the merchant
+     *
+     * @return [json] all matching users
+     */
+    protected function getAllUsersByMerchant(Request $request, $id){
+
+        //get all registered companies 
+        $getusers = DB::table('users')
+        ->join('merchants', 'merchants.id', '=', 'merchant_id')
+        ->join('company_branches', 'company_branches.id', '=', 'branch_id')
+        ->select('users.*','merchants.merchant_name AS merchant_name','company_branches.branchname AS branch_name')
+       ->where('users.merchant_id', $id)
+       ->get();
+
+        //clean data
+        $userdata = [];
+
+        $users = $getusers->map(function($items){
+            $userdata['id'] = $items->id;
+            $userdata['full_name'] =$items->name;
+            $userdata['firstname'] = $items->firstname;
+            $userdata['lastname'] = $items->lastname;
+            $userdata['usename'] =$items->username;
+            $userdata['email'] = $items->email;
+            $userdata['last_login_at'] = $items->last_login_at;
+            $userdata['last_login_ip'] = $items->last_login_ip;
+            $userdata['status'] = $items->status;
+            $userdata['merchant_id'] = $items->merchant_id;
+            $userdata['merchant_name'] = Crypt::decryptString($items->merchant_name);
+            $userdata['branch_id'] = $items->branch_id;
+            $userdata['branch_name'] = Crypt::decryptString($items->branch_name);
+            $userdata['user_type'] = $items->usertype;
+            $userdata['created_at'] = $items->created_at;
+            $userdata['updated_at'] = $items->updated_at;
+            $userdata['deleted_at'] = $items->deleted_at;
+
+            return $userdata;
+         });
+
+         $response = [
+            'users' => $users
+        ];
+        return response()->json($response, 200);
+   
+   }
+
+
+   /**
+     * getNumAllUsersByMerchant get count of all users in a company
+     *
+     * @param  mixed $request
+     * @param  mixed $id of the merchant
+     *
+     * @return [json] all matching users
+     */
+    protected function getNumAllUsersByMerchant(Request $request, $id){
+
+        //get all registered companies 
+        $getnumusers = DB::table('users')
+        ->join('merchants', 'merchants.id', '=', 'merchant_id')
+        ->join('company_branches', 'company_branches.id', '=', 'branch_id')
+        ->select('users.*','merchants.merchant_name AS merchant_name','company_branches.branchname AS branch_name')
+       ->where('users.merchant_id', $id)
+       ->count();
+
+         $response = [
+            'num_users' => $getnumusers
+        ];
+        return response()->json($response, 200);
+
+   
+   }
+
+
+    /**
+     * getAllUsersByBranch get the details of users
+     *
+     * @param  mixed $request
+     * @param  mixed $id of the branch
+     *
+     * @return [json] all matching users
+     */
+    protected function getAllUsersByBranch(Request $request, $id){
+
+        //get all registered companies 
+        $getusers = DB::table('users')
+        ->join('merchants', 'merchants.id', '=', 'merchant_id')
+        ->join('company_branches', 'company_branches.id', '=', 'branch_id')
+        ->select('users.*','merchants.merchant_name AS merchant_name','company_branches.branchname AS branch_name')
+       ->where('users.branch_id', $id)
+       ->get();
+
+        //clean data
+        $userdata = [];
+
+        $users = $getusers->map(function($items){
+            $userdata['id'] = $items->id;
+            $userdata['full_name'] =$items->name;
+            $userdata['firstname'] = $items->firstname;
+            $userdata['lastname'] = $items->lastname;
+            $userdata['usename'] =$items->username;
+            $userdata['email'] = $items->email;
+            $userdata['last_login_at'] = $items->last_login_at;
+            $userdata['last_login_ip'] = $items->last_login_ip;
+            $userdata['status'] = $items->status;
+            $userdata['merchant_id'] = $items->merchant_id;
+            $userdata['merchant_name'] = Crypt::decryptString($items->merchant_name);
+            $userdata['branch_id'] = $items->branch_id;
+            $userdata['branch_name'] = Crypt::decryptString($items->branch_name);
+            $userdata['user_type'] = $items->usertype;
+            $userdata['created_at'] = $items->created_at;
+            $userdata['updated_at'] = $items->updated_at;
+            $userdata['deleted_at'] = $items->deleted_at;
+
+            return $userdata;
+         });
+
+         $response = [
+            'users' => $users
+        ];
+        return response()->json($response, 200);
+   
+   }
+
+/**
+     * getNumAllUsersByBranch get the number of users in a branch
+     *
+     * @param  mixed $request
+     * @param  mixed $id of the branch
+     *
+     * @return int count of number of users in a branch
+     */
+    protected function getNumAllUsersByBranch(Request $request, $id){
+
+        //get all registered companies 
+        $getusers = DB::table('users')
+        ->join('merchants', 'merchants.id', '=', 'merchant_id')
+        ->join('company_branches', 'company_branches.id', '=', 'branch_id')
+        ->select('users.*','merchants.merchant_name AS merchant_name','company_branches.branchname AS branch_name')
+       ->where('users.branch_id', $id)
+       ->count();
+
+         $response = [
+            'num_users' => $getusers
+        ];
+        return response()->json($response, 200);
+   
+   }
+
+
+   /**
+     * getMerchantUsersByType get the details of users under a particular user type for a merchant
+     *
+     * @param  mixed $request
+     * @param  mixed $id of the merchant
+     * @param  mixed $user_type_id id of user_type_id of search
+     * @return [json] all matching users
+     */
+    protected function getMerchantUsersByType(Request $request, $id, $user_type_id){
+
+        //get all registered companies 
+        $getusers = DB::table('users')
+        ->join('merchants', 'merchants.id', '=', 'merchant_id')
+        ->join('company_branches', 'company_branches.id', '=', 'branch_id')
+        ->select('users.*','merchants.merchant_name AS merchant_name','company_branches.branchname AS branch_name')
+       ->where('users.merchant_id', $id)
+       ->where('users.usertype', $user_type_id)
+       ->get();
+
+        //clean data
+        $userdata = [];
+
+        $users = $getusers->map(function($items){
+            $userdata['id'] = $items->id;
+            $userdata['full_name'] =$items->name;
+            $userdata['firstname'] = $items->firstname;
+            $userdata['lastname'] = $items->lastname;
+            $userdata['usename'] =$items->username;
+            $userdata['email'] = $items->email;
+            $userdata['last_login_at'] = $items->last_login_at;
+            $userdata['last_login_ip'] = $items->last_login_ip;
+            $userdata['status'] = $items->status;
+            $userdata['merchant_id'] = $items->merchant_id;
+            $userdata['merchant_name'] = Crypt::decryptString($items->merchant_name);
+            $userdata['branch_id'] = $items->branch_id;
+            $userdata['branch_name'] = Crypt::decryptString($items->branch_name);
+            $userdata['user_type'] = $items->usertype;
+            $userdata['created_at'] = $items->created_at;
+            $userdata['updated_at'] = $items->updated_at;
+            $userdata['deleted_at'] = $items->deleted_at;
+
+            return $userdata;
+         });
+
+         $response = [
+            'users' => $users
+        ];
+        return response()->json($response, 200);
+   
+   }
+
+   /**
+     * getMerchantUsersByType get the details of users under a particular user type for a merchant
+     *
+     * @param  mixed $request
+     * @param  mixed $id of the merchant
+     * @param  mixed $user_type_id id of user_type_id of search
+     * @return [json] all matching users
+     */
+    protected function getNumMerchantUsersByType(Request $request, $id, $user_type_id){
+
+        //get all registered companies 
+        $getnumusers = DB::table('users')
+        ->join('merchants', 'merchants.id', '=', 'merchant_id')
+        ->join('company_branches', 'company_branches.id', '=', 'branch_id')
+        ->select('users.*','merchants.merchant_name AS merchant_name','company_branches.branchname AS branch_name')
+       ->where('users.merchant_id', $id)
+       ->where('users.usertype', $user_type_id)
+       ->count();
+
+         $response = [
+            'num_users' => $getnumusers
+        ];
+        return response()->json($response, 200);
+   
+   }
+
+
+   /**
+     * getBranchUsersByType get the details of users under a particular user type for a branch
+     *
+     * @param  mixed $request
+     * @param  mixed $id of the branch
+     * @param  mixed $user_type_id id of user_type_id of search
+     * @return [json] all matching users
+     */
+    protected function getBranchUsersByType(Request $request, $id, $user_type_id){
+
+        //get all registered companies 
+        $getusers = DB::table('users')
+        ->join('merchants', 'merchants.id', '=', 'merchant_id')
+        ->join('company_branches', 'company_branches.id', '=', 'branch_id')
+        ->select('users.*','merchants.merchant_name AS merchant_name','company_branches.branchname AS branch_name')
+       ->where('users.branch_id', $id)
+       ->where('users.usertype', $user_type_id)
+       ->get();
+
+        //clean data
+        $userdata = [];
+
+        $users = $getusers->map(function($items){
+            $userdata['id'] = $items->id;
+            $userdata['full_name'] =$items->name;
+            $userdata['firstname'] = $items->firstname;
+            $userdata['lastname'] = $items->lastname;
+            $userdata['usename'] =$items->username;
+            $userdata['email'] = $items->email;
+            $userdata['last_login_at'] = $items->last_login_at;
+            $userdata['last_login_ip'] = $items->last_login_ip;
+            $userdata['status'] = $items->status;
+            $userdata['merchant_id'] = $items->merchant_id;
+            $userdata['merchant_name'] = Crypt::decryptString($items->merchant_name);
+            $userdata['branch_id'] = $items->branch_id;
+            $userdata['branch_name'] = Crypt::decryptString($items->branch_name);
+            $userdata['user_type'] = $items->usertype;
+            $userdata['created_at'] = $items->created_at;
+            $userdata['updated_at'] = $items->updated_at;
+            $userdata['deleted_at'] = $items->deleted_at;
+
+            return $userdata;
+         });
+
+         $response = [
+            'users' => $users
+        ];
+        return response()->json($response, 200);
+   
+   }
+
+   /**
+     * getNumBranchUsersByType get the details of users under a particular user type for a branch
+     *
+     * @param  mixed $request
+     * @param  mixed $id of the merchant
+     * @param  mixed $user_type_id id of user_type_id of search
+     * @return [json] all matching users
+     */
+    protected function getNumBranchUsersByType(Request $request, $id, $user_type_id){
+
+        //get all registered companies 
+        $getnumusers = DB::table('users')
+        ->join('merchants', 'merchants.id', '=', 'merchant_id')
+        ->join('company_branches', 'company_branches.id', '=', 'branch_id')
+        ->select('users.*','merchants.merchant_name AS merchant_name','company_branches.branchname AS branch_name')
+       ->where('users.branch_id', $id)
+       ->where('users.usertype', $user_type_id)
+       ->count();
+
+         $response = [
+            'num_users' => $getnumusers
+        ];
+        return response()->json($response, 200);
+   
+   }
+
 }

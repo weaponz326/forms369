@@ -33,7 +33,29 @@ Route::group(['middleware' => ['auth:api'], 'prefix' => 'v1'], function(){
     Route::post('diableUser/{id}', 'AuthController@diableUser')->name('diableUser')->middleware('scope:GIT_Admin,company_admin');
     Route::post('enableUser/{id}', 'AuthController@enableUser')->name('enableUser')->middleware('scope:GIT_Admin,company_admin');
     
+    //get all users in a company, param:merchant_id
+    Route::get('getAllUsersByMerchant/{id}', 'AuthController@getAllUsersByMerchant')->name('getAllUsersByMerchant')->middleware('scope:GIT_Admin,company_admin');
+    //get number of all users in a company, param:merchant_id
+    Route::get('getNumAllUsersByMerchant/{id}', 'AuthController@getNumAllUsersByMerchant')->name('getNumAllUsersByMerchant')->middleware('scope:GIT_Admin,company_admin,super_executive');
     
+    //get all users in a branch, param:branch_id
+    Route::get('getAllUsersByBranch/{id}', 'AuthController@getAllUsersByBranch')->name('getAllUsersByBranch')->middleware('scope:GIT_Admin,company_admin,branch_admin');
+    //get number of all users in a branch, param:branch_id
+    Route::get('getNumAllUsersByBranch/{id}', 'AuthController@getNumAllUsersByBranch')->name('getNumAllUsersByBranch')->middleware('scope:GIT_Admin,company_admin,branch_admin,branch_executive');
+    
+    //get all users under a user type for a merchant, param:merchant_id
+    Route::get('getMerchantUsersByType/{id}/{type}', 'AuthController@getMerchantUsersByType')->name('getMerchantUsersByType')->middleware('scope:GIT_Admin,company_admin');
+    
+    //get number of all users under a user type for a merchant, param:merchant_id
+    Route::get('getNumMerchantUsersByType/{id}/{type}', 'AuthController@getNumMerchantUsersByType')->name('getNumMerchantUsersByType')->middleware('scope:GIT_Admin,company_admin,super_executive');
+    
+    //get all users under a user type for a branch, param:branch_id
+    Route::get('getBranchUsersByType/{id}/{type}', 'AuthController@getBranchUsersByType')->name('getBranchUsersByType')->middleware('scope:GIT_Admin,company_admin,branch_admin');
+    
+    //get all users under a user type for a branch, param:branch_id
+    Route::get('getNumBranchUsersByType/{id}/{type}', 'AuthController@getNumBranchUsersByType')->name('getNumBranchUsersByType')->middleware('scope:GIT_Admin,company_admin,branch_admin,super_executive,branch_executive');
+    
+
 
     //merchant setup, view and update apis
     Route::post('uploadImage', 'MediaController@imageUpload')->name('uploadImage')->middleware('scope:GIT_Admin,company_admin');
@@ -100,13 +122,7 @@ Route::group(['middleware' => ['auth:api'], 'prefix' => 'v1'], function(){
   Route::get('getAllFormsProcessedByFrontDeskPerson/{id}', 'FrontDeskController@getAllFormsProcessedByFrontDeskPerson')->name('getAllFormsProcessedByFrontDeskPerson')->middleware('scope:GIT_Admin,company_admin,branch_admin,frontdesk');
   Route::get('getNumAllFormsProcessedByFrontDeskPerson/{id}', 'FrontDeskController@getNumAllFormsProcessedByFrontDeskPerson')->name('getNumAllFormsProcessedByFrontDeskPerson')->middleware('scope:GIT_Admin,company_admin,branch_admin,frontdesk,branch_executive,super_executive');
 
-  
-  
-  
-  
-  
-  
-  
+ 
 });
  
 
