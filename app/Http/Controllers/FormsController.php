@@ -218,7 +218,7 @@ class FormsController extends Controller
      * deleteForm deleted or archive a form
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \Illuminate\Http\Request  $code code of the form to be deleted 
+     * @param $code code of the form to be deleted 
      *
      * @return void\Illuminate\Http\Response success or error message
      */
@@ -473,6 +473,7 @@ class FormsController extends Controller
 
     }
 
+    
     
 
 

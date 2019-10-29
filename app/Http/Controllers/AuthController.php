@@ -106,7 +106,8 @@ class AuthController extends Controller
                 'branch_id' => $branch_id,
                 'usertype' => $user_type,
                 'created_at' => $created_at,
-                'country' => $country
+                'country' => $country,
+                'status' => 1
             ]
         );
 
@@ -481,6 +482,11 @@ class AuthController extends Controller
             if(Auth::attempt(['username'=>$request->username, 'password'=>$request->password, 'status'=>1]))
             {     
                 $user = User::where('username',$request->username)->first();
+                //get user and send verification email
+            
+                $user->active_token = str_random(60);
+                $user->save();
+            
                 $user->notify(new SignupActivate($user));
                 $error_response = [
                     'message' => 'EMAIL_NOT_CONFIRMED'
@@ -492,7 +498,7 @@ class AuthController extends Controller
             if($attemptuserusername['status'] == 0){
 
                 $error_response = [
-                    'message' => 'ACCOUNT DEACTIVATED'
+                    'message' => 'ACCOUNT_DEACTIVATED'
                 ];
                 return response()->json($error_response, 400);
             }
@@ -660,5 +666,81 @@ class AuthController extends Controller
  
     
     }
-  
+
+     /**
+     * diableUser disable a user. A disbaled user can not log in
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @param  $id of the user to be disabled
+     *
+     * @return void\Illuminate\Http\Response success or error message
+     */
+    public function diableUser(Request $request, $id)
+    {
+
+        $updated_at = now();
+
+        //get user creating the new merchant
+        $user = $request->user();
+        $userid = $user['id'];
+
+        //save new merchant in the database
+        try {
+            DB::table('users')
+            ->where('id', $id)
+            ->update(
+                [
+                    'status' => 0, 
+                    'updated_at' => $updated_at
+                ]
+            );
+
+            $message = 'Ok';
+
+        }catch(Exception $e) {
+            $message = "Failed";
+        } 
+            
+        return response()->json([
+            'message' => $message
+        ]);
+    }
+
+    /**
+     * enableUser enable a user. 
+     * @param  \Illuminate\Http\Request  $request
+     * @param  $id of the user to be enabled
+     *
+     * @return void\Illuminate\Http\Response success or error message
+     */
+    public function enableUser(Request $request, $id)
+    {
+
+        $updated_at = now();
+
+        //get user creating the new merchant
+        $user = $request->user();
+        $userid = $user['id'];
+
+        //save new merchant in the database
+        try {
+            DB::table('users')
+            ->where('id', $id)
+            ->update(
+                [
+                    'status' => 1, 
+                    'updated_at' => $updated_at
+                ]
+            );
+
+            $message = 'Ok';
+
+        }catch(Exception $e) {
+            $message = "Failed";
+        } 
+            
+        return response()->json([
+            'message' => $message
+        ]);
+    }
 }

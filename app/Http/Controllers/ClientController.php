@@ -82,7 +82,7 @@ class ClientController extends Controller
      * @param  \Illuminate\Http\Request  $id of teh client to be editted
      * @return void\Illuminate\Http\Response success or error message
      */
-    public function editClientProfile(Request $request, $id)
+    protected function editClientProfile(Request $request, $id)
     {
 
          //put all queries involved in creating a new user in transaction
@@ -169,7 +169,7 @@ class ClientController extends Controller
      * @param $code form code that is being filled 
      * @return void\Illuminate\Http\Response submission code
      */
-    public function submitForm(Request $request, $id, $code)
+    protected function submitForm(Request $request, $id, $code)
     {
          $message = 'Ok';
 
