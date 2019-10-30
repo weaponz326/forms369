@@ -213,5 +213,158 @@ class ClientController extends Controller
     }
 
 
+    /**
+     * getAllsubmittedForms forms submitted by a client of any status: 
+     * submitted, in_process,or processed
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @param $id of the client 
+     * @return void\Illuminate\Http\Response all details of form
+     * 
+     */
+    protected function getAllsubmittedForms(Request $request, $id)
+    {
+        
+        $getforms = DB::table('submitted_forms')
+        ->join('users', 'users.id', '=', 'client_id')
+        ->join('forms', 'forms.form_code', '=', 'form_id')
+        ->join('merchants', 'merchants.id', '=', 'forms.merchant_id')
+        ->select('submitted_forms.*','merchants.merchant_name AS merchant_name',
+        'users.name', 'users.email', 'forms.name AS form_name', 'forms.form_fields')
+        ->where('submitted_forms.client_id', $id)
+        ->simplePaginate(15);
+      
+        //clean data
+        $submittedformdata = [];
+
+        $forms = $getforms->map(function($items){
+            $submittedformdata['submission_code'] = $items->submission_code;
+            $submittedformdata['form_code'] = $items->form_id;
+            $submittedformdata['form_name'] = Crypt::decryptString($items->form_name);
+            $submittedformdata['form_fields'] = json_decode(Crypt::decryptString($items->form_fields));
+            $submittedformdata['merchant_name'] = Crypt::decryptString($items->merchant_name);
+            $submittedformdata['client_name'] = $items->name;
+            $submittedformdata['email'] = $items->email;
+            $submittedformdata['client_submitted_details'] = json_decode(Crypt::decryptString($items->client_details));
+            $submittedformdata['form_status'] = $items->status;
+            $submittedformdata['submitted_at'] = $items->submitted_at;
+            $submittedformdata['last_processed'] = $items->last_processed;
+            $submittedformdata['processed_by'] = $items->processed_by;
+
+            return $submittedformdata;
+         });
+
+         $response = [
+            'forms' => $forms
+        ];
+        return response()->json($response, 200);
+    }
+
+/**
+     * getNumAllsubmittedForms number of forms submitted by a client of any status: 
+     * submitted, in_process,or processed
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @param $id of the client 
+     * @return void\Illuminate\Http\Response number of forms
+     * 
+     */
+    protected function getNumAllsubmittedForms(Request $request, $id)
+    {
+        
+        $getnumforms = DB::table('submitted_forms')
+        ->join('users', 'users.id', '=', 'client_id')
+        ->join('forms', 'forms.form_code', '=', 'form_id')
+        ->join('merchants', 'merchants.id', '=', 'forms.merchant_id')
+        ->select('submitted_forms.*','merchants.merchant_name AS merchant_name',
+        'users.name', 'users.email', 'forms.name AS form_name', 'forms.form_fields')
+        ->where('submitted_forms.client_id', $id)
+        ->count();
+    
+
+         $response = [
+            'num_forms' => $getnumforms
+        ];
+        return response()->json($response, 200);
+    }
+
+
+    /**
+     * getClientFormsByStatus get all forms by status: processed, in_process, submitted 
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @param $id of the client 
+     * @param $status search status
+     * @return void\Illuminate\Http\Response all details of form
+     * 
+     */
+    protected function getClientFormsByStatus(Request $request, $id, $status)
+    {
+        
+        $getforms = DB::table('submitted_forms')
+        ->join('users', 'users.id', '=', 'client_id')
+        ->join('forms', 'forms.form_code', '=', 'form_id')
+        ->join('merchants', 'merchants.id', '=', 'forms.merchant_id')
+        ->select('submitted_forms.*','merchants.merchant_name AS merchant_name',
+        'users.name', 'users.email', 'forms.name AS form_name', 'forms.form_fields')
+        ->where('submitted_forms.client_id', $id)
+        ->where('submitted_forms.status', $status)
+        ->simplePaginate(15);
+      
+        //clean data
+        $submittedformdata = [];
+
+        $forms = $getforms->map(function($items){
+            $submittedformdata['submission_code'] = $items->submission_code;
+            $submittedformdata['form_code'] = $items->form_id;
+            $submittedformdata['form_name'] = Crypt::decryptString($items->form_name);
+            $submittedformdata['form_fields'] = json_decode(Crypt::decryptString($items->form_fields));
+            $submittedformdata['merchant_name'] = Crypt::decryptString($items->merchant_name);
+            $submittedformdata['client_name'] = $items->name;
+            $submittedformdata['email'] = $items->email;
+            $submittedformdata['client_submitted_details'] = json_decode(Crypt::decryptString($items->client_details));
+            $submittedformdata['form_status'] = $items->status;
+            $submittedformdata['submitted_at'] = $items->submitted_at;
+            $submittedformdata['last_processed'] = $items->last_processed;
+            $submittedformdata['processed_by'] = $items->processed_by;
+
+            return $submittedformdata;
+         });
+
+         $response = [
+            'forms' => $forms
+        ];
+        return response()->json($response, 200);
+    }
+
+ 
+     /**
+     * getClientFormsByStatus get number of all forms by status: processed, in_process, submitted 
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @param $id of the client 
+     * @param $status search status
+     * @return void\Illuminate\Http\Response all details of form
+     * 
+     */
+    protected function getNumClientFormsByStatus(Request $request, $id, $status)
+    {
+        
+        $getnumforms = DB::table('submitted_forms')
+        ->join('users', 'users.id', '=', 'client_id')
+        ->join('forms', 'forms.form_code', '=', 'form_id')
+        ->join('merchants', 'merchants.id', '=', 'forms.merchant_id')
+        ->select('submitted_forms.*','merchants.merchant_name AS merchant_name',
+        'users.name', 'users.email', 'forms.name AS form_name', 'forms.form_fields')
+        ->where('submitted_forms.client_id', $id)
+        ->where('submitted_forms.status', $status)
+        ->count();
+      
+         $response = [
+            'num_forms' => $getnumforms
+        ];
+        return response()->json($response, 200);
+    }
+
  
 }

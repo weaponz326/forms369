@@ -110,7 +110,8 @@ Route::group(['middleware' => ['auth:api'], 'prefix' => 'v1'], function(){
   //submitted forms endpoints 
   Route::get('getAllSubmittedForms', 'FrontDeskController@getAllSubmittedForms')->name('getAllSubmittedForms')->middleware('scope:GIT_Admin');
   Route::get('getAllSubmittedFormsByMerchant/{id}', 'FrontDeskController@getAllSubmittedFormsByMerchant')->name('getAllSubmittedFormsByMerchant')->middleware('scope:GIT_Admin,frontdesk');
-  Route::get('getSubmittedFormByCode/{code}', 'FrontDeskController@getSubmittedFormByCode')->name('getSubmittedFormByCode')->middleware('scope:GIT_Admin,frontdesk');
+  Route::get('getSubmittedFormByCode/{code}', 'FrontDeskController@getSubmittedFormByCode')->name('getSubmittedFormByCode')->middleware('scope:GIT_Admin');
+  Route::get('FrontDeskGetSubmittedFormByCode/{code}/{id}', 'FrontDeskController@FrontDeskGetSubmittedFormByCode')->name('FrontDeskGetSubmittedFormByCode')->middleware('scope:GIT_Admin,frontdesk');
   Route::get('getSubmittedFormByStatusAndMerchant/{status}/{id}', 'FrontDeskController@getSubmittedFormByStatusAndMerchant')->name('getSubmittedFormByStatusAndMerchant')->middleware('scope:GIT_Admin,frontdesk');
   Route::post('processSubmitForm/{code}/{status}', 'FrontDeskController@processSubmitForm')->name('processSubmitForm')->middleware('scope:frontdesk');
 
@@ -122,7 +123,26 @@ Route::group(['middleware' => ['auth:api'], 'prefix' => 'v1'], function(){
   Route::get('getAllFormsProcessedByFrontDeskPerson/{id}', 'FrontDeskController@getAllFormsProcessedByFrontDeskPerson')->name('getAllFormsProcessedByFrontDeskPerson')->middleware('scope:GIT_Admin,company_admin,branch_admin,frontdesk');
   Route::get('getNumAllFormsProcessedByFrontDeskPerson/{id}', 'FrontDeskController@getNumAllFormsProcessedByFrontDeskPerson')->name('getNumAllFormsProcessedByFrontDeskPerson')->middleware('scope:GIT_Admin,company_admin,branch_admin,frontdesk,branch_executive,super_executive');
 
+
+//client summaries and submitted forms
+Route::get('getAllsubmittedForms/{id}', 'ClientController@getAllsubmittedForms')->name('getAllsubmittedForms')->middleware('scope:GIT_Admin,client');
+Route::get('getNumAllsubmittedForms/{id}', 'ClientController@getNumAllsubmittedForms')->name('getNumAllsubmittedForms')->middleware('scope:GIT_Admin,client');
+Route::get('getClientFormsByStatus/{id}/{status}', 'ClientController@getClientFormsByStatus')->name('getClientFormsByStatus')->middleware('scope:GIT_Admin,client');
+Route::get('getNumClientFormsByStatus/{id}/{status}', 'ClientController@getNumClientFormsByStatus')->name('getNumClientFormsByStatus')->middleware('scope:GIT_Admin,client');                                     
  
+
+//executives endpoints 
+Route::get('getNumAllFormsByMerchant/{id}', 'ExecutiveController@getNumAllFormsByMerchant')->name('getNumAllFormsByMerchant')->middleware('scope:GIT_Admin,branch_executive,super_executive');                                     
+Route::get('getNumAllFormsByStatusAndMerchant/{status}/{id}', 'ExecutiveController@getNumAllFormsByStatusAndMerchant')->name('getNumAllFormsByStatusAndMerchant')->middleware('scope:GIT_Admin,branch_executive,super_executive');                                     
+
+//get merchant submitted forms by status: proccess, submitted, in_process
+//@param status and merchant_id
+Route::get('getNumSubmittedFormsByStatus/{status}/{id}', 'ExecutiveController@getNumSubmittedFormsByStatus')->name('getNumSubmittedFormsByStatus')->middleware('scope:GIT_Admin,super_executive');   
+//@param status and branch_id                                  
+Route::get('getNumBranchProcessedFormsByStatus/{status}/{id}', 'ExecutiveController@getNumBranchProcessedFormsByStatus')->name('getNumBranchProcessedFormsByStatus')->middleware('scope:GIT_Admin,super_executive,branch_executive');                                     
+
+
+
 });
  
 
