@@ -141,8 +141,6 @@ Route::get('getNumSubmittedFormsByStatus/{status}/{id}', 'ExecutiveController@ge
 //@param status and branch_id                                  
 Route::get('getNumBranchProcessedFormsByStatus/{status}/{id}', 'ExecutiveController@getNumBranchProcessedFormsByStatus')->name('getNumBranchProcessedFormsByStatus')->middleware('scope:GIT_Admin,super_executive,branch_executive');                                     
 
-
-
 });
  
 
