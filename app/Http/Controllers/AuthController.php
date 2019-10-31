@@ -142,15 +142,22 @@ class AuthController extends Controller
             
         }
         
-        if($message != "Ok")
-            DB::rollback();
-        
-        DB::commit();
-        
-        return response()->json([
-            'message' => $message
-        ]);
+        if($message != "Ok"){
 
+            DB::rollback();
+            return response()->json([
+                'message' => $message
+            ]);
+           
+        }elseif($message == 'Ok'){
+            DB::commit();
+            return response()->json([
+                'id' => $id
+            ]);
+
+        }
+            
+   
     }  
 
 
@@ -950,6 +957,52 @@ class AuthController extends Controller
         return response()->json($response, 200);
    
    }
+
+   /**
+     * getMerchantUsersByType get the details of users under a particular user type for a merchant
+     *
+     * @param  mixed $request
+     * @param  mixed $id of the merchant
+     * @param  mixed $user_type_id id of user_type_id of search
+     * @return [json] all matching users
+     */
+    protected function getAllUsersByType(Request $request, $user_type_id){
+
+        //get all registered companies 
+        $getusers = DB::table('users')
+        ->select('users.*')
+       ->where('users.usertype', $user_type_id)
+       ->get();
+
+        //clean data
+        $userdata = [];
+
+        $users = $getusers->map(function($items){
+            $userdata['id'] = $items->id;
+            $userdata['full_name'] =$items->name;
+            $userdata['firstname'] = $items->firstname;
+            $userdata['lastname'] = $items->lastname;
+            $userdata['usename'] =$items->username;
+            $userdata['email'] = $items->email;
+            $userdata['last_login_at'] = $items->last_login_at;
+            $userdata['last_login_ip'] = $items->last_login_ip;
+            $userdata['status'] = $items->status;
+            $userdata['user_type'] = $items->usertype;
+            $userdata['created_at'] = $items->created_at;
+            $userdata['updated_at'] = $items->updated_at;
+            $userdata['deleted_at'] = $items->deleted_at;
+
+            return $userdata;
+         });
+
+         $response = [
+            'users' => $users
+        ];
+        return response()->json($response, 200);
+   
+   }
+
+
 
    /**
      * getMerchantUsersByType get the details of users under a particular user type for a merchant

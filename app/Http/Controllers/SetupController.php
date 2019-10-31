@@ -91,7 +91,7 @@ class SetupController extends Controller
         
         //save new merchant in the database
          try {
-            DB::table('merchants')->insertGetId(
+            $id = DB::table('merchants')->insertGetId(
                 [
                     'merchant_name' => $name, 
                     'status' => $status, 
@@ -102,6 +102,28 @@ class SetupController extends Controller
                     'admin_id' => $admin_id, 
                     'created_at' => $created_at,
                     'created_by' => $userid
+                ]
+            );
+
+            //update admin merchant_id column in the users table
+            DB::table('users')
+            ->where('id', $admin_id)
+            ->update(
+                [
+                    'merchant_id' => $id, 
+                    'updated_at' => $created_at,
+                    'updated_by' => $userid
+                ]
+            );
+
+            //update super executivr merchant_id column in the users table
+            DB::table('users')
+            ->where('id', $super_id)
+            ->update(
+                [
+                    'merchant_id' => $id, 
+                    'updated_at' => $created_at,
+                    'updated_by' => $userid
                 ]
             );
 
@@ -172,6 +194,28 @@ class SetupController extends Controller
                 ]
             );
 
+            //update admin merchant_id column in the users table
+            DB::table('users')
+            ->where('id', $admin_id)
+            ->update(
+                [
+                    'merchant_id' => $id, 
+                    'updated_at' => $updated_at,
+                    'updated_by' => $userid
+                ]
+            );
+
+            //update super executivr merchant_id column in the users table
+            DB::table('users')
+            ->where('id', $super_id)
+            ->update(
+                [
+                    'merchant_id' => $id, 
+                    'updated_at' => $updated_at,
+                    'updated_by' => $userid
+                ]
+            );
+
             $message = 'Ok';
 
         }catch(Exception $e) {
@@ -216,7 +260,7 @@ class SetupController extends Controller
 
          //save new merchant in the database
          try {
-            DB::table('company_branches')->insertGetId(
+            $id = DB::table('company_branches')->insertGetId(
                 [
                     'merchant_id' => $merchant_id, 
                     'branchname' => $name, 
@@ -227,6 +271,30 @@ class SetupController extends Controller
                     'branch_admin_id' => $branch_admin_id
                 ]
             );
+
+             //update branch amin merchant_id and branch id column in the users table
+             DB::table('users')
+             ->where('id', $branch_admin_id)
+             ->update(
+                 [
+                     'merchant_id' => $merchant_id, 
+                     'branch_id' => $id,
+                     'updated_at' => $created_at,
+                     'updated_by' => $userid
+                 ]
+             );
+ 
+             //update branch super executivr merchant_id and branch id column in the users table
+             DB::table('users')
+             ->where('id', $branch_super_id)
+             ->update(
+                 [
+                    'merchant_id' => $merchant_id, 
+                    'branch_id' => $id,
+                    'updated_at' => $created_at,
+                    'updated_by' => $userid
+                 ]
+             );
 
             $message = 'Ok';
 
@@ -284,6 +352,31 @@ class SetupController extends Controller
                     'branch_admin_id' => $branch_admin_id
                 ]
             );
+
+
+             //update branch amin merchant_id and branch id column in the users table
+             DB::table('users')
+             ->where('id', $branch_admin_id)
+             ->update(
+                 [
+                     'merchant_id' => $merchant_id, 
+                     'branch_id' => $id,
+                     'updated_at' => $updated_at,
+                     'updated_by' => $userid
+                 ]
+             );
+ 
+             //update branch super executivr merchant_id and branch id column in the users table
+             DB::table('users')
+             ->where('id', $branch_super_id)
+             ->update(
+                 [
+                    'merchant_id' => $merchant_id, 
+                    'branch_id' => $id,
+                    'updated_at' => $updated_at,
+                    'updated_by' => $userid
+                 ]
+            ); 
 
             $message = 'Ok';
 

@@ -56,6 +56,10 @@ Route::group(['middleware' => ['auth:api'], 'prefix' => 'v1'], function(){
     Route::get('getNumBranchUsersByType/{id}/{type}', 'AuthController@getNumBranchUsersByType')->name('getNumBranchUsersByType')->middleware('scope:GIT_Admin,company_admin,branch_admin,super_executive,branch_executive');
     
 
+    //get all users by type, this can be used when creating a mercahnt and a superadmin is required
+    Route::get('getAllUsersByType/{type}', 'AuthController@getAllUsersByType')->name('getAllUsersByType')->middleware('scope:GIT_Admin');
+    
+    
 
     //merchant setup, view and update apis
     Route::post('uploadImage', 'MediaController@imageUpload')->name('uploadImage')->middleware('scope:GIT_Admin,company_admin');
