@@ -111,8 +111,7 @@ class SetupController extends Controller
             ->update(
                 [
                     'merchant_id' => $id, 
-                    'updated_at' => $created_at,
-                    'updated_by' => $userid
+                    'updated_at' => $created_at
                 ]
             );
 
@@ -122,8 +121,7 @@ class SetupController extends Controller
             ->update(
                 [
                     'merchant_id' => $id, 
-                    'updated_at' => $created_at,
-                    'updated_by' => $userid
+                    'updated_at' => $created_at
                 ]
             );
 
