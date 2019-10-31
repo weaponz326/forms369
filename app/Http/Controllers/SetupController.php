@@ -275,8 +275,7 @@ class SetupController extends Controller
                  [
                      'merchant_id' => $merchant_id, 
                      'branch_id' => $id,
-                     'updated_at' => $created_at,
-                     'updated_by' => $userid
+                     'updated_at' => $created_at
                  ]
              );
  
@@ -287,8 +286,7 @@ class SetupController extends Controller
                  [
                     'merchant_id' => $merchant_id, 
                     'branch_id' => $id,
-                    'updated_at' => $created_at,
-                    'updated_by' => $userid
+                    'updated_at' => $created_at
                  ]
              );
 
@@ -357,8 +355,7 @@ class SetupController extends Controller
                  [
                      'merchant_id' => $merchant_id, 
                      'branch_id' => $id,
-                     'updated_at' => $updated_at,
-                     'updated_by' => $userid
+                     'updated_at' => $updated_at
                  ]
              );
  
@@ -369,8 +366,7 @@ class SetupController extends Controller
                  [
                     'merchant_id' => $merchant_id, 
                     'branch_id' => $id,
-                    'updated_at' => $updated_at,
-                    'updated_by' => $userid
+                    'updated_at' => $updated_at
                  ]
             ); 
 
@@ -666,7 +662,7 @@ class SetupController extends Controller
         //clean data
         $merchantsdata = [];
 
-        $merchants = $getmerchants->map(function($items){
+        $merchant = $getmerchants->map(function($items){
             $merchantsdata['id'] = $items->id;
             $merchantsdata['merchant_name'] = Crypt::decryptString($items->merchant_name);
             $merchantsdata['status'] = $items->status;
@@ -685,7 +681,7 @@ class SetupController extends Controller
          });
 
          $response = [
-            'merchants' => $merchants
+            'merchant' => $merchant
         ];
         return response()->json($response, 200);
 
