@@ -145,6 +145,16 @@ Route::get('getNumSubmittedFormsByStatus/{status}/{id}', 'ExecutiveController@ge
 //@param status and branch_id                                  
 Route::get('getNumBranchProcessedFormsByStatus/{status}/{id}', 'ExecutiveController@getNumBranchProcessedFormsByStatus')->name('getNumBranchProcessedFormsByStatus')->middleware('scope:GIT_Admin,super_executive,branch_executive');                                     
 
+
+//templates endpoints 
+Route::post('createTemplate', 'TemplatesController@createTemplate')->name('createTemplate')->middleware('scope:GIT_Admin');                                     
+Route::post('editTemplate/{id}', 'TemplatesController@editTemplate')->name('editTemplate')->middleware('scope:GIT_Admin');                                     
+Route::get('getAllTemplates', 'TemplatesController@getAllTemplates')->name('getAllTemplates')->middleware('scope:GIT_Admin,company_admin');                                     
+Route::post('deleteTemplate/{id}', 'TemplatesController@deleteTemplate')->name('deleteTemplate')->middleware('scope:GIT_Admin');                                     
+
+
+
+
 });
  
 
