@@ -651,6 +651,7 @@ class AuthController extends Controller
              $userdata['lastname'] = $items->lastname;
              $userdata['usename'] =$items->username;
              $userdata['email'] = $items->email;
+             $userdata['country'] = $items->country;
              $userdata['last_login_at'] = $items->last_login_at;
              $userdata['last_login_ip'] = $items->last_login_ip;
              $userdata['status'] = $items->status;
