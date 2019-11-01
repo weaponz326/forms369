@@ -655,9 +655,9 @@ class AuthController extends Controller
              $userdata['last_login_ip'] = $items->last_login_ip;
              $userdata['status'] = $items->status;
              $userdata['merchant_id'] = $items->merchant_id;
-             $userdata['merchant_name'] = Crypt::decryptString($items->merchant_name);
+             $userdata['merchant_name'] = empty($items->merchant_name) ? '' : Crypt::decryptString($items->merchant_name);
              $userdata['branch_id'] = $items->branch_id;
-             $userdata['branch_name'] = Crypt::decryptString($items->branch_name);
+             $userdata['branch_name'] = empty($items->branch_name) ? '' : Crypt::decryptString($items->branch_name); 
              $userdata['user_type'] = $items->usertype;
              $userdata['created_at'] = $items->created_at;
              $userdata['updated_at'] = $items->updated_at;
