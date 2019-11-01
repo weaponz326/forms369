@@ -970,7 +970,8 @@ class AuthController extends Controller
 
         //get all registered companies 
         $getusers = DB::table('users')
-        ->select('users.*')
+        ->leftjoin('merchants', 'merchants.id', '=', 'merchant_id')
+        ->select('users.*', 'merchants.merchant_name')
        ->where('users.usertype', $user_type_id)
        ->get();
 
@@ -982,8 +983,9 @@ class AuthController extends Controller
             $userdata['full_name'] =$items->name;
             $userdata['firstname'] = $items->firstname;
             $userdata['lastname'] = $items->lastname;
-            $userdata['usename'] =$items->username;
+            $userdata['username'] =$items->username;
             $userdata['email'] = $items->email;
+            $userdata['merchant_name'] = empty($items->merchant_name) ? '' : Crypt::decryptString($items->merchant_name);
             $userdata['last_login_at'] = $items->last_login_at;
             $userdata['last_login_ip'] = $items->last_login_ip;
             $userdata['status'] = $items->status;
