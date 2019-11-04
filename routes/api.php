@@ -68,14 +68,21 @@ Route::group(['middleware' => ['auth:api'], 'prefix' => 'v1'], function(){
     Route::get('getAllMerchants', 'SetupController@getMerchants')->name('getAllMerchants')->middleware('scope:GIT_Admin');
     Route::get('getMerchantDetails/{id}', 'SetupController@getMerchantDetails')->name('getMerchantDetails')->middleware('scope:GIT_Admin,super_executive,company_admin,branch_executive,branch_admin');
     Route::get('getAllMerchantsByCountry/{country}', 'SetupController@getAllMerchantsByCountry')->name('getAllMerchantsByCountry');
+    Route::get('getNumMerchants', 'SetupController@getNumMerchants')->name('getNumMerchants')->middleware('scope:GIT_Admin');
+    Route::get('getNumActiveMerchants', 'SetupController@getNumActiveMerchants')->name('getNumActiveMerchants')->middleware('scope:GIT_Admin');
+    Route::get('getNumInactiveMerchants', 'SetupController@getNumInactiveMerchants')->name('getNumInactiveMerchants')->middleware('scope:GIT_Admin');
    
-    
     
     //company branch setup and update apis
     Route::post('createCompanyBranch', 'SetupController@createCompanyBranches')->name('createCompanyBranch')->middleware('scope:GIT_Admin');
     Route::post('editCompanyBranch/{id}', 'SetupController@editCompanyBranches')->name('editCompanyBranch')->middleware('scope:GIT_Admin');
     Route::get('getAllBranches', 'SetupController@getAllBranches')->name('getAllBranches')->middleware('scope:GIT_Admin');
+    Route::get('getNumActiveBranches', 'SetupController@getNumActiveBranches')->name('getNumActiveBranches')->middleware('scope:GIT_Admin');
+    Route::get('getNumInactiveBranches', 'SetupController@getNumInactiveBranches')->name('getNumInactiveBranches')->middleware('scope:GIT_Admin');
+    Route::get('getNumBranches', 'SetupController@getNumBranches')->name('getNumBranches')->middleware('scope:GIT_Admin');
+
     Route::get('getCompanyBranches/{id}', 'SetupController@getCompanyBranches')->name('getCompanyBranches')->middleware('scope:GIT_Admin,company_admin');
+    Route::get('getNumCompanyBranches/{id}', 'SetupController@getNumCompanyBranches')->name('getNumCompanyBranches')->middleware('scope:GIT_Admin,company_admin');
     Route::get('getCompanyBranchDetails/{id}', 'SetupController@getCompanyBranchDetails')->name('getCompanyBranchDetails')->middleware('scope:GIT_Admin,super_executive,company_admin,branch_executive,branch_admin');
     
     
