@@ -263,7 +263,6 @@ class AuthController extends Controller
         $this->validate($request, [
             'firstname' => 'required',
             'lastname' => 'required',
-            'password'=>'required|min:8',
             'username'=>'required',
             'user_type' => 'required'
         ]);
@@ -271,7 +270,7 @@ class AuthController extends Controller
         //get and encrypt user details 
         $firstname = $request->firstname;
         $lastname = $request->lastname;
-        $password = bcrypt($request->password);
+        $password = $request->password;
         $username = $request->username;
         $user_type = $request->user_type;
         $updated_at = now();
@@ -314,22 +313,46 @@ class AuthController extends Controller
         }
 
 
-        //save new user in the database and get id
-       DB::table('users')->where('id', $id)
-        ->update(
-            [
-                'name' => $name,
-                'firstname' => $firstname, 
-                'lastname' => $lastname,
-                'password' => $password,
-                'username' => $username,
-                'gitadmin' => $gitadmin,
-                'merchant_id' => $merchant_id,
-                'branch_id' => $branch_id,
-                'usertype' => $user_type,
-                'updated_at' => $updated_at
-            ]
-        );
+        if($password == null){
+
+                    //save new user in the database and get id
+            DB::table('users')->where('id', $id)
+            ->update(
+                [
+                    'name' => $name,
+                    'firstname' => $firstname, 
+                    'lastname' => $lastname,
+                    'username' => $username,
+                    'gitadmin' => $gitadmin,
+                    'merchant_id' => $merchant_id,
+                    'branch_id' => $branch_id,
+                    'usertype' => $user_type,
+                    'updated_at' => $updated_at
+                ]
+            );
+
+        }else{
+            $password = bcrypt($password);
+
+            DB::table('users')->where('id', $id)
+            ->update(
+                [
+                    'name' => $name,
+                    'firstname' => $firstname, 
+                    'lastname' => $lastname,
+                    'username' => $username,
+                    'gitadmin' => $gitadmin,
+                    'password' => $password,
+                    'merchant_id' => $merchant_id,
+                    'branch_id' => $branch_id,
+                    'usertype' => $user_type,
+                    'updated_at' => $updated_at
+                ]
+            );
+
+        }
+
+        
   
 
         //create coressponding records for all user types 
