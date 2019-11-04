@@ -257,7 +257,6 @@ class AuthController extends Controller
     */
     protected function editUser(Request $request, $id)
     {
-
         $message = 'Ok';
         //get and validate user details
         $this->validate($request, [
@@ -279,7 +278,7 @@ class AuthController extends Controller
         $name = $firstname . ' ' . $lastname;
         $country = $request->country;
         $email = $request->email;
-
+            
         if($request->has('merchant_id'))
         {
 
@@ -316,7 +315,44 @@ class AuthController extends Controller
 
         }
 
+        
+         //get user and send verification email
+         $user = User::find($id);
 
+         //make user that new email is unique
+         if($email != $user['email']){
+
+            $this->validate($request, [
+                'email'=>'required|email|unique:users'
+            ]);
+            
+        }
+
+         //make user that new username is unique
+         if($username != $user['username']){
+
+            $this->validate($request, [
+                'username'=>'required|unique:users',
+            ]);
+            
+        }
+
+
+         if(!empty($user)){
+
+            if($user_type == 26){
+                
+                if($email != $user['email']){
+                 
+                    $user->active_token = str_random(60);
+                    $user->save();
+                    $user->notify(new SignupActivate($user));
+                }
+                
+             }
+
+         }
+         
         if($password == null){
 
                     //save new user in the database and get id
