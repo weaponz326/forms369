@@ -318,6 +318,7 @@ class AuthController extends Controller
         
          //get user and send verification email
          $user = User::find($id);
+         $test = false;
 
          //make user that new email is unique
          if($email != $user['email']){
@@ -325,6 +326,8 @@ class AuthController extends Controller
             $this->validate($request, [
                 'email'=>'required|email|unique:users'
             ]);
+
+            $test = true;
             
         }
 
@@ -337,21 +340,6 @@ class AuthController extends Controller
             
         }
 
-
-         if(!empty($user)){
-
-            if($user_type == 26){
-                
-                if($email != $user['email']){
-                 
-                    $user->active_token = str_random(60);
-                    $user->save();
-                    $user->notify(new SignupActivate($user));
-                }
-                
-             }
-
-         }
          
         if($password == null){
 
@@ -396,7 +384,21 @@ class AuthController extends Controller
 
         }
 
-        
+        $user = User::find($id);
+        if(!empty($user)){
+
+            if($user_type == 26){
+                
+                if($test == true){
+                 
+                    $user->active_token = str_random(60);
+                    $user->save();
+                    $user->notify(new SignupActivate($user));
+                }
+                
+             }
+
+         }
   
 
         //create coressponding records for all user types 
