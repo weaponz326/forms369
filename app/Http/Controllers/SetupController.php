@@ -643,6 +643,69 @@ class SetupController extends Controller
 
 
     /**
+     * getNumMerchants get number of all registered companies 
+     *
+     * @param  mixed $request
+     *
+     * @return void\Illuminate\Http\Response all merchants data
+     */
+    protected function getNumMerchants(Request $request){
+
+        //get all registered companies 
+        $getnummerchants = DB::table('merchants')->count();
+
+         $response = [
+            'num_merchants' => $getnummerchants
+        ];
+        return response()->json($response, 200);
+
+    }
+
+    /**
+     * getNumActiveMerchants get number of active merchants
+     *
+     * @param  mixed $request
+     *
+     * @return void\Illuminate\Http\Response all active merchants data
+     */
+    protected function getNumActiveMerchants(Request $request){
+
+        //get all registered companies 
+        $getnummerchants = DB::table('merchants')
+        ->where('status', 1)
+        ->count();
+
+         $response = [
+            'num_active_merchants' => $getnummerchants
+        ];
+        return response()->json($response, 200);
+
+    }
+
+    /**
+     * getNumInactiveMerchants get number of inactive merchants
+     *
+     * @param  mixed $request
+     *
+     * @return void\Illuminate\Http\Response all inactive merchants data
+     */
+    protected function getNumInactiveMerchants(Request $request){
+
+        //get all registered companies 
+        $getnummerchants = DB::table('merchants')
+        ->where('status', 0)
+        ->count();
+
+         $response = [
+            'num_inactive_merchants' => $getnummerchants
+        ];
+        return response()->json($response, 200);
+
+    }
+
+
+
+    /**
      * getAllMerchantsByCountry get all registered companies by country 
      *
      * @param  mixed $request
@@ -736,11 +799,11 @@ class SetupController extends Controller
 
 
     /**
-     * getMerchants get all registered company branches 
+     * getAllBranches get all registered branches 
      *
      * @param  mixed $request
      *
-     * @return void\Illuminate\Http\Response all merchants data
+     * @return void\Illuminate\Http\Response all branches data
      */
     protected function getAllBranches(Request $request){
 
@@ -776,6 +839,69 @@ class SetupController extends Controller
 
          $response = [
             'branches' => $branches
+        ];
+        return response()->json($response, 200);
+
+    }
+
+
+    /**
+     * getNumBranches get number of all registered branches 
+     *
+     * @param  mixed $request
+     *
+     * @return void\Illuminate\Http\Response num of branches 
+     */
+    protected function getNumBranches(Request $request){
+
+        //get all registered companies 
+        $getnumbranches = DB::table('company_branches')->count();
+
+         $response = [
+            'num_branches' => $getnumbranches
+        ];
+        return response()->json($response, 200);
+
+    }
+
+    /**
+     * getNumActiveBranches get number of all active registered branches 
+     *
+     * @param  mixed $request
+     *
+     * @return void\Illuminate\Http\Response num of active branches 
+     */
+    protected function getNumActiveBranches(Request $request){
+
+        //get all registered companies 
+        $getnumbranches = DB::table('company_branches')
+        ->where('status', 1)
+        ->count();
+
+         $response = [
+            'num_active_branches' => $getnumbranches
+        ];
+        return response()->json($response, 200);
+
+    }
+
+
+     /**
+     * getNumInactiveBranches get number of all inactive registered branches 
+     *
+     * @param  mixed $request
+     *
+     * @return void\Illuminate\Http\Response num of inactive branches 
+     */
+    protected function getNumInactiveBranches(Request $request){
+
+        //get all registered companies 
+        $getnumbranches = DB::table('company_branches')
+        ->where('status', 0)
+        ->count();
+
+         $response = [
+            'num_inactive_branches' => $getnumbranches
         ];
         return response()->json($response, 200);
 
@@ -830,6 +956,29 @@ class SetupController extends Controller
         return response()->json($response, 200);
 
     }
+
+    /**
+     * getNumCompanyBranches get num of all registered company branches 
+     *
+     * @param  mixed $request
+     * @param  mixed $id merchant id
+     *
+     * @return void\Illuminate\Http\Response num of all company branches data
+     */
+    protected function getNumCompanyBranches(Request $request, $id){
+
+        //get all registered companies 
+        $getnumbranches = DB::table('company_branches')
+       ->where('merchant_id', $id)
+       ->count();
+
+         $response = [
+            'num_branches' => $getnumbranches
+        ];
+        return response()->json($response, 200);
+
+    }
+
 
      /**
      * getCompanyBranchDetails get all details of a company branches 

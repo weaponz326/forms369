@@ -264,7 +264,9 @@ class AuthController extends Controller
             'firstname' => 'required',
             'lastname' => 'required',
             'username'=>'required',
-            'user_type' => 'required'
+            'user_type' => 'required',
+            'country' => 'required',
+            'email' => 'required'
         ]);
 
         //get and encrypt user details 
@@ -275,6 +277,8 @@ class AuthController extends Controller
         $user_type = $request->user_type;
         $updated_at = now();
         $name = $firstname . ' ' . $lastname;
+        $country = $request->country;
+        $email = $request->email;
 
         if($request->has('merchant_id'))
         {
@@ -327,7 +331,9 @@ class AuthController extends Controller
                     'merchant_id' => $merchant_id,
                     'branch_id' => $branch_id,
                     'usertype' => $user_type,
-                    'updated_at' => $updated_at
+                    'updated_at' => $updated_at,
+                    'email' => $email,
+                    'country' => $country
                 ]
             );
 
@@ -346,7 +352,9 @@ class AuthController extends Controller
                     'merchant_id' => $merchant_id,
                     'branch_id' => $branch_id,
                     'usertype' => $user_type,
-                    'updated_at' => $updated_at
+                    'updated_at' => $updated_at,
+                    'email' => $email,
+                    'country' => $country
                 ]
             );
 
