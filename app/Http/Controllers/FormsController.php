@@ -31,7 +31,7 @@ class FormsController extends Controller
        
 
         //request all data on submit
-        $formfields = Crypt::encryptString($request->form_fields);
+        $formfields = Crypt::encryptString(json_encode($request->form_fields));
         $branch_id = $request->branch_id;
         $merchant_id = $request->merchant_id;
         $form_code = $request->form_code;
@@ -90,7 +90,7 @@ class FormsController extends Controller
        
 
         //request all data on submit
-        $formfields = Crypt::encryptString($request->form_fields);
+        $formfields = Crypt::encryptString(json_encode($request->form_fields));
         $branch_id = $request->branch_id;
         $merchant_id = $request->merchant_id;
         $form_code = $request->form_code;
