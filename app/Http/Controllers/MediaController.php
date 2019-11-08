@@ -22,7 +22,7 @@ class MediaController extends Controller
      * @param  \Illuminate\Http\Request  $request 
      * @return response $url
      */
-    protected function imageUpload(Request $request)
+    public function imageUpload(Request $request)
     {
 
         $this->validate($request, [

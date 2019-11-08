@@ -302,7 +302,6 @@ class FormsController extends Controller
      * getFformDetails get all details of a form
      *
      * @param  mixed $request
-     * @param  mixed $code form code 
      *
      * @return void\Illuminate\Http\Response all details of a form
      */
@@ -341,6 +340,29 @@ class FormsController extends Controller
 
     }
 
+    /**
+     * getNumAllForms get num of all form
+     *
+     * @param  mixed $request
+     *
+     * @return void\Illuminate\Http\Response all details of a form
+     */
+    protected function getNumAllForms(Request $request){
+
+        //get all registered companies 
+        $getnumforms = DB::table('forms')
+        ->join('merchants', 'merchants.id', '=', 'merchant_id')
+        ->select('forms.*','merchants.merchant_name AS merchant_name')
+        ->where('merchants.status', 1)
+        ->where('forms.deleted_at', null)
+        ->count();
+      
+        $response = [
+            'num_forms' => $getnumforms
+        ];
+        return response()->json($response, 200);
+
+    }
 
     /**
      * getAllFormsByStatus get all details of all forms by status

@@ -26,7 +26,7 @@ class AuthController extends Controller
     *
     * @return \Illuminate\Http\Response success or error message
     */
-    protected function createNewUser(Request $request)
+    public function createNewUser(Request $request)
     {
 
         //put all queries involved in creating a new user in transaction
@@ -255,7 +255,7 @@ class AuthController extends Controller
     *
     * @return \Illuminate\Http\Response success or error message
     */
-    protected function editUser(Request $request, $id)
+    public function editUser(Request $request, $id)
     {
         $message = 'Ok';
         //get and validate user details
@@ -540,7 +540,7 @@ class AuthController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    protected function login(Request $request)
+    public function login(Request $request)
     {
         $this->validate($request, [
             'username' => 'required',
@@ -668,7 +668,7 @@ class AuthController extends Controller
      *
      * @return [json] user object
      */
-    protected function user(Request $request)
+    public function user(Request $request)
     {
         return response()->json($request->user());
     }
@@ -679,7 +679,7 @@ class AuthController extends Controller
      *
      * @return [string] message
      */
-    protected function logout(Request $request)
+    public function logout(Request $request)
     {
         
         //get user and log user activity
@@ -693,14 +693,14 @@ class AuthController extends Controller
     }
 
     /**
-     * getUserDeatils get the details of a user
+     * getUserDetails get the details of a user
      *
      * @param  mixed $request
      * @param  mixed $id of the user
      *
      * @return [json] user object
      */
-    protected function getUserDetails(Request $request, $id){
+    public function getUserDetails(Request $request, $id){
 
          //get all registered companies 
          $getuser = DB::table('users')
@@ -831,7 +831,7 @@ class AuthController extends Controller
      *
      * @return [json] all matching users
      */
-    protected function getAllUsersByMerchant(Request $request, $id){
+    public function getAllUsersByMerchant(Request $request, $id){
 
         //get all registered companies 
         $getusers = DB::table('users')
@@ -882,13 +882,10 @@ class AuthController extends Controller
      *
      * @return [json] all matching users
      */
-    protected function getNumAllUsersByMerchant(Request $request, $id){
+    public function getNumAllUsersByMerchant(Request $request, $id){
 
         //get all registered companies 
         $getnumusers = DB::table('users')
-        ->join('merchants', 'merchants.id', '=', 'merchant_id')
-        ->join('company_branches', 'company_branches.id', '=', 'branch_id')
-        ->select('users.*','merchants.merchant_name AS merchant_name','company_branches.branchname AS branch_name')
        ->where('users.merchant_id', $id)
        ->count();
 
@@ -909,15 +906,16 @@ class AuthController extends Controller
      *
      * @return [json] all matching users
      */
-    protected function getAllUsersByBranch(Request $request, $id){
+    public function getAllUsersByBranch(Request $request, $id){
 
         //get all registered companies 
         $getusers = DB::table('users')
-        ->join('merchants', 'merchants.id', '=', 'merchant_id')
-        ->join('company_branches', 'company_branches.id', '=', 'branch_id')
+        ->join('merchants', 'merchants.id', '=', 'users.merchant_id')
+        ->join('company_branches', 'company_branches.id', '=', 'users.branch_id')
         ->select('users.*','merchants.merchant_name AS merchant_name','company_branches.branchname AS branch_name')
        ->where('users.branch_id', $id)
        ->get();
+       
 
         //clean data
         $userdata = [];
@@ -951,7 +949,7 @@ class AuthController extends Controller
    
    }
 
-/**
+    /**
      * getNumAllUsersByBranch get the number of users in a branch
      *
      * @param  mixed $request
@@ -959,13 +957,10 @@ class AuthController extends Controller
      *
      * @return int count of number of users in a branch
      */
-    protected function getNumAllUsersByBranch(Request $request, $id){
+    public function getNumAllUsersByBranch(Request $request, $id){
 
         //get all registered companies 
         $getusers = DB::table('users')
-        ->join('merchants', 'merchants.id', '=', 'merchant_id')
-        ->join('company_branches', 'company_branches.id', '=', 'branch_id')
-        ->select('users.*','merchants.merchant_name AS merchant_name','company_branches.branchname AS branch_name')
        ->where('users.branch_id', $id)
        ->count();
 
@@ -985,12 +980,12 @@ class AuthController extends Controller
      * @param  mixed $user_type_id id of user_type_id of search
      * @return [json] all matching users
      */
-    protected function getMerchantUsersByType(Request $request, $id, $user_type_id){
+    public function getMerchantUsersByType(Request $request, $id, $user_type_id){
 
         //get all registered companies 
         $getusers = DB::table('users')
         ->join('merchants', 'merchants.id', '=', 'merchant_id')
-        ->join('company_branches', 'company_branches.id', '=', 'branch_id')
+        ->leftjoin('company_branches', 'company_branches.id', '=', 'branch_id')
         ->select('users.*','merchants.merchant_name AS merchant_name','company_branches.branchname AS branch_name')
        ->where('users.merchant_id', $id)
        ->where('users.usertype', $user_type_id)
@@ -1010,9 +1005,9 @@ class AuthController extends Controller
             $userdata['last_login_ip'] = $items->last_login_ip;
             $userdata['status'] = $items->status;
             $userdata['merchant_id'] = $items->merchant_id;
-            $userdata['merchant_name'] = Crypt::decryptString($items->merchant_name);
+            $userdata['merchant_name'] = empty($items->merchant_name) ? '' : Crypt::decryptString($items->merchant_name);
             $userdata['branch_id'] = $items->branch_id;
-            $userdata['branch_name'] = Crypt::decryptString($items->branch_name);
+            $userdata['branch_name'] = empty($items->branch_name) ? '' : Crypt::decryptString($items->branch_name);
             $userdata['user_type'] = $items->usertype;
             $userdata['created_at'] = $items->created_at;
             $userdata['updated_at'] = $items->updated_at;
@@ -1036,7 +1031,7 @@ class AuthController extends Controller
      * @param  mixed $user_type_id id of user_type_id of search
      * @return [json] all matching users
      */
-    protected function getAllUsersByType(Request $request, $user_type_id){
+    public function getAllUsersByType(Request $request, $user_type_id){
 
         //get all registered companies 
         $getusers = DB::table('users')
@@ -1077,23 +1072,20 @@ class AuthController extends Controller
 
 
    /**
-     * getMerchantUsersByType get the details of users under a particular user type for a merchant
+     * getMerchantUsersByType get the number of users under a particular user type for a merchant
      *
      * @param  mixed $request
      * @param  mixed $id of the merchant
      * @param  mixed $user_type_id id of user_type_id of search
      * @return [json] all matching users
      */
-    protected function getNumMerchantUsersByType(Request $request, $id, $user_type_id){
+    public function getNumMerchantUsersByType(Request $request, $id, $user_type_id){
 
         //get all registered companies 
         $getnumusers = DB::table('users')
-        ->join('merchants', 'merchants.id', '=', 'merchant_id')
-        ->join('company_branches', 'company_branches.id', '=', 'branch_id')
-        ->select('users.*','merchants.merchant_name AS merchant_name','company_branches.branchname AS branch_name')
-       ->where('users.merchant_id', $id)
-       ->where('users.usertype', $user_type_id)
-       ->count();
+        ->where('users.merchant_id', $id)
+        ->where('users.usertype', $user_type_id)
+        ->count();
 
          $response = [
             'num_users' => $getnumusers
@@ -1111,7 +1103,7 @@ class AuthController extends Controller
      * @param  mixed $user_type_id id of user_type_id of search
      * @return [json] all matching users
      */
-    protected function getBranchUsersByType(Request $request, $id, $user_type_id){
+    public function getBranchUsersByType(Request $request, $id, $user_type_id){
 
         //get all registered companies 
         $getusers = DB::table('users')
@@ -1162,13 +1154,10 @@ class AuthController extends Controller
      * @param  mixed $user_type_id id of user_type_id of search
      * @return [json] all matching users
      */
-    protected function getNumBranchUsersByType(Request $request, $id, $user_type_id){
+    public function getNumBranchUsersByType(Request $request, $id, $user_type_id){
 
         //get all registered companies 
         $getnumusers = DB::table('users')
-        ->join('merchants', 'merchants.id', '=', 'merchant_id')
-        ->join('company_branches', 'company_branches.id', '=', 'branch_id')
-        ->select('users.*','merchants.merchant_name AS merchant_name','company_branches.branchname AS branch_name')
        ->where('users.branch_id', $id)
        ->where('users.usertype', $user_type_id)
        ->count();

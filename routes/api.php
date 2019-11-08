@@ -18,51 +18,57 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 });
 
 //register a user
-Route::post('registerUser', 'AuthController@createNewUser')->name('registerUser');
-Route::get('signup/activate/{token}', 'AuthController@signupActivate')->name('signup/activate');
+Route::post('registerUser', 'HomeController@createNewUser')->name('registerUser');
+Route::get('signup/activate/{token}', 'HomeController@signupActivate')->name('signup/activate');
 
 //login user 
-Route::post('login', 'AuthController@login')->name('login');
+Route::post('login', 'HomeController@login')->name('login');
 
 //protected routes 
 Route::group(['middleware' => ['auth:api'], 'prefix' => 'v1'], function(){
 
     //use endpoints 
-    Route::post('editUser/{id}', 'AuthController@editUser')->name('editUser');
-    Route::get('getUser/{id}', 'AuthController@getUserDetails')->name('getUser');
-    Route::post('diableUser/{id}', 'AuthController@diableUser')->name('diableUser')->middleware('scope:GIT_Admin,company_admin');
-    Route::post('enableUser/{id}', 'AuthController@enableUser')->name('enableUser')->middleware('scope:GIT_Admin,company_admin');
+    Route::post('editUser/{id}', 'HomeController@editUser')->name('editUser');
+    Route::get('getUser/{id}', 'HomeController@getUserDetails')->name('getUser');
+    Route::post('diableUser/{id}', 'HomeController@diableUser')->name('diableUser')->middleware('scope:GIT_Admin,company_admin');
+    Route::post('enableUser/{id}', 'HomeController@enableUser')->name('enableUser')->middleware('scope:GIT_Admin,company_admin');
     
     //get all users in a company, param:merchant_id
-    Route::get('getAllUsersByMerchant/{id}', 'AuthController@getAllUsersByMerchant')->name('getAllUsersByMerchant')->middleware('scope:GIT_Admin,company_admin');
+    Route::get('getAllUsersByMerchant/{id}', 'HomeController@getAllUsersByMerchant')->name('getAllUsersByMerchant')->middleware('scope:GIT_Admin,company_admin');
     //get number of all users in a company, param:merchant_id
-    Route::get('getNumAllUsersByMerchant/{id}', 'AuthController@getNumAllUsersByMerchant')->name('getNumAllUsersByMerchant')->middleware('scope:GIT_Admin,company_admin,super_executive');
+    Route::get('getNumAllUsersByMerchant/{id}', 'HomeController@getNumAllUsersByMerchant')->name('getNumAllUsersByMerchant')->middleware('scope:GIT_Admin,company_admin,super_executive');
     
     //get all users in a branch, param:branch_id
-    Route::get('getAllUsersByBranch/{id}', 'AuthController@getAllUsersByBranch')->name('getAllUsersByBranch')->middleware('scope:GIT_Admin,company_admin,branch_admin');
+    Route::get('getAllUsersByBranch/{id}', 'HomeController@getAllUsersByBranch')->name('getAllUsersByBranch')->middleware('scope:GIT_Admin,company_admin,branch_admin');
     //get number of all users in a branch, param:branch_id
-    Route::get('getNumAllUsersByBranch/{id}', 'AuthController@getNumAllUsersByBranch')->name('getNumAllUsersByBranch')->middleware('scope:GIT_Admin,company_admin,branch_admin,branch_executive');
+    Route::get('getNumAllUsersByBranch/{id}', 'HomeController@getNumAllUsersByBranch')->name('getNumAllUsersByBranch')->middleware('scope:GIT_Admin,company_admin,branch_admin,branch_executive');
     
     //get all users under a user type for a merchant, param:merchant_id
-    Route::get('getMerchantUsersByType/{id}/{type}', 'AuthController@getMerchantUsersByType')->name('getMerchantUsersByType')->middleware('scope:GIT_Admin,company_admin');
+    Route::get('getMerchantUsersByType/{id}/{type}', 'HomeController@getMerchantUsersByType')->name('getMerchantUsersByType')->middleware('scope:GIT_Admin,company_admin');
     
     //get number of all users under a user type for a merchant, param:merchant_id
-    Route::get('getNumMerchantUsersByType/{id}/{type}', 'AuthController@getNumMerchantUsersByType')->name('getNumMerchantUsersByType')->middleware('scope:GIT_Admin,company_admin,super_executive');
+    Route::get('getNumMerchantUsersByType/{id}/{type}', 'HomeController@getNumMerchantUsersByType')->name('getNumMerchantUsersByType')->middleware('scope:GIT_Admin,company_admin,super_executive');
     
     //get all users under a user type for a branch, param:branch_id
-    Route::get('getBranchUsersByType/{id}/{type}', 'AuthController@getBranchUsersByType')->name('getBranchUsersByType')->middleware('scope:GIT_Admin,company_admin,branch_admin');
+    Route::get('getBranchUsersByType/{id}/{type}', 'HomeController@getBranchUsersByType')->name('getBranchUsersByType')->middleware('scope:GIT_Admin,company_admin,branch_admin');
     
     //get all users under a user type for a branch, param:branch_id
-    Route::get('getNumBranchUsersByType/{id}/{type}', 'AuthController@getNumBranchUsersByType')->name('getNumBranchUsersByType')->middleware('scope:GIT_Admin,company_admin,branch_admin,super_executive,branch_executive');
+    Route::get('getNumBranchUsersByType/{id}/{type}', 'HomeController@getNumBranchUsersByType')->name('getNumBranchUsersByType')->middleware('scope:GIT_Admin,company_admin,branch_admin,super_executive,branch_executive');
     
 
     //get all users by type, this can be used when creating a mercahnt and a superadmin is required
-    Route::get('getAllUsersByType/{type}', 'AuthController@getAllUsersByType')->name('getAllUsersByType')->middleware('scope:GIT_Admin');
+    Route::get('getAllUsersByType/{type}', 'HomeController@getAllUsersByType')->name('getAllUsersByType')->middleware('scope:GIT_Admin');
+    
+    //get logged in user
+    Route::get('getLoggedinUser', 'HomeController@user')->name('getLoggedinUser');
+    
+    //logout user
+    Route::get('logoutUser', 'HomeController@logout')->name('logoutUser');
     
     
 
     //merchant setup, view and update apis
-    Route::post('uploadImage', 'MediaController@imageUpload')->name('uploadImage')->middleware('scope:GIT_Admin,company_admin');
+    Route::post('uploadImage', 'HomeController@imageUpload')->name('uploadImage')->middleware('scope:GIT_Admin,company_admin');
     Route::post('createMerchant', 'SetupController@createMerchant')->name('createMerchant')->middleware('scope:GIT_Admin');
     Route::post('editMerchant/{id}', 'SetupController@editMerchant')->name('editMerchant')->middleware('scope:GIT_Admin,company_admin');
     Route::get('getAllMerchants', 'SetupController@getMerchants')->name('getAllMerchants')->middleware('scope:GIT_Admin');
@@ -106,6 +112,7 @@ Route::group(['middleware' => ['auth:api'], 'prefix' => 'v1'], function(){
     Route::post('editForm/{code}', 'FormsController@editForm')->name('editForm')->middleware('scope:GIT_Admin,company_admin');
     Route::post('changeFormStatus/{code}/{status}', 'FormsController@changeFormStatus')->name('changeFormStatus')->middleware('scope:GIT_Admin,company_admin');
     Route::get('getAllForms', 'FormsController@getAllForms')->name('getAllForms')->middleware('scope:GIT_Admin');
+    Route::get('getNumAllForms', 'FormsController@getNumAllForms')->name('getNumAllForms')->middleware('scope:GIT_Admin');
     Route::get('getAllFormsByStatus/{status}', 'FormsController@getAllFormsByStatus')->name('getAllFormsByStatus');
     Route::get('getAllFormsByMerchant/{id}', 'FormsController@getAllFormsByMerchant')->name('getAllFormsByMerchant')->middleware('scope:GIT_Admin,company_admin,branch_admin');
     Route::get('getAllFormsByStatusAndMerchant/{status}/{id}', 'FormsController@getAllFormsByStatusAndMerchant')->name('getAllFormsByStatusAndMerchant');
