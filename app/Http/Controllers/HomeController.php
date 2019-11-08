@@ -184,6 +184,20 @@ class HomeController extends Controller
 
     }
 
+    /**
+     * getUserDetails get the details of a user
+     *
+     * @param  mixed $request
+     * @param  mixed $id of the user
+     *
+     * @return [json] user object
+     */
+    protected function getUserDetails(Request $request, $id)
+    {
+        $message = (new AuthController)->getUserDetails($request, $id);
+        return $message;
+    }
+
      /**
       * Business logics to get num of users by merchant and type
      * getMerchantUsersByType get the number of users under a particular user type for a merchant
