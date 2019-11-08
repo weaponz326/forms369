@@ -22,7 +22,7 @@ class SetupController extends Controller
      *
      * @return \Illuminate\Http\Response success or error message
      */
-    protected function createMerchant(Request $request){
+    public function createMerchant(Request $request){
         
         $this->validate($request, [
             'merchant_name' => 'required',
@@ -146,7 +146,7 @@ class SetupController extends Controller
      *
      * @return \Illuminate\Http\Response success or error message
      */
-    protected function editMerchant(Request $request, $id){
+    public function editMerchant(Request $request, $id){
         
         $this->validate($request, [
             'merchant_name' => 'required',
@@ -234,7 +234,7 @@ class SetupController extends Controller
      *
      * @return \Illuminate\Http\Response success or error message
      */
-    protected function createCompanyBranches(Request $request){
+    public function createCompanyBranches(Request $request){
 
         $this->validate($request, [
             'branch_name' => 'required',
@@ -311,7 +311,7 @@ class SetupController extends Controller
      *
      * @return \Illuminate\Http\Response success or error message
      */
-    protected function editCompanyBranches(Request $request, $id){
+    public function editCompanyBranches(Request $request, $id){
 
         $this->validate($request, [
             'branch_name' => 'required',
@@ -604,7 +604,7 @@ class SetupController extends Controller
      *
      * @return void\Illuminate\Http\Response all merchants data
      */
-    protected function getMerchants(Request $request){
+    public function getMerchants(Request $request){
 
         //get all registered companies 
         $getmerchants = DB::table('merchants')
@@ -649,7 +649,7 @@ class SetupController extends Controller
      *
      * @return void\Illuminate\Http\Response all merchants data
      */
-    protected function getNumMerchants(Request $request){
+    public function getNumMerchants(Request $request){
 
         //get all registered companies 
         $getnummerchants = DB::table('merchants')->count();
@@ -668,7 +668,7 @@ class SetupController extends Controller
      *
      * @return void\Illuminate\Http\Response all active merchants data
      */
-    protected function getNumActiveMerchants(Request $request){
+    public function getNumActiveMerchants(Request $request){
 
         //get all registered companies 
         $getnummerchants = DB::table('merchants')
@@ -689,7 +689,7 @@ class SetupController extends Controller
      *
      * @return void\Illuminate\Http\Response all inactive merchants data
      */
-    protected function getNumInactiveMerchants(Request $request){
+    public function getNumInactiveMerchants(Request $request){
 
         //get all registered companies 
         $getnummerchants = DB::table('merchants')
@@ -712,11 +712,11 @@ class SetupController extends Controller
      *
      * @return void\Illuminate\Http\Response all merchants data
      */
-    protected function getAllMerchantsByCountry(Request $request, $country){
+    public function getAllMerchantsByCountry(Request $request, $country){
 
         //get all registered companies 
         $getmerchants = DB::table('merchants')
-        ->join('joint_companies', 'joint_companies.id', '=', 'super_id')
+        ->leftjoin('joint_companies', 'joint_companies.id', '=', 'super_id')
         ->join('company_admin', 'company_admin.id', '=', 'admin_id')
         ->select('merchants.*','company_admin.name AS admin_name','joint_companies.name AS exec_name')
         ->where('country', $country)
@@ -733,7 +733,7 @@ class SetupController extends Controller
             $merchantsdata['logo'] = $items->logo;
             $merchantsdata['small_logo'] = $items->small_logo;
             $merchantsdata['super_executive_id'] = $items->super_id;
-            $merchantsdata['super_executive_name'] = Crypt::decryptString($items->exec_name);
+            $merchantsdata['super_executive_name'] = empty($items->exec_name) ? '' : Crypt::decryptString($items->exec_name);
             $merchantsdata['company_admin_id'] = $items->admin_id;
             $merchantsdata['company_admin_name'] = Crypt::decryptString($items->admin_name);
             $merchantsdata['created_by'] = $items->created_by;
@@ -759,11 +759,11 @@ class SetupController extends Controller
      *
      * @return void\Illuminate\Http\Response all merchants data
      */
-    protected function getMerchantDetails(Request $request, $id){
+    public function getMerchantDetails(Request $request, $id){
 
         //get all registered companies 
         $getmerchant = DB::table('merchants')
-        ->join('joint_companies', 'joint_companies.id', '=', 'super_id')
+        ->leftjoin('joint_companies', 'joint_companies.id', '=', 'super_id')
         ->join('company_admin', 'company_admin.id', '=', 'admin_id')
         ->select('merchants.*','company_admin.name AS admin_name','joint_companies.name AS exec_name')
         ->where('merchants.id', $id)
@@ -780,7 +780,7 @@ class SetupController extends Controller
             $merchantsdata['logo'] = $items->logo;
             $merchantsdata['small_logo'] = $items->small_logo;
             $merchantsdata['super_executive_id'] = $items->super_id;
-            $merchantsdata['super_executive_name'] = Crypt::decryptString($items->exec_name);
+            $merchantsdata['super_executive_name'] = empty($items->exec_name) ? '' : Crypt::decryptString($items->exec_name);
             $merchantsdata['company_admin_id'] = $items->admin_id;
             $merchantsdata['company_admin_name'] = Crypt::decryptString($items->admin_name);
             $merchantsdata['created_by'] = $items->created_by;
@@ -805,12 +805,12 @@ class SetupController extends Controller
      *
      * @return void\Illuminate\Http\Response all branches data
      */
-    protected function getAllBranches(Request $request){
+    public function getAllBranches(Request $request){
 
         //get all registered companies 
         $getbranches = DB::table('company_branches')
         ->join('merchants', 'merchants.id', '=', 'merchant_id')
-        ->join('branch_super_executive', 'branch_super_executive.id', '=', 'branch_super_id')
+        ->leftjoin('branch_super_executive', 'branch_super_executive.id', '=', 'branch_super_id')
         ->join('branch_admin', 'branch_admin.id', '=', 'branch_admin_id')
         ->select('company_branches.*','merchants.merchant_name AS merchant_name','branch_super_executive.name AS exec_name','branch_admin.name AS admin_name')
         ->simplePaginate(15);
@@ -826,7 +826,7 @@ class SetupController extends Controller
             $branchessdata['merchant_id'] = $items->merchant_id;
             $branchessdata['merchant_name'] = Crypt::decryptString($items->merchant_name);
             $branchessdata['branch_super_executive_id'] = $items->branch_super_id;
-            $branchessdata['branch_super_executive_name'] = Crypt::decryptString($items->exec_name);
+            $branchessdata['branch_super_executive_name'] = empty($items->exec_name) ? '' : Crypt::decryptString($items->exec_name);
             $branchessdata['branch_admin_id'] = $items->branch_admin_id;
             $branchessdata['branch_admin_name'] = Crypt::decryptString($items->admin_name);
             $branchessdata['created_by'] = $items->created_by;
@@ -852,7 +852,7 @@ class SetupController extends Controller
      *
      * @return void\Illuminate\Http\Response num of branches 
      */
-    protected function getNumBranches(Request $request){
+    public function getNumBranches(Request $request){
 
         //get all registered companies 
         $getnumbranches = DB::table('company_branches')->count();
@@ -871,7 +871,7 @@ class SetupController extends Controller
      *
      * @return void\Illuminate\Http\Response num of active branches 
      */
-    protected function getNumActiveBranches(Request $request){
+    public function getNumActiveBranches(Request $request){
 
         //get all registered companies 
         $getnumbranches = DB::table('company_branches')
@@ -893,7 +893,7 @@ class SetupController extends Controller
      *
      * @return void\Illuminate\Http\Response num of inactive branches 
      */
-    protected function getNumInactiveBranches(Request $request){
+    public function getNumInactiveBranches(Request $request){
 
         //get all registered companies 
         $getnumbranches = DB::table('company_branches')
