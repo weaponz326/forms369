@@ -9,6 +9,7 @@ use Illuminate\Support\Facades\Crypt;
 
 use DB;
 
+use Illuminate\Pagination\Paginator;
 class FormsController extends Controller
 {
     
@@ -194,7 +195,7 @@ class FormsController extends Controller
             ->where('form_code', $code)
             ->update(
                 [
-                    'status' => 'Published', 
+                    'status' => 1, 
                     'updated_by' => $userid, 
                     'updated_at' => $updated_at,
                     'deleted_at' => null,
@@ -237,7 +238,7 @@ class FormsController extends Controller
             ->where('form_code', $code)
             ->update(
                 [
-                    'status' => 'Deleted', 
+                    'status' => 3, 
                     'deleted_by' => $userid, 
                     'deleted_at' => $deleted_at
                 ]
@@ -263,7 +264,7 @@ class FormsController extends Controller
      *
      * @return void\Illuminate\Http\Response all details of a form
      */
-    protected function getFormDetails(Request $request, $code){
+    public function getFormDetails(Request $request, $code){
 
         //get all registered companies 
         $getform = DB::table('forms')
@@ -305,7 +306,7 @@ class FormsController extends Controller
      *
      * @return void\Illuminate\Http\Response all details of a form
      */
-    protected function getAllForms(Request $request){
+    public function getAllForms(Request $request){
 
         //get all registered companies 
         $getforms = DB::table('forms')
@@ -313,7 +314,7 @@ class FormsController extends Controller
         ->select('forms.*','merchants.merchant_name AS merchant_name')
         ->where('merchants.status', 1)
         ->where('forms.deleted_at', null)
-        ->simplePaginate(15);
+        ->get();
       
         //clean data
         $formdata = [];
@@ -333,8 +334,9 @@ class FormsController extends Controller
             return $formdata;
          });
 
+         $objects = new Paginator($forms, 15);
          $response = [
-            'forms' => $forms
+            'forms' => $objects
         ];
         return response()->json($response, 200);
 
@@ -347,7 +349,7 @@ class FormsController extends Controller
      *
      * @return void\Illuminate\Http\Response all details of a form
      */
-    protected function getNumAllForms(Request $request){
+    public function getNumAllForms(Request $request){
 
         //get all registered companies 
         $getnumforms = DB::table('forms')
@@ -372,7 +374,7 @@ class FormsController extends Controller
      *
      * @return void\Illuminate\Http\Response all details of forms
      */
-    protected function getAllFormsByStatus(Request $request, $status){
+    public function getAllFormsByStatus(Request $request, $status){
 
         //get all registered companies 
         $getforms = DB::table('forms')
@@ -381,7 +383,7 @@ class FormsController extends Controller
         ->where('forms.status', $status)
         ->where('merchants.status', 1)
         ->where('forms.deleted_at', null)
-        ->simplePaginate(15);
+        ->get();
       
         //clean data
         $formdata = [];
@@ -400,9 +402,9 @@ class FormsController extends Controller
 
             return $formdata;
          });
-
+         $objects = new Paginator($forms, 15);
          $response = [
-            'forms' => $forms
+            'forms' => $objects
         ];
         return response()->json($response, 200);
 
@@ -416,7 +418,7 @@ class FormsController extends Controller
      *
      * @return void\Illuminate\Http\Response all details of a form
      */
-    protected function getAllFormsByMerchant(Request $request, $id){
+    public function getAllFormsByMerchant(Request $request, $id){
 
         //get all registered companies 
         $getforms = DB::table('forms')
@@ -424,7 +426,7 @@ class FormsController extends Controller
         ->select('forms.*','merchants.merchant_name AS merchant_name')
         ->where('forms.merchant_id', $id)
         ->where('forms.deleted_at', null)
-        ->simplePaginate(15);
+        ->get();
       
         //clean data
         $formdata = [];
@@ -443,9 +445,9 @@ class FormsController extends Controller
 
             return $formdata;
          });
-
+         $objects = new Paginator($forms, 15);
          $response = [
-            'forms' => $forms
+            'forms' => $objects
         ];
         return response()->json($response, 200);
 
@@ -459,7 +461,7 @@ class FormsController extends Controller
      *@param  mixed $id merchant id
      * @return void\Illuminate\Http\Response all details of forms
      */
-    protected function getAllFormsByStatusAndMerchant(Request $request, $status, $id){
+    public function getAllFormsByStatusAndMerchant(Request $request, $status, $id){
 
         //get all registered companies 
         $getforms = DB::table('forms')
@@ -468,7 +470,7 @@ class FormsController extends Controller
         ->where('forms.status', $status)
         ->where('forms.merchant_id', $id)
         ->where('forms.deleted_at', null)
-        ->simplePaginate(15);
+        ->get();
       
         //clean data
         $formdata = [];
@@ -487,9 +489,9 @@ class FormsController extends Controller
 
             return $formdata;
          });
-
+         $objects = new Paginator($forms, 15);
          $response = [
-            'forms' => $forms
+            'forms' => $objects
         ];
         return response()->json($response, 200);
 

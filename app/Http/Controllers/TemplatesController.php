@@ -8,6 +8,7 @@ use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Crypt;
 
 use DB;
+use Illuminate\Pagination\Paginator;
  
 class TemplatesController extends Controller
 {
@@ -27,7 +28,7 @@ class TemplatesController extends Controller
        
 
         //request all data on submit
-        $formfields = Crypt::encryptString($request->form_fields);
+        $formfields = Crypt::encryptString(json_encode($request->form_fields));
         $name = Crypt::encryptString($request->name);
 
         $created_at = now();
@@ -75,7 +76,7 @@ class TemplatesController extends Controller
        
 
         //request all data on submit
-        $formfields = Crypt::encryptString($request->form_fields);
+        $formfields = Crypt::encryptString(json_encode($request->form_fields));
         $name = Crypt::encryptString($request->name);
 
         $updated_at = now();
@@ -116,11 +117,11 @@ class TemplatesController extends Controller
      *
      * @return void\Illuminate\Http\Response all details of templates
      */
-    protected function getAllTemplates(Request $request){
+    public function getAllTemplates(Request $request){
 
         //get all templates
         $gettemplates = DB::table('templates')
-        ->simplePaginate(15);
+        ->get();
       
         //clean data
         $templatedata = [];
@@ -136,9 +137,9 @@ class TemplatesController extends Controller
 
             return $templatedata;
          });
-
+         $objects = new Paginator($templates, 15);
          $response = [
-            'templates' => $templates
+            'templates' => $objects
         ];
         return response()->json($response, 200);
 

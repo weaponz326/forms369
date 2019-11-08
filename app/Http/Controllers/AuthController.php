@@ -12,6 +12,7 @@ use App\User;
 use App\Notifications\SignupActivate;
 use Carbon\Carbon;
 use Auth;
+use Illuminate\Pagination\Paginator;
 
 class AuthController extends Controller
 {
@@ -843,7 +844,7 @@ class AuthController extends Controller
 
         //clean data
         $userdata = [];
-
+        
         $users = $getusers->map(function($items){
             $userdata['id'] = $items->id;
             $userdata['full_name'] =$items->name;
@@ -865,9 +866,9 @@ class AuthController extends Controller
 
             return $userdata;
          });
-
+         $objects = new Paginator($users, 15);
          $response = [
-            'users' => $users
+            'users' => $objects
         ];
         return response()->json($response, 200);
    
@@ -942,8 +943,10 @@ class AuthController extends Controller
             return $userdata;
          });
 
+         $objects = new Paginator($users, 15);
+
          $response = [
-            'users' => $users
+            'users' => $objects
         ];
         return response()->json($response, 200);
    
@@ -1016,8 +1019,9 @@ class AuthController extends Controller
             return $userdata;
          });
 
+         $objects = new Paginator($users, 15);
          $response = [
-            'users' => $users
+            'users' => $objects
         ];
         return response()->json($response, 200);
    
@@ -1062,8 +1066,9 @@ class AuthController extends Controller
             return $userdata;
          });
 
+         $objects = new Paginator($users, 15);
          $response = [
-            'users' => $users
+            'users' => $objects
         ];
         return response()->json($response, 200);
    
@@ -1139,8 +1144,10 @@ class AuthController extends Controller
             return $userdata;
          });
 
+         $objects = new Paginator($users, 15);
+
          $response = [
-            'users' => $users
+            'users' => $objects
         ];
         return response()->json($response, 200);
    

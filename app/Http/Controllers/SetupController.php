@@ -12,6 +12,8 @@ use DB;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\File;
 
+use Illuminate\Pagination\Paginator;
+
 class SetupController extends Controller
 {
     
@@ -389,7 +391,7 @@ class SetupController extends Controller
      *
      * @return \Illuminate\Http\Response success or error message
      */
-    protected function createUserType(Request $request){
+    public function createUserType(Request $request){
 
         $this->validate($request, [
             'name' => 'required',
@@ -435,7 +437,7 @@ class SetupController extends Controller
      *
      * @return \Illuminate\Http\Response success or error message
      */
-    protected function editUserType(Request $request){
+    public function editUserType(Request $request){
 
         $this->validate($request, [
             'name' => 'required',
@@ -483,7 +485,7 @@ class SetupController extends Controller
      * @param  mixed $id of the user type to be deleted
      * @return void\Illuminate\Http\Response error or success message
      */
-    protected function deleteUserType(Request $request, $id){
+    public function deleteUserType(Request $request, $id){
 
         $deleted_at = now();
 
@@ -521,7 +523,7 @@ class SetupController extends Controller
      *
      * @return void\Illuminate\Http\Response all merchants data
      */
-    protected function getAllUserTypes(Request $request){
+    public function getAllUserTypes(Request $request){
 
         //get all registered companies 
         $getusertypes = DB::table('user_types')->where('deleted_at', null)->simplePaginate(15);
@@ -542,10 +544,13 @@ class SetupController extends Controller
      *
      * @return void\Illuminate\Http\Response all merchants data
      */
-    protected function getUserTypesLevel1(Request $request){
+    public function getUserTypesLevel1(Request $request){
 
         //get all registered companies 
-        $getusertypes = DB::table('user_types')->whereNotIn('id', [20, 26])->simplePaginate(15);
+        $getusertypes = DB::table('user_types')
+        ->whereNotIn('id', [20, 26])
+        ->where('deleted_at', null)
+        ->simplePaginate(15);
 
          $response = [
             'usertypes' => $getusertypes
@@ -563,10 +568,13 @@ class SetupController extends Controller
      *
      * @return void\Illuminate\Http\Response all merchants data
      */
-    protected function getUserTypesLevel2(Request $request){
+    public function getUserTypesLevel2(Request $request){
 
         //get all registered companies 
-        $getusertypes = DB::table('user_types')->whereNotIn('id', [20, 26, 21, 23])->simplePaginate(15);
+        $getusertypes = DB::table('user_types')
+        ->whereNotIn('id', [20, 26, 21, 23])
+        ->where('deleted_at', null)
+        ->simplePaginate(15);
 
          $response = [
             'usertypes' => $getusertypes
@@ -585,10 +593,13 @@ class SetupController extends Controller
      *
      * @return void\Illuminate\Http\Response all merchants data
      */
-    protected function getUserTypesLevel3(Request $request){
+    public function getUserTypesLevel3(Request $request){
 
         //get all registered companies 
-        $getusertypes = DB::table('user_types')->where('id', 26)->simplePaginate(15);
+        $getusertypes = DB::table('user_types')
+        ->where('id', 26)
+        ->where('deleted_at', null)
+        ->simplePaginate(15);
 
          $response = [
             'usertypes' => $getusertypes
@@ -611,7 +622,7 @@ class SetupController extends Controller
         ->join('joint_companies', 'joint_companies.id', '=', 'super_id')
         ->join('company_admin', 'company_admin.id', '=', 'admin_id')
         ->select('merchants.*','company_admin.name AS admin_name','joint_companies.name AS exec_name')
-        ->simplePaginate(15);
+        ->get();
       
         //clean data
         $merchantsdata = [];
@@ -634,8 +645,9 @@ class SetupController extends Controller
             return $merchantsdata;
          });
 
+         $objects = new Paginator($merchants, 15);
          $response = [
-            'merchants' => $merchants
+            'merchants' => $objects
         ];
         return response()->json($response, 200);
 
@@ -720,12 +732,12 @@ class SetupController extends Controller
         ->join('company_admin', 'company_admin.id', '=', 'admin_id')
         ->select('merchants.*','company_admin.name AS admin_name','joint_companies.name AS exec_name')
         ->where('country', $country)
-        ->simplePaginate(15);
+        ->get();
       
         //clean data
         $merchantsdata = [];
 
-        $merchant = $getmerchants->map(function($items){
+        $merchants = $getmerchants->map(function($items){
             $merchantsdata['id'] = $items->id;
             $merchantsdata['merchant_name'] = Crypt::decryptString($items->merchant_name);
             $merchantsdata['status'] = $items->status;
@@ -743,8 +755,9 @@ class SetupController extends Controller
             return $merchantsdata;
          });
 
+         $objects = new Paginator($merchants, 15);
          $response = [
-            'merchant' => $merchant
+            'merchant' => $objects
         ];
         return response()->json($response, 200);
 
@@ -813,7 +826,7 @@ class SetupController extends Controller
         ->leftjoin('branch_super_executive', 'branch_super_executive.id', '=', 'branch_super_id')
         ->join('branch_admin', 'branch_admin.id', '=', 'branch_admin_id')
         ->select('company_branches.*','merchants.merchant_name AS merchant_name','branch_super_executive.name AS exec_name','branch_admin.name AS admin_name')
-        ->simplePaginate(15);
+        ->get();
 
         //clean data
         $branchessdata = [];
@@ -837,8 +850,9 @@ class SetupController extends Controller
             return $branchessdata;
          });
 
+         $objects = new Paginator($branches, 15);
          $response = [
-            'branches' => $branches
+            'branches' => $objects
         ];
         return response()->json($response, 200);
 
@@ -916,16 +930,16 @@ class SetupController extends Controller
      *
      * @return void\Illuminate\Http\Response all company branches data
      */
-    protected function getCompanyBranches(Request $request, $id){
+    public function getCompanyBranches(Request $request, $id){
 
         //get all registered companies 
         $getbranches = DB::table('company_branches')
         ->join('merchants', 'merchants.id', '=', 'merchant_id')
-        ->join('branch_super_executive', 'branch_super_executive.id', '=', 'branch_super_id')
-        ->join('branch_admin', 'branch_admin.id', '=', 'branch_admin_id')
+        ->leftjoin('branch_super_executive', 'branch_super_executive.id', '=', 'branch_super_id')
+        ->leftjoin('branch_admin', 'branch_admin.id', '=', 'branch_admin_id')
         ->select('company_branches.*','merchants.merchant_name AS merchant_name','branch_super_executive.name AS exec_name','branch_admin.name AS admin_name')
        ->where('merchant_id', $id)
-       ->simplePaginate(15);
+       ->get();
 
         //clean data
         $branchessdata = [];
@@ -938,10 +952,9 @@ class SetupController extends Controller
             $branchessdata['merchant_id'] = $items->merchant_id;
             $branchessdata['merchant_name'] = Crypt::decryptString($items->merchant_name);
             $branchessdata['branch_super_executive_id'] = $items->branch_super_id;
-            $branchessdata['branch_super_executive_name'] = Crypt::decryptString($items->exec_name);
+            $branchessdata['branch_super_executive_name'] = empty($items->exec_name) ? '' : Crypt::decryptString($items->exec_name);
             $branchessdata['branch_admin_id'] = $items->branch_admin_id;
-            $branchessdata['branch_super_executive_id'] = $items->branch_super_id;
-            $branchessdata['branch_admin_id'] = $items->branch_admin_id;
+            $branchessdata['branch_admin_name'] = empty($items->admin_name) ? '' : Crypt::decryptString($items->admin_name);
             $branchessdata['created_by'] = $items->created_by;
             $branchessdata['updated_by'] = $items->updated_by;
             $branchessdata['created_at'] = $items->created_at;
@@ -950,8 +963,9 @@ class SetupController extends Controller
             return $branchessdata;
          });
 
+         $objects = new Paginator($branches, 15);
          $response = [
-            'branches' => $branches
+            'branches' => $objects
         ];
         return response()->json($response, 200);
 
@@ -965,7 +979,7 @@ class SetupController extends Controller
      *
      * @return void\Illuminate\Http\Response num of all company branches data
      */
-    protected function getNumCompanyBranches(Request $request, $id){
+    public function getNumCompanyBranches(Request $request, $id){
 
         //get all registered companies 
         $getnumbranches = DB::table('company_branches')
@@ -988,13 +1002,13 @@ class SetupController extends Controller
      *
      * @return void\Illuminate\Http\Response all company branches data
      */
-    protected function getCompanyBranchDetails(Request $request, $id){
+    public function getCompanyBranchDetails(Request $request, $id){
 
         //get all registered companies 
         $getbranch = DB::table('company_branches')
         ->join('merchants', 'merchants.id', '=', 'merchant_id')
-        ->join('branch_super_executive', 'branch_super_executive.id', '=', 'branch_super_id')
-        ->join('branch_admin', 'branch_admin.id', '=', 'branch_admin_id')
+        ->leftjoin('branch_super_executive', 'branch_super_executive.id', '=', 'branch_super_id')
+        ->leftjoin('branch_admin', 'branch_admin.id', '=', 'branch_admin_id')
         ->select('company_branches.*','merchants.merchant_name AS merchant_name','branch_super_executive.name AS exec_name','branch_admin.name AS admin_name')
        ->where('company_branches.id', $id)
        ->get();
@@ -1010,10 +1024,9 @@ class SetupController extends Controller
             $branchessdata['merchant_id'] = $items->merchant_id;
             $branchessdata['merchant_name'] = Crypt::decryptString($items->merchant_name);
             $branchessdata['branch_super_executive_id'] = $items->branch_super_id;
-            $branchessdata['branch_super_executive_name'] = Crypt::decryptString($items->exec_name);
+            $branchessdata['branch_super_executive_name'] = empty($items->exec_name) ? '' : Crypt::decryptString($items->exec_name);
             $branchessdata['branch_admin_id'] = $items->branch_admin_id;
-            $branchessdata['branch_super_executive_id'] = $items->branch_super_id;
-            $branchessdata['branch_admin_id'] = $items->branch_admin_id;
+            $branchessdata['branch_admin_name'] = empty($items->admin_name) ? '' : Crypt::decryptString($items->admin_name);
             $branchessdata['created_by'] = $items->created_by;
             $branchessdata['updated_by'] = $items->updated_by;
             $branchessdata['created_at'] = $items->created_at;

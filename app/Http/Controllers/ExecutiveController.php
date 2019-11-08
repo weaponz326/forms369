@@ -18,13 +18,11 @@ class ExecutiveController extends Controller
      *
      * @return void\Illuminate\Http\Response number of form
      */
-    protected function getNumAllFormsByMerchant(Request $request, $id){
+    public function getNumAllFormsByMerchant(Request $request, $id){
 
         //get all registered companies 
         $getnumforms = DB::table('forms')
-        ->join('merchants', 'merchants.id', '=', 'merchant_id')
-        ->select('forms.*','merchants.merchant_name AS merchant_name')
-        ->where('forms.merchant_id', $id)
+         ->where('forms.merchant_id', $id)
         ->where('forms.deleted_at', null)
         ->count();
 
@@ -44,12 +42,10 @@ class ExecutiveController extends Controller
      *@param  mixed $id merchant id
      * @return void\Illuminate\Http\Response number of forms
      */
-    protected function getNumAllFormsByStatusAndMerchant(Request $request, $status, $id){
+    public function getNumAllFormsByStatusAndMerchant(Request $request, $status, $id){
 
         //get all registered companies 
         $getnumforms = DB::table('forms')
-        ->join('merchants', 'merchants.id', '=', 'merchant_id')
-        ->select('forms.*','merchants.merchant_name AS merchant_name')
         ->where('forms.status', $status)
         ->where('forms.merchant_id', $id)
         ->count();
@@ -69,11 +65,10 @@ class ExecutiveController extends Controller
      * @param  mixed $id id of merchant for the submitted forms
      * @return void\Illuminate\Http\Response num of all submitted form
      */
-    protected function getNumSubmittedFormsByStatus(Request $request, $status, $id){
+    public function getNumSubmittedFormsByStatus(Request $request, $status, $id){
 
        
         $getnumforms = DB::table('submitted_forms')
-        ->join('users', 'users.id', '=', 'client_id')
         ->join('forms', 'forms.form_code', '=', 'form_id')
         ->join('merchants', 'merchants.id', '=', 'forms.merchant_id')
         ->select('submitted_forms.*','merchants.merchant_name AS merchant_name',
@@ -99,13 +94,11 @@ class ExecutiveController extends Controller
      * @param  mixed $id id of branch the submitted forms were processed
      * @return void\Illuminate\Http\Response num of all processed submitted form
      */
-    protected function getNumBranchProcessedFormsByStatus(Request $request, $status, $id){
+    public function getNumBranchProcessedFormsByStatus(Request $request, $status, $id){
 
        
         $getnumforms = DB::table('submitted_forms')
         ->join('users', 'users.id', '=', 'processed_by')
-        ->join('forms', 'forms.form_code', '=', 'form_id')
-        ->join('merchants', 'merchants.id', '=', 'forms.merchant_id')
         ->select('submitted_forms.*','merchants.merchant_name AS merchant_name',
         'users.name', 'users.email', 'forms.name AS form_name', 'forms.form_fields')
         ->where('submitted_forms.status', $status)

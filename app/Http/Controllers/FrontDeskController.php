@@ -6,7 +6,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Carbon;
 use DB;
 use Illuminate\Support\Facades\Crypt;
-
+use Illuminate\Pagination\Paginator;
 class FrontDeskController extends Controller
 {
     /**
@@ -16,7 +16,7 @@ class FrontDeskController extends Controller
      *
      * @return void\Illuminate\Http\Response all details of submitted form
      */
-    protected function getAllSubmittedForms(Request $request){
+    public function getAllSubmittedForms(Request $request){
  
         $getsubmittedform = DB::table('submitted_forms')
         ->join('users', 'users.id', '=', 'client_id')
@@ -24,7 +24,7 @@ class FrontDeskController extends Controller
         ->join('merchants', 'merchants.id', '=', 'forms.merchant_id')
         ->select('submitted_forms.*','merchants.merchant_name AS merchant_name',
         'users.name', 'users.email', 'forms.name AS form_name', 'forms.form_fields')
-        ->simplePaginate(15);
+        ->get();
       
         //clean data
         $submittedformdata = [];
@@ -35,6 +35,7 @@ class FrontDeskController extends Controller
             $submittedformdata['form_name'] = Crypt::decryptString($items->form_name);
             $submittedformdata['form_fields'] = json_decode(Crypt::decryptString($items->form_fields));
             $submittedformdata['merchant_name'] = Crypt::decryptString($items->merchant_name);
+            $submittedformdata['client_id'] = $items->client_id;
             $submittedformdata['client_name'] = $items->name;
             $submittedformdata['email'] = $items->email;
             $submittedformdata['client_submitted_details'] = json_decode(Crypt::decryptString($items->client_details));
@@ -45,9 +46,9 @@ class FrontDeskController extends Controller
 
             return $submittedformdata;
          });
-
+         $objects = new Paginator($submittedforms, 15);
          $response = [
-            'submitted_forms' => $submittedforms
+            'submitted_forms' => $objects
         ];
         return response()->json($response, 200);
 
@@ -61,7 +62,7 @@ class FrontDeskController extends Controller
      * @param  mixed $id of the merchant
      * @return void\Illuminate\Http\Response all details of a form
      */
-    protected function getAllSubmittedFormsByMerchant(Request $request, $id){
+    public function getAllSubmittedFormsByMerchant(Request $request, $id){
 
         $getsubmittedform = DB::table('submitted_forms')
         ->join('users', 'users.id', '=', 'client_id')
@@ -70,7 +71,7 @@ class FrontDeskController extends Controller
         ->select('submitted_forms.*','merchants.merchant_name AS merchant_name',
         'users.name', 'users.email', 'forms.name AS form_name', 'forms.form_fields')
         ->where('merchants.id', $id)
-        ->simplePaginate(15);
+        ->get();
       
         //clean data
         $submittedformdata = [];
@@ -81,6 +82,7 @@ class FrontDeskController extends Controller
             $submittedformdata['form_name'] = Crypt::decryptString($items->form_name);
             $submittedformdata['form_fields'] = json_decode(Crypt::decryptString($items->form_fields));
             $submittedformdata['merchant_name'] = Crypt::decryptString($items->merchant_name);
+            $submittedformdata['client_id'] = $items->client_id;
             $submittedformdata['client_name'] = $items->name;
             $submittedformdata['email'] = $items->email;
             $submittedformdata['client_submitted_details'] = json_decode(Crypt::decryptString($items->client_details));
@@ -91,9 +93,9 @@ class FrontDeskController extends Controller
 
             return $submittedformdata;
          });
-
+         $objects = new Paginator($submittedforms, 15);
          $response = [
-            'submitted_forms' => $submittedforms
+            'submitted_forms' => $objects
         ];
         return response()->json($response, 200);
 
@@ -106,7 +108,7 @@ class FrontDeskController extends Controller
      *
      * @return void\Illuminate\Http\Response all details of submitted form
      */
-    protected function getSubmittedFormByCode(Request $request, $code){
+    public function getSubmittedFormByCode(Request $request, $code){
 
         $getsubmittedform = DB::table('submitted_forms')
         ->join('users', 'users.id', '=', 'client_id')
@@ -126,6 +128,7 @@ class FrontDeskController extends Controller
             $submittedformdata['form_name'] = Crypt::decryptString($items->form_name);
             $submittedformdata['form_fields'] = json_decode(Crypt::decryptString($items->form_fields));
             $submittedformdata['merchant_name'] = Crypt::decryptString($items->merchant_name);
+            $submittedformdata['client_id'] = $items->client_id;
             $submittedformdata['client_name'] = $items->name;
             $submittedformdata['email'] = $items->email;
             $submittedformdata['client_submitted_details'] = json_decode(Crypt::decryptString($items->client_details));
@@ -153,7 +156,7 @@ class FrontDeskController extends Controller
      *
      * @return void\Illuminate\Http\Response all details of submitted form
      */
-    protected function FrontDeskGetSubmittedFormByCode(Request $request, $code, $id){
+    public function FrontDeskGetSubmittedFormByCode(Request $request, $code, $id){
 
         $getsubmittedform = DB::table('submitted_forms')
         ->join('users', 'users.id', '=', 'client_id')
@@ -174,6 +177,7 @@ class FrontDeskController extends Controller
             $submittedformdata['form_name'] = Crypt::decryptString($items->form_name);
             $submittedformdata['form_fields'] = json_decode(Crypt::decryptString($items->form_fields));
             $submittedformdata['merchant_name'] = Crypt::decryptString($items->merchant_name);
+            $submittedformdata['client_id'] = $items->client_id;
             $submittedformdata['client_name'] = $items->name;
             $submittedformdata['email'] = $items->email;
             $submittedformdata['client_submitted_details'] = json_decode(Crypt::decryptString($items->client_details));
@@ -202,7 +206,7 @@ class FrontDeskController extends Controller
      * @param  mixed $id id of merchant for the submitted forms
      * @return void\Illuminate\Http\Response all details of submitted form
      */
-    protected function getSubmittedFormByStatusAndMerchant(Request $request, $status, $id){
+    public function getSubmittedFormByStatusAndMerchant(Request $request, $status, $id){
 
        
         $getsubmittedforms = DB::table('submitted_forms')
@@ -213,7 +217,7 @@ class FrontDeskController extends Controller
         'users.name', 'users.email', 'forms.name AS form_name', 'forms.form_fields')
         ->where('submitted_forms.status', $status)
         ->where('merchants.id', $id)
-        ->simplePaginate(15);
+        ->get();
       
         //clean data
         $submittedformdata = [];
@@ -224,6 +228,7 @@ class FrontDeskController extends Controller
             $submittedformdata['form_name'] = Crypt::decryptString($items->form_name);
             $submittedformdata['form_fields'] = json_decode(Crypt::decryptString($items->form_fields));
             $submittedformdata['merchant_name'] = Crypt::decryptString($items->merchant_name);
+            $submittedformdata['client_id'] = $items->client_id;
             $submittedformdata['client_name'] = $items->name;
             $submittedformdata['email'] = $items->email;
             $submittedformdata['client_submitted_details'] = json_decode(Crypt::decryptString($items->client_details));
@@ -234,9 +239,9 @@ class FrontDeskController extends Controller
 
             return $submittedformdata;
          });
-
+         $objects = new Paginator($submittedforms, 15);
          $response = [
-            'submitted_forms' => $submittedforms
+            'submitted_forms' => $objects
         ];
         return response()->json($response, 200);
 
@@ -251,7 +256,7 @@ class FrontDeskController extends Controller
      * @param $status new processing state stage
      * @return void\Illuminate\Http\Response error or success message
      */
-    protected function processSubmitForm(Request $request, $code, $status)
+    public function processSubmitForm(Request $request, $code, $status)
     {
          $message = 'Ok';
 
@@ -260,7 +265,7 @@ class FrontDeskController extends Controller
         ->where('submission_code', $code)
         ->first();
 
-        if($getsubmittedform->status == 'processed'){
+        if($getsubmittedform->status == 2){
 
             return response()->json([
                 'message' => 'Form already processed'
@@ -315,7 +320,7 @@ class FrontDeskController extends Controller
      * @return void\Illuminate\Http\Response all details of submitted form
      * 
      */
-    protected function FormsProcessedByFrontDeskPerson(Request $request, $id, $startdate, $enddate)
+    public function FormsProcessedByFrontDeskPerson(Request $request, $id, $startdate, $enddate)
     {
         
         $getprocessedforms = DB::table('submitted_forms')
@@ -326,7 +331,7 @@ class FrontDeskController extends Controller
         'users.name', 'users.email', 'forms.name AS form_name', 'forms.form_fields')
         ->where('submitted_forms.processed_by', $id)
         ->whereBetween('last_processed', [$startdate, $enddate])
-        ->simplePaginate(15);
+        ->get();
       
         //clean data
         $submittedformdata = [];
@@ -337,6 +342,7 @@ class FrontDeskController extends Controller
             $submittedformdata['form_name'] = Crypt::decryptString($items->form_name);
             $submittedformdata['form_fields'] = json_decode(Crypt::decryptString($items->form_fields));
             $submittedformdata['merchant_name'] = Crypt::decryptString($items->merchant_name);
+            $submittedformdata['client_id'] = $items->client_id;
             $submittedformdata['client_name'] = $items->name;
             $submittedformdata['email'] = $items->email;
             $submittedformdata['client_submitted_details'] = json_decode(Crypt::decryptString($items->client_details));
@@ -347,9 +353,9 @@ class FrontDeskController extends Controller
 
             return $submittedformdata;
          });
-
+         $objects = new Paginator($processedforms, 15);
          $response = [
-            'processed_forms' => $processedforms
+            'processed_forms' => $objects
         ];
         return response()->json($response, 200);
     }
@@ -365,15 +371,10 @@ class FrontDeskController extends Controller
      * @param $enddate start date range 
      * @return int number of forms processed
      */
-    protected function numFormsProcessedByFrontDeskPerson(Request $request, $id, $startdate, $enddate)
+    public function numFormsProcessedByFrontDeskPerson(Request $request, $id, $startdate, $enddate)
     {
         
         $getnumprocessedforms = DB::table('submitted_forms')
-        ->join('users', 'users.id', '=', 'client_id')
-        ->join('forms', 'forms.form_code', '=', 'form_id')
-        ->join('merchants', 'merchants.id', '=', 'forms.merchant_id')
-        ->select('submitted_forms.*','merchants.merchant_name AS merchant_name',
-        'users.name', 'users.email', 'forms.name AS form_name', 'forms.form_fields')
         ->where('submitted_forms.processed_by', $id)
         ->whereBetween('last_processed', [$startdate, $enddate])
         ->count();
@@ -395,7 +396,7 @@ class FrontDeskController extends Controller
      * @return void\Illuminate\Http\Response all details of submitted form
      * 
      */
-    protected function getAllFormsProcessedByFrontDeskPerson(Request $request, $id)
+    public function getAllFormsProcessedByFrontDeskPerson(Request $request, $id)
     {
         
         $getprocessedforms = DB::table('submitted_forms')
@@ -405,7 +406,7 @@ class FrontDeskController extends Controller
         ->select('submitted_forms.*','merchants.merchant_name AS merchant_name',
         'users.name', 'users.email', 'forms.name AS form_name', 'forms.form_fields')
         ->where('submitted_forms.processed_by', $id)
-        ->simplePaginate(15);
+        ->get();
       
         //clean data
         $submittedformdata = [];
@@ -416,6 +417,7 @@ class FrontDeskController extends Controller
             $submittedformdata['form_name'] = Crypt::decryptString($items->form_name);
             $submittedformdata['form_fields'] = json_decode(Crypt::decryptString($items->form_fields));
             $submittedformdata['merchant_name'] = Crypt::decryptString($items->merchant_name);
+            $submittedformdata['client_id'] = $items->client_id;
             $submittedformdata['client_name'] = $items->name;
             $submittedformdata['email'] = $items->email;
             $submittedformdata['client_submitted_details'] = json_decode(Crypt::decryptString($items->client_details));
@@ -426,9 +428,9 @@ class FrontDeskController extends Controller
 
             return $submittedformdata;
          });
-
+         $objects = new Paginator($processedforms, 15);
          $response = [
-            'processed_forms' => $processedforms
+            'processed_forms' => $objects
         ];
         return response()->json($response, 200);
     }
@@ -443,15 +445,10 @@ class FrontDeskController extends Controller
      * @return void\Illuminate\Http\Response all details of submitted form
      * 
      */
-    protected function getNumAllFormsProcessedByFrontDeskPerson(Request $request, $id)
+    public function getNumAllFormsProcessedByFrontDeskPerson(Request $request, $id)
     {
         
         $getprocessedforms = DB::table('submitted_forms')
-        ->join('users', 'users.id', '=', 'client_id')
-        ->join('forms', 'forms.form_code', '=', 'form_id')
-        ->join('merchants', 'merchants.id', '=', 'forms.merchant_id')
-        ->select('submitted_forms.*','merchants.merchant_name AS merchant_name',
-        'users.name', 'users.email', 'forms.name AS form_name', 'forms.form_fields')
         ->where('submitted_forms.processed_by', $id)
         ->count();
 

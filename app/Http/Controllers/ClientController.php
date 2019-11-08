@@ -7,6 +7,8 @@ use Illuminate\Support\Carbon;
 use DB;
 use Illuminate\Support\Facades\Crypt;
 
+use Illuminate\Pagination\Paginator;
+
 class ClientController extends Controller
 {
     
@@ -16,10 +18,10 @@ class ClientController extends Controller
      * @param  mixed $request
      * @return void\Illuminate\Http\Response all details of all clients
      */
-    protected function getAllClients(Request $request){
+    public function getAllClients(Request $request){
 
         //get all registered companies 
-        $getclients = DB::table('client')->simplePaginate(15);
+        $getclients = DB::table('client')->get();
       
         //clean data
         $clientsdata = [];
@@ -32,9 +34,9 @@ class ClientController extends Controller
     
             return $clientsdata;
          });
-
+         $objects = new Paginator($clients, 15);
          $response = [
-            'clients' => $clients
+            'clients' => $objects
         ];
         return response()->json($response, 200);
 
@@ -48,7 +50,7 @@ class ClientController extends Controller
      * @param  mixed $id of the client
      * @return void\Illuminate\Http\Response all details of the client
      */
-    protected function getClientsDetails(Request $request, $id){
+    public function getClientsDetails(Request $request, $id){
 
         //get all registered companies 
         $getclient = DB::table('client')
@@ -82,7 +84,7 @@ class ClientController extends Controller
      * @param  \Illuminate\Http\Request  $id of teh client to be editted
      * @return void\Illuminate\Http\Response success or error message
      */
-    protected function editClientProfile(Request $request, $id)
+    public function editClientProfile(Request $request, $id)
     {
 
          //put all queries involved in creating a new user in transaction
@@ -169,7 +171,7 @@ class ClientController extends Controller
      * @param $code form code that is being filled 
      * @return void\Illuminate\Http\Response submission code
      */
-    protected function submitForm(Request $request, $id, $code)
+    public function submitForm(Request $request, $id, $code)
     {
          $message = 'Ok';
 
@@ -179,7 +181,7 @@ class ClientController extends Controller
          $encrypteddata = Crypt::encryptString($encodeddata);
 
          $submitted_at = now();
-         $status = 'submitted';
+         $status = 0;
          $submission_code = str_random(9);
      
          //save new client in the database
@@ -222,7 +224,7 @@ class ClientController extends Controller
      * @return void\Illuminate\Http\Response all details of form
      * 
      */
-    protected function getAllsubmittedForms(Request $request, $id)
+    public function getAllsubmittedForms(Request $request, $id)
     {
         
         $getforms = DB::table('submitted_forms')
@@ -232,7 +234,7 @@ class ClientController extends Controller
         ->select('submitted_forms.*','merchants.merchant_name AS merchant_name',
         'users.name', 'users.email', 'forms.name AS form_name', 'forms.form_fields')
         ->where('submitted_forms.client_id', $id)
-        ->simplePaginate(15);
+        ->get();
       
         //clean data
         $submittedformdata = [];
@@ -253,14 +255,14 @@ class ClientController extends Controller
 
             return $submittedformdata;
          });
-
+         $objects = new Paginator($forms, 15);
          $response = [
-            'forms' => $forms
+            'forms' => $objects
         ];
         return response()->json($response, 200);
     }
 
-/**
+    /**
      * getNumAllsubmittedForms number of forms submitted by a client of any status: 
      * submitted, in_process,or processed
      *
@@ -269,15 +271,10 @@ class ClientController extends Controller
      * @return void\Illuminate\Http\Response number of forms
      * 
      */
-    protected function getNumAllsubmittedForms(Request $request, $id)
+    public function getNumAllsubmittedForms(Request $request, $id)
     {
         
         $getnumforms = DB::table('submitted_forms')
-        ->join('users', 'users.id', '=', 'client_id')
-        ->join('forms', 'forms.form_code', '=', 'form_id')
-        ->join('merchants', 'merchants.id', '=', 'forms.merchant_id')
-        ->select('submitted_forms.*','merchants.merchant_name AS merchant_name',
-        'users.name', 'users.email', 'forms.name AS form_name', 'forms.form_fields')
         ->where('submitted_forms.client_id', $id)
         ->count();
     
@@ -298,7 +295,7 @@ class ClientController extends Controller
      * @return void\Illuminate\Http\Response all details of form
      * 
      */
-    protected function getClientFormsByStatus(Request $request, $id, $status)
+    public function getClientFormsByStatus(Request $request, $id, $status)
     {
         
         $getforms = DB::table('submitted_forms')
@@ -309,7 +306,7 @@ class ClientController extends Controller
         'users.name', 'users.email', 'forms.name AS form_name', 'forms.form_fields')
         ->where('submitted_forms.client_id', $id)
         ->where('submitted_forms.status', $status)
-        ->simplePaginate(15);
+        ->get();
       
         //clean data
         $submittedformdata = [];
@@ -330,9 +327,9 @@ class ClientController extends Controller
 
             return $submittedformdata;
          });
-
+         $objects = new Paginator($forms, 15);
          $response = [
-            'forms' => $forms
+            'forms' => $objects
         ];
         return response()->json($response, 200);
     }
@@ -347,15 +344,10 @@ class ClientController extends Controller
      * @return void\Illuminate\Http\Response all details of form
      * 
      */
-    protected function getNumClientFormsByStatus(Request $request, $id, $status)
+    public function getNumClientFormsByStatus(Request $request, $id, $status)
     {
         
         $getnumforms = DB::table('submitted_forms')
-        ->join('users', 'users.id', '=', 'client_id')
-        ->join('forms', 'forms.form_code', '=', 'form_id')
-        ->join('merchants', 'merchants.id', '=', 'forms.merchant_id')
-        ->select('submitted_forms.*','merchants.merchant_name AS merchant_name',
-        'users.name', 'users.email', 'forms.name AS form_name', 'forms.form_fields')
         ->where('submitted_forms.client_id', $id)
         ->where('submitted_forms.status', $status)
         ->count();
