@@ -1,0 +1,96 @@
+.top-level {
+    width: 30%;
+    display: block;
+    margin: 0 auto;
+    padding-top: 18px;
+    text-align: center;
+}
+
+.top-level .navigation {
+    text-align: center;
+    margin-top: 12px;
+}
+
+section.section-one {
+    margin-bottom: 10px;
+}
+
+section.section-one .jumbotron {
+    background: white;
+}
+
+section.section-one .jumbotron h1 {
+    font-size: 80px;
+    font-weight: 100;
+    margin: 10px;
+}
+
+section.section-two {
+    margin: 20px 0px;
+    padding: 80px 0px;
+    background: #fafafa;
+}
+
+section.section-three {
+    padding: 80px 0px;
+}
+
+section.section-three .jumbotron {
+    background: white;
+}
+
+section.section-four {
+    padding: 110px 0px;
+    background-color: #3F51B5;
+}
+
+section.section-five {
+    color: #fff;
+    padding: 110px 0px;
+    background-color: #4d83ff;
+}
+
+section.section-six {
+    padding: 60px 0px;
+}
+
+section.section-four .jumbotron {
+    text-align: center;
+    background: white;
+}
+
+section.section-five .col-md-6 p.lead,
+section.section-six .col-md-6 p.lead {
+    line-height: 30px;
+}
+
+section.section-five .col-md-6,
+section.section-six .col-md-6 {
+    text-align: center;
+}
+
+section.section-four .row:nth-child(2),
+section.section-four .row:nth-child(2) {
+    padding: 120px 0px;
+}
+
+section.section-seven {
+    margin: 20px 0px;
+    padding: 80px 0px;
+}
+
+footer.footer {
+    color: #fff;
+    background: #555;
+    padding: 35px 0px;
+    text-align: center;
+}
+
+.card-highlight {
+    color: #fff;
+    background-color: #4d83ff;
+}
+
+.card-highlight .card-title {
+    color: #fff;
+}

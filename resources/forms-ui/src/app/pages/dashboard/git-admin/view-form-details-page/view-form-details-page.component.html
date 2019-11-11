@@ -1,0 +1,51 @@
+<div class="container-scroller">
+  <app-navigation-bar></app-navigation-bar>
+  <div class="container-fluid page-body-wrapper">
+    <app-side-bar></app-side-bar>
+    <div class="main-panel">
+      <div class="content-wrapper">
+
+        <div class="row">
+          <div class="col-md-12 grid-margin">
+            <div class="d-flex justify-content-between flex-wrap">
+              <div class="d-flex align-items-end flex-wrap">
+                <div class="mr-md-3 mr-xl-5">
+                  <h2>{{ form.name }}</h2>
+                  <p class="mb-md-0">Preview a form.</p>
+                </div>
+                <div class="d-flex">
+                  <i class="mdi mdi-home text-muted hover-cursor"></i>
+                  <p class="text-muted mb-0 hover-cursor">&nbsp;/&nbsp;Home&nbsp;/&nbsp;</p>
+                  <p class="text-primary mb-0 hover-cursor">Analytics</p>
+                </div>
+              </div>
+              <div class="d-flex justify-content-between align-items-end flex-wrap">
+                <button type="button" class="btn btn-light bg-white btn-icon mr-3 d-none d-md-block" (click)="download()">
+                  <i class="mdi mdi-download text-muted"></i>
+                </button>
+                <button type="button" class="btn btn-light bg-white btn-icon mr-3 mt-2 mt-xl-0" (click)="edit()">
+                  <i class="mdi mdi-pencil-outline text-muted"></i>
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-md-8 offset-md-2 grid-margin stretch-card">
+            <div class="card" style="height: 750px; overflow: scroll;">
+              <div class="card-body">
+                <p class="card-title">Preview Form</p>
+                <p class="text-muted"></p>
+
+                <div class="form-builder-container">
+                  <div id="fb-editor"></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

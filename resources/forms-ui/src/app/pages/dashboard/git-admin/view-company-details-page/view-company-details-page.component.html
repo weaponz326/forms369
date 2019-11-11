@@ -1,0 +1,140 @@
+<div class="container-scroller">
+  <app-navigation-bar></app-navigation-bar>
+  <div class="container-fluid page-body-wrapper">
+    <app-side-bar></app-side-bar>
+    <div class="main-panel">
+      <div class="content-wrapper">
+        <div class="row">
+          <div class="col-md-12 grid-margin">
+            <div class="d-flex justify-content-between flex-wrap">
+              <div class="d-flex align-items-end flex-wrap">
+                <div class="mr-md-3 mr-xl-5">
+                  <h2>Company Details</h2>
+                  <p class="mb-md-0">Your administrative dashboard.</p>
+                </div>
+                <div class="d-flex">
+                  <i class="mdi mdi-home text-muted hover-cursor"></i>
+                  <p class="text-muted mb-0 hover-cursor">&nbsp;/&nbsp;Home&nbsp;/&nbsp;</p>
+                  <p class="text-primary mb-0 hover-cursor">View Admins</p>
+                </div>
+              </div>
+              <div class="d-flex justify-content-between align-items-end flex-wrap">
+                <!-- <button type="button" class="btn btn-light bg-white btn-icon mr-3 d-none d-md-block ">
+                  <i class="mdi mdi-download text-muted"></i>
+                </button>
+                <button type="button" class="btn btn-light bg-white btn-icon mr-3 mt-2 mt-xl-0">
+                  <i class="mdi mdi-clock-outline text-muted"></i>
+                </button> -->
+                <!-- <button type="button" class="btn btn-light bg-white btn-icon mr-3 mt-2 mt-xl-0">
+                  <i class="mdi mdi-plus text-muted"></i>
+                </button> -->
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div *ngIf="!loading" class="row">
+          <div class="col-lg-12 grid-margin stretch-card">
+            <div class="card">
+              <div class="card-body">
+                <h4 class="card-title">View Company Details</h4>
+                <p class="card-description">
+                  View all the details of an account.
+                </p>
+                <div class="card-text">
+                  <div class="container">
+                    <div class="row">
+                      <div class="col-12 col-md-6 offset-md-2">
+                        <h1 class="display-3 mb-sm-2">{{ company.merchant_name }}</h1>
+                      </div>
+                      <div class="col-12 col-md-4">
+                        <button *ngIf="!_loading" class="btn btn-outline-secondary mr-2"
+                          [ngClass]="{'active': isActive}" (click)="toggleStatus()">Active</button>
+                        <button *ngIf="_loading" class="btn btn-primary" type="button" disabled>
+                          <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+                          Loading...
+                        </button>
+                        <button class="btn btn-outline-secondary btn-icon-text" (click)="edit(company.id)">
+                          <i class="mdi mdi-pencil-outline"></i>
+                          Edit
+                        </button>
+                      </div>
+                    </div>
+                    <div class="row account-details ml-md-5 mt-5">
+                      <div class="col-6 col-md-3 offset-md-1">
+                        <h5>Company Name :</h5>
+                      </div>
+                      <div class="col-6 col-md-7">
+                        <h5>{{ company.merchant_name }}</h5>
+                      </div>
+                      <div class="col-3 col-md-3 offset-1 offset-md-1">
+                        <h5>Country :</h5>
+                      </div>
+                      <div class="col-7 col-md-7">
+                        <h5>{{ company.country }}</h5>
+                      </div>
+                      <div class="col-3 col-md-3 offset-1 offset-md-1">
+                        <h5>Super Executive :</h5>
+                      </div>
+                      <div class="col-7 col-md-7">
+                        <h5>{{ company.super_executive_name }}</h5>
+                      </div>
+                      <div class="col-3 col-md-3 offset-1 offset-md-1">
+                        <h5>Company Admin :</h5>
+                      </div>
+                      <div class="col-7 col-md-7">
+                        <h5>{{ company.company_admin_name }}</h5>
+                      </div>
+                      <div class="col-3 col-md-3 offset-1 offset-md-1">
+                        <h5>Created At :</h5>
+                      </div>
+                      <div class="col-7 col-md-7">
+                        <h5>{{ company.created_at | date }}</h5>
+                      </div>
+                      <div class="col-3 col-md-3 offset-1 offset-md-1">
+                        <h5>Updated At :</h5>
+                      </div>
+                      <div class="col-7 col-md-7">
+                        <h5>{{ company.updated_at | date }}</h5>
+                      </div>
+                      <div class="col-3 col-md-3 offset-1 offset-md-1">
+                        <h5>Branch Name :</h5>
+                      </div>
+                      <div class="col-7 col-md-7">
+                        <h5>{{ company.branch_name }}</h5>
+                      </div>
+                      <!-- <div class="col-3 col-md-3 offset-1 offset-md-1">
+                        <h5>company Type :</h5>
+                      </div>
+                      <div class="col-7 col-md-7">
+                        <h5>{{ accountType }}</h5>
+                      </div> -->
+                      <div class="col-3 col-md-3 offset-1 offset-md-1">
+                        <h5>Last Login :</h5>
+                      </div>
+                      <div class="col-7 col-md-7">
+                        <h5>{{ company.last_login_at | date }}</h5>
+                      </div>
+                      <div class="col-3 col-md-3 offset-1 offset-md-1">
+                        <h5>Account Created On :</h5>
+                      </div>
+                      <div class="col-7 col-md-7">
+                        <h5>{{ company.created_at | date }}</h5>
+                      </div>
+                      <div class="col-3 col-md-3 offset-1 offset-md-1">
+                        <h5>Last Updated On :</h5>
+                      </div>
+                      <div class="col-7 col-md-7">
+                        <h5>{{ company.updated_at | date }}</h5>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

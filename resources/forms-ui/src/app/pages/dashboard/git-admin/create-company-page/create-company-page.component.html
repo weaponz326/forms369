@@ -1,0 +1,177 @@
+<div class="container-scroller">
+  <app-navigation-bar></app-navigation-bar>
+  <div class="container-fluid page-body-wrapper">
+    <app-side-bar></app-side-bar>
+    <div class="main-panel">
+      <div class="content-wrapper">
+        <div class="row">
+          <div class="col-md-12 grid-margin">
+            <div class="d-flex justify-content-between flex-wrap">
+              <div class="d-flex align-items-end flex-wrap">
+                <div class="mr-md-3 mr-xl-5">
+                  <h2>Setup Company</h2>
+                  <p class="mb-md-0">Your analytics dashboard template.</p>
+                </div>
+                <div class="d-flex">
+                  <i class="mdi mdi-home text-muted hover-cursor"></i>
+                  <p class="text-muted mb-0 hover-cursor">&nbsp;/&nbsp;Home&nbsp;/&nbsp;</p>
+                  <p class="text-primary mb-0 hover-cursor">Company</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div *ngIf="_loading" class="row">
+          <div class="col-md-12">
+            <div class="d-flex justify-content-center pb-5 pt-5">
+              <div class="spinner-border mt-5" style="width: 6rem; height: 6rem;" role="status">
+                <span class="sr-only">Loading...</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div *ngIf="!created && !_loading" class="row">
+          <div class="col-md-8 col-sm-12 offset-md-2 grid-margin stretch-card">
+            <div class="card">
+              <div class="card-body">
+                <p class="card-title">Create New Company</p>
+                <p class="text-muted">Quickly setup a new company</p>
+                <div class="card-text">
+                  <form [formGroup]="form" (ngSubmit)="create()" class="forms-sample">
+                    <div class="row">
+                      <div class="col-md-12 col-sm-12 text-center">
+                        <img #selectedLogo [src]="logoImage" alt="" class="img-circle">
+                        <br>
+                        <i *ngIf="!hasLogo" class="mdi mdi-account-supervisor-circle"
+                          style="font-size: 15em; color: #666;"></i>
+                        <br>
+                        <input #logoFile type="file" formControlName="logo" (change)="inputFileChanged($event)"
+                          style="overflow: hidden; height: 0px; width: 0px;">
+                        <div *ngIf="submitted && f.logo.errors">
+                          <p class="input-error" *ngIf="f.logo.errors.required">Logo is required</p>
+                        </div>
+                        <button type="button" class="btn btn-primary btn-icon-text mb-3" (click)="showFilePicker()">
+                          <i class="mdi mdi-camera-outline"></i>
+                          Select Logo
+                        </button>
+                      </div>
+                      <div class="col-md-12">
+                        <div class="form-group">
+                          <input type="text" class="form-control form-control-lg" formControlName="superExecutive"
+                            placeholder="Search Super Executive" [matAutocomplete]="e_auto">
+                            <mat-autocomplete #e_auto="matAutocomplete">
+                              <mat-option *ngFor="let item of filteredExecutivesList | async" [value]="item">
+                                {{ item }}
+                              </mat-option>
+                            </mat-autocomplete>
+                          <div *ngIf="submitted && f.name.errors">
+                            <p class="input-error" *ngIf="f.name.errors.required">Super Executive is required</p>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="col-md-12">
+                        <div class="form-group">
+                          <input type="text" class="form-control form-control-lg" formControlName="companyAdmin"
+                            placeholder="Search Company Admin" [matAutocomplete]="a_auto">
+                            <mat-autocomplete #a_auto="matAutocomplete">
+                              <mat-option *ngFor="let item of filteredAdminsList | async" [value]="item">
+                                {{ item }}
+                              </mat-option>
+                            </mat-autocomplete>
+                          <div *ngIf="submitted && f.name.errors">
+                            <p class="input-error" *ngIf="f.name.errors.required">Company Admin is required</p>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="col-md-12">
+                        <div class="form-group">
+                          <input type="text" class="form-control form-control-lg" formControlName="name"
+                            placeholder="Enter Company Name">
+                          <div *ngIf="submitted && f.name.errors">
+                            <p class="input-error" *ngIf="f.name.errors.required">Company name is required</p>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="row">
+                      <div class="col-md-6">
+                        <div class="form-group">
+                          <select class="form-control form-control-lg" formControlName="country"
+                            (change)="onCountrySelect($event)">
+                            <option value="" disabled>Select Country</option>
+                            <option *ngFor="let country of countriesList | orderBy: 'country.name.common'"
+                              [value]="country.name.common">
+                              {{ country.name.common }}
+                            </option>
+                          </select>
+                          <div *ngIf="submitted && f.country.errors">
+                            <p class="input-error" *ngIf="f.country.errors.required">Country is required</p>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="col-md-6">
+                        <div class="form-group">
+                          <input #smallLogo type="file" (change)="inputFileChanged_1($event)" name="smallLogoFile"
+                            class="file-upload-default">
+                          <div class="input-group col-xs-12">
+                            <input type="text" formControlName="smallLogoName"
+                              class="form-control form-control-lg file-upload-info" readonly
+                              placeholder="Upload Small Logo">
+                            <span class="input-group-append">
+                              <button class="file-upload-browse btn btn-primary" type="button"
+                                (click)="showFilePicker_1()">Choose Logo</button>
+                            </span>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="col-md-12 text-center">
+                        <div class="form-group">
+                          <button *ngIf="loading" class="btn btn-primary btn-lg mr-2" type="button" disabled>
+                            <span class="spinner-border spinner-border-sm" role="status"
+                              aria-hidden="true"></span>&nbsp; &nbsp;
+                            Please wait...
+                          </button>
+                          <button *ngIf="!loading" type="submit" class="btn btn-primary btn-lg mr-2">SUBMIT</button>
+                          <button class="btn btn-light btn-lg">CANCEL</button>
+                        </div>
+                      </div>
+                    </div>
+                  </form>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="row" *ngIf="created">
+          <div class="col-md-12 grid-margin">
+            <div class="card pt-5 pb-5 text-center">
+              <div class="card-body">
+                <p class="card-title">Success</p>
+                <p class="text-muted"></p>
+                <div class="card-text">
+                  <i class="mdi mdi-shield-check-outline text-primary" style="font-size: 12em;"></i>
+                  <h2>1 Company Created</h2>
+                  <p class="text-muted">You have succesfully created a company</p>
+                </div>
+                <div class="card-text mt-4">
+                  <button type="button" class="btn btn-primary btn-lg btn-icon-text mr-2" (click)="bringBackForm()">
+                    <i class="mdi mdi-plus"></i>
+                    Create New
+                  </button>
+                  <button type="button" class="btn btn-dark btn-lg mr-2" (click)="goHome()">
+                    <i class="mdi mdi-check"></i>
+                    Ok
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <app-footer-bar></app-footer-bar>
+    </div>
+  </div>
+</div>

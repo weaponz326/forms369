@@ -1,0 +1,146 @@
+<div class="container-scroller">
+  <app-navigation-bar></app-navigation-bar>
+  <div class="container-fluid page-body-wrapper">
+    <app-side-bar></app-side-bar>
+    <div class="main-panel">
+      <div class="content-wrapper">
+        <div class="row">
+          <div class="col-md-12 grid-margin">
+            <div class="d-flex justify-content-between flex-wrap">
+              <div class="d-flex align-items-end flex-wrap">
+                <div class="mr-md-3 mr-xl-5">
+                  <h2>Edit Branch</h2>
+                  <p class="mb-md-0">Your analytics dashboard template.</p>
+                </div>
+                <div class="d-flex">
+                  <i class="mdi mdi-home text-muted hover-cursor"></i>
+                  <p class="text-muted mb-0 hover-cursor">&nbsp;/&nbsp;Home&nbsp;/&nbsp;</p>
+                  <p class="text-primary mb-0 hover-cursor">Branch</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div *ngIf="_loading" class="row">
+          <div class="col-md-12">
+            <div class="d-flex justify-content-center pb-5 pt-5">
+              <div class="spinner-border mt-5" style="width: 6rem; height: 6rem;" role="status">
+                <span class="sr-only">Loading...</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div *ngIf="!created && !_loading" class="row">
+          <div class="col-md-8 offset-md-2 grid-margin stretch-card">
+            <div class="card">
+              <div class="card-body">
+                <p class="card-title">Edit Branch</p>
+                <p class="text-muted">Quickly update a branch</p>
+                <div class="card-text">
+                  <form [formGroup]="form" (ngSubmit)="edit()" class="forms-sample">
+                    <div class="row">
+                      <div class="col-md-12">
+                        <div class="form-group">
+                          <input type="text" class="form-control form-control-lg" formControlName="branchSupervisor"
+                            placeholder="Search Branch Super Executive" [matAutocomplete]="_auto">
+                          <mat-autocomplete #_auto="matAutocomplete">
+                            <mat-option *ngFor="let item of filteredBranchExecutives | async" [value]="item">
+                              {{ item }}
+                            </mat-option>
+                          </mat-autocomplete>
+                          <div *ngIf="submitted && f.branchSupervisor.errors">
+                            <p class="input-error" *ngIf="f.branchSupervisor.errors.required">Branch Super Executive is
+                              required</p>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="col-md-12">
+                        <div class="form-group">
+                          <input type="text" class="form-control form-control-lg" formControlName="branchAdmin"
+                            placeholder="Search Branch Admin" [matAutocomplete]="auto">
+                          <mat-autocomplete #auto="matAutocomplete">
+                            <mat-option *ngFor="let item of filteredBranchAdmins | async" [value]="item">
+                              {{ item }}
+                            </mat-option>
+                          </mat-autocomplete>
+                          <div *ngIf="submitted && f.branchAdmin.errors">
+                            <p class="input-error" *ngIf="f.branchAdmin.errors.required">Branch Admin is required</p>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="row">
+                      <div class="col-md-6">
+                        <div class="form-group">
+                          <input type="text" class="form-control form-control-lg" formControlName="merchant"
+                            placeholder="Company Name" [matAutocomplete]="m_auto">
+                          <mat-autocomplete #m_auto="matAutocomplete">
+                            <mat-option *ngFor="let item of filteredMerchants | async" [value]="item">
+                              {{ item }}
+                            </mat-option>
+                          </mat-autocomplete>
+                          <div *ngIf="submitted && f.merchant.errors">
+                            <p class="input-error" *ngIf="f.merchant.errors.required">Company is required</p>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="col-md-6">
+                        <div class="form-group">
+                          <input type="text" formControlName="branchName" class="form-control form-control-lg"
+                            placeholder="Enter Branch Name">
+                          <div *ngIf="submitted && f.branchName.errors">
+                            <p class="input-error" *ngIf="f.branchName.errors.required">Branch name is required</p>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+
+                    <div class="row">
+                      <div class="col-md-8 offset-md-4">
+                        <button *ngIf="loading" class="btn btn-primary btn-lg mr-2" type="button" disabled>
+                          <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>&nbsp; &nbsp;
+                          Please wait...
+                        </button>
+                        <button *ngIf="!loading" type="submit" class="btn btn-primary btn-lg mr-2">Submit</button>
+                        <button class="btn btn-light btn-lg">Cancel</button>
+                      </div>
+                    </div>
+                  </form>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="row" *ngIf="created">
+          <div class="col-md-12 grid-margin">
+            <div class="card text-center pt-5 pb-5">
+              <div class="card-body">
+                <p class="card-title">Success</p>
+                <p class="text-muted"></p>
+                <div class="card-text">
+                  <i class="mdi mdi-shield-check-outline text-primary" style="font-size: 12em;"></i>
+                  <h2>1 Branch Edited</h2>
+                  <p class="text-muted">Ypu has succesfully updated a company</p>
+                </div>
+                <div class="card-text mt-4 mb-5">
+                  <button type="button" class="btn btn-primary btn-lg btn-icon-text mr-2" (click)="view()">
+                    <i class="mdi mdi-pulse"></i>
+                    View
+                  </button>
+                  <button type="button" class="btn btn-dark btn-lg mr-2" (click)="goHome()">
+                    <i class="mdi mdi-check"></i>
+                    Ok
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <app-footer-bar></app-footer-bar>
+    </div>
+  </div>
+</div>

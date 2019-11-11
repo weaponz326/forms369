@@ -1,0 +1,149 @@
+<div class="container-scroller">
+  <app-navigation-bar></app-navigation-bar>
+  <div class="container-fluid page-body-wrapper">
+    <app-side-bar></app-side-bar>
+    <div class="main-panel">
+      <div class="content-wrapper">
+        <div class="row">
+          <div class="col-md-12 grid-margin">
+            <div class="d-flex justify-content-between flex-wrap">
+              <div class="d-flex align-items-end flex-wrap">
+                <div class="mr-md-3 mr-xl-5">
+                  <h2>All Companies</h2>
+                  <p class="mb-md-0">Your analytics dashboard template.</p>
+                </div>
+                <div class="d-flex">
+                  <i class="mdi mdi-home text-muted hover-cursor"></i>
+                  <p class="text-muted mb-0 hover-cursor">&nbsp;/&nbsp;Home&nbsp;/&nbsp;</p>
+                  <p class="text-primary mb-0 hover-cursor">view Companies</p>
+                </div>
+              </div>
+              <div class="d-flex justify-content-between align-items-end flex-wrap">
+                <!-- <button type="button" class="btn btn-light bg-white btn-icon mr-3 d-none d-md-block ">
+                  <i class="mdi mdi-download text-muted"></i>
+                </button> -->
+                <!-- <button type="button" class="btn btn-light bg-white btn-icon mr-3 mt-2 mt-xl-0">
+                  <i class="mdi mdi-clock-outline text-muted"></i>
+                </button> -->
+                <!-- <button type="button" class="btn btn-light bg-white btn-icon mr-3 mt-2 mt-xl-0">
+                  <i class="mdi mdi-plus text-muted"></i>
+                </button> -->
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div *ngIf="loading" class="row m-md-5">
+          <div class="col-md-12 col-sm-12 m-md-5">
+            <div class="d-flex justify-content-center">
+              <div class="spinner-border m-5" style="width: 5rem; height: 5rem;" role="status">
+                <span class="sr-only">Loading...</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div *ngIf="hasNoData" class="row">
+          <div class="col-lg-12 grid-margin stretch-card">
+            <div class="card text-center pt-5 pb-5">
+              <div class="card-body mt-5 mb-5">
+                <h4 class="card-title">No Data Found</h4>
+                <p class="card-description">
+                  No company branches found.
+                </p>
+                <div class="text-lg-center mt-5 mb-5">
+                  <div class="card-text">
+                    <i class="mdi mdi-file-question" style="font-size: 8em;"></i>
+                  </div>
+                  <div class="card-text">
+                    <h3>No Available Branches</h3>
+                    <p class="text-muted">This company doesn't have any branches yet!</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div *ngIf="hasError" class="row">
+          <div class="col-lg-12 grid-margin stretch-card">
+            <div class="card text-center pt-5 pb-5">
+              <div class="card-body mt-5 mb-5">
+                <h4 class="card-title">Error Ocuured</h4>
+                <p class="card-description">
+                  Ooops! Something went wrong!
+                </p>
+                <div class="text-lg-center mt-5 mb-5">
+                  <div class="card-text">
+                    <i class="mdi mdi-close-network-outline" style="font-size: 8em;"></i>
+                  </div>
+                  <div class="card-text">
+                    <h3>We couldn't get your branches</h3>
+                    <p class="text-muted">An error has occured on our servers or you might not have internet connection
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div *ngIf="!loading" class="row">
+          <div class="col-lg-12 grid-margin stretch-card">
+            <div class="card">
+              <div class="card-body">
+                <h4 class="card-title">List Of Companies</h4>
+                <p class="card-description">
+                  List of all created companies, both active and inactive
+                </p>
+                <div class="text-lg-center mt-3 mb-5">
+                  <div class="btn-group" role="group" aria-label="Sort By">
+                    <button type="button" class="btn btn-outline-secondary" [ngClass]="{'active': filterState == 'all'}" (click)="showAll()">All</button>
+                    <button type="button" class="btn btn-outline-secondary" [ngClass]="{'active': filterState == 'active'}" (click)="showActive()">Active</button>
+                    <button type="button" class="btn btn-outline-secondary" [ngClass]="{'active': filterState == 'inactive'}" (click)="showInActive()">In Active</button>
+                  </div>
+                </div>
+
+                <div class="row">
+                  <div class="col-md-4 grid-margin stretch-card" *ngFor="let company of companyList">
+                    <div class="card hover-cursor animated fadeInDown fast" (click)="openBranch(company)">
+                      <div class="card-body">
+                        <p class="card-title">{{ company.merchant_name }}</p>
+                        <div class="card-text">
+                          <img [src]="company.logo" class="img-fluid card-logo mb-3" alt="logo">
+                          <br>
+                          <div class="btn-group" role="group" aria-label="Basic example">
+                            <button type="button" class="btn btn-outline-secondary" (click)="edit(company)">
+                              <i class="mdi mdi-pencil-outline"></i>
+                              Edit
+                            </button>
+                            <button type="button" class="btn btn-outline-secondary" (click)="view(company)">
+                              <i class="mdi mdi-pulse"></i>
+                              View
+                            </button>
+                            <button type="button" class="btn btn-outline-secondary" (click)="delete(company.id)">
+                              <i class="mdi mdi-delete-outline"></i>
+                              Delete
+                            </button>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <div *ngIf="hasMore" class="row">
+                  <div class="col-md-4 col-sm-6 offset-sm-3 offset-lg-4">
+                    <div class="text-center">
+                      <button type="button" class="btn btn-secondary btn-rounded btn-fw">Load More</button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

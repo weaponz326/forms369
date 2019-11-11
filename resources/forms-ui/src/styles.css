@@ -1,0 +1,142 @@
+/* You can add global styles to this file, and also import other style files */
+@import url('assets/vendors/mdi/css/materialdesignicons.min.css');
+@import url('assets/vendors/base/vendor.bundle.base.css');
+@import url('assets/vendors/datatables.net-bs4/dataTables.bootstrap4.css');
+@import url('assets/css/style.css');
+
+body {
+    color: #555;
+}
+
+.btn {
+    line-height: 20px;
+    font-weight: 700;
+    text-transform: uppercase;
+}
+
+.main-panel {
+    margin-left: 257px;
+}
+
+.sidebar-icon-only .main-panel {
+    width: calc(100% - 70px);
+    margin-left: 70px;
+}
+
+@media (max-width: 991px) {
+    .main-panel {
+        margin-left: 0;
+        width: 100%;
+    }
+}
+
+@media (max-width: 767px) {
+    .content-wrapper {
+        padding: 1rem 0.5rem;
+    }
+
+    .code {
+        width: 90% !important;
+    }
+
+    .top-level {
+        width: 70% !important;
+    }
+}
+
+.form-wrap.form-builder .cb-wrap {
+    width: 25%;;
+}
+
+.form-list .card {
+    cursor: pointer;
+}
+
+.form-control, select.form-control {
+    border: 1px solid #acacac;
+}
+
+input.form-control::placeholder,
+select.form-control {
+    color: #a5a4a4 !important;
+}
+
+.form-control {
+    color: #333;
+}
+
+select.form-control {
+    padding-left: 22px;
+}
+
+.main-panel > .content-wrapper > .row > .col-md-12 {
+    padding: 0px 30px;
+}
+
+.hover-primary {
+    transition: background-color 0.4s ease-in;
+}
+
+.hover-primary-inverse {
+    transition: background-color 0.4s ease-out !important;
+}
+
+.hover-primary-inverse:hover {
+    background-color: #fff !important;
+    color: #4d83ff !important;
+    animation: pulse 10s !important;
+}
+
+.hover-primary:hover {
+    background-color: #4d83ff;
+    color: #fff;
+    animation: pulse 10s;
+}
+
+.hover-primary-inverse:hover p,
+.hover-primary-inverse p.text-muted {
+    color: #555 !important;
+}
+
+.hover-primary:hover p,
+.hover-primary:hover p.text-muted {
+    color: #fff !important;
+}
+
+.hover-primary:hover .btn-light {
+    color: #4d83ff;
+}
+
+.code {
+    padding: 12px;
+    width: 30%;
+    background-color: #f3f3f3;
+    display: block;
+    margin: 0 auto;
+    font-weight: bold;
+    font-size: 30px;
+}
+
+.img-circle {
+    height: 250px;
+    width: 250px;
+    border-radius: 50%;
+    border: 1px solid #ccc;
+}
+
+.nav-tabs .nav-item .nav-link.active {
+    border: 0;
+    border-bottom: 3px solid #578afe;
+}
+
+.input-error {
+    font-size: 13px;
+    color: #F44336;
+    padding-top: 5px;
+}
+
+.input-control-error {
+    border-color: #F44336 !important;
+}
+html, body { height: 100%; }
+body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }

@@ -1,0 +1,149 @@
+<div class="container-scroller">
+  <app-navigation-bar></app-navigation-bar>
+  <div class="container-fluid page-body-wrapper">
+    <app-side-bar></app-side-bar>
+    <div class="main-panel">
+      <div class="content-wrapper">
+        <div class="row">
+          <div class="col-md-12 grid-margin">
+            <div class="d-flex justify-content-between flex-wrap">
+              <div class="d-flex align-items-end flex-wrap">
+                <div class="mr-md-3 mr-xl-5">
+                  <h2>Welcome back, {{ firstName }}</h2>
+                  <p class="mb-md-0">Your administrative dashboard.</p>
+                </div>
+                <div class="d-flex">
+                  <i class="mdi mdi-home text-muted hover-cursor"></i>
+                  <p class="text-muted mb-0 hover-cursor">&nbsp;/&nbsp;Home&nbsp;/&nbsp;</p>
+                  <p class="text-primary mb-0 hover-cursor">Analytics</p>
+                </div>
+              </div>
+              <div class="d-flex justify-content-between align-items-end flex-wrap">
+                <!-- <button type="button" class="btn btn-light bg-white btn-icon mr-3 d-none d-md-block ">
+                  <i class="mdi mdi-download text-muted"></i>
+                </button>
+                <button type="button" class="btn btn-light bg-white btn-icon mr-3 mt-2 mt-xl-0">
+                  <i class="mdi mdi-clock-outline text-muted"></i>
+                </button>
+                <button type="button" class="btn btn-light bg-white btn-icon mr-3 mt-2 mt-xl-0">
+                  <i class="mdi mdi-plus text-muted"></i>
+                </button> -->
+                <a routerLink="/git_admin/setup_form" role="button" class="btn btn-outline-behance mt-2 mt-xl-0">Setup A New Form</a>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div *ngIf="loading" class="row">
+          <div class="col-md-12">
+            <div class="d-flex justify-content-center pb-5 pt-5">
+              <div class="spinner-border mt-5" style="width: 6rem; height: 6rem;" role="status">
+                <span class="sr-only">Loading...</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div *ngIf="!loading" class="row">
+          <div class="col-md-3 grid-margin stretch-card">
+            <div class="card hover-cursor hover-primary" (click)="openAll()">
+              <div class="card-body">
+                <p class="card-title">Total Companies</p>
+                <h1 class="display-2">{{ numTotalCompany }}</h1>
+                <div class="card-text">
+                  <i class="mdi mdi-account-group-outline" style="font-size: 3em;"></i>
+                </div>
+                <p class="text-muted">Total number of companyes created</p>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-md-3 grid-margin stretch-card">
+            <div class="card hover-cursor hover-primary" (click)="openActive()">
+              <div class="card-body">
+                <p class="card-title">Total Active Companies</p>
+                <h1 class="display-2">{{ numTotalActiveCompany }}</h1>
+                <div class="card-text">
+                  <i class="mdi mdi-speedometer" style="font-size: 3em;"></i>
+                </div>
+                <p class="text-muted">Total number of active companies</p>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-md-3 grid-margin stretch-card">
+            <div class="card hover-cursor hover-primary" (click)="openInactive()">
+              <div class="card-body">
+                <p class="card-title">Total No. Inactive Companies</p>
+                <h1 class="display-2">{{ numTotalInActiveCompany }}</h1>
+                <div class="card-text">
+                  <i class="mdi mdi-network-off-outline" style="font-size: 3em;"></i>
+                </div>
+                <p class="text-muted">Total number of companies that are not active</p>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-md-3 grid-margin stretch-card">
+            <div class="card hover-cursor hover-primary" (click)="openAll()">
+              <div class="card-body">
+                <p class="card-title">Total Branches</p>
+                <h1 class="display-2">{{ numTotalBranches }}</h1>
+                <div class="card-text">
+                  <i class="mdi mdi-account-group-outline" style="font-size: 3em;"></i>
+                </div>
+                <p class="text-muted">Total number of branches created</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div *ngIf="!loading" class="row">
+          <div class="col-md-3 grid-margin stretch-card">
+            <div class="card hover-cursor hover-primary" (click)="openActive()">
+              <div class="card-body">
+                <p class="card-title">Total Active Branches</p>
+                <h1 class="display-2">{{ numTotalActiveBranches }}</h1>
+                <div class="card-text">
+                  <i class="mdi mdi-speedometer" style="font-size: 3em;"></i>
+                </div>
+                <p class="text-muted">Total number of active branches</p>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-md-3 grid-margin stretch-card">
+            <div class="card hover-cursor hover-primary" (click)="openInactive()">
+              <div class="card-body">
+                <p class="card-title">Total Inactive Companies</p>
+                <h1 class="display-2">{{ numTotalInActiveBranches }}</h1>
+                <div class="card-text">
+                  <i class="mdi mdi-network-off-outline" style="font-size: 3em;"></i>
+                </div>
+                <p class="text-muted">Total number of branches that are not active</p>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-md-3 grid-margin stretch-card">
+            <div class="card hover-cursor hover-primary" (click)="openActive()">
+              <div class="card-body">
+                <p class="card-title">Available Forms</p>
+                <h1 class="display-2">{{ numTotalForms }}</h1>
+                <div class="card-text">
+                  <i class="mdi mdi-file-document-edit-outline" style="font-size: 3em;"></i>
+                </div>
+                <p class="text-muted">Total number of forms created</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- content -->
+      <!-- footer -->
+      <app-footer-bar></app-footer-bar>
+      <!-- footer -->
+    </div>
+    <!-- main-panel ends -->
+  </div>
+</div>

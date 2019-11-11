@@ -1,0 +1,11 @@
+.auth form .form-group {
+    margin-bottom: 1.2rem;
+}
+
+.auth .brand-logo img {
+    width: 60px;
+}
+
+p.lead {
+    line-height: 1.8rem;
+}

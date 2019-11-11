@@ -1,0 +1,110 @@
+<form [formGroup]="form" (ngSubmit)="register()" class="pt-3">
+  <div class="form-group">
+    <select class="form-control form-control-lg" formControlName="userType"
+      [ngClass]="{'input-control-error': submitted && f.userType.errors}" (change)="onUserSelect($event)">
+      <option value="" disabled>Choose User Type</option>
+      <option value="20">GIT Admin</option>
+      <option value="21">Super Executive</option>
+      <option value="22">Branch Super-Executive</option>
+      <option value="23">Company Admin</option>
+      <option value="24">Branch Admin</option>
+      <option value="25">Front Desktop</option>
+    </select>
+    <div *ngIf="submitted && f.userType.errors">
+      <p class="input-error" *ngIf="f.userType.errors.required">User type is required</p>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-6">
+      <div class="form-group">
+        <input type="text" class="form-control form-control-lg" formControlName="firstName" placeholder="First Name"
+          [ngClass]="{'input-control-error': submitted && f.firstName.errors}">
+        <div *ngIf="submitted && f.firstName.errors">
+          <p class="input-error" *ngIf="f.firstName.errors.required">First name is required</p>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-6">
+      <div class="form-group">
+        <input type="text" class="form-control form-control-lg" formControlName="lastName" placeholder="Last Name"
+          [ngClass]="{'input-control-error': submitted && f.lastName.errors}">
+        <div *ngIf="submitted && f.lastName.errors">
+          <p class="input-error" *ngIf="f.lastName.errors.required">Last name is required</p>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div *ngIf="isFrontDesk" class="row">
+    <div class="col-md-6">
+      <div class="form-group">
+        <input type="text" class="form-control form-control-lg" formControlName="merchant" placeholder="Company Name"
+          [matAutocomplete]="auto">
+        <mat-autocomplete #auto="matAutocomplete" (optionSelected)="companySelected($event.option.value)">
+          <mat-option *ngFor="let item of filteredMerchants | async" [value]="item">
+            {{ item }}
+          </mat-option>
+        </mat-autocomplete>
+        <div *ngIf="submitted && f.merchant.errors">
+          <p class="input-error" *ngIf="f.merchant.errors.required">Company is required</p>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-6">
+      <div class="form-group">
+        <input type="text" class="form-control form-control-lg" formControlName="branch" placeholder="Branch Name"
+          [matAutocomplete]="auto_1">
+        <mat-autocomplete #auto_1="matAutocomplete">
+          <mat-option *ngFor="let item of filteredBranches | async" [value]="item">
+            {{ item }}
+          </mat-option>
+        </mat-autocomplete>
+        <div *ngIf="submitted && f.merchant.errors">
+          <p class="input-error" *ngIf="f.merchant.errors.required">Branch is required</p>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="form-group">
+    <input type="text" class="form-control form-control-lg" formControlName="username" placeholder="Username"
+      [ngClass]="{'input-control-error': submitted && f.username.errors}">
+    <div *ngIf="submitted && f.username.errors">
+      <p class="input-error" *ngIf="f.username.errors.required">Username is required</p>
+    </div>
+  </div>
+  <div class="form-group">
+    <input type="email" class="form-control form-control-lg" formControlName="emailAddress" placeholder="Email Address"
+      [ngClass]="{'input-control-error': submitted && f.emailAddress.errors}">
+    <div *ngIf="submitted && f.emailAddress.errors">
+      <p class="input-error" *ngIf="f.emailAddress.errors.email">Must be a valid email address</p>
+      <p class="input-error" *ngIf="f.emailAddress.errors.required">Email address is required</p>
+    </div>
+  </div>
+  <div class="form-group">
+    <select class="form-control form-control-lg" formControlName="country"
+      [ngClass]="{'input-control-error': submitted && f.country.errors}" (change)="onCountrySelect($event)">
+      <option value="" disabled>Country</option>
+      <option *ngFor="let country of countriesList | orderBy: 'country.name.common'" [value]="country.name.common">
+        {{ country.name.common }}
+      </option>
+    </select>
+    <div *ngIf="submitted && f.country.errors">
+      <p class="input-error" *ngIf="f.country.errors.required">Country is required</p>
+    </div>
+  </div>
+  <div class="form-group">
+    <input type="password" class="form-control form-control-lg" formControlName="password" placeholder="Password"
+      autocomplete="new-password" [ngClass]="{'input-control-error': submitted && f.password.errors}">
+    <div *ngIf="submitted && f.password.errors">
+      <p class="input-error" *ngIf="f.password.errors.minlength">Password must be atleast 6 characters</p>
+      <p class="input-error" *ngIf="f.password.errors.required">Password is required</p>
+    </div>
+  </div>
+  <div class="mt-3">
+    <button type="submit" *ngIf="!loading" class="btn btn-primary btn-lg mr-2">SUBMIT</button>
+    <button *ngIf="loading" class="btn btn-primary btn-lg mr-2" type="button" disabled>
+      <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>&nbsp; &nbsp;
+      Please wait
+    </button>
+    <button class="btn btn-light btn-lg">CANCEL</button>
+  </div>
+</form>

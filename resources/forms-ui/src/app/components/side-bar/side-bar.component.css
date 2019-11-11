@@ -1,0 +1,16 @@
+.sidebar {
+    position: fixed;
+    overflow-x: hidden;
+}
+
+.sidebar .nav.sub-menu .nav-item::before {
+    content: none;
+}
+
+.sidebar .nav.sub-menu {
+    padding: 0.25rem 0 0.6rem 1.55rem;
+}
+
+.sidebar .nav .nav-item .nav-link i.menu-icon {
+    color: #777;
+}

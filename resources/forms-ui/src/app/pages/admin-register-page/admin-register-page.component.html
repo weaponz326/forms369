@@ -1,0 +1,131 @@
+<div class="container-scroller">
+  <div class="container-fluid page-body-wrapper full-page-wrapper">
+    <div class="content-wrapper d-flex align-items-center auth px-0">
+      <div class="row w-100 mx-0">
+        <div class="col-lg-4 mx-auto">
+          <div class="auth-form-light text-left py-5 px-4 px-sm-5">
+            <a href="/" class="brand-logo">
+              <img src="../assets/images/logo.png" alt="logo">
+            </a>
+            <div *ngIf="created" class="mt-2 mb-5">
+              <div class="alert alert-success" role="alert">
+                <h3 class="alert-heading">Welcome to GiT Forms!</h3>
+                <p class="lead">Hi {{ f.firstName.value }}, your account has been sucessfully created. An activation
+                  email has been sent to your email address.</p>
+                <hr>
+                <p class="mb-0 lead">Please check your email and click the activation link in the email. Thank You!</p>
+              </div>
+              <a role="button" href="/login"
+                class="btn btn-block btn-primary btn-lg font-weight-medium auth-form-btn">Log In</a>
+            </div>
+
+            <div *ngIf="emailInUse" class="mt-2 mb-5">
+              <div class="alert alert-warning alert-dismissible fade show" role=" alert">
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+                </button>
+                <h3 class="alert-heading">Hey there!</h3>
+                <p class="lead"><strong>Email Address </strong> is already in use</p>
+                <hr>
+                <p class="mb-0 lead">There is already an account with the email address you just provided</p>
+              </div>
+              <a role="button" href="/login"
+                class="btn btn-block btn-primary btn-lg font-weight-medium auth-form-btn">Log In</a>
+            </div>
+
+            <h4 *ngIf="!created">New here?</h4>
+            <h6 *ngIf="!created" class="font-weight-light">Signing up is easy. It only takes a few steps</h6>
+            <form *ngIf="!created" [formGroup]="form" (ngSubmit)="register()" class="pt-3">
+              <div class="form-group">
+                <select class="form-control form-control-lg" formControlName="userType"
+                  [ngClass]="{'input-control-error': submitted && f.userType.errors}">
+                  <option value="" disabled>Choose User Type</option>
+                  <option value="20">GIT Admin</option>
+                  <option value="21">Super Executive</option>
+                  <option value="22">Branch Super-Executive</option>
+                  <option value="23">Company Admin</option>
+                  <option value="24">Branch Admin</option>
+                  <option value="25">Front Desktop</option>
+                  <option value="26">Client Account</option>
+                </select>
+                <div *ngIf="submitted && f.userType.errors">
+                  <p class="input-error" *ngIf="f.userType.errors.required">User type is required</p>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-md-6">
+                  <div class="form-group">
+                    <input type="text" class="form-control form-control-lg" formControlName="firstName"
+                      placeholder="First Name" [ngClass]="{'input-control-error': submitted && f.firstName.errors}">
+                    <div *ngIf="submitted && f.firstName.errors">
+                      <p class="input-error" *ngIf="f.firstName.errors.required">First name is required</p>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-md-6">
+                  <div class="form-group">
+                    <input type="text" class="form-control form-control-lg" formControlName="lastName"
+                      placeholder="Last Name" [ngClass]="{'input-control-error': submitted && f.lastName.errors}">
+                    <div *ngIf="submitted && f.lastName.errors">
+                      <p class="input-error" *ngIf="f.lastName.errors.required">Last name is required</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="form-group">
+                <input type="text" class="form-control form-control-lg" formControlName="username"
+                  placeholder="Username" [ngClass]="{'input-control-error': submitted && f.username.errors}">
+                <div *ngIf="submitted && f.username.errors">
+                  <p class="input-error" *ngIf="f.username.errors.required">Username is required</p>
+                </div>
+              </div>
+              <div class="form-group">
+                <input type="email" class="form-control form-control-lg" formControlName="emailAddress"
+                  placeholder="Email Address" [ngClass]="{'input-control-error': submitted && f.emailAddress.errors}">
+                <div *ngIf="submitted && f.emailAddress.errors">
+                  <p class="input-error" *ngIf="f.emailAddress.errors.email">Must be a valid email address</p>
+                  <p class="input-error" *ngIf="f.emailAddress.errors.required">Email address is required</p>
+                </div>
+              </div>
+              <div class="form-group">
+                <select class="form-control form-control-lg" formControlName="country"
+                  [ngClass]="{'input-control-error': submitted && f.country.errors}" (change)="onCountrySelect($event)">
+                  <option value="" disabled>Country</option>
+                  <option *ngFor="let country of countriesList | orderBy: 'country.name.common'"
+                    [value]="country.name.common">
+                    {{ country.name.common }}
+                  </option>
+                </select>
+                <div *ngIf="submitted && f.country.errors">
+                  <p class="input-error" *ngIf="f.country.errors.required">Country is required</p>
+                </div>
+              </div>
+              <div class="form-group">
+                <input type="password" class="form-control form-control-lg" formControlName="password"
+                  placeholder="Password" [ngClass]="{'input-control-error': submitted && f.password.errors}">
+                <div *ngIf="submitted && f.password.errors">
+                  <p class="input-error" *ngIf="f.password.errors.minlength">Password must be atleast 6 characters</p>
+                  <p class="input-error" *ngIf="f.password.errors.required">Password is required</p>
+                </div>
+              </div>
+              <div class="mt-3">
+                <!-- <a class="btn btn-block btn-primary btn-lg font-weight-medium auth-form-btn" routerLink="/git_admin">SIGN UP</a> -->
+                <button type="submit" *ngIf="!loading" class="btn btn-block btn-primary btn-lg font-weight-medium auth-form-btn">SIGN UP</button>
+                <button type="button" *ngIf="loading" class="btn btn-block btn-primary btn-lg font-weight-medium auth-form-btn" disabled>
+                  <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span> &nbsp; &nbsp;
+                  Please wait...
+                </button>
+              </div>
+              <div class="text-center mt-4 font-weight-light">
+                Already have an account? <a href="/login" class="text-primary">Login</a>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- content-wrapper ends -->
+  </div>
+  <!-- page-body-wrapper ends -->
+</div>
+<!-- container-scroller -->

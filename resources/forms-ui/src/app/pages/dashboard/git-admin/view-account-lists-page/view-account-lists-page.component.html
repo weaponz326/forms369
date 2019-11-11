@@ -1,0 +1,123 @@
+<div *ngIf="loading" class="row m-5">
+  <div class="col-md-12 col-sm-12 m-md-5">
+    <div class="d-flex justify-content-center">
+      <div class="spinner-border m-5" style="width: 5rem; height: 5rem;" role="status">
+        <span class="sr-only">Loading...</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div *ngIf="hasNoData" class="row">
+  <div class="col-lg-12 grid-margin stretch-card">
+    <div class="card text-center pt-5 pb-5">
+      <div class="card-body mt-5 mb-5">
+        <h4 class="card-title">No Accounts Found</h4>
+        <p class="card-description"></p>
+        <div class="text-lg-center mt-5 mb-5">
+          <div class="card-text">
+            <i class="mdi mdi-timer-sand-empty" style="font-size: 8em;"></i>
+          </div>
+          <div class="card-text">
+            <h3 class="display-4">No Front Desk Accounts</h3>
+            <p class="text-muted">All front-desk accounts would be displayed here</p>
+          </div>
+          <div class="card-text mt-3 mb-5">
+            <button class="btn btn-outline-primary btn-lg btn-icon-text" (click)="createAccount()">
+              <i class="mdi mdi-plus"></i>
+              Create New
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div *ngIf="hasError" class="row">
+  <div class="col-lg-12 grid-margin stretch-card">
+    <div class="card text-center pt-5 pb-5">
+      <div class="card-body mt-5 mb-5">
+        <h4 class="card-title">Error Ocuured</h4>
+        <p class="card-description">
+          Ooops! Something went wrong!
+        </p>
+        <div class="text-lg-center mt-5 mb-5">
+          <div class="card-text">
+            <i class="mdi mdi-close-network-outline" style="font-size: 8em;"></i>
+          </div>
+          <div class="card-text">
+            <h3>We couldn't get your branches</h3>
+            <p class="text-muted">An error has occured on our servers or you might not have internet connection</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div *ngIf="!loading && !hasNoData" class="row">
+  <div class="col-md-12">
+    <div class="text-lg-center mt-3 mb-5">
+      <div class="btn-group" role="group" aria-label="Sort By">
+        <button type="button" class="btn btn-outline-secondary" [ngClass]="{'active': filterState == 'all'}" (click)="showAll()">All</button>
+        <button type="button" class="btn btn-outline-secondary" [ngClass]="{'active': filterState == 'active'}" (click)="showActive()">Active</button>
+        <button type="button" class="btn btn-outline-secondary" [ngClass]="{'active': filterState == 'inactive'}" (click)="showInActive()">In Active</button>
+        <div class="dropdown">
+          <button type="button" class="btn btn-outline-secondary dropdown-toggle" id="sortMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Sort By</button>
+          <div class="dropdown-menu" aria-labelledby="sortMenuButton">
+            <button type="button" class="dropdown-item">Username</button>
+            <button type="button" class="dropdown-item">Email Address</button>
+            <button type="button" class="dropdown-item">Company Name</button>
+            <button type="button" class="dropdown-item">Status</button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="tab-content py-0 px-0">
+      <div class="tab-pane fade show active" id="companies" role="tabpanel" aria-labelledby="companies-tab">
+        <div class="table-responsive">
+          <table class="table table-hover">
+            <thead>
+              <tr>
+                <th>Username</th>
+                <th>Email Address</th>
+                <th *ngIf="userType != 20">Company Name</th>
+                <th>Status.</th>
+                <th>Actions</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr class="hover-cursor" *ngFor="let user of collection">
+                <td>{{ user.username }}</td>
+                <td>{{ user.email }}</td>
+                <td *ngIf="userType != 20">{{ user.merchant_name }}</td>
+                <td *ngIf="user.status == 1"><label class="badge badge-success text-center">Active</label></td>
+                <td *ngIf="user.status != 1"><label class="badge badge-danger text-center">In-Active</label></td>
+                <td>
+                  <div class="d-flex align-items-end flex-wrap">
+                    <button type="button" class="btn btn-light bg-white btn-icon mr-3 d-none d-md-block"
+                      data-toggle="tooltip" data-placement="top" title="Edit" (click)="edit(user.id)">
+                      <i class="mdi mdi-pencil-outline text-muted"></i>
+                    </button>
+                    <button type="button" class="btn btn-light bg-white btn-icon mr-3 d-none d-md-block "
+                      data-toggle="tooltip" data-placement="top" title="View Details" (click)="view(user.id)">
+                      <i class="mdi mdi-eye-outline text-muted"></i>
+                    </button>
+                    <button type="button" class="btn btn-light bg-white btn-icon mr-3 d-none d-md-block "
+                      data-toggle="tooltip" data-placement="top" title="Delete" (click)="delete(user.id)">
+                      <i class="mdi mdi-delete-outline text-muted"></i>
+                    </button>
+                    <button type="button" class="btn btn-light bg-white btn-icon mr-3 d-none d-md-block ">
+                      <i class="mdi mdi-dots-vertical text-muted"></i>
+                    </button>
+                  </div>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

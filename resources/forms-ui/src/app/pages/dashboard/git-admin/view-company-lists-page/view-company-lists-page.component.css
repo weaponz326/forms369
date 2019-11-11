@@ -1,0 +1,16 @@
+.nav-tabs .nav-link {
+    padding: 1rem 4.5em .7em 4.5em;
+}
+
+@media (max-width: 767px) {
+    .nav-tabs .nav-link {
+        padding: 1rem 1.6em .7em 1.6em;
+    }
+}
+
+.card-logo {
+    width: 218px;
+    height: 160px;
+    display: block;
+    margin: 0 auto;
+}

@@ -189,12 +189,12 @@ class ClientController extends Controller
              DB::table('submitted_forms')
              ->insert(
                  [
-                     'submission_code' => $submission_code,
-                     'form_id' => $code, 
-                     'client_id' => $id,
-                     'status' => $status,
-                     'client_details' => $encrypteddata,
-                     'submitted_at' => $submitted_at
+                    'submission_code' => $submission_code,
+                    'form_id' => $code, 
+                    'client_id' => $id,
+                    'status' => $status,
+                    'client_details' => $encrypteddata,
+                    'submitted_at' => $submitted_at
                  ]
              );
  

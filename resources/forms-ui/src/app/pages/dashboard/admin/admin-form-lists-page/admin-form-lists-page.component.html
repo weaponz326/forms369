@@ -1,0 +1,99 @@
+<div class="container-scroller">
+  <app-navigation-bar></app-navigation-bar>
+  <div class="container-fluid page-body-wrapper">
+    <app-side-bar></app-side-bar>
+    <div class="main-panel">
+      <div class="content-wrapper">
+
+        <div class="row">
+          <div class="col-md-12 grid-margin">
+            <div class="d-flex justify-content-between flex-wrap">
+              <div class="d-flex align-items-end flex-wrap">
+                <div class="mr-md-3 mr-xl-5">
+                  <h2>Created Forms</h2>
+                  <p class="mb-md-0">Your analytics dashboard template.</p>
+                </div>
+                <div class="d-flex">
+                  <i class="mdi mdi-home text-muted hover-cursor"></i>
+                  <p class="text-muted mb-0 hover-cursor">&nbsp;/&nbsp;Home&nbsp;/&nbsp;</p>
+                  <p class="text-primary mb-0 hover-cursor">Admin</p>
+                </div>
+              </div>
+              <div class="d-flex justify-content-between align-items-end flex-wrap">
+                <button type="button" class="btn btn-light bg-white btn-icon mr-3 d-none d-md-block ">
+                  <i class="mdi mdi-download text-muted"></i>
+                </button>
+                <button type="button" class="btn btn-light bg-white btn-icon mr-3 mt-2 mt-xl-0">
+                  <i class="mdi mdi-clock-outline text-muted"></i>
+                </button>
+                <button type="button" class="btn btn-light bg-white btn-icon mr-3 mt-2 mt-xl-0">
+                  <i class="mdi mdi-plus text-muted"></i>
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-4 grid-margin stretch-card">
+            <div class="card hover-cursor hover-primary">
+              <div class="card-body">
+                <p class="card-title">Passport Form</p>
+                <div class="card-text">
+                  <div class="text-center" style="margin: 56px 5px;">
+                    <button class="btn btn-light mr-2" (click)="edit()" data-toggle="tooltip" data-placement="top" title="Edit Form">
+                      <i class="mdi mdi-file-document-edit-outline"></i>
+                    </button>
+                    <button class="btn btn-light mr-2" (click)="view()" data-toggle="tooltip" data-placement="top" title="View Form">
+                      <i class="mdi mdi-eye-outline"></i>
+                    </button>
+                    <button class="btn btn-light mr-2" (click)="delete()" data-toggle="tooltip" data-placement="top" title="Delete Form">
+                      <i class="mdi mdi-delete-outline"></i>
+                    </button>
+                  </div>
+                  <p class="text-muted">Lorem ipsum dolor sit amet consectetur.</p>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-4 grid-margin stretch-card">
+            <div class="card hover-cursor hover-primary">
+              <div class="card-body">
+                <p class="card-title">Cash Deposit Form</p>
+                <div class="card-text">
+                  <div class="text-center" style="margin: 56px 5px;">
+                    <button class="btn btn-light mr-2" data-toggle="tooltip" data-placement="top" title="Edit Form">
+                      <i class="mdi mdi-file-document-edit-outline"></i>
+                    </button>
+                    <button class="btn btn-light mr-2"><i class="mdi mdi-eye-outline"></i></button>
+                    <button class="btn btn-light mr-2"><i class="mdi mdi-delete-outline"></i></button>
+                  </div>
+                  <p class="text-muted">Lorem ipsum dolor sit amet consectetur</p>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-4 grid-margin stretch-card">
+            <div class="card hover-cursor hover-primary">
+              <div class="card-body">
+                <p class="card-title">SSNIT Form</p>
+                <div class="card-text">
+                  <div class="text-center" style="margin: 56px 5px;">
+                    <button class="btn btn-light mr-2"><i class="mdi mdi-file-document-edit-outline"></i></button>
+                    <button class="btn btn-light mr-2"><i class="mdi mdi-eye-outline"></i></button>
+                    <button class="btn btn-light mr-2"><i class="mdi mdi-delete-outline"></i></button>
+                  </div>
+                  <p class="text-muted">Lorem ipsum dolor sit amet consectetur</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- content-wrapper ends -->
+      <!--footer -->
+      <app-footer-bar></app-footer-bar>
+      <!-- partial -->
+    </div>
+    <!-- main-panel ends -->
+  </div>
+</div>
