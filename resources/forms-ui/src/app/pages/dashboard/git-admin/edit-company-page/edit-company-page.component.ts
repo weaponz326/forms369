@@ -46,7 +46,7 @@ export class EditCompanyPageComponent implements OnInit {
     private executiveService: ExecutiveService,
     private countryPickerService: CountryPickerService
   ) {
-    this.navigatedData = this.router.getCurrentNavigation().extras.state.company;
+    this.navigatedData = window.history.state.company;
     console.log(this.navigatedData);
     this.countriesList = [];
     this.companyAdminsList = [];

@@ -129,10 +129,11 @@ export class CreateCompanyPageComponent implements OnInit {
     const created_at = this.dateTimeService.getToday(true);
     const user_id = this.localStorageService.getUser().id.toString();
     const git_admin_id = this.localStorageService.getUser().gitadmin.toString();
+    const smallLogo = _.isNull(this.f.smallLogoFile.value) ? '' : this.f.smallLogoFile.value;
     const merchant = new Merchants(
       this.f.name.value,
       this.f.country.value,
-      this.f.smallLogoFile.value,
+      smallLogo,
       295,
       user_id,
       created_at,
@@ -226,8 +227,10 @@ export class CreateCompanyPageComponent implements OnInit {
   bringBackForm() {
     this.form.reset();
     this.logoImage = '';
+    this.hasLogo = false;
     this.submitted = false;
     this.created = !this.created;
+    this.countryPickerService.getCountries().subscribe(countries => { this.countriesList = countries; });
   }
 
 }

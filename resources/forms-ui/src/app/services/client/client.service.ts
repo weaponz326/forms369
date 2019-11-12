@@ -1,3 +1,4 @@
+import * as _ from 'lodash';
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { EndpointService } from '../endpoint/endpoint.service';
@@ -104,5 +105,39 @@ export class ClientService {
         }
       );
     });
+  }
+
+  findFormsByCode(form_code: string): Promise<any> {
+    return new Promise((resolve, reject) => {
+      const url = this.endpointService.apiHost + 'api/v1/';
+      this.http.get(url, { headers: this.headers }).subscribe();
+    });
+  }
+
+  validateFormFilled(form_data: Array<any>) {
+    const toFillFormFields: any[] = [];
+    _.forEach(form_data, (data) => {
+      // we are only checking form fields with the required attribute associated with them
+      if (!_.isUndefined(data.required)) {
+        // if the userData array is empty we return this cueernt form field object
+        console.log('userData: ' + data.userData);
+        if (data.userData == '') {
+          toFillFormFields.push(data);
+        }
+      }
+    });
+
+    return toFillFormFields;
+  }
+
+  highlightUnFilledFormFields(form_data: Array<any>) {
+    document.querySelectorAll('input').forEach((input) => {
+      input.style.borderColor = '#acacac';
+    });
+    if (form_data.length != 0) {
+      _.forEach(form_data, (field) => {
+        document.getElementById(field.name).style.borderColor = '#e2898d';
+      });
+    }
   }
 }

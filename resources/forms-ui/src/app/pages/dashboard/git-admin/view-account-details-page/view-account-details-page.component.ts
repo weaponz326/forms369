@@ -22,7 +22,7 @@ export class ViewAccountDetailsPageComponent implements OnInit {
     private router: Router,
     private accountService: AccountService
   ) {
-    this.id = this.router.getCurrentNavigation().extras.state.id;
+    this.id = window.history.state.id;
     this.getAccountDetails();
   }
 

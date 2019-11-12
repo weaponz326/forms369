@@ -6,11 +6,11 @@ import { CompanyService } from 'src/app/services/company/company.service';
 import { EndpointService } from 'src/app/services/endpoint/endpoint.service';
 
 @Component({
-  selector: 'app-client-pick-form-page',
-  templateUrl: './client-pick-form-page.component.html',
-  styleUrls: ['./client-pick-form-page.component.css']
+  selector: 'app-client-form-merchant-page',
+  templateUrl: './client-form-merchants-page.component.html',
+  styleUrls: ['./client-form-merchants-page.component.css']
 })
-export class ClientPickFormPageComponent implements OnInit {
+export class ClientFormMerchantsPageComponent implements OnInit {
 
   loading: boolean;
   hasMore: boolean;
@@ -32,9 +32,7 @@ export class ClientPickFormPageComponent implements OnInit {
   }
 
   open(company: any) {
-    sessionStorage.setItem('selected_merchant', company.id);
-    const form = JSON.parse(sessionStorage.getItem('selected_form'));
-    this.router.navigateByUrl('/client/form_entry/' + form.form_code, { state: { form: form }});
+    this.router.navigateByUrl('/client/forms/' + company.id, { state: { company: company }});
   }
 
   getCompanies() {

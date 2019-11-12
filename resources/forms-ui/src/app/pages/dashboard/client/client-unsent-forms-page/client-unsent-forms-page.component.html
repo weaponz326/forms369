@@ -9,7 +9,7 @@
             <div class="d-flex justify-content-between flex-wrap">
               <div class="d-flex align-items-end flex-wrap">
                 <div class="mr-md-3 mr-xl-5">
-                  <h2>My History</h2>
+                  <h2>Unsent Forms</h2>
                   <p class="mb-md-0">Your analytics dashboard template.</p>
                 </div>
                 <div class="d-flex">
@@ -17,24 +17,21 @@
                   <p class="text-muted mb-0 hover-cursor">&nbsp;/&nbsp;Home&nbsp;/&nbsp;</p>
                   <p class="text-primary mb-0 hover-cursor">Analytics</p>
                 </div>
-              </div>
-              <div class="d-flex justify-content-between align-items-end flex-wrap">
-                <!-- <button type="button" class="btn btn-light bg-white btn-icon mr-3 d-none d-md-block ">
-                  <i class="mdi mdi-download text-muted"></i>
-                </button> -->
-                <!-- <button type="button" class="btn btn-light bg-white btn-icon mr-3 mt-2 mt-xl-0">
-                  <i class="mdi mdi-clock-outline text-muted"></i>
-                </button> -->
-                <!-- <button type="button" class="btn btn-light bg-white btn-icon mr-3 mt-2 mt-xl-0">
-                  <i class="mdi mdi-plus text-muted"></i>
-                </button> -->
+                <div class="d-flex justify-content-between align-items-end flex-wrap"></div>
               </div>
             </div>
           </div>
         </div>
 
-        <div *ngIf="loading" class="row m-5">
-          <div class="col-md-12 m-5">
+        <!-- <div class="search-bar-container">
+          <form>
+            <input type="text" class="search-form form-control" placeholder="Search now" aria-label="search"
+              aria-describedby="search">
+          </form>
+        </div> -->
+
+        <div *ngIf="loading" class="row p-5">
+          <div class="col-md-12 p-5">
             <div class="d-flex justify-content-center">
               <div class="spinner-border m-5" style="width: 5rem; height: 5rem;" role="status">
                 <span class="sr-only">Loading...</span>
@@ -57,8 +54,27 @@
                   </div>
                   <div class="card-text">
                     <h3>No Available Form History</h3>
-                    <p class="text-muted">You havent filled any forms yet! All the forms you filled will be displayed here to make it easy to re-fill again.</p>
+                    <p class="text-muted">
+                      You havent filled any forms yet! All the forms you filled will be displayed
+                      here to make it easy to re-fill again.
+                    </p>
                   </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div *ngIf="!isConnected" class="row">
+          <div class="col-md-12 grid-margin">
+            <div class="card text-center">
+              <div class="card-body">
+                <p class="card-title">Offline</p>
+                <p class="text-muted"></p>
+                <div class="card-text">
+                  <i class="mdi mdi-wifi-off" style="font-size: 12em;"></i>
+                  <h2>No Internet Connection</h2>
+                  <p class="text-muted">You don't have an active internet connection</p>
                 </div>
               </div>
             </div>
@@ -87,20 +103,23 @@
             </div>
           </div>
         </div>
-        
+
         <div *ngIf="!loading && hasData" class="row">
-          <div class="col-md-4 grid-margin stretch-card" *ngFor="let item of historyCollection">
-            <div class="card hover-cursor" (click)="openFormEntry(item)">
+          <div class="col-md-4 grid-margin stretch-card" *ngFor="let form of unSentFormsList">
+            <div class="card hover-cursor animated fadeInDown slow">
               <div class="card-body">
-                <p class="card-title">{{ item.form_name }}</p>
-                <p class="text-muted">Open and quickly fill out this form</p>
+                <h1 class="display-4">{{ form.submission_code }}</h1>
+                <p class="card-title">{{ form.form_name }}</p>
+                <div class="card-text">
+                  <p class="text-muted">{{ form.submitted_at | date }}</p>
+                </div>
               </div>
             </div>
           </div>
         </div>
       </div>
-      <!-- content ends -->
-      <!-- footer -->
+      <!-- content -->
+      <!-- footer  -->
       <app-footer-bar></app-footer-bar>
       <!-- partial -->
     </div>

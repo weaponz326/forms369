@@ -30,4 +30,27 @@ export class FrontDeskService {
       );
     });
   }
+
+  getSubmittedForms(): Promise<any> {
+    return new Promise((resolve, reject) => {
+      const url = this.endpointService.apiHost + 'api/v1/getAllsubmittedForms';
+    });
+  }
+
+  getForm(form_code: string): Promise<any> {
+    return new Promise((resolve, reject) => {
+      const url = this.endpointService.apiHost + 'api/v1/getSubmittedFormByCode/' + form_code;
+      this.http.get(url, { headers: this.headers }).subscribe(
+        res => {
+          console.log('submitted_form: ' + JSON.stringify(res));
+          const response = res as any;
+          resolve(response.submitted_form[0]);
+        },
+        err => {
+          console.log('form_error: ' + JSON.stringify(err));
+          reject(err);
+        }
+      );
+    });
+  }
 }

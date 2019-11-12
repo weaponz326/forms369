@@ -1,0 +1,7 @@
+.submit-form .form-group, .alert {
+    margin: 0 100px;
+}
+
+.alert-dismissible {
+    padding-right: 0px;
+}

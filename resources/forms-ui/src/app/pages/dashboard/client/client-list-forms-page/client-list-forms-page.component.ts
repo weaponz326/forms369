@@ -10,6 +10,7 @@ import { FormBuilderService } from 'src/app/services/form-builder/form-builder.s
 })
 export class ClientListFormsPageComponent implements OnInit {
   query: string;
+  company: any;
   hasData: boolean;
   loading: boolean;
   hasMore: boolean;
@@ -22,6 +23,7 @@ export class ClientListFormsPageComponent implements OnInit {
     private formBuilderService: FormBuilderService
   ) {
     this.formsList = [];
+    this.company = history.state.company;
     this.isConnected = window.navigator.onLine ? true : false;
     this.getAllForms();
   }
@@ -30,22 +32,20 @@ export class ClientListFormsPageComponent implements OnInit {
   }
 
   open(form: any) {
-    sessionStorage.setItem('selected_form', JSON.stringify(form));
-    this.router.navigateByUrl('/client/form_merchant');
+    this.router.navigateByUrl('/client/form_entry/' + form.form_code, { state: { form: form }});
   }
 
   search(event: any) {
-    // if (_.isUndefined(this.query) || _.isEmpty(this.query)) {
-
-    // }
-    // else {
-    //   this.
-    // }
+    if (_.isUndefined(this.query) || _.isEmpty(this.query)) {
+    }
+    else {
+    }
   }
 
   getAllForms() {
     this.loading = true;
-    this.formBuilderService.getAllForms().then(
+    const merchant_id = this.company.id;
+    this.formBuilderService.getAllFormsByMerchant(merchant_id).then(
       res => {
         const forms = res as any;
         if (forms.length > 0) {

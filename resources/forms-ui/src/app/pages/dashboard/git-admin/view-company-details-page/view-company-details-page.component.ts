@@ -21,7 +21,7 @@ export class ViewCompanyDetailsPageComponent implements OnInit {
     private router: Router,
     private accountService: AccountService
   ) {
-    this.company = this.router.getCurrentNavigation().extras.state.company;
+    this.company = window.history.state.company;
     this.isActive = this.company.status == 1 ? true : false;
     console.log(this.company);
   }

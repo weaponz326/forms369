@@ -15,7 +15,7 @@ export class EditUserPageComponent implements OnInit {
   emailInUse: boolean;
 
   constructor(private router: Router) {
-    this.id = this.router.getCurrentNavigation().extras.state.id;
+    this.id = window.history.state.id;
   }
 
   ngOnInit() {

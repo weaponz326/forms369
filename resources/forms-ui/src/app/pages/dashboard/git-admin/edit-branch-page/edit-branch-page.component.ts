@@ -40,7 +40,7 @@ export class EditBranchPageComponent implements OnInit {
     private companyService: CompanyService,
     private executiveService: ExecutiveService
   ) {
-    this.navigatedData = this.router.getCurrentNavigation().extras.state.branch;
+    this.navigatedData = window.history.state.branch;
     console.log(this.navigatedData);
     this.companiesList = [];
     this.companyNamesList = [];

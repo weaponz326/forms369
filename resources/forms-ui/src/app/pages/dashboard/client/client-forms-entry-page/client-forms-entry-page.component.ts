@@ -2,10 +2,10 @@ import { Component, OnInit } from '@angular/core';
 declare var $: any;
 import * as _ from 'lodash';
 import { Router } from '@angular/router';
-import { ClientService } from 'src/app/services/client/client.service';
-import { FormBuilderService } from 'src/app/services/form-builder/form-builder.service';
 import { Users } from 'src/app/models/users.model';
+import { ClientService } from 'src/app/services/client/client.service';
 import { LocalStorageService } from 'src/app/services/storage/local-storage.service';
+import { FormBuilderService } from 'src/app/services/form-builder/form-builder.service';
 
 @Component({
   selector: 'app-client-forms-entry-page',
@@ -20,6 +20,7 @@ export class ClientFormsEntryPageComponent implements OnInit {
   created: boolean;
   formInstance: any;
   formRenderer: any;
+  isConnected: boolean;
   formGenCode: string;
 
   constructor(
@@ -28,8 +29,8 @@ export class ClientFormsEntryPageComponent implements OnInit {
     private formBuilder: FormBuilderService,
     private localStorage: LocalStorageService
   ) {
+    this.form = history.state.form;
     this.user = this.localStorage.getUser();
-    this.form = this.router.getCurrentNavigation().extras.state.form;
     console.log('form: ' + JSON.stringify(this.form.form_fields));
   }
 
@@ -42,6 +43,11 @@ export class ClientFormsEntryPageComponent implements OnInit {
     this.formRenderer = document.getElementById('form-render');
     const renderOptions = { formData, dataType: 'json '};
     this.formInstance = $(this.formRenderer).formRender(renderOptions);
+    // this.setFormData(formData);
+  }
+
+  setFormData(data: any) {
+    // this.formInstance.actions.setData(data);
   }
 
   getFormData() {
@@ -52,16 +58,25 @@ export class ClientFormsEntryPageComponent implements OnInit {
     this.loading = true;
     const user_data = this.getFormData();
     console.log(JSON.stringify(user_data));
-    this.clientService.submitForm(_.toString(this.user.id), this.form.form_code, user_data).then(
-      res => {
-        this.created = true;
-        this.loading = false;
-        this.formGenCode = res.code;
-      },
-      err => {
-        this.loading = false;
-      }
-    );
+    const unfilled = this.clientService.validateFormFilled(user_data);
+    if (unfilled.length != 0) {
+      this.loading = false;
+      console.log('unfilled: ' + JSON.stringify(unfilled));
+      this.clientService.highlightUnFilledFormFields(unfilled);
+    }
+    else {
+      console.log('is submitting');
+      this.clientService.submitForm(_.toString(this.user.id), this.form.form_code, user_data).then(
+        res => {
+          this.created = true;
+          this.loading = false;
+          this.formGenCode = res.code;
+        },
+        err => {
+          this.loading = false;
+        }
+      );
+    }
   }
 
 }

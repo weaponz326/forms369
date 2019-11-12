@@ -16,7 +16,7 @@ export class ViewFormDetailsPageComponent implements OnInit {
   constructor(
     private router: Router
   ) {
-    this.form = this.router.getCurrentNavigation().extras.state.form;
+    this.form = window.history.state.form;
   }
 
   ngOnInit() {

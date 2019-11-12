@@ -90,7 +90,7 @@ export class LoginPageComponent implements OnInit {
       this.router.navigateByUrl('/admin');
     }
     else if (user_type == UserTypes.FrontDesk) {
-      this.router.navigateByUrl('/front-desk');
+      this.router.navigateByUrl('/front_desk');
     }
     else if (user_type == UserTypes.SuperExecutive) {
       this.router.navigateByUrl('/executive');

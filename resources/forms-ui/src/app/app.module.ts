@@ -19,7 +19,7 @@ import { RegisterPageComponent } from './pages/register-page/register-page.compo
 import { HomePageComponent } from './pages/dashboard/git-admin/home-page/home-page.component';
 import { ClientHomePageComponent } from './pages/dashboard/client/client-home-page/client-home-page.component';
 import { CreateFormPageComponent } from './pages/dashboard/git-admin/create-form-page/create-form-page.component';
-import { ClientPickFormPageComponent } from './pages/dashboard/client/client-pick-form-page/client-pick-form-page.component';
+import { ClientFormMerchantsPageComponent } from './pages/dashboard/client/client-form-merchants-page/client-form-merchants-page.component';
 import { ClientListBranchesPageComponent } from './pages/dashboard/client/client-list-branches-page/client-list-branches-page.component';
 import { ClientListFormsPageComponent } from './pages/dashboard/client/client-list-forms-page/client-list-forms-page.component';
 import { ClientListFormDataPageComponent } from './pages/dashboard/client/client-list-form-data-page/client-list-form-data-page.component';
@@ -69,6 +69,8 @@ import { ViewCompanyDetailsPageComponent } from './pages/dashboard/git-admin/vie
 import { ViewBranchDetailsPageComponent } from './pages/dashboard/git-admin/view-branch-details-page/view-branch-details-page.component';
 import { ViewFormListsPageComponent } from './pages/dashboard/git-admin/view-form-lists-page/view-form-lists-page.component';
 import { ViewFormDetailsPageComponent } from './pages/dashboard/git-admin/view-form-details-page/view-form-details-page.component';
+import { ClientProfilePageComponent } from './pages/dashboard/client/client-profile-page/client-profile-page.component';
+import { ClientUnsentFormsPageComponent } from './pages/dashboard/client/client-unsent-forms-page/client-unsent-forms-page.component';
 
 @NgModule({
   declarations: [
@@ -82,7 +84,7 @@ import { ViewFormDetailsPageComponent } from './pages/dashboard/git-admin/view-f
     HomePageComponent,
     CreateFormPageComponent,
     ClientHomePageComponent,
-    ClientPickFormPageComponent,
+    ClientFormMerchantsPageComponent,
     ClientListBranchesPageComponent,
     ClientListFormsPageComponent,
     ClientListFormDataPageComponent,
@@ -131,6 +133,8 @@ import { ViewFormDetailsPageComponent } from './pages/dashboard/git-admin/view-f
     ViewBranchDetailsPageComponent,
     ViewFormListsPageComponent,
     ViewFormDetailsPageComponent,
+    ClientProfilePageComponent,
+    ClientUnsentFormsPageComponent,
   ],
   imports: [
     BrowserModule,

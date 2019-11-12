@@ -31,7 +31,7 @@ export class EditFormPageComponent implements OnInit {
   ) {
     this.merchant = '';
     this.allMerchantsList = [];
-    this.form = this.router.getCurrentNavigation().extras.state.form;
+    this.form = window.history.state.form;
     this.getCompanies();
   }
 

@@ -112,7 +112,7 @@ select.form-control {
     width: 30%;
     background-color: #f3f3f3;
     display: block;
-    margin: 0 auto;
+    margin: 20px auto;
     font-weight: bold;
     font-size: 30px;
 }
@@ -138,5 +138,17 @@ select.form-control {
 .input-control-error {
     border-color: #F44336 !important;
 }
+
+.form-group .fb-required {
+    color: #da656b;
+    margin-left: 5px;
+}
+
+.rendered-form .form-control {
+    height: 45px;
+    outline: 0;
+    box-shadow: none;
+}
+
 html, body { height: 100%; }
 body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }

@@ -1,49 +1,49 @@
 import { Component, OnInit } from '@angular/core';
 import * as _ from 'lodash';
 import { Router } from '@angular/router';
+import { Users } from 'src/app/models/users.model';
 import { ClientService } from 'src/app/services/client/client.service';
 import { LocalStorageService } from 'src/app/services/storage/local-storage.service';
-import { Users } from 'src/app/models/users.model';
 
 @Component({
-  selector: 'app-client-forms-history-page',
-  templateUrl: './client-forms-history-page.component.html',
-  styleUrls: ['./client-forms-history-page.component.css']
+  selector: 'app-client-unsent-forms-page',
+  templateUrl: './client-unsent-forms-page.component.html',
+  styleUrls: ['./client-unsent-forms-page.component.css']
 })
-export class ClientFormsHistoryPageComponent implements OnInit {
+export class ClientUnsentFormsPageComponent implements OnInit {
 
   user: Users;
   hasData: boolean;
   loading: boolean;
   hasError: boolean;
-  historyCollection: Array<any>;
+  isConnected: boolean;
+  unSentFormsList: Array<any>;
 
   constructor(
     private router: Router,
     private clientService: ClientService,
-    private localStorageService: LocalStorageService
+    private localStorage: LocalStorageService
   ) {
-    this.historyCollection = [];
-    this.user = this.localStorageService.getUser();
-    this.getAllHistory();
+    this.unSentFormsList = [];
+    this.user = this.localStorage.getUser();
+    this.isConnected = window.navigator.onLine ? true : false;
   }
 
   ngOnInit() {
+    this.getAllUnsentForms();
   }
 
-  openFormEntry(form: any) {
-    this.router.navigateByUrl('/client/form_entry/' + form.form_code, { state: { form: form }});
-  }
-
-  getAllHistory() {
+  getAllUnsentForms() {
     this.loading = true;
-    this.clientService.getAllSubmittedForms(_.toString(this.user.id)).then(
-      forms => {
+    const client_id = _.toString(this.user.id);
+    this.clientService.getAllSubmittedForms(client_id).then(
+      res => {
+        const forms = res as any;
         if (forms.length > 0) {
           this.hasData = true;
           this.loading = false;
           _.forEach(forms, (form) => {
-            this.historyCollection.push(form);
+            this.unSentFormsList.push(form);
           });
         }
         else {
@@ -52,10 +52,12 @@ export class ClientFormsHistoryPageComponent implements OnInit {
         }
       },
       err => {
-        this.hasError = true;
         this.loading = false;
+        this.hasError = true;
       }
     );
   }
+
+  loadMore() {}
 
 }

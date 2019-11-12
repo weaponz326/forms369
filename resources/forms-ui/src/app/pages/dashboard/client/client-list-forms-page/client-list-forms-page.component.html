@@ -23,10 +23,21 @@
           </div>
         </div>
 
-        <div class="search-bar-container">
-          <form>
-            <input type="text" class="search-form form-control" placeholder="Search now" aria-label="search" aria-describedby="search">
-          </form>
+        <div class="row">
+          <div class="col-3 col-md-3">
+            <select class="form-control">
+              <option value="name">Search By Name</option>
+              <option value="code">Search By Code</option>
+            </select>
+          </div>
+          <div class="col-9 col-md-9">
+            <div class="search-bar">
+              <form>
+                <input type="text" class="search-form form-control" placeholder="Search by code or by name"
+                  aria-label="search" aria-describedby="search">
+              </form>
+            </div>
+          </div>
         </div>
 
         <div *ngIf="loading" class="row p-5">
@@ -52,9 +63,10 @@
                     <i class="mdi mdi-file-question" style="font-size: 8em;"></i>
                   </div>
                   <div class="card-text">
-                    <h3>No Available Form History</h3>
-                    <p class="text-muted">You havent filled any forms yet! All the forms you filled will be displayed
-                      here to make it easy to re-fill again.</p>
+                    <h3>No Available Forms</h3>
+                    <p class="text-muted">
+                      There are currently no forms available yet. All created forms would be displayed here.
+                    </p>
                   </div>
                 </div>
               </div>
@@ -91,7 +103,7 @@
                     <i class="mdi mdi-close-network-outline" style="font-size: 8em;"></i>
                   </div>
                   <div class="card-text">
-                    <h3>We couldn't filled forms</h3>
+                    <h3>We couldn't find any forms</h3>
                     <p class="text-muted">An error has occured on our servers or you might not have internet connection
                     </p>
                   </div>
@@ -101,7 +113,7 @@
           </div>
         </div>
 
-        <div *ngIf="!loading && hasData" class="row">
+        <div *ngIf="!loading && hasData" class="row" style="margin-top: 25px;">
           <div class="col-md-4 grid-margin stretch-card" *ngFor="let form of formsList">
             <div class="card hover-cursor animated fadeInDown slow" (click)="open(form)">
               <div class="card-body">

@@ -1,20 +1,20 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { ClientPickFormPageComponent } from './client-pick-form-page.component';
+import { ClientProfilePageComponent } from './client-profile-page.component';
 
-describe('ClientPickFormPageComponent', () => {
-  let component: ClientPickFormPageComponent;
-  let fixture: ComponentFixture<ClientPickFormPageComponent>;
+describe('ClientProfilePageComponent', () => {
+  let component: ClientProfilePageComponent;
+  let fixture: ComponentFixture<ClientProfilePageComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ ClientPickFormPageComponent ]
+      declarations: [ ClientProfilePageComponent ]
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(ClientPickFormPageComponent);
+    fixture = TestBed.createComponent(ClientProfilePageComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

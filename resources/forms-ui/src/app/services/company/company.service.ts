@@ -205,7 +205,14 @@ export class CompanyService {
         res => {
           console.log('all_merchants: ' + JSON.stringify(res));
           const response = res as any;
-          resolve(response.merchants.data);
+          if (!_.isNull(response.merchants.next_page_url)) {
+            console.log('not empty');
+            const results = response.merchants.data;
+            resolve(response.merchants.data);
+          }
+          else {
+            resolve(response.merchants.data);
+          }
         },
         err => {
           console.log('error_merchants: ' + JSON.stringify(err));
