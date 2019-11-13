@@ -735,6 +735,20 @@ class HomeController extends Controller
         $message = (new FormsController)->changeFormStatus($request, $code, $status);
         return $message;
     }
+    /**
+     * getFformDetails get all details of a form that match teh search term : name of the form
+     *
+     * @param  mixed $request
+     * @param  mixed search term
+     *
+     * @return void\Illuminate\Http\Response all details of a form
+     */
+    protected function getFormbyName(Request $request, $term)
+    {
+        $message = (new FormsController)->getFormbyName($request, $term);
+        return $message;
+
+    }
 
     /**
      * Business logic to get all created forms in the system
