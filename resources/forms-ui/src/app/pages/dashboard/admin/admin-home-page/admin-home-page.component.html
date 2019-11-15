@@ -28,13 +28,13 @@
                 <button type="button" class="btn btn-light bg-white btn-icon mr-3 mt-2 mt-xl-0">
                   <i class="mdi mdi-plus text-muted"></i>
                 </button>
-                <a class="btn btn-primary mt-2 mt-xl-0" routerLink="/git_admin/setup_form">Create A Form</a>
+                <a class="btn btn-primary mt-2 mt-xl-0" routerLink="/admin/setup_form">Create A Form</a>
               </div>
             </div>
           </div>
         </div>
         <div class="row">
-          <div class="col-md-6 grid-margin stretch-card">
+          <div class="col-md-4 grid-margin stretch-card">
             <div class="card hover-cursor hover-primary" (click)="openForms()">
               <div class="card-body">
                 <p class="card-title">Total No. Forms</p>
@@ -47,7 +47,20 @@
               </div>
             </div>
           </div>
-          <div class="col-md-6 grid-margin stretch-card">
+          <div class="col-md-4 grid-margin stretch-card">
+            <div class="card hover-cursor hover-primary" (click)="openForms()">
+              <div class="card-body">
+                <p class="card-title">Total No. Accounts</p>
+                <p class="text-muted">A list of all forms you've filled</p>
+                <div class="card-text">
+                  <h1 style="font-size: 5em;">6</h1>
+                  <p class="text-muted">Lorem ipsum dolor sit amet consectetur, adipisicing elit. Dolorem, ullam
+                    distinctio quia neque labore quaerat ab amet rem, et laboriosam.</p>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-4 grid-margin stretch-card">
             <div class="card hover-cursor hover-primary" (click)="openForms()">
               <div class="card-body">
                 <p class="card-title">Total No. Accounts</p>
@@ -62,10 +75,10 @@
           </div>
         </div>
         <div class="row">
-          <div class="col-md-6 grid-margin stretch-card">
+          <div class="col-md-4 grid-margin stretch-card">
             <div class="card hover-cursor hover-primary" (click)="openForms()">
               <div class="card-body">
-                <p class="card-title">Created Forms</p>
+                <p class="card-title">Active Accounts</p>
                 <p class="text-muted">A list of all forms you've filled</p>
                 <div class="card-text">
                   <i class="mdi mdi-file-document-edit-outline" style="font-size: 8em;"></i>
@@ -75,10 +88,23 @@
               </div>
             </div>
           </div>
-          <div class="col-md-6 grid-margin stretch-card">
+          <div class="col-md-4 grid-margin stretch-card">
+            <div class="card hover-cursor hover-primary" (click)="openForms()">
+              <div class="card-body">
+                <p class="card-title">Inactive Accounts</p>
+                <p class="text-muted">A list of all forms you've filled</p>
+                <div class="card-text">
+                  <i class="mdi mdi-file-document-edit-outline" style="font-size: 8em;"></i>
+                  <p class="text-muted">Lorem ipsum dolor sit amet consectetur, adipisicing elit. Dolorem, ullam
+                    distinctio quia neque labore quaerat ab amet rem, et laboriosam.</p>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-4 grid-margin stretch-card">
             <div class="card hover-cursor hover-primary">
               <div class="card-body">
-                <p class="card-title">User Accounts</p>
+                <p class="card-title">Form Templates</p>
                 <p class="text-muted">A list of all user accounts created</p>
                 <div class="card-text">
                   <i class="mdi mdi-account-group-outline" style="font-size: 8em;"></i>

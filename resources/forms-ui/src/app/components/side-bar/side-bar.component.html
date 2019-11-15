@@ -1,4 +1,4 @@
-<!-- partial:partials/_sidebar.html -->
+<!-- git admin -->
 <nav *ngIf="isGitAdmin" class="sidebar sidebar-offcanvas" id="sidebar">
   <ul class="nav">
     <li class="nav-item">
@@ -17,6 +17,12 @@
       <a class="nav-link" routerLink="/git_admin/lists/form">
         <i class="mdi mdi-file-document-box-outline menu-icon"></i>
         <span class="menu-title">All Forms</span>
+      </a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link" routerLink="/templates/list">
+        <i class="mdi mdi-cart-outline menu-icon"></i>
+        <span class="menu-title">Form Templates</span>
       </a>
     </li>
     <li class="nav-item">
@@ -108,9 +114,127 @@
     </li>
   </ul>
 </nav>
-<!-- partial -->
+<!-- git-admin -->
 
-<!-- sidebar -->
+<!-- comp admin -->
+<!-- <nav *ngIf="isAdmin" class="sidebar sidebar-offcanvas" id="sidebar">
+  <ul class="nav">
+    <li class="nav-item">
+      <a class="nav-link" routerLink="/git_admin">
+        <i class="mdi mdi-home menu-icon"></i>
+        <span class="menu-title">Home</span>
+      </a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link" routerLink="/git_admin/setup_form">
+        <i class="mdi mdi-file-document-edit-outline menu-icon"></i>
+        <span class="menu-title">Setup Form</span>
+      </a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link" routerLink="/git_admin/lists/form">
+        <i class="mdi mdi-file-document-box-outline menu-icon"></i>
+        <span class="menu-title">All Forms</span>
+      </a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link" routerLink="/templates/list">
+        <i class="mdi mdi-cart-outline menu-icon"></i>
+        <span class="menu-title">Form Templates</span>
+      </a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link" data-toggle="collapse" href="#account" aria-expanded="false" aria-controls="account">
+        <i class="mdi mdi-account-group-outline menu-icon"></i>
+        <span class="menu-title">Accounts</span>
+        <i class="menu-arrow"></i>
+      </a>
+      <div class="collapse" id="account">
+        <ul class="nav flex-column sub-menu">
+          <li class="nav-item">
+            <a class="nav-link" routerLink="/git_admin/create/user_account">
+              <i class="mdi mdi-plus menu-icon"></i>
+              <span class="menu-title">Setup Account</span>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" routerLink="/git_admin/lists/front_desk">
+              <i class="mdi mdi-desktop-mac menu-icon"></i>
+              <span class="menu-title">Front Desks</span>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" routerLink="/git_admin/lists/admin">
+              <i class="mdi mdi-account-supervisor menu-icon"></i>
+              <span class="menu-title">GIT Admins</span>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" routerLink="/git_admin/lists/branch_admin">
+              <i class="mdi mdi-leaf-maple menu-icon"></i>
+              <span class="menu-title">Branch Admins</span>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" routerLink="/git_admin/lists/company_admin">
+              <i class="mdi mdi-lighthouse menu-icon"></i>
+              <span class="menu-title">Company Admins</span>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" routerLink="/git_admin/lists/branch_executive">
+              <i class="mdi mdi-script-outline menu-icon"></i>
+              <span class="menu-title">Branch Super-Executives</span>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" routerLink="/git_admin/lists/super_executive">
+              <i class="mdi mdi-view-dashboard-outline menu-icon"></i>
+              <span class="menu-title">Super Executives</span>
+            </a>
+          </li>
+        </ul>
+      </div>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link" data-toggle="collapse" href="#company" aria-expanded="false" aria-controls="company">
+        <i class="mdi mdi-circle-outline menu-icon"></i>
+        <span class="menu-title">Company</span>
+        <i class="menu-arrow"></i>
+      </a>
+      <div class="collapse" id="company">
+        <ul class="nav flex-column sub-menu">
+          <li class="nav-item">
+            <a class="nav-link" routerLink="/git_admin/create/company">Create New</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" routerLink="/git_admin/lists/company">View Companies</a>
+          </li>
+        </ul>
+      </div>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link" data-toggle="collapse" href="#branches" aria-expanded="false" aria-controls="branches">
+        <i class="mdi mdi-view-headline menu-icon"></i>
+        <span class="menu-title">Branches</span>
+        <i class="menu-arrow"></i>
+      </a>
+      <div class="collapse" id="branches">
+        <ul class="nav flex-column sub-menu">
+          <li class="nav-item">
+            <a class="nav-link" routerLink="/git_admin/create/branch">Create New</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" routerLink="/git_admin/lists/branch">View Branches</a>
+          </li>
+        </ul>
+      </div>
+    </li>
+  </ul>
+</nav> -->
+<!-- /.comp admin -->
+
+<!-- client -->
 <nav *ngIf="isClient" class="sidebar sidebar-offcanvas" id="sidebar">
   <ul class="nav">
     <li class="nav-item">
@@ -139,4 +263,4 @@
     </li>
   </ul>
 </nav>
-<!-- /.sidemenu -->
+<!-- /.client sidemenu -->
