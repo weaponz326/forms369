@@ -103,8 +103,13 @@ export class CreateBranchPageComponent implements OnInit {
     this.getBranchExecutive();
   }
 
-  filter(collection: Array<string>, value: string) {
+  filter(collection: Array<any>, value: string) {
     console.log('filtering');
+    const filterValue = value.toLowerCase();
+    return collection.filter(item => item.email.toLowerCase().includes(filterValue));
+  }
+
+  singleValueFilter(collection: Array<string>, value: string) {
     const filterValue = value.toLowerCase();
     return collection.filter(item => item.toLowerCase().includes(filterValue));
   }
@@ -121,7 +126,7 @@ export class CreateBranchPageComponent implements OnInit {
           });
           this.filteredMerchants = this.f.merchant.valueChanges.pipe(
             startWith('-'),
-            map(value => this.filter(this.companyNamesList, value))
+            map(value => this.singleValueFilter(this.companyNamesList, value))
           );
         }
         else {
@@ -146,7 +151,7 @@ export class CreateBranchPageComponent implements OnInit {
           });
           this.filteredBranchExecutives = this.f.branchSupervisor.valueChanges.pipe(
             startWith('-'),
-            map(value => this.filter(this.branchExecutiveEmailList, value))
+            map(value => this.filter(this.branchExecutivesList, value))
           );
         }
         else {
@@ -173,7 +178,7 @@ export class CreateBranchPageComponent implements OnInit {
           this._loading = false;
           this.filteredBranchAdmins = this.f.branchAdmin.valueChanges.pipe(
             startWith('-'),
-            map(value => this.filter(this.branchAdminEmailList, value))
+            map(value => this.filter(this.branchAdminsList, value))
           );
         }
         else {

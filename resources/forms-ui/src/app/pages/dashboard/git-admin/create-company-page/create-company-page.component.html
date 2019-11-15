@@ -62,8 +62,13 @@
                           <input type="text" class="form-control form-control-lg" formControlName="superExecutive"
                             placeholder="Search Super Executive" [matAutocomplete]="e_auto">
                             <mat-autocomplete #e_auto="matAutocomplete">
-                              <mat-option *ngFor="let item of filteredExecutivesList | async" [value]="item">
-                                {{ item }}
+                              <mat-option *ngFor="let item of filteredExecutivesList | async" [value]="item.email">
+                                <span class="autocomplete-icon">
+                                  <i class="mdi mdi-account-outline"></i>
+                                </span>
+                                <span>{{ item.email }}</span> <br>
+                                <small class="autocomplete-small">{{ item.full_name }}</small> <br>
+                                <small class="autocomplete-small">{{ item.merchant_name }}</small> <br>
                               </mat-option>
                             </mat-autocomplete>
                           <div *ngIf="submitted && f.name.errors">
@@ -76,8 +81,13 @@
                           <input type="text" class="form-control form-control-lg" formControlName="companyAdmin"
                             placeholder="Search Company Admin" [matAutocomplete]="a_auto">
                             <mat-autocomplete #a_auto="matAutocomplete">
-                              <mat-option *ngFor="let item of filteredAdminsList | async" [value]="item">
-                                {{ item }}
+                              <mat-option *ngFor="let item of filteredAdminsList | async" [value]="item.email">
+                                <span class="autocomplete-icon">
+                                  <i class="mdi mdi-account-outline"></i>
+                                </span>
+                                <span>{{ item.email }}</span> <br>
+                                <small class="autocomplete-small">{{ item.full_name }}</small> <br>
+                                <small class="autocomplete-small">{{ item.merchant_name }}</small> <br>
                               </mat-option>
                             </mat-autocomplete>
                           <div *ngIf="submitted && f.name.errors">

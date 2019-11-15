@@ -245,4 +245,58 @@ export class CompanyService {
       );
     });
   }
+
+  /**
+   * Changes a company's status to `active`.
+   *
+   * @param {string} id
+   * @returns {Promise<boolean>}
+   * @memberof CompanyService
+   */
+  enableCompany(id: string): Promise<boolean> {
+    return new Promise((resolve, reject) => {
+      const url = this.endpointService.apiHost + 'api/v1/' + id;
+      this.http.post(url, {}, { headers: this.endpointService.headers() }).subscribe(
+        res => {
+          const response = res as any;
+          if (_.toLower(response.message) == 'ok') {
+            resolve(true);
+          }
+          else {
+            resolve(false);
+          }
+        },
+        err => {
+          reject(err);
+        }
+      );
+    });
+  }
+
+  /**
+   * Changes a company's status to `inactive`.
+   *
+   * @param {string} id
+   * @returns {Promise<boolean>}
+   * @memberof CompanyService
+   */
+  disableCompany(id: string): Promise<boolean> {
+    return new Promise((resolve, reject) => {
+      const url = this.endpointService.apiHost + 'api/v1/' + id;
+      this.http.post(url, {}, { headers: this.endpointService.headers() }).subscribe(
+        res => {
+          const response = res as any;
+          if (_.toLower(response.message) == 'ok') {
+            resolve(true);
+          }
+          else {
+            resolve(false);
+          }
+        },
+        err => {
+          reject(err);
+        }
+      );
+    });
+  }
 }

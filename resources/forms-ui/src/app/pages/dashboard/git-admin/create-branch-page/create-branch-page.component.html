@@ -45,8 +45,13 @@
                           <input type="text" class="form-control form-control-lg" formControlName="branchSupervisor"
                             placeholder="Search Branch Super Executive" [matAutocomplete]="_auto">
                           <mat-autocomplete #_auto="matAutocomplete">
-                            <mat-option *ngFor="let item of filteredBranchExecutives | async" [value]="item">
-                              {{ item }}
+                            <mat-option *ngFor="let item of filteredBranchExecutives | async" [value]="item.email">
+                              <span class="autocomplete-icon">
+                                <i class="mdi mdi-account-outline"></i>
+                              </span>
+                              <span>{{ item.email }}</span> <br>
+                              <small class="autocomplete-small">{{ item.full_name }}</small> <br>
+                              <small class="autocomplete-small">{{ item.merchant_name }} - {{ item.branch_name }}</small> <br>
                             </mat-option>
                           </mat-autocomplete>
                           <div *ngIf="submitted && f.branchSupervisor.errors">
@@ -59,8 +64,13 @@
                           <input type="text" class="form-control form-control-lg" formControlName="branchAdmin"
                             placeholder="Search Branch Admin" [matAutocomplete]="auto">
                           <mat-autocomplete #auto="matAutocomplete">
-                            <mat-option *ngFor="let item of filteredBranchAdmins | async" [value]="item">
-                              {{ item }}
+                            <mat-option *ngFor="let item of filteredBranchAdmins | async" [value]="item.email">
+                               <span class="autocomplete-icon">
+                                 <i class="mdi mdi-account-outline"></i>
+                               </span>
+                              <span>{{ item.email }}</span> <br>
+                              <small class="autocomplete-small">{{ item.full_name }}</small> <br>
+                              <small class="autocomplete-small">{{ item.merchant_name }} - {{ item.branch_name }}</small> <br>
                             </mat-option>
                           </mat-autocomplete>
                           <div *ngIf="submitted && f.branchAdmin.errors">

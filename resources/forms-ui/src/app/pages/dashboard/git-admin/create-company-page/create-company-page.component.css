@@ -35,3 +35,18 @@
   background-color: DodgerBlue !important;
   color: #ffffff;
 }
+
+.mat-option {
+  height: 80px;
+  line-height: 20px;
+}
+
+.autocomplete-icon {
+  position: relative;
+  margin-right: 10px;
+  top: 23px;
+}
+
+.autocomplete-small {
+  margin-left: 25px;
+}

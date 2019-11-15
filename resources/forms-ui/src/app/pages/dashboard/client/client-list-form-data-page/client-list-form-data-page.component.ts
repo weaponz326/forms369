@@ -7,6 +7,11 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ClientListFormDataPageComponent implements OnInit {
 
+  hasData: boolean;
+  loading: boolean;
+  hasError: boolean;
+  isConnected: boolean;
+
   constructor() { }
 
   ngOnInit() {

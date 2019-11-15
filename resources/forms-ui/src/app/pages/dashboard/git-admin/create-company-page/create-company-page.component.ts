@@ -65,6 +65,7 @@ export class CreateCompanyPageComponent implements OnInit {
   initializeView() {
     this._loading = true;
     this.getSuperExecutive();
+    // this.getSuperExecs();
     this.getCompanyAdmins();
   }
 
@@ -76,10 +77,11 @@ export class CreateCompanyPageComponent implements OnInit {
     return this.form.get('country');
   }
 
-  filter(collection: Array<string>, value: string) {
+  filter(collection: Array<any>, value: string) {
     console.log('filtering');
     const filterValue = value.toLowerCase();
-    return collection.filter(item => item.toLowerCase().includes(filterValue));
+    console.log('filter: ' + JSON.stringify(collection));
+    return collection.filter(item => item.email.toLowerCase().includes(filterValue));
   }
 
   buildForm() {
@@ -155,7 +157,7 @@ export class CreateCompanyPageComponent implements OnInit {
           this._loading = false;
           this.filteredExecutivesList = this.f.superExecutive.valueChanges.pipe(
             startWith('-'),
-            map(value => this.filter(this.executivesEmailList, value))
+            map(value => this.filter(this.superExecutivesList, value))
           );
         }
         else {
@@ -179,8 +181,9 @@ export class CreateCompanyPageComponent implements OnInit {
           });
           this.filteredAdminsList = this.f.companyAdmin.valueChanges.pipe(
             startWith('-'),
-            map(value => this.filter(this.companyAdminEmailList, value))
+            map(value => this.filter(this.companyAdminsList, value))
           );
+          console.log('filteredList: ' + JSON.stringify(this.filteredAdminsList));
         }
         else {}
       },
