@@ -71,6 +71,10 @@ import { ViewFormListsPageComponent } from './pages/dashboard/git-admin/view-for
 import { ViewFormDetailsPageComponent } from './pages/dashboard/git-admin/view-form-details-page/view-form-details-page.component';
 import { ClientProfilePageComponent } from './pages/dashboard/client/client-profile-page/client-profile-page.component';
 import { ClientUnsentFormsPageComponent } from './pages/dashboard/client/client-unsent-forms-page/client-unsent-forms-page.component';
+import { AddTemplatePageComponent } from './pages/dashboard/form-templates/add-template-page/add-template-page.component';
+import { EditTemplatePageComponent } from './pages/dashboard/form-templates/edit-template-page/edit-template-page.component';
+import { ListTemplatePageComponent } from './pages/dashboard/form-templates/list-template-page/list-template-page.component';
+import { ViewTemplatePageComponent } from './pages/dashboard/form-templates/view-template-page/view-template-page.component';
 
 @NgModule({
   declarations: [
@@ -135,6 +139,10 @@ import { ClientUnsentFormsPageComponent } from './pages/dashboard/client/client-
     ViewFormDetailsPageComponent,
     ClientProfilePageComponent,
     ClientUnsentFormsPageComponent,
+    AddTemplatePageComponent,
+    EditTemplatePageComponent,
+    ListTemplatePageComponent,
+    ViewTemplatePageComponent,
   ],
   imports: [
     BrowserModule,

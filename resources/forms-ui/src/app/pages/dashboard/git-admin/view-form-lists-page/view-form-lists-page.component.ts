@@ -3,6 +3,7 @@ import * as _ from 'lodash';
 import { Router } from '@angular/router';
 import { EndpointService } from 'src/app/services/endpoint/endpoint.service';
 import { FormBuilderService } from 'src/app/services/form-builder/form-builder.service';
+import { ListViewService } from 'src/app/services/view/list-view.service';
 
 @Component({
   selector: 'app-view-form-lists-page',
@@ -13,6 +14,7 @@ export class ViewFormListsPageComponent implements OnInit {
 
   loading: boolean;
   hasMore: boolean;
+  viewMode: string;
   hasError: boolean;
   hasNoData: boolean;
   filterState: string;
@@ -23,10 +25,13 @@ export class ViewFormListsPageComponent implements OnInit {
 
   constructor(
     private router: Router,
+    private listViewService: ListViewService,
     private formBuilderService: FormBuilderService
   ) {
     this.formsList = [];
     this.allFormsList = [];
+    this.viewMode = this.listViewService.getDesiredViewMode();
+
     this.getAllForms();
   }
 
@@ -37,6 +42,49 @@ export class ViewFormListsPageComponent implements OnInit {
   showAll() {
     this.filterState = 'all';
     this.formsList = this.allFormsList;
+  }
+
+  toggleViewMode(mode: string) {
+    switch (mode) {
+      case 'list':
+        this.viewMode = 'list';
+        this.listViewService.setDesiredViewMode('list');
+        break;
+      case 'grid':
+        this.viewMode = 'grid';
+        this.listViewService.setDesiredViewMode('grid');
+        break;
+      default:
+        break;
+    }
+  }
+
+  sort(sort_category: string) {
+    switch (sort_category) {
+      case 'created':
+        this.sortByCreated();
+        break;
+      case 'merchant':
+        this.sortByCompany();
+        break;
+      case 'form':
+        this.sortByForm();
+        break;
+      default:
+        break;
+    }
+  }
+
+  sortByForm() {
+    this.formsList = _.sortBy(this.formsList, (item) => item.name);
+  }
+
+  sortByCreated() {
+    this.formsList = _.sortBy(this.formsList, (item) => item.created_at);
+  }
+
+  sortByCompany() {
+    this.formsList = _.sortBy(this.formsList, (item) => item.merchant_name);
   }
 
   showActive() {
@@ -55,6 +103,10 @@ export class ViewFormListsPageComponent implements OnInit {
 
   view(form: any) {
     this.router.navigateByUrl('/git_admin/details/form', { state: { form: form }});
+  }
+
+  openNewForm() {
+    this.router.navigateByUrl('/git_admin/setup_form');
   }
 
   delete(id: string) {}
