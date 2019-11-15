@@ -14,3 +14,8 @@
     display: block;
     margin: 0 auto;
 }
+
+.dropdown .dropdown-menu .dropdown-item {
+    font-size: .875rem;
+    padding: 0.6rem 1.5rem;
+}

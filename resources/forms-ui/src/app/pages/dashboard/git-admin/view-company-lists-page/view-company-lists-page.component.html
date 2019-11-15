@@ -101,6 +101,14 @@
                     <button type="button" class="btn btn-outline-secondary" [ngClass]="{'active': filterState == 'all'}" (click)="showAll()">All</button>
                     <button type="button" class="btn btn-outline-secondary" [ngClass]="{'active': filterState == 'active'}" (click)="showActive()">Active</button>
                     <button type="button" class="btn btn-outline-secondary" [ngClass]="{'active': filterState == 'inactive'}" (click)="showInActive()">In Active</button>
+                    <div class="dropdown">
+                      <button type="button" class="btn btn-outline-secondary dropdown-toggle" id="sortMenuButton"
+                        data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Sort By</button>
+                      <div class="dropdown-menu" aria-labelledby="sortMenuButton">
+                        <button type="button" class="dropdown-item" (click)="sort('merchant')">Company Name</button>
+                        <button type="button" class="dropdown-item" (click)="sort('created')">Date Created</button>
+                      </div>
+                    </div>
                   </div>
                 </div>
 

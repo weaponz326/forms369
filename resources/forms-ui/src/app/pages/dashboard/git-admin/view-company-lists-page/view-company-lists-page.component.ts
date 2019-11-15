@@ -40,6 +40,27 @@ export class ViewCompanyListsPageComponent implements OnInit {
     this.filterState = 'all';
   }
 
+  sort(sort_category: string) {
+    switch (sort_category) {
+      case 'created':
+        this.sortByCreated();
+        break;
+      case 'merchant':
+        this.sortByCompany();
+        break;
+      default:
+        break;
+    }
+  }
+
+  sortByCreated() {
+    this.companyList = _.sortBy(this.companyList, (item) => item.created_at);
+  }
+
+  sortByCompany() {
+    this.companyList = _.sortBy(this.companyList, (item) => item.merchant_name);
+  }
+
   showAll() {
     this.filterState = 'all';
     this.companyList = this.allCompanyList;
