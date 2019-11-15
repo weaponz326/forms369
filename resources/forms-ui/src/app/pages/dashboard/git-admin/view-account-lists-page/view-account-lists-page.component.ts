@@ -273,4 +273,46 @@ export class ViewAccountListsPageComponent implements OnInit {
     );
   }
 
+  sort(sort_category: string) {
+    switch (sort_category) {
+      case 'email':
+        this.sortByEmail();
+        break;
+      case 'status':
+        this.sortByStatus();
+        break;
+      case 'created':
+        this.sortByCreated();
+        break;
+      case 'merchant':
+        this.sortByCompany();
+        break;
+      case 'username':
+        this.sortByUsername();
+        break;
+      default:
+        break;
+    }
+  }
+
+  sortByEmail() {
+    this.collection = _.sortBy(this.collection, (item) => item.email);
+  }
+
+  sortByStatus() {
+    this.collection = _.sortBy(this.collection, (item) => item.status);
+  }
+
+  sortByCreated() {
+    this.collection = _.sortBy(this.collection, (item) => item.created_at);
+  }
+
+  sortByCompany() {
+    this.collection = _.sortBy(this.collection, (item) => item.merchant_name);
+  }
+
+  sortByUsername() {
+    this.collection = _.sortBy(this.collection, (item) => item.username);
+  }
+
 }

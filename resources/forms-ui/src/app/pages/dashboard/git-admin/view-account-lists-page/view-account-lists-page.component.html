@@ -66,10 +66,11 @@
         <div class="dropdown">
           <button type="button" class="btn btn-outline-secondary dropdown-toggle" id="sortMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Sort By</button>
           <div class="dropdown-menu" aria-labelledby="sortMenuButton">
-            <button type="button" class="dropdown-item">Username</button>
-            <button type="button" class="dropdown-item">Email Address</button>
-            <button type="button" class="dropdown-item">Company Name</button>
-            <button type="button" class="dropdown-item">Status</button>
+            <button type="button" class="dropdown-item" (click)="sort('username')">Username</button>
+            <button type="button" class="dropdown-item" (click)="sort('email')">Email Address</button>
+            <button type="button" class="dropdown-item" (click)="sort('merchant')">Company Name</button>
+            <button type="button" class="dropdown-item" (click)="sort('status')">Status</button>
+            <button type="button" class="dropdown-item" (click)="sort('created')">Date Created</button>
           </div>
         </div>
       </div>
