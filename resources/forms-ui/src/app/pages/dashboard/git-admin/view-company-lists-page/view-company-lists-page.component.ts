@@ -4,6 +4,7 @@ import { Router } from '@angular/router';
 import { Merchants } from 'src/app/models/merchants.model';
 import { CompanyService } from 'src/app/services/company/company.service';
 import { EndpointService } from 'src/app/services/endpoint/endpoint.service';
+import { ListViewService } from 'src/app/services/view/list-view.service';
 
 @Component({
   selector: 'app-view-company-lists-page',
@@ -15,6 +16,7 @@ export class ViewCompanyListsPageComponent implements OnInit {
 
   loading: boolean;
   hasMore: boolean;
+  viewMode: string;
   hasError: boolean;
   hasNoData: boolean;
   filterState: string;
@@ -26,18 +28,35 @@ export class ViewCompanyListsPageComponent implements OnInit {
   constructor(
     private router: Router,
     private companyService: CompanyService,
-    private endpointService: EndpointService
+    private endpointService: EndpointService,
+    private listViewService: ListViewService
   ) {
     this.companyList = [];
     this.allCompanyList = [];
     this.activeCompanyList = [];
     this.inActiveCompanyList = [];
+    this.viewMode = this.listViewService.getDesiredViewMode();
 
     this.getCompanies();
   }
 
   ngOnInit() {
     this.filterState = 'all';
+  }
+
+  toggleViewMode(mode: string) {
+    switch (mode) {
+      case 'list':
+        this.viewMode = 'list';
+        this.listViewService.setDesiredViewMode('list');
+        break;
+      case 'grid':
+        this.viewMode = 'grid';
+        this.listViewService.setDesiredViewMode('grid');
+        break;
+      default:
+        break;
+    }
   }
 
   sort(sort_category: string) {
@@ -78,6 +97,10 @@ export class ViewCompanyListsPageComponent implements OnInit {
 
   openBranch(company: any) {
     this.router.navigateByUrl('/git_admin/lists/branch', { state: { company: company }});
+  }
+
+  openNewCompany() {
+    this.router.navigateByUrl('/git_admin/create/company');
   }
 
   edit(company: any) {

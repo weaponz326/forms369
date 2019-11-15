@@ -15,7 +15,21 @@
     margin: 0 auto;
 }
 
+.card-logo-small {
+    width: 90px;
+    height: 90px;
+    border-radius: 50%;
+}
+
 .dropdown .dropdown-menu .dropdown-item {
     font-size: .875rem;
     padding: 0.6rem 1.5rem;
+}
+
+.mt--2 {
+    margin-top: 2rem !important;
+}
+
+.mt--4 {
+    margin-top: 1.3rem !important;
 }

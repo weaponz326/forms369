@@ -19,15 +19,15 @@
                 </div>
               </div>
               <div class="d-flex justify-content-between align-items-end flex-wrap">
-                <!-- <button type="button" class="btn btn-light bg-white btn-icon mr-3 d-none d-md-block ">
-                  <i class="mdi mdi-download text-muted"></i>
-                </button> -->
-                <!-- <button type="button" class="btn btn-light bg-white btn-icon mr-3 mt-2 mt-xl-0">
-                  <i class="mdi mdi-clock-outline text-muted"></i>
-                </button> -->
-                <!-- <button type="button" class="btn btn-light bg-white btn-icon mr-3 mt-2 mt-xl-0">
+                <button type="button" class="btn btn-light bg-white btn-icon mr-3 mt-2 mt-xl-0" (click)="openNewCompany()">
                   <i class="mdi mdi-plus text-muted"></i>
-                </button> -->
+                </button>
+                <button type="button" class="btn btn-light bg-white btn-icon mr-3 mt-2 mt-xl-0" (click)="toggleViewMode('list')">
+                  <i class="mdi mdi-view-list text-muted"></i>
+                </button>
+                <button type="button" class="btn btn-light bg-white btn-icon mr-3 mt-2 mt-xl-0" (click)="toggleViewMode('grid')">
+                  <i class="mdi mdi-view-grid text-muted"></i>
+                </button>
               </div>
             </div>
           </div>
@@ -112,7 +112,7 @@
                   </div>
                 </div>
 
-                <div class="row">
+                <div *ngIf="viewMode == 'grid'" class="row">
                   <div class="col-md-4 grid-margin stretch-card" *ngFor="let company of companyList">
                     <div class="card hover-cursor animated fadeInDown fast" (click)="openBranch(company)">
                       <div class="card-body">
@@ -139,6 +139,63 @@
                     </div>
                   </div>
                 </div>
+
+                <div *ngIf="viewMode == 'list'" class="row">
+                  <!-- <div class="media mb-4 mt-4" style="width: 100%;" *ngFor="let company of companyList">
+                    <img [src]="company.logo" class="align-self-center card-logo-small mr-5" alt="logo">
+                    <div class="media-body">
+                      <h5 class="mt-0">{{ company.merchant_name }}</h5>
+                      <div>
+                         <div class="btn-group mt-2" role="group" aria-label="Basic example">
+                           <button type="button" class="btn btn-outline-secondary" (click)="edit(branch)">
+                             <i class="mdi mdi-pencil-outline"></i>
+                             Edit
+                           </button>
+                           <button type="button" class="btn btn-outline-secondary" (click)="view(branch)">
+                             <i class="mdi mdi-pulse"></i>
+                             View
+                           </button>
+                           <button type="button" class="btn btn-outline-secondary" (click)="delete(branch.id)">
+                             <i class="mdi mdi-delete-outline"></i>
+                             Delete
+                           </button>
+                         </div>
+                      </div>
+                    </div>
+                  </div> -->
+                  <div class="list-group" style="width: 100%;">
+                    <div class="list-group-item hover-cursor list-group-item-action animated fadeInDown"
+                      *ngFor="let company of companyList">
+                      <div class="row">
+                        <div class="col-8">
+                          <div class="row">
+                            <div class="col-2">
+                              <img [src]="company.logo" class="align-self-center card-logo-small mr-5" alt="logo">
+                            </div>
+                            <div class="col-10">
+                              <h1 class="display-4 mb-1 mt--2 ml-1">{{ company.merchant_name }}</h1>
+                            </div>
+                          </div>
+                        </div>
+                        <div class="col-4 mt--4">
+                          <div class="btn-group mt-2" role="group" aria-label="Basic example">
+                            <button type="button" class="btn btn-outline-secondary" (click)="edit(branch)">
+                              <i class="mdi mdi-pencil-outline"></i>
+                              Edit
+                            </button>
+                            <button type="button" class="btn btn-outline-secondary" (click)="view(branch)">
+                              <i class="mdi mdi-pulse"></i>
+                              View
+                            </button>
+                            <button type="button" class="btn btn-outline-secondary" (click)="delete(branch.id)">
+                              <i class="mdi mdi-delete-outline"></i>
+                              Delete
+                            </button>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
 
                 <div *ngIf="hasMore" class="row">
                   <div class="col-md-4 col-sm-6 offset-sm-3 offset-lg-4">
