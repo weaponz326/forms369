@@ -4,6 +4,7 @@ import { Router } from '@angular/router';
 import { BranchService } from 'src/app/services/branch/branch.service';
 import { CompanyBranches } from 'src/app/models/company-branches.model';
 import { EndpointService } from 'src/app/services/endpoint/endpoint.service';
+import { ListViewService } from 'src/app/services/view/list-view.service';
 
 @Component({
   selector: 'app-view-branch-lists-page',
@@ -14,25 +15,71 @@ import { EndpointService } from 'src/app/services/endpoint/endpoint.service';
 export class ViewBranchListsPageComponent implements OnInit {
 
   company: any;
+  viewMode: string;
   loading: boolean;
   hasMore: boolean;
   hasError: boolean;
   hasNoData: boolean;
   filterState: string;
-  branchesList: Array<CompanyBranches>;
-  allBranchesList: Array<CompanyBranches>;
+  branchesList: Array<any>;
+  allBranchesList: Array<any>;
 
   constructor(
     private router: Router,
-    private branchService: BranchService
+    private branchService: BranchService,
+    private listViewService: ListViewService
   ) {
     this.branchesList = [];
     this.allBranchesList = [];
+    this.viewMode = this.listViewService.getDesiredViewMode();
     this.getBranches();
   }
 
   ngOnInit() {
     this.filterState = 'all';
+  }
+
+  toggleViewMode(mode: string) {
+    switch (mode) {
+      case 'list':
+        this.viewMode = 'list';
+        this.listViewService.setDesiredViewMode('list');
+        break;
+      case 'grid':
+        this.viewMode = 'grid';
+        this.listViewService.setDesiredViewMode('grid');
+        break;
+      default:
+        break;
+    }
+  }
+
+  sort(sort_category: string) {
+    switch (sort_category) {
+      case 'created':
+        this.sortByCreated();
+        break;
+      case 'branch':
+        this.sortByBranch();
+        break;
+      case 'merchant':
+        this.sortByCompany();
+        break;
+      default:
+        break;
+    }
+  }
+
+  sortByCreated() {
+    this.branchesList = _.sortBy(this.branchesList, (item) => item.created_at);
+  }
+
+  sortByBranch() {
+    this.branchesList = _.sortBy(this.branchesList, (item) => item.branch_name);
+  }
+
+  sortByCompany() {
+    this.branchesList = _.sortBy(this.branchesList, (item) => item.merchant_name);
   }
 
   showAll() {

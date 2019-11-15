@@ -19,14 +19,14 @@
                 </div>
               </div>
               <div class="d-flex justify-content-between align-items-end flex-wrap">
-                <!-- <button type="button" class="btn btn-light bg-white btn-icon mr-3 d-none d-md-block ">
-                  <i class="mdi mdi-download text-muted"></i>
-                </button>
-                <button type="button" class="btn btn-light bg-white btn-icon mr-3 mt-2 mt-xl-0">
-                  <i class="mdi mdi-clock-outline text-muted"></i>
-                </button> -->
                 <button type="button" class="btn btn-light bg-white btn-icon mr-3 mt-2 mt-xl-0" (click)="openNewBranch()">
                   <i class="mdi mdi-plus text-muted"></i>
+                </button>
+                <button type="button" class="btn btn-light bg-white btn-icon mr-3 mt-2 mt-xl-0" (click)="toggleViewMode('list')">
+                  <i class="mdi mdi-view-list text-muted"></i>
+                </button>
+                <button type="button" class="btn btn-light bg-white btn-icon mr-3 mt-2 mt-xl-0" (click)="toggleViewMode('grid')">
+                  <i class="mdi mdi-view-grid text-muted"></i>
                 </button>
               </div>
             </div>
@@ -100,10 +100,19 @@
                     <button type="button" class="btn btn-outline-secondary" [ngClass]="{'active': filterState == 'all'}" (click)="showAll()">All</button>
                     <button type="button" class="btn btn-outline-secondary" [ngClass]="{'active': filterState == 'active'}" (click)="showActive()">Active</button>
                     <button type="button" class="btn btn-outline-secondary" [ngClass]="{'active': filterState == 'inactive'}" (click)="showInActive()">In Active</button>
+                    <div class="dropdown">
+                      <button type="button" class="btn btn-outline-secondary dropdown-toggle" id="sortMenuButton"
+                        data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Sort By</button>
+                      <div class="dropdown-menu" aria-labelledby="sortMenuButton">
+                        <button type="button" class="dropdown-item" (click)="sort('branch')">Branch Name</button>
+                        <button type="button" class="dropdown-item" (click)="sort('merchant')">Company Name</button>
+                        <button type="button" class="dropdown-item" (click)="sort('created')">Date Created</button>
+                      </div>
+                    </div>
                   </div>
                 </div>
 
-                <div class="row">
+                <div *ngIf="viewMode == 'grid'" class="row">
                   <div class="col-md-4 grid-margin stretch-card" *ngFor="let branch of branchesList">
                     <div class="card hover-cursor animated fadeInDown fast">
                       <div class="card-body">
@@ -128,6 +137,59 @@
                       </div>
                     </div>
                   </div>
+                </div>
+
+                <div *ngIf="viewMode == 'list'" class="row">
+                  <div class="list-group" style="width: 100%;">
+                    <div class="list-group-item hover-cursor list-group-item-action animated fadeInDown" *ngFor="let branch of branchesList">
+                      <div class="row">
+                        <div class="col-8">
+                          <span class="card-title mt-2">{{ branch.merchant_name }}</span>
+                          <h1 class="display-4 mb-1 mt-2">{{ branch.branch_name }}</h1>
+                        </div>
+                        <div class="col-4">
+                          <div class="btn-group mt-2" role="group" aria-label="Basic example">
+                            <button type="button" class="btn btn-outline-secondary" (click)="edit(branch)">
+                              <i class="mdi mdi-pencil-outline"></i>
+                              Edit
+                            </button>
+                            <button type="button" class="btn btn-outline-secondary" (click)="view(branch)">
+                              <i class="mdi mdi-pulse"></i>
+                              View
+                            </button>
+                            <button type="button" class="btn btn-outline-secondary" (click)="delete(branch.id)">
+                              <i class="mdi mdi-delete-outline"></i>
+                              Delete
+                            </button>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <!-- <div class="col-md-4 grid-margin stretch-card" *ngFor="let branch of branchesList">
+                    <div class="card hover-cursor animated fadeInDown fast">
+                      <div class="card-body">
+                        <p class="card-title">{{ branch.merchant_name }}</p>
+                        <div class="card-text">
+                          <h1 class="display-4 mb-4">{{ branch.branch_name }}</h1>
+                          <div class="btn-group" role="group" aria-label="Basic example">
+                            <button type="button" class="btn btn-outline-secondary" (click)="edit(branch)">
+                              <i class="mdi mdi-pencil-outline"></i>
+                              Edit
+                            </button>
+                            <button type="button" class="btn btn-outline-secondary" (click)="view(branch)">
+                              <i class="mdi mdi-pulse"></i>
+                              View
+                            </button>
+                            <button type="button" class="btn btn-outline-secondary" (click)="delete(branch.id)">
+                              <i class="mdi mdi-delete-outline"></i>
+                              Delete
+                            </button>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div> -->
                 </div>
 
                 <div *ngIf="hasMore" class="row">
