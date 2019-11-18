@@ -78,6 +78,12 @@ Route::group(['middleware' => ['auth:api'], 'prefix' => 'v1'], function(){
     Route::get('getNumActiveMerchants', 'HomeController@getNumActiveMerchants')->name('getNumActiveMerchants')->middleware('scope:GIT_Admin');
     Route::get('getNumInactiveMerchants', 'HomeController@getNumInactiveMerchants')->name('getNumInactiveMerchants')->middleware('scope:GIT_Admin');
    
+    //enabling and disabling merchants and branches apis
+    Route::post('disableMerchant/{id}', 'HomeController@disableMerchant')->name('disableMerchant')->middleware('scope:GIT_Admin');
+    Route::post('enableMerchant/{id}', 'HomeController@enableMerchant')->name('enableMerchant')->middleware('scope:GIT_Admin');
+    Route::post('disableBranch/{id}', 'HomeController@disableBranch')->name('disableBranch')->middleware('scope:GIT_Admin');
+    Route::post('enableBranch/{id}', 'HomeController@enableBranch')->name('enableBranch')->middleware('scope:GIT_Admin');
+   
     
     //company branch setup and update apis
     Route::post('createCompanyBranch', 'HomeController@createCompanyBranches')->name('createCompanyBranch')->middleware('scope:GIT_Admin');

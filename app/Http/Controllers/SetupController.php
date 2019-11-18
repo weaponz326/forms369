@@ -1042,6 +1042,205 @@ class SetupController extends Controller
 
     }
 
+    /**
+     * diableMerchant disable a merchant
+     * All users under this merchant are disabled as well
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @param  $id of the merchant to be disabled
+     *
+     * @return void\Illuminate\Http\Response success or error message
+     */
+    public function disableMerchant(Request $request, $id)
+    {
+
+        $updated_at = now();
+
+        //get user creating the new merchant
+        $user = $request->user();
+        $userid = $user['id'];
+
+        //disble merchant
+        try {
+            DB::table('merchants')
+            ->where('id', $id)
+            ->update(
+                [
+                    'status' => 0, 
+                    'updated_at' => $updated_at,
+                    'updated_by' => $userid
+                ]
+            );
+
+            DB::table('users')
+            ->where('merchant_id', $id)
+            ->update(
+                [
+                    'status' => 0, 
+                    'updated_at' => $updated_at
+                ]
+            );
+
+            $message = 'Ok';
+
+        }catch(Exception $e) {
+            $message = "Failed";
+        } 
+            
+        return response()->json([
+            'message' => $message
+        ]);
+    }
+
+    /**
+     * enableMerchant enable a previously disbaled merchant
+     * All users under this merchant that were disabled as a result 
+     * of diabling the mercahnt are enabled
+     * @param  \Illuminate\Http\Request  $request
+     * @param  $id of the merchant to be enabled
+     *
+     * @return void\Illuminate\Http\Response success or error message
+     */
+    public function enableMerchant(Request $request, $id)
+    {
+
+        $updated_at = now();
+
+        //get user creating the new merchant
+        $user = $request->user();
+        $userid = $user['id'];
+
+        //disble merchant
+        try {
+            DB::table('merchants')
+            ->where('id', $id)
+            ->update(
+                [
+                    'status' => 1, 
+                    'updated_at' => $updated_at,
+                    'updated_by' => $userid
+                ]
+            );
+
+            DB::table('users')
+            ->where('merchant_id', $id)
+            ->update(
+                [
+                    'status' => 1, 
+                    'updated_at' => $updated_at
+                ]
+            );
+
+            $message = 'Ok';
+
+        }catch(Exception $e) {
+            $message = "Failed";
+        } 
+            
+        return response()->json([
+            'message' => $message
+        ]);
+    }
+
+    /**
+     * diableBranch disable a branch
+     * All users under this branch are disabled as well
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @param  $id of the branch to be disabled
+     *
+     * @return void\Illuminate\Http\Response success or error message
+     */
+    public function disableBranch(Request $request, $id)
+    {
+
+        $updated_at = now();
+
+        //get user creating the new merchant
+        $user = $request->user();
+        $userid = $user['id'];
+
+        //disble merchant
+        try {
+            DB::table('company_branches')
+            ->where('id', $id)
+            ->update(
+                [
+                    'status' => 0, 
+                    'updated_at' => $updated_at,
+                    'updated_by' => $userid
+                ]
+            );
+
+            DB::table('users')
+            ->where('branch_id', $id)
+            ->update(
+                [
+                    'status' => 0, 
+                    'updated_at' => $updated_at
+                ]
+            );
+
+            $message = 'Ok';
+
+        }catch(Exception $e) {
+            $message = "Failed";
+        } 
+            
+        return response()->json([
+            'message' => $message
+        ]);
+    }
+
+    /**
+     * enableBranch enable a previously disbaled branch
+     * All users under this branch that were disabled as a result 
+     * of diabling the branch are enabled
+     * @param  \Illuminate\Http\Request  $request
+     * @param  $id of the branch to be enabled
+     *
+     * @return void\Illuminate\Http\Response success or error message
+     */
+    public function enableBranch(Request $request, $id)
+    {
+
+        $updated_at = now();
+
+        //get user creating the new merchant
+        $user = $request->user();
+        $userid = $user['id'];
+
+        //disble merchant
+        try {
+            DB::table('company_branches')
+            ->where('id', $id)
+            ->update(
+                [
+                    'status' => 1, 
+                    'updated_at' => $updated_at,
+                    'updated_by' => $userid
+                ]
+            );
+
+            DB::table('users')
+            ->where('branch_id', $id)
+            ->update(
+                [
+                    'status' => 1, 
+                    'updated_at' => $updated_at
+                ]
+            );
+
+            $message = 'Ok';
+
+        }catch(Exception $e) {
+            $message = "Failed";
+        } 
+            
+        return response()->json([
+            'message' => $message
+        ]);
+    }
 
     
 
