@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import * as _ from 'lodash';
 import { Router } from '@angular/router';
 import { FormBuilderService } from 'src/app/services/form-builder/form-builder.service';
+import { FormsService } from 'src/app/services/forms/forms.service';
 
 @Component({
   selector: 'app-client-list-forms-page',
@@ -20,6 +21,7 @@ export class ClientListFormsPageComponent implements OnInit {
 
   constructor(
     private router: Router,
+    private formService: FormsService,
     private formBuilderService: FormBuilderService
   ) {
     this.formsList = [];
@@ -45,7 +47,7 @@ export class ClientListFormsPageComponent implements OnInit {
   getAllForms() {
     this.loading = true;
     const merchant_id = this.company.id;
-    this.formBuilderService.getAllFormsByMerchant(merchant_id).then(
+    this.formService.getAllFormsByMerchant(merchant_id).then(
       res => {
         const forms = res as any;
         if (forms.length > 0) {

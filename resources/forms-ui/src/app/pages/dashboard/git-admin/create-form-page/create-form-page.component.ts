@@ -1,11 +1,14 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Inject } from '@angular/core';
 declare var $: any;
 import * as _ from 'lodash';
 import { Router } from '@angular/router';
+import { DOCUMENT } from '@angular/common';
 import { Forms } from 'src/app/models/forms.model';
+import { PageScrollService } from 'ngx-page-scroll-core';
+import { FormsService } from 'src/app/services/forms/forms.service';
+import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { CompanyService } from 'src/app/services/company/company.service';
 import { FormBuilderService } from 'src/app/services/form-builder/form-builder.service';
-
 
 @Component({
   selector: 'app-create-form-page',
@@ -14,6 +17,7 @@ import { FormBuilderService } from 'src/app/services/form-builder/form-builder.s
 })
 export class CreateFormPageComponent implements OnInit {
 
+  form: FormGroup;
   formBuilder: any;
   created: boolean;
   loading: boolean;
@@ -21,14 +25,18 @@ export class CreateFormPageComponent implements OnInit {
   formName: string;
   formCode: string;
   merchant: string;
-  formStatus: string;
-  selectedMerchant: number;
+  submitted: boolean;
+  toPublish: boolean;
   allMerchantsList: Array<any>;
 
   constructor(
     private router: Router,
+    private _formBuilder: FormBuilder,
+    private formService: FormsService,
     private companyService: CompanyService,
-    private formBuilderService: FormBuilderService
+    private pageScroller: PageScrollService,
+    private formBuilderService: FormBuilderService,
+    @Inject(DOCUMENT) private document: any
   ) {
     this.merchant = '';
     this.allMerchantsList = [];
@@ -37,13 +45,38 @@ export class CreateFormPageComponent implements OnInit {
 
   ngOnInit() {
     this.created = false;
+    this.buildForm();
+
     this.formBuilder = $(document.getElementById('fb-editor')).formBuilder({
       controlPosition: 'left',
       scrollToFieldOnAdd: false,
       disabledActionButtons: ['data', 'clear', 'save'],
+      inputSets: this.formBuilderService.generateFormFields(),
+      disableFields: this.formBuilderService.disableDefaultFormControls()
     });
-    this.formStatus = '0';
+
     this.formCode = this.formBuilderService.generateUniqueFormCode();
+  }
+
+  buildForm() {
+    this.form = this._formBuilder.group({
+      name: ['', Validators.required],
+      merchant: ['', Validators.required]
+    });
+  }
+
+  public get f() {
+    return this.form.controls;
+  }
+
+  public get _merchant() {
+    return this.form.get('country');
+  }
+
+  onMerchantSelect(e: any) {
+    this._merchant.setValue(e.target.value, {
+      onlySelf: true
+    });
   }
 
   getCompanies() {
@@ -68,15 +101,6 @@ export class CreateFormPageComponent implements OnInit {
     return this.formBuilder.actions.getData();
   }
 
-  handleValidations() {}
-
-  isFormValid() {
-    if (_.isEmpty(this.formName) || _.isNull(this.merchant))
-      return false;
-    else
-      return true;
-  }
-
   save() {
     console.log(this.formBuilder.actions.getData());
     this.loading = true;
@@ -85,13 +109,13 @@ export class CreateFormPageComponent implements OnInit {
     formData.form_fields = form;
     formData.name = this.formName;
     formData.form_code = this.formCode;
-    formData.status = _.toInteger(this.formStatus);
+    formData.status = this.toPublish ? 1 : 0;
     formData.merchant_id = parseInt(this.merchant);
-    console.log(JSON.stringify(formData));
 
-    this.formBuilderService.createForm(formData).then(
+    this.formService.createForm(formData).then(
       res => {
         this.loading = false;
+        this.toPublish = false;
         if (_.toLower(res.message) == 'ok') {
           this.created = true;
         }
@@ -102,18 +126,42 @@ export class CreateFormPageComponent implements OnInit {
       err => {
         this.loading = false;
         this.created = false;
+        this.toPublish = false;
       }
     );
   }
-
-  preview() {}
 
   reset() {
     this.formBuilder.actions.clearFields();
   }
 
   create() {
-    this.isFormValid() ? this.save() : this.handleValidations();
+    this.submitted = true;
+    if (this.form.valid) {
+      this.save();
+    }
+    else {
+      this.scrollToTop();
+    }
+  }
+
+  publish() {
+    this.submitted = true;
+    if (this.form.valid) {
+      this.toPublish = true;
+      this.save();
+    }
+    else {
+      this.scrollToTop();
+    }
+  }
+
+  scrollToTop() {
+    this.pageScroller.scroll({
+      document: this.document,
+      speed: 1000,
+      scrollTarget: '.content-wrapper'
+    });
   }
 
   bringBackForm() {

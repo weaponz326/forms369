@@ -36,6 +36,7 @@
     "moment": "^2.24.0",
     "ngx-country-picker": "^2.1.0",
     "ngx-order-pipe": "^2.0.4",
+    "ngx-page-scroll-core": "^7.0.0",
     "popper.js": "^1.16.0",
     "rxjs": "~6.4.0",
     "tslib": "^1.9.0",

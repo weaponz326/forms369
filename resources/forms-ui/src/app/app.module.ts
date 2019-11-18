@@ -6,6 +6,7 @@ import { OrderModule } from 'ngx-order-pipe';
 import { CountryPickerModule } from 'ngx-country-picker';
 import { HttpClientModule } from '@angular/common/http';
 import { AppRoutingModule } from './app-routing.module';
+import { NgxPageScrollCoreModule } from 'ngx-page-scroll-core';
 
 import { MatAutocompleteModule } from '@angular/material';
 
@@ -156,7 +157,8 @@ import { ViewTemplatePageComponent } from './pages/dashboard/form-templates/view
       baseUrl: 'assets/',
       filename: 'countries.json'
     }),
-    BrowserAnimationsModule
+    BrowserAnimationsModule,
+    NgxPageScrollCoreModule
   ],
   providers: [],
   bootstrap: [AppComponent]

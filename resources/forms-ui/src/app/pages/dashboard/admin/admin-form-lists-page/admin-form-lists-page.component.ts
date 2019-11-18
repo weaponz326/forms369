@@ -5,6 +5,7 @@ import { ListViewService } from 'src/app/services/view/list-view.service';
 import { EndpointService } from 'src/app/services/endpoint/endpoint.service';
 import { FormBuilderService } from 'src/app/services/form-builder/form-builder.service';
 import { LocalStorageService } from 'src/app/services/storage/local-storage.service';
+import { FormsService } from 'src/app/services/forms/forms.service';
 
 @Component({
   selector: 'app-admin-form-lists-page',
@@ -25,6 +26,7 @@ export class AdminFormListsPageComponent implements OnInit {
   inActiveFormsList: Array<any>;
   constructor(
     private router: Router,
+    private formService: FormsService,
     private listViewService: ListViewService,
     private localStorage: LocalStorageService,
     private formBuilderService: FormBuilderService
@@ -98,7 +100,7 @@ export class AdminFormListsPageComponent implements OnInit {
 
   getAllForms() {
     this.loading = true;
-    this.formBuilderService.getAllFormsByMerchant(this.merchant_id).then(
+    this.formService.getAllFormsByMerchant(this.merchant_id).then(
       res => {
         const forms = res as any;
         if (forms.length > 0) {
