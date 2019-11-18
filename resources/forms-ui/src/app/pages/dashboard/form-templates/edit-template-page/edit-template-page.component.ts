@@ -3,7 +3,6 @@ declare var $: any;
 import * as _ from 'lodash';
 import { Router } from '@angular/router';
 import { DOCUMENT } from '@angular/common';
-import { Forms } from 'src/app/models/forms.model';
 import { PageScrollService } from 'ngx-page-scroll-core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { FormBuilderService } from 'src/app/services/form-builder/form-builder.service';
@@ -76,9 +75,10 @@ export class EditTemplatePageComponent implements OnInit {
     console.log(this.formBuilder.actions.getData());
     this.loading = true;
     const template = this.getTemplate();
-    const templateData = {};
-    templateData.name = this.formName;
-    templateData.form_fields = template;
+    const templateData = {
+      name: this.formName,
+      form_fields: template
+    };
 
     this.templateService.editTemplate(this._form.id, templateData).then(
       res => {

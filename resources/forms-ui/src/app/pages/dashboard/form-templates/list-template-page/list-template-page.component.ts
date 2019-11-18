@@ -14,15 +14,12 @@ import { TemplatesService } from 'src/app/services/templates/templates.service';
 export class ListTemplatePageComponent implements OnInit {
 
   loading: boolean;
-  hasMore: boolean;
   viewMode: string;
   hasError: boolean;
   hasNoData: boolean;
   filterState: string;
   formsList: Array<any>;
   allFormsList: Array<any>;
-  activeFormsList: Array<any>;
-  inActiveFormsList: Array<any>;
 
   constructor(
     private router: Router,
@@ -33,7 +30,7 @@ export class ListTemplatePageComponent implements OnInit {
     this.allFormsList = [];
     this.viewMode = this.listViewService.getDesiredViewMode();
 
-    this.getAllForms();
+    this.getAllTemplates();
   }
 
   ngOnInit() {
@@ -112,7 +109,7 @@ export class ListTemplatePageComponent implements OnInit {
 
   delete(id: string) {}
 
-  getAllForms() {
+  getAllTemplates() {
     this.loading = true;
     this.templatesService.getAllTemplates().then(
       res => {
@@ -121,7 +118,6 @@ export class ListTemplatePageComponent implements OnInit {
           this.hasNoData = false;
           _.forEach(forms, (form) => {
             this.formsList.push(form);
-            this.allFormsList = this.formsList;
           });
         }
         else {

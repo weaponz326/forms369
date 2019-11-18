@@ -45,6 +45,7 @@ export class TemplatesService {
   editTemplate(template_id: string, template_data: any): Promise<any> {
     return new Promise((resolve, reject) => {
       const body = JSON.stringify(template_data);
+      console.log('body: ' + body);
       const url = this.endpointService.apiHost + 'api/v1/editTemplate/' + template_id;
       this.http.post(url, body, { headers: this.headers }).subscribe(
         res => {
