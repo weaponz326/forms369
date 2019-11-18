@@ -177,8 +177,15 @@ class ClientController extends Controller
 
          //get, encode and encrypt all user details in teh form
          $data = $request->all();
-         $encodeddata = json_encode($data);
-         $encrypteddata = Crypt::encryptString($encodeddata);
+
+         $client_profile = $data['client_profile'];
+         $form_data = $data['form_data'];
+
+         $encodedformdata = json_encode($form_data);
+         $encodeduserdata = json_encode($client_profile);
+
+         $encryptedformdata = Crypt::encryptString($encodedformdata);
+         $encrypteduserdata = Crypt::encryptString($encodeduserdata);
 
          $submitted_at = now();
          $status = 0;
@@ -193,10 +200,20 @@ class ClientController extends Controller
                     'form_id' => $code, 
                     'client_id' => $id,
                     'status' => $status,
-                    'client_details' => $encrypteddata,
+                    'client_details' => $encryptedformdata,
                     'submitted_at' => $submitted_at
                  ]
              );
+
+             DB::table('client')
+             ->where('id', $id)
+             ->update(
+                 [
+                     'details' => $encrypteduserdata, 
+                     'updated_at' => $submitted_at
+                 ]
+             );
+             
  
              $message = 'Ok';
  
