@@ -58,6 +58,7 @@ export class ClientFormsEntryPageComponent implements OnInit {
     this.loading = true;
     const user_data = this.getFormData();
     console.log(JSON.stringify(user_data));
+    console.log(this.formBuilder.getFormUserData(user_data));
     const unfilled = this.clientService.validateFormFilled(user_data);
     if (unfilled.length != 0) {
       this.loading = false;

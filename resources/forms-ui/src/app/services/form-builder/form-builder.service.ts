@@ -1,3 +1,4 @@
+import * as _ from 'lodash';
 import { Injectable } from '@angular/core';
 import { Forms } from 'src/app/models/forms.model';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
@@ -38,6 +39,7 @@ export class FormBuilderService {
         fields: [
           {
             type: 'text',
+            name: 'first-name',
             label: 'First Name',
             className: this.formFieldClassName
           }
@@ -49,7 +51,8 @@ export class FormBuilderService {
         fields: [
           {
             type: 'text',
-            label: 'First Name',
+            name: 'last-name',
+            label: 'Last Name',
             className: this.formFieldClassName
           }
         ]
@@ -60,6 +63,7 @@ export class FormBuilderService {
         fields: [
           {
             type: 'text',
+            name: 'middle-name',
             label: 'Middle Name',
             className: this.formFieldClassName
           }
@@ -71,6 +75,7 @@ export class FormBuilderService {
         fields: [
           {
             type: 'text',
+            name: 'email-address',
             label: 'Email Address',
             className: this.formFieldClassName
           }
@@ -82,6 +87,7 @@ export class FormBuilderService {
         fields: [
           {
             type: 'text',
+            name: 'phone-number',
             label: 'Phone Number',
             className: this.formFieldClassName
           }
@@ -93,6 +99,7 @@ export class FormBuilderService {
         fields: [
           {
             type: 'text',
+            name: 'age',
             label: 'Age',
             className: this.formFieldClassName
           }
@@ -104,6 +111,7 @@ export class FormBuilderService {
         fields: [
           {
             type: 'date',
+            name: 'd-o-b',
             label: 'Date of Birth',
             className: this.formFieldClassName
           }
@@ -115,6 +123,7 @@ export class FormBuilderService {
         fields: [
           {
             type: 'text',
+            name: 'p-o-b',
             label: 'Place of Birth',
             className: this.formFieldClassName
           }
@@ -126,6 +135,7 @@ export class FormBuilderService {
         fields: [
           {
             type: 'text',
+            name: 'country',
             label: 'Country',
             className: this.formFieldClassName
           }
@@ -137,7 +147,20 @@ export class FormBuilderService {
         fields: [
           {
             type: 'text',
+            name: 'city',
             label: 'City',
+            className: this.formFieldClassName
+          }
+        ]
+      },
+      {
+        icon: 'P',
+        label: 'P.O Box',
+        fields: [
+          {
+            type: 'text',
+            name: 'p-o-box',
+            label: 'P.O Box',
             className: this.formFieldClassName
           }
         ]
@@ -148,6 +171,7 @@ export class FormBuilderService {
         fields: [
           {
             type: 'text',
+            name: 'house-address',
             label: 'House Address',
             className: this.formFieldClassName
           }
@@ -159,6 +183,7 @@ export class FormBuilderService {
         fields: [
           {
             type: 'text',
+            name: 'street-name',
             label: 'Street Name',
             className: this.formFieldClassName
           }
@@ -170,6 +195,7 @@ export class FormBuilderService {
         fields: [
           {
             type: 'radio-group',
+            name: 'gender',
             label: 'Gender',
             values: [
               {
@@ -192,6 +218,7 @@ export class FormBuilderService {
         fields: [
           {
             type: 'file',
+            name: 'file',
             label: 'Photo',
             className: this.formFieldClassName
           }
@@ -203,6 +230,7 @@ export class FormBuilderService {
         fields: [
           {
             type: 'text',
+            name: 'pin-code',
             label: 'Pin Code',
             maxLength: 6,
             className: this.formFieldClassName
@@ -215,6 +243,7 @@ export class FormBuilderService {
         fields: [
           {
             type: 'text',
+            name: 'driver-license',
             label: 'Driver\s License',
             className: this.formFieldClassName
           }
@@ -226,6 +255,7 @@ export class FormBuilderService {
         fields: [
           {
             type: 'text',
+            name: 'voter-id',
             label: 'Voter\s ID No.',
             className: this.formFieldClassName
           }
@@ -237,12 +267,39 @@ export class FormBuilderService {
         fields: [
           {
             type: 'text',
+            name: 'amount',
             label: 'Amount',
             className: this.formFieldClassName
           }
         ]
       }
     ];
+  }
+
+  getUserFormData(client_id: string): Promise<any> {
+    return new Promise((resolve, reject) => {
+      const url = this.endpointService.apiHost + 'api/v1/getClientsDetails/' + client_id;
+      this.http.get(url, { headers: this.headers }).subscribe(
+        (res: any) => {
+          const client = res.client[0];
+          resolve(client);
+        },
+        err => {
+          reject(err);
+        }
+      );
+    });
+  }
+
+  getFormUserData(form_data: Array<any>) {
+    const user_form_data = {};
+    _.forEach(form_data, (data) => {
+      if (!_.isEmpty(data.userData)) {
+        user_form_data[data.name] = data.userData[0];
+      }
+    });
+
+    return JSON.stringify(user_form_data);
   }
 
   /**
