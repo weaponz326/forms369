@@ -69,7 +69,7 @@ export class TemplatesService {
       this.http.get(url, { headers: this.headers }).subscribe(
         res => {
           const response = res as any;
-          resolve(response.forms.data);
+          resolve(response.templates.data);
         },
         err => {
           reject(err);

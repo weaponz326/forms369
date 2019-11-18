@@ -35,8 +35,8 @@ export class CreateFormPageComponent implements OnInit {
     private formService: FormsService,
     private companyService: CompanyService,
     private pageScroller: PageScrollService,
-    private formBuilderService: FormBuilderService,
-    @Inject(DOCUMENT) private document: any
+    @Inject(DOCUMENT) private document: any,
+    private formBuilderService: FormBuilderService
   ) {
     this.merchant = '';
     this.allMerchantsList = [];

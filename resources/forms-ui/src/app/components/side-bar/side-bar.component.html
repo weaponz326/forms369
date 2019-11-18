@@ -20,10 +20,27 @@
       </a>
     </li>
     <li class="nav-item">
-      <a class="nav-link" routerLink="/templates/list">
+      <a class="nav-link" data-toggle="collapse" href="#template" aria-expanded="false" aria-controls="template">
         <i class="mdi mdi-cart-outline menu-icon"></i>
-        <span class="menu-title">Form Templates</span>
+        <span class="menu-title">Templates</span>
+        <i class="menu-arrow"></i>
       </a>
+      <div class="collapse" id="template">
+        <ul class="nav flex-column sub-menu">
+          <li class="nav-item">
+            <a class="nav-link" routerLink="/templates/create">
+              <i class="mdi mdi-plus-outline menu-icon"></i>
+              <span class="menu-title">Create Template</span>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" routerLink="/templates/list">
+            <i class="mdi mdi-format-list-bulleted menu-icon"></i>
+            <span class="menu-title">All Templates</span>
+          </a>
+          </li>
+        </ul>
+      </div>
     </li>
     <li class="nav-item">
       <a class="nav-link" data-toggle="collapse" href="#account" aria-expanded="false" aria-controls="account">

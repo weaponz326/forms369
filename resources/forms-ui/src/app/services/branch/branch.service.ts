@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import * as _ from 'lodash';
 import { UserTypes } from 'src/app/enums/user-types.enum';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { EndpointService } from '../endpoint/endpoint.service';
@@ -149,6 +150,46 @@ export class BranchService {
         },
         err => {
           console.log('error: ' + JSON.stringify(err));
+          reject(err);
+        }
+      );
+    });
+  }
+
+  enableBranch(id: string): Promise<boolean> {
+    return new Promise((resolve, reject) => {
+      const url = this.endpointService.apiHost + 'api/v1/enableBranch/' + id;
+      this.http.post(url, {}, { headers: this.endpointService.headers() }).subscribe(
+        res => {
+          const response = res as any;
+          if (_.toLower(response.message) == 'ok') {
+            resolve(true);
+          }
+          else {
+            resolve(false);
+          }
+        },
+        err => {
+          reject(err);
+        }
+      );
+    });
+  }
+
+  disableBranch(id: string): Promise<boolean> {
+    return new Promise((resolve, reject) => {
+      const url = this.endpointService.apiHost + 'api/v1/disableBranch/' + id;
+      this.http.post(url, {}, { headers: this.endpointService.headers() }).subscribe(
+        res => {
+          const response = res as any;
+          if (_.toLower(response.message) == 'ok') {
+            resolve(true);
+          }
+          else {
+            resolve(false);
+          }
+        },
+        err => {
           reject(err);
         }
       );

@@ -99,15 +99,15 @@ export class ListTemplatePageComponent implements OnInit {
   }
 
   edit(form: any) {
-    this.router.navigateByUrl('git_admin/edit/form/' + form.form_code, { state: { form: form }});
+    this.router.navigateByUrl('templates/edit', { state: { form: form }});
   }
 
   view(form: any) {
-    this.router.navigateByUrl('/git_admin/details/form', { state: { form: form }});
+    this.router.navigateByUrl('templates/view', { state: { form: form }});
   }
 
   openNewForm() {
-    this.router.navigateByUrl('/git_admin/setup_form');
+    this.router.navigateByUrl('templates/create');
   }
 
   delete(id: string) {}
