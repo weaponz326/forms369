@@ -1239,4 +1239,68 @@ class HomeController extends Controller
         $message = (new TemplatesController)->deleteTemplate($request, $id);
         return $message;
     }
+
+    /**
+     * diableMerchant disable a merchant business logics 
+     * All users under this merchant are disabled as well
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @param  $id of the merchant to be disabled
+     *
+     * @return void\Illuminate\Http\Response success or error message
+     */
+    protected function disableMerchant(Request $request, $id)
+    {
+
+        $message = (new SetupController)->disableMerchant($request, $id);
+        return $message;
+    }
+
+    /**
+     * enableMerchant enable a previously disbaled merchant business logics 
+     * All users under this merchant that were disabled as a result 
+     * of diabling the mercahnt are enabled
+     * @param  \Illuminate\Http\Request  $request
+     * @param  $id of the merchant to be enabled
+     *
+     * @return void\Illuminate\Http\Response success or error message
+     */
+    protected function enableMerchant(Request $request, $id)
+    {
+
+        $message = (new SetupController)->enableMerchant($request, $id);
+        return $message;
+    }
+
+    /**
+     * diableBranch disable a branch business logics
+     * All users under this branch are disabled as well
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @param  $id of the branch to be disabled
+     *
+     * @return void\Illuminate\Http\Response success or error message
+     */
+    protected function disableBranch(Request $request, $id)
+    {
+
+        $message = (new SetupController)->disableBranch($request, $id);
+        return $message;
+    }
+
+    /**
+     * enableBranch enable a previously disbaled branch business logics
+     * All users under this branch that were disabled as a result 
+     * of diabling the branch are enabled
+     * @param  \Illuminate\Http\Request  $request
+     * @param  $id of the branch to be enabled
+     *
+     * @return void\Illuminate\Http\Response success or error message
+     */
+    protected function enableBranch(Request $request, $id)
+    {
+
+        $message = (new SetupController)->enableBranch($request, $id);
+        return $message;
+    }
 }
