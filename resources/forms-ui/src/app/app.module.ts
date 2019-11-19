@@ -6,9 +6,11 @@ import { OrderModule } from 'ngx-order-pipe';
 import { CountryPickerModule } from 'ngx-country-picker';
 import { HttpClientModule } from '@angular/common/http';
 import { AppRoutingModule } from './app-routing.module';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { NgxPageScrollCoreModule } from 'ngx-page-scroll-core';
 
 import { MatAutocompleteModule } from '@angular/material';
+import { NgbModalModule, NgbAlertModule } from '@ng-bootstrap/ng-bootstrap';
 
 import { AppComponent } from './app.component';
 import { SideBarComponent } from './components/side-bar/side-bar.component';
@@ -76,6 +78,13 @@ import { AddTemplatePageComponent } from './pages/dashboard/form-templates/add-t
 import { EditTemplatePageComponent } from './pages/dashboard/form-templates/edit-template-page/edit-template-page.component';
 import { ListTemplatePageComponent } from './pages/dashboard/form-templates/list-template-page/list-template-page.component';
 import { ViewTemplatePageComponent } from './pages/dashboard/form-templates/view-template-page/view-template-page.component';
+import { AdminViewFrontDesksPageComponent } from './pages/dashboard/admin/admin-view-front-desks-page/admin-view-front-desks-page.component';
+import { AdminViewBranchesPageComponent } from './pages/dashboard/admin/admin-view-branches-page/admin-view-branches-page.component';
+import { AdminCreateFormPageComponent } from './pages/dashboard/admin/admin-create-form-page/admin-create-form-page.component';
+import { AdminCreateUserPageComponent } from './pages/dashboard/admin/admin-create-user-page/admin-create-user-page.component';
+import { AdminEditUserPageComponent } from './pages/dashboard/admin/admin-edit-user-page/admin-edit-user-page.component';
+import { AdminViewAccountDetailsPageComponent } from './pages/dashboard/admin/admin-view-account-details-page/admin-view-account-details-page.component';
+import { AdminViewBranchDetailsPageComponent } from './pages/dashboard/admin/admin-view-branch-details-page/admin-view-branch-details-page.component';
 
 @NgModule({
   declarations: [
@@ -144,6 +153,13 @@ import { ViewTemplatePageComponent } from './pages/dashboard/form-templates/view
     EditTemplatePageComponent,
     ListTemplatePageComponent,
     ViewTemplatePageComponent,
+    AdminViewFrontDesksPageComponent,
+    AdminViewBranchesPageComponent,
+    AdminCreateFormPageComponent,
+    AdminCreateUserPageComponent,
+    AdminEditUserPageComponent,
+    AdminViewAccountDetailsPageComponent,
+    AdminViewBranchDetailsPageComponent,
   ],
   imports: [
     BrowserModule,
@@ -151,6 +167,9 @@ import { ViewTemplatePageComponent } from './pages/dashboard/form-templates/view
     HttpClientModule,
     AppRoutingModule,
     OrderModule,
+    NgbModule,
+    NgbAlertModule,
+    NgbModalModule,
     ReactiveFormsModule,
     MatAutocompleteModule,
     CountryPickerModule.forRoot({

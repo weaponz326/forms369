@@ -1,5 +1,5 @@
 <form [formGroup]="form" (ngSubmit)="register()" class="pt-3">
-  <div class="form-group">
+  <div *ngIf="!isAdmin" class="form-group">
     <select class="form-control form-control-lg" formControlName="userType"
       [ngClass]="{'input-control-error': submitted && f.userType.errors}" (change)="onUserSelect($event)">
       <option value="" disabled>Choose User Type</option>
@@ -34,11 +34,11 @@
       </div>
     </div>
   </div>
-  <div *ngIf="isFrontDesk" class="row">
+  <div *ngIf="isFrontDesk && !isAdmin" class="row">
     <div class="col-md-6">
       <div class="form-group">
         <input type="text" class="form-control form-control-lg" formControlName="merchant" placeholder="Company Name"
-          [matAutocomplete]="auto">
+          [matAutocomplete]="auto" [ngClass]="{'input-control-error': submitted && f.merchant.errors}">
         <mat-autocomplete #auto="matAutocomplete" (optionSelected)="companySelected($event.option.value)">
           <mat-option *ngFor="let item of filteredMerchants | async" [value]="item">
             {{ item }}
@@ -52,14 +52,14 @@
     <div class="col-md-6">
       <div class="form-group">
         <input type="text" class="form-control form-control-lg" formControlName="branch" placeholder="Branch Name"
-          [matAutocomplete]="auto_1">
+          [matAutocomplete]="auto_1" [ngClass]="{'input-control-error': submitted && f.branch.errors}">
         <mat-autocomplete #auto_1="matAutocomplete">
           <mat-option *ngFor="let item of filteredBranches | async" [value]="item">
             {{ item }}
           </mat-option>
         </mat-autocomplete>
-        <div *ngIf="submitted && f.merchant.errors">
-          <p class="input-error" *ngIf="f.merchant.errors.required">Branch is required</p>
+        <div *ngIf="submitted && f.branch.errors">
+          <p class="input-error" *ngIf="f.branch.errors.required">Branch is required</p>
         </div>
       </div>
     </div>

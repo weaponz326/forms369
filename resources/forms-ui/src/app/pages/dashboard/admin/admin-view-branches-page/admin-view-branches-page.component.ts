@@ -5,14 +5,14 @@ import { BranchService } from 'src/app/services/branch/branch.service';
 import { CompanyBranches } from 'src/app/models/company-branches.model';
 import { ListViewService } from 'src/app/services/view/list-view.service';
 import { EndpointService } from 'src/app/services/endpoint/endpoint.service';
+import { LocalStorageService } from 'src/app/services/storage/local-storage.service';
 
 @Component({
-  selector: 'app-view-branch-lists-page',
-  templateUrl: './view-branch-lists-page.component.html',
-  styleUrls: ['./view-branch-lists-page.component.css'],
-  providers: [BranchService, EndpointService]
+  selector: 'app-admin-view-branches-page',
+  templateUrl: './admin-view-branches-page.component.html',
+  styleUrls: ['./admin-view-branches-page.component.css']
 })
-export class ViewBranchListsPageComponent implements OnInit {
+export class AdminViewBranchesPageComponent implements OnInit {
 
   company: any;
   viewMode: string;
@@ -21,18 +21,21 @@ export class ViewBranchListsPageComponent implements OnInit {
   hasError: boolean;
   hasNoData: boolean;
   filterState: string;
+  merchant_id: number;
   branchesList: Array<any>;
   allBranchesList: Array<any>;
 
   constructor(
     private router: Router,
     private branchService: BranchService,
-    private listViewService: ListViewService
+    private listViewService: ListViewService,
+    private localStorage: LocalStorageService
   ) {
     this.branchesList = [];
     this.allBranchesList = [];
     this.viewMode = this.listViewService.getDesiredViewMode();
-    this.getBranches();
+    this.merchant_id = this.localStorage.getUser().merchant_id;
+    this.getCompanyBranches();
   }
 
   ngOnInit() {
@@ -62,9 +65,6 @@ export class ViewBranchListsPageComponent implements OnInit {
       case 'branch':
         this.sortByBranch();
         break;
-      case 'merchant':
-        this.sortByCompany();
-        break;
       default:
         break;
     }
@@ -76,10 +76,6 @@ export class ViewBranchListsPageComponent implements OnInit {
 
   sortByBranch() {
     this.branchesList = _.sortBy(this.branchesList, (item) => item.branch_name);
-  }
-
-  sortByCompany() {
-    this.branchesList = _.sortBy(this.branchesList, (item) => item.merchant_name);
   }
 
   showAll() {
@@ -97,57 +93,21 @@ export class ViewBranchListsPageComponent implements OnInit {
     this.branchesList = _.filter(this.allBranchesList, (branch) =>  branch.status == 0);
   }
 
-  openNewBranch() {
-    this.router.navigateByUrl('git_admin/create/branch');
-  }
+  // openNewBranch() {
+  //   this.router.navigateByUrl('git_admin/create/branch');
+  // }
 
-  edit(branch: any) {
-    this.router.navigateByUrl('git_admin/edit/branch/' + branch.id, { state: { branch: branch }});
-  }
+  // edit(branch: any) {
+  //   this.router.navigateByUrl('git_admin/edit/branch/' + branch.id, { state: { branch: branch }});
+  // }
 
   view(branch: any) {
-    this.router.navigateByUrl('git_admin/details/branch', { state: { branch: branch }});
-  }
-
-  delete(id: string) {}
-
-  getBranches() {
-    if (_.isUndefined(this.router.getCurrentNavigation().extras.state)) {
-      this.getAllBranches();
-    }
-    else {
-      this.company = this.router.getCurrentNavigation().extras.state.company;
-      this.getCompanyBranches();
-    }
+    this.router.navigateByUrl('admin/details/branch', { state: { branch: branch }});
   }
 
   getCompanyBranches() {
     this.loading = true;
-    this.branchService.getBranch(this.company.id).then(
-      res => {
-        const branches = res as any;
-        if (branches.length > 0) {
-          this.hasNoData = false;
-          _.forEach(branches, (branch) => {
-            this.branchesList.push(branch);
-            this.allBranchesList = this.branchesList;
-          });
-        }
-        else {
-          this.hasNoData = true;
-        }
-        this.loading = false;
-      },
-      err => {
-        this.loading = false;
-        this.hasError = true;
-      }
-    );
-  }
-
-  getAllBranches() {
-    this.loading = true;
-    this.branchService.getAllBranches().then(
+    this.branchService.getBranch(_.toString(this.merchant_id)).then(
       res => {
         const branches = res as any;
         if (branches.length > 0) {

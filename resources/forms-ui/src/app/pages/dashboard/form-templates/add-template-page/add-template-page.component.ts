@@ -22,7 +22,6 @@ export class AddTemplatePageComponent implements OnInit {
   templateForm: any;
   created: boolean;
   loading: boolean;
-  formName: string;
   submitted: boolean;
 
   constructor(
@@ -66,10 +65,11 @@ export class AddTemplatePageComponent implements OnInit {
     this.loading = true;
     const template = this.getTemplate();
     const templateData = {
-      name: this.formName,
+      name: this.f.name.value,
       form_fields: template
     };
 
+    console.log(templateData);
     this.templateService.createTemplate(templateData).then(
       res => {
         this.loading = false;

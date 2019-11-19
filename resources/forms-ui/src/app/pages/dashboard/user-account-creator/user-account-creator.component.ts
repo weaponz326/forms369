@@ -9,6 +9,7 @@ import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { BranchService } from 'src/app/services/branch/branch.service';
 import { CompanyService } from 'src/app/services/company/company.service';
 import { AccountService } from 'src/app/services/account/account.service';
+import { LocalStorageService } from 'src/app/services/storage/local-storage.service';
 
 @Component({
   selector: 'app-user-account-creator',
@@ -19,6 +20,7 @@ import { AccountService } from 'src/app/services/account/account.service';
 export class UserAccountCreatorComponent implements OnInit {
 
   form: FormGroup;
+  isAdmin: boolean;
   loading: boolean;
   submitted: boolean;
   isFrontDesk: boolean;
@@ -37,6 +39,7 @@ export class UserAccountCreatorComponent implements OnInit {
     private branchService: BranchService,
     private companyService: CompanyService,
     private accountService: AccountService,
+    private localStorage: LocalStorageService,
     private countryPickerService: CountryPickerService
   ) {
     this.countriesList = [];
@@ -44,6 +47,8 @@ export class UserAccountCreatorComponent implements OnInit {
     this.merchantsList = [];
     this.branchNamesList = [];
     this.merchantNamesList = [];
+    this.isAdmin = this.localStorage.getUser().usertype == UserTypes.CompanyAdmin ? true : false;
+    this.isFrontDesk = this.isAdmin ? true : false;
 
     this.initializeView();
   }

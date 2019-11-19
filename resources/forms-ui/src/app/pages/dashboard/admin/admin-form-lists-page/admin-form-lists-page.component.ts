@@ -95,7 +95,7 @@ export class AdminFormListsPageComponent implements OnInit {
   }
 
   openNewForm() {
-    this.router.navigateByUrl('/git_admin/setup_form');
+    this.router.navigateByUrl('admin/create/form');
   }
 
   getAllForms() {
@@ -124,12 +124,12 @@ export class AdminFormListsPageComponent implements OnInit {
 
   loadMore() {}
 
-  edit() {
-    this.router.navigateByUrl('/admin/edit_form');
+  edit(form: any) {
+    this.router.navigateByUrl('admin/edit/form', { state: { form: form }});
   }
 
-  view() {
-    this.router.navigateByUrl('/admin/view_form');
+  view(form: any) {
+    this.router.navigateByUrl('admin/details/form', { state: { form: form }});
   }
 
   delete() {}

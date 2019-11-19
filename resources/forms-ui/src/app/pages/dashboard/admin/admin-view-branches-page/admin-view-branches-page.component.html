@@ -9,23 +9,26 @@
             <div class="d-flex justify-content-between flex-wrap">
               <div class="d-flex align-items-end flex-wrap">
                 <div class="mr-md-3 mr-xl-5">
-                  <h2>All Forms</h2>
+                  <h2>All Branches</h2>
                   <p class="mb-md-0">Your analytics dashboard template.</p>
                 </div>
                 <div class="d-flex">
                   <i class="mdi mdi-home text-muted hover-cursor"></i>
                   <p class="text-muted mb-0 hover-cursor">&nbsp;/&nbsp;Home&nbsp;/&nbsp;</p>
-                  <p class="text-primary mb-0 hover-cursor">View Forms</p>
+                  <p class="text-primary mb-0 hover-cursor">View Branches</p>
                 </div>
               </div>
               <div class="d-flex justify-content-between align-items-end flex-wrap">
-                <button type="button" class="btn btn-light bg-white btn-icon mr-3 mt-2 mt-xl-0" (click)="openNewForm()">
+                <button type="button" class="btn btn-light bg-white btn-icon mr-3 mt-2 mt-xl-0"
+                  (click)="openNewBranch()">
                   <i class="mdi mdi-plus text-muted"></i>
                 </button>
-                <button type="button" class="btn btn-light bg-white btn-icon mr-3 mt-2 mt-xl-0" (click)="toggleViewMode('list')">
+                <button type="button" class="btn btn-light bg-white btn-icon mr-3 mt-2 mt-xl-0"
+                  (click)="toggleViewMode('list')">
                   <i class="mdi mdi-view-list text-muted"></i>
                 </button>
-                <button type="button" class="btn btn-light bg-white btn-icon mr-3 mt-2 mt-xl-0" (click)="toggleViewMode('grid')">
+                <button type="button" class="btn btn-light bg-white btn-icon mr-3 mt-2 mt-xl-0"
+                  (click)="toggleViewMode('grid')">
                   <i class="mdi mdi-view-grid text-muted"></i>
                 </button>
               </div>
@@ -49,15 +52,15 @@
               <div class="card-body mt-5 mb-5">
                 <h4 class="card-title">No Data Found</h4>
                 <p class="card-description">
-                  No forms found.
+                  No company branches found.
                 </p>
                 <div class="text-lg-center mt-5 mb-5">
                   <div class="card-text">
                     <i class="mdi mdi-file-question" style="font-size: 8em;"></i>
                   </div>
                   <div class="card-text">
-                    <h3>No Available Forms</h3>
-                    <p class="text-muted">There are no created forms yet!</p>
+                    <h3>No Available Branches</h3>
+                    <p class="text-muted">This company doesn't have any branches yet!</p>
                   </div>
                 </div>
               </div>
@@ -78,8 +81,9 @@
                     <i class="mdi mdi-close-network-outline" style="font-size: 8em;"></i>
                   </div>
                   <div class="card-text">
-                    <h3>We couldn't get your forms</h3>
-                    <p class="text-muted">An error has occured on our servers or you might not have an active internet connection.</p>
+                    <h3>We couldn't get your branches</h3>
+                    <p class="text-muted">An error has occured on our servers or you might not have internet connection
+                    </p>
                   </div>
                 </div>
               </div>
@@ -87,13 +91,13 @@
           </div>
         </div>
 
-        <div *ngIf="!loading" class="row">
+        <div *ngIf="!loading && !hasNoData" class="row">
           <div class="col-lg-12 grid-margin stretch-card">
             <div class="card">
               <div class="card-body">
-                <h4 class="card-title">List Of Forms</h4>
+                <h4 class="card-title">List Of Branches</h4>
                 <p class="card-description">
-                  List of all created forms, both active and inactive
+                  List of all created branches, both active and inactive
                 </p>
                 <div class="text-lg-center mt-3 mb-5">
                   <div class="btn-group" role="group" aria-label="Sort By">
@@ -104,7 +108,7 @@
                       <button type="button" class="btn btn-outline-secondary dropdown-toggle" id="sortMenuButton"
                         data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Sort By</button>
                       <div class="dropdown-menu" aria-labelledby="sortMenuButton">
-                        <button type="button" class="dropdown-item" (click)="sort('form')">Form Name</button>
+                        <button type="button" class="dropdown-item" (click)="sort('branch')">Branch Name</button>
                         <button type="button" class="dropdown-item" (click)="sort('created')">Date Created</button>
                       </div>
                     </div>
@@ -112,22 +116,22 @@
                 </div>
 
                 <div *ngIf="viewMode == 'grid'" class="row">
-                  <div class="col-md-4 grid-margin stretch-card" *ngFor="let form of formsList">
-                    <div class="card hover-cursor animated fadeInDown fast" (click)="view(form)">
+                  <div class="col-md-4 grid-margin stretch-card" *ngFor="let branch of branchesList">
+                    <div class="card hover-cursor animated fadeInDown fast">
                       <div class="card-body">
-                        <p class="card-title">{{ form.merchant_name }}</p>
+                        <p class="card-title">{{ branch.merchant_name }}</p>
                         <div class="card-text">
-                          <h1 class="display-4 mb-4">{{ form.name }}</h1>
-                          <div class="btn-group" role="group" aria-label="Options">
-                            <button type="button" class="btn btn-outline-secondary" (click)="edit(form)">
+                          <h1 class="display-4 mb-4">{{ branch.branch_name }}</h1>
+                          <div class="btn-group" role="group" aria-label="Basic example">
+                            <button type="button" class="btn btn-outline-secondary" (click)="edit(branch)">
                               <i class="mdi mdi-pencil-outline"></i>
                               Edit
                             </button>
-                            <button type="button" class="btn btn-outline-secondary" (click)="view(form)">
+                            <button type="button" class="btn btn-outline-secondary" (click)="view(branch)">
                               <i class="mdi mdi-pulse"></i>
                               View
                             </button>
-                            <button type="button" class="btn btn-outline-secondary" (click)="delete(form.id)">
+                            <button type="button" class="btn btn-outline-secondary" (click)="delete(branch.id)">
                               <i class="mdi mdi-delete-outline"></i>
                               Delete
                             </button>
@@ -141,23 +145,23 @@
                 <div *ngIf="viewMode == 'list'" class="row">
                   <div class="list-group" style="width: 100%;">
                     <div class="list-group-item hover-cursor list-group-item-action animated fadeInDown"
-                       *ngFor="let form of formsList">
+                      *ngFor="let branch of branchesList">
                       <div class="row">
-                        <div class="col-8"> 
-                          <span class="card-title mt-2">{{ form.merchant_name }}</span>
-                          <h1 class="display-4 mb-1 mt-2">{{ form.name }}</h1>
+                        <div class="col-8">
+                          <span class="card-title mt-2">{{ branch.merchant_name }}</span>
+                          <h1 class="display-4 mb-1 mt-2">{{ branch.branch_name }}</h1>
                         </div>
                         <div class="col-4">
                           <div class="btn-group mt-2" role="group" aria-label="Basic example">
-                            <button type="button" class="btn btn-outline-secondary" (click)="edit(form)">
+                            <button type="button" class="btn btn-outline-secondary" (click)="edit(branch)">
                               <i class="mdi mdi-pencil-outline"></i>
                               Edit
                             </button>
-                            <button type="button" class="btn btn-outline-secondary" (click)="view(form)">
+                            <button type="button" class="btn btn-outline-secondary" (click)="view(branch)">
                               <i class="mdi mdi-pulse"></i>
                               View
                             </button>
-                            <button type="button" class="btn btn-outline-secondary" (click)="delete(form.id)">
+                            <button type="button" class="btn btn-outline-secondary" (click)="delete(branch.id)">
                               <i class="mdi mdi-delete-outline"></i>
                               Delete
                             </button>
@@ -166,6 +170,7 @@
                       </div>
                     </div>
                   </div>
+                </div>
 
                 <div *ngIf="hasMore" class="row">
                   <div class="col-md-4 col-sm-6 offset-sm-3 offset-lg-4">

@@ -178,7 +178,7 @@ export class AccountService {
    */
   disableAccount(id: string): Promise<boolean> {
     return new Promise((resolve, reject) => {
-      const url = this.endpointService.apiHost + 'api/v1/diableUser/' + id;
+      const url = this.endpointService.apiHost + 'api/v1/disableUser/' + id;
       this.http.post(url, {}, { headers: this.endpointService.headers() }).subscribe(
         res => {
           const response = res as any;
