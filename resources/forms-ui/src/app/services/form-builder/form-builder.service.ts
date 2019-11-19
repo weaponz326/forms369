@@ -70,6 +70,18 @@ export class FormBuilderService {
         ]
       },
       {
+        icon: 'F',
+        label: 'Full Name',
+        fields: [
+          {
+            type: 'text',
+            name: 'full-name',
+            label: 'Full Name',
+            className: this.formFieldClassName
+          }
+        ]
+      },
+      {
         icon: 'E',
         label: 'Email Address',
         fields: [
@@ -276,9 +288,10 @@ export class FormBuilderService {
     ];
   }
 
-  getUserFormData(client_id: string): Promise<any> {
+  getUserFilledData(client_id: string): Promise<any> {
     return new Promise((resolve, reject) => {
       const url = this.endpointService.apiHost + 'api/v1/getClientsDetails/' + client_id;
+      console.log(url);
       this.http.get(url, { headers: this.headers }).subscribe(
         (res: any) => {
           const client = res.client[0];

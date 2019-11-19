@@ -31,7 +31,7 @@ export class ClientFormsEntryPageComponent implements OnInit {
   ) {
     this.form = history.state.form;
     this.user = this.localStorage.getUser();
-    console.log('form: ' + JSON.stringify(this.form.form_fields));
+    console.log('form: ' + JSON.stringify(this.form));
   }
 
   ngOnInit() {
@@ -41,13 +41,19 @@ export class ClientFormsEntryPageComponent implements OnInit {
   renderForm() {
     const formData = this.form.form_fields;
     this.formRenderer = document.getElementById('form-render');
-    const renderOptions = { formData, dataType: 'json '};
+    const renderOptions = { formData, dataType: 'json' };
     this.formInstance = $(this.formRenderer).formRender(renderOptions);
-    // this.setFormData(formData);
   }
 
   setFormData(data: any) {
-    // this.formInstance.actions.setData(data);
+    this.formBuilder.getUserFilledData(_.toString(this.user.id)).then(
+      res => {
+        console.log('user_data: ' + JSON.stringify(res));
+      },
+      err => {
+        console.log('error: ' + JSON.stringify(err));
+      }
+    );
   }
 
   getFormData() {
