@@ -24,6 +24,11 @@ Route::get('signup/activate/{token}', 'HomeController@signupActivate')->name('si
 //login user 
 Route::post('login', 'HomeController@login')->name('login');
 
+//getuser mac address 
+Route::get('getMACAddress', 'AccessController@getMACAddress')->name('getMACAddress');
+
+
+
 //protected routes 
 Route::group(['middleware' => ['auth:api'], 'prefix' => 'v1'], function(){
 
@@ -172,6 +177,9 @@ Route::group(['middleware' => ['auth:api'], 'prefix' => 'v1'], function(){
   Route::post('editTemplate/{id}', 'HomeController@editTemplate')->name('editTemplate')->middleware('scope:GIT_Admin');                                     
   Route::get('getAllTemplates', 'HomeController@getAllTemplates')->name('getAllTemplates')->middleware('scope:GIT_Admin,company_admin');                                     
   Route::post('deleteTemplate/{id}', 'HomeController@deleteTemplate')->name('deleteTemplate')->middleware('scope:GIT_Admin');                                     
+  //serahc template by name api
+  Route::get('searchTemplateByName/{term}', 'HomeController@searchTemplateByName')->name('searchTemplateByName')->middleware('scope:GIT_Admin,company_admin');                                     
+
 
 });
  

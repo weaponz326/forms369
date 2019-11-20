@@ -312,7 +312,7 @@ class FormsController extends Controller
         $getform = DB::table('forms')
         ->join('merchants', 'merchants.id', '=', 'merchant_id')
         ->select('forms.*','merchants.merchant_name AS merchant_name')
-        ->where('name', 'like', '%'.$term.'%')
+        ->where('temps', 'like', '%'.$term.'%')
         ->get();
       
         //clean data

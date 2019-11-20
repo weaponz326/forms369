@@ -1228,6 +1228,19 @@ class HomeController extends Controller
     }
 
     /**
+     * Business logics 
+     * searchTemplateByName get search for a template by the name in the database 
+     *
+     * @param  mixed $request
+     * @param  mixed $term ;  user serach term
+     * @return void\Illuminate\Http\Response all details of templates matching the search term
+     */
+    public function searchTemplateByName(Request $request, $term)
+    {
+        $message = (new TemplatesController)->searchTemplateByName($request, $term);
+        return $message;
+    }
+    /**
      * deleteTemplate delete a template
      *
      * @param  \Illuminate\Http\Request  $request

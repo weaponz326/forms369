@@ -145,6 +145,45 @@ class TemplatesController extends Controller
 
     }
 
+
+    /**
+     * searchTemplateByName get search for a template by the name in the database 
+     *
+     * @param  mixed $request
+     * @param  mixed $term ;  user serach term
+     * @return void\Illuminate\Http\Response all details of templates matching the search term
+     */
+    public function searchTemplateByName(Request $request, $term){
+
+        //get all registered companies 
+        $gettemplates = DB::table('templates')
+        ->select('templates.*')
+        ->where('temps', 'like', '%'.$term.'%')
+        ->get();
+      
+        //clean data
+        $templatedata = [];
+
+        $templates = $gettemplates->map(function($items){
+            $templatedata['id'] = $items->id;
+            $templatedata['name'] = Crypt::decryptString($items->name);
+            $templatedata['form_fields'] = json_decode(Crypt::decryptString($items->form_fields));
+            $templatedata['created_by'] = $items->created_by;
+            $templatedata['created_at'] = $items->created_at;
+            $templatedata['updated_at'] = $items->updated_at;
+            $templatedata['updated_by'] = $items->updated_by;
+
+            return $templatedata;
+         });
+         $objects = new Paginator($templates, 15);
+         $response = [
+            'templates' => $objects
+        ];
+        return response()->json($response, 200);
+
+    }
+
+
      /**
      * deleteTemplate delete a template
      *
