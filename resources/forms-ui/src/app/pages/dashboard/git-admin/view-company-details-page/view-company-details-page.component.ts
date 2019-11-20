@@ -1,13 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import * as _ from 'lodash';
 import { Router } from '@angular/router';
-import { AccountService } from 'src/app/services/account/account.service';
+import { CompanyService } from 'src/app/services/company/company.service';
 
 @Component({
   selector: 'app-view-company-details-page',
   templateUrl: './view-company-details-page.component.html',
-  styleUrls: ['./view-company-details-page.component.css'],
-  providers: [AccountService]
+  styleUrls: ['./view-company-details-page.component.css']
 })
 export class ViewCompanyDetailsPageComponent implements OnInit {
 
@@ -19,7 +18,7 @@ export class ViewCompanyDetailsPageComponent implements OnInit {
 
   constructor(
     private router: Router,
-    private accountService: AccountService
+    private companyService: CompanyService
   ) {
     this.company = window.history.state.company;
     this.isActive = this.company.status == 1 ? true : false;
@@ -39,7 +38,7 @@ export class ViewCompanyDetailsPageComponent implements OnInit {
 
   enableCompany() {
     this._loading = true;
-    this.accountService.enableAccount(this.id).then(
+    this.companyService.enableCompany(this.id).then(
       res => {
         this.isActive = true;
         this._loading = false;
@@ -52,7 +51,7 @@ export class ViewCompanyDetailsPageComponent implements OnInit {
 
   disableCompany() {
     this._loading = true;
-    this.accountService.disableAccount(this.id).then(
+    this.companyService.disableCompany(this.id).then(
       res => {
         this.isActive = false;
         this._loading = false;

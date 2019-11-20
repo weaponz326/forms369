@@ -255,7 +255,7 @@ export class CompanyService {
    */
   enableCompany(id: string): Promise<boolean> {
     return new Promise((resolve, reject) => {
-      const url = this.endpointService.apiHost + 'api/v1/' + id;
+      const url = this.endpointService.apiHost + 'api/v1/enableMerchant/' + id;
       this.http.post(url, {}, { headers: this.endpointService.headers() }).subscribe(
         res => {
           const response = res as any;
@@ -282,7 +282,7 @@ export class CompanyService {
    */
   disableCompany(id: string): Promise<boolean> {
     return new Promise((resolve, reject) => {
-      const url = this.endpointService.apiHost + 'api/v1/' + id;
+      const url = this.endpointService.apiHost + 'api/v1/disableMerchant/' + id;
       this.http.post(url, {}, { headers: this.endpointService.headers() }).subscribe(
         res => {
           const response = res as any;

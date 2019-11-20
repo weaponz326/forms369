@@ -10,31 +10,31 @@
             <div class="d-flex justify-content-between flex-wrap">
               <div class="d-flex align-items-end flex-wrap">
                 <div class="mr-md-3 mr-xl-5">
-                  <h2>Edit form</h2>
-                  <p class="mb-md-0">Design a new form here, just drag the elements or click to add.</p>
+                  <h2>Edit a form</h2>
+                  <p class="mb-md-0">Edit a form here, just drag and drop the elements or click to add.</p>
                 </div>
                 <div class="d-flex">
-                  <i class="mdi mdi-home text-muted hover-cursor"></i>
+                  <!-- <i class="mdi mdi-home text-muted hover-cursor"></i>
                   <p class="text-muted mb-0 hover-cursor">&nbsp;/&nbsp;Home&nbsp;/&nbsp;</p>
-                  <p class="text-primary mb-0 hover-cursor">Analytics</p>
+                  <p class="text-primary mb-0 hover-cursor">Analytics</p> -->
                 </div>
               </div>
               <div class="d-flex justify-content-between align-items-end flex-wrap">
-                <button type="button" class="btn btn-light bg-white btn-icon mr-3 d-none d-md-block ">
+                <!-- <button type="button" class="btn btn-light bg-white btn-icon mr-3 d-none d-md-block ">
                   <i class="mdi mdi-download text-muted"></i>
-                </button>
-                <button type="button" class="btn btn-light bg-white btn-icon mr-3 mt-2 mt-xl-0">
+                </button> -->
+                <!-- <button type="button" class="btn btn-light bg-white btn-icon mr-3 mt-2 mt-xl-0">
                   <i class="mdi mdi-clock-outline text-muted"></i>
-                </button>
-                <button type="button" class="btn btn-light bg-white btn-icon mr-3 mt-2 mt-xl-0">
+                </button> -->
+                <!-- <button type="button" class="btn btn-light bg-white btn-icon mr-3 mt-2 mt-xl-0">
                   <i class="mdi mdi-plus text-muted"></i>
-                </button>
+                </button> -->
               </div>
             </div>
           </div>
         </div>
 
-        <div class="row">
+        <div [hidden]="created" class="row">
           <div class="col-md-12 grid-margin stretch-card">
             <div class="card" style="height: 750px; overflow: scroll;">
               <div class="card-body">
@@ -45,13 +45,75 @@
                   position. You can also just click on an element to added for your form.
                 </p>
 
-                <div class="form-builder-container">
-                  <div id="fb-editor"></div>
-                </div>
+                <form [formGroup]="form">
+                  <div class="row mt-4">
+                    <div class="col-9">
+                      <div class="form-group">
+                        <input type="text" formControlName="name" class="form-control" placeholder="Whats the name of your form ?"
+                          [ngClass]="{'input-control-error': submitted && f.name.errors}">
+                        <div *ngIf="submitted && f.name.errors">
+                          <p class="input-error" *ngIf="f.name.errors.required">Form name is required</p>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="col-4">
+                      <!-- <div class="form-group">
+                        <select class="form-control" formControlName="merchant" (change)="onMerchantSelect($event)"
+                          [ngClass]="{'input-control-error': submitted && f.merchant.errors}">
+                          <option value="">Select Company</option>
+                          <option *ngFor="let company of allMerchantsList" [value]="company.id">
+                            {{ company.merchant_name }}
+                          </option>
+                        </select>
+                        <div *ngIf="submitted && f.merchant.errors">
+                          <p class="input-error" *ngIf="f.merchant.errors.required">Company is required</p>
+                        </div>
+                      </div> -->
+                    </div>
+                  </div>
 
-                <button class="btn btn-primary btn-lg mt-2 mr-2" (click)="save()">Save Form</button>&nbsp;
-                <button class="btn btn-primary btn-lg mt-2 mr-2">Preview Form</button>
-                <button class="btn btn-primary btn-lg mt-2">Reset Changes</button>
+                  <div class="form-builder-container">
+                    <div id="fb-editor"></div>
+                  </div>
+
+                  <button type="submit" *ngIf="!loading" class="btn btn-primary mt-2 mr-1" (click)="edit()">Update</button>
+                  <button type="button" *ngIf="loading" class="btn btn-primary mr-2" type="button" disabled>
+                    <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>&nbsp; &nbsp;
+                    Please wait...
+                  </button>
+                  <button type="button" *ngIf="!loading" class="btn btn-primary mt-2 mr-1" (click)="reset()">Reset</button>
+                </form>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div [hidden]="!created" class="row">
+          <div class="col-md-12 grid-margin">
+            <div class="card pt-5 pb-5 text-center">
+              <div class="card-body">
+                <p class="card-title">Success</p>
+                <p class="text-muted"></p>
+                <div class="card-text">
+                  <i class="mdi mdi-shield-check-outline text-primary" style="font-size: 12em;"></i>
+                  <h2>1 Form Updated</h2>
+                  <h4>{{ formName }} Form has been edited and published</h4>
+                  <p class="text-muted">You have succesfully edit a form</p>
+                </div>
+                <div class="card-text mt-4">
+                  <button type="button" class="btn btn-primary btn-lg btn-icon-text mr-2" (click)="bringBackForm()">
+                    <i class="mdi mdi-plus"></i>
+                    Create New
+                  </button>
+                  <button type="button" class="btn btn-primary btn-lg btn-icon-text mr-2" (click)="preview()">
+                    <i class="mdi mdi-eye"></i>
+                    Preview
+                  </button>
+                  <button type="button" class="btn btn-dark btn-lg btn-icon-text mr-2" (click)="goHome()">
+                    <i class="mdi mdi-check"></i>
+                    Ok
+                  </button>
+                </div>
               </div>
             </div>
           </div>

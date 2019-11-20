@@ -5,7 +5,7 @@
     <div class="main-panel">
       <div class="content-wrapper">
 
-        <div class="row">
+        <div class="row top">
           <div class="col-md-12 grid-margin">
             <div class="d-flex justify-content-between flex-wrap">
               <div class="d-flex align-items-end flex-wrap">
@@ -45,35 +45,45 @@
                   position. You can also just click on an element to added for your form.
                 </p>
 
-                <div class="row mt-4">
-                  <div class="col-8">
-                    <div class="form-group">
-                      <input type="text" [(ngModel)]="formName" class="form-control" placeholder="Whats the name of your form ?">
+                <form [formGroup]="form">
+                  <div class="row mt-4">
+                    <div class="col-8">
+                      <div class="form-group">
+                        <input type="text" formControlName="name" class="form-control" placeholder="Whats the name of your form ?"
+                          [ngClass]="{'input-control-error': submitted && f.name.errors}">
+                        <div *ngIf="submitted && f.name.errors">
+                          <p class="input-error" *ngIf="f.name.errors.required">Form name is required</p>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="col-4">
+                      <div class="form-group">
+                        <select class="form-control" formControlName="merchant" (change)="onMerchantSelect($event)"
+                          [ngClass]="{'input-control-error': submitted && f.merchant.errors}">
+                          <option value="" disabled>Select Company</option>
+                          <option *ngFor="let company of allMerchantsList" [value]="company.id">
+                            {{ company.merchant_name }}
+                          </option>
+                        </select>
+                        <div *ngIf="submitted && f.merchant.errors">
+                          <p class="input-error" *ngIf="f.merchant.errors.required">Company is required</p>
+                        </div>
+                      </div>
                     </div>
                   </div>
-                  <div class="col-4">
-                    <div class="form-group">
-                      <select class="form-control" [(ngModel)]="merchant">
-                        <option value="">Select Company</option>
-                        <option *ngFor="let company of allMerchantsList" [value]="company.id">
-                          {{ company.merchant_name }}
-                        </option>
-                      </select>
-                    </div>
+
+                  <div class="form-builder-container">
+                    <div id="fb-editor"></div>
                   </div>
-                </div>
 
-                <div class="form-builder-container">
-                  <div id="fb-editor"></div>
-                </div>
-
-                <button *ngIf="!loading" class="btn btn-primary mt-2 mr-1" (click)="create()">Create</button>
-                <button *ngIf="loading" class="btn btn-primary mr-2" type="button" disabled>
-                  <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>&nbsp; &nbsp;
-                  Please wait...
-                </button>
-                <button *ngIf="!loading" class="btn btn-primary mt-2 mr-1" (click)="preview()">Create & Publish</button>
-                <button *ngIf="!loading" class="btn btn-primary mt-2 mr-1" (click)="reset()">Reset</button>
+                  <button type="submit" *ngIf="!loading" class="btn btn-primary mt-2 mr-1" (click)="create()">Create</button>
+                  <button type="submit" *ngIf="!loading" class="btn btn-primary mt-2 mr-1" (click)="publish()">Create & Publish</button>
+                  <button type="button" *ngIf="loading" class="btn btn-primary mr-2" type="button" disabled>
+                    <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>&nbsp; &nbsp;
+                    Please wait...
+                  </button>
+                  <button *ngIf="!loading" class="btn btn-primary mt-2 mr-1" (click)="reset()">Reset</button>
+                </form>
               </div>
             </div>
           </div>

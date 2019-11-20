@@ -58,6 +58,13 @@ import { AddTemplatePageComponent } from './pages/dashboard/form-templates/add-t
 import { EditTemplatePageComponent } from './pages/dashboard/form-templates/edit-template-page/edit-template-page.component';
 import { ListTemplatePageComponent } from './pages/dashboard/form-templates/list-template-page/list-template-page.component';
 import { ViewTemplatePageComponent } from './pages/dashboard/form-templates/view-template-page/view-template-page.component';
+import { AdminCreateFormPageComponent } from './pages/dashboard/admin/admin-create-form-page/admin-create-form-page.component';
+import { AdminCreateUserPageComponent } from './pages/dashboard/admin/admin-create-user-page/admin-create-user-page.component';
+import { AdminEditUserPageComponent } from './pages/dashboard/admin/admin-edit-user-page/admin-edit-user-page.component';
+import { AdminViewFrontDesksPageComponent } from './pages/dashboard/admin/admin-view-front-desks-page/admin-view-front-desks-page.component';
+import { AdminViewBranchesPageComponent } from './pages/dashboard/admin/admin-view-branches-page/admin-view-branches-page.component';
+import { AdminViewAccountDetailsPageComponent } from './pages/dashboard/admin/admin-view-account-details-page/admin-view-account-details-page.component';
+import { AdminViewBranchDetailsPageComponent } from './pages/dashboard/admin/admin-view-branch-details-page/admin-view-branch-details-page.component';
 
 const routes: Routes = [
   {
@@ -318,20 +325,64 @@ const routes: Routes = [
         component: AdminHomePageComponent
       },
       {
-        path: 'setup_form',
-        component: CreateFormPageComponent
+        path: 'create',
+        children: [
+          {
+            path: 'form',
+            component: AdminCreateFormPageComponent,
+          },
+          {
+            path: 'account',
+            component: AdminCreateUserPageComponent
+          }
+        ]
       },
       {
-        path: 'form_lists',
-        component: AdminFormListsPageComponent
+        path: 'edit',
+        children: [
+          {
+            path: 'form',
+            component: AdminFormEditPageComponent
+          },
+          {
+            path: 'account',
+            component: AdminEditUserPageComponent
+          }
+        ]
       },
       {
-        path: 'edit_form',
-        component: AdminFormEditPageComponent
+        path: 'lists',
+        children: [
+          {
+            path: 'form',
+            component: AdminFormListsPageComponent
+          },
+          {
+            path: 'account',
+            component: AdminViewFrontDesksPageComponent
+          },
+          {
+            path: 'branch',
+            component: AdminViewBranchesPageComponent
+          }
+        ]
       },
       {
-        path: 'view_form',
-        component: AdminFormViewPageComponent
+        path: 'details',
+        children: [
+          {
+            path: 'form',
+            component: AdminFormViewPageComponent
+          },
+          {
+            path: 'account',
+            component: AdminViewAccountDetailsPageComponent
+          },
+          {
+            path: 'branch',
+            component: AdminViewBranchDetailsPageComponent
+          }
+        ]
       }
     ]
   },

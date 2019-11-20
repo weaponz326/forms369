@@ -1,3 +1,4 @@
+import * as _ from 'lodash';
 import { Injectable } from '@angular/core';
 import { Forms } from 'src/app/models/forms.model';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
@@ -9,47 +10,292 @@ import { EndpointService } from '../endpoint/endpoint.service';
 export class FormBuilderService {
 
   headers: HttpHeaders;
+  private formFieldClassName: string;
 
   constructor(private http: HttpClient, private endpointService: EndpointService) {
     this.headers = this.endpointService.headers();
+    this.formFieldClassName = 'form-control';
   }
 
-  /**
-   * Create a new form.
-   *
-   * @param {Forms} form
-   * @returns {Promise<any>}
-   * @memberof FormBuilderService
-   */
-  createForm(form: Forms): Promise<any> {
-    return new Promise((resolve, reject) => {
-      const url = this.endpointService.apiHost + 'api/v1/createForm';
-      this.http.post(url, JSON.stringify(form), { headers: this.headers }).subscribe(
-        res => {
-          console.log('create_forms: ' + JSON.stringify(res));
-          resolve(res);
-        },
-        err => {
-          console.log('forms_error: ' + JSON.stringify(err));
-          reject(err);
-        }
-      );
-    });
+  disableDefaultFormControls() {
+    return [
+      'autocomplete',
+      'button',
+      'checkbox-group',
+      'date',
+      'file',
+      'hidden',
+      'number',
+      'radio-group',
+      'select'
+    ];
   }
 
-  /**
-   * Returns a form.
-   *
-   * @param {string} id
-   * @returns {Promise<any>}
-   * @memberof FormBuilderService
-   */
-  getForm(id: string): Promise<any> {
+  generateFormFields() {
+    return [
+      {
+        icon: 'F',
+        label: 'First Name',
+        fields: [
+          {
+            type: 'text',
+            name: 'first-name',
+            label: 'First Name',
+            className: this.formFieldClassName
+          }
+        ]
+      },
+      {
+        icon: 'L',
+        label: 'Last Name',
+        fields: [
+          {
+            type: 'text',
+            name: 'last-name',
+            label: 'Last Name',
+            className: this.formFieldClassName
+          }
+        ]
+      },
+      {
+        icon: 'M',
+        label: 'Middle Name',
+        fields: [
+          {
+            type: 'text',
+            name: 'middle-name',
+            label: 'Middle Name',
+            className: this.formFieldClassName
+          }
+        ]
+      },
+      {
+        icon: 'F',
+        label: 'Full Name',
+        fields: [
+          {
+            type: 'text',
+            name: 'full-name',
+            label: 'Full Name',
+            className: this.formFieldClassName
+          }
+        ]
+      },
+      {
+        icon: 'E',
+        label: 'Email Address',
+        fields: [
+          {
+            type: 'text',
+            name: 'email-address',
+            label: 'Email Address',
+            className: this.formFieldClassName
+          }
+        ]
+      },
+      {
+        icon: 'P',
+        label: 'Phone Number',
+        fields: [
+          {
+            type: 'text',
+            name: 'phone-number',
+            label: 'Phone Number',
+            className: this.formFieldClassName
+          }
+        ]
+      },
+      {
+        icon: 'A',
+        label: 'Age',
+        fields: [
+          {
+            type: 'text',
+            name: 'age',
+            label: 'Age',
+            className: this.formFieldClassName
+          }
+        ]
+      },
+      {
+        icon: 'D',
+        label: 'Date Of Birth',
+        fields: [
+          {
+            type: 'date',
+            name: 'd-o-b',
+            label: 'Date of Birth',
+            className: this.formFieldClassName
+          }
+        ]
+      },
+      {
+        icon: 'P',
+        label: 'Place Of Birth',
+        fields: [
+          {
+            type: 'text',
+            name: 'p-o-b',
+            label: 'Place of Birth',
+            className: this.formFieldClassName
+          }
+        ]
+      },
+      {
+        icon: 'C',
+        label: 'Country',
+        fields: [
+          {
+            type: 'text',
+            name: 'country',
+            label: 'Country',
+            className: this.formFieldClassName
+          }
+        ]
+      },
+      {
+        icon: 'C',
+        label: 'City',
+        fields: [
+          {
+            type: 'text',
+            name: 'city',
+            label: 'City',
+            className: this.formFieldClassName
+          }
+        ]
+      },
+      {
+        icon: 'P',
+        label: 'P.O Box',
+        fields: [
+          {
+            type: 'text',
+            name: 'p-o-box',
+            label: 'P.O Box',
+            className: this.formFieldClassName
+          }
+        ]
+      },
+      {
+        icon: 'H',
+        label: 'House Address',
+        fields: [
+          {
+            type: 'text',
+            name: 'house-address',
+            label: 'House Address',
+            className: this.formFieldClassName
+          }
+        ]
+      },
+      {
+        icon: 'S',
+        label: 'Street Name',
+        fields: [
+          {
+            type: 'text',
+            name: 'street-name',
+            label: 'Street Name',
+            className: this.formFieldClassName
+          }
+        ]
+      },
+      {
+        icon: 'G',
+        label: 'Gender',
+        fields: [
+          {
+            type: 'radio-group',
+            name: 'gender',
+            label: 'Gender',
+            values: [
+              {
+                label: 'Male',
+                value: 'male',
+                selected: false,
+              },
+              {
+                label: 'Female',
+                value: 'female',
+                selected: false
+              }
+            ]
+          }
+        ]
+      },
+      {
+        icon: 'P',
+        label: 'Photo',
+        fields: [
+          {
+            type: 'file',
+            name: 'file',
+            label: 'Photo',
+            className: this.formFieldClassName
+          }
+        ]
+      },
+      {
+        icon: 'C',
+        label: 'PIN Code',
+        fields: [
+          {
+            type: 'text',
+            name: 'pin-code',
+            label: 'Pin Code',
+            maxLength: 6,
+            className: this.formFieldClassName
+          }
+        ]
+      },
+      {
+        icon: 'D',
+        label: 'Driver\'s License',
+        fields: [
+          {
+            type: 'text',
+            name: 'driver-license',
+            label: 'Driver\s License',
+            className: this.formFieldClassName
+          }
+        ]
+      },
+      {
+        icon: 'V',
+        label: 'Voter\'s ID No.',
+        fields: [
+          {
+            type: 'text',
+            name: 'voter-id',
+            label: 'Voter\s ID No.',
+            className: this.formFieldClassName
+          }
+        ]
+      },
+      {
+        icon: 'A',
+        label: 'Amount',
+        fields: [
+          {
+            type: 'text',
+            name: 'amount',
+            label: 'Amount',
+            className: this.formFieldClassName
+          }
+        ]
+      }
+    ];
+  }
+
+  getUserFilledData(client_id: string): Promise<any> {
     return new Promise((resolve, reject) => {
-      const url = this.endpointService.apiHost + 'api/v1/getFormDetails/' + id;
+      const url = this.endpointService.apiHost + 'api/v1/getClientsDetails/' + client_id;
+      console.log(url);
       this.http.get(url, { headers: this.headers }).subscribe(
-        res => {
-          resolve(res);
+        (res: any) => {
+          const client = res.client[0];
+          resolve(client);
         },
         err => {
           reject(err);
@@ -58,142 +304,15 @@ export class FormBuilderService {
     });
   }
 
-  /**
-   * Returns a list of all created forms.
-   *
-   * @returns {Promise<any>}
-   * @memberof FormBuilderService
-   */
-  getAllForms(): Promise<any> {
-    return new Promise((resolve, reject) => {
-      const url = this.endpointService.apiHost + 'api/v1/getAllForms';
-      this.http.get(url, { headers: this.headers }).subscribe(
-        res => {
-          const response = res as any;
-          resolve(response.forms.data);
-        },
-        err => {
-          reject(err);
-        }
-      );
+  getFormUserData(form_data: Array<any>) {
+    const user_form_data = {};
+    _.forEach(form_data, (data) => {
+      if (!_.isEmpty(data.userData)) {
+        user_form_data[data.name] = data.userData[0];
+      }
     });
-  }
 
-  /**
-   * Returns a list of all created forms based on the forms status.
-   *
-   * @param {string} status
-   * @returns {Promise<any>}
-   * @memberof FormBuilderService
-   */
-  getAllFormsByStatus(status: string): Promise<any> {
-    return new Promise((resolve, reject) => {
-      const url = this.endpointService.apiHost + 'api/v1/getAllFormsByStatus/' + status;
-      this.http.get(url, { headers: this.headers }).subscribe(
-        res => {
-          const response = res as any;
-          resolve(response.forms.data);
-        },
-        err => {
-          reject(err);
-        }
-      );
-    });
-  }
-
-  /**
-   * Gets all forms from a specified merchant/company.
-   *
-   * @param {string} merchant_id
-   * @returns {Promise<any>}
-   * @memberof FormBuilderService
-   */
-  getAllFormsByMerchant(merchant_id: string): Promise<any> {
-    return new Promise((resolve, reject) => {
-      const url = this.endpointService.apiHost + 'api/v1/getAllFormsByMerchant/' + merchant_id;
-      this.http.get(url, { headers: this.headers }).subscribe(
-        res => {
-          const response = res as any;
-          resolve(response.forms.data);
-        },
-        err => {
-          reject(err);
-        }
-      );
-    });
-  }
-
-  /**
-   * Returns a list of all created forms based on the forms status
-   * from a specified merchant/company.
-   *
-   * @param {string} merchant_id
-   * @param {string} status
-   * @returns {Promise<any>}
-   * @memberof FormBuilderService
-   */
-  getAllFormsByStatusAndMerchant(merchant_id: string, status: string): Promise<any> {
-    return new Promise((resolve, reject) => {
-      const url = this.endpointService.apiHost + 'api/v1/getAllFormsByStatusAndMerchant/' + status + '/' + merchant_id;
-      this.http.get(url, { headers: this.headers }).subscribe(
-        res => {
-          const response = res as any;
-          resolve(response.forms.data);
-        },
-        err => {
-          reject(err);
-        }
-      );
-    });
-  }
-
-  /**
-   * Changes the status of a form.
-   *
-   * @param {string} code
-   * @param {string} status
-   * @returns {Promise<any>}
-   * @memberof FormBuilderService
-   */
-  changeFormStatus(code: string, status: string): Promise<any> {
-    return new Promise((resolve, reject) => {
-      const url = this.endpointService.apiHost + 'api/v1/changeFormStatus/' + code + '/' + status;
-      this.http.post(url, {}, { headers: this.headers }).subscribe(
-        res => {
-          console.log('edit_status: ' + JSON.stringify(res));
-          resolve(res);
-        },
-        err => {
-          console.log('edit_status_error: ' + JSON.stringify(err));
-          reject(err);
-        }
-      );
-    });
-  }
-
-  /**
-   * Edits a form.
-   *
-   * @param {string} code
-   * @param {Forms} form
-   * @returns {Promise<any>}
-   * @memberof FormBuilderService
-   */
-  editForm(code: string, form: Forms): Promise<any> {
-    return new Promise((resolve, reject) => {
-      const body = JSON.stringify(form);
-      const url = this.endpointService.apiHost + 'api/v1/editForm/' + code;
-      this.http.post(url, body, { headers: this.headers }).subscribe(
-        res => {
-          console.log('edit_forms: ' + JSON.stringify(res));
-          resolve(res);
-        },
-        err => {
-          console.log('edit_forms_error: ' + JSON.stringify(err));
-          reject(err);
-        }
-      );
-    });
+    return JSON.stringify(user_form_data);
   }
 
   /**
@@ -211,37 +330,5 @@ export class FormBuilderService {
     else {
       this.generateUniqueFormCode();
     }
-  }
-
-  deleteForm(id: string): Promise<any> {
-    return new Promise((resolve, reject) => {
-      const url = this.endpointService.apiHost + 'api/v1/deleteForm/' + id;
-      this.http.post(url, {}, { headers: this.headers }).subscribe(
-        res => {
-          console.log('del_forms: ' + JSON.stringify(res));
-          resolve(res);
-        },
-        err => {
-          console.log('del_forms_error: ' + JSON.stringify(err));
-          reject(err);
-        }
-      );
-    });
-  }
-
-  recoverForm(id: string) {
-    return new Promise((resolve, reject) => {
-      const url = this.endpointService.apiHost + 'api/v1/recoverForm/' + id;
-      this.http.post(url, {}, { headers: this.headers }).subscribe(
-        res => {
-          console.log('edit_forms: ' + JSON.stringify(res));
-          resolve(res);
-        },
-        err => {
-          console.log('edit_forms_error: ' + JSON.stringify(err));
-          reject(err);
-        }
-      );
-    });
   }
 }

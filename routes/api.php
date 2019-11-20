@@ -35,7 +35,7 @@ Route::group(['middleware' => ['auth:api'], 'prefix' => 'v1'], function(){
     //use endpoints 
     Route::post('editUser/{id}', 'HomeController@editUser')->name('editUser');
     Route::get('getUser/{id}', 'HomeController@getUserDetails')->name('getUser');
-    Route::post('diableUser/{id}', 'HomeController@diableUser')->name('diableUser')->middleware('scope:GIT_Admin,company_admin');
+    Route::post('disableUser/{id}', 'HomeController@diableUser')->name('diableUser')->middleware('scope:GIT_Admin,company_admin');
     Route::post('enableUser/{id}', 'HomeController@enableUser')->name('enableUser')->middleware('scope:GIT_Admin,company_admin');
     
     //get all users in a company, param:merchant_id
@@ -62,7 +62,7 @@ Route::group(['middleware' => ['auth:api'], 'prefix' => 'v1'], function(){
     
 
     //get all users by type, this can be used when creating a mercahnt and a superadmin is required
-    Route::get('getAllUsersByType/{type}', 'HomeController@getAllUsersByType')->name('getAllUsersByType')->middleware('scope:GIT_Admin');
+    Route::get('getAllUsersByType/{type}', 'HomeController@getAllUsersByType')->name('getAllUsersByType')->middleware('scope:GIT_Admin,company_admin');
     
     //get logged in user
     Route::get('getLoggedinUser', 'HomeController@user')->name('getLoggedinUser');

@@ -3,8 +3,8 @@ import * as _ from 'lodash';
 import { Router } from '@angular/router';
 import { BranchService } from 'src/app/services/branch/branch.service';
 import { CompanyBranches } from 'src/app/models/company-branches.model';
-import { EndpointService } from 'src/app/services/endpoint/endpoint.service';
 import { ListViewService } from 'src/app/services/view/list-view.service';
+import { EndpointService } from 'src/app/services/endpoint/endpoint.service';
 
 @Component({
   selector: 'app-view-branch-lists-page',
@@ -105,7 +105,9 @@ export class ViewBranchListsPageComponent implements OnInit {
     this.router.navigateByUrl('git_admin/edit/branch/' + branch.id, { state: { branch: branch }});
   }
 
-  view(branch: any) {}
+  view(branch: any) {
+    this.router.navigateByUrl('git_admin/details/branch', { state: { branch: branch }});
+  }
 
   delete(id: string) {}
 

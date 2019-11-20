@@ -45,7 +45,7 @@
                   <div class="container">
                     <div class="row">
                       <div class="col-6 col-md-6 offset-2 offset-md-2">
-                        <h1 class="display-3">{{ company.merchant_name }}</h1>
+                        <h1 class="display-3">{{ branch.merchant_name }}</h1>
                       </div>
                       <div class="col-4 col-md-4">
                         <button *ngIf="!_loading" class="btn btn-outline-secondary mr-2"
@@ -54,7 +54,7 @@
                           <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
                           Loading...
                         </button>
-                        <button class="btn btn-outline-secondary btn-icon-text" (click)="edit(company.id)">
+                        <button class="btn btn-outline-secondary btn-icon-text" (click)="edit(branch.id)">
                           <i class="mdi mdi-pencil-outline"></i>
                           Edit
                         </button>
@@ -65,43 +65,43 @@
                         <h5>Company Name :</h5>
                       </div>
                       <div class="col-7 col-md-7">
-                        <h5>{{ company.merchant_name }}</h5>
+                        <h5>{{ branch.merchant_name }}</h5>
                       </div>
-                      <div class="col-3 col-md-3 offset-1 offset-md-1">
+                      <!-- <div class="col-3 col-md-3 offset-1 offset-md-1">
                         <h5>Country :</h5>
                       </div>
                       <div class="col-7 col-md-7">
                         <h5>{{ company.country }}</h5>
-                      </div>
+                      </div> -->
                       <div class="col-3 col-md-3 offset-1 offset-md-1">
-                        <h5>Super Executive :</h5>
+                        <h5>Branch Super Executive :</h5>
                       </div>
                       <div class="col-7 col-md-7">
-                        <h5>{{ company.super_executive_name }}</h5>
+                        <h5>{{ branch.branch_super_executive_name }}</h5>
                       </div>
                       <div class="col-3 col-md-3 offset-1 offset-md-1">
                         <h5>Company Admin :</h5>
                       </div>
                       <div class="col-7 col-md-7">
-                        <h5>{{ company.company_admin_name }}</h5>
+                        <h5>{{ branch.branch_admin_name }}</h5>
                       </div>
                       <div class="col-3 col-md-3 offset-1 offset-md-1">
                         <h5>Created At :</h5>
                       </div>
                       <div class="col-7 col-md-7">
-                        <h5>{{ company.created_at | date }}</h5>
+                        <h5>{{ branch.created_at | date }}</h5>
                       </div>
                       <div class="col-3 col-md-3 offset-1 offset-md-1">
                         <h5>Updated At :</h5>
                       </div>
                       <div class="col-7 col-md-7">
-                        <h5>{{ company.updated_at | date }}</h5>
+                        <h5>{{ branch.updated_at | date }}</h5>
                       </div>
                       <div class="col-3 col-md-3 offset-1 offset-md-1">
                         <h5>Branch Name :</h5>
                       </div>
                       <div class="col-7 col-md-7">
-                        <h5>{{ company.branch_name }}</h5>
+                        <h5>{{ branch.branch_name }}</h5>
                       </div>
                       <!-- <div class="col-3 col-md-3 offset-1 offset-md-1">
                         <h5>company Type :</h5>
@@ -109,24 +109,24 @@
                       <div class="col-7 col-md-7">
                         <h5>{{ accountType }}</h5>
                       </div> -->
-                      <div class="col-3 col-md-3 offset-1 offset-md-1">
+                      <!-- <div class="col-3 col-md-3 offset-1 offset-md-1">
                         <h5>Last Login :</h5>
                       </div>
                       <div class="col-7 col-md-7">
                         <h5>{{ company.last_login_at | date }}</h5>
-                      </div>
+                      </div> -->
                       <div class="col-3 col-md-3 offset-1 offset-md-1">
                         <h5>Account Created On :</h5>
                       </div>
                       <div class="col-7 col-md-7">
-                        <h5>{{ company.created_at | date }}</h5>
+                        <h5>{{ branch.created_at | date }}</h5>
                       </div>
-                      <div class="col-3 col-md-3 offset-1 offset-md-1">
+                      <!-- <div class="col-3 col-md-3 offset-1 offset-md-1">
                         <h5>Last Updated On :</h5>
                       </div>
                       <div class="col-7 col-md-7">
                         <h5>{{ company.updated_at | date }}</h5>
-                      </div>
+                      </div> -->
                     </div>
                   </div>
                 </div>
