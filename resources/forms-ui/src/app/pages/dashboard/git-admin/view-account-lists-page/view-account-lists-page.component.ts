@@ -25,6 +25,9 @@ export class ViewAccountListsPageComponent implements OnInit {
   @Input() merchantId: any;
   collection: Array<any>;
   allCollection: Array<any>;
+  @Output() edit = new EventEmitter();
+  @Output() view = new EventEmitter();
+  @Output() delete = new EventEmitter();
   @Output() dataLoaded = new EventEmitter();
   @Output() dataLoadedError = new EventEmitter();
 
@@ -45,15 +48,17 @@ export class ViewAccountListsPageComponent implements OnInit {
     this.getAccountDetails();
   }
 
-  edit(id: string) {
-    this.router.navigateByUrl('/git_admin/edit/user_account', { state: { id: id }});
+  _edit(id: string) {
+    this.edit.emit(id);
   }
 
-  view(id: string) {
-    this.router.navigateByUrl('git_admin/details/user_account', { state: { id: id }});
+  _view(id: string) {
+    this.view.emit(id);
   }
 
-  delete(id: string) {}
+  _delete(id: string) {
+    this.delete.emit(id);
+  }
 
   showAll() {
     this.filterState = 'all';

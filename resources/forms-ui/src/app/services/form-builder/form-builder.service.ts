@@ -331,4 +331,12 @@ export class FormBuilderService {
       this.generateUniqueFormCode();
     }
   }
+
+  disableFormFields(form: any[]) {
+    const inputFields = document.querySelectorAll('input');
+    inputFields.forEach(input => {
+      input.disabled = true;
+    });
+  }
 }
+

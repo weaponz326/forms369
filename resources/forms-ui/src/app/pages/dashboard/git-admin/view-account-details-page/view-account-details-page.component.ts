@@ -11,8 +11,8 @@ import { AccountService } from 'src/app/services/account/account.service';
 })
 export class ViewAccountDetailsPageComponent implements OnInit {
 
-  id: string;
   user: any;
+  id: string;
   loading: boolean;
   _loading: boolean;
   isActive: boolean;

@@ -4,108 +4,47 @@
     <app-side-bar></app-side-bar>
     <div class="main-panel">
       <div class="content-wrapper">
+
         <div class="row">
           <div class="col-md-12 grid-margin">
             <div class="d-flex justify-content-between flex-wrap">
               <div class="d-flex align-items-end flex-wrap">
                 <div class="mr-md-3 mr-xl-5">
-                  <h2>Passport Form</h2>
-                  <p class="mb-md-0">Your analytics dashboard template.</p>
+                  <h2>{{ form.name }}</h2>
+                  <p class="mb-md-0">Preview a form.</p>
                 </div>
                 <div class="d-flex">
-                  <i class="mdi mdi-home text-muted hover-cursor"></i>
+                  <!-- <i class="mdi mdi-home text-muted hover-cursor"></i>
                   <p class="text-muted mb-0 hover-cursor">&nbsp;/&nbsp;Home&nbsp;/&nbsp;</p>
-                  <p class="text-primary mb-0 hover-cursor">Analytics</p>
+                  <p class="text-primary mb-0 hover-cursor">Analytics</p> -->
                 </div>
               </div>
               <div class="d-flex justify-content-between align-items-end flex-wrap">
-                <button type="button" class="btn btn-light bg-white btn-icon mr-3 d-none d-md-block ">
+                <!-- <button type="button" class="btn btn-light bg-white btn-icon mr-3 d-none d-md-block" (click)="download()">
                   <i class="mdi mdi-download text-muted"></i>
+                </button> -->
+                <button type="button" class="btn btn-light bg-white btn-icon mr-3 mt-2 mt-xl-0" (click)="edit()">
+                  <i class="mdi mdi-pencil-outline text-muted"></i>
                 </button>
-                <button type="button" class="btn btn-light bg-white btn-icon mr-3 mt-2 mt-xl-0">
-                  <i class="mdi mdi-clock-outline text-muted"></i>
-                </button>
-                <button type="button" class="btn btn-light bg-white btn-icon mr-3 mt-2 mt-xl-0">
-                  <i class="mdi mdi-plus text-muted"></i>
-                </button>
-                <a class="btn btn-primary mt-2 mt-xl-0" routerLink="/admin/edit_form">Edit This Form</a>
               </div>
             </div>
           </div>
         </div>
+
         <div class="row">
           <div class="col-md-8 offset-md-2 grid-margin stretch-card">
-            <div class="card">
+            <div class="card" style="height: 750px; overflow: scroll;">
               <div class="card-body">
-                <p class="card-title">Passport Form</p>
-                <p class="text-muted">Total of forms that have been submitted</p>
-                <div class="card-text">
-                  <form class="forms-sample">
-                    <div class="form-group">
-                      <label for="exampleInputUsername1">Username</label>
-                      <input type="text" class="form-control" id="exampleInputUsername1" disabled>
-                    </div>
-                    <div class="form-group">
-                      <label for="exampleInputEmail1">Email address</label>
-                      <input type="text" class="form-control" id="exampleInputEmail1" disabled>
-                    </div>
-                    <div class="form-group">
-                      <label for="exampleInputPassword1">Password</label>
-                      <input type="text" class="form-control" id="exampleInputPassword1" disabled>
-                    </div>
-                    <div class="form-group">
-                      <label for="exampleInputConfirmPassword1">Confirm Password</label>
-                      <input type="text" class="form-control" id="exampleInputConfirmPassword1" disabled>
-                    </div>
-                    <div class="form-group">
-                      <label for="exampleInputPassword1">Password</label>
-                      <input type="text" class="form-control" id="exampleInputPassword1" disabled>
-                    </div>
-                    <div class="form-group">
-                      <label for="exampleInputConfirmPassword1">Confirm Password</label>
-                      <input type="text" class="form-control" id="exampleInputConfirmPassword1" disabled>
-                    </div>
-                    <div class="form-check form-check-flat form-check-primary">
-                      <label class="form-check-label">
-                        <input type="checkbox" class="form-check-input">
-                        Remember me
-                      </label>
-                    </div>
-
-                    <button class="btn btn-primary btn-lg mr-2" type="button" disabled>
-                      <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
-                      <span class="sr-only">Please wait...</span>
-                    </button>
-                    <button type="submit" class="btn btn-primary btn-lg mr-2">Submit</button>
-                    <button class="btn btn-light btn-lg">Cancel</button>
-                  </form>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <div class="row">
-          <div class="col-md-12 grid-margin">
-            <div class="card text-center">
-              <div class="card-body">
-                <p class="card-title">Offline</p>
+                <p class="card-title">Preview Form</p>
                 <p class="text-muted"></p>
-                <div class="card-text">
-                  <i class="mdi mdi-wifi-off" style="font-size: 12em;"></i>
-                  <h2>No Internet Connection</h2>
-                  <p class="text-muted">You don't have an active internet connection</p>
+                <div class="form-container">
+                  <div id="fb-editor"></div>
                 </div>
               </div>
             </div>
           </div>
         </div>
       </div>
-      <!-- content-wrapper ends -->
-      <!-- footer -->
-      <app-footer-bar></app-footer-bar>
-      <!-- partial -->
     </div>
-    <!-- main-panel ends -->
   </div>
 </div>

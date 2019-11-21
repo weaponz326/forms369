@@ -43,6 +43,9 @@
                 <app-view-account-lists-page
                     [userType]="userType"
                     [merchantId]="merchantId"
+                    (edit)="edit($event)"
+                    (view)="view($event)"
+                    (delete)="delete($event)"
                     (dataLoaded)="dataLoaded($event)"
                     (dataLoadedError)="dataLoadedError($event)">
                 </app-view-account-lists-page>

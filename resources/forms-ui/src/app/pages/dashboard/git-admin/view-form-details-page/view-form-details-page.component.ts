@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 declare var $: any;
 import * as _ from 'lodash';
 import { Router } from '@angular/router';
+import { FormBuilderService } from 'src/app/services/form-builder/form-builder.service';
 
 @Component({
   selector: 'app-view-form-details-page',
@@ -14,7 +15,8 @@ export class ViewFormDetailsPageComponent implements OnInit {
   formRenderer: any;
 
   constructor(
-    private router: Router
+    private router: Router,
+    private fBuilderService: FormBuilderService
   ) {
     this.form = window.history.state.form;
   }
@@ -24,6 +26,11 @@ export class ViewFormDetailsPageComponent implements OnInit {
     this.formRenderer = document.getElementById('fb-editor');
     const formRenderOpts = { formData, dataType: 'json' };
     $(this.formRenderer).formRender(formRenderOpts);
+    this.disableFormFields();
+  }
+
+  disableFormFields() {
+    this.fBuilderService.disableFormFields(this.form.form_fields);
   }
 
   edit() {
