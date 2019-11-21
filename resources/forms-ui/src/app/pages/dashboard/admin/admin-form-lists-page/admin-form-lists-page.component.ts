@@ -1,11 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import * as _ from 'lodash';
 import { Router } from '@angular/router';
-import { ListViewService } from 'src/app/services/view/list-view.service';
-import { EndpointService } from 'src/app/services/endpoint/endpoint.service';
-import { FormBuilderService } from 'src/app/services/form-builder/form-builder.service';
-import { LocalStorageService } from 'src/app/services/storage/local-storage.service';
 import { FormsService } from 'src/app/services/forms/forms.service';
+import { ListViewService } from 'src/app/services/view/list-view.service';
+import { LocalStorageService } from 'src/app/services/storage/local-storage.service';
 
 @Component({
   selector: 'app-admin-form-lists-page',
@@ -27,8 +25,7 @@ export class AdminFormListsPageComponent implements OnInit {
     private router: Router,
     private formService: FormsService,
     private listViewService: ListViewService,
-    private localStorage: LocalStorageService,
-    private formBuilderService: FormBuilderService
+    private localStorage: LocalStorageService
   ) {
     this.formsList = [];
     this.allFormsList = [];

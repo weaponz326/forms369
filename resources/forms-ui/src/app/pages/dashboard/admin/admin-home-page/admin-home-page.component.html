@@ -39,7 +39,18 @@
               <div class="card-body">
                 <p class="card-title">Total No. Forms</p>
                 <div class="card-text">
-                  <h1 style="font-size: 5em;">9</h1>
+                  <h1 style="font-size: 5em;">{{ numTotalForms }}</h1>
+                  <p class="text-muted">A list of all forms you've filled</p>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-4 grid-margin stretch-card">
+            <div class="card hover-cursor hover-primary" (click)="openForms()">
+              <div class="card-body">
+                <p class="card-title">Total No. Branches</p>
+                <div class="card-text">
+                  <h1 style="font-size: 5em;">{{ numTotalBranches }}</h1>
                   <p class="text-muted">A list of all forms you've filled</p>
                 </div>
               </div>
@@ -50,53 +61,7 @@
               <div class="card-body">
                 <p class="card-title">Total No. Accounts</p>
                 <div class="card-text">
-                  <h1 style="font-size: 5em;">6</h1>
-                  <p class="text-muted">A list of all forms you've filled</p>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div class="col-md-4 grid-margin stretch-card">
-            <div class="card hover-cursor hover-primary" (click)="openForms()">
-              <div class="card-body">
-                <p class="card-title">Total No. Accounts</p>
-                <div class="card-text">
-                  <h1 style="font-size: 5em;">6</h1>
-                  <p class="text-muted">A list of all forms you've filled</p>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div class="row">
-          <div class="col-md-4 grid-margin stretch-card">
-            <div class="card hover-cursor hover-primary" (click)="openForms()">
-              <div class="card-body">
-                <p class="card-title">Active Accounts</p>
-                <div class="card-text">
-                  <h1 style="font-size: 5em;">6</h1>
-                  <p class="text-muted">A list of all forms you've filled</p>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div class="col-md-4 grid-margin stretch-card">
-            <div class="card hover-cursor hover-primary" (click)="openForms()">
-              <div class="card-body">
-                <p class="card-title">Inactive Accounts</p>
-                <div class="card-text">
-                  <h1 style="font-size: 5em;">2</h1>
-                  <p class="text-muted">A list of all forms you've filled</p>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div class="col-md-4 grid-margin stretch-card">
-            <div class="card hover-cursor hover-primary">
-              <div class="card-body">
-                <p class="card-title">Form Templates</p>
-                <div class="card-text">
-                  <h1 style="font-size: 5em;">2</h1>
+                  <h1 style="font-size: 5em;">{{ numTotalAccounts }}</h1>
                   <p class="text-muted">A list of all forms you've filled</p>
                 </div>
               </div>

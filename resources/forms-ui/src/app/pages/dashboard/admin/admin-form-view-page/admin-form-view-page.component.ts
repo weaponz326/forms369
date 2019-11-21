@@ -37,6 +37,4 @@ export class AdminFormViewPageComponent implements OnInit {
     this.router.navigateByUrl('git_admin/edit/form/' + this.form.form_code, { state: { form: this.form }});
   }
 
-  download() {}
-
 }

@@ -58,8 +58,4 @@ export class AdminViewBranchDetailsPageComponent implements OnInit {
     );
   }
 
-  edit(id: string) {
-    this.router.navigateByUrl('/git_admin/edit/branch', { state: { id: id }});
-  }
-
 }
