@@ -8,7 +8,8 @@
     "test": "ng test",
     "lint": "ng lint",
     "e2e": "ng e2e",
-    "prod": "ng build --prod --aot && rm -f ../../public/*.js && rm -f ../../public/*.css && rm -f ../../public/*.ico && cp dist/*.js ../../public/ && cp dist/*.css ../../public/ && cp dist/*.ico ../../public/ && cp dist/index.html ../views/index.html"
+    "dev": "ng build --prod && cp dist/forms-ui/*.ico ../../public/ && cp dist/forms-ui/index.html ../views/index.html && cp dist/forms-ui/assets",
+    "prod": "ng build --prod --aot && rm -f ../../public/*.js && rm -f ../../public/*.css && rm -f ../../public/*.ico && cp dist/forms-ui/*.js ../../public/ && cp dist/forms-ui/*.css ../../public/ && cp dist/forms-ui/*.ico ../../public/ && cp dist/forms-ui/index.html ../views/index.html"
   },
   "private": true,
   "dependencies": {

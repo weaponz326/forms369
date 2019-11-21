@@ -25,7 +25,6 @@ export class EditCompanyPageComponent implements OnInit {
   _loading: boolean;
   logoImage: string;
   submitted: boolean;
-  hasInput: boolean;
   navigatedData: any;
   companyAdminsList: Array<any>;
   superExecutivesList: Array<any>;
@@ -87,9 +86,9 @@ export class EditCompanyPageComponent implements OnInit {
     this.form = this.formBuilder.group({
       smallLogoName: [this.navigatedData.small_logo],
       smallLogoFile: [''],
-      name: [this.navigatedData.merchant_name, Validators.required],
       logo: [''],
       country: [this.navigatedData.country, Validators.required],
+      name: [this.navigatedData.merchant_name, Validators.required],
       companyAdmin: ['', Validators.required],
       superExecutive: ['', Validators.required]
     });

@@ -2,3 +2,7 @@
     font-size: .875rem;
     padding: 0.6rem 1.5rem;
 }
+
+.search-form {
+    border-radius: 30px;
+}

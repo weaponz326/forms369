@@ -20,7 +20,7 @@ export class ClientFormsEntryPageComponent implements OnInit {
   created: boolean;
   formInstance: any;
   formRenderer: any;
-  isConnected: boolean;
+  // isConnected: boolean;
   formGenCode: string;
 
   constructor(

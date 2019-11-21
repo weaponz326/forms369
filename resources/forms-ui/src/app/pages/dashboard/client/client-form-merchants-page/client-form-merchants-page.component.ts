@@ -2,9 +2,9 @@ import { Component, OnInit } from '@angular/core';
 import * as _ from 'lodash';
 import { Router } from '@angular/router';
 import { Merchants } from 'src/app/models/merchants.model';
+import { ClientService } from 'src/app/services/client/client.service';
 import { CompanyService } from 'src/app/services/company/company.service';
 import { EndpointService } from 'src/app/services/endpoint/endpoint.service';
-import { ClientService } from 'src/app/services/client/client.service';
 
 @Component({
   selector: 'app-client-form-merchant-page',

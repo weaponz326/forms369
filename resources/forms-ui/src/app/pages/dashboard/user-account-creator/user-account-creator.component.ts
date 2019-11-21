@@ -85,7 +85,9 @@ export class UserAccountCreatorComponent implements OnInit {
   }
 
   initializeView() {
-    this.getCompany();
+    if (!this.isAdmin) {
+      this.getCompany();
+    }
   }
 
   onCountrySelect(e: any) {
@@ -102,6 +104,21 @@ export class UserAccountCreatorComponent implements OnInit {
     if (!this.isFrontDesk) {
       // remove validation of merchant and branch
       // so the account can be created.
+      this.f.branch.clearValidators();
+      this.f.merchant.clearValidators();
+      this.f.branch.updateValueAndValidity();
+      this.f.merchant.updateValueAndValidity();
+      console.log('removed validators');
+    }
+  }
+
+  // This method handles the removal of validations
+  // on merchant and branches when an admin is creating an account.
+  handleUserSelection() {
+    if (this.isAdmin) {
+      // remove validation of merchant and branch
+      // so the account can be created.
+      this.f.userType.setValue('25');
       this.f.branch.clearValidators();
       this.f.merchant.clearValidators();
       this.f.branch.updateValueAndValidity();
@@ -130,10 +147,18 @@ export class UserAccountCreatorComponent implements OnInit {
     const branch_id = this.getSelectedBranchIdentifier();
     const merchant_id = this.getSelectedMerchantIdentifier();
 
-    const user = !this.isFrontDesk
-      ? new Users(fname, lname, email, password, username, country, password, userType)
-      : new Users(fname, lname, email, password, username, country, password, userType, null, null, merchant_id, branch_id);
-    return user;
+    if (this.isAdmin) {
+      const merchantId = this.localStorage.getUser().merchant_id;
+      return new Users(fname, lname, email, password, username, country, password, userType, null, null, merchantId, branch_id);
+    }
+    else {
+      const user = new Users(fname, lname, email, password, username, country, password, userType, null, null, merchant_id, branch_id);
+      return user;
+      // const user = !this.isFrontDesk
+      // ? new Users(fname, lname, email, password, username, country, password, userType)
+      // : new Users(fname, lname, email, password, username, country, password, userType, null, null, merchant_id, branch_id);
+      // return user;
+    }
   }
 
   resolveLaravelError(error: any) {
@@ -189,11 +214,9 @@ export class UserAccountCreatorComponent implements OnInit {
           );
         }
         else {
-          // this._loading = false;
         }
       },
       err => {
-        // this._loading = false;
         console.log('companies_error: ' + JSON.stringify(err));
       }
     );
@@ -218,21 +241,17 @@ export class UserAccountCreatorComponent implements OnInit {
           );
         }
         else {
-          // this._loading = false;
         }
       },
       err => {
-        // this._loading = false;
       }
     );
   }
 
   register() {
-    console.log('yeah');
-    console.log(this.form.value);
-    console.log(this.form.errors);
     this.loading = true;
     this.submitted = true;
+    this.handleUserSelection();
     if (this.form.invalid) {
       this.form.enable();
       this.loading = false;

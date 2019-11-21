@@ -1,9 +1,11 @@
 import { Component, OnInit, Output, EventEmitter, Input  } from '@angular/core';
 import * as _ from 'lodash';
 import { Users } from 'src/app/models/users.model';
+import { UserTypes } from 'src/app/enums/user-types.enum';
 import { CountryPickerService, ICountry } from 'ngx-country-picker';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { AccountService } from 'src/app/services/account/account.service';
+import { LocalStorageService } from 'src/app/services/storage/local-storage.service';
 
 @Component({
   selector: 'app-user-account-editor',
@@ -14,25 +16,28 @@ export class UserAccountEditorComponent implements OnInit {
 
   id: string;
   form: FormGroup;
+  isAdmin: boolean;
   loading: boolean;
   submitted: boolean;
   emailInUse: boolean;
   oldPassword: string;
   newPassword: string;
-  isChangingPassword: boolean;
-  countriesList: Array<ICountry>;
   @Input() userId: string;
+  // isChangingPassword: boolean;
+  countriesList: Array<ICountry>;
   @Output() userAccount = new EventEmitter();
   @Output() accountCreated = new EventEmitter();
 
   constructor(
     private formBuilder: FormBuilder,
     private accountService: AccountService,
+    private localStorage: LocalStorageService,
     private countryPickerService: CountryPickerService
   ) {
     this.oldPassword = '';
     this.newPassword = '';
     this.countriesList = [];
+    this.isAdmin = this.localStorage.getUser().usertype == UserTypes.CompanyAdmin ? true : false;
   }
 
   ngOnInit() {
@@ -111,6 +116,7 @@ export class UserAccountEditorComponent implements OnInit {
       user.username = username,
       user.country = country;
       user.user_type = userType;
+      user.merchant_id = this.localStorage.getUser().merchant_id;
     }
     else {
       user.firstname = fname;
@@ -119,6 +125,7 @@ export class UserAccountEditorComponent implements OnInit {
       user.username = username,
       user.country = country;
       user.user_type = userType;
+      user.merchant_id = this.localStorage.getUser().merchant_id;
     }
 
     return user;

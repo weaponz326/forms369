@@ -11,11 +11,13 @@ import { TemplatesService } from 'src/app/services/templates/templates.service';
   styleUrls: ['./list-template-page.component.css']
 })
 export class ListTemplatePageComponent implements OnInit {
-
+  query: string;
   loading: boolean;
   viewMode: string;
+  hasMore: boolean;
   hasError: boolean;
   hasNoData: boolean;
+  foundNoForm: boolean;
   templatesList: Array<any>;
   @ViewChild('content', { static: false }) modalTemplateRef: TemplateRef<any>;
 
@@ -114,6 +116,45 @@ export class ListTemplatePageComponent implements OnInit {
         this.hasError = true;
       }
     );
+  }
+
+  search(e: KeyboardEvent) {
+    if (e.key == 'Enter') {
+      // we need to know whether the user is searching by a form code
+      // or the user is searching by a form name.
+      // First, check if its a form code.
+      console.log(this.query);
+      this.hasError = false;
+      this.templatesList = [];
+      this.loading = true;
+      this.templatesService.findTemplate(this.query).then(
+        forms => {
+          if (forms.length == 0) {
+            this.loading = false;
+            this.foundNoForm = true;
+          }
+          else {
+            this.loading = false;
+            this.foundNoForm = false;
+            _.forEach(forms, (form) => {
+              this.templatesList.push(form);
+            });
+          }
+        },
+        err => {
+          this.hasError = true;
+          this.loading = false;
+        }
+      );
+    }
+    else {
+      if (this.foundNoForm && this.query.length == 0) {
+        this.hasNoData = true;
+        this.foundNoForm = false;
+        console.log('hererer');
+        this.getAllTemplates();
+      }
+    }
   }
 
   loadMore() {}

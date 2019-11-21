@@ -17,10 +17,10 @@ import { FormBuilderService } from 'src/app/services/form-builder/form-builder.s
 })
 export class AdminCreateFormPageComponent implements OnInit {
   form: FormGroup;
+  formName: string;
   formBuilder: any;
   created: boolean;
   loading: boolean;
-  formName: string;
   formCode: string;
   submitted: boolean;
   toPublish: boolean;
@@ -74,7 +74,7 @@ export class AdminCreateFormPageComponent implements OnInit {
     const form = this.getForm();
     const formData = new Forms();
     formData.form_fields = form;
-    formData.name = this.formName;
+    formData.name = this.f.name.value;
     formData.form_code = this.formCode;
     formData.merchant_id = this.merchant_id;
     formData.status = this.toPublish ? 1 : 0;
@@ -85,6 +85,7 @@ export class AdminCreateFormPageComponent implements OnInit {
         this.toPublish = false;
         if (_.toLower(res.message) == 'ok') {
           this.created = true;
+          this.formName = formData.name;
         }
         else {
           this.created = false;
@@ -133,6 +134,10 @@ export class AdminCreateFormPageComponent implements OnInit {
 
   bringBackForm() {
     this.created = !this.created;
+  }
+
+  preview() {
+    this.router.navigateByUrl('/admin/details/form', { state: { form: this.getForm() }});
   }
 
   goHome() {

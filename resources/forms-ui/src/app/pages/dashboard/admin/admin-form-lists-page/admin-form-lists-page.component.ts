@@ -22,8 +22,7 @@ export class AdminFormListsPageComponent implements OnInit {
   filterState: string;
   formsList: Array<any>;
   allFormsList: Array<any>;
-  activeFormsList: Array<any>;
-  inActiveFormsList: Array<any>;
+
   constructor(
     private router: Router,
     private formService: FormsService,
@@ -132,6 +131,6 @@ export class AdminFormListsPageComponent implements OnInit {
     this.router.navigateByUrl('admin/details/form', { state: { form: form }});
   }
 
-  delete() {}
+  delete(id: string) {}
 
 }
