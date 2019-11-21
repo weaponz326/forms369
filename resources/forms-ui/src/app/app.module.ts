@@ -29,13 +29,13 @@ import { ClientListFormDataPageComponent } from './pages/dashboard/client/client
 import { FrontDesktopHomePageComponent } from './pages/dashboard/front-desk/front-desk-home-page/front-desk-home-page.component';
 import { CreateCompanyPageComponent } from './pages/dashboard/git-admin/create-company-page/create-company-page.component';
 import { CreateBranchPageComponent } from './pages/dashboard/git-admin/create-branch-page/create-branch-page.component';
-import { ExecSubmittedFormsPageComponent } from './pages/dashboard/executive/exec-submitted-forms-page/exec-submitted-forms-page.component';
-import { ExecutiveHomePageComponent } from './pages/dashboard/executive/executive-home-page/executive-home-page.component';
-import { ExecProcessedFormsPageComponent } from './pages/dashboard/executive/exec-processed-forms-page/exec-processed-forms-page.component';
-import { ExecInProcessedFormsPageComponent } from './pages/dashboard/executive/exec-in-processed-forms-page/exec-in-processed-forms-page.component';
-import { ExecSubmittedFormsListPageComponent } from './pages/dashboard/executive/exec-submitted-forms-list-page/exec-submitted-forms-list-page.component';
-import { ExecProcessedFormsListPageComponent } from './pages/dashboard/executive/exec-processed-forms-list-page/exec-processed-forms-list-page.component';
-import { ExecInProcessedFormsListPageComponent } from './pages/dashboard/executive/exec-in-processed-forms-list-page/exec-in-processed-forms-list-page.component';
+import { ExecSubmittedFormsPageComponent } from './pages/dashboard/branch-executive/exec-submitted-forms-page/exec-submitted-forms-page.component';
+import { ExecutiveHomePageComponent } from './pages/dashboard/branch-executive/executive-home-page/executive-home-page.component';
+import { ExecProcessedFormsPageComponent } from './pages/dashboard/branch-executive/exec-processed-forms-page/exec-processed-forms-page.component';
+import { ExecInProcessedFormsPageComponent } from './pages/dashboard/branch-executive/exec-in-processed-forms-page/exec-in-processed-forms-page.component';
+import { ExecSubmittedFormsListPageComponent } from './pages/dashboard/branch-executive/exec-submitted-forms-list-page/exec-submitted-forms-list-page.component';
+import { ExecProcessedFormsListPageComponent } from './pages/dashboard/branch-executive/exec-processed-forms-list-page/exec-processed-forms-list-page.component';
+import { ExecInProcessedFormsListPageComponent } from './pages/dashboard/branch-executive/exec-in-processed-forms-list-page/exec-in-processed-forms-list-page.component';
 import { AdminHomePageComponent } from './pages/dashboard/admin/admin-home-page/admin-home-page.component';
 import { ClientFormsHistoryPageComponent } from './pages/dashboard/client/client-forms-history-page/client-forms-history-page.component';
 import { ClientFormsEntryPageComponent } from './pages/dashboard/client/client-forms-entry-page/client-forms-entry-page.component';
@@ -85,6 +85,9 @@ import { AdminCreateUserPageComponent } from './pages/dashboard/admin/admin-crea
 import { AdminEditUserPageComponent } from './pages/dashboard/admin/admin-edit-user-page/admin-edit-user-page.component';
 import { AdminViewAccountDetailsPageComponent } from './pages/dashboard/admin/admin-view-account-details-page/admin-view-account-details-page.component';
 import { AdminViewBranchDetailsPageComponent } from './pages/dashboard/admin/admin-view-branch-details-page/admin-view-branch-details-page.component';
+import { BranchAdminHomePageComponent } from './pages/dashboard/branch-admin/branch-admin-home-page/branch-admin-home-page.component';
+import { BranchAdminCreateUserPageComponent } from './pages/dashboard/branch-admin/branch-admin-create-user-page/branch-admin-create-user-page.component';
+import { BranchAdminEditUserPageComponent } from './pages/dashboard/branch-admin/branch-admin-edit-user-page/branch-admin-edit-user-page.component';
 
 @NgModule({
   declarations: [
@@ -160,6 +163,9 @@ import { AdminViewBranchDetailsPageComponent } from './pages/dashboard/admin/adm
     AdminEditUserPageComponent,
     AdminViewAccountDetailsPageComponent,
     AdminViewBranchDetailsPageComponent,
+    BranchAdminHomePageComponent,
+    BranchAdminCreateUserPageComponent,
+    BranchAdminEditUserPageComponent,
   ],
   imports: [
     BrowserModule,

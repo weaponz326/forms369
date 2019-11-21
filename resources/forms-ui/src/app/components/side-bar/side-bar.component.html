@@ -180,56 +180,9 @@
               <span class="menu-title">Front Desks</span>
             </a>
           </li>
-          <!-- <li class="nav-item">
-            <a class="nav-link" routerLink="/git_admin/lists/admin">
-              <i class="mdi mdi-account-supervisor menu-icon"></i>
-              <span class="menu-title">GIT Admins</span>
-            </a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" routerLink="/git_admin/lists/branch_admin">
-              <i class="mdi mdi-leaf-maple menu-icon"></i>
-              <span class="menu-title">Branch Admins</span>
-            </a>
-          </li> -->
-          <!-- <li class="nav-item">
-            <a class="nav-link" routerLink="/git_admin/lists/company_admin">
-              <i class="mdi mdi-lighthouse menu-icon"></i>
-              <span class="menu-title">Company Admins</span>
-            </a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" routerLink="/git_admin/lists/branch_executive">
-              <i class="mdi mdi-script-outline menu-icon"></i>
-              <span class="menu-title">Branch Super-Executives</span>
-            </a>
-          </li> -->
-          <!-- <li class="nav-item">
-            <a class="nav-link" routerLink="/git_admin/lists/super_executive">
-              <i class="mdi mdi-view-dashboard-outline menu-icon"></i>
-              <span class="menu-title">Super Executives</span>
-            </a>
-          </li> -->
         </ul>
       </div>
     </li>
-    <!-- <li class="nav-item">
-      <a class="nav-link" data-toggle="collapse" href="#company" aria-expanded="false" aria-controls="company">
-        <i class="mdi mdi-circle-outline menu-icon"></i>
-        <span class="menu-title">Company</span>
-        <i class="menu-arrow"></i>
-      </a>
-      <div class="collapse" id="company">
-        <ul class="nav flex-column sub-menu">
-          <li class="nav-item">
-            <a class="nav-link" routerLink="/git_admin/create/company">Create New</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" routerLink="/git_admin/lists/company">View Companies</a>
-          </li>
-        </ul>
-      </div>
-    </li> -->
     <li class="nav-item">
       <a class="nav-link" routerLink="/admin/lists/branch">
         <i class="mdi mdi-view-headline menu-icon"></i>
@@ -258,15 +211,46 @@
     <li class="nav-item">
       <a class="nav-link" routerLink="/client/forms_filled">
         <i class="mdi mdi-file-document-edit-outline menu-icon"></i>
-        <span class="menu-title">My History</span>
+        <span class="menu-title">Submitted Forms</span>
       </a>
     </li>
     <li class="nav-item">
       <a class="nav-link" routerLink="/client/unsent_forms">
         <i class="mdi mdi-file-document-edit-outline menu-icon"></i>
-        <span class="menu-title">Unsent Forms</span>
+        <span class="menu-title">UnProcessed Forms</span>
       </a>
     </li>
   </ul>
 </nav>
 <!-- /.client sidemenu -->
+
+<!-- front-desk -->
+<nav *ngIf="isFrontDesk" class="sidebar sidebar-offcanvas" id="sidebar">
+  <ul class="nav">
+    <li class="nav-item">
+      <a class="nav-link" routerLink="">
+        <i class="mdi mdi-home menu-icon"></i>
+        <span class="menu-title">Home</span>
+      </a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link" routerLink="">
+        <i class="mdi mdi-file-document-edit-outline menu-icon"></i>
+        <span class="menu-title">Submitted Forms</span>
+      </a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link" routerLink="">
+        <i class="mdi mdi-file-document-edit-outline menu-icon"></i>
+        <span class="menu-title">Processed Forms</span>
+      </a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link" routerLink="">
+        <i class="mdi mdi-file-document-edit-outline menu-icon"></i>
+        <span class="menu-title">Forms In-Processing</span>
+      </a>
+    </li>
+  </ul>
+</nav>
+<!-- /.front-desk -->

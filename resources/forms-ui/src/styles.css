@@ -4,8 +4,24 @@
 @import url('assets/vendors/datatables.net-bs4/dataTables.bootstrap4.css');
 @import url('assets/css/style.css');
 
+@font-face {
+    font-family: 'OpenSans_Regular';
+    src: url('./assets/fonts/open-sans/OpenSans-Regular.ttf');
+}
+
+@font-face {
+    font-family: 'OpenSans_Bold';
+    src: url('./assets/fonts/open-sans/OpenSans-Bold.ttf');
+}
+
+@font-face {
+    font-family: 'OpenSans_SemiBold';
+    src: url('./assets/fonts/open-sans/OpenSans-Semibold.ttf');
+}
+
 body {
     color: #555;
+    font-family: 'OpenSans_Regular';
 }
 
 .btn {

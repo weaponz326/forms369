@@ -36,7 +36,7 @@ export class AdminHomePageComponent implements OnInit {
   getAnalytics() {
     this.loading = true;
     this.getBranchAnalytics();
-    this.getFormAnalytics();
+    // this.getFormAnalytics();
   }
 
   getFormAnalytics() {
