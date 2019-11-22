@@ -1328,4 +1328,72 @@ class HomeController extends Controller
         $message = (new AccessController)->createAccessCode($request);
         return $message;
     }
+
+    /**
+     * Business logics to create a form section
+     * During form creation, a user can drag and drop form section and all fields for this section will be added 
+     * @param  \Illuminate\Http\Request  $request
+     * @return void\Illuminate\Http\Response success or error message
+     */
+    protected function createSection(Request $request)
+    {
+
+        $message = (new FormsController)->createSection($request);
+        return $message;
+    }
+
+    /**
+     * Business logics 
+     * editSection Edit form fields or heading of a section
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @param  \Illuminate\Http\Request  $id of the section to be editted 
+     * @return void\Illuminate\Http\Response success or error message
+     */
+    protected function editSection(Request $request, $id)
+    {
+        $message = (new FormsController)->editSection($request, $id);
+        return $message;
+    }
+
+     /**
+      * Business logics
+     * getAllSections get all available sections in the database
+     *
+     * @param  mixed $request
+     *
+     * @return void\Illuminate\Http\Response all details of sections
+     */
+    protected function getAllSections(Request $request)
+    {
+        $message = (new FormsController)->getAllSections($request);
+        return $message;
+    }
+
+    /*
+     *deleteSection deletes a section from teh database 
+     * @param  \Illuminate\Http\Request  $request
+     * @param  \Illuminate\Http\Request  $id of the template to be deleted 
+     * @return void\Illuminate\Http\Response success or error message
+     */
+    protected function deleteSection(Request $request, $id)
+    {
+        $message = (new FormsController)->deleteSection($request, $id);
+        return $message;
+    }
+
+    /**
+     * Business logics 
+     * searchSectionByHeading search for a section by the heading name in the database 
+     *
+     * @param  mixed $request
+     * @param  mixed $term ;  user serach term
+     * @return void\Illuminate\Http\Response all details of sections matching the search term
+     */
+    protected function searchSectionByHeading(Request $request, $term)
+    {
+        $message = (new FormsController)->searchSectionByHeading($request, $term);
+        return $message;
+
+    }
 }
