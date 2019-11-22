@@ -74,11 +74,17 @@ body {
 
 input.form-control::placeholder,
 select.form-control {
-    color: #a5a4a4 !important;
+    color: rgb(42, 43, 44) !important;
 }
 
 .form-control {
-    color: #333;
+    /* color: #333; */
+    color: rgb(42, 43, 44);
+    border-color: rgb(185, 194, 211);
+}
+
+.form-control:focus {
+    border-color: #4c83ff;
 }
 
 select.form-control {
@@ -167,4 +173,4 @@ select.form-control {
 }
 
 html, body { height: 100%; }
-body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+body { margin: 0; font-family: "Helvetica Neue", sans-serif; }
