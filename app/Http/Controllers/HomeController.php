@@ -1316,4 +1316,16 @@ class HomeController extends Controller
         $message = (new SetupController)->enableBranch($request, $id);
         return $message;
     }
+
+    /**
+     * Business logics to create an access code
+     * createAccessCode GIT admin create an access code 
+     * @param  \Illuminate\Http\Request  $request
+     * @return void\Illuminate\Http\Response access code
+     */
+    protected function createAccessCode(Request $request)
+    {
+        $message = (new AccessController)->createAccessCode($request);
+        return $message;
+    }
 }
