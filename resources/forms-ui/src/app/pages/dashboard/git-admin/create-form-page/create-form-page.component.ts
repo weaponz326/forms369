@@ -102,10 +102,10 @@ export class CreateFormPageComponent implements OnInit {
   }
 
   save() {
-    console.log(this.formBuilder.actions.getData());
     this.loading = true;
     const form = this.getForm();
     const formData = new Forms();
+    console.log('json: ' + JSON.stringify(form));
     formData.form_fields = form;
     formData.name = this.formName;
     formData.form_code = this.formCode;

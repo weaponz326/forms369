@@ -20,6 +20,9 @@ export class CreateAccessCodePageComponent implements OnInit {
 
   form: FormGroup;
   loading: boolean;
+  created: boolean;
+  firstname: string;
+  accessCode: string;
   submitted: boolean;
   branchesList: Array<any>;
   merchantsList: Array<any>;
@@ -39,6 +42,7 @@ export class CreateAccessCodePageComponent implements OnInit {
     this.merchantsList = [];
     this.branchNamesList = [];
     this.merchantNamesList = [];
+    this.firstname = this.localStorage.getUser().firstname;
 
     this.initializeView();
   }
@@ -79,7 +83,12 @@ export class CreateAccessCodePageComponent implements OnInit {
     const branch_id = this.getSelectedBranchIdentifier();
     const merchant_id = this.getSelectedMerchantIdentifier();
 
-    return {};
+    return {
+      branch_id: branch_id,
+      merchant_id: merchant_id,
+      device_name:  device_name,
+      source_usage: source_name
+    };
   }
 
   getSelectedBranchIdentifier() {
@@ -165,20 +174,25 @@ export class CreateAccessCodePageComponent implements OnInit {
     else {
       this.form.disable();
       const access_code = this.getFormData();
+      console.log('body: ' + JSON.stringify(access_code));
       this.accountService.createAccessCode(access_code).then(
         code => {
           console.log(code);
           if (!_.isEmpty(code) || !_.isNull(code)) {
             this.form.enable();
+            this.created = true;
             this.loading = false;
+            this.accessCode = code;
           }
           else {
             this.form.enable();
+            this.created = false;
             this.loading = false;
           }
         },
         err => {
           this.form.enable();
+          this.created = false;
           this.loading = false;
           console.log(JSON.stringify(err));
         }

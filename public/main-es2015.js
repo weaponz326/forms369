@@ -349,7 +349,7 @@ module.exports = "<!-- partial:partials/_navbar.html -->\n<nav class=\"navbar co
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<!-- git admin -->\n<nav *ngIf=\"isGitAdmin\" class=\"sidebar sidebar-offcanvas\" id=\"sidebar\">\n  <ul class=\"nav\">\n    <li class=\"nav-item\">\n      <a class=\"nav-link\" routerLink=\"/git_admin\">\n        <i class=\"mdi mdi-home menu-icon\"></i>\n        <span class=\"menu-title\">Home</span>\n      </a>\n    </li>\n    <li class=\"nav-item\">\n      <a class=\"nav-link\" routerLink=\"/git_admin/setup_form\">\n        <i class=\"mdi mdi-file-document-edit-outline menu-icon\"></i>\n        <span class=\"menu-title\">New Form</span>\n      </a>\n    </li>\n    <li class=\"nav-item\">\n      <a class=\"nav-link\" routerLink=\"/git_admin/lists/form\">\n        <i class=\"mdi mdi-file-document-box-outline menu-icon\"></i>\n        <span class=\"menu-title\">All Forms</span>\n      </a>\n    </li>\n    <li class=\"nav-item\">\n      <a class=\"nav-link\" data-toggle=\"collapse\" href=\"#template\" aria-expanded=\"false\" aria-controls=\"template\">\n        <i class=\"mdi mdi-cart-outline menu-icon\"></i>\n        <span class=\"menu-title\">Templates</span>\n        <i class=\"menu-arrow\"></i>\n      </a>\n      <div class=\"collapse\" id=\"template\">\n        <ul class=\"nav flex-column sub-menu\">\n          <li class=\"nav-item\">\n            <a class=\"nav-link\" routerLink=\"/templates/create\">\n              <i class=\"mdi mdi-plus-outline menu-icon\"></i>\n              <span class=\"menu-title\">Create Template</span>\n            </a>\n          </li>\n          <li class=\"nav-item\">\n            <a class=\"nav-link\" routerLink=\"/templates/list\">\n            <i class=\"mdi mdi-format-list-bulleted menu-icon\"></i>\n            <span class=\"menu-title\">All Templates</span>\n          </a>\n          </li>\n        </ul>\n      </div>\n    </li>\n    <li class=\"nav-item\">\n      <a class=\"nav-link\" data-toggle=\"collapse\" href=\"#account\" aria-expanded=\"false\" aria-controls=\"account\">\n        <i class=\"mdi mdi-account-group-outline menu-icon\"></i>\n        <span class=\"menu-title\">Accounts</span>\n        <i class=\"menu-arrow\"></i>\n      </a>\n      <div class=\"collapse\" id=\"account\">\n        <ul class=\"nav flex-column sub-menu\">\n          <li class=\"nav-item\">\n            <a class=\"nav-link\" routerLink=\"/git_admin/create/user_account\">\n              <i class=\"mdi mdi-plus menu-icon\"></i>\n              <span class=\"menu-title\">Setup Account</span>\n            </a>\n          </li>\n          <li class=\"nav-item\">\n            <a class=\"nav-link\" routerLink=\"/git_admin/lists/front_desk\">\n              <i class=\"mdi mdi-desktop-mac menu-icon\"></i>\n              <span class=\"menu-title\">Front Desks</span>\n            </a>\n          </li>\n          <li class=\"nav-item\">\n            <a class=\"nav-link\" routerLink=\"/git_admin/lists/admin\">\n              <i class=\"mdi mdi-account-supervisor menu-icon\"></i>\n              <span class=\"menu-title\">GIT Admins</span>\n            </a>\n          </li>\n          <li class=\"nav-item\">\n            <a class=\"nav-link\" routerLink=\"/git_admin/lists/branch_admin\">\n              <i class=\"mdi mdi-leaf-maple menu-icon\"></i>\n              <span class=\"menu-title\">Branch Admins</span>\n            </a>\n          </li>\n          <li class=\"nav-item\">\n            <a class=\"nav-link\" routerLink=\"/git_admin/lists/company_admin\">\n              <i class=\"mdi mdi-lighthouse menu-icon\"></i>\n              <span class=\"menu-title\">Company Admins</span>\n            </a>\n          </li>\n          <li class=\"nav-item\">\n            <a class=\"nav-link\" routerLink=\"/git_admin/lists/branch_executive\">\n              <i class=\"mdi mdi-script-outline menu-icon\"></i>\n              <span class=\"menu-title\">Branch Super-Executives</span>\n            </a>\n          </li>\n          <li class=\"nav-item\">\n            <a class=\"nav-link\" routerLink=\"/git_admin/lists/super_executive\">\n              <i class=\"mdi mdi-view-dashboard-outline menu-icon\"></i>\n              <span class=\"menu-title\">Super Executives</span>\n            </a>\n          </li>\n        </ul>\n      </div>\n    </li>\n    <li class=\"nav-item\">\n      <a class=\"nav-link\" data-toggle=\"collapse\" href=\"#company\" aria-expanded=\"false\" aria-controls=\"company\">\n        <i class=\"mdi mdi-circle-outline menu-icon\"></i>\n        <span class=\"menu-title\">Company</span>\n        <i class=\"menu-arrow\"></i>\n      </a>\n      <div class=\"collapse\" id=\"company\">\n        <ul class=\"nav flex-column sub-menu\">\n          <li class=\"nav-item\">\n            <a class=\"nav-link\" routerLink=\"/git_admin/create/company\">Create New</a>\n          </li>\n          <li class=\"nav-item\">\n            <a class=\"nav-link\" routerLink=\"/git_admin/lists/company\">View Companies</a>\n          </li>\n        </ul>\n      </div>\n    </li>\n    <li class=\"nav-item\">\n      <a class=\"nav-link\" data-toggle=\"collapse\" href=\"#branches\" aria-expanded=\"false\" aria-controls=\"branches\">\n        <i class=\"mdi mdi-view-headline menu-icon\"></i>\n        <span class=\"menu-title\">Branches</span>\n        <i class=\"menu-arrow\"></i>\n      </a>\n      <div class=\"collapse\" id=\"branches\">\n        <ul class=\"nav flex-column sub-menu\">\n          <li class=\"nav-item\">\n            <a class=\"nav-link\" routerLink=\"/git_admin/create/branch\">Create New</a>\n          </li>\n          <li class=\"nav-item\">\n            <a class=\"nav-link\" routerLink=\"/git_admin/lists/branch\">View Branches</a>\n          </li>\n        </ul>\n      </div>\n    </li>\n  </ul>\n</nav>\n<!-- git-admin -->\n\n<!-- comp admin -->\n<nav *ngIf=\"isAdmin\" class=\"sidebar sidebar-offcanvas\" id=\"sidebar\">\n  <ul class=\"nav\">\n    <li class=\"nav-item\">\n      <a class=\"nav-link\" routerLink=\"/admin\">\n        <i class=\"mdi mdi-home menu-icon\"></i>\n        <span class=\"menu-title\">Home</span>\n      </a>\n    </li>\n    <li class=\"nav-item\">\n      <a class=\"nav-link\" routerLink=\"/admin/create/form\">\n        <i class=\"mdi mdi-file-document-edit-outline menu-icon\"></i>\n        <span class=\"menu-title\">New Form</span>\n      </a>\n    </li>\n    <li class=\"nav-item\">\n      <a class=\"nav-link\" routerLink=\"/admin/lists/form\">\n        <i class=\"mdi mdi-file-document-box-outline menu-icon\"></i>\n        <span class=\"menu-title\">All Forms</span>\n      </a>\n    </li>\n    <li class=\"nav-item\">\n      <a class=\"nav-link\" routerLink=\"/templates/list\">\n        <i class=\"mdi mdi-format-list-bulleted menu-icon\"></i>\n        <span class=\"menu-title\">All Templates</span>\n      </a>\n    </li>\n    <li class=\"nav-item\">\n      <a class=\"nav-link\" data-toggle=\"collapse\" href=\"#account\" aria-expanded=\"false\" aria-controls=\"account\">\n        <i class=\"mdi mdi-account-group-outline menu-icon\"></i>\n        <span class=\"menu-title\">Accounts</span>\n        <i class=\"menu-arrow\"></i>\n      </a>\n      <div class=\"collapse\" id=\"account\">\n        <ul class=\"nav flex-column sub-menu\">\n          <li class=\"nav-item\">\n            <a class=\"nav-link\" routerLink=\"/admin/create/account\">\n              <i class=\"mdi mdi-plus menu-icon\"></i>\n              <span class=\"menu-title\">Setup Account</span>\n            </a>\n          </li>\n          <li class=\"nav-item\">\n            <a class=\"nav-link\" routerLink=\"/admin/lists/account\">\n              <i class=\"mdi mdi-desktop-mac menu-icon\"></i>\n              <span class=\"menu-title\">Front Desks</span>\n            </a>\n          </li>\n        </ul>\n      </div>\n    </li>\n    <li class=\"nav-item\">\n      <a class=\"nav-link\" routerLink=\"/admin/lists/branch\">\n        <i class=\"mdi mdi-view-headline menu-icon\"></i>\n        <span class=\"menu-title\">View Branches</span>\n      </a>\n    </li>\n  </ul>\n</nav>\n<!-- /.comp admin -->\n\n<!-- client -->\n<nav *ngIf=\"isClient\" class=\"sidebar sidebar-offcanvas\" id=\"sidebar\">\n  <ul class=\"nav\">\n    <li class=\"nav-item\">\n      <a class=\"nav-link\" routerLink=\"/client\">\n        <i class=\"mdi mdi-home menu-icon\"></i>\n        <span class=\"menu-title\">Home</span>\n      </a>\n    </li>\n    <li class=\"nav-item\">\n      <a class=\"nav-link\" routerLink=\"/client/form_data\">\n        <i class=\"mdi mdi-file-document-edit-outline menu-icon\"></i>\n        <span class=\"menu-title\">My Form Data</span>\n      </a>\n    </li>\n    <li class=\"nav-item\">\n      <a class=\"nav-link\" routerLink=\"/client/forms_filled\">\n        <i class=\"mdi mdi-file-document-edit-outline menu-icon\"></i>\n        <span class=\"menu-title\">Submitted Forms</span>\n      </a>\n    </li>\n    <li class=\"nav-item\">\n      <a class=\"nav-link\" routerLink=\"/client/unsent_forms\">\n        <i class=\"mdi mdi-file-document-edit-outline menu-icon\"></i>\n        <span class=\"menu-title\">UnProcessed Forms</span>\n      </a>\n    </li>\n  </ul>\n</nav>\n<!-- /.client sidemenu -->\n\n<!-- front-desk -->\n<nav *ngIf=\"isFrontDesk\" class=\"sidebar sidebar-offcanvas\" id=\"sidebar\">\n  <ul class=\"nav\">\n    <li class=\"nav-item\">\n      <a class=\"nav-link\" routerLink=\"\">\n        <i class=\"mdi mdi-home menu-icon\"></i>\n        <span class=\"menu-title\">Home</span>\n      </a>\n    </li>\n    <li class=\"nav-item\">\n      <a class=\"nav-link\" routerLink=\"\">\n        <i class=\"mdi mdi-file-document-edit-outline menu-icon\"></i>\n        <span class=\"menu-title\">Submitted Forms</span>\n      </a>\n    </li>\n    <li class=\"nav-item\">\n      <a class=\"nav-link\" routerLink=\"\">\n        <i class=\"mdi mdi-file-document-edit-outline menu-icon\"></i>\n        <span class=\"menu-title\">Processed Forms</span>\n      </a>\n    </li>\n    <li class=\"nav-item\">\n      <a class=\"nav-link\" routerLink=\"\">\n        <i class=\"mdi mdi-file-document-edit-outline menu-icon\"></i>\n        <span class=\"menu-title\">Forms In-Processing</span>\n      </a>\n    </li>\n  </ul>\n</nav>\n<!-- /.front-desk -->"
+module.exports = "<!-- git admin -->\n<nav *ngIf=\"isGitAdmin\" class=\"sidebar sidebar-offcanvas\" id=\"sidebar\">\n  <ul class=\"nav\">\n    <li class=\"nav-item\">\n      <a class=\"nav-link\" routerLink=\"/git_admin\">\n        <i class=\"mdi mdi-home menu-icon\"></i>\n        <span class=\"menu-title\">Home</span>\n      </a>\n    </li>\n    <li class=\"nav-item\">\n      <a class=\"nav-link\" routerLink=\"/git_admin/setup_form\">\n        <i class=\"mdi mdi-file-document-edit-outline menu-icon\"></i>\n        <span class=\"menu-title\">New Form</span>\n      </a>\n    </li>\n    <li class=\"nav-item\">\n      <a class=\"nav-link\" routerLink=\"/git_admin/create/access_code\">\n        <i class=\"mdi mdi-file-document-edit-outline menu-icon\"></i>\n        <span class=\"menu-title\">New Access Code</span>\n      </a>\n    </li>\n    <li class=\"nav-item\">\n      <a class=\"nav-link\" routerLink=\"/git_admin/lists/form\">\n        <i class=\"mdi mdi-file-document-box-outline menu-icon\"></i>\n        <span class=\"menu-title\">All Forms</span>\n      </a>\n    </li>\n    <li class=\"nav-item\">\n      <a class=\"nav-link\" data-toggle=\"collapse\" href=\"#template\" aria-expanded=\"false\" aria-controls=\"template\">\n        <i class=\"mdi mdi-cart-outline menu-icon\"></i>\n        <span class=\"menu-title\">Templates</span>\n        <i class=\"menu-arrow\"></i>\n      </a>\n      <div class=\"collapse\" id=\"template\">\n        <ul class=\"nav flex-column sub-menu\">\n          <li class=\"nav-item\">\n            <a class=\"nav-link\" routerLink=\"/templates/create\">\n              <i class=\"mdi mdi-plus-outline menu-icon\"></i>\n              <span class=\"menu-title\">Create Template</span>\n            </a>\n          </li>\n          <li class=\"nav-item\">\n            <a class=\"nav-link\" routerLink=\"/templates/list\">\n            <i class=\"mdi mdi-format-list-bulleted menu-icon\"></i>\n            <span class=\"menu-title\">All Templates</span>\n          </a>\n          </li>\n        </ul>\n      </div>\n    </li>\n    <li class=\"nav-item\">\n      <a class=\"nav-link\" data-toggle=\"collapse\" href=\"#account\" aria-expanded=\"false\" aria-controls=\"account\">\n        <i class=\"mdi mdi-account-group-outline menu-icon\"></i>\n        <span class=\"menu-title\">Accounts</span>\n        <i class=\"menu-arrow\"></i>\n      </a>\n      <div class=\"collapse\" id=\"account\">\n        <ul class=\"nav flex-column sub-menu\">\n          <li class=\"nav-item\">\n            <a class=\"nav-link\" routerLink=\"/git_admin/create/user_account\">\n              <i class=\"mdi mdi-plus menu-icon\"></i>\n              <span class=\"menu-title\">Setup Account</span>\n            </a>\n          </li>\n          <li class=\"nav-item\">\n            <a class=\"nav-link\" routerLink=\"/git_admin/lists/front_desk\">\n              <i class=\"mdi mdi-desktop-mac menu-icon\"></i>\n              <span class=\"menu-title\">Front Desks</span>\n            </a>\n          </li>\n          <li class=\"nav-item\">\n            <a class=\"nav-link\" routerLink=\"/git_admin/lists/admin\">\n              <i class=\"mdi mdi-account-supervisor menu-icon\"></i>\n              <span class=\"menu-title\">GIT Admins</span>\n            </a>\n          </li>\n          <li class=\"nav-item\">\n            <a class=\"nav-link\" routerLink=\"/git_admin/lists/branch_admin\">\n              <i class=\"mdi mdi-leaf-maple menu-icon\"></i>\n              <span class=\"menu-title\">Branch Admins</span>\n            </a>\n          </li>\n          <li class=\"nav-item\">\n            <a class=\"nav-link\" routerLink=\"/git_admin/lists/company_admin\">\n              <i class=\"mdi mdi-lighthouse menu-icon\"></i>\n              <span class=\"menu-title\">Company Admins</span>\n            </a>\n          </li>\n          <li class=\"nav-item\">\n            <a class=\"nav-link\" routerLink=\"/git_admin/lists/branch_executive\">\n              <i class=\"mdi mdi-script-outline menu-icon\"></i>\n              <span class=\"menu-title\">Branch Super-Executives</span>\n            </a>\n          </li>\n          <li class=\"nav-item\">\n            <a class=\"nav-link\" routerLink=\"/git_admin/lists/super_executive\">\n              <i class=\"mdi mdi-view-dashboard-outline menu-icon\"></i>\n              <span class=\"menu-title\">Super Executives</span>\n            </a>\n          </li>\n        </ul>\n      </div>\n    </li>\n    <li class=\"nav-item\">\n      <a class=\"nav-link\" data-toggle=\"collapse\" href=\"#company\" aria-expanded=\"false\" aria-controls=\"company\">\n        <i class=\"mdi mdi-circle-outline menu-icon\"></i>\n        <span class=\"menu-title\">Company</span>\n        <i class=\"menu-arrow\"></i>\n      </a>\n      <div class=\"collapse\" id=\"company\">\n        <ul class=\"nav flex-column sub-menu\">\n          <li class=\"nav-item\">\n            <a class=\"nav-link\" routerLink=\"/git_admin/create/company\">Create New</a>\n          </li>\n          <li class=\"nav-item\">\n            <a class=\"nav-link\" routerLink=\"/git_admin/lists/company\">View Companies</a>\n          </li>\n        </ul>\n      </div>\n    </li>\n    <li class=\"nav-item\">\n      <a class=\"nav-link\" data-toggle=\"collapse\" href=\"#branches\" aria-expanded=\"false\" aria-controls=\"branches\">\n        <i class=\"mdi mdi-view-headline menu-icon\"></i>\n        <span class=\"menu-title\">Branches</span>\n        <i class=\"menu-arrow\"></i>\n      </a>\n      <div class=\"collapse\" id=\"branches\">\n        <ul class=\"nav flex-column sub-menu\">\n          <li class=\"nav-item\">\n            <a class=\"nav-link\" routerLink=\"/git_admin/create/branch\">Create New</a>\n          </li>\n          <li class=\"nav-item\">\n            <a class=\"nav-link\" routerLink=\"/git_admin/lists/branch\">View Branches</a>\n          </li>\n        </ul>\n      </div>\n    </li>\n  </ul>\n</nav>\n<!-- git-admin -->\n\n<!-- comp admin -->\n<nav *ngIf=\"isAdmin\" class=\"sidebar sidebar-offcanvas\" id=\"sidebar\">\n  <ul class=\"nav\">\n    <li class=\"nav-item\">\n      <a class=\"nav-link\" routerLink=\"/admin\">\n        <i class=\"mdi mdi-home menu-icon\"></i>\n        <span class=\"menu-title\">Home</span>\n      </a>\n    </li>\n    <li class=\"nav-item\">\n      <a class=\"nav-link\" routerLink=\"/admin/create/form\">\n        <i class=\"mdi mdi-file-document-edit-outline menu-icon\"></i>\n        <span class=\"menu-title\">New Form</span>\n      </a>\n    </li>\n    <li class=\"nav-item\">\n      <a class=\"nav-link\" routerLink=\"/admin/lists/form\">\n        <i class=\"mdi mdi-file-document-box-outline menu-icon\"></i>\n        <span class=\"menu-title\">All Forms</span>\n      </a>\n    </li>\n    <li class=\"nav-item\">\n      <a class=\"nav-link\" routerLink=\"/templates/list\">\n        <i class=\"mdi mdi-format-list-bulleted menu-icon\"></i>\n        <span class=\"menu-title\">All Templates</span>\n      </a>\n    </li>\n    <li class=\"nav-item\">\n      <a class=\"nav-link\" data-toggle=\"collapse\" href=\"#account\" aria-expanded=\"false\" aria-controls=\"account\">\n        <i class=\"mdi mdi-account-group-outline menu-icon\"></i>\n        <span class=\"menu-title\">Accounts</span>\n        <i class=\"menu-arrow\"></i>\n      </a>\n      <div class=\"collapse\" id=\"account\">\n        <ul class=\"nav flex-column sub-menu\">\n          <li class=\"nav-item\">\n            <a class=\"nav-link\" routerLink=\"/admin/create/account\">\n              <i class=\"mdi mdi-plus menu-icon\"></i>\n              <span class=\"menu-title\">Setup Account</span>\n            </a>\n          </li>\n          <li class=\"nav-item\">\n            <a class=\"nav-link\" routerLink=\"/admin/lists/account\">\n              <i class=\"mdi mdi-desktop-mac menu-icon\"></i>\n              <span class=\"menu-title\">Front Desks</span>\n            </a>\n          </li>\n        </ul>\n      </div>\n    </li>\n    <li class=\"nav-item\">\n      <a class=\"nav-link\" routerLink=\"/admin/lists/branch\">\n        <i class=\"mdi mdi-view-headline menu-icon\"></i>\n        <span class=\"menu-title\">View Branches</span>\n      </a>\n    </li>\n  </ul>\n</nav>\n<!-- /.comp admin -->\n\n<!-- client -->\n<nav *ngIf=\"isClient\" class=\"sidebar sidebar-offcanvas\" id=\"sidebar\">\n  <ul class=\"nav\">\n    <li class=\"nav-item\">\n      <a class=\"nav-link\" routerLink=\"/client\">\n        <i class=\"mdi mdi-home menu-icon\"></i>\n        <span class=\"menu-title\">Home</span>\n      </a>\n    </li>\n    <li class=\"nav-item\">\n      <a class=\"nav-link\" routerLink=\"/client/form_data\">\n        <i class=\"mdi mdi-file-document-edit-outline menu-icon\"></i>\n        <span class=\"menu-title\">My Form Data</span>\n      </a>\n    </li>\n    <li class=\"nav-item\">\n      <a class=\"nav-link\" routerLink=\"/client/forms_filled\">\n        <i class=\"mdi mdi-file-document-edit-outline menu-icon\"></i>\n        <span class=\"menu-title\">Submitted Forms</span>\n      </a>\n    </li>\n    <li class=\"nav-item\">\n      <a class=\"nav-link\" routerLink=\"/client/unsent_forms\">\n        <i class=\"mdi mdi-file-document-edit-outline menu-icon\"></i>\n        <span class=\"menu-title\">UnProcessed Forms</span>\n      </a>\n    </li>\n  </ul>\n</nav>\n<!-- /.client sidemenu -->\n\n<!-- front-desk -->\n<nav *ngIf=\"isFrontDesk\" class=\"sidebar sidebar-offcanvas\" id=\"sidebar\">\n  <ul class=\"nav\">\n    <li class=\"nav-item\">\n      <a class=\"nav-link\" routerLink=\"\">\n        <i class=\"mdi mdi-home menu-icon\"></i>\n        <span class=\"menu-title\">Home</span>\n      </a>\n    </li>\n    <li class=\"nav-item\">\n      <a class=\"nav-link\" routerLink=\"\">\n        <i class=\"mdi mdi-file-document-edit-outline menu-icon\"></i>\n        <span class=\"menu-title\">Submitted Forms</span>\n      </a>\n    </li>\n    <li class=\"nav-item\">\n      <a class=\"nav-link\" routerLink=\"\">\n        <i class=\"mdi mdi-file-document-edit-outline menu-icon\"></i>\n        <span class=\"menu-title\">Processed Forms</span>\n      </a>\n    </li>\n    <li class=\"nav-item\">\n      <a class=\"nav-link\" routerLink=\"\">\n        <i class=\"mdi mdi-file-document-edit-outline menu-icon\"></i>\n        <span class=\"menu-title\">Forms In-Processing</span>\n      </a>\n    </li>\n  </ul>\n</nav>\n<!-- /.front-desk -->"
 
 /***/ }),
 
@@ -361,6 +361,17 @@ module.exports = "<!-- git admin -->\n<nav *ngIf=\"isGitAdmin\" class=\"sidebar 
 /***/ (function(module, exports) {
 
 module.exports = "<div class=\"container-scroller\">\n  <div class=\"container-fluid page-body-wrapper full-page-wrapper\">\n    <div class=\"content-wrapper d-flex align-items-center auth px-0\">\n      <div class=\"row w-100 mx-0\">\n        <div class=\"col-lg-4 mx-auto\">\n          <div class=\"auth-form-light text-left py-5 px-4 px-sm-5\">\n            <a href=\"/\" class=\"brand-logo\">\n              <img src=\"../assets/images/logo.png\" alt=\"logo\">\n            </a>\n            <div *ngIf=\"created\" class=\"mt-2 mb-5\">\n              <div class=\"alert alert-success\" role=\"alert\">\n                <h3 class=\"alert-heading\">Welcome to GiT Forms!</h3>\n                <p class=\"lead\">Hi {{ f.firstName.value }}, your account has been sucessfully created. An activation\n                  email has been sent to your email address.</p>\n                <hr>\n                <p class=\"mb-0 lead\">Please check your email and click the activation link in the email. Thank You!</p>\n              </div>\n              <a role=\"button\" href=\"/login\"\n                class=\"btn btn-block btn-primary btn-lg font-weight-medium auth-form-btn\">Log In</a>\n            </div>\n\n            <div *ngIf=\"emailInUse\" class=\"mt-2 mb-5\">\n              <div class=\"alert alert-warning alert-dismissible fade show\" role=\" alert\">\n                <button type=\"button\" class=\"close\" data-dismiss=\"alert\" aria-label=\"Close\">\n                  <span aria-hidden=\"true\">&times;</span>\n                </button>\n                <h3 class=\"alert-heading\">Hey there!</h3>\n                <p class=\"lead\"><strong>Email Address </strong> is already in use</p>\n                <hr>\n                <p class=\"mb-0 lead\">There is already an account with the email address you just provided</p>\n              </div>\n              <a role=\"button\" href=\"/login\"\n                class=\"btn btn-block btn-primary btn-lg font-weight-medium auth-form-btn\">Log In</a>\n            </div>\n\n            <h4 *ngIf=\"!created\">New here?</h4>\n            <h6 *ngIf=\"!created\" class=\"font-weight-light\">Signing up is easy. It only takes a few steps</h6>\n            <form *ngIf=\"!created\" [formGroup]=\"form\" (ngSubmit)=\"register()\" class=\"pt-3\">\n              <div class=\"form-group\">\n                <select class=\"form-control form-control-lg\" formControlName=\"userType\"\n                  [ngClass]=\"{'input-control-error': submitted && f.userType.errors}\">\n                  <option value=\"\" disabled>Choose User Type</option>\n                  <option value=\"20\">GIT Admin</option>\n                  <option value=\"21\">Super Executive</option>\n                  <option value=\"22\">Branch Super-Executive</option>\n                  <option value=\"23\">Company Admin</option>\n                  <option value=\"24\">Branch Admin</option>\n                  <option value=\"25\">Front Desktop</option>\n                  <option value=\"26\">Client Account</option>\n                </select>\n                <div *ngIf=\"submitted && f.userType.errors\">\n                  <p class=\"input-error\" *ngIf=\"f.userType.errors.required\">User type is required</p>\n                </div>\n              </div>\n              <div class=\"row\">\n                <div class=\"col-md-6\">\n                  <div class=\"form-group\">\n                    <input type=\"text\" class=\"form-control form-control-lg\" formControlName=\"firstName\"\n                      placeholder=\"First Name\" [ngClass]=\"{'input-control-error': submitted && f.firstName.errors}\">\n                    <div *ngIf=\"submitted && f.firstName.errors\">\n                      <p class=\"input-error\" *ngIf=\"f.firstName.errors.required\">First name is required</p>\n                    </div>\n                  </div>\n                </div>\n                <div class=\"col-md-6\">\n                  <div class=\"form-group\">\n                    <input type=\"text\" class=\"form-control form-control-lg\" formControlName=\"lastName\"\n                      placeholder=\"Last Name\" [ngClass]=\"{'input-control-error': submitted && f.lastName.errors}\">\n                    <div *ngIf=\"submitted && f.lastName.errors\">\n                      <p class=\"input-error\" *ngIf=\"f.lastName.errors.required\">Last name is required</p>\n                    </div>\n                  </div>\n                </div>\n              </div>\n              <div class=\"form-group\">\n                <input type=\"text\" class=\"form-control form-control-lg\" formControlName=\"username\"\n                  placeholder=\"Username\" [ngClass]=\"{'input-control-error': submitted && f.username.errors}\">\n                <div *ngIf=\"submitted && f.username.errors\">\n                  <p class=\"input-error\" *ngIf=\"f.username.errors.required\">Username is required</p>\n                </div>\n              </div>\n              <div class=\"form-group\">\n                <input type=\"email\" class=\"form-control form-control-lg\" formControlName=\"emailAddress\"\n                  placeholder=\"Email Address\" [ngClass]=\"{'input-control-error': submitted && f.emailAddress.errors}\">\n                <div *ngIf=\"submitted && f.emailAddress.errors\">\n                  <p class=\"input-error\" *ngIf=\"f.emailAddress.errors.email\">Must be a valid email address</p>\n                  <p class=\"input-error\" *ngIf=\"f.emailAddress.errors.required\">Email address is required</p>\n                </div>\n              </div>\n              <div class=\"form-group\">\n                <select class=\"form-control form-control-lg\" formControlName=\"country\"\n                  [ngClass]=\"{'input-control-error': submitted && f.country.errors}\" (change)=\"onCountrySelect($event)\">\n                  <option value=\"\" disabled>Country</option>\n                  <option *ngFor=\"let country of countriesList | orderBy: 'country.name.common'\"\n                    [value]=\"country.name.common\">\n                    {{ country.name.common }}\n                  </option>\n                </select>\n                <div *ngIf=\"submitted && f.country.errors\">\n                  <p class=\"input-error\" *ngIf=\"f.country.errors.required\">Country is required</p>\n                </div>\n              </div>\n              <div class=\"form-group\">\n                <input type=\"password\" class=\"form-control form-control-lg\" formControlName=\"password\"\n                  placeholder=\"Password\" [ngClass]=\"{'input-control-error': submitted && f.password.errors}\">\n                <div *ngIf=\"submitted && f.password.errors\">\n                  <p class=\"input-error\" *ngIf=\"f.password.errors.minlength\">Password must be atleast 6 characters</p>\n                  <p class=\"input-error\" *ngIf=\"f.password.errors.required\">Password is required</p>\n                </div>\n              </div>\n              <div class=\"mt-3\">\n                <!-- <a class=\"btn btn-block btn-primary btn-lg font-weight-medium auth-form-btn\" routerLink=\"/git_admin\">SIGN UP</a> -->\n                <button type=\"submit\" *ngIf=\"!loading\" class=\"btn btn-block btn-primary btn-lg font-weight-medium auth-form-btn\">SIGN UP</button>\n                <button type=\"button\" *ngIf=\"loading\" class=\"btn btn-block btn-primary btn-lg font-weight-medium auth-form-btn\" disabled>\n                  <span class=\"spinner-border spinner-border-sm\" role=\"status\" aria-hidden=\"true\"></span> &nbsp; &nbsp;\n                  Please wait...\n                </button>\n              </div>\n              <div class=\"text-center mt-4 font-weight-light\">\n                Already have an account? <a href=\"/login\" class=\"text-primary\">Login</a>\n              </div>\n            </form>\n          </div>\n        </div>\n      </div>\n    </div>\n    <!-- content-wrapper ends -->\n  </div>\n  <!-- page-body-wrapper ends -->\n</div>\n<!-- container-scroller -->\n"
+
+/***/ }),
+
+/***/ "./node_modules/raw-loader/index.js!./src/app/pages/auth-page/auth-page.component.html":
+/*!************************************************************************************!*\
+  !*** ./node_modules/raw-loader!./src/app/pages/auth-page/auth-page.component.html ***!
+  \************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = "<div class=\"container-scroller\">\n  <div class=\"container-fluid page-body-wrapper full-page-wrapper\">\n    <div class=\"content-wrapper d-flex align-items-center auth px-0\">\n      <div class=\"row w-100 mx-0\">\n        <div class=\"col-lg-4 mx-auto\">\n          <div class=\"auth-form-light text-left py-5 px-4 px-sm-5\">\n            <a href=\"/\" class=\"brand-logo\">\n              <img src=\"./assets/images/logo.png\" alt=\"logo\">\n            </a>\n            <div *ngIf=\"invalid\" class=\"mt-2 mb-5\">\n              <div class=\"alert alert-danger\" role=\"alert\">\n                <h3 class=\"alert-heading\">Hey there!</h3>\n                <p class=\"lead\"><strong>Your account has been deactivated</strong></p>\n                <hr>\n                <p class=\"mb-0 lead\">Please contact your admin</p>\n              </div>\n            </div>\n\n            <h4>Hello! let's get started</h4>\n            <h6 class=\"font-weight-normal\">Provide your access code to continue.</h6>\n            <form [formGroup]=\"form\" (ngSubmit)=\"login()\" class=\"pt-3\">\n              <div class=\"form-group\">\n                <input type=\"text\" class=\"form-control form-control-lg\" formControlName=\"code\"\n                  placeholder=\"Enter Access Code\" [ngClass]=\"{'input-control-error': submitted && f.code.errors}\">\n                <div *ngIf=\"submitted && f.code.errors\">\n                  <p class=\"input-error\" *ngIf=\"f.code.errors.required\">Access Code is required</p>\n                </div>\n              </div>\n              <div class=\"mt-3\">\n                <button type=\"submit\" *ngIf=\"!loading\" class=\"btn btn-block btn-primary btn-lg font-weight-medium auth-form-btn\">Continue</button>\n                <button type=\"button\" *ngIf=\"loading\"  class=\"btn btn-block btn-primary btn-lg font-weight-medium auth-form-btn\" disabled>\n                  <span class=\"spinner-border spinner-border-sm\" role=\"status\" aria-hidden=\"true\"></span> &nbsp; &nbsp;\n                  Please wait...\n                </button>\n              </div>\n            </form>\n          </div>\n        </div>\n      </div>\n    </div>\n    <!-- content ends -->\n  </div>\n  <!-- page-body ends -->\n</div>"
 
 /***/ }),
 
@@ -826,6 +837,17 @@ module.exports = "<div class=\"container-scroller\">\n  <app-navigation-bar></ap
 
 /***/ }),
 
+/***/ "./node_modules/raw-loader/index.js!./src/app/pages/dashboard/git-admin/create-access-code-page/create-access-code-page.component.html":
+/*!************************************************************************************************************************************!*\
+  !*** ./node_modules/raw-loader!./src/app/pages/dashboard/git-admin/create-access-code-page/create-access-code-page.component.html ***!
+  \************************************************************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = "<div class=\"container-scroller\">\n  <app-navigation-bar></app-navigation-bar>\n  <div class=\"container-fluid page-body-wrapper\">\n    <app-side-bar></app-side-bar>\n    <div class=\"main-panel\">\n      <div class=\"content-wrapper\">\n        <div class=\"row\">\n          <div class=\"col-md-12 grid-margin\">\n            <div class=\"d-flex justify-content-between flex-wrap\">\n              <div class=\"d-flex align-items-end flex-wrap\">\n                <div class=\"mr-md-3 mr-xl-5\">\n                  <h2>Welcome back, {{ firstname }}</h2>\n                  <p class=\"mb-md-0\">Your analytics dashboard template.</p>\n                </div>\n                <div class=\"d-flex\">\n                  <!-- <i class=\"mdi mdi-home text-muted hover-cursor\"></i>\n                  <p class=\"text-muted mb-0 hover-cursor\">&nbsp;/&nbsp;Home&nbsp;/&nbsp;</p>\n                  <p class=\"text-primary mb-0 hover-cursor\">Analytics</p> -->\n                </div>\n              </div>\n              <div class=\"d-flex justify-content-between align-items-end flex-wrap\">\n                <!-- <button type=\"button\" class=\"btn btn-light bg-white btn-icon mr-3 d-none d-md-block\">\n                  <i class=\"mdi mdi-download text-muted\"></i>\n                </button>\n                <button type=\"button\" class=\"btn btn-light bg-white btn-icon mr-3 mt-2 mt-xl-0\">\n                  <i class=\"mdi mdi-clock-outline text-muted\"></i>\n                </button>\n                <button type=\"button\" class=\"btn btn-light bg-white btn-icon mr-3 mt-2 mt-xl-0\">\n                  <i class=\"mdi mdi-plus text-muted\"></i>\n                </button> -->\n              </div>\n            </div>\n          </div>\n        </div>\n        <div class=\"row mt-5\">\n          <div class=\"col-md-8 offset-md-2 grid-margin stretch-card\">\n            <div class=\"card\">\n              <div class=\"card-body\">\n                <p class=\"card-title\">Generate An Access Code</p>\n                <p class=\"text-muted\">A list of all forms you've filled</p>\n                <div class=\"card-text\">\n                  <form [formGroup]=\"form\" (ngSubmit)=\"create()\">\n                    <div class=\"form-group\">\n                      <input type=\"text\" class=\"form-control form-control-lg\" formControlName=\"merchant\"\n                        placeholder=\"Choose Company\" [matAutocomplete]=\"m_auto\">\n                      <mat-autocomplete #m_auto=\"matAutocomplete\"\n                        (optionSelected)=\"companySelected($event.option.value)\">\n                        <mat-option *ngFor=\"let item of filteredMerchants | async\" [value]=\"item\">\n                          {{ item }}\n                        </mat-option>\n                      </mat-autocomplete>\n                      <div *ngIf=\"submitted && f.merchant.errors\">\n                        <p class=\"input-error\" *ngIf=\"f.merchant.errors.required\">Company is required</p>\n                      </div>\n                    </div>\n                    <div class=\"form-group\">\n                      <input type=\"text\" class=\"form-control form-control-lg\" formControlName=\"branch\"\n                        placeholder=\"Choose Branch\" [matAutocomplete]=\"auto_1\">\n                      <mat-autocomplete #auto_1=\"matAutocomplete\">\n                        <mat-option *ngFor=\"let item of filteredBranches | async\" [value]=\"item\">\n                          {{ item }}\n                        </mat-option>\n                      </mat-autocomplete>\n                    </div>\n                    <div class=\"form-group\">\n                      <input type=\"text\" class=\"form-control form-control-lg\" formControlName=\"sourceName\"\n                        placeholder=\"Source Name\" [ngClass]=\"{'input-control-error': submitted && f.sourceName.errors}\">\n                      <div *ngIf=\"submitted && f.sourceName.errors\">\n                        <p class=\"input-error\" *ngIf=\"f.sourceName.errors.required\">Source name is required</p>\n                      </div>\n                    </div>\n                    <div class=\"form-group\">\n                      <input type=\"text\" class=\"form-control form-control-lg\" formControlName=\"deviceName\"\n                        placeholder=\"Device Name\" [ngClass]=\"{'input-control-error': submitted && f.deviceName.errors}\">\n                      <div *ngIf=\"submitted && f.deviceName.errors\">\n                        <p class=\"input-error\" *ngIf=\"f.deviceName.errors.required\">Device name is required</p>\n                      </div>\n                    </div>\n                    <div class=\"form-group\">\n                        <button type=\"submit\" *ngIf=\"!loading\" class=\"btn btn-primary btn-lg mr-2\">Create Access Code</button>\n                        <button *ngIf=\"loading\" class=\"btn btn-primary btn-lg mr-2\" type=\"button\" disabled>\n                          <span class=\"spinner-border spinner-border-sm\" role=\"status\" aria-hidden=\"true\"></span>&nbsp;\n                          &nbsp;\n                          Please wait\n                        </button>\n                        <button class=\"btn btn-light btn-lg\">Cancel</button>\n                    </div>\n                  </form>\n                </div>\n              </div>\n            </div>\n          </div>\n        </div>\n      </div>\n      <!-- content ends -->\n      <!-- partial -->\n      <app-footer-bar></app-footer-bar>\n      <!-- partial -->\n    </div>\n    <!-- main-panel ends -->\n  </div>\n</div>\n"
+
+/***/ }),
+
 /***/ "./node_modules/raw-loader/index.js!./src/app/pages/dashboard/git-admin/create-branch-page/create-branch-page.component.html":
 /*!**************************************************************************************************************************!*\
   !*** ./node_modules/raw-loader!./src/app/pages/dashboard/git-admin/create-branch-page/create-branch-page.component.html ***!
@@ -1212,6 +1234,10 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _pages_dashboard_admin_admin_view_branches_page_admin_view_branches_page_component__WEBPACK_IMPORTED_MODULE_65__ = __webpack_require__(/*! ./pages/dashboard/admin/admin-view-branches-page/admin-view-branches-page.component */ "./src/app/pages/dashboard/admin/admin-view-branches-page/admin-view-branches-page.component.ts");
 /* harmony import */ var _pages_dashboard_admin_admin_view_account_details_page_admin_view_account_details_page_component__WEBPACK_IMPORTED_MODULE_66__ = __webpack_require__(/*! ./pages/dashboard/admin/admin-view-account-details-page/admin-view-account-details-page.component */ "./src/app/pages/dashboard/admin/admin-view-account-details-page/admin-view-account-details-page.component.ts");
 /* harmony import */ var _pages_dashboard_admin_admin_view_branch_details_page_admin_view_branch_details_page_component__WEBPACK_IMPORTED_MODULE_67__ = __webpack_require__(/*! ./pages/dashboard/admin/admin-view-branch-details-page/admin-view-branch-details-page.component */ "./src/app/pages/dashboard/admin/admin-view-branch-details-page/admin-view-branch-details-page.component.ts");
+/* harmony import */ var _pages_dashboard_git_admin_create_access_code_page_create_access_code_page_component__WEBPACK_IMPORTED_MODULE_68__ = __webpack_require__(/*! ./pages/dashboard/git-admin/create-access-code-page/create-access-code-page.component */ "./src/app/pages/dashboard/git-admin/create-access-code-page/create-access-code-page.component.ts");
+/* harmony import */ var _pages_auth_page_auth_page_component__WEBPACK_IMPORTED_MODULE_69__ = __webpack_require__(/*! ./pages/auth-page/auth-page.component */ "./src/app/pages/auth-page/auth-page.component.ts");
+
+
 
 
 
@@ -1290,6 +1316,10 @@ const routes = [
         component: _pages_login_page_login_page_component__WEBPACK_IMPORTED_MODULE_4__["LoginPageComponent"]
     },
     {
+        path: 'auth',
+        component: _pages_auth_page_auth_page_component__WEBPACK_IMPORTED_MODULE_69__["AuthPageComponent"]
+    },
+    {
         path: 'register',
         component: _pages_register_page_register_page_component__WEBPACK_IMPORTED_MODULE_5__["RegisterPageComponent"]
     },
@@ -1323,6 +1353,10 @@ const routes = [
                     {
                         path: 'user_account',
                         component: _pages_dashboard_git_admin_create_user_page_create_user_page_component__WEBPACK_IMPORTED_MODULE_44__["CreateUserAccountPageComponent"]
+                    },
+                    {
+                        path: 'access_code',
+                        component: _pages_dashboard_git_admin_create_access_code_page_create_access_code_page_component__WEBPACK_IMPORTED_MODULE_68__["CreateAccessCodePageComponent"]
                     }
                 ]
             },
@@ -1779,6 +1813,10 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _pages_dashboard_branch_admin_branch_admin_home_page_branch_admin_home_page_component__WEBPACK_IMPORTED_MODULE_84__ = __webpack_require__(/*! ./pages/dashboard/branch-admin/branch-admin-home-page/branch-admin-home-page.component */ "./src/app/pages/dashboard/branch-admin/branch-admin-home-page/branch-admin-home-page.component.ts");
 /* harmony import */ var _pages_dashboard_branch_admin_branch_admin_create_user_page_branch_admin_create_user_page_component__WEBPACK_IMPORTED_MODULE_85__ = __webpack_require__(/*! ./pages/dashboard/branch-admin/branch-admin-create-user-page/branch-admin-create-user-page.component */ "./src/app/pages/dashboard/branch-admin/branch-admin-create-user-page/branch-admin-create-user-page.component.ts");
 /* harmony import */ var _pages_dashboard_branch_admin_branch_admin_edit_user_page_branch_admin_edit_user_page_component__WEBPACK_IMPORTED_MODULE_86__ = __webpack_require__(/*! ./pages/dashboard/branch-admin/branch-admin-edit-user-page/branch-admin-edit-user-page.component */ "./src/app/pages/dashboard/branch-admin/branch-admin-edit-user-page/branch-admin-edit-user-page.component.ts");
+/* harmony import */ var _pages_dashboard_git_admin_create_access_code_page_create_access_code_page_component__WEBPACK_IMPORTED_MODULE_87__ = __webpack_require__(/*! ./pages/dashboard/git-admin/create-access-code-page/create-access-code-page.component */ "./src/app/pages/dashboard/git-admin/create-access-code-page/create-access-code-page.component.ts");
+/* harmony import */ var _pages_auth_page_auth_page_component__WEBPACK_IMPORTED_MODULE_88__ = __webpack_require__(/*! ./pages/auth-page/auth-page.component */ "./src/app/pages/auth-page/auth-page.component.ts");
+
+
 
 
 
@@ -1947,6 +1985,8 @@ AppModule = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
             _pages_dashboard_branch_admin_branch_admin_home_page_branch_admin_home_page_component__WEBPACK_IMPORTED_MODULE_84__["BranchAdminHomePageComponent"],
             _pages_dashboard_branch_admin_branch_admin_create_user_page_branch_admin_create_user_page_component__WEBPACK_IMPORTED_MODULE_85__["BranchAdminCreateUserPageComponent"],
             _pages_dashboard_branch_admin_branch_admin_edit_user_page_branch_admin_edit_user_page_component__WEBPACK_IMPORTED_MODULE_86__["BranchAdminEditUserPageComponent"],
+            _pages_dashboard_git_admin_create_access_code_page_create_access_code_page_component__WEBPACK_IMPORTED_MODULE_87__["CreateAccessCodePageComponent"],
+            _pages_auth_page_auth_page_component__WEBPACK_IMPORTED_MODULE_88__["AuthPageComponent"],
         ],
         imports: [
             _angular_platform_browser__WEBPACK_IMPORTED_MODULE_1__["BrowserModule"],
@@ -2520,6 +2560,139 @@ AdminRegisterPageComponent = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
         styles: [__webpack_require__(/*! ./admin-register-page.component.css */ "./src/app/pages/admin-register-page/admin-register-page.component.css")]
     })
 ], AdminRegisterPageComponent);
+
+
+
+/***/ }),
+
+/***/ "./src/app/pages/auth-page/auth-page.component.css":
+/*!*********************************************************!*\
+  !*** ./src/app/pages/auth-page/auth-page.component.css ***!
+  \*********************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = ".auth .brand-logo img {\n    width: 60px;\n}\n\np.lead {\n    line-height: 1.8rem;\n}\n\n.auth form .auth-form-btn {\n    height: 50px;\n    line-height: 1.2;\n}\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInNyYy9hcHAvcGFnZXMvYXV0aC1wYWdlL2F1dGgtcGFnZS5jb21wb25lbnQuY3NzIl0sIm5hbWVzIjpbXSwibWFwcGluZ3MiOiJBQUFBO0lBQ0ksV0FBVztBQUNmOztBQUVBO0lBQ0ksbUJBQW1CO0FBQ3ZCOztBQUVBO0lBQ0ksWUFBWTtJQUNaLGdCQUFnQjtBQUNwQiIsImZpbGUiOiJzcmMvYXBwL3BhZ2VzL2F1dGgtcGFnZS9hdXRoLXBhZ2UuY29tcG9uZW50LmNzcyIsInNvdXJjZXNDb250ZW50IjpbIi5hdXRoIC5icmFuZC1sb2dvIGltZyB7XG4gICAgd2lkdGg6IDYwcHg7XG59XG5cbnAubGVhZCB7XG4gICAgbGluZS1oZWlnaHQ6IDEuOHJlbTtcbn1cblxuLmF1dGggZm9ybSAuYXV0aC1mb3JtLWJ0biB7XG4gICAgaGVpZ2h0OiA1MHB4O1xuICAgIGxpbmUtaGVpZ2h0OiAxLjI7XG59Il19 */"
+
+/***/ }),
+
+/***/ "./src/app/pages/auth-page/auth-page.component.ts":
+/*!********************************************************!*\
+  !*** ./src/app/pages/auth-page/auth-page.component.ts ***!
+  \********************************************************/
+/*! exports provided: AuthPageComponent */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "AuthPageComponent", function() { return AuthPageComponent; });
+/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm2015/core.js");
+/* harmony import */ var lodash__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! lodash */ "./node_modules/lodash/lodash.js");
+/* harmony import */ var lodash__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(lodash__WEBPACK_IMPORTED_MODULE_2__);
+/* harmony import */ var _angular_router__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @angular/router */ "./node_modules/@angular/router/fesm2015/router.js");
+/* harmony import */ var src_app_enums_user_types_enum__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! src/app/enums/user-types.enum */ "./src/app/enums/user-types.enum.ts");
+/* harmony import */ var _angular_forms__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @angular/forms */ "./node_modules/@angular/forms/fesm2015/forms.js");
+/* harmony import */ var src_app_services_account_account_service__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! src/app/services/account/account.service */ "./src/app/services/account/account.service.ts");
+/* harmony import */ var src_app_services_storage_local_storage_service__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! src/app/services/storage/local-storage.service */ "./src/app/services/storage/local-storage.service.ts");
+
+
+
+
+
+
+
+
+let AuthPageComponent = class AuthPageComponent {
+    constructor(router, formBuilder, accountService, localStorageService) {
+        this.router = router;
+        this.formBuilder = formBuilder;
+        this.accountService = accountService;
+        this.localStorageService = localStorageService;
+    }
+    ngOnInit() {
+        this.buildForm();
+    }
+    get f() {
+        return this.form.controls;
+    }
+    buildForm() {
+        this.form = this.formBuilder.group({
+            code: ['', _angular_forms__WEBPACK_IMPORTED_MODULE_5__["Validators"].required]
+        });
+    }
+    getFormData() {
+        const data = {
+            code: this.f.code.value
+        };
+        return data;
+    }
+    navigateToUserDashboard(user_type) {
+        if (user_type == src_app_enums_user_types_enum__WEBPACK_IMPORTED_MODULE_4__["UserTypes"].Client) {
+            this.router.navigateByUrl('/client');
+        }
+        else if (user_type == src_app_enums_user_types_enum__WEBPACK_IMPORTED_MODULE_4__["UserTypes"].GitAdmin) {
+            this.router.navigateByUrl('/git_admin');
+        }
+        else if (user_type == src_app_enums_user_types_enum__WEBPACK_IMPORTED_MODULE_4__["UserTypes"].BranchAdmin) {
+            this.router.navigateByUrl('/admin');
+        }
+        else if (user_type == src_app_enums_user_types_enum__WEBPACK_IMPORTED_MODULE_4__["UserTypes"].BranchSuperExecutive) {
+            this.router.navigateByUrl('/executive');
+        }
+        else if (user_type == src_app_enums_user_types_enum__WEBPACK_IMPORTED_MODULE_4__["UserTypes"].CompanyAdmin) {
+            this.router.navigateByUrl('/admin');
+        }
+        else if (user_type == src_app_enums_user_types_enum__WEBPACK_IMPORTED_MODULE_4__["UserTypes"].FrontDesk) {
+            this.router.navigateByUrl('/front_desk');
+        }
+        else if (user_type == src_app_enums_user_types_enum__WEBPACK_IMPORTED_MODULE_4__["UserTypes"].SuperExecutive) {
+            this.router.navigateByUrl('/executive');
+        }
+        else {
+            alert('unknown user type');
+        }
+    }
+    login() {
+        this.loading = true;
+        this.submitted = true;
+        if (this.form.invalid) {
+            this.form.enable();
+            this.loading = false;
+        }
+        else {
+            this.form.disable();
+            const login = this.getFormData();
+            this.accountService.verifyAccessCode(login.code).then(res => {
+                const response = res;
+                this.form.enable();
+                this.loading = false;
+                if (lodash__WEBPACK_IMPORTED_MODULE_2__["isUndefined"](response.message)) {
+                    const user = response.user;
+                    this.localStorageService.token = response.token;
+                    this.localStorageService.saveUserInformation(user);
+                    this.navigateToUserDashboard(user.usertype);
+                }
+            }, err => {
+                this.form.enable();
+                this.loading = false;
+            });
+        }
+    }
+};
+AuthPageComponent.ctorParameters = () => [
+    { type: _angular_router__WEBPACK_IMPORTED_MODULE_3__["Router"] },
+    { type: _angular_forms__WEBPACK_IMPORTED_MODULE_5__["FormBuilder"] },
+    { type: src_app_services_account_account_service__WEBPACK_IMPORTED_MODULE_6__["AccountService"] },
+    { type: src_app_services_storage_local_storage_service__WEBPACK_IMPORTED_MODULE_7__["LocalStorageService"] }
+];
+AuthPageComponent = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
+    Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Component"])({
+        selector: 'app-auth-page',
+        template: __webpack_require__(/*! raw-loader!./auth-page.component.html */ "./node_modules/raw-loader/index.js!./src/app/pages/auth-page/auth-page.component.html"),
+        styles: [__webpack_require__(/*! ./auth-page.component.css */ "./src/app/pages/auth-page/auth-page.component.css")]
+    })
+], AuthPageComponent);
 
 
 
@@ -5952,6 +6125,193 @@ FrontDeskViewFormPageComponent = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"
         styles: [__webpack_require__(/*! ./front-desk-view-form-page.component.css */ "./src/app/pages/dashboard/front-desk/front-desk-view-form-page/front-desk-view-form-page.component.css")]
     })
 ], FrontDeskViewFormPageComponent);
+
+
+
+/***/ }),
+
+/***/ "./src/app/pages/dashboard/git-admin/create-access-code-page/create-access-code-page.component.css":
+/*!*********************************************************************************************************!*\
+  !*** ./src/app/pages/dashboard/git-admin/create-access-code-page/create-access-code-page.component.css ***!
+  \*********************************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = "\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IiIsImZpbGUiOiJzcmMvYXBwL3BhZ2VzL2Rhc2hib2FyZC9naXQtYWRtaW4vY3JlYXRlLWFjY2Vzcy1jb2RlLXBhZ2UvY3JlYXRlLWFjY2Vzcy1jb2RlLXBhZ2UuY29tcG9uZW50LmNzcyJ9 */"
+
+/***/ }),
+
+/***/ "./src/app/pages/dashboard/git-admin/create-access-code-page/create-access-code-page.component.ts":
+/*!********************************************************************************************************!*\
+  !*** ./src/app/pages/dashboard/git-admin/create-access-code-page/create-access-code-page.component.ts ***!
+  \********************************************************************************************************/
+/*! exports provided: CreateAccessCodePageComponent */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "CreateAccessCodePageComponent", function() { return CreateAccessCodePageComponent; });
+/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm2015/core.js");
+/* harmony import */ var lodash__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! lodash */ "./node_modules/lodash/lodash.js");
+/* harmony import */ var lodash__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(lodash__WEBPACK_IMPORTED_MODULE_2__);
+/* harmony import */ var rxjs_operators__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! rxjs/operators */ "./node_modules/rxjs/_esm2015/operators/index.js");
+/* harmony import */ var _angular_forms__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @angular/forms */ "./node_modules/@angular/forms/fesm2015/forms.js");
+/* harmony import */ var src_app_services_branch_branch_service__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! src/app/services/branch/branch.service */ "./src/app/services/branch/branch.service.ts");
+/* harmony import */ var src_app_services_company_company_service__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! src/app/services/company/company.service */ "./src/app/services/company/company.service.ts");
+/* harmony import */ var src_app_services_account_account_service__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! src/app/services/account/account.service */ "./src/app/services/account/account.service.ts");
+/* harmony import */ var src_app_services_storage_local_storage_service__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! src/app/services/storage/local-storage.service */ "./src/app/services/storage/local-storage.service.ts");
+
+
+
+
+
+
+
+
+
+let CreateAccessCodePageComponent = class CreateAccessCodePageComponent {
+    constructor(formBuilder, branchService, companyService, accountService, localStorage) {
+        this.formBuilder = formBuilder;
+        this.branchService = branchService;
+        this.companyService = companyService;
+        this.accountService = accountService;
+        this.localStorage = localStorage;
+        this.branchesList = [];
+        this.merchantsList = [];
+        this.branchNamesList = [];
+        this.merchantNamesList = [];
+        this.firstname = this.localStorage.getUser().firstname;
+        this.initializeView();
+    }
+    ngOnInit() {
+        this.buildForm();
+    }
+    get f() {
+        return this.form.controls;
+    }
+    buildForm() {
+        this.form = this.formBuilder.group({
+            branch: ['', _angular_forms__WEBPACK_IMPORTED_MODULE_4__["Validators"].required],
+            merchant: ['', _angular_forms__WEBPACK_IMPORTED_MODULE_4__["Validators"].required],
+            deviceName: ['', _angular_forms__WEBPACK_IMPORTED_MODULE_4__["Validators"].required],
+            sourceName: ['', _angular_forms__WEBPACK_IMPORTED_MODULE_4__["Validators"].required]
+        });
+    }
+    initializeView() {
+        this.getCompany();
+    }
+    filter(collection, value) {
+        const filterValue = value.toLowerCase();
+        return collection.filter(item => item.toLowerCase().includes(filterValue));
+    }
+    companySelected(value) {
+        this.getCompanyBranches();
+    }
+    getFormData() {
+        const source_name = this.f.sourceName.value;
+        const device_name = this.f.deviceName.value;
+        const branch_id = this.getSelectedBranchIdentifier();
+        const merchant_id = this.getSelectedMerchantIdentifier();
+        return {};
+    }
+    getSelectedBranchIdentifier() {
+        let branch_id = 0;
+        lodash__WEBPACK_IMPORTED_MODULE_2__["forEach"](this.branchesList, (branch) => {
+            if (branch.branch_name == this.f.branch.value) {
+                branch_id = branch.id;
+            }
+        });
+        return branch_id;
+    }
+    getSelectedMerchantIdentifier() {
+        let merchant_id = 0;
+        lodash__WEBPACK_IMPORTED_MODULE_2__["forEach"](this.merchantsList, (company) => {
+            if (company.merchant_name == this.f.merchant.value) {
+                merchant_id = company.id;
+            }
+        });
+        return merchant_id;
+    }
+    getCompany() {
+        this.companyService.getAllCompanies().then(res => {
+            const merchants = res;
+            console.log(JSON.stringify(merchants));
+            if (merchants.length != 0) {
+                lodash__WEBPACK_IMPORTED_MODULE_2__["forEach"](merchants, (company) => {
+                    this.merchantsList.push(company);
+                    this.merchantNamesList.push(company.merchant_name);
+                });
+                this.filteredMerchants = this.f.merchant.valueChanges.pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_3__["startWith"])('*'), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_3__["map"])(value => this.filter(this.merchantNamesList, value)));
+            }
+            else {
+            }
+        }, err => {
+            console.log('companies_error: ' + JSON.stringify(err));
+        });
+    }
+    getCompanyBranches() {
+        const id = this.getSelectedMerchantIdentifier();
+        console.log('selected company_id: ' + id);
+        this.branchService.getBranch(id.toString()).then(res => {
+            const branches = res;
+            console.log('res_length: ' + branches.length);
+            if (branches.length != 0) {
+                lodash__WEBPACK_IMPORTED_MODULE_2__["forEach"](branches, (branch) => {
+                    this.branchesList.push(branch);
+                    this.branchNamesList.push(branch.branch_name);
+                    console.log('branches: ' + this.branchNamesList);
+                });
+                this.filteredBranches = this.f.branch.valueChanges.pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_3__["startWith"])(''), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_3__["map"])(value => this.filter(this.branchNamesList, value)));
+            }
+            else {
+            }
+        }, err => {
+        });
+    }
+    create() {
+        this.loading = true;
+        this.submitted = true;
+        if (this.form.invalid) {
+            this.form.enable();
+            this.loading = false;
+            return;
+        }
+        else {
+            this.form.disable();
+            const access_code = this.getFormData();
+            this.accountService.createAccessCode(access_code).then(code => {
+                console.log(code);
+                if (!lodash__WEBPACK_IMPORTED_MODULE_2__["isEmpty"](code) || !lodash__WEBPACK_IMPORTED_MODULE_2__["isNull"](code)) {
+                    this.form.enable();
+                    this.loading = false;
+                }
+                else {
+                    this.form.enable();
+                    this.loading = false;
+                }
+            }, err => {
+                this.form.enable();
+                this.loading = false;
+                console.log(JSON.stringify(err));
+            });
+        }
+    }
+};
+CreateAccessCodePageComponent.ctorParameters = () => [
+    { type: _angular_forms__WEBPACK_IMPORTED_MODULE_4__["FormBuilder"] },
+    { type: src_app_services_branch_branch_service__WEBPACK_IMPORTED_MODULE_5__["BranchService"] },
+    { type: src_app_services_company_company_service__WEBPACK_IMPORTED_MODULE_6__["CompanyService"] },
+    { type: src_app_services_account_account_service__WEBPACK_IMPORTED_MODULE_7__["AccountService"] },
+    { type: src_app_services_storage_local_storage_service__WEBPACK_IMPORTED_MODULE_8__["LocalStorageService"] }
+];
+CreateAccessCodePageComponent = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
+    Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Component"])({
+        selector: 'app-create-access-code-page',
+        template: __webpack_require__(/*! raw-loader!./create-access-code-page.component.html */ "./node_modules/raw-loader/index.js!./src/app/pages/dashboard/git-admin/create-access-code-page/create-access-code-page.component.html"),
+        styles: [__webpack_require__(/*! ./create-access-code-page.component.css */ "./src/app/pages/dashboard/git-admin/create-access-code-page/create-access-code-page.component.css")]
+    })
+], CreateAccessCodePageComponent);
 
 
 
@@ -9705,11 +10065,11 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm2015/core.js");
 /* harmony import */ var lodash__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! lodash */ "./node_modules/lodash/lodash.js");
 /* harmony import */ var lodash__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(lodash__WEBPACK_IMPORTED_MODULE_2__);
-/* harmony import */ var _angular_forms__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @angular/forms */ "./node_modules/@angular/forms/fesm2015/forms.js");
-/* harmony import */ var src_app_services_account_account_service__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! src/app/services/account/account.service */ "./src/app/services/account/account.service.ts");
-/* harmony import */ var src_app_services_storage_local_storage_service__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! src/app/services/storage/local-storage.service */ "./src/app/services/storage/local-storage.service.ts");
-/* harmony import */ var _angular_router__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! @angular/router */ "./node_modules/@angular/router/fesm2015/router.js");
-/* harmony import */ var src_app_enums_user_types_enum__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! src/app/enums/user-types.enum */ "./src/app/enums/user-types.enum.ts");
+/* harmony import */ var _angular_router__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @angular/router */ "./node_modules/@angular/router/fesm2015/router.js");
+/* harmony import */ var src_app_enums_user_types_enum__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! src/app/enums/user-types.enum */ "./src/app/enums/user-types.enum.ts");
+/* harmony import */ var _angular_forms__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @angular/forms */ "./node_modules/@angular/forms/fesm2015/forms.js");
+/* harmony import */ var src_app_services_account_account_service__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! src/app/services/account/account.service */ "./src/app/services/account/account.service.ts");
+/* harmony import */ var src_app_services_storage_local_storage_service__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! src/app/services/storage/local-storage.service */ "./src/app/services/storage/local-storage.service.ts");
 
 
 
@@ -9733,8 +10093,8 @@ let LoginPageComponent = class LoginPageComponent {
     }
     buildForm() {
         this.form = this.formBuilder.group({
-            username: ['', _angular_forms__WEBPACK_IMPORTED_MODULE_3__["Validators"].required],
-            password: ['', [_angular_forms__WEBPACK_IMPORTED_MODULE_3__["Validators"].minLength(6), _angular_forms__WEBPACK_IMPORTED_MODULE_3__["Validators"].required]]
+            username: ['', _angular_forms__WEBPACK_IMPORTED_MODULE_5__["Validators"].required],
+            password: ['', [_angular_forms__WEBPACK_IMPORTED_MODULE_5__["Validators"].minLength(6), _angular_forms__WEBPACK_IMPORTED_MODULE_5__["Validators"].required]]
         });
     }
     getFormData() {
@@ -9763,25 +10123,25 @@ let LoginPageComponent = class LoginPageComponent {
         }
     }
     navigateToUserDashboard(user_type) {
-        if (user_type == src_app_enums_user_types_enum__WEBPACK_IMPORTED_MODULE_7__["UserTypes"].Client) {
+        if (user_type == src_app_enums_user_types_enum__WEBPACK_IMPORTED_MODULE_4__["UserTypes"].Client) {
             this.router.navigateByUrl('/client');
         }
-        else if (user_type == src_app_enums_user_types_enum__WEBPACK_IMPORTED_MODULE_7__["UserTypes"].GitAdmin) {
+        else if (user_type == src_app_enums_user_types_enum__WEBPACK_IMPORTED_MODULE_4__["UserTypes"].GitAdmin) {
             this.router.navigateByUrl('/git_admin');
         }
-        else if (user_type == src_app_enums_user_types_enum__WEBPACK_IMPORTED_MODULE_7__["UserTypes"].BranchAdmin) {
+        else if (user_type == src_app_enums_user_types_enum__WEBPACK_IMPORTED_MODULE_4__["UserTypes"].BranchAdmin) {
             this.router.navigateByUrl('/admin');
         }
-        else if (user_type == src_app_enums_user_types_enum__WEBPACK_IMPORTED_MODULE_7__["UserTypes"].BranchSuperExecutive) {
+        else if (user_type == src_app_enums_user_types_enum__WEBPACK_IMPORTED_MODULE_4__["UserTypes"].BranchSuperExecutive) {
             this.router.navigateByUrl('/executive');
         }
-        else if (user_type == src_app_enums_user_types_enum__WEBPACK_IMPORTED_MODULE_7__["UserTypes"].CompanyAdmin) {
+        else if (user_type == src_app_enums_user_types_enum__WEBPACK_IMPORTED_MODULE_4__["UserTypes"].CompanyAdmin) {
             this.router.navigateByUrl('/admin');
         }
-        else if (user_type == src_app_enums_user_types_enum__WEBPACK_IMPORTED_MODULE_7__["UserTypes"].FrontDesk) {
+        else if (user_type == src_app_enums_user_types_enum__WEBPACK_IMPORTED_MODULE_4__["UserTypes"].FrontDesk) {
             this.router.navigateByUrl('/front_desk');
         }
-        else if (user_type == src_app_enums_user_types_enum__WEBPACK_IMPORTED_MODULE_7__["UserTypes"].SuperExecutive) {
+        else if (user_type == src_app_enums_user_types_enum__WEBPACK_IMPORTED_MODULE_4__["UserTypes"].SuperExecutive) {
             this.router.navigateByUrl('/executive');
         }
         else {
@@ -9824,16 +10184,16 @@ let LoginPageComponent = class LoginPageComponent {
     }
 };
 LoginPageComponent.ctorParameters = () => [
-    { type: _angular_router__WEBPACK_IMPORTED_MODULE_6__["Router"] },
-    { type: _angular_forms__WEBPACK_IMPORTED_MODULE_3__["FormBuilder"] },
-    { type: src_app_services_account_account_service__WEBPACK_IMPORTED_MODULE_4__["AccountService"] },
-    { type: src_app_services_storage_local_storage_service__WEBPACK_IMPORTED_MODULE_5__["LocalStorageService"] }
+    { type: _angular_router__WEBPACK_IMPORTED_MODULE_3__["Router"] },
+    { type: _angular_forms__WEBPACK_IMPORTED_MODULE_5__["FormBuilder"] },
+    { type: src_app_services_account_account_service__WEBPACK_IMPORTED_MODULE_6__["AccountService"] },
+    { type: src_app_services_storage_local_storage_service__WEBPACK_IMPORTED_MODULE_7__["LocalStorageService"] }
 ];
 LoginPageComponent = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
     Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Component"])({
         selector: 'app-login-page',
         template: __webpack_require__(/*! raw-loader!./login-page.component.html */ "./node_modules/raw-loader/index.js!./src/app/pages/login-page/login-page.component.html"),
-        providers: [src_app_services_account_account_service__WEBPACK_IMPORTED_MODULE_4__["AccountService"], src_app_services_storage_local_storage_service__WEBPACK_IMPORTED_MODULE_5__["LocalStorageService"]],
+        providers: [src_app_services_account_account_service__WEBPACK_IMPORTED_MODULE_6__["AccountService"], src_app_services_storage_local_storage_service__WEBPACK_IMPORTED_MODULE_7__["LocalStorageService"]],
         styles: [__webpack_require__(/*! ./login-page.component.css */ "./src/app/pages/login-page/login-page.component.css")]
     })
 ], LoginPageComponent);
@@ -10061,6 +10421,9 @@ let AccountService = class AccountService {
             });
         });
     }
+    verifyAccessCode(access_code) {
+        return new Promise((resolve, reject) => { });
+    }
     /**
      * Creates a new user account.
      *
@@ -10076,6 +10439,20 @@ let AccountService = class AccountService {
                 console.log('ress: ' + JSON.stringify(res));
                 resolve(res);
             }, err => {
+                reject(err);
+            });
+        });
+    }
+    createAccessCode(access_code_data) {
+        return new Promise((resolve, reject) => {
+            const body = JSON.stringify(access_code_data);
+            const url = this.endpointService.apiHost + '';
+            this.http.post(url, body, { headers: this.headers }).subscribe(res => {
+                console.log('access code created: ' + JSON.stringify(res));
+                const response = res;
+                resolve(response.code);
+            }, err => {
+                console.log('access code error: ' + JSON.stringify(err));
                 reject(err);
             });
         });
