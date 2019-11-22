@@ -177,9 +177,14 @@ Route::group(['middleware' => ['auth:api'], 'prefix' => 'v1'], function(){
   Route::post('editTemplate/{id}', 'HomeController@editTemplate')->name('editTemplate')->middleware('scope:GIT_Admin');                                     
   Route::get('getAllTemplates', 'HomeController@getAllTemplates')->name('getAllTemplates')->middleware('scope:GIT_Admin,company_admin');                                     
   Route::post('deleteTemplate/{id}', 'HomeController@deleteTemplate')->name('deleteTemplate')->middleware('scope:GIT_Admin');                                     
-  //serahc template by name api
+  //search template by name api
   Route::get('searchTemplateByName/{term}', 'HomeController@searchTemplateByName')->name('searchTemplateByName')->middleware('scope:GIT_Admin,company_admin');                                     
 
+
+  //access code creation and checks apis 
+  Route::post('createAccessCode', 'HomeController@createAccessCode')->name('createAccessCode')->middleware('scope:GIT_Admin');                                     
+
+  
 
 });
  

@@ -63,6 +63,7 @@ class Kernel extends HttpKernel
         'scopes' => \Laravel\Passport\Http\Middleware\CheckScopes::class,
         'scope' => \Laravel\Passport\Http\Middleware\CheckForAnyScope::class,
         'token' => \App\Http\Middleware\CheckApiToken::class,
+        'checkAccess' => \App\Http\Middleware\CheckAccess::class,
     ];
 
     /**
