@@ -24,6 +24,7 @@ export class AdminFormEditPageComponent implements OnInit {
   formName: string;
   formCode: string;
   formStatus: string;
+  submitted: boolean;
   merchant_id: number;
 
   constructor(
@@ -114,6 +115,7 @@ export class AdminFormEditPageComponent implements OnInit {
   }
 
   edit() {
+    this.submitted = true;
     if (this.form.valid) {
       this.editForm();
     }

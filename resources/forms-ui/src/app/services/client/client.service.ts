@@ -107,10 +107,52 @@ export class ClientService {
     });
   }
 
+  /**
+   * Searches for a form by code.
+   *
+   * @param {string} form_code
+   * @returns {Promise<any>}
+   * @memberof ClientService
+   */
   findFormsByCode(form_code: string): Promise<any> {
     return new Promise((resolve, reject) => {
-      const url = this.endpointService.apiHost + 'api/v1/';
-      this.http.get(url, { headers: this.headers }).subscribe();
+      const url = this.endpointService.apiHost + 'api/v1/getSubmittedFormByCode/' + form_code;
+      this.http.get(url, { headers: this.headers }).subscribe(
+        res => {
+          console.log('forms_by_code: ' + JSON.stringify(res));
+          const response = res as any;
+          resolve(response.form);
+          resolve(res);
+        },
+        err => {
+          console.log('f_by_code_erro: ' + JSON.stringify(err));
+          reject(err);
+        }
+      );
+    });
+  }
+
+  /**
+   * Searchs for a form by the name.
+   *
+   * @param {string} form_name
+   * @returns {Promise<any>}
+   * @memberof ClientService
+   */
+  findFormsByName(form_name: string): Promise<any> {
+    return new Promise((resolve, reject) => {
+      const url = this.endpointService.apiHost + 'api/v1/getFormbyName/' + form_name;
+      this.http.get(url, { headers: this.headers }).subscribe(
+        res => {
+          console.log('forms_by_name: ' + JSON.stringify(res));
+          const response = res as any;
+          resolve(response.form);
+        },
+        err => {
+          console.log('f_by_name_erro: ' + JSON.stringify(err));
+          reject(err);
+        }
+      );
     });
   }
 

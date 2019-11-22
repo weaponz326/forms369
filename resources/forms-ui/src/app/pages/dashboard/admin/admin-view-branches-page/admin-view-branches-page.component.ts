@@ -2,9 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import * as _ from 'lodash';
 import { Router } from '@angular/router';
 import { BranchService } from 'src/app/services/branch/branch.service';
-import { CompanyBranches } from 'src/app/models/company-branches.model';
 import { ListViewService } from 'src/app/services/view/list-view.service';
-import { EndpointService } from 'src/app/services/endpoint/endpoint.service';
 import { LocalStorageService } from 'src/app/services/storage/local-storage.service';
 
 @Component({
@@ -14,7 +12,6 @@ import { LocalStorageService } from 'src/app/services/storage/local-storage.serv
 })
 export class AdminViewBranchesPageComponent implements OnInit {
 
-  company: any;
   viewMode: string;
   loading: boolean;
   hasMore: boolean;
@@ -93,17 +90,19 @@ export class AdminViewBranchesPageComponent implements OnInit {
     this.branchesList = _.filter(this.allBranchesList, (branch) =>  branch.status == 0);
   }
 
-  // openNewBranch() {
-  //   this.router.navigateByUrl('git_admin/create/branch');
-  // }
-
-  // edit(branch: any) {
-  //   this.router.navigateByUrl('git_admin/edit/branch/' + branch.id, { state: { branch: branch }});
-  // }
+  openNewBranch() {
+    this.router.navigateByUrl('admin/create/branch');
+  }
 
   view(branch: any) {
     this.router.navigateByUrl('admin/details/branch', { state: { branch: branch }});
   }
+
+  edit(branch: any) {
+    this.router.navigateByUrl('admin/edit/branch/' + branch.id, { state: { branch: branch }});
+  }
+
+  delete(id: string) {}
 
   getCompanyBranches() {
     this.loading = true;

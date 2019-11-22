@@ -39,7 +39,7 @@ export class SideBarComponent implements OnInit {
         this.isAdmin = true;
         break;
       case UserTypes.BranchAdmin:
-        this.isAdmin = true;
+        this.isBranchAdmin = true;
         break;
       case UserTypes.SuperExecutive:
         this.isExecutive = true;

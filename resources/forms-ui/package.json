@@ -8,7 +8,8 @@
     "test": "ng test",
     "lint": "ng lint",
     "e2e": "ng e2e",
-    "prod": "ng build --prod --aot && rm -f ../../public/*.js && rm -f ../../public/*.css && rm -f ../../public/*.ico && cp dist/*.js ../../public/ && cp dist/*.css ../../public/ && cp dist/*.ico ../../public/ && cp dist/index.html ../views/index.html"
+    "dev": "ng build --prod && cp dist/forms-ui/*.ico ../../public/ && cp dist/forms-ui/index.html ../views/index.html && cp dist/forms-ui/assets",
+    "prod": "ng build --prod --aot && rm -f ../../public/*.js && rm -f ../../public/*.css && rm -f ../../public/*.ico && cp dist/forms-ui/*.js ../../public/ && cp dist/forms-ui/*.css ../../public/ && cp dist/forms-ui/*.ico ../../public/ && cp dist/forms-ui/index.html ../views/index.html"
   },
   "private": true,
   "dependencies": {
@@ -25,6 +26,7 @@
     "@ng-bootstrap/ng-bootstrap": "^5.1.4",
     "@types/jquery": "^3.3.31",
     "@types/jqueryui": "^1.12.8",
+    "angular-file-saver": "^1.1.3",
     "animate.css": "^3.7.2",
     "babel-regenerator-runtime": "^6.5.0",
     "bootstrap": "^4.3.1",
@@ -49,6 +51,7 @@
     "@angular/cli": "~8.1.2",
     "@angular/compiler-cli": "~8.1.2",
     "@angular/language-service": "~8.1.2",
+    "@types/angular-file-saver": "^1.1.4",
     "@types/jasmine": "~3.3.8",
     "@types/jasminewd2": "~2.0.3",
     "@types/lodash": "^4.14.144",

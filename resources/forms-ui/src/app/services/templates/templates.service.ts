@@ -59,6 +59,30 @@ export class TemplatesService {
   }
 
   /**
+   * Search for a template bybthe template name.
+   *
+   * @param {string} search_term
+   * @returns {Promise<any>}
+   * @memberof TemplatesService
+   */
+  findTemplate(search_term: string): Promise<any> {
+    return new Promise((resolve, reject) => {
+      const url = this.endpointService.apiHost + 'api/v1/searchTemplateByName/' + search_term;
+      this.http.get(url, { headers: this.headers }).subscribe(
+        res => {
+          console.log('templates: ' + JSON.stringify(res));
+          const response = res as any;
+          resolve(response.templates);
+        },
+        err => {
+          console.log('error: ' + JSON.stringify(err));
+          reject(err);
+        }
+      );
+    });
+  }
+
+  /**
    * Returns a list of all form templates.
    *
    * @returns {Promise<any>}

@@ -26,7 +26,6 @@ export class CreateCompanyPageComponent implements OnInit {
   _loading: boolean;
   logoImage: string;
   submitted: boolean;
-  hasInput: boolean;
   companyAdminsList: Array<any>;
   superExecutivesList: Array<any>;
   countriesList: Array<ICountry>;
@@ -34,7 +33,6 @@ export class CreateCompanyPageComponent implements OnInit {
   companyAdminEmailList: Array<string>;
   filteredAdminsList: Observable<string[]>;
   filteredExecutivesList: Observable<string[]>;
-
   @ViewChild('logoFile', { static: false }) logoFile: ElementRef;
   @ViewChild('smallLogo', { static: false }) smallLogo: ElementRef;
   @ViewChild('selectedLogo', { static: false }) selectedLogo: ElementRef;
@@ -65,7 +63,6 @@ export class CreateCompanyPageComponent implements OnInit {
   initializeView() {
     this._loading = true;
     this.getSuperExecutive();
-    // this.getSuperExecs();
     this.getCompanyAdmins();
   }
 

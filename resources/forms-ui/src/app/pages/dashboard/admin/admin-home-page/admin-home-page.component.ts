@@ -12,22 +12,21 @@ export class AdminHomePageComponent implements OnInit {
   loading: boolean;
   firstName: string;
   numTotalForms: string;
-  numTotalCompany: string;
   numTotalBranches: string;
-  numTotalActiveCompany: string;
-  numTotalActiveBranches: string;
-  numTotalInActiveCompany: string;
-  numTotalInActiveBranches: string;
+  numTotalAccounts: string;
+  merchantIdentifier: number;
+
   constructor(
     private router: Router,
     private analyticService: AnalyticsService,
-    private localStorageService: LocalStorageService
+    private localStorage: LocalStorageService
   ) {
-    this.firstName = this.localStorageService.getUser().firstname;
+    this.firstName = this.localStorage.getUser().firstname;
+    this.merchantIdentifier = this.localStorage.getUser().merchant_id;
   }
 
   ngOnInit() {
-    // this.getAnalytics();
+    this.getAnalytics();
   }
 
   openForms() {
@@ -36,15 +35,24 @@ export class AdminHomePageComponent implements OnInit {
 
   getAnalytics() {
     this.loading = true;
-    // this.getBranchAnalytics();
-    // this.getCompanyAnalytics();
-    this.getFormAnalytics();
+    this.getBranchAnalytics();
+    // this.getFormAnalytics();
   }
 
   getFormAnalytics() {
     this.analyticService.getAllFormsCount().then(
       count => {
         this.numTotalForms = count;
+        this.loading = false;
+      }
+    );
+  }
+
+  getBranchAnalytics() {
+    const merchant_id = this.merchantIdentifier.toString();
+    this.analyticService.getCompanyBranchCount(merchant_id).then(
+      count => {
+        this.numTotalBranches = count;
         this.loading = false;
       }
     );

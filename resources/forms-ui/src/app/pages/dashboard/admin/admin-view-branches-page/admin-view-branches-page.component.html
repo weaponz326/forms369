@@ -117,24 +117,12 @@
 
                 <div *ngIf="viewMode == 'grid'" class="row">
                   <div class="col-md-4 grid-margin stretch-card" *ngFor="let branch of branchesList">
-                    <div class="card hover-cursor animated fadeInDown fast">
+                    <div class="card hover-cursor animated fadeInDown fast" (click)="view(branch)">
                       <div class="card-body">
                         <p class="card-title">{{ branch.merchant_name }}</p>
                         <div class="card-text">
                           <h1 class="display-4 mb-4">{{ branch.branch_name }}</h1>
                           <div class="btn-group" role="group" aria-label="Basic example">
-                            <button type="button" class="btn btn-outline-secondary" (click)="edit(branch)">
-                              <i class="mdi mdi-pencil-outline"></i>
-                              Edit
-                            </button>
-                            <button type="button" class="btn btn-outline-secondary" (click)="view(branch)">
-                              <i class="mdi mdi-pulse"></i>
-                              View
-                            </button>
-                            <button type="button" class="btn btn-outline-secondary" (click)="delete(branch.id)">
-                              <i class="mdi mdi-delete-outline"></i>
-                              Delete
-                            </button>
                           </div>
                         </div>
                       </div>
@@ -145,7 +133,7 @@
                 <div *ngIf="viewMode == 'list'" class="row">
                   <div class="list-group" style="width: 100%;">
                     <div class="list-group-item hover-cursor list-group-item-action animated fadeInDown"
-                      *ngFor="let branch of branchesList">
+                      *ngFor="let branch of branchesList" (click)="view(branch)">
                       <div class="row">
                         <div class="col-8">
                           <span class="card-title mt-2">{{ branch.merchant_name }}</span>
@@ -153,18 +141,6 @@
                         </div>
                         <div class="col-4">
                           <div class="btn-group mt-2" role="group" aria-label="Basic example">
-                            <button type="button" class="btn btn-outline-secondary" (click)="edit(branch)">
-                              <i class="mdi mdi-pencil-outline"></i>
-                              Edit
-                            </button>
-                            <button type="button" class="btn btn-outline-secondary" (click)="view(branch)">
-                              <i class="mdi mdi-pulse"></i>
-                              View
-                            </button>
-                            <button type="button" class="btn btn-outline-secondary" (click)="delete(branch.id)">
-                              <i class="mdi mdi-delete-outline"></i>
-                              Delete
-                            </button>
                           </div>
                         </div>
                       </div>

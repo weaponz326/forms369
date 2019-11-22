@@ -1,1 +1,80 @@
-<p>admin-edit-user-page works!</p>
+<div class="container-scroller">
+  <app-navigation-bar></app-navigation-bar>
+  <div class="container-fluid page-body-wrapper">
+    <app-side-bar></app-side-bar>
+    <div class="main-panel">
+      <div class="content-wrapper">
+        <div class="row">
+          <div class="col-md-12 grid-margin">
+            <div class="d-flex justify-content-between flex-wrap">
+              <div class="d-flex align-items-end flex-wrap">
+                <div class="mr-md-3 mr-xl-5">
+                  <h2>Edit Account</h2>
+                  <p class="mb-md-0">Your analytics dashboard template.</p>
+                </div>
+                <div class="d-flex">
+                  <i class="mdi mdi-home text-muted hover-cursor"></i>
+                  <p class="text-muted mb-0 hover-cursor">&nbsp;/&nbsp;Home&nbsp;/&nbsp;</p>
+                  <p class="text-primary mb-0 hover-cursor">Executive</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div *ngIf="!created" class="row">
+          <div class="col-md-6 offset-3 grid-margin stretch-card">
+            <div class="card">
+              <div class="card-body">
+                <p class="card-title">Edit User Account</p>
+                <p class="text-muted">Quickly update a user account</p>
+                <div class="card-text">
+                  <div *ngIf="emailInUse" class="mt-2">
+                    <div class="alert alert-warning alert-dismissible fade show" role="alert">
+                      <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                      </button>
+                      <h3 class="alert-heading">Hey there!</h3>
+                      <p class="lead"><strong>Email Address </strong> is already in use</p>
+                      <hr>
+                      <p class="mb-0 lead">There is already an account with the email address you just provided</p>
+                    </div>
+                  </div>
+                  <app-user-account-editor
+                    [userId]="id"
+                    (userAccount)="getUserType($event)"
+                    (accountCreated)="editAccount($event)">
+                  </app-user-account-editor>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="row" *ngIf="created">
+          <div class="col-md-12 grid-margin">
+            <div class="card text-center">
+              <div class="card-body">
+                <p class="card-title">Success</p>
+                <p class="text-muted"></p>
+                <div class="card-text">
+                  <i class="mdi mdi-account-check-outline text-primary" style="font-size: 12em;"></i>
+                  <h2>1 {{ userType }} Account Updated</h2>
+                  <p class="text-muted">You have succesfully updated a {{ userType }} account</p>
+                </div>
+                <div class="card-text mt-4">
+                  <button type="button" class="btn btn-outline-primary btn-lg mr-2" style="width: 350px;"
+                    (click)="goBack()">
+                    <i class="mdi mdi-check-outline"></i>
+                    Ok
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <app-footer-bar></app-footer-bar>
+    </div>
+  </div>
+</div>

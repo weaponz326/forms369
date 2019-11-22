@@ -85,7 +85,7 @@ export class CreateFormPageComponent implements OnInit {
       res => {
         console.log('all_comps: ' + JSON.stringify(res));
         const merchants = res as any;
-        merchants.forEach(merchant => {
+        merchants.forEach((merchant: any) => {
           this.allMerchantsList.push(merchant);
         });
         this._loading = false;
@@ -162,6 +162,10 @@ export class CreateFormPageComponent implements OnInit {
       speed: 1000,
       scrollTarget: '.content-wrapper'
     });
+  }
+
+  preview() {
+    this.router.navigateByUrl('/git_admin/details/form', { state: { form: this.getForm() }});
   }
 
   bringBackForm() {

@@ -27,6 +27,7 @@ export class EditFormPageComponent implements OnInit {
   formCode: string;
   merchant: string;
   formStatus: string;
+  submitted: boolean;
   allMerchantsList: Array<any>;
 
   constructor(
@@ -149,6 +150,7 @@ export class EditFormPageComponent implements OnInit {
   }
 
   edit() {
+    this.submitted = true;
     if (this.form.valid) {
       this.editForm();
     }

@@ -35,6 +35,18 @@
           </div>
         </div>
 
+        <div class="row mb-4">
+          <div class="col-12 col-md-8 offset-md-2">
+            <div class="search-bar">
+              <form>
+                <input type="text" class="search-form form-control" name="query" [(ngModel)]="query"
+                  placeholder="Search by code or by name" aria-label="search" aria-describedby="search"
+                  (keydown)="search($event)">
+              </form>
+            </div>
+          </div>
+        </div>
+
         <div *ngIf="loading" class="row m-5">
           <div class="col-md-12 m-5">
             <div class="d-flex justify-content-center">
@@ -99,9 +111,6 @@
                 </p>
                 <div class="text-lg-center mt-3 mb-5">
                   <div class="btn-group" role="group" aria-label="Sort By">
-                    <!-- <button type="button" class="btn btn-outline-secondary" [ngClass]="{'active': filterState == 'all'}" (click)="showAll()">All</button> -->
-                    <!-- <button type="button" class="btn btn-outline-secondary" [ngClass]="{'active': filterState == 'active'}" (click)="showActive()">Active</button>
-                    <button type="button" class="btn btn-outline-secondary" [ngClass]="{'active': filterState == 'inactive'}" (click)="showInActive()">In Active</button> -->
                     <div class="dropdown">
                       <button type="button" class="btn btn-outline-secondary dropdown-toggle" id="sortMenuButton"
                         data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Sort By</button>
@@ -113,41 +122,12 @@
                 </div>
 
                 <div *ngIf="viewMode == 'grid'" class="row">
-                  <div class="col-md-4 grid-margin stretch-card" *ngFor="let template of templatesList">
+                  <div class="col-md-4 grid-margin stretch-card" *ngFor="let template of templatesList; let i = index">
                     <div class="card hover-cursor animated fadeInDown fast" (click)="view(template)">
                       <div class="card-body">
                         <div class="card-text">
                           <h1 class="display-4 mb-4">{{ template.name }}</h1>
                           <div class="btn-group" role="group" aria-label="Basic example">
-                            <button type="button" class="btn btn-outline-secondary" (click)="edit(template)">
-                              <i class="mdi mdi-pencil-outline"></i>
-                              Edit
-                            </button>
-                            <button type="button" class="btn btn-outline-secondary" (click)="view(template)">
-                              <i class="mdi mdi-pulse"></i>
-                              View
-                            </button>
-                            <button type="button" class="btn btn-outline-secondary" (click)="delete(template.id)">
-                              <i class="mdi mdi-delete-outline"></i>
-                              Delete
-                            </button>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-
-                <div *ngIf="viewMode == 'list'" class="row">
-                  <div class="list-group" style="width: 100%;">
-                    <div class="list-group-item hover-cursor list-group-item-action animated fadeInDown"
-                      *ngFor="let template of templatesList; let i = index">
-                      <div class="row">
-                        <div class="col-8">
-                          <h1 class="display-4 mb-1 mt-2">{{ template.name }}</h1>
-                        </div>
-                        <div class="col-4">
-                          <div class="btn-group mt-2" role="group" aria-label="Basic example">
                             <button type="button" class="btn btn-outline-secondary" (click)="edit(template)">
                               <i class="mdi mdi-pencil-outline"></i>
                               Edit
@@ -165,12 +145,43 @@
                       </div>
                     </div>
                   </div>
+                </div>
 
-                  <div *ngIf="hasMore" class="row">
-                    <div class="col-md-4 col-sm-6 offset-sm-3 offset-lg-4">
-                      <div class="text-center">
-                        <button type="button" class="btn btn-secondary btn-rounded btn-fw">Load More</button>
+                <div *ngIf="viewMode == 'list'" class="row">
+                  <div class="col-12">
+                    <div class="list-group" style="width: 100%;">
+                      <div class="list-group-item hover-cursor list-group-item-action animated fadeInDown"
+                        *ngFor="let template of templatesList; let i = index">
+                        <div class="row">
+                          <div class="col-8">
+                            <h1 class="display-4 mb-1 mt-2">{{ template.name }}</h1>
+                          </div>
+                          <div class="col-4">
+                            <div class="btn-group mt-2" role="group" aria-label="Basic example">
+                              <button type="button" class="btn btn-outline-secondary" (click)="edit(template)">
+                                <i class="mdi mdi-pencil-outline"></i>
+                                Edit
+                              </button>
+                              <button type="button" class="btn btn-outline-secondary" (click)="view(template)">
+                                <i class="mdi mdi-pulse"></i>
+                                View
+                              </button>
+                              <button type="button" class="btn btn-outline-secondary" (click)="delete(template.id, i)">
+                                <i class="mdi mdi-delete-outline"></i>
+                                Delete
+                              </button>
+                            </div>
+                          </div>
+                        </div>
                       </div>
+                    </div>
+                  </div>
+                </div>
+
+                <div *ngIf="hasMore" class="row">
+                  <div class="col-md-4 col-sm-6 offset-sm-3 offset-lg-4">
+                    <div class="text-center">
+                      <button type="button" class="btn btn-secondary btn-rounded btn-fw">Load More</button>
                     </div>
                   </div>
                 </div>

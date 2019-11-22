@@ -21,6 +21,7 @@ export class EditTemplatePageComponent implements OnInit {
   created: boolean;
   loading: boolean;
   formName: string;
+  submitted: boolean;
 
   constructor(
     private router: Router,
@@ -103,6 +104,7 @@ export class EditTemplatePageComponent implements OnInit {
   }
 
   edit() {
+    this.submitted = true;
     if (this.form.valid) {
       this.editForm();
     }
@@ -112,15 +114,11 @@ export class EditTemplatePageComponent implements OnInit {
   }
 
   preview() {
-    this.router.navigateByUrl('/git_admin/details/form', { state: { form: this._form }});
+    this.router.navigateByUrl('templates/details/form', { state: { form: this._form }});
   }
 
   bringBackForm() {
-    this.router.navigateByUrl('git_admin/setup_form');
-  }
-
-  goHome() {
-    this.router.navigateByUrl('/git_admin');
+    this.router.navigateByUrl('templates/create');
   }
 
 }

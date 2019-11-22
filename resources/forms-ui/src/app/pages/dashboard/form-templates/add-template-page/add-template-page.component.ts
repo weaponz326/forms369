@@ -4,9 +4,7 @@ import * as _ from 'lodash';
 import { Router } from '@angular/router';
 import { DOCUMENT } from '@angular/common';
 import { PageScrollService } from 'ngx-page-scroll-core';
-import { FormsService } from 'src/app/services/forms/forms.service';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
-import { CompanyService } from 'src/app/services/company/company.service';
 import { FormBuilderService } from 'src/app/services/form-builder/form-builder.service';
 import { TemplatesService } from 'src/app/services/templates/templates.service';
 
@@ -18,6 +16,7 @@ import { TemplatesService } from 'src/app/services/templates/templates.service';
 export class AddTemplatePageComponent implements OnInit {
 
   form: FormGroup;
+  formName: string;
   formBuilder: any;
   templateForm: any;
   created: boolean;
@@ -76,6 +75,7 @@ export class AddTemplatePageComponent implements OnInit {
         if (_.toLower(res.message) == 'ok') {
           this.created = true;
           this.templateForm = templateData;
+          this.formName = templateData.name;
         }
         else {
           this.created = false;
@@ -111,15 +111,11 @@ export class AddTemplatePageComponent implements OnInit {
   }
 
   bringBackForm() {
-    this.router.navigateByUrl('git_admin/setup_form');
+    this.router.navigateByUrl('templates/create');
   }
 
   preview() {
-    this.router.navigateByUrl('/git_admin/details/form', { state: { form: this.templateForm }});
-  }
-
-  goHome() {
-    this.router.navigateByUrl('/git_admin');
+    this.router.navigateByUrl('templates/details/form', { state: { form: this.templateForm }});
   }
 
 }

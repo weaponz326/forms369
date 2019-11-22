@@ -1,5 +1,5 @@
 <form [formGroup]="form" (ngSubmit)="edit()" class="pt-3">
-  <div class="form-group">
+  <div *ngIf="!isAdmin" class="form-group">
     <select class="form-control form-control-lg" formControlName="userType"
       [ngClass]="{'input-control-error': submitted && f.userType.errors}" (change)="onUserSelect($event)">
       <option value="" disabled>Choose User Type</option>

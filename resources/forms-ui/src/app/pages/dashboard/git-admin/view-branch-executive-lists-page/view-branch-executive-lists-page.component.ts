@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import * as _ from 'lodash';
 import { UserTypes } from 'src/app/enums/user-types.enum';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-view-branch-executive-lists-page',
@@ -12,12 +13,22 @@ export class ViewBranchExecutiveListsPageComponent implements OnInit {
   userType: number;
   hasNoAccount: boolean;
 
-  constructor() {
+  constructor(private router: Router) {
     this.userType = UserTypes.BranchSuperExecutive;
   }
 
   ngOnInit() {
   }
+
+  edit(id: any) {
+    this.router.navigateByUrl('/git_admin/edit/user_account', { state: { id: id }});
+  }
+
+  view(id: any) {
+    this.router.navigateByUrl('git_admin/details/user_account', { state: { id: id }});
+  }
+
+  delete(id: any) {}
 
   dataLoaded(ev: any) {
     if (_.isNull(ev)) {

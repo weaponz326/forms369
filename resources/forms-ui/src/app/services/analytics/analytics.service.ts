@@ -198,7 +198,7 @@ export class AnalyticsService {
    */
   getCompanyFormCount(merchant_id: string): Promise<any> {
     return new Promise((resolve, reject) => {
-      const url =- this.endpointService.apiHost + 'api/v1/' + merchant_id;
+      const url = this.endpointService.apiHost + 'api/v1/' + merchant_id;
       this.http.get(url, { headers: this.headers }).subscribe(
         res => {
           console.log('forms: ' + res);

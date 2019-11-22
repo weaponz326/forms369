@@ -24,8 +24,6 @@ Route::get('signup/activate/{token}', 'HomeController@signupActivate')->name('si
 //login user 
 Route::post('login', 'HomeController@login')->name('login');
 
-
-
 //protected routes 
 Route::group(['middleware' => ['auth:api'], 'prefix' => 'v1'], function(){
 
