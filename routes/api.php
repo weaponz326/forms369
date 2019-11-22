@@ -24,9 +24,6 @@ Route::get('signup/activate/{token}', 'HomeController@signupActivate')->name('si
 //login user 
 Route::post('login', 'HomeController@login')->name('login');
 
-//getuser mac address 
-Route::get('getMACAddress', 'AccessController@getMACAddress')->name('getMACAddress');
-
 
 
 //protected routes 
