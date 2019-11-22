@@ -65,6 +65,8 @@ import { AdminViewFrontDesksPageComponent } from './pages/dashboard/admin/admin-
 import { AdminViewBranchesPageComponent } from './pages/dashboard/admin/admin-view-branches-page/admin-view-branches-page.component';
 import { AdminViewAccountDetailsPageComponent } from './pages/dashboard/admin/admin-view-account-details-page/admin-view-account-details-page.component';
 import { AdminViewBranchDetailsPageComponent } from './pages/dashboard/admin/admin-view-branch-details-page/admin-view-branch-details-page.component';
+import { CreateAccessCodePageComponent } from './pages/dashboard/git-admin/create-access-code-page/create-access-code-page.component';
+import { AuthPageComponent } from './pages/auth-page/auth-page.component';
 
 const routes: Routes = [
   {
@@ -74,6 +76,10 @@ const routes: Routes = [
   {
     path: 'login',
     component: LoginPageComponent
+  },
+  {
+    path: 'auth',
+    component: AuthPageComponent
   },
   {
     path: 'register',
@@ -109,6 +115,10 @@ const routes: Routes = [
           {
             path: 'user_account',
             component: CreateUserAccountPageComponent
+          },
+          {
+            path: 'access_code',
+            component: CreateAccessCodePageComponent
           }
         ]
       },

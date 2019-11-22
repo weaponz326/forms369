@@ -88,6 +88,8 @@ import { AdminViewBranchDetailsPageComponent } from './pages/dashboard/admin/adm
 import { BranchAdminHomePageComponent } from './pages/dashboard/branch-admin/branch-admin-home-page/branch-admin-home-page.component';
 import { BranchAdminCreateUserPageComponent } from './pages/dashboard/branch-admin/branch-admin-create-user-page/branch-admin-create-user-page.component';
 import { BranchAdminEditUserPageComponent } from './pages/dashboard/branch-admin/branch-admin-edit-user-page/branch-admin-edit-user-page.component';
+import { CreateAccessCodePageComponent } from './pages/dashboard/git-admin/create-access-code-page/create-access-code-page.component';
+import { AuthPageComponent } from './pages/auth-page/auth-page.component';
 
 @NgModule({
   declarations: [
@@ -166,6 +168,8 @@ import { BranchAdminEditUserPageComponent } from './pages/dashboard/branch-admin
     BranchAdminHomePageComponent,
     BranchAdminCreateUserPageComponent,
     BranchAdminEditUserPageComponent,
+    CreateAccessCodePageComponent,
+    AuthPageComponent,
   ],
   imports: [
     BrowserModule,
