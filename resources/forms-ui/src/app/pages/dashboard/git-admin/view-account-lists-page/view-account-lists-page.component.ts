@@ -17,6 +17,7 @@ import { FrontDeskService } from 'src/app/services/front-desk/front-desk.service
 })
 export class ViewAccountListsPageComponent implements OnInit {
 
+  user: string;
   loading: boolean;
   hasError: boolean;
   hasNoData: boolean;
@@ -83,18 +84,23 @@ export class ViewAccountListsPageComponent implements OnInit {
     console.log('running: ' + this.userType);
     switch (this.userType) {
       case UserTypes.BranchAdmin:
+        this.user = 'Branch Admin';
         this.getBranchAdminAccounts();
         break;
       case UserTypes.BranchSuperExecutive:
+        this.user = 'Branch Super Executive';
         this.getBranchSuperExecutiveAccounts();
         break;
       case UserTypes.CompanyAdmin:
+        this.user = 'Company Admin';
         this.getCompanyAdminAccounts();
         break;
       case UserTypes.FrontDesk:
+        this.user = 'Front Desk';
         this.getFrontDeskAccounts();
         break;
       case UserTypes.GitAdmin:
+        this.user = 'Git Admin';
         this.getGitAdminAccounts();
         break;
       case UserTypes.SuperExecutive:
