@@ -8,7 +8,7 @@ import { Router } from '@angular/router';
   styleUrls: ['./create-user-page.component.css']
 })
 export class CreateUserAccountPageComponent implements OnInit {
-
+  url: string;
   created: boolean;
   userType: string;
   emailInUse: boolean;
@@ -19,7 +19,7 @@ export class CreateUserAccountPageComponent implements OnInit {
   ngOnInit() { }
 
   goHome() {
-    this.router.navigateByUrl('/git_admin');
+    this.router.navigateByUrl(this.url);
   }
 
   bringBackForm() {
@@ -45,20 +45,29 @@ export class CreateUserAccountPageComponent implements OnInit {
   getUserType(ev: any) {
     console.log('user_type: ' + UserTypes.SuperExecutive);
     switch (Number(ev)) {
+      case UserTypes.GitAdmin:
+        this.userType = 'GIT Admin';
+        this.url = 'git_admin/lists/admin';
+        break;
       case UserTypes.BranchAdmin:
         this.userType = 'Branch Admin';
+        this.url = 'git_admin/lists/branch_admin';
         break;
       case UserTypes.BranchSuperExecutive:
         this.userType = 'Branch Super Executive';
+        this.url = 'git_admin/lists/branch_executive';
         break;
       case UserTypes.CompanyAdmin:
         this.userType = 'Company Admin';
+        this.url = 'git_admin/lists/company_admin';
         break;
       case UserTypes.FrontDesk:
         this.userType = 'Front Desk';
+        this.url = 'git_admin/lists/front_desk';
         break;
       case UserTypes.SuperExecutive:
         this.userType = 'Super Executive';
+        this.url = 'git_admin/lists/super_executive';
         break;
       default:
         break;

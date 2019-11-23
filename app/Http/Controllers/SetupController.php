@@ -50,7 +50,7 @@ class SetupController extends Controller
             if($upload)
             {
                 $logo = $url;
-                    //return Response::json($url);
+                    return Response::json($url);
             }else{
                 return Reponse::json('Logo upload unsuccessful');
             }
