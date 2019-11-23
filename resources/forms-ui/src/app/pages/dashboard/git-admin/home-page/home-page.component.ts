@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { AnalyticsService } from 'src/app/services/analytics/analytics.service';
 import { LocalStorageService } from 'src/app/services/storage/local-storage.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-home-page',
@@ -20,6 +21,7 @@ export class HomePageComponent implements OnInit {
   numTotalInActiveBranches: string;
 
   constructor(
+    private router: Router,
     private analyticService: AnalyticsService,
     private localStorageService: LocalStorageService
   ) {
@@ -30,11 +32,17 @@ export class HomePageComponent implements OnInit {
     this.getAnalytics();
   }
 
-  openCompanies() {}
+  openCompanies() {
+    this.router.navigateByUrl('git_admin/lists/company');
+  }
 
-  openBranches() {}
+  openBranches() {
+    this.router.navigateByUrl('git_admin/lists/branch');
+  }
 
-  openForms() {}
+  openForms() {
+    this.router.navigateByUrl('git_admin/lists/form');
+  }
 
   getBranchAnalytics() {
     this.analyticService.getBranchCount().then(
