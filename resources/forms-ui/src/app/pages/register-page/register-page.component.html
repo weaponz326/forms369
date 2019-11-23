@@ -4,7 +4,7 @@
       <div class="row w-100 mx-0">
         <div class="col-lg-4 mx-auto">
           <div class="auth-form-light text-left py-5 px-4 px-sm-5">
-            <a href="/" class="brand-logo">
+            <a routerLink="/" class="brand-logo">
               <img src="../assets/images/logo.png" alt="logo">
             </a>
             <div *ngIf="created" class="mt-2 mb-5">
@@ -14,7 +14,7 @@
                 <hr>
                 <p class="mb-0 lead">Please check your email and click the activation link in the email. Thank You!</p>
               </div>
-              <a role="button" href="/login" class="btn btn-block btn-primary btn-lg font-weight-medium auth-form-btn">Log In</a>
+              <a role="button" routerLink="/login" class="btn btn-block btn-primary btn-lg font-weight-medium auth-form-btn">Log In</a>
             </div>
 
             <div *ngIf="emailInUse" class="mt-2 mb-5">
@@ -27,8 +27,7 @@
                 <hr>
                 <p class="mb-0 lead">There is already an account with the email address you just provided.</p>
               </div>
-              <a role="button" href="/login"
-                class="btn btn-block btn-primary btn-lg font-weight-medium auth-form-btn">Log In</a>
+              <a role="button" routerLink="/login" class="btn btn-block btn-primary btn-lg font-weight-medium auth-form-btn">Log In</a>
             </div>
 
             <h4 *ngIf="!created">New here?</h4>
@@ -99,15 +98,15 @@
                 </button>
               </div>
               <div class="text-center mt-4 font-weight-light">
-                Already have an account? <a href="/login" class="text-primary">Login</a>
+                Already have an account? <a routerLink="/login" class="text-primary">Login</a>
               </div>
             </form>
           </div>
         </div>
       </div>
     </div>
-    <!-- content-wrapper ends -->
+    <!-- content ends -->
   </div>
-  <!-- page-body-wrapper ends -->
+  <!-- page-body ends -->
 </div>
-<!-- container-scroller -->
+<!-- container -->
