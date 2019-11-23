@@ -40,6 +40,10 @@ export class AccountService {
     });
   }
 
+  verifyAccessCode(access_code: string): Promise<boolean> {
+    return new Promise((resolve, reject) => {});
+  }
+
   /**
    * Creates a new user account.
    *
@@ -57,6 +61,25 @@ export class AccountService {
           resolve(res);
         },
         err => {
+          reject(err);
+        }
+      );
+    });
+  }
+
+  createAccessCode(access_code_data: any): Promise<string> {
+    return new Promise((resolve, reject) => {
+      const body = JSON.stringify(access_code_data);
+      const headers = this.endpointService.headers();
+      const url = this.endpointService.apiHost + 'api/v1/createAccessCode';
+      this.http.post(url, body, { headers: headers }).subscribe(
+        res => {
+          console.log('access code created: ' + JSON.stringify(res));
+          const response = res as any;
+          resolve(response.code);
+        },
+        err => {
+          console.log('access code error: ' + JSON.stringify(err));
           reject(err);
         }
       );

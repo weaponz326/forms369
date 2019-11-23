@@ -37,14 +37,15 @@ class TemplatesController extends Controller
         $user = $request->user();
         $userid = $user['id'];
 
-        //save new merchant in the database
+        //save new template in the database
         try {
             DB::table('templates')->insert(
                 [
                     'name' => $name,
                     'form_fields' => $formfields,
                     'created_by' => $userid, 
-                    'created_at' => $created_at
+                    'created_at' => $created_at,
+                    'temps' => $request->name
                 ]
             );
 
@@ -85,7 +86,7 @@ class TemplatesController extends Controller
         $user = $request->user();
         $userid = $user['id'];
 
-        //save new template in the database
+        //edit template in the database
         try {
             DB::table('templates')
             ->where('id', $id)
@@ -94,7 +95,8 @@ class TemplatesController extends Controller
                     'name' => $name,
                     'form_fields' => $formfields,
                     'updated_by' => $userid, 
-                    'updated_at' => $updated_at
+                    'updated_at' => $updated_at,
+                    'temps' => $request->name
                 ]
             );
 

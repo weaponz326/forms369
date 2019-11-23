@@ -55,7 +55,8 @@ class FormsController extends Controller
                     'status' => $status, 
                     'merchant_id' => $merchant_id,
                     'created_by' => $userid, 
-                    'created_at' => $created_at
+                    'created_at' => $created_at,
+                    'temps' => $request->name
                 ]
             );
 
@@ -116,7 +117,8 @@ class FormsController extends Controller
                     'status' => $status, 
                     'merchant_id' => $merchant_id,
                     'updated_by' => $userid, 
-                    'updated_at' => $updated_at
+                    'updated_at' => $updated_at,
+                    'temps' => $request->name
                 ]
             );
 
@@ -540,7 +542,201 @@ class FormsController extends Controller
     }
 
     
-    
+    /**
+     * createSection create a form section
+     * During form creation, a user can drag and drop form section and all fields for this section will be added 
+     * @param  \Illuminate\Http\Request  $request
+     * @return void\Illuminate\Http\Response success or error message
+     */
+    public function createSection(Request $request)
+    {
+
+        $this->validate($request, [
+            'form_fields' => 'required',
+            'heading' => 'required'
+        ]); 
+       
+
+        //request all data on submit
+        $formfields = Crypt::encryptString(json_encode($request->form_fields));
+        $heading = Crypt::encryptString($request->heading);
+
+        $created_at = now();
+
+        //get user creating the new merchant
+        $user = $request->user();
+        $userid = $user['id'];
+
+        //save new section in the database
+        try {
+            DB::table('sections')->insert(
+                [
+                    'heading' => $heading,
+                    'form_fields' => $formfields,
+                    'created_by' => $userid, 
+                    'created_at' => $created_at,
+                    'temps' => $request->heading
+                ]
+            );
+
+            $message = 'Ok';
+
+        }catch(Exception $e) {
+            $message = "Failed";
+        } 
+            
+        return response()->json([
+            'message' => $message
+        ]);
+    }
+
+    /**
+     * editSection Edit form fields or heading of a section
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @param  \Illuminate\Http\Request  $id of the section to be editted 
+     * @return void\Illuminate\Http\Response success or error message
+     */
+    public function editSection(Request $request, $id)
+    {
+
+        $this->validate($request, [
+            'form_fields' => 'required',
+            'heading' => 'required'
+        ]); 
+       
+
+         //request all data on submit
+         $formfields = Crypt::encryptString(json_encode($request->form_fields));
+         $heading = Crypt::encryptString($request->heading);
+
+        $updated_at = now();
+
+        //get user creating the new template
+        $user = $request->user();
+        $userid = $user['id'];
+
+        //edit section in the database
+        try {
+            DB::table('sections')
+            ->where('id', $id)
+            ->update(
+                [
+                    'heading' => $heading,
+                    'form_fields' => $formfields,
+                    'updated_by' => $userid, 
+                    'updated_at' => $updated_at,
+                    'temps' => $request->heading
+                ]
+            );
+
+            $message = 'Ok';
+
+        }catch(Exception $e) {
+            $message = "Failed";
+        } 
+            
+        return response()->json([
+            'message' => $message
+        ]);
+    }
+
+    /**
+     * getAllSections get all available sections in the database
+     *
+     * @param  mixed $request
+     *
+     * @return void\Illuminate\Http\Response all details of sections
+     */
+    public function getAllSections(Request $request){
+
+        //get all sections
+        $getsections = DB::table('sections')
+        ->get();
+      
+        //clean data
+        $sectionsdata = [];
+
+        $sections = $getsections->map(function($items){
+            $sectionsdata['id'] = $items->id;
+            $sectionsdata['heading'] = Crypt::decryptString($items->heading);
+            $sectionsdata['form_fields'] = json_decode(Crypt::decryptString($items->form_fields));
+            $sectionsdata['created_by'] = $items->created_by;
+            $sectionsdata['created_at'] = $items->created_at;
+            $sectionsdata['updated_at'] = $items->updated_at;
+            $sectionsdata['updated_by'] = $items->updated_by;
+
+            return $sectionsdata;
+         });
+
+         $response = [
+            'sections' => $sections
+        ];
+        return response()->json($response, 200);
+
+    }
+
+     /*
+     *deleteSection deletes a section from teh database 
+     * @param  \Illuminate\Http\Request  $request
+     * @param  \Illuminate\Http\Request  $id of the template to be deleted 
+     * @return void\Illuminate\Http\Response success or error message
+     */
+    public function deleteSection(Request $request, $id)
+    {
+        //delete a template 
+        try {
+            DB::table('sections')
+            ->where('id', $id)
+            ->delete();
+
+            $message = 'Ok';
+
+        }catch(Exception $e) {
+            $message = "Failed";
+        } 
+            
+        return response()->json([
+            'message' => $message
+        ]);
+    }
+
+     /**
+     * searchSectionByHeading search for a section by the heading name in the database 
+     *
+     * @param  mixed $request
+     * @param  mixed $term ;  user serach term
+     * @return void\Illuminate\Http\Response all details of sections matching the search term
+     */
+    public function searchSectionByHeading(Request $request, $term){
+
+        //get all registered companies 
+        $getsections = DB::table('sections')
+        ->select('sections.*')
+        ->where('temps', 'like', '%'.$term.'%')
+        ->get();
+      
+        //clean data
+        $sectionsdata = [];
+
+        $sections = $getsections->map(function($items){
+            $sectionsdata['id'] = $items->id;
+            $sectionsdata['heading'] = Crypt::decryptString($items->heading);
+            $sectionsdata['form_fields'] = json_decode(Crypt::decryptString($items->form_fields));
+            $sectionsdata['created_by'] = $items->created_by;
+            $sectionsdata['created_at'] = $items->created_at;
+            $sectionsdata['updated_at'] = $items->updated_at;
+            $sectionsdata['updated_by'] = $items->updated_by;
+
+            return $sectionsdata;
+
+         });
+         $response = [
+            'sections' => $sections
+        ];
+        return response()->json($response, 200);
+
+    }
 
 
 }   
