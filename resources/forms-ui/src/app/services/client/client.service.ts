@@ -13,9 +13,9 @@ export class ClientService {
     this.headers = this.endpointService.headers();
   }
 
-  submitForm(id: string, code: string, data: any): Promise<any> {
+  submitForm(id: string, code: string, client_data: any, form_data: any): Promise<any> {
     return new Promise((resolve, reject) => {
-      const body = JSON.stringify(data);
+      const body = { client_profile: client_data, form_data: form_data };
       const url = this.endpointService.apiHost + 'api/v1/submitForm/' + id + '/' + code;
       this.http.post(url, body, { headers: this.headers }).subscribe(
         res => {
@@ -104,6 +104,22 @@ export class ClientService {
           reject(err);
         }
       );
+    });
+  }
+
+  autoFillFormData(form_data: Array<any>, client_data: Array<any>) {
+    _.forEach(form_data, (form, i) => {
+      if (!_.isUndefined(form.name)) {
+        const element_names =  document.getElementsByName(form.name);
+        const client_keys = _.keys(client_data);
+        _.forEach(client_keys, (client) => {
+          if (form.name == client) {
+            console.log(form.name);
+            const form_field = element_names.item(innerHeight) as HTMLInputElement;
+            form_field.value = client_data[client];
+          }
+        });
+      }
     });
   }
 
