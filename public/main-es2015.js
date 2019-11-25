@@ -10478,11 +10478,14 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "RegisterPageComponent", function() { return RegisterPageComponent; });
 /* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm2015/core.js");
-/* harmony import */ var ngx_country_picker__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ngx-country-picker */ "./node_modules/ngx-country-picker/index.js");
-/* harmony import */ var _angular_forms__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @angular/forms */ "./node_modules/@angular/forms/fesm2015/forms.js");
-/* harmony import */ var src_app_services_account_account_service__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! src/app/services/account/account.service */ "./src/app/services/account/account.service.ts");
-/* harmony import */ var src_app_models_users_model__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! src/app/models/users.model */ "./src/app/models/users.model.ts");
-/* harmony import */ var src_app_enums_user_types_enum__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! src/app/enums/user-types.enum */ "./src/app/enums/user-types.enum.ts");
+/* harmony import */ var lodash__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! lodash */ "./node_modules/lodash/lodash.js");
+/* harmony import */ var lodash__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(lodash__WEBPACK_IMPORTED_MODULE_2__);
+/* harmony import */ var src_app_models_users_model__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! src/app/models/users.model */ "./src/app/models/users.model.ts");
+/* harmony import */ var src_app_enums_user_types_enum__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! src/app/enums/user-types.enum */ "./src/app/enums/user-types.enum.ts");
+/* harmony import */ var _angular_forms__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @angular/forms */ "./node_modules/@angular/forms/fesm2015/forms.js");
+/* harmony import */ var ngx_country_picker__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ngx-country-picker */ "./node_modules/ngx-country-picker/index.js");
+/* harmony import */ var src_app_services_account_account_service__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! src/app/services/account/account.service */ "./src/app/services/account/account.service.ts");
+
 
 
 
@@ -10509,12 +10512,12 @@ let RegisterPageComponent = class RegisterPageComponent {
     }
     buildForm() {
         this.form = this.formBuilder.group({
-            firstName: ['', _angular_forms__WEBPACK_IMPORTED_MODULE_3__["Validators"].required],
-            lastName: ['', _angular_forms__WEBPACK_IMPORTED_MODULE_3__["Validators"].required],
-            country: ['', _angular_forms__WEBPACK_IMPORTED_MODULE_3__["Validators"].required],
-            username: ['', _angular_forms__WEBPACK_IMPORTED_MODULE_3__["Validators"].required],
-            password: ['', [_angular_forms__WEBPACK_IMPORTED_MODULE_3__["Validators"].minLength(6), _angular_forms__WEBPACK_IMPORTED_MODULE_3__["Validators"].required]],
-            emailAddress: ['', [_angular_forms__WEBPACK_IMPORTED_MODULE_3__["Validators"].email, _angular_forms__WEBPACK_IMPORTED_MODULE_3__["Validators"].required]]
+            firstName: ['', _angular_forms__WEBPACK_IMPORTED_MODULE_5__["Validators"].required],
+            lastName: ['', _angular_forms__WEBPACK_IMPORTED_MODULE_5__["Validators"].required],
+            country: ['', _angular_forms__WEBPACK_IMPORTED_MODULE_5__["Validators"].required],
+            username: ['', _angular_forms__WEBPACK_IMPORTED_MODULE_5__["Validators"].required],
+            password: ['', [_angular_forms__WEBPACK_IMPORTED_MODULE_5__["Validators"].minLength(6), _angular_forms__WEBPACK_IMPORTED_MODULE_5__["Validators"].required]],
+            emailAddress: ['', [_angular_forms__WEBPACK_IMPORTED_MODULE_5__["Validators"].email, _angular_forms__WEBPACK_IMPORTED_MODULE_5__["Validators"].required]]
         });
     }
     onCountrySelect(e) {
@@ -10529,7 +10532,7 @@ let RegisterPageComponent = class RegisterPageComponent {
         const country = this.f.country.value;
         const username = this.f.username.value;
         const password = this.f.password.value;
-        const user = new src_app_models_users_model__WEBPACK_IMPORTED_MODULE_5__["Users"](fname, lname, email, password, username, country, password, src_app_enums_user_types_enum__WEBPACK_IMPORTED_MODULE_6__["UserTypes"].Client);
+        const user = new src_app_models_users_model__WEBPACK_IMPORTED_MODULE_3__["Users"](fname, lname, email, password, username, country, password, src_app_enums_user_types_enum__WEBPACK_IMPORTED_MODULE_4__["UserTypes"].Client);
         return user;
     }
     register() {
@@ -10546,7 +10549,7 @@ let RegisterPageComponent = class RegisterPageComponent {
             const user = this.getFormData();
             this.accountService.createAccount(user).then(res => {
                 const response = res;
-                if (response.message.toLowerCase() == 'ok') {
+                if (!lodash__WEBPACK_IMPORTED_MODULE_2__["isUndefined"](response.id)) {
                     this.form.enable();
                     this.loading = false;
                     this.created = true;
@@ -10565,15 +10568,14 @@ let RegisterPageComponent = class RegisterPageComponent {
     }
 };
 RegisterPageComponent.ctorParameters = () => [
-    { type: _angular_forms__WEBPACK_IMPORTED_MODULE_3__["FormBuilder"] },
-    { type: src_app_services_account_account_service__WEBPACK_IMPORTED_MODULE_4__["AccountService"] },
-    { type: ngx_country_picker__WEBPACK_IMPORTED_MODULE_2__["CountryPickerService"] }
+    { type: _angular_forms__WEBPACK_IMPORTED_MODULE_5__["FormBuilder"] },
+    { type: src_app_services_account_account_service__WEBPACK_IMPORTED_MODULE_7__["AccountService"] },
+    { type: ngx_country_picker__WEBPACK_IMPORTED_MODULE_6__["CountryPickerService"] }
 ];
 RegisterPageComponent = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
     Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Component"])({
         selector: 'app-register-page',
         template: __webpack_require__(/*! raw-loader!./register-page.component.html */ "./node_modules/raw-loader/index.js!./src/app/pages/register-page/register-page.component.html"),
-        providers: [src_app_services_account_account_service__WEBPACK_IMPORTED_MODULE_4__["AccountService"]],
         styles: [__webpack_require__(/*! ./register-page.component.css */ "./src/app/pages/register-page/register-page.component.css")]
     })
 ], RegisterPageComponent);
@@ -12227,6 +12229,7 @@ let FormBuilderService = class FormBuilderService {
                         type: 'text',
                         name: 'firstname',
                         label: 'First Name',
+                        required: true,
                         className: this.formFieldClassName
                     }
                 ]

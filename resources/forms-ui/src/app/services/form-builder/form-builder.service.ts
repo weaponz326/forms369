@@ -41,6 +41,7 @@ export class FormBuilderService {
             type: 'text',
             name: 'firstname',
             label: 'First Name',
+            required: true,
             className: this.formFieldClassName
           }
         ]
@@ -53,6 +54,7 @@ export class FormBuilderService {
             type: 'text',
             name: 'lastname',
             label: 'Last Name',
+            required: true,
             className: this.formFieldClassName
           }
         ]
@@ -65,6 +67,7 @@ export class FormBuilderService {
             type: 'text',
             name: 'middle-name',
             label: 'Middle Name',
+            required: true,
             className: this.formFieldClassName
           }
         ]
@@ -77,6 +80,7 @@ export class FormBuilderService {
             type: 'text',
             name: 'full-name',
             label: 'Full Name',
+            required: true,
             className: this.formFieldClassName
           }
         ]
@@ -89,6 +93,7 @@ export class FormBuilderService {
             type: 'text',
             name: 'email-address',
             label: 'Email Address',
+            required: true,
             className: this.formFieldClassName
           }
         ]
@@ -101,6 +106,7 @@ export class FormBuilderService {
             type: 'text',
             name: 'phone-number',
             label: 'Phone Number',
+            required: true,
             className: this.formFieldClassName
           }
         ]
@@ -113,6 +119,7 @@ export class FormBuilderService {
             type: 'text',
             name: 'age',
             label: 'Age',
+            required: true,
             className: this.formFieldClassName
           }
         ]
@@ -125,6 +132,7 @@ export class FormBuilderService {
             type: 'date',
             name: 'd-o-b',
             label: 'Date of Birth',
+            required: true,
             className: this.formFieldClassName
           }
         ]
@@ -137,6 +145,7 @@ export class FormBuilderService {
             type: 'text',
             name: 'p-o-b',
             label: 'Place of Birth',
+            required: true,
             className: this.formFieldClassName
           }
         ]
@@ -149,6 +158,7 @@ export class FormBuilderService {
             type: 'text',
             name: 'country',
             label: 'Country',
+            required: true,
             className: this.formFieldClassName
           }
         ]
@@ -161,6 +171,7 @@ export class FormBuilderService {
             type: 'text',
             name: 'city',
             label: 'City',
+            required: true,
             className: this.formFieldClassName
           }
         ]
@@ -173,6 +184,7 @@ export class FormBuilderService {
             type: 'text',
             name: 'p-o-box',
             label: 'P.O Box',
+            required: true,
             className: this.formFieldClassName
           }
         ]
@@ -185,6 +197,7 @@ export class FormBuilderService {
             type: 'text',
             name: 'house-address',
             label: 'House Address',
+            required: true,
             className: this.formFieldClassName
           }
         ]
@@ -197,6 +210,7 @@ export class FormBuilderService {
             type: 'text',
             name: 'street-name',
             label: 'Street Name',
+            required: true,
             className: this.formFieldClassName
           }
         ]
@@ -209,6 +223,7 @@ export class FormBuilderService {
             type: 'radio-group',
             name: 'gender',
             label: 'Gender',
+            required: true,
             values: [
               {
                 label: 'Male',
@@ -232,6 +247,7 @@ export class FormBuilderService {
             type: 'file',
             name: 'file',
             label: 'Photo',
+            required: true,
             className: this.formFieldClassName
           }
         ]
@@ -245,6 +261,7 @@ export class FormBuilderService {
             name: 'pin-code',
             label: 'Pin Code',
             maxLength: 6,
+            required: true,
             className: this.formFieldClassName
           }
         ]
@@ -255,6 +272,7 @@ export class FormBuilderService {
         fields: [
           {
             type: 'text',
+            required: true,
             name: 'driver-license',
             label: 'Driver\s License',
             className: this.formFieldClassName
@@ -267,6 +285,7 @@ export class FormBuilderService {
         fields: [
           {
             type: 'text',
+            required: true,
             name: 'voter-id',
             label: 'Voter\s ID No.',
             className: this.formFieldClassName
@@ -279,6 +298,7 @@ export class FormBuilderService {
         fields: [
           {
             type: 'text',
+            required: true,
             name: 'amount',
             label: 'Amount',
             className: this.formFieldClassName
