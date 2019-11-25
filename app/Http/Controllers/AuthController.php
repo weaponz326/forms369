@@ -600,7 +600,9 @@ class AuthController extends Controller
         //get user and user id and log user activity
         $user = $request->user();
         $id = $user['id'];
+        $first_time = $user['first_time'];
         $user_type = $user['usertype'];
+
         
         //generate a token with the right scopes based on the usertype
         if($user_type == 20)

@@ -22,7 +22,7 @@ Route::post('registerUser', 'HomeController@createNewUser')->name('registerUser'
 Route::get('signup/activate/{token}', 'HomeController@signupActivate')->name('signup/activate');
 
 //login user 
-Route::post('login', 'HomeController@login')->name('login')->middleware('checkAccess');
+Route::post('login', 'HomeController@login')->name('login');//->middleware('checkAccess');
 //check access code
 Route::post('ValidateAccessCode/{code}', 'HomeController@ValidateAccessCode')->name('ValidateAccessCode');                                     
 

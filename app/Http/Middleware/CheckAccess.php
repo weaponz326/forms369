@@ -20,7 +20,8 @@ class CheckAccess
 
         //if access code does not exist, redirect to access code page
         if (empty($accesscode)) {
-            return redirect('auth');
+            //return redirect()->route('auth');
+            return response()->json(['message' => 'Np_access_code']);
 
         }else{
             $exist = DB::table('access')->where('accesscode', '=', $accesscode)->first();
@@ -30,7 +31,7 @@ class CheckAccess
 
             }else{
 
-                return response()->json(['message' => 'Re-enter access code']);
+                return response()->json(['message' => 'Re-enter_access_code']);
 
             }
                 
