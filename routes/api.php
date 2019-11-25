@@ -22,7 +22,7 @@ Route::post('registerUser', 'HomeController@createNewUser')->name('registerUser'
 Route::get('signup/activate/{token}', 'HomeController@signupActivate')->name('signup/activate');
 
 //login user 
-Route::post('login', 'HomeController@login')->name('login')->middleware('checkAccess');
+Route::post('login', 'HomeController@login')->name('login');//->middleware('checkAccess')
 
 //protected routes 
 Route::group(['middleware' => ['auth:api'], 'prefix' => 'v1'], function(){

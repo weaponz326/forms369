@@ -229,7 +229,7 @@ const routes: Routes = [
         component: ClientListBranchesPageComponent
       },
       {
-        path: 'forms/:company',
+        path: 'forms',
         component: ClientListFormsPageComponent
       },
       {
@@ -241,7 +241,7 @@ const routes: Routes = [
         component: ClientFormsHistoryPageComponent
       },
       {
-        path: 'form_entry/:form',
+        path: 'form_entry',
         component: ClientFormsEntryPageComponent
       },
       {

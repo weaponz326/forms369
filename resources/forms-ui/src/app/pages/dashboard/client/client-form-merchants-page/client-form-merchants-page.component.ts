@@ -38,11 +38,11 @@ export class ClientFormMerchantsPageComponent implements OnInit {
   }
 
   open(company: any) {
-    this.router.navigateByUrl('/client/forms/' + company.id, { state: { company: company }});
+    this.router.navigateByUrl('/client/forms', { state: { company: company }});
   }
 
   openForm(form: any) {
-    this.router.navigateByUrl('/client/form_entry/' + form.form_code, { state: { form: form }});
+    this.router.navigateByUrl('/client/form_entry', { state: { form: form }});
   }
 
   getCompanies() {

@@ -36,7 +36,7 @@ export class ClientListFormsPageComponent implements OnInit {
   }
 
   open(form: any) {
-    this.router.navigateByUrl('/client/form_entry/' + form.form_code, { state: { form: form }});
+    this.router.navigateByUrl('/client/form_entry', { state: { form: form }});
   }
 
   searchByFormCode() {

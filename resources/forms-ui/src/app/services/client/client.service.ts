@@ -16,8 +16,9 @@ export class ClientService {
   submitForm(id: string, code: string, client_data: any, form_data: any): Promise<any> {
     return new Promise((resolve, reject) => {
       const body = { client_profile: client_data, form_data: form_data };
+      console.log('Body: ' + JSON.stringify(body));
       const url = this.endpointService.apiHost + 'api/v1/submitForm/' + id + '/' + code;
-      this.http.post(url, body, { headers: this.headers }).subscribe(
+      this.http.post(url, JSON.stringify(body), { headers: this.headers }).subscribe(
         res => {
           console.log('form_submitted: ' + JSON.stringify(res));
           resolve(res);
@@ -107,6 +108,15 @@ export class ClientService {
     });
   }
 
+  /**
+   * Auto fills any form with the users already existing data.
+   * NOTE: This is the most critical method of the application and should
+   * always remain bug free.
+   *
+   * @param {Array<any>} form_data
+   * @param {Array<any>} client_data
+   * @memberof ClientService
+   */
   autoFillFormData(form_data: Array<any>, client_data: Array<any>) {
     _.forEach(form_data, (form, i) => {
       if (!_.isUndefined(form.name)) {
@@ -115,12 +125,37 @@ export class ClientService {
         _.forEach(client_keys, (client) => {
           if (form.name == client) {
             console.log(form.name);
-            const form_field = element_names.item(innerHeight) as HTMLInputElement;
-            form_field.value = client_data[client];
+            _.forEach(element_names, (element) => {
+              const form_field = element as HTMLInputElement;
+              // we check if the element is a radio button, checkbox or and input field
+              if (form_field.getAttribute('type') == 'radio') {
+                // this is a radio button.
+                const radio_label = form_field.nextElementSibling.textContent;
+                if (_.toLower(radio_label) == _.toLower(client_data[client])) {
+                  form_field.value = client_data[client];
+                  form_field.checked = true;
+                }
+              }
+              else {
+                // this is a text input.
+                form_field.value = client_data[client];
+              }
+            });
           }
         });
       }
     });
+  }
+
+  getUpdatedClientFormData(new_form_data: any, existing_client_data: any) {
+    const obj = _.toPlainObject(new_form_data);
+    const keys = _.keys(obj);
+    console.log('client_k: ' + _.keys(existing_client_data)[0]);
+    _.forEach(keys, (key, i) => {
+      existing_client_data[key] = obj[key];
+    });
+
+    return JSON.stringify(existing_client_data);
   }
 
   /**
