@@ -314,7 +314,8 @@ export class FormBuilderService {
       console.log(url);
       this.http.get(url, { headers: this.headers }).subscribe(
         (res: any) => {
-          const client = res.client[0];
+          console.log('client_data: ' + res.client);
+          const client = res.client;
           resolve(client);
         },
         err => {
