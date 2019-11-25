@@ -224,13 +224,24 @@ export class CreateCompanyPageComponent implements OnInit {
     this.router.navigateByUrl('/git_admin');
   }
 
+  cancel() {
+    this.logoImage = '';
+    this.hasLogo = false;
+    this.f.name.setValue('');
+    this.f.country.setValue("");
+    this.f.companyAdmin.setValue("");
+    this.f.superExecutive.setValue("");
+  }
+
   bringBackForm() {
     this.form.reset();
     this.logoImage = '';
     this.hasLogo = false;
     this.submitted = false;
     this.created = !this.created;
-    this.countryPickerService.getCountries().subscribe(countries => { this.countriesList = countries; });
+    this.countryPickerService.getCountries().subscribe(countries => {
+      this.countriesList = countries;
+    });
   }
 
 }

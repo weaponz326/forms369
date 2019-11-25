@@ -13,9 +13,9 @@
                   <p class="mb-md-0">Your analytics dashboard template.</p>
                 </div>
                 <div class="d-flex">
-                  <i class="mdi mdi-home text-muted hover-cursor"></i>
+                  <!-- <i class="mdi mdi-home text-muted hover-cursor"></i>
                   <p class="text-muted mb-0 hover-cursor">&nbsp;/&nbsp;Home&nbsp;/&nbsp;</p>
-                  <p class="text-primary mb-0 hover-cursor">Company</p>
+                  <p class="text-primary mb-0 hover-cursor">Company</p> -->
                 </div>
               </div>
             </div>
@@ -45,7 +45,7 @@
                         <img #selectedLogo [src]="logoImage" alt="" class="img-circle">
                         <br>
                         <i *ngIf="!hasLogo" class="mdi mdi-account-supervisor-circle"
-                          style="font-size: 15em; color: #666;"></i>
+                          style="font-size: 10em; color: #666;"></i>
                         <br>
                         <input #logoFile type="file" formControlName="logo" (change)="inputFileChanged($event)"
                           style="overflow: hidden; height: 0px; width: 0px;">
@@ -130,8 +130,7 @@
                               class="form-control form-control-lg file-upload-info" readonly
                               placeholder="Upload Small Logo">
                             <span class="input-group-append">
-                              <button class="file-upload-browse btn btn-primary" type="button"
-                                (click)="showFilePicker_1()">Choose Logo</button>
+                              <button class="file-upload-browse btn btn-primary" type="button" (click)="showFilePicker_1()">Choose Logo</button>
                             </span>
                           </div>
                         </div>
@@ -144,7 +143,7 @@
                             Please wait...
                           </button>
                           <button *ngIf="!loading" type="submit" class="btn btn-primary btn-lg mr-2">SUBMIT</button>
-                          <button class="btn btn-light btn-lg">CANCEL</button>
+                          <button type="button" class="btn btn-light btn-lg" (click)="cancel()">CANCEL</button>
                         </div>
                       </div>
                     </div>
@@ -185,3 +184,23 @@
     </div>
   </div>
 </div>
+
+<ng-template #confirm let-modal>
+  <div class="modal-header">
+    <h4 class="modal-title" id="modal-title">Cancel ?</h4>
+    <button type="button" class="close" aria-describedby="modal-title" (click)="modal.dismiss('closed')">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <p><strong>Are you sure you want to cancel <span class="text-primary">the creation of this company</span> ?</strong>
+    </p>
+    <p>All information provided will be permanently lost.
+      <span class="text-danger">This operation can not be undone.</span>
+    </p>
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-outline-secondary" (click)="modal.dismiss('no')">No</button>
+    <button type="button" class="btn btn-danger" (click)="modal.close('yes')">Yes</button>
+  </div>
+</ng-template>

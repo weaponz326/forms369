@@ -226,6 +226,13 @@ export class CreateBranchPageComponent implements OnInit {
     this.router.navigateByUrl('/git_admin');
   }
 
+  cancel() {
+    this.f.merchant.setValue('');
+    this.f.branchName.setValue('');
+    this.f.branchAdmin.setValue('');
+    this.f.branchSupervisor.setValue('');
+  }
+
   bringBackForm() {
     this.form.reset();
     this.submitted = false;
