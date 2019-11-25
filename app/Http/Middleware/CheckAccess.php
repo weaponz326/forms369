@@ -20,7 +20,7 @@ class CheckAccess
 
         //if access code does not exist, redirect to access code page
         if (empty($accesscode)) {
-            return redirect('auth');
+            return redirect()->route('auth');
 
         }else{
             $exist = DB::table('access')->where('accesscode', '=', $accesscode)->first();

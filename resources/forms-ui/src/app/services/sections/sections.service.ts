@@ -16,6 +16,16 @@ export class SectionsService {
     return new Promise((resolve, reject) => {
       const body = JSON.stringify(section);
       const url = this.endpointService.apiHost + 'api/v1/createSection';
+      this.http.post(url, body, { headers: this.headers }).subscribe(
+        res => {
+          console.log('res: ' + JSON.stringify(res));
+          resolve(res);
+        },
+        err => {
+          console.log('res: ' + JSON.stringify(err));
+          reject(err);
+        }
+      );
     });
   }
 
@@ -23,6 +33,16 @@ export class SectionsService {
     return new Promise((resolve, reject) => {
       const body = JSON.stringify(section);
       const url = this.endpointService.apiHost + 'api/v1/editSection/' + section_id;
+      this.http.post(url, body, { headers: this.headers }).subscribe(
+        res => {
+          console.log('res: ' + JSON.stringify(res));
+          resolve(res);
+        },
+        err => {
+          console.log('res: ' + JSON.stringify(err));
+          reject(err);
+        }
+      );
     });
   }
 
