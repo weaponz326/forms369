@@ -568,7 +568,7 @@ class AuthController extends Controller
                 $error_response = [
                     'message' => 'EMAIL_NOT_CONFIRMED'
                 ];
-                return response()->json($error_response, 200);
+                return response()->json($error_response, 400);
             }
 
             $attemptuserusername = User::where('username', '=', $request->username)->first();
