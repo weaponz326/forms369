@@ -11,6 +11,8 @@ use Illuminate\Support\Facades\Crypt;
 use App\User;
 use App\Notifications\SignupActivate;
 use Carbon\Carbon;
+
+use Session;
 use Auth;
 use Illuminate\Pagination\Paginator;
 
@@ -18,6 +20,50 @@ class AuthController extends Controller
 {
    
     
+  /**
+    * Reset user password at first login
+    * @param  mixed $request
+    *
+    * @return \Illuminate\Http\Response success or error message
+    */
+    public function resetPassword(Request $request)
+    {
+        $user = Session::get('forms_user'); 
+        $userid = $user['id'];
+       
+        //get and validate user details
+        $this->validate($request, [
+            'new_password' => 'required|confirmed|min:8'
+        ]);
+
+        $password = bcrypt($request->new_password);
+        try {
+            //update user password
+            DB::table('users')->where('id', $userid)
+            ->update(
+            [
+                'password' => $password,
+                'first_time' => 0
+                
+            ]);
+
+            Auth::logout();
+
+            return response()->json([
+                'message' => 'Ok'
+            ], 200);
+
+        }catch(Exception $e) {
+            
+            return response()->json([
+                'message' => 'Failed'
+            ], 400);
+
+        }
+       
+       
+    }
+
 
     /**
      * createNewUser register a new user: GIT admin, Super Super Exective, 
@@ -603,6 +649,20 @@ class AuthController extends Controller
         $first_time = $user['first_time'];
         $user_type = $user['usertype'];
 
+        if($first_time){
+            if($user_type != 26){
+
+                
+                $user = Session::push('forms_user', $user);
+                
+                $error_response = [
+                    'message' => 'FIRST_LOGIN'
+                ];
+                return response()->json($error_response, 200); 
+            }
+            
+        }
+
         
         //generate a token with the right scopes based on the usertype
         if($user_type == 20)
@@ -690,6 +750,8 @@ class AuthController extends Controller
         $id = $user['id'];
 
         $user->token()->revoke();
+
+        Auth::logout();
         return response()->json([
             'message' => 'Successfully logged out'
         ]);

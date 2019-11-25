@@ -1432,11 +1432,23 @@ class HomeController extends Controller
      * @param  \Illuminate\Http\Request  $code access code provided by user
      * @return void\Illuminate\Http\Response error or success message
      */
-    public function ValidateAccessCode(Request $request, $code)
+    protected function ValidateAccessCode(Request $request, $code)
     {
         $message = (new AccessController)->ValidateAccessCode($request, $code);
         return $message;
     }
 
+    /**
+     * Business logics
+    * Reset user password at first login
+    * @param  mixed $request
+    *
+    * @return \Illuminate\Http\Response success or error message
+    */
+    protected function resetPassword(Request $request)
+    {
+        $message = (new AuthController)->resetPassword($request);
+        return $message;
+    }
     
 }
