@@ -44,7 +44,7 @@ Route::get('master_register', function () {
 Route::get('git_admin', function () {
     View::addExtension('html', 'php');
     return View::make('index');
-});
+})->middleware('checkAccess');
 
 Route::get('git_admin/setup_form', function () {
     View::addExtension('html', 'php');
@@ -211,7 +211,7 @@ Route::get('client/unsent_forms', function () {
 Route::get('front_desk', function () {
     View::addExtension('html', 'php');
     return View::make('index');
-});
+})->middleware('checkAccess');
 
 Route::get('front_desk/view_form', function () {
     View::addExtension('html', 'php');
@@ -255,7 +255,7 @@ Route::get('front_desk/lists/processed', function () {
 Route::get('admin', function () {
     View::addExtension('html', 'php');
     return View::make('index');
-});
+})->middleware('checkAccess');
 
 Route::get('admin/create/form', function () {
     View::addExtension('html', 'php');
