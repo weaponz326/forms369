@@ -8,12 +8,11 @@ import { AccountService } from 'src/app/services/account/account.service';
 import { LocalStorageService } from 'src/app/services/storage/local-storage.service';
 
 @Component({
-  selector: 'app-login-page',
-  templateUrl: './login-page.component.html',
-  styleUrls: ['./login-page.component.css']
+  selector: 'app-admin-login-page',
+  templateUrl: './admin-login-page.component.html',
+  styleUrls: ['./admin-login-page.component.css']
 })
-export class LoginPageComponent implements OnInit {
-
+export class AdminLoginPageComponent implements OnInit {
   form: FormGroup;
   loading: boolean;
   created: boolean;
@@ -74,9 +73,9 @@ export class LoginPageComponent implements OnInit {
 
   navigateToUserDashboard(user_type: number) {
     if (user_type == UserTypes.Client) {
-      this.router.navigateByUrl('/client');
+      this.router.navigateByUrl('/login');
     }
-    else if (user_type == UserTypes.GitAdmin) {
+    if (user_type == UserTypes.GitAdmin) {
       this.router.navigateByUrl('/git_admin');
     }
     else if (user_type == UserTypes.BranchAdmin) {

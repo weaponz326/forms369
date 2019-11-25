@@ -39,7 +39,7 @@ export class FormBuilderService {
         fields: [
           {
             type: 'text',
-            name: 'first-name',
+            name: 'firstname',
             label: 'First Name',
             className: this.formFieldClassName
           }
@@ -51,7 +51,7 @@ export class FormBuilderService {
         fields: [
           {
             type: 'text',
-            name: 'last-name',
+            name: 'lastname',
             label: 'Last Name',
             className: this.formFieldClassName
           }

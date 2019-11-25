@@ -61,20 +61,16 @@
                 </div>
               </div>
               <div class="mt-3">
-                <button type="submit" *ngIf="!loading" class="btn btn-block btn-primary btn-lg font-weight-medium auth-form-btn">SIGN IN</button>
-                <button type="button" *ngIf="loading" class="btn btn-block btn-primary btn-lg font-weight-medium auth-form-btn" disabled>
+                <button type="submit" *ngIf="!loading"
+                  class="btn btn-block btn-primary btn-lg font-weight-medium auth-form-btn">sign in</button>
+                <button type="button" *ngIf="loading"
+                  class="btn btn-block btn-primary btn-lg font-weight-medium auth-form-btn" disabled>
                   <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span> &nbsp; &nbsp;
                   Please wait...
                 </button>
               </div>
               <div class="mt-3 text-center">
                 <a routerLink="/forgot" class="auth-link text-black">Forgot password?</a>
-              </div>
-              <div class="text-center mt-4 font-weight-light">
-                Don't have an account? <a routerLink="/register" class="text-primary">Create</a>
-              </div>
-              <div class="mt-3 text-center">
-                <a routerLink="/user_auth" class="auth-link text-primary">Login as other user?</a>
               </div>
             </form>
           </div>

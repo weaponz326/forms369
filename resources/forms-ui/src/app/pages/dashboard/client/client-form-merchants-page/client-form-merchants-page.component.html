@@ -141,6 +141,19 @@
             </div>
           </div>
         </div>
+
+        <div *ngIf="!loading && hasData" class="row" style="margin-top: 25px;">
+          <div class="col-md-4 grid-margin stretch-card" *ngFor="let form of formsList">
+            <div class="card hover-cursor animated fadeInDown slow" (click)="openForm(form)">
+              <div class="card-body">
+                <p class="card-title">{{ form.name }}</p>
+                <div class="card-text">
+                  <p class="text-muted">Click to open form and start filling.</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
       <!-- content -->
       <!-- footer -->
