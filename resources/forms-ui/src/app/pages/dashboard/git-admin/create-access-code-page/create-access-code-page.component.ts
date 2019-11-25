@@ -12,14 +12,16 @@ import { AccountService } from 'src/app/services/account/account.service';
 import { LocalStorageService } from 'src/app/services/storage/local-storage.service';
 
 @Component({
-  selector: 'app-create-access-code-page',
-  templateUrl: './create-access-code-page.component.html',
-  styleUrls: ['./create-access-code-page.component.css']
+  selector: "app-create-access-code-page",
+  templateUrl: "./create-access-code-page.component.html",
+  styleUrls: ["./create-access-code-page.component.css"]
 })
 export class CreateAccessCodePageComponent implements OnInit {
-
   form: FormGroup;
   loading: boolean;
+  created: boolean;
+  firstname: string;
+  accessCode: string;
   submitted: boolean;
   branchesList: Array<any>;
   merchantsList: Array<any>;
@@ -39,6 +41,7 @@ export class CreateAccessCodePageComponent implements OnInit {
     this.merchantsList = [];
     this.branchNamesList = [];
     this.merchantNamesList = [];
+    this.firstname = this.localStorage.getUser().firstname;
 
     this.initializeView();
   }
@@ -53,10 +56,10 @@ export class CreateAccessCodePageComponent implements OnInit {
 
   buildForm() {
     this.form = this.formBuilder.group({
-      branch: ['', Validators.required],
-      merchant: ['', Validators.required],
-      deviceName: ['', Validators.required],
-      sourceName: ['', Validators.required]
+      branch: ["", Validators.required],
+      merchant: ["", Validators.required],
+      deviceName: ["", Validators.required],
+      sourceName: ["", Validators.required]
     });
   }
 
@@ -79,12 +82,17 @@ export class CreateAccessCodePageComponent implements OnInit {
     const branch_id = this.getSelectedBranchIdentifier();
     const merchant_id = this.getSelectedMerchantIdentifier();
 
-    return {};
+    return {
+      branch_id: branch_id,
+      merchant_id: merchant_id,
+      device_name: device_name,
+      source_usage: source_name
+    };
   }
 
   getSelectedBranchIdentifier() {
     let branch_id = 0;
-    _.forEach(this.branchesList, (branch) => {
+    _.forEach(this.branchesList, branch => {
       if (branch.branch_name == this.f.branch.value) {
         branch_id = branch.id;
       }
@@ -95,7 +103,7 @@ export class CreateAccessCodePageComponent implements OnInit {
 
   getSelectedMerchantIdentifier() {
     let merchant_id = 0;
-    _.forEach(this.merchantsList, (company) => {
+    _.forEach(this.merchantsList, company => {
       if (company.merchant_name == this.f.merchant.value) {
         merchant_id = company.id;
       }
@@ -110,47 +118,44 @@ export class CreateAccessCodePageComponent implements OnInit {
         const merchants = res as any;
         console.log(JSON.stringify(merchants));
         if (merchants.length != 0) {
-          _.forEach(merchants, (company) => {
+          _.forEach(merchants, company => {
             this.merchantsList.push(company);
             this.merchantNamesList.push(company.merchant_name);
           });
           this.filteredMerchants = this.f.merchant.valueChanges.pipe(
-            startWith('*'),
+            startWith("*"),
             map(value => this.filter(this.merchantNamesList, value))
           );
-        }
-        else {
+        } else {
         }
       },
       err => {
-        console.log('companies_error: ' + JSON.stringify(err));
+        console.log("companies_error: " + JSON.stringify(err));
       }
     );
   }
 
   getCompanyBranches() {
     const id = this.getSelectedMerchantIdentifier();
-    console.log('selected company_id: ' + id);
+    console.log("selected company_id: " + id);
     this.branchService.getBranch(id.toString()).then(
       res => {
         const branches = res as any;
-        console.log('res_length: ' + branches.length);
+        console.log("res_length: " + branches.length);
         if (branches.length != 0) {
-          _.forEach(branches, (branch) => {
+          _.forEach(branches, branch => {
             this.branchesList.push(branch);
             this.branchNamesList.push(branch.branch_name);
-            console.log('branches: ' + this.branchNamesList);
+            console.log("branches: " + this.branchNamesList);
           });
           this.filteredBranches = this.f.branch.valueChanges.pipe(
-            startWith(''),
+            startWith(""),
             map(value => this.filter(this.branchNamesList, value))
           );
-        }
-        else {
+        } else {
         }
       },
-      err => {
-      }
+      err => {}
     );
   }
 
@@ -161,24 +166,27 @@ export class CreateAccessCodePageComponent implements OnInit {
       this.form.enable();
       this.loading = false;
       return;
-    }
-    else {
+    } else {
       this.form.disable();
       const access_code = this.getFormData();
+      console.log("body: " + JSON.stringify(access_code));
       this.accountService.createAccessCode(access_code).then(
         code => {
           console.log(code);
           if (!_.isEmpty(code) || !_.isNull(code)) {
             this.form.enable();
+            this.created = true;
             this.loading = false;
-          }
-          else {
+            this.accessCode = code;
+          } else {
             this.form.enable();
+            this.created = false;
             this.loading = false;
           }
         },
         err => {
           this.form.enable();
+          this.created = false;
           this.loading = false;
           console.log(JSON.stringify(err));
         }
@@ -186,4 +194,10 @@ export class CreateAccessCodePageComponent implements OnInit {
     }
   }
 
+  cancel() {
+    this.f.branch.setValue('');
+    this.f.merchant.setValue('');
+    this.f.deviceName.setValue('');
+    this.f.sourceName.setValue('');
+  }
 }

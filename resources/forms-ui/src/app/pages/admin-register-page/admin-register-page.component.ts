@@ -1,10 +1,11 @@
 import { Component, OnInit } from '@angular/core';
+import * as _ from 'lodash';
+import { Router } from '@angular/router';
+import { Users } from 'src/app/models/users.model';
+import { UserTypes } from 'src/app/enums/user-types.enum';
 import { CountryPickerService, ICountry } from 'ngx-country-picker';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { AccountService } from 'src/app/services/account/account.service';
-import { Users } from 'src/app/models/users.model';
-import { UserTypes } from 'src/app/enums/user-types.enum';
-import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-admin-register-page',
@@ -84,6 +85,10 @@ export class AdminRegisterPageComponent implements OnInit {
     }
   }
 
+  openDashboard() {
+    this.router.navigateByUrl('git_admin');
+  }
+
   register() {
     console.log('yeh');
     this.loading = true;
@@ -99,7 +104,7 @@ export class AdminRegisterPageComponent implements OnInit {
       this.accountService.createAccount(user).then(
         res => {
           const response = res as any;
-          if (response.message.toLowerCase() == 'ok') {
+          if (!_.isNull(response.id) || !_.isUndefined(response.id)) {
             this.form.enable();
             this.loading = false;
             this.created = true;

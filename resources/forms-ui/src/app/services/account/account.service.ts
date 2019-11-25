@@ -70,8 +70,9 @@ export class AccountService {
   createAccessCode(access_code_data: any): Promise<string> {
     return new Promise((resolve, reject) => {
       const body = JSON.stringify(access_code_data);
-      const url = this.endpointService.apiHost + '';
-      this.http.post(url, body, { headers: this.headers }).subscribe(
+      const headers = this.endpointService.headers();
+      const url = this.endpointService.apiHost + 'api/v1/createAccessCode';
+      this.http.post(url, body, { headers: headers }).subscribe(
         res => {
           console.log('access code created: ' + JSON.stringify(res));
           const response = res as any;

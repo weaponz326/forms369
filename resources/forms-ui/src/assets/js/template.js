@@ -52,8 +52,8 @@
 
     //Change sidebar
 
-    $('[data-toggle="minimize"]').on("click", function() {
-      body.toggleClass('sidebar-icon-only');
+    $(document).on("click", '[data-toggle="minimize"]', function() {
+      body.toggleClass("sidebar-icon-only");
     });
 
     //checkbox and radios

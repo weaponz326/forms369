@@ -20,7 +20,7 @@ export class AnalyticsService {
    */
   getCompanyCount(): Promise<string> {
     return new Promise((resolve, reject) => {
-      const url = this.endpointService.apiHost + '/api/v1/getNumMerchants';
+      const url = this.endpointService.apiHost + 'api/v1/getNumMerchants';
       this.http.get(url, { headers: this.headers }).subscribe(
         res => {
           console.log('merchants: ' + res);
@@ -42,7 +42,7 @@ export class AnalyticsService {
    */
   getActiveCompanyCount(): Promise<any> {
     return new Promise((resolve, reject) => {
-      const url = this.endpointService.apiHost + '/api/v1/getNumActiveMerchants';
+      const url = this.endpointService.apiHost + 'api/v1/getNumActiveMerchants';
       this.http.get(url, { headers: this.headers }).subscribe(
         res => {
           console.log('merchant: ' + res);
@@ -64,7 +64,7 @@ export class AnalyticsService {
    */
   getInactiveCompanyCount(): Promise<any> {
     return new Promise((resolve, reject) => {
-      const url = this.endpointService.apiHost + '/api/v1/getNumInactiveMerchants';
+      const url = this.endpointService.apiHost + 'api/v1/getNumInactiveMerchants';
       this.http.get(url, { headers: this.headers }).subscribe(
         res => {
           console.log('inactive' + res);
@@ -86,7 +86,7 @@ export class AnalyticsService {
    */
   getBranchCount(): Promise<any> {
     return new Promise((resolve, reject) => {
-      const url = this.endpointService.apiHost + '/api/v1/getNumBranches';
+      const url = this.endpointService.apiHost + 'api/v1/getNumBranches';
       this.http.get(url, { headers: this.headers }).subscribe(
         res => {
           console.log('branches' + res);
@@ -108,7 +108,7 @@ export class AnalyticsService {
    */
   getActiveBranchCount(): Promise<any> {
     return new Promise((resolve, reject) => {
-      const url = this.endpointService.apiHost + '/api/v1/getNumActiveBranches';
+      const url = this.endpointService.apiHost + 'api/v1/getNumActiveBranches';
       this.http.get(url, { headers: this.headers }).subscribe(
         res => {
           console.log('branches' + res);
@@ -130,7 +130,7 @@ export class AnalyticsService {
    */
   getInactiveBranchCount(): Promise<any> {
     return new Promise((resolve, reject) => {
-      const url = this.endpointService.apiHost + '/api/v1/getNumInactiveBranches';
+      const url = this.endpointService.apiHost + 'api/v1/getNumInactiveBranches';
       this.http.get(url, { headers: this.headers }).subscribe(
         res => {
           console.log('branches' + res);
@@ -153,7 +153,7 @@ export class AnalyticsService {
    */
   getCompanyBranchCount(company_id: string): Promise<any> {
     return new Promise((resolve, reject) => {
-      const url = this.endpointService.apiHost + '/api/v1/getNumCompanyBranches/' + company_id;
+      const url = this.endpointService.apiHost + 'api/v1/getNumCompanyBranches/' + company_id;
       this.http.get(url, { headers: this.headers }).subscribe(
         res => {
           console.log('branches' + res);
@@ -175,7 +175,7 @@ export class AnalyticsService {
    */
   getAllFormsCount(): Promise<string> {
     return new Promise((resolve, reject) => {
-      const url = this.endpointService.apiHost + '/api/v1/getNumAllForms';
+      const url = this.endpointService.apiHost + 'api/v1/getNumAllForms';
       this.http.get(url, { headers: this.headers }).subscribe(
         res => {
           console.log('forms' + res);
