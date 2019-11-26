@@ -38,7 +38,7 @@ export class FrontDeskSubmittedFormsListPageComponent implements OnInit {
   getAllSubmittedForms() {
     this.loading = true;
     const merchant_id = this.user.merchant_id.toString();
-    this.frontDeskService.getAllSubmittedFormsByMerchant(merchant_id).then(
+    this.frontDeskService.getSubmittedFormByStatusAndMerchant(0, merchant_id).then(
       res => {
         if (res.length != 0) {
           this.hasData = true;

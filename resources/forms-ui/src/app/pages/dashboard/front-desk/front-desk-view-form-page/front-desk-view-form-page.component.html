@@ -29,7 +29,41 @@
             </div>
           </div>
         </div>
-        <div class="row">
+
+        <div *ngIf="loading" class="row m-5">
+          <div class="col-md-12 m-5">
+            <div class="d-flex justify-content-center">
+              <div class="spinner-border m-5" style="width: 5rem; height: 5rem;" role="status">
+                <span class="sr-only">Loading...</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div *ngIf="isProcessed" class="row">
+          <div class="col-lg-12 grid-margin stretch-card">
+            <div class="card text-center pt-5 pb-5">
+              <div class="card-body mt-5 mb-5">
+                <h4 class="card-title">Processed / processing</h4>
+                <p class="card-text">
+                  This {{ formName }} form has either been already processed or is being processed.
+                </p>
+                <div class="text-lg-center mt-5 mb-5">
+                  <div class="card-text">
+                    <i class="mdi mdi-file-question" style="font-size: 8em;"></i>
+                  </div>
+                  <div class="card-text mt-2">
+                    <h3>Processing Or Already Processed Form</h3>
+                    <p class="text-muted">{{ form.submission_code }} could already be processed or is in processing</p>
+                    <p class="text-muted">{{ form.submission_code }} was last accessed for processing or was processed on {{ lastProcessed | date }}</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div *ngIf="!isProcessed" class="row">
           <div class="col-md-8 offset-md-2 grid-margin stretch-card">
             <div class="card">
               <div class="card-body">

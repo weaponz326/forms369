@@ -19,7 +19,7 @@ export class ListTemplatePageComponent implements OnInit {
   hasNoData: boolean;
   foundNoForm: boolean;
   templatesList: Array<any>;
-  @ViewChild('content', { static: false }) modalTemplateRef: TemplateRef<any>;
+  @ViewChild('confirm', { static: false }) modalTemplateRef: TemplateRef<any>;
 
   constructor(
     private router: Router,

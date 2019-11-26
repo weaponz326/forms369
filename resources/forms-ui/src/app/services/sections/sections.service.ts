@@ -1,3 +1,4 @@
+import * as _ from 'lodash';
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { EndpointService } from '../endpoint/endpoint.service';
@@ -71,8 +72,15 @@ export class SectionsService {
     return new Promise((resolve, reject) => {
       const url = this.endpointService.apiHost + 'api/v1/getAllSections';
       this.http.get(url, { headers: this.headers }).subscribe(
-        res => {},
-        err => {}
+        res => {
+          const response = res as any;
+          console.log('res: ' + JSON.stringify(response.sections));
+          resolve(response.sections);
+        },
+        err => {
+          console.log('err: ' + JSON.stringify(err));
+          reject(err);
+        }
       );
     });
   }
@@ -88,8 +96,15 @@ export class SectionsService {
     return new Promise((resolve, reject) => {
       const url = this.endpointService.apiHost + 'api/v1/searchSectionByHeading/' + search_term;
       this.http.get(url, { headers: this.headers }).subscribe(
-        res => {},
-        err => {}
+        res => {
+          console.log('res: ' + JSON.stringify(res));
+          const response = res as any;
+          resolve(response.sections);
+        },
+        err => {
+          console.log('err: ' + JSON.stringify(err));
+          reject(err);
+        }
       );
     });
   }
@@ -98,15 +113,27 @@ export class SectionsService {
    * Deletes a form section.
    *
    * @param {string} section_id
-   * @returns {Promise<any>}
+   * @returns {Promise<boolean>}
    * @memberof SectionsService
    */
-  deleteSection(section_id: string): Promise<any> {
+  deleteSection(section_id: string): Promise<boolean> {
     return new Promise((resolve, reject) => {
       const url = this.endpointService.apiHost + 'api/v1/deleteSection/' + section_id;
       this.http.post(url, {}, { headers: this.headers }).subscribe(
-        res => {},
-        err => {}
+        res => {
+          console.log('res: ' + JSON.stringify(res));
+          const response = res as any;
+          if (_.toLower(response.message) == 'ok') {
+            resolve(true);
+          }
+          else {
+            resolve(false);
+          }
+        },
+        err => {
+          console.log('err: ' + JSON.stringify(err));
+          reject(err);
+        }
       );
     });
   }

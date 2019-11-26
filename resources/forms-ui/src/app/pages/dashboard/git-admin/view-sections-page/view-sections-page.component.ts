@@ -1,6 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild, TemplateRef } from '@angular/core';
 import * as _ from 'lodash';
 import { Router } from '@angular/router';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { ListViewService } from 'src/app/services/view/list-view.service';
 import { SectionsService } from 'src/app/services/sections/sections.service';
 
@@ -17,9 +18,11 @@ export class ViewSectionsPageComponent implements OnInit {
   hasNoData: boolean;
   filterState: string;
   sectionsList: Array<any>;
+  @ViewChild('confirm', { static: false }) modalTemplateRef: TemplateRef<any>;
 
   constructor(
     private router: Router,
+    private modalService: NgbModal,
     private sectionService: SectionsService,
     private listViewService: ListViewService
   ) {
@@ -81,7 +84,22 @@ export class ViewSectionsPageComponent implements OnInit {
     this.router.navigateByUrl('/git_admin/create/section');
   }
 
-  delete(id: string) { }
+  delete(id: string, index: number) {
+    this.modalService.open(this.modalTemplateRef, { centered: true }).result.then((result) => {
+      if (result == 'delete') {
+        this.deleteSection(id, index);
+      }
+    });
+  }
+
+  deleteSection(id: string, index: number) {
+    this.sectionService.deleteSection(id).then(
+      res => {
+        this.sectionsList.splice(index, 1);
+      },
+      err => {}
+    );
+  }
 
   getAllFormSections() {
     this.loading = true;
@@ -90,8 +108,8 @@ export class ViewSectionsPageComponent implements OnInit {
         const sections = res as any;
         if (sections.length > 0) {
           this.hasNoData = false;
-          _.forEach(sections, (form) => {
-            this.sectionsList.push(form);
+          _.forEach(sections, (section) => {
+            this.sectionsList.push(section);
           });
         }
         else {

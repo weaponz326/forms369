@@ -96,37 +96,18 @@
                   <table class="table table-hover">
                     <thead>
                       <tr>
-                        <th>Full Name</th>
-                        <th>Form Identifier.</th>
-                        <th>Created On</th>
-                        <th>Actions</th>
+                        <th>Form Identifier</th>
+                        <th>Form Name.</th>
+                        <th>Submitted By</th>
+                        <th>Processed On</th>
                       </tr>
                     </thead>
                     <tbody>
-                      <tr>
-                        <td>Jacob Martin Jay</td>
-                        <td>53275531981</td>
-                        <td>12 May 2017</td>
-                      </tr>
-                      <tr>
-                        <td>Messsy W. Johnson</td>
-                        <td>53275532</td>
-                        <td>15 May 2017</td>
-                      </tr>
-                      <tr>
-                        <td>John M Doe</td>
-                        <td>53275533</td>
-                        <td>14 May 2017</td>
-                      </tr>
-                      <tr>
-                        <td>Peter Ore Finn</td>
-                        <td>53275534</td>
-                        <td>16 May 2017</td>
-                      </tr>
-                      <tr>
-                        <td>Dave Quinn</td>
-                        <td>53275535</td>
-                        <td>20 May 2017</td>
+                      <tr class="hover-cursor" *ngFor="let form of processedFormsList">
+                        <td>{{ form.form_code }}</td>
+                        <td>{{ form.form_name }}</td>
+                        <td>{{ form.client_name }}</td>
+                        <td>{{ form.last_processed | date }}</td>
                       </tr>
                     </tbody>
                   </table>

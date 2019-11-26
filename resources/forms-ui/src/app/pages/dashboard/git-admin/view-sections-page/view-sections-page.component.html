@@ -40,7 +40,7 @@
           </div>
         </div>
 
-        <div *ngIf="hasNoData" class="row">
+        <div *ngIf="!loading && hasNoData" class="row">
           <div class="col-lg-12 grid-margin stretch-card">
             <div class="card text-center pt-5 pb-5">
               <div class="card-body mt-5 mb-5">
@@ -84,7 +84,7 @@
           </div>
         </div>
 
-        <div *ngIf="!loading" class="row">
+        <div *ngIf="!loading && !hasNoData" class="row">
           <div class="col-lg-12 grid-margin stretch-card">
             <div class="card">
               <div class="card-body">
@@ -98,8 +98,7 @@
                       <button type="button" class="btn btn-outline-secondary dropdown-toggle" id="sortMenuButton"
                         data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Sort By</button>
                       <div class="dropdown-menu" aria-labelledby="sortMenuButton">
-                        <button type="button" class="dropdown-item" (click)="sort('form')">Form Name</button>
-                        <button type="button" class="dropdown-item" (click)="sort('merchant')">Company Name</button>
+                        <button type="button" class="dropdown-item" (click)="sort('heading')">Heading</button>
                         <button type="button" class="dropdown-item" (click)="sort('created')">Date Created</button>
                       </div>
                     </div>
@@ -107,12 +106,12 @@
                 </div>
 
                 <div *ngIf="viewMode == 'grid'" class="row">
-                  <div class="col-md-4 grid-margin stretch-card" *ngFor="let form of formsList">
+                  <div class="col-md-4 grid-margin stretch-card" *ngFor="let form of sectionsList; let i = index">
                     <div class="card hover-cursor animated fadeInDown fast" (click)="view(form)">
                       <div class="card-body">
-                        <p class="card-title">{{ form.merchant_name }}</p>
+                        <p class="card-title">{{ form.heading }}</p>
                         <div class="card-text">
-                          <h1 class="display-4 mb-4">{{ form.name }}</h1>
+                          <h1 class="display-4 mb-4">{{ form.heading }}</h1>
                           <div class="btn-group" role="group" aria-label="Basic example">
                             <button type="button" class="btn btn-outline-secondary" (click)="edit(form)">
                               <i class="mdi mdi-pencil-outline"></i>
@@ -122,7 +121,7 @@
                               <i class="mdi mdi-pulse"></i>
                               View
                             </button>
-                            <button type="button" class="btn btn-outline-secondary" (click)="delete(form.id)">
+                            <button type="button" class="btn btn-outline-secondary" (click)="delete(form.id, i)">
                               <i class="mdi mdi-delete-outline"></i>
                               Delete
                             </button>
@@ -136,11 +135,11 @@
                 <div *ngIf="viewMode == 'list'" class="row">
                   <div class="list-group" style="width: 100%;">
                     <div class="list-group-item hover-cursor list-group-item-action animated fadeInDown"
-                      *ngFor="let form of formsList">
+                       *ngFor="let form of sectionsList">
                       <div class="row">
                         <div class="col-8">
-                          <span class="card-title mt-2">{{ form.merchant_name }}</span>
-                          <h1 class="display-4 mb-1 mt-2">{{ form.name }}</h1>
+                          <span class="card-title mt-2">{{ form.heading }}</span>
+                          <h1 class="display-4 mb-1 mt-2">{{ form.heading }}</h1>
                         </div>
                         <div class="col-4">
                           <div class="btn-group mt-2" role="group" aria-label="Basic example">
@@ -177,3 +176,23 @@
       </div>
     </div>
   </div>
+</div>
+
+<ng-template #confirm let-modal>
+  <div class="modal-header">
+    <h4 class="modal-title" id="modal-title">Delete Form Section ?</h4>
+    <button type="button" class="close" aria-describedby="modal-title" (click)="modal.dismiss('Cross click')">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <p><strong>Are you sure you want to delete <span class="text-primary">this section</span> ?</strong></p>
+    <p>All information associated with this section will be permanently deleted.
+      <span class="text-danger">This operation can not be undone.</span>
+    </p>
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-outline-secondary" (click)="modal.dismiss('cancel')">Cancel</button>
+    <button type="button" class="btn btn-danger" (click)="modal.close('delete')">Delete</button>
+  </div>
+</ng-template>

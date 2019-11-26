@@ -33,8 +33,8 @@ export class FrontDeskProcessedFormsListPageComponent implements OnInit {
 
   getAllProcessedForms() {
     this.loading = true;
-    const user_id = this.user.id.toString();
-    this.frontDeskService.getAllFormsProcessed(user_id).then(
+    const merchant_id = this.user.merchant_id.toString();
+    this.frontDeskService.getSubmittedFormByStatusAndMerchant(2, merchant_id).then(
       res => {
         if (res.length != 0) {
           this.hasData = true;

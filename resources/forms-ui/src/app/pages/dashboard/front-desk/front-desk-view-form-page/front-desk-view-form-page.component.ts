@@ -3,10 +3,8 @@ declare var $: any;
 import * as _ from 'lodash';
 import { Router } from '@angular/router';
 import { Users } from 'src/app/models/users.model';
-import { ClientService } from 'src/app/services/client/client.service';
-import { LocalStorageService } from 'src/app/services/storage/local-storage.service';
-import { FormBuilderService } from 'src/app/services/form-builder/form-builder.service';
 import { FrontDeskService } from 'src/app/services/front-desk/front-desk.service';
+import { LocalStorageService } from 'src/app/services/storage/local-storage.service';
 
 @Component({
   selector: 'app-front-desk-view-form-page',
@@ -23,11 +21,11 @@ export class FrontDeskViewFormPageComponent implements OnInit {
   formRenderer: any;
   hasError: boolean;
   submitted: boolean;
+  isProcessed: boolean;
+  lastProcessed: string;
 
   constructor(
     private router: Router,
-    private clientService: ClientService,
-    private formBuilder: FormBuilderService,
     private localStorage: LocalStorageService,
     private frontDeskService: FrontDeskService
   ) {
@@ -51,13 +49,19 @@ export class FrontDeskViewFormPageComponent implements OnInit {
   }
 
   setFormData(data: any) {
-    const client_data = this.form.client_submitted_details;
-    this.frontDeskService.setFormWithClientData(data, client_data);
+    if (!_.isNull(this.form.last_processed)) {
+      this.isProcessed = true;
+      this.lastProcessed = this.form.last_processed;
+    }
+    else {
+      const client_data = this.form.client_submitted_details;
+      this.frontDeskService.setFormWithClientData(data, client_data);
+    }
   }
 
   complete() {
     this.loading = true;
-    this.frontDeskService.completeForm(this.form.submitted_code).then(
+    this.frontDeskService.completeForm(this.form.submission_code).then(
       res => {
         const response = res as any;
         if (_.toLower(response.message) == 'ok') {
@@ -79,7 +83,7 @@ export class FrontDeskViewFormPageComponent implements OnInit {
 
   process() {
     this.loading = true;
-    this.frontDeskService.processForm(this.form.submitted_code).then(
+    this.frontDeskService.processForm(this.form.submission_code).then(
       res => {
         const response = res as any;
         if (_.toLower(response.message) == 'ok') {

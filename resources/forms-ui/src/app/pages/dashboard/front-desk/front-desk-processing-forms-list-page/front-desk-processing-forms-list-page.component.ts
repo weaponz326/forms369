@@ -31,6 +31,12 @@ export class FrontDeskProcessingFormsListPageComponent implements OnInit {
   ngOnInit() {
   }
 
+  showConfirmDialog() {}
+
+  showCompletedDialog() {}
+
+  showNotCompleteDialog() {}
+
   getAllFormsInProcessing() {
     this.loading = true;
     const merchant_id = this.user.merchant_id.toString();
@@ -51,6 +57,50 @@ export class FrontDeskProcessingFormsListPageComponent implements OnInit {
       err => {
         this.hasError = true;
         this.loading = false;
+      }
+    );
+  }
+
+  complete(submission_code: string) {
+    this.loading = true;
+    this.frontDeskService.completeForm(submission_code).then(
+      res => {
+        const response = res as any;
+        if (_.toLower(response.message) == 'ok') {
+          this.loading = false;
+          this.showCompletedDialog();
+        }
+        else {
+          this.loading = false;
+          this.showNotCompleteDialog();
+        }
+      },
+      err => {
+        this.loading = false;
+        this.hasError = true;
+        this.showNotCompleteDialog();
+      }
+    );
+  }
+
+  process(submission_code: string) {
+    this.loading = true;
+    this.frontDeskService.processForm(submission_code).then(
+      res => {
+        const response = res as any;
+        if (_.toLower(response.message) == 'ok') {
+          this.loading = false;
+          this.showCompletedDialog();
+        }
+        else {
+          this.loading = false;
+          this.showNotCompleteDialog();
+        }
+      },
+      err => {
+        this.loading = false;
+        this.hasError = true;
+        this.showNotCompleteDialog();
       }
     );
   }
