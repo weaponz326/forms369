@@ -5,14 +5,17 @@ import { EndpointService } from '../endpoint/endpoint.service';
 import { Merchants } from 'src/app/models/merchants.model';
 import { FileUploadsService } from '../file-uploads/file-uploads.service';
 import { UserTypes } from 'src/app/enums/user-types.enum';
+import { timeout } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root'
 })
 export class CompanyService {
 
-  headers: HttpHeaders;
-  fileHeaders: HttpHeaders;
+  private headers: HttpHeaders;
+  private fileHeaders: HttpHeaders;
+  public nextPaginationUrl: string;
+
   constructor(private http: HttpClient, private endpointService: EndpointService, private fileUploader: FileUploadsService) {
     this.headers = this.endpointService.headers();
     this.fileHeaders = this.endpointService.headers(true);
@@ -188,7 +191,7 @@ export class CompanyService {
 
   /**
    * Gets a list of all companies. This returns the list
-   * in a apaginated order of 15 companies per request.
+   * in a a paginated order of 15 companies per request.
    *
    * @param {string} [page_url]
    * @returns {Promise<Array<Merchants>>}
@@ -205,14 +208,8 @@ export class CompanyService {
         res => {
           console.log('all_merchants: ' + JSON.stringify(res));
           const response = res as any;
-          if (!_.isNull(response.merchants.next_page_url)) {
-            console.log('not empty');
-            const results = response.merchants.data;
-            resolve(response.merchants.data);
-          }
-          else {
-            resolve(response.merchants.data);
-          }
+          this.nextPaginationUrl = response.merchants.next_page_url;
+          resolve(response.merchants.data);
         },
         err => {
           console.log('error_merchants: ' + JSON.stringify(err));

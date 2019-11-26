@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import * as _ from 'lodash';
 import { Forms } from 'src/app/models/forms.model';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { EndpointService } from '../endpoint/endpoint.service';
@@ -8,7 +9,9 @@ import { EndpointService } from '../endpoint/endpoint.service';
 })
 export class FormsService {
 
-  headers: HttpHeaders;
+  private headers: HttpHeaders;
+  public nextPaginationUrl: string;
+
   constructor(private http: HttpClient, private endpointService: EndpointService) {
     this.headers = this.endpointService.headers();
   }
@@ -22,6 +25,7 @@ export class FormsService {
    */
   createForm(form: Forms): Promise<any> {
     return new Promise((resolve, reject) => {
+      console.log('body: ' + JSON.stringify(form));
       const url = this.endpointService.apiHost + 'api/v1/createForm';
       this.http.post(url, JSON.stringify(form), { headers: this.headers }).subscribe(
         res => {
@@ -63,12 +67,17 @@ export class FormsService {
    * @returns {Promise<any>}
    * @memberof FormBuilderService
    */
-  getAllForms(): Promise<any> {
+  getAllForms(page_url?: string): Promise<any> {
     return new Promise((resolve, reject) => {
-      const url = this.endpointService.apiHost + 'api/v1/getAllForms';
+      const url = !_.isUndefined(page_url)
+        ? page_url
+        : this.endpointService.apiHost + 'api/v1/getAllForms';
+
+      console.log('url: ' + url);
       this.http.get(url, { headers: this.headers }).subscribe(
         res => {
           const response = res as any;
+          this.nextPaginationUrl = response.forms.next_page_url;
           resolve(response.forms.data);
         },
         err => {
@@ -85,12 +94,15 @@ export class FormsService {
    * @returns {Promise<any>}
    * @memberof FormBuilderService
    */
-  getAllFormsByStatus(status: string): Promise<any> {
+  getAllFormsByStatus(status: string, page_url?: string): Promise<any> {
     return new Promise((resolve, reject) => {
-      const url = this.endpointService.apiHost + 'api/v1/getAllFormsByStatus/' + status;
+      const url = !_.isUndefined(page_url)
+        ? page_url
+        : this.endpointService.apiHost + 'api/v1/getAllFormsByStatus/' + status;
       this.http.get(url, { headers: this.headers }).subscribe(
         res => {
           const response = res as any;
+          this.nextPaginationUrl = response.forms.next_page_url;
           resolve(response.forms.data);
         },
         err => {
@@ -107,12 +119,15 @@ export class FormsService {
    * @returns {Promise<any>}
    * @memberof FormBuilderService
    */
-  getAllFormsByMerchant(merchant_id: string): Promise<any> {
+  getAllFormsByMerchant(merchant_id: string, page_url?: string): Promise<any> {
     return new Promise((resolve, reject) => {
-      const url = this.endpointService.apiHost + 'api/v1/getAllFormsByMerchant/' + merchant_id;
+      const url = !_.isUndefined(page_url)
+        ? page_url
+        : this.endpointService.apiHost + 'api/v1/getAllFormsByMerchant/' + merchant_id;
       this.http.get(url, { headers: this.headers }).subscribe(
         res => {
           const response = res as any;
+          this.nextPaginationUrl = response.forms.next_page_url;
           resolve(response.forms.data);
         },
         err => {
@@ -131,12 +146,15 @@ export class FormsService {
    * @returns {Promise<any>}
    * @memberof FormBuilderService
    */
-  getAllFormsByStatusAndMerchant(merchant_id: string, status: string): Promise<any> {
+  getAllFormsByStatusAndMerchant(merchant_id: string, status: string, page_url?: string): Promise<any> {
     return new Promise((resolve, reject) => {
-      const url = this.endpointService.apiHost + 'api/v1/getAllFormsByStatusAndMerchant/' + status + '/' + merchant_id;
+      const url = !_.isUndefined(page_url)
+        ? page_url
+        : this.endpointService.apiHost + 'api/v1/getAllFormsByStatusAndMerchant/' + status + '/' + merchant_id;
       this.http.get(url, { headers: this.headers }).subscribe(
         res => {
           const response = res as any;
+          this.nextPaginationUrl = response.forms.next_page_url;
           resolve(response.forms.data);
         },
         err => {

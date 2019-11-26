@@ -17,6 +17,8 @@ export class ViewFormListsPageComponent implements OnInit {
   hasError: boolean;
   hasNoData: boolean;
   filterState: string;
+  loadingMore: boolean;
+  hasMoreError: boolean;
   formsList: Array<any>;
   allFormsList: Array<any>;
   activeFormsList: Array<any>;
@@ -110,11 +112,16 @@ export class ViewFormListsPageComponent implements OnInit {
 
   delete(id: string) {}
 
+  checkIfHasMore() {
+    return _.isNull(this.formService.nextPaginationUrl) ? false : true;
+  }
+
   getAllForms() {
     this.loading = true;
     this.formService.getAllForms().then(
       res => {
         const forms = res as any;
+        this.hasMore = this.checkIfHasMore();
         if (forms.length > 0) {
           this.hasNoData = false;
           _.forEach(forms, (form) => {
@@ -134,6 +141,25 @@ export class ViewFormListsPageComponent implements OnInit {
     );
   }
 
-  loadMore() {}
+  loadMore() {
+    this.loadingMore = true;
+    const moreUrl = this.formService.nextPaginationUrl;
+    this.formService.getAllForms(moreUrl).then(
+      res => {
+        this.loadingMore = false;
+        this.hasMoreError = false;
+        const forms = res as any;
+        this.hasMore = this.checkIfHasMore();
+        _.forEach(forms, (form) => {
+          this.formsList.push(form);
+          this.allFormsList = this.formsList;
+        });
+      },
+      err => {
+        this.loadingMore = false;
+        this.hasMoreError = true;
+      }
+    );
+  }
 
 }

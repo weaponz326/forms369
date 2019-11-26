@@ -20,6 +20,8 @@ export class ViewCompanyListsPageComponent implements OnInit {
   hasError: boolean;
   hasNoData: boolean;
   filterState: string;
+  loadingMore: boolean;
+  hasMoreError: boolean;
   companyList: Array<Merchants>;
   allCompanyList: Array<Merchants>;
   activeCompanyList: Array<Merchants>;
@@ -113,12 +115,17 @@ export class ViewCompanyListsPageComponent implements OnInit {
 
   delete(id: string) {}
 
+  checkIfHasMore() {
+    return _.isEmpty(this.companyService.nextPaginationUrl) ? false : true;
+  }
+
   getCompanies() {
     this.loading = true;
     this.companyService.getAllCompanies().then(
       res => {
         this.loading = false;
         const merchants = res as any;
+        this.hasMore = this.checkIfHasMore();
         if (merchants.length > 0) {
           this.hasNoData = false;
           _.forEach(merchants, (company) => {
@@ -134,6 +141,28 @@ export class ViewCompanyListsPageComponent implements OnInit {
       err => {
         this.loading = false;
         this.hasError = true;
+      }
+    );
+  }
+
+  loadMore() {
+    this.loadingMore = true;
+    const moreUrl = this.companyService.nextPaginationUrl;
+    this.companyService.getAllCompanies(moreUrl).then(
+      res => {
+        this.loadingMore = false;
+        this.hasMoreError = false;
+        const merchants = res as any;
+        this.hasMore = this.checkIfHasMore();
+        _.forEach(merchants, (company) => {
+          company.logo = this.endpointService.storageHost + company.logo;
+          this.companyList.push(company);
+          this.allCompanyList = this.companyList;
+        });
+      },
+      err => {
+        this.loadingMore = false;
+        this.hasMoreError = true;
       }
     );
   }

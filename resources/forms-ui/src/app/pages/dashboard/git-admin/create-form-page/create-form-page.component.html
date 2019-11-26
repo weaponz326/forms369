@@ -22,7 +22,17 @@
           </div>
         </div>
 
-        <div [hidden]="created" class="row">
+        <div *ngIf="_loading" class="row">
+          <div class="col-md-12">
+            <div class="d-flex justify-content-center pb-5 pt-5">
+              <div class="spinner-border mt-5" style="width: 6rem; height: 6rem;" role="status">
+                <span class="sr-only">Loading...</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div [hidden]="_loading || created" class="row">
           <div class="col-md-12 grid-margin stretch-card">
             <div class="card" style="height: 750px; overflow: scroll;">
               <div class="card-body">
@@ -77,7 +87,7 @@
           </div>
         </div>
 
-        <div [hidden]="!created" class="row">
+        <div *ngIf="created" class="row">
           <div class="col-md-12 grid-margin">
             <div class="card pt-5 pb-5 text-center">
               <div class="card-body">

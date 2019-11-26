@@ -1,12 +1,10 @@
-import { Component, OnInit, Inject } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 declare var $: any;
 import * as _ from 'lodash';
 import { Router } from '@angular/router';
-import { DOCUMENT } from '@angular/common';
-import { PageScrollService } from 'ngx-page-scroll-core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
-import { FormBuilderService } from 'src/app/services/form-builder/form-builder.service';
 import { TemplatesService } from 'src/app/services/templates/templates.service';
+import { FormBuilderService } from 'src/app/services/form-builder/form-builder.service';
 
 @Component({
   selector: 'app-add-template-page',
@@ -21,13 +19,13 @@ export class AddTemplatePageComponent implements OnInit {
   templateForm: any;
   created: boolean;
   loading: boolean;
+  _loading: boolean;
+  hasError: boolean;
   submitted: boolean;
 
   constructor(
     private router: Router,
     private _formBuilder: FormBuilder,
-    private pageScroller: PageScrollService,
-    @Inject(DOCUMENT) private document: any,
     private templateService: TemplatesService,
     private formBuilderService: FormBuilderService
   ) { }
@@ -36,13 +34,23 @@ export class AddTemplatePageComponent implements OnInit {
     this.created = false;
     this.buildForm();
 
-    this.formBuilder = $(document.getElementById('fb-editor')).formBuilder({
-      controlPosition: 'left',
-      scrollToFieldOnAdd: false,
-      disabledActionButtons: ['data', 'clear', 'save'],
-      inputSets: this.formBuilderService.generateFormFields(),
-      disableFields: this.formBuilderService.disableDefaultFormControls()
-    });
+    this.formBuilderService.generateFormFieldsBySections().then(
+      form_elements => {
+        this.formBuilder = $(document.getElementById('fb-editor')).formBuilder({
+          controlPosition: 'left',
+          inputSets: form_elements,
+          scrollToFieldOnAdd: false,
+          disabledActionButtons: ['data', 'clear', 'save'],
+          disableFields: this.formBuilderService.disableSectionFormFields()
+        });
+
+        this._loading = false;
+      },
+      error => {
+        this._loading = false;
+        this.hasError = true;
+      }
+    );
   }
 
   buildForm() {
@@ -97,17 +105,6 @@ export class AddTemplatePageComponent implements OnInit {
     if (this.form.valid) {
       this.save();
     }
-    else {
-      this.scrollToTop();
-    }
-  }
-
-  scrollToTop() {
-    this.pageScroller.scroll({
-      document: this.document,
-      speed: 1000,
-      scrollTarget: '.content-wrapper'
-    });
   }
 
   bringBackForm() {

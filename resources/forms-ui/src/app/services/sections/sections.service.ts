@@ -8,7 +8,9 @@ import { EndpointService } from '../endpoint/endpoint.service';
 })
 export class SectionsService {
 
-  headers: HttpHeaders;
+  private headers: HttpHeaders;
+  // public nextPaginationUrl: string;
+
   constructor(private http: HttpClient, private endpointService: EndpointService) {
     this.headers = this.endpointService.headers();
   }

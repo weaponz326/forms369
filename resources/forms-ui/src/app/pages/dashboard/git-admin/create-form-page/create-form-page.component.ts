@@ -24,7 +24,7 @@ export class CreateFormPageComponent implements OnInit {
   _loading: boolean;
   formName: string;
   formCode: string;
-  merchant: string;
+  hasError: boolean;
   submitted: boolean;
   toPublish: boolean;
   allMerchantsList: Array<any>;
@@ -38,24 +38,33 @@ export class CreateFormPageComponent implements OnInit {
     @Inject(DOCUMENT) private document: any,
     private formBuilderService: FormBuilderService
   ) {
-    this.merchant = '';
     this.allMerchantsList = [];
     this.getCompanies();
   }
 
   ngOnInit() {
     this.created = false;
+    this._loading = true;
     this.buildForm();
 
-    this.formBuilder = $(document.getElementById('fb-editor')).formBuilder({
-      controlPosition: 'left',
-      scrollToFieldOnAdd: false,
-      disabledActionButtons: ['data', 'clear', 'save'],
-      inputSets: this.formBuilderService.generateFormFields(),
-      disableFields: this.formBuilderService.disableDefaultFormControls()
-    });
+    this.formBuilderService.generateFormFieldsBySections().then(
+      form_elements => {
+        this.formBuilder = $(document.getElementById('fb-editor')).formBuilder({
+          controlPosition: 'left',
+          inputSets: form_elements,
+          scrollToFieldOnAdd: false,
+          disabledActionButtons: ['data', 'clear', 'save'],
+          disableFields: this.formBuilderService.disableSectionFormFields()
+        });
 
-    this.formCode = this.formBuilderService.generateUniqueFormCode();
+        this.formCode = this.formBuilderService.generateUniqueFormCode();
+        this._loading = false;
+      },
+      error => {
+        this._loading = false;
+        this.hasError = true;
+      }
+    );
   }
 
   buildForm() {
@@ -70,7 +79,7 @@ export class CreateFormPageComponent implements OnInit {
   }
 
   public get _merchant() {
-    return this.form.get('country');
+    return this.form.get('merchant');
   }
 
   onMerchantSelect(e: any) {
@@ -107,10 +116,10 @@ export class CreateFormPageComponent implements OnInit {
     const formData = new Forms();
     console.log('json: ' + JSON.stringify(form));
     formData.form_fields = form;
-    formData.name = this.formName;
+    formData.name = this.f.name.value;
     formData.form_code = this.formCode;
     formData.status = this.toPublish ? 1 : 0;
-    formData.merchant_id = parseInt(this.merchant);
+    formData.merchant_id = parseInt(this.f.merchant.value);
 
     this.formService.createForm(formData).then(
       res => {
@@ -118,6 +127,7 @@ export class CreateFormPageComponent implements OnInit {
         this.toPublish = false;
         if (_.toLower(res.message) == 'ok') {
           this.created = true;
+          this.formName = formData.name;
         }
         else {
           this.created = false;

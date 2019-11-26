@@ -21,6 +21,8 @@ export class ViewBranchListsPageComponent implements OnInit {
   hasError: boolean;
   hasNoData: boolean;
   filterState: string;
+  loadingMore: boolean;
+  hasMoreError: boolean;
   branchesList: Array<any>;
   allBranchesList: Array<any>;
 
@@ -111,12 +113,16 @@ export class ViewBranchListsPageComponent implements OnInit {
 
   delete(id: string) {}
 
+  checkIfHasMore() {
+    return _.isNull(this.branchService.nextPaginationUrl) ? false : true;
+  }
+
   getBranches() {
-    if (_.isUndefined(this.router.getCurrentNavigation().extras.state)) {
+    if (_.isUndefined(window.history.state.company)) {
       this.getAllBranches();
     }
     else {
-      this.company = this.router.getCurrentNavigation().extras.state.company;
+      this.company = window.history.state.company;
       this.getCompanyBranches();
     }
   }
@@ -126,6 +132,7 @@ export class ViewBranchListsPageComponent implements OnInit {
     this.branchService.getBranch(this.company.id).then(
       res => {
         const branches = res as any;
+        this.hasMore = this.checkIfHasMore();
         if (branches.length > 0) {
           this.hasNoData = false;
           _.forEach(branches, (branch) => {
@@ -150,6 +157,7 @@ export class ViewBranchListsPageComponent implements OnInit {
     this.branchService.getAllBranches().then(
       res => {
         const branches = res as any;
+        this.hasMore = this.checkIfHasMore();
         if (branches.length > 0) {
           this.hasNoData = false;
           _.forEach(branches, (branch) => {
@@ -169,6 +177,56 @@ export class ViewBranchListsPageComponent implements OnInit {
     );
   }
 
-  loadMore() {}
+  loadMore() {
+    if (_.isUndefined(window.history.state.company)) {
+      this.loadMoreAllBranches();
+    }
+    else {
+      this.company = window.history.state.company;
+      this.loadMoreCompanyBranches();
+    }
+  }
+
+  loadMoreAllBranches() {
+    this.loadingMore = true;
+    const moreUrl = this.branchService.nextPaginationUrl;
+    this.branchService.getAllBranches(moreUrl).then(
+      res => {
+        this.loadingMore = false;
+        this.hasMoreError = false;
+        const branches = res as any;
+        this.hasMore = this.checkIfHasMore();
+        _.forEach(branches, (branch) => {
+          this.branchesList.push(branch);
+          this.allBranchesList = this.branchesList;
+        });
+      },
+      err => {
+        this.loadingMore = false;
+        this.hasMoreError = true;
+      }
+    );
+  }
+
+  loadMoreCompanyBranches() {
+    this.loadingMore = true;
+    const moreUrl = this.branchService.nextPaginationUrl;
+    this.branchService.getBranch(this.company.id, moreUrl).then(
+      res => {
+        this.loadingMore = false;
+        this.hasMoreError = false;
+        const branches = res as any;
+        this.hasMore = this.checkIfHasMore();
+        _.forEach(branches, (branch) => {
+          this.branchesList.push(branch);
+          this.allBranchesList = this.branchesList;
+        });
+      },
+      err => {
+        this.loadingMore = false;
+        this.hasMoreError = true;
+      }
+    );
+  }
 
 }

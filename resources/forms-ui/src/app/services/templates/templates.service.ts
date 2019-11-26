@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import * as _ from 'lodash';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { EndpointService } from '../endpoint/endpoint.service';
 
@@ -7,7 +8,9 @@ import { EndpointService } from '../endpoint/endpoint.service';
 })
 export class TemplatesService {
 
-  headers: HttpHeaders;
+  private headers: HttpHeaders;
+  public nextPaginationUrl: string;
+
   constructor(private http: HttpClient, private endpointService: EndpointService) {
     this.headers = this.endpointService.headers();
   }
@@ -88,12 +91,17 @@ export class TemplatesService {
    * @returns {Promise<any>}
    * @memberof TemplatesService
    */
-  getAllTemplates(): Promise<any> {
+  getAllTemplates(page_url?: string): Promise<any> {
     return new Promise((resolve, reject) => {
-      const url = this.endpointService.apiHost + 'api/v1/getAllTemplates';
+      const url = !_.isUndefined(page_url)
+        ? page_url
+        : this.endpointService.apiHost + 'api/v1/getAllTemplates';
+
+      console.log('url: ' + url);
       this.http.get(url, { headers: this.headers }).subscribe(
         res => {
           const response = res as any;
+          this.nextPaginationUrl = response.templates.next_page_url;
           resolve(response.templates.data);
         },
         err => {

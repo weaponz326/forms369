@@ -1,9 +1,7 @@
-import { Component, OnInit, Inject } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 declare var $: any;
 import * as _ from 'lodash';
 import { Router } from '@angular/router';
-import { DOCUMENT } from '@angular/common';
-import { PageScrollService } from 'ngx-page-scroll-core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { TemplatesService } from 'src/app/services/templates/templates.service';
 import { FormBuilderService } from 'src/app/services/form-builder/form-builder.service';
@@ -21,13 +19,13 @@ export class EditTemplatePageComponent implements OnInit {
   created: boolean;
   loading: boolean;
   formName: string;
+  hasError: boolean;
+  _loading: boolean;
   submitted: boolean;
 
   constructor(
     private router: Router,
     private _formBuilder: FormBuilder,
-    private pageScroller: PageScrollService,
-    @Inject(DOCUMENT) private document: any,
     private templateService: TemplatesService,
     private formBuilderService: FormBuilderService
   ) {
@@ -40,14 +38,23 @@ export class EditTemplatePageComponent implements OnInit {
     this.buildForm();
 
     this.formName = this._form.name;
-    this.formBuilder = $(document.getElementById('fb-editor')).formBuilder({
-      controlPosition: 'left',
-      scrollToFieldOnAdd: false,
-      defaultFields: this._form.form_fields,
-      disabledActionButtons: ['data', 'clear', 'save'],
-      inputSets: this.formBuilderService.generateFormFields(),
-      disableFields: this.formBuilderService.disableDefaultFormControls()
-    });
+    this.formBuilderService.generateFormFieldsBySections().then(
+      form_elements => {
+        this.formBuilder = $(document.getElementById('fb-editor')).formBuilder({
+          controlPosition: 'left',
+          inputSets: form_elements,
+          scrollToFieldOnAdd: false,
+          defaultFields: this._form.form_fields,
+          disabledActionButtons: ['data', 'clear', 'save'],
+          disableFields: this.formBuilderService.disableSectionFormFields()
+        });
+        this._loading = false;
+      },
+      error => {
+        this._loading = false;
+        this.hasError = true;
+      }
+    );
   }
 
   buildForm() {
@@ -62,14 +69,6 @@ export class EditTemplatePageComponent implements OnInit {
 
   getTemplate() {
     return this.formBuilder.actions.getData();
-  }
-
-  scrollToTop() {
-    this.pageScroller.scroll({
-      document: this.document,
-      speed: 1000,
-      scrollTarget: '.content-wrapper'
-    });
   }
 
   editForm() {
@@ -107,9 +106,6 @@ export class EditTemplatePageComponent implements OnInit {
     this.submitted = true;
     if (this.form.valid) {
       this.editForm();
-    }
-    else {
-      this.scrollToTop();
     }
   }
 
