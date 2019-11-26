@@ -353,6 +353,17 @@ module.exports = "<!-- git admin -->\n<nav *ngIf=\"isGitAdmin\" class=\"sidebar 
 
 /***/ }),
 
+/***/ "./node_modules/raw-loader/index.js!./src/app/pages/admin-login-page/admin-login-page.component.html":
+/*!**************************************************************************************************!*\
+  !*** ./node_modules/raw-loader!./src/app/pages/admin-login-page/admin-login-page.component.html ***!
+  \**************************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = "<div class=\"container-scroller\">\n  <div class=\"container-fluid page-body-wrapper full-page-wrapper\">\n    <div class=\"content-wrapper d-flex align-items-center auth px-0\">\n      <div class=\"row w-100 mx-0\">\n        <div class=\"col-lg-4 mx-auto\">\n          <div class=\"auth-form-light text-left py-5 px-4 px-sm-5\">\n            <a routerLink=\"/\" class=\"brand-logo\">\n              <img src=\"./assets/images/logo.png\" alt=\"logo\">\n            </a>\n            <div *ngIf=\"notConfirmed\" class=\"mt-2 mb-5\">\n              <div class=\"alert alert-warning\" role=\"alert\">\n                <h3 class=\"alert-heading\">Hey there!</h3>\n                <p class=\"lead\"><strong>Your email address has not been confirmed</strong></p>\n                <hr>\n                <p class=\"lead\">A confirmation email has been sent to your email address.</p>\n                <p class=\"mb-0 lead\">Please check your email and click the activation link in the email. Thank You!</p>\n              </div>\n            </div>\n\n            <div *ngIf=\"deactivated\" class=\"mt-2 mb-5\">\n              <div class=\"alert alert-danger\" role=\"alert\">\n                <h3 class=\"alert-heading\">Hey there!</h3>\n                <p class=\"lead\"><strong>Your account has been deactivated</strong></p>\n                <hr>\n                <p class=\"mb-0 lead\">Please contact your admin</p>\n              </div>\n            </div>\n\n            <h4>Hello! let's get started</h4>\n            <h6 class=\"font-weight-light\">Sign in to continue.</h6>\n            <form [formGroup]=\"form\" (ngSubmit)=\"login()\" class=\"pt-3\">\n              <div class=\"form-group\">\n                <input type=\"text\" class=\"form-control form-control-lg\" formControlName=\"username\"\n                  placeholder=\"Username\" [ngClass]=\"{'input-control-error': submitted && f.username.errors}\">\n                <div *ngIf=\"submitted && f.username.errors\">\n                  <p class=\"input-error\" *ngIf=\"f.username.errors.required\">Username is required</p>\n                </div>\n              </div>\n              <div *ngIf=\"userNotFound\" class=\"mt-2\">\n                <div class=\"alert alert-danger alert-dismissible fade show\" role=\"alert\">\n                  <strong>User Not Found!</strong> Mmm!, this email address doesnt have an account with us\n                  <button type=\"button\" class=\"close\" data-dismiss=\"alert\" aria-label=\"Close\">\n                    <span aria-hidden=\"true\">&times;</span>\n                  </button>\n                </div>\n              </div>\n              <div class=\"form-group\">\n                <input type=\"password\" class=\"form-control form-control-lg\" formControlName=\"password\"\n                  placeholder=\"Password\" [ngClass]=\"{'input-control-error': submitted && f.password.errors}\">\n                <div *ngIf=\"submitted && f.password.errors\">\n                  <p class=\"input-error\" *ngIf=\"f.password.errors.minlength\">Password must be atleast 6 characters</p>\n                  <p class=\"input-error\" *ngIf=\"f.password.errors.required\">Password is required</p>\n                </div>\n              </div>\n              <div *ngIf=\"invalidPassword\" class=\"mt-2\">\n                <div class=\"alert alert-danger alert-dismissible fade show\" role=\"alert\">\n                  <strong>Invalid Password!</strong> Oh no, this isn't your password. Please check and try again.\n                  <button type=\"button\" class=\"close\" data-dismiss=\"alert\" aria-label=\"Close\">\n                    <span aria-hidden=\"true\">&times;</span>\n                  </button>\n                </div>\n              </div>\n              <div class=\"mt-3\">\n                <button type=\"submit\" *ngIf=\"!loading\"\n                  class=\"btn btn-block btn-primary btn-lg font-weight-medium auth-form-btn\">sign in</button>\n                <button type=\"button\" *ngIf=\"loading\"\n                  class=\"btn btn-block btn-primary btn-lg font-weight-medium auth-form-btn\" disabled>\n                  <span class=\"spinner-border spinner-border-sm\" role=\"status\" aria-hidden=\"true\"></span> &nbsp; &nbsp;\n                  Please wait...\n                </button>\n              </div>\n              <div class=\"mt-3 text-center\">\n                <a routerLink=\"/forgot\" class=\"auth-link text-black\">Forgot password?</a>\n              </div>\n            </form>\n          </div>\n        </div>\n      </div>\n    </div>\n    <!-- content-wrapper ends -->\n  </div>\n  <!-- page-body-wrapper ends -->\n</div>"
+
+/***/ }),
+
 /***/ "./node_modules/raw-loader/index.js!./src/app/pages/admin-register-page/admin-register-page.component.html":
 /*!********************************************************************************************************!*\
   !*** ./node_modules/raw-loader!./src/app/pages/admin-register-page/admin-register-page.component.html ***!
@@ -613,7 +624,7 @@ module.exports = "<div class=\"container-scroller\">\n  <app-navigation-bar></ap
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<div class=\"container-scroller\">\n  <app-navigation-bar></app-navigation-bar>\n  <div class=\"container-fluid page-body-wrapper\">\n    <app-side-bar></app-side-bar>\n    <div class=\"main-panel\">\n      <div class=\"content-wrapper\">\n        <div class=\"row\">\n          <div class=\"col-md-12 grid-margin\">\n            <div class=\"d-flex justify-content-between flex-wrap\">\n              <div class=\"d-flex align-items-end flex-wrap\">\n                <div class=\"mr-md-3 mr-xl-5\">\n                  <h2>Select Company</h2>\n                  <p class=\"mb-md-0\">Your analytics dashboard template.</p>\n                </div>\n                <div class=\"d-flex\">\n                  <i class=\"mdi mdi-home text-muted hover-cursor\"></i>\n                  <p class=\"text-muted mb-0 hover-cursor\">&nbsp;/&nbsp;Home&nbsp;/&nbsp;</p>\n                  <p class=\"text-primary mb-0 hover-cursor\">Analytics</p>\n                </div>\n              </div>\n            </div>\n          </div>\n        </div>\n\n        <div class=\"row mb-4\">\n          <div class=\"col-12 col-md-8 offset-md-2\">\n            <div class=\"search-bar\">\n              <form>\n                <input type=\"text\" class=\"search-form form-control\" name=\"query\" [(ngModel)]=\"query\" placeholder=\"Search by code or by name\"\n                  aria-label=\"search\" aria-describedby=\"search\" (keydown)=\"search($event)\">\n              </form>\n            </div>\n          </div>\n        </div>\n        \n        <div *ngIf=\"loading\" class=\"row m-md-5\">\n          <div class=\"col-md-12 col-sm-12 m-md-5\">\n            <div class=\"d-flex justify-content-center\">\n              <div class=\"spinner-border m-5\" style=\"width: 5rem; height: 5rem;\" role=\"status\">\n                <span class=\"sr-only\">Loading...</span>\n              </div>\n            </div>\n          </div>\n        </div>\n\n        <div *ngIf=\"!hasData && !loading\" class=\"row\">\n          <div class=\"col-lg-12 grid-margin stretch-card\">\n            <div class=\"card text-center pt-5 pb-5\">\n              <div class=\"card-body mt-5 mb-5\">\n                <h4 class=\"card-title\">No Data Found</h4>\n                <p class=\"card-description\">\n                  No company branches found.\n                </p>\n                <div class=\"text-lg-center mt-5 mb-5\">\n                  <div class=\"card-text\">\n                    <i class=\"mdi mdi-file-question\" style=\"font-size: 8em;\"></i>\n                  </div>\n                  <div class=\"card-text\">\n                    <h3>No Available Branches</h3>\n                    <p class=\"text-muted\">This company doesn't have any branches yet!</p>\n                  </div>\n                </div>\n              </div>\n            </div>\n          </div>\n        </div>\n\n        <div *ngIf=\"foundNoForm && !loading\" class=\"row\">\n          <div class=\"col-lg-12 grid-margin stretch-card\">\n            <div class=\"card text-center pt-5 pb-5\">\n              <div class=\"card-body mt-5 mb-5\">\n                <h4 class=\"card-title\">No Search Result</h4>\n                <p class=\"card-description\">\n                  No form found based on your search criteria\n                </p>\n                <div class=\"text-lg-center mt-5 mb-5\">\n                  <div class=\"card-text\">\n                    <i class=\"mdi mdi-file-question\" style=\"font-size: 8em;\"></i>\n                  </div>\n                  <div class=\"card-text\">\n                    <h3>No Forms Found</h3>\n                    <p class=\"text-muted\">\n                      No form found based on your search criteria.\n                    </p>\n                  </div>\n                </div>\n              </div>\n            </div>\n          </div>\n        </div>\n\n        <div *ngIf=\"hasError\" class=\"row\">\n          <div class=\"col-lg-12 grid-margin stretch-card\">\n            <div class=\"card text-center pt-5 pb-5\">\n              <div class=\"card-body mt-5 mb-5\">\n                <h4 class=\"card-title\">Error Ocuured</h4>\n                <p class=\"card-description\">\n                  Ooops! Something went wrong!\n                </p>\n                <div class=\"text-lg-center mt-5 mb-5\">\n                  <div class=\"card-text\">\n                    <i class=\"mdi mdi-close-network-outline\" style=\"font-size: 8em;\"></i>\n                  </div>\n                  <div class=\"card-text\">\n                    <h3>We couldn't get your branches</h3>\n                    <p class=\"text-muted\">An error has occured on our servers or you might not have internet connection\n                    </p>\n                  </div>\n                </div>\n              </div>\n            </div>\n          </div>\n        </div>\n\n        <div *ngIf=\"!isConnected\" class=\"row\">\n          <div class=\"col-md-12 grid-margin\">\n            <div class=\"card text-center\">\n              <div class=\"card-body\">\n                <p class=\"card-title\">Offline</p>\n                <p class=\"text-muted\"></p>\n                <div class=\"card-text\">\n                  <i class=\"mdi mdi-wifi-off\" style=\"font-size: 12em;\"></i>\n                  <h2>No Internet Connection</h2>\n                  <p class=\"text-muted\">You don't have an active internet connection</p>\n                </div>\n              </div>\n            </div>\n          </div>\n        </div>\n\n        <div *ngIf=\"!loading && hasData\" class=\"row\">\n          <div class=\"col-md-4 grid-margin stretch-card\" *ngFor=\"let company of companyList\">\n            <div class=\"card hover-cursor animated fadeInDown fast\" (click)=\"open(company)\">\n              <div class=\"card-body\">\n                <p class=\"card-title\">{{ company.merchant_name }}</p>\n                <div class=\"card-text\">\n                  <img [src]=\"company.logo\" class=\"img-fluid card-logo mb-3\" alt=\"logo\">\n                  <p class=\"text-muted\">Click to see available forms.</p>\n                </div>\n              </div>\n            </div>\n          </div>\n        </div>\n      </div>\n      <!-- content -->\n      <!-- footer -->\n      <app-footer-bar></app-footer-bar>\n      <!-- partial -->\n    </div>\n    <!-- main-panel ends -->\n  </div>\n</div>\n"
+module.exports = "<div class=\"container-scroller\">\n  <app-navigation-bar></app-navigation-bar>\n  <div class=\"container-fluid page-body-wrapper\">\n    <app-side-bar></app-side-bar>\n    <div class=\"main-panel\">\n      <div class=\"content-wrapper\">\n        <div class=\"row\">\n          <div class=\"col-md-12 grid-margin\">\n            <div class=\"d-flex justify-content-between flex-wrap\">\n              <div class=\"d-flex align-items-end flex-wrap\">\n                <div class=\"mr-md-3 mr-xl-5\">\n                  <h2>Select Company</h2>\n                  <p class=\"mb-md-0\">Your analytics dashboard template.</p>\n                </div>\n                <div class=\"d-flex\">\n                </div>\n              </div>\n            </div>\n          </div>\n        </div>\n\n        <div class=\"row mb-4\">\n          <div class=\"col-12 col-md-8 offset-md-2\">\n            <div class=\"search-bar\">\n              <form>\n                <input type=\"text\" class=\"search-form form-control\" name=\"query\" [(ngModel)]=\"query\" placeholder=\"Search by code or by name\"\n                  aria-label=\"search\" aria-describedby=\"search\" (keydown)=\"search($event)\">\n              </form>\n            </div>\n          </div>\n        </div>\n        \n        <div *ngIf=\"loading\" class=\"row m-md-5\">\n          <div class=\"col-md-12 col-sm-12 m-md-5\">\n            <div class=\"d-flex justify-content-center\">\n              <div class=\"spinner-border m-5\" style=\"width: 5rem; height: 5rem;\" role=\"status\">\n                <span class=\"sr-only\">Loading...</span>\n              </div>\n            </div>\n          </div>\n        </div>\n\n        <div *ngIf=\"!hasData && !loading\" class=\"row\">\n          <div class=\"col-lg-12 grid-margin stretch-card\">\n            <div class=\"card text-center pt-5 pb-5\">\n              <div class=\"card-body mt-5 mb-5\">\n                <h4 class=\"card-title\">No Data Found</h4>\n                <p class=\"card-description\">\n                  No company branches found.\n                </p>\n                <div class=\"text-lg-center mt-5 mb-5\">\n                  <div class=\"card-text\">\n                    <i class=\"mdi mdi-file-question\" style=\"font-size: 8em;\"></i>\n                  </div>\n                  <div class=\"card-text\">\n                    <h3>No Available Branches</h3>\n                    <p class=\"text-muted\">This company doesn't have any branches yet!</p>\n                  </div>\n                </div>\n              </div>\n            </div>\n          </div>\n        </div>\n\n        <div *ngIf=\"foundNoForm && !loading\" class=\"row\">\n          <div class=\"col-lg-12 grid-margin stretch-card\">\n            <div class=\"card text-center pt-5 pb-5\">\n              <div class=\"card-body mt-5 mb-5\">\n                <h4 class=\"card-title\">No Search Result</h4>\n                <p class=\"card-description\">\n                  No form found based on your search criteria\n                </p>\n                <div class=\"text-lg-center mt-5 mb-5\">\n                  <div class=\"card-text\">\n                    <i class=\"mdi mdi-file-question\" style=\"font-size: 8em;\"></i>\n                  </div>\n                  <div class=\"card-text\">\n                    <h3>No Forms Found</h3>\n                    <p class=\"text-muted\">\n                      No form found based on your search criteria.\n                    </p>\n                  </div>\n                </div>\n              </div>\n            </div>\n          </div>\n        </div>\n\n        <div *ngIf=\"hasError\" class=\"row\">\n          <div class=\"col-lg-12 grid-margin stretch-card\">\n            <div class=\"card text-center pt-5 pb-5\">\n              <div class=\"card-body mt-5 mb-5\">\n                <h4 class=\"card-title\">Error Ocuured</h4>\n                <p class=\"card-description\">\n                  Ooops! Something went wrong!\n                </p>\n                <div class=\"text-lg-center mt-5 mb-5\">\n                  <div class=\"card-text\">\n                    <i class=\"mdi mdi-close-network-outline\" style=\"font-size: 8em;\"></i>\n                  </div>\n                  <div class=\"card-text\">\n                    <h3>We couldn't get your branches</h3>\n                    <p class=\"text-muted\">An error has occured on our servers or you might not have internet connection\n                    </p>\n                  </div>\n                </div>\n              </div>\n            </div>\n          </div>\n        </div>\n\n        <div *ngIf=\"!isConnected\" class=\"row\">\n          <div class=\"col-md-12 grid-margin\">\n            <div class=\"card text-center\">\n              <div class=\"card-body\">\n                <p class=\"card-title\">Offline</p>\n                <p class=\"text-muted\"></p>\n                <div class=\"card-text\">\n                  <i class=\"mdi mdi-wifi-off\" style=\"font-size: 12em;\"></i>\n                  <h2>No Internet Connection</h2>\n                  <p class=\"text-muted\">You don't have an active internet connection</p>\n                </div>\n              </div>\n            </div>\n          </div>\n        </div>\n\n        <div *ngIf=\"!loading && hasData\" class=\"row\">\n          <div class=\"col-md-4 grid-margin stretch-card\" *ngFor=\"let company of companyList\">\n            <div class=\"card hover-cursor animated fadeInDown fast\" (click)=\"open(company)\">\n              <div class=\"card-body\">\n                <p class=\"card-title\">{{ company.merchant_name }}</p>\n                <div class=\"card-text\">\n                  <img [src]=\"company.logo\" class=\"img-fluid card-logo mb-3\" alt=\"logo\">\n                  <p class=\"text-muted\">Click to see available forms.</p>\n                </div>\n              </div>\n            </div>\n          </div>\n        </div>\n\n        <div *ngIf=\"!loading && hasData\" class=\"row\" style=\"margin-top: 25px;\">\n          <div class=\"col-md-4 grid-margin stretch-card\" *ngFor=\"let form of formsList\">\n            <div class=\"card hover-cursor animated fadeInDown slow\" (click)=\"openForm(form)\">\n              <div class=\"card-body\">\n                <p class=\"card-title\">{{ form.name }}</p>\n                <div class=\"card-text\">\n                  <p class=\"text-muted\">Click to open form and start filling.</p>\n                </div>\n              </div>\n            </div>\n          </div>\n        </div>\n      </div>\n      <!-- content -->\n      <!-- footer -->\n      <app-footer-bar></app-footer-bar>\n      <!-- partial -->\n    </div>\n    <!-- main-panel ends -->\n  </div>\n</div>\n"
 
 /***/ }),
 
@@ -624,7 +635,7 @@ module.exports = "<div class=\"container-scroller\">\n  <app-navigation-bar></ap
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<div class=\"container-scroller\">\n  <app-navigation-bar></app-navigation-bar>\n  <div class=\"container-fluid page-body-wrapper\">\n    <app-side-bar></app-side-bar>\n    <div class=\"main-panel\">\n      <div class=\"content-wrapper\">\n        <div class=\"row\">\n          <div class=\"col-md-12 grid-margin\">\n            <div class=\"d-flex justify-content-between flex-wrap\">\n              <div class=\"d-flex align-items-end flex-wrap\">\n                <div class=\"mr-md-3 mr-xl-5\">\n                  <h2>{{ form.form_name }}</h2>\n                  <p class=\"mb-md-0\">Your analytics dashboard template.</p>\n                </div>\n                <div class=\"d-flex\">\n                  <i class=\"mdi mdi-home text-muted hover-cursor\"></i>\n                  <p class=\"text-muted mb-0 hover-cursor\">&nbsp;/&nbsp;Home&nbsp;/&nbsp;</p>\n                  <p class=\"text-primary mb-0 hover-cursor\">Analytics</p>\n                </div>\n              </div>\n              <div class=\"d-flex justify-content-between align-items-end flex-wrap\">\n                <button type=\"button\" class=\"btn btn-light bg-white btn-icon mr-3 d-sm-block \">\n                  <i class=\"mdi mdi-download text-muted\"></i>\n                </button>\n                <button type=\"button\" class=\"btn btn-light bg-white btn-icon mr-3 mt-2 mt-xl-0\">\n                  <i class=\"mdi mdi-share-outline text-muted\"></i>\n                </button>\n                <button type=\"button\" class=\"btn btn-light bg-white btn-icon mr-3 mt-2 mt-xl-0\">\n                  <i class=\"mdi mdi-plus text-muted\"></i>\n                </button>\n              </div>\n            </div>\n          </div>\n        </div>\n        <div [hidden]=\"created\" class=\"row\">\n          <div class=\"col-md-8 offset-md-2 grid-margin stretch-card\">\n            <div class=\"card\">\n              <div class=\"card-body\">\n                <p class=\"card-title\">{{ form.form_name }}</p>\n                <p class=\"text-muted\">All forms with * are required and shouldn't be left out</p>\n                <div class=\"card-text pt-5\">\n                  <form class=\"forms-sample\">\n                    <div class=\"form-builder-container\">\n                      <div id=\"form-render\"></div>\n                    </div>\n                    <button *ngIf=\"loading\" class=\"btn btn-primary btn-lg mr-2\" type=\"button\" disabled>\n                      <span class=\"spinner-border spinner-border-sm\" role=\"status\" aria-hidden=\"true\"></span>\n                      <span class=\"sr-only\">Please wait...</span>\n                    </button>\n                    <button *ngIf=\"!loading\" type=\"submit\" class=\"btn btn-primary btn-lg mr-2\" (click)=\"submit()\">Submit</button>\n                    <button class=\"btn btn-light btn-lg\">Cancel</button>\n                  </form>\n                </div>\n              </div>\n            </div>\n          </div>\n        </div>\n\n        <div *ngIf=\"created\" class=\"row\">\n          <div class=\"col-md-12 grid-margin\">\n            <div class=\"card text-center\">\n              <div class=\"card-body\">\n                <p class=\"card-title\">Form Completed Successfully</p>\n                <p class=\"text-muted\"></p>\n                <div class=\"card-text\">\n                  <i class=\"mdi mdi-shield-check-outline\" style=\"font-size: 12em;\"></i>\n                  <p class=\"text-muted\">Below is your generated code. Send this code to your branch to get your SSNIT to be processed</p>\n                  <div class=\"code\">{{ formGenCode }}</div>\n                  <button class=\"btn btn-primary mr-2 hover-cursor\" type=\"button\">\n                    <i class=\"mdi mdi-content-copy\" style=\"font-size: 20px;\"></i>\n                    <span class=\"sr-only\">Please wait...</span>\n                  </button>\n                </div>\n              </div>\n            </div>\n          </div>\n        </div>\n      </div>\n      <!-- content ends -->\n      <!-- footer -->\n      <app-footer-bar></app-footer-bar>\n      <!-- partial -->\n    </div>\n    <!-- main-panel ends -->\n  </div>\n</div>\n"
+module.exports = "<div class=\"container-scroller\">\n  <app-navigation-bar></app-navigation-bar>\n  <div class=\"container-fluid page-body-wrapper\">\n    <app-side-bar></app-side-bar>\n    <div class=\"main-panel\">\n      <div class=\"content-wrapper\">\n        <div class=\"row\">\n          <div class=\"col-md-12 grid-margin\">\n            <div class=\"d-flex justify-content-between flex-wrap\">\n              <div class=\"d-flex align-items-end flex-wrap\">\n                <div class=\"mr-md-3 mr-xl-5\">\n                  <h2>{{ form.name }}</h2>\n                  <p class=\"mb-md-0\">Your analytics dashboard template.</p>\n                </div>\n                <div class=\"d-flex\">\n                </div>\n              </div>\n              <div class=\"d-flex justify-content-between align-items-end flex-wrap\">\n              </div>\n            </div>\n          </div>\n        </div>\n        <div [hidden]=\"created\" class=\"row\">\n          <div class=\"col-md-8 offset-md-2 grid-margin stretch-card\">\n            <div class=\"card\">\n              <div class=\"card-body\">\n                <p class=\"card-title\">{{ form.name }}</p>\n                <p class=\"text-muted\">All forms with * are required and shouldn't be left out</p>\n                <div class=\"card-text pt-5\">\n                  <form class=\"forms-sample\">\n                    <div class=\"form-builder-container\">\n                      <div id=\"form-render\"></div>\n                    </div>\n                    <button *ngIf=\"loading\" class=\"btn btn-primary btn-lg mr-2\" type=\"button\" disabled>\n                      <span class=\"spinner-border spinner-border-sm\" role=\"status\" aria-hidden=\"true\"></span>\n                      <span class=\"sr-only\">Please wait...</span>\n                    </button>\n                    <button *ngIf=\"!loading\" type=\"submit\" class=\"btn btn-primary btn-lg mr-2\" (click)=\"submit()\">Submit</button>\n                    <button class=\"btn btn-light btn-lg\">Cancel</button>\n                  </form>\n                </div>\n              </div>\n            </div>\n          </div>\n        </div>\n\n        <div *ngIf=\"created\" class=\"row\">\n          <div class=\"col-md-12 grid-margin\">\n            <div class=\"card text-center\">\n              <div class=\"card-body\">\n                <p class=\"card-title\">Form Completed Successfully</p>\n                <p class=\"text-muted\"></p>\n                <div class=\"card-text\">\n                  <i class=\"mdi mdi-shield-check-outline\" style=\"font-size: 12em;\"></i>\n                  <p class=\"text-muted\">Below is your generated code. Send this code to your branch to get your SSNIT to be processed</p>\n                  <div class=\"code\">{{ formGenCode }}</div>\n                  <button class=\"btn btn-primary mr-2 hover-cursor\" type=\"button\">\n                    <i class=\"mdi mdi-content-copy\" style=\"font-size: 20px;\"></i>\n                    <span class=\"sr-only\">Please wait...</span>\n                  </button>\n                  <button class=\"btn btn-primary mr-2 hover-cursor\" type=\"button\" (click)=\"loadForm()\">Ok</button>\n                </div>\n              </div>\n            </div>\n          </div>\n        </div>\n      </div>\n      <!-- content ends -->\n      <!-- footer -->\n      <app-footer-bar></app-footer-bar>\n      <!-- partial -->\n    </div>\n    <!-- main-panel ends -->\n  </div>\n</div>\n"
 
 /***/ }),
 
@@ -635,7 +646,7 @@ module.exports = "<div class=\"container-scroller\">\n  <app-navigation-bar></ap
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<div class=\"container-scroller\">\n  <app-navigation-bar></app-navigation-bar>\n  <div class=\"container-fluid page-body-wrapper\">\n    <app-side-bar></app-side-bar>\n    <div class=\"main-panel\">\n      <div class=\"content-wrapper\">\n        <div class=\"row\">\n          <div class=\"col-md-12 grid-margin\">\n            <div class=\"d-flex justify-content-between flex-wrap\">\n              <div class=\"d-flex align-items-end flex-wrap\">\n                <div class=\"mr-md-3 mr-xl-5\">\n                  <h2>My History</h2>\n                  <p class=\"mb-md-0\">Your analytics dashboard template.</p>\n                </div>\n                <div class=\"d-flex\">\n                  <i class=\"mdi mdi-home text-muted hover-cursor\"></i>\n                  <p class=\"text-muted mb-0 hover-cursor\">&nbsp;/&nbsp;Home&nbsp;/&nbsp;</p>\n                  <p class=\"text-primary mb-0 hover-cursor\">Analytics</p>\n                </div>\n              </div>\n              <div class=\"d-flex justify-content-between align-items-end flex-wrap\">\n                <!-- <button type=\"button\" class=\"btn btn-light bg-white btn-icon mr-3 d-none d-md-block \">\n                  <i class=\"mdi mdi-download text-muted\"></i>\n                </button> -->\n                <!-- <button type=\"button\" class=\"btn btn-light bg-white btn-icon mr-3 mt-2 mt-xl-0\">\n                  <i class=\"mdi mdi-clock-outline text-muted\"></i>\n                </button> -->\n                <!-- <button type=\"button\" class=\"btn btn-light bg-white btn-icon mr-3 mt-2 mt-xl-0\">\n                  <i class=\"mdi mdi-plus text-muted\"></i>\n                </button> -->\n              </div>\n            </div>\n          </div>\n        </div>\n\n        <div *ngIf=\"loading\" class=\"row m-5\">\n          <div class=\"col-md-12 m-5\">\n            <div class=\"d-flex justify-content-center\">\n              <div class=\"spinner-border m-5\" style=\"width: 5rem; height: 5rem;\" role=\"status\">\n                <span class=\"sr-only\">Loading...</span>\n              </div>\n            </div>\n          </div>\n        </div>\n\n        <div *ngIf=\"!hasData && !loading\" class=\"row\">\n          <div class=\"col-lg-12 grid-margin stretch-card\">\n            <div class=\"card text-center pt-5 pb-5\">\n              <div class=\"card-body mt-5 mb-5\">\n                <h4 class=\"card-title\">No Data Found</h4>\n                <p class=\"card-description\">\n                  No data has been found.\n                </p>\n                <div class=\"text-lg-center mt-5 mb-5\">\n                  <div class=\"card-text\">\n                    <i class=\"mdi mdi-file-question\" style=\"font-size: 8em;\"></i>\n                  </div>\n                  <div class=\"card-text\">\n                    <h3>No Available Form History</h3>\n                    <p class=\"text-muted\">You havent filled any forms yet! All the forms you filled will be displayed here to make it easy to re-fill again.</p>\n                  </div>\n                </div>\n              </div>\n            </div>\n          </div>\n        </div>\n\n        <div *ngIf=\"hasError\" class=\"row\">\n          <div class=\"col-lg-12 grid-margin stretch-card\">\n            <div class=\"card text-center pt-5 pb-5\">\n              <div class=\"card-body mt-5 mb-5\">\n                <h4 class=\"card-title\">Error Ocuured</h4>\n                <p class=\"card-description\">\n                  Ooops! Something went wrong!\n                </p>\n                <div class=\"text-lg-center mt-5 mb-5\">\n                  <div class=\"card-text\">\n                    <i class=\"mdi mdi-close-network-outline\" style=\"font-size: 8em;\"></i>\n                  </div>\n                  <div class=\"card-text\">\n                    <h3>We couldn't filled forms</h3>\n                    <p class=\"text-muted\">An error has occured on our servers or you might not have internet connection\n                    </p>\n                  </div>\n                </div>\n              </div>\n            </div>\n          </div>\n        </div>\n        \n        <div *ngIf=\"!loading && hasData\" class=\"row\">\n          <div class=\"col-md-4 grid-margin stretch-card\" *ngFor=\"let item of historyCollection\">\n            <div class=\"card hover-cursor\" (click)=\"openFormEntry(item)\">\n              <div class=\"card-body\">\n                <p class=\"card-title\">{{ item.form_name }}</p>\n                <p class=\"text-muted\">Open and quickly fill out this form</p>\n              </div>\n            </div>\n          </div>\n        </div>\n      </div>\n      <!-- content -->\n      <!-- footer -->\n      <app-footer-bar></app-footer-bar>\n      <!-- partial -->\n    </div>\n    <!-- main-panel -->\n  </div>\n</div>"
+module.exports = "<div class=\"container-scroller\">\n  <app-navigation-bar></app-navigation-bar>\n  <div class=\"container-fluid page-body-wrapper\">\n    <app-side-bar></app-side-bar>\n    <div class=\"main-panel\">\n      <div class=\"content-wrapper\">\n        <div class=\"row\">\n          <div class=\"col-md-12 grid-margin\">\n            <div class=\"d-flex justify-content-between flex-wrap\">\n              <div class=\"d-flex align-items-end flex-wrap\">\n                <div class=\"mr-md-3 mr-xl-5\">\n                  <h2>My History</h2>\n                  <p class=\"mb-md-0\">Your analytics dashboard template.</p>\n                </div>\n                <div class=\"d-flex\">\n                </div>\n              </div>\n              <div class=\"d-flex justify-content-between align-items-end flex-wrap\">\n              </div>\n            </div>\n          </div>\n        </div>\n\n        <div *ngIf=\"loading\" class=\"row m-5\">\n          <div class=\"col-md-12 m-5\">\n            <div class=\"d-flex justify-content-center\">\n              <div class=\"spinner-border m-5\" style=\"width: 5rem; height: 5rem;\" role=\"status\">\n                <span class=\"sr-only\">Loading...</span>\n              </div>\n            </div>\n          </div>\n        </div>\n\n        <div *ngIf=\"!hasData && !loading\" class=\"row\">\n          <div class=\"col-lg-12 grid-margin stretch-card\">\n            <div class=\"card text-center pt-5 pb-5\">\n              <div class=\"card-body mt-5 mb-5\">\n                <h4 class=\"card-title\">No Data Found</h4>\n                <p class=\"card-description\">\n                  No data has been found.\n                </p>\n                <div class=\"text-lg-center mt-5 mb-5\">\n                  <div class=\"card-text\">\n                    <i class=\"mdi mdi-file-question\" style=\"font-size: 8em;\"></i>\n                  </div>\n                  <div class=\"card-text\">\n                    <h3>No Available Form History</h3>\n                    <p class=\"text-muted\">You havent filled any forms yet! All the forms you filled will be displayed here to make it easy to re-fill again.</p>\n                  </div>\n                </div>\n              </div>\n            </div>\n          </div>\n        </div>\n\n        <div *ngIf=\"hasError\" class=\"row\">\n          <div class=\"col-lg-12 grid-margin stretch-card\">\n            <div class=\"card text-center pt-5 pb-5\">\n              <div class=\"card-body mt-5 mb-5\">\n                <h4 class=\"card-title\">Error Ocuured</h4>\n                <p class=\"card-description\">\n                  Ooops! Something went wrong!\n                </p>\n                <div class=\"text-lg-center mt-5 mb-5\">\n                  <div class=\"card-text\">\n                    <i class=\"mdi mdi-close-network-outline\" style=\"font-size: 8em;\"></i>\n                  </div>\n                  <div class=\"card-text\">\n                    <h3>We couldn't filled forms</h3>\n                    <p class=\"text-muted\">An error has occured on our servers or you might not have internet connection\n                    </p>\n                  </div>\n                </div>\n              </div>\n            </div>\n          </div>\n        </div>\n        \n        <div *ngIf=\"!loading && hasData\" class=\"row\">\n          <div class=\"col-md-4 grid-margin stretch-card\" *ngFor=\"let item of historyCollection\">\n            <div class=\"card hover-cursor\" (click)=\"openFormEntry(item)\">\n              <div class=\"card-body\">\n                <p class=\"card-title\">{{ item.form_name }}</p>\n                <p class=\"text-muted\">Open and quickly fill out this form</p>\n              </div>\n            </div>\n          </div>\n        </div>\n      </div>\n      <!-- content -->\n      <!-- footer -->\n      <app-footer-bar></app-footer-bar>\n      <!-- partial -->\n    </div>\n    <!-- main-panel -->\n  </div>\n</div>"
 
 /***/ }),
 
@@ -646,7 +657,7 @@ module.exports = "<div class=\"container-scroller\">\n  <app-navigation-bar></ap
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<div class=\"container-scroller\">\n  <app-navigation-bar></app-navigation-bar>\n  <div class=\"container-fluid page-body-wrapper\">\n    <app-side-bar></app-side-bar>\n    <div class=\"main-panel\">\n      <div class=\"content-wrapper\">\n        <div class=\"row\">\n          <div class=\"col-md-12 grid-margin\">\n            <div class=\"d-flex justify-content-between flex-wrap\">\n              <div class=\"d-flex align-items-end flex-wrap\">\n                <div class=\"mr-md-3 mr-xl-5\">\n                  <h2>Welcome back, {{ firstname }}</h2>\n                  <p class=\"mb-md-0\">Your analytics dashboard template.</p>\n                </div>\n                <div class=\"d-flex\">\n                  <!-- <i class=\"mdi mdi-home text-muted hover-cursor\"></i>\n                  <p class=\"text-muted mb-0 hover-cursor\">&nbsp;/&nbsp;Home&nbsp;/&nbsp;</p>\n                  <p class=\"text-primary mb-0 hover-cursor\">Analytics</p> -->\n                </div>\n              </div>\n              <div class=\"d-flex justify-content-between align-items-end flex-wrap\">\n                <!-- <button type=\"button\" class=\"btn btn-light bg-white btn-icon mr-3 d-none d-md-block \">\n                  <i class=\"mdi mdi-download text-muted\"></i>\n                </button> -->\n                <!-- <button type=\"button\" class=\"btn btn-light bg-white btn-icon mr-3 mt-2 mt-xl-0\">\n                  <i class=\"mdi mdi-clock-outline text-muted\"></i>\n                </button> -->\n                <!-- <button type=\"button\" class=\"btn btn-light bg-white btn-icon mr-3 mt-2 mt-xl-0\">\n                  <i class=\"mdi mdi-plus text-muted\"></i>\n                </button> -->\n                <a role=\"button\" class=\"btn btn-primary mt-2 mt-xl-0\" routerLink=\"/client/form_merchant\">Pick A Form</a>\n              </div>\n            </div>\n          </div>\n        </div>\n        <div class=\"row\">\n          <div class=\"col-md-6 grid-margin stretch-card\">\n            <div class=\"card hover-cursor hover-primary\" (click)=\"openFormsFilled()\">\n              <div class=\"card-body\">\n                <p class=\"card-title\">Forms Filled</p>\n                <p class=\"text-muted\">A list of all forms you've filled</p>\n                <div class=\"card-text\">\n                  <i class=\"mdi mdi-arrange-bring-to-front\" style=\"font-size: 8em;\"></i>\n                  <p class=\"text-muted\">Quickly fill forms you've filled before in the past with ease and speed.</p>\n                </div>\n              </div>\n            </div>\n          </div>\n          <div class=\"col-md-6 grid-margin stretch-card\">\n            <div class=\"card hover-cursor hover-primary\" (click)=\"openFormsData()\">\n              <div class=\"card-body\">\n                <p class=\"card-title\">My Form Data</p>\n                <p class=\"text-muted\">All your forms data</p>\n                <div class=\"card-text\">\n                  <i class=\"mdi mdi-account-outline\" style=\"font-size: 8em;\"></i>\n                  <p class=\"text-muted\">Access all the information you've provided through form filling using this application.</p>\n                </div>\n              </div>\n            </div>\n          </div>\n        </div>\n      </div>\n      <!-- content ends -->\n      <!-- footer -->\n      <app-footer-bar></app-footer-bar>\n      <!-- partial -->\n    </div>\n    <!-- main-panel ends -->\n  </div>\n</div>\n"
+module.exports = "<div class=\"container-scroller\">\n  <app-navigation-bar></app-navigation-bar>\n  <div class=\"container-fluid page-body-wrapper\">\n    <app-side-bar></app-side-bar>\n    <div class=\"main-panel\">\n      <div class=\"content-wrapper\">\n        <div class=\"row\">\n          <div class=\"col-md-12 grid-margin\">\n            <div class=\"d-flex justify-content-between flex-wrap\">\n              <div class=\"d-flex align-items-end flex-wrap\">\n                <div class=\"mr-md-3 mr-xl-5\">\n                  <h2>Welcome back, {{ firstname }}</h2>\n                  <p class=\"mb-md-0\">Your analytics dashboard template.</p>\n                </div>\n                <div class=\"d-flex\">\n                </div>\n              </div>\n              <div class=\"d-flex justify-content-between align-items-end flex-wrap\">\n                <a role=\"button\" class=\"btn btn-primary mt-2 mt-xl-0\" routerLink=\"/client/form_merchant\">Pick A Form</a>\n              </div>\n            </div>\n          </div>\n        </div>\n        <div class=\"row\">\n          <div class=\"col-md-6 grid-margin stretch-card\">\n            <div class=\"card hover-cursor hover-primary\" (click)=\"openFormsFilled()\">\n              <div class=\"card-body\">\n                <p class=\"card-title\">Forms Filled</p>\n                <p class=\"text-muted\">A list of all forms you've filled</p>\n                <div class=\"card-text\">\n                  <i class=\"mdi mdi-arrange-bring-to-front\" style=\"font-size: 8em;\"></i>\n                  <p class=\"text-muted\">Quickly fill forms you've filled before in the past with ease and speed.</p>\n                </div>\n              </div>\n            </div>\n          </div>\n          <div class=\"col-md-6 grid-margin stretch-card\">\n            <div class=\"card hover-cursor hover-primary\" (click)=\"openFormsData()\">\n              <div class=\"card-body\">\n                <p class=\"card-title\">My Form Data</p>\n                <p class=\"text-muted\">All your forms data</p>\n                <div class=\"card-text\">\n                  <i class=\"mdi mdi-account-outline\" style=\"font-size: 8em;\"></i>\n                  <p class=\"text-muted\">Access all the information you've provided through form filling using this application.</p>\n                </div>\n              </div>\n            </div>\n          </div>\n        </div>\n      </div>\n      <!-- content ends -->\n      <!-- footer -->\n      <app-footer-bar></app-footer-bar>\n      <!-- partial -->\n    </div>\n    <!-- main-panel ends -->\n  </div>\n</div>\n"
 
 /***/ }),
 
@@ -668,7 +679,7 @@ module.exports = "<div class=\"container-scroller\">\n  <app-navigation-bar></ap
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<div class=\"container-scroller\">\n  <app-navigation-bar></app-navigation-bar>\n  <div class=\"container-fluid page-body-wrapper\">\n    <app-side-bar></app-side-bar>\n    <div class=\"main-panel\">\n      <div class=\"content-wrapper\">\n        <div class=\"row\">\n          <div class=\"col-md-12 grid-margin\">\n            <div class=\"d-flex justify-content-between flex-wrap\">\n              <div class=\"d-flex align-items-end flex-wrap\">\n                <div class=\"mr-md-3 mr-xl-5\">\n                  <h2>My Form Data</h2>\n                  <p class=\"mb-md-0\">Your analytics dashboard template.</p>\n                </div>\n                <div class=\"d-flex\">\n                  <i class=\"mdi mdi-home text-muted hover-cursor\"></i>\n                  <p class=\"text-muted mb-0 hover-cursor\">&nbsp;/&nbsp;Home&nbsp;/&nbsp;</p>\n                  <p class=\"text-primary mb-0 hover-cursor\">Analytics</p>\n                </div>\n              </div>\n            </div>\n          </div>\n        </div>\n\n        <div *ngIf=\"loading\" class=\"row p-5\">\n          <div class=\"col-md-12 p-5\">\n            <div class=\"d-flex justify-content-center\">\n              <div class=\"spinner-border m-5\" style=\"width: 5rem; height: 5rem;\" role=\"status\">\n                <span class=\"sr-only\">Loading...</span>\n              </div>\n            </div>\n          </div>\n        </div>\n\n        <div *ngIf=\"!hasData && !loading\" class=\"row\">\n          <div class=\"col-lg-12 grid-margin stretch-card\">\n            <div class=\"card text-center pt-5 pb-5\">\n              <div class=\"card-body mt-5 mb-5\">\n                <h4 class=\"card-title\">No Data Found</h4>\n                <p class=\"card-description\">\n                  No data has been found.\n                </p>\n                <div class=\"text-lg-center mt-5 mb-5\">\n                  <div class=\"card-text\">\n                    <i class=\"mdi mdi-file-question\" style=\"font-size: 8em;\"></i>\n                  </div>\n                  <div class=\"card-text\">\n                    <h3>No Available Forms</h3>\n                    <p class=\"text-muted\">\n                      There are currently no forms available yet. All created forms would be displayed here.\n                    </p>\n                  </div>\n                </div>\n              </div>\n            </div>\n          </div>\n        </div>\n\n        <div *ngIf=\"!isConnected\" class=\"row\">\n          <div class=\"col-md-12 grid-margin\">\n            <div class=\"card text-center\">\n              <div class=\"card-body\">\n                <p class=\"card-title\">Offline</p>\n                <p class=\"text-muted\"></p>\n                <div class=\"card-text\">\n                  <i class=\"mdi mdi-wifi-off\" style=\"font-size: 12em;\"></i>\n                  <h2>No Internet Connection</h2>\n                  <p class=\"text-muted\">You don't have an active internet connection</p>\n                </div>\n              </div>\n            </div>\n          </div>\n        </div>\n\n        <div *ngIf=\"hasError\" class=\"row\">\n          <div class=\"col-lg-12 grid-margin stretch-card\">\n            <div class=\"card text-center pt-5 pb-5\">\n              <div class=\"card-body mt-5 mb-5\">\n                <h4 class=\"card-title\">Error Ocuured</h4>\n                <p class=\"card-description\">\n                  Ooops! Something went wrong!\n                </p>\n                <div class=\"text-lg-center mt-5 mb-5\">\n                  <div class=\"card-text\">\n                    <i class=\"mdi mdi-close-network-outline\" style=\"font-size: 8em;\"></i>\n                  </div>\n                  <div class=\"card-text\">\n                    <h3>We couldn't find any forms</h3>\n                    <p class=\"text-muted\">An error has occured on our servers or you might not have internet connection\n                    </p>\n                  </div>\n                </div>\n              </div>\n            </div>\n          </div>\n        </div>\n        \n        <div class=\"row\">\n          <div class=\"col-lg-8 offset-2 grid-margin stretch-card\">\n            <div class=\"card\">\n              <div class=\"card-body\">\n                <h4 class=\"card-title\">Basic Table</h4>\n                <p class=\"card-description\"></p>\n                <div class=\"card-text\">\n                  <div class=\"form-group\">\n                    <div class=\"input-group\">\n                      <input type=\"text\" class=\"form-control\" placeholder=\"First Name\" aria-label=\"Recipient's username\">\n                      <div class=\"input-group-append\">\n                        <button class=\"btn btn-sm btn-primary\" type=\"button\">\n                          <i class=\"mdi mdi-pencil-outline\"></i>\n                        </button>\n                        <button class=\"btn btn-sm btn-danger\" type=\"button\">\n                          <i class=\"mdi mdi-delete-outline\"></i>\n                        </button>\n                      </div>\n                    </div>\n                  </div>\n                  \n                  <!-- <form>\n                    <div class=\"form-group\"></div>\n                  </form> -->\n                </div>\n              </div>\n            </div>\n          </div>\n        </div>\n      </div>\n    </div>\n  </div>\n</div>\n"
+module.exports = "<div class=\"container-scroller\">\n  <app-navigation-bar></app-navigation-bar>\n  <div class=\"container-fluid page-body-wrapper\">\n    <app-side-bar></app-side-bar>\n    <div class=\"main-panel\">\n      <div class=\"content-wrapper\">\n        <div class=\"row\">\n          <div class=\"col-md-12 grid-margin\">\n            <div class=\"d-flex justify-content-between flex-wrap\">\n              <div class=\"d-flex align-items-end flex-wrap\">\n                <div class=\"mr-md-3 mr-xl-5\">\n                  <h2>My Form Data</h2>\n                  <p class=\"mb-md-0\">Your analytics dashboard template.</p>\n                </div>\n                <div class=\"d-flex\">\n                </div>\n              </div>\n            </div>\n          </div>\n        </div>\n\n        <div *ngIf=\"loading\" class=\"row p-5\">\n          <div class=\"col-md-12 p-5\">\n            <div class=\"d-flex justify-content-center\">\n              <div class=\"spinner-border m-5\" style=\"width: 5rem; height: 5rem;\" role=\"status\">\n                <span class=\"sr-only\">Loading...</span>\n              </div>\n            </div>\n          </div>\n        </div>\n\n        <div *ngIf=\"!hasData && !loading\" class=\"row\">\n          <div class=\"col-lg-12 grid-margin stretch-card\">\n            <div class=\"card text-center pt-5 pb-5\">\n              <div class=\"card-body mt-5 mb-5\">\n                <h4 class=\"card-title\">No Data Found</h4>\n                <p class=\"card-description\">\n                  No data has been found.\n                </p>\n                <div class=\"text-lg-center mt-5 mb-5\">\n                  <div class=\"card-text\">\n                    <i class=\"mdi mdi-file-question\" style=\"font-size: 8em;\"></i>\n                  </div>\n                  <div class=\"card-text\">\n                    <h3>No Available Forms</h3>\n                    <p class=\"text-muted\">\n                      There are currently no forms available yet. All created forms would be displayed here.\n                    </p>\n                  </div>\n                </div>\n              </div>\n            </div>\n          </div>\n        </div>\n\n        <div *ngIf=\"!isConnected\" class=\"row\">\n          <div class=\"col-md-12 grid-margin\">\n            <div class=\"card text-center\">\n              <div class=\"card-body\">\n                <p class=\"card-title\">Offline</p>\n                <p class=\"text-muted\"></p>\n                <div class=\"card-text\">\n                  <i class=\"mdi mdi-wifi-off\" style=\"font-size: 12em;\"></i>\n                  <h2>No Internet Connection</h2>\n                  <p class=\"text-muted\">You don't have an active internet connection</p>\n                </div>\n              </div>\n            </div>\n          </div>\n        </div>\n\n        <div *ngIf=\"hasError\" class=\"row\">\n          <div class=\"col-lg-12 grid-margin stretch-card\">\n            <div class=\"card text-center pt-5 pb-5\">\n              <div class=\"card-body mt-5 mb-5\">\n                <h4 class=\"card-title\">Error Ocuured</h4>\n                <p class=\"card-description\">\n                  Ooops! Something went wrong!\n                </p>\n                <div class=\"text-lg-center mt-5 mb-5\">\n                  <div class=\"card-text\">\n                    <i class=\"mdi mdi-close-network-outline\" style=\"font-size: 8em;\"></i>\n                  </div>\n                  <div class=\"card-text\">\n                    <h3>We couldn't find any forms</h3>\n                    <p class=\"text-muted\">An error has occured on our servers or you might not have internet connection\n                    </p>\n                  </div>\n                </div>\n              </div>\n            </div>\n          </div>\n        </div>\n        \n        <div class=\"row\">\n          <div class=\"col-lg-8 offset-2 grid-margin stretch-card\">\n            <div class=\"card\">\n              <div class=\"card-body\">\n                <h4 class=\"card-title\">Basic Table</h4>\n                <p class=\"card-description\"></p>\n                <div class=\"card-text\">\n                  <div class=\"form-group\">\n                    <div class=\"input-group\">\n                      <input type=\"text\" class=\"form-control\" placeholder=\"First Name\" aria-label=\"Recipient's username\">\n                      <div class=\"input-group-append\">\n                        <button class=\"btn btn-sm btn-primary\" type=\"button\">\n                          <i class=\"mdi mdi-pencil-outline\"></i>\n                        </button>\n                        <button class=\"btn btn-sm btn-danger\" type=\"button\">\n                          <i class=\"mdi mdi-delete-outline\"></i>\n                        </button>\n                      </div>\n                    </div>\n                  </div>\n                  \n                  <!-- <form>\n                    <div class=\"form-group\"></div>\n                  </form> -->\n                </div>\n              </div>\n            </div>\n          </div>\n        </div>\n      </div>\n    </div>\n  </div>\n</div>\n"
 
 /***/ }),
 
@@ -679,7 +690,7 @@ module.exports = "<div class=\"container-scroller\">\n  <app-navigation-bar></ap
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<div class=\"container-scroller\">\n  <app-navigation-bar></app-navigation-bar>\n  <div class=\"container-fluid page-body-wrapper\">\n    <app-side-bar></app-side-bar>\n    <div class=\"main-panel\">\n      <div class=\"content-wrapper\">\n        <div class=\"row\">\n          <div class=\"col-md-12 grid-margin\">\n            <div class=\"d-flex justify-content-between flex-wrap\">\n              <div class=\"d-flex align-items-end flex-wrap\">\n                <div class=\"mr-md-3 mr-xl-5\">\n                  <h2>Select Form</h2>\n                  <p class=\"mb-md-0\">Your analytics dashboard template.</p>\n                </div>\n                <div class=\"d-flex\">\n                  <i class=\"mdi mdi-home text-muted hover-cursor\"></i>\n                  <p class=\"text-muted mb-0 hover-cursor\">&nbsp;/&nbsp;Home&nbsp;/&nbsp;</p>\n                  <p class=\"text-primary mb-0 hover-cursor\">Analytics</p>\n                </div>\n                <div class=\"d-flex justify-content-between align-items-end flex-wrap\"></div>\n              </div>\n            </div>\n          </div>\n        </div>\n\n        <div class=\"row\">\n          <div class=\"col-12 col-md-8 offset-md-2\">\n            <div class=\"search-bar\">\n              <form>\n                <input type=\"text\" class=\"search-form form-control\" name=\"query\" [(ngModel)]=\"query\" placeholder=\"Search by code or by name\"\n                  aria-label=\"search\" aria-describedby=\"search\" (keypress)=\"search($event)\">\n              </form>\n            </div>\n          </div>\n        </div>\n\n        <div *ngIf=\"loading\" class=\"row p-5\">\n          <div class=\"col-md-12 p-5\">\n            <div class=\"d-flex justify-content-center\">\n              <div class=\"spinner-border m-5\" style=\"width: 5rem; height: 5rem;\" role=\"status\">\n                <span class=\"sr-only\">Loading...</span>\n              </div>\n            </div>\n          </div>\n        </div>\n\n        <div *ngIf=\"!hasData && !loading\" class=\"row\">\n          <div class=\"col-lg-12 grid-margin stretch-card\">\n            <div class=\"card text-center pt-5 pb-5\">\n              <div class=\"card-body mt-5 mb-5\">\n                <h4 class=\"card-title\">No Data Found</h4>\n                <p class=\"card-description\">\n                  No data has been found.\n                </p>\n                <div class=\"text-lg-center mt-5 mb-5\">\n                  <div class=\"card-text\">\n                    <i class=\"mdi mdi-file-question\" style=\"font-size: 8em;\"></i>\n                  </div>\n                  <div class=\"card-text\">\n                    <h3>No Available Forms</h3>\n                    <p class=\"text-muted\">\n                      There are currently no forms available yet. All created forms would be displayed here.\n                    </p>\n                  </div>\n                </div>\n              </div>\n            </div>\n          </div>\n        </div>\n\n        <div *ngIf=\"foundNoForm && !loading\" class=\"row\">\n          <div class=\"col-lg-12 grid-margin stretch-card\">\n            <div class=\"card text-center pt-5 pb-5\">\n              <div class=\"card-body mt-5 mb-5\">\n                <h4 class=\"card-title\">No Search Result</h4>\n                <p class=\"card-description\">\n                  No form found based on your search criteria\n                </p>\n                <div class=\"text-lg-center mt-5 mb-5\">\n                  <div class=\"card-text\">\n                    <i class=\"mdi mdi-file-question\" style=\"font-size: 8em;\"></i>\n                  </div>\n                  <div class=\"card-text\">\n                  <h3>No Forms Found</h3>\n                  <p class=\"text-muted\">\n                    No form found based on your search criteria.\n                  </p>\n                  </div>\n                </div>\n              </div>\n            </div>\n          </div>\n        </div>\n\n        <div *ngIf=\"!isConnected\" class=\"row\">\n          <div class=\"col-md-12 grid-margin\">\n            <div class=\"card text-center\">\n              <div class=\"card-body\">\n                <p class=\"card-title\">Offline</p>\n                <p class=\"text-muted\"></p>\n                <div class=\"card-text\">\n                  <i class=\"mdi mdi-wifi-off\" style=\"font-size: 12em;\"></i>\n                  <h2>No Internet Connection</h2>\n                  <p class=\"text-muted\">You don't have an active internet connection</p>\n                </div>\n              </div>\n            </div>\n          </div>\n        </div>\n\n        <div *ngIf=\"hasError\" class=\"row\">\n          <div class=\"col-lg-12 grid-margin stretch-card\">\n            <div class=\"card text-center pt-5 pb-5\">\n              <div class=\"card-body mt-5 mb-5\">\n                <h4 class=\"card-title\">Error Ocuured</h4>\n                <p class=\"card-description\">\n                  Ooops! Something went wrong!\n                </p>\n                <div class=\"text-lg-center mt-5 mb-5\">\n                  <div class=\"card-text\">\n                    <i class=\"mdi mdi-close-network-outline\" style=\"font-size: 8em;\"></i>\n                  </div>\n                  <div class=\"card-text\">\n                    <h3>We couldn't find any forms</h3>\n                    <p class=\"text-muted\">An error has occured on our servers or you might not have internet connection\n                    </p>\n                  </div>\n                </div>\n              </div>\n            </div>\n          </div>\n        </div>\n\n        <div *ngIf=\"!loading && hasData\" class=\"row\" style=\"margin-top: 25px;\">\n          <div class=\"col-md-4 grid-margin stretch-card\" *ngFor=\"let form of formsList\">\n            <div class=\"card hover-cursor animated fadeInDown slow\" (click)=\"open(form)\">\n              <div class=\"card-body\">\n                <p class=\"card-title\">{{ form.name }}</p>\n                <div class=\"card-text\">\n                  <p class=\"text-muted\">Click to open form and start filling.</p>\n                </div>\n              </div>\n            </div>\n          </div>\n        </div>\n      </div>\n      <!-- content -->\n      <!-- footer  -->\n      <app-footer-bar></app-footer-bar>\n      <!-- partial -->\n    </div>\n    <!-- main-panel ends -->\n  </div>\n</div>\n"
+module.exports = "<div class=\"container-scroller\">\n  <app-navigation-bar></app-navigation-bar>\n  <div class=\"container-fluid page-body-wrapper\">\n    <app-side-bar></app-side-bar>\n    <div class=\"main-panel\">\n      <div class=\"content-wrapper\">\n        <div class=\"row\">\n          <div class=\"col-md-12 grid-margin\">\n            <div class=\"d-flex justify-content-between flex-wrap\">\n              <div class=\"d-flex align-items-end flex-wrap\">\n                <div class=\"mr-md-3 mr-xl-5\">\n                  <h2>Select Form</h2>\n                  <p class=\"mb-md-0\">Your analytics dashboard template.</p>\n                </div>\n                <div class=\"d-flex\">\n                </div>\n                <div class=\"d-flex justify-content-between align-items-end flex-wrap\"></div>\n              </div>\n            </div>\n          </div>\n        </div>\n\n        <div class=\"row\">\n          <div class=\"col-12 col-md-8 offset-md-2\">\n            <div class=\"search-bar\">\n              <form>\n                <input type=\"text\" class=\"search-form form-control\" name=\"query\" [(ngModel)]=\"query\" placeholder=\"Search by code or by name\"\n                  aria-label=\"search\" aria-describedby=\"search\" (keypress)=\"search($event)\">\n              </form>\n            </div>\n          </div>\n        </div>\n\n        <div *ngIf=\"loading\" class=\"row p-5\">\n          <div class=\"col-md-12 p-5\">\n            <div class=\"d-flex justify-content-center\">\n              <div class=\"spinner-border m-5\" style=\"width: 5rem; height: 5rem;\" role=\"status\">\n                <span class=\"sr-only\">Loading...</span>\n              </div>\n            </div>\n          </div>\n        </div>\n\n        <div *ngIf=\"!hasData && !loading\" class=\"row\">\n          <div class=\"col-lg-12 grid-margin stretch-card\">\n            <div class=\"card text-center pt-5 pb-5\">\n              <div class=\"card-body mt-5 mb-5\">\n                <h4 class=\"card-title\">No Data Found</h4>\n                <p class=\"card-description\">\n                  No data has been found.\n                </p>\n                <div class=\"text-lg-center mt-5 mb-5\">\n                  <div class=\"card-text\">\n                    <i class=\"mdi mdi-file-question\" style=\"font-size: 8em;\"></i>\n                  </div>\n                  <div class=\"card-text\">\n                    <h3>No Available Forms</h3>\n                    <p class=\"text-muted\">\n                      There are currently no forms available yet. All created forms would be displayed here.\n                    </p>\n                  </div>\n                </div>\n              </div>\n            </div>\n          </div>\n        </div>\n\n        <div *ngIf=\"foundNoForm && !loading\" class=\"row\">\n          <div class=\"col-lg-12 grid-margin stretch-card\">\n            <div class=\"card text-center pt-5 pb-5\">\n              <div class=\"card-body mt-5 mb-5\">\n                <h4 class=\"card-title\">No Search Result</h4>\n                <p class=\"card-description\">\n                  No form found based on your search criteria\n                </p>\n                <div class=\"text-lg-center mt-5 mb-5\">\n                  <div class=\"card-text\">\n                    <i class=\"mdi mdi-file-question\" style=\"font-size: 8em;\"></i>\n                  </div>\n                  <div class=\"card-text\">\n                  <h3>No Forms Found</h3>\n                  <p class=\"text-muted\">\n                    No form found based on your search criteria.\n                  </p>\n                  </div>\n                </div>\n              </div>\n            </div>\n          </div>\n        </div>\n\n        <div *ngIf=\"!isConnected\" class=\"row\">\n          <div class=\"col-md-12 grid-margin\">\n            <div class=\"card text-center\">\n              <div class=\"card-body\">\n                <p class=\"card-title\">Offline</p>\n                <p class=\"text-muted\"></p>\n                <div class=\"card-text\">\n                  <i class=\"mdi mdi-wifi-off\" style=\"font-size: 12em;\"></i>\n                  <h2>No Internet Connection</h2>\n                  <p class=\"text-muted\">You don't have an active internet connection</p>\n                </div>\n              </div>\n            </div>\n          </div>\n        </div>\n\n        <div *ngIf=\"hasError\" class=\"row\">\n          <div class=\"col-lg-12 grid-margin stretch-card\">\n            <div class=\"card text-center pt-5 pb-5\">\n              <div class=\"card-body mt-5 mb-5\">\n                <h4 class=\"card-title\">Error Ocuured</h4>\n                <p class=\"card-description\">\n                  Ooops! Something went wrong!\n                </p>\n                <div class=\"text-lg-center mt-5 mb-5\">\n                  <div class=\"card-text\">\n                    <i class=\"mdi mdi-close-network-outline\" style=\"font-size: 8em;\"></i>\n                  </div>\n                  <div class=\"card-text\">\n                    <h3>We couldn't find any forms</h3>\n                    <p class=\"text-muted\">An error has occured on our servers or you might not have internet connection\n                    </p>\n                  </div>\n                </div>\n              </div>\n            </div>\n          </div>\n        </div>\n\n        <div *ngIf=\"!loading && hasData\" class=\"row\" style=\"margin-top: 25px;\">\n          <div class=\"col-md-4 grid-margin stretch-card\" *ngFor=\"let form of formsList\">\n            <div class=\"card hover-cursor animated fadeInDown slow\" (click)=\"open(form)\">\n              <div class=\"card-body\">\n                <p class=\"card-title\">{{ form.name }}</p>\n                <div class=\"card-text\">\n                  <p class=\"text-muted\">Click to open form and start filling.</p>\n                </div>\n              </div>\n            </div>\n          </div>\n        </div>\n      </div>\n      <!-- content -->\n      <!-- footer  -->\n      <app-footer-bar></app-footer-bar>\n      <!-- partial -->\n    </div>\n    <!-- main-panel ends -->\n  </div>\n</div>\n"
 
 /***/ }),
 
@@ -701,7 +712,7 @@ module.exports = "<p>client-profile-page works!</p>\n"
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<div class=\"container-scroller\">\n  <app-navigation-bar></app-navigation-bar>\n  <div class=\"container-fluid page-body-wrapper\">\n    <app-side-bar></app-side-bar>\n    <div class=\"main-panel\">\n      <div class=\"content-wrapper\">\n        <div class=\"row\">\n          <div class=\"col-md-12 grid-margin\">\n            <div class=\"d-flex justify-content-between flex-wrap\">\n              <div class=\"d-flex align-items-end flex-wrap\">\n                <div class=\"mr-md-3 mr-xl-5\">\n                  <h2>Unsent Forms</h2>\n                  <p class=\"mb-md-0\">Your analytics dashboard template.</p>\n                </div>\n                <div class=\"d-flex\">\n                  <i class=\"mdi mdi-home text-muted hover-cursor\"></i>\n                  <p class=\"text-muted mb-0 hover-cursor\">&nbsp;/&nbsp;Home&nbsp;/&nbsp;</p>\n                  <p class=\"text-primary mb-0 hover-cursor\">Analytics</p>\n                </div>\n                <div class=\"d-flex justify-content-between align-items-end flex-wrap\"></div>\n              </div>\n            </div>\n          </div>\n        </div>\n\n        <!-- <div class=\"search-bar-container\">\n          <form>\n            <input type=\"text\" class=\"search-form form-control\" placeholder=\"Search now\" aria-label=\"search\"\n              aria-describedby=\"search\">\n          </form>\n        </div> -->\n\n        <div *ngIf=\"loading\" class=\"row p-5\">\n          <div class=\"col-md-12 p-5\">\n            <div class=\"d-flex justify-content-center\">\n              <div class=\"spinner-border m-5\" style=\"width: 5rem; height: 5rem;\" role=\"status\">\n                <span class=\"sr-only\">Loading...</span>\n              </div>\n            </div>\n          </div>\n        </div>\n\n        <div *ngIf=\"!hasData && !loading\" class=\"row\">\n          <div class=\"col-lg-12 grid-margin stretch-card\">\n            <div class=\"card text-center pt-5 pb-5\">\n              <div class=\"card-body mt-5 mb-5\">\n                <h4 class=\"card-title\">No Data Found</h4>\n                <p class=\"card-description\">\n                  No data has been found.\n                </p>\n                <div class=\"text-lg-center mt-5 mb-5\">\n                  <div class=\"card-text\">\n                    <i class=\"mdi mdi-file-question\" style=\"font-size: 8em;\"></i>\n                  </div>\n                  <div class=\"card-text\">\n                    <h3>No Available Form History</h3>\n                    <p class=\"text-muted\">\n                      You havent filled any forms yet! All the forms you filled will be displayed\n                      here to make it easy to re-fill again.\n                    </p>\n                  </div>\n                </div>\n              </div>\n            </div>\n          </div>\n        </div>\n\n        <div *ngIf=\"!isConnected\" class=\"row\">\n          <div class=\"col-md-12 grid-margin\">\n            <div class=\"card text-center\">\n              <div class=\"card-body\">\n                <p class=\"card-title\">Offline</p>\n                <p class=\"text-muted\"></p>\n                <div class=\"card-text\">\n                  <i class=\"mdi mdi-wifi-off\" style=\"font-size: 12em;\"></i>\n                  <h2>No Internet Connection</h2>\n                  <p class=\"text-muted\">You don't have an active internet connection</p>\n                </div>\n              </div>\n            </div>\n          </div>\n        </div>\n\n        <div *ngIf=\"hasError\" class=\"row\">\n          <div class=\"col-lg-12 grid-margin stretch-card\">\n            <div class=\"card text-center pt-5 pb-5\">\n              <div class=\"card-body mt-5 mb-5\">\n                <h4 class=\"card-title\">Error Ocuured</h4>\n                <p class=\"card-description\">\n                  Ooops! Something went wrong!\n                </p>\n                <div class=\"text-lg-center mt-5 mb-5\">\n                  <div class=\"card-text\">\n                    <i class=\"mdi mdi-close-network-outline\" style=\"font-size: 8em;\"></i>\n                  </div>\n                  <div class=\"card-text\">\n                    <h3>We couldn't filled forms</h3>\n                    <p class=\"text-muted\">An error has occured on our servers or you might not have internet connection\n                    </p>\n                  </div>\n                </div>\n              </div>\n            </div>\n          </div>\n        </div>\n\n        <div *ngIf=\"!loading && hasData\" class=\"row\">\n          <div class=\"col-md-4 grid-margin stretch-card\" *ngFor=\"let form of unSentFormsList\">\n            <div class=\"card hover-cursor animated fadeInDown slow\">\n              <div class=\"card-body\">\n                <h1 class=\"display-4\">{{ form.submission_code }}</h1>\n                <p class=\"card-title\">{{ form.form_name }}</p>\n                <div class=\"card-text\">\n                  <p class=\"text-muted\">{{ form.submitted_at | date }}</p>\n                </div>\n              </div>\n            </div>\n          </div>\n        </div>\n      </div>\n      <!-- content -->\n      <!-- footer  -->\n      <app-footer-bar></app-footer-bar>\n      <!-- partial -->\n    </div>\n    <!-- main-panel ends -->\n  </div>\n</div>\n"
+module.exports = "<div class=\"container-scroller\">\n  <app-navigation-bar></app-navigation-bar>\n  <div class=\"container-fluid page-body-wrapper\">\n    <app-side-bar></app-side-bar>\n    <div class=\"main-panel\">\n      <div class=\"content-wrapper\">\n        <div class=\"row\">\n          <div class=\"col-md-12 grid-margin\">\n            <div class=\"d-flex justify-content-between flex-wrap\">\n              <div class=\"d-flex align-items-end flex-wrap\">\n                <div class=\"mr-md-3 mr-xl-5\">\n                  <h2>Unsent Forms</h2>\n                  <p class=\"mb-md-0\">Your analytics dashboard template.</p>\n                </div>\n                <div class=\"d-flex\">\n                </div>\n                <div class=\"d-flex justify-content-between align-items-end flex-wrap\"></div>\n              </div>\n            </div>\n          </div>\n        </div>\n\n        <div *ngIf=\"loading\" class=\"row p-5\">\n          <div class=\"col-md-12 p-5\">\n            <div class=\"d-flex justify-content-center\">\n              <div class=\"spinner-border m-5\" style=\"width: 5rem; height: 5rem;\" role=\"status\">\n                <span class=\"sr-only\">Loading...</span>\n              </div>\n            </div>\n          </div>\n        </div>\n\n        <div *ngIf=\"!hasData && !loading\" class=\"row\">\n          <div class=\"col-lg-12 grid-margin stretch-card\">\n            <div class=\"card text-center pt-5 pb-5\">\n              <div class=\"card-body mt-5 mb-5\">\n                <h4 class=\"card-title\">No Data Found</h4>\n                <p class=\"card-description\">\n                  No data has been found.\n                </p>\n                <div class=\"text-lg-center mt-5 mb-5\">\n                  <div class=\"card-text\">\n                    <i class=\"mdi mdi-file-question\" style=\"font-size: 8em;\"></i>\n                  </div>\n                  <div class=\"card-text\">\n                    <h3>No Available Form History</h3>\n                    <p class=\"text-muted\">\n                      You havent filled any forms yet! All the forms you filled will be displayed\n                      here to make it easy to re-fill again.\n                    </p>\n                  </div>\n                </div>\n              </div>\n            </div>\n          </div>\n        </div>\n\n        <div *ngIf=\"!isConnected\" class=\"row\">\n          <div class=\"col-md-12 grid-margin\">\n            <div class=\"card text-center\">\n              <div class=\"card-body\">\n                <p class=\"card-title\">Offline</p>\n                <p class=\"text-muted\"></p>\n                <div class=\"card-text\">\n                  <i class=\"mdi mdi-wifi-off\" style=\"font-size: 12em;\"></i>\n                  <h2>No Internet Connection</h2>\n                  <p class=\"text-muted\">You don't have an active internet connection</p>\n                </div>\n              </div>\n            </div>\n          </div>\n        </div>\n\n        <div *ngIf=\"hasError\" class=\"row\">\n          <div class=\"col-lg-12 grid-margin stretch-card\">\n            <div class=\"card text-center pt-5 pb-5\">\n              <div class=\"card-body mt-5 mb-5\">\n                <h4 class=\"card-title\">Error Ocuured</h4>\n                <p class=\"card-description\">\n                  Ooops! Something went wrong!\n                </p>\n                <div class=\"text-lg-center mt-5 mb-5\">\n                  <div class=\"card-text\">\n                    <i class=\"mdi mdi-close-network-outline\" style=\"font-size: 8em;\"></i>\n                  </div>\n                  <div class=\"card-text\">\n                    <h3>We couldn't filled forms</h3>\n                    <p class=\"text-muted\">An error has occured on our servers or you might not have internet connection\n                    </p>\n                  </div>\n                </div>\n              </div>\n            </div>\n          </div>\n        </div>\n\n        <div *ngIf=\"!loading && hasData\" class=\"row\">\n          <div class=\"col-md-4 grid-margin stretch-card\" *ngFor=\"let form of unSentFormsList\">\n            <div class=\"card hover-cursor animated fadeInDown slow\">\n              <div class=\"card-body\">\n                <h1 class=\"display-4\">{{ form.submission_code }}</h1>\n                <p class=\"card-title\">{{ form.form_name }}</p>\n                <div class=\"card-text\">\n                  <p class=\"text-muted\">{{ form.submitted_at | date }}</p>\n                </div>\n              </div>\n            </div>\n          </div>\n        </div>\n      </div>\n      <!-- content -->\n      <!-- footer  -->\n      <app-footer-bar></app-footer-bar>\n      <!-- partial -->\n    </div>\n    <!-- main-panel ends -->\n  </div>\n</div>\n"
 
 /***/ }),
 
@@ -1130,7 +1141,7 @@ module.exports = "<form [formGroup]=\"form\" (ngSubmit)=\"edit()\" class=\"pt-3\
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<div class=\"container-scroller\">\n  <div class=\"container-fluid page-body-wrapper full-page-wrapper\">\n    <div class=\"content-wrapper d-flex align-items-center auth px-0\">\n      <div class=\"row w-100 mx-0\">\n        <div class=\"col-lg-4 mx-auto\">\n          <div class=\"auth-form-light text-left py-5 px-4 px-sm-5\">\n            <a routerLink=\"/\" class=\"brand-logo\">\n              <img src=\"./assets/images/logo.png\" alt=\"logo\">\n            </a>\n            <div *ngIf=\"notConfirmed\" class=\"mt-2 mb-5\">\n              <div class=\"alert alert-warning\" role=\"alert\">\n                <h3 class=\"alert-heading\">Hey there!</h3>\n                <p class=\"lead\"><strong>Your email address has not been confirmed</strong></p>\n                <hr>\n                <p class=\"lead\">A confirmation email has been sent to your email address.</p>\n                <p class=\"mb-0 lead\">Please check your email and click the activation link in the email. Thank You!</p>\n              </div>\n            </div>\n\n            <div *ngIf=\"deactivated\" class=\"mt-2 mb-5\">\n              <div class=\"alert alert-danger\" role=\"alert\">\n                <h3 class=\"alert-heading\">Hey there!</h3>\n                <p class=\"lead\"><strong>Your account has been deactivated</strong></p>\n                <hr>\n                <p class=\"mb-0 lead\">Please contact your admin</p>\n              </div>\n            </div>\n\n            <h4>Hello! let's get started</h4>\n            <h6 class=\"font-weight-light\">Sign in to continue.</h6>\n            <form [formGroup]=\"form\" (ngSubmit)=\"login()\" class=\"pt-3\">\n              <div class=\"form-group\">\n                <input type=\"text\" class=\"form-control form-control-lg\" formControlName=\"username\"\n                  placeholder=\"Username\" [ngClass]=\"{'input-control-error': submitted && f.username.errors}\">\n                <div *ngIf=\"submitted && f.username.errors\">\n                  <p class=\"input-error\" *ngIf=\"f.username.errors.required\">Username is required</p>\n                </div>\n              </div>\n              <div *ngIf=\"userNotFound\" class=\"mt-2\">\n                <div class=\"alert alert-danger alert-dismissible fade show\" role=\"alert\">\n                  <strong>User Not Found!</strong> Mmm!, this email address doesnt have an account with us\n                  <button type=\"button\" class=\"close\" data-dismiss=\"alert\" aria-label=\"Close\">\n                    <span aria-hidden=\"true\">&times;</span>\n                  </button>\n                </div>\n              </div>\n              <div class=\"form-group\">\n                <input type=\"password\" class=\"form-control form-control-lg\" formControlName=\"password\"\n                  placeholder=\"Password\" [ngClass]=\"{'input-control-error': submitted && f.password.errors}\">\n                <div *ngIf=\"submitted && f.password.errors\">\n                  <p class=\"input-error\" *ngIf=\"f.password.errors.minlength\">Password must be atleast 6 characters</p>\n                  <p class=\"input-error\" *ngIf=\"f.password.errors.required\">Password is required</p>\n                </div>\n              </div>\n              <div *ngIf=\"invalidPassword\" class=\"mt-2\">\n                <div class=\"alert alert-danger alert-dismissible fade show\" role=\"alert\">\n                  <strong>Invalid Password!</strong> Oh no, this isn't your password. Please check and try again.\n                  <button type=\"button\" class=\"close\" data-dismiss=\"alert\" aria-label=\"Close\">\n                    <span aria-hidden=\"true\">&times;</span>\n                  </button>\n                </div>\n              </div>\n              <div class=\"mt-3\">\n                <button type=\"submit\" *ngIf=\"!loading\" class=\"btn btn-block btn-primary btn-lg font-weight-medium auth-form-btn\">SIGN IN</button>\n                <button type=\"button\" *ngIf=\"loading\" class=\"btn btn-block btn-primary btn-lg font-weight-medium auth-form-btn\" disabled>\n                  <span class=\"spinner-border spinner-border-sm\" role=\"status\" aria-hidden=\"true\"></span> &nbsp; &nbsp;\n                  Please wait...\n                </button>\n              </div>\n              <div class=\"mt-3 text-center\">\n                <!-- <div class=\"form-check\">\n                  <label class=\"form-check-label text-muted\">\n                    <input type=\"checkbox\" class=\"form-check-input\">\n                    Keep me signed in\n                  </label>\n                </div> -->\n                <a routerLink=\"/forgot\" class=\"auth-link text-black\">Forgot password?</a>\n              </div>\n              <div class=\"text-center mt-4 font-weight-light\">\n                Don't have an account? <a routerLink=\"/register\" class=\"text-primary\">Create</a>\n              </div>\n            </form>\n          </div>\n        </div>\n      </div>\n    </div>\n    <!-- content-wrapper ends -->\n  </div>\n  <!-- page-body-wrapper ends -->\n</div>\n"
+module.exports = "<div class=\"container-scroller\">\n  <div class=\"container-fluid page-body-wrapper full-page-wrapper\">\n    <div class=\"content-wrapper d-flex align-items-center auth px-0\">\n      <div class=\"row w-100 mx-0\">\n        <div class=\"col-lg-4 mx-auto\">\n          <div class=\"auth-form-light text-left py-5 px-4 px-sm-5\">\n            <a routerLink=\"/\" class=\"brand-logo\">\n              <img src=\"./assets/images/logo.png\" alt=\"logo\">\n            </a>\n            <div *ngIf=\"notConfirmed\" class=\"mt-2 mb-5\">\n              <div class=\"alert alert-warning\" role=\"alert\">\n                <h3 class=\"alert-heading\">Hey there!</h3>\n                <p class=\"lead\"><strong>Your email address has not been confirmed</strong></p>\n                <hr>\n                <p class=\"lead\">A confirmation email has been sent to your email address.</p>\n                <p class=\"mb-0 lead\">Please check your email and click the activation link in the email. Thank You!</p>\n              </div>\n            </div>\n\n            <div *ngIf=\"deactivated\" class=\"mt-2 mb-5\">\n              <div class=\"alert alert-danger\" role=\"alert\">\n                <h3 class=\"alert-heading\">Hey there!</h3>\n                <p class=\"lead\"><strong>Your account has been deactivated</strong></p>\n                <hr>\n                <p class=\"mb-0 lead\">Please contact your admin</p>\n              </div>\n            </div>\n\n            <h4>Hello! let's get started</h4>\n            <h6 class=\"font-weight-light\">Sign in to continue.</h6>\n            <form [formGroup]=\"form\" (ngSubmit)=\"login()\" class=\"pt-3\">\n              <div class=\"form-group\">\n                <input type=\"text\" class=\"form-control form-control-lg\" formControlName=\"username\"\n                  placeholder=\"Username\" [ngClass]=\"{'input-control-error': submitted && f.username.errors}\">\n                <div *ngIf=\"submitted && f.username.errors\">\n                  <p class=\"input-error\" *ngIf=\"f.username.errors.required\">Username is required</p>\n                </div>\n              </div>\n              <div *ngIf=\"userNotFound\" class=\"mt-2\">\n                <div class=\"alert alert-danger alert-dismissible fade show\" role=\"alert\">\n                  <strong>User Not Found!</strong> Mmm!, this email address doesnt have an account with us\n                  <button type=\"button\" class=\"close\" data-dismiss=\"alert\" aria-label=\"Close\">\n                    <span aria-hidden=\"true\">&times;</span>\n                  </button>\n                </div>\n              </div>\n              <div class=\"form-group\">\n                <input type=\"password\" class=\"form-control form-control-lg\" formControlName=\"password\"\n                  placeholder=\"Password\" [ngClass]=\"{'input-control-error': submitted && f.password.errors}\">\n                <div *ngIf=\"submitted && f.password.errors\">\n                  <p class=\"input-error\" *ngIf=\"f.password.errors.minlength\">Password must be atleast 6 characters</p>\n                  <p class=\"input-error\" *ngIf=\"f.password.errors.required\">Password is required</p>\n                </div>\n              </div>\n              <div *ngIf=\"invalidPassword\" class=\"mt-2\">\n                <div class=\"alert alert-danger alert-dismissible fade show\" role=\"alert\">\n                  <strong>Invalid Password!</strong> Oh no, this isn't your password. Please check and try again.\n                  <button type=\"button\" class=\"close\" data-dismiss=\"alert\" aria-label=\"Close\">\n                    <span aria-hidden=\"true\">&times;</span>\n                  </button>\n                </div>\n              </div>\n              <div class=\"mt-3\">\n                <button type=\"submit\" *ngIf=\"!loading\" class=\"btn btn-block btn-primary btn-lg font-weight-medium auth-form-btn\">SIGN IN</button>\n                <button type=\"button\" *ngIf=\"loading\" class=\"btn btn-block btn-primary btn-lg font-weight-medium auth-form-btn\" disabled>\n                  <span class=\"spinner-border spinner-border-sm\" role=\"status\" aria-hidden=\"true\"></span> &nbsp; &nbsp;\n                  Please wait...\n                </button>\n              </div>\n              <div class=\"mt-3 text-center\">\n                <a routerLink=\"/forgot\" class=\"auth-link text-black\">Forgot password?</a>\n              </div>\n              <div class=\"text-center mt-4 font-weight-light\">\n                Don't have an account? <a routerLink=\"/register\" class=\"text-primary\">Create</a>\n              </div>\n              <div class=\"mt-3 text-center\">\n                <a routerLink=\"/user_auth\" class=\"auth-link text-primary\">Login as other user?</a>\n              </div>\n            </form>\n          </div>\n        </div>\n      </div>\n    </div>\n    <!-- content-wrapper ends -->\n  </div>\n  <!-- page-body-wrapper ends -->\n</div>\n"
 
 /***/ }),
 
@@ -1236,6 +1247,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _pages_dashboard_admin_admin_view_branch_details_page_admin_view_branch_details_page_component__WEBPACK_IMPORTED_MODULE_67__ = __webpack_require__(/*! ./pages/dashboard/admin/admin-view-branch-details-page/admin-view-branch-details-page.component */ "./src/app/pages/dashboard/admin/admin-view-branch-details-page/admin-view-branch-details-page.component.ts");
 /* harmony import */ var _pages_dashboard_git_admin_create_access_code_page_create_access_code_page_component__WEBPACK_IMPORTED_MODULE_68__ = __webpack_require__(/*! ./pages/dashboard/git-admin/create-access-code-page/create-access-code-page.component */ "./src/app/pages/dashboard/git-admin/create-access-code-page/create-access-code-page.component.ts");
 /* harmony import */ var _pages_auth_page_auth_page_component__WEBPACK_IMPORTED_MODULE_69__ = __webpack_require__(/*! ./pages/auth-page/auth-page.component */ "./src/app/pages/auth-page/auth-page.component.ts");
+/* harmony import */ var _pages_admin_login_page_admin_login_page_component__WEBPACK_IMPORTED_MODULE_70__ = __webpack_require__(/*! ./pages/admin-login-page/admin-login-page.component */ "./src/app/pages/admin-login-page/admin-login-page.component.ts");
+
 
 
 
@@ -1318,6 +1331,10 @@ var routes = [
     {
         path: 'auth',
         component: _pages_auth_page_auth_page_component__WEBPACK_IMPORTED_MODULE_69__["AuthPageComponent"]
+    },
+    {
+        path: 'user_auth',
+        component: _pages_admin_login_page_admin_login_page_component__WEBPACK_IMPORTED_MODULE_70__["AdminLoginPageComponent"]
     },
     {
         path: 'register',
@@ -1462,7 +1479,7 @@ var routes = [
                 component: _pages_dashboard_client_client_list_branches_page_client_list_branches_page_component__WEBPACK_IMPORTED_MODULE_10__["ClientListBranchesPageComponent"]
             },
             {
-                path: 'forms/:company',
+                path: 'forms',
                 component: _pages_dashboard_client_client_list_forms_page_client_list_forms_page_component__WEBPACK_IMPORTED_MODULE_11__["ClientListFormsPageComponent"]
             },
             {
@@ -1474,7 +1491,7 @@ var routes = [
                 component: _pages_dashboard_client_client_forms_history_page_client_forms_history_page_component__WEBPACK_IMPORTED_MODULE_24__["ClientFormsHistoryPageComponent"]
             },
             {
-                path: 'form_entry/:form',
+                path: 'form_entry',
                 component: _pages_dashboard_client_client_forms_entry_page_client_forms_entry_page_component__WEBPACK_IMPORTED_MODULE_25__["ClientFormsEntryPageComponent"]
             },
             {
@@ -1819,6 +1836,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _pages_dashboard_branch_admin_branch_admin_edit_user_page_branch_admin_edit_user_page_component__WEBPACK_IMPORTED_MODULE_86__ = __webpack_require__(/*! ./pages/dashboard/branch-admin/branch-admin-edit-user-page/branch-admin-edit-user-page.component */ "./src/app/pages/dashboard/branch-admin/branch-admin-edit-user-page/branch-admin-edit-user-page.component.ts");
 /* harmony import */ var _pages_dashboard_git_admin_create_access_code_page_create_access_code_page_component__WEBPACK_IMPORTED_MODULE_87__ = __webpack_require__(/*! ./pages/dashboard/git-admin/create-access-code-page/create-access-code-page.component */ "./src/app/pages/dashboard/git-admin/create-access-code-page/create-access-code-page.component.ts");
 /* harmony import */ var _pages_auth_page_auth_page_component__WEBPACK_IMPORTED_MODULE_88__ = __webpack_require__(/*! ./pages/auth-page/auth-page.component */ "./src/app/pages/auth-page/auth-page.component.ts");
+/* harmony import */ var _pages_admin_login_page_admin_login_page_component__WEBPACK_IMPORTED_MODULE_89__ = __webpack_require__(/*! ./pages/admin-login-page/admin-login-page.component */ "./src/app/pages/admin-login-page/admin-login-page.component.ts");
+
 
 
 
@@ -1992,6 +2011,7 @@ var AppModule = /** @class */ (function () {
                 _pages_dashboard_branch_admin_branch_admin_edit_user_page_branch_admin_edit_user_page_component__WEBPACK_IMPORTED_MODULE_86__["BranchAdminEditUserPageComponent"],
                 _pages_dashboard_git_admin_create_access_code_page_create_access_code_page_component__WEBPACK_IMPORTED_MODULE_87__["CreateAccessCodePageComponent"],
                 _pages_auth_page_auth_page_component__WEBPACK_IMPORTED_MODULE_88__["AuthPageComponent"],
+                _pages_admin_login_page_admin_login_page_component__WEBPACK_IMPORTED_MODULE_89__["AdminLoginPageComponent"],
             ],
             imports: [
                 _angular_platform_browser__WEBPACK_IMPORTED_MODULE_1__["BrowserModule"],
@@ -2436,6 +2456,173 @@ var Users = /** @class */ (function () {
         { type: Number }
     ]; };
     return Users;
+}());
+
+
+
+/***/ }),
+
+/***/ "./src/app/pages/admin-login-page/admin-login-page.component.css":
+/*!***********************************************************************!*\
+  !*** ./src/app/pages/admin-login-page/admin-login-page.component.css ***!
+  \***********************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = ".auth .brand-logo img {\n    width: 60px;\n}\n\np.lead {\n    line-height: 1.8rem;\n}\n\n.auth form .auth-form-btn {\n    height: 50px;\n    line-height: 1.2;\n}\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInNyYy9hcHAvcGFnZXMvYWRtaW4tbG9naW4tcGFnZS9hZG1pbi1sb2dpbi1wYWdlLmNvbXBvbmVudC5jc3MiXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IkFBQUE7SUFDSSxXQUFXO0FBQ2Y7O0FBRUE7SUFDSSxtQkFBbUI7QUFDdkI7O0FBRUE7SUFDSSxZQUFZO0lBQ1osZ0JBQWdCO0FBQ3BCIiwiZmlsZSI6InNyYy9hcHAvcGFnZXMvYWRtaW4tbG9naW4tcGFnZS9hZG1pbi1sb2dpbi1wYWdlLmNvbXBvbmVudC5jc3MiLCJzb3VyY2VzQ29udGVudCI6WyIuYXV0aCAuYnJhbmQtbG9nbyBpbWcge1xuICAgIHdpZHRoOiA2MHB4O1xufVxuXG5wLmxlYWQge1xuICAgIGxpbmUtaGVpZ2h0OiAxLjhyZW07XG59XG5cbi5hdXRoIGZvcm0gLmF1dGgtZm9ybS1idG4ge1xuICAgIGhlaWdodDogNTBweDtcbiAgICBsaW5lLWhlaWdodDogMS4yO1xufSJdfQ== */"
+
+/***/ }),
+
+/***/ "./src/app/pages/admin-login-page/admin-login-page.component.ts":
+/*!**********************************************************************!*\
+  !*** ./src/app/pages/admin-login-page/admin-login-page.component.ts ***!
+  \**********************************************************************/
+/*! exports provided: AdminLoginPageComponent */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "AdminLoginPageComponent", function() { return AdminLoginPageComponent; });
+/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
+/* harmony import */ var lodash__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! lodash */ "./node_modules/lodash/lodash.js");
+/* harmony import */ var lodash__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(lodash__WEBPACK_IMPORTED_MODULE_2__);
+/* harmony import */ var _angular_router__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @angular/router */ "./node_modules/@angular/router/fesm5/router.js");
+/* harmony import */ var src_app_enums_user_types_enum__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! src/app/enums/user-types.enum */ "./src/app/enums/user-types.enum.ts");
+/* harmony import */ var _angular_forms__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @angular/forms */ "./node_modules/@angular/forms/fesm5/forms.js");
+/* harmony import */ var src_app_services_account_account_service__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! src/app/services/account/account.service */ "./src/app/services/account/account.service.ts");
+/* harmony import */ var src_app_services_storage_local_storage_service__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! src/app/services/storage/local-storage.service */ "./src/app/services/storage/local-storage.service.ts");
+
+
+
+
+
+
+
+
+var AdminLoginPageComponent = /** @class */ (function () {
+    function AdminLoginPageComponent(router, formBuilder, accountService, localStorageService) {
+        this.router = router;
+        this.formBuilder = formBuilder;
+        this.accountService = accountService;
+        this.localStorageService = localStorageService;
+    }
+    AdminLoginPageComponent.prototype.ngOnInit = function () {
+        this.buildForm();
+    };
+    Object.defineProperty(AdminLoginPageComponent.prototype, "f", {
+        get: function () {
+            return this.form.controls;
+        },
+        enumerable: true,
+        configurable: true
+    });
+    AdminLoginPageComponent.prototype.buildForm = function () {
+        this.form = this.formBuilder.group({
+            username: ['', _angular_forms__WEBPACK_IMPORTED_MODULE_5__["Validators"].required],
+            password: ['', [_angular_forms__WEBPACK_IMPORTED_MODULE_5__["Validators"].minLength(6), _angular_forms__WEBPACK_IMPORTED_MODULE_5__["Validators"].required]]
+        });
+    };
+    AdminLoginPageComponent.prototype.getFormData = function () {
+        var data = {
+            username: this.f.username.value,
+            password: this.f.password.value
+        };
+        return data;
+    };
+    AdminLoginPageComponent.prototype.handleLoginErrorResponses = function (response) {
+        switch (response.message) {
+            case 'EMAIL_NOT_CONFIRMED':
+                this.notConfirmed = true;
+                break;
+            case 'ACCOUNT_DEACTIVATED':
+                this.deactivated = true;
+                break;
+            case 'INVALID_PASSWORD':
+                this.invalidPassword = true;
+                break;
+            case 'USER_NOT_FOUND':
+                this.userNotFound = true;
+                break;
+            default:
+                break;
+        }
+    };
+    AdminLoginPageComponent.prototype.navigateToUserDashboard = function (user_type) {
+        if (user_type == src_app_enums_user_types_enum__WEBPACK_IMPORTED_MODULE_4__["UserTypes"].Client) {
+            this.router.navigateByUrl('/login');
+        }
+        if (user_type == src_app_enums_user_types_enum__WEBPACK_IMPORTED_MODULE_4__["UserTypes"].GitAdmin) {
+            this.router.navigateByUrl('/git_admin');
+        }
+        else if (user_type == src_app_enums_user_types_enum__WEBPACK_IMPORTED_MODULE_4__["UserTypes"].BranchAdmin) {
+            this.router.navigateByUrl('/admin');
+        }
+        else if (user_type == src_app_enums_user_types_enum__WEBPACK_IMPORTED_MODULE_4__["UserTypes"].BranchSuperExecutive) {
+            this.router.navigateByUrl('/executive');
+        }
+        else if (user_type == src_app_enums_user_types_enum__WEBPACK_IMPORTED_MODULE_4__["UserTypes"].CompanyAdmin) {
+            this.router.navigateByUrl('/admin');
+        }
+        else if (user_type == src_app_enums_user_types_enum__WEBPACK_IMPORTED_MODULE_4__["UserTypes"].FrontDesk) {
+            this.router.navigateByUrl('/front_desk');
+        }
+        else if (user_type == src_app_enums_user_types_enum__WEBPACK_IMPORTED_MODULE_4__["UserTypes"].SuperExecutive) {
+            this.router.navigateByUrl('/executive');
+        }
+        else {
+            alert('unknown user type');
+        }
+    };
+    AdminLoginPageComponent.prototype.login = function () {
+        var _this = this;
+        this.loading = true;
+        this.submitted = true;
+        this.deactivated = false;
+        this.userNotFound = false;
+        this.notConfirmed = false;
+        this.invalidPassword = false;
+        if (this.form.invalid) {
+            this.form.enable();
+            this.loading = false;
+        }
+        else {
+            this.form.disable();
+            var login = this.getFormData();
+            this.accountService.authenticate(login.username, login.password).then(function (res) {
+                var response = res;
+                _this.form.enable();
+                _this.loading = false;
+                if (lodash__WEBPACK_IMPORTED_MODULE_2__["isUndefined"](response.message)) {
+                    var user = response.user;
+                    _this.localStorageService.token = response.token;
+                    _this.localStorageService.saveUserInformation(user);
+                    _this.navigateToUserDashboard(user.usertype);
+                }
+                else {
+                    _this.handleLoginErrorResponses(response);
+                }
+            }, function (err) {
+                _this.form.enable();
+                _this.loading = false;
+                _this.handleLoginErrorResponses(err.error);
+            });
+        }
+    };
+    AdminLoginPageComponent.ctorParameters = function () { return [
+        { type: _angular_router__WEBPACK_IMPORTED_MODULE_3__["Router"] },
+        { type: _angular_forms__WEBPACK_IMPORTED_MODULE_5__["FormBuilder"] },
+        { type: src_app_services_account_account_service__WEBPACK_IMPORTED_MODULE_6__["AccountService"] },
+        { type: src_app_services_storage_local_storage_service__WEBPACK_IMPORTED_MODULE_7__["LocalStorageService"] }
+    ]; };
+    AdminLoginPageComponent = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Component"])({
+            selector: 'app-admin-login-page',
+            template: __webpack_require__(/*! raw-loader!./admin-login-page.component.html */ "./node_modules/raw-loader/index.js!./src/app/pages/admin-login-page/admin-login-page.component.html"),
+            styles: [__webpack_require__(/*! ./admin-login-page.component.css */ "./src/app/pages/admin-login-page/admin-login-page.component.css")]
+        })
+    ], AdminLoginPageComponent);
+    return AdminLoginPageComponent;
 }());
 
 
@@ -4479,6 +4666,7 @@ var ClientFormMerchantsPageComponent = /** @class */ (function () {
         this.clientService = clientService;
         this.companyService = companyService;
         this.endpointService = endpointService;
+        this.formsList = [];
         this.companyList = [];
         this.getCompanies();
     }
@@ -4486,7 +4674,10 @@ var ClientFormMerchantsPageComponent = /** @class */ (function () {
         this.isConnected = window.navigator.onLine ? true : false;
     };
     ClientFormMerchantsPageComponent.prototype.open = function (company) {
-        this.router.navigateByUrl('/client/forms/' + company.id, { state: { company: company } });
+        this.router.navigateByUrl('/client/forms', { state: { company: company } });
+    };
+    ClientFormMerchantsPageComponent.prototype.openForm = function (form) {
+        this.router.navigateByUrl('/client/form_entry', { state: { form: form } });
     };
     ClientFormMerchantsPageComponent.prototype.getCompanies = function () {
         var _this = this;
@@ -4522,7 +4713,7 @@ var ClientFormMerchantsPageComponent = /** @class */ (function () {
                 _this.loading = false;
                 _this.foundNoForm = false;
                 lodash__WEBPACK_IMPORTED_MODULE_2__["forEach"](forms, function (form) {
-                    _this.companyList.push(form);
+                    _this.formsList.push(form);
                 });
             }
         }, function (err) {
@@ -4542,7 +4733,7 @@ var ClientFormMerchantsPageComponent = /** @class */ (function () {
                 _this.loading = false;
                 _this.foundNoForm = false;
                 lodash__WEBPACK_IMPORTED_MODULE_2__["forEach"](forms, function (form) {
-                    _this.companyList.push(form);
+                    _this.formsList.push(form);
                 });
             }
         }, function (err) {
@@ -4557,6 +4748,7 @@ var ClientFormMerchantsPageComponent = /** @class */ (function () {
             // First, check if its a form code.
             console.log(this.query);
             this.hasError = false;
+            this.formsList = [];
             this.companyList = [];
             if (/\d/.test(this.query)) {
                 if (this.query.length == 6) {
@@ -4662,10 +4854,14 @@ var ClientFormsEntryPageComponent = /** @class */ (function () {
         this.formRenderer = document.getElementById('form-render');
         var renderOptions = { formData: formData, dataType: 'json' };
         this.formInstance = $(this.formRenderer).formRender(renderOptions);
+        this.setFormData(formData);
     };
     ClientFormsEntryPageComponent.prototype.setFormData = function (data) {
-        this.formBuilder.getUserFilledData(lodash__WEBPACK_IMPORTED_MODULE_2__["toString"](this.user.id)).then(function (res) {
+        var _this = this;
+        this.clientService.getDetails(lodash__WEBPACK_IMPORTED_MODULE_2__["toString"](this.user.id)).then(function (res) {
             console.log('user_data: ' + JSON.stringify(res));
+            _this.clientProfile = res;
+            _this.clientService.autoFillFormData(data, res.client_details[0]);
         }, function (err) {
             console.log('error: ' + JSON.stringify(err));
         });
@@ -4678,7 +4874,7 @@ var ClientFormsEntryPageComponent = /** @class */ (function () {
         this.loading = true;
         var user_data = this.getFormData();
         console.log(JSON.stringify(user_data));
-        console.log(this.formBuilder.getFormUserData(user_data));
+        console.log('this form: ' + this.formBuilder.getFormUserData(user_data));
         var unfilled = this.clientService.validateFormFilled(user_data);
         if (unfilled.length != 0) {
             this.loading = false;
@@ -4687,7 +4883,10 @@ var ClientFormsEntryPageComponent = /** @class */ (function () {
         }
         else {
             console.log('is submitting');
-            this.clientService.submitForm(lodash__WEBPACK_IMPORTED_MODULE_2__["toString"](this.user.id), this.form.form_code, user_data).then(function (res) {
+            var filled_data = this.formBuilder.getFormUserData(user_data);
+            var updated_data = this.clientService.getUpdatedClientFormData(JSON.parse(filled_data), this.clientProfile.client_details[0]);
+            console.log('new updates: ' + updated_data);
+            this.clientService.submitForm(lodash__WEBPACK_IMPORTED_MODULE_2__["toString"](this.user.id), this.form.form_code, this.clientProfile.client_details[0], JSON.parse(updated_data)).then(function (res) {
                 _this.created = true;
                 _this.loading = false;
                 _this.formGenCode = res.code;
@@ -4696,6 +4895,7 @@ var ClientFormsEntryPageComponent = /** @class */ (function () {
             });
         }
     };
+    ClientFormsEntryPageComponent.prototype.loadForm = function () { };
     ClientFormsEntryPageComponent.ctorParameters = function () { return [
         { type: _angular_router__WEBPACK_IMPORTED_MODULE_3__["Router"] },
         { type: src_app_services_client_client_service__WEBPACK_IMPORTED_MODULE_4__["ClientService"] },
@@ -4762,7 +4962,7 @@ var ClientFormsHistoryPageComponent = /** @class */ (function () {
     ClientFormsHistoryPageComponent.prototype.ngOnInit = function () {
     };
     ClientFormsHistoryPageComponent.prototype.openFormEntry = function (form) {
-        this.router.navigateByUrl('/client/form_entry/' + form.form_code, { state: { form: form } });
+        this.router.navigateByUrl('/client/form_entry', { state: { form: form } });
     };
     ClientFormsHistoryPageComponent.prototype.getAllHistory = function () {
         var _this = this;
@@ -5034,7 +5234,7 @@ var ClientListFormsPageComponent = /** @class */ (function () {
     ClientListFormsPageComponent.prototype.ngOnInit = function () {
     };
     ClientListFormsPageComponent.prototype.open = function (form) {
-        this.router.navigateByUrl('/client/form_entry/' + form.form_code, { state: { form: form } });
+        this.router.navigateByUrl('/client/form_entry', { state: { form: form } });
     };
     ClientListFormsPageComponent.prototype.searchByFormCode = function () {
         var _this = this;
@@ -10403,7 +10603,7 @@ var UserAccountEditorComponent = /** @class */ (function () {
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = ".auth .brand-logo img {\n    width: 60px;\n}\n\np.lead {\n    line-height: 1.8rem;\n}\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInNyYy9hcHAvcGFnZXMvbG9naW4tcGFnZS9sb2dpbi1wYWdlLmNvbXBvbmVudC5jc3MiXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IkFBQUE7SUFDSSxXQUFXO0FBQ2Y7O0FBRUE7SUFDSSxtQkFBbUI7QUFDdkIiLCJmaWxlIjoic3JjL2FwcC9wYWdlcy9sb2dpbi1wYWdlL2xvZ2luLXBhZ2UuY29tcG9uZW50LmNzcyIsInNvdXJjZXNDb250ZW50IjpbIi5hdXRoIC5icmFuZC1sb2dvIGltZyB7XG4gICAgd2lkdGg6IDYwcHg7XG59XG5cbnAubGVhZCB7XG4gICAgbGluZS1oZWlnaHQ6IDEuOHJlbTtcbn0iXX0= */"
+module.exports = ".auth .brand-logo img {\n    width: 60px;\n}\n\np.lead {\n    line-height: 1.8rem;\n}\n\n.auth form .auth-form-btn {\n    height: 50px;\n    line-height: 1.2;\n}\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInNyYy9hcHAvcGFnZXMvbG9naW4tcGFnZS9sb2dpbi1wYWdlLmNvbXBvbmVudC5jc3MiXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IkFBQUE7SUFDSSxXQUFXO0FBQ2Y7O0FBRUE7SUFDSSxtQkFBbUI7QUFDdkI7O0FBRUE7SUFDSSxZQUFZO0lBQ1osZ0JBQWdCO0FBQ3BCIiwiZmlsZSI6InNyYy9hcHAvcGFnZXMvbG9naW4tcGFnZS9sb2dpbi1wYWdlLmNvbXBvbmVudC5jc3MiLCJzb3VyY2VzQ29udGVudCI6WyIuYXV0aCAuYnJhbmQtbG9nbyBpbWcge1xuICAgIHdpZHRoOiA2MHB4O1xufVxuXG5wLmxlYWQge1xuICAgIGxpbmUtaGVpZ2h0OiAxLjhyZW07XG59XG5cbi5hdXRoIGZvcm0gLmF1dGgtZm9ybS1idG4ge1xuICAgIGhlaWdodDogNTBweDtcbiAgICBsaW5lLWhlaWdodDogMS4yO1xufSJdfQ== */"
 
 /***/ }),
 
@@ -10553,7 +10753,6 @@ var LoginPageComponent = /** @class */ (function () {
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Component"])({
             selector: 'app-login-page',
             template: __webpack_require__(/*! raw-loader!./login-page.component.html */ "./node_modules/raw-loader/index.js!./src/app/pages/login-page/login-page.component.html"),
-            providers: [src_app_services_account_account_service__WEBPACK_IMPORTED_MODULE_6__["AccountService"], src_app_services_storage_local_storage_service__WEBPACK_IMPORTED_MODULE_7__["LocalStorageService"]],
             styles: [__webpack_require__(/*! ./login-page.component.css */ "./src/app/pages/login-page/login-page.component.css")]
         })
     ], LoginPageComponent);
@@ -10587,11 +10786,14 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "RegisterPageComponent", function() { return RegisterPageComponent; });
 /* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
-/* harmony import */ var ngx_country_picker__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ngx-country-picker */ "./node_modules/ngx-country-picker/index.js");
-/* harmony import */ var _angular_forms__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @angular/forms */ "./node_modules/@angular/forms/fesm5/forms.js");
-/* harmony import */ var src_app_services_account_account_service__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! src/app/services/account/account.service */ "./src/app/services/account/account.service.ts");
-/* harmony import */ var src_app_models_users_model__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! src/app/models/users.model */ "./src/app/models/users.model.ts");
-/* harmony import */ var src_app_enums_user_types_enum__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! src/app/enums/user-types.enum */ "./src/app/enums/user-types.enum.ts");
+/* harmony import */ var lodash__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! lodash */ "./node_modules/lodash/lodash.js");
+/* harmony import */ var lodash__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(lodash__WEBPACK_IMPORTED_MODULE_2__);
+/* harmony import */ var src_app_models_users_model__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! src/app/models/users.model */ "./src/app/models/users.model.ts");
+/* harmony import */ var src_app_enums_user_types_enum__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! src/app/enums/user-types.enum */ "./src/app/enums/user-types.enum.ts");
+/* harmony import */ var _angular_forms__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @angular/forms */ "./node_modules/@angular/forms/fesm5/forms.js");
+/* harmony import */ var ngx_country_picker__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ngx-country-picker */ "./node_modules/ngx-country-picker/index.js");
+/* harmony import */ var src_app_services_account_account_service__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! src/app/services/account/account.service */ "./src/app/services/account/account.service.ts");
+
 
 
 
@@ -10627,12 +10829,12 @@ var RegisterPageComponent = /** @class */ (function () {
     });
     RegisterPageComponent.prototype.buildForm = function () {
         this.form = this.formBuilder.group({
-            firstName: ['', _angular_forms__WEBPACK_IMPORTED_MODULE_3__["Validators"].required],
-            lastName: ['', _angular_forms__WEBPACK_IMPORTED_MODULE_3__["Validators"].required],
-            country: ['', _angular_forms__WEBPACK_IMPORTED_MODULE_3__["Validators"].required],
-            username: ['', _angular_forms__WEBPACK_IMPORTED_MODULE_3__["Validators"].required],
-            password: ['', [_angular_forms__WEBPACK_IMPORTED_MODULE_3__["Validators"].minLength(6), _angular_forms__WEBPACK_IMPORTED_MODULE_3__["Validators"].required]],
-            emailAddress: ['', [_angular_forms__WEBPACK_IMPORTED_MODULE_3__["Validators"].email, _angular_forms__WEBPACK_IMPORTED_MODULE_3__["Validators"].required]]
+            firstName: ['', _angular_forms__WEBPACK_IMPORTED_MODULE_5__["Validators"].required],
+            lastName: ['', _angular_forms__WEBPACK_IMPORTED_MODULE_5__["Validators"].required],
+            country: ['', _angular_forms__WEBPACK_IMPORTED_MODULE_5__["Validators"].required],
+            username: ['', _angular_forms__WEBPACK_IMPORTED_MODULE_5__["Validators"].required],
+            password: ['', [_angular_forms__WEBPACK_IMPORTED_MODULE_5__["Validators"].minLength(6), _angular_forms__WEBPACK_IMPORTED_MODULE_5__["Validators"].required]],
+            emailAddress: ['', [_angular_forms__WEBPACK_IMPORTED_MODULE_5__["Validators"].email, _angular_forms__WEBPACK_IMPORTED_MODULE_5__["Validators"].required]]
         });
     };
     RegisterPageComponent.prototype.onCountrySelect = function (e) {
@@ -10647,7 +10849,7 @@ var RegisterPageComponent = /** @class */ (function () {
         var country = this.f.country.value;
         var username = this.f.username.value;
         var password = this.f.password.value;
-        var user = new src_app_models_users_model__WEBPACK_IMPORTED_MODULE_5__["Users"](fname, lname, email, password, username, country, password, src_app_enums_user_types_enum__WEBPACK_IMPORTED_MODULE_6__["UserTypes"].Client);
+        var user = new src_app_models_users_model__WEBPACK_IMPORTED_MODULE_3__["Users"](fname, lname, email, password, username, country, password, src_app_enums_user_types_enum__WEBPACK_IMPORTED_MODULE_4__["UserTypes"].Client);
         return user;
     };
     RegisterPageComponent.prototype.register = function () {
@@ -10665,7 +10867,7 @@ var RegisterPageComponent = /** @class */ (function () {
             var user = this.getFormData();
             this.accountService.createAccount(user).then(function (res) {
                 var response = res;
-                if (response.message.toLowerCase() == 'ok') {
+                if (!lodash__WEBPACK_IMPORTED_MODULE_2__["isUndefined"](response.id)) {
                     _this.form.enable();
                     _this.loading = false;
                     _this.created = true;
@@ -10683,15 +10885,14 @@ var RegisterPageComponent = /** @class */ (function () {
         }
     };
     RegisterPageComponent.ctorParameters = function () { return [
-        { type: _angular_forms__WEBPACK_IMPORTED_MODULE_3__["FormBuilder"] },
-        { type: src_app_services_account_account_service__WEBPACK_IMPORTED_MODULE_4__["AccountService"] },
-        { type: ngx_country_picker__WEBPACK_IMPORTED_MODULE_2__["CountryPickerService"] }
+        { type: _angular_forms__WEBPACK_IMPORTED_MODULE_5__["FormBuilder"] },
+        { type: src_app_services_account_account_service__WEBPACK_IMPORTED_MODULE_7__["AccountService"] },
+        { type: ngx_country_picker__WEBPACK_IMPORTED_MODULE_6__["CountryPickerService"] }
     ]; };
     RegisterPageComponent = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Component"])({
             selector: 'app-register-page',
             template: __webpack_require__(/*! raw-loader!./register-page.component.html */ "./node_modules/raw-loader/index.js!./src/app/pages/register-page/register-page.component.html"),
-            providers: [src_app_services_account_account_service__WEBPACK_IMPORTED_MODULE_4__["AccountService"]],
             styles: [__webpack_require__(/*! ./register-page.component.css */ "./src/app/pages/register-page/register-page.component.css")]
         })
     ], RegisterPageComponent);
@@ -10774,6 +10975,7 @@ var AccountService = /** @class */ (function () {
         this.http = http;
         this.endpointService = endpointService;
         this.headers = this.endpointService._headers();
+        this.authHeaders = this.endpointService.headers();
     }
     /**
      * Logs in a user.
@@ -10798,7 +11000,23 @@ var AccountService = /** @class */ (function () {
         });
     };
     AccountService.prototype.verifyAccessCode = function (access_code) {
-        return new Promise(function (resolve, reject) { });
+        var _this = this;
+        return new Promise(function (resolve, reject) {
+            var url = _this.endpointService.apiHost + 'api/ValidateAccessCode/' + access_code;
+            _this.http.post(url, {}, { headers: _this.headers }).subscribe(function (res) {
+                console.log('res: ' + JSON.stringify(res));
+                var response = res;
+                if (lodash__WEBPACK_IMPORTED_MODULE_2__["toLower"](response.message) == 'ok') {
+                    resolve(true);
+                }
+                else {
+                    resolve(false);
+                }
+            }, function (err) {
+                console.log('err: ' + JSON.stringify(err));
+                reject(err);
+            });
+        });
     };
     /**
      * Creates a new user account.
@@ -10820,6 +11038,13 @@ var AccountService = /** @class */ (function () {
             });
         });
     };
+    /**
+     * Creates a new access code for all users other than `clients`.
+     *
+     * @param {*} access_code_data
+     * @returns {Promise<string>}
+     * @memberof AccountService
+     */
     AccountService.prototype.createAccessCode = function (access_code_data) {
         var _this = this;
         return new Promise(function (resolve, reject) {
@@ -10832,6 +11057,58 @@ var AccountService = /** @class */ (function () {
                 resolve(response.code);
             }, function (err) {
                 console.log('access code error: ' + JSON.stringify(err));
+                reject(err);
+            });
+        });
+    };
+    /**
+     * Re-activates an access code.
+     *
+     * @param {string} access_code
+     * @returns {Promise<boolean>}
+     * @memberof AccountService
+     */
+    AccountService.prototype.activateAccessCode = function (access_code) {
+        var _this = this;
+        return new Promise(function (resolve, reject) {
+            var url = _this.endpointService.apiHost + 'api/v1/activateAccessCode/' + access_code;
+            _this.http.post(url, {}, { headers: _this.authHeaders }).subscribe(function (res) {
+                console.log('res: ' + JSON.stringify(res));
+                var response = res;
+                if (lodash__WEBPACK_IMPORTED_MODULE_2__["toLower"](response.message) == 'ok') {
+                    resolve(true);
+                }
+                else {
+                    resolve(false);
+                }
+            }, function (err) {
+                console.log('err: ' + JSON.stringify(err));
+                reject(err);
+            });
+        });
+    };
+    /**
+     * Deactivates an access code.
+     *
+     * @param {string} access_code
+     * @returns {Promise<boolean>}
+     * @memberof AccountService
+     */
+    AccountService.prototype.deActivateAccessCode = function (access_code) {
+        var _this = this;
+        return new Promise(function (resolve, reject) {
+            var url = _this.endpointService.apiHost + 'api/v1/deactivateAccessCode/' + access_code;
+            _this.http.post(url, {}, { headers: _this.authHeaders }).subscribe(function (res) {
+                console.log('res: ' + JSON.stringify(res));
+                var response = res;
+                if (lodash__WEBPACK_IMPORTED_MODULE_2__["toLower"](response.message) == 'ok') {
+                    resolve(true);
+                }
+                else {
+                    resolve(false);
+                }
+            }, function (err) {
+                console.log('err: ' + JSON.stringify(err));
                 reject(err);
             });
         });
@@ -11511,12 +11788,13 @@ var ClientService = /** @class */ (function () {
         this.endpointService = endpointService;
         this.headers = this.endpointService.headers();
     }
-    ClientService.prototype.submitForm = function (id, code, data) {
+    ClientService.prototype.submitForm = function (id, code, client_data, form_data) {
         var _this = this;
         return new Promise(function (resolve, reject) {
-            var body = JSON.stringify(data);
+            var body = { client_profile: client_data, form_data: form_data };
+            console.log('Body: ' + JSON.stringify(body));
             var url = _this.endpointService.apiHost + 'api/v1/submitForm/' + id + '/' + code;
-            _this.http.post(url, body, { headers: _this.headers }).subscribe(function (res) {
+            _this.http.post(url, JSON.stringify(body), { headers: _this.headers }).subscribe(function (res) {
                 console.log('form_submitted: ' + JSON.stringify(res));
                 resolve(res);
             }, function (err) {
@@ -11586,6 +11864,53 @@ var ClientService = /** @class */ (function () {
                 reject(err);
             });
         });
+    };
+    /**
+     * Auto fills any form with the users already existing data.
+     * NOTE: This is the most critical method of the application and should
+     * always remain bug free.
+     *
+     * @param {Array<any>} form_data
+     * @param {Array<any>} client_data
+     * @memberof ClientService
+     */
+    ClientService.prototype.autoFillFormData = function (form_data, client_data) {
+        lodash__WEBPACK_IMPORTED_MODULE_1__["forEach"](form_data, function (form, i) {
+            if (!lodash__WEBPACK_IMPORTED_MODULE_1__["isUndefined"](form.name)) {
+                var element_names_1 = document.getElementsByName(form.name);
+                var client_keys = lodash__WEBPACK_IMPORTED_MODULE_1__["keys"](client_data);
+                lodash__WEBPACK_IMPORTED_MODULE_1__["forEach"](client_keys, function (client) {
+                    if (form.name == client) {
+                        console.log(form.name);
+                        lodash__WEBPACK_IMPORTED_MODULE_1__["forEach"](element_names_1, function (element) {
+                            var form_field = element;
+                            // we check if the element is a radio button, checkbox or and input field
+                            if (form_field.getAttribute('type') == 'radio') {
+                                // this is a radio button.
+                                var radio_label = form_field.nextElementSibling.textContent;
+                                if (lodash__WEBPACK_IMPORTED_MODULE_1__["toLower"](radio_label) == lodash__WEBPACK_IMPORTED_MODULE_1__["toLower"](client_data[client])) {
+                                    form_field.value = client_data[client];
+                                    form_field.checked = true;
+                                }
+                            }
+                            else {
+                                // this is a text input.
+                                form_field.value = client_data[client];
+                            }
+                        });
+                    }
+                });
+            }
+        });
+    };
+    ClientService.prototype.getUpdatedClientFormData = function (new_form_data, existing_client_data) {
+        var obj = lodash__WEBPACK_IMPORTED_MODULE_1__["toPlainObject"](new_form_data);
+        var keys = lodash__WEBPACK_IMPORTED_MODULE_1__["keys"](obj);
+        console.log('client_k: ' + lodash__WEBPACK_IMPORTED_MODULE_1__["keys"](existing_client_data)[0]);
+        lodash__WEBPACK_IMPORTED_MODULE_1__["forEach"](keys, function (key, i) {
+            existing_client_data[key] = obj[key];
+        });
+        return JSON.stringify(existing_client_data);
     };
     /**
      * Searches for a form by code.
@@ -12284,8 +12609,9 @@ var FormBuilderService = /** @class */ (function () {
                 fields: [
                     {
                         type: 'text',
-                        name: 'first-name',
+                        name: 'firstname',
                         label: 'First Name',
+                        required: true,
                         className: this.formFieldClassName
                     }
                 ]
@@ -12296,7 +12622,7 @@ var FormBuilderService = /** @class */ (function () {
                 fields: [
                     {
                         type: 'text',
-                        name: 'last-name',
+                        name: 'lastname',
                         label: 'Last Name',
                         className: this.formFieldClassName
                     }

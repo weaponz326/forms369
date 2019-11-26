@@ -5,12 +5,11 @@ import { FormsService } from 'src/app/services/forms/forms.service';
 import { ListViewService } from 'src/app/services/view/list-view.service';
 
 @Component({
-  selector: 'app-view-form-lists-page',
-  templateUrl: './view-form-lists-page.component.html',
-  styleUrls: ['./view-form-lists-page.component.css']
+  selector: 'app-view-sections-page',
+  templateUrl: './view-sections-page.component.html',
+  styleUrls: ['./view-sections-page.component.css']
 })
-export class ViewFormListsPageComponent implements OnInit {
-
+export class ViewSectionsPageComponent implements OnInit {
   loading: boolean;
   hasMore: boolean;
   viewMode: string;
@@ -88,27 +87,27 @@ export class ViewFormListsPageComponent implements OnInit {
 
   showActive() {
     this.filterState = 'active';
-    this.formsList = _.filter(this.allFormsList, (form) =>  form.status == 1);
+    this.formsList = _.filter(this.allFormsList, (form) => form.status == 1);
   }
 
   showInActive() {
     this.filterState = 'inactive';
-    this.formsList = _.filter(this.allFormsList, (form) =>  form.status == 0);
+    this.formsList = _.filter(this.allFormsList, (form) => form.status == 0);
   }
 
   edit(form: any) {
-    this.router.navigateByUrl('git_admin/edit/form/' + form.form_code, { state: { form: form }});
+    this.router.navigateByUrl('git_admin/edit/form/' + form.form_code, { state: { form: form } });
   }
 
   view(form: any) {
-    this.router.navigateByUrl('/git_admin/details/form', { state: { form: form }});
+    this.router.navigateByUrl('/git_admin/details/form', { state: { form: form } });
   }
 
   openNewForm() {
     this.router.navigateByUrl('/git_admin/setup_form');
   }
 
-  delete(id: string) {}
+  delete(id: string) { }
 
   getAllForms() {
     this.loading = true;
@@ -134,6 +133,6 @@ export class ViewFormListsPageComponent implements OnInit {
     );
   }
 
-  loadMore() {}
+  loadMore() { }
 
 }

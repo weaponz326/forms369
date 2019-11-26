@@ -18317,13 +18317,13 @@ input:focus {
 
 @font-face {
   font-family: 'Roboto';
-  src: url("../fonts/Roboto/Roboto-Bold.eot");
-  src: url("../fonts/Roboto/Roboto-Bold.eot?#iefix") format("embedded-opentype"), url("../fonts/Roboto/Roboto-Bold.woff2") format("woff2"), url("../fonts/Roboto/Roboto-Bold.woff") format("woff"), url("../fonts/Roboto/Roboto-Bold.ttf") format("truetype");
+  src: url("/fonts/Roboto/Roboto-Bold.eot");
+  src: url("/fonts/Roboto/Roboto-Bold.eot?#iefix") format("embedded-opentype"), url("/fonts/Roboto/Roboto-Bold.woff2") format("woff2"), url("/fonts/Roboto/Roboto-Bold.woff") format("woff"), url("/fonts/Roboto/Roboto-Bold.ttf") format("truetype");
   font-weight: bold;
   font-style: normal;
 }
 
-@font-face {
+/* @font-face {
   font-family: 'Roboto';
   src: url("../fonts/Roboto/Roboto-Medium.eot");
   src: url("../fonts/Roboto/Roboto-Medium.eot?#iefix") format("embedded-opentype"), url("../fonts/Roboto/Roboto-Medium.woff2") format("woff2"), url("../fonts/Roboto/Roboto-Medium.woff") format("woff"), url("../fonts/Roboto/Roboto-Medium.ttf") format("truetype");
@@ -18345,7 +18345,7 @@ input:focus {
   src: url("../fonts/Roboto/Roboto-Black.eot?#iefix") format("embedded-opentype"), url("../fonts/Roboto/Roboto-Black.woff2") format("woff2"), url("../fonts/Roboto/Roboto-Black.woff") format("woff"), url("../fonts/Roboto/Roboto-Black.ttf") format("truetype");
   font-weight: 900;
   font-style: normal;
-}
+} */
 
 .bg-twitter {
   background: #2caae1;

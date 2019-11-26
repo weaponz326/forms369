@@ -11,8 +11,10 @@ import { UserTypes } from 'src/app/enums/user-types.enum';
 export class AccountService {
 
   private headers: HttpHeaders;
+  private authHeaders: HttpHeaders;
   constructor(private http: HttpClient, private endpointService: EndpointService) {
     this.headers = this.endpointService._headers();
+    this.authHeaders = this.endpointService.headers();
   }
 
   /**
@@ -41,7 +43,25 @@ export class AccountService {
   }
 
   verifyAccessCode(access_code: string): Promise<boolean> {
-    return new Promise((resolve, reject) => {});
+    return new Promise((resolve, reject) => {
+      const url = this.endpointService.apiHost + 'api/ValidateAccessCode/' + access_code;
+      this.http.post(url, {}, { headers: this.headers }).subscribe(
+        res => {
+          console.log('res: ' + JSON.stringify(res));
+          const response = res as any;
+          if (_.toLower(response.message) == 'ok') {
+            resolve(true);
+          }
+          else {
+            resolve(false);
+          }
+        },
+        err => {
+          console.log('err: ' + JSON.stringify(err));
+          reject(err);
+        }
+      );
+    });
   }
 
   /**
@@ -67,6 +87,13 @@ export class AccountService {
     });
   }
 
+  /**
+   * Creates a new access code for all users other than `clients`.
+   *
+   * @param {*} access_code_data
+   * @returns {Promise<string>}
+   * @memberof AccountService
+   */
   createAccessCode(access_code_data: any): Promise<string> {
     return new Promise((resolve, reject) => {
       const body = JSON.stringify(access_code_data);
@@ -80,6 +107,64 @@ export class AccountService {
         },
         err => {
           console.log('access code error: ' + JSON.stringify(err));
+          reject(err);
+        }
+      );
+    });
+  }
+
+  /**
+   * Re-activates an access code.
+   *
+   * @param {string} access_code
+   * @returns {Promise<boolean>}
+   * @memberof AccountService
+   */
+  activateAccessCode(access_code: string): Promise<boolean> {
+    return new Promise((resolve, reject) => {
+      const url = this.endpointService.apiHost + 'api/v1/activateAccessCode/' + access_code;
+      this.http.post(url, {}, { headers: this.authHeaders }).subscribe(
+        res => {
+          console.log('res: ' + JSON.stringify(res));
+          const response = res as any;
+          if (_.toLower(response.message) == 'ok') {
+            resolve(true);
+          }
+          else {
+            resolve(false);
+          }
+        },
+        err => {
+          console.log('err: ' + JSON.stringify(err));
+          reject(err);
+        }
+      );
+    });
+  }
+
+  /**
+   * Deactivates an access code.
+   *
+   * @param {string} access_code
+   * @returns {Promise<boolean>}
+   * @memberof AccountService
+   */
+  deActivateAccessCode(access_code: string): Promise<boolean> {
+    return new Promise((resolve, reject) => {
+      const url = this.endpointService.apiHost + 'api/v1/deactivateAccessCode/' + access_code;
+      this.http.post(url, {}, { headers: this.authHeaders }).subscribe(
+        res => {
+          console.log('res: ' + JSON.stringify(res));
+          const response = res as any;
+          if (_.toLower(response.message) == 'ok') {
+            resolve(true);
+          }
+          else {
+            resolve(false);
+          }
+        },
+        err => {
+          console.log('err: ' + JSON.stringify(err));
           reject(err);
         }
       );

@@ -32,7 +32,7 @@ export class ClientFormsHistoryPageComponent implements OnInit {
   }
 
   openFormEntry(form: any) {
-    this.router.navigateByUrl('/client/form_entry/' + form.form_code, { state: { form: form }});
+    this.router.navigateByUrl('/client/form_entry', { state: { form: form }});
   }
 
   getAllHistory() {

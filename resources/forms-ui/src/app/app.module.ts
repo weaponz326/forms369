@@ -91,6 +91,11 @@ import { BranchAdminEditUserPageComponent } from './pages/dashboard/branch-admin
 import { CreateAccessCodePageComponent } from './pages/dashboard/git-admin/create-access-code-page/create-access-code-page.component';
 import { AuthPageComponent } from './pages/auth-page/auth-page.component';
 import { AdminLoginPageComponent } from './pages/admin-login-page/admin-login-page.component';
+import { CreateSectionPageComponent } from './pages/dashboard/git-admin/create-section-page/create-section-page.component';
+import { EditSectionPageComponent } from './pages/dashboard/git-admin/edit-section-page/edit-section-page.component';
+import { ViewSectionsPageComponent } from './pages/dashboard/git-admin/view-sections-page/view-sections-page.component';
+import { ViewAccessCodePageComponent } from './pages/dashboard/git-admin/view-access-code-page/view-access-code-page.component';
+import { EditAccessCodePageComponent } from './pages/dashboard/git-admin/edit-access-code-page/edit-access-code-page.component';
 
 @NgModule({
   declarations: [
@@ -172,6 +177,11 @@ import { AdminLoginPageComponent } from './pages/admin-login-page/admin-login-pa
     CreateAccessCodePageComponent,
     AuthPageComponent,
     AdminLoginPageComponent,
+    CreateSectionPageComponent,
+    EditSectionPageComponent,
+    ViewSectionsPageComponent,
+    ViewAccessCodePageComponent,
+    EditAccessCodePageComponent,
   ],
   imports: [
     BrowserModule,

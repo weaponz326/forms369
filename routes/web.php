@@ -24,7 +24,7 @@ Route::get('login', function () {
 Route::get('auth', function () {
     View::addExtension('html', 'php');
     return View::make('index');
-});
+})->name('auth');
 
 Route::get('user_auth', function () {
     View::addExtension('html', 'php');

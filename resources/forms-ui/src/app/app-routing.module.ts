@@ -68,6 +68,11 @@ import { AdminViewBranchDetailsPageComponent } from './pages/dashboard/admin/adm
 import { CreateAccessCodePageComponent } from './pages/dashboard/git-admin/create-access-code-page/create-access-code-page.component';
 import { AuthPageComponent } from './pages/auth-page/auth-page.component';
 import { AdminLoginPageComponent } from './pages/admin-login-page/admin-login-page.component';
+import { CreateSectionPageComponent } from './pages/dashboard/git-admin/create-section-page/create-section-page.component';
+import { EditSectionPageComponent } from './pages/dashboard/git-admin/edit-section-page/edit-section-page.component';
+import { ViewSectionsPageComponent } from './pages/dashboard/git-admin/view-sections-page/view-sections-page.component';
+import { EditAccessCodePageComponent } from './pages/dashboard/git-admin/edit-access-code-page/edit-access-code-page.component';
+import { ViewAccessCodePageComponent } from './pages/dashboard/git-admin/view-access-code-page/view-access-code-page.component';
 
 const routes: Routes = [
   {
@@ -124,6 +129,10 @@ const routes: Routes = [
           {
             path: 'access_code',
             component: CreateAccessCodePageComponent
+          },
+          {
+            path: 'section',
+            component: CreateSectionPageComponent
           }
         ]
       },
@@ -145,6 +154,14 @@ const routes: Routes = [
           {
             path: 'user_account',
             component: EditUserPageComponent
+          },
+          {
+            path: 'section',
+            component: EditSectionPageComponent
+          },
+          {
+            path: 'access_code',
+            component: EditAccessCodePageComponent
           }
         ]
       },
@@ -186,6 +203,14 @@ const routes: Routes = [
           {
             path: 'front_desk',
             component: ViewFrontDeskListsPageComponent
+          },
+          {
+            path: 'section',
+            component: ViewSectionsPageComponent
+          },
+          {
+            path: 'access_code',
+            component: ViewAccessCodePageComponent
           }
         ]
       },
@@ -229,7 +254,7 @@ const routes: Routes = [
         component: ClientListBranchesPageComponent
       },
       {
-        path: 'forms/:company',
+        path: 'forms',
         component: ClientListFormsPageComponent
       },
       {
@@ -241,7 +266,7 @@ const routes: Routes = [
         component: ClientFormsHistoryPageComponent
       },
       {
-        path: 'form_entry/:form',
+        path: 'form_entry',
         component: ClientFormsEntryPageComponent
       },
       {
