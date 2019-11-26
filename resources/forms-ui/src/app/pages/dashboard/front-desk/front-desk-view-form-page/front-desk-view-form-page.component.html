@@ -9,13 +9,10 @@
             <div class="d-flex justify-content-between flex-wrap">
               <div class="d-flex align-items-end flex-wrap">
                 <div class="mr-md-3 mr-xl-5">
-                  <h2>SSNIT Form</h2>
+                  <h2>{{ formName }}</h2>
                   <p class="mb-md-0">Your analytics dashboard template.</p>
                 </div>
                 <div class="d-flex">
-                  <i class="mdi mdi-home text-muted hover-cursor"></i>
-                  <p class="text-muted mb-0 hover-cursor">&nbsp;/&nbsp;Home&nbsp;/&nbsp;</p>
-                  <p class="text-primary mb-0 hover-cursor">Analytics</p>
                 </div>
               </div>
               <div class="d-flex justify-content-between align-items-end flex-wrap">
@@ -36,19 +33,19 @@
           <div class="col-md-8 offset-md-2 grid-margin stretch-card">
             <div class="card">
               <div class="card-body">
-                <p class="card-title">SSNIT Form</p>
-                <p class="text-muted">Total of forms that have been submitted</p>
+                <p class="card-title">{{ formName }}</p>
                 <div class="card-text">
                   <form class="forms-sample">
                     <div class="form-builder-container">
                       <div id="form-render"></div>
                     </div>
-                    <button class="btn btn-primary btn-lg mr-2" type="button" disabled>
+                    <button *ngIf="loading" class="btn btn-primary btn-lg mr-2" type="button" disabled>
                       <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
                       <span class="sr-only">Please wait...</span>
                     </button>
-                    <button type="submit" class="btn btn-primary btn-lg mr-2">Submit</button>
-                    <button class="btn btn-light btn-lg">Cancel</button>
+                    <button *ngIf="!loading" type="submit" class="btn btn-primary btn-lg mr-2" (click)="complete()">Complete</button>
+                    <button *ngIf="!loading" type="submit" class="btn btn-primary btn-lg mr-2" (click)="process()">Processing</button>
+                    <button class="btn btn-light btn-lg" (click)="cancel()">Cancel</button>
                   </form>
                 </div>
               </div>

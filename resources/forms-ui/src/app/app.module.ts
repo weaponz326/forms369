@@ -50,12 +50,9 @@ import { ViewAdminListsPageComponent } from './pages/dashboard/git-admin/view-ad
 import { ViewBranchListsPageComponent } from './pages/dashboard/git-admin/view-branch-lists-page/view-branch-lists-page.component';
 import { ViewCompanyListsPageComponent } from './pages/dashboard/git-admin/view-company-lists-page/view-company-lists-page.component';
 import { ViewExecutiveListsPageComponent } from './pages/dashboard/git-admin/view-executive-lists-page/view-executive-lists-page.component';
-import { FrontDeskSubmittedFormsPageComponent } from './pages/dashboard/front-desk/front-desk-submitted-forms-page/front-desk-submitted-forms-page.component';
 import { FrontDeskSubmittedFormsListPageComponent } from './pages/dashboard/front-desk/front-desk-submitted-forms-list-page/front-desk-submitted-forms-list-page.component';
-import { FrontDeskProcessedFormsPageComponent } from './pages/dashboard/front-desk/front-desk-processed-forms-page/front-desk-processed-forms-page.component';
 import { FrontDeskProcessedFormsListPageComponent } from './pages/dashboard/front-desk/front-desk-processed-forms-list-page/front-desk-processed-forms-list-page.component';
 import { FrontDeskProcessingFormsListPageComponent } from './pages/dashboard/front-desk/front-desk-processing-forms-list-page/front-desk-processing-forms-list-page.component';
-import { FrontDeskProcessingFormsPageComponent } from './pages/dashboard/front-desk/front-desk-processing-forms-page/front-desk-processing-forms-page.component';
 import { AdminRegisterPageComponent } from './pages/admin-register-page/admin-register-page.component';
 import { UserAccountCreatorComponent } from './pages/dashboard/user-account-creator/user-account-creator.component';
 import { CreateUserAccountPageComponent } from './pages/dashboard/git-admin/create-user-page/create-user-page.component';
@@ -137,12 +134,9 @@ import { EditAccessCodePageComponent } from './pages/dashboard/git-admin/edit-ac
     ViewBranchListsPageComponent,
     ViewCompanyListsPageComponent,
     ViewExecutiveListsPageComponent,
-    FrontDeskSubmittedFormsPageComponent,
     FrontDeskSubmittedFormsListPageComponent,
-    FrontDeskProcessedFormsPageComponent,
     FrontDeskProcessedFormsListPageComponent,
     FrontDeskProcessingFormsListPageComponent,
-    FrontDeskProcessingFormsPageComponent,
     AdminRegisterPageComponent,
     UserAccountCreatorComponent,
     CreateUserAccountPageComponent,

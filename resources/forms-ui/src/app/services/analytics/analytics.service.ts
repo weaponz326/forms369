@@ -211,4 +211,10 @@ export class AnalyticsService {
       );
     });
   }
+
+  getFrontDeskProcessedFormsCount(user_id: string): Promise<any> {
+    return new Promise((resolve, reject) => {
+      const url = this.endpointService.apiHost + 'api/v1/getNumAllFormsProcessedByFrontDeskPerson/' + user_id;
+    });
+  }
 }

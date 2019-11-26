@@ -11,7 +11,7 @@
               <div class="d-flex align-items-end flex-wrap">
                 <div class="mr-md-3 mr-xl-5">
                   <h2>Setup a new form section</h2>
-                  <p class="mb-md-0">Design a new form here, just drag the elements or click to add.</p>
+                  <p class="mb-md-0">Design a new form section here, just drag the elements or click to add.</p>
                 </div>
                 <div class="d-flex">
                 </div>
@@ -35,27 +35,13 @@
 
                 <form [formGroup]="form">
                   <div class="row mt-4">
-                    <div class="col-8">
+                    <div class="col-8 offset-2">
                       <div class="form-group">
-                        <input type="text" formControlName="name" class="form-control"
-                          placeholder="Whats the name of your form ?"
-                          [ngClass]="{'input-control-error': submitted && f.name.errors}">
-                        <div *ngIf="submitted && f.name.errors">
-                          <p class="input-error" *ngIf="f.name.errors.required">Form name is required</p>
-                        </div>
-                      </div>
-                    </div>
-                    <div class="col-4">
-                      <div class="form-group">
-                        <select class="form-control" formControlName="merchant" (change)="onMerchantSelect($event)"
-                          [ngClass]="{'input-control-error': submitted && f.merchant.errors}">
-                          <option value="" disabled>Select Company</option>
-                          <option *ngFor="let company of allMerchantsList" [value]="company.id">
-                            {{ company.merchant_name }}
-                          </option>
-                        </select>
-                        <div *ngIf="submitted && f.merchant.errors">
-                          <p class="input-error" *ngIf="f.merchant.errors.required">Company is required</p>
+                        <input type="text" formControlName="heading" class="form-control"
+                          placeholder="Enter Section Heading (E.g) Personal Information"
+                          [ngClass]="{'input-control-error': submitted && f.heading.errors}">
+                        <div *ngIf="submitted && f.heading.errors">
+                          <p class="input-error" *ngIf="f.heading.errors.required">Section heading is required</p>
                         </div>
                       </div>
                     </div>
@@ -66,7 +52,6 @@
                   </div>
 
                   <button type="submit" *ngIf="!loading" class="btn btn-primary mt-2 mr-1" (click)="create()">Create</button>
-                  <button type="submit" *ngIf="!loading" class="btn btn-primary mt-2 mr-1" (click)="publish()">Create & Publish</button>
                   <button type="button" *ngIf="loading" class="btn btn-primary mr-2" disabled>
                     <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>&nbsp; &nbsp;
                     Please wait...
@@ -86,9 +71,9 @@
                 <p class="text-muted"></p>
                 <div class="card-text">
                   <i class="mdi mdi-shield-check-outline text-primary" style="font-size: 12em;"></i>
-                  <h2>1 Form Created</h2>
-                  <h4>{{ formName }} Form has been created and published</h4>
-                  <p class="text-muted">You have succesfully created a company</p>
+                  <h2>1 Form Section Created</h2>
+                  <h4>{{ sectionHeading }} form section has been created successfully</h4>
+                  <p class="text-muted">You have succesfully created a form section</p>
                 </div>
                 <div class="card-text mt-4">
                   <button type="button" class="btn btn-primary btn-lg btn-icon-text mr-2" (click)="bringBackForm()">

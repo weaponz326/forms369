@@ -34,9 +34,6 @@ import { ViewCompanyListsPageComponent } from './pages/dashboard/git-admin/view-
 import { ViewAdminListsPageComponent } from './pages/dashboard/git-admin/view-admin-lists-page/view-admin-lists-page.component';
 import { ViewExecutiveListsPageComponent } from './pages/dashboard/git-admin/view-executive-lists-page/view-executive-lists-page.component';
 import { ViewBranchListsPageComponent } from './pages/dashboard/git-admin/view-branch-lists-page/view-branch-lists-page.component';
-import { FrontDeskSubmittedFormsPageComponent } from './pages/dashboard/front-desk/front-desk-submitted-forms-page/front-desk-submitted-forms-page.component';
-import { FrontDeskProcessingFormsPageComponent } from './pages/dashboard/front-desk/front-desk-processing-forms-page/front-desk-processing-forms-page.component';
-import { FrontDeskProcessedFormsPageComponent } from './pages/dashboard/front-desk/front-desk-processed-forms-page/front-desk-processed-forms-page.component';
 import { FrontDeskSubmittedFormsListPageComponent } from './pages/dashboard/front-desk/front-desk-submitted-forms-list-page/front-desk-submitted-forms-list-page.component';
 import { FrontDeskProcessingFormsListPageComponent } from './pages/dashboard/front-desk/front-desk-processing-forms-list-page/front-desk-processing-forms-list-page.component';
 import { FrontDeskProcessedFormsListPageComponent } from './pages/dashboard/front-desk/front-desk-processed-forms-list-page/front-desk-processed-forms-list-page.component';
@@ -292,18 +289,6 @@ const routes: Routes = [
         component: FrontDeskViewFormPageComponent
       },
       {
-        path: 'submitted',
-        component: FrontDeskSubmittedFormsPageComponent
-      },
-      {
-        path: 'processing',
-        component: FrontDeskProcessingFormsPageComponent
-      },
-      {
-        path: 'processed',
-        component: FrontDeskProcessedFormsPageComponent
-      },
-      {
         path: 'lists',
         children: [
           {
@@ -311,12 +296,12 @@ const routes: Routes = [
             component: FrontDeskSubmittedFormsListPageComponent
           },
           {
-            path: 'processing',
-            component: FrontDeskProcessingFormsListPageComponent
-          },
-          {
             path: 'processed',
             component: FrontDeskProcessedFormsListPageComponent
+          },
+          {
+            path: 'processing',
+            component: FrontDeskProcessingFormsListPageComponent
           }
         ]
       }

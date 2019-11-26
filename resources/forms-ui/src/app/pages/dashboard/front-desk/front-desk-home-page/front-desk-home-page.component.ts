@@ -19,6 +19,9 @@ export class FrontDesktopHomePageComponent implements OnInit {
   firstname: string;
   submitted: boolean;
   notValidCode: boolean;
+  totalNoSubmitted: string;
+  totalNoProcessed: string;
+  totalNoProcessing: string;
 
   constructor(
     private router: Router,
@@ -43,6 +46,8 @@ export class FrontDesktopHomePageComponent implements OnInit {
       code: ['', [Validators.minLength(9), Validators.maxLength(9), Validators.required]]
     });
   }
+
+  getFrontDeskAnalytics() {}
 
   submit() {
     this.submitted = true;
