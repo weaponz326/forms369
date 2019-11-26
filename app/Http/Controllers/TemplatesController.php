@@ -123,12 +123,12 @@ class TemplatesController extends Controller
 
         //get all templates
         $gettemplates = DB::table('templates')
-        ->get();
+        ->paginate(15);
       
         //clean data
         $templatedata = [];
 
-        $templates = $gettemplates->map(function($items){
+        $gettemplates->transform(function($items){
             $templatedata['id'] = $items->id;
             $templatedata['name'] = Crypt::decryptString($items->name);
             $templatedata['form_fields'] = json_decode(Crypt::decryptString($items->form_fields));
@@ -139,9 +139,9 @@ class TemplatesController extends Controller
 
             return $templatedata;
          });
-         $objects = new Paginator($templates, 15);
+      
          $response = [
-            'templates' => $objects
+            'templates' => $gettemplates
         ];
         return response()->json($response, 200);
 
@@ -177,9 +177,9 @@ class TemplatesController extends Controller
 
             return $templatedata;
          });
-         $objects = new Paginator($templates, 15);
+        
          $response = [
-            'templates' => $objects
+            'templates' => $templates
         ];
         return response()->json($response, 200);
 

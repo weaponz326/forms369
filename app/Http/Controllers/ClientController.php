@@ -21,12 +21,12 @@ class ClientController extends Controller
     public function getAllClients(Request $request){
 
         //get all registered companies 
-        $getclients = DB::table('client')->get();
+        $getclients = DB::table('client')->paginate(15);
       
         //clean data
         $clientsdata = [];
 
-        $clients = $getclients->map(function($items){
+        $getclients->transform(function($items){
             $clientsdata['id'] = $items->id;
             $clientsdata['client_details'] = json_decode(Crypt::decryptString($items->details));
             $clientsdata['created_at'] = $items->created_at;
@@ -34,9 +34,9 @@ class ClientController extends Controller
     
             return $clientsdata;
          });
-         $objects = new Paginator($clients, 15);
+    
          $response = [
-            'clients' => $objects
+            'clients' => $getclients
         ];
         return response()->json($response, 200);
 
@@ -237,7 +237,7 @@ class ClientController extends Controller
      * submitted, in_process,or processed
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param $id of the client 
+     * @param $id of the client  who submitted the forms
      * @return void\Illuminate\Http\Response all details of form
      * 
      */
@@ -251,12 +251,12 @@ class ClientController extends Controller
         ->select('submitted_forms.*','merchants.merchant_name AS merchant_name',
         'users.name', 'users.email', 'forms.name AS form_name', 'forms.form_fields')
         ->where('submitted_forms.client_id', $id)
-        ->get();
+        ->paginate(15);
       
         //clean data
         $submittedformdata = [];
 
-        $forms = $getforms->map(function($items){
+        $getforms->transform(function($items){
             $submittedformdata['submission_code'] = $items->submission_code;
             $submittedformdata['form_code'] = $items->form_id;
             $submittedformdata['form_name'] = Crypt::decryptString($items->form_name);
@@ -272,9 +272,9 @@ class ClientController extends Controller
 
             return $submittedformdata;
          });
-         $objects = new Paginator($forms, 15);
+     
          $response = [
-            'forms' => $objects
+            'forms' => $getforms
         ];
         return response()->json($response, 200);
     }
@@ -323,12 +323,12 @@ class ClientController extends Controller
         'users.name', 'users.email', 'forms.name AS form_name', 'forms.form_fields')
         ->where('submitted_forms.client_id', $id)
         ->where('submitted_forms.status', $status)
-        ->get();
+        ->paginate(15);
       
         //clean data
         $submittedformdata = [];
 
-        $forms = $getforms->map(function($items){
+        $getforms->transform(function($items){
             $submittedformdata['submission_code'] = $items->submission_code;
             $submittedformdata['form_code'] = $items->form_id;
             $submittedformdata['form_name'] = Crypt::decryptString($items->form_name);
@@ -344,9 +344,9 @@ class ClientController extends Controller
 
             return $submittedformdata;
          });
-         $objects = new Paginator($forms, 15);
+         
          $response = [
-            'forms' => $objects
+            'forms' => $getforms
         ];
         return response()->json($response, 200);
     }

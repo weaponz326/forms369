@@ -358,12 +358,12 @@ class FormsController extends Controller
         ->select('forms.*','merchants.merchant_name AS merchant_name')
         ->where('merchants.status', 1)
         ->where('forms.deleted_at', null)
-        ->get();
+        ->paginate(15);
       
         //clean data
         $formdata = [];
 
-        $forms = $getforms->map(function($items){
+        $getforms->transform(function($items){
             $formdata['form_code'] = $items->form_code;
             $formdata['name'] = Crypt::decryptString($items->name);
             $formdata['status'] = $items->status;
@@ -378,13 +378,13 @@ class FormsController extends Controller
             return $formdata;
          });
 
-         $objects = new Paginator($forms, 15);
+
          $response = [
-            'forms' => $objects
+            'forms' => $getforms
         ];
         return response()->json($response, 200);
-
     }
+
 
     /**
      * getNumAllForms get num of all form
@@ -427,12 +427,12 @@ class FormsController extends Controller
         ->where('forms.status', $status)
         ->where('merchants.status', 1)
         ->where('forms.deleted_at', null)
-        ->get();
+        ->paginate(15);
       
         //clean data
         $formdata = [];
 
-        $forms = $getforms->map(function($items){
+        $getforms->transform(function($items){
             $formdata['form_code'] = $items->form_code;
             $formdata['name'] = Crypt::decryptString($items->name);
             $formdata['status'] = $items->status;
@@ -446,9 +446,9 @@ class FormsController extends Controller
 
             return $formdata;
          });
-         $objects = new Paginator($forms, 15);
+        
          $response = [
-            'forms' => $objects
+            'forms' => $getforms
         ];
         return response()->json($response, 200);
 
@@ -470,12 +470,12 @@ class FormsController extends Controller
         ->select('forms.*','merchants.merchant_name AS merchant_name')
         ->where('forms.merchant_id', $id)
         ->where('forms.deleted_at', null)
-        ->get();
+        ->paginate(15);
       
         //clean data
         $formdata = [];
 
-        $forms = $getforms->map(function($items){
+        $getforms->transform(function($items){
             $formdata['form_code'] = $items->form_code;
             $formdata['name'] = Crypt::decryptString($items->name);
             $formdata['status'] = $items->status;
@@ -489,9 +489,9 @@ class FormsController extends Controller
 
             return $formdata;
          });
-         $objects = new Paginator($forms, 15);
+         
          $response = [
-            'forms' => $objects
+            'forms' => $getforms
         ];
         return response()->json($response, 200);
 
@@ -514,12 +514,12 @@ class FormsController extends Controller
         ->where('forms.status', $status)
         ->where('forms.merchant_id', $id)
         ->where('forms.deleted_at', null)
-        ->get();
+        ->paginate(15);
       
         //clean data
         $formdata = [];
 
-        $forms = $getforms->map(function($items){
+        $getforms->transform(function($items){
             $formdata['form_code'] = $items->form_code;
             $formdata['name'] = Crypt::decryptString($items->name);
             $formdata['status'] = $items->status;
@@ -533,9 +533,9 @@ class FormsController extends Controller
 
             return $formdata;
          });
-         $objects = new Paginator($forms, 15);
+         
          $response = [
-            'forms' => $objects
+            'forms' => $getforms
         ];
         return response()->json($response, 200);
 

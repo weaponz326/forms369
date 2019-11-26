@@ -135,7 +135,9 @@ Route::group(['middleware' => ['auth:api'], 'prefix' => 'v1'], function(){
   Route::get('getClientsDetails/{id}', 'HomeController@getClientsDetails')->name('getClientsDetails')->middleware('scope:GIT_Admin,client');
   Route::post('editClientProfile/{id}', 'HomeController@editClientProfile')->name('editClientProfile')->middleware('scope:client');
   Route::post('submitForm/{id}/{code}', 'HomeController@submitForm')->name('submitForm')->middleware('scope:GIT_Admin,client');
+  Route::get('getClientSubmittedForms/{id}', 'HomeController@getClientSubmittedForms')->name('getClientSubmittedForms')->middleware('scope:GIT_Admin,client');
   
+
   //submitted forms endpoints 
   Route::get('getAllSubmittedForms', 'HomeController@getAllSubmittedForms')->name('getAllSubmittedForms')->middleware('scope:GIT_Admin');
   Route::get('getAllSubmittedFormsByMerchant/{id}', 'HomeController@getAllSubmittedFormsByMerchant')->name('getAllSubmittedFormsByMerchant')->middleware('scope:GIT_Admin,frontdesk');
@@ -183,9 +185,10 @@ Route::group(['middleware' => ['auth:api'], 'prefix' => 'v1'], function(){
   //access code creation and checks apis 
   Route::post('createAccessCode', 'HomeController@createAccessCode')->name('createAccessCode')->middleware('scope:GIT_Admin');                                     
   Route::post('activateAccessCode/{code}', 'HomeController@activateAccessCode')->name('activateAccessCode')->middleware('scope:GIT_Admin');                                     
-  Route::post('deactivateAccessCode/{code}', 'HomeController@deactivateAccessCode')->name('deactivateAccessCode')->middleware('scope:GIT_Admin');                                     
-  
-
+  Route::post('deactivateAccessCode/{code}', 'HomeController@deactivateAccessCode')->name('deactivateAccessCode')->middleware('scope:GIT_Admin');
+  Route::get('getAllCodes', 'HomeController@getAllCodes')->name('getAllCodes')->middleware('scope:GIT_Admin'); 
+  Route::get('getAccessCodesByStatus/{active}', 'HomeController@getAccessCodesByStatus')->name('getAccessCodesByStatus')->middleware('scope:GIT_Admin'); 
+  Route::get('getAccessCodesDetails/{code}', 'HomeController@getAccessCodesDetails')->name('getAccessCodesDetails')->middleware('scope:GIT_Admin');                                    
   
   //form sectiosn apis
   Route::post('createSection', 'HomeController@createSection')->name('createSection')->middleware('scope:GIT_Admin'); 
@@ -195,6 +198,10 @@ Route::group(['middleware' => ['auth:api'], 'prefix' => 'v1'], function(){
   Route::get('searchSectionByHeading/{term}', 'HomeController@searchSectionByHeading')->name('searchSectionByHeading')->middleware('scope:GIT_Admin,company_admin,branch_admin');
   
   
+  //apis for drop down
+  Route::get('getMerchantsForDropdown', 'HomeController@getMerchantsForDropdown')->name('getMerchantsForDropdown')->middleware('scope:GIT_Admin');
+  Route::get('getAllBranchesForDropdown', 'HomeController@getAllBranchesForDropdown')->name('getAllBranchesForDropdown')->middleware('scope:GIT_Admin');
+
 });
  
 
