@@ -24,12 +24,12 @@ class FrontDeskController extends Controller
         ->join('merchants', 'merchants.id', '=', 'forms.merchant_id')
         ->select('submitted_forms.*','merchants.merchant_name AS merchant_name',
         'users.name', 'users.email', 'forms.name AS form_name', 'forms.form_fields')
-        ->get();
+        ->paginate(15);
       
         //clean data
         $submittedformdata = [];
 
-        $submittedforms = $getsubmittedform->map(function($items){
+        $getsubmittedform->transform(function($items){
             $submittedformdata['submission_code'] = $items->submission_code;
             $submittedformdata['form_code'] = $items->form_id;
             $submittedformdata['form_name'] = Crypt::decryptString($items->form_name);
@@ -46,9 +46,9 @@ class FrontDeskController extends Controller
 
             return $submittedformdata;
          });
-         $objects = new Paginator($submittedforms, 15);
+        
          $response = [
-            'submitted_forms' => $objects
+            'submitted_forms' => $getsubmittedform
         ];
         return response()->json($response, 200);
 
@@ -71,12 +71,12 @@ class FrontDeskController extends Controller
         ->select('submitted_forms.*','merchants.merchant_name AS merchant_name',
         'users.name', 'users.email', 'forms.name AS form_name', 'forms.form_fields')
         ->where('merchants.id', $id)
-        ->get();
+        ->paginate(15);
       
         //clean data
         $submittedformdata = [];
 
-        $submittedforms = $getsubmittedform->map(function($items){
+        $getsubmittedform->transform(function($items){
             $submittedformdata['submission_code'] = $items->submission_code;
             $submittedformdata['form_code'] = $items->form_id;
             $submittedformdata['form_name'] = Crypt::decryptString($items->form_name);
@@ -93,9 +93,9 @@ class FrontDeskController extends Controller
 
             return $submittedformdata;
          });
-         $objects = new Paginator($submittedforms, 15);
+    
          $response = [
-            'submitted_forms' => $objects
+            'submitted_forms' => $getsubmittedform
         ];
         return response()->json($response, 200);
 
@@ -208,7 +208,6 @@ class FrontDeskController extends Controller
      */
     public function getSubmittedFormByStatusAndMerchant(Request $request, $status, $id){
 
-       
         $getsubmittedforms = DB::table('submitted_forms')
         ->join('users', 'users.id', '=', 'client_id')
         ->join('forms', 'forms.form_code', '=', 'form_id')
@@ -217,12 +216,12 @@ class FrontDeskController extends Controller
         'users.name', 'users.email', 'forms.name AS form_name', 'forms.form_fields')
         ->where('submitted_forms.status', $status)
         ->where('merchants.id', $id)
-        ->get();
+        ->paginate(15);
       
         //clean data
         $submittedformdata = [];
 
-        $submittedforms = $getsubmittedforms->map(function($items){
+        $getsubmittedforms->transform(function($items){
             $submittedformdata['submission_code'] = $items->submission_code;
             $submittedformdata['form_code'] = $items->form_id;
             $submittedformdata['form_name'] = Crypt::decryptString($items->form_name);
@@ -239,9 +238,9 @@ class FrontDeskController extends Controller
 
             return $submittedformdata;
          });
-         $objects = new Paginator($submittedforms, 15);
+        
          $response = [
-            'submitted_forms' => $objects
+            'submitted_forms' => $getsubmittedforms
         ];
         return response()->json($response, 200);
 
@@ -322,7 +321,9 @@ class FrontDeskController extends Controller
      */
     public function FormsProcessedByFrontDeskPerson(Request $request, $id, $startdate, $enddate)
     {
-        
+        $startdate = date($startdate);
+        $enddate = date($enddate);
+
         $getprocessedforms = DB::table('submitted_forms')
         ->join('users', 'users.id', '=', 'client_id')
         ->join('forms', 'forms.form_code', '=', 'form_id')
@@ -331,12 +332,12 @@ class FrontDeskController extends Controller
         'users.name', 'users.email', 'forms.name AS form_name', 'forms.form_fields')
         ->where('submitted_forms.processed_by', $id)
         ->whereBetween('last_processed', [$startdate, $enddate])
-        ->get();
+        ->paginate(15);
       
         //clean data
         $submittedformdata = [];
 
-        $processedforms = $getprocessedforms->map(function($items){
+        $getprocessedforms->transform(function($items){
             $submittedformdata['submission_code'] = $items->submission_code;
             $submittedformdata['form_code'] = $items->form_id;
             $submittedformdata['form_name'] = Crypt::decryptString($items->form_name);
@@ -353,9 +354,9 @@ class FrontDeskController extends Controller
 
             return $submittedformdata;
          });
-         $objects = new Paginator($processedforms, 15);
+       
          $response = [
-            'processed_forms' => $objects
+            'processed_forms' => $getprocessedforms
         ];
         return response()->json($response, 200);
     }
@@ -406,12 +407,12 @@ class FrontDeskController extends Controller
         ->select('submitted_forms.*','merchants.merchant_name AS merchant_name',
         'users.name', 'users.email', 'forms.name AS form_name', 'forms.form_fields')
         ->where('submitted_forms.processed_by', $id)
-        ->get();
+        ->paginate(15);
       
         //clean data
         $submittedformdata = [];
 
-        $processedforms = $getprocessedforms->map(function($items){
+        $getprocessedforms->transform(function($items){
             $submittedformdata['submission_code'] = $items->submission_code;
             $submittedformdata['form_code'] = $items->form_id;
             $submittedformdata['form_name'] = Crypt::decryptString($items->form_name);
@@ -428,9 +429,9 @@ class FrontDeskController extends Controller
 
             return $submittedformdata;
          });
-         $objects = new Paginator($processedforms, 15);
+         
          $response = [
-            'processed_forms' => $objects
+            'processed_forms' => $getprocessedforms
         ];
         return response()->json($response, 200);
     }

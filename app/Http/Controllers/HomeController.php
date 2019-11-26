@@ -318,6 +318,32 @@ class HomeController extends Controller
         $message = (new SetupController)->createMerchant($request);
         return $message;
     }
+     /**
+     * getMerchantsForDropdown get all registered companies to populate dropdown
+     *
+     * @param  mixed $request
+     *
+     * @return void\Illuminate\Http\Response all merchants data
+     */
+    protected function getMerchantsForDropdown(Request $request)
+    {
+        $message = (new SetupController)->getMerchantsForDropdown($request);
+        return $message;
+    }
+
+    /**
+     * getAllBranches get all registered branches 
+     *
+     * @param  mixed $request
+     *
+     * @return void\Illuminate\Http\Response all branches data
+     */
+    protected function getAllBranchesForDropdown(Request $request)
+    {
+        $message = (new SetupController)->getAllBranchesForDropdown($request);
+        return $message;
+    }
+
 
     /**
      * Business logics to edit a merchant
@@ -1012,7 +1038,7 @@ class HomeController extends Controller
      */
     protected function FormsProcessedByFrontDeskPerson(Request $request, $id, $startdate, $enddate)
     {
-        $message = (new FrontDeskController)->processSubmitForm($request, $request, $id, $startdate, $enddate);
+        $message = (new FrontDeskController)->FormsProcessedByFrontDeskPerson($request, $request, $id, $startdate, $enddate);
         return $message;
     }
 
@@ -1451,4 +1477,42 @@ class HomeController extends Controller
         return $message;
     }
     
+     /**
+      * Business logics 
+     * getAllCodes get the created access codes 
+     *
+     * @param  mixed $request
+     * @return [json] all access codes in teh database 
+     */
+    protected function getAllCodes(Request $request)
+    {
+        $message = (new AccessController)->getAllCodes($request);
+        return $message;
+    }
+
+    /**
+     * getAllCodes get the created access codes by active status
+     *
+     * @param  mixed $request
+     * @return [json] all access codes matching active status in the database 
+     */
+    protected function getAccessCodesByStatus(Request $request, $active)
+    {
+        $message = (new AccessController)->getAccessCodesByStatus($request, $active);
+        return $message; 
+    }
+
+    /**
+     * Business logics 
+     * getAccessCodesDetails get all details of an access code 
+     * @param  mixed $request
+     * @param  mixed $code access code being searched
+     * @return [json] access codes matching the searched code
+     */
+    protected function getAccessCodesDetails(Request $request, $code)
+    {
+        $message = (new AccessController)->getAccessCodesDetails($request, $code);
+        return $message;  
+    }
+
 }

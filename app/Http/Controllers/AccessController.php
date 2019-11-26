@@ -4,10 +4,138 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Crypt;
 
 class AccessController extends Controller
 {
  
+     /**
+     * getAllCodes get the created access codes 
+     *
+     * @param  mixed $request
+     * @return [json] all access codes in teh database 
+     */
+    public function getAllCodes(Request $request){
+
+        //get all registered companies 
+        $getaccesscodes = DB::table('access')
+        ->leftjoin('merchants', 'merchants.id', '=', 'merchant_id')
+        ->leftjoin('company_branches', 'company_branches.id', '=', 'branch_id')
+        ->select('access.*','merchants.merchant_name AS merchant_name','company_branches.branchname AS branch_name')
+       ->paginate(15);
+
+        //clean data
+        $accesscodesdata = [];
+
+        $getaccesscodes->transform(function($items){
+            $accesscodesdata['code_id'] = $items->id;
+            $accesscodesdata['devicename'] =$items->devicename;
+            $accesscodesdata['sourceusage'] = $items->sourceusage;
+            $accesscodesdata['merchant_id'] = $items->merchant_id;
+            $accesscodesdata['merchant_name'] = empty($items->merchant_name) ? '' : Crypt::decryptString($items->merchant_name);
+            $accesscodesdata['branch_id'] = $items->branch_id;
+            $accesscodesdata['branch_name'] = empty($items->branch_name) ? '' : Crypt::decryptString($items->branch_name); 
+            $accesscodesdata['accesscode'] = $items->accesscode;
+            $accesscodesdata['active'] = $items->active;
+            $accesscodesdata['created_at'] = $items->created_at;
+            $accesscodesdata['updated_at'] = $items->updated_at;
+            $accesscodesdata['created_by'] = $items->created_by;
+           
+            return $accesscodesdata;
+         });
+
+         $response = [
+            'codes' => $getaccesscodes
+        ];
+        return response()->json($response, 200);
+   }
+
+ /**
+     * getAllCodes get the created access codes by active status
+     *
+     * @param  mixed $request
+     * @return [json] all access codes matching active status in the database 
+     */
+    public function getAccessCodesByStatus(Request $request, $active){
+
+        //get all registered companies 
+        $getaccesscodes = DB::table('access')
+        ->leftjoin('merchants', 'merchants.id', '=', 'merchant_id')
+        ->leftjoin('company_branches', 'company_branches.id', '=', 'branch_id')
+        ->select('access.*','merchants.merchant_name AS merchant_name','company_branches.branchname AS branch_name')
+        ->where('active', $active)
+       ->paginate(15);
+
+        //clean data
+        $accesscodesdata = [];
+
+        $getaccesscodes->transform(function($items){
+            $accesscodesdata['code_id'] = $items->id;
+            $accesscodesdata['devicename'] =$items->devicename;
+            $accesscodesdata['sourceusage'] = $items->sourceusage;
+            $accesscodesdata['merchant_id'] = $items->merchant_id;
+            $accesscodesdata['merchant_name'] = empty($items->merchant_name) ? '' : Crypt::decryptString($items->merchant_name);
+            $accesscodesdata['branch_id'] = $items->branch_id;
+            $accesscodesdata['branch_name'] = empty($items->branch_name) ? '' : Crypt::decryptString($items->branch_name); 
+            $accesscodesdata['accesscode'] = $items->accesscode;
+            $accesscodesdata['active'] = $items->active;
+            $accesscodesdata['created_at'] = $items->created_at;
+            $accesscodesdata['updated_at'] = $items->updated_at;
+            $accesscodesdata['created_by'] = $items->created_by;
+           
+            return $accesscodesdata;
+         });
+
+         $response = [
+            'codes' => $getaccesscodes
+        ];
+        return response()->json($response, 200);
+   }
+
+
+   /**
+     * getAccessCodesDetails get all details of an access code 
+     * @param  mixed $request
+     * @param  mixed $code access code being searched
+     * @return [json] access codes matching the searched code
+     */
+    public function getAccessCodesDetails(Request $request, $code){
+
+        //get all registered companies 
+        $getaccesscode = DB::table('access')
+        ->leftjoin('merchants', 'merchants.id', '=', 'merchant_id')
+        ->leftjoin('company_branches', 'company_branches.id', '=', 'branch_id')
+        ->select('access.*','merchants.merchant_name AS merchant_name','company_branches.branchname AS branch_name')
+        ->where('accesscode', $code)
+       ->get();
+
+        //clean data
+        $accesscodesdata = [];
+
+        $getaccesscode->transform(function($items){
+            $accesscodesdata['code_id'] = $items->id;
+            $accesscodesdata['devicename'] =$items->devicename;
+            $accesscodesdata['sourceusage'] = $items->sourceusage;
+            $accesscodesdata['merchant_id'] = $items->merchant_id;
+            $accesscodesdata['merchant_name'] = empty($items->merchant_name) ? '' : Crypt::decryptString($items->merchant_name);
+            $accesscodesdata['branch_id'] = $items->branch_id;
+            $accesscodesdata['branch_name'] = empty($items->branch_name) ? '' : Crypt::decryptString($items->branch_name); 
+            $accesscodesdata['accesscode'] = $items->accesscode;
+            $accesscodesdata['active'] = $items->active;
+            $accesscodesdata['created_at'] = $items->created_at;
+            $accesscodesdata['updated_at'] = $items->updated_at;
+            $accesscodesdata['created_by'] = $items->created_by;
+           
+            return $accesscodesdata;
+         });
+
+         $response = [
+            'code' => $getaccesscode
+        ];
+        return response()->json($response, 200);
+   }
+
+
     /**
      * createAccessCode GIT admin create an access code 
      * @param  \Illuminate\Http\Request  $request

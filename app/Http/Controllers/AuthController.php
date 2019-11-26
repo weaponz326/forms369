@@ -904,12 +904,12 @@ class AuthController extends Controller
         ->join('company_branches', 'company_branches.id', '=', 'branch_id')
         ->select('users.*','merchants.merchant_name AS merchant_name','company_branches.branchname AS branch_name')
        ->where('users.merchant_id', $id)
-       ->get();
+       ->paginate(15);
 
         //clean data
         $userdata = [];
         
-        $users = $getusers->map(function($items){
+        $getusers->transform(function($items){
             $userdata['id'] = $items->id;
             $userdata['full_name'] =$items->name;
             $userdata['firstname'] = $items->firstname;
@@ -930,9 +930,9 @@ class AuthController extends Controller
 
             return $userdata;
          });
-         $objects = new Paginator($users, 15);
+         
          $response = [
-            'users' => $objects
+            'users' => $getusers
         ];
         return response()->json($response, 200);
    
@@ -979,13 +979,13 @@ class AuthController extends Controller
         ->join('company_branches', 'company_branches.id', '=', 'users.branch_id')
         ->select('users.*','merchants.merchant_name AS merchant_name','company_branches.branchname AS branch_name')
        ->where('users.branch_id', $id)
-       ->get();
+       ->paginate(15);
        
 
         //clean data
         $userdata = [];
 
-        $users = $getusers->map(function($items){
+        $getusers->transform(function($items){
             $userdata['id'] = $items->id;
             $userdata['full_name'] =$items->name;
             $userdata['firstname'] = $items->firstname;
@@ -1007,10 +1007,8 @@ class AuthController extends Controller
             return $userdata;
          });
 
-         $objects = new Paginator($users, 15);
-
          $response = [
-            'users' => $objects
+            'users' => $getusers
         ];
         return response()->json($response, 200);
    
@@ -1056,12 +1054,12 @@ class AuthController extends Controller
         ->select('users.*','merchants.merchant_name AS merchant_name','company_branches.branchname AS branch_name')
        ->where('users.merchant_id', $id)
        ->where('users.usertype', $user_type_id)
-       ->get();
+       ->paginate(15);
 
         //clean data
         $userdata = [];
 
-        $users = $getusers->map(function($items){
+        $getusers->transform(function($items){
             $userdata['id'] = $items->id;
             $userdata['full_name'] =$items->name;
             $userdata['firstname'] = $items->firstname;
@@ -1083,9 +1081,8 @@ class AuthController extends Controller
             return $userdata;
          });
 
-         $objects = new Paginator($users, 15);
          $response = [
-            'users' => $objects
+            'users' => $getusers
         ];
         return response()->json($response, 200);
    
@@ -1106,12 +1103,12 @@ class AuthController extends Controller
         ->leftjoin('merchants', 'merchants.id', '=', 'merchant_id')
         ->select('users.*', 'merchants.merchant_name')
        ->where('users.usertype', $user_type_id)
-       ->get();
+       ->paginate(15);
 
         //clean data
         $userdata = [];
 
-        $users = $getusers->map(function($items){
+        $getusers->transform(function($items){
             $userdata['id'] = $items->id;
             $userdata['full_name'] =$items->name;
             $userdata['firstname'] = $items->firstname;
@@ -1130,9 +1127,8 @@ class AuthController extends Controller
             return $userdata;
          });
 
-         $objects = new Paginator($users, 15);
          $response = [
-            'users' => $objects
+            'users' => $getusers
         ];
         return response()->json($response, 200);
    
@@ -1181,12 +1177,12 @@ class AuthController extends Controller
         ->select('users.*','merchants.merchant_name AS merchant_name','company_branches.branchname AS branch_name')
        ->where('users.branch_id', $id)
        ->where('users.usertype', $user_type_id)
-       ->get();
+       ->paginate(15);
 
         //clean data
         $userdata = [];
 
-        $users = $getusers->map(function($items){
+        $getusers->transform(function($items){
             $userdata['id'] = $items->id;
             $userdata['full_name'] =$items->name;
             $userdata['firstname'] = $items->firstname;
@@ -1208,10 +1204,8 @@ class AuthController extends Controller
             return $userdata;
          });
 
-         $objects = new Paginator($users, 15);
-
          $response = [
-            'users' => $objects
+            'users' => $getusers
         ];
         return response()->json($response, 200);
    
