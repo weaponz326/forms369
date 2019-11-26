@@ -94,6 +94,8 @@ import { AdminLoginPageComponent } from './pages/admin-login-page/admin-login-pa
 import { CreateSectionPageComponent } from './pages/dashboard/git-admin/create-section-page/create-section-page.component';
 import { EditSectionPageComponent } from './pages/dashboard/git-admin/edit-section-page/edit-section-page.component';
 import { ViewSectionsPageComponent } from './pages/dashboard/git-admin/view-sections-page/view-sections-page.component';
+import { ViewAccessCodePageComponent } from './pages/dashboard/git-admin/view-access-code-page/view-access-code-page.component';
+import { EditAccessCodePageComponent } from './pages/dashboard/git-admin/edit-access-code-page/edit-access-code-page.component';
 
 @NgModule({
   declarations: [
@@ -178,6 +180,8 @@ import { ViewSectionsPageComponent } from './pages/dashboard/git-admin/view-sect
     CreateSectionPageComponent,
     EditSectionPageComponent,
     ViewSectionsPageComponent,
+    ViewAccessCodePageComponent,
+    EditAccessCodePageComponent,
   ],
   imports: [
     BrowserModule,
