@@ -1,10 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import * as _ from 'lodash';
 import { Router } from '@angular/router';
-import { ListViewService } from 'src/app/services/view/list-view.service';
-import { EndpointService } from 'src/app/services/endpoint/endpoint.service';
-import { FormBuilderService } from 'src/app/services/form-builder/form-builder.service';
 import { FormsService } from 'src/app/services/forms/forms.service';
+import { ListViewService } from 'src/app/services/view/list-view.service';
 
 @Component({
   selector: 'app-view-form-lists-page',
@@ -27,8 +25,7 @@ export class ViewFormListsPageComponent implements OnInit {
   constructor(
     private router: Router,
     private formService: FormsService,
-    private listViewService: ListViewService,
-    private formBuilderService: FormBuilderService
+    private listViewService: ListViewService
   ) {
     this.formsList = [];
     this.allFormsList = [];

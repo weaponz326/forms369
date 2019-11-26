@@ -14,16 +14,33 @@
       </a>
     </li>
     <li class="nav-item">
-      <a class="nav-link" routerLink="/git_admin/create/access_code">
-        <i class="mdi mdi-file-document-edit-outline menu-icon"></i>
-        <span class="menu-title">New Access Code</span>
-      </a>
-    </li>
-    <li class="nav-item">
       <a class="nav-link" routerLink="/git_admin/lists/form">
         <i class="mdi mdi-file-document-box-outline menu-icon"></i>
         <span class="menu-title">All Forms</span>
       </a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link" data-toggle="collapse" href="#code" aria-expanded="false" aria-controls="code">
+        <i class="mdi mdi-cart-outline menu-icon"></i>
+        <span class="menu-title">Access Code</span>
+        <i class="menu-arrow"></i>
+      </a>
+      <div class="collapse" id="code">
+        <ul class="nav flex-column sub-menu">
+          <li class="nav-item">
+            <a class="nav-link" routerLink="/git_admin/create/access_code">
+              <i class="mdi mdi-file-document-edit-outline menu-icon"></i>
+              <span class="menu-title">Create New</span>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" routerLink="/git_admin/lists/access_code">
+              <i class="mdi mdi-format-list-bulleted menu-icon"></i>
+              <span class="menu-title">View Code</span>
+            </a>
+          </li>
+        </ul>
+      </div>
     </li>
     <li class="nav-item">
       <a class="nav-link" data-toggle="collapse" href="#template" aria-expanded="false" aria-controls="template">
