@@ -20,7 +20,7 @@ export class ClientFormsEntryPageComponent implements OnInit {
   created: boolean;
   formInstance: any;
   formRenderer: any;
-  // isConnected: boolean;
+  clientProfile: any;
   formGenCode: string;
 
   constructor(
@@ -43,12 +43,16 @@ export class ClientFormsEntryPageComponent implements OnInit {
     this.formRenderer = document.getElementById('form-render');
     const renderOptions = { formData, dataType: 'json' };
     this.formInstance = $(this.formRenderer).formRender(renderOptions);
+
+    this.setFormData(formData);
   }
 
   setFormData(data: any) {
-    this.formBuilder.getUserFilledData(_.toString(this.user.id)).then(
+    this.clientService.getDetails(_.toString(this.user.id)).then(
       res => {
         console.log('user_data: ' + JSON.stringify(res));
+        this.clientProfile = res;
+        this.clientService.autoFillFormData(data, res.client_details[0]);
       },
       err => {
         console.log('error: ' + JSON.stringify(err));
@@ -64,7 +68,7 @@ export class ClientFormsEntryPageComponent implements OnInit {
     this.loading = true;
     const user_data = this.getFormData();
     console.log(JSON.stringify(user_data));
-    console.log(this.formBuilder.getFormUserData(user_data));
+    console.log('this form: ' + this.formBuilder.getFormUserData(user_data));
     const unfilled = this.clientService.validateFormFilled(user_data);
     if (unfilled.length != 0) {
       this.loading = false;
@@ -73,7 +77,10 @@ export class ClientFormsEntryPageComponent implements OnInit {
     }
     else {
       console.log('is submitting');
-      this.clientService.submitForm(_.toString(this.user.id), this.form.form_code, user_data).then(
+      const filled_data = this.formBuilder.getFormUserData(user_data);
+      const updated_data = this.clientService.getUpdatedClientFormData(JSON.parse(filled_data), this.clientProfile.client_details[0]);
+      console.log('new updates: ' + updated_data);
+      this.clientService.submitForm(_.toString(this.user.id), this.form.form_code, this.clientProfile.client_details[0], JSON.parse(updated_data)).then(
         res => {
           this.created = true;
           this.loading = false;
@@ -85,5 +92,7 @@ export class ClientFormsEntryPageComponent implements OnInit {
       );
     }
   }
+
+  loadForm() {}
 
 }

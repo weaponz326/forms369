@@ -67,6 +67,7 @@ import { AdminViewAccountDetailsPageComponent } from './pages/dashboard/admin/ad
 import { AdminViewBranchDetailsPageComponent } from './pages/dashboard/admin/admin-view-branch-details-page/admin-view-branch-details-page.component';
 import { CreateAccessCodePageComponent } from './pages/dashboard/git-admin/create-access-code-page/create-access-code-page.component';
 import { AuthPageComponent } from './pages/auth-page/auth-page.component';
+import { AdminLoginPageComponent } from './pages/admin-login-page/admin-login-page.component';
 
 const routes: Routes = [
   {
@@ -80,6 +81,10 @@ const routes: Routes = [
   {
     path: 'auth',
     component: AuthPageComponent
+  },
+  {
+    path: 'user_auth',
+    component: AdminLoginPageComponent
   },
   {
     path: 'register',
@@ -224,7 +229,7 @@ const routes: Routes = [
         component: ClientListBranchesPageComponent
       },
       {
-        path: 'forms/:company',
+        path: 'forms',
         component: ClientListFormsPageComponent
       },
       {
@@ -236,7 +241,7 @@ const routes: Routes = [
         component: ClientFormsHistoryPageComponent
       },
       {
-        path: 'form_entry/:form',
+        path: 'form_entry',
         component: ClientFormsEntryPageComponent
       },
       {

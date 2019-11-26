@@ -22,7 +22,11 @@ Route::post('registerUser', 'HomeController@createNewUser')->name('registerUser'
 Route::get('signup/activate/{token}', 'HomeController@signupActivate')->name('signup/activate');
 
 //login user 
-Route::post('login', 'HomeController@login')->name('login');
+Route::post('login', 'HomeController@login')->name('login');//->middleware('checkAccess');
+Route::post('resetPassword', 'HomeController@resetPassword')->name('resetPassword');
+
+//check access code
+Route::post('ValidateAccessCode/{code}', 'HomeController@ValidateAccessCode')->name('ValidateAccessCode');                                     
 
 //protected routes 
 Route::group(['middleware' => ['auth:api'], 'prefix' => 'v1'], function(){
@@ -178,7 +182,11 @@ Route::group(['middleware' => ['auth:api'], 'prefix' => 'v1'], function(){
 
   //access code creation and checks apis 
   Route::post('createAccessCode', 'HomeController@createAccessCode')->name('createAccessCode')->middleware('scope:GIT_Admin');                                     
+  Route::post('activateAccessCode/{code}', 'HomeController@activateAccessCode')->name('activateAccessCode')->middleware('scope:GIT_Admin');                                     
+  Route::post('deactivateAccessCode/{code}', 'HomeController@deactivateAccessCode')->name('deactivateAccessCode')->middleware('scope:GIT_Admin');                                     
+  
 
+  
   //form sectiosn apis
   Route::post('createSection', 'HomeController@createSection')->name('createSection')->middleware('scope:GIT_Admin'); 
   Route::post('editSection/{id}', 'HomeController@editSection')->name('editSection')->middleware('scope:GIT_Admin'); 

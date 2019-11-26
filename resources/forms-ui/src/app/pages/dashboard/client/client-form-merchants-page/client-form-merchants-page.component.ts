@@ -19,6 +19,7 @@ export class ClientFormMerchantsPageComponent implements OnInit {
   hasData: boolean;
   foundNoForm: boolean;
   isConnected: boolean;
+  formsList: Array<any>;
   companyList: Array<Merchants>;
 
   constructor(
@@ -27,6 +28,7 @@ export class ClientFormMerchantsPageComponent implements OnInit {
     private companyService: CompanyService,
     private endpointService: EndpointService
   ) {
+    this.formsList = [];
     this.companyList = [];
     this.getCompanies();
   }
@@ -36,7 +38,11 @@ export class ClientFormMerchantsPageComponent implements OnInit {
   }
 
   open(company: any) {
-    this.router.navigateByUrl('/client/forms/' + company.id, { state: { company: company }});
+    this.router.navigateByUrl('/client/forms', { state: { company: company }});
+  }
+
+  openForm(form: any) {
+    this.router.navigateByUrl('/client/form_entry', { state: { form: form }});
   }
 
   getCompanies() {
@@ -76,7 +82,7 @@ export class ClientFormMerchantsPageComponent implements OnInit {
           this.loading = false;
           this.foundNoForm = false;
           _.forEach(forms, (form) => {
-            this.companyList.push(form);
+            this.formsList.push(form);
           });
         }
       },
@@ -99,7 +105,7 @@ export class ClientFormMerchantsPageComponent implements OnInit {
           this.loading = false;
           this.foundNoForm = false;
           _.forEach(forms, (form) => {
-            this.companyList.push(form);
+            this.formsList.push(form);
           });
         }
       },
@@ -117,6 +123,7 @@ export class ClientFormMerchantsPageComponent implements OnInit {
       // First, check if its a form code.
       console.log(this.query);
       this.hasError = false;
+      this.formsList = [];
       this.companyList = [];
       if (/\d/.test(this.query)) {
         if (this.query.length == 6) {

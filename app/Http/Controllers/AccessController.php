@@ -63,7 +63,116 @@ class AccessController extends Controller
         
     }
 
+    /**
+     * Reactive access code for use
+     * @param  \Illuminate\Http\Request  $request
+     * @param  \Illuminate\Http\Request  $code access code to be reactivated 
+     * @return void\Illuminate\Http\Response  error or success message 
+     */
+    public function activateAccessCode(Request $request, $code){
 
-   
+        $updated_at = now();
+        $active = 0;
+
+        //save new merchant in the database
+        try {
+            DB::table('access')
+            ->where('accesscode', $code)
+            ->update(
+                [
+                    'active' => $active, 
+                    'updated_at' => $updated_at
+                ]
+            );
+
+            $message = 'Ok';
+            return response()->json([
+                'message' => $message
+            ], 200);
+
+        }catch(Exception $e) {
+            $message = "Failed";
+            return response()->json([
+                'message' => $message
+            ], 400);
+        } 
+              
+    }
+
+    /**
+     * Deactivate an access code
+     * @param  \Illuminate\Http\Request  $request
+     * @param  \Illuminate\Http\Request  $code access code to be deactivated 
+     * @return void\Illuminate\Http\Response error or success message
+     */
+    public function deactivateAccessCode(Request $request, $code){
+
+        $updated_at = now();
+        $active = 1;
+
+        //save new merchant in the database
+        try {
+            DB::table('access')
+            ->where('accesscode', $code)
+            ->update(
+                [
+                    'active' => $active, 
+                    'updated_at' => $updated_at
+                ]
+            );
+
+            $message = 'Ok';
+            return response()->json([
+                'message' => $message
+            ], 200);
+
+        }catch(Exception $e) {
+            $message = "Failed";
+            return response()->json([
+                'message' => $message
+            ], 400);
+        } 
+              
+    }
+
+   /**
+     * Check if access code is valid and active 
+     * @param  \Illuminate\Http\Request  $request
+     * @param  \Illuminate\Http\Request  $code access code provided by user
+     * @return void\Illuminate\Http\Response error or success message
+     */
+    public function ValidateAccessCode(Request $request, $code)
+    {
+        $exist = DB::table('access')->where('accesscode', '=', $code)->first();
+        if (isset($exist->id) && $exist->active ==0) 
+        {
+            //save access code in cookies for a year
+            cookie('accesscode', $code, 525600);
+
+            //deactivate access code in teg database 
+            DB::table('access')->where('accesscode','=', $code)->update(['active' => 1]);
+
+            //return success message
+            $message = "Ok";
+            return response()->json([
+                'message' => $message
+            ], 200); 
+        }elseif (isset($exist->id) && $exist->active ==1) 
+        {
+            //return error message if user entered an access code that has already been used
+            $message = "Access code already used";
+            return response()->json([
+                'message' => $message
+            ], 400); 
+        }else{
+
+           //return error message if user entered an invalid access code 
+           $message = "Invalid access code";
+           return response()->json([
+               'message' => $message
+           ], 400);  
+        }
+
+    }
 
 }

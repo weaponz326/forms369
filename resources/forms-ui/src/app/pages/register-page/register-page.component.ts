@@ -1,15 +1,15 @@
 import { Component, OnInit } from '@angular/core';
-import { CountryPickerService, ICountry } from 'ngx-country-picker';
-import { FormGroup, FormBuilder, Validators } from '@angular/forms';
-import { AccountService } from 'src/app/services/account/account.service';
+import * as _ from 'lodash';
 import { Users } from 'src/app/models/users.model';
 import { UserTypes } from 'src/app/enums/user-types.enum';
+import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { CountryPickerService, ICountry } from 'ngx-country-picker';
+import { AccountService } from 'src/app/services/account/account.service';
 
 @Component({
   selector: 'app-register-page',
   templateUrl: './register-page.component.html',
-  styleUrls: ['./register-page.component.css'],
-  providers: [AccountService]
+  styleUrls: ['./register-page.component.css']
 })
 export class RegisterPageComponent implements OnInit {
 
@@ -85,7 +85,7 @@ export class RegisterPageComponent implements OnInit {
       this.accountService.createAccount(user).then(
         res => {
           const response = res as any;
-          if (response.message.toLowerCase() == 'ok') {
+          if (!_.isUndefined(response.id)) {
             this.form.enable();
             this.loading = false;
             this.created = true;

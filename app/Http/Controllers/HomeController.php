@@ -1396,4 +1396,59 @@ class HomeController extends Controller
         return $message;
 
     }
+
+    /**
+     * Business logics 
+     * Reactivate an access code for use 
+     * @param  \Illuminate\Http\Request  $request
+     * @param  \Illuminate\Http\Request  $code access code to be reactivated 
+     * @return void\Illuminate\Http\Response error or success message
+     */
+    protected function activateAccessCode(Request $request, $code)
+    {
+        $message = (new AccessController)->activateAccessCode($request, $code);
+        return $message;
+        
+    }
+
+    /**
+     * Business logics 
+     * Deactivate an access code an access code
+     * @param  \Illuminate\Http\Request  $request
+     * @param  \Illuminate\Http\Request  $code access code to be deactivated 
+     * @return void\Illuminate\Http\Response error or success message
+     */
+    protected function deactivateAccessCode(Request $request, $code)
+    {
+        $message = (new AccessController)->deactivateAccessCode($request, $code);
+        return $message;
+        
+    }
+
+    /**
+     * Business logics to validate provided access code
+     * Check if access code is valid and active 
+     * @param  \Illuminate\Http\Request  $request
+     * @param  \Illuminate\Http\Request  $code access code provided by user
+     * @return void\Illuminate\Http\Response error or success message
+     */
+    protected function ValidateAccessCode(Request $request, $code)
+    {
+        $message = (new AccessController)->ValidateAccessCode($request, $code);
+        return $message;
+    }
+
+    /**
+     * Business logics
+    * Reset user password at first login
+    * @param  mixed $request
+    *
+    * @return \Illuminate\Http\Response success or error message
+    */
+    protected function resetPassword(Request $request)
+    {
+        $message = (new AuthController)->resetPassword($request);
+        return $message;
+    }
+    
 }

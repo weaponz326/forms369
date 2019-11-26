@@ -1,7 +1,8 @@
 <?php
 
 namespace App\Http\Middleware;
-
+use Illuminate\Support\Facades\DB;
+use Exception;
 use Closure;
 
 class CheckAccess
@@ -15,55 +16,28 @@ class CheckAccess
      */
     public function handle($request, Closure $next)
     {
-        ///check internet connection
-        if ($this->checkinternet() < 15000){
-            return redirect('poor_internet');
-        }
-            
-        if($request->wantsJson()){
-            //pass
+        $accesscode = $request->cookie('accesscode');
+
+        //if access code does not exist, redirect to access code page
+        if (empty($accesscode)) {
+            //return redirect()->route('auth');
+            return response()->json(['message' => 'Np_access_code']);
+
         }else{
+            $exist = DB::table('access')->where('accesscode', '=', $accesscode)->first();
+            if (isset($exist->id) && $exist->active ==1) {
+                //do nothing
+                //return response()->json(['message' => 'Access granted']);
 
-            //get access code from cookies 
-            $accesscode = $request->cookie('accesscode');
-            if (empty($accesscode)) {
-                if (env('ACCESS_CODE_RENEW')){
+            }else{
 
-                    try{
-                        $renew = DB::table('access')->where('active', '=','0')->first();
-                        DB::table('access')->where('accesscode','=', $renew->accesscode)->update(['active' => 1]);
+                return response()->json(['message' => 'Re-enter_access_code']);
 
-                        if($request->getHost()==env('APP_ADMIN_DOMAIN'))
-                            return redirect('execlogin')->cookie('accesscode', $renew->accesscode,525600);
-                        else
-                            return redirect('login')->cookie('accesscode',$renew->accesscode,525600);
-
-                    }catch (Exception $exceptione){
-                        //do nothing
-                    }
-
-                }elseif ($request->url()!='wdc')
-                    return redirect('access');
-            } 
+            }
+                
         }
-
+         
         return $next($request);
     }
 
-    //checks if internet connection is strong
-    private function checkinternet(){
-
-        $kb=512;
-        flush();
-        $time = explode(" ",microtime());
-        $start = $time[0] + $time[1];
-        for($x=0;$x<$kb;$x++){
-            flush();
-        }
-        $time = explode(" ",microtime());
-        $finish = $time[0] + $time[1];
-        $deltat = $finish - $start;
-
-        return round($kb / $deltat, 3);
-    }
 }
