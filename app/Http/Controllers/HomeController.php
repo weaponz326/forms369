@@ -24,6 +24,21 @@ class HomeController extends Controller
 
     }
 
+ /**
+  * Business logics
+     * getAllUsersByTypeForDropdown get the details of users under a particular user type for a merchant
+     * without pagination for dropdown
+     *
+     * @param  mixed $request
+     * @param  mixed $id of the merchant
+     * @param  mixed $user_type_id id of user_type_id of search
+     * @return [json] all matching users
+     */
+    protected function getAllUsersByTypeForDropdown(Request $request, $user_type_id)
+    {
+        $message = (new AuthController)->getAllUsersByTypeForDropdown($request, $user_type_id);
+        return $message;
+    }
 
     /**
      * send activation email to new user business logics 
