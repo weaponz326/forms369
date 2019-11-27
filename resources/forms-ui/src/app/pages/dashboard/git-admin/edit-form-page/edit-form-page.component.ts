@@ -26,6 +26,7 @@ export class EditFormPageComponent implements OnInit {
   formName: string;
   formCode: string;
   merchant: string;
+  hasError: boolean;
   formStatus: string;
   submitted: boolean;
   allMerchantsList: Array<any>;
@@ -53,14 +54,23 @@ export class EditFormPageComponent implements OnInit {
     this.formStatus = this._form.status;
     this.formCode = this._form.form_code;
 
-    this.formBuilder = $(document.getElementById('fb-editor')).formBuilder({
-      controlPosition: 'left',
-      scrollToFieldOnAdd: false,
-      defaultFields: this._form.form_fields,
-      disabledActionButtons: ['data', 'clear', 'save'],
-      inputSets: this.formBuilderService.generateFormFields(),
-      disableFields: this.formBuilderService.disableDefaultFormControls()
-    });
+    this.formBuilderService.generateFormFieldsBySections().then(
+      form_elements => {
+        this.formBuilder = $(document.getElementById('fb-editor')).formBuilder({
+          controlPosition: 'left',
+          inputSets: form_elements,
+          scrollToFieldOnAdd: false,
+          defaultFields: this._form.form_fields,
+          disabledActionButtons: ['data', 'clear', 'save'],
+          disableFields: this.formBuilderService.disableSectionFormFields()
+        });
+        this._loading = false;
+      },
+      error => {
+        this._loading = false;
+        this.hasError = true;
+      }
+    );
   }
 
   buildForm() {
@@ -75,7 +85,7 @@ export class EditFormPageComponent implements OnInit {
   }
 
   public get _merchant() {
-    return this.form.get('country');
+    return this.form.get('merchant');
   }
 
   onMerchantSelect(e: any) {
@@ -122,10 +132,10 @@ export class EditFormPageComponent implements OnInit {
     const form = this.getForm();
     const formData = new Forms();
     formData.form_fields = form;
-    formData.name = this.formName;
+    formData.name = this.f.name.value;
     formData.form_code = this._form.form_code;
     formData.status = _.toInteger(this.formStatus);
-    formData.merchant_id = parseInt(this.merchant);
+    formData.merchant_id = parseInt(this.f.merchant.value);
 
     this.formService.editForm(this._form.form_code, formData).then(
       res => {

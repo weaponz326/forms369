@@ -34,9 +34,6 @@ import { ViewCompanyListsPageComponent } from './pages/dashboard/git-admin/view-
 import { ViewAdminListsPageComponent } from './pages/dashboard/git-admin/view-admin-lists-page/view-admin-lists-page.component';
 import { ViewExecutiveListsPageComponent } from './pages/dashboard/git-admin/view-executive-lists-page/view-executive-lists-page.component';
 import { ViewBranchListsPageComponent } from './pages/dashboard/git-admin/view-branch-lists-page/view-branch-lists-page.component';
-import { FrontDeskSubmittedFormsPageComponent } from './pages/dashboard/front-desk/front-desk-submitted-forms-page/front-desk-submitted-forms-page.component';
-import { FrontDeskProcessingFormsPageComponent } from './pages/dashboard/front-desk/front-desk-processing-forms-page/front-desk-processing-forms-page.component';
-import { FrontDeskProcessedFormsPageComponent } from './pages/dashboard/front-desk/front-desk-processed-forms-page/front-desk-processed-forms-page.component';
 import { FrontDeskSubmittedFormsListPageComponent } from './pages/dashboard/front-desk/front-desk-submitted-forms-list-page/front-desk-submitted-forms-list-page.component';
 import { FrontDeskProcessingFormsListPageComponent } from './pages/dashboard/front-desk/front-desk-processing-forms-list-page/front-desk-processing-forms-list-page.component';
 import { FrontDeskProcessedFormsListPageComponent } from './pages/dashboard/front-desk/front-desk-processed-forms-list-page/front-desk-processed-forms-list-page.component';
@@ -73,6 +70,7 @@ import { EditSectionPageComponent } from './pages/dashboard/git-admin/edit-secti
 import { ViewSectionsPageComponent } from './pages/dashboard/git-admin/view-sections-page/view-sections-page.component';
 import { EditAccessCodePageComponent } from './pages/dashboard/git-admin/edit-access-code-page/edit-access-code-page.component';
 import { ViewAccessCodePageComponent } from './pages/dashboard/git-admin/view-access-code-page/view-access-code-page.component';
+import { FrontDeskPreviewFormPageComponent } from './pages/dashboard/front-desk/front-desk-preview-form-page/front-desk-preview-form-page.component';
 
 const routes: Routes = [
   {
@@ -292,16 +290,8 @@ const routes: Routes = [
         component: FrontDeskViewFormPageComponent
       },
       {
-        path: 'submitted',
-        component: FrontDeskSubmittedFormsPageComponent
-      },
-      {
-        path: 'processing',
-        component: FrontDeskProcessingFormsPageComponent
-      },
-      {
-        path: 'processed',
-        component: FrontDeskProcessedFormsPageComponent
+        path: 'preview',
+        component: FrontDeskPreviewFormPageComponent
       },
       {
         path: 'lists',
@@ -311,12 +301,12 @@ const routes: Routes = [
             component: FrontDeskSubmittedFormsListPageComponent
           },
           {
-            path: 'processing',
-            component: FrontDeskProcessingFormsListPageComponent
-          },
-          {
             path: 'processed',
             component: FrontDeskProcessedFormsListPageComponent
+          },
+          {
+            path: 'processing',
+            component: FrontDeskProcessingFormsListPageComponent
           }
         ]
       }

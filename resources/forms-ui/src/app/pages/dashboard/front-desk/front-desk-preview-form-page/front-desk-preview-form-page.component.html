@@ -4,39 +4,39 @@
     <app-side-bar></app-side-bar>
     <div class="main-panel">
       <div class="content-wrapper">
+
         <div class="row">
           <div class="col-md-12 grid-margin">
             <div class="d-flex justify-content-between flex-wrap">
               <div class="d-flex align-items-end flex-wrap">
                 <div class="mr-md-3 mr-xl-5">
-                  <h2>GIT Admins</h2>
-                  <p class="mb-md-0">Your analytics dashboard template.</p>
+                  <h2>{{ form.form_name }}</h2>
+                  <p class="mb-md-0">Preview a form.</p>
                 </div>
                 <div class="d-flex">
                 </div>
               </div>
               <div class="d-flex justify-content-between align-items-end flex-wrap">
+                <button type="button" class="btn btn-light bg-white btn-icon mr-3 d-none d-md-block" (click)="download()">
+                  <i class="mdi mdi-download text-muted"></i>
+                </button>
+                <button type="button" class="btn btn-light bg-white btn-icon mr-3 mt-2 mt-xl-0" (click)="print()">
+                  <i class="mdi mdi-printer text-muted"></i>
+                </button>
               </div>
             </div>
           </div>
         </div>
 
         <div class="row">
-          <div class="col-lg-12 grid-margin stretch-card">
-            <div class="card">
+          <div class="col-md-8 offset-md-2 grid-margin stretch-card">
+            <div class="card" style="height: 750px; overflow: scroll;">
               <div class="card-body">
-                <h4 class="card-title">List Of GIT Admins</h4>
-                <p class="card-description">
-                  List of all created GIT admins, both active and inactive
-                </p>
-                <app-view-account-lists-page
-                  [userType]="userType"
-                  (edit)="edit($event)"
-                  (view)="view($event)"
-                  (delete)="delete($event)"
-                  (dataLoaded)="dataLoaded($event)"
-                  (dataLoadedError)="dataLoadedError($event)">
-                </app-view-account-lists-page>
+                <p class="card-title">Preview Form</p>
+                <p class="text-muted"></p>
+                <div class="form-container">
+                  <div id="fb-editor"></div>
+                </div>
               </div>
             </div>
           </div>

@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 import { Forms } from 'src/app/models/forms.model';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { EndpointService } from '../endpoint/endpoint.service';
+import { SectionsService } from '../sections/sections.service';
 
 @Injectable({
   providedIn: 'root'
@@ -12,7 +13,7 @@ export class FormBuilderService {
   headers: HttpHeaders;
   private formFieldClassName: string;
 
-  constructor(private http: HttpClient, private endpointService: EndpointService) {
+  constructor(private http: HttpClient, private endpointService: EndpointService, private sectionService: SectionsService) {
     this.headers = this.endpointService.headers();
     this.formFieldClassName = 'form-control';
   }
@@ -28,6 +29,24 @@ export class FormBuilderService {
       'number',
       'radio-group',
       'select'
+    ];
+  }
+
+  disableSectionFormFields() {
+    return [
+      'header',
+      'autocomplete',
+      'button',
+      'checkbox-group',
+      'date',
+      'file',
+      'hidden',
+      'number',
+      'radio-group',
+      'select',
+      'paragraph',
+      'textarea',
+      'text'
     ];
   }
 
@@ -306,6 +325,30 @@ export class FormBuilderService {
         ]
       }
     ];
+  }
+
+  generateFormFieldsBySections(): Promise<any[]> {
+    return new Promise((resolve, reject) => {
+      // lets get all sections first.
+      const form_fields = [];
+      this.sectionService.getAllSections().then(
+        res => {
+          console.log('res: ' + JSON.stringify(res));
+          _.forEach(res, (section) => {
+            form_fields.push({
+              icon: 'P',
+              label: section.heading,
+              fields: section.form_fields
+            });
+          });
+          resolve(form_fields);
+        },
+        err => {
+          console.log('err: ' + JSON.stringify(err));
+          reject(err);
+        }
+      );
+    });
   }
 
   getUserFilledData(client_id: string): Promise<any> {

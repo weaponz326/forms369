@@ -168,7 +168,7 @@ Route::group(['middleware' => ['auth:api'], 'prefix' => 'v1'], function(){
 
   //get merchant submitted forms by status: proccess, submitted, in_process
   //@param status and merchant_id
-  Route::get('getNumSubmittedFormsByStatus/{status}/{id}', 'HomeController@getNumSubmittedFormsByStatus')->name('getNumSubmittedFormsByStatus')->middleware('scope:GIT_Admin,super_executive');   
+  Route::get('getNumSubmittedFormsByStatus/{status}/{id}', 'HomeController@getNumSubmittedFormsByStatus')->name('getNumSubmittedFormsByStatus')->middleware('scope:GIT_Admin,frontdesk,super_executive');   
   //@param status and branch_id                                  
   Route::get('getNumBranchProcessedFormsByStatus/{status}/{id}', 'HomeController@getNumBranchProcessedFormsByStatus')->name('getNumBranchProcessedFormsByStatus')->middleware('scope:GIT_Admin,super_executive,branch_executive');                                     
 

@@ -20,6 +20,8 @@ export class ClientListFormsPageComponent implements OnInit {
   foundNoForm: boolean;
   isConnected: boolean;
   formsList: Array<any>;
+  loadingMore: boolean;
+  hasMoreError: boolean;
 
   constructor(
     private router: Router,
@@ -37,6 +39,10 @@ export class ClientListFormsPageComponent implements OnInit {
 
   open(form: any) {
     this.router.navigateByUrl('/client/form_entry', { state: { form: form }});
+  }
+
+  checkIfHasMore() {
+    return _.isNull(this.formService.nextPaginationUrl) ? false : true;
   }
 
   searchByFormCode() {
@@ -130,6 +136,7 @@ export class ClientListFormsPageComponent implements OnInit {
     this.formService.getAllFormsByMerchant(merchant_id).then(
       res => {
         const forms = res as any;
+        this.hasMore = this.checkIfHasMore();
         if (forms.length > 0) {
           this.hasData = true;
           this.loading = false;
@@ -149,6 +156,24 @@ export class ClientListFormsPageComponent implements OnInit {
     );
   }
 
-  loadMore() {}
+  loadMore() {
+    this.loadingMore = true;
+    const moreUrl = this.formService.nextPaginationUrl;
+    this.formService.getAllForms(moreUrl).then(
+      res => {
+        this.loadingMore = false;
+        this.hasMoreError = false;
+        const forms = res as any;
+        this.hasMore = this.checkIfHasMore();
+        _.forEach(forms, (form) => {
+          this.formsList.push(form);
+        });
+      },
+      err => {
+        this.loadingMore = false;
+        this.hasMoreError = true;
+      }
+    );
+  }
 
 }

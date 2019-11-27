@@ -1,8 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild, TemplateRef } from '@angular/core';
 import * as _ from 'lodash';
 import { Router } from '@angular/router';
-import { FormsService } from 'src/app/services/forms/forms.service';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { ListViewService } from 'src/app/services/view/list-view.service';
+import { SectionsService } from 'src/app/services/sections/sections.service';
 
 @Component({
   selector: 'app-view-sections-page',
@@ -16,30 +17,23 @@ export class ViewSectionsPageComponent implements OnInit {
   hasError: boolean;
   hasNoData: boolean;
   filterState: string;
-  formsList: Array<any>;
-  allFormsList: Array<any>;
-  activeFormsList: Array<any>;
-  inActiveFormsList: Array<any>;
+  sectionsList: Array<any>;
+  @ViewChild('confirm', { static: false }) modalTemplateRef: TemplateRef<any>;
 
   constructor(
     private router: Router,
-    private formService: FormsService,
+    private modalService: NgbModal,
+    private sectionService: SectionsService,
     private listViewService: ListViewService
   ) {
-    this.formsList = [];
-    this.allFormsList = [];
+    this.sectionsList = [];
     this.viewMode = this.listViewService.getDesiredViewMode();
 
-    this.getAllForms();
+    this.getAllFormSections();
   }
 
   ngOnInit() {
     this.filterState = 'all';
-  }
-
-  showAll() {
-    this.filterState = 'all';
-    this.formsList = this.allFormsList;
   }
 
   toggleViewMode(mode: string) {
@@ -62,63 +56,60 @@ export class ViewSectionsPageComponent implements OnInit {
       case 'created':
         this.sortByCreated();
         break;
-      case 'merchant':
-        this.sortByCompany();
-        break;
-      case 'form':
-        this.sortByForm();
+      case 'heading':
+        this.sortByHeading();
         break;
       default:
         break;
     }
   }
 
-  sortByForm() {
-    this.formsList = _.sortBy(this.formsList, (item) => item.name);
-  }
-
   sortByCreated() {
-    this.formsList = _.sortBy(this.formsList, (item) => item.created_at);
+    this.sectionsList = _.sortBy(this.sectionsList, (item) => item.created_at);
   }
 
-  sortByCompany() {
-    this.formsList = _.sortBy(this.formsList, (item) => item.merchant_name);
+  sortByHeading() {
+    this.sectionsList = _.sortBy(this.sectionsList, (item) => item.heading);
   }
 
-  showActive() {
-    this.filterState = 'active';
-    this.formsList = _.filter(this.allFormsList, (form) => form.status == 1);
+  edit(section: any) {
+    this.router.navigateByUrl('git_admin/edit/section', { state: { form: section }});
   }
 
-  showInActive() {
-    this.filterState = 'inactive';
-    this.formsList = _.filter(this.allFormsList, (form) => form.status == 0);
+  view(section: any) {
+    this.router.navigateByUrl('/git_admin/details/form', { state: { form: section } });
   }
 
-  edit(form: any) {
-    this.router.navigateByUrl('git_admin/edit/form/' + form.form_code, { state: { form: form } });
+  openNew() {
+    this.router.navigateByUrl('/git_admin/create/section');
   }
 
-  view(form: any) {
-    this.router.navigateByUrl('/git_admin/details/form', { state: { form: form } });
+  delete(id: string, index: number) {
+    this.modalService.open(this.modalTemplateRef, { centered: true }).result.then((result) => {
+      if (result == 'delete') {
+        this.deleteSection(id, index);
+      }
+    });
   }
 
-  openNewForm() {
-    this.router.navigateByUrl('/git_admin/setup_form');
-  }
-
-  delete(id: string) { }
-
-  getAllForms() {
-    this.loading = true;
-    this.formService.getAllForms().then(
+  deleteSection(id: string, index: number) {
+    this.sectionService.deleteSection(id).then(
       res => {
-        const forms = res as any;
-        if (forms.length > 0) {
+        this.sectionsList.splice(index, 1);
+      },
+      err => {}
+    );
+  }
+
+  getAllFormSections() {
+    this.loading = true;
+    this.sectionService.getAllSections().then(
+      res => {
+        const sections = res as any;
+        if (sections.length > 0) {
           this.hasNoData = false;
-          _.forEach(forms, (form) => {
-            this.formsList.push(form);
-            this.allFormsList = this.formsList;
+          _.forEach(sections, (section) => {
+            this.sectionsList.push(section);
           });
         }
         else {

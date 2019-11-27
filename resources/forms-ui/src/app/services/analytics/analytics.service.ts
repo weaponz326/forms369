@@ -198,7 +198,55 @@ export class AnalyticsService {
    */
   getCompanyFormCount(merchant_id: string): Promise<any> {
     return new Promise((resolve, reject) => {
-      const url = this.endpointService.apiHost + 'api/v1/' + merchant_id;
+      const url = this.endpointService.apiHost + 'api/v1/getNumAllFormsByMerchant' + merchant_id;
+      this.http.get(url, { headers: this.headers }).subscribe(
+        res => {
+          console.log('forms: ' + res);
+          const response = res as any;
+          resolve(response.num_forms);
+        },
+        err => {
+          reject(err);
+        }
+      );
+    });
+  }
+
+  getFrontDeskSubmittedFormsCount(merchant_id: string): Promise<any> {
+    return new Promise((resolve, reject) => {
+      const url = this.endpointService.apiHost + 'api/v1/getNumSubmittedFormsByStatus/0/' + merchant_id;
+      this.http.get(url, { headers: this.headers }).subscribe(
+        res => {
+          console.log('forms: ' + res);
+          const response = res as any;
+          resolve(response.num_forms);
+        },
+        err => {
+          reject(err);
+        }
+      );
+    });
+  }
+
+  getFrontDeskProcessingFormsCount(merchant_id: string): Promise<any> {
+    return new Promise((resolve, reject) => {
+      const url = this.endpointService.apiHost + 'api/v1/getNumSubmittedFormsByStatus/1/' + merchant_id;
+      this.http.get(url, { headers: this.headers }).subscribe(
+        res => {
+          console.log('forms: ' + res);
+          const response = res as any;
+          resolve(response.num_forms);
+        },
+        err => {
+          reject(err);
+        }
+      );
+    });
+  }
+
+  getFrontDeskProcessedFormsCount(merchant_id: string): Promise<any> {
+    return new Promise((resolve, reject) => {
+      const url = this.endpointService.apiHost + 'api/v1/getNumSubmittedFormsByStatus/2/' + merchant_id;
       this.http.get(url, { headers: this.headers }).subscribe(
         res => {
           console.log('forms: ' + res);

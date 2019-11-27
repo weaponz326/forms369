@@ -15,6 +15,20 @@ section.section-one {
     margin-bottom: 10px;
 }
 
+section.section-one .main-icon {
+    font-size: 12em;
+}
+
+@media only screen 
+and (min-device-width: 320px) 
+and (max-device-width: 825px) {
+  section.section-one .main-icon {
+    font-size: 8em;
+    margin-top: 16px;
+    margin-bottom: 16px;
+  }
+}
+
 section.section-one .jumbotron {
     background: white;
 }
@@ -23,7 +37,22 @@ section.section-one .jumbotron h1 {
     font-size: 80px;
     font-weight: 100;
     margin: 10px;
-    font-family: 'OpenSans_Regular';
+    font-family: 'ProductSans_Regular';
+}
+
+section.section-one .jumbotron .lead {
+    line-height: 1.8rem;
+}
+
+@media only screen 
+and (min-device-width: 320px) 
+and (max-device-width: 825px) {
+  section.section-one .jumbotron h1 {
+    font-size: 50px;
+    font-weight: 100;
+    margin: 10px;
+    font-family: 'ProductSans_Regular';
+  }
 }
 
 section.section-two {

@@ -19,6 +19,11 @@
     src: url('./assets/fonts/open-sans/OpenSans-Semibold.ttf');
 }
 
+@font-face {
+    font-family: 'ProductSans_Regular';
+    src: url('./assets/fonts/ProductSans-Bold_1b2049464dce1ac801cec1357c2e45b8.ttf');
+}
+
 body {
     color: #555;
     font-family: 'OpenSans_Regular';

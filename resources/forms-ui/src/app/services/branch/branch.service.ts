@@ -10,7 +10,8 @@ import { CompanyBranches } from 'src/app/models/company-branches.model';
 })
 export class BranchService {
 
-  headers: HttpHeaders;
+  private headers: HttpHeaders;
+  public nextPaginationUrl: string;
 
   constructor(private http: HttpClient, private endpointService: EndpointService) {
     this.headers = this.endpointService.headers();
@@ -64,19 +65,24 @@ export class BranchService {
   }
 
   /**
-   * Returns a details of company branch.
+   * Returns a list of company branch.
    *
    * @param {string} id
    * @returns {Promise<CompanyBranches>}
    * @memberof BranchService
    */
-  getBranch(id: string): Promise<CompanyBranches> {
+  getBranch(id: string, page_url?: string): Promise<CompanyBranches> {
     return new Promise((resolve, reject) => {
-      const url = this.endpointService.apiHost + 'api/v1/getCompanyBranches/' + id;
+      const url = !_.isUndefined(page_url)
+        ? page_url
+        : this.endpointService.apiHost + 'api/v1/getCompanyBranches/' + id;
+
+      console.log('url: ' + url);
       this.http.get(url, { headers: this.headers }).subscribe(
         res => {
           console.log('response: ' + JSON.stringify(res));
           const response = res as any;
+          this.nextPaginationUrl = response.branches.next_page_url;
           resolve(response.branches.data);
         },
         err => {
@@ -116,14 +122,36 @@ export class BranchService {
    * @returns {Promise<Array<CompanyBranches>>}
    * @memberof BranchService
    */
-  getAllBranches(): Promise<Array<CompanyBranches>> {
+  getAllBranches(page_url?: string): Promise<Array<CompanyBranches>> {
     return new Promise((resolve, reject) => {
-      const url = this.endpointService.apiHost + 'api/v1/getAllBranches';
+      const url = !_.isUndefined(page_url)
+        ? page_url
+        : this.endpointService.apiHost + 'api/v1/getAllBranches';
+
+      console.log('url: ' + url);
       this.http.get(url, { headers: this.headers }).subscribe(
         res => {
           console.log('response: ' + JSON.stringify(res));
           const response = res as any;
+          this.nextPaginationUrl = response.branches.next_page_url;
           resolve(response.branches.data);
+        },
+        err => {
+          console.log('error: ' + JSON.stringify(err));
+          reject(err);
+        }
+      );
+    });
+  }
+
+  getAllBranchCollection(): Promise<any> {
+    return new Promise((resolve, reject) => {
+      const url = this.endpointService.apiHost + 'api/v1/getAllBranchesForDropdown';
+      this.http.get(url, { headers: this.headers }).subscribe(
+        res => {
+          console.log('response: ' + JSON.stringify(res));
+          const response = res as any;
+          resolve(response.branches);
         },
         err => {
           console.log('error: ' + JSON.stringify(err));
