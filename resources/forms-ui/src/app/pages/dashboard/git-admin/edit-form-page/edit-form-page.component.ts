@@ -96,7 +96,7 @@ export class EditFormPageComponent implements OnInit {
 
   getCompanies() {
     this._loading = true;
-    this.companyService.getAllCompanies().then(
+    this.companyService.getAllCompanyCollection().then(
       res => {
         console.log('all_comps: ' + JSON.stringify(res));
         const merchants = res as any;
