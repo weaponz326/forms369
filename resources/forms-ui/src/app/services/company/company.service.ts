@@ -219,6 +219,23 @@ export class CompanyService {
     });
   }
 
+  getAllCompanyCollection(): Promise<any> {
+    return new Promise((resolve, reject) => {
+      const url = this.endpointService.apiHost + 'api/v1/getMerchantsForDropdown';
+      this.http.get(url, { headers: this.headers }).subscribe(
+        res => {
+          console.log('all_merchants: ' + JSON.stringify(res));
+          const response = res as any;
+          resolve(response.merchants);
+        },
+        err => {
+          console.log('error_merchants: ' + JSON.stringify(err));
+          reject(err);
+        }
+      );
+    });
+  }
+
   /**
    * Gets a list of all admins assigned to a company.
    *

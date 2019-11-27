@@ -44,9 +44,9 @@
           <div class="col-lg-12 grid-margin stretch-card">
             <div class="card text-center pt-5 pb-5">
               <div class="card-body mt-5 mb-5">
-                <h4 class="card-title">Processed / processing</h4>
+                <h4 class="card-title">Processed</h4>
                 <p class="card-text">
-                  This {{ formName }} form has either been already processed or is being processed.
+                  This {{ formName }} form has been processed.
                 </p>
                 <div class="text-lg-center mt-5 mb-5">
                   <div class="card-text">
@@ -54,8 +54,8 @@
                   </div>
                   <div class="card-text mt-2">
                     <h3>Processing Or Already Processed Form</h3>
-                    <p class="text-muted">{{ form.submission_code }} could already be processed or is in processing</p>
-                    <p class="text-muted">{{ form.submission_code }} was last accessed for processing or was processed on {{ lastProcessed | date }}</p>
+                    <p class="text-muted">{{ form.submission_code }} has already been processed</p>
+                    <p class="text-muted">{{ form.submission_code }} was processed on {{ lastProcessed | date }}</p>
                   </div>
                 </div>
               </div>
@@ -63,7 +63,30 @@
           </div>
         </div>
 
-        <div *ngIf="!isProcessed" class="row">
+        <div *ngIf="isProcessing" class="row">
+          <div class="col-lg-12 grid-margin stretch-card">
+            <div class="card text-center pt-5 pb-5">
+              <div class="card-body mt-5 mb-5">
+                <h4 class="card-title">Processing</h4>
+                <p class="card-text">
+                  This {{ formName }} form is being processed.
+                </p>
+                <div class="text-lg-center mt-5 mb-5">
+                  <div class="card-text">
+                    <i class="mdi mdi-file-question" style="font-size: 8em;"></i>
+                  </div>
+                  <div class="card-text mt-2">
+                    <h3>Processing Form</h3>
+                    <p class="text-muted">{{ form.submission_code }} is in processing</p>
+                    <p class="text-muted">{{ form.submission_code }} was last accessed for processing on {{ lastProcessed | date }}</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div [hidden]="isProcessed || isProcessing || completed || submitted" class="row">
           <div class="col-md-8 offset-md-2 grid-margin stretch-card">
             <div class="card">
               <div class="card-body">
@@ -79,8 +102,60 @@
                     </button>
                     <button *ngIf="!loading" type="submit" class="btn btn-primary btn-lg mr-2" (click)="complete()">Complete</button>
                     <button *ngIf="!loading" type="submit" class="btn btn-primary btn-lg mr-2" (click)="process()">Processing</button>
-                    <button class="btn btn-light btn-lg" (click)="cancel()">Cancel</button>
+                    <button class="btn btn-light btn-lg" (click)="reject()">Reject</button>
                   </form>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="row" *ngIf="submitted">
+          <div class="col-md-12 grid-margin">
+            <div class="card pt-5 pb-5 text-center">
+              <div class="card-body">
+                <p class="card-title">Processing</p>
+                <p class="text-muted"></p>
+                <div class="card-text">
+                  <i class="mdi mdi-shield-check-outline text-primary" style="font-size: 12em;"></i>
+                  <h2>Form has been submitted for processing</h2>
+                  <p class="text-muted">You have succesfully submitted this form for processing.</p>
+                </div>
+                <div class="card-text mt-4">
+                  <button type="button" class="btn btn-primary btn-lg btn-icon-text mr-2" (click)="bringBackForm()">
+                    <i class="mdi mdi-plus"></i>
+                    Create New
+                  </button>
+                  <button type="button" class="btn btn-dark btn-lg mr-2" (click)="goHome()">
+                    <i class="mdi mdi-check"></i>
+                    Ok
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="row" *ngIf="completed">
+          <div class="col-md-12 grid-margin">
+            <div class="card pt-5 pb-5 text-center">
+              <div class="card-body">
+                <p class="card-title">Success</p>
+                <p class="text-muted"></p>
+                <div class="card-text">
+                  <i class="mdi mdi-shield-check-outline text-primary" style="font-size: 12em;"></i>
+                  <h2>Form Has Been Completed</h2>
+                  <p class="text-muted">You have succesfully completed processing this form.</p>
+                </div>
+                <div class="card-text mt-4">
+                  <button type="button" class="btn btn-primary btn-lg btn-icon-text mr-2" (click)="bringBackForm()">
+                    <i class="mdi mdi-plus"></i>
+                    Create New
+                  </button>
+                  <button type="button" class="btn btn-dark btn-lg mr-2" (click)="goHome()">
+                    <i class="mdi mdi-check"></i>
+                    Ok
+                  </button>
                 </div>
               </div>
             </div>

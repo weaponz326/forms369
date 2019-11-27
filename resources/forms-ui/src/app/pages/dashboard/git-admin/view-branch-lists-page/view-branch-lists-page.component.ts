@@ -99,6 +99,10 @@ export class ViewBranchListsPageComponent implements OnInit {
     this.branchesList = _.filter(this.allBranchesList, (branch) =>  branch.status == 0);
   }
 
+  openForms(id: string) {
+    this.router.navigateByUrl('git_admin/lists/form', { state: { company: id }});
+  }
+
   openNewBranch() {
     this.router.navigateByUrl('git_admin/create/branch');
   }

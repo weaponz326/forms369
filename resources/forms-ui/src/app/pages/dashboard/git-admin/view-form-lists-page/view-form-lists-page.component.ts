@@ -14,6 +14,7 @@ export class ViewFormListsPageComponent implements OnInit {
   loading: boolean;
   hasMore: boolean;
   viewMode: string;
+  companyId: string;
   hasError: boolean;
   hasNoData: boolean;
   filterState: string;
@@ -21,8 +22,6 @@ export class ViewFormListsPageComponent implements OnInit {
   hasMoreError: boolean;
   formsList: Array<any>;
   allFormsList: Array<any>;
-  activeFormsList: Array<any>;
-  inActiveFormsList: Array<any>;
 
   constructor(
     private router: Router,
@@ -33,7 +32,7 @@ export class ViewFormListsPageComponent implements OnInit {
     this.allFormsList = [];
     this.viewMode = this.listViewService.getDesiredViewMode();
 
-    this.getAllForms();
+    this.getForms();
   }
 
   ngOnInit() {
@@ -116,9 +115,44 @@ export class ViewFormListsPageComponent implements OnInit {
     return _.isNull(this.formService.nextPaginationUrl) ? false : true;
   }
 
+  getForms() {
+    if (_.isUndefined(window.history.state.company)) {
+      this.getAllForms();
+    }
+    else {
+      this.companyId = window.history.state.company;
+      this.getCompanyForms();
+    }
+  }
+
   getAllForms() {
     this.loading = true;
     this.formService.getAllForms().then(
+      res => {
+        const forms = res as any;
+        this.hasMore = this.checkIfHasMore();
+        if (forms.length > 0) {
+          this.hasNoData = false;
+          _.forEach(forms, (form) => {
+            this.formsList.push(form);
+            this.allFormsList = this.formsList;
+          });
+        }
+        else {
+          this.hasNoData = true;
+        }
+        this.loading = false;
+      },
+      err => {
+        this.loading = false;
+        this.hasError = true;
+      }
+    );
+  }
+
+  getCompanyForms() {
+    this.loading = true;
+    this.formService.getAllFormsByMerchant(this.companyId).then(
       res => {
         const forms = res as any;
         this.hasMore = this.checkIfHasMore();

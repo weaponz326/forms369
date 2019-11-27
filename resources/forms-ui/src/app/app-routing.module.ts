@@ -70,6 +70,7 @@ import { EditSectionPageComponent } from './pages/dashboard/git-admin/edit-secti
 import { ViewSectionsPageComponent } from './pages/dashboard/git-admin/view-sections-page/view-sections-page.component';
 import { EditAccessCodePageComponent } from './pages/dashboard/git-admin/edit-access-code-page/edit-access-code-page.component';
 import { ViewAccessCodePageComponent } from './pages/dashboard/git-admin/view-access-code-page/view-access-code-page.component';
+import { FrontDeskPreviewFormPageComponent } from './pages/dashboard/front-desk/front-desk-preview-form-page/front-desk-preview-form-page.component';
 
 const routes: Routes = [
   {
@@ -287,6 +288,10 @@ const routes: Routes = [
       {
         path: 'view_form',
         component: FrontDeskViewFormPageComponent
+      },
+      {
+        path: 'preview',
+        component: FrontDeskPreviewFormPageComponent
       },
       {
         path: 'lists',

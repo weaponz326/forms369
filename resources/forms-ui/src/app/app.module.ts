@@ -93,6 +93,7 @@ import { EditSectionPageComponent } from './pages/dashboard/git-admin/edit-secti
 import { ViewSectionsPageComponent } from './pages/dashboard/git-admin/view-sections-page/view-sections-page.component';
 import { ViewAccessCodePageComponent } from './pages/dashboard/git-admin/view-access-code-page/view-access-code-page.component';
 import { EditAccessCodePageComponent } from './pages/dashboard/git-admin/edit-access-code-page/edit-access-code-page.component';
+import { FrontDeskPreviewFormPageComponent } from './pages/dashboard/front-desk/front-desk-preview-form-page/front-desk-preview-form-page.component';
 
 @NgModule({
   declarations: [
@@ -176,6 +177,7 @@ import { EditAccessCodePageComponent } from './pages/dashboard/git-admin/edit-ac
     ViewSectionsPageComponent,
     ViewAccessCodePageComponent,
     EditAccessCodePageComponent,
+    FrontDeskPreviewFormPageComponent,
   ],
   imports: [
     BrowserModule,

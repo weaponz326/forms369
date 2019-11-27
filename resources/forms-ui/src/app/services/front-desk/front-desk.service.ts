@@ -177,4 +177,20 @@ export class FrontDeskService {
       );
     });
   }
+
+  unprocessForm(code: string): Promise<any> {
+    return new Promise((resolve, reject) => {
+      const url = this.endpointService.apiHost + 'api/v1/processSubmitForm/' + code + '/' + '0';
+      this.http.post(url, {}, { headers: this.headers }).subscribe(
+        res => {
+          console.log('res: ' + JSON.stringify(res));
+          resolve(res);
+        },
+        err => {
+          console.log('error: ' + JSON.stringify(err));
+          reject(err);
+        }
+      );
+    });
+  }
 }

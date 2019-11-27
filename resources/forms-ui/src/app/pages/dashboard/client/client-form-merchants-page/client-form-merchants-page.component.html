@@ -151,6 +151,40 @@
             </div>
           </div>
         </div>
+
+        <div *ngIf="loadingMore" class="row m-md-2">
+          <div class="col-md-12 col-sm-12 m-md-2">
+            <div class="d-flex justify-content-center">
+              <div class="spinner-border m-2" style="width: 2rem; height: 2rem;" role="status">
+                <span class="sr-only">Loading...</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div *ngIf="hasMoreError" class="row m-md-2">
+          <div class="col-md-8 col-sm-12 offset-md-2">
+            <div class="alert alert-danger" role="alert">
+              <h4 class="alert-heading">Connection Failed!</h4>
+              <p>
+                Oops!! Couldn't get you the rest of the data. Please make sure you have an active internet connection.
+                Maybe, our servers may be down.
+              </p>
+              <hr>
+              <p class="mb-0">We are really sorry for this inconvenience. Please click on the load more button again.
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <div *ngIf="hasMore" class="row">
+          <div class="col-md-4 col-sm-6 offset-sm-3 offset-lg-4">
+            <div class="text-center">
+              <button type="button" class="btn btn-secondary btn-rounded btn-fw" (click)="loadMore()">Load More</button>
+            </div>
+          </div>
+        </div>
+        
       </div>
       <!-- content -->
       <!-- footer -->

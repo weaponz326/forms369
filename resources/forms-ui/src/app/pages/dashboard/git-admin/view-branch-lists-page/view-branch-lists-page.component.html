@@ -111,7 +111,7 @@
 
                 <div *ngIf="viewMode == 'grid'" class="row">
                   <div class="col-md-4 grid-margin stretch-card" *ngFor="let branch of branchesList">
-                    <div class="card hover-cursor animated fadeInDown fast">
+                    <div class="card hover-cursor animated fadeInDown fast" (click)="openForms(branch.merchant_id)">
                       <div class="card-body">
                         <p class="card-title">{{ branch.merchant_name }}</p>
                         <div class="card-text">

@@ -20,6 +20,8 @@ export class ClientFormMerchantsPageComponent implements OnInit {
   foundNoForm: boolean;
   isConnected: boolean;
   formsList: Array<any>;
+  loadingMore: boolean;
+  hasMoreError: boolean;
   companyList: Array<Merchants>;
 
   constructor(
@@ -45,12 +47,17 @@ export class ClientFormMerchantsPageComponent implements OnInit {
     this.router.navigateByUrl('/client/form_entry', { state: { form: form }});
   }
 
+  checkIfHasMore() {
+    return _.isNull(this.companyService.nextPaginationUrl) ? false : true;
+  }
+
   getCompanies() {
     this.loading = true;
     this.companyService.getAllCompanies().then(
       res => {
         this.loading = false;
         const merchants = res as any;
+        this.hasMore = this.checkIfHasMore();
         if (merchants.length > 0) {
           this.hasData = true;
           _.forEach(merchants, (company) => {
@@ -66,6 +73,28 @@ export class ClientFormMerchantsPageComponent implements OnInit {
       err => {
         this.loading = false;
         this.hasError = true;
+      }
+    );
+  }
+
+  loadMore() {
+    this.loadingMore = true;
+    this.hasMoreError = false;
+    const moreUrl = this.companyService.nextPaginationUrl;
+    this.companyService.getAllCompanies(moreUrl).then(
+      res => {
+        this.loadingMore = false;
+        this.hasMoreError = false;
+        const merchants = res as any;
+        this.hasMore = this.checkIfHasMore();
+        _.forEach(merchants, (company) => {
+          company.logo = this.endpointService.storageHost + company.logo;
+          this.companyList.push(company);
+        });
+      },
+      err => {
+        this.loadingMore = false;
+        this.hasMoreError = true;
       }
     );
   }

@@ -12,15 +12,15 @@ import { LocalStorageService } from 'src/app/services/storage/local-storage.serv
 })
 export class FrontDeskSubmittedFormsListPageComponent implements OnInit {
   user: Users;
-  hasData: boolean;
   loading: boolean;
+  hasData: boolean;
   hasError: boolean;
   submittedFormsList: Array<any>;
 
   constructor(
     private router: Router,
     private localStorage: LocalStorageService,
-    private frontDeskService: FrontDeskService,
+    private frontDeskService: FrontDeskService
   ) {
     this.submittedFormsList = [];
     this.user = this.localStorage.getUser();
@@ -31,8 +31,8 @@ export class FrontDeskSubmittedFormsListPageComponent implements OnInit {
   ngOnInit() {
   }
 
-  openForm() {
-    this.router.navigateByUrl('/front_desk/lists/submitted');
+  open(form: any) {
+    this.router.navigateByUrl('/front_desk/preview', { state: { form: form }});
   }
 
   getAllSubmittedForms() {

@@ -5,6 +5,7 @@ import { LocalStorageService } from 'src/app/services/storage/local-storage.serv
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { FrontDeskService } from 'src/app/services/front-desk/front-desk.service';
 import { Users } from 'src/app/models/users.model';
+import { AnalyticsService } from 'src/app/services/analytics/analytics.service';
 
 @Component({
   selector: 'app-front-desk-home-page',
@@ -27,10 +28,14 @@ export class FrontDesktopHomePageComponent implements OnInit {
     private router: Router,
     private formBuilder: FormBuilder,
     private localStorage: LocalStorageService,
-    private frontDeskService: FrontDeskService
+    private frontDeskService: FrontDeskService,
+    private analuyticsService: AnalyticsService,
   ) {
     this.user = this.localStorage.getUser();
     this.firstname = this.user.firstname;
+    const merchant_id = _.toString(this.user.merchant_id);
+
+    this.getFrontDeskAnalytics(merchant_id);
   }
 
   ngOnInit() {
@@ -47,7 +52,35 @@ export class FrontDesktopHomePageComponent implements OnInit {
     });
   }
 
-  getFrontDeskAnalytics() {}
+  getFrontDeskAnalytics(id: string) {
+    this.getProcessedFormsAnalytics(id);
+    this.getSubmittedFormsAnalytics(id);
+    this.getProcessingFormsAnalytics(id);
+  }
+
+  getSubmittedFormsAnalytics(id: string) {
+    this.analuyticsService.getFrontDeskSubmittedFormsCount(id).then(
+      count => {
+        this.totalNoSubmitted = count;
+      }
+    );
+  }
+
+  getProcessedFormsAnalytics(id: string) {
+    this.analuyticsService.getFrontDeskProcessedFormsCount(id).then(
+      count => {
+        this.totalNoProcessed = count;
+      }
+    );
+  }
+
+  getProcessingFormsAnalytics(id: string) {
+    this.analuyticsService.getFrontDeskProcessingFormsCount(id).then(
+      count => {
+        this.totalNoProcessing = count;
+      }
+    );
+  }
 
   submit() {
     this.submitted = true;

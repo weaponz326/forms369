@@ -1,9 +1,10 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild, TemplateRef } from '@angular/core';
 import * as _ from 'lodash';
 import { Router } from '@angular/router';
 import { Users } from 'src/app/models/users.model';
 import { FrontDeskService } from 'src/app/services/front-desk/front-desk.service';
 import { LocalStorageService } from 'src/app/services/storage/local-storage.service';
+import { NgbModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
   selector: 'app-front-desk-processing-forms-list-page',
@@ -15,20 +16,33 @@ export class FrontDeskProcessingFormsListPageComponent implements OnInit {
   hasData: boolean;
   loading: boolean;
   hasError: boolean;
-  processedFormsList: Array<any>;
+  processingFormsList: Array<any>;
+  loadingModalRef: NgbModalRef;
+  completedModalRef: NgbModalRef;
+  @ViewChild('loading', { static: false }) loadingModal: TemplateRef<any>;
+  @ViewChild('completed', { static: false }) completedModal: TemplateRef<any>;
 
   constructor(
     private router: Router,
+    private modalService: NgbModal,
     private localStorage: LocalStorageService,
     private frontDeskService: FrontDeskService,
   ) {
-    this.processedFormsList = [];
+    this.processingFormsList = [];
     this.user = this.localStorage.getUser();
 
     this.getAllFormsInProcessing();
   }
 
   ngOnInit() {
+  }
+
+  open(form: any) {
+    this.router.navigateByUrl('/front_desk/view_form', { state: { form: form }});
+  }
+
+  showLoadingDialog() {
+    this.loadingModalRef = this.modalService.open(this.loadingModal, { centered: true });
   }
 
   showConfirmDialog() {}
@@ -44,10 +58,10 @@ export class FrontDeskProcessingFormsListPageComponent implements OnInit {
       res => {
         if (res.length != 0) {
           this.hasData = true;
-          _.forEach(res, (form) => {
-            this.processedFormsList.push(form);
-          });
           this.loading = false;
+          _.forEach(res, (form) => {
+            this.processingFormsList.push(form);
+          });
         }
         else {
           this.hasData = false;
@@ -62,47 +76,45 @@ export class FrontDeskProcessingFormsListPageComponent implements OnInit {
   }
 
   complete(submission_code: string) {
-    this.loading = true;
+    this.showLoadingDialog();
     this.frontDeskService.completeForm(submission_code).then(
       res => {
         const response = res as any;
         if (_.toLower(response.message) == 'ok') {
-          this.loading = false;
+          this.loadingModalRef.close();
           this.showCompletedDialog();
         }
         else {
-          this.loading = false;
+          this.loadingModalRef.close();
           this.showNotCompleteDialog();
         }
       },
       err => {
-        this.loading = false;
-        this.hasError = true;
+        this.loadingModalRef.close();
         this.showNotCompleteDialog();
       }
     );
   }
 
-  process(submission_code: string) {
-    this.loading = true;
-    this.frontDeskService.processForm(submission_code).then(
+  unprocess(submission_code: string) {
+    this.showLoadingDialog();
+    this.frontDeskService.unprocessForm(submission_code).then(
       res => {
         const response = res as any;
         if (_.toLower(response.message) == 'ok') {
-          this.loading = false;
+          this.loadingModalRef.close();
           this.showCompletedDialog();
         }
         else {
-          this.loading = false;
+          this.loadingModalRef.close();
           this.showNotCompleteDialog();
         }
       },
       err => {
-        this.loading = false;
         this.hasError = true;
+        this.loadingModalRef.close();
         this.showNotCompleteDialog();
       }
     );
   }
-
 }

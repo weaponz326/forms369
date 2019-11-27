@@ -1,10 +1,9 @@
-import { Component, OnInit, Inject } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 declare var $: any;
 import * as _ from 'lodash';
 import { Router } from '@angular/router';
 import { DOCUMENT } from '@angular/common';
 import { Forms } from 'src/app/models/forms.model';
-import { PageScrollService } from 'ngx-page-scroll-core';
 import { FormsService } from 'src/app/services/forms/forms.service';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { LocalStorageService } from 'src/app/services/storage/local-storage.service';
@@ -22,6 +21,8 @@ export class AdminCreateFormPageComponent implements OnInit {
   created: boolean;
   loading: boolean;
   formCode: string;
+  _loading: boolean;
+  hasError: boolean;
   submitted: boolean;
   toPublish: boolean;
   merchant_id: number;
@@ -30,8 +31,6 @@ export class AdminCreateFormPageComponent implements OnInit {
     private router: Router,
     private _formBuilder: FormBuilder,
     private formService: FormsService,
-    private pageScroller: PageScrollService,
-    @Inject(DOCUMENT) private document: any,
     private localStorage: LocalStorageService,
     private formBuilderService: FormBuilderService
   ) {
@@ -41,17 +40,27 @@ export class AdminCreateFormPageComponent implements OnInit {
 
   ngOnInit() {
     this.created = false;
+    this._loading = true;
     this.buildForm();
 
-    this.formBuilder = $(document.getElementById('fb-editor')).formBuilder({
-      controlPosition: 'left',
-      scrollToFieldOnAdd: false,
-      disabledActionButtons: ['data', 'clear', 'save'],
-      inputSets: this.formBuilderService.generateFormFields(),
-      disableFields: this.formBuilderService.disableDefaultFormControls()
-    });
-
     this.formCode = this.formBuilderService.generateUniqueFormCode();
+    this.formBuilderService.generateFormFieldsBySections().then(
+      form_elements => {
+        this.formBuilder = $(document.getElementById('fb-editor')).formBuilder({
+          controlPosition: 'left',
+          inputSets: form_elements,
+          scrollToFieldOnAdd: false,
+          disabledActionButtons: ['data', 'clear', 'save'],
+          disableFields: this.formBuilderService.disableSectionFormFields()
+        });
+
+        this._loading = false;
+      },
+      error => {
+        this._loading = false;
+        this.hasError = true;
+      }
+    );
   }
 
   buildForm() {
@@ -108,9 +117,6 @@ export class AdminCreateFormPageComponent implements OnInit {
     if (this.form.valid) {
       this.save();
     }
-    else {
-      this.scrollToTop();
-    }
   }
 
   publish() {
@@ -119,17 +125,6 @@ export class AdminCreateFormPageComponent implements OnInit {
       this.toPublish = true;
       this.save();
     }
-    else {
-      this.scrollToTop();
-    }
-  }
-
-  scrollToTop() {
-    this.pageScroller.scroll({
-      document: this.document,
-      speed: 1000,
-      scrollTarget: '.content-wrapper'
-    });
   }
 
   bringBackForm() {

@@ -32,6 +32,7 @@ export class AddTemplatePageComponent implements OnInit {
 
   ngOnInit() {
     this.created = false;
+    this._loading = true;
     this.buildForm();
 
     this.formBuilderService.generateFormFieldsBySections().then(

@@ -20,8 +20,11 @@ export class FrontDeskViewFormPageComponent implements OnInit {
   formInstance: any;
   formRenderer: any;
   hasError: boolean;
+  rejected: boolean;
+  completed: boolean;
   submitted: boolean;
   isProcessed: boolean;
+  isProcessing: boolean;
   lastProcessed: string;
 
   constructor(
@@ -30,8 +33,8 @@ export class FrontDeskViewFormPageComponent implements OnInit {
     private frontDeskService: FrontDeskService
   ) {
     this.form = window.history.state.form;
-    this.user = this.localStorage.getUser();
     this.formName = this.form.form_name;
+    this.user = this.localStorage.getUser();
     console.log('form: ' + JSON.stringify(this.form));
   }
 
@@ -49,8 +52,12 @@ export class FrontDeskViewFormPageComponent implements OnInit {
   }
 
   setFormData(data: any) {
-    if (!_.isNull(this.form.last_processed)) {
+    if (this.form.form_status == 2) {
       this.isProcessed = true;
+      this.lastProcessed = this.form.last_processed;
+    }
+    else if (this.form.form_status == 1) {
+      this.isProcessing = true;
       this.lastProcessed = this.form.last_processed;
     }
     else {
@@ -66,17 +73,17 @@ export class FrontDeskViewFormPageComponent implements OnInit {
         const response = res as any;
         if (_.toLower(response.message) == 'ok') {
           this.loading = false;
-          this.submitted = true;
+          this.completed = true;
         }
         else {
           this.loading = false;
-          this.submitted = false;
+          this.completed = false;
         }
       },
       err => {
-        this.loading = false;
-        this.submitted = false;
         this.hasError = true;
+        this.loading = false;
+        this.completed = false;
       }
     );
   }
@@ -103,6 +110,26 @@ export class FrontDeskViewFormPageComponent implements OnInit {
     );
   }
 
-  cancel() {}
+  reject() {
+    this.loading = true;
+    this.frontDeskService.unprocessForm(this.form.submission_code).then(
+      res => {
+        const response = res as any;
+        if (_.toLower(response.message) == 'ok') {
+          this.loading = false;
+          this.rejected = true;
+        }
+        else {
+          this.loading = false;
+          this.rejected = false;
+        }
+      },
+      err => {
+        this.loading = false;
+        this.hasError = true;
+        this.rejected = false;
+      }
+    );
+  }
 
 }

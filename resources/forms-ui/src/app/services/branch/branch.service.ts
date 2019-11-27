@@ -144,6 +144,23 @@ export class BranchService {
     });
   }
 
+  getAllBranchCollection(): Promise<any> {
+    return new Promise((resolve, reject) => {
+      const url = this.endpointService.apiHost + 'api/v1/getAllBranchesForDropdown';
+      this.http.get(url, { headers: this.headers }).subscribe(
+        res => {
+          console.log('response: ' + JSON.stringify(res));
+          const response = res as any;
+          resolve(response.branches);
+        },
+        err => {
+          console.log('error: ' + JSON.stringify(err));
+          reject(err);
+        }
+      );
+    });
+  }
+
   /**
    * Returns a list of all admins assigned to the specified branch.
    *

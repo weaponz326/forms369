@@ -31,6 +31,10 @@ export class FrontDeskProcessedFormsListPageComponent implements OnInit {
   ngOnInit() {
   }
 
+  open(form: any) {
+    this.router.navigateByUrl('/front_desk/preview', { state: { form: form }});
+  }
+
   getAllProcessedForms() {
     this.loading = true;
     const merchant_id = this.user.merchant_id.toString();

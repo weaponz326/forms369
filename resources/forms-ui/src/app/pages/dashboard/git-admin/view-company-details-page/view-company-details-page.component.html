@@ -13,21 +13,18 @@
                   <p class="mb-md-0">Your administrative dashboard.</p>
                 </div>
                 <div class="d-flex">
-                  <!-- <i class="mdi mdi-home text-muted hover-cursor"></i>
-                  <p class="text-muted mb-0 hover-cursor">&nbsp;/&nbsp;Home&nbsp;/&nbsp;</p>
-                  <p class="text-primary mb-0 hover-cursor">View Admins</p> -->
                 </div>
               </div>
               <div class="d-flex justify-content-between align-items-end flex-wrap">
-                <!-- <button type="button" class="btn btn-light bg-white btn-icon mr-3 d-none d-md-block ">
+                <button type="button" class="btn btn-light bg-white btn-icon mr-3 d-none d-md-block ">
                   <i class="mdi mdi-download text-muted"></i>
                 </button>
                 <button type="button" class="btn btn-light bg-white btn-icon mr-3 mt-2 mt-xl-0">
                   <i class="mdi mdi-clock-outline text-muted"></i>
-                </button> -->
-                <!-- <button type="button" class="btn btn-light bg-white btn-icon mr-3 mt-2 mt-xl-0">
+                </button>
+                <button type="button" class="btn btn-light bg-white btn-icon mr-3 mt-2 mt-xl-0">
                   <i class="mdi mdi-plus text-muted"></i>
-                </button> -->
+                </button>
               </div>
             </div>
           </div>
@@ -42,92 +39,112 @@
                   View all the details of an account.
                 </p>
                 <div class="card-text">
-                  <div class="container">
-                    <div class="row">
-                      <div class="col-12 col-md-6 offset-md-2">
-                        <h1 class="display-3 mb-sm-2">{{ company.merchant_name }}</h1>
-                      </div>
-                      <div class="col-12 col-md-4">
-                        <button *ngIf="!_loading" class="btn btn-outline-secondary mr-2"
-                          [ngClass]="{'active': isActive}" (click)="toggleStatus()">Active</button>
-                        <button *ngIf="_loading" class="btn btn-primary" type="button" disabled>
-                          <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
-                          Loading...
-                        </button>
-                        <button class="btn btn-outline-secondary btn-icon-text" (click)="edit(company.id)">
-                          <i class="mdi mdi-pencil-outline"></i>
-                          Edit
-                        </button>
+                  <div class="row mt-3 text-center">
+                    <div class="col-4 offset-4">
+                      <img [src]="company.logo" class="logo mb-5" alt="logo">
+                      <h3 class="display-4 font-weight-bold">{{ company.merchant_name }}</h3>
+                      <button *ngIf="!_loading" class="btn btn-outline-primary mr-2" [ngClass]="{'active': isActive}" (click)="toggleStatus()">Active</button>
+                      <button *ngIf="_loading" class="btn btn-primary" type="button" disabled>
+                        <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+                        Loading...
+                      </button>
+                      <button class="btn btn-outline-primary btn-icon-text" (click)="edit(company.id)">
+                        <i class="mdi mdi-pencil-outline"></i>
+                        Edit
+                      </button>
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="col-12">
+                      <div class="accordion mt-3" id="accordionExample">
+                        <div class="card">
+                          <div class="card-header" id="headingOne">
+                            <h2 class="mb-0">
+                              <button class="btn" type="button" data-toggle="collapse"
+                                data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                                Company Details - {{ company.merchant_name }}
+                              </button>
+                            </h2>
+                          </div>
+                          <div id="collapseOne" class="collapse show" aria-labelledby="headingOne"
+                            data-parent="#accordionExample">
+                            <div class="card-body">
+                              <div class="table-responsive">
+                                <table class="table table-hover">
+                                  <tbody>
+                                    <tr class="hover-cursor">
+                                      <td><strong>Company Name</strong></td>
+                                      <td>{{ company.merchant_name }}</td>
+                                    </tr>
+                                    <tr class="hover-cursor">
+                                      <td><strong>Country</strong></td>
+                                      <td>{{ company.country }}</td>
+                                    </tr>
+                                    <tr class="hover-cursor">
+                                      <td><strong>Super Executive</strong></td>
+                                      <td>{{ company.super_executive_name }}</td>
+                                    </tr>
+                                    <tr class="hover-cursor">
+                                      <td><strong>Company Admin</strong></td>
+                                      <td>{{ company.company_admin_name }}</td>
+                                    </tr>
+                                    <tr class="hover-cursor">
+                                      <td><strong>Created On</strong></td>
+                                      <td>{{ company.created_at | date }}</td>
+                                    </tr>
+                                  </tbody>
+                                </table>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
                       </div>
                     </div>
-                    <div class="row account-details ml-md-5 mt-5">
-                      <div class="col-6 col-md-3 offset-md-1">
-                        <h5>Company Name :</h5>
+                    <!-- <div class="col-6">
+                      <div class="accordion mt-3" id="accordionExample1">
+                        <div class="card">
+                          <div class="card-header" id="headingTwo">
+                            <h2 class="mb-0">
+                              <button class="btn" type="button" data-toggle="collapse" data-target="#collapseTwo"
+                                aria-expanded="true" aria-controls="collapseTwo">
+                                Forms - {{ company.merchant_name }}
+                              </button>
+                            </h2>
+                          </div>
+                          <div id="collapseTwo" class="collapse show" aria-labelledby="headingTwo"
+                            data-parent="#accordionExample1">
+                            <div class="card-body">
+                              <div class="table-responsive">
+                                <table class="table table-hover">
+                                  <tbody>
+                                    <tr class="hover-cursor">
+                                      <td><strong>Company Name</strong></td>
+                                      <td>{{ company.merchant_name }}</td>
+                                    </tr>
+                                    <tr class="hover-cursor">
+                                      <td><strong>Country</strong></td>
+                                      <td>{{ company.country }}</td>
+                                    </tr>
+                                    <tr class="hover-cursor">
+                                      <td><strong>Super Executive</strong></td>
+                                      <td>{{ company.super_executive_name }}</td>
+                                    </tr>
+                                    <tr class="hover-cursor">
+                                      <td><strong>Company Admin</strong></td>
+                                      <td>{{ company.company_admin_name }}</td>
+                                    </tr>
+                                    <tr class="hover-cursor">
+                                      <td><strong>Created On</strong></td>
+                                      <td>{{ company.created_at | date }}</td>
+                                    </tr>
+                                  </tbody>
+                                </table>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
                       </div>
-                      <div class="col-6 col-md-7">
-                        <h5>{{ company.merchant_name }}</h5>
-                      </div>
-                      <div class="col-3 col-md-3 offset-1 offset-md-1">
-                        <h5>Country :</h5>
-                      </div>
-                      <div class="col-7 col-md-7">
-                        <h5>{{ company.country }}</h5>
-                      </div>
-                      <div class="col-3 col-md-3 offset-1 offset-md-1">
-                        <h5>Super Executive :</h5>
-                      </div>
-                      <div class="col-7 col-md-7">
-                        <h5>{{ company.super_executive_name }}</h5>
-                      </div>
-                      <div class="col-3 col-md-3 offset-1 offset-md-1">
-                        <h5>Company Admin :</h5>
-                      </div>
-                      <div class="col-7 col-md-7">
-                        <h5>{{ company.company_admin_name }}</h5>
-                      </div>
-                      <div class="col-3 col-md-3 offset-1 offset-md-1">
-                        <h5>Created At :</h5>
-                      </div>
-                      <div class="col-7 col-md-7">
-                        <h5>{{ company.created_at | date }}</h5>
-                      </div>
-                      <div class="col-3 col-md-3 offset-1 offset-md-1">
-                        <h5>Updated At :</h5>
-                      </div>
-                      <div class="col-7 col-md-7">
-                        <h5>{{ company.updated_at | date }}</h5>
-                      </div>
-                      <div class="col-3 col-md-3 offset-1 offset-md-1">
-                        <h5>Branch Name :</h5>
-                      </div>
-                      <div class="col-7 col-md-7">
-                        <h5>{{ company.branch_name }}</h5>
-                      </div>
-                      <!-- <div class="col-3 col-md-3 offset-1 offset-md-1">
-                        <h5>company Type :</h5>
-                      </div>
-                      <div class="col-7 col-md-7">
-                        <h5>{{ accountType }}</h5>
-                      </div> -->
-                      <div class="col-3 col-md-3 offset-1 offset-md-1">
-                        <h5>Last Login :</h5>
-                      </div>
-                      <div class="col-7 col-md-7">
-                        <h5>{{ company.last_login_at | date }}</h5>
-                      </div>
-                      <div class="col-3 col-md-3 offset-1 offset-md-1">
-                        <h5>Account Created On :</h5>
-                      </div>
-                      <div class="col-7 col-md-7">
-                        <h5>{{ company.created_at | date }}</h5>
-                      </div>
-                      <div class="col-3 col-md-3 offset-1 offset-md-1">
-                        <h5>Last Updated On :</h5>
-                      </div>
-                      <div class="col-7 col-md-7">
-                        <h5>{{ company.updated_at | date }}</h5>
-                      </div>
-                    </div>
+                    </div> -->
                   </div>
                 </div>
               </div>
