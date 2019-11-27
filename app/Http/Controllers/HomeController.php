@@ -1106,6 +1106,20 @@ class HomeController extends Controller
         return $message;
     }
 
+    /**
+     * Business logics
+     * viewRespondentData get all respondents data for a particular form
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @param $code form code 
+     * @return void\Illuminate\Http\Response all details of respondents
+     * 
+     */
+    protected function viewRespondentData(Request $request, $code)
+    {
+        $message = (new FrontDeskController)->viewRespondentData($request, $code);
+        return $message;
+    }
      /**
       * Business logics 
      * getClientSubmittedForms forms submitted by a client of any status: 

@@ -459,5 +459,41 @@ class FrontDeskController extends Controller
         return response()->json($response, 200);
     }
 
+  /**
+     * viewRespondentData get all respondents data for a particular form
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @param $code form code 
+     * @return void\Illuminate\Http\Response all details of respondents
+     * 
+     */
+    public function viewRespondentData(Request $request, $code)
+    {
+        $getrespondentsdata = DB::table('submitted_forms')
+        ->select('submitted_forms.*')
+        ->where('form_id', $code)
+        ->paginate(15);
 
+        //clean data
+        $submitteddata = [];
+
+        $getrespondentsdata->transform(function($items){
+            $submittedformdata['submission_code'] = $items->submission_code;
+            $submittedformdata['form_code'] = $items->form_id;
+            $submittedformdata['client_id'] = $items->client_id;
+            $submittedformdata['client_submitted_details'] = json_decode(Crypt::decryptString($items->client_details));
+            $submittedformdata['form_status'] = $items->status;
+            $submittedformdata['submitted_at'] = $items->submitted_at;
+            $submittedformdata['last_processed'] = $items->last_processed;
+            $submittedformdata['processed_by'] = $items->processed_by;
+
+            return $submittedformdata;
+         });
+         
+         $response = [
+            'respondents_data' => $getrespondentsdata
+        ];
+        return response()->json($response, 200);
+
+    }
 }
