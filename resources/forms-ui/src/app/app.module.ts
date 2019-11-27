@@ -3,6 +3,7 @@ import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 import { OrderModule } from 'ngx-order-pipe';
+import { ClipboardModule } from 'ngx-clipboard';
 import { CountryPickerModule } from 'ngx-country-picker';
 import { HttpClientModule } from '@angular/common/http';
 import { AppRoutingModule } from './app-routing.module';
@@ -185,6 +186,7 @@ import { FrontDeskPreviewFormPageComponent } from './pages/dashboard/front-desk/
     HttpClientModule,
     AppRoutingModule,
     OrderModule,
+    ClipboardModule,
     NgbModule,
     NgbAlertModule,
     NgbModalModule,

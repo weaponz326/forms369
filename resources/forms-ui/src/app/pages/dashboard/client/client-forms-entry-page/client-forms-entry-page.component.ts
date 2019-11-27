@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 declare var $: any;
 import * as _ from 'lodash';
 import { Router } from '@angular/router';
+import { ClipboardService } from 'ngx-clipboard';
 import { Users } from 'src/app/models/users.model';
 import { ClientService } from 'src/app/services/client/client.service';
 import { LocalStorageService } from 'src/app/services/storage/local-storage.service';
@@ -25,6 +26,7 @@ export class ClientFormsEntryPageComponent implements OnInit {
 
   constructor(
     private router: Router,
+    private clipboard: ClipboardService,
     private clientService: ClientService,
     private formBuilder: FormBuilderService,
     private localStorage: LocalStorageService
@@ -91,6 +93,10 @@ export class ClientFormsEntryPageComponent implements OnInit {
         }
       );
     }
+  }
+
+  copy() {
+    this.clipboard.copyFromContent(this.formGenCode);
   }
 
   loadForm() {}

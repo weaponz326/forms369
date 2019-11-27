@@ -138,15 +138,15 @@ const routes: Routes = [
         path: 'edit',
         children: [
           {
-            path: 'form/:id',
+            path: 'form',
             component: EditFormPageComponent
           },
           {
-            path: 'branch/:id',
+            path: 'branch',
             component: EditBranchPageComponent
           },
           {
-            path: 'company/:id',
+            path: 'company',
             component: EditCompanyPageComponent
           },
           {

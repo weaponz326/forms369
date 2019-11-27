@@ -34,7 +34,7 @@ export class ViewFormDetailsPageComponent implements OnInit {
   }
 
   edit() {
-    this.router.navigateByUrl('git_admin/edit/form/' + this.form.form_code, { state: { form: this.form }});
+    this.router.navigateByUrl('git_admin/edit/form', { state: { form: this.form }});
   }
 
   download() {}

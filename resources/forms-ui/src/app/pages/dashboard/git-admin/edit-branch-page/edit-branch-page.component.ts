@@ -225,8 +225,8 @@ export class EditBranchPageComponent implements OnInit {
     }
   }
 
-  goHome() {
-    this.router.navigateByUrl('/git_admin');
+  ok() {
+    this.router.navigateByUrl('/git_admin/lists/branch');
   }
 
   view() {

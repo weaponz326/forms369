@@ -21,7 +21,7 @@ export class EditUserPageComponent implements OnInit {
   ngOnInit() {
   }
 
-  goBack() {
+  ok() {
     this.router.navigateByUrl('/git_admin/lists/admin');
   }
 

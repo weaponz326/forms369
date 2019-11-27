@@ -34,8 +34,6 @@ export class CreateFormPageComponent implements OnInit {
     private _formBuilder: FormBuilder,
     private formService: FormsService,
     private companyService: CompanyService,
-    private pageScroller: PageScrollService,
-    @Inject(DOCUMENT) private document: any,
     private formBuilderService: FormBuilderService
   ) {
     this.allMerchantsList = [];
@@ -150,9 +148,6 @@ export class CreateFormPageComponent implements OnInit {
     if (this.form.valid) {
       this.save();
     }
-    else {
-      this.scrollToTop();
-    }
   }
 
   publish() {
@@ -161,17 +156,6 @@ export class CreateFormPageComponent implements OnInit {
       this.toPublish = true;
       this.save();
     }
-    else {
-      this.scrollToTop();
-    }
-  }
-
-  scrollToTop() {
-    this.pageScroller.scroll({
-      document: this.document,
-      speed: 1000,
-      scrollTarget: '.content-wrapper'
-    });
   }
 
   preview() {
@@ -182,8 +166,8 @@ export class CreateFormPageComponent implements OnInit {
     this.created = !this.created;
   }
 
-  goHome() {
-    this.router.navigateByUrl('/git_admin');
+  ok() {
+    this.router.navigateByUrl('/git_admin/lists/form');
   }
 
 }

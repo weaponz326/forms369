@@ -93,10 +93,11 @@
                     You have successfully created a new access code.
                   </p>
                   <div class="code">{{ accessCode }}</div>
-                  <button class="btn btn-primary mr-2 hover-cursor" type="button">
+                  <button class="btn btn-primary mr-2 hover-cursor" type="button" (click)="copy()">
                     <i class="mdi mdi-content-copy" style="font-size: 20px;"></i>
                     <span class="sr-only">Please wait...</span>
                   </button>
+                  <button class="btn btn-primary mr-2 hover-cursor" type="button" (click)="ok()">Ok</button>
                 </div>
               </div>
             </div>

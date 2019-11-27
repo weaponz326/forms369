@@ -98,7 +98,7 @@ export class ViewFormListsPageComponent implements OnInit {
   }
 
   edit(form: any) {
-    this.router.navigateByUrl('git_admin/edit/form/' + form.form_code, { state: { form: form }});
+    this.router.navigateByUrl('git_admin/edit/form', { state: { form: form }});
   }
 
   view(form: any) {

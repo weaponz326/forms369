@@ -36,11 +36,11 @@ export class AdminHomePageComponent implements OnInit {
   getAnalytics() {
     this.loading = true;
     this.getBranchAnalytics();
-    // this.getFormAnalytics();
+    this.getFormAnalytics();
   }
 
   getFormAnalytics() {
-    this.analyticService.getAllFormsCount().then(
+    this.analyticService.getCompanyFormCount(this.merchantIdentifier.toString()).then(
       count => {
         this.numTotalForms = count;
         this.loading = false;

@@ -242,15 +242,18 @@ export class CompanyService {
    * @returns {Promise<any>}
    * @memberof CompanyService
    */
-  getCompanyAdmins(): Promise<any> {
+  getCompanyAdmins(allowPagination?: boolean): Promise<any> {
     return new Promise((resolve, reject) => {
-      const url = this.endpointService.apiHost + 'api/v1/getAllUsersByType/' + UserTypes.CompanyAdmin;
+      const url = !_.isUndefined(allowPagination) || allowPagination
+        ? this.endpointService.apiHost + 'api/v1/getAllUsersByType/' + UserTypes.CompanyAdmin
+        : this.endpointService.apiHost + 'api/v1/getAllUsersByTypeForDropdown/' + UserTypes.CompanyAdmin;
       this.http.get(url, { headers: this.headers }).subscribe(
         res => {
           console.log('response: ' + JSON.stringify(res));
           const response = res as any;
-          resolve(response.users.data);
-          resolve(res);
+          return !_.isUndefined(allowPagination) || allowPagination
+            ? resolve(response.users.data)
+            : resolve(response.users);
         },
         err => {
           console.log('error: ' + JSON.stringify(err));

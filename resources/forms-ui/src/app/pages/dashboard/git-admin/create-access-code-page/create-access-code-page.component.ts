@@ -1,7 +1,9 @@
 import { Component, OnInit, ViewChild, TemplateRef } from '@angular/core';
 import * as _ from 'lodash';
 import { Observable } from 'rxjs';
+import { Router } from '@angular/router';
 import { startWith, map } from 'rxjs/operators';
+import { ClipboardService } from 'ngx-clipboard';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { BranchService } from 'src/app/services/branch/branch.service';
@@ -30,8 +32,10 @@ export class CreateAccessCodePageComponent implements OnInit {
   @ViewChild('confirm', { static: false }) modalTemplateRef: TemplateRef<any>;
 
   constructor(
+    private router: Router,
     private modalService: NgbModal,
     private formBuilder: FormBuilder,
+    private clipboard: ClipboardService,
     private branchService: BranchService,
     private companyService: CompanyService,
     private accountService: AccountService,
@@ -192,6 +196,14 @@ export class CreateAccessCodePageComponent implements OnInit {
         }
       );
     }
+  }
+
+  copy() {
+    this.clipboard.copyFromContent(this.accessCode);
+  }
+
+  ok() {
+    this.router.navigateByUrl('git_admin/lists/access_code');
   }
 
   isFormEmpty() {
