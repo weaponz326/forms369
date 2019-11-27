@@ -93,20 +93,21 @@
         </div>
         
         <div *ngIf="hasData && !loading" class="row">
-          <div class="col-lg-8 offset-2 grid-margin stretch-card">
+          <div class="col-lg-8 offset-lg-2 grid-margin stretch-card">
             <div class="card">
               <div class="card-body">
                 <h4 class="card-title">Basic Table</h4>
                 <p class="card-description"></p>
                 <div class="card-text">
-                  <div class="form-group" *ngFor="let item of allUserData1 | keyvalue : returnZero">
+                  <div class="form-group" *ngFor="let item of allUserData | keyvalue">
+                    <label><strong>{{ item.key | uppercase }}</strong></label>
                     <div class="input-group">
-                      <input type="text" class="form-control" placeholder="First Name" aria-label="Recipient's username" [value]="item.key">
+                      <input type="text" class="form-control" placeholder="First Name" aria-label="Recipient's username" [value]="item.value">
                       <div class="input-group-append">
-                        <button class="btn btn-sm btn-primary" type="button">
-                          <i class="mdi mdi-pencil-outline"></i>
+                        <button class="btn btn-sm btn-primary" type="button" (click)="save()">
+                          <i class="mdi mdi-check-outline"></i>
                         </button>
-                        <button class="btn btn-sm btn-danger" type="button">
+                        <button class="btn btn-sm btn-danger" type="button" (click)="delete()">
                           <i class="mdi mdi-delete-outline"></i>
                         </button>
                       </div>

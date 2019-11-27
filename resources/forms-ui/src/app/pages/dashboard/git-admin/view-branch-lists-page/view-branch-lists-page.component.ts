@@ -141,7 +141,7 @@ export class ViewBranchListsPageComponent implements OnInit {
           this.hasNoData = false;
           _.forEach(branches, (branch) => {
             this.branchesList.push(branch);
-            this.allBranchesList = this.branchesList;
+            this.allBranchesList = _.reverse(this.branchesList);
           });
         }
         else {
@@ -166,7 +166,7 @@ export class ViewBranchListsPageComponent implements OnInit {
           this.hasNoData = false;
           _.forEach(branches, (branch) => {
             this.branchesList.push(branch);
-            this.allBranchesList = this.branchesList;
+            this.allBranchesList = _.reverse(this.branchesList);
           });
         }
         else {
@@ -202,7 +202,7 @@ export class ViewBranchListsPageComponent implements OnInit {
         this.hasMore = this.checkIfHasMore();
         _.forEach(branches, (branch) => {
           this.branchesList.push(branch);
-          this.allBranchesList = this.branchesList;
+          this.allBranchesList = _.reverse(this.branchesList);
         });
       },
       err => {

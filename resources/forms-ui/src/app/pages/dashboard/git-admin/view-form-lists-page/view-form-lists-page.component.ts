@@ -135,7 +135,7 @@ export class ViewFormListsPageComponent implements OnInit {
           this.hasNoData = false;
           _.forEach(forms, (form) => {
             this.formsList.push(form);
-            this.allFormsList = this.formsList;
+            this.allFormsList = _.reverse(this.formsList);
           });
         }
         else {
@@ -160,7 +160,7 @@ export class ViewFormListsPageComponent implements OnInit {
           this.hasNoData = false;
           _.forEach(forms, (form) => {
             this.formsList.push(form);
-            this.allFormsList = this.formsList;
+            this.allFormsList = _.reverse(this.formsList);
           });
         }
         else {
@@ -186,7 +186,7 @@ export class ViewFormListsPageComponent implements OnInit {
         this.hasMore = this.checkIfHasMore();
         _.forEach(forms, (form) => {
           this.formsList.push(form);
-          this.allFormsList = this.formsList;
+          this.allFormsList = _.reverse(this.formsList);
         });
       },
       err => {

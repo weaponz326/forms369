@@ -131,7 +131,7 @@ export class ViewCompanyListsPageComponent implements OnInit {
           _.forEach(merchants, (company) => {
             company.logo = this.endpointService.storageHost + company.logo;
             this.companyList.push(company);
-            this.allCompanyList = this.companyList;
+            this.allCompanyList = _.reverse(this.companyList);
           });
         }
         else {
@@ -157,7 +157,7 @@ export class ViewCompanyListsPageComponent implements OnInit {
         _.forEach(merchants, (company) => {
           company.logo = this.endpointService.storageHost + company.logo;
           this.companyList.push(company);
-          this.allCompanyList = this.companyList;
+          this.allCompanyList = _.reverse(this.companyList);
         });
       },
       err => {

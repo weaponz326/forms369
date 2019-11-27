@@ -125,7 +125,7 @@ export class ViewAccountListsPageComponent implements OnInit {
           _.forEach(accounts, (admin) => {
             this.collection.push(admin);
           });
-          this.allCollection = this.collection;
+          this.allCollection = _.reverse(this.collection);
         }
         else {
           this.hasNoData = true;
