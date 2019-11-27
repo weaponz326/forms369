@@ -113,7 +113,7 @@ export class EditBranchPageComponent implements OnInit {
   }
 
   getCompany() {
-    this.companyService.getAllCompanies().then(
+    this.companyService.getAllCompanyCollection().then(
       res => {
         const merchants = res as any;
         console.log(JSON.stringify(merchants));
