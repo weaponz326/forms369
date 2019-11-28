@@ -71,6 +71,8 @@ import { ViewSectionsPageComponent } from './pages/dashboard/git-admin/view-sect
 import { EditAccessCodePageComponent } from './pages/dashboard/git-admin/edit-access-code-page/edit-access-code-page.component';
 import { ViewAccessCodePageComponent } from './pages/dashboard/git-admin/view-access-code-page/view-access-code-page.component';
 import { FrontDeskPreviewFormPageComponent } from './pages/dashboard/front-desk/front-desk-preview-form-page/front-desk-preview-form-page.component';
+import { ExecAccountsListPageComponent } from './pages/dashboard/executive/exec-accounts-list-page/exec-accounts-list-page.component';
+import { ExecBranchesListPageComponent } from './pages/dashboard/executive/exec-branches-list-page/exec-branches-list-page.component';
 
 const routes: Routes = [
   {
@@ -344,6 +346,14 @@ const routes: Routes = [
         path: 'processing_list',
         component: ExecInProcessedFormsListPageComponent
       },
+      {
+        path: 'accounts',
+        component: ExecAccountsListPageComponent
+      },
+      {
+        path: 'branches',
+        component: ExecBranchesListPageComponent
+      }
     ]
   },
   {
