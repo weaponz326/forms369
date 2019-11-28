@@ -712,7 +712,7 @@ module.exports = "<div class=\"container-scroller\">\n  <app-navigation-bar></ap
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<div class=\"container-scroller\">\n  <app-navigation-bar></app-navigation-bar>\n  <div class=\"container-fluid page-body-wrapper\">\n    <app-side-bar></app-side-bar>\n    <div class=\"main-panel\">\n      <div class=\"content-wrapper\">\n        <div class=\"row\">\n          <div class=\"col-md-12 grid-margin\">\n            <div class=\"d-flex justify-content-between flex-wrap\">\n              <div class=\"d-flex align-items-end flex-wrap\">\n                <div class=\"mr-md-3 mr-xl-5\">\n                  <h2>Welcome back, {{ firstname }}</h2>\n                  <p class=\"mb-md-0\">Your analytics dashboard template.</p>\n                </div>\n                <div class=\"d-flex\">\n                  <!-- <i class=\"mdi mdi-home text-muted hover-cursor\"></i>\n                  <p class=\"text-muted mb-0 hover-cursor\">&nbsp;/&nbsp;Home&nbsp;/&nbsp;</p>\n                  <p class=\"text-primary mb-0 hover-cursor\">Analytics</p> -->\n                </div>\n              </div>\n              <div class=\"d-flex justify-content-between align-items-end flex-wrap\">\n              </div>\n            </div>\n          </div>\n        </div>\n        \n        <div class=\"row mb-5 pb-3\">\n          <div class=\"col-md-8 offset-md-2\">\n            <div class=\"d-flex justify-content-between align-items-center flex-wrap\">\n              <form class=\"form-inline\">\n                <div class=\"form-group\">\n                  <select class=\"form-control form-control-lg\" style=\"width: 220px;\">\n                    <option value=\"a\">Select Company Branch</option>\n                    <option value=\"a\">Branch One</option>\n                    <option value=\"a\">Branch One</option>\n                    <option value=\"a\">Branch One</option>\n                    <option value=\"a\">Branch One</option>\n                  </select>\n                </div>\n                <div class=\"form-group\">\n                  <div class=\"input-group\">\n                    <input class=\"form-control form-control-lg\" placeholder=\"Select Start Date\" name=\"dp\" [(ngModel)]=\"model\" ngbDatepicker\n                      #d=\"ngbDatepicker\">\n                    <div class=\"input-group-append\">\n                      <button class=\"btn btn-outline-secondary\" (click)=\"d.toggle()\" type=\"button\">\n                        <i class=\"mdi mdi-calendar-outline\"></i>\n                      </button>\n                    </div>\n                  </div>\n                </div>\n                <div class=\"form-group\">\n                  <div class=\"input-group\">\n                    <input class=\"form-control form-control-lg\" placeholder=\"Select End Date\" name=\"dp\" [(ngModel)]=\"model\" ngbDatepicker\n                      #d1=\"ngbDatepicker\">\n                    <div class=\"input-group-append\">\n                      <button class=\"btn btn-outline-secondary\" (click)=\"d1.toggle()\" type=\"button\">\n                        <i class=\"mdi mdi-calendar-outline\"></i>\n                      </button>\n                    </div>\n                  </div>\n                </div>\n                <button type=\"submit\" class=\"btn btn-outline-dark btn-lg ml-2\">Filter</button>\n              </form>\n            </div>\n          </div>\n        </div>\n\n        <div class=\"row\">\n          <div class=\"col-md-3 grid-margin stretch-card\">\n            <div class=\"card hover-cursor hover-primary\" (click)=\"openForms()\">\n              <div class=\"card-body\">\n                <p class=\"card-title\">Available Forms</p>\n                <h1 class=\"display-2\">6</h1>\n                <div class=\"card-text\">\n                  <i class=\"mdi mdi-file-outline\" style=\"font-size: 3em;\"></i>\n                </div>\n                <p class=\"text-muted\">Total number of forms that have not been completely processed</p>\n              </div>\n            </div>\n          </div>\n\n          <div class=\"col-md-3 grid-margin stretch-card\">\n            <div class=\"card hover-cursor hover-primary\" (click)=\"openProcessed()\">\n              <div class=\"card-body\">\n                <p class=\"card-title\">Processed Forms</p>\n                <h1 class=\"display-2\">382</h1>\n                <div class=\"card-text\">\n                  <i class=\"mdi mdi-file-document-edit-outline\" style=\"font-size: 3em;\"></i>\n                </div>\n                <p class=\"text-muted\">Total number of forms that have been processed</p>\n              </div>\n            </div>\n          </div>\n\n          <div class=\"col-md-3 grid-margin stretch-card\">\n            <div class=\"card hover-cursor hover-primary\" (click)=\"openProcessing()\">\n              <div class=\"card-body\">\n                <p class=\"card-title\">Forms In Processing</p>\n                <h1 class=\"display-2\">70</h1>\n                <div class=\"card-text\">\n                  <i class=\"mdi mdi-timer\" style=\"font-size: 3em;\"></i>\n                </div>\n                <p class=\"text-muted\">Total number of forms that have not been completely processed</p>\n              </div>\n            </div>\n          </div>\n\n          <div class=\"col-md-3 grid-margin stretch-card\">\n            <div class=\"card hover-cursor hover-primary\" (click)=\"openSubmitted()\">\n              <div class=\"card-body\">\n                <p class=\"card-title\">Sumitted Forms</p>\n                <h1 class=\"display-2\">161</h1>\n                <div class=\"card-text\">\n                  <i class=\"mdi mdi-mailbox-open-outline\" style=\"font-size: 3em;\"></i>\n                </div>\n                <p class=\"text-muted\">Total of forms that have been submitted</p>\n              </div>\n            </div>\n          </div>\n        </div>\n\n        <div class=\"row\">\n          <div class=\"col-md-3 grid-margin stretch-card\">\n            <div class=\"card hover-cursor hover-primary\" (click)=\"openBranches()\">\n              <div class=\"card-body\">\n                <p class=\"card-title\">Total No. Of Branches</p>\n                <h1 class=\"display-2\">161</h1>\n                <div class=\"card-text\">\n                  <i class=\"mdi mdi-mailbox-open-outline\" style=\"font-size: 3em;\"></i>\n                </div>\n                <p class=\"text-muted\">Total of forms that have been submitted</p>\n              </div>\n            </div>\n          </div>\n\n          <div class=\"col-md-3 grid-margin stretch-card\">\n            <div class=\"card hover-cursor hover-primary\" (click)=\"openBranches()\">\n              <div class=\"card-body\">\n                <p class=\"card-title\">Total No. Of Active Branches</p>\n                <h1 class=\"display-2\">161</h1>\n                <div class=\"card-text\">\n                  <i class=\"mdi mdi-mailbox-open-outline\" style=\"font-size: 3em;\"></i>\n                </div>\n                <p class=\"text-muted\">Total of forms that have been submitted</p>\n              </div>\n            </div>\n          </div>\n\n          <div class=\"col-md-3 grid-margin stretch-card\">\n            <div class=\"card hover-cursor hover-primary\" (click)=\"openBranches()\">\n              <div class=\"card-body\">\n                <p class=\"card-title\">Total No. Of In-Active Branches</p>\n                <h1 class=\"display-2\">161</h1>\n                <div class=\"card-text\">\n                  <i class=\"mdi mdi-mailbox-open-outline\" style=\"font-size: 3em;\"></i>\n                </div>\n                <p class=\"text-muted\">Total of forms that have been submitted</p>\n              </div>\n            </div>\n          </div>\n          <div class=\"col-md-3 grid-margin stretch-card\">\n            <div class=\"card hover-cursor hover-primary\" (click)=\"openAccounts()\">\n              <div class=\"card-body\">\n                <p class=\"card-title\">Total No. Of Users</p>\n                <h1 class=\"display-2\">161</h1>\n                <div class=\"card-text\">\n                  <i class=\"mdi mdi-mailbox-open-outline\" style=\"font-size: 3em;\"></i>\n                </div>\n                <p class=\"text-muted\">Total of forms that have been submitted</p>\n              </div>\n            </div>\n          </div>\n        </div>\n        \n      </div>\n      <!-- content ends -->\n      <!-- footer -->\n      <app-footer-bar></app-footer-bar>\n      <!-- partial -->\n    </div>\n    <!-- main-panel ends -->\n  </div>\n</div>\n"
+module.exports = "<div class=\"container-scroller\">\n  <app-navigation-bar></app-navigation-bar>\n  <div class=\"container-fluid page-body-wrapper\">\n    <app-side-bar></app-side-bar>\n    <div class=\"main-panel\">\n      <div class=\"content-wrapper\">\n        <div class=\"row\">\n          <div class=\"col-md-12 grid-margin\">\n            <div class=\"d-flex justify-content-between flex-wrap\">\n              <div class=\"d-flex align-items-end flex-wrap\">\n                <div class=\"mr-md-3 mr-xl-5\">\n                  <h2>Welcome back, {{ firstname }}</h2>\n                  <p class=\"mb-md-0\">Your analytics dashboard template.</p>\n                </div>\n                <div class=\"d-flex\">\n                  <!-- <i class=\"mdi mdi-home text-muted hover-cursor\"></i>\n                  <p class=\"text-muted mb-0 hover-cursor\">&nbsp;/&nbsp;Home&nbsp;/&nbsp;</p>\n                  <p class=\"text-primary mb-0 hover-cursor\">Analytics</p> -->\n                </div>\n              </div>\n              <div class=\"d-flex justify-content-between align-items-end flex-wrap\">\n              </div>\n            </div>\n          </div>\n        </div>\n        \n        <div class=\"row mb-5 pb-3\">\n          <div class=\"col-12\">\n            <div class=\"d-flex justify-content-between align-items-center flex-wrap\">\n              <form class=\"form-inline\">\n                <div class=\"form-group\">\n                  <select class=\"form-control form-control-lg\" style=\"width: 220px;\">\n                    <option value=\"a\">Select Company Branch</option>\n                    <option value=\"a\">Branch One</option>\n                    <option value=\"a\">Branch One</option>\n                    <option value=\"a\">Branch One</option>\n                    <option value=\"a\">Branch One</option>\n                  </select>\n                </div>\n                <div class=\"form-group\">\n                  <div class=\"input-group\">\n                    <input class=\"form-control form-control-lg\" placeholder=\"Select Start Date\" name=\"dp\" [(ngModel)]=\"model\" ngbDatepicker\n                      #d=\"ngbDatepicker\">\n                    <div class=\"input-group-append\">\n                      <button class=\"btn btn-outline-secondary\" (click)=\"d.toggle()\" type=\"button\">\n                        <i class=\"mdi mdi-calendar-outline\"></i>\n                      </button>\n                    </div>\n                  </div>\n                </div>\n                <div class=\"form-group\">\n                  <div class=\"input-group\">\n                    <input class=\"form-control form-control-lg\" placeholder=\"Select End Date\" name=\"dp\" [(ngModel)]=\"model\" ngbDatepicker\n                      #d1=\"ngbDatepicker\">\n                    <div class=\"input-group-append\">\n                      <button class=\"btn btn-outline-secondary\" (click)=\"d1.toggle()\" type=\"button\">\n                        <i class=\"mdi mdi-calendar-outline\"></i>\n                      </button>\n                    </div>\n                  </div>\n                </div>\n                <button type=\"submit\" class=\"btn btn-outline-dark btn-lg ml-2\">Filter</button>\n              </form>\n            </div>\n          </div>\n        </div>\n\n        <div class=\"row\">\n          <div class=\"col-md-3 grid-margin stretch-card\">\n            <div class=\"card hover-cursor hover-primary\" (click)=\"openForms()\">\n              <div class=\"card-body\">\n                <p class=\"card-title\">Available Forms</p>\n                <h1 class=\"display-2\">6</h1>\n                <div class=\"card-text\">\n                  <i class=\"mdi mdi-file-outline\" style=\"font-size: 3em;\"></i>\n                </div>\n                <p class=\"text-muted\">Total number of forms that have not been completely processed</p>\n              </div>\n            </div>\n          </div>\n\n          <div class=\"col-md-3 grid-margin stretch-card\">\n            <div class=\"card hover-cursor hover-primary\" (click)=\"openProcessed()\">\n              <div class=\"card-body\">\n                <p class=\"card-title\">Processed Forms</p>\n                <h1 class=\"display-2\">382</h1>\n                <div class=\"card-text\">\n                  <i class=\"mdi mdi-file-document-edit-outline\" style=\"font-size: 3em;\"></i>\n                </div>\n                <p class=\"text-muted\">Total number of forms that have been processed</p>\n              </div>\n            </div>\n          </div>\n\n          <div class=\"col-md-3 grid-margin stretch-card\">\n            <div class=\"card hover-cursor hover-primary\" (click)=\"openProcessing()\">\n              <div class=\"card-body\">\n                <p class=\"card-title\">Forms In Processing</p>\n                <h1 class=\"display-2\">70</h1>\n                <div class=\"card-text\">\n                  <i class=\"mdi mdi-timer\" style=\"font-size: 3em;\"></i>\n                </div>\n                <p class=\"text-muted\">Total number of forms that have not been completely processed</p>\n              </div>\n            </div>\n          </div>\n\n          <div class=\"col-md-3 grid-margin stretch-card\">\n            <div class=\"card hover-cursor hover-primary\" (click)=\"openSubmitted()\">\n              <div class=\"card-body\">\n                <p class=\"card-title\">Sumitted Forms</p>\n                <h1 class=\"display-2\">161</h1>\n                <div class=\"card-text\">\n                  <i class=\"mdi mdi-mailbox-open-outline\" style=\"font-size: 3em;\"></i>\n                </div>\n                <p class=\"text-muted\">Total of forms that have been submitted</p>\n              </div>\n            </div>\n          </div>\n        </div>\n\n        <div class=\"row\">\n          <div class=\"col-md-3 grid-margin stretch-card\">\n            <div class=\"card hover-cursor hover-primary\" (click)=\"openBranches()\">\n              <div class=\"card-body\">\n                <p class=\"card-title\">Total No. Of Branches</p>\n                <h1 class=\"display-2\">161</h1>\n                <div class=\"card-text\">\n                  <i class=\"mdi mdi-mailbox-open-outline\" style=\"font-size: 3em;\"></i>\n                </div>\n                <p class=\"text-muted\">Total of forms that have been submitted</p>\n              </div>\n            </div>\n          </div>\n\n          <div class=\"col-md-3 grid-margin stretch-card\">\n            <div class=\"card hover-cursor hover-primary\" (click)=\"openBranches()\">\n              <div class=\"card-body\">\n                <p class=\"card-title\">Total No. Of Active Branches</p>\n                <h1 class=\"display-2\">161</h1>\n                <div class=\"card-text\">\n                  <i class=\"mdi mdi-mailbox-open-outline\" style=\"font-size: 3em;\"></i>\n                </div>\n                <p class=\"text-muted\">Total of forms that have been submitted</p>\n              </div>\n            </div>\n          </div>\n\n          <div class=\"col-md-3 grid-margin stretch-card\">\n            <div class=\"card hover-cursor hover-primary\" (click)=\"openBranches()\">\n              <div class=\"card-body\">\n                <p class=\"card-title\">Total No. Of In-Active Branches</p>\n                <h1 class=\"display-2\">161</h1>\n                <div class=\"card-text\">\n                  <i class=\"mdi mdi-mailbox-open-outline\" style=\"font-size: 3em;\"></i>\n                </div>\n                <p class=\"text-muted\">Total of forms that have been submitted</p>\n              </div>\n            </div>\n          </div>\n          <div class=\"col-md-3 grid-margin stretch-card\">\n            <div class=\"card hover-cursor hover-primary\" (click)=\"openAccounts()\">\n              <div class=\"card-body\">\n                <p class=\"card-title\">Total No. Of Users</p>\n                <h1 class=\"display-2\">161</h1>\n                <div class=\"card-text\">\n                  <i class=\"mdi mdi-mailbox-open-outline\" style=\"font-size: 3em;\"></i>\n                </div>\n                <p class=\"text-muted\">Total of forms that have been submitted</p>\n              </div>\n            </div>\n          </div>\n        </div>\n        \n      </div>\n      <!-- content ends -->\n      <!-- footer -->\n      <app-footer-bar></app-footer-bar>\n      <!-- partial -->\n    </div>\n    <!-- main-panel ends -->\n  </div>\n</div>\n"
 
 /***/ }),
 
@@ -5805,9 +5805,12 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "ExecutiveHomePageComponent", function() { return ExecutiveHomePageComponent; });
 /* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm2015/core.js");
-/* harmony import */ var _angular_router__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @angular/router */ "./node_modules/@angular/router/fesm2015/router.js");
-/* harmony import */ var src_app_services_analytics_analytics_service__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! src/app/services/analytics/analytics.service */ "./src/app/services/analytics/analytics.service.ts");
-/* harmony import */ var src_app_services_storage_local_storage_service__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! src/app/services/storage/local-storage.service */ "./src/app/services/storage/local-storage.service.ts");
+/* harmony import */ var lodash__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! lodash */ "./node_modules/lodash/lodash.js");
+/* harmony import */ var lodash__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(lodash__WEBPACK_IMPORTED_MODULE_2__);
+/* harmony import */ var _angular_router__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @angular/router */ "./node_modules/@angular/router/fesm2015/router.js");
+/* harmony import */ var src_app_services_analytics_analytics_service__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! src/app/services/analytics/analytics.service */ "./src/app/services/analytics/analytics.service.ts");
+/* harmony import */ var src_app_services_storage_local_storage_service__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! src/app/services/storage/local-storage.service */ "./src/app/services/storage/local-storage.service.ts");
+
 
 
 
@@ -5819,6 +5822,7 @@ let ExecutiveHomePageComponent = class ExecutiveHomePageComponent {
         this.localStorage = localStorage;
         this.analyticService = analyticService;
         this.firstname = this.localStorage.getUser().firstname;
+        this.merchantId = Object(lodash__WEBPACK_IMPORTED_MODULE_2__["toString"])(this.localStorage.getUser().merchant_id);
     }
     ngOnInit() {
     }
@@ -5840,11 +5844,51 @@ let ExecutiveHomePageComponent = class ExecutiveHomePageComponent {
     openAccounts() {
         this.router.navigateByUrl('/executive/accounts');
     }
+    getFormAnalytics() {
+        this.analyticService.getAllFormsCount().then(count => {
+            this.numTotalForms = count;
+        });
+    }
+    getBranchAnalytics() {
+        this.analyticService.getBranchCount().then(count => {
+            this.numTotalBranches = count;
+        });
+        this.analyticService.getActiveBranchCount().then(count => {
+            this.numTotalActiveBranches = count;
+        });
+        this.analyticService.getInactiveBranchCount().then(count => {
+            this.numTotalInActiveBranches = count;
+        });
+    }
+    getSubmittedFormsAnalytics(id) {
+        this.analyticService.getFrontDeskSubmittedFormsCount(id).then(count => {
+            this.totalNoSubmitted = count;
+        });
+    }
+    getProcessedFormsAnalytics(id) {
+        this.analyticService.getFrontDeskProcessedFormsCount(id).then(count => {
+            this.totalNoProcessed = count;
+        });
+    }
+    getProcessingFormsAnalytics(id) {
+        this.analyticService.getFrontDeskProcessingFormsCount(id).then(count => {
+            this.totalNoProcessing = count;
+            this.loading = false;
+        });
+    }
+    getAnalytics() {
+        this.loading = true;
+        this.getFormAnalytics();
+        this.getBranchAnalytics();
+        this.getProcessedFormsAnalytics(this.merchantId);
+        this.getSubmittedFormsAnalytics(this.merchantId);
+        this.getProcessingFormsAnalytics(this.merchantId);
+    }
 };
 ExecutiveHomePageComponent.ctorParameters = () => [
-    { type: _angular_router__WEBPACK_IMPORTED_MODULE_2__["Router"] },
-    { type: src_app_services_storage_local_storage_service__WEBPACK_IMPORTED_MODULE_4__["LocalStorageService"] },
-    { type: src_app_services_analytics_analytics_service__WEBPACK_IMPORTED_MODULE_3__["AnalyticsService"] }
+    { type: _angular_router__WEBPACK_IMPORTED_MODULE_3__["Router"] },
+    { type: src_app_services_storage_local_storage_service__WEBPACK_IMPORTED_MODULE_5__["LocalStorageService"] },
+    { type: src_app_services_analytics_analytics_service__WEBPACK_IMPORTED_MODULE_4__["AnalyticsService"] }
 ];
 ExecutiveHomePageComponent = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
     Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Component"])({
@@ -6389,12 +6433,12 @@ __webpack_require__.r(__webpack_exports__);
 
 
 let FrontDesktopHomePageComponent = class FrontDesktopHomePageComponent {
-    constructor(router, formBuilder, localStorage, frontDeskService, analuyticsService) {
+    constructor(router, formBuilder, localStorage, analyticService, frontDeskService) {
         this.router = router;
         this.formBuilder = formBuilder;
         this.localStorage = localStorage;
+        this.analyticService = analyticService;
         this.frontDeskService = frontDeskService;
-        this.analuyticsService = analuyticsService;
         this.user = this.localStorage.getUser();
         this.firstname = this.user.firstname;
         const merchant_id = lodash__WEBPACK_IMPORTED_MODULE_2__["toString"](this.user.merchant_id);
@@ -6417,17 +6461,17 @@ let FrontDesktopHomePageComponent = class FrontDesktopHomePageComponent {
         this.getProcessingFormsAnalytics(id);
     }
     getSubmittedFormsAnalytics(id) {
-        this.analuyticsService.getFrontDeskSubmittedFormsCount(id).then(count => {
+        this.analyticService.getFrontDeskSubmittedFormsCount(id).then(count => {
             this.totalNoSubmitted = count;
         });
     }
     getProcessedFormsAnalytics(id) {
-        this.analuyticsService.getFrontDeskProcessedFormsCount(id).then(count => {
+        this.analyticService.getFrontDeskProcessedFormsCount(id).then(count => {
             this.totalNoProcessed = count;
         });
     }
     getProcessingFormsAnalytics(id) {
-        this.analuyticsService.getFrontDeskProcessingFormsCount(id).then(count => {
+        this.analyticService.getFrontDeskProcessingFormsCount(id).then(count => {
             this.totalNoProcessing = count;
         });
     }
@@ -6460,8 +6504,8 @@ FrontDesktopHomePageComponent.ctorParameters = () => [
     { type: _angular_router__WEBPACK_IMPORTED_MODULE_3__["Router"] },
     { type: _angular_forms__WEBPACK_IMPORTED_MODULE_5__["FormBuilder"] },
     { type: src_app_services_storage_local_storage_service__WEBPACK_IMPORTED_MODULE_4__["LocalStorageService"] },
-    { type: src_app_services_front_desk_front_desk_service__WEBPACK_IMPORTED_MODULE_6__["FrontDeskService"] },
-    { type: src_app_services_analytics_analytics_service__WEBPACK_IMPORTED_MODULE_7__["AnalyticsService"] }
+    { type: src_app_services_analytics_analytics_service__WEBPACK_IMPORTED_MODULE_7__["AnalyticsService"] },
+    { type: src_app_services_front_desk_front_desk_service__WEBPACK_IMPORTED_MODULE_6__["FrontDeskService"] }
 ];
 FrontDesktopHomePageComponent = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
     Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Component"])({
@@ -12599,6 +12643,26 @@ let AnalyticsService = class AnalyticsService {
         this.http = http;
         this.endpointService = endpointService;
         this.headers = this.endpointService.headers();
+    }
+    /**
+     * Gets the total number of users or user accounts
+     * existing in a specified company.
+     *
+     * @param {string} merchant_id
+     * @returns {Promise<any>}
+     * @memberof AnalyticsService
+     */
+    getCompanyUsersCount(merchant_id) {
+        return new Promise((resolve, reject) => {
+            const url = this.endpointService.apiHost + 'api/v1/' + merchant_id;
+            this.http.get(url, { headers: this.headers }).subscribe(res => {
+                console.log('users: ' + res);
+                const response = res;
+                resolve(response.num_users);
+            }, err => {
+                reject(err);
+            });
+        });
     }
     /**
      * Gets the total number of companies.

@@ -13,6 +13,30 @@ export class AnalyticsService {
   }
 
   /**
+   * Gets the total number of users or user accounts
+   * existing in a specified company.
+   *
+   * @param {string} merchant_id
+   * @returns {Promise<any>}
+   * @memberof AnalyticsService
+   */
+  getCompanyUsersCount(merchant_id: string): Promise<any> {
+    return new Promise((resolve, reject) => {
+      const url = this.endpointService.apiHost + 'api/v1/' + merchant_id;
+      this.http.get(url, { headers: this.headers }).subscribe(
+        res => {
+          console.log('users: ' + res);
+          const response = res as any;
+          resolve(response.num_users);
+        },
+        err => {
+          reject(err);
+        }
+      );
+    });
+  }
+
+  /**
    * Gets the total number of companies.
    *
    * @returns {Promise<string>}

@@ -28,8 +28,8 @@ export class FrontDesktopHomePageComponent implements OnInit {
     private router: Router,
     private formBuilder: FormBuilder,
     private localStorage: LocalStorageService,
+    private analyticService: AnalyticsService,
     private frontDeskService: FrontDeskService,
-    private analuyticsService: AnalyticsService,
   ) {
     this.user = this.localStorage.getUser();
     this.firstname = this.user.firstname;
@@ -59,7 +59,7 @@ export class FrontDesktopHomePageComponent implements OnInit {
   }
 
   getSubmittedFormsAnalytics(id: string) {
-    this.analuyticsService.getFrontDeskSubmittedFormsCount(id).then(
+    this.analyticService.getFrontDeskSubmittedFormsCount(id).then(
       count => {
         this.totalNoSubmitted = count;
       }
@@ -67,7 +67,7 @@ export class FrontDesktopHomePageComponent implements OnInit {
   }
 
   getProcessedFormsAnalytics(id: string) {
-    this.analuyticsService.getFrontDeskProcessedFormsCount(id).then(
+    this.analyticService.getFrontDeskProcessedFormsCount(id).then(
       count => {
         this.totalNoProcessed = count;
       }
@@ -75,7 +75,7 @@ export class FrontDesktopHomePageComponent implements OnInit {
   }
 
   getProcessingFormsAnalytics(id: string) {
-    this.analuyticsService.getFrontDeskProcessingFormsCount(id).then(
+    this.analyticService.getFrontDeskProcessingFormsCount(id).then(
       count => {
         this.totalNoProcessing = count;
       }
