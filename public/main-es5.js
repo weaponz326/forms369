@@ -646,7 +646,7 @@ module.exports = "<div class=\"container-scroller\">\n  <app-navigation-bar></ap
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<div class=\"container-scroller\">\n  <app-navigation-bar></app-navigation-bar>\n  <div class=\"container-fluid page-body-wrapper\">\n    <app-side-bar></app-side-bar>\n    <div class=\"main-panel\">\n      <div class=\"content-wrapper\">\n        <div class=\"row\">\n          <div class=\"col-md-12 grid-margin\">\n            <div class=\"d-flex justify-content-between flex-wrap\">\n              <div class=\"d-flex align-items-end flex-wrap\">\n                <div class=\"mr-md-3 mr-xl-5\">\n                  <h2>In Processing</h2>\n                  <p class=\"mb-md-0\">Your analytics dashboard template.</p>\n                </div>\n                <div class=\"d-flex\">\n                  <i class=\"mdi mdi-home text-muted hover-cursor\"></i>\n                  <p class=\"text-muted mb-0 hover-cursor\">&nbsp;/&nbsp;Home&nbsp;/&nbsp;</p>\n                  <p class=\"text-primary mb-0 hover-cursor\">In-Processing</p>\n                </div>\n              </div>\n              <div class=\"d-flex justify-content-between align-items-end flex-wrap\">\n                <button type=\"button\" class=\"btn btn-light bg-white btn-icon mr-3 d-none d-md-block \">\n                  <i class=\"mdi mdi-download text-muted\"></i>\n                </button>\n                <button type=\"button\" class=\"btn btn-light bg-white btn-icon mr-3 mt-2 mt-xl-0\">\n                  <i class=\"mdi mdi-clock-outline text-muted\"></i>\n                </button>\n                <button type=\"button\" class=\"btn btn-light bg-white btn-icon mr-3 mt-2 mt-xl-0\">\n                  <i class=\"mdi mdi-plus text-muted\"></i>\n                </button>\n              </div>\n            </div>\n          </div>\n        </div>\n        <div class=\"row\">\n          <div class=\"col-lg-12 grid-margin stretch-card\">\n            <div class=\"card\">\n              <div class=\"card-body\">\n                <h4 class=\"card-title\">Submitted Forms</h4>\n                <p class=\"card-description\">\n                  List of all new forms that have been submitted for processing\n                </p>\n                <div class=\"table-responsive\">\n                  <table class=\"table table-hover\">\n                    <thead>\n                      <tr>\n                        <th>Full Name</th>\n                        <th>Form Identifier.</th>\n                        <th>Created On</th>\n                        <th>Actions</th>\n                      </tr>\n                    </thead>\n                    <tbody>\n                      <tr>\n                        <td>Jacob Martin Jay</td>\n                        <td>53275531981</td>\n                        <td>12 May 2017</td>\n                      </tr>\n                      <tr>\n                        <td>Messsy W. Johnson</td>\n                        <td>53275532</td>\n                        <td>15 May 2017</td>\n                      </tr>\n                      <tr>\n                        <td>John M Doe</td>\n                        <td>53275533</td>\n                        <td>14 May 2017</td>\n                      </tr>\n                      <tr>\n                        <td>Peter Ore Finn</td>\n                        <td>53275534</td>\n                        <td>16 May 2017</td>\n                      </tr>\n                      <tr>\n                        <td>Dave Quinn</td>\n                        <td>53275535</td>\n                        <td>20 May 2017</td>\n                      </tr>\n                    </tbody>\n                  </table>\n                </div>\n              </div>\n            </div>\n          </div>\n        </div>\n      </div>\n    </div>\n  </div>\n</div>\n"
+module.exports = "<div class=\"container-scroller\">\n  <app-navigation-bar></app-navigation-bar>\n  <div class=\"container-fluid page-body-wrapper\">\n    <app-side-bar></app-side-bar>\n    <div class=\"main-panel\">\n      <div class=\"content-wrapper\">\n        <div class=\"row\">\n          <div class=\"col-md-12 grid-margin\">\n            <div class=\"d-flex justify-content-between flex-wrap\">\n              <div class=\"d-flex align-items-end flex-wrap\">\n                <div class=\"mr-md-3 mr-xl-5\">\n                  <h2>All Branches</h2>\n                  <p class=\"mb-md-0\">Your analytics dashboard template.</p>\n                </div>\n                <div class=\"d-flex\">\n                  <!-- <i class=\"mdi mdi-home text-muted hover-cursor\"></i>\n                  <p class=\"text-muted mb-0 hover-cursor\">&nbsp;/&nbsp;Home&nbsp;/&nbsp;</p>\n                  <p class=\"text-primary mb-0 hover-cursor\">In-Processing</p> -->\n                </div>\n              </div>\n              <div class=\"d-flex justify-content-between align-items-end flex-wrap\">\n                <!-- <button type=\"button\" class=\"btn btn-light bg-white btn-icon mr-3 d-none d-md-block \">\n                  <i class=\"mdi mdi-download text-muted\"></i>\n                </button>\n                <button type=\"button\" class=\"btn btn-light bg-white btn-icon mr-3 mt-2 mt-xl-0\">\n                  <i class=\"mdi mdi-clock-outline text-muted\"></i>\n                </button>\n                <button type=\"button\" class=\"btn btn-light bg-white btn-icon mr-3 mt-2 mt-xl-0\">\n                  <i class=\"mdi mdi-plus text-muted\"></i>\n                </button> -->\n              </div>\n            </div>\n          </div>\n        </div>\n\n        <div *ngIf=\"loading\" class=\"row m-5\">\n          <div class=\"col-md-12 m-5\">\n            <div class=\"d-flex justify-content-center\">\n              <div class=\"spinner-border m-5\" style=\"width: 5rem; height: 5rem;\" role=\"status\">\n                <span class=\"sr-only\">Loading...</span>\n              </div>\n            </div>\n          </div>\n        </div>\n\n        <div *ngIf=\"!loading && !hasData\" class=\"row\">\n          <div class=\"col-lg-12 grid-margin stretch-card\">\n            <div class=\"card text-center pt-5 pb-5\">\n              <div class=\"card-body mt-5 mb-5\">\n                <h4 class=\"card-title\">No Data Found</h4>\n                <p class=\"card-description\">\n                  No company branches found.\n                </p>\n                <div class=\"text-lg-center mt-5 mb-5\">\n                  <div class=\"card-text\">\n                    <i class=\"mdi mdi-file-question\" style=\"font-size: 8em;\"></i>\n                  </div>\n                  <div class=\"card-text\">\n                    <h3>No Available Branches</h3>\n                    <p class=\"text-muted\">This company doesn't have any branches yet!</p>\n                  </div>\n                </div>\n              </div>\n            </div>\n          </div>\n        </div>\n\n        <div *ngIf=\"hasError\" class=\"row\">\n          <div class=\"col-lg-12 grid-margin stretch-card\">\n            <div class=\"card text-center pt-5 pb-5\">\n              <div class=\"card-body mt-5 mb-5\">\n                <h4 class=\"card-title\">Error Ocuured</h4>\n                <p class=\"card-description\">\n                  Ooops! Something went wrong!\n                </p>\n                <div class=\"text-lg-center mt-5 mb-5\">\n                  <div class=\"card-text\">\n                    <i class=\"mdi mdi-close-network-outline\" style=\"font-size: 8em;\"></i>\n                  </div>\n                  <div class=\"card-text\">\n                    <h3>We couldn't get your branches</h3>\n                    <p class=\"text-muted\">An error has occured on our servers or you might not have internet connection\n                    </p>\n                  </div>\n                </div>\n              </div>\n            </div>\n          </div>\n        </div>\n\n        <div *ngIf=\"!loading && hasData\" class=\"row\">\n          <div class=\"col-lg-12 grid-margin stretch-card\">\n            <div class=\"card\">\n              <div class=\"card-body\">\n                <h4 class=\"card-title\">All Company Branches</h4>\n                <p class=\"card-description\">\n                  List of all new forms that have been submitted for processing\n                </p>\n                <div class=\"text-lg-center mt-3 mb-5\">\n                  <div class=\"btn-group\" role=\"group\" aria-label=\"Sort By\">\n                    <button type=\"button\" class=\"btn btn-outline-secondary\" [ngClass]=\"{'active': filterState == 'all'}\"\n                      (click)=\"showAll()\">All</button>\n                    <button type=\"button\" class=\"btn btn-outline-secondary\"\n                      [ngClass]=\"{'active': filterState == 'active'}\" (click)=\"showActive()\">Active</button>\n                    <button type=\"button\" class=\"btn btn-outline-secondary\"\n                      [ngClass]=\"{'active': filterState == 'inactive'}\" (click)=\"showInActive()\">In Active</button>\n                    <div class=\"dropdown\">\n                      <button type=\"button\" class=\"btn btn-outline-secondary dropdown-toggle\" id=\"sortMenuButton\"\n                        data-toggle=\"dropdown\" aria-haspopup=\"true\" aria-expanded=\"false\">Sort By</button>\n                      <div class=\"dropdown-menu\" aria-labelledby=\"sortMenuButton\">\n                        <button type=\"button\" class=\"dropdown-item\" (click)=\"sort('branch')\">Branch Name</button>\n                        <button type=\"button\" class=\"dropdown-item\" (click)=\"sort('merchant')\">Company Name</button>\n                        <button type=\"button\" class=\"dropdown-item\" (click)=\"sort('created')\">Date Created</button>\n                      </div>\n                    </div>\n                  </div>\n                </div>\n                <div class=\"table-responsive\">\n                  <table class=\"table table-hover\">\n                    <thead>\n                      <tr>\n                        <th><strong>Branch Name</strong></th>\n                        <th><strong>Branch Admin</strong></th>\n                        <th><strong>Branch Executive</strong></th>\n                        <th><strong>Status</strong></th>\n                        <th><strong>Created On</strong></th>\n                      </tr>\n                    </thead>\n                    <tbody>\n                      <tr class=\"hover-cursor\" *ngFor=\"let branch of branchesList\">\n                        <td>{{ branch.branch_name }}</td>\n                        <td>{{ branch.branch_admin_name }}</td>\n                        <td>{{ branch.branch_super_executive_name }}</td>\n                        <td *ngIf=\"branch.status == 1\"><label class=\"badge badge-success text-center\">Active</label>\n                        </td>\n                        <td *ngIf=\"branch.status != 1\"><label class=\"badge badge-danger text-center\">In-Active</label>\n                        <td>{{ branch.created_at | date }}</td>\n                      </tr>\n                    </tbody>\n                  </table>\n                </div>\n              </div>\n            </div>\n          </div>\n        </div>\n\n        <div *ngIf=\"loadingMore\" class=\"row m-md-2\">\n          <div class=\"col-md-12 col-sm-12 m-md-2\">\n            <div class=\"d-flex justify-content-center\">\n              <div class=\"spinner-border m-2\" style=\"width: 2rem; height: 2rem;\" role=\"status\">\n                <span class=\"sr-only\">Loading...</span>\n              </div>\n            </div>\n          </div>\n        </div>\n\n        <div *ngIf=\"hasMoreError\" class=\"row m-md-2\">\n          <div class=\"col-md-8 col-sm-12 offset-md-2\">\n            <div class=\"alert alert-danger\" role=\"alert\">\n              <h4 class=\"alert-heading\">Connection Failed!</h4>\n              <p>\n                Oops!! Couldn't get you the rest of the data. Please make sure you have an active internet connection.\n                Maybe, our servers may be down.\n              </p>\n              <hr>\n              <p class=\"mb-0\">We are really sorry for this inconvenience. Please click on the load more button again.\n              </p>\n            </div>\n          </div>\n        </div>\n\n        <div *ngIf=\"hasMore\" class=\"row\">\n          <div class=\"col-md-4 col-sm-6 offset-sm-3 offset-lg-4\">\n            <div class=\"text-center\">\n              <button type=\"button\" class=\"btn btn-secondary btn-rounded btn-fw\" (click)=\"loadMore()\">Load More</button>\n            </div>\n          </div>\n        </div>\n\n      </div>\n    </div>\n  </div>\n</div>\n"
 
 /***/ }),
 
@@ -657,7 +657,7 @@ module.exports = "<div class=\"container-scroller\">\n  <app-navigation-bar></ap
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<div class=\"container-scroller\">\n  <app-navigation-bar></app-navigation-bar>\n  <div class=\"container-fluid page-body-wrapper\">\n    <app-side-bar></app-side-bar>\n    <div class=\"main-panel\">\n      <div class=\"content-wrapper\">\n        <div class=\"row\">\n          <div class=\"col-md-12 grid-margin\">\n            <div class=\"d-flex justify-content-between flex-wrap\">\n              <div class=\"d-flex align-items-end flex-wrap\">\n                <div class=\"mr-md-3 mr-xl-5\">\n                  <h2>In Processing</h2>\n                  <p class=\"mb-md-0\">Your analytics dashboard template.</p>\n                </div>\n                <div class=\"d-flex\">\n                  <i class=\"mdi mdi-home text-muted hover-cursor\"></i>\n                  <p class=\"text-muted mb-0 hover-cursor\">&nbsp;/&nbsp;Home&nbsp;/&nbsp;</p>\n                  <p class=\"text-primary mb-0 hover-cursor\">In-Processing</p>\n                </div>\n              </div>\n              <div class=\"d-flex justify-content-between align-items-end flex-wrap\">\n                <button type=\"button\" class=\"btn btn-light bg-white btn-icon mr-3 d-none d-md-block \">\n                  <i class=\"mdi mdi-download text-muted\"></i>\n                </button>\n                <button type=\"button\" class=\"btn btn-light bg-white btn-icon mr-3 mt-2 mt-xl-0\">\n                  <i class=\"mdi mdi-clock-outline text-muted\"></i>\n                </button>\n                <button type=\"button\" class=\"btn btn-light bg-white btn-icon mr-3 mt-2 mt-xl-0\">\n                  <i class=\"mdi mdi-plus text-muted\"></i>\n                </button>\n              </div>\n            </div>\n          </div>\n        </div>\n        <div class=\"row\">\n          <div class=\"col-lg-12 grid-margin stretch-card\">\n            <div class=\"card\">\n              <div class=\"card-body\">\n                <h4 class=\"card-title\">Submitted Forms</h4>\n                <p class=\"card-description\">\n                  List of all new forms that have been submitted for processing\n                </p>\n                <div class=\"table-responsive\">\n                  <table class=\"table table-hover\">\n                    <thead>\n                      <tr>\n                        <th>Full Name</th>\n                        <th>Form Identifier.</th>\n                        <th>Created On</th>\n                        <th>Actions</th>\n                      </tr>\n                    </thead>\n                    <tbody>\n                      <tr>\n                        <td>Jacob Martin Jay</td>\n                        <td>53275531981</td>\n                        <td>12 May 2017</td>\n                      </tr>\n                      <tr>\n                        <td>Messsy W. Johnson</td>\n                        <td>53275532</td>\n                        <td>15 May 2017</td>\n                      </tr>\n                      <tr>\n                        <td>John M Doe</td>\n                        <td>53275533</td>\n                        <td>14 May 2017</td>\n                      </tr>\n                      <tr>\n                        <td>Peter Ore Finn</td>\n                        <td>53275534</td>\n                        <td>16 May 2017</td>\n                      </tr>\n                      <tr>\n                        <td>Dave Quinn</td>\n                        <td>53275535</td>\n                        <td>20 May 2017</td>\n                      </tr>\n                    </tbody>\n                  </table>\n                </div>\n              </div>\n            </div>\n          </div>\n        </div>\n      </div>\n    </div>\n  </div>\n</div>\n"
+module.exports = "<div class=\"container-scroller\">\n  <app-navigation-bar></app-navigation-bar>\n  <div class=\"container-fluid page-body-wrapper\">\n    <app-side-bar></app-side-bar>\n    <div class=\"main-panel\">\n      <div class=\"content-wrapper\">\n        <div class=\"row\">\n          <div class=\"col-md-12 grid-margin\">\n            <div class=\"d-flex justify-content-between flex-wrap\">\n              <div class=\"d-flex align-items-end flex-wrap\">\n                <div class=\"mr-md-3 mr-xl-5\">\n                  <h2>All Branches</h2>\n                  <p class=\"mb-md-0\">Your analytics dashboard template.</p>\n                </div>\n                <div class=\"d-flex\">\n                  <!-- <i class=\"mdi mdi-home text-muted hover-cursor\"></i>\n                  <p class=\"text-muted mb-0 hover-cursor\">&nbsp;/&nbsp;Home&nbsp;/&nbsp;</p>\n                  <p class=\"text-primary mb-0 hover-cursor\">In-Processing</p> -->\n                </div>\n              </div>\n              <div class=\"d-flex justify-content-between align-items-end flex-wrap\">\n                <!-- <button type=\"button\" class=\"btn btn-light bg-white btn-icon mr-3 d-none d-md-block \">\n                  <i class=\"mdi mdi-download text-muted\"></i>\n                </button>\n                <button type=\"button\" class=\"btn btn-light bg-white btn-icon mr-3 mt-2 mt-xl-0\">\n                  <i class=\"mdi mdi-clock-outline text-muted\"></i>\n                </button>\n                <button type=\"button\" class=\"btn btn-light bg-white btn-icon mr-3 mt-2 mt-xl-0\">\n                  <i class=\"mdi mdi-plus text-muted\"></i>\n                </button> -->\n              </div>\n            </div>\n          </div>\n        </div>\n\n        <div *ngIf=\"loading\" class=\"row m-5\">\n          <div class=\"col-md-12 m-5\">\n            <div class=\"d-flex justify-content-center\">\n              <div class=\"spinner-border m-5\" style=\"width: 5rem; height: 5rem;\" role=\"status\">\n                <span class=\"sr-only\">Loading...</span>\n              </div>\n            </div>\n          </div>\n        </div>\n\n        <div *ngIf=\"!loading && !hasData\" class=\"row\">\n          <div class=\"col-lg-12 grid-margin stretch-card\">\n            <div class=\"card text-center pt-5 pb-5\">\n              <div class=\"card-body mt-5 mb-5\">\n                <h4 class=\"card-title\">No Data Found</h4>\n                <p class=\"card-description\">\n                  No company branches found.\n                </p>\n                <div class=\"text-lg-center mt-5 mb-5\">\n                  <div class=\"card-text\">\n                    <i class=\"mdi mdi-file-question\" style=\"font-size: 8em;\"></i>\n                  </div>\n                  <div class=\"card-text\">\n                    <h3>No Available Branches</h3>\n                    <p class=\"text-muted\">This company doesn't have any branches yet!</p>\n                  </div>\n                </div>\n              </div>\n            </div>\n          </div>\n        </div>\n\n        <div *ngIf=\"hasError\" class=\"row\">\n          <div class=\"col-lg-12 grid-margin stretch-card\">\n            <div class=\"card text-center pt-5 pb-5\">\n              <div class=\"card-body mt-5 mb-5\">\n                <h4 class=\"card-title\">Error Ocuured</h4>\n                <p class=\"card-description\">\n                  Ooops! Something went wrong!\n                </p>\n                <div class=\"text-lg-center mt-5 mb-5\">\n                  <div class=\"card-text\">\n                    <i class=\"mdi mdi-close-network-outline\" style=\"font-size: 8em;\"></i>\n                  </div>\n                  <div class=\"card-text\">\n                    <h3>We couldn't get your branches</h3>\n                    <p class=\"text-muted\">An error has occured on our servers or you might not have internet connection</p>\n                  </div>\n                </div>\n              </div>\n            </div>\n          </div>\n        </div>\n\n        <div *ngIf=\"!loading && hasData\" class=\"row\">\n          <div class=\"col-lg-12 grid-margin stretch-card\">\n            <div class=\"card\">\n              <div class=\"card-body\">\n                <h4 class=\"card-title\">All Company Branches</h4>\n                <p class=\"card-description\">\n                  List of all new forms that have been submitted for processing\n                </p>\n                <div class=\"text-lg-center mt-3 mb-5\">\n                  <div class=\"btn-group\" role=\"group\" aria-label=\"Sort By\">\n                    <button type=\"button\" class=\"btn btn-outline-secondary\" [ngClass]=\"{'active': filterState == 'all'}\" (click)=\"showAll()\">All</button>\n                    <button type=\"button\" class=\"btn btn-outline-secondary\" [ngClass]=\"{'active': filterState == 'active'}\" (click)=\"showActive()\">Active</button>\n                    <button type=\"button\" class=\"btn btn-outline-secondary\" [ngClass]=\"{'active': filterState == 'inactive'}\" (click)=\"showInActive()\">In Active</button>\n                    <div class=\"dropdown\">\n                      <button type=\"button\" class=\"btn btn-outline-secondary dropdown-toggle\" id=\"sortMenuButton\"\n                        data-toggle=\"dropdown\" aria-haspopup=\"true\" aria-expanded=\"false\">Sort By</button>\n                      <div class=\"dropdown-menu\" aria-labelledby=\"sortMenuButton\">\n                        <button type=\"button\" class=\"dropdown-item\" (click)=\"sort('branch')\">Branch Name</button>\n                        <button type=\"button\" class=\"dropdown-item\" (click)=\"sort('merchant')\">Company Name</button>\n                        <button type=\"button\" class=\"dropdown-item\" (click)=\"sort('created')\">Date Created</button>\n                      </div>\n                    </div>\n                  </div>\n                </div>\n                <div class=\"table-responsive\">\n                  <table class=\"table table-hover\">\n                    <thead>\n                      <tr>\n                        <th><strong>Branch Name</strong></th>\n                        <th><strong>Branch Admin</strong></th>\n                        <th><strong>Branch Executive</strong></th>\n                        <th><strong>Status</strong></th>\n                        <th><strong>Created On</strong></th>\n                      </tr>\n                    </thead>\n                    <tbody>\n                      <tr class=\"hover-cursor\" *ngFor=\"let branch of branchesList\">\n                        <td>{{ branch.branch_name }}</td>\n                        <td>{{ branch.branch_admin_name }}</td>\n                        <td>{{ branch.branch_super_executive_name }}</td>\n                        <td *ngIf=\"branch.status == 1\"><label class=\"badge badge-success text-center\">Active</label></td>\n                        <td *ngIf=\"branch.status != 1\"><label class=\"badge badge-danger text-center\">In-Active</label>\n                        <td>{{ branch.created_at | date }}</td>\n                      </tr>\n                    </tbody>\n                  </table>\n                </div>\n              </div>\n            </div>\n          </div>\n        </div>\n\n        <div *ngIf=\"loadingMore\" class=\"row m-md-2\">\n          <div class=\"col-md-12 col-sm-12 m-md-2\">\n            <div class=\"d-flex justify-content-center\">\n              <div class=\"spinner-border m-2\" style=\"width: 2rem; height: 2rem;\" role=\"status\">\n                <span class=\"sr-only\">Loading...</span>\n              </div>\n            </div>\n          </div>\n        </div>\n\n        <div *ngIf=\"hasMoreError\" class=\"row m-md-2\">\n          <div class=\"col-md-8 col-sm-12 offset-md-2\">\n            <div class=\"alert alert-danger\" role=\"alert\">\n              <h4 class=\"alert-heading\">Connection Failed!</h4>\n              <p>\n                Oops!! Couldn't get you the rest of the data. Please make sure you have an active internet connection.\n                Maybe, our servers may be down.\n              </p>\n              <hr>\n              <p class=\"mb-0\">We are really sorry for this inconvenience. Please click on the load more button again.\n              </p>\n            </div>\n          </div>\n        </div>\n\n        <div *ngIf=\"hasMore\" class=\"row\">\n          <div class=\"col-md-4 col-sm-6 offset-sm-3 offset-lg-4\">\n            <div class=\"text-center\">\n              <button type=\"button\" class=\"btn btn-secondary btn-rounded btn-fw\" (click)=\"loadMore()\">Load More</button>\n            </div>\n          </div>\n        </div>\n\n      </div>\n    </div>\n  </div>\n</div>\n"
 
 /***/ }),
 
@@ -679,7 +679,7 @@ module.exports = "<div class=\"container-scroller\">\n  <app-navigation-bar></ap
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<div class=\"container-scroller\">\n  <app-navigation-bar></app-navigation-bar>\n  <div class=\"container-fluid page-body-wrapper\">\n    <app-side-bar></app-side-bar>\n    <div class=\"main-panel\">\n      <div class=\"content-wrapper\">\n        <div class=\"row\">\n          <div class=\"col-md-12 grid-margin\">\n            <div class=\"d-flex justify-content-between flex-wrap\">\n              <div class=\"d-flex align-items-end flex-wrap\">\n                <div class=\"mr-md-3 mr-xl-5\">\n                  <h2>In Processing</h2>\n                  <p class=\"mb-md-0\">Your analytics dashboard template.</p>\n                </div>\n                <div class=\"d-flex\">\n                  <i class=\"mdi mdi-home text-muted hover-cursor\"></i>\n                  <p class=\"text-muted mb-0 hover-cursor\">&nbsp;/&nbsp;Home&nbsp;/&nbsp;</p>\n                  <p class=\"text-primary mb-0 hover-cursor\">In-Processing</p>\n                </div>\n              </div>\n              <div class=\"d-flex justify-content-between align-items-end flex-wrap\">\n                <button type=\"button\" class=\"btn btn-light bg-white btn-icon mr-3 d-none d-md-block \">\n                  <i class=\"mdi mdi-download text-muted\"></i>\n                </button>\n                <button type=\"button\" class=\"btn btn-light bg-white btn-icon mr-3 mt-2 mt-xl-0\">\n                  <i class=\"mdi mdi-clock-outline text-muted\"></i>\n                </button>\n                <button type=\"button\" class=\"btn btn-light bg-white btn-icon mr-3 mt-2 mt-xl-0\">\n                  <i class=\"mdi mdi-plus text-muted\"></i>\n                </button>\n              </div>\n            </div>\n          </div>\n        </div>\n        <div class=\"row\">\n          <div class=\"col-lg-12 grid-margin stretch-card\">\n            <div class=\"card\">\n              <div class=\"card-body\">\n                <h4 class=\"card-title\">Submitted Forms</h4>\n                <p class=\"card-description\">\n                  List of all new forms that have been submitted for processing\n                </p>\n                <div class=\"table-responsive\">\n                  <table class=\"table table-hover\">\n                    <thead>\n                      <tr>\n                        <th>Full Name</th>\n                        <th>Form Identifier.</th>\n                        <th>Created On</th>\n                        <th>Actions</th>\n                      </tr>\n                    </thead>\n                    <tbody>\n                      <tr>\n                        <td>Jacob Martin Jay</td>\n                        <td>53275531981</td>\n                        <td>12 May 2017</td>\n                      </tr>\n                      <tr>\n                        <td>Messsy W. Johnson</td>\n                        <td>53275532</td>\n                        <td>15 May 2017</td>\n                      </tr>\n                      <tr>\n                        <td>John M Doe</td>\n                        <td>53275533</td>\n                        <td>14 May 2017</td>\n                      </tr>\n                      <tr>\n                        <td>Peter Ore Finn</td>\n                        <td>53275534</td>\n                        <td>16 May 2017</td>\n                      </tr>\n                      <tr>\n                        <td>Dave Quinn</td>\n                        <td>53275535</td>\n                        <td>20 May 2017</td>\n                      </tr>\n                    </tbody>\n                  </table>\n                </div>\n              </div>\n            </div>\n          </div>\n        </div>\n      </div>\n    </div>\n  </div>\n</div>\n"
+module.exports = "<div class=\"container-scroller\">\n  <app-navigation-bar></app-navigation-bar>\n  <div class=\"container-fluid page-body-wrapper\">\n    <app-side-bar></app-side-bar>\n    <div class=\"main-panel\">\n      <div class=\"content-wrapper\">\n        <div class=\"row\">\n          <div class=\"col-md-12 grid-margin\">\n            <div class=\"d-flex justify-content-between flex-wrap\">\n              <div class=\"d-flex align-items-end flex-wrap\">\n                <div class=\"mr-md-3 mr-xl-5\">\n                  <h2>Forms In Processing</h2>\n                  <p class=\"mb-md-0\">Your analytics dashboard template.</p>\n                </div>\n                <div class=\"d-flex\">\n                </div>\n              </div>\n              <div class=\"d-flex justify-content-between align-items-end flex-wrap\">\n              </div>\n            </div>\n          </div>\n        </div>\n\n        <div *ngIf=\"loading\" class=\"row m-5\">\n          <div class=\"col-md-12 m-5\">\n            <div class=\"d-flex justify-content-center\">\n              <div class=\"spinner-border m-5\" style=\"width: 5rem; height: 5rem;\" role=\"status\">\n                <span class=\"sr-only\">Loading...</span>\n              </div>\n            </div>\n          </div>\n        </div>\n\n        <div *ngIf=\"!loading && !hasData\" class=\"row\">\n          <div class=\"col-lg-12 grid-margin stretch-card\">\n            <div class=\"card text-center pt-5 pb-5\">\n              <div class=\"card-body mt-5 mb-5\">\n                <h4 class=\"card-title\">No Data Found</h4>\n                <p class=\"card-description\">\n                  No forms found.\n                </p>\n                <div class=\"text-lg-center mt-5 mb-5\">\n                  <div class=\"card-text\">\n                    <i class=\"mdi mdi-file-question\" style=\"font-size: 8em;\"></i>\n                  </div>\n                  <div class=\"card-text\">\n                    <h3>No Available Forms</h3>\n                    <p class=\"text-muted\">There are no created forms yet!</p>\n                  </div>\n                </div>\n              </div>\n            </div>\n          </div>\n        </div>\n\n        <div *ngIf=\"hasError\" class=\"row\">\n          <div class=\"col-lg-12 grid-margin stretch-card\">\n            <div class=\"card text-center pt-5 pb-5\">\n              <div class=\"card-body mt-5 mb-5\">\n                <h4 class=\"card-title\">Error Ocuured</h4>\n                <p class=\"card-description\">\n                  Ooops! Something went wrong!\n                </p>\n                <div class=\"text-lg-center mt-5 mb-5\">\n                  <div class=\"card-text\">\n                    <i class=\"mdi mdi-close-network-outline\" style=\"font-size: 8em;\"></i>\n                  </div>\n                  <div class=\"card-text\">\n                    <h3>We couldn't get your forms</h3>\n                    <p class=\"text-muted\">An error has occured on our servers or you might not have an active internet\n                      connection.</p>\n                  </div>\n                </div>\n              </div>\n            </div>\n          </div>\n        </div>\n\n        <div *ngIf=\"!loading && hasData\" class=\"row\">\n          <div class=\"col-lg-12 grid-margin stretch-card\">\n            <div class=\"card\">\n              <div class=\"card-body\">\n                <h4 class=\"card-title\">Forms In-Processing</h4>\n                <p class=\"card-description\">\n                  List of all new forms that have being processed\n                </p>\n                <div class=\"table-responsive\">\n                  <table class=\"table table-hover\">\n                    <thead>\n                      <tr>\n                        <th>Form Identifier.</th>\n                        <th>Form Name</th>\n                        <th>Submitted By</th>\n                        <th>Submitted On</th>\n                        <th>Actions</th>\n                      </tr>\n                    </thead>\n                    <tbody>\n                      <tr class=\"hover-cursor\" *ngFor=\"let form of processingFormsList\" (click)=\"open(form)\">\n                        <td>{{ form.form_code }}</td>\n                        <td>{{ form.form_name }}</td>\n                        <td>{{ form.client_name }}</td>\n                        <td>{{ form.submitted_at | date:'medium' }}</td>\n                        <td>\n                          <div class=\"d-flex align-items-end flex-wrap\">\n                            <button type=\"button\" class=\"btn btn-light bg-white btn-icon mr-1\"\n                              (click)=\"complete(form.submission_code)\">\n                              <i class=\"mdi mdi-check-outline text-muted\"></i>\n                            </button>\n                            <button type=\"button\" class=\"btn btn-light bg-white btn-icon mr-1\"\n                              (click)=\"unprocess(form.submission_code)\">\n                              <i class=\"mdi mdi-undo-variant text-muted\"></i>\n                            </button>\n                          </div>\n                        </td>\n                      </tr>\n                    </tbody>\n                  </table>\n                </div>\n              </div>\n            </div>\n          </div>\n        </div>\n      </div>\n    </div>\n  </div>\n</div>\n\n<ng-template #loading let-modal>\n  <div class=\"modal-body\">\n    <div class=\"d-flex justify-content-center\">\n      <div class=\"spinner-border m-5\" style=\"width: 3.5rem; height: 3.5rem;\" role=\"status\">\n        <span class=\"sr-only\">Loading...</span>\n      </div>\n    </div>\n    <p class=\"text-center\">Please wait ...</p>\n  </div>\n</ng-template>\n\n<ng-template #completed let-modal>\n  <div class=\"modal-header\">\n    <h4 class=\"modal-title\" id=\"modal-title\">Form Completed ?</h4>\n    <button type=\"button\" class=\"close\" aria-describedby=\"modal-title\" (click)=\"modal.dismiss('Cross click')\">\n      <span aria-hidden=\"true\">&times;</span>\n    </button>\n  </div>\n  <div class=\"modal-body\">\n    <p><strong>Form has been successfully been processed and completed</strong></p>\n  </div>\n  <div class=\"modal-footer\">\n    <button type=\"button\" class=\"btn btn-outline-secondary\" (click)=\"modal.dismiss('cancel')\">Cancel</button>\n    <button type=\"button\" class=\"btn btn-danger\" (click)=\"modal.close('delete')\">Delete</button>\n  </div>\n</ng-template>\n\n<ng-template #confirm let-modal>\n  <div class=\"modal-header\">\n    <h4 class=\"modal-title\" id=\"modal-title\">Process Form ?</h4>\n    <button type=\"button\" class=\"close\" aria-describedby=\"modal-title\" (click)=\"modal.dismiss('Cross click')\">\n      <span aria-hidden=\"true\">&times;</span>\n    </button>\n  </div>\n  <div class=\"modal-body\">\n    <p><strong>Are you sure you want to delete <span class=\"text-primary\">this template</span> ?</strong></p>\n    <p>All information associated with this template will be permanently deleted.\n      <span class=\"text-danger\">This operation can not be undone.</span>\n    </p>\n  </div>\n  <div class=\"modal-footer\">\n    <button type=\"button\" class=\"btn btn-outline-secondary\" (click)=\"modal.dismiss('cancel')\">Cancel</button>\n    <button type=\"button\" class=\"btn btn-danger\" (click)=\"modal.close('delete')\">Delete</button>\n  </div>\n</ng-template>\n"
 
 /***/ }),
 
@@ -690,7 +690,7 @@ module.exports = "<div class=\"container-scroller\">\n  <app-navigation-bar></ap
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<div class=\"container-scroller\">\n  <app-navigation-bar></app-navigation-bar>\n  <div class=\"container-fluid page-body-wrapper\">\n    <app-side-bar></app-side-bar>\n    <div class=\"main-panel\">\n      <div class=\"content-wrapper\">\n        <div class=\"row\">\n          <div class=\"col-md-12 grid-margin\">\n            <div class=\"d-flex justify-content-between flex-wrap\">\n              <div class=\"d-flex align-items-end flex-wrap\">\n                <div class=\"mr-md-3 mr-xl-5\">\n                  <h2>Processed Forms</h2>\n                  <p class=\"mb-md-0\">Your analytics dashboard template.</p>\n                </div>\n                <div class=\"d-flex\">\n                  <i class=\"mdi mdi-home text-muted hover-cursor\"></i>\n                  <p class=\"text-muted mb-0 hover-cursor\">&nbsp;/&nbsp;Home&nbsp;/&nbsp;</p>\n                  <p class=\"text-primary mb-0 hover-cursor\">In-Processing</p>\n                </div>\n              </div>\n              <div class=\"d-flex justify-content-between align-items-end flex-wrap\">\n                <button type=\"button\" class=\"btn btn-light bg-white btn-icon mr-3 d-none d-md-block \">\n                  <i class=\"mdi mdi-download text-muted\"></i>\n                </button>\n                <button type=\"button\" class=\"btn btn-light bg-white btn-icon mr-3 mt-2 mt-xl-0\">\n                  <i class=\"mdi mdi-clock-outline text-muted\"></i>\n                </button>\n                <button type=\"button\" class=\"btn btn-light bg-white btn-icon mr-3 mt-2 mt-xl-0\">\n                  <i class=\"mdi mdi-plus text-muted\"></i>\n                </button>\n              </div>\n            </div>\n          </div>\n        </div>\n        <div class=\"row\">\n          <div class=\"col-lg-12 grid-margin stretch-card\">\n            <div class=\"card\">\n              <div class=\"card-body\">\n                <h4 class=\"card-title\">Submitted Forms</h4>\n                <p class=\"card-description\">\n                  List of all new forms that have been submitted for processing\n                </p>\n                <div class=\"table-responsive\">\n                  <table class=\"table table-hover\">\n                    <thead>\n                      <tr>\n                        <th>Full Name</th>\n                        <th>Form Identifier.</th>\n                        <th>Created On</th>\n                      </tr>\n                    </thead>\n                    <tbody>\n                      <tr>\n                        <td>Jacob Martin Jay</td>\n                        <td>53275531981</td>\n                        <td>12 May 2017</td>\n                      </tr>\n                      <tr>\n                        <td>Messsy W. Johnson</td>\n                        <td>53275532</td>\n                        <td>15 May 2017</td>\n                      </tr>\n                      <tr>\n                        <td>John M Doe</td>\n                        <td>53275533</td>\n                        <td>14 May 2017</td>\n                      </tr>\n                      <tr>\n                        <td>Peter Ore Finn</td>\n                        <td>53275534</td>\n                        <td>16 May 2017</td>\n                      </tr>\n                      <tr>\n                        <td>Dave Quinn</td>\n                        <td>53275535</td>\n                        <td>20 May 2017</td>\n                      </tr>\n                    </tbody>\n                  </table>\n                </div>\n              </div>\n            </div>\n          </div>\n        </div>\n      </div>\n    </div>\n  </div>\n</div>\n"
+module.exports = "<div class=\"container-scroller\">\n  <app-navigation-bar></app-navigation-bar>\n  <div class=\"container-fluid page-body-wrapper\">\n    <app-side-bar></app-side-bar>\n    <div class=\"main-panel\">\n      <div class=\"content-wrapper\">\n        <div class=\"row\">\n          <div class=\"col-md-12 grid-margin\">\n            <div class=\"d-flex justify-content-between flex-wrap\">\n              <div class=\"d-flex align-items-end flex-wrap\">\n                <div class=\"mr-md-3 mr-xl-5\">\n                  <h2>Processed Forms</h2>\n                  <p class=\"mb-md-0\">Your analytics dashboard template.</p>\n                </div>\n                <div class=\"d-flex\">\n                </div>\n              </div>\n              <div class=\"d-flex justify-content-between align-items-end flex-wrap\">\n              </div>\n            </div>\n          </div>\n        </div>\n\n        <div *ngIf=\"loading\" class=\"row m-5\">\n          <div class=\"col-md-12 m-5\">\n            <div class=\"d-flex justify-content-center\">\n              <div class=\"spinner-border m-5\" style=\"width: 5rem; height: 5rem;\" role=\"status\">\n                <span class=\"sr-only\">Loading...</span>\n              </div>\n            </div>\n          </div>\n        </div>\n\n        <div *ngIf=\"!loading && !hasData\" class=\"row\">\n          <div class=\"col-lg-12 grid-margin stretch-card\">\n            <div class=\"card text-center pt-5 pb-5\">\n              <div class=\"card-body mt-5 mb-5\">\n                <h4 class=\"card-title\">No Data Found</h4>\n                <p class=\"card-description\">\n                  No forms found.\n                </p>\n                <div class=\"text-lg-center mt-5 mb-5\">\n                  <div class=\"card-text\">\n                    <i class=\"mdi mdi-file-question\" style=\"font-size: 8em;\"></i>\n                  </div>\n                  <div class=\"card-text\">\n                    <h3>No Available Forms</h3>\n                    <p class=\"text-muted\">There are no created forms yet!</p>\n                  </div>\n                </div>\n              </div>\n            </div>\n          </div>\n        </div>\n\n        <div *ngIf=\"hasError\" class=\"row\">\n          <div class=\"col-lg-12 grid-margin stretch-card\">\n            <div class=\"card text-center pt-5 pb-5\">\n              <div class=\"card-body mt-5 mb-5\">\n                <h4 class=\"card-title\">Error Ocuured</h4>\n                <p class=\"card-description\">\n                  Ooops! Something went wrong!\n                </p>\n                <div class=\"text-lg-center mt-5 mb-5\">\n                  <div class=\"card-text\">\n                    <i class=\"mdi mdi-close-network-outline\" style=\"font-size: 8em;\"></i>\n                  </div>\n                  <div class=\"card-text\">\n                    <h3>We couldn't get your forms</h3>\n                    <p class=\"text-muted\">An error has occured on our servers or you might not have an active internet\n                      connection.</p>\n                  </div>\n                </div>\n              </div>\n            </div>\n          </div>\n        </div>\n\n        <div *ngIf=\"!loading && hasData\" class=\"row\">\n          <div class=\"col-lg-12 grid-margin stretch-card\">\n            <div class=\"card\">\n              <div class=\"card-body\">\n                <h4 class=\"card-title\">Processed Forms</h4>\n                <p class=\"card-description\">\n                  List of all new forms that have been processing\n                </p>\n                <div class=\"table-responsive\">\n                  <table class=\"table table-hover\">\n                    <thead>\n                      <tr>\n                        <th>Form Identifier</th>\n                        <th>Form Name.</th>\n                        <th>Submitted By</th>\n                        <th>Submitted On</th>\n                        <th>Processed On</th>\n                      </tr>\n                    </thead>\n                    <tbody>\n                      <tr class=\"hover-cursor\" *ngFor=\"let form of processedFormsList\">\n                        <td>{{ form.form_code }}</td>\n                        <td>{{ form.form_name }}</td>\n                        <td>{{ form.client_name }}</td>\n                        <td>{{ form.submitted_at | date:'medium' }}</td>\n                        <td>{{ form.last_processed | date:'medium' }}</td>\n                      </tr>\n                    </tbody>\n                  </table>\n                </div>\n              </div>\n            </div>\n          </div>\n        </div>\n      </div>\n    </div>\n  </div>\n</div>"
 
 /***/ }),
 
@@ -701,18 +701,7 @@ module.exports = "<div class=\"container-scroller\">\n  <app-navigation-bar></ap
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<div class=\"container-scroller\">\n  <app-navigation-bar></app-navigation-bar>\n  <div class=\"container-fluid page-body-wrapper\">\n    <app-side-bar></app-side-bar>\n    <div class=\"main-panel\">\n      <div class=\"content-wrapper\">\n        <div class=\"row\">\n          <div class=\"col-md-12 grid-margin\">\n            <div class=\"d-flex justify-content-between flex-wrap\">\n              <div class=\"d-flex align-items-end flex-wrap\">\n                <div class=\"mr-md-3 mr-xl-5\">\n                  <h2>Submitted Forms</h2>\n                  <p class=\"mb-md-0\">Your analytics dashboard template.</p>\n                </div>\n                <div class=\"d-flex\">\n                  <i class=\"mdi mdi-home text-muted hover-cursor\"></i>\n                  <p class=\"text-muted mb-0 hover-cursor\">&nbsp;/&nbsp;Home&nbsp;/&nbsp;</p>\n                  <p class=\"text-primary mb-0 hover-cursor\">In-Processing</p>\n                </div>\n              </div>\n              <div class=\"d-flex justify-content-between align-items-end flex-wrap\">\n                <button type=\"button\" class=\"btn btn-light bg-white btn-icon mr-3 d-none d-md-block \">\n                  <i class=\"mdi mdi-download text-muted\"></i>\n                </button>\n                <button type=\"button\" class=\"btn btn-light bg-white btn-icon mr-3 mt-2 mt-xl-0\">\n                  <i class=\"mdi mdi-clock-outline text-muted\"></i>\n                </button>\n                <button type=\"button\" class=\"btn btn-light bg-white btn-icon mr-3 mt-2 mt-xl-0\">\n                  <i class=\"mdi mdi-plus text-muted\"></i>\n                </button>\n              </div>\n            </div>\n          </div>\n        </div>\n        <div class=\"row\">\n          <div class=\"col-lg-12 grid-margin stretch-card\">\n            <div class=\"card\">\n              <div class=\"card-body\">\n                <h4 class=\"card-title\">Submitted Forms</h4>\n                <p class=\"card-description\">\n                  List of all new forms that have been submitted for processing\n                </p>\n                <div class=\"table-responsive\">\n                  <table class=\"table table-hover\">\n                    <thead>\n                      <tr>\n                        <th>Full Name</th>\n                        <th>Form Identifier.</th>\n                        <th>Created On</th>\n                      </tr>\n                    </thead>\n                    <tbody>\n                      <tr>\n                        <td>Jacob Martin Jay</td>\n                        <td>53275531981</td>\n                        <td>12 May 2017</td>\n                      </tr>\n                      <tr>\n                        <td>Messsy W. Johnson</td>\n                        <td>53275532</td>\n                        <td>15 May 2017</td>\n                      </tr>\n                      <tr>\n                        <td>John M Doe</td>\n                        <td>53275533</td>\n                        <td>14 May 2017</td>\n                      </tr>\n                      <tr>\n                        <td>Peter Ore Finn</td>\n                        <td>53275534</td>\n                        <td>16 May 2017</td>\n                      </tr>\n                      <tr>\n                        <td>Dave Quinn</td>\n                        <td>53275535</td>\n                        <td>20 May 2017</td>\n                      </tr>\n                    </tbody>\n                  </table>\n                </div>\n              </div>\n            </div>\n          </div>\n        </div>\n      </div>\n    </div>\n  </div>\n</div>"
-
-/***/ }),
-
-/***/ "./node_modules/raw-loader/index.js!./src/app/pages/dashboard/executive/exec-submitted-forms-page/exec-submitted-forms-page.component.html":
-/*!****************************************************************************************************************************************!*\
-  !*** ./node_modules/raw-loader!./src/app/pages/dashboard/executive/exec-submitted-forms-page/exec-submitted-forms-page.component.html ***!
-  \****************************************************************************************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports) {
-
-module.exports = "<div class=\"container-scroller\">\n  <app-navigation-bar></app-navigation-bar>\n  <div class=\"container-fluid page-body-wrapper\">\n    <app-side-bar></app-side-bar>\n    <div class=\"main-panel\">\n      <div class=\"content-wrapper\">\n        <div class=\"row\">\n          <div class=\"col-md-12 grid-margin\">\n            <div class=\"d-flex justify-content-between flex-wrap\">\n              <div class=\"d-flex align-items-end flex-wrap\">\n                <div class=\"mr-md-3 mr-xl-5\">\n                  <h2>Submitted Forms</h2>\n                  <p class=\"mb-md-0\">Your analytics dashboard template.</p>\n                </div>\n                <div class=\"d-flex\">\n                  <i class=\"mdi mdi-home text-muted hover-cursor\"></i>\n                  <p class=\"text-muted mb-0 hover-cursor\">&nbsp;/&nbsp;Home&nbsp;/&nbsp;</p>\n                  <p class=\"text-primary mb-0 hover-cursor\">Submitted</p>\n                </div>\n              </div>\n              <div class=\"d-flex justify-content-between align-items-end flex-wrap\">\n                <button type=\"button\" class=\"btn btn-light bg-white btn-icon mr-3 d-none d-md-block \">\n                  <i class=\"mdi mdi-download text-muted\"></i>\n                </button>\n                <button type=\"button\" class=\"btn btn-light bg-white btn-icon mr-3 mt-2 mt-xl-0\">\n                  <i class=\"mdi mdi-clock-outline text-muted\"></i>\n                </button>\n                <button type=\"button\" class=\"btn btn-light bg-white btn-icon mr-3 mt-2 mt-xl-0\">\n                  <i class=\"mdi mdi-plus text-muted\"></i>\n                </button>\n              </div>\n            </div>\n          </div>\n        </div>\n\n        <div class=\"row\">\n          <div class=\"col-md-4 grid-margin stretch-card\">\n            <div class=\"card\">\n              <div class=\"card-body\">\n                <p class=\"card-title\">Passport Forms</p>\n                <p class=\"text-muted\">A list of all forms you've filled</p>\n                <div class=\"card-text\">\n                  <h1 style=\"font-size: 5em;\">12</h1>\n                  <p class=\"text-muted\">Lorem ipsum dolor sit amet consectetur</p>\n                </div>\n              </div>\n            </div>\n          </div>\n          <div class=\"col-md-4 grid-margin stretch-card\">\n            <div class=\"card\">\n              <div class=\"card-body\">\n                <p class=\"card-title\">SSNIT Forms</p>\n                <p class=\"text-muted\">A list of all submitted SSNIT forms as of today</p>\n                <div class=\"card-text\">\n                  <h1 style=\"font-size: 5em;\">23</h1>\n                  <p class=\"text-muted\">Click here to view all SSNIt forms</p>\n                </div>\n              </div>\n            </div>\n          </div>\n          <div class=\"col-md-4 grid-margin stretch-card\">\n            <div class=\"card\">\n              <div class=\"card-body\">\n                <p class=\"card-title\">Cash Deposit Form</p>\n                <p class=\"text-muted\">A list of all submitted SSNIT forms as of today</p>\n                <div class=\"card-text\">\n                  <h1 style=\"font-size: 5em;\">5</h1>\n                  <p class=\"text-muted\">Click here to view all SSNIt forms</p>\n                </div>\n              </div>\n            </div>\n          </div>\n        </div>\n      </div>\n    </div>\n  </div>\n</div>\n"
+module.exports = "<div class=\"container-scroller\">\n  <app-navigation-bar></app-navigation-bar>\n  <div class=\"container-fluid page-body-wrapper\">\n    <app-side-bar></app-side-bar>\n    <div class=\"main-panel\">\n      <div class=\"content-wrapper\">\n        <div class=\"row\">\n          <div class=\"col-md-12 grid-margin\">\n            <div class=\"d-flex justify-content-between flex-wrap\">\n              <div class=\"d-flex align-items-end flex-wrap\">\n                <div class=\"mr-md-3 mr-xl-5\">\n                  <h2>History</h2>\n                  <p class=\"mb-md-0\">Your analytics dashboard template.</p>\n                </div>\n                <div class=\"d-flex\">\n                </div>\n              </div>\n              <div class=\"d-flex justify-content-between align-items-end flex-wrap\">\n                <!-- <button type=\"button\" class=\"btn btn-light bg-white btn-icon mr-3 d-none d-md-block \">\n                  <i class=\"mdi mdi-download text-muted\"></i>\n                </button>\n                <button type=\"button\" class=\"btn btn-light bg-white btn-icon mr-3 mt-2 mt-xl-0\">\n                  <i class=\"mdi mdi-clock-outline text-muted\"></i>\n                </button>\n                <button type=\"button\" class=\"btn btn-light bg-white btn-icon mr-3 mt-2 mt-xl-0\">\n                  <i class=\"mdi mdi-plus text-muted\"></i>\n                </button> -->\n              </div>\n            </div>\n          </div>\n        </div>\n\n        <div *ngIf=\"loading\" class=\"row m-5\">\n          <div class=\"col-md-12 m-5\">\n            <div class=\"d-flex justify-content-center\">\n              <div class=\"spinner-border m-5\" style=\"width: 5rem; height: 5rem;\" role=\"status\">\n                <span class=\"sr-only\">Loading...</span>\n              </div>\n            </div>\n          </div>\n        </div>\n\n        <div *ngIf=\"!loading && !hasData\" class=\"row\">\n          <div class=\"col-lg-12 grid-margin stretch-card\">\n            <div class=\"card text-center pt-5 pb-5\">\n              <div class=\"card-body mt-5 mb-5\">\n                <h4 class=\"card-title\">No Data Found</h4>\n                <p class=\"card-description\">\n                  No forms found.\n                </p>\n                <div class=\"text-lg-center mt-5 mb-5\">\n                  <div class=\"card-text\">\n                    <i class=\"mdi mdi-file-question\" style=\"font-size: 8em;\"></i>\n                  </div>\n                  <div class=\"card-text\">\n                    <h3>No Available Forms</h3>\n                    <p class=\"text-muted\">There are no created forms yet!</p>\n                  </div>\n                </div>\n              </div>\n            </div>\n          </div>\n        </div>\n\n        <div *ngIf=\"hasError\" class=\"row\">\n          <div class=\"col-lg-12 grid-margin stretch-card\">\n            <div class=\"card text-center pt-5 pb-5\">\n              <div class=\"card-body mt-5 mb-5\">\n                <h4 class=\"card-title\">Error Ocuured</h4>\n                <p class=\"card-description\">\n                  Ooops! Something went wrong!\n                </p>\n                <div class=\"text-lg-center mt-5 mb-5\">\n                  <div class=\"card-text\">\n                    <i class=\"mdi mdi-close-network-outline\" style=\"font-size: 8em;\"></i>\n                  </div>\n                  <div class=\"card-text\">\n                    <h3>We couldn't get your forms</h3>\n                    <p class=\"text-muted\">An error has occured on our servers or you might not have an active internet\n                      connection.</p>\n                  </div>\n                </div>\n              </div>\n            </div>\n          </div>\n        </div>\n\n        <div *ngIf=\"!loading && hasData\" class=\"row\">\n          <div class=\"col-md-12 grid-margin stretch-card\">\n            <div class=\"card hover-cursor\" (click)=\"openForm()\">\n              <div class=\"card-body\">\n                <p class=\"card-title\">Passport Forms</p>\n                <p class=\"text-muted\">A list of all forms you've filled</p>\n                <div class=\"card-text\">\n                  <div class=\"table-responsive\">\n                    <table class=\"table table-hover\">\n                      <thead>\n                        <tr>\n                          <th>Form Identifier</th>\n                          <th>Form Name.</th>\n                          <th>Submitted By</th>\n                          <th>Submitted On</th>\n                        </tr>\n                      </thead>\n                      <tbody>\n                        <tr class=\"hover-cursor\" *ngFor=\"let form of submittedFormsList\" (click)=\"open(form)\">\n                          <td>{{ form.form_code }}</td>\n                          <td>{{ form.form_name }}</td>\n                          <td>{{ form.client_name }}</td>\n                          <td>{{ form.submitted_at | date }}</td>\n                        </tr>\n                      </tbody>\n                    </table>\n                  </div>\n                </div>\n              </div>\n            </div>\n          </div>\n        </div>\n      </div>\n    </div>\n  </div>\n</div>\n"
 
 /***/ }),
 
@@ -1238,65 +1227,63 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _pages_dashboard_git_admin_create_company_page_create_company_page_component__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! ./pages/dashboard/git-admin/create-company-page/create-company-page.component */ "./src/app/pages/dashboard/git-admin/create-company-page/create-company-page.component.ts");
 /* harmony import */ var _pages_dashboard_git_admin_create_branch_page_create_branch_page_component__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(/*! ./pages/dashboard/git-admin/create-branch-page/create-branch-page.component */ "./src/app/pages/dashboard/git-admin/create-branch-page/create-branch-page.component.ts");
 /* harmony import */ var _pages_dashboard_executive_executive_home_page_executive_home_page_component__WEBPACK_IMPORTED_MODULE_16__ = __webpack_require__(/*! ./pages/dashboard/executive/executive-home-page/executive-home-page.component */ "./src/app/pages/dashboard/executive/executive-home-page/executive-home-page.component.ts");
-/* harmony import */ var _pages_dashboard_executive_exec_submitted_forms_page_exec_submitted_forms_page_component__WEBPACK_IMPORTED_MODULE_17__ = __webpack_require__(/*! ./pages/dashboard/executive/exec-submitted-forms-page/exec-submitted-forms-page.component */ "./src/app/pages/dashboard/executive/exec-submitted-forms-page/exec-submitted-forms-page.component.ts");
-/* harmony import */ var _pages_dashboard_executive_exec_in_processed_forms_list_page_exec_in_processed_forms_list_page_component__WEBPACK_IMPORTED_MODULE_18__ = __webpack_require__(/*! ./pages/dashboard/executive/exec-in-processed-forms-list-page/exec-in-processed-forms-list-page.component */ "./src/app/pages/dashboard/executive/exec-in-processed-forms-list-page/exec-in-processed-forms-list-page.component.ts");
-/* harmony import */ var _pages_dashboard_executive_exec_submitted_forms_list_page_exec_submitted_forms_list_page_component__WEBPACK_IMPORTED_MODULE_19__ = __webpack_require__(/*! ./pages/dashboard/executive/exec-submitted-forms-list-page/exec-submitted-forms-list-page.component */ "./src/app/pages/dashboard/executive/exec-submitted-forms-list-page/exec-submitted-forms-list-page.component.ts");
-/* harmony import */ var _pages_dashboard_executive_exec_processed_forms_list_page_exec_processed_forms_list_page_component__WEBPACK_IMPORTED_MODULE_20__ = __webpack_require__(/*! ./pages/dashboard/executive/exec-processed-forms-list-page/exec-processed-forms-list-page.component */ "./src/app/pages/dashboard/executive/exec-processed-forms-list-page/exec-processed-forms-list-page.component.ts");
-/* harmony import */ var _pages_dashboard_admin_admin_home_page_admin_home_page_component__WEBPACK_IMPORTED_MODULE_21__ = __webpack_require__(/*! ./pages/dashboard/admin/admin-home-page/admin-home-page.component */ "./src/app/pages/dashboard/admin/admin-home-page/admin-home-page.component.ts");
-/* harmony import */ var _pages_dashboard_client_client_forms_history_page_client_forms_history_page_component__WEBPACK_IMPORTED_MODULE_22__ = __webpack_require__(/*! ./pages/dashboard/client/client-forms-history-page/client-forms-history-page.component */ "./src/app/pages/dashboard/client/client-forms-history-page/client-forms-history-page.component.ts");
-/* harmony import */ var _pages_dashboard_client_client_forms_entry_page_client_forms_entry_page_component__WEBPACK_IMPORTED_MODULE_23__ = __webpack_require__(/*! ./pages/dashboard/client/client-forms-entry-page/client-forms-entry-page.component */ "./src/app/pages/dashboard/client/client-forms-entry-page/client-forms-entry-page.component.ts");
-/* harmony import */ var _pages_dashboard_front_desk_front_desk_view_form_page_front_desk_view_form_page_component__WEBPACK_IMPORTED_MODULE_24__ = __webpack_require__(/*! ./pages/dashboard/front-desk/front-desk-view-form-page/front-desk-view-form-page.component */ "./src/app/pages/dashboard/front-desk/front-desk-view-form-page/front-desk-view-form-page.component.ts");
-/* harmony import */ var _pages_dashboard_admin_admin_form_lists_page_admin_form_lists_page_component__WEBPACK_IMPORTED_MODULE_25__ = __webpack_require__(/*! ./pages/dashboard/admin/admin-form-lists-page/admin-form-lists-page.component */ "./src/app/pages/dashboard/admin/admin-form-lists-page/admin-form-lists-page.component.ts");
-/* harmony import */ var _pages_dashboard_admin_admin_form_edit_page_admin_form_edit_page_component__WEBPACK_IMPORTED_MODULE_26__ = __webpack_require__(/*! ./pages/dashboard/admin/admin-form-edit-page/admin-form-edit-page.component */ "./src/app/pages/dashboard/admin/admin-form-edit-page/admin-form-edit-page.component.ts");
-/* harmony import */ var _pages_dashboard_admin_admin_form_view_page_admin_form_view_page_component__WEBPACK_IMPORTED_MODULE_27__ = __webpack_require__(/*! ./pages/dashboard/admin/admin-form-view-page/admin-form-view-page.component */ "./src/app/pages/dashboard/admin/admin-form-view-page/admin-form-view-page.component.ts");
-/* harmony import */ var _pages_dashboard_git_admin_edit_form_page_edit_form_page_component__WEBPACK_IMPORTED_MODULE_28__ = __webpack_require__(/*! ./pages/dashboard/git-admin/edit-form-page/edit-form-page.component */ "./src/app/pages/dashboard/git-admin/edit-form-page/edit-form-page.component.ts");
-/* harmony import */ var _pages_dashboard_git_admin_edit_branch_page_edit_branch_page_component__WEBPACK_IMPORTED_MODULE_29__ = __webpack_require__(/*! ./pages/dashboard/git-admin/edit-branch-page/edit-branch-page.component */ "./src/app/pages/dashboard/git-admin/edit-branch-page/edit-branch-page.component.ts");
-/* harmony import */ var _pages_dashboard_git_admin_edit_company_page_edit_company_page_component__WEBPACK_IMPORTED_MODULE_30__ = __webpack_require__(/*! ./pages/dashboard/git-admin/edit-company-page/edit-company-page.component */ "./src/app/pages/dashboard/git-admin/edit-company-page/edit-company-page.component.ts");
-/* harmony import */ var _pages_dashboard_git_admin_view_company_lists_page_view_company_lists_page_component__WEBPACK_IMPORTED_MODULE_31__ = __webpack_require__(/*! ./pages/dashboard/git-admin/view-company-lists-page/view-company-lists-page.component */ "./src/app/pages/dashboard/git-admin/view-company-lists-page/view-company-lists-page.component.ts");
-/* harmony import */ var _pages_dashboard_git_admin_view_admin_lists_page_view_admin_lists_page_component__WEBPACK_IMPORTED_MODULE_32__ = __webpack_require__(/*! ./pages/dashboard/git-admin/view-admin-lists-page/view-admin-lists-page.component */ "./src/app/pages/dashboard/git-admin/view-admin-lists-page/view-admin-lists-page.component.ts");
-/* harmony import */ var _pages_dashboard_git_admin_view_executive_lists_page_view_executive_lists_page_component__WEBPACK_IMPORTED_MODULE_33__ = __webpack_require__(/*! ./pages/dashboard/git-admin/view-executive-lists-page/view-executive-lists-page.component */ "./src/app/pages/dashboard/git-admin/view-executive-lists-page/view-executive-lists-page.component.ts");
-/* harmony import */ var _pages_dashboard_git_admin_view_branch_lists_page_view_branch_lists_page_component__WEBPACK_IMPORTED_MODULE_34__ = __webpack_require__(/*! ./pages/dashboard/git-admin/view-branch-lists-page/view-branch-lists-page.component */ "./src/app/pages/dashboard/git-admin/view-branch-lists-page/view-branch-lists-page.component.ts");
-/* harmony import */ var _pages_dashboard_front_desk_front_desk_submitted_forms_list_page_front_desk_submitted_forms_list_page_component__WEBPACK_IMPORTED_MODULE_35__ = __webpack_require__(/*! ./pages/dashboard/front-desk/front-desk-submitted-forms-list-page/front-desk-submitted-forms-list-page.component */ "./src/app/pages/dashboard/front-desk/front-desk-submitted-forms-list-page/front-desk-submitted-forms-list-page.component.ts");
-/* harmony import */ var _pages_dashboard_front_desk_front_desk_processing_forms_list_page_front_desk_processing_forms_list_page_component__WEBPACK_IMPORTED_MODULE_36__ = __webpack_require__(/*! ./pages/dashboard/front-desk/front-desk-processing-forms-list-page/front-desk-processing-forms-list-page.component */ "./src/app/pages/dashboard/front-desk/front-desk-processing-forms-list-page/front-desk-processing-forms-list-page.component.ts");
-/* harmony import */ var _pages_dashboard_front_desk_front_desk_processed_forms_list_page_front_desk_processed_forms_list_page_component__WEBPACK_IMPORTED_MODULE_37__ = __webpack_require__(/*! ./pages/dashboard/front-desk/front-desk-processed-forms-list-page/front-desk-processed-forms-list-page.component */ "./src/app/pages/dashboard/front-desk/front-desk-processed-forms-list-page/front-desk-processed-forms-list-page.component.ts");
-/* harmony import */ var _pages_admin_register_page_admin_register_page_component__WEBPACK_IMPORTED_MODULE_38__ = __webpack_require__(/*! ./pages/admin-register-page/admin-register-page.component */ "./src/app/pages/admin-register-page/admin-register-page.component.ts");
-/* harmony import */ var _pages_dashboard_git_admin_create_user_page_create_user_page_component__WEBPACK_IMPORTED_MODULE_39__ = __webpack_require__(/*! ./pages/dashboard/git-admin/create-user-page/create-user-page.component */ "./src/app/pages/dashboard/git-admin/create-user-page/create-user-page.component.ts");
-/* harmony import */ var _pages_dashboard_git_admin_view_front_desk_lists_page_view_front_desk_lists_page_component__WEBPACK_IMPORTED_MODULE_40__ = __webpack_require__(/*! ./pages/dashboard/git-admin/view-front-desk-lists-page/view-front-desk-lists-page.component */ "./src/app/pages/dashboard/git-admin/view-front-desk-lists-page/view-front-desk-lists-page.component.ts");
-/* harmony import */ var _pages_dashboard_git_admin_view_company_admin_lists_page_view_company_admin_lists_page_component__WEBPACK_IMPORTED_MODULE_41__ = __webpack_require__(/*! ./pages/dashboard/git-admin/view-company-admin-lists-page/view-company-admin-lists-page.component */ "./src/app/pages/dashboard/git-admin/view-company-admin-lists-page/view-company-admin-lists-page.component.ts");
-/* harmony import */ var _pages_dashboard_git_admin_view_branch_admin_lists_page_view_branch_admin_lists_page_component__WEBPACK_IMPORTED_MODULE_42__ = __webpack_require__(/*! ./pages/dashboard/git-admin/view-branch-admin-lists-page/view-branch-admin-lists-page.component */ "./src/app/pages/dashboard/git-admin/view-branch-admin-lists-page/view-branch-admin-lists-page.component.ts");
-/* harmony import */ var _pages_dashboard_git_admin_view_branch_executive_lists_page_view_branch_executive_lists_page_component__WEBPACK_IMPORTED_MODULE_43__ = __webpack_require__(/*! ./pages/dashboard/git-admin/view-branch-executive-lists-page/view-branch-executive-lists-page.component */ "./src/app/pages/dashboard/git-admin/view-branch-executive-lists-page/view-branch-executive-lists-page.component.ts");
-/* harmony import */ var _pages_dashboard_git_admin_edit_user_page_edit_user_page_component__WEBPACK_IMPORTED_MODULE_44__ = __webpack_require__(/*! ./pages/dashboard/git-admin/edit-user-page/edit-user-page.component */ "./src/app/pages/dashboard/git-admin/edit-user-page/edit-user-page.component.ts");
-/* harmony import */ var _pages_dashboard_git_admin_view_branch_details_page_view_branch_details_page_component__WEBPACK_IMPORTED_MODULE_45__ = __webpack_require__(/*! ./pages/dashboard/git-admin/view-branch-details-page/view-branch-details-page.component */ "./src/app/pages/dashboard/git-admin/view-branch-details-page/view-branch-details-page.component.ts");
-/* harmony import */ var _pages_dashboard_git_admin_view_company_details_page_view_company_details_page_component__WEBPACK_IMPORTED_MODULE_46__ = __webpack_require__(/*! ./pages/dashboard/git-admin/view-company-details-page/view-company-details-page.component */ "./src/app/pages/dashboard/git-admin/view-company-details-page/view-company-details-page.component.ts");
-/* harmony import */ var _pages_dashboard_git_admin_view_account_details_page_view_account_details_page_component__WEBPACK_IMPORTED_MODULE_47__ = __webpack_require__(/*! ./pages/dashboard/git-admin/view-account-details-page/view-account-details-page.component */ "./src/app/pages/dashboard/git-admin/view-account-details-page/view-account-details-page.component.ts");
-/* harmony import */ var _pages_dashboard_git_admin_view_form_lists_page_view_form_lists_page_component__WEBPACK_IMPORTED_MODULE_48__ = __webpack_require__(/*! ./pages/dashboard/git-admin/view-form-lists-page/view-form-lists-page.component */ "./src/app/pages/dashboard/git-admin/view-form-lists-page/view-form-lists-page.component.ts");
-/* harmony import */ var _pages_dashboard_git_admin_view_form_details_page_view_form_details_page_component__WEBPACK_IMPORTED_MODULE_49__ = __webpack_require__(/*! ./pages/dashboard/git-admin/view-form-details-page/view-form-details-page.component */ "./src/app/pages/dashboard/git-admin/view-form-details-page/view-form-details-page.component.ts");
-/* harmony import */ var _pages_dashboard_client_client_profile_page_client_profile_page_component__WEBPACK_IMPORTED_MODULE_50__ = __webpack_require__(/*! ./pages/dashboard/client/client-profile-page/client-profile-page.component */ "./src/app/pages/dashboard/client/client-profile-page/client-profile-page.component.ts");
-/* harmony import */ var _pages_dashboard_client_client_unsent_forms_page_client_unsent_forms_page_component__WEBPACK_IMPORTED_MODULE_51__ = __webpack_require__(/*! ./pages/dashboard/client/client-unsent-forms-page/client-unsent-forms-page.component */ "./src/app/pages/dashboard/client/client-unsent-forms-page/client-unsent-forms-page.component.ts");
-/* harmony import */ var _pages_dashboard_form_templates_add_template_page_add_template_page_component__WEBPACK_IMPORTED_MODULE_52__ = __webpack_require__(/*! ./pages/dashboard/form-templates/add-template-page/add-template-page.component */ "./src/app/pages/dashboard/form-templates/add-template-page/add-template-page.component.ts");
-/* harmony import */ var _pages_dashboard_form_templates_edit_template_page_edit_template_page_component__WEBPACK_IMPORTED_MODULE_53__ = __webpack_require__(/*! ./pages/dashboard/form-templates/edit-template-page/edit-template-page.component */ "./src/app/pages/dashboard/form-templates/edit-template-page/edit-template-page.component.ts");
-/* harmony import */ var _pages_dashboard_form_templates_list_template_page_list_template_page_component__WEBPACK_IMPORTED_MODULE_54__ = __webpack_require__(/*! ./pages/dashboard/form-templates/list-template-page/list-template-page.component */ "./src/app/pages/dashboard/form-templates/list-template-page/list-template-page.component.ts");
-/* harmony import */ var _pages_dashboard_form_templates_view_template_page_view_template_page_component__WEBPACK_IMPORTED_MODULE_55__ = __webpack_require__(/*! ./pages/dashboard/form-templates/view-template-page/view-template-page.component */ "./src/app/pages/dashboard/form-templates/view-template-page/view-template-page.component.ts");
-/* harmony import */ var _pages_dashboard_admin_admin_create_form_page_admin_create_form_page_component__WEBPACK_IMPORTED_MODULE_56__ = __webpack_require__(/*! ./pages/dashboard/admin/admin-create-form-page/admin-create-form-page.component */ "./src/app/pages/dashboard/admin/admin-create-form-page/admin-create-form-page.component.ts");
-/* harmony import */ var _pages_dashboard_admin_admin_create_user_page_admin_create_user_page_component__WEBPACK_IMPORTED_MODULE_57__ = __webpack_require__(/*! ./pages/dashboard/admin/admin-create-user-page/admin-create-user-page.component */ "./src/app/pages/dashboard/admin/admin-create-user-page/admin-create-user-page.component.ts");
-/* harmony import */ var _pages_dashboard_admin_admin_edit_user_page_admin_edit_user_page_component__WEBPACK_IMPORTED_MODULE_58__ = __webpack_require__(/*! ./pages/dashboard/admin/admin-edit-user-page/admin-edit-user-page.component */ "./src/app/pages/dashboard/admin/admin-edit-user-page/admin-edit-user-page.component.ts");
-/* harmony import */ var _pages_dashboard_admin_admin_view_front_desks_page_admin_view_front_desks_page_component__WEBPACK_IMPORTED_MODULE_59__ = __webpack_require__(/*! ./pages/dashboard/admin/admin-view-front-desks-page/admin-view-front-desks-page.component */ "./src/app/pages/dashboard/admin/admin-view-front-desks-page/admin-view-front-desks-page.component.ts");
-/* harmony import */ var _pages_dashboard_admin_admin_view_branches_page_admin_view_branches_page_component__WEBPACK_IMPORTED_MODULE_60__ = __webpack_require__(/*! ./pages/dashboard/admin/admin-view-branches-page/admin-view-branches-page.component */ "./src/app/pages/dashboard/admin/admin-view-branches-page/admin-view-branches-page.component.ts");
-/* harmony import */ var _pages_dashboard_admin_admin_view_account_details_page_admin_view_account_details_page_component__WEBPACK_IMPORTED_MODULE_61__ = __webpack_require__(/*! ./pages/dashboard/admin/admin-view-account-details-page/admin-view-account-details-page.component */ "./src/app/pages/dashboard/admin/admin-view-account-details-page/admin-view-account-details-page.component.ts");
-/* harmony import */ var _pages_dashboard_admin_admin_view_branch_details_page_admin_view_branch_details_page_component__WEBPACK_IMPORTED_MODULE_62__ = __webpack_require__(/*! ./pages/dashboard/admin/admin-view-branch-details-page/admin-view-branch-details-page.component */ "./src/app/pages/dashboard/admin/admin-view-branch-details-page/admin-view-branch-details-page.component.ts");
-/* harmony import */ var _pages_dashboard_git_admin_create_access_code_page_create_access_code_page_component__WEBPACK_IMPORTED_MODULE_63__ = __webpack_require__(/*! ./pages/dashboard/git-admin/create-access-code-page/create-access-code-page.component */ "./src/app/pages/dashboard/git-admin/create-access-code-page/create-access-code-page.component.ts");
-/* harmony import */ var _pages_auth_page_auth_page_component__WEBPACK_IMPORTED_MODULE_64__ = __webpack_require__(/*! ./pages/auth-page/auth-page.component */ "./src/app/pages/auth-page/auth-page.component.ts");
-/* harmony import */ var _pages_admin_login_page_admin_login_page_component__WEBPACK_IMPORTED_MODULE_65__ = __webpack_require__(/*! ./pages/admin-login-page/admin-login-page.component */ "./src/app/pages/admin-login-page/admin-login-page.component.ts");
-/* harmony import */ var _pages_dashboard_git_admin_create_section_page_create_section_page_component__WEBPACK_IMPORTED_MODULE_66__ = __webpack_require__(/*! ./pages/dashboard/git-admin/create-section-page/create-section-page.component */ "./src/app/pages/dashboard/git-admin/create-section-page/create-section-page.component.ts");
-/* harmony import */ var _pages_dashboard_git_admin_edit_section_page_edit_section_page_component__WEBPACK_IMPORTED_MODULE_67__ = __webpack_require__(/*! ./pages/dashboard/git-admin/edit-section-page/edit-section-page.component */ "./src/app/pages/dashboard/git-admin/edit-section-page/edit-section-page.component.ts");
-/* harmony import */ var _pages_dashboard_git_admin_view_sections_page_view_sections_page_component__WEBPACK_IMPORTED_MODULE_68__ = __webpack_require__(/*! ./pages/dashboard/git-admin/view-sections-page/view-sections-page.component */ "./src/app/pages/dashboard/git-admin/view-sections-page/view-sections-page.component.ts");
-/* harmony import */ var _pages_dashboard_git_admin_edit_access_code_page_edit_access_code_page_component__WEBPACK_IMPORTED_MODULE_69__ = __webpack_require__(/*! ./pages/dashboard/git-admin/edit-access-code-page/edit-access-code-page.component */ "./src/app/pages/dashboard/git-admin/edit-access-code-page/edit-access-code-page.component.ts");
-/* harmony import */ var _pages_dashboard_git_admin_view_access_code_page_view_access_code_page_component__WEBPACK_IMPORTED_MODULE_70__ = __webpack_require__(/*! ./pages/dashboard/git-admin/view-access-code-page/view-access-code-page.component */ "./src/app/pages/dashboard/git-admin/view-access-code-page/view-access-code-page.component.ts");
-/* harmony import */ var _pages_dashboard_front_desk_front_desk_preview_form_page_front_desk_preview_form_page_component__WEBPACK_IMPORTED_MODULE_71__ = __webpack_require__(/*! ./pages/dashboard/front-desk/front-desk-preview-form-page/front-desk-preview-form-page.component */ "./src/app/pages/dashboard/front-desk/front-desk-preview-form-page/front-desk-preview-form-page.component.ts");
-/* harmony import */ var _pages_dashboard_executive_exec_accounts_list_page_exec_accounts_list_page_component__WEBPACK_IMPORTED_MODULE_72__ = __webpack_require__(/*! ./pages/dashboard/executive/exec-accounts-list-page/exec-accounts-list-page.component */ "./src/app/pages/dashboard/executive/exec-accounts-list-page/exec-accounts-list-page.component.ts");
-/* harmony import */ var _pages_dashboard_executive_exec_branches_list_page_exec_branches_list_page_component__WEBPACK_IMPORTED_MODULE_73__ = __webpack_require__(/*! ./pages/dashboard/executive/exec-branches-list-page/exec-branches-list-page.component */ "./src/app/pages/dashboard/executive/exec-branches-list-page/exec-branches-list-page.component.ts");
-/* harmony import */ var _pages_dashboard_executive_exec_forms_list_page_exec_forms_list_page_component__WEBPACK_IMPORTED_MODULE_74__ = __webpack_require__(/*! ./pages/dashboard/executive/exec-forms-list-page/exec-forms-list-page.component */ "./src/app/pages/dashboard/executive/exec-forms-list-page/exec-forms-list-page.component.ts");
-
+/* harmony import */ var _pages_dashboard_executive_exec_in_processed_forms_list_page_exec_in_processed_forms_list_page_component__WEBPACK_IMPORTED_MODULE_17__ = __webpack_require__(/*! ./pages/dashboard/executive/exec-in-processed-forms-list-page/exec-in-processed-forms-list-page.component */ "./src/app/pages/dashboard/executive/exec-in-processed-forms-list-page/exec-in-processed-forms-list-page.component.ts");
+/* harmony import */ var _pages_dashboard_executive_exec_submitted_forms_list_page_exec_submitted_forms_list_page_component__WEBPACK_IMPORTED_MODULE_18__ = __webpack_require__(/*! ./pages/dashboard/executive/exec-submitted-forms-list-page/exec-submitted-forms-list-page.component */ "./src/app/pages/dashboard/executive/exec-submitted-forms-list-page/exec-submitted-forms-list-page.component.ts");
+/* harmony import */ var _pages_dashboard_executive_exec_processed_forms_list_page_exec_processed_forms_list_page_component__WEBPACK_IMPORTED_MODULE_19__ = __webpack_require__(/*! ./pages/dashboard/executive/exec-processed-forms-list-page/exec-processed-forms-list-page.component */ "./src/app/pages/dashboard/executive/exec-processed-forms-list-page/exec-processed-forms-list-page.component.ts");
+/* harmony import */ var _pages_dashboard_admin_admin_home_page_admin_home_page_component__WEBPACK_IMPORTED_MODULE_20__ = __webpack_require__(/*! ./pages/dashboard/admin/admin-home-page/admin-home-page.component */ "./src/app/pages/dashboard/admin/admin-home-page/admin-home-page.component.ts");
+/* harmony import */ var _pages_dashboard_client_client_forms_history_page_client_forms_history_page_component__WEBPACK_IMPORTED_MODULE_21__ = __webpack_require__(/*! ./pages/dashboard/client/client-forms-history-page/client-forms-history-page.component */ "./src/app/pages/dashboard/client/client-forms-history-page/client-forms-history-page.component.ts");
+/* harmony import */ var _pages_dashboard_client_client_forms_entry_page_client_forms_entry_page_component__WEBPACK_IMPORTED_MODULE_22__ = __webpack_require__(/*! ./pages/dashboard/client/client-forms-entry-page/client-forms-entry-page.component */ "./src/app/pages/dashboard/client/client-forms-entry-page/client-forms-entry-page.component.ts");
+/* harmony import */ var _pages_dashboard_front_desk_front_desk_view_form_page_front_desk_view_form_page_component__WEBPACK_IMPORTED_MODULE_23__ = __webpack_require__(/*! ./pages/dashboard/front-desk/front-desk-view-form-page/front-desk-view-form-page.component */ "./src/app/pages/dashboard/front-desk/front-desk-view-form-page/front-desk-view-form-page.component.ts");
+/* harmony import */ var _pages_dashboard_admin_admin_form_lists_page_admin_form_lists_page_component__WEBPACK_IMPORTED_MODULE_24__ = __webpack_require__(/*! ./pages/dashboard/admin/admin-form-lists-page/admin-form-lists-page.component */ "./src/app/pages/dashboard/admin/admin-form-lists-page/admin-form-lists-page.component.ts");
+/* harmony import */ var _pages_dashboard_admin_admin_form_edit_page_admin_form_edit_page_component__WEBPACK_IMPORTED_MODULE_25__ = __webpack_require__(/*! ./pages/dashboard/admin/admin-form-edit-page/admin-form-edit-page.component */ "./src/app/pages/dashboard/admin/admin-form-edit-page/admin-form-edit-page.component.ts");
+/* harmony import */ var _pages_dashboard_admin_admin_form_view_page_admin_form_view_page_component__WEBPACK_IMPORTED_MODULE_26__ = __webpack_require__(/*! ./pages/dashboard/admin/admin-form-view-page/admin-form-view-page.component */ "./src/app/pages/dashboard/admin/admin-form-view-page/admin-form-view-page.component.ts");
+/* harmony import */ var _pages_dashboard_git_admin_edit_form_page_edit_form_page_component__WEBPACK_IMPORTED_MODULE_27__ = __webpack_require__(/*! ./pages/dashboard/git-admin/edit-form-page/edit-form-page.component */ "./src/app/pages/dashboard/git-admin/edit-form-page/edit-form-page.component.ts");
+/* harmony import */ var _pages_dashboard_git_admin_edit_branch_page_edit_branch_page_component__WEBPACK_IMPORTED_MODULE_28__ = __webpack_require__(/*! ./pages/dashboard/git-admin/edit-branch-page/edit-branch-page.component */ "./src/app/pages/dashboard/git-admin/edit-branch-page/edit-branch-page.component.ts");
+/* harmony import */ var _pages_dashboard_git_admin_edit_company_page_edit_company_page_component__WEBPACK_IMPORTED_MODULE_29__ = __webpack_require__(/*! ./pages/dashboard/git-admin/edit-company-page/edit-company-page.component */ "./src/app/pages/dashboard/git-admin/edit-company-page/edit-company-page.component.ts");
+/* harmony import */ var _pages_dashboard_git_admin_view_company_lists_page_view_company_lists_page_component__WEBPACK_IMPORTED_MODULE_30__ = __webpack_require__(/*! ./pages/dashboard/git-admin/view-company-lists-page/view-company-lists-page.component */ "./src/app/pages/dashboard/git-admin/view-company-lists-page/view-company-lists-page.component.ts");
+/* harmony import */ var _pages_dashboard_git_admin_view_admin_lists_page_view_admin_lists_page_component__WEBPACK_IMPORTED_MODULE_31__ = __webpack_require__(/*! ./pages/dashboard/git-admin/view-admin-lists-page/view-admin-lists-page.component */ "./src/app/pages/dashboard/git-admin/view-admin-lists-page/view-admin-lists-page.component.ts");
+/* harmony import */ var _pages_dashboard_git_admin_view_executive_lists_page_view_executive_lists_page_component__WEBPACK_IMPORTED_MODULE_32__ = __webpack_require__(/*! ./pages/dashboard/git-admin/view-executive-lists-page/view-executive-lists-page.component */ "./src/app/pages/dashboard/git-admin/view-executive-lists-page/view-executive-lists-page.component.ts");
+/* harmony import */ var _pages_dashboard_git_admin_view_branch_lists_page_view_branch_lists_page_component__WEBPACK_IMPORTED_MODULE_33__ = __webpack_require__(/*! ./pages/dashboard/git-admin/view-branch-lists-page/view-branch-lists-page.component */ "./src/app/pages/dashboard/git-admin/view-branch-lists-page/view-branch-lists-page.component.ts");
+/* harmony import */ var _pages_dashboard_front_desk_front_desk_submitted_forms_list_page_front_desk_submitted_forms_list_page_component__WEBPACK_IMPORTED_MODULE_34__ = __webpack_require__(/*! ./pages/dashboard/front-desk/front-desk-submitted-forms-list-page/front-desk-submitted-forms-list-page.component */ "./src/app/pages/dashboard/front-desk/front-desk-submitted-forms-list-page/front-desk-submitted-forms-list-page.component.ts");
+/* harmony import */ var _pages_dashboard_front_desk_front_desk_processing_forms_list_page_front_desk_processing_forms_list_page_component__WEBPACK_IMPORTED_MODULE_35__ = __webpack_require__(/*! ./pages/dashboard/front-desk/front-desk-processing-forms-list-page/front-desk-processing-forms-list-page.component */ "./src/app/pages/dashboard/front-desk/front-desk-processing-forms-list-page/front-desk-processing-forms-list-page.component.ts");
+/* harmony import */ var _pages_dashboard_front_desk_front_desk_processed_forms_list_page_front_desk_processed_forms_list_page_component__WEBPACK_IMPORTED_MODULE_36__ = __webpack_require__(/*! ./pages/dashboard/front-desk/front-desk-processed-forms-list-page/front-desk-processed-forms-list-page.component */ "./src/app/pages/dashboard/front-desk/front-desk-processed-forms-list-page/front-desk-processed-forms-list-page.component.ts");
+/* harmony import */ var _pages_admin_register_page_admin_register_page_component__WEBPACK_IMPORTED_MODULE_37__ = __webpack_require__(/*! ./pages/admin-register-page/admin-register-page.component */ "./src/app/pages/admin-register-page/admin-register-page.component.ts");
+/* harmony import */ var _pages_dashboard_git_admin_create_user_page_create_user_page_component__WEBPACK_IMPORTED_MODULE_38__ = __webpack_require__(/*! ./pages/dashboard/git-admin/create-user-page/create-user-page.component */ "./src/app/pages/dashboard/git-admin/create-user-page/create-user-page.component.ts");
+/* harmony import */ var _pages_dashboard_git_admin_view_front_desk_lists_page_view_front_desk_lists_page_component__WEBPACK_IMPORTED_MODULE_39__ = __webpack_require__(/*! ./pages/dashboard/git-admin/view-front-desk-lists-page/view-front-desk-lists-page.component */ "./src/app/pages/dashboard/git-admin/view-front-desk-lists-page/view-front-desk-lists-page.component.ts");
+/* harmony import */ var _pages_dashboard_git_admin_view_company_admin_lists_page_view_company_admin_lists_page_component__WEBPACK_IMPORTED_MODULE_40__ = __webpack_require__(/*! ./pages/dashboard/git-admin/view-company-admin-lists-page/view-company-admin-lists-page.component */ "./src/app/pages/dashboard/git-admin/view-company-admin-lists-page/view-company-admin-lists-page.component.ts");
+/* harmony import */ var _pages_dashboard_git_admin_view_branch_admin_lists_page_view_branch_admin_lists_page_component__WEBPACK_IMPORTED_MODULE_41__ = __webpack_require__(/*! ./pages/dashboard/git-admin/view-branch-admin-lists-page/view-branch-admin-lists-page.component */ "./src/app/pages/dashboard/git-admin/view-branch-admin-lists-page/view-branch-admin-lists-page.component.ts");
+/* harmony import */ var _pages_dashboard_git_admin_view_branch_executive_lists_page_view_branch_executive_lists_page_component__WEBPACK_IMPORTED_MODULE_42__ = __webpack_require__(/*! ./pages/dashboard/git-admin/view-branch-executive-lists-page/view-branch-executive-lists-page.component */ "./src/app/pages/dashboard/git-admin/view-branch-executive-lists-page/view-branch-executive-lists-page.component.ts");
+/* harmony import */ var _pages_dashboard_git_admin_edit_user_page_edit_user_page_component__WEBPACK_IMPORTED_MODULE_43__ = __webpack_require__(/*! ./pages/dashboard/git-admin/edit-user-page/edit-user-page.component */ "./src/app/pages/dashboard/git-admin/edit-user-page/edit-user-page.component.ts");
+/* harmony import */ var _pages_dashboard_git_admin_view_branch_details_page_view_branch_details_page_component__WEBPACK_IMPORTED_MODULE_44__ = __webpack_require__(/*! ./pages/dashboard/git-admin/view-branch-details-page/view-branch-details-page.component */ "./src/app/pages/dashboard/git-admin/view-branch-details-page/view-branch-details-page.component.ts");
+/* harmony import */ var _pages_dashboard_git_admin_view_company_details_page_view_company_details_page_component__WEBPACK_IMPORTED_MODULE_45__ = __webpack_require__(/*! ./pages/dashboard/git-admin/view-company-details-page/view-company-details-page.component */ "./src/app/pages/dashboard/git-admin/view-company-details-page/view-company-details-page.component.ts");
+/* harmony import */ var _pages_dashboard_git_admin_view_account_details_page_view_account_details_page_component__WEBPACK_IMPORTED_MODULE_46__ = __webpack_require__(/*! ./pages/dashboard/git-admin/view-account-details-page/view-account-details-page.component */ "./src/app/pages/dashboard/git-admin/view-account-details-page/view-account-details-page.component.ts");
+/* harmony import */ var _pages_dashboard_git_admin_view_form_lists_page_view_form_lists_page_component__WEBPACK_IMPORTED_MODULE_47__ = __webpack_require__(/*! ./pages/dashboard/git-admin/view-form-lists-page/view-form-lists-page.component */ "./src/app/pages/dashboard/git-admin/view-form-lists-page/view-form-lists-page.component.ts");
+/* harmony import */ var _pages_dashboard_git_admin_view_form_details_page_view_form_details_page_component__WEBPACK_IMPORTED_MODULE_48__ = __webpack_require__(/*! ./pages/dashboard/git-admin/view-form-details-page/view-form-details-page.component */ "./src/app/pages/dashboard/git-admin/view-form-details-page/view-form-details-page.component.ts");
+/* harmony import */ var _pages_dashboard_client_client_profile_page_client_profile_page_component__WEBPACK_IMPORTED_MODULE_49__ = __webpack_require__(/*! ./pages/dashboard/client/client-profile-page/client-profile-page.component */ "./src/app/pages/dashboard/client/client-profile-page/client-profile-page.component.ts");
+/* harmony import */ var _pages_dashboard_client_client_unsent_forms_page_client_unsent_forms_page_component__WEBPACK_IMPORTED_MODULE_50__ = __webpack_require__(/*! ./pages/dashboard/client/client-unsent-forms-page/client-unsent-forms-page.component */ "./src/app/pages/dashboard/client/client-unsent-forms-page/client-unsent-forms-page.component.ts");
+/* harmony import */ var _pages_dashboard_form_templates_add_template_page_add_template_page_component__WEBPACK_IMPORTED_MODULE_51__ = __webpack_require__(/*! ./pages/dashboard/form-templates/add-template-page/add-template-page.component */ "./src/app/pages/dashboard/form-templates/add-template-page/add-template-page.component.ts");
+/* harmony import */ var _pages_dashboard_form_templates_edit_template_page_edit_template_page_component__WEBPACK_IMPORTED_MODULE_52__ = __webpack_require__(/*! ./pages/dashboard/form-templates/edit-template-page/edit-template-page.component */ "./src/app/pages/dashboard/form-templates/edit-template-page/edit-template-page.component.ts");
+/* harmony import */ var _pages_dashboard_form_templates_list_template_page_list_template_page_component__WEBPACK_IMPORTED_MODULE_53__ = __webpack_require__(/*! ./pages/dashboard/form-templates/list-template-page/list-template-page.component */ "./src/app/pages/dashboard/form-templates/list-template-page/list-template-page.component.ts");
+/* harmony import */ var _pages_dashboard_form_templates_view_template_page_view_template_page_component__WEBPACK_IMPORTED_MODULE_54__ = __webpack_require__(/*! ./pages/dashboard/form-templates/view-template-page/view-template-page.component */ "./src/app/pages/dashboard/form-templates/view-template-page/view-template-page.component.ts");
+/* harmony import */ var _pages_dashboard_admin_admin_create_form_page_admin_create_form_page_component__WEBPACK_IMPORTED_MODULE_55__ = __webpack_require__(/*! ./pages/dashboard/admin/admin-create-form-page/admin-create-form-page.component */ "./src/app/pages/dashboard/admin/admin-create-form-page/admin-create-form-page.component.ts");
+/* harmony import */ var _pages_dashboard_admin_admin_create_user_page_admin_create_user_page_component__WEBPACK_IMPORTED_MODULE_56__ = __webpack_require__(/*! ./pages/dashboard/admin/admin-create-user-page/admin-create-user-page.component */ "./src/app/pages/dashboard/admin/admin-create-user-page/admin-create-user-page.component.ts");
+/* harmony import */ var _pages_dashboard_admin_admin_edit_user_page_admin_edit_user_page_component__WEBPACK_IMPORTED_MODULE_57__ = __webpack_require__(/*! ./pages/dashboard/admin/admin-edit-user-page/admin-edit-user-page.component */ "./src/app/pages/dashboard/admin/admin-edit-user-page/admin-edit-user-page.component.ts");
+/* harmony import */ var _pages_dashboard_admin_admin_view_front_desks_page_admin_view_front_desks_page_component__WEBPACK_IMPORTED_MODULE_58__ = __webpack_require__(/*! ./pages/dashboard/admin/admin-view-front-desks-page/admin-view-front-desks-page.component */ "./src/app/pages/dashboard/admin/admin-view-front-desks-page/admin-view-front-desks-page.component.ts");
+/* harmony import */ var _pages_dashboard_admin_admin_view_branches_page_admin_view_branches_page_component__WEBPACK_IMPORTED_MODULE_59__ = __webpack_require__(/*! ./pages/dashboard/admin/admin-view-branches-page/admin-view-branches-page.component */ "./src/app/pages/dashboard/admin/admin-view-branches-page/admin-view-branches-page.component.ts");
+/* harmony import */ var _pages_dashboard_admin_admin_view_account_details_page_admin_view_account_details_page_component__WEBPACK_IMPORTED_MODULE_60__ = __webpack_require__(/*! ./pages/dashboard/admin/admin-view-account-details-page/admin-view-account-details-page.component */ "./src/app/pages/dashboard/admin/admin-view-account-details-page/admin-view-account-details-page.component.ts");
+/* harmony import */ var _pages_dashboard_admin_admin_view_branch_details_page_admin_view_branch_details_page_component__WEBPACK_IMPORTED_MODULE_61__ = __webpack_require__(/*! ./pages/dashboard/admin/admin-view-branch-details-page/admin-view-branch-details-page.component */ "./src/app/pages/dashboard/admin/admin-view-branch-details-page/admin-view-branch-details-page.component.ts");
+/* harmony import */ var _pages_dashboard_git_admin_create_access_code_page_create_access_code_page_component__WEBPACK_IMPORTED_MODULE_62__ = __webpack_require__(/*! ./pages/dashboard/git-admin/create-access-code-page/create-access-code-page.component */ "./src/app/pages/dashboard/git-admin/create-access-code-page/create-access-code-page.component.ts");
+/* harmony import */ var _pages_auth_page_auth_page_component__WEBPACK_IMPORTED_MODULE_63__ = __webpack_require__(/*! ./pages/auth-page/auth-page.component */ "./src/app/pages/auth-page/auth-page.component.ts");
+/* harmony import */ var _pages_admin_login_page_admin_login_page_component__WEBPACK_IMPORTED_MODULE_64__ = __webpack_require__(/*! ./pages/admin-login-page/admin-login-page.component */ "./src/app/pages/admin-login-page/admin-login-page.component.ts");
+/* harmony import */ var _pages_dashboard_git_admin_create_section_page_create_section_page_component__WEBPACK_IMPORTED_MODULE_65__ = __webpack_require__(/*! ./pages/dashboard/git-admin/create-section-page/create-section-page.component */ "./src/app/pages/dashboard/git-admin/create-section-page/create-section-page.component.ts");
+/* harmony import */ var _pages_dashboard_git_admin_edit_section_page_edit_section_page_component__WEBPACK_IMPORTED_MODULE_66__ = __webpack_require__(/*! ./pages/dashboard/git-admin/edit-section-page/edit-section-page.component */ "./src/app/pages/dashboard/git-admin/edit-section-page/edit-section-page.component.ts");
+/* harmony import */ var _pages_dashboard_git_admin_view_sections_page_view_sections_page_component__WEBPACK_IMPORTED_MODULE_67__ = __webpack_require__(/*! ./pages/dashboard/git-admin/view-sections-page/view-sections-page.component */ "./src/app/pages/dashboard/git-admin/view-sections-page/view-sections-page.component.ts");
+/* harmony import */ var _pages_dashboard_git_admin_edit_access_code_page_edit_access_code_page_component__WEBPACK_IMPORTED_MODULE_68__ = __webpack_require__(/*! ./pages/dashboard/git-admin/edit-access-code-page/edit-access-code-page.component */ "./src/app/pages/dashboard/git-admin/edit-access-code-page/edit-access-code-page.component.ts");
+/* harmony import */ var _pages_dashboard_git_admin_view_access_code_page_view_access_code_page_component__WEBPACK_IMPORTED_MODULE_69__ = __webpack_require__(/*! ./pages/dashboard/git-admin/view-access-code-page/view-access-code-page.component */ "./src/app/pages/dashboard/git-admin/view-access-code-page/view-access-code-page.component.ts");
+/* harmony import */ var _pages_dashboard_front_desk_front_desk_preview_form_page_front_desk_preview_form_page_component__WEBPACK_IMPORTED_MODULE_70__ = __webpack_require__(/*! ./pages/dashboard/front-desk/front-desk-preview-form-page/front-desk-preview-form-page.component */ "./src/app/pages/dashboard/front-desk/front-desk-preview-form-page/front-desk-preview-form-page.component.ts");
+/* harmony import */ var _pages_dashboard_executive_exec_accounts_list_page_exec_accounts_list_page_component__WEBPACK_IMPORTED_MODULE_71__ = __webpack_require__(/*! ./pages/dashboard/executive/exec-accounts-list-page/exec-accounts-list-page.component */ "./src/app/pages/dashboard/executive/exec-accounts-list-page/exec-accounts-list-page.component.ts");
+/* harmony import */ var _pages_dashboard_executive_exec_branches_list_page_exec_branches_list_page_component__WEBPACK_IMPORTED_MODULE_72__ = __webpack_require__(/*! ./pages/dashboard/executive/exec-branches-list-page/exec-branches-list-page.component */ "./src/app/pages/dashboard/executive/exec-branches-list-page/exec-branches-list-page.component.ts");
+/* harmony import */ var _pages_dashboard_executive_exec_forms_list_page_exec_forms_list_page_component__WEBPACK_IMPORTED_MODULE_73__ = __webpack_require__(/*! ./pages/dashboard/executive/exec-forms-list-page/exec-forms-list-page.component */ "./src/app/pages/dashboard/executive/exec-forms-list-page/exec-forms-list-page.component.ts");
 
 
 
@@ -1382,11 +1369,11 @@ var routes = [
     },
     {
         path: 'auth',
-        component: _pages_auth_page_auth_page_component__WEBPACK_IMPORTED_MODULE_64__["AuthPageComponent"]
+        component: _pages_auth_page_auth_page_component__WEBPACK_IMPORTED_MODULE_63__["AuthPageComponent"]
     },
     {
         path: 'user_auth',
-        component: _pages_admin_login_page_admin_login_page_component__WEBPACK_IMPORTED_MODULE_65__["AdminLoginPageComponent"]
+        component: _pages_admin_login_page_admin_login_page_component__WEBPACK_IMPORTED_MODULE_64__["AdminLoginPageComponent"]
     },
     {
         path: 'register',
@@ -1394,7 +1381,7 @@ var routes = [
     },
     {
         path: 'master_register',
-        component: _pages_admin_register_page_admin_register_page_component__WEBPACK_IMPORTED_MODULE_38__["AdminRegisterPageComponent"]
+        component: _pages_admin_register_page_admin_register_page_component__WEBPACK_IMPORTED_MODULE_37__["AdminRegisterPageComponent"]
     },
     {
         path: 'git_admin',
@@ -1421,15 +1408,15 @@ var routes = [
                     },
                     {
                         path: 'user_account',
-                        component: _pages_dashboard_git_admin_create_user_page_create_user_page_component__WEBPACK_IMPORTED_MODULE_39__["CreateUserAccountPageComponent"]
+                        component: _pages_dashboard_git_admin_create_user_page_create_user_page_component__WEBPACK_IMPORTED_MODULE_38__["CreateUserAccountPageComponent"]
                     },
                     {
                         path: 'access_code',
-                        component: _pages_dashboard_git_admin_create_access_code_page_create_access_code_page_component__WEBPACK_IMPORTED_MODULE_63__["CreateAccessCodePageComponent"]
+                        component: _pages_dashboard_git_admin_create_access_code_page_create_access_code_page_component__WEBPACK_IMPORTED_MODULE_62__["CreateAccessCodePageComponent"]
                     },
                     {
                         path: 'section',
-                        component: _pages_dashboard_git_admin_create_section_page_create_section_page_component__WEBPACK_IMPORTED_MODULE_66__["CreateSectionPageComponent"]
+                        component: _pages_dashboard_git_admin_create_section_page_create_section_page_component__WEBPACK_IMPORTED_MODULE_65__["CreateSectionPageComponent"]
                     }
                 ]
             },
@@ -1438,27 +1425,27 @@ var routes = [
                 children: [
                     {
                         path: 'form',
-                        component: _pages_dashboard_git_admin_edit_form_page_edit_form_page_component__WEBPACK_IMPORTED_MODULE_28__["EditFormPageComponent"]
+                        component: _pages_dashboard_git_admin_edit_form_page_edit_form_page_component__WEBPACK_IMPORTED_MODULE_27__["EditFormPageComponent"]
                     },
                     {
                         path: 'branch',
-                        component: _pages_dashboard_git_admin_edit_branch_page_edit_branch_page_component__WEBPACK_IMPORTED_MODULE_29__["EditBranchPageComponent"]
+                        component: _pages_dashboard_git_admin_edit_branch_page_edit_branch_page_component__WEBPACK_IMPORTED_MODULE_28__["EditBranchPageComponent"]
                     },
                     {
                         path: 'company',
-                        component: _pages_dashboard_git_admin_edit_company_page_edit_company_page_component__WEBPACK_IMPORTED_MODULE_30__["EditCompanyPageComponent"]
+                        component: _pages_dashboard_git_admin_edit_company_page_edit_company_page_component__WEBPACK_IMPORTED_MODULE_29__["EditCompanyPageComponent"]
                     },
                     {
                         path: 'user_account',
-                        component: _pages_dashboard_git_admin_edit_user_page_edit_user_page_component__WEBPACK_IMPORTED_MODULE_44__["EditUserPageComponent"]
+                        component: _pages_dashboard_git_admin_edit_user_page_edit_user_page_component__WEBPACK_IMPORTED_MODULE_43__["EditUserPageComponent"]
                     },
                     {
                         path: 'section',
-                        component: _pages_dashboard_git_admin_edit_section_page_edit_section_page_component__WEBPACK_IMPORTED_MODULE_67__["EditSectionPageComponent"]
+                        component: _pages_dashboard_git_admin_edit_section_page_edit_section_page_component__WEBPACK_IMPORTED_MODULE_66__["EditSectionPageComponent"]
                     },
                     {
                         path: 'access_code',
-                        component: _pages_dashboard_git_admin_edit_access_code_page_edit_access_code_page_component__WEBPACK_IMPORTED_MODULE_69__["EditAccessCodePageComponent"]
+                        component: _pages_dashboard_git_admin_edit_access_code_page_edit_access_code_page_component__WEBPACK_IMPORTED_MODULE_68__["EditAccessCodePageComponent"]
                     }
                 ]
             },
@@ -1467,47 +1454,47 @@ var routes = [
                 children: [
                     {
                         path: 'company',
-                        component: _pages_dashboard_git_admin_view_company_lists_page_view_company_lists_page_component__WEBPACK_IMPORTED_MODULE_31__["ViewCompanyListsPageComponent"]
+                        component: _pages_dashboard_git_admin_view_company_lists_page_view_company_lists_page_component__WEBPACK_IMPORTED_MODULE_30__["ViewCompanyListsPageComponent"]
                     },
                     {
                         path: 'admin',
-                        component: _pages_dashboard_git_admin_view_admin_lists_page_view_admin_lists_page_component__WEBPACK_IMPORTED_MODULE_32__["ViewAdminListsPageComponent"]
+                        component: _pages_dashboard_git_admin_view_admin_lists_page_view_admin_lists_page_component__WEBPACK_IMPORTED_MODULE_31__["ViewAdminListsPageComponent"]
                     },
                     {
                         path: 'form',
-                        component: _pages_dashboard_git_admin_view_form_lists_page_view_form_lists_page_component__WEBPACK_IMPORTED_MODULE_48__["ViewFormListsPageComponent"]
+                        component: _pages_dashboard_git_admin_view_form_lists_page_view_form_lists_page_component__WEBPACK_IMPORTED_MODULE_47__["ViewFormListsPageComponent"]
                     },
                     {
                         path: 'branch_admin',
-                        component: _pages_dashboard_git_admin_view_branch_admin_lists_page_view_branch_admin_lists_page_component__WEBPACK_IMPORTED_MODULE_42__["ViewBranchAdminListsPageComponent"]
+                        component: _pages_dashboard_git_admin_view_branch_admin_lists_page_view_branch_admin_lists_page_component__WEBPACK_IMPORTED_MODULE_41__["ViewBranchAdminListsPageComponent"]
                     },
                     {
                         path: 'company_admin',
-                        component: _pages_dashboard_git_admin_view_company_admin_lists_page_view_company_admin_lists_page_component__WEBPACK_IMPORTED_MODULE_41__["ViewCompanyAdminListsPageComponent"]
+                        component: _pages_dashboard_git_admin_view_company_admin_lists_page_view_company_admin_lists_page_component__WEBPACK_IMPORTED_MODULE_40__["ViewCompanyAdminListsPageComponent"]
                     },
                     {
                         path: 'super_executive',
-                        component: _pages_dashboard_git_admin_view_executive_lists_page_view_executive_lists_page_component__WEBPACK_IMPORTED_MODULE_33__["ViewExecutiveListsPageComponent"]
+                        component: _pages_dashboard_git_admin_view_executive_lists_page_view_executive_lists_page_component__WEBPACK_IMPORTED_MODULE_32__["ViewExecutiveListsPageComponent"]
                     },
                     {
                         path: 'branch_executive',
-                        component: _pages_dashboard_git_admin_view_branch_executive_lists_page_view_branch_executive_lists_page_component__WEBPACK_IMPORTED_MODULE_43__["ViewBranchExecutiveListsPageComponent"]
+                        component: _pages_dashboard_git_admin_view_branch_executive_lists_page_view_branch_executive_lists_page_component__WEBPACK_IMPORTED_MODULE_42__["ViewBranchExecutiveListsPageComponent"]
                     },
                     {
                         path: 'branch',
-                        component: _pages_dashboard_git_admin_view_branch_lists_page_view_branch_lists_page_component__WEBPACK_IMPORTED_MODULE_34__["ViewBranchListsPageComponent"]
+                        component: _pages_dashboard_git_admin_view_branch_lists_page_view_branch_lists_page_component__WEBPACK_IMPORTED_MODULE_33__["ViewBranchListsPageComponent"]
                     },
                     {
                         path: 'front_desk',
-                        component: _pages_dashboard_git_admin_view_front_desk_lists_page_view_front_desk_lists_page_component__WEBPACK_IMPORTED_MODULE_40__["ViewFrontDeskListsPageComponent"]
+                        component: _pages_dashboard_git_admin_view_front_desk_lists_page_view_front_desk_lists_page_component__WEBPACK_IMPORTED_MODULE_39__["ViewFrontDeskListsPageComponent"]
                     },
                     {
                         path: 'section',
-                        component: _pages_dashboard_git_admin_view_sections_page_view_sections_page_component__WEBPACK_IMPORTED_MODULE_68__["ViewSectionsPageComponent"]
+                        component: _pages_dashboard_git_admin_view_sections_page_view_sections_page_component__WEBPACK_IMPORTED_MODULE_67__["ViewSectionsPageComponent"]
                     },
                     {
                         path: 'access_code',
-                        component: _pages_dashboard_git_admin_view_access_code_page_view_access_code_page_component__WEBPACK_IMPORTED_MODULE_70__["ViewAccessCodePageComponent"]
+                        component: _pages_dashboard_git_admin_view_access_code_page_view_access_code_page_component__WEBPACK_IMPORTED_MODULE_69__["ViewAccessCodePageComponent"]
                     }
                 ]
             },
@@ -1516,19 +1503,19 @@ var routes = [
                 children: [
                     {
                         path: 'branch',
-                        component: _pages_dashboard_git_admin_view_branch_details_page_view_branch_details_page_component__WEBPACK_IMPORTED_MODULE_45__["ViewBranchDetailsPageComponent"]
+                        component: _pages_dashboard_git_admin_view_branch_details_page_view_branch_details_page_component__WEBPACK_IMPORTED_MODULE_44__["ViewBranchDetailsPageComponent"]
                     },
                     {
                         path: 'company',
-                        component: _pages_dashboard_git_admin_view_company_details_page_view_company_details_page_component__WEBPACK_IMPORTED_MODULE_46__["ViewCompanyDetailsPageComponent"]
+                        component: _pages_dashboard_git_admin_view_company_details_page_view_company_details_page_component__WEBPACK_IMPORTED_MODULE_45__["ViewCompanyDetailsPageComponent"]
                     },
                     {
                         path: 'user_account',
-                        component: _pages_dashboard_git_admin_view_account_details_page_view_account_details_page_component__WEBPACK_IMPORTED_MODULE_47__["ViewAccountDetailsPageComponent"]
+                        component: _pages_dashboard_git_admin_view_account_details_page_view_account_details_page_component__WEBPACK_IMPORTED_MODULE_46__["ViewAccountDetailsPageComponent"]
                     },
                     {
                         path: 'form',
-                        component: _pages_dashboard_git_admin_view_form_details_page_view_form_details_page_component__WEBPACK_IMPORTED_MODULE_49__["ViewFormDetailsPageComponent"]
+                        component: _pages_dashboard_git_admin_view_form_details_page_view_form_details_page_component__WEBPACK_IMPORTED_MODULE_48__["ViewFormDetailsPageComponent"]
                     }
                 ]
             }
@@ -1560,19 +1547,19 @@ var routes = [
             },
             {
                 path: 'forms_filled',
-                component: _pages_dashboard_client_client_forms_history_page_client_forms_history_page_component__WEBPACK_IMPORTED_MODULE_22__["ClientFormsHistoryPageComponent"]
+                component: _pages_dashboard_client_client_forms_history_page_client_forms_history_page_component__WEBPACK_IMPORTED_MODULE_21__["ClientFormsHistoryPageComponent"]
             },
             {
                 path: 'form_entry',
-                component: _pages_dashboard_client_client_forms_entry_page_client_forms_entry_page_component__WEBPACK_IMPORTED_MODULE_23__["ClientFormsEntryPageComponent"]
+                component: _pages_dashboard_client_client_forms_entry_page_client_forms_entry_page_component__WEBPACK_IMPORTED_MODULE_22__["ClientFormsEntryPageComponent"]
             },
             {
                 path: 'profile',
-                component: _pages_dashboard_client_client_profile_page_client_profile_page_component__WEBPACK_IMPORTED_MODULE_50__["ClientProfilePageComponent"]
+                component: _pages_dashboard_client_client_profile_page_client_profile_page_component__WEBPACK_IMPORTED_MODULE_49__["ClientProfilePageComponent"]
             },
             {
                 path: 'unsent_forms',
-                component: _pages_dashboard_client_client_unsent_forms_page_client_unsent_forms_page_component__WEBPACK_IMPORTED_MODULE_51__["ClientUnsentFormsPageComponent"]
+                component: _pages_dashboard_client_client_unsent_forms_page_client_unsent_forms_page_component__WEBPACK_IMPORTED_MODULE_50__["ClientUnsentFormsPageComponent"]
             }
         ]
     },
@@ -1586,26 +1573,26 @@ var routes = [
             },
             {
                 path: 'view_form',
-                component: _pages_dashboard_front_desk_front_desk_view_form_page_front_desk_view_form_page_component__WEBPACK_IMPORTED_MODULE_24__["FrontDeskViewFormPageComponent"]
+                component: _pages_dashboard_front_desk_front_desk_view_form_page_front_desk_view_form_page_component__WEBPACK_IMPORTED_MODULE_23__["FrontDeskViewFormPageComponent"]
             },
             {
                 path: 'preview',
-                component: _pages_dashboard_front_desk_front_desk_preview_form_page_front_desk_preview_form_page_component__WEBPACK_IMPORTED_MODULE_71__["FrontDeskPreviewFormPageComponent"]
+                component: _pages_dashboard_front_desk_front_desk_preview_form_page_front_desk_preview_form_page_component__WEBPACK_IMPORTED_MODULE_70__["FrontDeskPreviewFormPageComponent"]
             },
             {
                 path: 'lists',
                 children: [
                     {
                         path: 'submitted',
-                        component: _pages_dashboard_front_desk_front_desk_submitted_forms_list_page_front_desk_submitted_forms_list_page_component__WEBPACK_IMPORTED_MODULE_35__["FrontDeskSubmittedFormsListPageComponent"]
+                        component: _pages_dashboard_front_desk_front_desk_submitted_forms_list_page_front_desk_submitted_forms_list_page_component__WEBPACK_IMPORTED_MODULE_34__["FrontDeskSubmittedFormsListPageComponent"]
                     },
                     {
                         path: 'processed',
-                        component: _pages_dashboard_front_desk_front_desk_processed_forms_list_page_front_desk_processed_forms_list_page_component__WEBPACK_IMPORTED_MODULE_37__["FrontDeskProcessedFormsListPageComponent"]
+                        component: _pages_dashboard_front_desk_front_desk_processed_forms_list_page_front_desk_processed_forms_list_page_component__WEBPACK_IMPORTED_MODULE_36__["FrontDeskProcessedFormsListPageComponent"]
                     },
                     {
                         path: 'processing',
-                        component: _pages_dashboard_front_desk_front_desk_processing_forms_list_page_front_desk_processing_forms_list_page_component__WEBPACK_IMPORTED_MODULE_36__["FrontDeskProcessingFormsListPageComponent"]
+                        component: _pages_dashboard_front_desk_front_desk_processing_forms_list_page_front_desk_processing_forms_list_page_component__WEBPACK_IMPORTED_MODULE_35__["FrontDeskProcessingFormsListPageComponent"]
                     }
                 ]
             }
@@ -1621,31 +1608,27 @@ var routes = [
             },
             {
                 path: 'submitted',
-                component: _pages_dashboard_executive_exec_submitted_forms_page_exec_submitted_forms_page_component__WEBPACK_IMPORTED_MODULE_17__["ExecSubmittedFormsPageComponent"]
-            },
-            {
-                path: 'submitted',
-                component: _pages_dashboard_executive_exec_submitted_forms_list_page_exec_submitted_forms_list_page_component__WEBPACK_IMPORTED_MODULE_19__["ExecSubmittedFormsListPageComponent"]
+                component: _pages_dashboard_executive_exec_submitted_forms_list_page_exec_submitted_forms_list_page_component__WEBPACK_IMPORTED_MODULE_18__["ExecSubmittedFormsListPageComponent"]
             },
             {
                 path: 'processed',
-                component: _pages_dashboard_executive_exec_processed_forms_list_page_exec_processed_forms_list_page_component__WEBPACK_IMPORTED_MODULE_20__["ExecProcessedFormsListPageComponent"]
+                component: _pages_dashboard_executive_exec_processed_forms_list_page_exec_processed_forms_list_page_component__WEBPACK_IMPORTED_MODULE_19__["ExecProcessedFormsListPageComponent"]
             },
             {
                 path: 'processing',
-                component: _pages_dashboard_executive_exec_in_processed_forms_list_page_exec_in_processed_forms_list_page_component__WEBPACK_IMPORTED_MODULE_18__["ExecInProcessedFormsListPageComponent"]
+                component: _pages_dashboard_executive_exec_in_processed_forms_list_page_exec_in_processed_forms_list_page_component__WEBPACK_IMPORTED_MODULE_17__["ExecInProcessedFormsListPageComponent"]
             },
             {
                 path: 'forms',
-                component: _pages_dashboard_executive_exec_forms_list_page_exec_forms_list_page_component__WEBPACK_IMPORTED_MODULE_74__["ExecFormsListPageComponent"]
+                component: _pages_dashboard_executive_exec_forms_list_page_exec_forms_list_page_component__WEBPACK_IMPORTED_MODULE_73__["ExecFormsListPageComponent"]
             },
             {
                 path: 'accounts',
-                component: _pages_dashboard_executive_exec_accounts_list_page_exec_accounts_list_page_component__WEBPACK_IMPORTED_MODULE_72__["ExecAccountsListPageComponent"]
+                component: _pages_dashboard_executive_exec_accounts_list_page_exec_accounts_list_page_component__WEBPACK_IMPORTED_MODULE_71__["ExecAccountsListPageComponent"]
             },
             {
                 path: 'branches',
-                component: _pages_dashboard_executive_exec_branches_list_page_exec_branches_list_page_component__WEBPACK_IMPORTED_MODULE_73__["ExecBranchesListPageComponent"]
+                component: _pages_dashboard_executive_exec_branches_list_page_exec_branches_list_page_component__WEBPACK_IMPORTED_MODULE_72__["ExecBranchesListPageComponent"]
             }
         ]
     },
@@ -1655,18 +1638,18 @@ var routes = [
             {
                 path: '',
                 pathMatch: 'full',
-                component: _pages_dashboard_admin_admin_home_page_admin_home_page_component__WEBPACK_IMPORTED_MODULE_21__["AdminHomePageComponent"]
+                component: _pages_dashboard_admin_admin_home_page_admin_home_page_component__WEBPACK_IMPORTED_MODULE_20__["AdminHomePageComponent"]
             },
             {
                 path: 'create',
                 children: [
                     {
                         path: 'form',
-                        component: _pages_dashboard_admin_admin_create_form_page_admin_create_form_page_component__WEBPACK_IMPORTED_MODULE_56__["AdminCreateFormPageComponent"],
+                        component: _pages_dashboard_admin_admin_create_form_page_admin_create_form_page_component__WEBPACK_IMPORTED_MODULE_55__["AdminCreateFormPageComponent"],
                     },
                     {
                         path: 'account',
-                        component: _pages_dashboard_admin_admin_create_user_page_admin_create_user_page_component__WEBPACK_IMPORTED_MODULE_57__["AdminCreateUserPageComponent"]
+                        component: _pages_dashboard_admin_admin_create_user_page_admin_create_user_page_component__WEBPACK_IMPORTED_MODULE_56__["AdminCreateUserPageComponent"]
                     }
                 ]
             },
@@ -1675,11 +1658,11 @@ var routes = [
                 children: [
                     {
                         path: 'form',
-                        component: _pages_dashboard_admin_admin_form_edit_page_admin_form_edit_page_component__WEBPACK_IMPORTED_MODULE_26__["AdminFormEditPageComponent"]
+                        component: _pages_dashboard_admin_admin_form_edit_page_admin_form_edit_page_component__WEBPACK_IMPORTED_MODULE_25__["AdminFormEditPageComponent"]
                     },
                     {
                         path: 'account',
-                        component: _pages_dashboard_admin_admin_edit_user_page_admin_edit_user_page_component__WEBPACK_IMPORTED_MODULE_58__["AdminEditUserPageComponent"]
+                        component: _pages_dashboard_admin_admin_edit_user_page_admin_edit_user_page_component__WEBPACK_IMPORTED_MODULE_57__["AdminEditUserPageComponent"]
                     }
                 ]
             },
@@ -1688,15 +1671,15 @@ var routes = [
                 children: [
                     {
                         path: 'form',
-                        component: _pages_dashboard_admin_admin_form_lists_page_admin_form_lists_page_component__WEBPACK_IMPORTED_MODULE_25__["AdminFormListsPageComponent"]
+                        component: _pages_dashboard_admin_admin_form_lists_page_admin_form_lists_page_component__WEBPACK_IMPORTED_MODULE_24__["AdminFormListsPageComponent"]
                     },
                     {
                         path: 'account',
-                        component: _pages_dashboard_admin_admin_view_front_desks_page_admin_view_front_desks_page_component__WEBPACK_IMPORTED_MODULE_59__["AdminViewFrontDesksPageComponent"]
+                        component: _pages_dashboard_admin_admin_view_front_desks_page_admin_view_front_desks_page_component__WEBPACK_IMPORTED_MODULE_58__["AdminViewFrontDesksPageComponent"]
                     },
                     {
                         path: 'branch',
-                        component: _pages_dashboard_admin_admin_view_branches_page_admin_view_branches_page_component__WEBPACK_IMPORTED_MODULE_60__["AdminViewBranchesPageComponent"]
+                        component: _pages_dashboard_admin_admin_view_branches_page_admin_view_branches_page_component__WEBPACK_IMPORTED_MODULE_59__["AdminViewBranchesPageComponent"]
                     }
                 ]
             },
@@ -1705,15 +1688,15 @@ var routes = [
                 children: [
                     {
                         path: 'form',
-                        component: _pages_dashboard_admin_admin_form_view_page_admin_form_view_page_component__WEBPACK_IMPORTED_MODULE_27__["AdminFormViewPageComponent"]
+                        component: _pages_dashboard_admin_admin_form_view_page_admin_form_view_page_component__WEBPACK_IMPORTED_MODULE_26__["AdminFormViewPageComponent"]
                     },
                     {
                         path: 'account',
-                        component: _pages_dashboard_admin_admin_view_account_details_page_admin_view_account_details_page_component__WEBPACK_IMPORTED_MODULE_61__["AdminViewAccountDetailsPageComponent"]
+                        component: _pages_dashboard_admin_admin_view_account_details_page_admin_view_account_details_page_component__WEBPACK_IMPORTED_MODULE_60__["AdminViewAccountDetailsPageComponent"]
                     },
                     {
                         path: 'branch',
-                        component: _pages_dashboard_admin_admin_view_branch_details_page_admin_view_branch_details_page_component__WEBPACK_IMPORTED_MODULE_62__["AdminViewBranchDetailsPageComponent"]
+                        component: _pages_dashboard_admin_admin_view_branch_details_page_admin_view_branch_details_page_component__WEBPACK_IMPORTED_MODULE_61__["AdminViewBranchDetailsPageComponent"]
                     }
                 ]
             }
@@ -1724,19 +1707,19 @@ var routes = [
         children: [
             {
                 path: 'create',
-                component: _pages_dashboard_form_templates_add_template_page_add_template_page_component__WEBPACK_IMPORTED_MODULE_52__["AddTemplatePageComponent"]
+                component: _pages_dashboard_form_templates_add_template_page_add_template_page_component__WEBPACK_IMPORTED_MODULE_51__["AddTemplatePageComponent"]
             },
             {
                 path: 'edit',
-                component: _pages_dashboard_form_templates_edit_template_page_edit_template_page_component__WEBPACK_IMPORTED_MODULE_53__["EditTemplatePageComponent"]
+                component: _pages_dashboard_form_templates_edit_template_page_edit_template_page_component__WEBPACK_IMPORTED_MODULE_52__["EditTemplatePageComponent"]
             },
             {
                 path: 'list',
-                component: _pages_dashboard_form_templates_list_template_page_list_template_page_component__WEBPACK_IMPORTED_MODULE_54__["ListTemplatePageComponent"]
+                component: _pages_dashboard_form_templates_list_template_page_list_template_page_component__WEBPACK_IMPORTED_MODULE_53__["ListTemplatePageComponent"]
             },
             {
                 path: 'view',
-                component: _pages_dashboard_form_templates_view_template_page_view_template_page_component__WEBPACK_IMPORTED_MODULE_55__["ViewTemplatePageComponent"]
+                component: _pages_dashboard_form_templates_view_template_page_view_template_page_component__WEBPACK_IMPORTED_MODULE_54__["ViewTemplatePageComponent"]
             }
         ]
     }
@@ -1848,73 +1831,71 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _pages_dashboard_front_desk_front_desk_home_page_front_desk_home_page_component__WEBPACK_IMPORTED_MODULE_30__ = __webpack_require__(/*! ./pages/dashboard/front-desk/front-desk-home-page/front-desk-home-page.component */ "./src/app/pages/dashboard/front-desk/front-desk-home-page/front-desk-home-page.component.ts");
 /* harmony import */ var _pages_dashboard_git_admin_create_company_page_create_company_page_component__WEBPACK_IMPORTED_MODULE_31__ = __webpack_require__(/*! ./pages/dashboard/git-admin/create-company-page/create-company-page.component */ "./src/app/pages/dashboard/git-admin/create-company-page/create-company-page.component.ts");
 /* harmony import */ var _pages_dashboard_git_admin_create_branch_page_create_branch_page_component__WEBPACK_IMPORTED_MODULE_32__ = __webpack_require__(/*! ./pages/dashboard/git-admin/create-branch-page/create-branch-page.component */ "./src/app/pages/dashboard/git-admin/create-branch-page/create-branch-page.component.ts");
-/* harmony import */ var _pages_dashboard_executive_exec_submitted_forms_page_exec_submitted_forms_page_component__WEBPACK_IMPORTED_MODULE_33__ = __webpack_require__(/*! ./pages/dashboard/executive/exec-submitted-forms-page/exec-submitted-forms-page.component */ "./src/app/pages/dashboard/executive/exec-submitted-forms-page/exec-submitted-forms-page.component.ts");
-/* harmony import */ var _pages_dashboard_executive_executive_home_page_executive_home_page_component__WEBPACK_IMPORTED_MODULE_34__ = __webpack_require__(/*! ./pages/dashboard/executive/executive-home-page/executive-home-page.component */ "./src/app/pages/dashboard/executive/executive-home-page/executive-home-page.component.ts");
-/* harmony import */ var _pages_dashboard_executive_exec_submitted_forms_list_page_exec_submitted_forms_list_page_component__WEBPACK_IMPORTED_MODULE_35__ = __webpack_require__(/*! ./pages/dashboard/executive/exec-submitted-forms-list-page/exec-submitted-forms-list-page.component */ "./src/app/pages/dashboard/executive/exec-submitted-forms-list-page/exec-submitted-forms-list-page.component.ts");
-/* harmony import */ var _pages_dashboard_executive_exec_processed_forms_list_page_exec_processed_forms_list_page_component__WEBPACK_IMPORTED_MODULE_36__ = __webpack_require__(/*! ./pages/dashboard/executive/exec-processed-forms-list-page/exec-processed-forms-list-page.component */ "./src/app/pages/dashboard/executive/exec-processed-forms-list-page/exec-processed-forms-list-page.component.ts");
-/* harmony import */ var _pages_dashboard_executive_exec_in_processed_forms_list_page_exec_in_processed_forms_list_page_component__WEBPACK_IMPORTED_MODULE_37__ = __webpack_require__(/*! ./pages/dashboard/executive/exec-in-processed-forms-list-page/exec-in-processed-forms-list-page.component */ "./src/app/pages/dashboard/executive/exec-in-processed-forms-list-page/exec-in-processed-forms-list-page.component.ts");
-/* harmony import */ var _pages_dashboard_admin_admin_home_page_admin_home_page_component__WEBPACK_IMPORTED_MODULE_38__ = __webpack_require__(/*! ./pages/dashboard/admin/admin-home-page/admin-home-page.component */ "./src/app/pages/dashboard/admin/admin-home-page/admin-home-page.component.ts");
-/* harmony import */ var _pages_dashboard_client_client_forms_history_page_client_forms_history_page_component__WEBPACK_IMPORTED_MODULE_39__ = __webpack_require__(/*! ./pages/dashboard/client/client-forms-history-page/client-forms-history-page.component */ "./src/app/pages/dashboard/client/client-forms-history-page/client-forms-history-page.component.ts");
-/* harmony import */ var _pages_dashboard_client_client_forms_entry_page_client_forms_entry_page_component__WEBPACK_IMPORTED_MODULE_40__ = __webpack_require__(/*! ./pages/dashboard/client/client-forms-entry-page/client-forms-entry-page.component */ "./src/app/pages/dashboard/client/client-forms-entry-page/client-forms-entry-page.component.ts");
-/* harmony import */ var _pages_dashboard_front_desk_front_desk_view_form_page_front_desk_view_form_page_component__WEBPACK_IMPORTED_MODULE_41__ = __webpack_require__(/*! ./pages/dashboard/front-desk/front-desk-view-form-page/front-desk-view-form-page.component */ "./src/app/pages/dashboard/front-desk/front-desk-view-form-page/front-desk-view-form-page.component.ts");
-/* harmony import */ var _pages_dashboard_admin_admin_form_lists_page_admin_form_lists_page_component__WEBPACK_IMPORTED_MODULE_42__ = __webpack_require__(/*! ./pages/dashboard/admin/admin-form-lists-page/admin-form-lists-page.component */ "./src/app/pages/dashboard/admin/admin-form-lists-page/admin-form-lists-page.component.ts");
-/* harmony import */ var _pages_dashboard_admin_admin_form_edit_page_admin_form_edit_page_component__WEBPACK_IMPORTED_MODULE_43__ = __webpack_require__(/*! ./pages/dashboard/admin/admin-form-edit-page/admin-form-edit-page.component */ "./src/app/pages/dashboard/admin/admin-form-edit-page/admin-form-edit-page.component.ts");
-/* harmony import */ var _pages_dashboard_admin_admin_form_view_page_admin_form_view_page_component__WEBPACK_IMPORTED_MODULE_44__ = __webpack_require__(/*! ./pages/dashboard/admin/admin-form-view-page/admin-form-view-page.component */ "./src/app/pages/dashboard/admin/admin-form-view-page/admin-form-view-page.component.ts");
-/* harmony import */ var _pages_dashboard_git_admin_edit_form_page_edit_form_page_component__WEBPACK_IMPORTED_MODULE_45__ = __webpack_require__(/*! ./pages/dashboard/git-admin/edit-form-page/edit-form-page.component */ "./src/app/pages/dashboard/git-admin/edit-form-page/edit-form-page.component.ts");
-/* harmony import */ var _pages_dashboard_git_admin_edit_branch_page_edit_branch_page_component__WEBPACK_IMPORTED_MODULE_46__ = __webpack_require__(/*! ./pages/dashboard/git-admin/edit-branch-page/edit-branch-page.component */ "./src/app/pages/dashboard/git-admin/edit-branch-page/edit-branch-page.component.ts");
-/* harmony import */ var _pages_dashboard_git_admin_edit_company_page_edit_company_page_component__WEBPACK_IMPORTED_MODULE_47__ = __webpack_require__(/*! ./pages/dashboard/git-admin/edit-company-page/edit-company-page.component */ "./src/app/pages/dashboard/git-admin/edit-company-page/edit-company-page.component.ts");
-/* harmony import */ var _pages_dashboard_git_admin_view_admin_lists_page_view_admin_lists_page_component__WEBPACK_IMPORTED_MODULE_48__ = __webpack_require__(/*! ./pages/dashboard/git-admin/view-admin-lists-page/view-admin-lists-page.component */ "./src/app/pages/dashboard/git-admin/view-admin-lists-page/view-admin-lists-page.component.ts");
-/* harmony import */ var _pages_dashboard_git_admin_view_branch_lists_page_view_branch_lists_page_component__WEBPACK_IMPORTED_MODULE_49__ = __webpack_require__(/*! ./pages/dashboard/git-admin/view-branch-lists-page/view-branch-lists-page.component */ "./src/app/pages/dashboard/git-admin/view-branch-lists-page/view-branch-lists-page.component.ts");
-/* harmony import */ var _pages_dashboard_git_admin_view_company_lists_page_view_company_lists_page_component__WEBPACK_IMPORTED_MODULE_50__ = __webpack_require__(/*! ./pages/dashboard/git-admin/view-company-lists-page/view-company-lists-page.component */ "./src/app/pages/dashboard/git-admin/view-company-lists-page/view-company-lists-page.component.ts");
-/* harmony import */ var _pages_dashboard_git_admin_view_executive_lists_page_view_executive_lists_page_component__WEBPACK_IMPORTED_MODULE_51__ = __webpack_require__(/*! ./pages/dashboard/git-admin/view-executive-lists-page/view-executive-lists-page.component */ "./src/app/pages/dashboard/git-admin/view-executive-lists-page/view-executive-lists-page.component.ts");
-/* harmony import */ var _pages_dashboard_front_desk_front_desk_submitted_forms_list_page_front_desk_submitted_forms_list_page_component__WEBPACK_IMPORTED_MODULE_52__ = __webpack_require__(/*! ./pages/dashboard/front-desk/front-desk-submitted-forms-list-page/front-desk-submitted-forms-list-page.component */ "./src/app/pages/dashboard/front-desk/front-desk-submitted-forms-list-page/front-desk-submitted-forms-list-page.component.ts");
-/* harmony import */ var _pages_dashboard_front_desk_front_desk_processed_forms_list_page_front_desk_processed_forms_list_page_component__WEBPACK_IMPORTED_MODULE_53__ = __webpack_require__(/*! ./pages/dashboard/front-desk/front-desk-processed-forms-list-page/front-desk-processed-forms-list-page.component */ "./src/app/pages/dashboard/front-desk/front-desk-processed-forms-list-page/front-desk-processed-forms-list-page.component.ts");
-/* harmony import */ var _pages_dashboard_front_desk_front_desk_processing_forms_list_page_front_desk_processing_forms_list_page_component__WEBPACK_IMPORTED_MODULE_54__ = __webpack_require__(/*! ./pages/dashboard/front-desk/front-desk-processing-forms-list-page/front-desk-processing-forms-list-page.component */ "./src/app/pages/dashboard/front-desk/front-desk-processing-forms-list-page/front-desk-processing-forms-list-page.component.ts");
-/* harmony import */ var _pages_admin_register_page_admin_register_page_component__WEBPACK_IMPORTED_MODULE_55__ = __webpack_require__(/*! ./pages/admin-register-page/admin-register-page.component */ "./src/app/pages/admin-register-page/admin-register-page.component.ts");
-/* harmony import */ var _pages_dashboard_user_account_creator_user_account_creator_component__WEBPACK_IMPORTED_MODULE_56__ = __webpack_require__(/*! ./pages/dashboard/user-account-creator/user-account-creator.component */ "./src/app/pages/dashboard/user-account-creator/user-account-creator.component.ts");
-/* harmony import */ var _pages_dashboard_git_admin_create_user_page_create_user_page_component__WEBPACK_IMPORTED_MODULE_57__ = __webpack_require__(/*! ./pages/dashboard/git-admin/create-user-page/create-user-page.component */ "./src/app/pages/dashboard/git-admin/create-user-page/create-user-page.component.ts");
-/* harmony import */ var _pages_dashboard_git_admin_view_front_desk_lists_page_view_front_desk_lists_page_component__WEBPACK_IMPORTED_MODULE_58__ = __webpack_require__(/*! ./pages/dashboard/git-admin/view-front-desk-lists-page/view-front-desk-lists-page.component */ "./src/app/pages/dashboard/git-admin/view-front-desk-lists-page/view-front-desk-lists-page.component.ts");
-/* harmony import */ var _pages_dashboard_git_admin_view_company_admin_lists_page_view_company_admin_lists_page_component__WEBPACK_IMPORTED_MODULE_59__ = __webpack_require__(/*! ./pages/dashboard/git-admin/view-company-admin-lists-page/view-company-admin-lists-page.component */ "./src/app/pages/dashboard/git-admin/view-company-admin-lists-page/view-company-admin-lists-page.component.ts");
-/* harmony import */ var _pages_dashboard_git_admin_view_account_lists_page_view_account_lists_page_component__WEBPACK_IMPORTED_MODULE_60__ = __webpack_require__(/*! ./pages/dashboard/git-admin/view-account-lists-page/view-account-lists-page.component */ "./src/app/pages/dashboard/git-admin/view-account-lists-page/view-account-lists-page.component.ts");
-/* harmony import */ var _angular_platform_browser_animations__WEBPACK_IMPORTED_MODULE_61__ = __webpack_require__(/*! @angular/platform-browser/animations */ "./node_modules/@angular/platform-browser/fesm5/animations.js");
-/* harmony import */ var _pages_dashboard_git_admin_view_branch_admin_lists_page_view_branch_admin_lists_page_component__WEBPACK_IMPORTED_MODULE_62__ = __webpack_require__(/*! ./pages/dashboard/git-admin/view-branch-admin-lists-page/view-branch-admin-lists-page.component */ "./src/app/pages/dashboard/git-admin/view-branch-admin-lists-page/view-branch-admin-lists-page.component.ts");
-/* harmony import */ var _pages_dashboard_git_admin_view_branch_executive_lists_page_view_branch_executive_lists_page_component__WEBPACK_IMPORTED_MODULE_63__ = __webpack_require__(/*! ./pages/dashboard/git-admin/view-branch-executive-lists-page/view-branch-executive-lists-page.component */ "./src/app/pages/dashboard/git-admin/view-branch-executive-lists-page/view-branch-executive-lists-page.component.ts");
-/* harmony import */ var _pages_dashboard_git_admin_edit_user_page_edit_user_page_component__WEBPACK_IMPORTED_MODULE_64__ = __webpack_require__(/*! ./pages/dashboard/git-admin/edit-user-page/edit-user-page.component */ "./src/app/pages/dashboard/git-admin/edit-user-page/edit-user-page.component.ts");
-/* harmony import */ var _pages_dashboard_user_account_editor_user_account_editor_component__WEBPACK_IMPORTED_MODULE_65__ = __webpack_require__(/*! ./pages/dashboard/user-account-editor/user-account-editor.component */ "./src/app/pages/dashboard/user-account-editor/user-account-editor.component.ts");
-/* harmony import */ var _pages_dashboard_git_admin_view_account_details_page_view_account_details_page_component__WEBPACK_IMPORTED_MODULE_66__ = __webpack_require__(/*! ./pages/dashboard/git-admin/view-account-details-page/view-account-details-page.component */ "./src/app/pages/dashboard/git-admin/view-account-details-page/view-account-details-page.component.ts");
-/* harmony import */ var _pages_dashboard_git_admin_view_company_details_page_view_company_details_page_component__WEBPACK_IMPORTED_MODULE_67__ = __webpack_require__(/*! ./pages/dashboard/git-admin/view-company-details-page/view-company-details-page.component */ "./src/app/pages/dashboard/git-admin/view-company-details-page/view-company-details-page.component.ts");
-/* harmony import */ var _pages_dashboard_git_admin_view_branch_details_page_view_branch_details_page_component__WEBPACK_IMPORTED_MODULE_68__ = __webpack_require__(/*! ./pages/dashboard/git-admin/view-branch-details-page/view-branch-details-page.component */ "./src/app/pages/dashboard/git-admin/view-branch-details-page/view-branch-details-page.component.ts");
-/* harmony import */ var _pages_dashboard_git_admin_view_form_lists_page_view_form_lists_page_component__WEBPACK_IMPORTED_MODULE_69__ = __webpack_require__(/*! ./pages/dashboard/git-admin/view-form-lists-page/view-form-lists-page.component */ "./src/app/pages/dashboard/git-admin/view-form-lists-page/view-form-lists-page.component.ts");
-/* harmony import */ var _pages_dashboard_git_admin_view_form_details_page_view_form_details_page_component__WEBPACK_IMPORTED_MODULE_70__ = __webpack_require__(/*! ./pages/dashboard/git-admin/view-form-details-page/view-form-details-page.component */ "./src/app/pages/dashboard/git-admin/view-form-details-page/view-form-details-page.component.ts");
-/* harmony import */ var _pages_dashboard_client_client_profile_page_client_profile_page_component__WEBPACK_IMPORTED_MODULE_71__ = __webpack_require__(/*! ./pages/dashboard/client/client-profile-page/client-profile-page.component */ "./src/app/pages/dashboard/client/client-profile-page/client-profile-page.component.ts");
-/* harmony import */ var _pages_dashboard_client_client_unsent_forms_page_client_unsent_forms_page_component__WEBPACK_IMPORTED_MODULE_72__ = __webpack_require__(/*! ./pages/dashboard/client/client-unsent-forms-page/client-unsent-forms-page.component */ "./src/app/pages/dashboard/client/client-unsent-forms-page/client-unsent-forms-page.component.ts");
-/* harmony import */ var _pages_dashboard_form_templates_add_template_page_add_template_page_component__WEBPACK_IMPORTED_MODULE_73__ = __webpack_require__(/*! ./pages/dashboard/form-templates/add-template-page/add-template-page.component */ "./src/app/pages/dashboard/form-templates/add-template-page/add-template-page.component.ts");
-/* harmony import */ var _pages_dashboard_form_templates_edit_template_page_edit_template_page_component__WEBPACK_IMPORTED_MODULE_74__ = __webpack_require__(/*! ./pages/dashboard/form-templates/edit-template-page/edit-template-page.component */ "./src/app/pages/dashboard/form-templates/edit-template-page/edit-template-page.component.ts");
-/* harmony import */ var _pages_dashboard_form_templates_list_template_page_list_template_page_component__WEBPACK_IMPORTED_MODULE_75__ = __webpack_require__(/*! ./pages/dashboard/form-templates/list-template-page/list-template-page.component */ "./src/app/pages/dashboard/form-templates/list-template-page/list-template-page.component.ts");
-/* harmony import */ var _pages_dashboard_form_templates_view_template_page_view_template_page_component__WEBPACK_IMPORTED_MODULE_76__ = __webpack_require__(/*! ./pages/dashboard/form-templates/view-template-page/view-template-page.component */ "./src/app/pages/dashboard/form-templates/view-template-page/view-template-page.component.ts");
-/* harmony import */ var _pages_dashboard_admin_admin_view_front_desks_page_admin_view_front_desks_page_component__WEBPACK_IMPORTED_MODULE_77__ = __webpack_require__(/*! ./pages/dashboard/admin/admin-view-front-desks-page/admin-view-front-desks-page.component */ "./src/app/pages/dashboard/admin/admin-view-front-desks-page/admin-view-front-desks-page.component.ts");
-/* harmony import */ var _pages_dashboard_admin_admin_view_branches_page_admin_view_branches_page_component__WEBPACK_IMPORTED_MODULE_78__ = __webpack_require__(/*! ./pages/dashboard/admin/admin-view-branches-page/admin-view-branches-page.component */ "./src/app/pages/dashboard/admin/admin-view-branches-page/admin-view-branches-page.component.ts");
-/* harmony import */ var _pages_dashboard_admin_admin_create_form_page_admin_create_form_page_component__WEBPACK_IMPORTED_MODULE_79__ = __webpack_require__(/*! ./pages/dashboard/admin/admin-create-form-page/admin-create-form-page.component */ "./src/app/pages/dashboard/admin/admin-create-form-page/admin-create-form-page.component.ts");
-/* harmony import */ var _pages_dashboard_admin_admin_create_user_page_admin_create_user_page_component__WEBPACK_IMPORTED_MODULE_80__ = __webpack_require__(/*! ./pages/dashboard/admin/admin-create-user-page/admin-create-user-page.component */ "./src/app/pages/dashboard/admin/admin-create-user-page/admin-create-user-page.component.ts");
-/* harmony import */ var _pages_dashboard_admin_admin_edit_user_page_admin_edit_user_page_component__WEBPACK_IMPORTED_MODULE_81__ = __webpack_require__(/*! ./pages/dashboard/admin/admin-edit-user-page/admin-edit-user-page.component */ "./src/app/pages/dashboard/admin/admin-edit-user-page/admin-edit-user-page.component.ts");
-/* harmony import */ var _pages_dashboard_admin_admin_view_account_details_page_admin_view_account_details_page_component__WEBPACK_IMPORTED_MODULE_82__ = __webpack_require__(/*! ./pages/dashboard/admin/admin-view-account-details-page/admin-view-account-details-page.component */ "./src/app/pages/dashboard/admin/admin-view-account-details-page/admin-view-account-details-page.component.ts");
-/* harmony import */ var _pages_dashboard_admin_admin_view_branch_details_page_admin_view_branch_details_page_component__WEBPACK_IMPORTED_MODULE_83__ = __webpack_require__(/*! ./pages/dashboard/admin/admin-view-branch-details-page/admin-view-branch-details-page.component */ "./src/app/pages/dashboard/admin/admin-view-branch-details-page/admin-view-branch-details-page.component.ts");
-/* harmony import */ var _pages_dashboard_branch_admin_branch_admin_home_page_branch_admin_home_page_component__WEBPACK_IMPORTED_MODULE_84__ = __webpack_require__(/*! ./pages/dashboard/branch-admin/branch-admin-home-page/branch-admin-home-page.component */ "./src/app/pages/dashboard/branch-admin/branch-admin-home-page/branch-admin-home-page.component.ts");
-/* harmony import */ var _pages_dashboard_branch_admin_branch_admin_create_user_page_branch_admin_create_user_page_component__WEBPACK_IMPORTED_MODULE_85__ = __webpack_require__(/*! ./pages/dashboard/branch-admin/branch-admin-create-user-page/branch-admin-create-user-page.component */ "./src/app/pages/dashboard/branch-admin/branch-admin-create-user-page/branch-admin-create-user-page.component.ts");
-/* harmony import */ var _pages_dashboard_branch_admin_branch_admin_edit_user_page_branch_admin_edit_user_page_component__WEBPACK_IMPORTED_MODULE_86__ = __webpack_require__(/*! ./pages/dashboard/branch-admin/branch-admin-edit-user-page/branch-admin-edit-user-page.component */ "./src/app/pages/dashboard/branch-admin/branch-admin-edit-user-page/branch-admin-edit-user-page.component.ts");
-/* harmony import */ var _pages_dashboard_git_admin_create_access_code_page_create_access_code_page_component__WEBPACK_IMPORTED_MODULE_87__ = __webpack_require__(/*! ./pages/dashboard/git-admin/create-access-code-page/create-access-code-page.component */ "./src/app/pages/dashboard/git-admin/create-access-code-page/create-access-code-page.component.ts");
-/* harmony import */ var _pages_auth_page_auth_page_component__WEBPACK_IMPORTED_MODULE_88__ = __webpack_require__(/*! ./pages/auth-page/auth-page.component */ "./src/app/pages/auth-page/auth-page.component.ts");
-/* harmony import */ var _pages_admin_login_page_admin_login_page_component__WEBPACK_IMPORTED_MODULE_89__ = __webpack_require__(/*! ./pages/admin-login-page/admin-login-page.component */ "./src/app/pages/admin-login-page/admin-login-page.component.ts");
-/* harmony import */ var _pages_dashboard_git_admin_create_section_page_create_section_page_component__WEBPACK_IMPORTED_MODULE_90__ = __webpack_require__(/*! ./pages/dashboard/git-admin/create-section-page/create-section-page.component */ "./src/app/pages/dashboard/git-admin/create-section-page/create-section-page.component.ts");
-/* harmony import */ var _pages_dashboard_git_admin_edit_section_page_edit_section_page_component__WEBPACK_IMPORTED_MODULE_91__ = __webpack_require__(/*! ./pages/dashboard/git-admin/edit-section-page/edit-section-page.component */ "./src/app/pages/dashboard/git-admin/edit-section-page/edit-section-page.component.ts");
-/* harmony import */ var _pages_dashboard_git_admin_view_sections_page_view_sections_page_component__WEBPACK_IMPORTED_MODULE_92__ = __webpack_require__(/*! ./pages/dashboard/git-admin/view-sections-page/view-sections-page.component */ "./src/app/pages/dashboard/git-admin/view-sections-page/view-sections-page.component.ts");
-/* harmony import */ var _pages_dashboard_git_admin_view_access_code_page_view_access_code_page_component__WEBPACK_IMPORTED_MODULE_93__ = __webpack_require__(/*! ./pages/dashboard/git-admin/view-access-code-page/view-access-code-page.component */ "./src/app/pages/dashboard/git-admin/view-access-code-page/view-access-code-page.component.ts");
-/* harmony import */ var _pages_dashboard_git_admin_edit_access_code_page_edit_access_code_page_component__WEBPACK_IMPORTED_MODULE_94__ = __webpack_require__(/*! ./pages/dashboard/git-admin/edit-access-code-page/edit-access-code-page.component */ "./src/app/pages/dashboard/git-admin/edit-access-code-page/edit-access-code-page.component.ts");
-/* harmony import */ var _pages_dashboard_front_desk_front_desk_preview_form_page_front_desk_preview_form_page_component__WEBPACK_IMPORTED_MODULE_95__ = __webpack_require__(/*! ./pages/dashboard/front-desk/front-desk-preview-form-page/front-desk-preview-form-page.component */ "./src/app/pages/dashboard/front-desk/front-desk-preview-form-page/front-desk-preview-form-page.component.ts");
-/* harmony import */ var _pages_dashboard_executive_exec_branches_list_page_exec_branches_list_page_component__WEBPACK_IMPORTED_MODULE_96__ = __webpack_require__(/*! ./pages/dashboard/executive/exec-branches-list-page/exec-branches-list-page.component */ "./src/app/pages/dashboard/executive/exec-branches-list-page/exec-branches-list-page.component.ts");
-/* harmony import */ var _pages_dashboard_executive_exec_accounts_list_page_exec_accounts_list_page_component__WEBPACK_IMPORTED_MODULE_97__ = __webpack_require__(/*! ./pages/dashboard/executive/exec-accounts-list-page/exec-accounts-list-page.component */ "./src/app/pages/dashboard/executive/exec-accounts-list-page/exec-accounts-list-page.component.ts");
-/* harmony import */ var _pages_dashboard_executive_exec_forms_list_page_exec_forms_list_page_component__WEBPACK_IMPORTED_MODULE_98__ = __webpack_require__(/*! ./pages/dashboard/executive/exec-forms-list-page/exec-forms-list-page.component */ "./src/app/pages/dashboard/executive/exec-forms-list-page/exec-forms-list-page.component.ts");
-
+/* harmony import */ var _pages_dashboard_executive_executive_home_page_executive_home_page_component__WEBPACK_IMPORTED_MODULE_33__ = __webpack_require__(/*! ./pages/dashboard/executive/executive-home-page/executive-home-page.component */ "./src/app/pages/dashboard/executive/executive-home-page/executive-home-page.component.ts");
+/* harmony import */ var _pages_dashboard_executive_exec_submitted_forms_list_page_exec_submitted_forms_list_page_component__WEBPACK_IMPORTED_MODULE_34__ = __webpack_require__(/*! ./pages/dashboard/executive/exec-submitted-forms-list-page/exec-submitted-forms-list-page.component */ "./src/app/pages/dashboard/executive/exec-submitted-forms-list-page/exec-submitted-forms-list-page.component.ts");
+/* harmony import */ var _pages_dashboard_executive_exec_processed_forms_list_page_exec_processed_forms_list_page_component__WEBPACK_IMPORTED_MODULE_35__ = __webpack_require__(/*! ./pages/dashboard/executive/exec-processed-forms-list-page/exec-processed-forms-list-page.component */ "./src/app/pages/dashboard/executive/exec-processed-forms-list-page/exec-processed-forms-list-page.component.ts");
+/* harmony import */ var _pages_dashboard_executive_exec_in_processed_forms_list_page_exec_in_processed_forms_list_page_component__WEBPACK_IMPORTED_MODULE_36__ = __webpack_require__(/*! ./pages/dashboard/executive/exec-in-processed-forms-list-page/exec-in-processed-forms-list-page.component */ "./src/app/pages/dashboard/executive/exec-in-processed-forms-list-page/exec-in-processed-forms-list-page.component.ts");
+/* harmony import */ var _pages_dashboard_admin_admin_home_page_admin_home_page_component__WEBPACK_IMPORTED_MODULE_37__ = __webpack_require__(/*! ./pages/dashboard/admin/admin-home-page/admin-home-page.component */ "./src/app/pages/dashboard/admin/admin-home-page/admin-home-page.component.ts");
+/* harmony import */ var _pages_dashboard_client_client_forms_history_page_client_forms_history_page_component__WEBPACK_IMPORTED_MODULE_38__ = __webpack_require__(/*! ./pages/dashboard/client/client-forms-history-page/client-forms-history-page.component */ "./src/app/pages/dashboard/client/client-forms-history-page/client-forms-history-page.component.ts");
+/* harmony import */ var _pages_dashboard_client_client_forms_entry_page_client_forms_entry_page_component__WEBPACK_IMPORTED_MODULE_39__ = __webpack_require__(/*! ./pages/dashboard/client/client-forms-entry-page/client-forms-entry-page.component */ "./src/app/pages/dashboard/client/client-forms-entry-page/client-forms-entry-page.component.ts");
+/* harmony import */ var _pages_dashboard_front_desk_front_desk_view_form_page_front_desk_view_form_page_component__WEBPACK_IMPORTED_MODULE_40__ = __webpack_require__(/*! ./pages/dashboard/front-desk/front-desk-view-form-page/front-desk-view-form-page.component */ "./src/app/pages/dashboard/front-desk/front-desk-view-form-page/front-desk-view-form-page.component.ts");
+/* harmony import */ var _pages_dashboard_admin_admin_form_lists_page_admin_form_lists_page_component__WEBPACK_IMPORTED_MODULE_41__ = __webpack_require__(/*! ./pages/dashboard/admin/admin-form-lists-page/admin-form-lists-page.component */ "./src/app/pages/dashboard/admin/admin-form-lists-page/admin-form-lists-page.component.ts");
+/* harmony import */ var _pages_dashboard_admin_admin_form_edit_page_admin_form_edit_page_component__WEBPACK_IMPORTED_MODULE_42__ = __webpack_require__(/*! ./pages/dashboard/admin/admin-form-edit-page/admin-form-edit-page.component */ "./src/app/pages/dashboard/admin/admin-form-edit-page/admin-form-edit-page.component.ts");
+/* harmony import */ var _pages_dashboard_admin_admin_form_view_page_admin_form_view_page_component__WEBPACK_IMPORTED_MODULE_43__ = __webpack_require__(/*! ./pages/dashboard/admin/admin-form-view-page/admin-form-view-page.component */ "./src/app/pages/dashboard/admin/admin-form-view-page/admin-form-view-page.component.ts");
+/* harmony import */ var _pages_dashboard_git_admin_edit_form_page_edit_form_page_component__WEBPACK_IMPORTED_MODULE_44__ = __webpack_require__(/*! ./pages/dashboard/git-admin/edit-form-page/edit-form-page.component */ "./src/app/pages/dashboard/git-admin/edit-form-page/edit-form-page.component.ts");
+/* harmony import */ var _pages_dashboard_git_admin_edit_branch_page_edit_branch_page_component__WEBPACK_IMPORTED_MODULE_45__ = __webpack_require__(/*! ./pages/dashboard/git-admin/edit-branch-page/edit-branch-page.component */ "./src/app/pages/dashboard/git-admin/edit-branch-page/edit-branch-page.component.ts");
+/* harmony import */ var _pages_dashboard_git_admin_edit_company_page_edit_company_page_component__WEBPACK_IMPORTED_MODULE_46__ = __webpack_require__(/*! ./pages/dashboard/git-admin/edit-company-page/edit-company-page.component */ "./src/app/pages/dashboard/git-admin/edit-company-page/edit-company-page.component.ts");
+/* harmony import */ var _pages_dashboard_git_admin_view_admin_lists_page_view_admin_lists_page_component__WEBPACK_IMPORTED_MODULE_47__ = __webpack_require__(/*! ./pages/dashboard/git-admin/view-admin-lists-page/view-admin-lists-page.component */ "./src/app/pages/dashboard/git-admin/view-admin-lists-page/view-admin-lists-page.component.ts");
+/* harmony import */ var _pages_dashboard_git_admin_view_branch_lists_page_view_branch_lists_page_component__WEBPACK_IMPORTED_MODULE_48__ = __webpack_require__(/*! ./pages/dashboard/git-admin/view-branch-lists-page/view-branch-lists-page.component */ "./src/app/pages/dashboard/git-admin/view-branch-lists-page/view-branch-lists-page.component.ts");
+/* harmony import */ var _pages_dashboard_git_admin_view_company_lists_page_view_company_lists_page_component__WEBPACK_IMPORTED_MODULE_49__ = __webpack_require__(/*! ./pages/dashboard/git-admin/view-company-lists-page/view-company-lists-page.component */ "./src/app/pages/dashboard/git-admin/view-company-lists-page/view-company-lists-page.component.ts");
+/* harmony import */ var _pages_dashboard_git_admin_view_executive_lists_page_view_executive_lists_page_component__WEBPACK_IMPORTED_MODULE_50__ = __webpack_require__(/*! ./pages/dashboard/git-admin/view-executive-lists-page/view-executive-lists-page.component */ "./src/app/pages/dashboard/git-admin/view-executive-lists-page/view-executive-lists-page.component.ts");
+/* harmony import */ var _pages_dashboard_front_desk_front_desk_submitted_forms_list_page_front_desk_submitted_forms_list_page_component__WEBPACK_IMPORTED_MODULE_51__ = __webpack_require__(/*! ./pages/dashboard/front-desk/front-desk-submitted-forms-list-page/front-desk-submitted-forms-list-page.component */ "./src/app/pages/dashboard/front-desk/front-desk-submitted-forms-list-page/front-desk-submitted-forms-list-page.component.ts");
+/* harmony import */ var _pages_dashboard_front_desk_front_desk_processed_forms_list_page_front_desk_processed_forms_list_page_component__WEBPACK_IMPORTED_MODULE_52__ = __webpack_require__(/*! ./pages/dashboard/front-desk/front-desk-processed-forms-list-page/front-desk-processed-forms-list-page.component */ "./src/app/pages/dashboard/front-desk/front-desk-processed-forms-list-page/front-desk-processed-forms-list-page.component.ts");
+/* harmony import */ var _pages_dashboard_front_desk_front_desk_processing_forms_list_page_front_desk_processing_forms_list_page_component__WEBPACK_IMPORTED_MODULE_53__ = __webpack_require__(/*! ./pages/dashboard/front-desk/front-desk-processing-forms-list-page/front-desk-processing-forms-list-page.component */ "./src/app/pages/dashboard/front-desk/front-desk-processing-forms-list-page/front-desk-processing-forms-list-page.component.ts");
+/* harmony import */ var _pages_admin_register_page_admin_register_page_component__WEBPACK_IMPORTED_MODULE_54__ = __webpack_require__(/*! ./pages/admin-register-page/admin-register-page.component */ "./src/app/pages/admin-register-page/admin-register-page.component.ts");
+/* harmony import */ var _pages_dashboard_user_account_creator_user_account_creator_component__WEBPACK_IMPORTED_MODULE_55__ = __webpack_require__(/*! ./pages/dashboard/user-account-creator/user-account-creator.component */ "./src/app/pages/dashboard/user-account-creator/user-account-creator.component.ts");
+/* harmony import */ var _pages_dashboard_git_admin_create_user_page_create_user_page_component__WEBPACK_IMPORTED_MODULE_56__ = __webpack_require__(/*! ./pages/dashboard/git-admin/create-user-page/create-user-page.component */ "./src/app/pages/dashboard/git-admin/create-user-page/create-user-page.component.ts");
+/* harmony import */ var _pages_dashboard_git_admin_view_front_desk_lists_page_view_front_desk_lists_page_component__WEBPACK_IMPORTED_MODULE_57__ = __webpack_require__(/*! ./pages/dashboard/git-admin/view-front-desk-lists-page/view-front-desk-lists-page.component */ "./src/app/pages/dashboard/git-admin/view-front-desk-lists-page/view-front-desk-lists-page.component.ts");
+/* harmony import */ var _pages_dashboard_git_admin_view_company_admin_lists_page_view_company_admin_lists_page_component__WEBPACK_IMPORTED_MODULE_58__ = __webpack_require__(/*! ./pages/dashboard/git-admin/view-company-admin-lists-page/view-company-admin-lists-page.component */ "./src/app/pages/dashboard/git-admin/view-company-admin-lists-page/view-company-admin-lists-page.component.ts");
+/* harmony import */ var _pages_dashboard_git_admin_view_account_lists_page_view_account_lists_page_component__WEBPACK_IMPORTED_MODULE_59__ = __webpack_require__(/*! ./pages/dashboard/git-admin/view-account-lists-page/view-account-lists-page.component */ "./src/app/pages/dashboard/git-admin/view-account-lists-page/view-account-lists-page.component.ts");
+/* harmony import */ var _angular_platform_browser_animations__WEBPACK_IMPORTED_MODULE_60__ = __webpack_require__(/*! @angular/platform-browser/animations */ "./node_modules/@angular/platform-browser/fesm5/animations.js");
+/* harmony import */ var _pages_dashboard_git_admin_view_branch_admin_lists_page_view_branch_admin_lists_page_component__WEBPACK_IMPORTED_MODULE_61__ = __webpack_require__(/*! ./pages/dashboard/git-admin/view-branch-admin-lists-page/view-branch-admin-lists-page.component */ "./src/app/pages/dashboard/git-admin/view-branch-admin-lists-page/view-branch-admin-lists-page.component.ts");
+/* harmony import */ var _pages_dashboard_git_admin_view_branch_executive_lists_page_view_branch_executive_lists_page_component__WEBPACK_IMPORTED_MODULE_62__ = __webpack_require__(/*! ./pages/dashboard/git-admin/view-branch-executive-lists-page/view-branch-executive-lists-page.component */ "./src/app/pages/dashboard/git-admin/view-branch-executive-lists-page/view-branch-executive-lists-page.component.ts");
+/* harmony import */ var _pages_dashboard_git_admin_edit_user_page_edit_user_page_component__WEBPACK_IMPORTED_MODULE_63__ = __webpack_require__(/*! ./pages/dashboard/git-admin/edit-user-page/edit-user-page.component */ "./src/app/pages/dashboard/git-admin/edit-user-page/edit-user-page.component.ts");
+/* harmony import */ var _pages_dashboard_user_account_editor_user_account_editor_component__WEBPACK_IMPORTED_MODULE_64__ = __webpack_require__(/*! ./pages/dashboard/user-account-editor/user-account-editor.component */ "./src/app/pages/dashboard/user-account-editor/user-account-editor.component.ts");
+/* harmony import */ var _pages_dashboard_git_admin_view_account_details_page_view_account_details_page_component__WEBPACK_IMPORTED_MODULE_65__ = __webpack_require__(/*! ./pages/dashboard/git-admin/view-account-details-page/view-account-details-page.component */ "./src/app/pages/dashboard/git-admin/view-account-details-page/view-account-details-page.component.ts");
+/* harmony import */ var _pages_dashboard_git_admin_view_company_details_page_view_company_details_page_component__WEBPACK_IMPORTED_MODULE_66__ = __webpack_require__(/*! ./pages/dashboard/git-admin/view-company-details-page/view-company-details-page.component */ "./src/app/pages/dashboard/git-admin/view-company-details-page/view-company-details-page.component.ts");
+/* harmony import */ var _pages_dashboard_git_admin_view_branch_details_page_view_branch_details_page_component__WEBPACK_IMPORTED_MODULE_67__ = __webpack_require__(/*! ./pages/dashboard/git-admin/view-branch-details-page/view-branch-details-page.component */ "./src/app/pages/dashboard/git-admin/view-branch-details-page/view-branch-details-page.component.ts");
+/* harmony import */ var _pages_dashboard_git_admin_view_form_lists_page_view_form_lists_page_component__WEBPACK_IMPORTED_MODULE_68__ = __webpack_require__(/*! ./pages/dashboard/git-admin/view-form-lists-page/view-form-lists-page.component */ "./src/app/pages/dashboard/git-admin/view-form-lists-page/view-form-lists-page.component.ts");
+/* harmony import */ var _pages_dashboard_git_admin_view_form_details_page_view_form_details_page_component__WEBPACK_IMPORTED_MODULE_69__ = __webpack_require__(/*! ./pages/dashboard/git-admin/view-form-details-page/view-form-details-page.component */ "./src/app/pages/dashboard/git-admin/view-form-details-page/view-form-details-page.component.ts");
+/* harmony import */ var _pages_dashboard_client_client_profile_page_client_profile_page_component__WEBPACK_IMPORTED_MODULE_70__ = __webpack_require__(/*! ./pages/dashboard/client/client-profile-page/client-profile-page.component */ "./src/app/pages/dashboard/client/client-profile-page/client-profile-page.component.ts");
+/* harmony import */ var _pages_dashboard_client_client_unsent_forms_page_client_unsent_forms_page_component__WEBPACK_IMPORTED_MODULE_71__ = __webpack_require__(/*! ./pages/dashboard/client/client-unsent-forms-page/client-unsent-forms-page.component */ "./src/app/pages/dashboard/client/client-unsent-forms-page/client-unsent-forms-page.component.ts");
+/* harmony import */ var _pages_dashboard_form_templates_add_template_page_add_template_page_component__WEBPACK_IMPORTED_MODULE_72__ = __webpack_require__(/*! ./pages/dashboard/form-templates/add-template-page/add-template-page.component */ "./src/app/pages/dashboard/form-templates/add-template-page/add-template-page.component.ts");
+/* harmony import */ var _pages_dashboard_form_templates_edit_template_page_edit_template_page_component__WEBPACK_IMPORTED_MODULE_73__ = __webpack_require__(/*! ./pages/dashboard/form-templates/edit-template-page/edit-template-page.component */ "./src/app/pages/dashboard/form-templates/edit-template-page/edit-template-page.component.ts");
+/* harmony import */ var _pages_dashboard_form_templates_list_template_page_list_template_page_component__WEBPACK_IMPORTED_MODULE_74__ = __webpack_require__(/*! ./pages/dashboard/form-templates/list-template-page/list-template-page.component */ "./src/app/pages/dashboard/form-templates/list-template-page/list-template-page.component.ts");
+/* harmony import */ var _pages_dashboard_form_templates_view_template_page_view_template_page_component__WEBPACK_IMPORTED_MODULE_75__ = __webpack_require__(/*! ./pages/dashboard/form-templates/view-template-page/view-template-page.component */ "./src/app/pages/dashboard/form-templates/view-template-page/view-template-page.component.ts");
+/* harmony import */ var _pages_dashboard_admin_admin_view_front_desks_page_admin_view_front_desks_page_component__WEBPACK_IMPORTED_MODULE_76__ = __webpack_require__(/*! ./pages/dashboard/admin/admin-view-front-desks-page/admin-view-front-desks-page.component */ "./src/app/pages/dashboard/admin/admin-view-front-desks-page/admin-view-front-desks-page.component.ts");
+/* harmony import */ var _pages_dashboard_admin_admin_view_branches_page_admin_view_branches_page_component__WEBPACK_IMPORTED_MODULE_77__ = __webpack_require__(/*! ./pages/dashboard/admin/admin-view-branches-page/admin-view-branches-page.component */ "./src/app/pages/dashboard/admin/admin-view-branches-page/admin-view-branches-page.component.ts");
+/* harmony import */ var _pages_dashboard_admin_admin_create_form_page_admin_create_form_page_component__WEBPACK_IMPORTED_MODULE_78__ = __webpack_require__(/*! ./pages/dashboard/admin/admin-create-form-page/admin-create-form-page.component */ "./src/app/pages/dashboard/admin/admin-create-form-page/admin-create-form-page.component.ts");
+/* harmony import */ var _pages_dashboard_admin_admin_create_user_page_admin_create_user_page_component__WEBPACK_IMPORTED_MODULE_79__ = __webpack_require__(/*! ./pages/dashboard/admin/admin-create-user-page/admin-create-user-page.component */ "./src/app/pages/dashboard/admin/admin-create-user-page/admin-create-user-page.component.ts");
+/* harmony import */ var _pages_dashboard_admin_admin_edit_user_page_admin_edit_user_page_component__WEBPACK_IMPORTED_MODULE_80__ = __webpack_require__(/*! ./pages/dashboard/admin/admin-edit-user-page/admin-edit-user-page.component */ "./src/app/pages/dashboard/admin/admin-edit-user-page/admin-edit-user-page.component.ts");
+/* harmony import */ var _pages_dashboard_admin_admin_view_account_details_page_admin_view_account_details_page_component__WEBPACK_IMPORTED_MODULE_81__ = __webpack_require__(/*! ./pages/dashboard/admin/admin-view-account-details-page/admin-view-account-details-page.component */ "./src/app/pages/dashboard/admin/admin-view-account-details-page/admin-view-account-details-page.component.ts");
+/* harmony import */ var _pages_dashboard_admin_admin_view_branch_details_page_admin_view_branch_details_page_component__WEBPACK_IMPORTED_MODULE_82__ = __webpack_require__(/*! ./pages/dashboard/admin/admin-view-branch-details-page/admin-view-branch-details-page.component */ "./src/app/pages/dashboard/admin/admin-view-branch-details-page/admin-view-branch-details-page.component.ts");
+/* harmony import */ var _pages_dashboard_branch_admin_branch_admin_home_page_branch_admin_home_page_component__WEBPACK_IMPORTED_MODULE_83__ = __webpack_require__(/*! ./pages/dashboard/branch-admin/branch-admin-home-page/branch-admin-home-page.component */ "./src/app/pages/dashboard/branch-admin/branch-admin-home-page/branch-admin-home-page.component.ts");
+/* harmony import */ var _pages_dashboard_branch_admin_branch_admin_create_user_page_branch_admin_create_user_page_component__WEBPACK_IMPORTED_MODULE_84__ = __webpack_require__(/*! ./pages/dashboard/branch-admin/branch-admin-create-user-page/branch-admin-create-user-page.component */ "./src/app/pages/dashboard/branch-admin/branch-admin-create-user-page/branch-admin-create-user-page.component.ts");
+/* harmony import */ var _pages_dashboard_branch_admin_branch_admin_edit_user_page_branch_admin_edit_user_page_component__WEBPACK_IMPORTED_MODULE_85__ = __webpack_require__(/*! ./pages/dashboard/branch-admin/branch-admin-edit-user-page/branch-admin-edit-user-page.component */ "./src/app/pages/dashboard/branch-admin/branch-admin-edit-user-page/branch-admin-edit-user-page.component.ts");
+/* harmony import */ var _pages_dashboard_git_admin_create_access_code_page_create_access_code_page_component__WEBPACK_IMPORTED_MODULE_86__ = __webpack_require__(/*! ./pages/dashboard/git-admin/create-access-code-page/create-access-code-page.component */ "./src/app/pages/dashboard/git-admin/create-access-code-page/create-access-code-page.component.ts");
+/* harmony import */ var _pages_auth_page_auth_page_component__WEBPACK_IMPORTED_MODULE_87__ = __webpack_require__(/*! ./pages/auth-page/auth-page.component */ "./src/app/pages/auth-page/auth-page.component.ts");
+/* harmony import */ var _pages_admin_login_page_admin_login_page_component__WEBPACK_IMPORTED_MODULE_88__ = __webpack_require__(/*! ./pages/admin-login-page/admin-login-page.component */ "./src/app/pages/admin-login-page/admin-login-page.component.ts");
+/* harmony import */ var _pages_dashboard_git_admin_create_section_page_create_section_page_component__WEBPACK_IMPORTED_MODULE_89__ = __webpack_require__(/*! ./pages/dashboard/git-admin/create-section-page/create-section-page.component */ "./src/app/pages/dashboard/git-admin/create-section-page/create-section-page.component.ts");
+/* harmony import */ var _pages_dashboard_git_admin_edit_section_page_edit_section_page_component__WEBPACK_IMPORTED_MODULE_90__ = __webpack_require__(/*! ./pages/dashboard/git-admin/edit-section-page/edit-section-page.component */ "./src/app/pages/dashboard/git-admin/edit-section-page/edit-section-page.component.ts");
+/* harmony import */ var _pages_dashboard_git_admin_view_sections_page_view_sections_page_component__WEBPACK_IMPORTED_MODULE_91__ = __webpack_require__(/*! ./pages/dashboard/git-admin/view-sections-page/view-sections-page.component */ "./src/app/pages/dashboard/git-admin/view-sections-page/view-sections-page.component.ts");
+/* harmony import */ var _pages_dashboard_git_admin_view_access_code_page_view_access_code_page_component__WEBPACK_IMPORTED_MODULE_92__ = __webpack_require__(/*! ./pages/dashboard/git-admin/view-access-code-page/view-access-code-page.component */ "./src/app/pages/dashboard/git-admin/view-access-code-page/view-access-code-page.component.ts");
+/* harmony import */ var _pages_dashboard_git_admin_edit_access_code_page_edit_access_code_page_component__WEBPACK_IMPORTED_MODULE_93__ = __webpack_require__(/*! ./pages/dashboard/git-admin/edit-access-code-page/edit-access-code-page.component */ "./src/app/pages/dashboard/git-admin/edit-access-code-page/edit-access-code-page.component.ts");
+/* harmony import */ var _pages_dashboard_front_desk_front_desk_preview_form_page_front_desk_preview_form_page_component__WEBPACK_IMPORTED_MODULE_94__ = __webpack_require__(/*! ./pages/dashboard/front-desk/front-desk-preview-form-page/front-desk-preview-form-page.component */ "./src/app/pages/dashboard/front-desk/front-desk-preview-form-page/front-desk-preview-form-page.component.ts");
+/* harmony import */ var _pages_dashboard_executive_exec_branches_list_page_exec_branches_list_page_component__WEBPACK_IMPORTED_MODULE_95__ = __webpack_require__(/*! ./pages/dashboard/executive/exec-branches-list-page/exec-branches-list-page.component */ "./src/app/pages/dashboard/executive/exec-branches-list-page/exec-branches-list-page.component.ts");
+/* harmony import */ var _pages_dashboard_executive_exec_accounts_list_page_exec_accounts_list_page_component__WEBPACK_IMPORTED_MODULE_96__ = __webpack_require__(/*! ./pages/dashboard/executive/exec-accounts-list-page/exec-accounts-list-page.component */ "./src/app/pages/dashboard/executive/exec-accounts-list-page/exec-accounts-list-page.component.ts");
+/* harmony import */ var _pages_dashboard_executive_exec_forms_list_page_exec_forms_list_page_component__WEBPACK_IMPORTED_MODULE_97__ = __webpack_require__(/*! ./pages/dashboard/executive/exec-forms-list-page/exec-forms-list-page.component */ "./src/app/pages/dashboard/executive/exec-forms-list-page/exec-forms-list-page.component.ts");
 
 
 
@@ -2037,71 +2018,70 @@ var AppModule = /** @class */ (function () {
                 _pages_dashboard_front_desk_front_desk_home_page_front_desk_home_page_component__WEBPACK_IMPORTED_MODULE_30__["FrontDesktopHomePageComponent"],
                 _pages_dashboard_git_admin_create_company_page_create_company_page_component__WEBPACK_IMPORTED_MODULE_31__["CreateCompanyPageComponent"],
                 _pages_dashboard_git_admin_create_branch_page_create_branch_page_component__WEBPACK_IMPORTED_MODULE_32__["CreateBranchPageComponent"],
-                _pages_dashboard_executive_exec_submitted_forms_page_exec_submitted_forms_page_component__WEBPACK_IMPORTED_MODULE_33__["ExecSubmittedFormsPageComponent"],
-                _pages_dashboard_executive_executive_home_page_executive_home_page_component__WEBPACK_IMPORTED_MODULE_34__["ExecutiveHomePageComponent"],
-                _pages_dashboard_executive_exec_submitted_forms_list_page_exec_submitted_forms_list_page_component__WEBPACK_IMPORTED_MODULE_35__["ExecSubmittedFormsListPageComponent"],
-                _pages_dashboard_executive_exec_processed_forms_list_page_exec_processed_forms_list_page_component__WEBPACK_IMPORTED_MODULE_36__["ExecProcessedFormsListPageComponent"],
-                _pages_dashboard_executive_exec_in_processed_forms_list_page_exec_in_processed_forms_list_page_component__WEBPACK_IMPORTED_MODULE_37__["ExecInProcessedFormsListPageComponent"],
-                _pages_dashboard_admin_admin_home_page_admin_home_page_component__WEBPACK_IMPORTED_MODULE_38__["AdminHomePageComponent"],
-                _pages_dashboard_client_client_forms_history_page_client_forms_history_page_component__WEBPACK_IMPORTED_MODULE_39__["ClientFormsHistoryPageComponent"],
-                _pages_dashboard_client_client_forms_entry_page_client_forms_entry_page_component__WEBPACK_IMPORTED_MODULE_40__["ClientFormsEntryPageComponent"],
-                _pages_dashboard_front_desk_front_desk_view_form_page_front_desk_view_form_page_component__WEBPACK_IMPORTED_MODULE_41__["FrontDeskViewFormPageComponent"],
-                _pages_dashboard_admin_admin_form_lists_page_admin_form_lists_page_component__WEBPACK_IMPORTED_MODULE_42__["AdminFormListsPageComponent"],
-                _pages_dashboard_admin_admin_form_edit_page_admin_form_edit_page_component__WEBPACK_IMPORTED_MODULE_43__["AdminFormEditPageComponent"],
-                _pages_dashboard_admin_admin_form_view_page_admin_form_view_page_component__WEBPACK_IMPORTED_MODULE_44__["AdminFormViewPageComponent"],
-                _pages_dashboard_git_admin_edit_form_page_edit_form_page_component__WEBPACK_IMPORTED_MODULE_45__["EditFormPageComponent"],
-                _pages_dashboard_git_admin_edit_branch_page_edit_branch_page_component__WEBPACK_IMPORTED_MODULE_46__["EditBranchPageComponent"],
-                _pages_dashboard_git_admin_edit_company_page_edit_company_page_component__WEBPACK_IMPORTED_MODULE_47__["EditCompanyPageComponent"],
-                _pages_dashboard_git_admin_view_admin_lists_page_view_admin_lists_page_component__WEBPACK_IMPORTED_MODULE_48__["ViewAdminListsPageComponent"],
-                _pages_dashboard_git_admin_view_branch_lists_page_view_branch_lists_page_component__WEBPACK_IMPORTED_MODULE_49__["ViewBranchListsPageComponent"],
-                _pages_dashboard_git_admin_view_company_lists_page_view_company_lists_page_component__WEBPACK_IMPORTED_MODULE_50__["ViewCompanyListsPageComponent"],
-                _pages_dashboard_git_admin_view_executive_lists_page_view_executive_lists_page_component__WEBPACK_IMPORTED_MODULE_51__["ViewExecutiveListsPageComponent"],
-                _pages_dashboard_front_desk_front_desk_submitted_forms_list_page_front_desk_submitted_forms_list_page_component__WEBPACK_IMPORTED_MODULE_52__["FrontDeskSubmittedFormsListPageComponent"],
-                _pages_dashboard_front_desk_front_desk_processed_forms_list_page_front_desk_processed_forms_list_page_component__WEBPACK_IMPORTED_MODULE_53__["FrontDeskProcessedFormsListPageComponent"],
-                _pages_dashboard_front_desk_front_desk_processing_forms_list_page_front_desk_processing_forms_list_page_component__WEBPACK_IMPORTED_MODULE_54__["FrontDeskProcessingFormsListPageComponent"],
-                _pages_admin_register_page_admin_register_page_component__WEBPACK_IMPORTED_MODULE_55__["AdminRegisterPageComponent"],
-                _pages_dashboard_user_account_creator_user_account_creator_component__WEBPACK_IMPORTED_MODULE_56__["UserAccountCreatorComponent"],
-                _pages_dashboard_git_admin_create_user_page_create_user_page_component__WEBPACK_IMPORTED_MODULE_57__["CreateUserAccountPageComponent"],
-                _pages_dashboard_git_admin_view_front_desk_lists_page_view_front_desk_lists_page_component__WEBPACK_IMPORTED_MODULE_58__["ViewFrontDeskListsPageComponent"],
-                _pages_dashboard_git_admin_view_company_admin_lists_page_view_company_admin_lists_page_component__WEBPACK_IMPORTED_MODULE_59__["ViewCompanyAdminListsPageComponent"],
-                _pages_dashboard_git_admin_view_account_lists_page_view_account_lists_page_component__WEBPACK_IMPORTED_MODULE_60__["ViewAccountListsPageComponent"],
-                _pages_dashboard_git_admin_view_branch_admin_lists_page_view_branch_admin_lists_page_component__WEBPACK_IMPORTED_MODULE_62__["ViewBranchAdminListsPageComponent"],
-                _pages_dashboard_git_admin_view_branch_executive_lists_page_view_branch_executive_lists_page_component__WEBPACK_IMPORTED_MODULE_63__["ViewBranchExecutiveListsPageComponent"],
-                _pages_dashboard_git_admin_edit_user_page_edit_user_page_component__WEBPACK_IMPORTED_MODULE_64__["EditUserPageComponent"],
-                _pages_dashboard_user_account_editor_user_account_editor_component__WEBPACK_IMPORTED_MODULE_65__["UserAccountEditorComponent"],
-                _pages_dashboard_git_admin_view_account_details_page_view_account_details_page_component__WEBPACK_IMPORTED_MODULE_66__["ViewAccountDetailsPageComponent"],
-                _pages_dashboard_git_admin_view_company_details_page_view_company_details_page_component__WEBPACK_IMPORTED_MODULE_67__["ViewCompanyDetailsPageComponent"],
-                _pages_dashboard_git_admin_view_branch_details_page_view_branch_details_page_component__WEBPACK_IMPORTED_MODULE_68__["ViewBranchDetailsPageComponent"],
-                _pages_dashboard_git_admin_view_form_lists_page_view_form_lists_page_component__WEBPACK_IMPORTED_MODULE_69__["ViewFormListsPageComponent"],
-                _pages_dashboard_git_admin_view_form_details_page_view_form_details_page_component__WEBPACK_IMPORTED_MODULE_70__["ViewFormDetailsPageComponent"],
-                _pages_dashboard_client_client_profile_page_client_profile_page_component__WEBPACK_IMPORTED_MODULE_71__["ClientProfilePageComponent"],
-                _pages_dashboard_client_client_unsent_forms_page_client_unsent_forms_page_component__WEBPACK_IMPORTED_MODULE_72__["ClientUnsentFormsPageComponent"],
-                _pages_dashboard_form_templates_add_template_page_add_template_page_component__WEBPACK_IMPORTED_MODULE_73__["AddTemplatePageComponent"],
-                _pages_dashboard_form_templates_edit_template_page_edit_template_page_component__WEBPACK_IMPORTED_MODULE_74__["EditTemplatePageComponent"],
-                _pages_dashboard_form_templates_list_template_page_list_template_page_component__WEBPACK_IMPORTED_MODULE_75__["ListTemplatePageComponent"],
-                _pages_dashboard_form_templates_view_template_page_view_template_page_component__WEBPACK_IMPORTED_MODULE_76__["ViewTemplatePageComponent"],
-                _pages_dashboard_admin_admin_view_front_desks_page_admin_view_front_desks_page_component__WEBPACK_IMPORTED_MODULE_77__["AdminViewFrontDesksPageComponent"],
-                _pages_dashboard_admin_admin_view_branches_page_admin_view_branches_page_component__WEBPACK_IMPORTED_MODULE_78__["AdminViewBranchesPageComponent"],
-                _pages_dashboard_admin_admin_create_form_page_admin_create_form_page_component__WEBPACK_IMPORTED_MODULE_79__["AdminCreateFormPageComponent"],
-                _pages_dashboard_admin_admin_create_user_page_admin_create_user_page_component__WEBPACK_IMPORTED_MODULE_80__["AdminCreateUserPageComponent"],
-                _pages_dashboard_admin_admin_edit_user_page_admin_edit_user_page_component__WEBPACK_IMPORTED_MODULE_81__["AdminEditUserPageComponent"],
-                _pages_dashboard_admin_admin_view_account_details_page_admin_view_account_details_page_component__WEBPACK_IMPORTED_MODULE_82__["AdminViewAccountDetailsPageComponent"],
-                _pages_dashboard_admin_admin_view_branch_details_page_admin_view_branch_details_page_component__WEBPACK_IMPORTED_MODULE_83__["AdminViewBranchDetailsPageComponent"],
-                _pages_dashboard_branch_admin_branch_admin_home_page_branch_admin_home_page_component__WEBPACK_IMPORTED_MODULE_84__["BranchAdminHomePageComponent"],
-                _pages_dashboard_branch_admin_branch_admin_create_user_page_branch_admin_create_user_page_component__WEBPACK_IMPORTED_MODULE_85__["BranchAdminCreateUserPageComponent"],
-                _pages_dashboard_branch_admin_branch_admin_edit_user_page_branch_admin_edit_user_page_component__WEBPACK_IMPORTED_MODULE_86__["BranchAdminEditUserPageComponent"],
-                _pages_dashboard_git_admin_create_access_code_page_create_access_code_page_component__WEBPACK_IMPORTED_MODULE_87__["CreateAccessCodePageComponent"],
-                _pages_auth_page_auth_page_component__WEBPACK_IMPORTED_MODULE_88__["AuthPageComponent"],
-                _pages_admin_login_page_admin_login_page_component__WEBPACK_IMPORTED_MODULE_89__["AdminLoginPageComponent"],
-                _pages_dashboard_git_admin_create_section_page_create_section_page_component__WEBPACK_IMPORTED_MODULE_90__["CreateSectionPageComponent"],
-                _pages_dashboard_git_admin_edit_section_page_edit_section_page_component__WEBPACK_IMPORTED_MODULE_91__["EditSectionPageComponent"],
-                _pages_dashboard_git_admin_view_sections_page_view_sections_page_component__WEBPACK_IMPORTED_MODULE_92__["ViewSectionsPageComponent"],
-                _pages_dashboard_git_admin_view_access_code_page_view_access_code_page_component__WEBPACK_IMPORTED_MODULE_93__["ViewAccessCodePageComponent"],
-                _pages_dashboard_git_admin_edit_access_code_page_edit_access_code_page_component__WEBPACK_IMPORTED_MODULE_94__["EditAccessCodePageComponent"],
-                _pages_dashboard_front_desk_front_desk_preview_form_page_front_desk_preview_form_page_component__WEBPACK_IMPORTED_MODULE_95__["FrontDeskPreviewFormPageComponent"],
-                _pages_dashboard_executive_exec_branches_list_page_exec_branches_list_page_component__WEBPACK_IMPORTED_MODULE_96__["ExecBranchesListPageComponent"],
-                _pages_dashboard_executive_exec_accounts_list_page_exec_accounts_list_page_component__WEBPACK_IMPORTED_MODULE_97__["ExecAccountsListPageComponent"],
-                _pages_dashboard_executive_exec_forms_list_page_exec_forms_list_page_component__WEBPACK_IMPORTED_MODULE_98__["ExecFormsListPageComponent"],
+                _pages_dashboard_executive_executive_home_page_executive_home_page_component__WEBPACK_IMPORTED_MODULE_33__["ExecutiveHomePageComponent"],
+                _pages_dashboard_executive_exec_submitted_forms_list_page_exec_submitted_forms_list_page_component__WEBPACK_IMPORTED_MODULE_34__["ExecSubmittedFormsListPageComponent"],
+                _pages_dashboard_executive_exec_processed_forms_list_page_exec_processed_forms_list_page_component__WEBPACK_IMPORTED_MODULE_35__["ExecProcessedFormsListPageComponent"],
+                _pages_dashboard_executive_exec_in_processed_forms_list_page_exec_in_processed_forms_list_page_component__WEBPACK_IMPORTED_MODULE_36__["ExecInProcessedFormsListPageComponent"],
+                _pages_dashboard_admin_admin_home_page_admin_home_page_component__WEBPACK_IMPORTED_MODULE_37__["AdminHomePageComponent"],
+                _pages_dashboard_client_client_forms_history_page_client_forms_history_page_component__WEBPACK_IMPORTED_MODULE_38__["ClientFormsHistoryPageComponent"],
+                _pages_dashboard_client_client_forms_entry_page_client_forms_entry_page_component__WEBPACK_IMPORTED_MODULE_39__["ClientFormsEntryPageComponent"],
+                _pages_dashboard_front_desk_front_desk_view_form_page_front_desk_view_form_page_component__WEBPACK_IMPORTED_MODULE_40__["FrontDeskViewFormPageComponent"],
+                _pages_dashboard_admin_admin_form_lists_page_admin_form_lists_page_component__WEBPACK_IMPORTED_MODULE_41__["AdminFormListsPageComponent"],
+                _pages_dashboard_admin_admin_form_edit_page_admin_form_edit_page_component__WEBPACK_IMPORTED_MODULE_42__["AdminFormEditPageComponent"],
+                _pages_dashboard_admin_admin_form_view_page_admin_form_view_page_component__WEBPACK_IMPORTED_MODULE_43__["AdminFormViewPageComponent"],
+                _pages_dashboard_git_admin_edit_form_page_edit_form_page_component__WEBPACK_IMPORTED_MODULE_44__["EditFormPageComponent"],
+                _pages_dashboard_git_admin_edit_branch_page_edit_branch_page_component__WEBPACK_IMPORTED_MODULE_45__["EditBranchPageComponent"],
+                _pages_dashboard_git_admin_edit_company_page_edit_company_page_component__WEBPACK_IMPORTED_MODULE_46__["EditCompanyPageComponent"],
+                _pages_dashboard_git_admin_view_admin_lists_page_view_admin_lists_page_component__WEBPACK_IMPORTED_MODULE_47__["ViewAdminListsPageComponent"],
+                _pages_dashboard_git_admin_view_branch_lists_page_view_branch_lists_page_component__WEBPACK_IMPORTED_MODULE_48__["ViewBranchListsPageComponent"],
+                _pages_dashboard_git_admin_view_company_lists_page_view_company_lists_page_component__WEBPACK_IMPORTED_MODULE_49__["ViewCompanyListsPageComponent"],
+                _pages_dashboard_git_admin_view_executive_lists_page_view_executive_lists_page_component__WEBPACK_IMPORTED_MODULE_50__["ViewExecutiveListsPageComponent"],
+                _pages_dashboard_front_desk_front_desk_submitted_forms_list_page_front_desk_submitted_forms_list_page_component__WEBPACK_IMPORTED_MODULE_51__["FrontDeskSubmittedFormsListPageComponent"],
+                _pages_dashboard_front_desk_front_desk_processed_forms_list_page_front_desk_processed_forms_list_page_component__WEBPACK_IMPORTED_MODULE_52__["FrontDeskProcessedFormsListPageComponent"],
+                _pages_dashboard_front_desk_front_desk_processing_forms_list_page_front_desk_processing_forms_list_page_component__WEBPACK_IMPORTED_MODULE_53__["FrontDeskProcessingFormsListPageComponent"],
+                _pages_admin_register_page_admin_register_page_component__WEBPACK_IMPORTED_MODULE_54__["AdminRegisterPageComponent"],
+                _pages_dashboard_user_account_creator_user_account_creator_component__WEBPACK_IMPORTED_MODULE_55__["UserAccountCreatorComponent"],
+                _pages_dashboard_git_admin_create_user_page_create_user_page_component__WEBPACK_IMPORTED_MODULE_56__["CreateUserAccountPageComponent"],
+                _pages_dashboard_git_admin_view_front_desk_lists_page_view_front_desk_lists_page_component__WEBPACK_IMPORTED_MODULE_57__["ViewFrontDeskListsPageComponent"],
+                _pages_dashboard_git_admin_view_company_admin_lists_page_view_company_admin_lists_page_component__WEBPACK_IMPORTED_MODULE_58__["ViewCompanyAdminListsPageComponent"],
+                _pages_dashboard_git_admin_view_account_lists_page_view_account_lists_page_component__WEBPACK_IMPORTED_MODULE_59__["ViewAccountListsPageComponent"],
+                _pages_dashboard_git_admin_view_branch_admin_lists_page_view_branch_admin_lists_page_component__WEBPACK_IMPORTED_MODULE_61__["ViewBranchAdminListsPageComponent"],
+                _pages_dashboard_git_admin_view_branch_executive_lists_page_view_branch_executive_lists_page_component__WEBPACK_IMPORTED_MODULE_62__["ViewBranchExecutiveListsPageComponent"],
+                _pages_dashboard_git_admin_edit_user_page_edit_user_page_component__WEBPACK_IMPORTED_MODULE_63__["EditUserPageComponent"],
+                _pages_dashboard_user_account_editor_user_account_editor_component__WEBPACK_IMPORTED_MODULE_64__["UserAccountEditorComponent"],
+                _pages_dashboard_git_admin_view_account_details_page_view_account_details_page_component__WEBPACK_IMPORTED_MODULE_65__["ViewAccountDetailsPageComponent"],
+                _pages_dashboard_git_admin_view_company_details_page_view_company_details_page_component__WEBPACK_IMPORTED_MODULE_66__["ViewCompanyDetailsPageComponent"],
+                _pages_dashboard_git_admin_view_branch_details_page_view_branch_details_page_component__WEBPACK_IMPORTED_MODULE_67__["ViewBranchDetailsPageComponent"],
+                _pages_dashboard_git_admin_view_form_lists_page_view_form_lists_page_component__WEBPACK_IMPORTED_MODULE_68__["ViewFormListsPageComponent"],
+                _pages_dashboard_git_admin_view_form_details_page_view_form_details_page_component__WEBPACK_IMPORTED_MODULE_69__["ViewFormDetailsPageComponent"],
+                _pages_dashboard_client_client_profile_page_client_profile_page_component__WEBPACK_IMPORTED_MODULE_70__["ClientProfilePageComponent"],
+                _pages_dashboard_client_client_unsent_forms_page_client_unsent_forms_page_component__WEBPACK_IMPORTED_MODULE_71__["ClientUnsentFormsPageComponent"],
+                _pages_dashboard_form_templates_add_template_page_add_template_page_component__WEBPACK_IMPORTED_MODULE_72__["AddTemplatePageComponent"],
+                _pages_dashboard_form_templates_edit_template_page_edit_template_page_component__WEBPACK_IMPORTED_MODULE_73__["EditTemplatePageComponent"],
+                _pages_dashboard_form_templates_list_template_page_list_template_page_component__WEBPACK_IMPORTED_MODULE_74__["ListTemplatePageComponent"],
+                _pages_dashboard_form_templates_view_template_page_view_template_page_component__WEBPACK_IMPORTED_MODULE_75__["ViewTemplatePageComponent"],
+                _pages_dashboard_admin_admin_view_front_desks_page_admin_view_front_desks_page_component__WEBPACK_IMPORTED_MODULE_76__["AdminViewFrontDesksPageComponent"],
+                _pages_dashboard_admin_admin_view_branches_page_admin_view_branches_page_component__WEBPACK_IMPORTED_MODULE_77__["AdminViewBranchesPageComponent"],
+                _pages_dashboard_admin_admin_create_form_page_admin_create_form_page_component__WEBPACK_IMPORTED_MODULE_78__["AdminCreateFormPageComponent"],
+                _pages_dashboard_admin_admin_create_user_page_admin_create_user_page_component__WEBPACK_IMPORTED_MODULE_79__["AdminCreateUserPageComponent"],
+                _pages_dashboard_admin_admin_edit_user_page_admin_edit_user_page_component__WEBPACK_IMPORTED_MODULE_80__["AdminEditUserPageComponent"],
+                _pages_dashboard_admin_admin_view_account_details_page_admin_view_account_details_page_component__WEBPACK_IMPORTED_MODULE_81__["AdminViewAccountDetailsPageComponent"],
+                _pages_dashboard_admin_admin_view_branch_details_page_admin_view_branch_details_page_component__WEBPACK_IMPORTED_MODULE_82__["AdminViewBranchDetailsPageComponent"],
+                _pages_dashboard_branch_admin_branch_admin_home_page_branch_admin_home_page_component__WEBPACK_IMPORTED_MODULE_83__["BranchAdminHomePageComponent"],
+                _pages_dashboard_branch_admin_branch_admin_create_user_page_branch_admin_create_user_page_component__WEBPACK_IMPORTED_MODULE_84__["BranchAdminCreateUserPageComponent"],
+                _pages_dashboard_branch_admin_branch_admin_edit_user_page_branch_admin_edit_user_page_component__WEBPACK_IMPORTED_MODULE_85__["BranchAdminEditUserPageComponent"],
+                _pages_dashboard_git_admin_create_access_code_page_create_access_code_page_component__WEBPACK_IMPORTED_MODULE_86__["CreateAccessCodePageComponent"],
+                _pages_auth_page_auth_page_component__WEBPACK_IMPORTED_MODULE_87__["AuthPageComponent"],
+                _pages_admin_login_page_admin_login_page_component__WEBPACK_IMPORTED_MODULE_88__["AdminLoginPageComponent"],
+                _pages_dashboard_git_admin_create_section_page_create_section_page_component__WEBPACK_IMPORTED_MODULE_89__["CreateSectionPageComponent"],
+                _pages_dashboard_git_admin_edit_section_page_edit_section_page_component__WEBPACK_IMPORTED_MODULE_90__["EditSectionPageComponent"],
+                _pages_dashboard_git_admin_view_sections_page_view_sections_page_component__WEBPACK_IMPORTED_MODULE_91__["ViewSectionsPageComponent"],
+                _pages_dashboard_git_admin_view_access_code_page_view_access_code_page_component__WEBPACK_IMPORTED_MODULE_92__["ViewAccessCodePageComponent"],
+                _pages_dashboard_git_admin_edit_access_code_page_edit_access_code_page_component__WEBPACK_IMPORTED_MODULE_93__["EditAccessCodePageComponent"],
+                _pages_dashboard_front_desk_front_desk_preview_form_page_front_desk_preview_form_page_component__WEBPACK_IMPORTED_MODULE_94__["FrontDeskPreviewFormPageComponent"],
+                _pages_dashboard_executive_exec_branches_list_page_exec_branches_list_page_component__WEBPACK_IMPORTED_MODULE_95__["ExecBranchesListPageComponent"],
+                _pages_dashboard_executive_exec_accounts_list_page_exec_accounts_list_page_component__WEBPACK_IMPORTED_MODULE_96__["ExecAccountsListPageComponent"],
+                _pages_dashboard_executive_exec_forms_list_page_exec_forms_list_page_component__WEBPACK_IMPORTED_MODULE_97__["ExecFormsListPageComponent"],
             ],
             imports: [
                 _angular_platform_browser__WEBPACK_IMPORTED_MODULE_1__["BrowserModule"],
@@ -2123,7 +2103,7 @@ var AppModule = /** @class */ (function () {
                     baseUrl: 'assets/',
                     filename: 'countries.json'
                 }),
-                _angular_platform_browser_animations__WEBPACK_IMPORTED_MODULE_61__["BrowserAnimationsModule"],
+                _angular_platform_browser_animations__WEBPACK_IMPORTED_MODULE_60__["BrowserAnimationsModule"],
                 ngx_page_scroll_core__WEBPACK_IMPORTED_MODULE_10__["NgxPageScrollCoreModule"]
             ],
             providers: [],
@@ -5387,13 +5367,110 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "ExecBranchesListPageComponent", function() { return ExecBranchesListPageComponent; });
 /* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
+/* harmony import */ var lodash__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! lodash */ "./node_modules/lodash/lodash.js");
+/* harmony import */ var lodash__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(lodash__WEBPACK_IMPORTED_MODULE_2__);
+/* harmony import */ var src_app_services_branch_branch_service__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! src/app/services/branch/branch.service */ "./src/app/services/branch/branch.service.ts");
+/* harmony import */ var src_app_services_storage_local_storage_service__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! src/app/services/storage/local-storage.service */ "./src/app/services/storage/local-storage.service.ts");
+
+
+
 
 
 var ExecBranchesListPageComponent = /** @class */ (function () {
-    function ExecBranchesListPageComponent() {
+    function ExecBranchesListPageComponent(branchService, localStorage) {
+        this.branchService = branchService;
+        this.localStorage = localStorage;
+        this.branchesList = [];
+        this.allBranchesList = [];
+        this.merchantId = lodash__WEBPACK_IMPORTED_MODULE_2__["toString"](this.localStorage.getUser().merchant_id);
+        this.getCompanyBranches();
     }
     ExecBranchesListPageComponent.prototype.ngOnInit = function () {
+        this.filterState = 'all';
     };
+    ExecBranchesListPageComponent.prototype.sort = function (sort_category) {
+        switch (sort_category) {
+            case 'created':
+                this.sortByCreated();
+                break;
+            case 'branch':
+                this.sortByBranch();
+                break;
+            case 'merchant':
+                this.sortByCompany();
+                break;
+            default:
+                break;
+        }
+    };
+    ExecBranchesListPageComponent.prototype.sortByCreated = function () {
+        this.branchesList = lodash__WEBPACK_IMPORTED_MODULE_2__["sortBy"](this.branchesList, function (item) { return item.created_at; });
+    };
+    ExecBranchesListPageComponent.prototype.sortByBranch = function () {
+        this.branchesList = lodash__WEBPACK_IMPORTED_MODULE_2__["sortBy"](this.branchesList, function (item) { return item.branch_name; });
+    };
+    ExecBranchesListPageComponent.prototype.sortByCompany = function () {
+        this.branchesList = lodash__WEBPACK_IMPORTED_MODULE_2__["sortBy"](this.branchesList, function (item) { return item.merchant_name; });
+    };
+    ExecBranchesListPageComponent.prototype.showAll = function () {
+        this.filterState = 'all';
+        this.branchesList = this.allBranchesList;
+    };
+    ExecBranchesListPageComponent.prototype.showActive = function () {
+        this.filterState = 'active';
+        this.branchesList = lodash__WEBPACK_IMPORTED_MODULE_2__["filter"](this.allBranchesList, function (branch) { return branch.status == 1; });
+    };
+    ExecBranchesListPageComponent.prototype.showInActive = function () {
+        this.filterState = 'inactive';
+        this.branchesList = lodash__WEBPACK_IMPORTED_MODULE_2__["filter"](this.allBranchesList, function (branch) { return branch.status == 0; });
+    };
+    ExecBranchesListPageComponent.prototype.checkIfHasMore = function () {
+        return lodash__WEBPACK_IMPORTED_MODULE_2__["isNull"](this.branchService.nextPaginationUrl) ? false : true;
+    };
+    ExecBranchesListPageComponent.prototype.getCompanyBranches = function () {
+        var _this = this;
+        this.loading = true;
+        this.branchService.getBranch(this.merchantId).then(function (res) {
+            var branches = res;
+            _this.loading = false;
+            _this.hasMore = _this.checkIfHasMore();
+            if (branches.length > 0) {
+                _this.hasData = true;
+                lodash__WEBPACK_IMPORTED_MODULE_2__["forEach"](branches, function (branch) {
+                    _this.branchesList.push(branch);
+                    _this.allBranchesList = lodash__WEBPACK_IMPORTED_MODULE_2__["reverse"](_this.branchesList);
+                });
+            }
+            else {
+                _this.hasData = false;
+            }
+        }, function (err) {
+            _this.loading = false;
+            _this.hasError = true;
+        });
+    };
+    ExecBranchesListPageComponent.prototype.loadMore = function () {
+        var _this = this;
+        this.loadingMore = true;
+        var moreUrl = this.branchService.nextPaginationUrl;
+        this.branchService.getBranch(this.merchantId, moreUrl).then(function (res) {
+            _this.loadingMore = false;
+            _this.hasMoreError = false;
+            var branches = res;
+            _this.hasMore = _this.checkIfHasMore();
+            lodash__WEBPACK_IMPORTED_MODULE_2__["forEach"](branches, function (branch) {
+                _this.branchesList.push(branch);
+                _this.allBranchesList = _this.branchesList;
+            });
+        }, function (err) {
+            _this.loadingMore = false;
+            _this.hasMoreError = true;
+        });
+    };
+    ExecBranchesListPageComponent.ctorParameters = function () { return [
+        { type: src_app_services_branch_branch_service__WEBPACK_IMPORTED_MODULE_3__["BranchService"] },
+        { type: src_app_services_storage_local_storage_service__WEBPACK_IMPORTED_MODULE_4__["LocalStorageService"] }
+    ]; };
     ExecBranchesListPageComponent = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Component"])({
             selector: 'app-exec-branches-list-page',
@@ -5538,13 +5615,103 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "ExecInProcessedFormsListPageComponent", function() { return ExecInProcessedFormsListPageComponent; });
 /* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
+/* harmony import */ var lodash__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! lodash */ "./node_modules/lodash/lodash.js");
+/* harmony import */ var lodash__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(lodash__WEBPACK_IMPORTED_MODULE_2__);
+/* harmony import */ var _ng_bootstrap_ng_bootstrap__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @ng-bootstrap/ng-bootstrap */ "./node_modules/@ng-bootstrap/ng-bootstrap/fesm5/ng-bootstrap.js");
+/* harmony import */ var src_app_services_front_desk_front_desk_service__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! src/app/services/front-desk/front-desk.service */ "./src/app/services/front-desk/front-desk.service.ts");
+/* harmony import */ var src_app_services_storage_local_storage_service__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! src/app/services/storage/local-storage.service */ "./src/app/services/storage/local-storage.service.ts");
+
+
+
+
 
 
 var ExecInProcessedFormsListPageComponent = /** @class */ (function () {
-    function ExecInProcessedFormsListPageComponent() {
+    function ExecInProcessedFormsListPageComponent(modalService, localStorage, frontDeskService) {
+        this.modalService = modalService;
+        this.localStorage = localStorage;
+        this.frontDeskService = frontDeskService;
+        this.processingFormsList = [];
+        this.user = this.localStorage.getUser();
+        this.getAllFormsInProcessing();
     }
     ExecInProcessedFormsListPageComponent.prototype.ngOnInit = function () {
     };
+    ExecInProcessedFormsListPageComponent.prototype.showLoadingDialog = function () {
+        this.loadingModalRef = this.modalService.open(this.loadingModal, { centered: true });
+    };
+    ExecInProcessedFormsListPageComponent.prototype.showConfirmDialog = function () { };
+    ExecInProcessedFormsListPageComponent.prototype.showCompletedDialog = function () { };
+    ExecInProcessedFormsListPageComponent.prototype.showNotCompleteDialog = function () { };
+    ExecInProcessedFormsListPageComponent.prototype.getAllFormsInProcessing = function () {
+        var _this = this;
+        this.loading = true;
+        var merchant_id = this.user.merchant_id.toString();
+        this.frontDeskService.getSubmittedFormByStatusAndMerchant(1, merchant_id).then(function (res) {
+            if (res.length != 0) {
+                _this.hasData = true;
+                _this.loading = false;
+                lodash__WEBPACK_IMPORTED_MODULE_2__["forEach"](res, function (form) {
+                    _this.processingFormsList.push(form);
+                });
+            }
+            else {
+                _this.hasData = false;
+                _this.loading = false;
+            }
+        }, function (err) {
+            _this.hasError = true;
+            _this.loading = false;
+        });
+    };
+    ExecInProcessedFormsListPageComponent.prototype.complete = function (submission_code) {
+        var _this = this;
+        this.showLoadingDialog();
+        this.frontDeskService.completeForm(submission_code).then(function (res) {
+            var response = res;
+            if (lodash__WEBPACK_IMPORTED_MODULE_2__["toLower"](response.message) == 'ok') {
+                _this.loadingModalRef.close();
+                _this.showCompletedDialog();
+            }
+            else {
+                _this.loadingModalRef.close();
+                _this.showNotCompleteDialog();
+            }
+        }, function (err) {
+            _this.loadingModalRef.close();
+            _this.showNotCompleteDialog();
+        });
+    };
+    ExecInProcessedFormsListPageComponent.prototype.unprocess = function (submission_code) {
+        var _this = this;
+        this.showLoadingDialog();
+        this.frontDeskService.unprocessForm(submission_code).then(function (res) {
+            var response = res;
+            if (lodash__WEBPACK_IMPORTED_MODULE_2__["toLower"](response.message) == 'ok') {
+                _this.loadingModalRef.close();
+                _this.showCompletedDialog();
+            }
+            else {
+                _this.loadingModalRef.close();
+                _this.showNotCompleteDialog();
+            }
+        }, function (err) {
+            _this.hasError = true;
+            _this.loadingModalRef.close();
+            _this.showNotCompleteDialog();
+        });
+    };
+    ExecInProcessedFormsListPageComponent.ctorParameters = function () { return [
+        { type: _ng_bootstrap_ng_bootstrap__WEBPACK_IMPORTED_MODULE_3__["NgbModal"] },
+        { type: src_app_services_storage_local_storage_service__WEBPACK_IMPORTED_MODULE_5__["LocalStorageService"] },
+        { type: src_app_services_front_desk_front_desk_service__WEBPACK_IMPORTED_MODULE_4__["FrontDeskService"] }
+    ]; };
+    tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["ViewChild"])('loading', { static: false })
+    ], ExecInProcessedFormsListPageComponent.prototype, "loadingModal", void 0);
+    tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["ViewChild"])('completed', { static: false })
+    ], ExecInProcessedFormsListPageComponent.prototype, "completedModal", void 0);
     ExecInProcessedFormsListPageComponent = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Component"])({
             selector: 'app-exec-in-processed-forms-list-page',
@@ -5582,19 +5749,49 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "ExecProcessedFormsListPageComponent", function() { return ExecProcessedFormsListPageComponent; });
 /* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
-/* harmony import */ var _angular_router__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @angular/router */ "./node_modules/@angular/router/fesm5/router.js");
+/* harmony import */ var lodash__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! lodash */ "./node_modules/lodash/lodash.js");
+/* harmony import */ var lodash__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(lodash__WEBPACK_IMPORTED_MODULE_2__);
+/* harmony import */ var src_app_services_front_desk_front_desk_service__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! src/app/services/front-desk/front-desk.service */ "./src/app/services/front-desk/front-desk.service.ts");
+/* harmony import */ var src_app_services_storage_local_storage_service__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! src/app/services/storage/local-storage.service */ "./src/app/services/storage/local-storage.service.ts");
+
+
 
 
 
 var ExecProcessedFormsListPageComponent = /** @class */ (function () {
-    function ExecProcessedFormsListPageComponent(route) {
-        this.route = route;
+    function ExecProcessedFormsListPageComponent(localStorage, frontDeskService) {
+        this.localStorage = localStorage;
+        this.frontDeskService = frontDeskService;
+        this.processedFormsList = [];
+        this.user = this.localStorage.getUser();
+        this.getAllProcessedForms();
     }
     ExecProcessedFormsListPageComponent.prototype.ngOnInit = function () {
-        console.log(this.route.snapshot.params.type);
+    };
+    ExecProcessedFormsListPageComponent.prototype.getAllProcessedForms = function () {
+        var _this = this;
+        this.loading = true;
+        var merchant_id = this.user.merchant_id.toString();
+        this.frontDeskService.getSubmittedFormByStatusAndMerchant(2, merchant_id).then(function (res) {
+            if (res.length != 0) {
+                _this.hasData = true;
+                lodash__WEBPACK_IMPORTED_MODULE_2__["forEach"](res, function (form) {
+                    _this.processedFormsList.push(form);
+                });
+                _this.loading = false;
+            }
+            else {
+                _this.hasData = false;
+                _this.loading = false;
+            }
+        }, function (err) {
+            _this.hasError = true;
+            _this.loading = false;
+        });
     };
     ExecProcessedFormsListPageComponent.ctorParameters = function () { return [
-        { type: _angular_router__WEBPACK_IMPORTED_MODULE_2__["ActivatedRoute"] }
+        { type: src_app_services_storage_local_storage_service__WEBPACK_IMPORTED_MODULE_4__["LocalStorageService"] },
+        { type: src_app_services_front_desk_front_desk_service__WEBPACK_IMPORTED_MODULE_3__["FrontDeskService"] }
     ]; };
     ExecProcessedFormsListPageComponent = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Component"])({
@@ -5633,13 +5830,54 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "ExecSubmittedFormsListPageComponent", function() { return ExecSubmittedFormsListPageComponent; });
 /* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
+/* harmony import */ var lodash__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! lodash */ "./node_modules/lodash/lodash.js");
+/* harmony import */ var lodash__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(lodash__WEBPACK_IMPORTED_MODULE_2__);
+/* harmony import */ var _angular_router__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @angular/router */ "./node_modules/@angular/router/fesm5/router.js");
+/* harmony import */ var src_app_services_front_desk_front_desk_service__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! src/app/services/front-desk/front-desk.service */ "./src/app/services/front-desk/front-desk.service.ts");
+/* harmony import */ var src_app_services_storage_local_storage_service__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! src/app/services/storage/local-storage.service */ "./src/app/services/storage/local-storage.service.ts");
+
+
+
+
 
 
 var ExecSubmittedFormsListPageComponent = /** @class */ (function () {
-    function ExecSubmittedFormsListPageComponent() {
+    function ExecSubmittedFormsListPageComponent(router, localStorage, frontDeskService) {
+        this.router = router;
+        this.localStorage = localStorage;
+        this.frontDeskService = frontDeskService;
+        this.submittedFormsList = [];
+        this.user = this.localStorage.getUser();
+        this.getAllSubmittedForms();
     }
     ExecSubmittedFormsListPageComponent.prototype.ngOnInit = function () {
     };
+    ExecSubmittedFormsListPageComponent.prototype.getAllSubmittedForms = function () {
+        var _this = this;
+        this.loading = true;
+        var merchant_id = this.user.merchant_id.toString();
+        this.frontDeskService.getSubmittedFormByStatusAndMerchant(0, merchant_id).then(function (res) {
+            if (res.length != 0) {
+                _this.hasData = true;
+                _this.loading = false;
+                lodash__WEBPACK_IMPORTED_MODULE_2__["forEach"](res, function (form) {
+                    _this.submittedFormsList.push(form);
+                });
+            }
+            else {
+                _this.hasData = false;
+                _this.loading = false;
+            }
+        }, function (err) {
+            _this.hasError = true;
+            _this.loading = false;
+        });
+    };
+    ExecSubmittedFormsListPageComponent.ctorParameters = function () { return [
+        { type: _angular_router__WEBPACK_IMPORTED_MODULE_3__["Router"] },
+        { type: src_app_services_storage_local_storage_service__WEBPACK_IMPORTED_MODULE_5__["LocalStorageService"] },
+        { type: src_app_services_front_desk_front_desk_service__WEBPACK_IMPORTED_MODULE_4__["FrontDeskService"] }
+    ]; };
     ExecSubmittedFormsListPageComponent = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Component"])({
             selector: 'app-exec-submitted-forms-list-page',
@@ -5648,50 +5886,6 @@ var ExecSubmittedFormsListPageComponent = /** @class */ (function () {
         })
     ], ExecSubmittedFormsListPageComponent);
     return ExecSubmittedFormsListPageComponent;
-}());
-
-
-
-/***/ }),
-
-/***/ "./src/app/pages/dashboard/executive/exec-submitted-forms-page/exec-submitted-forms-page.component.css":
-/*!*************************************************************************************************************!*\
-  !*** ./src/app/pages/dashboard/executive/exec-submitted-forms-page/exec-submitted-forms-page.component.css ***!
-  \*************************************************************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports) {
-
-module.exports = "\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IiIsImZpbGUiOiJzcmMvYXBwL3BhZ2VzL2Rhc2hib2FyZC9leGVjdXRpdmUvZXhlYy1zdWJtaXR0ZWQtZm9ybXMtcGFnZS9leGVjLXN1Ym1pdHRlZC1mb3Jtcy1wYWdlLmNvbXBvbmVudC5jc3MifQ== */"
-
-/***/ }),
-
-/***/ "./src/app/pages/dashboard/executive/exec-submitted-forms-page/exec-submitted-forms-page.component.ts":
-/*!************************************************************************************************************!*\
-  !*** ./src/app/pages/dashboard/executive/exec-submitted-forms-page/exec-submitted-forms-page.component.ts ***!
-  \************************************************************************************************************/
-/*! exports provided: ExecSubmittedFormsPageComponent */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "ExecSubmittedFormsPageComponent", function() { return ExecSubmittedFormsPageComponent; });
-/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
-/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
-
-
-var ExecSubmittedFormsPageComponent = /** @class */ (function () {
-    function ExecSubmittedFormsPageComponent() {
-    }
-    ExecSubmittedFormsPageComponent.prototype.ngOnInit = function () {
-    };
-    ExecSubmittedFormsPageComponent = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
-        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Component"])({
-            selector: 'app-exec-submitted-forms-page',
-            template: __webpack_require__(/*! raw-loader!./exec-submitted-forms-page.component.html */ "./node_modules/raw-loader/index.js!./src/app/pages/dashboard/executive/exec-submitted-forms-page/exec-submitted-forms-page.component.html"),
-            styles: [__webpack_require__(/*! ./exec-submitted-forms-page.component.css */ "./src/app/pages/dashboard/executive/exec-submitted-forms-page/exec-submitted-forms-page.component.css")]
-        })
-    ], ExecSubmittedFormsPageComponent);
-    return ExecSubmittedFormsPageComponent;
 }());
 
 
@@ -6612,9 +6806,9 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var lodash__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! lodash */ "./node_modules/lodash/lodash.js");
 /* harmony import */ var lodash__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(lodash__WEBPACK_IMPORTED_MODULE_2__);
 /* harmony import */ var _angular_router__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @angular/router */ "./node_modules/@angular/router/fesm5/router.js");
-/* harmony import */ var src_app_services_front_desk_front_desk_service__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! src/app/services/front-desk/front-desk.service */ "./src/app/services/front-desk/front-desk.service.ts");
-/* harmony import */ var src_app_services_storage_local_storage_service__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! src/app/services/storage/local-storage.service */ "./src/app/services/storage/local-storage.service.ts");
-/* harmony import */ var _ng_bootstrap_ng_bootstrap__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! @ng-bootstrap/ng-bootstrap */ "./node_modules/@ng-bootstrap/ng-bootstrap/fesm5/ng-bootstrap.js");
+/* harmony import */ var _ng_bootstrap_ng_bootstrap__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @ng-bootstrap/ng-bootstrap */ "./node_modules/@ng-bootstrap/ng-bootstrap/fesm5/ng-bootstrap.js");
+/* harmony import */ var src_app_services_front_desk_front_desk_service__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! src/app/services/front-desk/front-desk.service */ "./src/app/services/front-desk/front-desk.service.ts");
+/* harmony import */ var src_app_services_storage_local_storage_service__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! src/app/services/storage/local-storage.service */ "./src/app/services/storage/local-storage.service.ts");
 
 
 
@@ -6703,9 +6897,9 @@ var FrontDeskProcessingFormsListPageComponent = /** @class */ (function () {
     };
     FrontDeskProcessingFormsListPageComponent.ctorParameters = function () { return [
         { type: _angular_router__WEBPACK_IMPORTED_MODULE_3__["Router"] },
-        { type: _ng_bootstrap_ng_bootstrap__WEBPACK_IMPORTED_MODULE_6__["NgbModal"] },
-        { type: src_app_services_storage_local_storage_service__WEBPACK_IMPORTED_MODULE_5__["LocalStorageService"] },
-        { type: src_app_services_front_desk_front_desk_service__WEBPACK_IMPORTED_MODULE_4__["FrontDeskService"] }
+        { type: _ng_bootstrap_ng_bootstrap__WEBPACK_IMPORTED_MODULE_4__["NgbModal"] },
+        { type: src_app_services_storage_local_storage_service__WEBPACK_IMPORTED_MODULE_6__["LocalStorageService"] },
+        { type: src_app_services_front_desk_front_desk_service__WEBPACK_IMPORTED_MODULE_5__["FrontDeskService"] }
     ]; };
     tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["ViewChild"])('loading', { static: false })

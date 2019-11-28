@@ -174,7 +174,7 @@ Route::get('client/branchs', function () {
     View::addExtension('html', 'php');
     return View::make('index');
 });
-Route::get('client/forms/company', function () {
+Route::get('client/forms', function () {
     View::addExtension('html', 'php');
     return View::make('index');
 });
@@ -189,7 +189,7 @@ Route::get('client/forms_filled', function () {
     return View::make('index');
 });
 
-Route::get('client/form_entry/:form', function () {
+Route::get('client/form_entry', function () {
     View::addExtension('html', 'php');
     return View::make('index');
 });
@@ -218,17 +218,7 @@ Route::get('front_desk/view_form', function () {
     return View::make('index');
 });
 
-Route::get('front_desk/submitted', function () {
-    View::addExtension('html', 'php');
-    return View::make('index');
-});
-
-Route::get('front_desk/processing', function () {
-    View::addExtension('html', 'php');
-    return View::make('index');
-});
-
-Route::get('front_desk/processed', function () {
+Route::get('front_desk/preview', function () {
     View::addExtension('html', 'php');
     return View::make('index');
 });
@@ -330,3 +320,40 @@ Route::get('templates/view', function () {
     View::addExtension('html', 'php');
     return View::make('index');
 });
+
+/** Executive Routes */
+
+Route::get('executive', function () {
+    View::addExtension('html', 'php');
+    return View::make('index');
+});
+
+Route::get('executive/submitted', function () {
+    View::addExtension('html', 'php');
+    return View::make('index');
+});
+
+Route::get('executive/processed', function () {
+    View::addExtension('html', 'php');
+    return View::make('index');
+});
+
+Route::get('executive/processing', function () {
+    View::addExtension('html', 'php');
+    return View::make('index');
+});
+
+Route::get('executive/forms', function () {
+    View::addExtension('html', 'php');
+    return View::make('index');
+});
+
+Route::get('executive/accounts', function () {
+    View::addExtension('html', 'php');
+    return View::make('index');
+});
+
+Route::get('executive/branches', function () {
+    View::addExtension('html', 'php');
+    return View::make('index');
+}); 
