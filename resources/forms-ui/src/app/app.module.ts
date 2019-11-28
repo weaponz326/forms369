@@ -36,8 +36,6 @@ import { CreateCompanyPageComponent } from './pages/dashboard/git-admin/create-c
 import { CreateBranchPageComponent } from './pages/dashboard/git-admin/create-branch-page/create-branch-page.component';
 import { ExecSubmittedFormsPageComponent } from './pages/dashboard/executive/exec-submitted-forms-page/exec-submitted-forms-page.component';
 import { ExecutiveHomePageComponent } from './pages/dashboard/executive/executive-home-page/executive-home-page.component';
-import { ExecProcessedFormsPageComponent } from './pages/dashboard/executive/exec-processed-forms-page/exec-processed-forms-page.component';
-import { ExecInProcessedFormsPageComponent } from './pages/dashboard/executive/exec-in-processed-forms-page/exec-in-processed-forms-page.component';
 import { ExecSubmittedFormsListPageComponent } from './pages/dashboard/executive/exec-submitted-forms-list-page/exec-submitted-forms-list-page.component';
 import { ExecProcessedFormsListPageComponent } from './pages/dashboard/executive/exec-processed-forms-list-page/exec-processed-forms-list-page.component';
 import { ExecInProcessedFormsListPageComponent } from './pages/dashboard/executive/exec-in-processed-forms-list-page/exec-in-processed-forms-list-page.component';
@@ -101,6 +99,7 @@ import { EditAccessCodePageComponent } from './pages/dashboard/git-admin/edit-ac
 import { FrontDeskPreviewFormPageComponent } from './pages/dashboard/front-desk/front-desk-preview-form-page/front-desk-preview-form-page.component';
 import { ExecBranchesListPageComponent } from './pages/dashboard/executive/exec-branches-list-page/exec-branches-list-page.component';
 import { ExecAccountsListPageComponent } from './pages/dashboard/executive/exec-accounts-list-page/exec-accounts-list-page.component';
+import { ExecFormsListPageComponent } from './pages/dashboard/executive/exec-forms-list-page/exec-forms-list-page.component';
 
 @NgModule({
   declarations: [
@@ -123,8 +122,6 @@ import { ExecAccountsListPageComponent } from './pages/dashboard/executive/exec-
     CreateBranchPageComponent,
     ExecSubmittedFormsPageComponent,
     ExecutiveHomePageComponent,
-    ExecProcessedFormsPageComponent,
-    ExecInProcessedFormsPageComponent,
     ExecSubmittedFormsListPageComponent,
     ExecProcessedFormsListPageComponent,
     ExecInProcessedFormsListPageComponent,
@@ -187,6 +184,7 @@ import { ExecAccountsListPageComponent } from './pages/dashboard/executive/exec-
     FrontDeskPreviewFormPageComponent,
     ExecBranchesListPageComponent,
     ExecAccountsListPageComponent,
+    ExecFormsListPageComponent,
   ],
   imports: [
     BrowserModule,
