@@ -249,6 +249,12 @@
       </a>
     </li>
     <li class="nav-item">
+      <a class="nav-link" routerLink="/client/form_merchant">
+        <i class="mdi mdi-plus menu-icon"></i>
+        <span class="menu-title">Pick A Form</span>
+      </a>
+    </li>
+    <li class="nav-item">
       <a class="nav-link" routerLink="/client/form_data">
         <i class="mdi mdi-file-document-edit-outline menu-icon"></i>
         <span class="menu-title">My Form Data</span>
@@ -257,13 +263,13 @@
     <li class="nav-item">
       <a class="nav-link" routerLink="/client/forms_filled">
         <i class="mdi mdi-file-document-edit-outline menu-icon"></i>
-        <span class="menu-title">Submitted Forms</span>
+        <span class="menu-title">My History</span>
       </a>
     </li>
     <li class="nav-item">
       <a class="nav-link" routerLink="/client/unsent_forms">
         <i class="mdi mdi-file-document-edit-outline menu-icon"></i>
-        <span class="menu-title">UnProcessed Forms</span>
+        <span class="menu-title">Submitted Forms</span>
       </a>
     </li>
   </ul>
@@ -300,3 +306,40 @@
   </ul>
 </nav>
 <!-- /.front-desk -->
+
+<!-- executive -->
+<nav *ngIf="isExecutive" class="sidebar sidebar-offcanvas" id="sidebar">
+  <ul class="nav">
+    <li class="nav-item">
+      <a class="nav-link" routerLink="/executive/forms">
+        <i class="mdi mdi-file-document-box-multiple-outline menu-icon"></i>
+        <span class="menu-title">Forms</span>
+      </a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link" routerLink="/executive/processing">
+        <i class="mdi mdi-timer menu-icon"></i>
+        <span class="menu-title">Forms In-Processing</span>
+      </a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link" routerLink="/executive/processed">
+        <i class="mdi mdi-check-all menu-icon"></i>
+        <span class="menu-title">Processed Forms</span>
+      </a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link" routerLink="/executive/submitted">
+        <i class="mdi mdi-file-check-outline menu-icon"></i>
+        <span class="menu-title">Submitted Forms</span>
+      </a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link" routerLink="/executive/branches">
+        <i class="mdi mdi-office-building menu-icon"></i>
+        <span class="menu-title">Branches</span>
+      </a>
+    </li>
+  </ul>
+</nav>
+<!-- /.executive -->

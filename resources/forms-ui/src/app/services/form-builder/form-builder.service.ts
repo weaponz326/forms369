@@ -23,10 +23,8 @@ export class FormBuilderService {
       'autocomplete',
       'button',
       'date',
-      'file',
       'hidden',
       'number',
-      'select'
     ];
   }
 

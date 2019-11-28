@@ -99,6 +99,10 @@ export class ClientFormsEntryPageComponent implements OnInit {
     this.clipboard.copyFromContent(this.formGenCode);
   }
 
+  cancel() {
+    window.history.back();
+  }
+
   loadForm() {}
 
 }

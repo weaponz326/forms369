@@ -9,7 +9,7 @@
             <div class="d-flex justify-content-between flex-wrap">
               <div class="d-flex align-items-end flex-wrap">
                 <div class="mr-md-3 mr-xl-5">
-                  <h2>UnProcessed Forms</h2>
+                  <h2>Submitted Forms</h2>
                   <p class="mb-md-0">Your analytics dashboard template.</p>
                 </div>
                 <div class="d-flex">
@@ -98,8 +98,8 @@
           <div class="col-md-4 grid-margin stretch-card" *ngFor="let form of unSentFormsList">
             <div class="card hover-cursor animated fadeInDown slow">
               <div class="card-body">
-                <h1 class="display-4">{{ form.submission_code }}</h1>
                 <p class="card-title">{{ form.form_name }}</p>
+                <h1 class="display-4">{{ form.submission_code }}</h1>
                 <div class="card-text">
                   <p class="text-muted">{{ form.submitted_at | date }}</p>
                 </div>

@@ -107,4 +107,7 @@ export class FrontDesktopHomePageComponent implements OnInit {
     }
   }
 
+  cancel() {
+    this.f.code.setValue('');
+  }
 }

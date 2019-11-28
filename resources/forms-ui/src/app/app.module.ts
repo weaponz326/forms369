@@ -10,7 +10,11 @@ import { AppRoutingModule } from './app-routing.module';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { NgxPageScrollCoreModule } from 'ngx-page-scroll-core';
 
+import { MatIconModule } from '@angular/material/icon';
+import { MatInputModule} from '@angular/material/input';
 import { MatAutocompleteModule } from '@angular/material';
+import { MatNativeDateModule } from '@angular/material/core';
+import { MatDatepickerModule } from '@angular/material/datepicker';
 import { NgbModalModule, NgbAlertModule } from '@ng-bootstrap/ng-bootstrap';
 
 import { AppComponent } from './app.component';
@@ -30,13 +34,13 @@ import { ClientListFormDataPageComponent } from './pages/dashboard/client/client
 import { FrontDesktopHomePageComponent } from './pages/dashboard/front-desk/front-desk-home-page/front-desk-home-page.component';
 import { CreateCompanyPageComponent } from './pages/dashboard/git-admin/create-company-page/create-company-page.component';
 import { CreateBranchPageComponent } from './pages/dashboard/git-admin/create-branch-page/create-branch-page.component';
-import { ExecSubmittedFormsPageComponent } from './pages/dashboard/branch-executive/exec-submitted-forms-page/exec-submitted-forms-page.component';
-import { ExecutiveHomePageComponent } from './pages/dashboard/branch-executive/executive-home-page/executive-home-page.component';
-import { ExecProcessedFormsPageComponent } from './pages/dashboard/branch-executive/exec-processed-forms-page/exec-processed-forms-page.component';
-import { ExecInProcessedFormsPageComponent } from './pages/dashboard/branch-executive/exec-in-processed-forms-page/exec-in-processed-forms-page.component';
-import { ExecSubmittedFormsListPageComponent } from './pages/dashboard/branch-executive/exec-submitted-forms-list-page/exec-submitted-forms-list-page.component';
-import { ExecProcessedFormsListPageComponent } from './pages/dashboard/branch-executive/exec-processed-forms-list-page/exec-processed-forms-list-page.component';
-import { ExecInProcessedFormsListPageComponent } from './pages/dashboard/branch-executive/exec-in-processed-forms-list-page/exec-in-processed-forms-list-page.component';
+import { ExecSubmittedFormsPageComponent } from './pages/dashboard/executive/exec-submitted-forms-page/exec-submitted-forms-page.component';
+import { ExecutiveHomePageComponent } from './pages/dashboard/executive/executive-home-page/executive-home-page.component';
+import { ExecProcessedFormsPageComponent } from './pages/dashboard/executive/exec-processed-forms-page/exec-processed-forms-page.component';
+import { ExecInProcessedFormsPageComponent } from './pages/dashboard/executive/exec-in-processed-forms-page/exec-in-processed-forms-page.component';
+import { ExecSubmittedFormsListPageComponent } from './pages/dashboard/executive/exec-submitted-forms-list-page/exec-submitted-forms-list-page.component';
+import { ExecProcessedFormsListPageComponent } from './pages/dashboard/executive/exec-processed-forms-list-page/exec-processed-forms-list-page.component';
+import { ExecInProcessedFormsListPageComponent } from './pages/dashboard/executive/exec-in-processed-forms-list-page/exec-in-processed-forms-list-page.component';
 import { AdminHomePageComponent } from './pages/dashboard/admin/admin-home-page/admin-home-page.component';
 import { ClientFormsHistoryPageComponent } from './pages/dashboard/client/client-forms-history-page/client-forms-history-page.component';
 import { ClientFormsEntryPageComponent } from './pages/dashboard/client/client-forms-entry-page/client-forms-entry-page.component';
@@ -191,6 +195,10 @@ import { FrontDeskPreviewFormPageComponent } from './pages/dashboard/front-desk/
     NgbAlertModule,
     NgbModalModule,
     ReactiveFormsModule,
+    MatIconModule,
+    MatInputModule,
+    MatDatepickerModule,
+    MatNativeDateModule,
     MatAutocompleteModule,
     CountryPickerModule.forRoot({
       baseUrl: 'assets/',
