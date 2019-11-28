@@ -13,67 +13,95 @@
                   <p class="mb-md-0">Your analytics dashboard template.</p>
                 </div>
                 <div class="d-flex">
-                  <i class="mdi mdi-home text-muted hover-cursor"></i>
-                  <p class="text-muted mb-0 hover-cursor">&nbsp;/&nbsp;Home&nbsp;/&nbsp;</p>
-                  <p class="text-primary mb-0 hover-cursor">In-Processing</p>
                 </div>
               </div>
               <div class="d-flex justify-content-between align-items-end flex-wrap">
-                <button type="button" class="btn btn-light bg-white btn-icon mr-3 d-none d-md-block ">
-                  <i class="mdi mdi-download text-muted"></i>
-                </button>
-                <button type="button" class="btn btn-light bg-white btn-icon mr-3 mt-2 mt-xl-0">
-                  <i class="mdi mdi-clock-outline text-muted"></i>
-                </button>
-                <button type="button" class="btn btn-light bg-white btn-icon mr-3 mt-2 mt-xl-0">
-                  <i class="mdi mdi-plus text-muted"></i>
-                </button>
               </div>
             </div>
           </div>
         </div>
-        <div class="row">
+
+        <div *ngIf="loading" class="row m-5">
+          <div class="col-md-12 m-5">
+            <div class="d-flex justify-content-center">
+              <div class="spinner-border m-5" style="width: 5rem; height: 5rem;" role="status">
+                <span class="sr-only">Loading...</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div *ngIf="!loading && !hasData" class="row">
+          <div class="col-lg-12 grid-margin stretch-card">
+            <div class="card text-center pt-5 pb-5">
+              <div class="card-body mt-5 mb-5">
+                <h4 class="card-title">No Data Found</h4>
+                <p class="card-description">
+                  No forms found.
+                </p>
+                <div class="text-lg-center mt-5 mb-5">
+                  <div class="card-text">
+                    <i class="mdi mdi-file-question" style="font-size: 8em;"></i>
+                  </div>
+                  <div class="card-text">
+                    <h3>No Available Forms</h3>
+                    <p class="text-muted">There are no created forms yet!</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div *ngIf="hasError" class="row">
+          <div class="col-lg-12 grid-margin stretch-card">
+            <div class="card text-center pt-5 pb-5">
+              <div class="card-body mt-5 mb-5">
+                <h4 class="card-title">Error Ocuured</h4>
+                <p class="card-description">
+                  Ooops! Something went wrong!
+                </p>
+                <div class="text-lg-center mt-5 mb-5">
+                  <div class="card-text">
+                    <i class="mdi mdi-close-network-outline" style="font-size: 8em;"></i>
+                  </div>
+                  <div class="card-text">
+                    <h3>We couldn't get your forms</h3>
+                    <p class="text-muted">An error has occured on our servers or you might not have an active internet
+                      connection.</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div *ngIf="!loading && hasData" class="row">
           <div class="col-lg-12 grid-margin stretch-card">
             <div class="card">
               <div class="card-body">
-                <h4 class="card-title">Submitted Forms</h4>
+                <h4 class="card-title">Processed Forms</h4>
                 <p class="card-description">
-                  List of all new forms that have been submitted for processing
+                  List of all new forms that have been processing
                 </p>
                 <div class="table-responsive">
                   <table class="table table-hover">
                     <thead>
                       <tr>
-                        <th>Full Name</th>
-                        <th>Form Identifier.</th>
-                        <th>Created On</th>
+                        <th>Form Identifier</th>
+                        <th>Form Name.</th>
+                        <th>Submitted By</th>
+                        <th>Submitted On</th>
+                        <th>Processed On</th>
                       </tr>
                     </thead>
                     <tbody>
-                      <tr>
-                        <td>Jacob Martin Jay</td>
-                        <td>53275531981</td>
-                        <td>12 May 2017</td>
-                      </tr>
-                      <tr>
-                        <td>Messsy W. Johnson</td>
-                        <td>53275532</td>
-                        <td>15 May 2017</td>
-                      </tr>
-                      <tr>
-                        <td>John M Doe</td>
-                        <td>53275533</td>
-                        <td>14 May 2017</td>
-                      </tr>
-                      <tr>
-                        <td>Peter Ore Finn</td>
-                        <td>53275534</td>
-                        <td>16 May 2017</td>
-                      </tr>
-                      <tr>
-                        <td>Dave Quinn</td>
-                        <td>53275535</td>
-                        <td>20 May 2017</td>
+                      <tr class="hover-cursor" *ngFor="let form of processedFormsList">
+                        <td>{{ form.form_code }}</td>
+                        <td>{{ form.form_name }}</td>
+                        <td>{{ form.client_name }}</td>
+                        <td>{{ form.submitted_at | date:'medium' }}</td>
+                        <td>{{ form.last_processed | date:'medium' }}</td>
                       </tr>
                     </tbody>
                   </table>

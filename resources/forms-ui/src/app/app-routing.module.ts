@@ -14,7 +14,6 @@ import { FrontDesktopHomePageComponent } from './pages/dashboard/front-desk/fron
 import { CreateCompanyPageComponent } from './pages/dashboard/git-admin/create-company-page/create-company-page.component';
 import { CreateBranchPageComponent } from './pages/dashboard/git-admin/create-branch-page/create-branch-page.component';
 import { ExecutiveHomePageComponent } from './pages/dashboard/executive/executive-home-page/executive-home-page.component';
-import { ExecSubmittedFormsPageComponent } from './pages/dashboard/executive/exec-submitted-forms-page/exec-submitted-forms-page.component';
 import { ExecInProcessedFormsListPageComponent } from './pages/dashboard/executive/exec-in-processed-forms-list-page/exec-in-processed-forms-list-page.component';
 import { ExecSubmittedFormsListPageComponent } from './pages/dashboard/executive/exec-submitted-forms-list-page/exec-submitted-forms-list-page.component';
 import { ExecProcessedFormsListPageComponent } from './pages/dashboard/executive/exec-processed-forms-list-page/exec-processed-forms-list-page.component';
@@ -320,10 +319,6 @@ const routes: Routes = [
         path: '',
         pathMatch: 'full',
         component: ExecutiveHomePageComponent
-      },
-      {
-        path: 'submitted',
-        component: ExecSubmittedFormsPageComponent
       },
       {
         path: 'submitted',
