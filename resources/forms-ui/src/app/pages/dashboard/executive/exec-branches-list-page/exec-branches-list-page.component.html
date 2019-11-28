@@ -79,7 +79,8 @@
                   </div>
                   <div class="card-text">
                     <h3>We couldn't get your branches</h3>
-                    <p class="text-muted">An error has occured on our servers or you might not have internet connection</p>
+                    <p class="text-muted">You may not have internet connefction or our servers maybe down.</p>
+                    <button class="btn btn-primary" type="button" (click)="retry()">Retry</button>
                   </div>
                 </div>
               </div>
@@ -93,7 +94,7 @@
               <div class="card-body">
                 <h4 class="card-title">All Company Branches</h4>
                 <p class="card-description">
-                  List of all new forms that have been submitted for processing
+                  List all of your company branches.
                 </p>
                 <div class="text-lg-center mt-3 mb-5">
                   <div class="btn-group" role="group" aria-label="Sort By">
@@ -105,7 +106,6 @@
                         data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Sort By</button>
                       <div class="dropdown-menu" aria-labelledby="sortMenuButton">
                         <button type="button" class="dropdown-item" (click)="sort('branch')">Branch Name</button>
-                        <button type="button" class="dropdown-item" (click)="sort('merchant')">Company Name</button>
                         <button type="button" class="dropdown-item" (click)="sort('created')">Date Created</button>
                       </div>
                     </div>
@@ -158,8 +158,7 @@
                 Maybe, our servers may be down.
               </p>
               <hr>
-              <p class="mb-0">We are really sorry for this inconvenience. Please click on the load more button again.
-              </p>
+              <p class="mb-0">We are really sorry for this inconvenience. Please click on the load more button again.</p>
             </div>
           </div>
         </div>

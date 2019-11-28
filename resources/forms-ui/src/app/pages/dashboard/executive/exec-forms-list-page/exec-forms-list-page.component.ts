@@ -81,4 +81,8 @@ export class ExecFormsListPageComponent implements OnInit {
       }
     );
   }
+
+  retry() {
+    this.getAllCompanyForms();
+  }
 }

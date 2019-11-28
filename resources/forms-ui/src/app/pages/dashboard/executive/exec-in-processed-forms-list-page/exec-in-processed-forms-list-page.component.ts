@@ -52,10 +52,10 @@ export class ExecInProcessedFormsListPageComponent implements OnInit {
       res => {
         if (res.length != 0) {
           this.hasData = true;
-          this.loading = false;
           _.forEach(res, (form) => {
             this.processingFormsList.push(form);
           });
+          this.loading = false;
         }
         else {
           this.hasData = false;
@@ -110,6 +110,10 @@ export class ExecInProcessedFormsListPageComponent implements OnInit {
         this.showNotCompleteDialog();
       }
     );
+  }
+
+  retry() {
+    this.getAllFormsInProcessing();
   }
 
 }

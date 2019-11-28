@@ -55,4 +55,8 @@ export class ExecProcessedFormsListPageComponent implements OnInit {
     );
   }
 
+  retry() {
+    this.getAllProcessedForms();
+  }
+
 }

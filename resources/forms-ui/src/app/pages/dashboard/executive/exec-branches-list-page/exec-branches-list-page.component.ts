@@ -46,9 +46,6 @@ export class ExecBranchesListPageComponent implements OnInit {
       case 'branch':
         this.sortByBranch();
         break;
-      case 'merchant':
-        this.sortByCompany();
-        break;
       default:
         break;
     }
@@ -60,10 +57,6 @@ export class ExecBranchesListPageComponent implements OnInit {
 
   sortByBranch() {
     this.branchesList = _.sortBy(this.branchesList, (item) => item.branch_name);
-  }
-
-  sortByCompany() {
-    this.branchesList = _.sortBy(this.branchesList, (item) => item.merchant_name);
   }
 
   showAll() {
@@ -129,6 +122,10 @@ export class ExecBranchesListPageComponent implements OnInit {
         this.hasMoreError = true;
       }
     );
+  }
+
+  retry() {
+    this.getCompanyBranches();
   }
 
 }
