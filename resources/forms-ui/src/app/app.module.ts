@@ -84,9 +84,6 @@ import { AdminCreateUserPageComponent } from './pages/dashboard/admin/admin-crea
 import { AdminEditUserPageComponent } from './pages/dashboard/admin/admin-edit-user-page/admin-edit-user-page.component';
 import { AdminViewAccountDetailsPageComponent } from './pages/dashboard/admin/admin-view-account-details-page/admin-view-account-details-page.component';
 import { AdminViewBranchDetailsPageComponent } from './pages/dashboard/admin/admin-view-branch-details-page/admin-view-branch-details-page.component';
-import { BranchAdminHomePageComponent } from './pages/dashboard/branch-admin/branch-admin-home-page/branch-admin-home-page.component';
-import { BranchAdminCreateUserPageComponent } from './pages/dashboard/branch-admin/branch-admin-create-user-page/branch-admin-create-user-page.component';
-import { BranchAdminEditUserPageComponent } from './pages/dashboard/branch-admin/branch-admin-edit-user-page/branch-admin-edit-user-page.component';
 import { CreateAccessCodePageComponent } from './pages/dashboard/git-admin/create-access-code-page/create-access-code-page.component';
 import { AuthPageComponent } from './pages/auth-page/auth-page.component';
 import { AdminLoginPageComponent } from './pages/admin-login-page/admin-login-page.component';
@@ -168,9 +165,6 @@ import { ExecFormsListPageComponent } from './pages/dashboard/executive/exec-for
     AdminEditUserPageComponent,
     AdminViewAccountDetailsPageComponent,
     AdminViewBranchDetailsPageComponent,
-    BranchAdminHomePageComponent,
-    BranchAdminCreateUserPageComponent,
-    BranchAdminEditUserPageComponent,
     CreateAccessCodePageComponent,
     AuthPageComponent,
     AdminLoginPageComponent,
