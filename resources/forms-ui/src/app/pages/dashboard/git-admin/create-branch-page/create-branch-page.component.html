@@ -48,13 +48,11 @@
                               </span>
                               <span>{{ item.email }}</span> <br>
                               <small class="autocomplete-small">{{ item.full_name }}</small> <br>
-                              <small class="autocomplete-small">{{ item.merchant_name }} -
-                                {{ item.branch_name }}</small> <br>
+                              <small class="autocomplete-small">{{ item.merchant_name }} - {{ item.branch_name }}</small> <br>
                             </mat-option>
                           </mat-autocomplete>
                           <div *ngIf="submitted && f.branchSupervisor.errors">
-                            <p class="input-error" *ngIf="f.branchSupervisor.errors.required">Branch Super Executive is
-                              required</p>
+                            <p class="input-error" *ngIf="f.branchSupervisor.errors.required">Branch Super Executive is required</p>
                           </div>
                         </div>
                       </div>
@@ -69,8 +67,7 @@
                               </span>
                               <span>{{ item.email }}</span> <br>
                               <small class="autocomplete-small">{{ item.full_name }}</small> <br>
-                              <small class="autocomplete-small">{{ item.merchant_name }} -
-                                {{ item.branch_name }}</small> <br>
+                              <small class="autocomplete-small">{{ item.merchant_name }} - {{ item.branch_name }}</small> <br>
                             </mat-option>
                           </mat-autocomplete>
                           <div *ngIf="submitted && f.branchAdmin.errors">

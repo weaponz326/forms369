@@ -25,7 +25,7 @@
             <div class="card">
               <div class="card-body">
                 <p class="card-title">Edit Access Code</p>
-                <p class="text-muted">A list of all forms you've filled</p>
+                <p class="text-muted">Update or make changes to an access code.</p>
                 <div class="card-text">
                   <form [formGroup]="form" (ngSubmit)="create()">
                     <div class="form-group">
@@ -119,9 +119,8 @@
     </button>
   </div>
   <div class="modal-body">
-    <p><strong>Are you sure you want to cancel <span class="text-primary">the creation of this access code</span>
-        ?</strong></p>
-    <p>All information provided will be permanently lost.
+    <p><strong>Are you sure you want to cancel ?</p>
+    <p>All the changes made will be permanently lost.
       <span class="text-danger">This operation can not be undone.</span>
     </p>
   </div>
