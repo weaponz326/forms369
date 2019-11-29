@@ -13,9 +13,6 @@
                   <p class="mb-md-0">Your administrative dashboard.</p>
                 </div>
                 <div class="d-flex">
-                  <!-- <i class="mdi mdi-home text-muted hover-cursor"></i>
-                  <p class="text-muted mb-0 hover-cursor">&nbsp;/&nbsp;Home&nbsp;/&nbsp;</p>
-                  <p class="text-primary mb-0 hover-cursor">Analytics</p> -->
                 </div>
               </div>
               <div class="d-flex justify-content-between align-items-end flex-wrap">
@@ -23,10 +20,20 @@
             </div>
           </div>
         </div>
+
+        <div *ngIf="loading" class="row">
+          <div class="col-md-12">
+            <div class="d-flex justify-content-center pb-5 pt-5">
+              <div class="spinner-border mt-5" style="width: 6rem; height: 6rem;" role="status">
+                <span class="sr-only">Loading...</span>
+              </div>
+            </div>
+          </div>
+        </div>
         
-        <div class="row mb-5 pb-3">
-          <div class="col-12">
-            <div class="d-flex justify-content-between align-items-center flex-wrap">
+        <div *ngIf="!loading" class="row mb-5 text-center pb-3">
+          <div class="col-10 offset-1">
+            <div class="text-center">
               <form class="form-inline">
                 <div class="form-group">
                   <select class="form-control form-control-lg" style="width: 220px;">
@@ -65,12 +72,12 @@
           </div>
         </div>
 
-        <div class="row">
-          <div class="col-md-3 grid-margin stretch-card">
+        <div *ngIf="!loading" class="row">
+          <div class="col-md-4 grid-margin stretch-card">
             <div class="card hover-cursor hover-primary" (click)="openForms()">
               <div class="card-body">
                 <p class="card-title">Available Forms</p>
-                <h1 class="display-2">6</h1>
+                <h1 class="display-2">{{ numTotalForms }}</h1>
                 <div class="card-text">
                   <i class="mdi mdi-file-outline" style="font-size: 3em;"></i>
                 </div>
@@ -79,11 +86,11 @@
             </div>
           </div>
 
-          <div class="col-md-3 grid-margin stretch-card">
+          <div class="col-md-4 grid-margin stretch-card">
             <div class="card hover-cursor hover-primary" (click)="openProcessed()">
               <div class="card-body">
                 <p class="card-title">Processed Forms</p>
-                <h1 class="display-2">382</h1>
+                <h1 class="display-2">{{ totalNoProcessed }}</h1>
                 <div class="card-text">
                   <i class="mdi mdi-file-document-edit-outline" style="font-size: 3em;"></i>
                 </div>
@@ -92,11 +99,11 @@
             </div>
           </div>
 
-          <div class="col-md-3 grid-margin stretch-card">
+          <div class="col-md-4 grid-margin stretch-card">
             <div class="card hover-cursor hover-primary" (click)="openProcessing()">
               <div class="card-body">
                 <p class="card-title">Forms In Processing</p>
-                <h1 class="display-2">70</h1>
+                <h1 class="display-2">{{ totalNoProcessing }}</h1>
                 <div class="card-text">
                   <i class="mdi mdi-timer" style="font-size: 3em;"></i>
                 </div>
@@ -104,12 +111,14 @@
               </div>
             </div>
           </div>
+        </div>
 
-          <div class="col-md-3 grid-margin stretch-card">
+        <div *ngIf="!loading" class="row">
+          <div class="col-md-4 grid-margin stretch-card">
             <div class="card hover-cursor hover-primary" (click)="openSubmitted()">
               <div class="card-body">
                 <p class="card-title">Sumitted Forms</p>
-                <h1 class="display-2">161</h1>
+                <h1 class="display-2">{{ totalNoSubmitted }}</h1>
                 <div class="card-text">
                   <i class="mdi mdi-mailbox-open-outline" style="font-size: 3em;"></i>
                 </div>
@@ -117,29 +126,27 @@
               </div>
             </div>
           </div>
-        </div>
 
-        <div class="row">
-          <div class="col-md-3 grid-margin stretch-card">
+          <div class="col-md-4 grid-margin stretch-card">
             <div class="card hover-cursor hover-primary" (click)="openBranches()">
               <div class="card-body">
                 <p class="card-title">Total No. Of Branches</p>
-                <h1 class="display-2">161</h1>
+                <h1 class="display-2">{{ numTotalBranches }}</h1>
                 <div class="card-text">
-                  <i class="mdi mdi-mailbox-open-outline" style="font-size: 3em;"></i>
+                  <i class="mdi mdi-office-building" style="font-size: 3em;"></i>
                 </div>
                 <p class="text-muted">Total of forms that have been submitted</p>
               </div>
             </div>
           </div>
 
-          <div class="col-md-3 grid-margin stretch-card">
+          <!-- <div class="col-md-3 grid-margin stretch-card">
             <div class="card hover-cursor hover-primary" (click)="openBranches()">
               <div class="card-body">
                 <p class="card-title">Total No. Of Active Branches</p>
-                <h1 class="display-2">161</h1>
+                <h1 class="display-2">{{ numTotalActiveBranches }}</h1>
                 <div class="card-text">
-                  <i class="mdi mdi-mailbox-open-outline" style="font-size: 3em;"></i>
+                  <i class="mdi mdi-check-all" style="font-size: 3em;"></i>
                 </div>
                 <p class="text-muted">Total of forms that have been submitted</p>
               </div>
@@ -150,21 +157,22 @@
             <div class="card hover-cursor hover-primary" (click)="openBranches()">
               <div class="card-body">
                 <p class="card-title">Total No. Of In-Active Branches</p>
-                <h1 class="display-2">161</h1>
+                <h1 class="display-2">{{ numTotalInActiveBranches }}</h1>
                 <div class="card-text">
-                  <i class="mdi mdi-mailbox-open-outline" style="font-size: 3em;"></i>
+                  <i class="mdi mdi-network-off-outline" style="font-size: 3em;"></i>
                 </div>
                 <p class="text-muted">Total of forms that have been submitted</p>
               </div>
             </div>
-          </div>
-          <div class="col-md-3 grid-margin stretch-card">
+          </div> -->
+
+          <div class="col-md-4 grid-margin stretch-card">
             <div class="card hover-cursor hover-primary" (click)="openAccounts()">
               <div class="card-body">
                 <p class="card-title">Total No. Of Users</p>
-                <h1 class="display-2">161</h1>
+                <h1 class="display-2">{{ numTotalUsers }}</h1>
                 <div class="card-text">
-                  <i class="mdi mdi-mailbox-open-outline" style="font-size: 3em;"></i>
+                  <i class="mdi mdi-account-group-outline" style="font-size: 3em;"></i>
                 </div>
                 <p class="text-muted">Total of forms that have been submitted</p>
               </div>
@@ -173,11 +181,11 @@
         </div>
         
       </div>
-      <!-- content ends -->
+      <!-- content -->
       <!-- footer -->
       <app-footer-bar></app-footer-bar>
       <!-- partial -->
     </div>
-    <!-- main-panel ends -->
+    <!-- main ends -->
   </div>
 </div>

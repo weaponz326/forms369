@@ -180,7 +180,7 @@
 <!-- git-admin -->
 
 <!-- comp admin -->
-<nav *ngIf="isAdmin" class="sidebar sidebar-offcanvas" id="sidebar">
+<nav *ngIf="isAdmin || isBranchAdmin" class="sidebar sidebar-offcanvas" id="sidebar">
   <ul class="nav">
     <li class="nav-item">
       <a class="nav-link" routerLink="/admin">

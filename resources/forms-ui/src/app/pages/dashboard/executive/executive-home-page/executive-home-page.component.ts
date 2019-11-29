@@ -13,16 +13,14 @@ export class ExecutiveHomePageComponent implements OnInit {
   loading: boolean;
   firstname: string;
   merchantId: string;
+  numTotalUsers: string;
   numTotalForms: string;
-  numTotalCompany: string;
   numTotalBranches: string;
   totalNoSubmitted: string;
   totalNoProcessed: string;
   totalNoProcessing: string;
-  numTotalActiveCompany: string;
-  numTotalActiveBranches: string;
-  numTotalInActiveCompany: string;
-  numTotalInActiveBranches: string;
+  // numTotalActiveBranches: string;
+  // numTotalInActiveBranches: string;
 
   constructor(
     private router: Router,
@@ -34,6 +32,7 @@ export class ExecutiveHomePageComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.getAnalytics();
   }
 
   openForms() {
@@ -61,7 +60,7 @@ export class ExecutiveHomePageComponent implements OnInit {
   }
 
   getFormAnalytics() {
-    this.analyticService.getAllFormsCount().then(
+    this.analyticService.getCompanyFormCount(this.merchantId).then(
       count => {
         this.numTotalForms = count;
       }
@@ -69,21 +68,9 @@ export class ExecutiveHomePageComponent implements OnInit {
   }
 
   getBranchAnalytics() {
-    this.analyticService.getBranchCount().then(
+    this.analyticService.getCompanyBranchCount(this.merchantId).then(
       count => {
         this.numTotalBranches = count;
-      }
-    );
-
-    this.analyticService.getActiveBranchCount().then(
-      count => {
-        this.numTotalActiveBranches = count;
-      }
-    );
-
-    this.analyticService.getInactiveBranchCount().then(
-      count => {
-        this.numTotalInActiveBranches = count;
       }
     );
   }
@@ -113,10 +100,19 @@ export class ExecutiveHomePageComponent implements OnInit {
     );
   }
 
+  getUserAccountsAnalytics() {
+    this.analyticService.getCompanyUsersCount(this.merchantId).then(
+      count => {
+        this.numTotalUsers = count;
+      }
+    );
+  }
+
   getAnalytics() {
     this.loading = true;
     this.getFormAnalytics();
     this.getBranchAnalytics();
+    this.getUserAccountsAnalytics();
     this.getProcessedFormsAnalytics(this.merchantId);
     this.getSubmittedFormsAnalytics(this.merchantId);
     this.getProcessingFormsAnalytics(this.merchantId);

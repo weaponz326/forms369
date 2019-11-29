@@ -98,7 +98,7 @@ Route::group(['middleware' => ['auth:api'], 'prefix' => 'v1'], function(){
     Route::get('getNumBranches', 'HomeController@getNumBranches')->name('getNumBranches')->middleware('scope:GIT_Admin');
 
     Route::get('getCompanyBranches/{id}', 'HomeController@getCompanyBranches')->name('getCompanyBranches')->middleware('scope:GIT_Admin,company_admin,super_executive,branch_executive');
-    Route::get('getNumCompanyBranches/{id}', 'HomeController@getNumCompanyBranches')->name('getNumCompanyBranches')->middleware('scope:GIT_Admin,company_admin');
+    Route::get('getNumCompanyBranches/{id}', 'HomeController@getNumCompanyBranches')->name('getNumCompanyBranches')->middleware('scope:GIT_Admin,company_admin,super_executive');
     Route::get('getCompanyBranchDetails/{id}', 'HomeController@getCompanyBranchDetails')->name('getCompanyBranchDetails')->middleware('scope:GIT_Admin,super_executive,company_admin,branch_executive,branch_admin');
     
     

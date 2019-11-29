@@ -44,7 +44,31 @@ export class AnalyticsService {
    */
   getCompanyUsersCount(merchant_id: string): Promise<any> {
     return new Promise((resolve, reject) => {
-      const url = this.endpointService.apiHost + 'api/v1/' + merchant_id;
+      const url = this.endpointService.apiHost + 'api/v1/getNumAllUsersByMerchant/' + merchant_id;
+      this.http.get(url, { headers: this.headers }).subscribe(
+        res => {
+          console.log('users: ' + res);
+          const response = res as any;
+          resolve(response.num_users);
+        },
+        err => {
+          reject(err);
+        }
+      );
+    });
+  }
+
+  /**
+   * Gerts the total number of users or user accounts
+   * belogning to a specifiec merchant branch.
+   *
+   * @param {string} branch_id
+   * @returns {Promise<any>}
+   * @memberof AnalyticsService
+   */
+  getBranchUsersCount(branch_id: string): Promise<any> {
+    return new Promise((resolve, reject) => {
+      const url = this.endpointService.apiHost + 'api/v1/getNumAllUsersByBranch/' + branch_id;
       this.http.get(url, { headers: this.headers }).subscribe(
         res => {
           console.log('users: ' + res);
