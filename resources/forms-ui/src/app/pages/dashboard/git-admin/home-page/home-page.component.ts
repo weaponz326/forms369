@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { AnalyticsService } from 'src/app/services/analytics/analytics.service';
 import { LocalStorageService } from 'src/app/services/storage/local-storage.service';
-import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-home-page',
@@ -13,6 +13,7 @@ export class HomePageComponent implements OnInit {
   loading: boolean;
   firstName: string;
   numTotalForms: string;
+  numTotalUsers: string;
   numTotalCompany: string;
   numTotalBranches: string;
   numTotalActiveCompany: string;
@@ -42,6 +43,14 @@ export class HomePageComponent implements OnInit {
 
   openForms() {
     this.router.navigateByUrl('git_admin/lists/form');
+  }
+
+  getAccountsAnalytics() {
+    this.analyticService.getAllUsersCount().then(
+      count => {
+        this.numTotalUsers = count;
+      }
+    );
   }
 
   getBranchAnalytics() {
@@ -97,6 +106,7 @@ export class HomePageComponent implements OnInit {
     this.loading = true;
     this.getBranchAnalytics();
     this.getCompanyAnalytics();
+    this.getAccountsAnalytics();
     this.getFormAnalytics();
   }
 

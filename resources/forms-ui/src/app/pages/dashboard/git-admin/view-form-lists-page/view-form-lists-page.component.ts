@@ -196,4 +196,8 @@ export class ViewFormListsPageComponent implements OnInit {
     );
   }
 
+  retry() {
+    this.getForms();
+  }
+
 }

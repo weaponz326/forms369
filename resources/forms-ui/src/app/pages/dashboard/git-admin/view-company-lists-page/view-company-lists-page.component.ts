@@ -167,4 +167,8 @@ export class ViewCompanyListsPageComponent implements OnInit {
     );
   }
 
+  retry() {
+    this.getCompanies();
+  }
+
 }

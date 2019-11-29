@@ -16,7 +16,7 @@
                 </div>
               </div>
               <div class="d-flex justify-content-between align-items-end flex-wrap">
-                <a routerLink="/git_admin/setup_form" role="button" class="btn btn-outline-behance mt-2 mt-xl-0">Setup A New Form</a>
+                <a routerLink="/git_admin/setup_form" role="button" class="btn btn-primary mt-2 mt-xl-0">Setup A New Form</a>
               </div>
             </div>
           </div>
@@ -52,7 +52,7 @@
                 <p class="card-title">Total Active Companies</p>
                 <h1 class="display-2">{{ numTotalActiveCompany }}</h1>
                 <div class="card-text">
-                  <i class="mdi mdi-speedometer" style="font-size: 3em;"></i>
+                  <i class="mdi mdi-lighthouse" style="font-size: 3em;"></i>
                 </div>
                 <p class="text-muted">Total number of active companies</p>
               </div>
@@ -65,7 +65,7 @@
                 <p class="card-title">Total No. Inactive Companies</p>
                 <h1 class="display-2">{{ numTotalInActiveCompany }}</h1>
                 <div class="card-text">
-                  <i class="mdi mdi-network-off-outline" style="font-size: 3em;"></i>
+                  <i class="mdi mdi-network-strength-off" style="font-size: 3em;"></i>
                 </div>
                 <p class="text-muted">Total number of companies that are not active</p>
               </div>
@@ -78,7 +78,7 @@
                 <p class="card-title">Total Branches</p>
                 <h1 class="display-2">{{ numTotalBranches }}</h1>
                 <div class="card-text">
-                  <i class="mdi mdi-account-group-outline" style="font-size: 3em;"></i>
+                  <i class="mdi mdi-office-building" style="font-size: 3em;"></i>
                 </div>
                 <p class="text-muted">Total number of branches created</p>
               </div>
@@ -106,7 +106,7 @@
                 <p class="card-title">Total Inactive Companies</p>
                 <h1 class="display-2">{{ numTotalInActiveBranches }}</h1>
                 <div class="card-text">
-                  <i class="mdi mdi-network-off-outline" style="font-size: 3em;"></i>
+                  <i class="mdi mdi-sign-caution" style="font-size: 3em;"></i>
                 </div>
                 <p class="text-muted">Total number of branches that are not active</p>
               </div>
@@ -122,6 +122,19 @@
                   <i class="mdi mdi-file-document-edit-outline" style="font-size: 3em;"></i>
                 </div>
                 <p class="text-muted">Total number of forms created</p>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-md-3 grid-margin stretch-card">
+            <div class="card hover-cursor hover-primary" (click)="openForms()">
+              <div class="card-body">
+                <p class="card-title">Total No. Accounts</p>
+                <h1 class="display-2">{{ numTotalUsers }}</h1>
+                <div class="card-text">
+                  <i class="mdi mdi-account-group-outline" style="font-size: 3em;"></i>
+                </div>
+                <p class="text-muted">Total number of user accounts</p>
               </div>
             </div>
           </div>

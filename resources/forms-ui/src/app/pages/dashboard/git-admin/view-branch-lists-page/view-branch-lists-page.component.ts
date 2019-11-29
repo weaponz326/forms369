@@ -232,4 +232,8 @@ export class ViewBranchListsPageComponent implements OnInit {
     );
   }
 
+  retry() {
+    this.getBranches();
+  }
+
 }

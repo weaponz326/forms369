@@ -367,4 +367,8 @@ export class ViewAccountListsPageComponent implements OnInit {
     this.collection = _.sortBy(this.collection, (item) => item.username);
   }
 
+  retry() {
+    this.getAccountDetails();
+  }
+
 }

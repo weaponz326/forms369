@@ -13,6 +13,28 @@ export class AnalyticsService {
   }
 
   /**
+   * Gets the total number of users or user accounts.
+   *
+   * @returns {Promise<any>}
+   * @memberof AnalyticsService
+   */
+  getAllUsersCount(): Promise<any> {
+    return new Promise((resolve, reject) => {
+      const url = this.endpointService.apiHost + 'api/v1/';
+      this.http.get(url, { headers: this.headers }).subscribe(
+        res => {
+          console.log('users: ' + res);
+          const response = res as any;
+          resolve(response.num_users);
+        },
+        err => {
+          reject(err);
+        }
+      );
+    });
+  }
+
+  /**
    * Gets the total number of users or user accounts
    * existing in a specified company.
    *
@@ -222,7 +244,7 @@ export class AnalyticsService {
    */
   getCompanyFormCount(merchant_id: string): Promise<any> {
     return new Promise((resolve, reject) => {
-      const url = this.endpointService.apiHost + 'api/v1/getNumAllFormsByMerchant' + merchant_id;
+      const url = this.endpointService.apiHost + 'api/v1/getNumAllFormsByMerchant/' + merchant_id;
       this.http.get(url, { headers: this.headers }).subscribe(
         res => {
           console.log('forms: ' + res);
