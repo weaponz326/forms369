@@ -87,7 +87,7 @@
 
         <div *ngIf="!loading && hasData" class="row">
           <div class="col-md-12 grid-margin stretch-card">
-            <div class="card hover-cursor" (click)="openForm()">
+            <div class="card hover-cursor">
               <div class="card-body">
                 <div class="card-text">
                   <div class="table-responsive">
@@ -101,7 +101,7 @@
                         </tr>
                       </thead>
                       <tbody>
-                        <tr class="hover-cursor" *ngFor="let form of submittedFormsList" (click)="open(form)">
+                        <tr class="hover-cursor" *ngFor="let form of submittedFormsList">
                           <td>{{ form.form_code }}</td>
                           <td>{{ form.form_name }}</td>
                           <td>{{ form.client_name }}</td>

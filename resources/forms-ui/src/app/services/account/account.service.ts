@@ -264,6 +264,26 @@ export class AccountService {
     }
   }
 
+  getAllUsersByMerchant(merchnat_id: string, pagination_url?: string): Promise<any> {
+    return new Promise((resolve, reject) => {
+      const url = !_.isUndefined(pagination_url)
+        ? pagination_url
+        : this.endpointService.apiHost + 'api/v1/getAllUsersByMerchant/' + merchnat_id;
+      this.http.get(url, { headers: this.endpointService.headers() }).subscribe(
+        res => {
+          console.log('res: ' + JSON.stringify(res));
+          const response = res as any;
+          this.nextPaginationUrl = response.users.next_page_url;
+          resolve(response.users.data);
+        },
+        err => {
+          console.log('err: ' + JSON.stringify(err));
+          reject(err);
+        }
+      );
+    });
+  }
+
   /**
    * Edits a user's account.
    *

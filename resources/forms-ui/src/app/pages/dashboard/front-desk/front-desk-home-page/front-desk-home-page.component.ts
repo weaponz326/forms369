@@ -52,6 +52,22 @@ export class FrontDesktopHomePageComponent implements OnInit {
     });
   }
 
+  open(view: string) {
+    switch (view) {
+      case 'submitted':
+        this.router.navigateByUrl('/front_desk/submitted');
+        break;
+      case 'processed':
+        this.router.navigateByUrl('/front_desk/processed');
+        break;
+      case 'processing':
+        this.router.navigateByUrl('/front_desk/processing');
+        break;
+      default:
+        break;
+    }
+  }
+
   getFrontDeskAnalytics(id: string) {
     this.getProcessedFormsAnalytics(id);
     this.getSubmittedFormsAnalytics(id);

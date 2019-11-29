@@ -35,8 +35,17 @@ export class AdminHomePageComponent implements OnInit {
 
   getAnalytics() {
     this.loading = true;
+    this.getAccountsAnalytics();
     this.getBranchAnalytics();
     this.getFormAnalytics();
+  }
+
+  getAccountsAnalytics() {
+    this.analyticService.getCompanyUsersCount(this.merchantIdentifier.toString()).then(
+      count => {
+        this.numTotalAccounts = count;
+      }
+    );
   }
 
   getFormAnalytics() {

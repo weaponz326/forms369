@@ -75,6 +75,10 @@ export class ClientListFormDataPageComponent implements OnInit {
     // );
   }
 
+  save() {}
+
+  delete() {}
+
   retry() {
     this.getAllClientData();
   }

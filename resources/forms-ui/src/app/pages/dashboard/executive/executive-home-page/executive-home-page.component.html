@@ -46,7 +46,7 @@
                 </div>
                 <div class="form-group">
                   <div class="input-group">
-                    <input class="form-control form-control-lg" placeholder="Select Start Date" name="dp" [(ngModel)]="model" ngbDatepicker
+                    <input class="form-control form-control-lg" placeholder="Select Start Date" name="dp" [(ngModel)]="startDate" ngbDatepicker
                       #d="ngbDatepicker">
                     <div class="input-group-append">
                       <button class="btn btn-outline-secondary" (click)="d.toggle()" type="button">
@@ -57,7 +57,7 @@
                 </div>
                 <div class="form-group">
                   <div class="input-group">
-                    <input class="form-control form-control-lg" placeholder="Select End Date" name="dp" [(ngModel)]="model" ngbDatepicker
+                    <input class="form-control form-control-lg" placeholder="Select End Date" name="dp" [(ngModel)]="endDate" ngbDatepicker
                       #d1="ngbDatepicker">
                     <div class="input-group-append">
                       <button class="btn btn-outline-secondary" (click)="d1.toggle()" type="button">

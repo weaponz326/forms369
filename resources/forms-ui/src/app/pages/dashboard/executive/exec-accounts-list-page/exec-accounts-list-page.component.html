@@ -109,22 +109,22 @@
                   <table class="table table-hover">
                     <thead>
                       <tr>
+                        <th><strong>Full Name</strong></th>
+                        <th><strong>Email Address</strong></th>
                         <th><strong>Branch Name</strong></th>
-                        <th><strong>Branch Admin</strong></th>
-                        <th><strong>Branch Executive</strong></th>
-                        <th><strong>Status</strong></th>
-                        <th><strong>Created On</strong></th>
+                        <th>Status</th>
+                        <th><strong>Last Login</strong></th>
                       </tr>
                     </thead>
                     <tbody>
-                      <tr class="hover-cursor" *ngFor="let branch of branchesList">
-                        <td>{{ branch.branch_name }}</td>
-                        <td>{{ branch.branch_admin_name }}</td>
-                        <td>{{ branch.branch_super_executive_name }}</td>
-                        <td *ngIf="branch.status == 1"><label class="badge badge-success text-center">Active</label>
+                      <tr class="hover-cursor" *ngFor="let user of userAccounts">
+                        <td>{{ user.full_name }}</td>
+                        <td>{{ user.email }}</td>
+                        <td>{{ user.branch_name }}</td>
+                        <td *ngIf="user.status == 1"><label class="badge badge-success text-center">Active</label>
                         </td>
-                        <td *ngIf="branch.status != 1"><label class="badge badge-danger text-center">In-Active</label>
-                        <td>{{ branch.created_at | date }}</td>
+                        <td *ngIf="user.status != 1"><label class="badge badge-danger text-center">In-Active</label>
+                        <td>{{ user.last_login_at | date:'medium' }}</td>
                       </tr>
                     </tbody>
                   </table>

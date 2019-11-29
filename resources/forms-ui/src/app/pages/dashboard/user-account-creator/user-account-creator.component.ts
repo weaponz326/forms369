@@ -286,4 +286,6 @@ export class UserAccountCreatorComponent implements OnInit {
     }
   }
 
+  cancel() {}
+
 }

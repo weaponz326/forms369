@@ -11,6 +11,8 @@ import { LocalStorageService } from 'src/app/services/storage/local-storage.serv
 })
 export class ExecutiveHomePageComponent implements OnInit {
   loading: boolean;
+  endDate: string;
+  startDate: string;
   firstname: string;
   merchantId: string;
   numTotalUsers: string;

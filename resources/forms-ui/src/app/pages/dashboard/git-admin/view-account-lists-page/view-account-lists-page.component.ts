@@ -8,7 +8,6 @@ import { CompanyService } from 'src/app/services/company/company.service';
 import { ExecutiveService } from 'src/app/services/executive/executive.service';
 import { FrontDeskService } from 'src/app/services/front-desk/front-desk.service';
 
-
 @Component({
   selector: 'app-view-account-lists-page',
   templateUrl: './view-account-lists-page.component.html',
@@ -23,6 +22,7 @@ export class ViewAccountListsPageComponent implements OnInit {
   hasNoData: boolean;
   filterState: string;
   @Input() userType: any;
+  @Input() branchId: any;
   @Input() merchantId: any;
   collection: Array<any>;
   allCollection: Array<any>;
@@ -146,8 +146,14 @@ export class ViewAccountListsPageComponent implements OnInit {
       this.getFrontDeskForGitAdmin();
     }
     else {
-      console.log('company_Admin');
-      this.getFrontDeskForCompanyAdmin();
+      if (_.isUndefined(this.branchId) || _.isNull(this.branchId) || this.branchId == 0) {
+        console.log('company_Admin');
+        this.getFrontDeskForCompanyAdmin();
+      }
+      else {
+        console.log('branch_Admin');
+        this.getFrontDeskForBranchAdmin();
+      }
     }
   }
 
@@ -183,6 +189,35 @@ export class ViewAccountListsPageComponent implements OnInit {
   getFrontDeskForCompanyAdmin() {
     this.loading = true;
     this.adminService.getAllUsersByMerchant(this.userType, this.merchantId).then(
+      res => {
+        const accounts = res as any;
+        console.log('front_desk_comp: ' + JSON.stringify(accounts));
+        this.loading = false;
+        this.dataLoaded.emit(accounts);
+        this.dataLoadedError.emit(null);
+        if (accounts.length > 0) {
+          this.hasNoData = false;
+          _.forEach(accounts, (admin) => {
+            this.collection.push(admin);
+          });
+          this.allCollection = this.collection;
+        }
+        else {
+          this.hasNoData = true;
+        }
+      },
+      err => {
+        this.loading = false;
+        this.hasError = true;
+        this.dataLoaded.emit(null);
+        this.dataLoadedError.emit(err);
+      }
+    );
+  }
+
+  getFrontDeskForBranchAdmin() {
+    this.loading = true;
+    this.adminService.getAllUsersByBranch(this.userType, this.branchId).then(
       res => {
         const accounts = res as any;
         console.log('front_desk_comp: ' + JSON.stringify(accounts));

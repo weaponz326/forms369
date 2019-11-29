@@ -51,4 +51,21 @@ export class AdminService {
       );
     });
   }
+
+  getAllUsersByBranch(user_type: number, branch_id: string): Promise<any> {
+    return new Promise((resolve, reject) => {
+      const url = this.endpointService.apiHost + 'api/v1/getBranchUsersByType/' + branch_id + '/' + user_type;
+      this.http.get(url, { headers: this.headers }).subscribe(
+        res => {
+          console.log('response: ' + JSON.stringify(res));
+          const response = res as any;
+          resolve(response.users.data);
+        },
+        err => {
+          console.log('error: ' + JSON.stringify(err));
+          reject(err);
+        }
+      );
+    });
+  }
 }

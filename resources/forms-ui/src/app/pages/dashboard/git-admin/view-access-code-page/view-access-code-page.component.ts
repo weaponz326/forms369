@@ -13,6 +13,8 @@ export class ViewAccessCodePageComponent implements OnInit {
   hasData: boolean;
   hasMore: boolean;
   hasError: boolean;
+  loadingMore: boolean;
+  hasMoreError: boolean;
   accessCodesList: Array<any>;
 
   constructor(
@@ -52,5 +54,7 @@ export class ViewAccessCodePageComponent implements OnInit {
       }
     );
   }
+
+  loadMore() {}
 
 }

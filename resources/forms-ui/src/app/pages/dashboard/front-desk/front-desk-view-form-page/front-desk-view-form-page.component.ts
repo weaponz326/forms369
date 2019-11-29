@@ -110,7 +110,7 @@ export class FrontDeskViewFormPageComponent implements OnInit {
       result => {
         if (result == 'yes') {
           this.loading = true;
-          this.frontDeskService.processForm(this.form.submission_code).then(
+          this.frontDeskService.processForm(this.form.submission_code, this.form.client_submitted_details).then(
             res => {
               const response = res as any;
               if (_.toLower(response.message) == 'ok') {
