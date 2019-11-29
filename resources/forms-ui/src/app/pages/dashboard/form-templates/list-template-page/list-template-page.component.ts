@@ -159,4 +159,8 @@ export class ListTemplatePageComponent implements OnInit {
 
   loadMore() {}
 
+  retry() {
+    this.getAllTemplates();
+  }
+
 }

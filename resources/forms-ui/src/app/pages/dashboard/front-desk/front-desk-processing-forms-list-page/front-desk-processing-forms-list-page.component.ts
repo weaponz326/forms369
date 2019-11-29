@@ -117,4 +117,8 @@ export class FrontDeskProcessingFormsListPageComponent implements OnInit {
       }
     );
   }
+
+  retry() {
+    this.getAllFormsInProcessing();
+  }
 }

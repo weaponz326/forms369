@@ -59,4 +59,8 @@ export class FrontDeskSubmittedFormsListPageComponent implements OnInit {
     );
   }
 
+  retry() {
+    this.getAllSubmittedForms();
+  }
+
 }

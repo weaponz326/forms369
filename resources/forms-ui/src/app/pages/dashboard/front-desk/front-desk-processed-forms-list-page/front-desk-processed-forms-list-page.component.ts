@@ -59,4 +59,8 @@ export class FrontDeskProcessedFormsListPageComponent implements OnInit {
     );
   }
 
+  retry() {
+    this.getAllProcessedForms();
+  }
+
 }
