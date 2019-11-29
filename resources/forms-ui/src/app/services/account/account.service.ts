@@ -359,9 +359,11 @@ export class AccountService {
       const url = this.endpointService.apiHost + 'api/v1/logoutUser';
       this.http.get(url, { headers: this.headers }).subscribe(
         res => {
+          sessionStorage.clear();
           resolve(res);
         },
         err => {
+          sessionStorage.clear();
           reject(err);
         }
       );

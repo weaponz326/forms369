@@ -10,7 +10,7 @@
               <div class="d-flex align-items-end flex-wrap">
                 <div class="mr-md-3 mr-xl-5">
                   <h2>Setup Branch</h2>
-                  <p class="mb-md-0">Your analytics dashboard template.</p>
+                  <p class="mb-md-0">Your administrative dashboard.</p>
                 </div>
                 <div class="d-flex">
                 </div>
@@ -48,11 +48,13 @@
                               </span>
                               <span>{{ item.email }}</span> <br>
                               <small class="autocomplete-small">{{ item.full_name }}</small> <br>
-                              <small class="autocomplete-small">{{ item.merchant_name }} - {{ item.branch_name }}</small> <br>
+                              <small class="autocomplete-small">{{ item.merchant_name }} -
+                                {{ item.branch_name }}</small> <br>
                             </mat-option>
                           </mat-autocomplete>
                           <div *ngIf="submitted && f.branchSupervisor.errors">
-                            <p class="input-error" *ngIf="f.branchSupervisor.errors.required">Branch Super Executive is required</p>
+                            <p class="input-error" *ngIf="f.branchSupervisor.errors.required">Branch Super Executive is
+                              required</p>
                           </div>
                         </div>
                       </div>
@@ -62,12 +64,13 @@
                             placeholder="Search Branch Admin" [matAutocomplete]="auto">
                           <mat-autocomplete #auto="matAutocomplete">
                             <mat-option *ngFor="let item of filteredBranchAdmins | async" [value]="item.email">
-                               <span class="autocomplete-icon">
-                                 <i class="mdi mdi-account-outline"></i>
-                               </span>
+                              <span class="autocomplete-icon">
+                                <i class="mdi mdi-account-outline"></i>
+                              </span>
                               <span>{{ item.email }}</span> <br>
                               <small class="autocomplete-small">{{ item.full_name }}</small> <br>
-                              <small class="autocomplete-small">{{ item.merchant_name }} - {{ item.branch_name }}</small> <br>
+                              <small class="autocomplete-small">{{ item.merchant_name }} -
+                                {{ item.branch_name }}</small> <br>
                             </mat-option>
                           </mat-autocomplete>
                           <div *ngIf="submitted && f.branchAdmin.errors">
@@ -93,7 +96,8 @@
                       </div>
                       <div class="col-md-6">
                         <div class="form-group">
-                          <input type="text" formControlName="branchName" class="form-control form-control-lg" placeholder="Enter Branch Name">
+                          <input type="text" formControlName="branchName" class="form-control form-control-lg"
+                            placeholder="Enter Branch Name">
                           <div *ngIf="submitted && f.branchName.errors">
                             <p class="input-error" *ngIf="f.branchName.errors.required">Branch name is required</p>
                           </div>
@@ -104,7 +108,8 @@
                     <div class="row">
                       <div class="col-md-12 text-center">
                         <button *ngIf="loading" class="btn btn-primary btn-lg mr-2" type="button" disabled>
-                          <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>&nbsp; &nbsp;
+                          <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>&nbsp;
+                          &nbsp;
                           Please wait...
                         </button>
                         <button *ngIf="!loading" type="submit" class="btn btn-primary btn-lg mr-2">Submit</button>

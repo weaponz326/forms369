@@ -26,7 +26,6 @@ export class NavigationBarComponent implements OnInit {
   }
 
   openHome() {
-    sessionStorage.clear();
     this.router.navigateByUrl('login');
   }
 

@@ -103,6 +103,8 @@ export class ClientFormsEntryPageComponent implements OnInit {
     window.history.back();
   }
 
-  loadForm() {}
+  ok() {
+    this.router.navigateByUrl('/client/unsent_forms');
+  }
 
 }
