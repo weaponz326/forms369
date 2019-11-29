@@ -58,4 +58,8 @@ export class ClientFormsHistoryPageComponent implements OnInit {
     );
   }
 
+  retry() {
+    this.getAllHistory();
+  }
+
 }

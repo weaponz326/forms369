@@ -176,4 +176,8 @@ export class ClientListFormsPageComponent implements OnInit {
     );
   }
 
+  retry() {
+    this.getAllForms();
+  }
+
 }
