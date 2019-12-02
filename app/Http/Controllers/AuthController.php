@@ -19,6 +19,35 @@ use Illuminate\Pagination\Paginator;
 class AuthController extends Controller
 {
    
+    /**
+    * Check if user has access 
+    * @param  mixed $request
+    *
+    * @return \Illuminate\Http\Response success or error message
+    */
+    public function checkAccess(Request $request)
+    {
+        $accesscode = $request->cookie('accesscode');
+
+        //if access code does not exist, redirect to access code page
+        if (empty($accesscode)) {
+            //return redirect()->route('auth');
+            return response()->json(['message' => 'Np_access_code']);
+
+        }else{
+            $exist = DB::table('access')->where('accesscode', '=', $accesscode)->first();
+            if (isset($exist->id) && $exist->active ==1) {
+                //do nothing
+                return response()->json(['message' => 'Access granted']);
+
+            }else{
+
+                return response()->json(['message' => 'Re_enter_access_code']);
+
+            }
+                
+        }
+    }
     
   /**
     * Reset user password at first login
