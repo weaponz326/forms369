@@ -4,10 +4,10 @@ import * as _ from 'lodash';
 import { Router } from '@angular/router';
 import { ClipboardService } from 'ngx-clipboard';
 import { Users } from 'src/app/models/users.model';
+import { NgbModalRef, NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { ClientService } from 'src/app/services/client/client.service';
 import { LocalStorageService } from 'src/app/services/storage/local-storage.service';
 import { FormBuilderService } from 'src/app/services/form-builder/form-builder.service';
-import { NgbModalRef, NgbModal } from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
   selector: 'app-client-forms-entry-page',
@@ -24,8 +24,7 @@ export class ClientFormsEntryPageComponent implements OnInit {
   formRenderer: any;
   clientProfile: any;
   formGenCode: string;
-  confirmDialogRef: NgbModalRef;
-  @ViewChild('confirm', { static: false }) confirmDialog: TemplateRef<any>
+  @ViewChild('confirm', { static: false }) confirmDialog: TemplateRef<any>;
 
   constructor(
     private router: Router,

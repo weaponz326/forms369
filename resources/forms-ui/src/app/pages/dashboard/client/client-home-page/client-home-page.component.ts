@@ -28,7 +28,4 @@ export class ClientHomePageComponent implements OnInit {
     this.router.navigateByUrl('/client/forms_filled');
   }
 
-  getAnalytics() {
-  }
-
 }

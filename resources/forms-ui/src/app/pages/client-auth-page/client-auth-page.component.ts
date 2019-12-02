@@ -6,12 +6,11 @@ import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { AccountService } from 'src/app/services/account/account.service';
 
 @Component({
-  selector: 'app-auth-page',
-  templateUrl: './auth-page.component.html',
-  styleUrls: ['./auth-page.component.css']
+  selector: 'app-client-auth-page',
+  templateUrl: './client-auth-page.component.html',
+  styleUrls: ['./client-auth-page.component.css']
 })
-export class AuthPageComponent implements OnInit {
-
+export class ClientAuthPageComponent implements OnInit {
   form: FormGroup;
   loading: boolean;
   invalid: boolean;
@@ -24,7 +23,7 @@ export class AuthPageComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    this.buildForm();
+     this.buildForm();
   }
 
   public get f() {
@@ -37,7 +36,7 @@ export class AuthPageComponent implements OnInit {
     });
   }
 
-  login() {
+  submit() {
     this.loading = true;
     this.submitted = true;
     if (this.form.invalid) {
@@ -46,8 +45,8 @@ export class AuthPageComponent implements OnInit {
     }
     else {
       this.form.disable();
-      const accessCode = this.f.code.value;
-      this.accountService.verifyAccessCode(accessCode).then(
+      const authCode = this.f.code.value;
+      this.accountService.verifyAccessCode(authCode).then(
         valid => {
           this.form.enable();
           this.loading = false;
@@ -65,4 +64,5 @@ export class AuthPageComponent implements OnInit {
       );
     }
   }
+
 }

@@ -18,6 +18,7 @@ export class SideBarComponent implements OnInit {
 
   constructor(private localStorageService: LocalStorageService) {
     this.showSideBarMenu();
+    console.log('git: ' + this.isGitAdmin);
   }
 
   ngOnInit() {

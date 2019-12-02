@@ -242,12 +242,12 @@ export class FormBuilderService {
             values: [
               {
                 label: 'Male',
-                value: 'male',
+                value: 'Male',
                 selected: false,
               },
               {
                 label: 'Female',
-                value: 'female',
+                value: 'Female',
                 selected: false
               }
             ]

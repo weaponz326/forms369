@@ -397,6 +397,17 @@ module.exports = "<div class=\"container-scroller\">\n  <div class=\"container-f
 
 /***/ }),
 
+/***/ "./node_modules/raw-loader/index.js!./src/app/pages/client-auth-page/client-auth-page.component.html":
+/*!**************************************************************************************************!*\
+  !*** ./node_modules/raw-loader!./src/app/pages/client-auth-page/client-auth-page.component.html ***!
+  \**************************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = "<div class=\"container-scroller\">\n  <div class=\"container-fluid page-body-wrapper full-page-wrapper\">\n    <div class=\"content-wrapper d-flex align-items-center auth px-0\">\n      <div class=\"row w-100 mx-0\">\n        <div class=\"col-lg-4 mx-auto\">\n          <div class=\"auth-form-light text-left py-5 px-4 px-sm-5\">\n            <a routerLink=\"/\" class=\"brand-logo\">\n              <img src=\"./assets/images/logo.png\" alt=\"logo\">\n            </a>\n            <div *ngIf=\"invalid\" class=\"mt-2 mb-5\">\n              <div class=\"alert alert-danger\" role=\"alert\">\n                <h3 class=\"alert-heading\">Hey there!</h3>\n                <p class=\"lead\"><strong>This access code has already been used</strong></p>\n                <hr>\n                <p class=\"mb-0 lead\">Please contact your admin</p>\n              </div>\n            </div>\n\n            <h4>Hello! let's get started</h4>\n            <h6 class=\"font-weight-normal\">Provide your access code to continue.</h6>\n            <form [formGroup]=\"form\" (ngSubmit)=\"submit()\" class=\"pt-3\">\n              <div class=\"form-group\">\n                <input type=\"text\" class=\"form-control form-control-lg\" formControlName=\"code\"\n                  placeholder=\"Enter Access Code\" [ngClass]=\"{'input-control-error': submitted && f.code.errors}\">\n                <div *ngIf=\"submitted && f.code.errors\">\n                  <p class=\"input-error\" *ngIf=\"f.code.errors.required\">Access Code is required</p>\n                </div>\n              </div>\n              <div class=\"mt-3\">\n                <button type=\"submit\" *ngIf=\"!loading\" class=\"btn btn-block btn-primary btn-lg font-weight-medium auth-form-btn\">Continue</button>\n                <button type=\"button\" *ngIf=\"loading\"  class=\"btn btn-block btn-primary btn-lg font-weight-medium auth-form-btn\" disabled>\n                  <span class=\"spinner-border spinner-border-sm\" role=\"status\" aria-hidden=\"true\"></span> &nbsp; &nbsp;\n                  Please wait...\n                </button>\n              </div>\n            </form>\n          </div>\n        </div>\n      </div>\n    </div>\n    <!-- content ends -->\n  </div>\n  <!-- page-body ends -->\n</div>"
+
+/***/ }),
+
 /***/ "./node_modules/raw-loader/index.js!./src/app/pages/dashboard/admin/admin-create-form-page/admin-create-form-page.component.html":
 /*!******************************************************************************************************************************!*\
   !*** ./node_modules/raw-loader!./src/app/pages/dashboard/admin/admin-create-form-page/admin-create-form-page.component.html ***!
@@ -580,7 +591,7 @@ module.exports = "<div class=\"container-scroller\">\n  <app-navigation-bar></ap
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<div class=\"container-scroller\">\n  <app-navigation-bar></app-navigation-bar>\n  <div class=\"container-fluid page-body-wrapper\">\n    <app-side-bar></app-side-bar>\n    <div class=\"main-panel\">\n      <div class=\"content-wrapper\">\n        <div class=\"row\">\n          <div class=\"col-md-12 grid-margin\">\n            <div class=\"d-flex justify-content-between flex-wrap\">\n              <div class=\"d-flex align-items-end flex-wrap\">\n                <div class=\"mr-md-3 mr-xl-5\">\n                  <h2>My Form Data</h2>\n                  <p class=\"mb-md-0\">Your administrative dashboard.</p>\n                </div>\n                <div class=\"d-flex\">\n                </div>\n              </div>\n            </div>\n          </div>\n        </div>\n\n        <div *ngIf=\"loading\" class=\"row p-5\">\n          <div class=\"col-md-12 p-5\">\n            <div class=\"d-flex justify-content-center\">\n              <div class=\"spinner-border m-5\" style=\"width: 5rem; height: 5rem;\" role=\"status\">\n                <span class=\"sr-only\">Loading...</span>\n              </div>\n            </div>\n          </div>\n        </div>\n\n        <div *ngIf=\"!hasData && !loading\" class=\"row\">\n          <div class=\"col-lg-12 grid-margin stretch-card\">\n            <div class=\"card text-center pt-5 pb-5\">\n              <div class=\"card-body mt-5 mb-5\">\n                <h4 class=\"card-title\">No Data Found</h4>\n                <p class=\"card-description\">\n                  No data has been found.\n                </p>\n                <div class=\"text-lg-center mt-5 mb-5\">\n                  <div class=\"card-text\">\n                    <i class=\"mdi mdi-file-question\" style=\"font-size: 8em;\"></i>\n                  </div>\n                  <div class=\"card-text\">\n                    <h3>No Available Forms</h3>\n                    <p class=\"text-muted\">\n                      There are currently no forms available yet. All created forms would be displayed here.\n                    </p>\n                  </div>\n                </div>\n              </div>\n            </div>\n          </div>\n        </div>\n\n        <div *ngIf=\"isConnected\" class=\"row\">\n          <div class=\"col-md-12 grid-margin\">\n            <div class=\"card text-center\">\n              <div class=\"card-body\">\n                <p class=\"card-title\">Offline</p>\n                <p class=\"text-muted\"></p>\n                <div class=\"card-text\">\n                  <i class=\"mdi mdi-wifi-off\" style=\"font-size: 12em;\"></i>\n                  <h2>No Internet Connection</h2>\n                  <p class=\"text-muted\">You may not have internet connection or our servers maybe down.</p>\n                  <button class=\"btn btn-primary\" type=\"button\" (click)=\"retry()\">Retry</button>\n                </div>\n              </div>\n            </div>\n          </div>\n        </div>\n\n        <div *ngIf=\"hasError\" class=\"row\">\n          <div class=\"col-lg-12 grid-margin stretch-card\">\n            <div class=\"card text-center pt-5 pb-5\">\n              <div class=\"card-body mt-5 mb-5\">\n                <h4 class=\"card-title\">Error Ocuured</h4>\n                <p class=\"card-description\">\n                  Ooops! Something went wrong!\n                </p>\n                <div class=\"text-lg-center mt-5 mb-5\">\n                  <div class=\"card-text\">\n                    <i class=\"mdi mdi-close-network-outline\" style=\"font-size: 8em;\"></i>\n                  </div>\n                  <div class=\"card-text\">\n                    <h3>We couldn't find any forms</h3>\n                    <p class=\"text-muted\">An error has occured on our servers or you might not have internet connection\n                    </p>\n                  </div>\n                </div>\n              </div>\n            </div>\n          </div>\n        </div>\n        \n        <div *ngIf=\"hasData && !loading\" class=\"row\">\n          <div class=\"col-lg-8 offset-lg-2 grid-margin stretch-card\">\n            <div class=\"card\">\n              <div class=\"card-body\">\n                <h4 class=\"card-title\">All My Data</h4>\n                <p class=\"card-description\"></p>\n                <div class=\"card-text\">\n                  <div class=\"form-group\" *ngFor=\"let item of allUserData | keyvalue\">\n                    <label><strong>{{ item.key | uppercase }}</strong></label>\n                    <div class=\"input-group\">\n                      <input type=\"text\" class=\"form-control\" [placeholder]=\"item.key\" aria-label=\"Recipient's username\" [value]=\"item.value\">\n                      <div class=\"input-group-append\">\n                        <button class=\"btn btn-sm btn-primary\" type=\"button\" (click)=\"save()\">\n                          <i class=\"mdi mdi-check-outline\"></i>\n                        </button>\n                        <button class=\"btn btn-sm btn-danger\" type=\"button\" (click)=\"delete()\">\n                          <i class=\"mdi mdi-delete-outline\"></i>\n                        </button>\n                      </div>\n                    </div>\n                  </div>\n                </div>\n              </div>\n            </div>\n          </div>\n        </div>\n      </div>\n    </div>\n  </div>\n</div>\n"
+module.exports = "<div class=\"container-scroller\">\n  <app-navigation-bar></app-navigation-bar>\n  <div class=\"container-fluid page-body-wrapper\">\n    <app-side-bar></app-side-bar>\n    <div class=\"main-panel\">\n      <div class=\"content-wrapper\">\n        <div class=\"row\">\n          <div class=\"col-md-12 grid-margin\">\n            <div class=\"d-flex justify-content-between flex-wrap\">\n              <div class=\"d-flex align-items-end flex-wrap\">\n                <div class=\"mr-md-3 mr-xl-5\">\n                  <h2>My Form Data</h2>\n                  <p class=\"mb-md-0\">Your administrative dashboard.</p>\n                </div>\n                <div class=\"d-flex\">\n                </div>\n              </div>\n            </div>\n          </div>\n        </div>\n\n        <div *ngIf=\"loading\" class=\"row p-5\">\n          <div class=\"col-md-12 p-5\">\n            <div class=\"d-flex justify-content-center\">\n              <div class=\"spinner-border m-5\" style=\"width: 5rem; height: 5rem;\" role=\"status\">\n                <span class=\"sr-only\">Loading...</span>\n              </div>\n            </div>\n          </div>\n        </div>\n\n        <div *ngIf=\"!hasData && !loading\" class=\"row\">\n          <div class=\"col-lg-12 grid-margin stretch-card\">\n            <div class=\"card text-center pt-5 pb-5\">\n              <div class=\"card-body mt-5 mb-5\">\n                <h4 class=\"card-title\">No Data Found</h4>\n                <p class=\"card-description\">\n                  No data has been found.\n                </p>\n                <div class=\"text-lg-center mt-5 mb-5\">\n                  <div class=\"card-text\">\n                    <i class=\"mdi mdi-file-question\" style=\"font-size: 8em;\"></i>\n                  </div>\n                  <div class=\"card-text\">\n                    <h3>No Available Forms</h3>\n                    <p class=\"text-muted\">\n                      There are currently no forms available yet. All created forms would be displayed here.\n                    </p>\n                  </div>\n                </div>\n              </div>\n            </div>\n          </div>\n        </div>\n\n        <div *ngIf=\"isConnected\" class=\"row\">\n          <div class=\"col-md-12 grid-margin\">\n            <div class=\"card text-center\">\n              <div class=\"card-body\">\n                <p class=\"card-title\">Offline</p>\n                <p class=\"text-muted\"></p>\n                <div class=\"card-text\">\n                  <i class=\"mdi mdi-wifi-off\" style=\"font-size: 12em;\"></i>\n                  <h2>No Internet Connection</h2>\n                  <p class=\"text-muted\">You may not have internet connection or our servers maybe down.</p>\n                  <button class=\"btn btn-primary\" type=\"button\" (click)=\"retry()\">Retry</button>\n                </div>\n              </div>\n            </div>\n          </div>\n        </div>\n\n        <div *ngIf=\"hasError\" class=\"row\">\n          <div class=\"col-lg-12 grid-margin stretch-card\">\n            <div class=\"card text-center pt-5 pb-5\">\n              <div class=\"card-body mt-5 mb-5\">\n                <h4 class=\"card-title\">Error Ocuured</h4>\n                <p class=\"card-description\">\n                  Ooops! Something went wrong!\n                </p>\n                <div class=\"text-lg-center mt-5 mb-5\">\n                  <div class=\"card-text\">\n                    <i class=\"mdi mdi-close-network-outline\" style=\"font-size: 8em;\"></i>\n                  </div>\n                  <div class=\"card-text\">\n                    <h3>We couldn't find any forms</h3>\n                    <p class=\"text-muted\">An error has occured on our servers or you might not have internet connection\n                    </p>\n                  </div>\n                </div>\n              </div>\n            </div>\n          </div>\n        </div>\n        \n        <div *ngIf=\"hasData && !loading\" class=\"row\">\n          <div class=\"col-lg-8 offset-lg-2 grid-margin stretch-card\">\n            <div class=\"card\">\n              <div class=\"card-body\">\n                <h4 class=\"card-title\">All My Data</h4>\n                <p class=\"card-description\"></p>\n                <div class=\"card-text\">\n                  <div class=\"form-group\" *ngFor=\"let item of allUserData | keyvalue\">\n                    <label><strong>{{ transformToRealText(item.key) | uppercase }}</strong></label>\n                    <input type=\"text\" id=\"{{ item.key }}\" class=\"form-control\" [placeholder]=\"item.key\" aria-label=\"Recipient's username\" [value]=\"item.value\">\n                  </div>\n                  <div class=\"form-group mt-3\">\n                    <button *ngIf=\"updating\" class=\"btn btn-primary btn-lg mr-2\" type=\"button\" disabled>\n                      <span class=\"spinner-border spinner-border-sm\" role=\"status\" aria-hidden=\"true\"></span>\n                      <span class=\"sr-only\">Please wait...</span>\n                    </button>\n                    <button *ngIf=\"!updating\" type=\"submit\" class=\"btn btn-primary btn-lg mr-2\" (click)=\"save()\">Save Changes</button>\n                    <button type=\"button\" class=\"btn btn-light btn-lg\" (click)=\"cancel()\">Cancel</button>\n                  </div>\n                </div>\n              </div>\n            </div>\n          </div>\n        </div>\n      </div>\n    </div>\n  </div>\n</div>\n\n<ng-template #confirm let-modal>\n  <div class=\"modal-header\">\n    <h4 class=\"modal-title\" id=\"modal-title\">Confirm Action</h4>\n    <button type=\"button\" class=\"close\" aria-describedby=\"modal-title\" (click)=\"modal.dismiss('Cross click')\">\n      <span aria-hidden=\"true\">&times;</span>\n    </button>\n  </div>\n  <div class=\"modal-body\">\n    <p><strong>Are you sure you want to <span class=\"text-primary\">discard all the changes you've made</span> ?</strong></p>\n  </div>\n  <div class=\"modal-footer\">\n    <button type=\"button\" class=\"btn btn-outline-secondary\" (click)=\"modal.dismiss('no')\">No</button>\n    <button type=\"button\" class=\"btn btn-primary\" (click)=\"modal.close('yes')\">Yes</button>\n  </div>\n</ng-template>\n\n<ng-template #updated let-modal>\n  <div class=\"modal-header\">\n    <h4 class=\"modal-title\" id=\"modal-title\">{{ alert_title }}</h4>\n    <button type=\"button\" class=\"close\" aria-describedby=\"modal-title\" (click)=\"modal.dismiss()\">\n      <span aria-hidden=\"true\">&times;</span>\n    </button>\n  </div>\n  <div class=\"modal-body\">\n    <p>{{ alert_message }}</p>\n  </div>\n  <div class=\"modal-footer\">\n    <button type=\"button\" class=\"btn btn-primary\" (click)=\"modal.close()\">Ok</button>\n  </div>\n</ng-template>"
 
 /***/ }),
 
@@ -1152,7 +1163,7 @@ module.exports = "<form [formGroup]=\"form\" (ngSubmit)=\"edit()\" class=\"pt-3\
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<div class=\"container-scroller\">\n  <div class=\"container-fluid page-body-wrapper full-page-wrapper\">\n    <div class=\"content-wrapper d-flex align-items-center auth px-0\">\n      <div class=\"row w-100 mx-0\">\n        <div class=\"col-lg-4 mx-auto\">\n          <div class=\"auth-form-light text-center py-5 px-4 px-sm-5\">\n            <a routerLink=\"/\" class=\"brand-logo\">\n              <img src=\"./assets/images/logo.png\" alt=\"logo\">\n            </a>\n            <div *ngIf=\"notConfirmed\" class=\"mt-2 mb-5\">\n              <div class=\"alert alert-warning\" role=\"alert\">\n                <h3 class=\"alert-heading\">Hey there!</h3>\n                <p class=\"lead\"><strong>Your email address has not been confirmed</strong></p>\n                <hr>\n                <p class=\"lead\">A confirmation email has been sent to your email address.</p>\n                <p class=\"mb-0 lead\">Please check your email and click the activation link in the email. Thank You!</p>\n              </div>\n            </div>\n\n            <div *ngIf=\"deactivated\" class=\"mt-2 mb-5\">\n              <div class=\"alert alert-danger\" role=\"alert\">\n                <h3 class=\"alert-heading\">Hey there!</h3>\n                <p class=\"lead\"><strong>Your account has been deactivated</strong></p>\n                <hr>\n                <p class=\"mb-0 lead\">Please contact your admin</p>\n              </div>\n            </div>\n\n            <h4 class=\"text-center\">Hello! let's get started</h4>\n            <h6 class=\"font-weight-nromal text-center\">Sign in to continue.</h6>\n            <form [formGroup]=\"form\" (ngSubmit)=\"login()\" class=\"pt-3\">\n              <div class=\"form-group\">\n                <input type=\"text\" class=\"form-control form-control-lg\" formControlName=\"username\"\n                  placeholder=\"Username\" [ngClass]=\"{'input-control-error': submitted && f.username.errors}\">\n                <div *ngIf=\"submitted && f.username.errors\">\n                  <p class=\"input-error\" *ngIf=\"f.username.errors.required\">Username is required</p>\n                </div>\n              </div>\n              <div *ngIf=\"userNotFound\" class=\"mt-2\">\n                <div class=\"alert alert-danger alert-dismissible fade show\" role=\"alert\">\n                  <strong>User Not Found!</strong> Mmm!, this email address doesnt have an account with us\n                  <button type=\"button\" class=\"close\" data-dismiss=\"alert\" aria-label=\"Close\">\n                    <span aria-hidden=\"true\">&times;</span>\n                  </button>\n                </div>\n              </div>\n              <div class=\"form-group\">\n                <input type=\"password\" class=\"form-control form-control-lg\" formControlName=\"password\"\n                  placeholder=\"Password\" [ngClass]=\"{'input-control-error': submitted && f.password.errors}\">\n                <div *ngIf=\"submitted && f.password.errors\">\n                  <p class=\"input-error\" *ngIf=\"f.password.errors.minlength\">Password must be atleast 6 characters</p>\n                  <p class=\"input-error\" *ngIf=\"f.password.errors.required\">Password is required</p>\n                </div>\n              </div>\n              <div *ngIf=\"invalidPassword\" class=\"mt-2\">\n                <div class=\"alert alert-danger alert-dismissible fade show\" role=\"alert\">\n                  <strong>Invalid Password!</strong> Oh no, this isn't your password. Please check and try again.\n                  <button type=\"button\" class=\"close\" data-dismiss=\"alert\" aria-label=\"Close\">\n                    <span aria-hidden=\"true\">&times;</span>\n                  </button>\n                </div>\n              </div>\n              <div class=\"mt-3\">\n                <button type=\"submit\" *ngIf=\"!loading\" class=\"btn btn-block btn-primary btn-lg font-weight-medium auth-form-btn\">SIGN IN</button>\n                <button type=\"button\" *ngIf=\"loading\" class=\"btn btn-block btn-primary btn-lg font-weight-medium auth-form-btn\" disabled>\n                  <span class=\"spinner-border spinner-border-sm\" role=\"status\" aria-hidden=\"true\"></span> &nbsp; &nbsp;\n                  Please wait...\n                </button>\n              </div>\n              <div class=\"mt-3 text-center\">\n                <a routerLink=\"/forgot\" class=\"auth-link text-black\">Forgot password?</a>\n              </div>\n              <div class=\"text-center mt-4 font-weight-light\">\n                Don't have an account? <a routerLink=\"/register\" class=\"text-primary\">Create</a>\n              </div>\n              <div class=\"mt-3 text-center\">\n                <a routerLink=\"/user_auth\" class=\"auth-link text-primary\">Login as other user?</a>\n              </div>\n            </form>\n          </div>\n        </div>\n      </div>\n    </div>\n    <!-- content-wrapper ends -->\n  </div>\n  <!-- page-body-wrapper ends -->\n</div>\n"
+module.exports = "<div class=\"container-scroller\">\n  <div class=\"container-fluid page-body-wrapper full-page-wrapper\">\n    <div class=\"content-wrapper d-flex align-items-center auth px-0\">\n      <div class=\"row w-100 mx-0\">\n        <div class=\"col-lg-4 mx-auto\">\n          <div class=\"auth-form-light text-center py-5 px-4 px-sm-5\">\n            <a routerLink=\"/\" class=\"brand-logo\">\n              <img src=\"./assets/images/logo.png\" alt=\"logo\">\n            </a>\n            <div *ngIf=\"notConfirmed\" class=\"mt-2 mb-5\">\n              <div class=\"alert alert-warning\" role=\"alert\">\n                <h3 class=\"alert-heading\">Hey there!</h3>\n                <p class=\"lead\"><strong>Your email address has not been confirmed</strong></p>\n                <hr>\n                <p class=\"lead\">A confirmation email has been sent to your email address.</p>\n                <p class=\"mb-0 lead\">Please check your email and click the activation link in the email. Thank You!</p>\n              </div>\n            </div>\n\n            <div *ngIf=\"deactivated\" class=\"mt-2 mb-5\">\n              <div class=\"alert alert-danger\" role=\"alert\">\n                <h3 class=\"alert-heading\">Hey there!</h3>\n                <p class=\"lead\"><strong>Your account has been deactivated</strong></p>\n                <hr>\n                <p class=\"mb-0 lead\">Please contact your admin</p>\n              </div>\n            </div>\n\n            <div *ngIf=\"notClient\" class=\"mt-2 mb-5\">\n              <div class=\"alert alert-danger\" role=\"alert\">\n                <h3 class=\"alert-heading\">Hey there!</h3>\n                <p class=\"lead text-left\"><strong>Please login in as another user. Click the link below</strong></p>\n              </div>\n            </div>\n\n            <h4 class=\"text-center\">Hello! let's get started</h4>\n            <h6 class=\"font-weight-nromal text-center\">Sign in to continue.</h6>\n            <form [formGroup]=\"form\" (ngSubmit)=\"login()\" class=\"pt-3\">\n              <div class=\"form-group\">\n                <input type=\"text\" class=\"form-control form-control-lg\" formControlName=\"username\"\n                  placeholder=\"Username\" [ngClass]=\"{'input-control-error': submitted && f.username.errors}\">\n                <div *ngIf=\"submitted && f.username.errors\">\n                  <p class=\"input-error\" *ngIf=\"f.username.errors.required\">Username is required</p>\n                </div>\n              </div>\n              <div *ngIf=\"userNotFound\" class=\"mt-2\">\n                <div class=\"alert alert-danger alert-dismissible fade show\" role=\"alert\">\n                  <strong>User Not Found!</strong> Mmm!, this email address doesnt have an account with us\n                  <button type=\"button\" class=\"close\" data-dismiss=\"alert\" aria-label=\"Close\">\n                    <span aria-hidden=\"true\">&times;</span>\n                  </button>\n                </div>\n              </div>\n              <div class=\"form-group\">\n                <input type=\"password\" class=\"form-control form-control-lg\" formControlName=\"password\"\n                  placeholder=\"Password\" [ngClass]=\"{'input-control-error': submitted && f.password.errors}\">\n                <div *ngIf=\"submitted && f.password.errors\">\n                  <p class=\"input-error\" *ngIf=\"f.password.errors.minlength\">Password must be atleast 6 characters</p>\n                  <p class=\"input-error\" *ngIf=\"f.password.errors.required\">Password is required</p>\n                </div>\n              </div>\n              <div *ngIf=\"invalidPassword\" class=\"mt-2\">\n                <div class=\"alert alert-danger alert-dismissible fade show\" role=\"alert\">\n                  <strong>Invalid Password!</strong> Oh no, this isn't your password. Please check and try again.\n                  <button type=\"button\" class=\"close\" data-dismiss=\"alert\" aria-label=\"Close\">\n                    <span aria-hidden=\"true\">&times;</span>\n                  </button>\n                </div>\n              </div>\n              <div class=\"mt-3\">\n                <button type=\"submit\" *ngIf=\"!loading\" class=\"btn btn-block btn-primary btn-lg font-weight-medium auth-form-btn\">SIGN IN</button>\n                <button type=\"button\" *ngIf=\"loading\" class=\"btn btn-block btn-primary btn-lg font-weight-medium auth-form-btn\" disabled>\n                  <span class=\"spinner-border spinner-border-sm\" role=\"status\" aria-hidden=\"true\"></span> &nbsp; &nbsp;\n                  Please wait...\n                </button>\n              </div>\n              <div class=\"mt-3 text-center\">\n                <a routerLink=\"/forgot\" class=\"auth-link text-black\">Forgot password?</a>\n              </div>\n              <div class=\"text-center mt-4 font-weight-light\">\n                Don't have an account? <a routerLink=\"/register\" class=\"text-primary\">Create</a>\n              </div>\n              <div class=\"mt-3 text-center\">\n                <a routerLink=\"/user_auth\" class=\"auth-link text-primary\">Login as other user?</a>\n              </div>\n            </form>\n          </div>\n        </div>\n      </div>\n    </div>\n    <!-- content-wrapper ends -->\n  </div>\n  <!-- page-body-wrapper ends -->\n</div>\n"
 
 /***/ }),
 
@@ -1263,6 +1274,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _pages_dashboard_executive_exec_branches_list_page_exec_branches_list_page_component__WEBPACK_IMPORTED_MODULE_72__ = __webpack_require__(/*! ./pages/dashboard/executive/exec-branches-list-page/exec-branches-list-page.component */ "./src/app/pages/dashboard/executive/exec-branches-list-page/exec-branches-list-page.component.ts");
 /* harmony import */ var _pages_dashboard_executive_exec_forms_list_page_exec_forms_list_page_component__WEBPACK_IMPORTED_MODULE_73__ = __webpack_require__(/*! ./pages/dashboard/executive/exec-forms-list-page/exec-forms-list-page.component */ "./src/app/pages/dashboard/executive/exec-forms-list-page/exec-forms-list-page.component.ts");
 /* harmony import */ var _pages_change_password_page_change_password_page_component__WEBPACK_IMPORTED_MODULE_74__ = __webpack_require__(/*! ./pages/change-password-page/change-password-page.component */ "./src/app/pages/change-password-page/change-password-page.component.ts");
+/* harmony import */ var _pages_client_auth_page_client_auth_page_component__WEBPACK_IMPORTED_MODULE_75__ = __webpack_require__(/*! ./pages/client-auth-page/client-auth-page.component */ "./src/app/pages/client-auth-page/client-auth-page.component.ts");
+
 
 
 
@@ -1354,6 +1367,10 @@ const routes = [
     {
         path: 'user_auth',
         component: _pages_admin_login_page_admin_login_page_component__WEBPACK_IMPORTED_MODULE_64__["AdminLoginPageComponent"]
+    },
+    {
+        path: 'client_auth',
+        component: _pages_client_auth_page_client_auth_page_component__WEBPACK_IMPORTED_MODULE_75__["ClientAuthPageComponent"]
     },
     {
         path: 'register',
@@ -1874,6 +1891,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _pages_dashboard_executive_exec_accounts_list_page_exec_accounts_list_page_component__WEBPACK_IMPORTED_MODULE_93__ = __webpack_require__(/*! ./pages/dashboard/executive/exec-accounts-list-page/exec-accounts-list-page.component */ "./src/app/pages/dashboard/executive/exec-accounts-list-page/exec-accounts-list-page.component.ts");
 /* harmony import */ var _pages_dashboard_executive_exec_forms_list_page_exec_forms_list_page_component__WEBPACK_IMPORTED_MODULE_94__ = __webpack_require__(/*! ./pages/dashboard/executive/exec-forms-list-page/exec-forms-list-page.component */ "./src/app/pages/dashboard/executive/exec-forms-list-page/exec-forms-list-page.component.ts");
 /* harmony import */ var _pages_change_password_page_change_password_page_component__WEBPACK_IMPORTED_MODULE_95__ = __webpack_require__(/*! ./pages/change-password-page/change-password-page.component */ "./src/app/pages/change-password-page/change-password-page.component.ts");
+/* harmony import */ var _pages_client_auth_page_client_auth_page_component__WEBPACK_IMPORTED_MODULE_96__ = __webpack_require__(/*! ./pages/client-auth-page/client-auth-page.component */ "./src/app/pages/client-auth-page/client-auth-page.component.ts");
+
 
 
 
@@ -2055,6 +2074,7 @@ AppModule = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
             _pages_dashboard_executive_exec_accounts_list_page_exec_accounts_list_page_component__WEBPACK_IMPORTED_MODULE_93__["ExecAccountsListPageComponent"],
             _pages_dashboard_executive_exec_forms_list_page_exec_forms_list_page_component__WEBPACK_IMPORTED_MODULE_94__["ExecFormsListPageComponent"],
             _pages_change_password_page_change_password_page_component__WEBPACK_IMPORTED_MODULE_95__["ChangePasswordPageComponent"],
+            _pages_client_auth_page_client_auth_page_component__WEBPACK_IMPORTED_MODULE_96__["ClientAuthPageComponent"],
         ],
         imports: [
             _angular_platform_browser__WEBPACK_IMPORTED_MODULE_1__["BrowserModule"],
@@ -2233,6 +2253,7 @@ let SideBarComponent = class SideBarComponent {
     constructor(localStorageService) {
         this.localStorageService = localStorageService;
         this.showSideBarMenu();
+        console.log('git: ' + this.isGitAdmin);
     }
     ngOnInit() {
     }
@@ -2847,23 +2868,18 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm2015/core.js");
 /* harmony import */ var _angular_router__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @angular/router */ "./node_modules/@angular/router/fesm2015/router.js");
-/* harmony import */ var src_app_enums_user_types_enum__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! src/app/enums/user-types.enum */ "./src/app/enums/user-types.enum.ts");
-/* harmony import */ var _angular_forms__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @angular/forms */ "./node_modules/@angular/forms/fesm2015/forms.js");
-/* harmony import */ var src_app_services_account_account_service__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! src/app/services/account/account.service */ "./src/app/services/account/account.service.ts");
-/* harmony import */ var src_app_services_storage_local_storage_service__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! src/app/services/storage/local-storage.service */ "./src/app/services/storage/local-storage.service.ts");
-
-
+/* harmony import */ var _angular_forms__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @angular/forms */ "./node_modules/@angular/forms/fesm2015/forms.js");
+/* harmony import */ var src_app_services_account_account_service__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! src/app/services/account/account.service */ "./src/app/services/account/account.service.ts");
 
 
 
 
 
 let AuthPageComponent = class AuthPageComponent {
-    constructor(router, formBuilder, accountService, localStorageService) {
+    constructor(router, formBuilder, accountService) {
         this.router = router;
         this.formBuilder = formBuilder;
         this.accountService = accountService;
-        this.localStorageService = localStorageService;
     }
     ngOnInit() {
         this.buildForm();
@@ -2873,40 +2889,8 @@ let AuthPageComponent = class AuthPageComponent {
     }
     buildForm() {
         this.form = this.formBuilder.group({
-            code: ['', _angular_forms__WEBPACK_IMPORTED_MODULE_4__["Validators"].required]
+            code: ['', _angular_forms__WEBPACK_IMPORTED_MODULE_3__["Validators"].required]
         });
-    }
-    getFormData() {
-        const data = {
-            code: this.f.code.value
-        };
-        return data;
-    }
-    navigateToUserDashboard(user_type) {
-        if (user_type == src_app_enums_user_types_enum__WEBPACK_IMPORTED_MODULE_3__["UserTypes"].Client) {
-            this.router.navigateByUrl('/client');
-        }
-        else if (user_type == src_app_enums_user_types_enum__WEBPACK_IMPORTED_MODULE_3__["UserTypes"].GitAdmin) {
-            this.router.navigateByUrl('/git_admin');
-        }
-        else if (user_type == src_app_enums_user_types_enum__WEBPACK_IMPORTED_MODULE_3__["UserTypes"].BranchAdmin) {
-            this.router.navigateByUrl('/admin');
-        }
-        else if (user_type == src_app_enums_user_types_enum__WEBPACK_IMPORTED_MODULE_3__["UserTypes"].BranchSuperExecutive) {
-            this.router.navigateByUrl('/executive');
-        }
-        else if (user_type == src_app_enums_user_types_enum__WEBPACK_IMPORTED_MODULE_3__["UserTypes"].CompanyAdmin) {
-            this.router.navigateByUrl('/admin');
-        }
-        else if (user_type == src_app_enums_user_types_enum__WEBPACK_IMPORTED_MODULE_3__["UserTypes"].FrontDesk) {
-            this.router.navigateByUrl('/front_desk');
-        }
-        else if (user_type == src_app_enums_user_types_enum__WEBPACK_IMPORTED_MODULE_3__["UserTypes"].SuperExecutive) {
-            this.router.navigateByUrl('/executive');
-        }
-        else {
-            alert('unknown user type');
-        }
     }
     login() {
         this.loading = true;
@@ -2917,8 +2901,8 @@ let AuthPageComponent = class AuthPageComponent {
         }
         else {
             this.form.disable();
-            const login = this.getFormData();
-            this.accountService.verifyAccessCode(login.code).then(valid => {
+            const accessCode = this.f.code.value;
+            this.accountService.verifyAccessCode(accessCode).then(valid => {
                 this.form.enable();
                 this.loading = false;
                 if (valid) {
@@ -2936,9 +2920,8 @@ let AuthPageComponent = class AuthPageComponent {
 };
 AuthPageComponent.ctorParameters = () => [
     { type: _angular_router__WEBPACK_IMPORTED_MODULE_2__["Router"] },
-    { type: _angular_forms__WEBPACK_IMPORTED_MODULE_4__["FormBuilder"] },
-    { type: src_app_services_account_account_service__WEBPACK_IMPORTED_MODULE_5__["AccountService"] },
-    { type: src_app_services_storage_local_storage_service__WEBPACK_IMPORTED_MODULE_6__["LocalStorageService"] }
+    { type: _angular_forms__WEBPACK_IMPORTED_MODULE_3__["FormBuilder"] },
+    { type: src_app_services_account_account_service__WEBPACK_IMPORTED_MODULE_4__["AccountService"] }
 ];
 AuthPageComponent = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
     Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Component"])({
@@ -3048,6 +3031,97 @@ ChangePasswordPageComponent = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
         styles: [__webpack_require__(/*! ./change-password-page.component.css */ "./src/app/pages/change-password-page/change-password-page.component.css")]
     })
 ], ChangePasswordPageComponent);
+
+
+
+/***/ }),
+
+/***/ "./src/app/pages/client-auth-page/client-auth-page.component.css":
+/*!***********************************************************************!*\
+  !*** ./src/app/pages/client-auth-page/client-auth-page.component.css ***!
+  \***********************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = ".auth .brand-logo img {\n    width: 60px;\n}\n\np.lead {\n    line-height: 1.8rem;\n}\n\n.auth form .auth-form-btn {\n    height: 50px;\n    line-height: 1.2;\n}\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInNyYy9hcHAvcGFnZXMvY2xpZW50LWF1dGgtcGFnZS9jbGllbnQtYXV0aC1wYWdlLmNvbXBvbmVudC5jc3MiXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IkFBQUE7SUFDSSxXQUFXO0FBQ2Y7O0FBRUE7SUFDSSxtQkFBbUI7QUFDdkI7O0FBRUE7SUFDSSxZQUFZO0lBQ1osZ0JBQWdCO0FBQ3BCIiwiZmlsZSI6InNyYy9hcHAvcGFnZXMvY2xpZW50LWF1dGgtcGFnZS9jbGllbnQtYXV0aC1wYWdlLmNvbXBvbmVudC5jc3MiLCJzb3VyY2VzQ29udGVudCI6WyIuYXV0aCAuYnJhbmQtbG9nbyBpbWcge1xuICAgIHdpZHRoOiA2MHB4O1xufVxuXG5wLmxlYWQge1xuICAgIGxpbmUtaGVpZ2h0OiAxLjhyZW07XG59XG5cbi5hdXRoIGZvcm0gLmF1dGgtZm9ybS1idG4ge1xuICAgIGhlaWdodDogNTBweDtcbiAgICBsaW5lLWhlaWdodDogMS4yO1xufSJdfQ== */"
+
+/***/ }),
+
+/***/ "./src/app/pages/client-auth-page/client-auth-page.component.ts":
+/*!**********************************************************************!*\
+  !*** ./src/app/pages/client-auth-page/client-auth-page.component.ts ***!
+  \**********************************************************************/
+/*! exports provided: ClientAuthPageComponent */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "ClientAuthPageComponent", function() { return ClientAuthPageComponent; });
+/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm2015/core.js");
+/* harmony import */ var _angular_router__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @angular/router */ "./node_modules/@angular/router/fesm2015/router.js");
+/* harmony import */ var _angular_forms__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @angular/forms */ "./node_modules/@angular/forms/fesm2015/forms.js");
+/* harmony import */ var src_app_services_account_account_service__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! src/app/services/account/account.service */ "./src/app/services/account/account.service.ts");
+
+
+
+
+
+let ClientAuthPageComponent = class ClientAuthPageComponent {
+    constructor(router, formBuilder, accountService) {
+        this.router = router;
+        this.formBuilder = formBuilder;
+        this.accountService = accountService;
+    }
+    ngOnInit() {
+        this.buildForm();
+    }
+    get f() {
+        return this.form.controls;
+    }
+    buildForm() {
+        this.form = this.formBuilder.group({
+            code: ['', _angular_forms__WEBPACK_IMPORTED_MODULE_3__["Validators"].required]
+        });
+    }
+    submit() {
+        this.loading = true;
+        this.submitted = true;
+        if (this.form.invalid) {
+            this.form.enable();
+            this.loading = false;
+        }
+        else {
+            this.form.disable();
+            const authCode = this.f.code.value;
+            this.accountService.verifyAccessCode(authCode).then(valid => {
+                this.form.enable();
+                this.loading = false;
+                if (valid) {
+                    this.router.navigateByUrl('user_auth');
+                }
+            }, err => {
+                this.form.enable();
+                this.loading = false;
+                if (err.error.message == 'Access code already used') {
+                    this.invalid = true;
+                }
+            });
+        }
+    }
+};
+ClientAuthPageComponent.ctorParameters = () => [
+    { type: _angular_router__WEBPACK_IMPORTED_MODULE_2__["Router"] },
+    { type: _angular_forms__WEBPACK_IMPORTED_MODULE_3__["FormBuilder"] },
+    { type: src_app_services_account_account_service__WEBPACK_IMPORTED_MODULE_4__["AccountService"] }
+];
+ClientAuthPageComponent = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
+    Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Component"])({
+        selector: 'app-client-auth-page',
+        template: __webpack_require__(/*! raw-loader!./client-auth-page.component.html */ "./node_modules/raw-loader/index.js!./src/app/pages/client-auth-page/client-auth-page.component.html"),
+        styles: [__webpack_require__(/*! ./client-auth-page.component.css */ "./src/app/pages/client-auth-page/client-auth-page.component.css")]
+    })
+], ClientAuthPageComponent);
 
 
 
@@ -3803,18 +3877,28 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _angular_router__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @angular/router */ "./node_modules/@angular/router/fesm2015/router.js");
 /* harmony import */ var src_app_services_analytics_analytics_service__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! src/app/services/analytics/analytics.service */ "./src/app/services/analytics/analytics.service.ts");
 /* harmony import */ var src_app_services_storage_local_storage_service__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! src/app/services/storage/local-storage.service */ "./src/app/services/storage/local-storage.service.ts");
+/* harmony import */ var src_app_services_account_account_service__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! src/app/services/account/account.service */ "./src/app/services/account/account.service.ts");
+
 
 
 
 
 
 let AdminHomePageComponent = class AdminHomePageComponent {
-    constructor(router, analyticService, localStorage) {
+    constructor(router, accountService, analyticService, localStorage) {
         this.router = router;
+        this.accountService = accountService;
         this.analyticService = analyticService;
         this.localStorage = localStorage;
-        this.firstName = this.localStorage.getUser().firstname;
-        this.merchantIdentifier = this.localStorage.getUser().merchant_id;
+        this.checkAccessToLogin().then(res => {
+            if (res == 'ok') {
+                this.firstName = this.localStorage.getUser().firstname;
+                this.merchantIdentifier = this.localStorage.getUser().merchant_id;
+            }
+            else {
+                this.router.navigateByUrl('auth');
+            }
+        });
     }
     ngOnInit() {
         this.getAnalytics();
@@ -3846,9 +3930,31 @@ let AdminHomePageComponent = class AdminHomePageComponent {
             this.loading = false;
         });
     }
+    checkAccessToLogin() {
+        return new Promise((resolve, reject) => {
+            this.accountService.checkLoginAccess().then(res => {
+                const response = res;
+                if (response.message == 'No_access_code') {
+                    this.router.navigateByUrl('auth');
+                    resolve('not_ok');
+                }
+                else if (response.message == 'Re_enter_access_code') {
+                    this.router.navigateByUrl('auth');
+                    resolve('not_ok');
+                }
+                else {
+                    // the response message is: Access_granted
+                    // we do nothing, we allow them to see login
+                    // page and give them access to login.
+                    resolve('ok');
+                }
+            }, err => { });
+        });
+    }
 };
 AdminHomePageComponent.ctorParameters = () => [
     { type: _angular_router__WEBPACK_IMPORTED_MODULE_2__["Router"] },
+    { type: src_app_services_account_account_service__WEBPACK_IMPORTED_MODULE_5__["AccountService"] },
     { type: src_app_services_analytics_analytics_service__WEBPACK_IMPORTED_MODULE_3__["AnalyticsService"] },
     { type: src_app_services_storage_local_storage_service__WEBPACK_IMPORTED_MODULE_4__["LocalStorageService"] }
 ];
@@ -4489,10 +4595,10 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var lodash__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(lodash__WEBPACK_IMPORTED_MODULE_2__);
 /* harmony import */ var _angular_router__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @angular/router */ "./node_modules/@angular/router/fesm2015/router.js");
 /* harmony import */ var ngx_clipboard__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ngx-clipboard */ "./node_modules/ngx-clipboard/fesm2015/ngx-clipboard.js");
-/* harmony import */ var src_app_services_client_client_service__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! src/app/services/client/client.service */ "./src/app/services/client/client.service.ts");
-/* harmony import */ var src_app_services_storage_local_storage_service__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! src/app/services/storage/local-storage.service */ "./src/app/services/storage/local-storage.service.ts");
-/* harmony import */ var src_app_services_form_builder_form_builder_service__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! src/app/services/form-builder/form-builder.service */ "./src/app/services/form-builder/form-builder.service.ts");
-/* harmony import */ var _ng_bootstrap_ng_bootstrap__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! @ng-bootstrap/ng-bootstrap */ "./node_modules/@ng-bootstrap/ng-bootstrap/fesm2015/ng-bootstrap.js");
+/* harmony import */ var _ng_bootstrap_ng_bootstrap__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @ng-bootstrap/ng-bootstrap */ "./node_modules/@ng-bootstrap/ng-bootstrap/fesm2015/ng-bootstrap.js");
+/* harmony import */ var src_app_services_client_client_service__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! src/app/services/client/client.service */ "./src/app/services/client/client.service.ts");
+/* harmony import */ var src_app_services_storage_local_storage_service__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! src/app/services/storage/local-storage.service */ "./src/app/services/storage/local-storage.service.ts");
+/* harmony import */ var src_app_services_form_builder_form_builder_service__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! src/app/services/form-builder/form-builder.service */ "./src/app/services/form-builder/form-builder.service.ts");
 
 
 
@@ -4577,11 +4683,11 @@ let ClientFormsEntryPageComponent = class ClientFormsEntryPageComponent {
 };
 ClientFormsEntryPageComponent.ctorParameters = () => [
     { type: _angular_router__WEBPACK_IMPORTED_MODULE_3__["Router"] },
-    { type: _ng_bootstrap_ng_bootstrap__WEBPACK_IMPORTED_MODULE_8__["NgbModal"] },
+    { type: _ng_bootstrap_ng_bootstrap__WEBPACK_IMPORTED_MODULE_5__["NgbModal"] },
     { type: ngx_clipboard__WEBPACK_IMPORTED_MODULE_4__["ClipboardService"] },
-    { type: src_app_services_client_client_service__WEBPACK_IMPORTED_MODULE_5__["ClientService"] },
-    { type: src_app_services_form_builder_form_builder_service__WEBPACK_IMPORTED_MODULE_7__["FormBuilderService"] },
-    { type: src_app_services_storage_local_storage_service__WEBPACK_IMPORTED_MODULE_6__["LocalStorageService"] }
+    { type: src_app_services_client_client_service__WEBPACK_IMPORTED_MODULE_6__["ClientService"] },
+    { type: src_app_services_form_builder_form_builder_service__WEBPACK_IMPORTED_MODULE_8__["FormBuilderService"] },
+    { type: src_app_services_storage_local_storage_service__WEBPACK_IMPORTED_MODULE_7__["LocalStorageService"] }
 ];
 tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
     Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["ViewChild"])('confirm', { static: false })
@@ -4729,8 +4835,6 @@ let ClientHomePageComponent = class ClientHomePageComponent {
     openFormsFilled() {
         this.router.navigateByUrl('/client/forms_filled');
     }
-    getAnalytics() {
-    }
 };
 ClientHomePageComponent.ctorParameters = () => [
     { type: _angular_router__WEBPACK_IMPORTED_MODULE_2__["Router"] },
@@ -4825,9 +4929,11 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm2015/core.js");
 /* harmony import */ var lodash__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! lodash */ "./node_modules/lodash/lodash.js");
 /* harmony import */ var lodash__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(lodash__WEBPACK_IMPORTED_MODULE_2__);
-/* harmony import */ var src_app_services_form_builder_form_builder_service__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! src/app/services/form-builder/form-builder.service */ "./src/app/services/form-builder/form-builder.service.ts");
-/* harmony import */ var src_app_services_storage_local_storage_service__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! src/app/services/storage/local-storage.service */ "./src/app/services/storage/local-storage.service.ts");
-/* harmony import */ var src_app_services_client_client_service__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! src/app/services/client/client.service */ "./src/app/services/client/client.service.ts");
+/* harmony import */ var _ng_bootstrap_ng_bootstrap__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @ng-bootstrap/ng-bootstrap */ "./node_modules/@ng-bootstrap/ng-bootstrap/fesm2015/ng-bootstrap.js");
+/* harmony import */ var src_app_services_client_client_service__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! src/app/services/client/client.service */ "./src/app/services/client/client.service.ts");
+/* harmony import */ var src_app_services_storage_local_storage_service__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! src/app/services/storage/local-storage.service */ "./src/app/services/storage/local-storage.service.ts");
+/* harmony import */ var src_app_services_form_builder_form_builder_service__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! src/app/services/form-builder/form-builder.service */ "./src/app/services/form-builder/form-builder.service.ts");
+
 
 
 
@@ -4835,7 +4941,8 @@ __webpack_require__.r(__webpack_exports__);
 
 
 let ClientListFormDataPageComponent = class ClientListFormDataPageComponent {
-    constructor(clientService, formBuilder, localStorage) {
+    constructor(modalService, clientService, formBuilder, localStorage) {
+        this.modalService = modalService;
         this.clientService = clientService;
         this.formBuilder = formBuilder;
         this.localStorage = localStorage;
@@ -4844,6 +4951,18 @@ let ClientListFormDataPageComponent = class ClientListFormDataPageComponent {
         this.getAllClientData();
     }
     ngOnInit() {
+    }
+    showUpdatedDialog(isSuccess) {
+        if (isSuccess) {
+            this.alert_title = 'Profile Updated Successfully';
+            this.alert_message = 'You have successfully updated your account data';
+            this.modalService.open(this.updatedDialog, { centered: true });
+        }
+        else {
+            this.alert_title = 'Profile Update Failed';
+            this.alert_message = 'An error occured updating your account data. Our servers may be down or you dont have an active internet connection.';
+            this.modalService.open(this.updatedDialog, { centered: true });
+        }
     }
     getAllClientData() {
         this.loading = true;
@@ -4865,25 +4984,57 @@ let ClientListFormDataPageComponent = class ClientListFormDataPageComponent {
             this.hasError = true;
         });
     }
-    updateData() {
-        this.loading = true;
-        console.log('is submitting');
-        const user_data = [this.allUserData];
-        const filled_data = this.formBuilder.getFormUserData(user_data);
-        const updated_data = this.clientService.getUpdatedClientFormData(JSON.parse(filled_data), this.allUserData);
-        console.log('new updates: ' + updated_data);
-        // this.clientService.submitForm(_.toString(this.user.id), this.form.form_code, this.allUserData, JSON.parse(updated_data)).then(
-        //   res => {
-        //     this.created = true;
-        //     this.loading = false;
-        //   },
-        //   err => {
-        //     this.loading = false;
-        //   }
-        // );
+    transformToRealText(text) {
+        if (lodash__WEBPACK_IMPORTED_MODULE_2__["includes"](text, '-')) {
+            return lodash__WEBPACK_IMPORTED_MODULE_2__["replace"](text, '-', ' ');
+        }
+        else if (lodash__WEBPACK_IMPORTED_MODULE_2__["includes"](text, '_')) {
+            return lodash__WEBPACK_IMPORTED_MODULE_2__["replace"](text, '_', ' ');
+        }
+        else {
+            return text;
+        }
     }
-    save() { }
-    delete() { }
+    getAllClientProfileData() {
+        const user_form_data = {};
+        const allElements = document.querySelectorAll('input');
+        lodash__WEBPACK_IMPORTED_MODULE_2__["forEach"](allElements, (element) => {
+            user_form_data[element.id] = element.value;
+        });
+        return JSON.stringify(user_form_data);
+    }
+    updateData() {
+        this.updating = true;
+        console.log('is submitting');
+        const updatedUserData = this.getAllClientProfileData();
+        this.clientService.editProfile(this.user.id, JSON.parse(updatedUserData)).then(res => {
+            const response = res;
+            if (lodash__WEBPACK_IMPORTED_MODULE_2__["toLower"](response.message) == 'ok') {
+                this.updating = false;
+                this.showUpdatedDialog(true);
+            }
+            else {
+                this.updating = false;
+                this.showUpdatedDialog(false);
+            }
+        }, err => {
+            this.updating = false;
+            this.showUpdatedDialog(false);
+        });
+    }
+    save() {
+        this.updateData();
+    }
+    cancel() {
+        this.modalService.open(this.confirmDialog, { centered: true }).result.then(result => {
+            if (result == 'yes') {
+                this.discardChanges();
+            }
+        });
+    }
+    discardChanges() {
+        this.getAllClientData();
+    }
     retry() {
         this.getAllClientData();
     }
@@ -4892,10 +5043,17 @@ let ClientListFormDataPageComponent = class ClientListFormDataPageComponent {
     }
 };
 ClientListFormDataPageComponent.ctorParameters = () => [
-    { type: src_app_services_client_client_service__WEBPACK_IMPORTED_MODULE_5__["ClientService"] },
-    { type: src_app_services_form_builder_form_builder_service__WEBPACK_IMPORTED_MODULE_3__["FormBuilderService"] },
-    { type: src_app_services_storage_local_storage_service__WEBPACK_IMPORTED_MODULE_4__["LocalStorageService"] }
+    { type: _ng_bootstrap_ng_bootstrap__WEBPACK_IMPORTED_MODULE_3__["NgbModal"] },
+    { type: src_app_services_client_client_service__WEBPACK_IMPORTED_MODULE_4__["ClientService"] },
+    { type: src_app_services_form_builder_form_builder_service__WEBPACK_IMPORTED_MODULE_6__["FormBuilderService"] },
+    { type: src_app_services_storage_local_storage_service__WEBPACK_IMPORTED_MODULE_5__["LocalStorageService"] }
 ];
+tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
+    Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["ViewChild"])('updated', { static: false })
+], ClientListFormDataPageComponent.prototype, "updatedDialog", void 0);
+tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
+    Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["ViewChild"])('confirm', { static: false })
+], ClientListFormDataPageComponent.prototype, "confirmDialog", void 0);
 ClientListFormDataPageComponent = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
     Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Component"])({
         selector: 'app-client-list-form-data-page',
@@ -5931,6 +6089,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _angular_router__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @angular/router */ "./node_modules/@angular/router/fesm2015/router.js");
 /* harmony import */ var src_app_services_analytics_analytics_service__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! src/app/services/analytics/analytics.service */ "./src/app/services/analytics/analytics.service.ts");
 /* harmony import */ var src_app_services_storage_local_storage_service__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! src/app/services/storage/local-storage.service */ "./src/app/services/storage/local-storage.service.ts");
+/* harmony import */ var src_app_services_account_account_service__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! src/app/services/account/account.service */ "./src/app/services/account/account.service.ts");
+
 
 
 
@@ -5938,14 +6098,20 @@ __webpack_require__.r(__webpack_exports__);
 
 
 let ExecutiveHomePageComponent = class ExecutiveHomePageComponent {
-    // numTotalActiveBranches: string;
-    // numTotalInActiveBranches: string;
-    constructor(router, localStorage, analyticService) {
+    constructor(router, accountService, localStorage, analyticService) {
         this.router = router;
+        this.accountService = accountService;
         this.localStorage = localStorage;
         this.analyticService = analyticService;
-        this.firstname = this.localStorage.getUser().firstname;
-        this.merchantId = Object(lodash__WEBPACK_IMPORTED_MODULE_2__["toString"])(this.localStorage.getUser().merchant_id);
+        this.checkAccessToLogin().then(res => {
+            if (res == 'ok') {
+                this.firstname = this.localStorage.getUser().firstname;
+                this.merchantId = Object(lodash__WEBPACK_IMPORTED_MODULE_2__["toString"])(this.localStorage.getUser().merchant_id);
+            }
+            else {
+                this.router.navigateByUrl('auth');
+            }
+        }, err => { });
     }
     ngOnInit() {
         this.getAnalytics();
@@ -6008,9 +6174,31 @@ let ExecutiveHomePageComponent = class ExecutiveHomePageComponent {
         this.getSubmittedFormsAnalytics(this.merchantId);
         this.getProcessingFormsAnalytics(this.merchantId);
     }
+    checkAccessToLogin() {
+        return new Promise((resolve, reject) => {
+            this.accountService.checkLoginAccess().then(res => {
+                const response = res;
+                if (response.message == 'No_access_code') {
+                    this.router.navigateByUrl('auth');
+                    resolve('not_ok');
+                }
+                else if (response.message == 'Re_enter_access_code') {
+                    this.router.navigateByUrl('auth');
+                    resolve('not_ok');
+                }
+                else {
+                    // the response message is: Access_granted
+                    // we do nothing, we allow them to see login
+                    // page and give them access to login.
+                    resolve('ok');
+                }
+            }, err => { });
+        });
+    }
 };
 ExecutiveHomePageComponent.ctorParameters = () => [
     { type: _angular_router__WEBPACK_IMPORTED_MODULE_3__["Router"] },
+    { type: src_app_services_account_account_service__WEBPACK_IMPORTED_MODULE_6__["AccountService"] },
     { type: src_app_services_storage_local_storage_service__WEBPACK_IMPORTED_MODULE_5__["LocalStorageService"] },
     { type: src_app_services_analytics_analytics_service__WEBPACK_IMPORTED_MODULE_4__["AnalyticsService"] }
 ];
@@ -6631,7 +6819,6 @@ let FrontDesktopHomePageComponent = class FrontDesktopHomePageComponent {
         this.frontDeskService = frontDeskService;
         this.checkAccessToLogin().then(res => {
             if (res == 'ok') {
-                alert('HAHAHAHA I HAVE ACCESS !!!!!!! SUCK IT');
                 this.user = this.localStorage.getUser();
                 this.firstname = this.user.firstname;
                 const merchant_id = lodash__WEBPACK_IMPORTED_MODULE_2__["toString"](this.user.merchant_id);
@@ -9581,17 +9768,30 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _angular_router__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @angular/router */ "./node_modules/@angular/router/fesm2015/router.js");
 /* harmony import */ var src_app_services_analytics_analytics_service__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! src/app/services/analytics/analytics.service */ "./src/app/services/analytics/analytics.service.ts");
 /* harmony import */ var src_app_services_storage_local_storage_service__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! src/app/services/storage/local-storage.service */ "./src/app/services/storage/local-storage.service.ts");
+/* harmony import */ var src_app_services_account_account_service__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! src/app/services/account/account.service */ "./src/app/services/account/account.service.ts");
+
 
 
 
 
 
 let HomePageComponent = class HomePageComponent {
-    constructor(router, analyticService, localStorageService) {
+    constructor(router, accountService, analyticService, localStorageService) {
         this.router = router;
+        this.accountService = accountService;
         this.analyticService = analyticService;
         this.localStorageService = localStorageService;
         this.firstName = this.localStorageService.getUser().firstname;
+        // this.checkAccessToLogin().then(
+        //   res => {
+        //     if (res == 'ok') {
+        //       this.firstName = this.localStorageService.getUser().firstname;
+        //     }
+        //     else {
+        //       this.router.navigateByUrl('auth');
+        //     }
+        //   }
+        // );
     }
     ngOnInit() {
         this.getAnalytics();
@@ -9642,12 +9842,34 @@ let HomePageComponent = class HomePageComponent {
         this.loading = true;
         this.getBranchAnalytics();
         this.getCompanyAnalytics();
-        this.getAccountsAnalytics();
+        // this.getAccountsAnalytics();
         this.getFormAnalytics();
+    }
+    checkAccessToLogin() {
+        return new Promise((resolve, reject) => {
+            this.accountService.checkLoginAccess().then(res => {
+                const response = res;
+                if (response.message == 'No_access_code') {
+                    this.router.navigateByUrl('auth');
+                    resolve('not_ok');
+                }
+                else if (response.message == 'Re_enter_access_code') {
+                    this.router.navigateByUrl('auth');
+                    resolve('not_ok');
+                }
+                else {
+                    // the response message is: Access_granted
+                    // we do nothing, we allow them to see login
+                    // page and give them access to login.
+                    resolve('ok');
+                }
+            }, err => { });
+        });
     }
 };
 HomePageComponent.ctorParameters = () => [
     { type: _angular_router__WEBPACK_IMPORTED_MODULE_2__["Router"] },
+    { type: src_app_services_account_account_service__WEBPACK_IMPORTED_MODULE_5__["AccountService"] },
     { type: src_app_services_analytics_analytics_service__WEBPACK_IMPORTED_MODULE_3__["AnalyticsService"] },
     { type: src_app_services_storage_local_storage_service__WEBPACK_IMPORTED_MODULE_4__["LocalStorageService"] }
 ];
@@ -12276,10 +12498,8 @@ let LoginPageComponent = class LoginPageComponent {
             case 'USER_NOT_FOUND':
                 this.userNotFound = true;
                 break;
-            case 'FIRST_LOGIN':
-                this.router.navigateByUrl('change_password');
-                break;
             default:
+                this.notClient = true;
                 break;
         }
     }
@@ -14584,12 +14804,12 @@ let FormBuilderService = class FormBuilderService {
                         values: [
                             {
                                 label: 'Male',
-                                value: 'male',
+                                value: 'Male',
                                 selected: false,
                             },
                             {
                                 label: 'Female',
-                                value: 'female',
+                                value: 'Female',
                                 selected: false
                             }
                         ]

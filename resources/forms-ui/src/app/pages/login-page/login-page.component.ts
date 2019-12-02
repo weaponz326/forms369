@@ -18,6 +18,7 @@ export class LoginPageComponent implements OnInit {
   loading: boolean;
   created: boolean;
   submitted: boolean;
+  notClient: boolean;
   deactivated: boolean;
   userNotFound: boolean;
   notConfirmed: boolean;
@@ -67,10 +68,8 @@ export class LoginPageComponent implements OnInit {
       case 'USER_NOT_FOUND':
         this.userNotFound = true;
         break;
-      case 'FIRST_LOGIN':
-        this.router.navigateByUrl('change_password');
-        break;
       default:
+        this.notClient = true;
         break;
     }
   }

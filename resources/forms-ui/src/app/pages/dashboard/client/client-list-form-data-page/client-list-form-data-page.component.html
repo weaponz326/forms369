@@ -101,18 +101,16 @@
                 <p class="card-description"></p>
                 <div class="card-text">
                   <div class="form-group" *ngFor="let item of allUserData | keyvalue">
-                    <label><strong>{{ item.key | uppercase }}</strong></label>
-                    <div class="input-group">
-                      <input type="text" class="form-control" [placeholder]="item.key" aria-label="Recipient's username" [value]="item.value">
-                      <div class="input-group-append">
-                        <button class="btn btn-sm btn-primary" type="button" (click)="save()">
-                          <i class="mdi mdi-check-outline"></i>
-                        </button>
-                        <button class="btn btn-sm btn-danger" type="button" (click)="delete()">
-                          <i class="mdi mdi-delete-outline"></i>
-                        </button>
-                      </div>
-                    </div>
+                    <label><strong>{{ transformToRealText(item.key) | uppercase }}</strong></label>
+                    <input type="text" id="{{ item.key }}" class="form-control" [placeholder]="item.key" aria-label="Recipient's username" [value]="item.value">
+                  </div>
+                  <div class="form-group mt-3">
+                    <button *ngIf="updating" class="btn btn-primary btn-lg mr-2" type="button" disabled>
+                      <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+                      <span class="sr-only">Please wait...</span>
+                    </button>
+                    <button *ngIf="!updating" type="submit" class="btn btn-primary btn-lg mr-2" (click)="save()">Save Changes</button>
+                    <button type="button" class="btn btn-light btn-lg" (click)="cancel()">Cancel</button>
                   </div>
                 </div>
               </div>
@@ -123,3 +121,34 @@
     </div>
   </div>
 </div>
+
+<ng-template #confirm let-modal>
+  <div class="modal-header">
+    <h4 class="modal-title" id="modal-title">Confirm Action</h4>
+    <button type="button" class="close" aria-describedby="modal-title" (click)="modal.dismiss('Cross click')">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <p><strong>Are you sure you want to <span class="text-primary">discard all the changes you've made</span> ?</strong></p>
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-outline-secondary" (click)="modal.dismiss('no')">No</button>
+    <button type="button" class="btn btn-primary" (click)="modal.close('yes')">Yes</button>
+  </div>
+</ng-template>
+
+<ng-template #updated let-modal>
+  <div class="modal-header">
+    <h4 class="modal-title" id="modal-title">{{ alert_title }}</h4>
+    <button type="button" class="close" aria-describedby="modal-title" (click)="modal.dismiss()">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <p>{{ alert_message }}</p>
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-primary" (click)="modal.close()">Ok</button>
+  </div>
+</ng-template>

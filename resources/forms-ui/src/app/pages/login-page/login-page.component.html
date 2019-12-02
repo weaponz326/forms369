@@ -26,6 +26,13 @@
               </div>
             </div>
 
+            <div *ngIf="notClient" class="mt-2 mb-5">
+              <div class="alert alert-danger" role="alert">
+                <h3 class="alert-heading">Hey there!</h3>
+                <p class="lead text-left"><strong>Please login in as another user. Click the link below</strong></p>
+              </div>
+            </div>
+
             <h4 class="text-center">Hello! let's get started</h4>
             <h6 class="font-weight-nromal text-center">Sign in to continue.</h6>
             <form [formGroup]="form" (ngSubmit)="login()" class="pt-3">
