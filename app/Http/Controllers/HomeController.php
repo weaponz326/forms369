@@ -30,11 +30,44 @@ class HomeController extends Controller
     *
     * @return \Illuminate\Http\Response success or error message
     */
-    public function checkAccess(Request $request)
+    protected function checkAccess(Request $request)
     {
         $message = (new AuthController)->checkAccess($request);
         return $message;
     }
+
+
+    /**
+    * send a two way authentication code to client users
+    * @param  mixed $request
+    *
+    * @return \Illuminate\Http\Response success or error message
+    */
+    
+    protected function sendTwoWayAuthenticationCode(Request $request, $id, $phone)
+    {
+        $message = (new AuthController)->sendTwoWayAuthenticationCode($request, $id, $phone);
+        return $message;
+
+    }
+
+
+     /**
+      * Business logics
+    * twoWayAuthenticationVerification verify user provided two way access code
+    * @param  mixed $request
+    * @param  mixed $id user id
+    * @param  mixed $code user phone code
+    *
+    * @return \Illuminate\Http\Response success or error message
+    */
+    
+    protected function twoWayAuthenticationVerification(Request $request, $id, $code, $phone)
+    {
+        $message = (new AuthController)->twoWayAuthenticationVerification($request, $id, $code, $phone);
+        return $message;
+    }
+
 
  /**
   * Business logics

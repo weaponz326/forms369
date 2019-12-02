@@ -29,7 +29,11 @@ Route::post('login', 'HomeController@login')->name('login');
 Route::post('resetPassword/{id}', 'HomeController@resetPassword')->name('resetPassword');
 
 //check access code
-Route::post('ValidateAccessCode/{code}', 'HomeController@ValidateAccessCode')->name('ValidateAccessCode');                                     
+Route::post('ValidateAccessCode/{code}', 'HomeController@ValidateAccessCode')->name('ValidateAccessCode');  
+
+//two way authentication apis
+Route::post('sendTwoWayAuthenticationCode/{id}/{phone}', 'HomeController@sendTwoWayAuthenticationCode')->name('sendTwoWayAuthenticationCode'); 
+Route::post('twoWayAuthenticationVerification/{id}/{code}/{phone}', 'HomeController@twoWayAuthenticationVerification')->name('twoWayAuthenticationVerification');  
 
 //protected routes 
 Route::group(['middleware' => ['auth:api'], 'prefix' => 'v1'], function(){

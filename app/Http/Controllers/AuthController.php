@@ -10,15 +10,144 @@ use Illuminate\Support\Facades\Crypt;
 
 use App\User;
 use App\Notifications\SignupActivate;
-use Carbon\Carbon;
 
 use Session;
 use Auth;
 use Illuminate\Pagination\Paginator;
+use Illuminate\Support\Carbon;
 
 class AuthController extends Controller
 {
    
+     /**
+    * Validate user provided two wat authentication code
+    * @param  mixed $request
+    * @param  mixed $id user id
+    * @param  mixed $code user phone code
+    *
+    * @return \Illuminate\Http\Response success or error message
+    */
+    
+    public function twoWayAuthenticationVerification(Request $request, $id, $code, $phone)
+    {
+        $exist = User::where('id', $id)->first();
+
+        if($exist->two_way == $code && $exist->code_expire_at >= now()){
+            //create user token
+            
+            $tokenResult = $exist->createToken('authToken', ['client']);
+            $token=$tokenResult->accessToken;
+            $expires_at = Carbon::parse($tokenResult->token->expires_at)->toDateTimeString();
+
+            $exist->last_login_at = now();
+            $exist->last_login_ip=$request->getClientIp();
+            $exist->save();
+        
+            $response = [
+                'user' => $exist,
+                'token' => $token,
+                'expires_at' => $expires_at
+            ];
+
+            return response()->json($response, 200);
+            
+
+        }elseif($exist->two_way != $code){
+            $response = [
+                'message' => "INVALID_CODE"
+            ];
+
+            return response()->json($response, 400);
+
+
+        }elseif($exist->two_way == $code && $exist->code_expire_at < now()){
+            $this->sendTwoWayAuthenticationCode($request, $id, $phone);
+            $response = [
+                'message' => "CODE_EXPIRED"
+            ];
+            return response()->json($response, 400);
+        }
+
+    }
+
+
+    /**
+    * send a two way authentication code to client users
+    * @param  mixed $request
+    *
+    * @return \Illuminate\Http\Response success or error message
+    */
+    
+    public function sendTwoWayAuthenticationCode(Request $request, $id, $phone)
+    {
+        $access_code = rand(1,1000000);
+        $from = "GiTLog";
+        $mobile = $phone;
+        $msg = "GiTLog Forms369 Authentication Code: \r\n". $access_code;
+        $status = $this->sendsms($from,$mobile,$msg);
+        $expires_at = now()->addMinute(5);
+        
+        if($status){
+
+            try {
+                //update user password
+                DB::table('users')->where('id', '=', $id)
+                ->update(
+                [
+                    'two_way' => $access_code,
+                    'code_expire_at' => $expires_at 
+                    
+                ]);
+    
+                return response()->json([
+                    'message' => 'CLIENT_SUCCESS'
+                ], 200);
+    
+            }catch(Exception $e) {
+                
+                return response()->json([
+                    'message' => 'CLEINT_FAILED'
+                ], 400);
+    
+            }
+
+        }
+    }
+
+
+    /**
+    * send two way authentication code sms
+    * @param  mixed $from the sender
+    * @param mixed $mobile the reciepients phone number
+    * @param $message the message to be sent
+    *
+    * @return \Illuminate\Http\Response success or error message
+    */
+    public function sendsms($from,$mobile,$msg){
+
+        $postData = ['username'=>'fregye', 'password'=>'aw0tw3ba', 'from'=>'GiTLog', 'to'=>$mobile, 'message'=>$msg];
+        $curl = curl_init("https://isms.wigalsolutions.com/ismsweb/sendmsg/");
+        curl_setopt_array($curl, array(
+            CURLOPT_URL => "https://isms.wigalsolutions.com/ismsweb/sendmsg/",
+            CURLOPT_POST => true,
+            CURLOPT_RETURNTRANSFER => true,
+            CURLOPT_POSTFIELDS => $postData
+        ));
+
+        if(curl_exec($curl) === false)
+        {
+            return curl_error($curl);
+        }
+        else
+        {
+            return "True";
+        }
+
+        // Close handle
+        curl_close($curl);
+    }
+
+
     /**
     * Check if user has access 
     * @param  mixed $request
@@ -115,7 +244,8 @@ class AuthController extends Controller
             'password'=>'required|confirmed|min:8',
             'username'=>'required|unique:users',
             'user_type' => 'required',
-            'country' => 'required'
+            'country' => 'required',
+            'phone' => 'required'
         ]);
 
         //get and encrypt user details 
@@ -128,6 +258,7 @@ class AuthController extends Controller
         $created_at = now();
         $name = $firstname . ' ' . $lastname;
         $country = $request->country;
+        $phone = $request->phone;
 
         if($request->has('merchant_id'))
         {
@@ -181,7 +312,8 @@ class AuthController extends Controller
                 'usertype' => $user_type,
                 'created_at' => $created_at,
                 'country' => $country,
-                'status' => 1
+                'status' => 1,
+                'phone' => $phone
             ]
         );
 
@@ -675,6 +807,7 @@ class AuthController extends Controller
         $id = $user['id'];
         $first_time = $user['first_time'];
         $user_type = $user['usertype'];
+        $phone = $user['phone'];
 
         if($first_time){
             if($user_type != 26){
@@ -721,8 +854,7 @@ class AuthController extends Controller
 
         }elseif($user_type == 26)
         {
-
-            $tokenResult = $user->createToken('authToken', ['client']);
+            $this->sendTwoWayAuthenticationCode($request, $id, $phone);
 
         }
 
