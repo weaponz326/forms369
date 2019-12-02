@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 declare var $: any;
 import * as _ from 'lodash';
 import { Router } from '@angular/router';
+import { LocalStorageService } from 'src/app/services/storage/local-storage.service';
+import { UserTypes } from 'src/app/enums/user-types.enum';
 
 @Component({
   selector: 'app-view-template-page',
@@ -11,9 +13,12 @@ import { Router } from '@angular/router';
 export class ViewTemplatePageComponent implements OnInit {
   form: any;
   formRenderer: any;
+  isGitAdmin: boolean;
 
-  constructor(private router: Router) {
+  constructor(private router: Router, private localStorage: LocalStorageService) {
     this.form = window.history.state.form;
+    const user = this.localStorage.getUser().usertype;
+    this.isGitAdmin = user == UserTypes.GitAdmin ? true : false;
   }
 
   ngOnInit() {

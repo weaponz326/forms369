@@ -67,6 +67,9 @@ export class LoginPageComponent implements OnInit {
       case 'USER_NOT_FOUND':
         this.userNotFound = true;
         break;
+      case 'FIRST_LOGIN':
+        this.router.navigateByUrl('change_password');
+        break;
       default:
         break;
     }

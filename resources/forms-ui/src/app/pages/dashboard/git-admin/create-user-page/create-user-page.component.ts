@@ -18,7 +18,7 @@ export class CreateUserAccountPageComponent implements OnInit {
 
   ngOnInit() { }
 
-  goHome() {
+  ok() {
     this.router.navigateByUrl(this.url);
   }
 

@@ -10,7 +10,7 @@
               <div class="d-flex align-items-end flex-wrap">
                 <div class="mr-md-3 mr-xl-5">
                   <h2>Welcome back, {{ firstname }}</h2>
-                  <p class="mb-md-0">Your analytics dashboard template.</p>
+                  <p class="mb-md-0">Your administrative dashboard.</p>
                 </div>
                 <div class="d-flex">
                 </div>
@@ -25,7 +25,7 @@
             <div class="card">
               <div class="card-body">
                 <p class="card-title">Generate An Access Code</p>
-                <p class="text-muted">A list of all forms you've filled</p>
+                <p class="text-muted">Setup a new access code.</p>
                 <div class="card-text">
                   <form [formGroup]="form" (ngSubmit)="create()">
                     <div class="form-group">
@@ -65,8 +65,7 @@
                       </div>
                     </div>
                     <div class="form-group">
-                      <button type="submit" *ngIf="!loading" class="btn btn-primary btn-lg mr-2">Create Access
-                        Code</button>
+                      <button type="submit" *ngIf="!loading" class="btn btn-primary btn-lg mr-2">Create Access Code</button>
                       <button *ngIf="loading" class="btn btn-primary btn-lg mr-2" type="button" disabled>
                         <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>&nbsp;
                         &nbsp;
@@ -93,10 +92,11 @@
                     You have successfully created a new access code.
                   </p>
                   <div class="code">{{ accessCode }}</div>
-                  <button class="btn btn-primary mr-2 hover-cursor" type="button">
+                  <button class="btn btn-primary mr-2 hover-cursor" type="button" (click)="copy()">
                     <i class="mdi mdi-content-copy" style="font-size: 20px;"></i>
                     <span class="sr-only">Please wait...</span>
                   </button>
+                  <button class="btn btn-primary mr-2 hover-cursor" type="button" (click)="ok()">Ok</button>
                 </div>
               </div>
             </div>

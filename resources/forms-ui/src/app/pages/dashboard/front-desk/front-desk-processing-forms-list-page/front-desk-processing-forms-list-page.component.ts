@@ -2,9 +2,9 @@ import { Component, OnInit, ViewChild, TemplateRef } from '@angular/core';
 import * as _ from 'lodash';
 import { Router } from '@angular/router';
 import { Users } from 'src/app/models/users.model';
+import { NgbModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
 import { FrontDeskService } from 'src/app/services/front-desk/front-desk.service';
 import { LocalStorageService } from 'src/app/services/storage/local-storage.service';
-import { NgbModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
   selector: 'app-front-desk-processing-forms-list-page',
@@ -77,7 +77,7 @@ export class FrontDeskProcessingFormsListPageComponent implements OnInit {
 
   complete(submission_code: string) {
     this.showLoadingDialog();
-    this.frontDeskService.completeForm(submission_code).then(
+    this.frontDeskService.completeForm(submission_code, '').then(
       res => {
         const response = res as any;
         if (_.toLower(response.message) == 'ok') {
@@ -98,7 +98,7 @@ export class FrontDeskProcessingFormsListPageComponent implements OnInit {
 
   unprocess(submission_code: string) {
     this.showLoadingDialog();
-    this.frontDeskService.unprocessForm(submission_code).then(
+    this.frontDeskService.unprocessForm(submission_code, '').then(
       res => {
         const response = res as any;
         if (_.toLower(response.message) == 'ok') {
@@ -116,5 +116,9 @@ export class FrontDeskProcessingFormsListPageComponent implements OnInit {
         this.showNotCompleteDialog();
       }
     );
+  }
+
+  retry() {
+    this.getAllFormsInProcessing();
   }
 }

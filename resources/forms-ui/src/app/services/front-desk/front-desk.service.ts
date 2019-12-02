@@ -15,14 +15,18 @@ export class FrontDeskService {
     this.headers = this.endpointService.headers();
   }
 
-  getFrontDeskAccounts(): Promise<any> {
+  getFrontDeskAccounts(allowPagination?: boolean): Promise<any> {
     return new Promise((resolve, reject) => {
-      const url = this.endpointService.apiHost + 'api/v1/getAllUsersByType/' + UserTypes.FrontDesk;
+      const url = !_.isUndefined(allowPagination) || allowPagination
+        ? this.endpointService.apiHost + 'api/v1/getAllUsersByType/' + UserTypes.FrontDesk
+        : this.endpointService.apiHost + 'api/v1/getAllUsersByTypeForDropdown/' + UserTypes.FrontDesk;
       this.http.get(url, { headers: this.headers }).subscribe(
         res => {
           console.log('response: ' + JSON.stringify(res));
           const response = res as any;
-          resolve(response.users.data);
+          return !_.isUndefined(allowPagination) || allowPagination
+            ? resolve(response.users.data)
+            : resolve(response.users);
         },
         err => {
           console.log('error: ' + JSON.stringify(err));
@@ -146,10 +150,10 @@ export class FrontDeskService {
     });
   }
 
-  completeForm(code: string): Promise<any> {
+  completeForm(code: string, clientData: any): Promise<any> {
     return new Promise((resolve, reject) => {
       const url = this.endpointService.apiHost + 'api/v1/processSubmitForm/' + code + '/' + '2';
-      this.http.post(url, {}, { headers: this.headers }).subscribe(
+      this.http.post(url, JSON.stringify(clientData), { headers: this.headers }).subscribe(
         res => {
           console.log('res: ' + JSON.stringify(res));
           resolve(res);
@@ -162,10 +166,11 @@ export class FrontDeskService {
     });
   }
 
-  processForm(code: string): Promise<any> {
+  processForm(code: string, clientData: any): Promise<any> {
     return new Promise((resolve, reject) => {
       const url = this.endpointService.apiHost + 'api/v1/processSubmitForm/' + code + '/' + '1';
-      this.http.post(url, {}, { headers: this.headers }).subscribe(
+      console.log('processForm: ' + JSON.stringify(clientData));
+      this.http.post(url, JSON.stringify(clientData), { headers: this.headers }).subscribe(
         res => {
           console.log('res: ' + JSON.stringify(res));
           resolve(res);
@@ -178,10 +183,10 @@ export class FrontDeskService {
     });
   }
 
-  unprocessForm(code: string): Promise<any> {
+  unprocessForm(code: string, clientData: any): Promise<any> {
     return new Promise((resolve, reject) => {
       const url = this.endpointService.apiHost + 'api/v1/processSubmitForm/' + code + '/' + '0';
-      this.http.post(url, {}, { headers: this.headers }).subscribe(
+      this.http.post(url, JSON.stringify(clientData), { headers: this.headers }).subscribe(
         res => {
           console.log('res: ' + JSON.stringify(res));
           resolve(res);

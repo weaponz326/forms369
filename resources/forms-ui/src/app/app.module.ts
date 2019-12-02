@@ -3,13 +3,18 @@ import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 import { OrderModule } from 'ngx-order-pipe';
+import { ClipboardModule } from 'ngx-clipboard';
 import { CountryPickerModule } from 'ngx-country-picker';
 import { HttpClientModule } from '@angular/common/http';
 import { AppRoutingModule } from './app-routing.module';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { NgxPageScrollCoreModule } from 'ngx-page-scroll-core';
 
+import { MatIconModule } from '@angular/material/icon';
+import { MatInputModule} from '@angular/material/input';
 import { MatAutocompleteModule } from '@angular/material';
+import { MatNativeDateModule } from '@angular/material/core';
+import { MatDatepickerModule } from '@angular/material/datepicker';
 import { NgbModalModule, NgbAlertModule } from '@ng-bootstrap/ng-bootstrap';
 
 import { AppComponent } from './app.component';
@@ -29,13 +34,10 @@ import { ClientListFormDataPageComponent } from './pages/dashboard/client/client
 import { FrontDesktopHomePageComponent } from './pages/dashboard/front-desk/front-desk-home-page/front-desk-home-page.component';
 import { CreateCompanyPageComponent } from './pages/dashboard/git-admin/create-company-page/create-company-page.component';
 import { CreateBranchPageComponent } from './pages/dashboard/git-admin/create-branch-page/create-branch-page.component';
-import { ExecSubmittedFormsPageComponent } from './pages/dashboard/branch-executive/exec-submitted-forms-page/exec-submitted-forms-page.component';
-import { ExecutiveHomePageComponent } from './pages/dashboard/branch-executive/executive-home-page/executive-home-page.component';
-import { ExecProcessedFormsPageComponent } from './pages/dashboard/branch-executive/exec-processed-forms-page/exec-processed-forms-page.component';
-import { ExecInProcessedFormsPageComponent } from './pages/dashboard/branch-executive/exec-in-processed-forms-page/exec-in-processed-forms-page.component';
-import { ExecSubmittedFormsListPageComponent } from './pages/dashboard/branch-executive/exec-submitted-forms-list-page/exec-submitted-forms-list-page.component';
-import { ExecProcessedFormsListPageComponent } from './pages/dashboard/branch-executive/exec-processed-forms-list-page/exec-processed-forms-list-page.component';
-import { ExecInProcessedFormsListPageComponent } from './pages/dashboard/branch-executive/exec-in-processed-forms-list-page/exec-in-processed-forms-list-page.component';
+import { ExecutiveHomePageComponent } from './pages/dashboard/executive/executive-home-page/executive-home-page.component';
+import { ExecSubmittedFormsListPageComponent } from './pages/dashboard/executive/exec-submitted-forms-list-page/exec-submitted-forms-list-page.component';
+import { ExecProcessedFormsListPageComponent } from './pages/dashboard/executive/exec-processed-forms-list-page/exec-processed-forms-list-page.component';
+import { ExecInProcessedFormsListPageComponent } from './pages/dashboard/executive/exec-in-processed-forms-list-page/exec-in-processed-forms-list-page.component';
 import { AdminHomePageComponent } from './pages/dashboard/admin/admin-home-page/admin-home-page.component';
 import { ClientFormsHistoryPageComponent } from './pages/dashboard/client/client-forms-history-page/client-forms-history-page.component';
 import { ClientFormsEntryPageComponent } from './pages/dashboard/client/client-forms-entry-page/client-forms-entry-page.component';
@@ -82,9 +84,6 @@ import { AdminCreateUserPageComponent } from './pages/dashboard/admin/admin-crea
 import { AdminEditUserPageComponent } from './pages/dashboard/admin/admin-edit-user-page/admin-edit-user-page.component';
 import { AdminViewAccountDetailsPageComponent } from './pages/dashboard/admin/admin-view-account-details-page/admin-view-account-details-page.component';
 import { AdminViewBranchDetailsPageComponent } from './pages/dashboard/admin/admin-view-branch-details-page/admin-view-branch-details-page.component';
-import { BranchAdminHomePageComponent } from './pages/dashboard/branch-admin/branch-admin-home-page/branch-admin-home-page.component';
-import { BranchAdminCreateUserPageComponent } from './pages/dashboard/branch-admin/branch-admin-create-user-page/branch-admin-create-user-page.component';
-import { BranchAdminEditUserPageComponent } from './pages/dashboard/branch-admin/branch-admin-edit-user-page/branch-admin-edit-user-page.component';
 import { CreateAccessCodePageComponent } from './pages/dashboard/git-admin/create-access-code-page/create-access-code-page.component';
 import { AuthPageComponent } from './pages/auth-page/auth-page.component';
 import { AdminLoginPageComponent } from './pages/admin-login-page/admin-login-page.component';
@@ -94,6 +93,10 @@ import { ViewSectionsPageComponent } from './pages/dashboard/git-admin/view-sect
 import { ViewAccessCodePageComponent } from './pages/dashboard/git-admin/view-access-code-page/view-access-code-page.component';
 import { EditAccessCodePageComponent } from './pages/dashboard/git-admin/edit-access-code-page/edit-access-code-page.component';
 import { FrontDeskPreviewFormPageComponent } from './pages/dashboard/front-desk/front-desk-preview-form-page/front-desk-preview-form-page.component';
+import { ExecBranchesListPageComponent } from './pages/dashboard/executive/exec-branches-list-page/exec-branches-list-page.component';
+import { ExecAccountsListPageComponent } from './pages/dashboard/executive/exec-accounts-list-page/exec-accounts-list-page.component';
+import { ExecFormsListPageComponent } from './pages/dashboard/executive/exec-forms-list-page/exec-forms-list-page.component';
+import { ChangePasswordPageComponent } from './pages/change-password-page/change-password-page.component';
 
 @NgModule({
   declarations: [
@@ -114,10 +117,7 @@ import { FrontDeskPreviewFormPageComponent } from './pages/dashboard/front-desk/
     FrontDesktopHomePageComponent,
     CreateCompanyPageComponent,
     CreateBranchPageComponent,
-    ExecSubmittedFormsPageComponent,
     ExecutiveHomePageComponent,
-    ExecProcessedFormsPageComponent,
-    ExecInProcessedFormsPageComponent,
     ExecSubmittedFormsListPageComponent,
     ExecProcessedFormsListPageComponent,
     ExecInProcessedFormsListPageComponent,
@@ -166,9 +166,6 @@ import { FrontDeskPreviewFormPageComponent } from './pages/dashboard/front-desk/
     AdminEditUserPageComponent,
     AdminViewAccountDetailsPageComponent,
     AdminViewBranchDetailsPageComponent,
-    BranchAdminHomePageComponent,
-    BranchAdminCreateUserPageComponent,
-    BranchAdminEditUserPageComponent,
     CreateAccessCodePageComponent,
     AuthPageComponent,
     AdminLoginPageComponent,
@@ -178,6 +175,10 @@ import { FrontDeskPreviewFormPageComponent } from './pages/dashboard/front-desk/
     ViewAccessCodePageComponent,
     EditAccessCodePageComponent,
     FrontDeskPreviewFormPageComponent,
+    ExecBranchesListPageComponent,
+    ExecAccountsListPageComponent,
+    ExecFormsListPageComponent,
+    ChangePasswordPageComponent,
   ],
   imports: [
     BrowserModule,
@@ -185,10 +186,15 @@ import { FrontDeskPreviewFormPageComponent } from './pages/dashboard/front-desk/
     HttpClientModule,
     AppRoutingModule,
     OrderModule,
+    ClipboardModule,
     NgbModule,
     NgbAlertModule,
     NgbModalModule,
     ReactiveFormsModule,
+    MatIconModule,
+    MatInputModule,
+    MatDatepickerModule,
+    MatNativeDateModule,
     MatAutocompleteModule,
     CountryPickerModule.forRoot({
       baseUrl: 'assets/',

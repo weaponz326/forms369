@@ -11,11 +11,13 @@ import { Router } from '@angular/router';
 })
 export class AdminViewFrontDesksPageComponent implements OnInit {
   userType: number;
+  branchId: number;
   merchantId: number;
   hasNoAccount: boolean;
 
   constructor(private router: Router, private localStorage: LocalStorageService) {
     this.userType = UserTypes.FrontDesk;
+    this.branchId = this.localStorage.getUser().branch_id;
     this.merchantId = this.localStorage.getUser().merchant_id;
   }
 

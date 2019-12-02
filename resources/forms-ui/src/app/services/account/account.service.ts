@@ -12,6 +12,8 @@ export class AccountService {
 
   private headers: HttpHeaders;
   private authHeaders: HttpHeaders;
+  public nextPaginationUrl: string;
+
   constructor(private http: HttpClient, private endpointService: EndpointService) {
     this.headers = this.endpointService._headers();
     this.authHeaders = this.endpointService.headers();
@@ -104,6 +106,48 @@ export class AccountService {
           console.log('access code created: ' + JSON.stringify(res));
           const response = res as any;
           resolve(response.code);
+        },
+        err => {
+          console.log('access code error: ' + JSON.stringify(err));
+          reject(err);
+        }
+      );
+    });
+  }
+
+  getAllAccessCodes(page_url?: string): Promise<any> {
+    return new Promise((resolve, reject) => {
+      const headers = this.endpointService.headers();
+      const url = !_.isUndefined(page_url)
+        ? page_url
+        : this.endpointService.apiHost + 'api/v1/getAllCodes';
+      this.http.get(url, { headers: headers }).subscribe(
+        res => {
+          console.log('res: ' + JSON.stringify(res));
+          const response = res as any;
+          this.nextPaginationUrl = response.codes.next_page_url;
+          resolve(response.codes.data);
+        },
+        err => {
+          console.log('error: ' + JSON.stringify(err));
+          reject(err);
+        }
+      );
+    });
+  }
+
+  getAllAccessCodeByStatus(status: string, page_url?: string): Promise<any> {
+    return new Promise((resolve, reject) => {
+      const headers = this.endpointService.headers();
+      const url = !_.isUndefined(page_url)
+        ? page_url
+        : this.endpointService.apiHost + 'api/v1/getAccessCodesByStatus/' + status;
+      this.http.get(url, { headers: headers }).subscribe(
+        res => {
+          console.log('res: ' + JSON.stringify(res));
+          const response = res as any;
+          this.nextPaginationUrl = response.merchants.next_page_url;
+          resolve(response.codes.data);
         },
         err => {
           console.log('access code error: ' + JSON.stringify(err));
@@ -220,6 +264,26 @@ export class AccountService {
     }
   }
 
+  getAllUsersByMerchant(merchnat_id: string, pagination_url?: string): Promise<any> {
+    return new Promise((resolve, reject) => {
+      const url = !_.isUndefined(pagination_url)
+        ? pagination_url
+        : this.endpointService.apiHost + 'api/v1/getAllUsersByMerchant/' + merchnat_id;
+      this.http.get(url, { headers: this.endpointService.headers() }).subscribe(
+        res => {
+          console.log('res: ' + JSON.stringify(res));
+          const response = res as any;
+          this.nextPaginationUrl = response.users.next_page_url;
+          resolve(response.users.data);
+        },
+        err => {
+          console.log('err: ' + JSON.stringify(err));
+          reject(err);
+        }
+      );
+    });
+  }
+
   /**
    * Edits a user's account.
    *
@@ -304,6 +368,26 @@ export class AccountService {
     });
   }
 
+  changeAccountPassword(user_id: string, password: string): Promise<any> {
+    return new Promise((resolve, reject) => {
+      const body = {
+        new_password: password,
+        new_password_confirmation: password
+      };
+      const url = this.endpointService.apiHost + 'api/resetPassword/' + user_id;
+      this.http.post(url, JSON.stringify(body), { headers: this.headers }).subscribe(
+        res => {
+          console.log('res: ' + JSON.stringify(res));
+          resolve(res);
+        },
+        err => {
+          console.log('err: ' + JSON.stringify(err));
+          reject(err);
+        }
+      );
+    });
+  }
+
   /**
    * Logs a user out.
    *
@@ -315,9 +399,11 @@ export class AccountService {
       const url = this.endpointService.apiHost + 'api/v1/logoutUser';
       this.http.get(url, { headers: this.headers }).subscribe(
         res => {
+          sessionStorage.clear();
           resolve(res);
         },
         err => {
+          sessionStorage.clear();
           reject(err);
         }
       );

@@ -102,8 +102,8 @@ export class CreateSectionPageComponent implements OnInit {
     this.created = !this.created;
   }
 
-  goHome() {
-    this.router.navigateByUrl('/git_admin');
+  ok() {
+    this.router.navigateByUrl('/git_admin/lists/section');
   }
 
 }

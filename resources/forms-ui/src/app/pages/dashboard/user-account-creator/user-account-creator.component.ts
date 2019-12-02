@@ -263,7 +263,6 @@ export class UserAccountCreatorComponent implements OnInit {
       this.accountService.createAccount(user).then(
         res => {
           const response = res as any;
-          console.log(response.message);
           if (response.id) {
             this.form.enable();
             this.loading = false;
@@ -285,5 +284,7 @@ export class UserAccountCreatorComponent implements OnInit {
       );
     }
   }
+
+  cancel() {}
 
 }

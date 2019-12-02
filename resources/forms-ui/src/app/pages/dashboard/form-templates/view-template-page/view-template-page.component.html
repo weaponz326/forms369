@@ -23,8 +23,11 @@
                 <button type="button" class="btn btn-light bg-white btn-icon mr-3 d-none d-md-block" (click)="download()">
                   <i class="mdi mdi-download text-muted"></i>
                 </button>
-                <button type="button" class="btn btn-light bg-white btn-icon mr-3 mt-2 mt-xl-0" (click)="edit()">
+                <button *ngIf="isGitAdmin" type="button" class="btn btn-light bg-white btn-icon mr-3 mt-2 mt-xl-0" (click)="edit()">
                   <i class="mdi mdi-pencil-outline text-muted"></i>
+                </button>
+                <button *ngIf="!isGitAdmin" type="button" class="btn btn-primary btn-sm mr-3 mt-2 mt-xl-0" (click)="edit()">
+                  Use Template
                 </button>
               </div>
             </div>
@@ -37,8 +40,7 @@
               <div class="card-body">
                 <p class="card-title">Preview Form</p>
                 <p class="text-muted"></p>
-
-                <div class="form-builder-container">
+                <div class="form-container">
                   <div id="fb-editor"></div>
                 </div>
               </div>

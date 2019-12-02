@@ -220,17 +220,17 @@ export class CreateCompanyPageComponent implements OnInit {
     }
   }
 
-  goHome() {
-    this.router.navigateByUrl('/git_admin');
+  ok() {
+    this.router.navigateByUrl('/git_admin/lists/company');
   }
 
   cancel() {
     this.logoImage = '';
     this.hasLogo = false;
     this.f.name.setValue('');
-    this.f.country.setValue("");
-    this.f.companyAdmin.setValue("");
-    this.f.superExecutive.setValue("");
+    this.f.country.setValue('');
+    this.f.companyAdmin.setValue('');
+    this.f.superExecutive.setValue('');
   }
 
   bringBackForm() {

@@ -130,4 +130,8 @@ export class AdminViewBranchesPageComponent implements OnInit {
 
   loadMore() {}
 
+  retry() {
+    this.getCompanyBranches();
+  }
+
 }

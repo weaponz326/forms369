@@ -167,14 +167,18 @@ export class BranchService {
    * @returns {Promise<any>}
    * @memberof BranchService
    */
-  getAllBranchAdmins(): Promise<any> {
+  getAllBranchAdmins(allowPagination?: boolean): Promise<any> {
     return new Promise((resolve, reject) => {
-      const url = this.endpointService.apiHost + 'api/v1/getAllUsersByType/' + UserTypes.BranchAdmin;
+      const url = !_.isUndefined(allowPagination) || allowPagination
+        ? this.endpointService.apiHost + 'api/v1/getAllUsersByType/' + UserTypes.BranchAdmin
+        : this.endpointService.apiHost + 'api/v1/getAllUsersByTypeForDropdown/' + UserTypes.BranchAdmin;
       this.http.get(url, { headers: this.headers }).subscribe(
         res => {
           console.log('response: ' + JSON.stringify(res));
           const response = res as any;
-          resolve(response.users.data);
+          return !_.isUndefined(allowPagination) || allowPagination
+            ? resolve(response.users.data)
+            : resolve(response.users);
         },
         err => {
           console.log('error: ' + JSON.stringify(err));

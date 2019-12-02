@@ -22,13 +22,9 @@ export class FormBuilderService {
     return [
       'autocomplete',
       'button',
-      'checkbox-group',
       'date',
-      'file',
       'hidden',
       'number',
-      'radio-group',
-      'select'
     ];
   }
 

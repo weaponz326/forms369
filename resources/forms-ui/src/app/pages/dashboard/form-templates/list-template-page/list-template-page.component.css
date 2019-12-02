@@ -6,3 +6,8 @@
 .search-form {
     border-radius: 30px;
 }
+
+.sort-buttons .btn {
+    padding-top: 7px;
+    padding-bottom: 7px;
+}

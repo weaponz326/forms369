@@ -1,0 +1,157 @@
+<div class="container-scroller">
+  <app-navigation-bar></app-navigation-bar>
+  <div class="container-fluid page-body-wrapper">
+    <app-side-bar></app-side-bar>
+    <div class="main-panel">
+      <div class="content-wrapper">
+        <div class="row">
+          <div class="col-md-12 grid-margin">
+            <div class="d-flex justify-content-between flex-wrap">
+              <div class="d-flex align-items-end flex-wrap">
+                <div class="mr-md-3 mr-xl-5">
+                  <h2>All Forms</h2>
+                  <p class="mb-md-0">Your administrative dashboard.</p>
+                </div>
+                <div class="d-flex">
+                  <!-- <i class="mdi mdi-home text-muted hover-cursor"></i>
+                  <p class="text-muted mb-0 hover-cursor">&nbsp;/&nbsp;Home&nbsp;/&nbsp;</p>
+                  <p class="text-primary mb-0 hover-cursor">In-Processing</p> -->
+                </div>
+              </div>
+              <div class="d-flex justify-content-between align-items-end flex-wrap">
+                <!-- <button type="button" class="btn btn-light bg-white btn-icon mr-3 d-none d-md-block ">
+                  <i class="mdi mdi-download text-muted"></i>
+                </button>
+                <button type="button" class="btn btn-light bg-white btn-icon mr-3 mt-2 mt-xl-0">
+                  <i class="mdi mdi-clock-outline text-muted"></i>
+                </button>
+                <button type="button" class="btn btn-light bg-white btn-icon mr-3 mt-2 mt-xl-0">
+                  <i class="mdi mdi-plus text-muted"></i>
+                </button> -->
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div *ngIf="loading" class="row m-md-5">
+          <div class="col-md-12 col-sm-12 m-md-5">
+            <div class="d-flex justify-content-center">
+              <div class="spinner-border m-5" style="width: 5rem; height: 5rem;" role="status">
+                <span class="sr-only">Loading...</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div *ngIf="!loading && !hasData" class="row">
+          <div class="col-lg-12 grid-margin stretch-card">
+            <div class="card text-center pt-5 pb-5">
+              <div class="card-body mt-5 mb-5">
+                <h4 class="card-title">No Data Found</h4>
+                <p class="card-description">
+                  No form found.
+                </p>
+                <div class="text-lg-center mt-5 mb-5">
+                  <div class="card-text">
+                    <i class="mdi mdi-file-question" style="font-size: 8em;"></i>
+                  </div>
+                  <div class="card-text">
+                    <h3>No Available Forms</h3>
+                    <p class="text-muted">This company doesn't have any forms yet!</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div *ngIf="hasError" class="row">
+          <div class="col-lg-12 grid-margin stretch-card">
+            <div class="card text-center pt-5 pb-5">
+              <div class="card-body mt-5 mb-5">
+                <h4 class="card-title">Error Ocuured</h4>
+                <p class="card-description">
+                  Ooops! Something went wrong!
+                </p>
+                <div class="text-lg-center mt-5 mb-5">
+                  <div class="card-text">
+                    <i class="mdi mdi-close-network-outline" style="font-size: 8em;"></i>
+                  </div>
+                  <div class="card-text">
+                    <h3>We couldn't get your forms</h3>
+                    <p class="text-muted">You may not have internet connection or our servers maybe down.</p>
+                    <button class="btn btn-primary" type="button" (click)="retry()">Retry</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div *ngIf="!loading && hasData" class="row">
+          <div class="col-lg-12 grid-margin stretch-card">
+            <div class="card">
+              <div class="card-body">
+                <div class="table-responsive">
+                  <table class="table table-hover">
+                    <thead>
+                      <tr>
+                        <th><strong>Form Code.</strong></th>
+                        <th><strong>Form Name</strong></th>
+                        <th><strong>Status</strong></th>
+                        <th><strong>Created On</strong></th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr class="hover-cursor" *ngFor="let form of allFormsList">
+                        <td>{{ form.form_code }}</td>
+                        <td>{{ form.name }}</td>
+                        <td *ngIf="form.status == 1"><label class="badge badge-success text-center">Active</label></td>
+                        <td *ngIf="form.status != 1"><label class="badge badge-danger text-center">In-Active</label>
+                        </td>
+                        <td>{{ form.created_at | date }}</td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div *ngIf="loadingMore" class="row m-md-2">
+          <div class="col-md-12 col-sm-12 m-md-2">
+            <div class="d-flex justify-content-center">
+              <div class="spinner-border m-2" style="width: 2rem; height: 2rem;" role="status">
+                <span class="sr-only">Loading...</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div *ngIf="hasMoreError" class="row m-md-2">
+          <div class="col-md-8 col-sm-12 offset-md-2">
+            <div class="alert alert-danger" role="alert">
+              <h4 class="alert-heading">Connection Failed!</h4>
+              <p>
+                Oops!! Couldn't get you the rest of the data. Please make sure you have an active internet connection.
+                Maybe, our servers may be down.
+              </p>
+              <hr>
+              <p class="mb-0">We are really sorry for this inconvenience. Please click on the load more button again.</p>
+            </div>
+          </div>
+        </div>
+
+        <div *ngIf="hasMore" class="row">
+          <div class="col-md-4 col-sm-6 offset-sm-3 offset-lg-4">
+            <div class="text-center">
+              <button type="button" class="btn btn-secondary btn-rounded btn-fw" (click)="loadMore()">Load More</button>
+            </div>
+          </div>
+        </div>
+        
+      </div>
+    </div>
+  </div>
+</div>

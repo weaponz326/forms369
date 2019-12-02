@@ -13,13 +13,10 @@ import { ClientListFormDataPageComponent } from './pages/dashboard/client/client
 import { FrontDesktopHomePageComponent } from './pages/dashboard/front-desk/front-desk-home-page/front-desk-home-page.component';
 import { CreateCompanyPageComponent } from './pages/dashboard/git-admin/create-company-page/create-company-page.component';
 import { CreateBranchPageComponent } from './pages/dashboard/git-admin/create-branch-page/create-branch-page.component';
-import { ExecutiveHomePageComponent } from './pages/dashboard/branch-executive/executive-home-page/executive-home-page.component';
-import { ExecSubmittedFormsPageComponent } from './pages/dashboard/branch-executive/exec-submitted-forms-page/exec-submitted-forms-page.component';
-import { ExecProcessedFormsPageComponent } from './pages/dashboard/branch-executive/exec-processed-forms-page/exec-processed-forms-page.component';
-import { ExecInProcessedFormsPageComponent } from './pages/dashboard/branch-executive/exec-in-processed-forms-page/exec-in-processed-forms-page.component';
-import { ExecInProcessedFormsListPageComponent } from './pages/dashboard/branch-executive/exec-in-processed-forms-list-page/exec-in-processed-forms-list-page.component';
-import { ExecSubmittedFormsListPageComponent } from './pages/dashboard/branch-executive/exec-submitted-forms-list-page/exec-submitted-forms-list-page.component';
-import { ExecProcessedFormsListPageComponent } from './pages/dashboard/branch-executive/exec-processed-forms-list-page/exec-processed-forms-list-page.component';
+import { ExecutiveHomePageComponent } from './pages/dashboard/executive/executive-home-page/executive-home-page.component';
+import { ExecInProcessedFormsListPageComponent } from './pages/dashboard/executive/exec-in-processed-forms-list-page/exec-in-processed-forms-list-page.component';
+import { ExecSubmittedFormsListPageComponent } from './pages/dashboard/executive/exec-submitted-forms-list-page/exec-submitted-forms-list-page.component';
+import { ExecProcessedFormsListPageComponent } from './pages/dashboard/executive/exec-processed-forms-list-page/exec-processed-forms-list-page.component';
 import { AdminHomePageComponent } from './pages/dashboard/admin/admin-home-page/admin-home-page.component';
 import { ClientFormsHistoryPageComponent } from './pages/dashboard/client/client-forms-history-page/client-forms-history-page.component';
 import { ClientFormsEntryPageComponent } from './pages/dashboard/client/client-forms-entry-page/client-forms-entry-page.component';
@@ -71,6 +68,10 @@ import { ViewSectionsPageComponent } from './pages/dashboard/git-admin/view-sect
 import { EditAccessCodePageComponent } from './pages/dashboard/git-admin/edit-access-code-page/edit-access-code-page.component';
 import { ViewAccessCodePageComponent } from './pages/dashboard/git-admin/view-access-code-page/view-access-code-page.component';
 import { FrontDeskPreviewFormPageComponent } from './pages/dashboard/front-desk/front-desk-preview-form-page/front-desk-preview-form-page.component';
+import { ExecAccountsListPageComponent } from './pages/dashboard/executive/exec-accounts-list-page/exec-accounts-list-page.component';
+import { ExecBranchesListPageComponent } from './pages/dashboard/executive/exec-branches-list-page/exec-branches-list-page.component';
+import { ExecFormsListPageComponent } from './pages/dashboard/executive/exec-forms-list-page/exec-forms-list-page.component';
+import { ChangePasswordPageComponent } from './pages/change-password-page/change-password-page.component';
 
 const routes: Routes = [
   {
@@ -96,6 +97,10 @@ const routes: Routes = [
   {
     path: 'master_register',
     component: AdminRegisterPageComponent
+  },
+  {
+    path: 'change_password',
+    component: ChangePasswordPageComponent
   },
   {
     path: 'git_admin',
@@ -138,15 +143,15 @@ const routes: Routes = [
         path: 'edit',
         children: [
           {
-            path: 'form/:id',
+            path: 'form',
             component: EditFormPageComponent
           },
           {
-            path: 'branch/:id',
+            path: 'branch',
             component: EditBranchPageComponent
           },
           {
-            path: 'company/:id',
+            path: 'company',
             component: EditCompanyPageComponent
           },
           {
@@ -322,28 +327,28 @@ const routes: Routes = [
       },
       {
         path: 'submitted',
-        component: ExecSubmittedFormsPageComponent
-      },
-      {
-        path: 'processed',
-        component: ExecProcessedFormsPageComponent
-      },
-      {
-        path: 'processing',
-        component: ExecInProcessedFormsPageComponent
-      },
-      {
-        path: 'submitted_list/:type',
         component: ExecSubmittedFormsListPageComponent
       },
       {
-        path: 'processed_list/:type',
+        path: 'processed',
         component: ExecProcessedFormsListPageComponent
       },
       {
-        path: 'processing_list/:type',
+        path: 'processing',
         component: ExecInProcessedFormsListPageComponent
       },
+      {
+        path: 'forms',
+        component: ExecFormsListPageComponent
+      },
+      {
+        path: 'accounts',
+        component: ExecAccountsListPageComponent
+      },
+      {
+        path: 'branches',
+        component: ExecBranchesListPageComponent
+      }
     ]
   },
   {

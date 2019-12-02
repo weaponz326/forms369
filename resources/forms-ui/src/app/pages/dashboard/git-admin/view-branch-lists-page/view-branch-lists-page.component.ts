@@ -2,7 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import * as _ from 'lodash';
 import { Router } from '@angular/router';
 import { BranchService } from 'src/app/services/branch/branch.service';
-import { CompanyBranches } from 'src/app/models/company-branches.model';
 import { ListViewService } from 'src/app/services/view/list-view.service';
 import { EndpointService } from 'src/app/services/endpoint/endpoint.service';
 
@@ -141,7 +140,7 @@ export class ViewBranchListsPageComponent implements OnInit {
           this.hasNoData = false;
           _.forEach(branches, (branch) => {
             this.branchesList.push(branch);
-            this.allBranchesList = this.branchesList;
+            this.allBranchesList = _.reverse(this.branchesList);
           });
         }
         else {
@@ -166,7 +165,7 @@ export class ViewBranchListsPageComponent implements OnInit {
           this.hasNoData = false;
           _.forEach(branches, (branch) => {
             this.branchesList.push(branch);
-            this.allBranchesList = this.branchesList;
+            this.allBranchesList = _.reverse(this.branchesList);
           });
         }
         else {
@@ -202,7 +201,7 @@ export class ViewBranchListsPageComponent implements OnInit {
         this.hasMore = this.checkIfHasMore();
         _.forEach(branches, (branch) => {
           this.branchesList.push(branch);
-          this.allBranchesList = this.branchesList;
+          this.allBranchesList = _.reverse(this.branchesList);
         });
       },
       err => {
@@ -231,6 +230,10 @@ export class ViewBranchListsPageComponent implements OnInit {
         this.hasMoreError = true;
       }
     );
+  }
+
+  retry() {
+    this.getBranches();
   }
 
 }

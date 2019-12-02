@@ -104,8 +104,8 @@ export class EditSectionPageComponent implements OnInit {
     this.router.navigateByUrl('git_admin/create/section');
   }
 
-  goHome() {
-    this.router.navigateByUrl('/git_admin');
+  ok() {
+    this.router.navigateByUrl('/git_admin/lists/section');
   }
 
 }

@@ -5,3 +5,16 @@
 .alert-dismissible {
     padding-right: 0px;
 }
+
+.form-control.large-form {
+    font-size: 45px;
+    padding: 60px;
+    border-top: none;
+    border-left: none;
+    border-right: none;
+    text-align: center;
+}
+
+input.form-control::placeholder {
+    color: rgb(124, 124, 124) !important;
+}

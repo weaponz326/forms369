@@ -130,4 +130,8 @@ export class AdminFormListsPageComponent implements OnInit {
 
   delete(id: string) {}
 
+  retry() {
+    this.getAllForms();
+  }
+
 }

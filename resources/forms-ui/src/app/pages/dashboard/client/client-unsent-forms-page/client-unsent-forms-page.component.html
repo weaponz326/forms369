@@ -9,8 +9,8 @@
             <div class="d-flex justify-content-between flex-wrap">
               <div class="d-flex align-items-end flex-wrap">
                 <div class="mr-md-3 mr-xl-5">
-                  <h2>UnProcessed Forms</h2>
-                  <p class="mb-md-0">Your analytics dashboard template.</p>
+                  <h2>Submitted Forms</h2>
+                  <p class="mb-md-0">Your administrative dashboard.</p>
                 </div>
                 <div class="d-flex">
                 </div>
@@ -84,9 +84,9 @@
                     <i class="mdi mdi-close-network-outline" style="font-size: 8em;"></i>
                   </div>
                   <div class="card-text">
-                    <h3>We couldn't filled forms</h3>
-                    <p class="text-muted">An error has occured on our servers or you might not have internet connection
-                    </p>
+                    <h3>We couldn't find your forms</h3>
+                    <p class="text-muted">You may not have internet connection or our servers maybe down.</p>
+                    <button class="btn btn-primary" type="button" (click)="retry()">Retry</button>
                   </div>
                 </div>
               </div>
@@ -98,8 +98,8 @@
           <div class="col-md-4 grid-margin stretch-card" *ngFor="let form of unSentFormsList">
             <div class="card hover-cursor animated fadeInDown slow">
               <div class="card-body">
-                <h1 class="display-4">{{ form.submission_code }}</h1>
                 <p class="card-title">{{ form.form_name }}</p>
+                <h1 class="display-4">{{ form.submission_code }}</h1>
                 <div class="card-text">
                   <p class="text-muted">{{ form.submitted_at | date }}</p>
                 </div>
@@ -113,6 +113,6 @@
       <app-footer-bar></app-footer-bar>
       <!-- partial -->
     </div>
-    <!-- main-panel ends -->
+    <!-- main ends -->
   </div>
 </div>

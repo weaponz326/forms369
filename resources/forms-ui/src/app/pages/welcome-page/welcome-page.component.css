@@ -42,6 +42,7 @@ section.section-one .jumbotron h1 {
 
 section.section-one .jumbotron .lead {
     line-height: 1.8rem;
+    font-weight: 400;
 }
 
 @media only screen 

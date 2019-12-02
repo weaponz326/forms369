@@ -177,8 +177,8 @@ export class EditFormPageComponent implements OnInit {
     this.router.navigateByUrl('git_admin/setup_form');
   }
 
-  goHome() {
-    this.router.navigateByUrl('/git_admin');
+  ok() {
+    this.router.navigateByUrl('/git_admin/lists/form');
   }
 
 }

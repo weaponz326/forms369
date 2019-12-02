@@ -185,4 +185,8 @@ export class ClientFormMerchantsPageComponent implements OnInit {
     }
   }
 
+  retry() {
+    this.getCompanies();
+  }
+
 }

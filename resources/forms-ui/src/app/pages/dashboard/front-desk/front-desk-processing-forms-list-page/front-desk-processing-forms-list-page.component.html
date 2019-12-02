@@ -9,8 +9,8 @@
             <div class="d-flex justify-content-between flex-wrap">
               <div class="d-flex align-items-end flex-wrap">
                 <div class="mr-md-3 mr-xl-5">
-                  <h2>Forms In Processing</h2>
-                  <p class="mb-md-0">Your analytics dashboard template.</p>
+                  <h2>Forms In-Processing</h2>
+                  <p class="mb-md-0">Your administrative dashboard.</p>
                 </div>
                 <div class="d-flex">
                 </div>
@@ -67,7 +67,8 @@
                   </div>
                   <div class="card-text">
                     <h3>We couldn't get your forms</h3>
-                    <p class="text-muted">An error has occured on our servers or you might not have an active internet connection.</p>
+                    <p class="text-muted">You may not have internet connection or our servers maybe down.</p>
+                    <button class="btn btn-primary" type="button" (click)="retry()">Retry</button>
                   </div>
                 </div>
               </div>
@@ -79,10 +80,6 @@
           <div class="col-lg-12 grid-margin stretch-card">
             <div class="card">
               <div class="card-body">
-                <h4 class="card-title">Forms In-Processing</h4>
-                <p class="card-description">
-                  List of all new forms that have being processed
-                </p>
                 <div class="table-responsive">
                   <table class="table table-hover">
                     <thead>
@@ -95,17 +92,19 @@
                       </tr>
                     </thead>
                     <tbody>
-                      <tr class="hover-cursor" *ngFor="let form of processingFormsList" (click)="open(form)">
+                      <tr class="hover-cursor" *ngFor="let form of processingFormsList">
                         <td>{{ form.form_code }}</td>
                         <td>{{ form.form_name }}</td>
                         <td>{{ form.client_name }}</td>
                         <td>{{ form.submitted_at | date }}</td>
                         <td>
                           <div class="d-flex align-items-end flex-wrap">
-                            <button type="button" class="btn btn-light bg-white btn-icon mr-1" (click)="complete(form.submission_code)">
+                            <button type="button" class="btn btn-light bg-white btn-icon mr-1"
+                              (click)="complete(form.submission_code)">
                               <i class="mdi mdi-check-outline text-muted"></i>
                             </button>
-                            <button type="button" class="btn btn-light bg-white btn-icon mr-1" (click)="unprocess(form.submission_code)">
+                            <button type="button" class="btn btn-light bg-white btn-icon mr-1"
+                              (click)="unprocess(form.submission_code)">
                               <i class="mdi mdi-undo-variant text-muted"></i>
                             </button>
                           </div>
@@ -122,49 +121,3 @@
     </div>
   </div>
 </div>
-
-<ng-template #loading let-modal>
-  <div class="modal-body">
-    <div class="d-flex justify-content-center">
-      <div class="spinner-border m-5" style="width: 3.5rem; height: 3.5rem;" role="status">
-        <span class="sr-only">Loading...</span>
-      </div>
-    </div>
-    <p class="text-center">Please wait ...</p>
-  </div>
-</ng-template>
-
-<ng-template #completed let-modal>
-  <div class="modal-header">
-    <h4 class="modal-title" id="modal-title">Form Completed ?</h4>
-    <button type="button" class="close" aria-describedby="modal-title" (click)="modal.dismiss('Cross click')">
-      <span aria-hidden="true">&times;</span>
-    </button>
-  </div>
-  <div class="modal-body">
-    <p><strong>Form has been successfully been processed and completed</strong></p>
-  </div>
-  <div class="modal-footer">
-    <button type="button" class="btn btn-outline-secondary" (click)="modal.dismiss('cancel')">Cancel</button>
-    <button type="button" class="btn btn-danger" (click)="modal.close('delete')">Delete</button>
-  </div>
-</ng-template>
-
-<ng-template #confirm let-modal>
-  <div class="modal-header">
-    <h4 class="modal-title" id="modal-title">Process Form ?</h4>
-    <button type="button" class="close" aria-describedby="modal-title" (click)="modal.dismiss('Cross click')">
-      <span aria-hidden="true">&times;</span>
-    </button>
-  </div>
-  <div class="modal-body">
-    <p><strong>Are you sure you want to delete <span class="text-primary">this template</span> ?</strong></p>
-    <p>All information associated with this template will be permanently deleted.
-      <span class="text-danger">This operation can not be undone.</span>
-    </p>
-  </div>
-  <div class="modal-footer">
-    <button type="button" class="btn btn-outline-secondary" (click)="modal.dismiss('cancel')">Cancel</button>
-    <button type="button" class="btn btn-danger" (click)="modal.close('delete')">Delete</button>
-  </div>
-</ng-template>

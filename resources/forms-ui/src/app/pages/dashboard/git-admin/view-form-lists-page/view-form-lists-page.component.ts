@@ -98,7 +98,7 @@ export class ViewFormListsPageComponent implements OnInit {
   }
 
   edit(form: any) {
-    this.router.navigateByUrl('git_admin/edit/form/' + form.form_code, { state: { form: form }});
+    this.router.navigateByUrl('git_admin/edit/form', { state: { form: form }});
   }
 
   view(form: any) {
@@ -135,7 +135,7 @@ export class ViewFormListsPageComponent implements OnInit {
           this.hasNoData = false;
           _.forEach(forms, (form) => {
             this.formsList.push(form);
-            this.allFormsList = this.formsList;
+            this.allFormsList = _.reverse(this.formsList);
           });
         }
         else {
@@ -160,7 +160,7 @@ export class ViewFormListsPageComponent implements OnInit {
           this.hasNoData = false;
           _.forEach(forms, (form) => {
             this.formsList.push(form);
-            this.allFormsList = this.formsList;
+            this.allFormsList = _.reverse(this.formsList);
           });
         }
         else {
@@ -186,7 +186,7 @@ export class ViewFormListsPageComponent implements OnInit {
         this.hasMore = this.checkIfHasMore();
         _.forEach(forms, (form) => {
           this.formsList.push(form);
-          this.allFormsList = this.formsList;
+          this.allFormsList = _.reverse(this.formsList);
         });
       },
       err => {
@@ -194,6 +194,10 @@ export class ViewFormListsPageComponent implements OnInit {
         this.hasMoreError = true;
       }
     );
+  }
+
+  retry() {
+    this.getForms();
   }
 
 }

@@ -1,0 +1,191 @@
+<div class="container-scroller">
+  <app-navigation-bar></app-navigation-bar>
+  <div class="container-fluid page-body-wrapper">
+    <app-side-bar></app-side-bar>
+    <div class="main-panel">
+      <div class="content-wrapper">
+        <div class="row">
+          <div class="col-md-12 grid-margin">
+            <div class="d-flex justify-content-between flex-wrap">
+              <div class="d-flex align-items-end flex-wrap">
+                <div class="mr-md-3 mr-xl-5">
+                  <h2>Welcome back, {{ firstname }}</h2>
+                  <p class="mb-md-0">Your administrative dashboard.</p>
+                </div>
+                <div class="d-flex">
+                </div>
+              </div>
+              <div class="d-flex justify-content-between align-items-end flex-wrap">
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div *ngIf="loading" class="row">
+          <div class="col-md-12">
+            <div class="d-flex justify-content-center pb-5 pt-5">
+              <div class="spinner-border mt-5" style="width: 6rem; height: 6rem;" role="status">
+                <span class="sr-only">Loading...</span>
+              </div>
+            </div>
+          </div>
+        </div>
+        
+        <div *ngIf="!loading" class="row mb-5 text-center pb-3">
+          <div class="col-10 offset-1">
+            <div class="text-center">
+              <form class="form-inline">
+                <div class="form-group">
+                  <select class="form-control form-control-lg" style="width: 220px;">
+                    <option value="a">Select Company Branch</option>
+                    <option value="a">Branch One</option>
+                    <option value="a">Branch One</option>
+                    <option value="a">Branch One</option>
+                    <option value="a">Branch One</option>
+                  </select>
+                </div>
+                <div class="form-group">
+                  <div class="input-group">
+                    <input class="form-control form-control-lg" placeholder="Select Start Date" name="dp" [(ngModel)]="startDate" ngbDatepicker
+                      #d="ngbDatepicker">
+                    <div class="input-group-append">
+                      <button class="btn btn-outline-secondary" (click)="d.toggle()" type="button">
+                        <i class="mdi mdi-calendar-outline"></i>
+                      </button>
+                    </div>
+                  </div>
+                </div>
+                <div class="form-group">
+                  <div class="input-group">
+                    <input class="form-control form-control-lg" placeholder="Select End Date" name="dp" [(ngModel)]="endDate" ngbDatepicker
+                      #d1="ngbDatepicker">
+                    <div class="input-group-append">
+                      <button class="btn btn-outline-secondary" (click)="d1.toggle()" type="button">
+                        <i class="mdi mdi-calendar-outline"></i>
+                      </button>
+                    </div>
+                  </div>
+                </div>
+                <button type="submit" class="btn btn-outline-dark btn-lg ml-2">Filter</button>
+              </form>
+            </div>
+          </div>
+        </div>
+
+        <div *ngIf="!loading" class="row">
+          <div class="col-md-4 grid-margin stretch-card">
+            <div class="card hover-cursor hover-primary" (click)="openForms()">
+              <div class="card-body">
+                <p class="card-title">Available Forms</p>
+                <h1 class="display-2">{{ numTotalForms }}</h1>
+                <div class="card-text">
+                  <i class="mdi mdi-file-outline" style="font-size: 3em;"></i>
+                </div>
+                <p class="text-muted">Total number of forms that have not been completely processed</p>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-md-4 grid-margin stretch-card">
+            <div class="card hover-cursor hover-primary" (click)="openProcessed()">
+              <div class="card-body">
+                <p class="card-title">Processed Forms</p>
+                <h1 class="display-2">{{ totalNoProcessed }}</h1>
+                <div class="card-text">
+                  <i class="mdi mdi-file-document-edit-outline" style="font-size: 3em;"></i>
+                </div>
+                <p class="text-muted">Total number of forms that have been processed</p>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-md-4 grid-margin stretch-card">
+            <div class="card hover-cursor hover-primary" (click)="openProcessing()">
+              <div class="card-body">
+                <p class="card-title">Forms In Processing</p>
+                <h1 class="display-2">{{ totalNoProcessing }}</h1>
+                <div class="card-text">
+                  <i class="mdi mdi-timer" style="font-size: 3em;"></i>
+                </div>
+                <p class="text-muted">Total number of forms that have not been completely processed</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div *ngIf="!loading" class="row">
+          <div class="col-md-4 grid-margin stretch-card">
+            <div class="card hover-cursor hover-primary" (click)="openSubmitted()">
+              <div class="card-body">
+                <p class="card-title">Sumitted Forms</p>
+                <h1 class="display-2">{{ totalNoSubmitted }}</h1>
+                <div class="card-text">
+                  <i class="mdi mdi-mailbox-open-outline" style="font-size: 3em;"></i>
+                </div>
+                <p class="text-muted">Total of forms that have been submitted</p>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-md-4 grid-margin stretch-card">
+            <div class="card hover-cursor hover-primary" (click)="openBranches()">
+              <div class="card-body">
+                <p class="card-title">Total No. Of Branches</p>
+                <h1 class="display-2">{{ numTotalBranches }}</h1>
+                <div class="card-text">
+                  <i class="mdi mdi-office-building" style="font-size: 3em;"></i>
+                </div>
+                <p class="text-muted">Total of forms that have been submitted</p>
+              </div>
+            </div>
+          </div>
+
+          <!-- <div class="col-md-3 grid-margin stretch-card">
+            <div class="card hover-cursor hover-primary" (click)="openBranches()">
+              <div class="card-body">
+                <p class="card-title">Total No. Of Active Branches</p>
+                <h1 class="display-2">{{ numTotalActiveBranches }}</h1>
+                <div class="card-text">
+                  <i class="mdi mdi-check-all" style="font-size: 3em;"></i>
+                </div>
+                <p class="text-muted">Total of forms that have been submitted</p>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-md-3 grid-margin stretch-card">
+            <div class="card hover-cursor hover-primary" (click)="openBranches()">
+              <div class="card-body">
+                <p class="card-title">Total No. Of In-Active Branches</p>
+                <h1 class="display-2">{{ numTotalInActiveBranches }}</h1>
+                <div class="card-text">
+                  <i class="mdi mdi-network-off-outline" style="font-size: 3em;"></i>
+                </div>
+                <p class="text-muted">Total of forms that have been submitted</p>
+              </div>
+            </div>
+          </div> -->
+
+          <div class="col-md-4 grid-margin stretch-card">
+            <div class="card hover-cursor hover-primary" (click)="openAccounts()">
+              <div class="card-body">
+                <p class="card-title">Total No. Of Users</p>
+                <h1 class="display-2">{{ numTotalUsers }}</h1>
+                <div class="card-text">
+                  <i class="mdi mdi-account-group-outline" style="font-size: 3em;"></i>
+                </div>
+                <p class="text-muted">Total of forms that have been submitted</p>
+              </div>
+            </div>
+          </div>
+        </div>
+        
+      </div>
+      <!-- content -->
+      <!-- footer -->
+      <app-footer-bar></app-footer-bar>
+      <!-- partial -->
+    </div>
+    <!-- main ends -->
+  </div>
+</div>

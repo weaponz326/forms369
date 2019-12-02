@@ -255,8 +255,8 @@ export class EditCompanyPageComponent implements OnInit {
     }
   }
 
-  goHome() {
-    this.router.navigateByUrl('/git_admin');
+  ok() {
+    this.router.navigateByUrl('/git_admin/lists/company');
   }
 
   view() {

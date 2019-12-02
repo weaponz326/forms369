@@ -104,7 +104,7 @@ export class AdminRegisterPageComponent implements OnInit {
       this.accountService.createAccount(user).then(
         res => {
           const response = res as any;
-          if (!_.isNull(response.id) || !_.isUndefined(response.id)) {
+          if (!_.isUndefined(response.id)) {
             this.form.enable();
             this.loading = false;
             this.created = true;

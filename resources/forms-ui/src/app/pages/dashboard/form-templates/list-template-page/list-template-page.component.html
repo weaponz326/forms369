@@ -10,7 +10,7 @@
               <div class="d-flex align-items-end flex-wrap">
                 <div class="mr-md-3 mr-xl-5">
                   <h2>Form Templates</h2>
-                  <p class="mb-md-0">Your analytics dashboard template.</p>
+                  <p class="mb-md-0">Your administrative dashboard.</p>
                 </div>
                 <div class="d-flex">
                   <i class="mdi mdi-home text-muted hover-cursor"></i>
@@ -79,7 +79,7 @@
           </div>
         </div>
 
-        <div *ngIf="hasError" class="row">
+        <div *ngIf="hasError && !loading" class="row">
           <div class="col-lg-12 grid-margin stretch-card">
             <div class="card text-center pt-5 pb-5">
               <div class="card-body mt-5 mb-5">
@@ -92,8 +92,9 @@
                     <i class="mdi mdi-close-network-outline" style="font-size: 8em;"></i>
                   </div>
                   <div class="card-text">
-                    <h3>We couldn't get your forms</h3>
-                    <p class="text-muted">An error has occured on our servers or you might not have an active internet connection.</p>
+                    <h3>We couldn't get your templates</h3>
+                    <p class="text-muted">You may not have internet connection or our servers maybe down.</p>
+                    <button class="btn btn-primary" type="button" (click)="retry()">Retry</button>
                   </div>
                 </div>
               </div>
@@ -105,10 +106,6 @@
           <div class="col-lg-12 grid-margin stretch-card">
             <div class="card">
               <div class="card-body">
-                <h4 class="card-title">List Of Forms</h4>
-                <p class="card-description">
-                  List of all created forms, both active and inactive
-                </p>
                 <div class="text-lg-center mt-3 mb-5">
                   <div class="btn-group" role="group" aria-label="Sort By">
                     <div class="dropdown">
@@ -116,6 +113,17 @@
                         data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Sort By</button>
                       <div class="dropdown-menu" aria-labelledby="sortMenuButton">
                         <button type="button" class="dropdown-item" (click)="sort('name')">Template Name</button>
+                        <button type="button" class="dropdown-item" (click)="sort('created')">Created Date</button>
+                      </div>
+                    </div>
+                    <div class="d-flex ml-2 sort-buttons">
+                      <div class="btn-group" role="group">
+                        <button type="button" class="btn btn-outline-secondary" [ngClass]="{'active': ascSortSelected}" (click)="sortOrder('asc')">
+                          <i class="mdi mdi-sort-ascending"></i>
+                        </button>
+                        <button type="button" class="btn btn-outline-secondary" [ngClass]="{'active': descSortSelected}" (click)="sortOrder('desc')">
+                          <i class="mdi mdi-sort-descending"></i>
+                        </button>
                       </div>
                     </div>
                   </div>
@@ -136,9 +144,13 @@
                               <i class="mdi mdi-pulse"></i>
                               View
                             </button>
-                            <button type="button" class="btn btn-outline-secondary" (click)="delete(template.id, i)">
+                            <button *ngIf="isGitAdmin" type="button" class="btn btn-outline-secondary" (click)="delete(template.id, i)">
                               <i class="mdi mdi-delete-outline"></i>
                               Delete
+                            </button>
+                            <button *ngIf="!isGitAdmin" type="button" class="btn btn-outline-secondary" (click)="import(template)">
+                              <i class="mdi mdi-download-outline"></i>
+                              Use
                             </button>
                           </div>
                         </div>

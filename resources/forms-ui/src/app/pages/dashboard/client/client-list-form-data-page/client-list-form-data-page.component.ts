@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import * as _ from 'lodash';
 import { FormBuilderService } from 'src/app/services/form-builder/form-builder.service';
 import { LocalStorageService } from 'src/app/services/storage/local-storage.service';
+import { ClientService } from 'src/app/services/client/client.service';
 
 @Component({
   selector: 'app-client-list-form-data-page',
@@ -11,18 +12,19 @@ import { LocalStorageService } from 'src/app/services/storage/local-storage.serv
 export class ClientListFormDataPageComponent implements OnInit {
 
   user: any;
+  clientData: any;
   hasData: boolean;
   loading: boolean;
+  created: boolean;
+  allUserData: any;
   hasError: boolean;
   isConnected: boolean;
-  allUserData: Array<any>;
-  allUserData1: any;
 
   constructor(
+    private clientService: ClientService,
     private formBuilder: FormBuilderService,
     private localStorage: LocalStorageService
   ) {
-    this.allUserData = [];
     this.user = this.localStorage.getUser();
     console.log('user_id: ' + this.user.id);
     this.getAllClientData();
@@ -39,8 +41,8 @@ export class ClientListFormDataPageComponent implements OnInit {
         if (res.length > 0) {
           this.hasData = true;
           this.loading = false;
-          this.allUserData.push(res.client_details[0]);
-          this.allUserData1 = res.client_details[0];
+          this.allUserData = res[0].client_details[0];
+          console.log('details: ' + this.allUserData);
         }
         else {
           this.hasData = false;
@@ -55,4 +57,33 @@ export class ClientListFormDataPageComponent implements OnInit {
     );
   }
 
+  updateData() {
+    this.loading = true;
+    console.log('is submitting');
+    const user_data = [this.allUserData];
+    const filled_data = this.formBuilder.getFormUserData(user_data);
+    const updated_data = this.clientService.getUpdatedClientFormData(JSON.parse(filled_data), this.allUserData);
+    console.log('new updates: ' + updated_data);
+    // this.clientService.submitForm(_.toString(this.user.id), this.form.form_code, this.allUserData, JSON.parse(updated_data)).then(
+    //   res => {
+    //     this.created = true;
+    //     this.loading = false;
+    //   },
+    //   err => {
+    //     this.loading = false;
+    //   }
+    // );
+  }
+
+  save() {}
+
+  delete() {}
+
+  retry() {
+    this.getAllClientData();
+  }
+
+  returnZero() {
+    return 0;
+  }
 }

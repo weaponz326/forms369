@@ -10,7 +10,7 @@
               <div class="d-flex align-items-end flex-wrap">
                 <div class="mr-md-3 mr-xl-5">
                   <h2>All Companies</h2>
-                  <p class="mb-md-0">Your analytics dashboard template.</p>
+                  <p class="mb-md-0">Your administrative dashboard.</p>
                 </div>
                 <div class="d-flex">
                 </div>
@@ -44,17 +44,13 @@
           <div class="col-lg-12 grid-margin stretch-card">
             <div class="card text-center pt-5 pb-5">
               <div class="card-body mt-5 mb-5">
-                <h4 class="card-title">No Data Found</h4>
-                <p class="card-description">
-                  No company branches found.
-                </p>
                 <div class="text-lg-center mt-5 mb-5">
                   <div class="card-text">
                     <i class="mdi mdi-file-question" style="font-size: 8em;"></i>
                   </div>
                   <div class="card-text">
-                    <h3>No Available Branches</h3>
-                    <p class="text-muted">This company doesn't have any branches yet!</p>
+                    <h3>No Available Companies</h3>
+                    <p class="text-muted">There aren't any companies yet!</p>
                   </div>
                 </div>
               </div>
@@ -75,9 +71,9 @@
                     <i class="mdi mdi-close-network-outline" style="font-size: 8em;"></i>
                   </div>
                   <div class="card-text">
-                    <h3>We couldn't get your branches</h3>
-                    <p class="text-muted">An error has occured on our servers or you might not have internet connection
-                    </p>
+                    <h3>We couldn't get your companies</h3>
+                    <p class="text-muted">You may not have internet connection or our servers maybe down.</p>
+                    <button class="btn btn-primary" type="button" (click)="retry()">Retry</button>
                   </div>
                 </div>
               </div>
@@ -110,7 +106,7 @@
                 </div>
 
                 <div *ngIf="viewMode == 'grid'" class="row">
-                  <div class="col-md-4 grid-margin stretch-card" *ngFor="let company of companyList">
+                  <div class="col-md-4 text-center grid-margin stretch-card" *ngFor="let company of companyList">
                     <div class="card hover-cursor animated fadeInDown fast" (click)="openBranch(company)">
                       <div class="card-body">
                         <p class="card-title">{{ company.merchant_name }}</p>

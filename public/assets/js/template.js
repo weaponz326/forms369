@@ -54,10 +54,10 @@
 
     $(document).on("click", '[data-toggle="minimize"]', function() {
       body.toggleClass("sidebar-icon-only");
+      $(".sidebar-offcanvas").toggleClass("active");
     });
 
     //checkbox and radios
     $(".form-check label,.form-radio label").append('<i class="input-helper"></i>');
-
   });
 })(jQuery);

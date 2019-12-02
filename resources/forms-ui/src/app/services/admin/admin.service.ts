@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import * as _ from 'lodash';
 import { UserTypes } from 'src/app/enums/user-types.enum';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { EndpointService } from '../endpoint/endpoint.service';
@@ -13,9 +14,30 @@ export class AdminService {
     this.headers = this.endpointService.headers();
   }
 
-  getGitAdmins(): Promise<any> {
+  getGitAdmins(allowPagination?: boolean): Promise<any> {
     return new Promise((resolve, reject) => {
-      const url = this.endpointService.apiHost + 'api/v1/getAllUsersByType/' + UserTypes.GitAdmin;
+      const url = !_.isUndefined(allowPagination) || allowPagination
+        ? this.endpointService.apiHost + 'api/v1/getAllUsersByType/' + UserTypes.GitAdmin
+        : this.endpointService.apiHost + 'api/v1/getAllUsersByTypeForDropdown/' + UserTypes.GitAdmin;
+      this.http.get(url, { headers: this.headers }).subscribe(
+        res => {
+          console.log('response: ' + JSON.stringify(res));
+          const response = res as any;
+          return !_.isUndefined(allowPagination) || allowPagination
+            ? resolve(response.users.data)
+            : resolve(response.users);
+        },
+        err => {
+          console.log('error: ' + JSON.stringify(err));
+          reject(err);
+        }
+      );
+    });
+  }
+
+  getAllUsersByMerchant(user_type: number, merchant_id: string): Promise<any> {
+    return new Promise((resolve, reject) => {
+      const url = this.endpointService.apiHost + 'api/v1/getMerchantUsersByType/' + merchant_id + '/' + user_type;
       this.http.get(url, { headers: this.headers }).subscribe(
         res => {
           console.log('response: ' + JSON.stringify(res));
@@ -30,9 +52,9 @@ export class AdminService {
     });
   }
 
-  getAllUsersByMerchant(user_type: number, merchant_id: string): Promise<any> {
+  getAllUsersByBranch(user_type: number, branch_id: string): Promise<any> {
     return new Promise((resolve, reject) => {
-      const url = this.endpointService.apiHost + 'api/v1/getMerchantUsersByType/' + merchant_id + '/' + user_type;
+      const url = this.endpointService.apiHost + 'api/v1/getBranchUsersByType/' + branch_id + '/' + user_type;
       this.http.get(url, { headers: this.headers }).subscribe(
         res => {
           console.log('response: ' + JSON.stringify(res));

@@ -10,7 +10,7 @@
               <div class="d-flex align-items-end flex-wrap">
                 <div class="mr-md-3 mr-xl-5">
                   <h2>Welcome back, {{ firstname }}</h2>
-                  <p class="mb-md-0">Your analytics dashboard template.</p>
+                  <p class="mb-md-0">Your administrative dashboard.</p>
                 </div>
                 <div class="d-flex">
                 </div>
@@ -21,11 +21,67 @@
           </div>
         </div>
 
+        <div class="row text-center">
+          <div class="col-md-12 grid-margin stretch-card">
+            <div class="card">
+              <div class="card-body">
+                <p class="card-title">Enter Code</p>
+                <p class="text-muted">A list of all forms you've filled</p>
+                <div class="card-text">
+                  <div class="row">
+                    <div class="col-md-8 offset-md-2">
+                      <i class="mdi mdi-lock-outline" style="font-size: 4em;"></i>
+                      <div *ngIf="notValidCode" class="mt-2 mb-2">
+                        <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                          <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                          </button>
+                          <h3 class="alert-heading">Oops!</h3>
+                          <p class="lead"><strong>Wrong Form Code</strong></p>
+                          <hr>
+                          <p class="mb-0 text-left">
+                            There is no corresponding form with the provided code. The code entered is wrong, please
+                            check and try again.
+                          </p>
+                        </div>
+                      </div>
+
+                      <form [formGroup]="form" (ngSubmit)="submit()" class="submit-form">
+                        <div class="form-group">
+                          <input matInput type="text" autofocus formControlName="code" class="form-control large-form"
+                            placeholder="Enter Code Here..."
+                            [ngClass]="{'input-control-error': submitted && f.code.errors}">
+                          <div *ngIf="submitted && f.code.errors">
+                            <p class="input-error" *ngIf="f.code.errors.minlength">The entered code is not a valid
+                              submission code.</p>
+                            <p class="input-error" *ngIf="f.code.errors.maxlength">The entered code is not a valid
+                              submission code.</p>
+                            <p class="input-error" *ngIf="f.code.errors.required">Please enter the submission code</p>
+                          </div>
+                        </div>
+
+                        <div class="mt-3">
+                          <button *ngIf="loading" class="btn btn-primary btn-lg mr-2" type="button" disabled>
+                            <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+                            <span class="sr-only">Please wait...</span>
+                          </button>
+                          <button *ngIf="!loading" type="submit" class="btn btn-primary btn-lg mr-2">Submit</button>
+                          <button type="button" class="btn btn-light btn-lg" (click)="cancel()">Cancel</button>
+                        </div>
+                      </form>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
         <div class="row">
           <div class="col-md-4 grid-margin stretch-card">
-            <div class="card hover-cursor" (click)="openForm()">
+            <div class="card hover-cursor" (click)="open('submitted')">
               <div class="card-body">
-                <p class="card-title">Total No. Of Submitted Forms</p>
+                <p class="card-title">Total No. Of Form Activities</p>
                 <p class="text-muted">A list of all forms you've filled</p>
                 <div class="card-text">
                   <h1 style="font-size: 4em;">{{ totalNoSubmitted }}</h1>
@@ -34,7 +90,7 @@
             </div>
           </div>
           <div class="col-md-4 grid-margin stretch-card">
-            <div class="card hover-cursor" (click)="openForm()">
+            <div class="card hover-cursor" (click)="open('processed')">
               <div class="card-body">
                 <p class="card-title">Total No. Of Processed Forms</p>
                 <p class="text-muted">A list of all forms you've filled</p>
@@ -45,7 +101,7 @@
             </div>
           </div>
           <div class="col-md-4 grid-margin stretch-card">
-            <div class="card hover-cursor" (click)="openForm()">
+            <div class="card hover-cursor" (click)="open('processing')">
               <div class="card-body">
                 <p class="card-title">Total No. Of Forms In-Processing</p>
                 <p class="text-muted">A list of all forms you've filled</p>
@@ -57,75 +113,12 @@
           </div>
         </div>
 
-        <div class="row text-center">
-          <div class="col-md-8 offset-md-2 grid-margin stretch-card">
-            <div class="card">
-              <div class="card-body">
-                <p class="card-title">Enter Code</p>
-                <p class="text-muted">A list of all forms you've filled</p>
-                <div class="card-text">
-                  <i class="mdi mdi-account-outline" style="font-size: 4em;"></i>
-                  <div *ngIf="notValidCode" class="mt-2 mb-2">
-                    <div class="alert alert-danger alert-dismissible fade show" role="alert">
-                      <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                      </button>
-                      <h3 class="alert-heading">Oops!</h3>
-                      <p class="lead"><strong>Wrong Form Code</strong></p>
-                      <hr>
-                      <p class="mb-0 text-left">
-                        There is no corresponding form with the provided code. The code entered is wrong, please check and try again.
-                      </p>
-                    </div>
-                  </div>
-
-                  <form [formGroup]="form" (ngSubmit)="submit()" class="submit-form">
-                    <div class="form-group">
-                      <input type="text" formControlName="code" class="form-control"
-                        placeholder="Enter Form Code Here..." [ngClass]="{'input-control-error': submitted && f.code.errors}">
-                        <div *ngIf="submitted && f.code.errors">
-                          <p class="input-error" *ngIf="f.code.errors.minlength">The entered code is not a valid submission code.</p>
-                          <p class="input-error" *ngIf="f.code.errors.maxlength">The entered code is not a valid submission code.</p>
-                          <p class="input-error" *ngIf="f.code.errors.required">Please enter the submission code</p>
-                        </div>
-                    </div>
-
-                    <div class="mt-3">
-                      <button *ngIf="loading" class="btn btn-primary btn-lg mr-2" type="button" disabled>
-                        <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
-                        <span class="sr-only">Please wait...</span>
-                      </button>
-                      <button *ngIf="!loading" type="submit" class="btn btn-primary btn-lg mr-2">Submit</button>
-                      <button class="btn btn-light btn-lg">Cancel</button>
-                    </div>
-                  </form>
-                </div>
-              </div>
-            </div>
-          </div>
-          <!-- <div class="col-md-6 grid-margin stretch-card">
-            <div class="card hover-cursor">
-              <div class="card-body">
-                <p class="card-title">Forms Filled</p>
-                <p class="text-muted">A list of all forms you've filled</p>
-                <div class="card-text">
-                  <i class="mdi mdi-file-document-outline" style="font-size: 8em;"></i>
-                  <p class="text-muted">Lorem ipsum dolor sit
-                    amet consectetur, adipisicing elit.
-                    Dolorem, ullam
-                    distinctio quia neque labore quaerat ab
-                    amet rem, et laboriosam.</p>
-                </div>
-              </div>
-            </div>
-          </div> -->
-        </div>
       </div>
-      <!-- content-wrapper ends -->
-      <!-- partial:partials/_footer.html -->
+      <!-- content -->
+      <!-- partial -->
       <app-footer-bar></app-footer-bar>
       <!-- partial -->
     </div>
-    <!-- main-panel ends -->
+    <!-- main ends -->
   </div>
 </div>

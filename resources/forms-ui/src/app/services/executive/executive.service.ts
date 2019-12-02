@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import * as _ from 'lodash';
 import { EndpointService } from '../endpoint/endpoint.service';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { UserTypes } from 'src/app/enums/user-types.enum';
@@ -20,14 +21,18 @@ export class ExecutiveService {
    * @returns {Promise<any>}
    * @memberof ExecutiveService
    */
-  getSuperExecutives(): Promise<any> {
+  getSuperExecutives(allowPagination?: boolean): Promise<any> {
     return new Promise((resolve, reject) => {
-      const url = this.endpointService.apiHost + 'api/v1/getAllUsersByType/' + UserTypes.SuperExecutive;
+      const url = !_.isUndefined(allowPagination) || allowPagination
+        ? this.endpointService.apiHost + 'api/v1/getAllUsersByType/' + UserTypes.SuperExecutive
+        : this.endpointService.apiHost + 'api/v1/getAllUsersByTypeForDropdown/' + UserTypes.SuperExecutive;
       this.http.get(url, { headers: this.headers }).subscribe(
         res => {
           console.log('response: ' + JSON.stringify(res));
           const response = res as any;
-          resolve(response.users.data);
+          return !_.isUndefined(allowPagination) || allowPagination
+            ? resolve(response.users.data)
+            : resolve(response.users);
         },
         err => {
           console.log('error: ' + JSON.stringify(err));
@@ -43,14 +48,18 @@ export class ExecutiveService {
    * @returns {Promise<any>}
    * @memberof ExecutiveService
    */
-  getBranchSuperExecutives(): Promise<any> {
+  getBranchSuperExecutives(allowPagination?: boolean): Promise<any> {
     return new Promise((resolve, reject) => {
-      const url = this.endpointService.apiHost + 'api/v1/getAllUsersByType/' + UserTypes.BranchSuperExecutive;
+      const url = !_.isUndefined(allowPagination) || allowPagination
+        ? this.endpointService.apiHost + 'api/v1/getAllUsersByType/' + UserTypes.BranchSuperExecutive
+        : this.endpointService.apiHost + 'api/v1/getAllUsersByTypeForDropdown/' + UserTypes.BranchSuperExecutive;
       this.http.get(url, { headers: this.headers }).subscribe(
         res => {
           console.log('response: ' + JSON.stringify(res));
           const response = res as any;
-          resolve(response.users.data);
+          return !_.isUndefined(allowPagination) || allowPagination
+            ? resolve(response.users.data)
+            : resolve(response.users);
         },
         err => {
           console.log('error: ' + JSON.stringify(err));

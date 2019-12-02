@@ -15,6 +15,7 @@ import { FormBuilderService } from 'src/app/services/form-builder/form-builder.s
   styleUrls: ['./admin-create-form-page.component.css']
 })
 export class AdminCreateFormPageComponent implements OnInit {
+  template: any;
   form: FormGroup;
   formName: string;
   formBuilder: any;
@@ -36,6 +37,7 @@ export class AdminCreateFormPageComponent implements OnInit {
   ) {
     this.merchant_id = this.localStorage.getUser().merchant_id;
     console.log('merchant id: ' + this.merchant_id);
+    this.template = window.history.state.template;
   }
 
   ngOnInit() {
@@ -43,24 +45,43 @@ export class AdminCreateFormPageComponent implements OnInit {
     this._loading = true;
     this.buildForm();
 
-    this.formCode = this.formBuilderService.generateUniqueFormCode();
-    this.formBuilderService.generateFormFieldsBySections().then(
-      form_elements => {
-        this.formBuilder = $(document.getElementById('fb-editor')).formBuilder({
-          controlPosition: 'left',
-          inputSets: form_elements,
-          scrollToFieldOnAdd: false,
-          disabledActionButtons: ['data', 'clear', 'save'],
-          disableFields: this.formBuilderService.disableSectionFormFields()
-        });
+    this.handleFormRender();
+  }
 
-        this._loading = false;
-      },
-      error => {
-        this._loading = false;
-        this.hasError = true;
-      }
-    );
+  handleFormRender() {
+    if (_.isUndefined(this.template) || _.isNull(this.template)) {
+      this.formCode = this.formBuilderService.generateUniqueFormCode();
+      this.formBuilderService.generateFormFieldsBySections().then(
+        form_elements => {
+          this.formBuilder = $(document.getElementById('fb-editor')).formBuilder({
+            controlPosition: 'left',
+            inputSets: form_elements,
+            scrollToFieldOnAdd: false,
+            disabledActionButtons: ['data', 'clear', 'save'],
+            disableFields: this.formBuilderService.disableSectionFormFields()
+          });
+
+          this._loading = false;
+        },
+        error => {
+          this._loading = false;
+          this.hasError = true;
+        }
+      );
+    }
+    else {
+      this._loading = true;
+      this.formCode = this.formBuilderService.generateUniqueFormCode();
+      this.formBuilder = $(document.getElementById('fb-editor')).formBuilder({
+        controlPosition: 'left',
+        scrollToFieldOnAdd: false,
+        defaultFields: this.template.form_fields,
+        disabledActionButtons: ['data', 'clear', 'save'],
+        inputSets: this.formBuilderService.generateFormFields(),
+        disableFields: this.formBuilderService.disableSectionFormFields()
+      });
+      this._loading = false;
+    }
   }
 
   buildForm() {

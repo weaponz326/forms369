@@ -10,7 +10,7 @@
               <div class="d-flex align-items-end flex-wrap">
                 <div class="mr-md-3 mr-xl-5">
                   <h2>{{ formName }}</h2>
-                  <p class="mb-md-0">Your analytics dashboard template.</p>
+                  <p class="mb-md-0">Your administrative dashboard.</p>
                 </div>
                 <div class="d-flex">
                 </div>
@@ -86,7 +86,7 @@
           </div>
         </div>
 
-        <div [hidden]="isProcessed || isProcessing || completed || submitted" class="row">
+        <div [hidden]="isProcessed || isProcessing || completed || submitted || rejected" class="row">
           <div class="col-md-8 offset-md-2 grid-margin stretch-card">
             <div class="card">
               <div class="card-body">
@@ -122,11 +122,7 @@
                   <p class="text-muted">You have succesfully submitted this form for processing.</p>
                 </div>
                 <div class="card-text mt-4">
-                  <button type="button" class="btn btn-primary btn-lg btn-icon-text mr-2" (click)="bringBackForm()">
-                    <i class="mdi mdi-plus"></i>
-                    Create New
-                  </button>
-                  <button type="button" class="btn btn-dark btn-lg mr-2" (click)="goHome()">
+                  <button type="button" class="btn btn-primary btn-lg mr-2" (click)="ok()">
                     <i class="mdi mdi-check"></i>
                     Ok
                   </button>
@@ -148,11 +144,29 @@
                   <p class="text-muted">You have succesfully completed processing this form.</p>
                 </div>
                 <div class="card-text mt-4">
-                  <button type="button" class="btn btn-primary btn-lg btn-icon-text mr-2" (click)="bringBackForm()">
-                    <i class="mdi mdi-plus"></i>
-                    Create New
+                  <button type="button" class="btn btn-primary btn-lg mr-2" (click)="ok()">
+                    <i class="mdi mdi-check"></i>
+                    Ok
                   </button>
-                  <button type="button" class="btn btn-dark btn-lg mr-2" (click)="goHome()">
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="row" *ngIf="rejected">
+          <div class="col-md-12 grid-margin">
+            <div class="card pt-5 pb-5 text-center">
+              <div class="card-body">
+                <p class="card-title">Success</p>
+                <p class="text-muted"></p>
+                <div class="card-text">
+                  <i class="mdi mdi-shield-check-outline text-primary" style="font-size: 12em;"></i>
+                  <h2>Form Has Been <strong class="text-danger">Rejected</strong></h2>
+                  <p class="text-muted">This form has been succesfully rejected.</p>
+                </div>
+                <div class="card-text mt-4">
+                  <button type="button" class="btn btn-primary btn-lg mr-2" (click)="ok()">
                     <i class="mdi mdi-check"></i>
                     Ok
                   </button>
@@ -162,11 +176,27 @@
           </div>
         </div>
       </div>
-      <!-- content ends -->
+      <!-- content -->
       <!-- footer -->
       <app-footer-bar></app-footer-bar>
       <!-- partial -->
     </div>
-    <!-- main-panel ends -->
+    <!-- main ends -->
   </div>
 </div>
+
+<ng-template #confirm let-modal>
+  <div class="modal-header">
+    <h4 class="modal-title" id="modal-title">Confirm Action</h4>
+    <button type="button" class="close" aria-describedby="modal-title" (click)="modal.dismiss('Cross click')">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <p><strong>Are you sure you want to <span class="text-primary">{{ action }} this form</span> ?</strong></p>
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-outline-secondary" (click)="modal.dismiss('no')">No</button>
+    <button type="button" class="btn btn-danger" (click)="modal.close('yes')">Yes</button>
+  </div>
+</ng-template>

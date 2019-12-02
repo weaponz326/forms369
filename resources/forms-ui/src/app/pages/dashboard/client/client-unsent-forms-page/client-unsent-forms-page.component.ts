@@ -60,4 +60,8 @@ export class ClientUnsentFormsPageComponent implements OnInit {
 
   loadMore() {}
 
+  retry() {
+    this.getAllUnsentForms();
+  }
+
 }

@@ -14,7 +14,16 @@ export class ListViewService {
     return _.isNull(mode) ? 'grid' : mode;
   }
 
+  getSortOrder() {
+    const order = localStorage.getItem('sort_order');
+    return _.isNull(order) ? 'desc' : order;
+  }
+
   setDesiredViewMode(mode: string) {
    localStorage.setItem('view_mode', mode);
+  }
+
+  setSortOrder(order: string) {
+    localStorage.setItem('sort_order', order);
   }
 }

@@ -126,4 +126,8 @@ export class ViewSectionsPageComponent implements OnInit {
 
   loadMore() { }
 
+  retry() {
+    this.getAllFormSections();
+  }
+
 }
