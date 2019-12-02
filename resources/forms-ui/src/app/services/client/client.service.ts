@@ -13,6 +13,57 @@ export class ClientService {
     this.headers = this.endpointService.headers();
   }
 
+  /**
+   * Send a two-way authenticate code to the clients phone.
+   *
+   * @param {string} id
+   * @param {string} phone
+   * @returns {Promise<any>}
+   * @memberof ClientService
+   */
+  sendAuthCode(id: string, phone: string): Promise<any> {
+    return new Promise((resolve, reject) => {
+      const header = this.endpointService._headers();
+      const url = this.endpointService.apiHost + `api/sendTwoWayAuthenticationCode/${id}/${phone}`;
+      this.http.post(url, {}, { headers: header }).subscribe(
+        res => {
+          console.log('res: ' + JSON.stringify(res));
+          resolve(res);
+        },
+        err => {
+          console.log('err: ' + JSON.stringify(err));
+          reject(err);
+        }
+      );
+    });
+  }
+
+  /**
+   * Verifies a two-way auth code.
+   *
+   * @param {string} id
+   * @param {string} code
+   * @param {string} phone
+   * @returns {Promise<any>}
+   * @memberof ClientService
+   */
+  verifyAuthCode(id: string, code: string, phone: string): Promise<any> {
+    return new Promise((resolve, reject) => {
+      const header = this.endpointService._headers();
+      const url = this.endpointService.apiHost + `api/twoWayAuthenticationVerification/${id}/${code}/${phone}`;
+      this.http.post(url, {}, { headers: header }).subscribe(
+        res => {
+          console.log('res: ' + JSON.stringify(res));
+          resolve(res);
+        },
+        err => {
+          console.log('err: ' + JSON.stringify(err));
+          reject(err);
+        }
+      );
+    });
+  }
+
   submitForm(id: string, code: string, client_data: any, form_data: any): Promise<any> {
     return new Promise((resolve, reject) => {
       const body = { client_profile: client_data, form_data: form_data };

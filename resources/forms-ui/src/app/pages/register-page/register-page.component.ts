@@ -47,6 +47,7 @@ export class RegisterPageComponent implements OnInit {
       lastName: ['', Validators.required],
       country: ['', Validators.required],
       username: ['', Validators.required],
+      phone: ['', Validators.required],
       password: ['', [Validators.minLength(6), Validators.required]],
       emailAddress: ['', [Validators.email, Validators.required]]
     });
@@ -61,6 +62,7 @@ export class RegisterPageComponent implements OnInit {
   getFormData() {
     const lname = this.f.lastName.value;
     const fname = this.f.firstName.value;
+    const phone = this.f.phone.value;
     const email = this.f.emailAddress.value;
     const country = this.f.country.value;
     const username = this.f.username.value;
