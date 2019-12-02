@@ -1,0 +1,44 @@
+<div class="container-scroller">
+  <div class="container-fluid page-body-wrapper full-page-wrapper">
+    <div class="content-wrapper d-flex align-items-center auth px-0">
+      <div class="row w-100 mx-0">
+        <div class="col-lg-4 mx-auto">
+          <div class="auth-form-light text-left py-5 px-4 px-sm-5">
+            <a routerLink="/" class="brand-logo">
+              <img src="./assets/images/logo.png" alt="logo">
+            </a>
+            <div *ngIf="invalid" class="mt-2 mb-5">
+              <div class="alert alert-danger" role="alert">
+                <h3 class="alert-heading">Hey there!</h3>
+                <p class="lead"><strong>This access code has already been used</strong></p>
+                <hr>
+                <p class="mb-0 lead">Please contact your admin</p>
+              </div>
+            </div>
+
+            <h4>Hello! let's get started</h4>
+            <h6 class="font-weight-normal">Provide your access code to continue.</h6>
+            <form [formGroup]="form" (ngSubmit)="submit()" class="pt-3">
+              <div class="form-group">
+                <input type="text" class="form-control form-control-lg" formControlName="code"
+                  placeholder="Enter Access Code" [ngClass]="{'input-control-error': submitted && f.code.errors}">
+                <div *ngIf="submitted && f.code.errors">
+                  <p class="input-error" *ngIf="f.code.errors.required">Access Code is required</p>
+                </div>
+              </div>
+              <div class="mt-3">
+                <button type="submit" *ngIf="!loading" class="btn btn-block btn-primary btn-lg font-weight-medium auth-form-btn">Continue</button>
+                <button type="button" *ngIf="loading"  class="btn btn-block btn-primary btn-lg font-weight-medium auth-form-btn" disabled>
+                  <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span> &nbsp; &nbsp;
+                  Please wait...
+                </button>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- content ends -->
+  </div>
+  <!-- page-body ends -->
+</div>

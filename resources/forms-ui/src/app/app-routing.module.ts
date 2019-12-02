@@ -72,6 +72,7 @@ import { ExecAccountsListPageComponent } from './pages/dashboard/executive/exec-
 import { ExecBranchesListPageComponent } from './pages/dashboard/executive/exec-branches-list-page/exec-branches-list-page.component';
 import { ExecFormsListPageComponent } from './pages/dashboard/executive/exec-forms-list-page/exec-forms-list-page.component';
 import { ChangePasswordPageComponent } from './pages/change-password-page/change-password-page.component';
+import { ClientAuthPageComponent } from './pages/client-auth-page/client-auth-page.component';
 
 const routes: Routes = [
   {
@@ -89,6 +90,10 @@ const routes: Routes = [
   {
     path: 'user_auth',
     component: AdminLoginPageComponent
+  },
+  {
+    path: 'client_auth',
+    component: ClientAuthPageComponent
   },
   {
     path: 'register',

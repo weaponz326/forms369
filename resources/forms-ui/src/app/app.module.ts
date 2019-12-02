@@ -97,6 +97,7 @@ import { ExecBranchesListPageComponent } from './pages/dashboard/executive/exec-
 import { ExecAccountsListPageComponent } from './pages/dashboard/executive/exec-accounts-list-page/exec-accounts-list-page.component';
 import { ExecFormsListPageComponent } from './pages/dashboard/executive/exec-forms-list-page/exec-forms-list-page.component';
 import { ChangePasswordPageComponent } from './pages/change-password-page/change-password-page.component';
+import { ClientAuthPageComponent } from './pages/client-auth-page/client-auth-page.component';
 
 @NgModule({
   declarations: [
@@ -179,6 +180,7 @@ import { ChangePasswordPageComponent } from './pages/change-password-page/change
     ExecAccountsListPageComponent,
     ExecFormsListPageComponent,
     ChangePasswordPageComponent,
+    ClientAuthPageComponent,
   ],
   imports: [
     BrowserModule,

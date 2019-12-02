@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { AnalyticsService } from 'src/app/services/analytics/analytics.service';
 import { LocalStorageService } from 'src/app/services/storage/local-storage.service';
+import { AccountService } from 'src/app/services/account/account.service';
 
 @Component({
   selector: 'app-admin-home-page',
@@ -18,11 +19,21 @@ export class AdminHomePageComponent implements OnInit {
 
   constructor(
     private router: Router,
+    private accountService: AccountService,
     private analyticService: AnalyticsService,
     private localStorage: LocalStorageService
   ) {
-    this.firstName = this.localStorage.getUser().firstname;
-    this.merchantIdentifier = this.localStorage.getUser().merchant_id;
+    this.checkAccessToLogin().then(
+      res => {
+        if (res == 'ok') {
+          this.firstName = this.localStorage.getUser().firstname;
+          this.merchantIdentifier = this.localStorage.getUser().merchant_id;
+        }
+        else {
+          this.router.navigateByUrl('auth');
+        }
+      }
+    );
   }
 
   ngOnInit() {
@@ -65,6 +76,31 @@ export class AdminHomePageComponent implements OnInit {
         this.loading = false;
       }
     );
+  }
+
+  checkAccessToLogin() {
+    return new Promise((resolve, reject) => {
+      this.accountService.checkLoginAccess().then(
+        res => {
+          const response = res as any;
+          if (response.message == 'No_access_code') {
+            this.router.navigateByUrl('auth');
+            resolve('not_ok');
+          }
+          else if (response.message == 'Re_enter_access_code') {
+            this.router.navigateByUrl('auth');
+            resolve('not_ok');
+          }
+          else {
+            // the response message is: Access_granted
+            // we do nothing, we allow them to see login
+            // page and give them access to login.
+            resolve('ok');
+          }
+        },
+        err => {}
+      );
+    });
   }
 
 }

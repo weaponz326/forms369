@@ -31,6 +31,11 @@ Route::get('user_auth', function () {
     return View::make('index');
 });
 
+Route::get('client_auth', function () {
+    View::addExtension('html', 'php');
+    return View::make('index');
+});
+
 Route::get('register', function () {
     View::addExtension('html', 'php');
     return View::make('index');
