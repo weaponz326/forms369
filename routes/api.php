@@ -24,6 +24,8 @@ Route::get('signup/activate/{token}', 'HomeController@signupActivate')->name('si
 //login user 
 Route::post('login', 'HomeController@login')->name('login');//->middleware('checkAccess');
 Route::post('resetPassword', 'HomeController@resetPassword')->name('resetPassword');
+Route::post('checkAccess', 'HomeController@checkAccess')->name('checkAccess');
+
 
 //check access code
 Route::post('ValidateAccessCode/{code}', 'HomeController@ValidateAccessCode')->name('ValidateAccessCode');                                     

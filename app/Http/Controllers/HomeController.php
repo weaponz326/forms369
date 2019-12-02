@@ -24,6 +24,18 @@ class HomeController extends Controller
 
     }
 
+    /**
+    * Reset user password at first login
+    * @param  mixed $request
+    *
+    * @return \Illuminate\Http\Response success or error message
+    */
+    public function checkAccess(Request $request)
+    {
+        $message = (new AuthController)->checkAccess($request);
+        return $message;
+    }
+
  /**
   * Business logics
      * getAllUsersByTypeForDropdown get the details of users under a particular user type for a merchant
