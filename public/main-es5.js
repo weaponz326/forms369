@@ -382,7 +382,7 @@ module.exports = "<div class=\"container-scroller\">\n  <div class=\"container-f
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<div class=\"container-scroller\">\n  <div class=\"container-fluid page-body-wrapper full-page-wrapper\">\n    <div class=\"content-wrapper d-flex align-items-center auth px-0\">\n      <div class=\"row w-100 mx-0\">\n        <div class=\"col-lg-4 mx-auto\">\n          <div class=\"auth-form-light text-left py-5 px-4 px-sm-5\">\n            <a routerLink=\"/\" class=\"brand-logo\">\n              <img src=\"./assets/images/logo.png\" alt=\"logo\">\n            </a>\n            <div *ngIf=\"invalid\" class=\"mt-2 mb-5\">\n              <div class=\"alert alert-danger\" role=\"alert\">\n                <h3 class=\"alert-heading\">Hey there!</h3>\n                <p class=\"lead\"><strong>Your account has been deactivated</strong></p>\n                <hr>\n                <p class=\"mb-0 lead\">Please contact your admin</p>\n              </div>\n            </div>\n\n            <h4>Hello! let's get started</h4>\n            <h6 class=\"font-weight-normal\">Provide your access code to continue.</h6>\n            <form [formGroup]=\"form\" (ngSubmit)=\"login()\" class=\"pt-3\">\n              <div class=\"form-group\">\n                <input type=\"text\" class=\"form-control form-control-lg\" formControlName=\"code\"\n                  placeholder=\"Enter Access Code\" [ngClass]=\"{'input-control-error': submitted && f.code.errors}\">\n                <div *ngIf=\"submitted && f.code.errors\">\n                  <p class=\"input-error\" *ngIf=\"f.code.errors.required\">Access Code is required</p>\n                </div>\n              </div>\n              <div class=\"mt-3\">\n                <button type=\"submit\" *ngIf=\"!loading\" class=\"btn btn-block btn-primary btn-lg font-weight-medium auth-form-btn\">Continue</button>\n                <button type=\"button\" *ngIf=\"loading\"  class=\"btn btn-block btn-primary btn-lg font-weight-medium auth-form-btn\" disabled>\n                  <span class=\"spinner-border spinner-border-sm\" role=\"status\" aria-hidden=\"true\"></span> &nbsp; &nbsp;\n                  Please wait...\n                </button>\n              </div>\n            </form>\n          </div>\n        </div>\n      </div>\n    </div>\n    <!-- content ends -->\n  </div>\n  <!-- page-body ends -->\n</div>"
+module.exports = "<div class=\"container-scroller\">\n  <div class=\"container-fluid page-body-wrapper full-page-wrapper\">\n    <div class=\"content-wrapper d-flex align-items-center auth px-0\">\n      <div class=\"row w-100 mx-0\">\n        <div class=\"col-lg-4 mx-auto\">\n          <div class=\"auth-form-light text-left py-5 px-4 px-sm-5\">\n            <a routerLink=\"/\" class=\"brand-logo\">\n              <img src=\"./assets/images/logo.png\" alt=\"logo\">\n            </a>\n            <div *ngIf=\"invalid\" class=\"mt-2 mb-5\">\n              <div class=\"alert alert-danger\" role=\"alert\">\n                <h3 class=\"alert-heading\">Hey there!</h3>\n                <p class=\"lead\"><strong>This access code has already been used</strong></p>\n                <hr>\n                <p class=\"mb-0 lead\">Please contact your admin</p>\n              </div>\n            </div>\n\n            <h4>Hello! let's get started</h4>\n            <h6 class=\"font-weight-normal\">Provide your access code to continue.</h6>\n            <form [formGroup]=\"form\" (ngSubmit)=\"login()\" class=\"pt-3\">\n              <div class=\"form-group\">\n                <input type=\"text\" class=\"form-control form-control-lg\" formControlName=\"code\"\n                  placeholder=\"Enter Access Code\" [ngClass]=\"{'input-control-error': submitted && f.code.errors}\">\n                <div *ngIf=\"submitted && f.code.errors\">\n                  <p class=\"input-error\" *ngIf=\"f.code.errors.required\">Access Code is required</p>\n                </div>\n              </div>\n              <div class=\"mt-3\">\n                <button type=\"submit\" *ngIf=\"!loading\" class=\"btn btn-block btn-primary btn-lg font-weight-medium auth-form-btn\">Continue</button>\n                <button type=\"button\" *ngIf=\"loading\"  class=\"btn btn-block btn-primary btn-lg font-weight-medium auth-form-btn\" disabled>\n                  <span class=\"spinner-border spinner-border-sm\" role=\"status\" aria-hidden=\"true\"></span> &nbsp; &nbsp;\n                  Please wait...\n                </button>\n              </div>\n            </form>\n          </div>\n        </div>\n      </div>\n    </div>\n    <!-- content ends -->\n  </div>\n  <!-- page-body ends -->\n</div>"
 
 /***/ }),
 
@@ -536,7 +536,7 @@ module.exports = "<div class=\"container-scroller\">\n  <app-navigation-bar></ap
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<div class=\"container-scroller\">\n  <app-navigation-bar></app-navigation-bar>\n  <div class=\"container-fluid page-body-wrapper\">\n    <app-side-bar></app-side-bar>\n    <div class=\"main-panel\">\n      <div class=\"content-wrapper\">\n        <div class=\"row\">\n          <div class=\"col-md-12 grid-margin\">\n            <div class=\"d-flex justify-content-between flex-wrap\">\n              <div class=\"d-flex align-items-end flex-wrap\">\n                <div class=\"mr-md-3 mr-xl-5\">\n                  <h2>{{ form.form_name || form.name }}</h2>\n                  <p class=\"mb-md-0\">Your administrative dashboard.</p>\n                </div>\n                <div class=\"d-flex\">\n                </div>\n              </div>\n              <div class=\"d-flex justify-content-between align-items-end flex-wrap\">\n              </div>\n            </div>\n          </div>\n        </div>\n        <div [hidden]=\"created\" class=\"row\">\n          <div class=\"col-md-8 offset-md-2 grid-margin stretch-card\">\n            <div class=\"card\">\n              <div class=\"card-body\">\n                <p class=\"card-title\">{{ form.form_name || form.name }}</p>\n                <p class=\"text-muted\">All forms with * are required and shouldn't be left out</p>\n                <div class=\"card-text pt-5\">\n                  <form class=\"forms-sample\">\n                    <div class=\"form-builder-container\">\n                      <div id=\"form-render\"></div>\n                    </div>\n                    <button *ngIf=\"loading\" class=\"btn btn-primary btn-lg mr-2\" type=\"button\" disabled>\n                      <span class=\"spinner-border spinner-border-sm\" role=\"status\" aria-hidden=\"true\"></span>\n                      <span class=\"sr-only\">Please wait...</span>\n                    </button>\n                    <button *ngIf=\"!loading\" type=\"submit\" class=\"btn btn-primary btn-lg mr-2\" (click)=\"submit()\">Submit</button>\n                    <button type=\"button\" class=\"btn btn-light btn-lg\" (click)=\"cancel()\">Cancel</button>\n                  </form>\n                </div>\n              </div>\n            </div>\n          </div>\n        </div>\n\n        <div *ngIf=\"created\" class=\"row\">\n          <div class=\"col-md-12 grid-margin\">\n            <div class=\"card text-center\">\n              <div class=\"card-body\">\n                <p class=\"card-title\">Form Completed Successfully</p>\n                <p class=\"text-muted\"></p>\n                <div class=\"card-text\">\n                  <i class=\"mdi mdi-shield-check-outline\" style=\"font-size: 12em;\"></i>\n                  <p class=\"text-muted\">Below is your generated code. Send this code to your branch to get your SSNIT to be processed</p>\n                  <div class=\"code\">{{ formGenCode }}</div>\n                  <button class=\"btn btn-primary mr-2 hover-cursor\" type=\"button\" (click)=\"copy()\">\n                    <i class=\"mdi mdi-content-copy\" style=\"font-size: 20px;\"></i>\n                    <span class=\"sr-only\">Please wait...</span>\n                  </button>\n                  <button class=\"btn btn-primary mr-2 hover-cursor\" type=\"button\" (click)=\"ok()\">Ok</button>\n                </div>\n              </div>\n            </div>\n          </div>\n        </div>\n      </div>\n      <!-- content -->\n      <!-- footer -->\n      <app-footer-bar></app-footer-bar>\n      <!-- partial -->\n    </div>\n    <!-- main ends -->\n  </div>\n</div>\n"
+module.exports = "<div class=\"container-scroller\">\n  <app-navigation-bar></app-navigation-bar>\n  <div class=\"container-fluid page-body-wrapper\">\n    <app-side-bar></app-side-bar>\n    <div class=\"main-panel\">\n      <div class=\"content-wrapper\">\n        <div class=\"row\">\n          <div class=\"col-md-12 grid-margin\">\n            <div class=\"d-flex justify-content-between flex-wrap\">\n              <div class=\"d-flex align-items-end flex-wrap\">\n                <div class=\"mr-md-3 mr-xl-5\">\n                  <h2>{{ form.form_name || form.name }}</h2>\n                  <p class=\"mb-md-0\">Your administrative dashboard.</p>\n                </div>\n                <div class=\"d-flex\">\n                </div>\n              </div>\n              <div class=\"d-flex justify-content-between align-items-end flex-wrap\">\n              </div>\n            </div>\n          </div>\n        </div>\n        <div [hidden]=\"created\" class=\"row\">\n          <div class=\"col-md-8 offset-md-2 grid-margin stretch-card\">\n            <div class=\"card\">\n              <div class=\"card-body\">\n                <p class=\"card-title\">{{ form.form_name || form.name }}</p>\n                <p class=\"text-muted\">All forms with * are required and shouldn't be left out</p>\n                <div class=\"card-text pt-5\">\n                  <form class=\"forms-sample\">\n                    <div class=\"form-builder-container\">\n                      <div id=\"form-render\"></div>\n                    </div>\n                    <button *ngIf=\"loading\" class=\"btn btn-primary btn-lg mr-2\" type=\"button\" disabled>\n                      <span class=\"spinner-border spinner-border-sm\" role=\"status\" aria-hidden=\"true\"></span>\n                      <span class=\"sr-only\">Please wait...</span>\n                    </button>\n                    <button *ngIf=\"!loading\" type=\"submit\" class=\"btn btn-primary btn-lg mr-2\" (click)=\"submit()\">Submit</button>\n                    <button type=\"button\" class=\"btn btn-light btn-lg\" (click)=\"cancel()\">Cancel</button>\n                  </form>\n                </div>\n              </div>\n            </div>\n          </div>\n        </div>\n\n        <div *ngIf=\"created\" class=\"row\">\n          <div class=\"col-md-12 grid-margin\">\n            <div class=\"card text-center\">\n              <div class=\"card-body\">\n                <p class=\"card-title\">Form Completed Successfully</p>\n                <p class=\"text-muted\"></p>\n                <div class=\"card-text\">\n                  <i class=\"mdi mdi-shield-check-outline\" style=\"font-size: 12em;\"></i>\n                  <p class=\"text-muted\">Below is your generated code. Send this code to your branch to get your SSNIT to be processed</p>\n                  <div class=\"code\">{{ formGenCode }}</div>\n                  <button class=\"btn btn-primary mr-2 hover-cursor\" type=\"button\" (click)=\"copy()\">\n                    <i class=\"mdi mdi-content-copy\" style=\"font-size: 20px;\"></i>\n                    <span class=\"sr-only\">Please wait...</span>\n                  </button>\n                  <button class=\"btn btn-primary mr-2 hover-cursor\" type=\"button\" (click)=\"ok()\">Ok</button>\n                </div>\n              </div>\n            </div>\n          </div>\n        </div>\n      </div>\n      <!-- content -->\n      <!-- footer -->\n      <app-footer-bar></app-footer-bar>\n      <!-- partial -->\n    </div>\n    <!-- main ends -->\n  </div>\n</div>\n\n<ng-template #confirm let-modal>\n  <div class=\"modal-header\">\n    <h4 class=\"modal-title\" id=\"modal-title\">Confirm Action</h4>\n    <button type=\"button\" class=\"close\" aria-describedby=\"modal-title\" (click)=\"modal.dismiss('Cross click')\">\n      <span aria-hidden=\"true\">&times;</span>\n    </button>\n  </div>\n  <div class=\"modal-body\">\n    <p><strong>Are you sure you want to <span class=\"text-primary\">submit this form</span> ?</strong></p>\n  </div>\n  <div class=\"modal-footer\">\n    <button type=\"button\" class=\"btn btn-outline-secondary\" (click)=\"modal.dismiss('no')\">No</button>\n    <button type=\"button\" class=\"btn btn-primary\" (click)=\"modal.close('yes')\">Yes</button>\n  </div>\n</ng-template>"
 
 /***/ }),
 
@@ -2558,6 +2558,7 @@ var AdminLoginPageComponent = /** @class */ (function () {
         this.formBuilder = formBuilder;
         this.accountService = accountService;
         this.localStorageService = localStorageService;
+        this.checkAccessToLogin();
     }
     AdminLoginPageComponent.prototype.ngOnInit = function () {
         this.buildForm();
@@ -2581,6 +2582,23 @@ var AdminLoginPageComponent = /** @class */ (function () {
             password: this.f.password.value
         };
         return data;
+    };
+    AdminLoginPageComponent.prototype.checkAccessToLogin = function () {
+        var _this = this;
+        this.accountService.checkLoginAccess().then(function (res) {
+            var response = res;
+            if (response.message == 'No_access_code') {
+                _this.router.navigateByUrl('auth');
+            }
+            else if (response.message == 'Re_enter_access_code') {
+                _this.router.navigateByUrl('auth');
+            }
+            else {
+                // the response message is: Access_granted
+                // we do nothing, we allow them to see login
+                // page and give them access to login.
+            }
+        }, function (err) { });
     };
     AdminLoginPageComponent.prototype.handleLoginErrorResponses = function (response) {
         switch (response.message) {
@@ -2866,14 +2884,11 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "AuthPageComponent", function() { return AuthPageComponent; });
 /* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
-/* harmony import */ var lodash__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! lodash */ "./node_modules/lodash/lodash.js");
-/* harmony import */ var lodash__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(lodash__WEBPACK_IMPORTED_MODULE_2__);
-/* harmony import */ var _angular_router__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @angular/router */ "./node_modules/@angular/router/fesm5/router.js");
-/* harmony import */ var src_app_enums_user_types_enum__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! src/app/enums/user-types.enum */ "./src/app/enums/user-types.enum.ts");
-/* harmony import */ var _angular_forms__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @angular/forms */ "./node_modules/@angular/forms/fesm5/forms.js");
-/* harmony import */ var src_app_services_account_account_service__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! src/app/services/account/account.service */ "./src/app/services/account/account.service.ts");
-/* harmony import */ var src_app_services_storage_local_storage_service__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! src/app/services/storage/local-storage.service */ "./src/app/services/storage/local-storage.service.ts");
-
+/* harmony import */ var _angular_router__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @angular/router */ "./node_modules/@angular/router/fesm5/router.js");
+/* harmony import */ var src_app_enums_user_types_enum__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! src/app/enums/user-types.enum */ "./src/app/enums/user-types.enum.ts");
+/* harmony import */ var _angular_forms__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @angular/forms */ "./node_modules/@angular/forms/fesm5/forms.js");
+/* harmony import */ var src_app_services_account_account_service__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! src/app/services/account/account.service */ "./src/app/services/account/account.service.ts");
+/* harmony import */ var src_app_services_storage_local_storage_service__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! src/app/services/storage/local-storage.service */ "./src/app/services/storage/local-storage.service.ts");
 
 
 
@@ -2900,7 +2915,7 @@ var AuthPageComponent = /** @class */ (function () {
     });
     AuthPageComponent.prototype.buildForm = function () {
         this.form = this.formBuilder.group({
-            code: ['', _angular_forms__WEBPACK_IMPORTED_MODULE_5__["Validators"].required]
+            code: ['', _angular_forms__WEBPACK_IMPORTED_MODULE_4__["Validators"].required]
         });
     };
     AuthPageComponent.prototype.getFormData = function () {
@@ -2910,25 +2925,25 @@ var AuthPageComponent = /** @class */ (function () {
         return data;
     };
     AuthPageComponent.prototype.navigateToUserDashboard = function (user_type) {
-        if (user_type == src_app_enums_user_types_enum__WEBPACK_IMPORTED_MODULE_4__["UserTypes"].Client) {
+        if (user_type == src_app_enums_user_types_enum__WEBPACK_IMPORTED_MODULE_3__["UserTypes"].Client) {
             this.router.navigateByUrl('/client');
         }
-        else if (user_type == src_app_enums_user_types_enum__WEBPACK_IMPORTED_MODULE_4__["UserTypes"].GitAdmin) {
+        else if (user_type == src_app_enums_user_types_enum__WEBPACK_IMPORTED_MODULE_3__["UserTypes"].GitAdmin) {
             this.router.navigateByUrl('/git_admin');
         }
-        else if (user_type == src_app_enums_user_types_enum__WEBPACK_IMPORTED_MODULE_4__["UserTypes"].BranchAdmin) {
+        else if (user_type == src_app_enums_user_types_enum__WEBPACK_IMPORTED_MODULE_3__["UserTypes"].BranchAdmin) {
             this.router.navigateByUrl('/admin');
         }
-        else if (user_type == src_app_enums_user_types_enum__WEBPACK_IMPORTED_MODULE_4__["UserTypes"].BranchSuperExecutive) {
+        else if (user_type == src_app_enums_user_types_enum__WEBPACK_IMPORTED_MODULE_3__["UserTypes"].BranchSuperExecutive) {
             this.router.navigateByUrl('/executive');
         }
-        else if (user_type == src_app_enums_user_types_enum__WEBPACK_IMPORTED_MODULE_4__["UserTypes"].CompanyAdmin) {
+        else if (user_type == src_app_enums_user_types_enum__WEBPACK_IMPORTED_MODULE_3__["UserTypes"].CompanyAdmin) {
             this.router.navigateByUrl('/admin');
         }
-        else if (user_type == src_app_enums_user_types_enum__WEBPACK_IMPORTED_MODULE_4__["UserTypes"].FrontDesk) {
+        else if (user_type == src_app_enums_user_types_enum__WEBPACK_IMPORTED_MODULE_3__["UserTypes"].FrontDesk) {
             this.router.navigateByUrl('/front_desk');
         }
-        else if (user_type == src_app_enums_user_types_enum__WEBPACK_IMPORTED_MODULE_4__["UserTypes"].SuperExecutive) {
+        else if (user_type == src_app_enums_user_types_enum__WEBPACK_IMPORTED_MODULE_3__["UserTypes"].SuperExecutive) {
             this.router.navigateByUrl('/executive');
         }
         else {
@@ -2946,27 +2961,26 @@ var AuthPageComponent = /** @class */ (function () {
         else {
             this.form.disable();
             var login = this.getFormData();
-            this.accountService.verifyAccessCode(login.code).then(function (res) {
-                var response = res;
+            this.accountService.verifyAccessCode(login.code).then(function (valid) {
                 _this.form.enable();
                 _this.loading = false;
-                if (lodash__WEBPACK_IMPORTED_MODULE_2__["isUndefined"](response.message)) {
-                    var user = response.user;
-                    _this.localStorageService.token = response.token;
-                    _this.localStorageService.saveUserInformation(user);
-                    _this.navigateToUserDashboard(user.usertype);
+                if (valid) {
+                    _this.router.navigateByUrl('user_auth');
                 }
             }, function (err) {
                 _this.form.enable();
                 _this.loading = false;
+                if (err.error.message == 'Access code already used') {
+                    _this.invalid = true;
+                }
             });
         }
     };
     AuthPageComponent.ctorParameters = function () { return [
-        { type: _angular_router__WEBPACK_IMPORTED_MODULE_3__["Router"] },
-        { type: _angular_forms__WEBPACK_IMPORTED_MODULE_5__["FormBuilder"] },
-        { type: src_app_services_account_account_service__WEBPACK_IMPORTED_MODULE_6__["AccountService"] },
-        { type: src_app_services_storage_local_storage_service__WEBPACK_IMPORTED_MODULE_7__["LocalStorageService"] }
+        { type: _angular_router__WEBPACK_IMPORTED_MODULE_2__["Router"] },
+        { type: _angular_forms__WEBPACK_IMPORTED_MODULE_4__["FormBuilder"] },
+        { type: src_app_services_account_account_service__WEBPACK_IMPORTED_MODULE_5__["AccountService"] },
+        { type: src_app_services_storage_local_storage_service__WEBPACK_IMPORTED_MODULE_6__["LocalStorageService"] }
     ]; };
     AuthPageComponent = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Component"])({
@@ -4565,6 +4579,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var src_app_services_client_client_service__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! src/app/services/client/client.service */ "./src/app/services/client/client.service.ts");
 /* harmony import */ var src_app_services_storage_local_storage_service__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! src/app/services/storage/local-storage.service */ "./src/app/services/storage/local-storage.service.ts");
 /* harmony import */ var src_app_services_form_builder_form_builder_service__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! src/app/services/form-builder/form-builder.service */ "./src/app/services/form-builder/form-builder.service.ts");
+/* harmony import */ var _ng_bootstrap_ng_bootstrap__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! @ng-bootstrap/ng-bootstrap */ "./node_modules/@ng-bootstrap/ng-bootstrap/fesm5/ng-bootstrap.js");
+
 
 
 
@@ -4574,8 +4590,9 @@ __webpack_require__.r(__webpack_exports__);
 
 
 var ClientFormsEntryPageComponent = /** @class */ (function () {
-    function ClientFormsEntryPageComponent(router, clipboard, clientService, formBuilder, localStorage) {
+    function ClientFormsEntryPageComponent(router, modalServiuce, clipboard, clientService, formBuilder, localStorage) {
         this.router = router;
+        this.modalServiuce = modalServiuce;
         this.clipboard = clipboard;
         this.clientService = clientService;
         this.formBuilder = formBuilder;
@@ -4609,29 +4626,33 @@ var ClientFormsEntryPageComponent = /** @class */ (function () {
     };
     ClientFormsEntryPageComponent.prototype.submit = function () {
         var _this = this;
-        this.loading = true;
-        var user_data = this.getFormData();
-        console.log(JSON.stringify(user_data));
-        console.log('this form: ' + this.formBuilder.getFormUserData(user_data));
-        var unfilled = this.clientService.validateFormFilled(user_data);
-        if (unfilled.length != 0) {
-            this.loading = false;
-            console.log('unfilled: ' + JSON.stringify(unfilled));
-            this.clientService.highlightUnFilledFormFields(unfilled);
-        }
-        else {
-            console.log('is submitting');
-            var filled_data = this.formBuilder.getFormUserData(user_data);
-            var updated_data = this.clientService.getUpdatedClientFormData(JSON.parse(filled_data), this.clientProfile.client_details[0]);
-            console.log('new updates: ' + updated_data);
-            this.clientService.submitForm(lodash__WEBPACK_IMPORTED_MODULE_2__["toString"](this.user.id), this.form.form_code, this.clientProfile.client_details[0], JSON.parse(updated_data)).then(function (res) {
-                _this.created = true;
-                _this.loading = false;
-                _this.formGenCode = res.code;
-            }, function (err) {
-                _this.loading = false;
-            });
-        }
+        this.modalServiuce.open(this.confirmDialog, { centered: true }).result.then(function (result) {
+            if (result == 'yes') {
+                _this.loading = true;
+                var user_data = _this.getFormData();
+                console.log(JSON.stringify(user_data));
+                console.log('this form: ' + _this.formBuilder.getFormUserData(user_data));
+                var unfilled = _this.clientService.validateFormFilled(user_data);
+                if (unfilled.length != 0) {
+                    _this.loading = false;
+                    console.log('unfilled: ' + JSON.stringify(unfilled));
+                    _this.clientService.highlightUnFilledFormFields(unfilled);
+                }
+                else {
+                    console.log('is submitting');
+                    var filled_data = _this.formBuilder.getFormUserData(user_data);
+                    var updated_data = _this.clientService.getUpdatedClientFormData(JSON.parse(filled_data), _this.clientProfile.client_details[0]);
+                    console.log('new updates: ' + updated_data);
+                    _this.clientService.submitForm(lodash__WEBPACK_IMPORTED_MODULE_2__["toString"](_this.user.id), _this.form.form_code, _this.clientProfile.client_details[0], JSON.parse(updated_data)).then(function (res) {
+                        _this.created = true;
+                        _this.loading = false;
+                        _this.formGenCode = res.code;
+                    }, function (err) {
+                        _this.loading = false;
+                    });
+                }
+            }
+        });
     };
     ClientFormsEntryPageComponent.prototype.copy = function () {
         this.clipboard.copyFromContent(this.formGenCode);
@@ -4644,11 +4665,15 @@ var ClientFormsEntryPageComponent = /** @class */ (function () {
     };
     ClientFormsEntryPageComponent.ctorParameters = function () { return [
         { type: _angular_router__WEBPACK_IMPORTED_MODULE_3__["Router"] },
+        { type: _ng_bootstrap_ng_bootstrap__WEBPACK_IMPORTED_MODULE_8__["NgbModal"] },
         { type: ngx_clipboard__WEBPACK_IMPORTED_MODULE_4__["ClipboardService"] },
         { type: src_app_services_client_client_service__WEBPACK_IMPORTED_MODULE_5__["ClientService"] },
         { type: src_app_services_form_builder_form_builder_service__WEBPACK_IMPORTED_MODULE_7__["FormBuilderService"] },
         { type: src_app_services_storage_local_storage_service__WEBPACK_IMPORTED_MODULE_6__["LocalStorageService"] }
     ]; };
+    tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["ViewChild"])('confirm', { static: false })
+    ], ClientFormsEntryPageComponent.prototype, "confirmDialog", void 0);
     ClientFormsEntryPageComponent = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Component"])({
             selector: 'app-client-forms-entry-page',
@@ -6734,6 +6759,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _angular_forms__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @angular/forms */ "./node_modules/@angular/forms/fesm5/forms.js");
 /* harmony import */ var src_app_services_front_desk_front_desk_service__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! src/app/services/front-desk/front-desk.service */ "./src/app/services/front-desk/front-desk.service.ts");
 /* harmony import */ var src_app_services_analytics_analytics_service__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! src/app/services/analytics/analytics.service */ "./src/app/services/analytics/analytics.service.ts");
+/* harmony import */ var src_app_services_account_account_service__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! src/app/services/account/account.service */ "./src/app/services/account/account.service.ts");
+
 
 
 
@@ -6743,16 +6770,26 @@ __webpack_require__.r(__webpack_exports__);
 
 
 var FrontDesktopHomePageComponent = /** @class */ (function () {
-    function FrontDesktopHomePageComponent(router, formBuilder, localStorage, analyticService, frontDeskService) {
+    function FrontDesktopHomePageComponent(router, formBuilder, accountService, localStorage, analyticService, frontDeskService) {
+        var _this = this;
         this.router = router;
         this.formBuilder = formBuilder;
+        this.accountService = accountService;
         this.localStorage = localStorage;
         this.analyticService = analyticService;
         this.frontDeskService = frontDeskService;
-        this.user = this.localStorage.getUser();
-        this.firstname = this.user.firstname;
-        var merchant_id = lodash__WEBPACK_IMPORTED_MODULE_2__["toString"](this.user.merchant_id);
-        this.getFrontDeskAnalytics(merchant_id);
+        this.checkAccessToLogin().then(function (res) {
+            if (res == 'ok') {
+                alert('HAHAHAHA I HAVE ACCESS !!!!!!! SUCK IT');
+                _this.user = _this.localStorage.getUser();
+                _this.firstname = _this.user.firstname;
+                var merchant_id = lodash__WEBPACK_IMPORTED_MODULE_2__["toString"](_this.user.merchant_id);
+                _this.getFrontDeskAnalytics(merchant_id);
+            }
+            else {
+                _this.router.navigateByUrl('auth');
+            }
+        });
     }
     FrontDesktopHomePageComponent.prototype.ngOnInit = function () {
         this.setupForm();
@@ -6783,6 +6820,28 @@ var FrontDesktopHomePageComponent = /** @class */ (function () {
             default:
                 break;
         }
+    };
+    FrontDesktopHomePageComponent.prototype.checkAccessToLogin = function () {
+        var _this = this;
+        return new Promise(function (resolve, reject) {
+            _this.accountService.checkLoginAccess().then(function (res) {
+                var response = res;
+                if (response.message == 'No_access_code') {
+                    _this.router.navigateByUrl('auth');
+                    resolve('not_ok');
+                }
+                else if (response.message == 'Re_enter_access_code') {
+                    _this.router.navigateByUrl('auth');
+                    resolve('not_ok');
+                }
+                else {
+                    // the response message is: Access_granted
+                    // we do nothing, we allow them to see login
+                    // page and give them access to login.
+                    resolve('ok');
+                }
+            }, function (err) { });
+        });
     };
     FrontDesktopHomePageComponent.prototype.getFrontDeskAnalytics = function (id) {
         this.getProcessedFormsAnalytics(id);
@@ -6835,6 +6894,7 @@ var FrontDesktopHomePageComponent = /** @class */ (function () {
     FrontDesktopHomePageComponent.ctorParameters = function () { return [
         { type: _angular_router__WEBPACK_IMPORTED_MODULE_3__["Router"] },
         { type: _angular_forms__WEBPACK_IMPORTED_MODULE_5__["FormBuilder"] },
+        { type: src_app_services_account_account_service__WEBPACK_IMPORTED_MODULE_8__["AccountService"] },
         { type: src_app_services_storage_local_storage_service__WEBPACK_IMPORTED_MODULE_4__["LocalStorageService"] },
         { type: src_app_services_analytics_analytics_service__WEBPACK_IMPORTED_MODULE_7__["AnalyticsService"] },
         { type: src_app_services_front_desk_front_desk_service__WEBPACK_IMPORTED_MODULE_6__["FrontDeskService"] }
@@ -12904,6 +12964,25 @@ var AccountService = /** @class */ (function () {
             var body = { username: username, password: password };
             _this.http.post(url, JSON.stringify(body), { headers: _this.headers }).subscribe(function (res) {
                 console.log('res: ' + JSON.stringify(res));
+                resolve(res);
+            }, function (err) {
+                console.log('err: ' + JSON.stringify(err));
+                reject(err);
+            });
+        });
+    };
+    /**
+     * Grants or denies a user access to the login page.
+     *
+     * @returns {Promise<any>}
+     * @memberof AccountService
+     */
+    AccountService.prototype.checkLoginAccess = function () {
+        var _this = this;
+        return new Promise(function (resolve, reject) {
+            var url = _this.endpointService.apiHost + 'api/checkAccess';
+            _this.http.post(url, {}, { headers: _this.headers }).subscribe(function (res) {
+                console.log('res: ', JSON.stringify(res));
                 resolve(res);
             }, function (err) {
                 console.log('err: ' + JSON.stringify(err));

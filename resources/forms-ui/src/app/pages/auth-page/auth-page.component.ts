@@ -85,20 +85,19 @@ export class AuthPageComponent implements OnInit {
       this.form.disable();
       const login = this.getFormData();
       this.accountService.verifyAccessCode(login.code).then(
-        res => {
-          const response = res as any;
+        valid => {
           this.form.enable();
           this.loading = false;
-          if (_.isUndefined(response.message)) {
-            const user = response.user as Users;
-            this.localStorageService.token = response.token;
-            this.localStorageService.saveUserInformation(user);
-            this.navigateToUserDashboard(user.usertype);
+          if (valid) {
+            this.router.navigateByUrl('user_auth');
           }
         },
         err => {
           this.form.enable();
           this.loading = false;
+          if (err.error.message == 'Access code already used') {
+            this.invalid = true;
+          }
         }
       );
     }

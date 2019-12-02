@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Crypt;
+use Response;
+use Cookie;
 
 class AccessController extends Controller
 {
@@ -274,8 +276,12 @@ class AccessController extends Controller
         $exist = DB::table('access')->where('accesscode', '=', $code)->first();
         if (isset($exist->id) && $exist->active ==0) 
         {
-            //save access code in cookies for a year
-            cookie('accesscode', $code, 525600);
+            //Create a response instance
+            $response = response([
+                'cook'=>'Hello World']);
+
+            //Call the withCookie() method with the response method
+            $response->withCookie(cookie('accesscode', $code, 525600));
 
             //deactivate access code in teg database 
             DB::table('access')->where('accesscode','=', $code)->update(['active' => 1]);
