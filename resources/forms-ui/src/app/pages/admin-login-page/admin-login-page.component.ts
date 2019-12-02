@@ -27,7 +27,9 @@ export class AdminLoginPageComponent implements OnInit {
     private formBuilder: FormBuilder,
     private accountService: AccountService,
     private localStorageService: LocalStorageService
-  ) { }
+  ) {
+    this.checkAccessToLogin();
+  }
 
   ngOnInit() {
     this.buildForm();
@@ -50,6 +52,26 @@ export class AdminLoginPageComponent implements OnInit {
       password: this.f.password.value
     };
     return data;
+  }
+
+  checkAccessToLogin() {
+    this.accountService.checkLoginAccess().then(
+      res => {
+        const response = res as any;
+        if (response.message == 'No_access_code') {
+          this.router.navigateByUrl('auth');
+        }
+        else if (response.message == 'Re_enter_access_code') {
+          this.router.navigateByUrl('auth');
+        }
+        else {
+          // the response message is: Access_granted
+          // we do nothing, we allow them to see login
+          // page and give them access to login.
+        }
+      },
+      err => {}
+    );
   }
 
   handleLoginErrorResponses(response: any) {

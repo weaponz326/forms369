@@ -38,7 +38,7 @@ class AuthController extends Controller
             $exist = DB::table('access')->where('accesscode', '=', $accesscode)->first();
             if (isset($exist->id) && $exist->active ==1) {
                 //do nothing
-                return response()->json(['message' => 'Access granted']);
+                return response()->json(['message' => 'Access_granted']);
 
             }else{
 

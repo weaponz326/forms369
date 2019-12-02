@@ -71,33 +71,38 @@ export class ClientFormsEntryPageComponent implements OnInit {
   }
 
   submit() {
-    this
-    this.loading = true;
-    const user_data = this.getFormData();
-    console.log(JSON.stringify(user_data));
-    console.log('this form: ' + this.formBuilder.getFormUserData(user_data));
-    const unfilled = this.clientService.validateFormFilled(user_data);
-    if (unfilled.length != 0) {
-      this.loading = false;
-      console.log('unfilled: ' + JSON.stringify(unfilled));
-      this.clientService.highlightUnFilledFormFields(unfilled);
-    }
-    else {
-      console.log('is submitting');
-      const filled_data = this.formBuilder.getFormUserData(user_data);
-      const updated_data = this.clientService.getUpdatedClientFormData(JSON.parse(filled_data), this.clientProfile.client_details[0]);
-      console.log('new updates: ' + updated_data);
-      this.clientService.submitForm(_.toString(this.user.id), this.form.form_code, this.clientProfile.client_details[0], JSON.parse(updated_data)).then(
-        res => {
-          this.created = true;
-          this.loading = false;
-          this.formGenCode = res.code;
-        },
-        err => {
-          this.loading = false;
+    this.modalServiuce.open(this.confirmDialog, { centered: true }).result.then(
+      result => {
+        if (result == 'yes') {
+          this.loading = true;
+          const user_data = this.getFormData();
+          console.log(JSON.stringify(user_data));
+          console.log('this form: ' + this.formBuilder.getFormUserData(user_data));
+          const unfilled = this.clientService.validateFormFilled(user_data);
+          if (unfilled.length != 0) {
+            this.loading = false;
+            console.log('unfilled: ' + JSON.stringify(unfilled));
+            this.clientService.highlightUnFilledFormFields(unfilled);
+          }
+          else {
+            console.log('is submitting');
+            const filled_data = this.formBuilder.getFormUserData(user_data);
+            const updated_data = this.clientService.getUpdatedClientFormData(JSON.parse(filled_data), this.clientProfile.client_details[0]);
+            console.log('new updates: ' + updated_data);
+            this.clientService.submitForm(_.toString(this.user.id), this.form.form_code, this.clientProfile.client_details[0], JSON.parse(updated_data)).then(
+              res => {
+                this.created = true;
+                this.loading = false;
+                this.formGenCode = res.code;
+              },
+              err => {
+                this.loading = false;
+              }
+            );
+          }
         }
-      );
-    }
+      }
+    );
   }
 
   copy() {
