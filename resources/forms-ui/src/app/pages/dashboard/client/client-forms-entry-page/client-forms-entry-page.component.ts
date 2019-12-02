@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild, TemplateRef } from '@angular/core';
 declare var $: any;
 import * as _ from 'lodash';
 import { Router } from '@angular/router';
@@ -7,6 +7,7 @@ import { Users } from 'src/app/models/users.model';
 import { ClientService } from 'src/app/services/client/client.service';
 import { LocalStorageService } from 'src/app/services/storage/local-storage.service';
 import { FormBuilderService } from 'src/app/services/form-builder/form-builder.service';
+import { NgbModalRef, NgbModal } from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
   selector: 'app-client-forms-entry-page',
@@ -23,9 +24,12 @@ export class ClientFormsEntryPageComponent implements OnInit {
   formRenderer: any;
   clientProfile: any;
   formGenCode: string;
+  confirmDialogRef: NgbModalRef;
+  @ViewChild('confirm', { static: false }) confirmDialog: TemplateRef<any>
 
   constructor(
     private router: Router,
+    private modalServiuce: NgbModal,
     private clipboard: ClipboardService,
     private clientService: ClientService,
     private formBuilder: FormBuilderService,
@@ -67,6 +71,7 @@ export class ClientFormsEntryPageComponent implements OnInit {
   }
 
   submit() {
+    this
     this.loading = true;
     const user_data = this.getFormData();
     console.log(JSON.stringify(user_data));

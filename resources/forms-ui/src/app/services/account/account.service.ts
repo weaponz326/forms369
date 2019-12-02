@@ -368,6 +368,26 @@ export class AccountService {
     });
   }
 
+  changeAccountPassword(user_id: string, password: string): Promise<any> {
+    return new Promise((resolve, reject) => {
+      const body = {
+        new_password: password,
+        new_password_confirmation: password
+      };
+      const url = this.endpointService.apiHost + 'api/resetPassword/' + user_id;
+      this.http.post(url, JSON.stringify(body), { headers: this.headers }).subscribe(
+        res => {
+          console.log('res: ' + JSON.stringify(res));
+          resolve(res);
+        },
+        err => {
+          console.log('err: ' + JSON.stringify(err));
+          reject(err);
+        }
+      );
+    });
+  }
+
   /**
    * Logs a user out.
    *

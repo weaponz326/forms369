@@ -67,6 +67,8 @@ export class AdminLoginPageComponent implements OnInit {
         this.userNotFound = true;
         break;
       default:
+        sessionStorage.setItem('user_id', response.message);
+        this.router.navigateByUrl('change_password');
         break;
     }
   }

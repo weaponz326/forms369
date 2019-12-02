@@ -26,10 +26,8 @@ class AuthController extends Controller
     *
     * @return \Illuminate\Http\Response success or error message
     */
-    public function resetPassword(Request $request)
+    public function resetPassword(Request $request, $id)
     {
-        $user = Session::get('forms_user'); 
-        $userid = $user['id'];
        
         //get and validate user details
         $this->validate($request, [
@@ -39,7 +37,7 @@ class AuthController extends Controller
         $password = bcrypt($request->new_password);
         try {
             //update user password
-            DB::table('users')->where('id', $userid)
+            DB::table('users')->where('id', $id)
             ->update(
             [
                 'password' => $password,
@@ -651,12 +649,9 @@ class AuthController extends Controller
 
         if($first_time){
             if($user_type != 26){
-
-                
-                $user = Session::push('forms_user', $user);
                 
                 $error_response = [
-                    'message' => 'FIRST_LOGIN'
+                    'message' => $id
                 ];
                 return response()->json($error_response, 200); 
             }

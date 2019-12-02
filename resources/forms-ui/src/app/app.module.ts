@@ -96,6 +96,7 @@ import { FrontDeskPreviewFormPageComponent } from './pages/dashboard/front-desk/
 import { ExecBranchesListPageComponent } from './pages/dashboard/executive/exec-branches-list-page/exec-branches-list-page.component';
 import { ExecAccountsListPageComponent } from './pages/dashboard/executive/exec-accounts-list-page/exec-accounts-list-page.component';
 import { ExecFormsListPageComponent } from './pages/dashboard/executive/exec-forms-list-page/exec-forms-list-page.component';
+import { ChangePasswordPageComponent } from './pages/change-password-page/change-password-page.component';
 
 @NgModule({
   declarations: [
@@ -177,6 +178,7 @@ import { ExecFormsListPageComponent } from './pages/dashboard/executive/exec-for
     ExecBranchesListPageComponent,
     ExecAccountsListPageComponent,
     ExecFormsListPageComponent,
+    ChangePasswordPageComponent,
   ],
   imports: [
     BrowserModule,

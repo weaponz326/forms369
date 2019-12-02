@@ -73,3 +73,19 @@
     <!-- main ends -->
   </div>
 </div>
+
+<ng-template #confirm let-modal>
+  <div class="modal-header">
+    <h4 class="modal-title" id="modal-title">Confirm Action</h4>
+    <button type="button" class="close" aria-describedby="modal-title" (click)="modal.dismiss('Cross click')">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <p><strong>Are you sure you want to <span class="text-primary">submit this form</span> ?</strong></p>
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-outline-secondary" (click)="modal.dismiss('no')">No</button>
+    <button type="button" class="btn btn-danger" (click)="modal.close('yes')">Yes</button>
+  </div>
+</ng-template>

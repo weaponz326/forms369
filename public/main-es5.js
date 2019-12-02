@@ -386,6 +386,17 @@ module.exports = "<div class=\"container-scroller\">\n  <div class=\"container-f
 
 /***/ }),
 
+/***/ "./node_modules/raw-loader/index.js!./src/app/pages/change-password-page/change-password-page.component.html":
+/*!**********************************************************************************************************!*\
+  !*** ./node_modules/raw-loader!./src/app/pages/change-password-page/change-password-page.component.html ***!
+  \**********************************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = "<div class=\"container-scroller\">\n  <div class=\"container-fluid page-body-wrapper full-page-wrapper\">\n    <div class=\"content-wrapper d-flex align-items-center auth px-0\">\n      <div class=\"row w-100 mx-0\">\n        <div class=\"col-lg-4 mx-auto\">\n          <div class=\"auth-form-light text-left py-5 px-4 px-sm-5\">\n            <a routerLink=\"/\" class=\"brand-logo\">\n              <img src=\"./assets/images/logo.png\" alt=\"logo\">\n            </a>\n            <div *ngIf=\"invalid\" class=\"mt-2 mb-5\">\n              <div class=\"alert alert-danger\" role=\"alert\">\n                <h3 class=\"alert-heading\">Hey there!</h3>\n                <p class=\"lead\"><strong>Your account has been deactivated</strong></p>\n                <hr>\n                <p class=\"mb-0 lead\">Please contact your admin</p>\n              </div>\n            </div>\n\n            <h4>Hello! Change your password</h4>\n            <h6 class=\"font-weight-normal\">Please enter a new password here.</h6>\n            <form [formGroup]=\"form\" (ngSubmit)=\"create()\" class=\"pt-3\">\n              <div class=\"form-group\">\n                <input type=\"password\" class=\"form-control form-control-lg\" formControlName=\"password\"\n                  placeholder=\"Enter New Password\" [ngClass]=\"{'input-control-error': submitted && f.password.errors}\">\n                <div *ngIf=\"submitted && f.password.errors\">\n                  <p class=\"input-error\" *ngIf=\"f.password.errors.required\">Password is required</p>\n                </div>\n              </div>\n              <div class=\"mt-3\">\n                <button type=\"submit\" *ngIf=\"!loading\" class=\"btn btn-block btn-primary btn-lg font-weight-medium auth-form-btn\">Continue</button>\n                <button type=\"button\" *ngIf=\"loading\"\n                  class=\"btn btn-block btn-primary btn-lg font-weight-medium auth-form-btn\" disabled>\n                  <span class=\"spinner-border spinner-border-sm\" role=\"status\" aria-hidden=\"true\"></span> &nbsp; &nbsp;\n                  Please wait...\n                </button>\n              </div>\n            </form>\n          </div>\n        </div>\n      </div>\n    </div>\n    <!-- content ends -->\n  </div>\n  <!-- page-body ends -->\n</div>"
+
+/***/ }),
+
 /***/ "./node_modules/raw-loader/index.js!./src/app/pages/dashboard/admin/admin-create-form-page/admin-create-form-page.component.html":
 /*!******************************************************************************************************************************!*\
   !*** ./node_modules/raw-loader!./src/app/pages/dashboard/admin/admin-create-form-page/admin-create-form-page.component.html ***!
@@ -503,7 +514,7 @@ module.exports = "<div class=\"container-scroller\">\n  <app-navigation-bar></ap
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<div class=\"container-scroller\">\n  <app-navigation-bar></app-navigation-bar>\n  <div class=\"container-fluid page-body-wrapper\">\n    <app-side-bar></app-side-bar>\n    <div class=\"main-panel\">\n      <div class=\"content-wrapper\">\n        <div class=\"row\">\n          <div class=\"col-md-12 grid-margin\">\n            <div class=\"d-flex justify-content-between flex-wrap\">\n              <div class=\"d-flex align-items-end flex-wrap\">\n                <div class=\"mr-md-3 mr-xl-5\">\n                  <h2>Front Desk Accounts</h2>\n                  <p class=\"mb-md-0\">Your administrative dashboard.</p>\n                </div>\n                <div class=\"d-flex\">\n                </div>\n              </div>\n              <div class=\"d-flex justify-content-between align-items-end flex-wrap\">\n                <!-- <button type=\"button\" class=\"btn btn-light bg-white btn-icon mr-3 d-none d-md-block \">\n                  <i class=\"mdi mdi-download text-muted\"></i>\n                </button> -->\n                <!-- <button type=\"button\" class=\"btn btn-light bg-white btn-icon mr-3 mt-2 mt-xl-0\">\n                  <i class=\"mdi mdi-clock-outline text-muted\"></i>\n                </button> -->\n                <!-- <button type=\"button\" class=\"btn btn-light bg-white btn-icon mr-3 mt-2 mt-xl-0\">\n                  <i class=\"mdi mdi-plus text-muted\"></i>\n                </button> -->\n              </div>\n            </div>\n          </div>\n        </div>\n        <div class=\"row\">\n          <div class=\"col-lg-12 grid-margin stretch-card\">\n            <div class=\"card\">\n              <div class=\"card-body\">\n                <h4 class=\"card-title\">List Of Front-Desk Accounts</h4>\n                <p class=\"card-description\">\n                  List of all front-desk accounts created, both active and inactive\n                </p>\n                <app-view-account-lists-page\n                  [userType]=\"userType\"\n                  (edit)=\"edit($event)\"\n                  (view)=\"view($event)\"\n                  [merchantId]=\"merchantId\"\n                  (delete)=\"delete($event)\"\n                  (dataLoaded)=\"dataLoaded($event)\"\n                  (dataLoadedError)=\"dataLoadedError($event)\">\n                </app-view-account-lists-page>\n              </div>\n            </div>\n          </div>\n        </div>\n      </div>\n    </div>\n  </div>\n</div>"
+module.exports = "<div class=\"container-scroller\">\n  <app-navigation-bar></app-navigation-bar>\n  <div class=\"container-fluid page-body-wrapper\">\n    <app-side-bar></app-side-bar>\n    <div class=\"main-panel\">\n      <div class=\"content-wrapper\">\n        <div class=\"row\">\n          <div class=\"col-md-12 grid-margin\">\n            <div class=\"d-flex justify-content-between flex-wrap\">\n              <div class=\"d-flex align-items-end flex-wrap\">\n                <div class=\"mr-md-3 mr-xl-5\">\n                  <h2>Front Desk Accounts</h2>\n                  <p class=\"mb-md-0\">Your administrative dashboard.</p>\n                </div>\n                <div class=\"d-flex\">\n                </div>\n              </div>\n              <div class=\"d-flex justify-content-between align-items-end flex-wrap\">\n                <!-- <button type=\"button\" class=\"btn btn-light bg-white btn-icon mr-3 d-none d-md-block \">\n                  <i class=\"mdi mdi-download text-muted\"></i>\n                </button> -->\n                <!-- <button type=\"button\" class=\"btn btn-light bg-white btn-icon mr-3 mt-2 mt-xl-0\">\n                  <i class=\"mdi mdi-clock-outline text-muted\"></i>\n                </button> -->\n                <!-- <button type=\"button\" class=\"btn btn-light bg-white btn-icon mr-3 mt-2 mt-xl-0\">\n                  <i class=\"mdi mdi-plus text-muted\"></i>\n                </button> -->\n              </div>\n            </div>\n          </div>\n        </div>\n        <div class=\"row\">\n          <div class=\"col-lg-12 grid-margin stretch-card\">\n            <div class=\"card\">\n              <div class=\"card-body\">\n                <h4 class=\"card-title\">List Of Front-Desk Accounts</h4>\n                <p class=\"card-description\">\n                  List of all front-desk accounts created, both active and inactive\n                </p>\n                <app-view-account-lists-page\n                  [userType]=\"userType\"\n                  (edit)=\"edit($event)\"\n                  (view)=\"view($event)\"\n                  [branchId]=\"branchId\"\n                  [merchantId]=\"merchantId\"\n                  (delete)=\"delete($event)\"\n                  (dataLoaded)=\"dataLoaded($event)\"\n                  (dataLoadedError)=\"dataLoadedError($event)\">\n                </app-view-account-lists-page>\n              </div>\n            </div>\n          </div>\n        </div>\n      </div>\n    </div>\n  </div>\n</div>"
 
 /***/ }),
 
@@ -712,7 +723,7 @@ module.exports = "<div class=\"container-scroller\">\n  <app-navigation-bar></ap
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<div class=\"container-scroller\">\n  <app-navigation-bar></app-navigation-bar>\n  <div class=\"container-fluid page-body-wrapper\">\n    <app-side-bar></app-side-bar>\n    <div class=\"main-panel\">\n      <div class=\"content-wrapper\">\n        <div class=\"row\">\n          <div class=\"col-md-12 grid-margin\">\n            <div class=\"d-flex justify-content-between flex-wrap\">\n              <div class=\"d-flex align-items-end flex-wrap\">\n                <div class=\"mr-md-3 mr-xl-5\">\n                  <h2>Form Templates</h2>\n                  <p class=\"mb-md-0\">Your administrative dashboard.</p>\n                </div>\n                <div class=\"d-flex\">\n                  <i class=\"mdi mdi-home text-muted hover-cursor\"></i>\n                  <p class=\"text-muted mb-0 hover-cursor\">&nbsp;/&nbsp;Home&nbsp;/&nbsp;</p>\n                  <p class=\"text-primary mb-0 hover-cursor\">View Forms</p>\n                </div>\n              </div>\n              <div class=\"d-flex justify-content-between align-items-end flex-wrap\">\n                <button type=\"button\" class=\"btn btn-light bg-white btn-icon mr-3 mt-2 mt-xl-0\" (click)=\"openNewForm()\">\n                  <i class=\"mdi mdi-plus text-muted\"></i>\n                </button>\n                <button type=\"button\" class=\"btn btn-light bg-white btn-icon mr-3 mt-2 mt-xl-0\"\n                  (click)=\"toggleViewMode('list')\">\n                  <i class=\"mdi mdi-view-list text-muted\"></i>\n                </button>\n                <button type=\"button\" class=\"btn btn-light bg-white btn-icon mr-3 mt-2 mt-xl-0\"\n                  (click)=\"toggleViewMode('grid')\">\n                  <i class=\"mdi mdi-view-grid text-muted\"></i>\n                </button>\n              </div>\n            </div>\n          </div>\n        </div>\n\n        <div class=\"row mb-4\">\n          <div class=\"col-12 col-md-8 offset-md-2\">\n            <div class=\"search-bar\">\n              <form>\n                <input type=\"text\" class=\"search-form form-control\" name=\"query\" [(ngModel)]=\"query\"\n                  placeholder=\"Search by code or by name\" aria-label=\"search\" aria-describedby=\"search\"\n                  (keydown)=\"search($event)\">\n              </form>\n            </div>\n          </div>\n        </div>\n\n        <div *ngIf=\"loading\" class=\"row m-5\">\n          <div class=\"col-md-12 m-5\">\n            <div class=\"d-flex justify-content-center\">\n              <div class=\"spinner-border m-5\" style=\"width: 5rem; height: 5rem;\" role=\"status\">\n                <span class=\"sr-only\">Loading...</span>\n              </div>\n            </div>\n          </div>\n        </div>\n\n        <div *ngIf=\"hasNoData\" class=\"row\">\n          <div class=\"col-lg-12 grid-margin stretch-card\">\n            <div class=\"card text-center pt-5 pb-5\">\n              <div class=\"card-body mt-5 mb-5\">\n                <h4 class=\"card-title\">No Data Found</h4>\n                <p class=\"card-description\">\n                  No forms found.\n                </p>\n                <div class=\"text-lg-center mt-5 mb-5\">\n                  <div class=\"card-text\">\n                    <i class=\"mdi mdi-file-question\" style=\"font-size: 8em;\"></i>\n                  </div>\n                  <div class=\"card-text\">\n                    <h3>No Available Templates</h3>\n                    <p class=\"text-muted\">There are no created templates yet!</p>\n                  </div>\n                </div>\n              </div>\n            </div>\n          </div>\n        </div>\n\n        <div *ngIf=\"hasError\" class=\"row\">\n          <div class=\"col-lg-12 grid-margin stretch-card\">\n            <div class=\"card text-center pt-5 pb-5\">\n              <div class=\"card-body mt-5 mb-5\">\n                <h4 class=\"card-title\">Error Ocuured</h4>\n                <p class=\"card-description\">\n                  Ooops! Something went wrong!\n                </p>\n                <div class=\"text-lg-center mt-5 mb-5\">\n                  <div class=\"card-text\">\n                    <i class=\"mdi mdi-close-network-outline\" style=\"font-size: 8em;\"></i>\n                  </div>\n                  <div class=\"card-text\">\n                    <h3>We couldn't get your templates</h3>\n                    <p class=\"text-muted\">You may not have internet connection or our servers maybe down.</p>\n                    <button class=\"btn btn-primary\" type=\"button\" (click)=\"retry()\">Retry</button>\n                  </div>\n                </div>\n              </div>\n            </div>\n          </div>\n        </div>\n\n        <div *ngIf=\"!loading && !hasNoData\" class=\"row\">\n          <div class=\"col-lg-12 grid-margin stretch-card\">\n            <div class=\"card\">\n              <div class=\"card-body\">\n                <div class=\"text-lg-center mt-3 mb-5\">\n                  <div class=\"btn-group\" role=\"group\" aria-label=\"Sort By\">\n                    <div class=\"dropdown\">\n                      <button type=\"button\" class=\"btn btn-outline-secondary dropdown-toggle\" id=\"sortMenuButton\"\n                        data-toggle=\"dropdown\" aria-haspopup=\"true\" aria-expanded=\"false\">Sort By</button>\n                      <div class=\"dropdown-menu\" aria-labelledby=\"sortMenuButton\">\n                        <button type=\"button\" class=\"dropdown-item\" (click)=\"sort('name')\">Template Name</button>\n                      </div>\n                    </div>\n                  </div>\n                </div>\n\n                <div *ngIf=\"viewMode == 'grid'\" class=\"row\">\n                  <div class=\"col-md-4 grid-margin stretch-card\" *ngFor=\"let template of templatesList; let i = index\">\n                    <div class=\"card hover-cursor animated fadeInDown fast\" (click)=\"view(template)\">\n                      <div class=\"card-body\">\n                        <div class=\"card-text\">\n                          <h1 class=\"display-4 mb-4\">{{ template.name }}</h1>\n                          <div class=\"btn-group\" role=\"group\" aria-label=\"Basic example\">\n                            <button type=\"button\" class=\"btn btn-outline-secondary\" (click)=\"edit(template)\">\n                              <i class=\"mdi mdi-pencil-outline\"></i>\n                              Edit\n                            </button>\n                            <button type=\"button\" class=\"btn btn-outline-secondary\" (click)=\"view(template)\">\n                              <i class=\"mdi mdi-pulse\"></i>\n                              View\n                            </button>\n                            <button type=\"button\" class=\"btn btn-outline-secondary\" (click)=\"delete(template.id, i)\">\n                              <i class=\"mdi mdi-delete-outline\"></i>\n                              Delete\n                            </button>\n                          </div>\n                        </div>\n                      </div>\n                    </div>\n                  </div>\n                </div>\n\n                <div *ngIf=\"viewMode == 'list'\" class=\"row\">\n                  <div class=\"col-12\">\n                    <div class=\"list-group\" style=\"width: 100%;\">\n                      <div class=\"list-group-item hover-cursor list-group-item-action animated fadeInDown\"\n                        *ngFor=\"let template of templatesList; let i = index\">\n                        <div class=\"row\">\n                          <div class=\"col-8\">\n                            <h1 class=\"display-4 mb-1 mt-2\">{{ template.name }}</h1>\n                          </div>\n                          <div class=\"col-4\">\n                            <div class=\"btn-group mt-2\" role=\"group\" aria-label=\"Basic example\">\n                              <button type=\"button\" class=\"btn btn-outline-secondary\" (click)=\"edit(template)\">\n                                <i class=\"mdi mdi-pencil-outline\"></i>\n                                Edit\n                              </button>\n                              <button type=\"button\" class=\"btn btn-outline-secondary\" (click)=\"view(template)\">\n                                <i class=\"mdi mdi-pulse\"></i>\n                                View\n                              </button>\n                              <button type=\"button\" class=\"btn btn-outline-secondary\" (click)=\"delete(template.id, i)\">\n                                <i class=\"mdi mdi-delete-outline\"></i>\n                                Delete\n                              </button>\n                            </div>\n                          </div>\n                        </div>\n                      </div>\n                    </div>\n                  </div>\n                </div>\n\n                <div *ngIf=\"hasMore\" class=\"row\">\n                  <div class=\"col-md-4 col-sm-6 offset-sm-3 offset-lg-4\">\n                    <div class=\"text-center\">\n                      <button type=\"button\" class=\"btn btn-secondary btn-rounded btn-fw\">Load More</button>\n                    </div>\n                  </div>\n                </div>\n              </div>\n            </div>\n          </div>\n        </div>\n      </div>\n    </div>\n  </div>\n</div>\n\n<ng-template #confirm let-modal>\n  <div class=\"modal-header\">\n    <h4 class=\"modal-title\" id=\"modal-title\">Delete Template ?</h4>\n    <button type=\"button\" class=\"close\" aria-describedby=\"modal-title\" (click)=\"modal.dismiss('Cross click')\">\n      <span aria-hidden=\"true\">&times;</span>\n    </button>\n  </div>\n  <div class=\"modal-body\">\n    <p><strong>Are you sure you want to delete <span class=\"text-primary\">this template</span> ?</strong></p>\n    <p>All information associated with this template will be permanently deleted.\n      <span class=\"text-danger\">This operation can not be undone.</span>\n    </p>\n  </div>\n  <div class=\"modal-footer\">\n    <button type=\"button\" class=\"btn btn-outline-secondary\" (click)=\"modal.dismiss('cancel')\">Cancel</button>\n    <button type=\"button\" class=\"btn btn-danger\" (click)=\"modal.close('delete')\">Delete</button>\n  </div>\n</ng-template>"
+module.exports = "<div class=\"container-scroller\">\n  <app-navigation-bar></app-navigation-bar>\n  <div class=\"container-fluid page-body-wrapper\">\n    <app-side-bar></app-side-bar>\n    <div class=\"main-panel\">\n      <div class=\"content-wrapper\">\n        <div class=\"row\">\n          <div class=\"col-md-12 grid-margin\">\n            <div class=\"d-flex justify-content-between flex-wrap\">\n              <div class=\"d-flex align-items-end flex-wrap\">\n                <div class=\"mr-md-3 mr-xl-5\">\n                  <h2>Form Templates</h2>\n                  <p class=\"mb-md-0\">Your administrative dashboard.</p>\n                </div>\n                <div class=\"d-flex\">\n                  <i class=\"mdi mdi-home text-muted hover-cursor\"></i>\n                  <p class=\"text-muted mb-0 hover-cursor\">&nbsp;/&nbsp;Home&nbsp;/&nbsp;</p>\n                  <p class=\"text-primary mb-0 hover-cursor\">View Forms</p>\n                </div>\n              </div>\n              <div class=\"d-flex justify-content-between align-items-end flex-wrap\">\n                <button type=\"button\" class=\"btn btn-light bg-white btn-icon mr-3 mt-2 mt-xl-0\" (click)=\"openNewForm()\">\n                  <i class=\"mdi mdi-plus text-muted\"></i>\n                </button>\n                <button type=\"button\" class=\"btn btn-light bg-white btn-icon mr-3 mt-2 mt-xl-0\"\n                  (click)=\"toggleViewMode('list')\">\n                  <i class=\"mdi mdi-view-list text-muted\"></i>\n                </button>\n                <button type=\"button\" class=\"btn btn-light bg-white btn-icon mr-3 mt-2 mt-xl-0\"\n                  (click)=\"toggleViewMode('grid')\">\n                  <i class=\"mdi mdi-view-grid text-muted\"></i>\n                </button>\n              </div>\n            </div>\n          </div>\n        </div>\n\n        <div class=\"row mb-4\">\n          <div class=\"col-12 col-md-8 offset-md-2\">\n            <div class=\"search-bar\">\n              <form>\n                <input type=\"text\" class=\"search-form form-control\" name=\"query\" [(ngModel)]=\"query\"\n                  placeholder=\"Search by code or by name\" aria-label=\"search\" aria-describedby=\"search\"\n                  (keydown)=\"search($event)\">\n              </form>\n            </div>\n          </div>\n        </div>\n\n        <div *ngIf=\"loading\" class=\"row m-5\">\n          <div class=\"col-md-12 m-5\">\n            <div class=\"d-flex justify-content-center\">\n              <div class=\"spinner-border m-5\" style=\"width: 5rem; height: 5rem;\" role=\"status\">\n                <span class=\"sr-only\">Loading...</span>\n              </div>\n            </div>\n          </div>\n        </div>\n\n        <div *ngIf=\"hasNoData\" class=\"row\">\n          <div class=\"col-lg-12 grid-margin stretch-card\">\n            <div class=\"card text-center pt-5 pb-5\">\n              <div class=\"card-body mt-5 mb-5\">\n                <h4 class=\"card-title\">No Data Found</h4>\n                <p class=\"card-description\">\n                  No forms found.\n                </p>\n                <div class=\"text-lg-center mt-5 mb-5\">\n                  <div class=\"card-text\">\n                    <i class=\"mdi mdi-file-question\" style=\"font-size: 8em;\"></i>\n                  </div>\n                  <div class=\"card-text\">\n                    <h3>No Available Templates</h3>\n                    <p class=\"text-muted\">There are no created templates yet!</p>\n                  </div>\n                </div>\n              </div>\n            </div>\n          </div>\n        </div>\n\n        <div *ngIf=\"hasError && !loading\" class=\"row\">\n          <div class=\"col-lg-12 grid-margin stretch-card\">\n            <div class=\"card text-center pt-5 pb-5\">\n              <div class=\"card-body mt-5 mb-5\">\n                <h4 class=\"card-title\">Error Ocuured</h4>\n                <p class=\"card-description\">\n                  Ooops! Something went wrong!\n                </p>\n                <div class=\"text-lg-center mt-5 mb-5\">\n                  <div class=\"card-text\">\n                    <i class=\"mdi mdi-close-network-outline\" style=\"font-size: 8em;\"></i>\n                  </div>\n                  <div class=\"card-text\">\n                    <h3>We couldn't get your templates</h3>\n                    <p class=\"text-muted\">You may not have internet connection or our servers maybe down.</p>\n                    <button class=\"btn btn-primary\" type=\"button\" (click)=\"retry()\">Retry</button>\n                  </div>\n                </div>\n              </div>\n            </div>\n          </div>\n        </div>\n\n        <div *ngIf=\"!loading && !hasNoData\" class=\"row\">\n          <div class=\"col-lg-12 grid-margin stretch-card\">\n            <div class=\"card\">\n              <div class=\"card-body\">\n                <div class=\"text-lg-center mt-3 mb-5\">\n                  <div class=\"btn-group\" role=\"group\" aria-label=\"Sort By\">\n                    <div class=\"dropdown\">\n                      <button type=\"button\" class=\"btn btn-outline-secondary dropdown-toggle\" id=\"sortMenuButton\"\n                        data-toggle=\"dropdown\" aria-haspopup=\"true\" aria-expanded=\"false\">Sort By</button>\n                      <div class=\"dropdown-menu\" aria-labelledby=\"sortMenuButton\">\n                        <button type=\"button\" class=\"dropdown-item\" (click)=\"sort('name')\">Template Name</button>\n                        <button type=\"button\" class=\"dropdown-item\" (click)=\"sort('created')\">Created Date</button>\n                      </div>\n                    </div>\n                    <div class=\"d-flex ml-2 sort-buttons\">\n                      <div class=\"btn-group\" role=\"group\">\n                        <button type=\"button\" class=\"btn btn-outline-secondary\" [ngClass]=\"{'active': ascSortSelected}\" (click)=\"sortOrder('asc')\">\n                          <i class=\"mdi mdi-sort-ascending\"></i>\n                        </button>\n                        <button type=\"button\" class=\"btn btn-outline-secondary\" [ngClass]=\"{'active': descSortSelected}\" (click)=\"sortOrder('desc')\">\n                          <i class=\"mdi mdi-sort-descending\"></i>\n                        </button>\n                      </div>\n                    </div>\n                  </div>\n                </div>\n\n                <div *ngIf=\"viewMode == 'grid'\" class=\"row\">\n                  <div class=\"col-md-4 grid-margin stretch-card\" *ngFor=\"let template of templatesList; let i = index\">\n                    <div class=\"card hover-cursor animated fadeInDown fast\" (click)=\"view(template)\">\n                      <div class=\"card-body\">\n                        <div class=\"card-text\">\n                          <h1 class=\"display-4 mb-4\">{{ template.name }}</h1>\n                          <div class=\"btn-group\" role=\"group\" aria-label=\"Basic example\">\n                            <button type=\"button\" class=\"btn btn-outline-secondary\" (click)=\"edit(template)\">\n                              <i class=\"mdi mdi-pencil-outline\"></i>\n                              Edit\n                            </button>\n                            <button type=\"button\" class=\"btn btn-outline-secondary\" (click)=\"view(template)\">\n                              <i class=\"mdi mdi-pulse\"></i>\n                              View\n                            </button>\n                            <button *ngIf=\"isGitAdmin\" type=\"button\" class=\"btn btn-outline-secondary\" (click)=\"delete(template.id, i)\">\n                              <i class=\"mdi mdi-delete-outline\"></i>\n                              Delete\n                            </button>\n                            <button *ngIf=\"!isGitAdmin\" type=\"button\" class=\"btn btn-outline-secondary\" (click)=\"import(template)\">\n                              <i class=\"mdi mdi-download-outline\"></i>\n                              Use\n                            </button>\n                          </div>\n                        </div>\n                      </div>\n                    </div>\n                  </div>\n                </div>\n\n                <div *ngIf=\"viewMode == 'list'\" class=\"row\">\n                  <div class=\"col-12\">\n                    <div class=\"list-group\" style=\"width: 100%;\">\n                      <div class=\"list-group-item hover-cursor list-group-item-action animated fadeInDown\"\n                        *ngFor=\"let template of templatesList; let i = index\">\n                        <div class=\"row\">\n                          <div class=\"col-8\">\n                            <h1 class=\"display-4 mb-1 mt-2\">{{ template.name }}</h1>\n                          </div>\n                          <div class=\"col-4\">\n                            <div class=\"btn-group mt-2\" role=\"group\" aria-label=\"Basic example\">\n                              <button type=\"button\" class=\"btn btn-outline-secondary\" (click)=\"edit(template)\">\n                                <i class=\"mdi mdi-pencil-outline\"></i>\n                                Edit\n                              </button>\n                              <button type=\"button\" class=\"btn btn-outline-secondary\" (click)=\"view(template)\">\n                                <i class=\"mdi mdi-pulse\"></i>\n                                View\n                              </button>\n                              <button type=\"button\" class=\"btn btn-outline-secondary\" (click)=\"delete(template.id, i)\">\n                                <i class=\"mdi mdi-delete-outline\"></i>\n                                Delete\n                              </button>\n                            </div>\n                          </div>\n                        </div>\n                      </div>\n                    </div>\n                  </div>\n                </div>\n\n                <div *ngIf=\"hasMore\" class=\"row\">\n                  <div class=\"col-md-4 col-sm-6 offset-sm-3 offset-lg-4\">\n                    <div class=\"text-center\">\n                      <button type=\"button\" class=\"btn btn-secondary btn-rounded btn-fw\">Load More</button>\n                    </div>\n                  </div>\n                </div>\n              </div>\n            </div>\n          </div>\n        </div>\n      </div>\n    </div>\n  </div>\n</div>\n\n<ng-template #confirm let-modal>\n  <div class=\"modal-header\">\n    <h4 class=\"modal-title\" id=\"modal-title\">Delete Template ?</h4>\n    <button type=\"button\" class=\"close\" aria-describedby=\"modal-title\" (click)=\"modal.dismiss('Cross click')\">\n      <span aria-hidden=\"true\">&times;</span>\n    </button>\n  </div>\n  <div class=\"modal-body\">\n    <p><strong>Are you sure you want to delete <span class=\"text-primary\">this template</span> ?</strong></p>\n    <p>All information associated with this template will be permanently deleted.\n      <span class=\"text-danger\">This operation can not be undone.</span>\n    </p>\n  </div>\n  <div class=\"modal-footer\">\n    <button type=\"button\" class=\"btn btn-outline-secondary\" (click)=\"modal.dismiss('cancel')\">Cancel</button>\n    <button type=\"button\" class=\"btn btn-danger\" (click)=\"modal.close('delete')\">Delete</button>\n  </div>\n</ng-template>\n"
 
 /***/ }),
 
@@ -723,7 +734,7 @@ module.exports = "<div class=\"container-scroller\">\n  <app-navigation-bar></ap
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<div class=\"container-scroller\">\n  <app-navigation-bar></app-navigation-bar>\n  <div class=\"container-fluid page-body-wrapper\">\n    <app-side-bar></app-side-bar>\n    <div class=\"main-panel\">\n      <div class=\"content-wrapper\">\n\n        <div class=\"row\">\n          <div class=\"col-md-12 grid-margin\">\n            <div class=\"d-flex justify-content-between flex-wrap\">\n              <div class=\"d-flex align-items-end flex-wrap\">\n                <div class=\"mr-md-3 mr-xl-5\">\n                  <h2>{{ form.name }}</h2>\n                  <p class=\"mb-md-0\">Preview a form.</p>\n                </div>\n                <div class=\"d-flex\">\n                  <i class=\"mdi mdi-home text-muted hover-cursor\"></i>\n                  <p class=\"text-muted mb-0 hover-cursor\">&nbsp;/&nbsp;Home&nbsp;/&nbsp;</p>\n                  <p class=\"text-primary mb-0 hover-cursor\">Analytics</p>\n                </div>\n              </div>\n              <div class=\"d-flex justify-content-between align-items-end flex-wrap\">\n                <button type=\"button\" class=\"btn btn-light bg-white btn-icon mr-3 d-none d-md-block\" (click)=\"download()\">\n                  <i class=\"mdi mdi-download text-muted\"></i>\n                </button>\n                <button type=\"button\" class=\"btn btn-light bg-white btn-icon mr-3 mt-2 mt-xl-0\" (click)=\"edit()\">\n                  <i class=\"mdi mdi-pencil-outline text-muted\"></i>\n                </button>\n              </div>\n            </div>\n          </div>\n        </div>\n\n        <div class=\"row\">\n          <div class=\"col-md-8 offset-md-2 grid-margin stretch-card\">\n            <div class=\"card\" style=\"height: 750px; overflow: scroll;\">\n              <div class=\"card-body\">\n                <p class=\"card-title\">Preview Form</p>\n                <p class=\"text-muted\"></p>\n\n                <div class=\"form-builder-container\">\n                  <div id=\"fb-editor\"></div>\n                </div>\n              </div>\n            </div>\n          </div>\n        </div>\n      </div>\n    </div>\n  </div>\n</div>"
+module.exports = "<div class=\"container-scroller\">\n  <app-navigation-bar></app-navigation-bar>\n  <div class=\"container-fluid page-body-wrapper\">\n    <app-side-bar></app-side-bar>\n    <div class=\"main-panel\">\n      <div class=\"content-wrapper\">\n\n        <div class=\"row\">\n          <div class=\"col-md-12 grid-margin\">\n            <div class=\"d-flex justify-content-between flex-wrap\">\n              <div class=\"d-flex align-items-end flex-wrap\">\n                <div class=\"mr-md-3 mr-xl-5\">\n                  <h2>{{ form.name }}</h2>\n                  <p class=\"mb-md-0\">Preview a form.</p>\n                </div>\n                <div class=\"d-flex\">\n                  <i class=\"mdi mdi-home text-muted hover-cursor\"></i>\n                  <p class=\"text-muted mb-0 hover-cursor\">&nbsp;/&nbsp;Home&nbsp;/&nbsp;</p>\n                  <p class=\"text-primary mb-0 hover-cursor\">Analytics</p>\n                </div>\n              </div>\n              <div class=\"d-flex justify-content-between align-items-end flex-wrap\">\n                <button type=\"button\" class=\"btn btn-light bg-white btn-icon mr-3 d-none d-md-block\" (click)=\"download()\">\n                  <i class=\"mdi mdi-download text-muted\"></i>\n                </button>\n                <button *ngIf=\"isGitAdmin\" type=\"button\" class=\"btn btn-light bg-white btn-icon mr-3 mt-2 mt-xl-0\" (click)=\"edit()\">\n                  <i class=\"mdi mdi-pencil-outline text-muted\"></i>\n                </button>\n                <button *ngIf=\"!isGitAdmin\" type=\"button\" class=\"btn btn-primary btn-sm mr-3 mt-2 mt-xl-0\" (click)=\"edit()\">\n                  Use Template\n                </button>\n              </div>\n            </div>\n          </div>\n        </div>\n\n        <div class=\"row\">\n          <div class=\"col-md-8 offset-md-2 grid-margin stretch-card\">\n            <div class=\"card\" style=\"height: 750px; overflow: scroll;\">\n              <div class=\"card-body\">\n                <p class=\"card-title\">Preview Form</p>\n                <p class=\"text-muted\"></p>\n                <div class=\"form-container\">\n                  <div id=\"fb-editor\"></div>\n                </div>\n              </div>\n            </div>\n          </div>\n        </div>\n      </div>\n    </div>\n  </div>\n</div>"
 
 /***/ }),
 
@@ -1251,6 +1262,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _pages_dashboard_executive_exec_accounts_list_page_exec_accounts_list_page_component__WEBPACK_IMPORTED_MODULE_71__ = __webpack_require__(/*! ./pages/dashboard/executive/exec-accounts-list-page/exec-accounts-list-page.component */ "./src/app/pages/dashboard/executive/exec-accounts-list-page/exec-accounts-list-page.component.ts");
 /* harmony import */ var _pages_dashboard_executive_exec_branches_list_page_exec_branches_list_page_component__WEBPACK_IMPORTED_MODULE_72__ = __webpack_require__(/*! ./pages/dashboard/executive/exec-branches-list-page/exec-branches-list-page.component */ "./src/app/pages/dashboard/executive/exec-branches-list-page/exec-branches-list-page.component.ts");
 /* harmony import */ var _pages_dashboard_executive_exec_forms_list_page_exec_forms_list_page_component__WEBPACK_IMPORTED_MODULE_73__ = __webpack_require__(/*! ./pages/dashboard/executive/exec-forms-list-page/exec-forms-list-page.component */ "./src/app/pages/dashboard/executive/exec-forms-list-page/exec-forms-list-page.component.ts");
+/* harmony import */ var _pages_change_password_page_change_password_page_component__WEBPACK_IMPORTED_MODULE_74__ = __webpack_require__(/*! ./pages/change-password-page/change-password-page.component */ "./src/app/pages/change-password-page/change-password-page.component.ts");
+
 
 
 
@@ -1349,6 +1362,10 @@ var routes = [
     {
         path: 'master_register',
         component: _pages_admin_register_page_admin_register_page_component__WEBPACK_IMPORTED_MODULE_37__["AdminRegisterPageComponent"]
+    },
+    {
+        path: 'change_password',
+        component: _pages_change_password_page_change_password_page_component__WEBPACK_IMPORTED_MODULE_74__["ChangePasswordPageComponent"]
     },
     {
         path: 'git_admin',
@@ -1860,6 +1877,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _pages_dashboard_executive_exec_branches_list_page_exec_branches_list_page_component__WEBPACK_IMPORTED_MODULE_92__ = __webpack_require__(/*! ./pages/dashboard/executive/exec-branches-list-page/exec-branches-list-page.component */ "./src/app/pages/dashboard/executive/exec-branches-list-page/exec-branches-list-page.component.ts");
 /* harmony import */ var _pages_dashboard_executive_exec_accounts_list_page_exec_accounts_list_page_component__WEBPACK_IMPORTED_MODULE_93__ = __webpack_require__(/*! ./pages/dashboard/executive/exec-accounts-list-page/exec-accounts-list-page.component */ "./src/app/pages/dashboard/executive/exec-accounts-list-page/exec-accounts-list-page.component.ts");
 /* harmony import */ var _pages_dashboard_executive_exec_forms_list_page_exec_forms_list_page_component__WEBPACK_IMPORTED_MODULE_94__ = __webpack_require__(/*! ./pages/dashboard/executive/exec-forms-list-page/exec-forms-list-page.component */ "./src/app/pages/dashboard/executive/exec-forms-list-page/exec-forms-list-page.component.ts");
+/* harmony import */ var _pages_change_password_page_change_password_page_component__WEBPACK_IMPORTED_MODULE_95__ = __webpack_require__(/*! ./pages/change-password-page/change-password-page.component */ "./src/app/pages/change-password-page/change-password-page.component.ts");
+
 
 
 
@@ -2040,6 +2059,7 @@ var AppModule = /** @class */ (function () {
                 _pages_dashboard_executive_exec_branches_list_page_exec_branches_list_page_component__WEBPACK_IMPORTED_MODULE_92__["ExecBranchesListPageComponent"],
                 _pages_dashboard_executive_exec_accounts_list_page_exec_accounts_list_page_component__WEBPACK_IMPORTED_MODULE_93__["ExecAccountsListPageComponent"],
                 _pages_dashboard_executive_exec_forms_list_page_exec_forms_list_page_component__WEBPACK_IMPORTED_MODULE_94__["ExecFormsListPageComponent"],
+                _pages_change_password_page_change_password_page_component__WEBPACK_IMPORTED_MODULE_95__["ChangePasswordPageComponent"],
             ],
             imports: [
                 _angular_platform_browser__WEBPACK_IMPORTED_MODULE_1__["BrowserModule"],
@@ -2577,6 +2597,8 @@ var AdminLoginPageComponent = /** @class */ (function () {
                 this.userNotFound = true;
                 break;
             default:
+                sessionStorage.setItem('user_id', response.message);
+                this.router.navigateByUrl('change_password');
                 break;
         }
     };
@@ -2783,7 +2805,7 @@ var AdminRegisterPageComponent = /** @class */ (function () {
             var user = this.getFormData();
             this.accountService.createAccount(user).then(function (res) {
                 var response = res;
-                if (!lodash__WEBPACK_IMPORTED_MODULE_2__["isNull"](response.id) || !lodash__WEBPACK_IMPORTED_MODULE_2__["isUndefined"](response.id)) {
+                if (!lodash__WEBPACK_IMPORTED_MODULE_2__["isUndefined"](response.id)) {
                     _this.form.enable();
                     _this.loading = false;
                     _this.created = true;
@@ -2960,6 +2982,113 @@ var AuthPageComponent = /** @class */ (function () {
 
 /***/ }),
 
+/***/ "./src/app/pages/change-password-page/change-password-page.component.css":
+/*!*******************************************************************************!*\
+  !*** ./src/app/pages/change-password-page/change-password-page.component.css ***!
+  \*******************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = ".auth .brand-logo img {\n    width: 60px;\n}\n\np.lead {\n    line-height: 1.8rem;\n}\n\n.auth form .auth-form-btn {\n    height: 50px;\n    line-height: 1.2;\n}\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInNyYy9hcHAvcGFnZXMvY2hhbmdlLXBhc3N3b3JkLXBhZ2UvY2hhbmdlLXBhc3N3b3JkLXBhZ2UuY29tcG9uZW50LmNzcyJdLCJuYW1lcyI6W10sIm1hcHBpbmdzIjoiQUFBQTtJQUNJLFdBQVc7QUFDZjs7QUFFQTtJQUNJLG1CQUFtQjtBQUN2Qjs7QUFFQTtJQUNJLFlBQVk7SUFDWixnQkFBZ0I7QUFDcEIiLCJmaWxlIjoic3JjL2FwcC9wYWdlcy9jaGFuZ2UtcGFzc3dvcmQtcGFnZS9jaGFuZ2UtcGFzc3dvcmQtcGFnZS5jb21wb25lbnQuY3NzIiwic291cmNlc0NvbnRlbnQiOlsiLmF1dGggLmJyYW5kLWxvZ28gaW1nIHtcbiAgICB3aWR0aDogNjBweDtcbn1cblxucC5sZWFkIHtcbiAgICBsaW5lLWhlaWdodDogMS44cmVtO1xufVxuXG4uYXV0aCBmb3JtIC5hdXRoLWZvcm0tYnRuIHtcbiAgICBoZWlnaHQ6IDUwcHg7XG4gICAgbGluZS1oZWlnaHQ6IDEuMjtcbn0iXX0= */"
+
+/***/ }),
+
+/***/ "./src/app/pages/change-password-page/change-password-page.component.ts":
+/*!******************************************************************************!*\
+  !*** ./src/app/pages/change-password-page/change-password-page.component.ts ***!
+  \******************************************************************************/
+/*! exports provided: ChangePasswordPageComponent */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "ChangePasswordPageComponent", function() { return ChangePasswordPageComponent; });
+/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
+/* harmony import */ var lodash__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! lodash */ "./node_modules/lodash/lodash.js");
+/* harmony import */ var lodash__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(lodash__WEBPACK_IMPORTED_MODULE_2__);
+/* harmony import */ var _angular_router__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @angular/router */ "./node_modules/@angular/router/fesm5/router.js");
+/* harmony import */ var _angular_forms__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @angular/forms */ "./node_modules/@angular/forms/fesm5/forms.js");
+/* harmony import */ var src_app_services_account_account_service__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! src/app/services/account/account.service */ "./src/app/services/account/account.service.ts");
+/* harmony import */ var src_app_services_storage_local_storage_service__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! src/app/services/storage/local-storage.service */ "./src/app/services/storage/local-storage.service.ts");
+
+
+
+
+
+
+
+var ChangePasswordPageComponent = /** @class */ (function () {
+    function ChangePasswordPageComponent(router, formBuilder, accountService, localStorageService) {
+        this.router = router;
+        this.formBuilder = formBuilder;
+        this.accountService = accountService;
+        this.localStorageService = localStorageService;
+    }
+    ChangePasswordPageComponent.prototype.ngOnInit = function () {
+        this.buildForm();
+    };
+    Object.defineProperty(ChangePasswordPageComponent.prototype, "f", {
+        get: function () {
+            return this.form.controls;
+        },
+        enumerable: true,
+        configurable: true
+    });
+    ChangePasswordPageComponent.prototype.buildForm = function () {
+        this.form = this.formBuilder.group({
+            password: ['', _angular_forms__WEBPACK_IMPORTED_MODULE_4__["Validators"].required]
+        });
+    };
+    ChangePasswordPageComponent.prototype.create = function () {
+        var _this = this;
+        this.loading = true;
+        this.submitted = true;
+        if (this.form.invalid) {
+            this.form.enable();
+            this.loading = false;
+        }
+        else {
+            this.form.disable();
+            var newPassword = this.f.password.value;
+            var user_id = sessionStorage.getItem('user_id');
+            this.accountService.changeAccountPassword(user_id, newPassword).then(function (res) {
+                var response = res;
+                _this.form.enable();
+                _this.loading = false;
+                if (lodash__WEBPACK_IMPORTED_MODULE_2__["toLower"](response.message) == 'ok') {
+                    sessionStorage.clear();
+                    _this.router.navigateByUrl('login');
+                }
+                else {
+                    _this.invalid = true;
+                }
+            }, function (err) {
+                _this.form.enable();
+                _this.loading = false;
+            });
+        }
+    };
+    ChangePasswordPageComponent.ctorParameters = function () { return [
+        { type: _angular_router__WEBPACK_IMPORTED_MODULE_3__["Router"] },
+        { type: _angular_forms__WEBPACK_IMPORTED_MODULE_4__["FormBuilder"] },
+        { type: src_app_services_account_account_service__WEBPACK_IMPORTED_MODULE_5__["AccountService"] },
+        { type: src_app_services_storage_local_storage_service__WEBPACK_IMPORTED_MODULE_6__["LocalStorageService"] }
+    ]; };
+    ChangePasswordPageComponent = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Component"])({
+            selector: 'app-change-password-page',
+            template: __webpack_require__(/*! raw-loader!./change-password-page.component.html */ "./node_modules/raw-loader/index.js!./src/app/pages/change-password-page/change-password-page.component.html"),
+            styles: [__webpack_require__(/*! ./change-password-page.component.css */ "./src/app/pages/change-password-page/change-password-page.component.css")]
+        })
+    ], ChangePasswordPageComponent);
+    return ChangePasswordPageComponent;
+}());
+
+
+
+/***/ }),
+
 /***/ "./src/app/pages/dashboard/admin/admin-create-form-page/admin-create-form-page.component.css":
 /*!***************************************************************************************************!*\
   !*** ./src/app/pages/dashboard/admin/admin-create-form-page/admin-create-form-page.component.css ***!
@@ -3009,26 +3138,45 @@ var AdminCreateFormPageComponent = /** @class */ (function () {
         this.formBuilderService = formBuilderService;
         this.merchant_id = this.localStorage.getUser().merchant_id;
         console.log('merchant id: ' + this.merchant_id);
+        this.template = window.history.state.template;
     }
     AdminCreateFormPageComponent.prototype.ngOnInit = function () {
-        var _this = this;
         this.created = false;
         this._loading = true;
         this.buildForm();
-        this.formCode = this.formBuilderService.generateUniqueFormCode();
-        this.formBuilderService.generateFormFieldsBySections().then(function (form_elements) {
-            _this.formBuilder = $(document.getElementById('fb-editor')).formBuilder({
-                controlPosition: 'left',
-                inputSets: form_elements,
-                scrollToFieldOnAdd: false,
-                disabledActionButtons: ['data', 'clear', 'save'],
-                disableFields: _this.formBuilderService.disableSectionFormFields()
+        this.handleFormRender();
+    };
+    AdminCreateFormPageComponent.prototype.handleFormRender = function () {
+        var _this = this;
+        if (lodash__WEBPACK_IMPORTED_MODULE_2__["isUndefined"](this.template) || lodash__WEBPACK_IMPORTED_MODULE_2__["isNull"](this.template)) {
+            this.formCode = this.formBuilderService.generateUniqueFormCode();
+            this.formBuilderService.generateFormFieldsBySections().then(function (form_elements) {
+                _this.formBuilder = $(document.getElementById('fb-editor')).formBuilder({
+                    controlPosition: 'left',
+                    inputSets: form_elements,
+                    scrollToFieldOnAdd: false,
+                    disabledActionButtons: ['data', 'clear', 'save'],
+                    disableFields: _this.formBuilderService.disableSectionFormFields()
+                });
+                _this._loading = false;
+            }, function (error) {
+                _this._loading = false;
+                _this.hasError = true;
             });
-            _this._loading = false;
-        }, function (error) {
-            _this._loading = false;
-            _this.hasError = true;
-        });
+        }
+        else {
+            this._loading = true;
+            this.formCode = this.formBuilderService.generateUniqueFormCode();
+            this.formBuilder = $(document.getElementById('fb-editor')).formBuilder({
+                controlPosition: 'left',
+                scrollToFieldOnAdd: false,
+                defaultFields: this.template.form_fields,
+                disabledActionButtons: ['data', 'clear', 'save'],
+                inputSets: this.formBuilderService.generateFormFields(),
+                disableFields: this.formBuilderService.disableSectionFormFields()
+            });
+            this._loading = false;
+        }
     };
     AdminCreateFormPageComponent.prototype.buildForm = function () {
         this.form = this._formBuilder.group({
@@ -3730,8 +3878,15 @@ var AdminHomePageComponent = /** @class */ (function () {
     };
     AdminHomePageComponent.prototype.getAnalytics = function () {
         this.loading = true;
+        this.getAccountsAnalytics();
         this.getBranchAnalytics();
         this.getFormAnalytics();
+    };
+    AdminHomePageComponent.prototype.getAccountsAnalytics = function () {
+        var _this = this;
+        this.analyticService.getCompanyUsersCount(this.merchantIdentifier.toString()).then(function (count) {
+            _this.numTotalAccounts = count;
+        });
     };
     AdminHomePageComponent.prototype.getFormAnalytics = function () {
         var _this = this;
@@ -4132,6 +4287,7 @@ var AdminViewFrontDesksPageComponent = /** @class */ (function () {
         this.router = router;
         this.localStorage = localStorage;
         this.userType = src_app_enums_user_types_enum__WEBPACK_IMPORTED_MODULE_3__["UserTypes"].FrontDesk;
+        this.branchId = this.localStorage.getUser().branch_id;
         this.merchantId = this.localStorage.getUser().merchant_id;
     }
     AdminViewFrontDesksPageComponent.prototype.ngOnInit = function () {
@@ -5609,7 +5765,7 @@ var ExecInProcessedFormsListPageComponent = /** @class */ (function () {
     ExecInProcessedFormsListPageComponent.prototype.complete = function (submission_code) {
         var _this = this;
         this.showLoadingDialog();
-        this.frontDeskService.completeForm(submission_code).then(function (res) {
+        this.frontDeskService.completeForm(submission_code, '').then(function (res) {
             var response = res;
             if (lodash__WEBPACK_IMPORTED_MODULE_2__["toLower"](response.message) == 'ok') {
                 _this.loadingModalRef.close();
@@ -5627,7 +5783,7 @@ var ExecInProcessedFormsListPageComponent = /** @class */ (function () {
     ExecInProcessedFormsListPageComponent.prototype.unprocess = function (submission_code) {
         var _this = this;
         this.showLoadingDialog();
-        this.frontDeskService.unprocessForm(submission_code).then(function (res) {
+        this.frontDeskService.unprocessForm(submission_code, '').then(function (res) {
             var response = res;
             if (lodash__WEBPACK_IMPORTED_MODULE_2__["toLower"](response.message) == 'ok') {
                 _this.loadingModalRef.close();
@@ -6255,7 +6411,7 @@ var EditTemplatePageComponent = /** @class */ (function () {
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = ".dropdown .dropdown-menu .dropdown-item {\n    font-size: .875rem;\n    padding: 0.6rem 1.5rem;\n}\n\n.search-form {\n    border-radius: 30px;\n}\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInNyYy9hcHAvcGFnZXMvZGFzaGJvYXJkL2Zvcm0tdGVtcGxhdGVzL2xpc3QtdGVtcGxhdGUtcGFnZS9saXN0LXRlbXBsYXRlLXBhZ2UuY29tcG9uZW50LmNzcyJdLCJuYW1lcyI6W10sIm1hcHBpbmdzIjoiQUFBQTtJQUNJLGtCQUFrQjtJQUNsQixzQkFBc0I7QUFDMUI7O0FBRUE7SUFDSSxtQkFBbUI7QUFDdkIiLCJmaWxlIjoic3JjL2FwcC9wYWdlcy9kYXNoYm9hcmQvZm9ybS10ZW1wbGF0ZXMvbGlzdC10ZW1wbGF0ZS1wYWdlL2xpc3QtdGVtcGxhdGUtcGFnZS5jb21wb25lbnQuY3NzIiwic291cmNlc0NvbnRlbnQiOlsiLmRyb3Bkb3duIC5kcm9wZG93bi1tZW51IC5kcm9wZG93bi1pdGVtIHtcbiAgICBmb250LXNpemU6IC44NzVyZW07XG4gICAgcGFkZGluZzogMC42cmVtIDEuNXJlbTtcbn1cblxuLnNlYXJjaC1mb3JtIHtcbiAgICBib3JkZXItcmFkaXVzOiAzMHB4O1xufSJdfQ== */"
+module.exports = ".dropdown .dropdown-menu .dropdown-item {\n    font-size: .875rem;\n    padding: 0.6rem 1.5rem;\n}\n\n.search-form {\n    border-radius: 30px;\n}\n\n.sort-buttons .btn {\n    padding-top: 7px;\n    padding-bottom: 7px;\n}\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInNyYy9hcHAvcGFnZXMvZGFzaGJvYXJkL2Zvcm0tdGVtcGxhdGVzL2xpc3QtdGVtcGxhdGUtcGFnZS9saXN0LXRlbXBsYXRlLXBhZ2UuY29tcG9uZW50LmNzcyJdLCJuYW1lcyI6W10sIm1hcHBpbmdzIjoiQUFBQTtJQUNJLGtCQUFrQjtJQUNsQixzQkFBc0I7QUFDMUI7O0FBRUE7SUFDSSxtQkFBbUI7QUFDdkI7O0FBRUE7SUFDSSxnQkFBZ0I7SUFDaEIsbUJBQW1CO0FBQ3ZCIiwiZmlsZSI6InNyYy9hcHAvcGFnZXMvZGFzaGJvYXJkL2Zvcm0tdGVtcGxhdGVzL2xpc3QtdGVtcGxhdGUtcGFnZS9saXN0LXRlbXBsYXRlLXBhZ2UuY29tcG9uZW50LmNzcyIsInNvdXJjZXNDb250ZW50IjpbIi5kcm9wZG93biAuZHJvcGRvd24tbWVudSAuZHJvcGRvd24taXRlbSB7XG4gICAgZm9udC1zaXplOiAuODc1cmVtO1xuICAgIHBhZGRpbmc6IDAuNnJlbSAxLjVyZW07XG59XG5cbi5zZWFyY2gtZm9ybSB7XG4gICAgYm9yZGVyLXJhZGl1czogMzBweDtcbn1cblxuLnNvcnQtYnV0dG9ucyAuYnRuIHtcbiAgICBwYWRkaW5nLXRvcDogN3B4O1xuICAgIHBhZGRpbmctYm90dG9tOiA3cHg7XG59Il19 */"
 
 /***/ }),
 
@@ -6277,6 +6433,10 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _ng_bootstrap_ng_bootstrap__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @ng-bootstrap/ng-bootstrap */ "./node_modules/@ng-bootstrap/ng-bootstrap/fesm5/ng-bootstrap.js");
 /* harmony import */ var src_app_services_view_list_view_service__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! src/app/services/view/list-view.service */ "./src/app/services/view/list-view.service.ts");
 /* harmony import */ var src_app_services_templates_templates_service__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! src/app/services/templates/templates.service */ "./src/app/services/templates/templates.service.ts");
+/* harmony import */ var src_app_services_storage_local_storage_service__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! src/app/services/storage/local-storage.service */ "./src/app/services/storage/local-storage.service.ts");
+/* harmony import */ var src_app_enums_user_types_enum__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! src/app/enums/user-types.enum */ "./src/app/enums/user-types.enum.ts");
+
+
 
 
 
@@ -6285,13 +6445,16 @@ __webpack_require__.r(__webpack_exports__);
 
 
 var ListTemplatePageComponent = /** @class */ (function () {
-    function ListTemplatePageComponent(router, modalService, listViewService, templatesService) {
+    function ListTemplatePageComponent(router, modalService, listViewService, localStorage, templatesService) {
         this.router = router;
         this.modalService = modalService;
         this.listViewService = listViewService;
+        this.localStorage = localStorage;
         this.templatesService = templatesService;
         this.templatesList = [];
+        this.sortingOrder = this.listViewService.getSortOrder();
         this.viewMode = this.listViewService.getDesiredViewMode();
+        this.isGitAdmin = this.localStorage.getUser().usertype == src_app_enums_user_types_enum__WEBPACK_IMPORTED_MODULE_8__["UserTypes"].GitAdmin ? true : false;
         this.getAllTemplates();
     }
     ListTemplatePageComponent.prototype.ngOnInit = function () {
@@ -6313,14 +6476,54 @@ var ListTemplatePageComponent = /** @class */ (function () {
     ListTemplatePageComponent.prototype.sort = function (sort_category) {
         switch (sort_category) {
             case 'name':
-                this.sortByName();
+                this.sortingBy = 'name';
+                this.sortByName(this.sortingOrder);
+                break;
+            case 'created':
+                this.sortingBy = 'created';
+                this.sortByCreatedDate(this.sortingOrder);
                 break;
             default:
                 break;
         }
     };
-    ListTemplatePageComponent.prototype.sortByName = function () {
-        this.templatesList = lodash__WEBPACK_IMPORTED_MODULE_2__["sortBy"](this.templatesList, function (item) { return item.name; });
+    ListTemplatePageComponent.prototype.sortOrder = function (order) {
+        switch (order) {
+            case 'asc':
+                this.sort(this.sortingBy);
+                this.sortingOrder = order;
+                this.ascSortSelected = true;
+                this.descSortSelected = false;
+                this.listViewService.setSortOrder(order);
+                break;
+            case 'desc':
+                this.sort(this.sortingBy);
+                this.sortingOrder = order;
+                this.ascSortSelected = false;
+                this.descSortSelected = true;
+                this.listViewService.setSortOrder(order);
+                break;
+            default:
+                break;
+        }
+    };
+    ListTemplatePageComponent.prototype.sortByName = function (order) {
+        if (order == 'asc') {
+            console.log('sorting asc');
+            this.templatesList = lodash__WEBPACK_IMPORTED_MODULE_2__["sortBy"](this.templatesList, function (item) { return item.name; });
+        }
+        else {
+            console.log('sorting desc');
+            this.templatesList = lodash__WEBPACK_IMPORTED_MODULE_2__["reverse"](lodash__WEBPACK_IMPORTED_MODULE_2__["sortBy"](this.templatesList, function (item) { return item.name; }));
+        }
+    };
+    ListTemplatePageComponent.prototype.sortByCreatedDate = function (order) {
+        if (order == 'asc') {
+            this.templatesList = lodash__WEBPACK_IMPORTED_MODULE_2__["sortBy"](this.templatesList, function (item) { return item.created_at; });
+        }
+        else {
+            this.templatesList = lodash__WEBPACK_IMPORTED_MODULE_2__["reverse"](lodash__WEBPACK_IMPORTED_MODULE_2__["sortBy"](this.templatesList, function (item) { return item.created_at; }));
+        }
     };
     ListTemplatePageComponent.prototype.edit = function (form) {
         this.router.navigateByUrl('templates/edit', { state: { form: form } });
@@ -6338,6 +6541,9 @@ var ListTemplatePageComponent = /** @class */ (function () {
                 _this.deleteTemplate(id, index);
             }
         });
+    };
+    ListTemplatePageComponent.prototype.import = function (template) {
+        this.router.navigateByUrl('admin/create/form', { state: { template: template } });
     };
     ListTemplatePageComponent.prototype.deleteTemplate = function (id, index) {
         var _this = this;
@@ -6364,6 +6570,7 @@ var ListTemplatePageComponent = /** @class */ (function () {
         }, function (err) {
             _this.loading = false;
             _this.hasError = true;
+            _this.hasNoData = true;
         });
     };
     ListTemplatePageComponent.prototype.search = function (e) {
@@ -6410,6 +6617,7 @@ var ListTemplatePageComponent = /** @class */ (function () {
         { type: _angular_router__WEBPACK_IMPORTED_MODULE_3__["Router"] },
         { type: _ng_bootstrap_ng_bootstrap__WEBPACK_IMPORTED_MODULE_4__["NgbModal"] },
         { type: src_app_services_view_list_view_service__WEBPACK_IMPORTED_MODULE_5__["ListViewService"] },
+        { type: src_app_services_storage_local_storage_service__WEBPACK_IMPORTED_MODULE_7__["LocalStorageService"] },
         { type: src_app_services_templates_templates_service__WEBPACK_IMPORTED_MODULE_6__["TemplatesService"] }
     ]; };
     tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
@@ -6453,13 +6661,20 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
 /* harmony import */ var _angular_router__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @angular/router */ "./node_modules/@angular/router/fesm5/router.js");
+/* harmony import */ var src_app_services_storage_local_storage_service__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! src/app/services/storage/local-storage.service */ "./src/app/services/storage/local-storage.service.ts");
+/* harmony import */ var src_app_enums_user_types_enum__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! src/app/enums/user-types.enum */ "./src/app/enums/user-types.enum.ts");
+
+
 
 
 
 var ViewTemplatePageComponent = /** @class */ (function () {
-    function ViewTemplatePageComponent(router) {
+    function ViewTemplatePageComponent(router, localStorage) {
         this.router = router;
+        this.localStorage = localStorage;
         this.form = window.history.state.form;
+        var user = this.localStorage.getUser().usertype;
+        this.isGitAdmin = user == src_app_enums_user_types_enum__WEBPACK_IMPORTED_MODULE_4__["UserTypes"].GitAdmin ? true : false;
     }
     ViewTemplatePageComponent.prototype.ngOnInit = function () {
         var formData = this.form.form_fields;
@@ -6472,7 +6687,8 @@ var ViewTemplatePageComponent = /** @class */ (function () {
     };
     ViewTemplatePageComponent.prototype.download = function () { };
     ViewTemplatePageComponent.ctorParameters = function () { return [
-        { type: _angular_router__WEBPACK_IMPORTED_MODULE_2__["Router"] }
+        { type: _angular_router__WEBPACK_IMPORTED_MODULE_2__["Router"] },
+        { type: src_app_services_storage_local_storage_service__WEBPACK_IMPORTED_MODULE_3__["LocalStorageService"] }
     ]; };
     ViewTemplatePageComponent = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Component"])({
@@ -6886,7 +7102,7 @@ var FrontDeskProcessingFormsListPageComponent = /** @class */ (function () {
     FrontDeskProcessingFormsListPageComponent.prototype.complete = function (submission_code) {
         var _this = this;
         this.showLoadingDialog();
-        this.frontDeskService.completeForm(submission_code).then(function (res) {
+        this.frontDeskService.completeForm(submission_code, '').then(function (res) {
             var response = res;
             if (lodash__WEBPACK_IMPORTED_MODULE_2__["toLower"](response.message) == 'ok') {
                 _this.loadingModalRef.close();
@@ -6904,7 +7120,7 @@ var FrontDeskProcessingFormsListPageComponent = /** @class */ (function () {
     FrontDeskProcessingFormsListPageComponent.prototype.unprocess = function (submission_code) {
         var _this = this;
         this.showLoadingDialog();
-        this.frontDeskService.unprocessForm(submission_code).then(function (res) {
+        this.frontDeskService.unprocessForm(submission_code, '').then(function (res) {
             var response = res;
             if (lodash__WEBPACK_IMPORTED_MODULE_2__["toLower"](response.message) == 'ok') {
                 _this.loadingModalRef.close();
@@ -7120,7 +7336,7 @@ var FrontDeskViewFormPageComponent = /** @class */ (function () {
         this.modalService.open(this.confirmDialog, { centered: true }).result.then(function (result) {
             if (result == 'yes') {
                 _this.loading = true;
-                _this.frontDeskService.completeForm(_this.form.submission_code).then(function (res) {
+                _this.frontDeskService.completeForm(_this.form.submission_code, _this.form.client_submitted_details).then(function (res) {
                     var response = res;
                     if (lodash__WEBPACK_IMPORTED_MODULE_2__["toLower"](response.message) == 'ok') {
                         _this.loading = false;
@@ -7144,7 +7360,7 @@ var FrontDeskViewFormPageComponent = /** @class */ (function () {
         this.modalService.open(this.confirmDialog, { centered: true }).result.then(function (result) {
             if (result == 'yes') {
                 _this.loading = true;
-                _this.frontDeskService.processForm(_this.form.submission_code).then(function (res) {
+                _this.frontDeskService.processForm(_this.form.submission_code, _this.form.client_submitted_details).then(function (res) {
                     var response = res;
                     if (lodash__WEBPACK_IMPORTED_MODULE_2__["toLower"](response.message) == 'ok') {
                         _this.loading = false;
@@ -7168,7 +7384,7 @@ var FrontDeskViewFormPageComponent = /** @class */ (function () {
         this.modalService.open(this.confirmDialog, { centered: true }).result.then(function (result) {
             if (result == 'yes') {
                 _this.loading = true;
-                _this.frontDeskService.unprocessForm(_this.form.submission_code).then(function (res) {
+                _this.frontDeskService.unprocessForm(_this.form.submission_code, _this.form.client_submitted_details).then(function (res) {
                     var response = res;
                     if (lodash__WEBPACK_IMPORTED_MODULE_2__["toLower"](response.message) == 'ok') {
                         _this.loading = false;
@@ -10002,8 +10218,14 @@ var ViewAccountListsPageComponent = /** @class */ (function () {
             this.getFrontDeskForGitAdmin();
         }
         else {
-            console.log('company_Admin');
-            this.getFrontDeskForCompanyAdmin();
+            if (lodash__WEBPACK_IMPORTED_MODULE_2__["isUndefined"](this.branchId) || lodash__WEBPACK_IMPORTED_MODULE_2__["isNull"](this.branchId) || this.branchId == 0) {
+                console.log('company_Admin');
+                this.getFrontDeskForCompanyAdmin();
+            }
+            else {
+                console.log('branch_Admin');
+                this.getFrontDeskForBranchAdmin();
+            }
         }
     };
     ViewAccountListsPageComponent.prototype.getFrontDeskForGitAdmin = function () {
@@ -10036,6 +10258,32 @@ var ViewAccountListsPageComponent = /** @class */ (function () {
         var _this = this;
         this.loading = true;
         this.adminService.getAllUsersByMerchant(this.userType, this.merchantId).then(function (res) {
+            var accounts = res;
+            console.log('front_desk_comp: ' + JSON.stringify(accounts));
+            _this.loading = false;
+            _this.dataLoaded.emit(accounts);
+            _this.dataLoadedError.emit(null);
+            if (accounts.length > 0) {
+                _this.hasNoData = false;
+                lodash__WEBPACK_IMPORTED_MODULE_2__["forEach"](accounts, function (admin) {
+                    _this.collection.push(admin);
+                });
+                _this.allCollection = _this.collection;
+            }
+            else {
+                _this.hasNoData = true;
+            }
+        }, function (err) {
+            _this.loading = false;
+            _this.hasError = true;
+            _this.dataLoaded.emit(null);
+            _this.dataLoadedError.emit(err);
+        });
+    };
+    ViewAccountListsPageComponent.prototype.getFrontDeskForBranchAdmin = function () {
+        var _this = this;
+        this.loading = true;
+        this.adminService.getAllUsersByBranch(this.userType, this.branchId).then(function (res) {
             var accounts = res;
             console.log('front_desk_comp: ' + JSON.stringify(accounts));
             _this.loading = false;
@@ -10212,6 +10460,9 @@ var ViewAccountListsPageComponent = /** @class */ (function () {
     tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Input"])()
     ], ViewAccountListsPageComponent.prototype, "userType", void 0);
+    tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Input"])()
+    ], ViewAccountListsPageComponent.prototype, "branchId", void 0);
     tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Input"])()
     ], ViewAccountListsPageComponent.prototype, "merchantId", void 0);
@@ -11980,7 +12231,6 @@ var UserAccountCreatorComponent = /** @class */ (function () {
             var user = this.getFormData();
             this.accountService.createAccount(user).then(function (res) {
                 var response = res;
-                console.log(response.message);
                 if (response.id) {
                     _this.form.enable();
                     _this.loading = false;
@@ -12337,6 +12587,9 @@ var LoginPageComponent = /** @class */ (function () {
             case 'USER_NOT_FOUND':
                 this.userNotFound = true;
                 break;
+            case 'FIRST_LOGIN':
+                this.router.navigateByUrl('change_password');
+                break;
             default:
                 break;
         }
@@ -12569,7 +12822,7 @@ var RegisterPageComponent = /** @class */ (function () {
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = ".top-level {\n    width: 30%;\n    display: block;\n    margin: 0 auto;\n    padding-top: 18px;\n    text-align: center;\n}\n\n.top-level .navigation {\n    text-align: center;\n    margin-top: 12px;\n}\n\nsection.section-one {\n    margin-bottom: 10px;\n}\n\nsection.section-one .main-icon {\n    font-size: 12em;\n}\n\n@media only screen \nand (min-device-width: 320px) \nand (max-device-width: 825px) {\n  section.section-one .main-icon {\n    font-size: 8em;\n    margin-top: 16px;\n    margin-bottom: 16px;\n  }\n}\n\nsection.section-one .jumbotron {\n    background: white;\n}\n\nsection.section-one .jumbotron h1 {\n    font-size: 80px;\n    font-weight: 100;\n    margin: 10px;\n    font-family: 'ProductSans_Regular';\n}\n\nsection.section-one .jumbotron .lead {\n    line-height: 1.8rem;\n}\n\n@media only screen \nand (min-device-width: 320px) \nand (max-device-width: 825px) {\n  section.section-one .jumbotron h1 {\n    font-size: 50px;\n    font-weight: 100;\n    margin: 10px;\n    font-family: 'ProductSans_Regular';\n  }\n}\n\nsection.section-two {\n    margin: 20px 0px;\n    padding: 80px 0px;\n    background: #fafafa;\n}\n\nsection.section-two {\n    font-family: 'OpenSans_SemiBold';\n}\n\nsection.section-three {\n    padding: 80px 0px;\n}\n\nsection.section-three .jumbotron {\n    background: white;\n}\n\nsection.section-four {\n    padding: 110px 0px;\n    background-color: #3F51B5;\n}\n\nsection.section-five {\n    color: #fff;\n    padding: 110px 0px;\n    background-color: #4d83ff;\n}\n\nsection.section-six {\n    padding: 60px 0px;\n}\n\nsection.section-four .jumbotron {\n    text-align: center;\n    background: white;\n}\n\nsection.section-five .col-md-6 p.lead,\nsection.section-six .col-md-6 p.lead {\n    line-height: 30px;\n}\n\nsection.section-five .col-md-6,\nsection.section-six .col-md-6 {\n    text-align: center;\n}\n\nsection.section-four .row:nth-child(2),\nsection.section-four .row:nth-child(2) {\n    padding: 120px 0px;\n}\n\nsection.section-seven {\n    margin: 20px 0px;\n    padding: 80px 0px;\n}\n\nfooter.footer {\n    color: #fff;\n    background: #555;\n    padding: 35px 0px;\n    text-align: center;\n}\n\n.card-highlight {\n    color: #fff;\n    background-color: #4d83ff;\n}\n\n.card-highlight .card-title {\n    color: #fff;\n}\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInNyYy9hcHAvcGFnZXMvd2VsY29tZS1wYWdlL3dlbGNvbWUtcGFnZS5jb21wb25lbnQuY3NzIl0sIm5hbWVzIjpbXSwibWFwcGluZ3MiOiJBQUFBO0lBQ0ksVUFBVTtJQUNWLGNBQWM7SUFDZCxjQUFjO0lBQ2QsaUJBQWlCO0lBQ2pCLGtCQUFrQjtBQUN0Qjs7QUFFQTtJQUNJLGtCQUFrQjtJQUNsQixnQkFBZ0I7QUFDcEI7O0FBRUE7SUFDSSxtQkFBbUI7QUFDdkI7O0FBRUE7SUFDSSxlQUFlO0FBQ25COztBQUVBOzs7RUFHRTtJQUNFLGNBQWM7SUFDZCxnQkFBZ0I7SUFDaEIsbUJBQW1CO0VBQ3JCO0FBQ0Y7O0FBRUE7SUFDSSxpQkFBaUI7QUFDckI7O0FBRUE7SUFDSSxlQUFlO0lBQ2YsZ0JBQWdCO0lBQ2hCLFlBQVk7SUFDWixrQ0FBa0M7QUFDdEM7O0FBRUE7SUFDSSxtQkFBbUI7QUFDdkI7O0FBRUE7OztFQUdFO0lBQ0UsZUFBZTtJQUNmLGdCQUFnQjtJQUNoQixZQUFZO0lBQ1osa0NBQWtDO0VBQ3BDO0FBQ0Y7O0FBRUE7SUFDSSxnQkFBZ0I7SUFDaEIsaUJBQWlCO0lBQ2pCLG1CQUFtQjtBQUN2Qjs7QUFFQTtJQUNJLGdDQUFnQztBQUNwQzs7QUFFQTtJQUNJLGlCQUFpQjtBQUNyQjs7QUFFQTtJQUNJLGlCQUFpQjtBQUNyQjs7QUFFQTtJQUNJLGtCQUFrQjtJQUNsQix5QkFBeUI7QUFDN0I7O0FBRUE7SUFDSSxXQUFXO0lBQ1gsa0JBQWtCO0lBQ2xCLHlCQUF5QjtBQUM3Qjs7QUFFQTtJQUNJLGlCQUFpQjtBQUNyQjs7QUFFQTtJQUNJLGtCQUFrQjtJQUNsQixpQkFBaUI7QUFDckI7O0FBRUE7O0lBRUksaUJBQWlCO0FBQ3JCOztBQUVBOztJQUVJLGtCQUFrQjtBQUN0Qjs7QUFFQTs7SUFFSSxrQkFBa0I7QUFDdEI7O0FBRUE7SUFDSSxnQkFBZ0I7SUFDaEIsaUJBQWlCO0FBQ3JCOztBQUVBO0lBQ0ksV0FBVztJQUNYLGdCQUFnQjtJQUNoQixpQkFBaUI7SUFDakIsa0JBQWtCO0FBQ3RCOztBQUVBO0lBQ0ksV0FBVztJQUNYLHlCQUF5QjtBQUM3Qjs7QUFFQTtJQUNJLFdBQVc7QUFDZiIsImZpbGUiOiJzcmMvYXBwL3BhZ2VzL3dlbGNvbWUtcGFnZS93ZWxjb21lLXBhZ2UuY29tcG9uZW50LmNzcyIsInNvdXJjZXNDb250ZW50IjpbIi50b3AtbGV2ZWwge1xuICAgIHdpZHRoOiAzMCU7XG4gICAgZGlzcGxheTogYmxvY2s7XG4gICAgbWFyZ2luOiAwIGF1dG87XG4gICAgcGFkZGluZy10b3A6IDE4cHg7XG4gICAgdGV4dC1hbGlnbjogY2VudGVyO1xufVxuXG4udG9wLWxldmVsIC5uYXZpZ2F0aW9uIHtcbiAgICB0ZXh0LWFsaWduOiBjZW50ZXI7XG4gICAgbWFyZ2luLXRvcDogMTJweDtcbn1cblxuc2VjdGlvbi5zZWN0aW9uLW9uZSB7XG4gICAgbWFyZ2luLWJvdHRvbTogMTBweDtcbn1cblxuc2VjdGlvbi5zZWN0aW9uLW9uZSAubWFpbi1pY29uIHtcbiAgICBmb250LXNpemU6IDEyZW07XG59XG5cbkBtZWRpYSBvbmx5IHNjcmVlbiBcbmFuZCAobWluLWRldmljZS13aWR0aDogMzIwcHgpIFxuYW5kIChtYXgtZGV2aWNlLXdpZHRoOiA4MjVweCkge1xuICBzZWN0aW9uLnNlY3Rpb24tb25lIC5tYWluLWljb24ge1xuICAgIGZvbnQtc2l6ZTogOGVtO1xuICAgIG1hcmdpbi10b3A6IDE2cHg7XG4gICAgbWFyZ2luLWJvdHRvbTogMTZweDtcbiAgfVxufVxuXG5zZWN0aW9uLnNlY3Rpb24tb25lIC5qdW1ib3Ryb24ge1xuICAgIGJhY2tncm91bmQ6IHdoaXRlO1xufVxuXG5zZWN0aW9uLnNlY3Rpb24tb25lIC5qdW1ib3Ryb24gaDEge1xuICAgIGZvbnQtc2l6ZTogODBweDtcbiAgICBmb250LXdlaWdodDogMTAwO1xuICAgIG1hcmdpbjogMTBweDtcbiAgICBmb250LWZhbWlseTogJ1Byb2R1Y3RTYW5zX1JlZ3VsYXInO1xufVxuXG5zZWN0aW9uLnNlY3Rpb24tb25lIC5qdW1ib3Ryb24gLmxlYWQge1xuICAgIGxpbmUtaGVpZ2h0OiAxLjhyZW07XG59XG5cbkBtZWRpYSBvbmx5IHNjcmVlbiBcbmFuZCAobWluLWRldmljZS13aWR0aDogMzIwcHgpIFxuYW5kIChtYXgtZGV2aWNlLXdpZHRoOiA4MjVweCkge1xuICBzZWN0aW9uLnNlY3Rpb24tb25lIC5qdW1ib3Ryb24gaDEge1xuICAgIGZvbnQtc2l6ZTogNTBweDtcbiAgICBmb250LXdlaWdodDogMTAwO1xuICAgIG1hcmdpbjogMTBweDtcbiAgICBmb250LWZhbWlseTogJ1Byb2R1Y3RTYW5zX1JlZ3VsYXInO1xuICB9XG59XG5cbnNlY3Rpb24uc2VjdGlvbi10d28ge1xuICAgIG1hcmdpbjogMjBweCAwcHg7XG4gICAgcGFkZGluZzogODBweCAwcHg7XG4gICAgYmFja2dyb3VuZDogI2ZhZmFmYTtcbn1cblxuc2VjdGlvbi5zZWN0aW9uLXR3byB7XG4gICAgZm9udC1mYW1pbHk6ICdPcGVuU2Fuc19TZW1pQm9sZCc7XG59XG5cbnNlY3Rpb24uc2VjdGlvbi10aHJlZSB7XG4gICAgcGFkZGluZzogODBweCAwcHg7XG59XG5cbnNlY3Rpb24uc2VjdGlvbi10aHJlZSAuanVtYm90cm9uIHtcbiAgICBiYWNrZ3JvdW5kOiB3aGl0ZTtcbn1cblxuc2VjdGlvbi5zZWN0aW9uLWZvdXIge1xuICAgIHBhZGRpbmc6IDExMHB4IDBweDtcbiAgICBiYWNrZ3JvdW5kLWNvbG9yOiAjM0Y1MUI1O1xufVxuXG5zZWN0aW9uLnNlY3Rpb24tZml2ZSB7XG4gICAgY29sb3I6ICNmZmY7XG4gICAgcGFkZGluZzogMTEwcHggMHB4O1xuICAgIGJhY2tncm91bmQtY29sb3I6ICM0ZDgzZmY7XG59XG5cbnNlY3Rpb24uc2VjdGlvbi1zaXgge1xuICAgIHBhZGRpbmc6IDYwcHggMHB4O1xufVxuXG5zZWN0aW9uLnNlY3Rpb24tZm91ciAuanVtYm90cm9uIHtcbiAgICB0ZXh0LWFsaWduOiBjZW50ZXI7XG4gICAgYmFja2dyb3VuZDogd2hpdGU7XG59XG5cbnNlY3Rpb24uc2VjdGlvbi1maXZlIC5jb2wtbWQtNiBwLmxlYWQsXG5zZWN0aW9uLnNlY3Rpb24tc2l4IC5jb2wtbWQtNiBwLmxlYWQge1xuICAgIGxpbmUtaGVpZ2h0OiAzMHB4O1xufVxuXG5zZWN0aW9uLnNlY3Rpb24tZml2ZSAuY29sLW1kLTYsXG5zZWN0aW9uLnNlY3Rpb24tc2l4IC5jb2wtbWQtNiB7XG4gICAgdGV4dC1hbGlnbjogY2VudGVyO1xufVxuXG5zZWN0aW9uLnNlY3Rpb24tZm91ciAucm93Om50aC1jaGlsZCgyKSxcbnNlY3Rpb24uc2VjdGlvbi1mb3VyIC5yb3c6bnRoLWNoaWxkKDIpIHtcbiAgICBwYWRkaW5nOiAxMjBweCAwcHg7XG59XG5cbnNlY3Rpb24uc2VjdGlvbi1zZXZlbiB7XG4gICAgbWFyZ2luOiAyMHB4IDBweDtcbiAgICBwYWRkaW5nOiA4MHB4IDBweDtcbn1cblxuZm9vdGVyLmZvb3RlciB7XG4gICAgY29sb3I6ICNmZmY7XG4gICAgYmFja2dyb3VuZDogIzU1NTtcbiAgICBwYWRkaW5nOiAzNXB4IDBweDtcbiAgICB0ZXh0LWFsaWduOiBjZW50ZXI7XG59XG5cbi5jYXJkLWhpZ2hsaWdodCB7XG4gICAgY29sb3I6ICNmZmY7XG4gICAgYmFja2dyb3VuZC1jb2xvcjogIzRkODNmZjtcbn1cblxuLmNhcmQtaGlnaGxpZ2h0IC5jYXJkLXRpdGxlIHtcbiAgICBjb2xvcjogI2ZmZjtcbn0iXX0= */"
+module.exports = ".top-level {\n    width: 30%;\n    display: block;\n    margin: 0 auto;\n    padding-top: 18px;\n    text-align: center;\n}\n\n.top-level .navigation {\n    text-align: center;\n    margin-top: 12px;\n}\n\nsection.section-one {\n    margin-bottom: 10px;\n}\n\nsection.section-one .main-icon {\n    font-size: 12em;\n}\n\n@media only screen \nand (min-device-width: 320px) \nand (max-device-width: 825px) {\n  section.section-one .main-icon {\n    font-size: 8em;\n    margin-top: 16px;\n    margin-bottom: 16px;\n  }\n}\n\nsection.section-one .jumbotron {\n    background: white;\n}\n\nsection.section-one .jumbotron h1 {\n    font-size: 80px;\n    font-weight: 100;\n    margin: 10px;\n    font-family: 'ProductSans_Regular';\n}\n\nsection.section-one .jumbotron .lead {\n    line-height: 1.8rem;\n    font-weight: 400;\n}\n\n@media only screen \nand (min-device-width: 320px) \nand (max-device-width: 825px) {\n  section.section-one .jumbotron h1 {\n    font-size: 50px;\n    font-weight: 100;\n    margin: 10px;\n    font-family: 'ProductSans_Regular';\n  }\n}\n\nsection.section-two {\n    margin: 20px 0px;\n    padding: 80px 0px;\n    background: #fafafa;\n}\n\nsection.section-two {\n    font-family: 'OpenSans_SemiBold';\n}\n\nsection.section-three {\n    padding: 80px 0px;\n}\n\nsection.section-three .jumbotron {\n    background: white;\n}\n\nsection.section-four {\n    padding: 110px 0px;\n    background-color: #3F51B5;\n}\n\nsection.section-five {\n    color: #fff;\n    padding: 110px 0px;\n    background-color: #4d83ff;\n}\n\nsection.section-six {\n    padding: 60px 0px;\n}\n\nsection.section-four .jumbotron {\n    text-align: center;\n    background: white;\n}\n\nsection.section-five .col-md-6 p.lead,\nsection.section-six .col-md-6 p.lead {\n    line-height: 30px;\n}\n\nsection.section-five .col-md-6,\nsection.section-six .col-md-6 {\n    text-align: center;\n}\n\nsection.section-four .row:nth-child(2),\nsection.section-four .row:nth-child(2) {\n    padding: 120px 0px;\n}\n\nsection.section-seven {\n    margin: 20px 0px;\n    padding: 80px 0px;\n}\n\nfooter.footer {\n    color: #fff;\n    background: #555;\n    padding: 35px 0px;\n    text-align: center;\n}\n\n.card-highlight {\n    color: #fff;\n    background-color: #4d83ff;\n}\n\n.card-highlight .card-title {\n    color: #fff;\n}\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInNyYy9hcHAvcGFnZXMvd2VsY29tZS1wYWdlL3dlbGNvbWUtcGFnZS5jb21wb25lbnQuY3NzIl0sIm5hbWVzIjpbXSwibWFwcGluZ3MiOiJBQUFBO0lBQ0ksVUFBVTtJQUNWLGNBQWM7SUFDZCxjQUFjO0lBQ2QsaUJBQWlCO0lBQ2pCLGtCQUFrQjtBQUN0Qjs7QUFFQTtJQUNJLGtCQUFrQjtJQUNsQixnQkFBZ0I7QUFDcEI7O0FBRUE7SUFDSSxtQkFBbUI7QUFDdkI7O0FBRUE7SUFDSSxlQUFlO0FBQ25COztBQUVBOzs7RUFHRTtJQUNFLGNBQWM7SUFDZCxnQkFBZ0I7SUFDaEIsbUJBQW1CO0VBQ3JCO0FBQ0Y7O0FBRUE7SUFDSSxpQkFBaUI7QUFDckI7O0FBRUE7SUFDSSxlQUFlO0lBQ2YsZ0JBQWdCO0lBQ2hCLFlBQVk7SUFDWixrQ0FBa0M7QUFDdEM7O0FBRUE7SUFDSSxtQkFBbUI7SUFDbkIsZ0JBQWdCO0FBQ3BCOztBQUVBOzs7RUFHRTtJQUNFLGVBQWU7SUFDZixnQkFBZ0I7SUFDaEIsWUFBWTtJQUNaLGtDQUFrQztFQUNwQztBQUNGOztBQUVBO0lBQ0ksZ0JBQWdCO0lBQ2hCLGlCQUFpQjtJQUNqQixtQkFBbUI7QUFDdkI7O0FBRUE7SUFDSSxnQ0FBZ0M7QUFDcEM7O0FBRUE7SUFDSSxpQkFBaUI7QUFDckI7O0FBRUE7SUFDSSxpQkFBaUI7QUFDckI7O0FBRUE7SUFDSSxrQkFBa0I7SUFDbEIseUJBQXlCO0FBQzdCOztBQUVBO0lBQ0ksV0FBVztJQUNYLGtCQUFrQjtJQUNsQix5QkFBeUI7QUFDN0I7O0FBRUE7SUFDSSxpQkFBaUI7QUFDckI7O0FBRUE7SUFDSSxrQkFBa0I7SUFDbEIsaUJBQWlCO0FBQ3JCOztBQUVBOztJQUVJLGlCQUFpQjtBQUNyQjs7QUFFQTs7SUFFSSxrQkFBa0I7QUFDdEI7O0FBRUE7O0lBRUksa0JBQWtCO0FBQ3RCOztBQUVBO0lBQ0ksZ0JBQWdCO0lBQ2hCLGlCQUFpQjtBQUNyQjs7QUFFQTtJQUNJLFdBQVc7SUFDWCxnQkFBZ0I7SUFDaEIsaUJBQWlCO0lBQ2pCLGtCQUFrQjtBQUN0Qjs7QUFFQTtJQUNJLFdBQVc7SUFDWCx5QkFBeUI7QUFDN0I7O0FBRUE7SUFDSSxXQUFXO0FBQ2YiLCJmaWxlIjoic3JjL2FwcC9wYWdlcy93ZWxjb21lLXBhZ2Uvd2VsY29tZS1wYWdlLmNvbXBvbmVudC5jc3MiLCJzb3VyY2VzQ29udGVudCI6WyIudG9wLWxldmVsIHtcbiAgICB3aWR0aDogMzAlO1xuICAgIGRpc3BsYXk6IGJsb2NrO1xuICAgIG1hcmdpbjogMCBhdXRvO1xuICAgIHBhZGRpbmctdG9wOiAxOHB4O1xuICAgIHRleHQtYWxpZ246IGNlbnRlcjtcbn1cblxuLnRvcC1sZXZlbCAubmF2aWdhdGlvbiB7XG4gICAgdGV4dC1hbGlnbjogY2VudGVyO1xuICAgIG1hcmdpbi10b3A6IDEycHg7XG59XG5cbnNlY3Rpb24uc2VjdGlvbi1vbmUge1xuICAgIG1hcmdpbi1ib3R0b206IDEwcHg7XG59XG5cbnNlY3Rpb24uc2VjdGlvbi1vbmUgLm1haW4taWNvbiB7XG4gICAgZm9udC1zaXplOiAxMmVtO1xufVxuXG5AbWVkaWEgb25seSBzY3JlZW4gXG5hbmQgKG1pbi1kZXZpY2Utd2lkdGg6IDMyMHB4KSBcbmFuZCAobWF4LWRldmljZS13aWR0aDogODI1cHgpIHtcbiAgc2VjdGlvbi5zZWN0aW9uLW9uZSAubWFpbi1pY29uIHtcbiAgICBmb250LXNpemU6IDhlbTtcbiAgICBtYXJnaW4tdG9wOiAxNnB4O1xuICAgIG1hcmdpbi1ib3R0b206IDE2cHg7XG4gIH1cbn1cblxuc2VjdGlvbi5zZWN0aW9uLW9uZSAuanVtYm90cm9uIHtcbiAgICBiYWNrZ3JvdW5kOiB3aGl0ZTtcbn1cblxuc2VjdGlvbi5zZWN0aW9uLW9uZSAuanVtYm90cm9uIGgxIHtcbiAgICBmb250LXNpemU6IDgwcHg7XG4gICAgZm9udC13ZWlnaHQ6IDEwMDtcbiAgICBtYXJnaW46IDEwcHg7XG4gICAgZm9udC1mYW1pbHk6ICdQcm9kdWN0U2Fuc19SZWd1bGFyJztcbn1cblxuc2VjdGlvbi5zZWN0aW9uLW9uZSAuanVtYm90cm9uIC5sZWFkIHtcbiAgICBsaW5lLWhlaWdodDogMS44cmVtO1xuICAgIGZvbnQtd2VpZ2h0OiA0MDA7XG59XG5cbkBtZWRpYSBvbmx5IHNjcmVlbiBcbmFuZCAobWluLWRldmljZS13aWR0aDogMzIwcHgpIFxuYW5kIChtYXgtZGV2aWNlLXdpZHRoOiA4MjVweCkge1xuICBzZWN0aW9uLnNlY3Rpb24tb25lIC5qdW1ib3Ryb24gaDEge1xuICAgIGZvbnQtc2l6ZTogNTBweDtcbiAgICBmb250LXdlaWdodDogMTAwO1xuICAgIG1hcmdpbjogMTBweDtcbiAgICBmb250LWZhbWlseTogJ1Byb2R1Y3RTYW5zX1JlZ3VsYXInO1xuICB9XG59XG5cbnNlY3Rpb24uc2VjdGlvbi10d28ge1xuICAgIG1hcmdpbjogMjBweCAwcHg7XG4gICAgcGFkZGluZzogODBweCAwcHg7XG4gICAgYmFja2dyb3VuZDogI2ZhZmFmYTtcbn1cblxuc2VjdGlvbi5zZWN0aW9uLXR3byB7XG4gICAgZm9udC1mYW1pbHk6ICdPcGVuU2Fuc19TZW1pQm9sZCc7XG59XG5cbnNlY3Rpb24uc2VjdGlvbi10aHJlZSB7XG4gICAgcGFkZGluZzogODBweCAwcHg7XG59XG5cbnNlY3Rpb24uc2VjdGlvbi10aHJlZSAuanVtYm90cm9uIHtcbiAgICBiYWNrZ3JvdW5kOiB3aGl0ZTtcbn1cblxuc2VjdGlvbi5zZWN0aW9uLWZvdXIge1xuICAgIHBhZGRpbmc6IDExMHB4IDBweDtcbiAgICBiYWNrZ3JvdW5kLWNvbG9yOiAjM0Y1MUI1O1xufVxuXG5zZWN0aW9uLnNlY3Rpb24tZml2ZSB7XG4gICAgY29sb3I6ICNmZmY7XG4gICAgcGFkZGluZzogMTEwcHggMHB4O1xuICAgIGJhY2tncm91bmQtY29sb3I6ICM0ZDgzZmY7XG59XG5cbnNlY3Rpb24uc2VjdGlvbi1zaXgge1xuICAgIHBhZGRpbmc6IDYwcHggMHB4O1xufVxuXG5zZWN0aW9uLnNlY3Rpb24tZm91ciAuanVtYm90cm9uIHtcbiAgICB0ZXh0LWFsaWduOiBjZW50ZXI7XG4gICAgYmFja2dyb3VuZDogd2hpdGU7XG59XG5cbnNlY3Rpb24uc2VjdGlvbi1maXZlIC5jb2wtbWQtNiBwLmxlYWQsXG5zZWN0aW9uLnNlY3Rpb24tc2l4IC5jb2wtbWQtNiBwLmxlYWQge1xuICAgIGxpbmUtaGVpZ2h0OiAzMHB4O1xufVxuXG5zZWN0aW9uLnNlY3Rpb24tZml2ZSAuY29sLW1kLTYsXG5zZWN0aW9uLnNlY3Rpb24tc2l4IC5jb2wtbWQtNiB7XG4gICAgdGV4dC1hbGlnbjogY2VudGVyO1xufVxuXG5zZWN0aW9uLnNlY3Rpb24tZm91ciAucm93Om50aC1jaGlsZCgyKSxcbnNlY3Rpb24uc2VjdGlvbi1mb3VyIC5yb3c6bnRoLWNoaWxkKDIpIHtcbiAgICBwYWRkaW5nOiAxMjBweCAwcHg7XG59XG5cbnNlY3Rpb24uc2VjdGlvbi1zZXZlbiB7XG4gICAgbWFyZ2luOiAyMHB4IDBweDtcbiAgICBwYWRkaW5nOiA4MHB4IDBweDtcbn1cblxuZm9vdGVyLmZvb3RlciB7XG4gICAgY29sb3I6ICNmZmY7XG4gICAgYmFja2dyb3VuZDogIzU1NTtcbiAgICBwYWRkaW5nOiAzNXB4IDBweDtcbiAgICB0ZXh0LWFsaWduOiBjZW50ZXI7XG59XG5cbi5jYXJkLWhpZ2hsaWdodCB7XG4gICAgY29sb3I6ICNmZmY7XG4gICAgYmFja2dyb3VuZC1jb2xvcjogIzRkODNmZjtcbn1cblxuLmNhcmQtaGlnaGxpZ2h0IC5jYXJkLXRpdGxlIHtcbiAgICBjb2xvcjogI2ZmZjtcbn0iXX0= */"
 
 /***/ }),
 
@@ -12945,6 +13198,23 @@ var AccountService = /** @class */ (function () {
             });
         });
     };
+    AccountService.prototype.changeAccountPassword = function (user_id, password) {
+        var _this = this;
+        return new Promise(function (resolve, reject) {
+            var body = {
+                new_password: password,
+                new_password_confirmation: password
+            };
+            var url = _this.endpointService.apiHost + 'api/resetPassword/' + user_id;
+            _this.http.post(url, JSON.stringify(body), { headers: _this.headers }).subscribe(function (res) {
+                console.log('res: ' + JSON.stringify(res));
+                resolve(res);
+            }, function (err) {
+                console.log('err: ' + JSON.stringify(err));
+                reject(err);
+            });
+        });
+    };
     /**
      * Logs a user out.
      *
@@ -13031,6 +13301,20 @@ var AdminService = /** @class */ (function () {
         var _this = this;
         return new Promise(function (resolve, reject) {
             var url = _this.endpointService.apiHost + 'api/v1/getMerchantUsersByType/' + merchant_id + '/' + user_type;
+            _this.http.get(url, { headers: _this.headers }).subscribe(function (res) {
+                console.log('response: ' + JSON.stringify(res));
+                var response = res;
+                resolve(response.users.data);
+            }, function (err) {
+                console.log('error: ' + JSON.stringify(err));
+                reject(err);
+            });
+        });
+    };
+    AdminService.prototype.getAllUsersByBranch = function (user_type, branch_id) {
+        var _this = this;
+        return new Promise(function (resolve, reject) {
+            var url = _this.endpointService.apiHost + 'api/v1/getBranchUsersByType/' + branch_id + '/' + user_type;
             _this.http.get(url, { headers: _this.headers }).subscribe(function (res) {
                 console.log('response: ' + JSON.stringify(res));
                 var response = res;
@@ -15231,11 +15515,11 @@ var FrontDeskService = /** @class */ (function () {
             }
         });
     };
-    FrontDeskService.prototype.completeForm = function (code) {
+    FrontDeskService.prototype.completeForm = function (code, clientData) {
         var _this = this;
         return new Promise(function (resolve, reject) {
             var url = _this.endpointService.apiHost + 'api/v1/processSubmitForm/' + code + '/' + '2';
-            _this.http.post(url, {}, { headers: _this.headers }).subscribe(function (res) {
+            _this.http.post(url, JSON.stringify(clientData), { headers: _this.headers }).subscribe(function (res) {
                 console.log('res: ' + JSON.stringify(res));
                 resolve(res);
             }, function (err) {
@@ -15244,11 +15528,12 @@ var FrontDeskService = /** @class */ (function () {
             });
         });
     };
-    FrontDeskService.prototype.processForm = function (code) {
+    FrontDeskService.prototype.processForm = function (code, clientData) {
         var _this = this;
         return new Promise(function (resolve, reject) {
             var url = _this.endpointService.apiHost + 'api/v1/processSubmitForm/' + code + '/' + '1';
-            _this.http.post(url, {}, { headers: _this.headers }).subscribe(function (res) {
+            console.log('processForm: ' + JSON.stringify(clientData));
+            _this.http.post(url, JSON.stringify(clientData), { headers: _this.headers }).subscribe(function (res) {
                 console.log('res: ' + JSON.stringify(res));
                 resolve(res);
             }, function (err) {
@@ -15257,11 +15542,11 @@ var FrontDeskService = /** @class */ (function () {
             });
         });
     };
-    FrontDeskService.prototype.unprocessForm = function (code) {
+    FrontDeskService.prototype.unprocessForm = function (code, clientData) {
         var _this = this;
         return new Promise(function (resolve, reject) {
             var url = _this.endpointService.apiHost + 'api/v1/processSubmitForm/' + code + '/' + '0';
-            _this.http.post(url, {}, { headers: _this.headers }).subscribe(function (res) {
+            _this.http.post(url, JSON.stringify(clientData), { headers: _this.headers }).subscribe(function (res) {
                 console.log('res: ' + JSON.stringify(res));
                 resolve(res);
             }, function (err) {
@@ -15656,8 +15941,15 @@ var ListViewService = /** @class */ (function () {
         console.log('mode: ' + mode);
         return lodash__WEBPACK_IMPORTED_MODULE_1__["isNull"](mode) ? 'grid' : mode;
     };
+    ListViewService.prototype.getSortOrder = function () {
+        var order = localStorage.getItem('sort_order');
+        return lodash__WEBPACK_IMPORTED_MODULE_1__["isNull"](order) ? 'desc' : order;
+    };
     ListViewService.prototype.setDesiredViewMode = function (mode) {
         localStorage.setItem('view_mode', mode);
+    };
+    ListViewService.prototype.setSortOrder = function (order) {
+        localStorage.setItem('sort_order', order);
     };
     ListViewService = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_2__["Injectable"])({

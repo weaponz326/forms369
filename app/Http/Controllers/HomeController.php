@@ -1500,9 +1500,9 @@ class HomeController extends Controller
     *
     * @return \Illuminate\Http\Response success or error message
     */
-    protected function resetPassword(Request $request)
+    protected function resetPassword(Request $request, $id)
     {
-        $message = (new AuthController)->resetPassword($request);
+        $message = (new AuthController)->resetPassword($request, $id);
         return $message;
     }
     
