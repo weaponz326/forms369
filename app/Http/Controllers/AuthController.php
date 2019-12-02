@@ -32,7 +32,7 @@ class AuthController extends Controller
         //if access code does not exist, redirect to access code page
         if (empty($accesscode)) {
             //return redirect()->route('auth');
-            return response()->json(['message' => 'Np_access_code']);
+            return response()->json(['message' => 'No_access_code']);
 
         }else{
             $exist = DB::table('access')->where('accesscode', '=', $accesscode)->first();
