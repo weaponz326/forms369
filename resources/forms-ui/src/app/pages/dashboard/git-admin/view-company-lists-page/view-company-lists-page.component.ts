@@ -105,15 +105,20 @@ export class ViewCompanyListsPageComponent implements OnInit {
     this.router.navigateByUrl('/git_admin/create/company');
   }
 
-  edit(company: any) {
-    this.router.navigateByUrl('/git_admin/edit/company/' + company.id, { state: { company: company }});
+  edit(ev: any, company: any) {
+    ev.stopPropagation();
+    this.router.navigateByUrl('/git_admin/edit/company', { state: { company: company }});
   }
 
-  view(company: any) {
+  view(ev: any, company: any) {
+    ev.stopPropagation();
     this.router.navigateByUrl('/git_admin/details/company', { state: { company: company }});
   }
 
-  delete(id: string) {}
+  delete(ev: any, id: string) {
+    ev.stopPropagation();
+    console.log('delete company');
+  }
 
   checkIfHasMore() {
     return _.isEmpty(this.companyService.nextPaginationUrl) ? false : true;
