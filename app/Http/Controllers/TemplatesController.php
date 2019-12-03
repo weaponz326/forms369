@@ -50,8 +50,10 @@ class TemplatesController extends Controller
             );
 
             $message = 'Ok';
+            Log::channel('mysql')->info('User with id: ' . $userid .' successsfully created a new template');
 
         }catch(Exception $e) {
+            Log::channel('mysql')->error('User with id: ' . $userid .' unsuccesssfully created a new template');
             $message = "Failed";
         } 
             
@@ -101,9 +103,11 @@ class TemplatesController extends Controller
             );
 
             $message = 'Ok';
+            Log::channel('mysql')->info('User with id: ' . $userid .' successsfully editted a template with id: '. $id);
 
         }catch(Exception $e) {
             $message = "Failed";
+            Log::channel('mysql')->error('User with id: ' . $userid .' successsfully editted a template with id: '. $id);
         } 
             
         return response()->json([
@@ -195,6 +199,10 @@ class TemplatesController extends Controller
      */
     public function deleteTemplate(Request $request, $id)
     {
+        //get user deleting the template
+        $user = $request->user();
+        $userid = $user['id'];
+
         //delete a template 
         try {
             DB::table('templates')
@@ -202,8 +210,10 @@ class TemplatesController extends Controller
             ->delete();
 
             $message = 'Ok';
+            Log::channel('mysql')->info('User with id: ' . $userid .' successsfully deleted a template with id: '. $id);
 
         }catch(Exception $e) {
+            Log::channel('mysql')->error('User with id: ' . $userid .' unsuccesssfully deleted a template with id: '. $id);
             $message = "Failed";
         } 
             

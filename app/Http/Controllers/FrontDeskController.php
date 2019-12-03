@@ -293,10 +293,11 @@ class FrontDeskController extends Controller
                      'status' => $status
                  ]
              );
- 
+             Log::channel('mysql')->info('User with id: ' . $userid .' successsfully processed a form with code: '. $code . 'new status: '. $status);
              $message = 'Ok';
  
          }catch(Exception $e) {
+            Log::channel('mysql')->error('User with id: ' . $userid .' unsuccesssfully processed a form with code: '. $code);
              $message = "Failed";
          }   
  
