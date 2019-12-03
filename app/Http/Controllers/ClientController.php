@@ -124,7 +124,7 @@ class ClientController extends Controller
             );
 
             $message = 'Ok';
- 
+            
          }catch(Exception $e) {
              $message = "Failed";
          }   
@@ -148,8 +148,10 @@ class ClientController extends Controller
              );
  
              $message = 'Ok';
+             Log::channel('mysql')->info('Client  with id: ' . $id .' profile update successful');
  
          }catch(Exception $e) {
+            Log::channel('mysql')->error('Client  with id: ' . $id .' profile update unsuccessful');
              $message = "Failed";
          }   
  
@@ -214,10 +216,11 @@ class ClientController extends Controller
                  ]
              );
              
- 
+             Log::channel('mysql')->info('Client  with id: ' . $id .' successsfully submitted form with code: '. $code);
              $message = 'Ok';
  
          }catch(Exception $e) {
+            Log::channel('mysql')->error('Client  with id: ' . $id .' unsuccesssfully submitted form with code: '. $code);
              $message = "Failed";
          }   
  

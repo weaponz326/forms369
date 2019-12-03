@@ -36,7 +36,8 @@ return [
     'channels' => [
         'stack' => [
             'driver' => 'stack',
-            'channels' => ['daily'],
+            // 'channels' => ['daily'],
+            'channels' => ['mysql'],
             'ignore_exceptions' => false,
         ],
 
@@ -45,7 +46,11 @@ return [
             'path' => storage_path('logs/laravel.log'),
             'level' => 'debug',
         ],
-
+        'mysql' => [
+            'driver' => 'custom',
+            'via' => Logger\Laravel\Logging\MySQLLogger::class,
+            'name' => 'my.channel' // optional
+        ],
         'daily' => [
             'driver' => 'daily',
             'path' => storage_path('logs/laravel.log'),

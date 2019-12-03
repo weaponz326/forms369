@@ -15,6 +15,7 @@ use Session;
 use Auth;
 use Illuminate\Pagination\Paginator;
 use Illuminate\Support\Carbon;
+use Illuminate\Support\Facades\Log;
 
 class AuthController extends Controller
 {
@@ -48,7 +49,7 @@ class AuthController extends Controller
                 'token' => $token,
                 'expires_at' => $expires_at
             ];
-
+            Log::channel('mysql')->info('User  with id: ' . $id .' successfully verified 2-way authentication code');
             return response()->json($response, 200);
             
 
@@ -56,7 +57,7 @@ class AuthController extends Controller
             $response = [
                 'message' => "INVALID_CODE"
             ];
-
+            Log::channel('mysql')->error('User  with id: ' . $id .' provided an invalid 2-way authentication code');
             return response()->json($response, 400);
 
 
@@ -65,6 +66,7 @@ class AuthController extends Controller
             $response = [
                 'message' => "CODE_EXPIRED"
             ];
+            Log::channel('mysql')->error('User  with id: ' . $id .' provided an expired 2-way authentication code');
             return response()->json($response, 400);
         }
 
@@ -98,14 +100,14 @@ class AuthController extends Controller
                     'code_expire_at' => $expires_at 
                     
                 ]);
-    
+                Log::channel('mysql')->info('2-way authentication code successfully sent to user  with id: ' . $id);
                 return response()->json([
                     'id' => $id,
                     'phone' => $phone
                 ], 200);
     
             }catch(Exception $e) {
-                
+                Log::channel('mysql')->error('2-way authentication code unsuccessfully sent to user  with id: ' . $id);
                 return response()->json([
                     'message' => 'CLEINT_FAILED'
                 ], 400);
@@ -179,10 +181,11 @@ class AuthController extends Controller
         }
     }
     
+
   /**
     * Reset user password at first login
     * @param  mixed $request
-    *
+    * @param mixed $id of the user reseting their password
     * @return \Illuminate\Http\Response success or error message
     */
     public function resetPassword(Request $request, $id)
@@ -203,7 +206,8 @@ class AuthController extends Controller
                 'first_time' => 0
                 
             ]);
-
+            
+            Log::channel('mysql')->info('User  with id: ' . $id . ' password reset successful');
             Auth::logout();
 
             return response()->json([
@@ -211,7 +215,7 @@ class AuthController extends Controller
             ], 200);
 
         }catch(Exception $e) {
-            
+            Log::channel('mysql')->error('User  with id: ' . $id . ' password reset unsuccessful');
             return response()->json([
                 'message' => 'Failed'
             ], 400);
@@ -350,13 +354,14 @@ class AuthController extends Controller
         }
         
         if($message != "Ok"){
-
+            Log::channel('mysql')->error('New user  with id: ' . $id .' unsuccessfully created');
             DB::rollback();
             return response()->json([
                 'message' => $message
             ]);
            
         }elseif($message == 'Ok'){
+            Log::channel('mysql')->info('New user  with id: ' . $id .' successfully created');
             DB::commit();
             return response()->json([
                 'id' => $id
@@ -653,11 +658,18 @@ class AuthController extends Controller
             }
             
         }
-        
-        if($message != "Ok")
+        //get logged in user
+        $user = $request->user();
+        $userid = $user['id'];
+
+        if($message != "Ok"){
+            Log::channel('mysql')->error('User  with id: ' . $userid .' unsuccessfully edited user with id: '. $id);
             DB::rollback();
-        
-        DB::commit();
+
+        }else{
+            Log::channel('mysql')->info('User  with id: ' . $userid .' successfully edited user with id: '. $id);
+            DB::commit();
+        }
         
         return response()->json([
             'message' => $message
@@ -812,7 +824,9 @@ class AuthController extends Controller
 
         if($first_time){
             if($user_type != 26){
-                
+
+            Log::channel('mysql')->info('User  with id: ' . $id .' first time login');
+
                 $error_response = [
                     'message' => $id
                 ];
@@ -855,6 +869,7 @@ class AuthController extends Controller
 
         }elseif($user_type == 26)
         {
+            Log::channel('mysql')->info('Client with id: ' . $id .' login initiated');
             return $this->sendTwoWayAuthenticationCode($request, $id, $phone);
 
         }
@@ -872,7 +887,9 @@ class AuthController extends Controller
         $user->last_login_at = now();
         $user->last_login_ip=$request->getClientIp();
         $user->save();
-        
+
+        Log::channel('mysql')->info('User  with id: ' . $id .' successully logged in');
+
         $response = [
             'user' => $user,
             'token' => $token,
@@ -905,6 +922,8 @@ class AuthController extends Controller
         //get user and log user activity
         $user = $request->user();
         $id = $user['id'];
+
+        Log::channel('mysql')->info('User  with id: ' . $id .' successfully logged out');
 
         $user->token()->revoke();
 
@@ -993,10 +1012,11 @@ class AuthController extends Controller
                     'updated_at' => $updated_at
                 ]
             );
-
+            Log::channel('mysql')->info('User  with id: ' . $userid .' successfully disabled user with id: '. $id);
             $message = 'Ok';
 
         }catch(Exception $e) {
+            Log::channel('mysql')->error('User  with id: ' . $userid .' unsuccessfully disabled user with id: '. $id);
             $message = "Failed";
         } 
             
@@ -1031,10 +1051,11 @@ class AuthController extends Controller
                     'updated_at' => $updated_at
                 ]
             );
-
+            Log::channel('mysql')->info('User  with id: ' . $userid .' successfully enabled user with id: '. $id);
             $message = 'Ok';
 
         }catch(Exception $e) {
+            Log::channel('mysql')->error('User  with id: ' . $userid .' unsuccessfully enabled user with id: '. $id);
             $message = "Failed";
         } 
             

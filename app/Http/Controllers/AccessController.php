@@ -178,13 +178,14 @@ class AccessController extends Controller
                 ]
             );
 
-
+            Log::channel('mysql')->info('User  with id: ' . $userid .' successfully created an access code');
             $message = $access_code;
             return response()->json([
                 'code' => $message
             ]);
 
         }catch(Exception $e) {
+            Log::channel('mysql')->error('User  with id: ' . $userid .' unsuccessfully created an access code');
             $message = "Failed";
             return response()->json([
                 'message' => $message
@@ -204,6 +205,10 @@ class AccessController extends Controller
         $updated_at = now();
         $active = 0;
 
+         //get user creating the new access code
+         $user = $request->user();
+         $userid = $user['id'];
+
         //save new merchant in the database
         try {
             DB::table('access')
@@ -215,12 +220,14 @@ class AccessController extends Controller
                 ]
             );
 
+            Log::channel('mysql')->info('User  with id: ' . $userid .' successfully reactivated an access code');
             $message = 'Ok';
             return response()->json([
                 'message' => $message
             ], 200);
 
         }catch(Exception $e) {
+            Log::channel('mysql')->error('User  with id: ' . $userid .' unsuccessfully reactivated an access code');
             $message = "Failed";
             return response()->json([
                 'message' => $message
@@ -239,7 +246,10 @@ class AccessController extends Controller
 
         $updated_at = now();
         $active = 1;
-
+        //get user creating the new access code
+        $user = $request->user();
+        $userid = $user['id'];
+        
         //save new merchant in the database
         try {
             DB::table('access')
@@ -250,6 +260,7 @@ class AccessController extends Controller
                     'updated_at' => $updated_at
                 ]
             );
+            Log::channel('mysql')->info('User  with id: ' . $userid .' successfully deactivated an access code');
 
             $message = 'Ok';
             return response()->json([
@@ -257,6 +268,7 @@ class AccessController extends Controller
             ], 200);
 
         }catch(Exception $e) {
+            Log::channel('mysql')->error('User  with id: ' . $userid .' unsuccessfully deactivated an access code');
             $message = "Failed";
             return response()->json([
                 'message' => $message

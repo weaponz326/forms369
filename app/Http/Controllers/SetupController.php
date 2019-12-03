@@ -127,10 +127,11 @@ class SetupController extends Controller
                     'updated_at' => $created_at
                 ]
             );
-
+            Log::channel('mysql')->info('User with id: ' . $userid .' successsfully created new merchant with id: '. $id);
             $message = 'Ok';
 
         }catch(Exception $e) {
+            Log::channel('mysql')->error('User with id: ' . $userid .' unsuccesssfully created new merchant with id: '. $id);
             $message = "Failed";
         } 
             
@@ -216,8 +217,10 @@ class SetupController extends Controller
             );
 
             $message = 'Ok';
+            Log::channel('mysql')->info('User with id: ' . $userid .' successsfully editted merchant with id: '. $id);
 
         }catch(Exception $e) {
+            Log::channel('mysql')->error('User with id: ' . $userid .' unsuccesssfully editted merchant with id: '. $id);
             $message = "Failed";
         } 
             
@@ -294,8 +297,10 @@ class SetupController extends Controller
              );
 
             $message = 'Ok';
+            Log::channel('mysql')->info('User with id: ' . $userid .' successsfully created new branch with id: '. $id);
 
         }catch(Exception $e) {
+            Log::channel('mysql')->info('User with id: ' . $userid .' unsuccesssfully created new branch with id: '. $id);
             $message = "Failed";
         } 
             
@@ -374,8 +379,10 @@ class SetupController extends Controller
             ); 
 
             $message = 'Ok';
+            Log::channel('mysql')->info('User with id: ' . $userid .' successsfully editted branch with id: '. $id);
 
         }catch(Exception $e) {
+            Log::channel('mysql')->info('User with id: ' . $userid .' unsuccesssfully editted branch with id: '. $id);
             $message = "Failed";
         } 
             
@@ -419,8 +426,10 @@ class SetupController extends Controller
             );
 
             $message = 'Ok';
+            Log::channel('mysql')->info('User with id: ' . $userid .' successsfully created a new user type');
 
         }catch(Exception $e) {
+            Log::channel('mysql')->error('User with id: ' . $userid .' unsuccesssfully created a new user type');
             $message = "Failed";
         } 
             
@@ -467,8 +476,10 @@ class SetupController extends Controller
             );
 
             $message = 'Ok';
+            Log::channel('mysql')->info('User with id: ' . $userid .' successsfully editted a user type');
 
         }catch(Exception $e) {
+            Log::channel('mysql')->error('User with id: ' . $userid .' unsuccesssfully editted user type');
             $message = "Failed";
         } 
             
@@ -505,8 +516,10 @@ class SetupController extends Controller
             );
 
             $message = 'Ok';
+            Log::channel('mysql')->info('User with id: ' . $userid .' successsfully deleted a user type with id: '. $id);
 
         }catch(Exception $e) {
+            Log::channel('mysql')->error('User with id: ' . $userid .' unsuccesssfully deleted a user type with id: '. $id);
             $message = "Failed";
         } 
             

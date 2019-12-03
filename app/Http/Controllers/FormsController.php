@@ -59,10 +59,11 @@ class FormsController extends Controller
                     'temps' => $request->name
                 ]
             );
-
+            Log::channel('mysql')->info('User with id: ' . $userid .' successsfully created a form');
             $message = 'Ok';
 
         }catch(Exception $e) {
+            Log::channel('mysql')->error('User with id: ' . $userid .' unsuccesssfully created a form');
             $message = "Failed";
         } 
             
@@ -123,8 +124,9 @@ class FormsController extends Controller
             );
 
             $message = 'Ok';
-
+            Log::channel('mysql')->info('User with id: ' . $userid .' successsfully editted a form with code: '. $code);
         }catch(Exception $e) {
+            Log::channel('mysql')->error('User with id: ' . $userid .' unsuccesssfully editted a form with code: '. $code);
             $message = "Failed";
         } 
             
@@ -164,14 +166,15 @@ class FormsController extends Controller
             );
 
             $message = 'Ok';
+            Log::channel('mysql')->info('User with id: ' . $userid .' successsfully changed a form with code: '. $code. ' status to '. $status );
 
         }catch(Exception $e) {
             $message = "Failed";
         } 
-            
-        return response()->json([
-            'message' => $message
-        ]);
+            Log::channel('mysql')->error('User with id: ' . $userid .' successsfully changed a form with code: '. $code. ' status to '. $status );
+            return response()->json([
+                'message' => $message
+            ]);
     }
 
      /**
@@ -205,9 +208,11 @@ class FormsController extends Controller
                 ]
             );
 
+            Log::channel('mysql')->info('User with id: ' . $userid .' successsfully recovered a form with code: '. $code);
             $message = 'Ok';
 
         }catch(Exception $e) {
+            Log::channel('mysql')->error('User with id: ' . $userid .' unsuccesssfully recovered a form with code: '. $code);
             $message = "Failed";
         } 
             
@@ -247,8 +252,10 @@ class FormsController extends Controller
             );
 
             $message = 'Ok';
+            Log::channel('mysql')->info('User with id: ' . $userid .' successsfully deleted a form with code: '. $code);
 
         }catch(Exception $e) {
+            Log::channel('mysql')->error('User with id: ' . $userid .' unsuccesssfully deleted a form with code: '. $code);
             $message = "Failed";
         } 
             
@@ -580,8 +587,10 @@ class FormsController extends Controller
             );
 
             $message = 'Ok';
+            Log::channel('mysql')->info('User with id: ' . $userid .' successsfully created a form section');
 
         }catch(Exception $e) {
+            Log::channel('mysql')->error('User with id: ' . $userid .' unsuccesssfully created a form section');
             $message = "Failed";
         } 
             
@@ -631,8 +640,10 @@ class FormsController extends Controller
             );
 
             $message = 'Ok';
+            Log::channel('mysql')->info('User with id: ' . $userid .' successsfully editted a form section');
 
         }catch(Exception $e) {
+            Log::channel('mysql')->error('User with id: ' . $userid .' unsuccesssfully editted a form section');
             $message = "Failed";
         } 
             
@@ -684,6 +695,10 @@ class FormsController extends Controller
      */
     public function deleteSection(Request $request, $id)
     {
+        //get user creating the new merchant
+        $user = $request->user();
+        $userid = $user['id'];
+
         //delete a template 
         try {
             DB::table('sections')
@@ -691,8 +706,11 @@ class FormsController extends Controller
             ->delete();
 
             $message = 'Ok';
+            Log::channel('mysql')->info('User with id: ' . $userid .' successsfully deleted a form section');
 
         }catch(Exception $e) {
+            Log::channel('mysql')->error('User with id: ' . $userid .' unsuccesssfully deleted a form section');
+
             $message = "Failed";
         } 
             
