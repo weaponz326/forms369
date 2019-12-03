@@ -47,7 +47,7 @@ export class RegisterPageComponent implements OnInit {
       lastName: ['', Validators.required],
       country: ['', Validators.required],
       username: ['', Validators.required],
-      phone: ['', Validators.required],
+      phone: ['', [Validators.maxLength(20), Validators.required]],
       password: ['', [Validators.minLength(6), Validators.required]],
       emailAddress: ['', [Validators.email, Validators.required]]
     });
@@ -68,7 +68,7 @@ export class RegisterPageComponent implements OnInit {
     const username = this.f.username.value;
     const password = this.f.password.value;
 
-    const user = new Users(fname, lname, email, password, username, country, password, UserTypes.Client);
+    const user = new Users(fname, lname, email, password, username, country, phone, password, UserTypes.Client);
     return user;
   }
 

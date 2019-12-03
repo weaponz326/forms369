@@ -69,7 +69,7 @@ export class AdminRegisterPageComponent implements OnInit {
     const username = this.f.username.value;
     const password = this.f.password.value;
 
-    const user = new Users(fname, lname, email, password, username, country, password, UserTypes.GitAdmin);
+    const user = new Users(fname, lname, email, password, username, country, '', password, UserTypes.GitAdmin);
     return user;
   }
 

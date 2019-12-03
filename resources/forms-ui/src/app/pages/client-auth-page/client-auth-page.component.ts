@@ -4,6 +4,9 @@ import { Router } from '@angular/router';
 import { UserTypes } from 'src/app/enums/user-types.enum';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { AccountService } from 'src/app/services/account/account.service';
+import { ClientService } from 'src/app/services/client/client.service';
+import { Users } from 'src/app/models/users.model';
+import { LocalStorageService } from 'src/app/services/storage/local-storage.service';
 
 @Component({
   selector: 'app-client-auth-page',
@@ -13,13 +16,15 @@ import { AccountService } from 'src/app/services/account/account.service';
 export class ClientAuthPageComponent implements OnInit {
   form: FormGroup;
   loading: boolean;
-  invalid: boolean;
   submitted: boolean;
+  codeExpired: boolean;
+  invalidCode: boolean;
 
   constructor(
     private router: Router,
     private formBuilder: FormBuilder,
-    private accountService: AccountService
+    private clientService: ClientService,
+    private localStorage: LocalStorageService
   ) { }
 
   ngOnInit() {
@@ -36,6 +41,19 @@ export class ClientAuthPageComponent implements OnInit {
     });
   }
 
+  handleLoginErrorResponses(response: any) {
+    switch (response.message) {
+      case 'CODE_EXPIRED':
+        this.codeExpired = true;
+        break;
+      case 'INVALID_CODE':
+        this.invalidCode = true;
+        break;
+      default:
+        break;
+    }
+  }
+
   submit() {
     this.loading = true;
     this.submitted = true;
@@ -46,20 +64,27 @@ export class ClientAuthPageComponent implements OnInit {
     else {
       this.form.disable();
       const authCode = this.f.code.value;
-      this.accountService.verifyAccessCode(authCode).then(
-        valid => {
+      const id = sessionStorage.getItem('client_id');
+      const phone = sessionStorage.getItem('client_phone');
+      this.clientService.verifyAuthCode(id, authCode, phone).then(
+        res => {
           this.form.enable();
           this.loading = false;
-          if (valid) {
-            this.router.navigateByUrl('user_auth');
+          const response = res as any;
+          if (_.isUndefined(response.message)) {
+            const user = response.user as Users;
+            this.localStorage.token = response.token;
+            this.localStorage.saveUserInformation(user);
+            this.router.navigateByUrl('/client');
+          }
+          else {
+            this.handleLoginErrorResponses(response);
           }
         },
         err => {
           this.form.enable();
           this.loading = false;
-          if (err.error.message == 'Access code already used') {
-            this.invalid = true;
-          }
+          this.handleLoginErrorResponses(err.error);
         }
       );
     }

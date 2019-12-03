@@ -100,7 +100,8 @@ class AuthController extends Controller
                 ]);
     
                 return response()->json([
-                    'message' => 'CLIENT_SUCCESS'
+                    'id' => $id,
+                    'phone' => $phone
                 ], 200);
     
             }catch(Exception $e) {
@@ -854,7 +855,7 @@ class AuthController extends Controller
 
         }elseif($user_type == 26)
         {
-            $this->sendTwoWayAuthenticationCode($request, $id, $phone);
+            return $this->sendTwoWayAuthenticationCode($request, $id, $phone);
 
         }
 

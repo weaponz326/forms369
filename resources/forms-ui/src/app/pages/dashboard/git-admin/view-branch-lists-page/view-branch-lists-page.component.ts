@@ -106,15 +106,19 @@ export class ViewBranchListsPageComponent implements OnInit {
     this.router.navigateByUrl('git_admin/create/branch');
   }
 
-  edit(branch: any) {
+  edit(ev: any, branch: any) {
+    ev.stopPropagation();
     this.router.navigateByUrl('git_admin/edit/branch', { state: { branch: branch }});
   }
 
-  view(branch: any) {
+  view(ev: any, branch: any) {
+    ev.stopPropagation();
     this.router.navigateByUrl('git_admin/details/branch', { state: { branch: branch }});
   }
 
-  delete(id: string) {}
+  delete(ev: any, id: string) {
+    ev.stopPropagation();
+  }
 
   checkIfHasMore() {
     return _.isNull(this.branchService.nextPaginationUrl) ? false : true;

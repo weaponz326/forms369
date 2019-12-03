@@ -7,12 +7,21 @@
             <a routerLink="/" class="brand-logo">
               <img src="./assets/images/logo.png" alt="logo">
             </a>
-            <div *ngIf="invalid" class="mt-2 mb-5">
+            <div *ngIf="codeExpired" class="mt-2 mb-5">
               <div class="alert alert-danger" role="alert">
                 <h3 class="alert-heading">Hey there!</h3>
                 <p class="lead"><strong>This code has expired and is invalid</strong></p>
                 <hr>
-                <p class="mb-0 lead">Please contact your admin</p>
+                <p class="mb-0 lead">Please log in in again to get a new code.</p>
+              </div>
+            </div>
+
+            <div *ngIf="invalidCode" class="mt-2 mb-5">
+              <div class="alert alert-danger" role="alert">
+                <h3 class="alert-heading">Hey there!</h3>
+                <p class="lead"><strong>This code is invalid</strong></p>
+                <hr>
+                <p class="mb-0 lead">Please log in again to get a new code.</p>
               </div>
             </div>
 

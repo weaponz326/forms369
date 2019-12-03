@@ -114,15 +114,15 @@
                         <div class="card-text">
                           <h1 class="display-4 mb-4">{{ branch.branch_name }}</h1>
                           <div class="btn-group" role="group" aria-label="Basic example">
-                            <button type="button" class="btn btn-outline-secondary" (click)="edit(branch)">
+                            <button type="button" class="btn btn-outline-secondary" (click)="edit($event, branch)">
                               <i class="mdi mdi-pencil-outline"></i>
                               Edit
                             </button>
-                            <button type="button" class="btn btn-outline-secondary" (click)="view(branch)">
+                            <button type="button" class="btn btn-outline-secondary" (click)="view($event, branch)">
                               <i class="mdi mdi-pulse"></i>
                               View
                             </button>
-                            <button type="button" class="btn btn-outline-secondary" (click)="delete(branch.id)">
+                            <button type="button" class="btn btn-outline-secondary" (click)="delete($event, branch.id)">
                               <i class="mdi mdi-delete-outline"></i>
                               Delete
                             </button>
@@ -136,7 +136,7 @@
                 <div *ngIf="viewMode == 'list'" class="row">
                   <div class="list-group" style="width: 100%;">
                     <div class="list-group-item hover-cursor list-group-item-action animated fadeInDown" *ngFor="let branch of branchesList">
-                      <div class="row">
+                      <div class="row" (click)="openForms(branch.merchant_id)">
                         <div class="col-8">
                           <span class="card-title mt-2">{{ branch.merchant_name }}</span>
                           <h1 class="display-4 mb-1 mt-2">{{ branch.branch_name }}</h1>

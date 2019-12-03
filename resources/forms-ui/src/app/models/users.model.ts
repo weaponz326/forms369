@@ -6,6 +6,7 @@ export class Users {
         public password?: string,
         public username?: string,
         public country?: string,
+        public phone?: string,
         public password_confirmation?: string,
         public user_type?: number,
         public usertype?: number,
