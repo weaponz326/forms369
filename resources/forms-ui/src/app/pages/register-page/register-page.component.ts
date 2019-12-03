@@ -73,7 +73,7 @@ export class RegisterPageComponent implements OnInit {
   }
 
   register() {
-    console.log('yeh');
+    console.log('yeah');
     this.loading = true;
     this.submitted = true;
     if (this.form.invalid) {
@@ -95,7 +95,7 @@ export class RegisterPageComponent implements OnInit {
           else {
             this.form.enable();
             this.loading = false;
-            alert('an error occured');
+            console.log('an error occured');
           }
         },
         err => {

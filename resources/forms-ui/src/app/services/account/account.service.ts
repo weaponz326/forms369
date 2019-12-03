@@ -66,6 +66,13 @@ export class AccountService {
     });
   }
 
+  /**
+   * Verifies an access code.
+   *
+   * @param {string} access_code
+   * @returns {Promise<boolean>}
+   * @memberof AccountService
+   */
   verifyAccessCode(access_code: string): Promise<boolean> {
     return new Promise((resolve, reject) => {
       const url = this.endpointService.apiHost + 'api/ValidateAccessCode/' + access_code;
@@ -137,6 +144,13 @@ export class AccountService {
     });
   }
 
+  /**
+   * Gets and returns all existing access codes.
+   *
+   * @param {string} [page_url]
+   * @returns {Promise<any>}
+   * @memberof AccountService
+   */
   getAllAccessCodes(page_url?: string): Promise<any> {
     return new Promise((resolve, reject) => {
       const headers = this.endpointService.headers();
@@ -158,6 +172,14 @@ export class AccountService {
     });
   }
 
+  /**
+   * Returns a list of access codes based on their status.
+   *
+   * @param {string} status
+   * @param {string} [page_url]
+   * @returns {Promise<any>}
+   * @memberof AccountService
+   */
   getAllAccessCodeByStatus(status: string, page_url?: string): Promise<any> {
     return new Promise((resolve, reject) => {
       const headers = this.endpointService.headers();
@@ -286,11 +308,19 @@ export class AccountService {
     }
   }
 
-  getAllUsersByMerchant(merchnat_id: string, pagination_url?: string): Promise<any> {
+  /**
+   * Gets all users belonging to a specified merchant.
+   *
+   * @param {string} merchant_id
+   * @param {string} [pagination_url]
+   * @returns {Promise<any>}
+   * @memberof AccountService
+   */
+  getAllUsersByMerchant(merchant_id: string, pagination_url?: string): Promise<any> {
     return new Promise((resolve, reject) => {
       const url = !_.isUndefined(pagination_url)
         ? pagination_url
-        : this.endpointService.apiHost + 'api/v1/getAllUsersByMerchant/' + merchnat_id;
+        : this.endpointService.apiHost + 'api/v1/getAllUsersByMerchant/' + merchant_id;
       this.http.get(url, { headers: this.endpointService.headers() }).subscribe(
         res => {
           console.log('res: ' + JSON.stringify(res));
@@ -390,6 +420,14 @@ export class AccountService {
     });
   }
 
+  /**
+   * Updates a user's (NOT CLIENT USER) account password.
+   *
+   * @param {string} user_id
+   * @param {string} password
+   * @returns {Promise<any>}
+   * @memberof AccountService
+   */
   changeAccountPassword(user_id: string, password: string): Promise<any> {
     return new Promise((resolve, reject) => {
       const body = {

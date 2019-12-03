@@ -72,9 +72,16 @@ export class ClientAuthPageComponent implements OnInit {
           this.loading = false;
           const response = res as any;
           if (_.isUndefined(response.message)) {
+            // save user data locally.
             const user = response.user as Users;
             this.localStorage.token = response.token;
             this.localStorage.saveUserInformation(user);
+
+            // clear client data used to help with authentication.
+            sessionStorage.removeItem('client_id');
+            sessionStorage.removeItem('client_phone');
+
+            // open dashboard home
             this.router.navigateByUrl('/client');
           }
           else {

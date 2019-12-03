@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import * as _ from 'lodash';
 import { Router } from '@angular/router';
-import { UserTypes } from 'src/app/enums/user-types.enum';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { AccountService } from 'src/app/services/account/account.service';
 
