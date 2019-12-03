@@ -14,7 +14,7 @@ use Illuminate\Support\Facades\File;
 
 use Illuminate\Pagination\Paginator;
 use Illuminate\Contracts\Support\Jsonable;
-
+use Illuminate\Support\Facades\Log;
 class SetupController extends Controller
 {
     

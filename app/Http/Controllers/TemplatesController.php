@@ -9,7 +9,7 @@ use Illuminate\Support\Facades\Crypt;
 
 use DB;
 use Illuminate\Pagination\Paginator;
- 
+use Illuminate\Support\Facades\Log;
 class TemplatesController extends Controller
 {
     

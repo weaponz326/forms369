@@ -8,8 +8,10 @@ use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Crypt;
 
 use DB;
-
+use URL;
 use Illuminate\Pagination\Paginator;
+use App\Notifications\FormUrl;
+use Illuminate\Support\Facades\Log;
 class FormsController extends Controller
 {
     
@@ -47,7 +49,7 @@ class FormsController extends Controller
 
         //save new merchant in the database
         try {
-            DB::table('forms')->insert(
+            $id = DB::table('forms')->insertGetId(
                 [
                     'form_code' => $form_code, 
                     'name' => $name,
@@ -59,11 +61,31 @@ class FormsController extends Controller
                     'temps' => $request->name
                 ]
             );
-            Log::channel('mysql')->info('User with id: ' . $userid .' successsfully created a form');
+            $title = $request->name;
+            //sign form url 
+            $signedurl = URL::signedRoute('getFormViaLink', ['form_id' => $form_code]);
+            try {
+                DB::table('forms')
+                ->where('form_code',$form_code)
+                ->update(
+                    [
+                        'form_link' => $signedurl
+                    ]
+                );
+
+                //get the loggedin user 
+                $user = $request->user();
+                $user->notify(new FormUrl($id, $signedurl, $title, $form_code));
+
+            }catch(Exception $e) {
+               //nothing
+            }     
+
+            Log::channel('mysql')->info('User with id: ' . $userid .' successsfully created a form with id: '. $id);
             $message = 'Ok';
 
         }catch(Exception $e) {
-            Log::channel('mysql')->error('User with id: ' . $userid .' unsuccesssfully created a form');
+            Log::channel('mysql')->error('User with id: ' . $userid .' unsuccesssfully created a form with id: '. $id);
             $message = "Failed";
         } 
             
@@ -751,6 +773,48 @@ class FormsController extends Controller
          });
          $response = [
             'sections' => $sections
+        ];
+        return response()->json($response, 200);
+
+    }
+
+    /**
+     * getFormViaLink get all details of a form via the shared form link
+     *
+     * @param  mixed $request
+     * @param  mixed $code form code 
+     *
+     * @return void\Illuminate\Http\Response all details of a form
+     */
+    public function getFormViaLink(Request $request, $code){
+
+        //get all registered companies 
+        $getform = DB::table('forms')
+        ->join('merchants', 'merchants.id', '=', 'merchant_id')
+        ->select('forms.*','merchants.merchant_name AS merchant_name')
+        ->where('form_code', $code)
+        ->get();
+      
+        //clean data
+        $formdata = [];
+
+        $form = $getform->map(function($items){
+            $formdata['form_code'] = $items->form_code;
+            $formdata['name'] = Crypt::decryptString($items->name);
+            $formdata['status'] = $items->status;
+            $formdata['form_fields'] = json_decode(Crypt::decryptString($items->form_fields));
+            $formdata['merchant_id'] = $items->merchant_id;
+            $formdata['merchant_name'] = Crypt::decryptString($items->merchant_name);
+            $formdata['created_by'] = $items->created_by;
+            $formdata['created_at'] = $items->created_at;
+            $formdata['updated_at'] = $items->updated_at;
+            $formdata['updated_by'] = $items->updated_by;
+
+            return $formdata;
+         });
+
+         $response = [
+            'form' => $form
         ];
         return response()->json($response, 200);
 

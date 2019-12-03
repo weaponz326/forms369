@@ -7,7 +7,7 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Crypt;
 use Response;
 use Cookie;
-
+use Illuminate\Support\Facades\Log;
 class AccessController extends Controller
 {
  

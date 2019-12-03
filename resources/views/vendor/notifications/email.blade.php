@@ -6,7 +6,10 @@
 @if ($level === 'error')
 # @lang('Whoops!')
 @else
-# @lang('Hello!')
+@php 
+    $user = request()->user();
+    $open = 'Hello '. $user['firstname'] . '!';
+@endphp
 @endif
 @endif
 
@@ -44,7 +47,7 @@
 {{ $salutation }}
 @else
 @lang('Regards'),<br>
-{{ config('app.name') }}
+<h1>GIT</h1>
 @endif
 
 {{-- Subcopy --}}

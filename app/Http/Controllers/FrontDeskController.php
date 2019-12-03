@@ -7,6 +7,7 @@ use Illuminate\Support\Carbon;
 use DB;
 use Illuminate\Support\Facades\Crypt;
 use Illuminate\Pagination\Paginator;
+use Illuminate\Support\Facades\Log;
 class FrontDeskController extends Controller
 {
     /**

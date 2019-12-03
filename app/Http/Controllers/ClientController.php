@@ -8,7 +8,7 @@ use DB;
 use Illuminate\Support\Facades\Crypt;
 
 use Illuminate\Pagination\Paginator;
-
+use Illuminate\Support\Facades\Log;
 class ClientController extends Controller
 {
     

@@ -777,6 +777,21 @@ class HomeController extends Controller
         $message = (new FormsController)->storeForm($request);
         return $message;
     }  
+
+     /**
+      * Business logics
+     * getFormViaLink get all details of a form via the shared form link
+     *
+     * @param  mixed $request
+     * @param  mixed $code form code 
+     *
+     * @return void\Illuminate\Http\Response all details of a form
+     */
+    public function getFormViaLink(Request $request, $code)
+    {
+        $message = (new FormsController)->getFormViaLink($request, $code);
+        return $message;
+    }
     
     /**
      * Business logics to edit a form

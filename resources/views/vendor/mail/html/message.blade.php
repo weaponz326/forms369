@@ -2,7 +2,7 @@
     {{-- Header --}}
     @slot('header')
         @component('mail::header', ['url' => config('app.url')])
-            {{ config('app.name') }}
+            <img src="http://127.0.0.1:8000/logo.png" alt="GIT">
         @endcomponent
     @endslot
 
@@ -21,7 +21,9 @@
     {{-- Footer --}}
     @slot('footer')
         @component('mail::footer')
-            © {{ date('Y') }} {{ config('app.name') }}. @lang('All rights reserved.')
+            <h1 style="text-align:center">NEEP HELP?</h1>
+            contact us on: support@thegitlab.com
+           © {{ date('Y') }} GIT. @lang('All rights reserved.')
         @endcomponent
     @endslot
 @endcomponent

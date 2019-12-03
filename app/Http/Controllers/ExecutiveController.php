@@ -5,7 +5,7 @@ use Illuminate\Support\Carbon;
 use DB;
 use Illuminate\Support\Facades\Crypt;
 use Illuminate\Http\Request;
-
+use Illuminate\Support\Facades\Log;
 class ExecutiveController extends Controller
 {
     
