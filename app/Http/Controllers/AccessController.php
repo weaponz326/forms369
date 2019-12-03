@@ -290,19 +290,16 @@ class AccessController extends Controller
         {
             //Create a response instance
             $response = response([
-                'cook'=>'Hello World']);
-
-            //Call the withCookie() method with the response method
-            $response->withCookie(cookie('accesscode', $code, 525600));
+                'message'=>'Ok']);
 
             //deactivate access code in teg database 
             DB::table('access')->where('accesscode','=', $code)->update(['active' => 1]);
+            
+            //Call the withCookie() method with the response method
+            $response->withCookie(cookie('accesscode', $code, 525600));
 
-            //return success message
-            $message = "Ok";
-            return response()->json([
-                'message' => $message
-            ], 200); 
+            return $response;
+
         }elseif (isset($exist->id) && $exist->active ==1) 
         {
             //return error message if user entered an access code that has already been used
