@@ -144,6 +144,19 @@ export class AccountService {
     });
   }
 
+  getCountryDialCodes(): Promise<any> {
+    return new Promise((resolve, reject) => {
+      this.http.get('assets/countries_dial_codes.json').subscribe(
+        res => {
+          resolve(res);
+        },
+        err => {
+          reject(err);
+        }
+      );
+    });
+  }
+
   /**
    * Gets and returns all existing access codes.
    *

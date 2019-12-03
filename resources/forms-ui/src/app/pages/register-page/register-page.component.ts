@@ -18,6 +18,7 @@ export class RegisterPageComponent implements OnInit {
   loading: boolean;
   submitted: boolean;
   emailInUse: boolean;
+  countryDialCodes: Array<any>;
   countriesList: Array<ICountry>;
 
   constructor(
@@ -26,10 +27,12 @@ export class RegisterPageComponent implements OnInit {
     private countryPickerService: CountryPickerService
   ) {
     this.countriesList = [];
+    this.countryDialCodes = [];
   }
 
   ngOnInit() {
     this.countryPickerService.getCountries().subscribe(countries => { this.countriesList = countries; });
+    this.accountService.getCountryDialCodes().then(country_dial_codes => { this.countryDialCodes = country_dial_codes; });
     this.buildForm();
   }
 
@@ -47,6 +50,7 @@ export class RegisterPageComponent implements OnInit {
       lastName: ['', Validators.required],
       country: ['', Validators.required],
       username: ['', Validators.required],
+      dialCode: ['+233', Validators.required],
       phone: ['', [Validators.maxLength(20), Validators.required]],
       password: ['', [Validators.minLength(6), Validators.required]],
       emailAddress: ['', [Validators.email, Validators.required]]
@@ -65,10 +69,11 @@ export class RegisterPageComponent implements OnInit {
     const phone = this.f.phone.value;
     const email = this.f.emailAddress.value;
     const country = this.f.country.value;
+    const dCode = this.f.dialCode.value;
     const username = this.f.username.value;
     const password = this.f.password.value;
 
-    const user = new Users(fname, lname, email, password, username, country, phone, password, UserTypes.Client);
+    const user = new Users(fname, lname, email, password, username, country, dCode + phone, password, UserTypes.Client);
     return user;
   }
 
