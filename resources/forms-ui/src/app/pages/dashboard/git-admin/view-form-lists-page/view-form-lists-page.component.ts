@@ -97,11 +97,13 @@ export class ViewFormListsPageComponent implements OnInit {
     this.formsList = _.filter(this.allFormsList, (form) =>  form.status == 0);
   }
 
-  edit(form: any) {
+  edit(ev: Event, form: any) {
+    ev.stopPropagation();
     this.router.navigateByUrl('git_admin/edit/form', { state: { form: form }});
   }
 
-  view(form: any) {
+  view(ev: Event, form: any) {
+    ev.stopPropagation();
     this.router.navigateByUrl('/git_admin/details/form', { state: { form: form }});
   }
 
@@ -109,7 +111,9 @@ export class ViewFormListsPageComponent implements OnInit {
     this.router.navigateByUrl('/git_admin/setup_form');
   }
 
-  delete(id: string) {}
+  delete(ev: Event, id: string) {
+    ev.stopPropagation();
+  }
 
   checkIfHasMore() {
     return _.isNull(this.formService.nextPaginationUrl) ? false : true;

@@ -72,11 +72,13 @@ export class ViewSectionsPageComponent implements OnInit {
     this.sectionsList = _.sortBy(this.sectionsList, (item) => item.heading);
   }
 
-  edit(section: any) {
+  edit(ev: Event, section: any) {
+    ev.stopPropagation();
     this.router.navigateByUrl('git_admin/edit/section', { state: { form: section }});
   }
 
-  view(section: any) {
+  view(ev: Event, section: any) {
+    ev.stopPropagation();
     this.router.navigateByUrl('/git_admin/details/form', { state: { form: section } });
   }
 
@@ -84,7 +86,8 @@ export class ViewSectionsPageComponent implements OnInit {
     this.router.navigateByUrl('/git_admin/create/section');
   }
 
-  delete(id: string, index: number) {
+  delete(ev: Event, id: string, index: number) {
+    ev.stopPropagation();
     this.modalService.open(this.modalTemplateRef, { centered: true }).result.then((result) => {
       if (result == 'delete') {
         this.deleteSection(id, index);
