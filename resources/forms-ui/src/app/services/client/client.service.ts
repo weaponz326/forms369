@@ -129,12 +129,12 @@ export class ClientService {
 
   getAllSubmittedForms(id: string): Promise<any> {
     return new Promise((resolve, reject) => {
-      const url = this.endpointService.apiHost + 'api/v1/getAllsubmittedForms/' + id;
+      const url = this.endpointService.apiHost + 'api/v1/getClientSubmittedForms/' + id;
       this.http.get(url, { headers: this.headers }).subscribe(
         res => {
           console.log('submitted forms: ' + JSON.stringify(res));
           const response = res as any;
-          resolve(response.submitted_forms.data);
+          resolve(response.forms.data);
         },
         err => {
           console.log('error: ' + JSON.stringify(err));

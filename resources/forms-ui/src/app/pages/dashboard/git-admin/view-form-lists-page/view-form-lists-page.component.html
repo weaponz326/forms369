@@ -117,15 +117,15 @@
                         <div class="card-text">
                           <h1 class="display-4 mb-4">{{ form.name }}</h1>
                           <div class="btn-group" role="group" aria-label="Basic example">
-                            <button type="button" class="btn btn-outline-secondary" (click)="edit(form)">
+                            <button type="button" class="btn btn-outline-secondary" (click)="edit($event, form)">
                               <i class="mdi mdi-pencil-outline"></i>
                               Edit
                             </button>
-                            <button type="button" class="btn btn-outline-secondary" (click)="view(form)">
+                            <button type="button" class="btn btn-outline-secondary" (click)="view($event, form)">
                               <i class="mdi mdi-pulse"></i>
                               View
                             </button>
-                            <button type="button" class="btn btn-outline-secondary" (click)="delete(form.id)">
+                            <button type="button" class="btn btn-outline-secondary" (click)="delete($event, form.id)">
                               <i class="mdi mdi-delete-outline"></i>
                               Delete
                             </button>
@@ -146,15 +146,15 @@
                         </div>
                         <div class="col-4">
                           <div class="btn-group mt-2" role="group" aria-label="Basic example">
-                            <button type="button" class="btn btn-outline-secondary" (click)="edit(form)">
+                            <button type="button" class="btn btn-outline-secondary" (click)="edit($event, form)">
                               <i class="mdi mdi-pencil-outline"></i>
                               Edit
                             </button>
-                            <button type="button" class="btn btn-outline-secondary" (click)="view(form)">
+                            <button type="button" class="btn btn-outline-secondary" (click)="view($event, form)">
                               <i class="mdi mdi-pulse"></i>
                               View
                             </button>
-                            <button type="button" class="btn btn-outline-secondary" (click)="delete(form.id)">
+                            <button type="button" class="btn btn-outline-secondary" (click)="delete($event, form.id)">
                               <i class="mdi mdi-delete-outline"></i>
                               Delete
                             </button>
