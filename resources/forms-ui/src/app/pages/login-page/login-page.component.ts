@@ -17,9 +17,10 @@ export class LoginPageComponent implements OnInit {
   form: FormGroup;
   loading: boolean;
   created: boolean;
-  authFailed: boolean;
   submitted: boolean;
   notClient: boolean;
+  authFailed: boolean;
+  deactivated: boolean;
   userNotFound: boolean;
   notConfirmed: boolean;
   invalidPassword: boolean;
@@ -65,6 +66,9 @@ export class LoginPageComponent implements OnInit {
       case 'USER_NOT_FOUND':
         this.userNotFound = true;
         break;
+      case 'ACCOUNT_DEACTIVATED':
+        this.deactivated = true;
+        break;
       default:
         this.notClient = true;
         break;
@@ -75,6 +79,7 @@ export class LoginPageComponent implements OnInit {
     this.loading = true;
     this.submitted = true;
     this.authFailed = false;
+    this.deactivated = false;
     this.userNotFound = false;
     this.notConfirmed = false;
     this.invalidPassword = false;
@@ -91,15 +96,10 @@ export class LoginPageComponent implements OnInit {
           this.form.enable();
           this.loading = false;
           if (_.isUndefined(response.message)) {
-            console.log('ressssss: ' + response);
+            console.log('res: ' + response);
             sessionStorage.setItem('client_id', response.id);
             sessionStorage.setItem('client_phone', response.phone);
             this.router.navigateByUrl('client_auth');
-            // const user = response.user as Users;
-            // this.localStorageService.token = response.token;
-            // this.localStorageService.saveUserInformation(user);
-            // this.navigateToUserDashboard(user.usertype);
-            // this.handleTwoWayAuthentication(response.message);
           }
           else {
             this.handleLoginErrorResponses(response);

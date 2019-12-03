@@ -43,7 +43,7 @@
                         </button>
                       </div>
                     </div>
-                    <div class="row account-details ml-5 mt-5">
+                    <!-- <div class="row account-details ml-5 mt-5">
                       <div class="col-3 col-md-3 offset-1 offset-md-1">
                         <h5>First Name :</h5>
                       </div>
@@ -109,6 +109,69 @@
                       </div>
                       <div class="col-7 col-md-7">
                         <h5>{{ user.updated_at | date }}</h5>
+                      </div>
+                    </div> -->
+                    <div class="row account-details ml-5 mt-5">
+                      <div class="col-12">
+                        <div class="accordion mt-3" id="accordionExample">
+                          <div class="card">
+                            <div class="card-header" id="headingOne">
+                              <h2 class="mb-0">
+                                <button class="btn" type="button" data-toggle="collapse" data-target="#collapseOne"
+                                  aria-expanded="true" aria-controls="collapseOne">
+                                  User Account Details - {{ user.full_name }}
+                                </button>
+                              </h2>
+                            </div>
+                            <div id="collapseOne" class="collapse show" aria-labelledby="headingOne"
+                              data-parent="#accordionExample">
+                              <div class="card-body">
+                                <div class="table-responsive">
+                                  <table class="table table-hover">
+                                    <tbody>
+                                      <tr class="hover-cursor">
+                                        <td><strong>First Name</strong></td>
+                                        <td>{{ user.firstname }}</td>
+                                      </tr>
+                                      <tr class="hover-cursor">
+                                        <td><strong>Last Name</strong></td>
+                                        <td>{{ user.lastname }}</td>
+                                      </tr>
+                                      <tr class="hover-cursor">
+                                        <td><strong>Username</strong></td>
+                                        <td>{{ user.username }}</td>
+                                      </tr>
+                                      <tr class="hover-cursor">
+                                        <td><strong>Email Address</strong></td>
+                                        <td>{{ user.email }}</td>
+                                      </tr>
+                                      <tr class="hover-cursor">
+                                        <td><strong>Country</strong></td>
+                                        <td>{{ user.country }}</td>
+                                      </tr>
+                                      <tr class="hover-cursor">
+                                        <td><strong>User Type</strong></td>
+                                        <td>{{ accountType }}</td>
+                                      </tr>
+                                      <tr class="hover-cursor">
+                                        <td><strong>Last Login on</strong></td>
+                                        <td>{{ user.last_login_at | date:'medium' }}</td>
+                                      </tr>
+                                      <tr class="hover-cursor">
+                                        <td><strong>Create On</strong></td>
+                                        <td>{{ user.created_at | date }}</td>
+                                      </tr>
+                                      <tr class="hover-cursor">
+                                        <td><strong>Updated On</strong></td>
+                                        <td>{{ user.updated_at | date }}</td>
+                                      </tr>
+                                    </tbody>
+                                  </table>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
                       </div>
                     </div>
                   </div>

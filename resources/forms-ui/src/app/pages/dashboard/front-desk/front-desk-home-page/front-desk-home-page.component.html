@@ -49,13 +49,10 @@
                       <form [formGroup]="form" (ngSubmit)="submit()" class="submit-form">
                         <div class="form-group">
                           <input matInput type="text" autofocus formControlName="code" class="form-control large-form"
-                            placeholder="Enter Code Here..."
-                            [ngClass]="{'input-control-error': submitted && f.code.errors}">
+                            placeholder="Enter Code Here..." [ngClass]="{'input-control-error': submitted && f.code.errors}">
                           <div *ngIf="submitted && f.code.errors">
-                            <p class="input-error" *ngIf="f.code.errors.minlength">The entered code is not a valid
-                              submission code.</p>
-                            <p class="input-error" *ngIf="f.code.errors.maxlength">The entered code is not a valid
-                              submission code.</p>
+                            <p class="input-error" *ngIf="f.code.errors.minlength">The entered code is not a valid submission code.</p>
+                            <p class="input-error" *ngIf="f.code.errors.maxlength">The entered code is not a valid submission code.</p>
                             <p class="input-error" *ngIf="f.code.errors.required">Please enter the submission code</p>
                           </div>
                         </div>

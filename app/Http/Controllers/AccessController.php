@@ -294,6 +294,7 @@ class AccessController extends Controller
 
             //Call the withCookie() method with the response method
             $response->withCookie(cookie('accesscode', $code, 525600));
+            return $request->cookie('accesscode');
 
             //deactivate access code in teg database 
             DB::table('access')->where('accesscode','=', $code)->update(['active' => 1]);

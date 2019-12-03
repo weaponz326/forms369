@@ -23,7 +23,7 @@ export class ExecutiveHomePageComponent implements OnInit {
   totalNoSubmitted: string;
   totalNoProcessed: string;
   totalNoProcessing: string;
-  isBranchSuperExec: boolean;
+  // isBranchSuperExec: boolean;
 
   constructor(
     private router: Router,
@@ -36,7 +36,7 @@ export class ExecutiveHomePageComponent implements OnInit {
         if (res == 'ok') {
           this.firstname = this.localStorage.getUser().firstname;
           this.merchantId = toString(this.localStorage.getUser().merchant_id);
-          this.isBranchSuperExec = this.localStorage.getUser().user_type == UserTypes.BranchSuperExecutive ? true : false;
+          // this.isBranchSuperExec = this.localStorage.getUser().usertype == UserTypes.BranchSuperExecutive ? true : false;
         }
         else {
           this.router.navigateByUrl('auth');
