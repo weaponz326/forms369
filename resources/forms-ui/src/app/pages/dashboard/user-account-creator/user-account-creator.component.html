@@ -80,6 +80,14 @@
     </div>
   </div>
   <div class="form-group">
+    <input type="text" class="form-control form-control-lg" formControlName="phone" placeholder="Phone Number"
+      autocomplete="new-password" [ngClass]="{'input-control-error': submitted && f.phone.errors}">
+    <div *ngIf="submitted && f.phone.errors">
+      <p class="input-error" *ngIf="f.phone.errors.maxlength">Phone number must not exceed 20 characters</p>
+      <p class="input-error" *ngIf="f.phone.errors.required">Phone Number is required</p>
+    </div>
+  </div>
+  <div class="form-group">
     <select class="form-control form-control-lg" formControlName="country"
       [ngClass]="{'input-control-error': submitted && f.country.errors}" (change)="onCountrySelect($event)">
       <option value="" disabled>Country</option>

@@ -106,14 +106,17 @@ export class ViewSectionsPageComponent implements OnInit {
 
   getAllFormSections() {
     this.loading = true;
+    const sections_list = [];
     this.sectionService.getAllSections().then(
       res => {
         const sections = res as any;
         if (sections.length > 0) {
           this.hasNoData = false;
           _.forEach(sections, (section) => {
-            this.sectionsList.push(section);
+            sections_list.push(section);
           });
+
+          this.sectionsList = _.reverse(sections_list);
         }
         else {
           this.hasNoData = true;

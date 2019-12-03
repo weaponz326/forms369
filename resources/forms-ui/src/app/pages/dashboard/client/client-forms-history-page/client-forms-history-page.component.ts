@@ -35,6 +35,10 @@ export class ClientFormsHistoryPageComponent implements OnInit {
     this.router.navigateByUrl('/client/form_entry', { state: { form: form }});
   }
 
+  pickForm() {
+    this.router.navigateByUrl('/client/form_merchant');
+  }
+
   getAllHistory() {
     this.loading = true;
     this.clientService.getAllSubmittedForms(_.toString(this.user.id)).then(

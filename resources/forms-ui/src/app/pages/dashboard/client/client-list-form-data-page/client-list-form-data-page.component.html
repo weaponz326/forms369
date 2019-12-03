@@ -97,8 +97,6 @@
           <div class="col-lg-8 offset-lg-2 grid-margin stretch-card">
             <div class="card">
               <div class="card-body">
-                <h4 class="card-title">All My Data</h4>
-                <p class="card-description"></p>
                 <div class="card-text">
                   <div class="form-group" *ngFor="let item of allUserData | keyvalue">
                     <label><strong>{{ transformToRealText(item.key) | uppercase }}</strong></label>

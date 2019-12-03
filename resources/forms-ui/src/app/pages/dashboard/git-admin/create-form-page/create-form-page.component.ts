@@ -56,7 +56,6 @@ export class CreateFormPageComponent implements OnInit {
         });
 
         this.formCode = this.formBuilderService.generateUniqueFormCode();
-        alert('form Code: ' + this.formCode);
         this._loading = false;
       },
       error => {

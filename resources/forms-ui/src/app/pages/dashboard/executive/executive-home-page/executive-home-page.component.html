@@ -32,10 +32,10 @@
         </div>
         
         <div *ngIf="!loading" class="row mb-5 text-center pb-3">
-          <div class="col-10 offset-1">
+          <!-- <div class="col-10 offset-1">
             <div class="text-center">
               <form class="form-inline">
-                <div class="form-group">
+                <div *ngIf="isBranchSuperExec" class="form-group">
                   <select class="form-control form-control-lg" style="width: 220px;">
                     <option value="a">Select Company Branch</option>
                     <option value="a">Branch One</option>
@@ -69,7 +69,7 @@
                 <button type="submit" class="btn btn-outline-dark btn-lg ml-2">Filter</button>
               </form>
             </div>
-          </div>
+          </div> -->
         </div>
 
         <div *ngIf="!loading" class="row">
