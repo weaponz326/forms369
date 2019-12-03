@@ -10,7 +10,6 @@ import { BranchService } from 'src/app/services/branch/branch.service';
 })
 export class ViewBranchDetailsPageComponent implements OnInit {
 
-  id: string;
   branch: any;
   loading: boolean;
   _loading: boolean;
@@ -34,7 +33,7 @@ export class ViewBranchDetailsPageComponent implements OnInit {
 
   enableCompany() {
     this._loading = true;
-    this.branchService.enableBranch(this.id).then(
+    this.branchService.enableBranch(this.branch.id).then(
       res => {
         this.isActive = true;
         this._loading = false;
@@ -47,7 +46,7 @@ export class ViewBranchDetailsPageComponent implements OnInit {
 
   disableCompany() {
     this._loading = true;
-    this.branchService.disableBranch(this.id).then(
+    this.branchService.disableBranch(this.branch.id).then(
       res => {
         this.isActive = false;
         this._loading = false;

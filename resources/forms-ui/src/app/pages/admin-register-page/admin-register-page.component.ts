@@ -69,7 +69,7 @@ export class AdminRegisterPageComponent implements OnInit {
     const username = this.f.username.value;
     const password = this.f.password.value;
 
-    const user = new Users(fname, lname, email, password, username, country, password, UserTypes.GitAdmin);
+    const user = new Users(fname, lname, email, password, username, country, '', password, UserTypes.GitAdmin);
     return user;
   }
 
@@ -90,7 +90,7 @@ export class AdminRegisterPageComponent implements OnInit {
   }
 
   register() {
-    console.log('yeh');
+    console.log('yeah');
     this.loading = true;
     this.submitted = true;
     if (this.form.invalid) {
@@ -112,7 +112,7 @@ export class AdminRegisterPageComponent implements OnInit {
           else {
             this.form.enable();
             this.loading = false;
-            alert('an error occured');
+            console.log('an error occured');
           }
         },
         err => {

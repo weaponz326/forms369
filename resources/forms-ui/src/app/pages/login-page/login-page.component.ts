@@ -17,9 +17,9 @@ export class LoginPageComponent implements OnInit {
   form: FormGroup;
   loading: boolean;
   created: boolean;
+  authFailed: boolean;
   submitted: boolean;
   notClient: boolean;
-  deactivated: boolean;
   userNotFound: boolean;
   notConfirmed: boolean;
   invalidPassword: boolean;
@@ -59,9 +59,6 @@ export class LoginPageComponent implements OnInit {
       case 'EMAIL_NOT_CONFIRMED':
         this.notConfirmed = true;
         break;
-      case 'ACCOUNT_DEACTIVATED':
-        this.deactivated = true;
-        break;
       case 'INVALID_PASSWORD':
         this.invalidPassword = true;
         break;
@@ -74,37 +71,10 @@ export class LoginPageComponent implements OnInit {
     }
   }
 
-  navigateToUserDashboard(user_type: number) {
-    if (user_type == UserTypes.Client) {
-      this.router.navigateByUrl('/client');
-    }
-    else if (user_type == UserTypes.GitAdmin) {
-      this.router.navigateByUrl('/git_admin');
-    }
-    else if (user_type == UserTypes.BranchAdmin) {
-      this.router.navigateByUrl('/admin');
-    }
-    else if (user_type == UserTypes.BranchSuperExecutive) {
-      this.router.navigateByUrl('/executive');
-    }
-    else if (user_type == UserTypes.CompanyAdmin) {
-      this.router.navigateByUrl('/admin');
-    }
-    else if (user_type == UserTypes.FrontDesk) {
-      this.router.navigateByUrl('/front_desk');
-    }
-    else if (user_type == UserTypes.SuperExecutive) {
-      this.router.navigateByUrl('/executive');
-    }
-    else {
-      alert('unknown user type');
-    }
-  }
-
   login() {
     this.loading = true;
     this.submitted = true;
-    this.deactivated = false;
+    this.authFailed = false;
     this.userNotFound = false;
     this.notConfirmed = false;
     this.invalidPassword = false;
@@ -121,10 +91,15 @@ export class LoginPageComponent implements OnInit {
           this.form.enable();
           this.loading = false;
           if (_.isUndefined(response.message)) {
-            const user = response.user as Users;
-            this.localStorageService.token = response.token;
-            this.localStorageService.saveUserInformation(user);
-            this.navigateToUserDashboard(user.usertype);
+            console.log('ressssss: ' + response);
+            sessionStorage.setItem('client_id', response.id);
+            sessionStorage.setItem('client_phone', response.phone);
+            this.router.navigateByUrl('client_auth');
+            // const user = response.user as Users;
+            // this.localStorageService.token = response.token;
+            // this.localStorageService.saveUserInformation(user);
+            // this.navigateToUserDashboard(user.usertype);
+            // this.handleTwoWayAuthentication(response.message);
           }
           else {
             this.handleLoginErrorResponses(response);

@@ -96,9 +96,6 @@ export class AdminLoginPageComponent implements OnInit {
   }
 
   navigateToUserDashboard(user_type: number) {
-    if (user_type == UserTypes.Client) {
-      this.router.navigateByUrl('/login');
-    }
     if (user_type == UserTypes.GitAdmin) {
       this.router.navigateByUrl('/git_admin');
     }
@@ -118,7 +115,7 @@ export class AdminLoginPageComponent implements OnInit {
       this.router.navigateByUrl('/executive');
     }
     else {
-      alert('unknown user type');
+      // alert('unknown user type');
     }
   }
 
