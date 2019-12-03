@@ -7,7 +7,6 @@ import { HomePageComponent } from './pages/dashboard/git-admin/home-page/home-pa
 import { CreateFormPageComponent } from './pages/dashboard/git-admin/create-form-page/create-form-page.component';
 import { ClientHomePageComponent } from './pages/dashboard/client/client-home-page/client-home-page.component';
 import { ClientFormMerchantsPageComponent } from './pages/dashboard/client/client-form-merchants-page/client-form-merchants-page.component';
-import { ClientListBranchesPageComponent } from './pages/dashboard/client/client-list-branches-page/client-list-branches-page.component';
 import { ClientListFormsPageComponent } from './pages/dashboard/client/client-list-forms-page/client-list-forms-page.component';
 import { ClientListFormDataPageComponent } from './pages/dashboard/client/client-list-form-data-page/client-list-form-data-page.component';
 import { FrontDesktopHomePageComponent } from './pages/dashboard/front-desk/front-desk-home-page/front-desk-home-page.component';
@@ -256,10 +255,6 @@ const routes: Routes = [
       {
         path: 'form_merchant',
         component: ClientFormMerchantsPageComponent
-      },
-      {
-        path: 'branchs',
-        component: ClientListBranchesPageComponent
       },
       {
         path: 'forms',
