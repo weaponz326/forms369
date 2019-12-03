@@ -15,6 +15,7 @@ use Session;
 use Auth;
 use Illuminate\Pagination\Paginator;
 use Illuminate\Support\Carbon;
+use Illuminate\Support\Facades\Log;
 
 class AuthController extends Controller
 {
@@ -48,7 +49,7 @@ class AuthController extends Controller
                 'token' => $token,
                 'expires_at' => $expires_at
             ];
-
+            Log::channel('mysql')->info('User  with id: ' . $id .' successfully verified 2-way authentication code');
             return response()->json($response, 200);
             
 
@@ -56,7 +57,7 @@ class AuthController extends Controller
             $response = [
                 'message' => "INVALID_CODE"
             ];
-
+            Log::channel('mysql')->error('User  with id: ' . $id .' provided an invalid 2-way authentication code');
             return response()->json($response, 400);
 
 
@@ -65,6 +66,7 @@ class AuthController extends Controller
             $response = [
                 'message' => "CODE_EXPIRED"
             ];
+            Log::channel('mysql')->error('User  with id: ' . $id .' provided an expired 2-way authentication code');
             return response()->json($response, 400);
         }
 
@@ -356,6 +358,7 @@ class AuthController extends Controller
             ]);
            
         }elseif($message == 'Ok'){
+            Log::channel('mysql')->info('User  with id: ' . $id .' successfully created');
             DB::commit();
             return response()->json([
                 'id' => $id
