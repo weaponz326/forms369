@@ -1459,4 +1459,25 @@ class AuthController extends Controller
    
    }
 
+   /**
+     * getNumAllUsers get the number of all users
+     *
+     * @param  mixed $request
+     *
+     * @return int count of number of all registered users
+     */
+    public function getNumAllUsers(Request $request){
+
+        //get all registered companies 
+        $getusers = DB::table('users')
+        ->count();
+
+         $response = [
+            'num_users' => $getusers
+        ];
+        return response()->json($response, 200);
+   
+   }
+
+
 }

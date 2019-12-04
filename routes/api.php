@@ -37,6 +37,8 @@ Route::post('twoWayAuthenticationVerification/{id}/{code}/{phone}', 'HomeControl
 
 //protected routes 
 Route::group(['middleware' => ['auth:api'], 'prefix' => 'v1'], function(){
+    Route::get('getNumAllUsers', 'HomeController@getNumAllUsers')->name('getNumAllUsers')->middleware('scope:GIT_Admin');
+  
     Route::get('getFormViaLink/{id}', 'HomeController@getFormViaLink')->name('getFormViaLink')->middleware('signed');
 
     //use endpoints 
