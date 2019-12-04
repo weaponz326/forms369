@@ -4,6 +4,7 @@ import { Router } from '@angular/router';
 import { AnalyticsService } from 'src/app/services/analytics/analytics.service';
 import { LocalStorageService } from 'src/app/services/storage/local-storage.service';
 import { AccountService } from 'src/app/services/account/account.service';
+import { UserTypes } from 'src/app/enums/user-types.enum';
 
 @Component({
   selector: 'app-executive-home-page',
@@ -22,6 +23,7 @@ export class ExecutiveHomePageComponent implements OnInit {
   totalNoSubmitted: string;
   totalNoProcessed: string;
   totalNoProcessing: string;
+  // isBranchSuperExec: boolean;
 
   constructor(
     private router: Router,
@@ -34,6 +36,7 @@ export class ExecutiveHomePageComponent implements OnInit {
         if (res == 'ok') {
           this.firstname = this.localStorage.getUser().firstname;
           this.merchantId = toString(this.localStorage.getUser().merchant_id);
+          // this.isBranchSuperExec = this.localStorage.getUser().usertype == UserTypes.BranchSuperExecutive ? true : false;
         }
         else {
           this.router.navigateByUrl('auth');

@@ -136,7 +136,7 @@ export class ViewCompanyListsPageComponent implements OnInit {
           _.forEach(merchants, (company) => {
             company.logo = this.endpointService.storageHost + company.logo;
             this.companyList.push(company);
-            this.allCompanyList = _.reverse(this.companyList);
+            this.allCompanyList = this.companyList;
           });
         }
         else {

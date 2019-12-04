@@ -15,6 +15,7 @@ use Illuminate\Support\Facades\File;
 use Illuminate\Pagination\Paginator;
 use Illuminate\Contracts\Support\Jsonable;
 use Illuminate\Support\Facades\Log;
+use Response;
 class SetupController extends Controller
 {
     
@@ -51,7 +52,7 @@ class SetupController extends Controller
             if($upload)
             {
                 $logo = $url;
-                    return Response::json($url);
+                    // return Response::json($url);
             }else{
                 return Reponse::json('Logo upload unsuccessful');
             }

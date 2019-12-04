@@ -10,13 +10,11 @@
             <div *ngIf="created" class="mt-2 mb-5">
               <div class="alert alert-success" role="alert">
                 <h3 class="alert-heading">Welcome to GiT Forms!</h3>
-                <p class="lead">Hi {{ f.firstName.value }}, your account has been sucessfully created. An activation
-                  email has been sent to your email address.</p>
+                <p class="lead">Hi {{ f.firstName.value }}, your account has been sucessfully created.</p>
                 <hr>
-                <p class="mb-0 lead">Please check your email and click the activation link in the email. Thank You!</p>
+                <p class="mb-0 lead">Please click the login button below to login into your account!</p>
               </div>
-              <a role="button" href="/login"
-                class="btn btn-block btn-primary btn-lg font-weight-medium auth-form-btn">Log In</a>
+              <a role="button" href="/login" class="btn btn-block btn-primary btn-lg font-weight-medium auth-form-btn">Log In</a>
             </div>
 
             <div *ngIf="emailInUse" class="mt-2 mb-5">
@@ -29,12 +27,11 @@
                 <hr>
                 <p class="mb-0 lead">There is already an account with the email address you just provided</p>
               </div>
-              <a role="button" href="/login"
-                class="btn btn-block btn-primary btn-lg font-weight-medium auth-form-btn">Log In</a>
+              <a role="button" href="/login" class="btn btn-block btn-primary btn-lg font-weight-medium auth-form-btn">Log In</a>
             </div>
 
             <h4 *ngIf="!created">New here?</h4>
-            <h6 *ngIf="!created" class="font-weight-light">Signing up is easy. It only takes a few steps</h6>
+            <h6 *ngIf="!created" class="font-weight-normal">Signing up is easy. It only takes a few steps</h6>
             <form *ngIf="!created" [formGroup]="form" (ngSubmit)="register()" class="pt-3">
               <div class="form-group">
                 <select class="form-control form-control-lg" formControlName="userType"
@@ -85,6 +82,15 @@
                 <div *ngIf="submitted && f.emailAddress.errors">
                   <p class="input-error" *ngIf="f.emailAddress.errors.email">Must be a valid email address</p>
                   <p class="input-error" *ngIf="f.emailAddress.errors.required">Email address is required</p>
+                </div>
+              </div>
+              <div class="form-group">
+                <input type="text" class="form-control form-control-lg" formControlName="phone"
+                  placeholder="Phone Number" autocomplete="new-password"
+                  [ngClass]="{'input-control-error': submitted && f.phone.errors}">
+                <div *ngIf="submitted && f.phone.errors">
+                  <p class="input-error" *ngIf="f.phone.errors.maxlength">Phone number must not exceed 20 characters</p>
+                  <p class="input-error" *ngIf="f.phone.errors.required">Phone Number is required</p>
                 </div>
               </div>
               <div class="form-group">

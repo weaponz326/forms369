@@ -15,6 +15,7 @@ export class SideBarComponent implements OnInit {
   isExecutive: boolean;
   isFrontDesk: boolean;
   isBranchAdmin: boolean;
+  isBranchSuperExec: boolean;
 
   constructor(private localStorageService: LocalStorageService) {
     this.showSideBarMenu();
@@ -46,7 +47,7 @@ export class SideBarComponent implements OnInit {
         this.isExecutive = true;
         break;
       case UserTypes.BranchSuperExecutive:
-        this.isExecutive = true;
+        this.isBranchSuperExec = true;
         break;
       default:
         break;

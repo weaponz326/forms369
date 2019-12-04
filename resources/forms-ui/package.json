@@ -35,6 +35,7 @@
     "datatables.net-bs4": "^1.10.20",
     "formBuilder": "^3.2.5",
     "hammerjs": "^2.0.8",
+    "intl-tel-input": "^16.0.8",
     "jquery": "^3.4.1",
     "jquery-ui-sortable": "^1.0.0",
     "jqueryui": "^1.11.1",

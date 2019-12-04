@@ -50,6 +50,7 @@ export class AdminRegisterPageComponent implements OnInit {
       country: ['', Validators.required],
       username: ['', Validators.required],
       userType: ['', Validators.required],
+      phone: ['', [Validators.maxLength(20), Validators.required]],
       password: ['', [Validators.minLength(6), Validators.required]],
       emailAddress: ['', [Validators.email, Validators.required]]
     });
@@ -62,6 +63,7 @@ export class AdminRegisterPageComponent implements OnInit {
   }
 
   getFormData() {
+    const phone = this.f.phone.value;
     const lname = this.f.lastName.value;
     const fname = this.f.firstName.value;
     const email = this.f.emailAddress.value;
@@ -69,7 +71,7 @@ export class AdminRegisterPageComponent implements OnInit {
     const username = this.f.username.value;
     const password = this.f.password.value;
 
-    const user = new Users(fname, lname, email, password, username, country, '', password, UserTypes.GitAdmin);
+    const user = new Users(fname, lname, email, password, username, country, phone, password, UserTypes.GitAdmin);
     return user;
   }
 

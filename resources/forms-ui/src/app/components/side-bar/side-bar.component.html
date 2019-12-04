@@ -308,7 +308,7 @@
 <!-- /.front-desk -->
 
 <!-- executive -->
-<nav *ngIf="isExecutive" class="sidebar sidebar-offcanvas" id="sidebar">
+<nav *ngIf="isExecutive || isBranchSuperExec" class="sidebar sidebar-offcanvas" id="sidebar">
   <ul class="nav">
     <li class="nav-item">
       <a class="nav-link" routerLink="/executive">

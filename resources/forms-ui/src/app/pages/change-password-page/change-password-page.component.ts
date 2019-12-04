@@ -1,11 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import * as _ from 'lodash';
 import { Router } from '@angular/router';
-import { Users } from 'src/app/models/users.model';
-import { UserTypes } from 'src/app/enums/user-types.enum';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { AccountService } from 'src/app/services/account/account.service';
-import { LocalStorageService } from 'src/app/services/storage/local-storage.service';
 
 @Component({
   selector: 'app-change-password-page',
@@ -21,8 +18,7 @@ export class ChangePasswordPageComponent implements OnInit {
   constructor(
     private router: Router,
     private formBuilder: FormBuilder,
-    private accountService: AccountService,
-    private localStorageService: LocalStorageService
+    private accountService: AccountService
   ) { }
 
   ngOnInit() {
@@ -57,7 +53,7 @@ export class ChangePasswordPageComponent implements OnInit {
           this.loading = false;
           if (_.toLower(response.message) == 'ok') {
             sessionStorage.clear();
-            this.router.navigateByUrl('login');
+            this.router.navigateByUrl('user_auth');
           }
           else {
             this.invalid = true;

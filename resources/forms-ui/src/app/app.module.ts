@@ -12,7 +12,7 @@ import { NgxPageScrollCoreModule } from 'ngx-page-scroll-core';
 
 import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule} from '@angular/material/input';
-import { MatAutocompleteModule } from '@angular/material';
+import { MatAutocompleteModule, MatSelectModule } from '@angular/material';
 import { MatNativeDateModule } from '@angular/material/core';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { NgbModalModule, NgbAlertModule } from '@ng-bootstrap/ng-bootstrap';
@@ -193,6 +193,7 @@ import { ClientAuthPageComponent } from './pages/client-auth-page/client-auth-pa
     ReactiveFormsModule,
     MatIconModule,
     MatInputModule,
+    MatSelectModule,
     MatDatepickerModule,
     MatNativeDateModule,
     MatAutocompleteModule,

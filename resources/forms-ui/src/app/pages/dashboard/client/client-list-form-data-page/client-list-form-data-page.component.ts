@@ -79,7 +79,7 @@ export class ClientListFormDataPageComponent implements OnInit {
 
   transformToRealText(text: string) {
     if (_.includes(text, '-')) {
-      return _.replace(text, '-', ' ');
+      return text.replace(/-/g, ' ');
     }
     else if (_.includes(text, '_')) {
       return _.replace(text, '_', ' ');

@@ -50,3 +50,8 @@
 .autocomplete-small {
   margin-left: 25px;
 }
+
+.img-circle {
+  height: 150px !important;
+  width: 150px !important;
+}
