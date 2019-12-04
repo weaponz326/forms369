@@ -85,6 +85,19 @@ class HomeController extends Controller
         return $message;
     }
 
+     /**
+     * getNumAllUsers get the number of all users
+     *
+     * @param  mixed $request
+     *
+     * @return int count of number of all registered users
+     */
+    protected function getNumAllUsers(Request $request)
+    {
+        $message = (new AuthController)->getNumAllUsers($request);
+        return $message; 
+    }
+
     /**
      * send activation email to new user business logics 
      *
