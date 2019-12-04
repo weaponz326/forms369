@@ -1,3 +1,9 @@
+.banner {
+    background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url(./../../../assets/images/circle-pattern.jpg);
+    background-size: cover;
+    height: 100%;
+}
+
 .top-level {
     width: 30%;
     display: block;
@@ -20,7 +26,8 @@ section.section-one .main-icon {
 }
 
 section.section-one .jumbotron {
-    background: white;
+    background: inherit;
+    color: white;
 }
 
 section.section-one .jumbotron h1 {
@@ -42,21 +49,36 @@ section.section-two {
     background: #fafafa;
 }
 
-section.section-two {
-    font-family: 'ProductSans_Regular';
+section.section-two .jumbotron {
+    font-weight: 100;
+    /* font-family: 'ProductSans_Regular'; */
 }
 
 section.section-three {
     padding: 80px 0px;
+    background: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.7)), url('http://www.desktopwallpaperhd.net/wallpapers/0/7/desktop-background-vector-apple-wallpaper-71.jpg');
 }
 
 section.section-three .jumbotron {
-    background: white;
+    background: inherit;
+    color: white;
+}
+
+section.section-three .list-group-horizontal-lg .list-group-item:first-child {
+    border-top-left-radius: 3.25rem !important;
+}
+
+section.section-three .list-group-horizontal-lg .list-group-item:last-child {
+    border-bottom-right-radius: 3.25rem !important;
 }
 
 section.section-four {
     padding: 110px 0px;
     background-color: #3F51B5;
+}
+
+section.section-four .jumbotron i:first-child {
+    color: #3f50b5;
 }
 
 section.section-five {
@@ -72,6 +94,14 @@ section.section-six {
 section.section-four .jumbotron {
     text-align: center;
     background: white;
+}
+
+section.section-four .jumbotron p.lead {
+    line-height: 1.8rem;
+}
+
+section.section-five h3 {
+    font-family: 'ProductSans_Regular';
 }
 
 section.section-five .col-md-6 p.lead,
@@ -90,8 +120,14 @@ section.section-four .row:nth-child(2) {
 }
 
 section.section-seven {
-    margin: 20px 0px;
+    margin: 20px 0px 0px 0px;
     padding: 80px 0px;
+    background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('https://images2.alphacoders.com/813/thumb-1920-813690.png');
+}
+
+section.section-seven .container > .headings h1,
+section.section-seven .container > .headings p {
+    color: white;
 }
 
 footer.footer {

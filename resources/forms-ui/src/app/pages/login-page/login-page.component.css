@@ -10,3 +10,14 @@ p.lead {
     height: 50px;
     line-height: 1.2;
 }
+
+.content-wrapper {
+    background-size: cover;
+    background: linear-gradient(rgba(0,0,0,0.8), rgba(5,5,5,0.2)), url('https://www.freevector.com/uploads/vector/preview/30349/Abstract_background_vector_1.jpg') !important;
+}
+
+.auth .auth-form-light {
+    border-top-left-radius: 3.25em;
+    border-bottom-right-radius: 3.25em;
+    animation: pulse 10s;
+}

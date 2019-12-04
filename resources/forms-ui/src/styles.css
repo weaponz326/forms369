@@ -104,6 +104,22 @@ select.form-control {
     transition: background-color 0.4s ease-in;
 }
 
+.hover-transparent {
+    transition: background-color 0.4s ease-in;
+}
+
+.hover-transparent:hover {
+    background: #fff;
+    color: #000;
+    animation: pulse 10s;
+}
+
+.hover-transparent:hover p,
+.hover-transparent:hover p.text-muted,
+.hover-transparent:hover p.card-title {
+    color: #000 !important;
+}
+
 .hover-primary-inverse {
     transition: background-color 0.4s ease-out !important;
 }
