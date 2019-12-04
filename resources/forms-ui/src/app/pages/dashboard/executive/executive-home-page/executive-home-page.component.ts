@@ -36,6 +36,7 @@ export class ExecutiveHomePageComponent implements OnInit {
         if (res == 'ok') {
           this.firstname = this.localStorage.getUser().firstname;
           this.merchantId = toString(this.localStorage.getUser().merchant_id);
+          alert(this.merchantId);
           // this.isBranchSuperExec = this.localStorage.getUser().usertype == UserTypes.BranchSuperExecutive ? true : false;
         }
         else {

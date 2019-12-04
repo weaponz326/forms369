@@ -15,6 +15,7 @@
       "app",
       "camelCase"
     ],
+    "no-angle-bracket-type-assertion": false,
     "one-line": false,
     "triple-equals": false,
     "component-selector": [

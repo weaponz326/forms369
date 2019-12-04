@@ -72,6 +72,7 @@ import { ExecBranchesListPageComponent } from './pages/dashboard/executive/exec-
 import { ExecFormsListPageComponent } from './pages/dashboard/executive/exec-forms-list-page/exec-forms-list-page.component';
 import { ChangePasswordPageComponent } from './pages/change-password-page/change-password-page.component';
 import { ClientAuthPageComponent } from './pages/client-auth-page/client-auth-page.component';
+import { FormPrintingPageComponent } from './pages/dashboard/front-desk/form-printing-page/form-printing-page.component';
 
 const routes: Routes = [
   {
@@ -297,6 +298,10 @@ const routes: Routes = [
       {
         path: 'preview',
         component: FrontDeskPreviewFormPageComponent
+      },
+      {
+        path: 'print_form',
+        component: FormPrintingPageComponent
       },
       {
         path: 'lists',

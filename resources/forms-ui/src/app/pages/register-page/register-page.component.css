@@ -23,3 +23,8 @@ p.lead {
     border-top-right-radius: 3.10em;
     border-bottom-left-radius: 3.10em;
 }
+
+.mat-select-arrow {
+    border-left: 0px solid transparent !important;
+    border-right: 0px solid transparent !important;
+}

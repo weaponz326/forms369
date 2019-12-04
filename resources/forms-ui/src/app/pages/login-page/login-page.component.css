@@ -19,5 +19,4 @@ p.lead {
 .auth .auth-form-light {
     border-top-left-radius: 3.25em;
     border-bottom-right-radius: 3.25em;
-    animation: pulse 10s;
 }

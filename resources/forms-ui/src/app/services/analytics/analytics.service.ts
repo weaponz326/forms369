@@ -20,7 +20,7 @@ export class AnalyticsService {
    */
   getAllUsersCount(): Promise<any> {
     return new Promise((resolve, reject) => {
-      const url = this.endpointService.apiHost + 'api/v1/';
+      const url = this.endpointService.apiHost + 'api/v1/getNumAllUsers';
       this.http.get(url, { headers: this.headers }).subscribe(
         res => {
           console.log('users: ' + res);

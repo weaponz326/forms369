@@ -17,10 +17,12 @@ export class FrontDeskProcessingFormsListPageComponent implements OnInit {
   loading: boolean;
   hasError: boolean;
   processingFormsList: Array<any>;
-  loadingModalRef: NgbModalRef;
-  completedModalRef: NgbModalRef;
-  @ViewChild('loading', { static: false }) loadingModal: TemplateRef<any>;
-  @ViewChild('completed', { static: false }) completedModal: TemplateRef<any>;
+  // loadingModalRef: NgbModalRef;
+  // confirmModalRef: NgbModalRef;
+  // completedModalRef: NgbModalRef;
+  // @ViewChild('load', { static: false }) loadingModal: TemplateRef<any>;
+  // @ViewChild('confirm', { static: false }) confirmModal: TemplateRef<any>;
+  // @ViewChild('completed', { static: false }) completedModal: TemplateRef<any>;
 
   constructor(
     private router: Router,
@@ -41,13 +43,17 @@ export class FrontDeskProcessingFormsListPageComponent implements OnInit {
     this.router.navigateByUrl('/front_desk/view_form', { state: { form: form }});
   }
 
-  showLoadingDialog() {
-    this.loadingModalRef = this.modalService.open(this.loadingModal, { centered: true });
-  }
+  // showLoadingDialog() {
+  //   this.modalService.open(this.loadingModal, { centered: true });
+  // }
 
-  showConfirmDialog() {}
+  // showConfirmDialog() {
+  //   this.confirmModalRef = this.modalService.open(this.confirmModal, { centered: true });
+  // }
 
-  showCompletedDialog() {}
+  // showCompletedDialog() {
+  //   this.completedModalRef = this.modalService.open(this.completedModal, { centered: true });
+  // }
 
   showNotCompleteDialog() {}
 
@@ -76,43 +82,43 @@ export class FrontDeskProcessingFormsListPageComponent implements OnInit {
   }
 
   complete(submission_code: string) {
-    this.showLoadingDialog();
+    // this.showLoadingDialog();
     this.frontDeskService.completeForm(submission_code, '').then(
       res => {
         const response = res as any;
         if (_.toLower(response.message) == 'ok') {
-          this.loadingModalRef.close();
-          this.showCompletedDialog();
+          // this.loadingModalRef.close();
+          // this.showCompletedDialog();
         }
         else {
-          this.loadingModalRef.close();
+          // this.loadingModalRef.close();
           this.showNotCompleteDialog();
         }
       },
       err => {
-        this.loadingModalRef.close();
+        // this.loadingModalRef.close();
         this.showNotCompleteDialog();
       }
     );
   }
 
   unprocess(submission_code: string) {
-    this.showLoadingDialog();
+    // this.showLoadingDialog();
     this.frontDeskService.unprocessForm(submission_code, '').then(
       res => {
         const response = res as any;
         if (_.toLower(response.message) == 'ok') {
-          this.loadingModalRef.close();
-          this.showCompletedDialog();
+          // this.loadingModalRef.close();
+          // this.showCompletedDialog();
         }
         else {
-          this.loadingModalRef.close();
+          // this.loadingModalRef.close();
           this.showNotCompleteDialog();
         }
       },
       err => {
         this.hasError = true;
-        this.loadingModalRef.close();
+        // this.loadingModalRef.close();
         this.showNotCompleteDialog();
       }
     );

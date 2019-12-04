@@ -41,7 +41,7 @@
                 </p>
                 <div class="text-lg-center mt-5 mb-5">
                   <div class="card-text">
-                    <i class="mdi mdi-file-document-edit-outline" style="font-size: 8em;"></i>
+                    <i class="mdi mdi-file-check-outline" style="font-size: 8em;"></i>
                   </div>
                   <div class="card-text">
                     <h3>No Processed Forms</h3>
@@ -84,18 +84,25 @@
                   <table class="table table-hover">
                     <thead>
                       <tr>
-                        <th>Form Identifier</th>
-                        <th>Form Name.</th>
-                        <th>Submitted By</th>
-                        <th>Processed On</th>
+                        <th><strong>Code.</strong></th>
+                        <th><strong>Form Name</strong></th>
+                        <th><strong>Submitted By</strong></th>
+                        <th><strong>Processed On</strong></th>
+                        <th><strong>Action</strong></th>
                       </tr>
                     </thead>
                     <tbody>
                       <tr class="hover-cursor" *ngFor="let form of processedFormsList" (click)="open(form)">
-                        <td>{{ form.form_code }}</td>
+                        <td>{{ form.submission_code }}</td>
                         <td>{{ form.form_name }}</td>
                         <td>{{ form.client_name }}</td>
                         <td>{{ form.last_processed | date }}</td>
+                        <td>
+                          <button type="button" class="btn btn-light bg-white btn-icon"
+                            data-toggle="tooltip" data-placement="top" title="Print">
+                            <i class="mdi mdi-printer text-muted"></i>
+                          </button>
+                        </td>
                       </tr>
                     </tbody>
                   </table>

@@ -1,0 +1,21 @@
+<div class="container">
+    <p>form-printing-page works!</p>
+
+    <!-- Little trick to center the inputs to the viewer -->
+    <div class="form-container">
+      <form id="input-form" [formGroup]="myForm" novalidate>
+
+        <!-- Cycle through all the inputs -->
+        <div *ngFor="let input of inputList">
+
+          <!-- Insert an input accordingly and get the style/position from the component -->
+          <input type="text" [name]="input.name" [formControlName]="input.name" [value]="input.value"
+            [ngStyle]="getInputPosition(input)">
+
+        </div>
+      </form>
+    </div>
+    <pdf-viewer id="viewer" [render-text]="true" [render-text-mode]="1" [src]="pdfSrc"
+      (after-load-complete)="pdfFileLoadComplete($event)">
+    </pdf-viewer>
+</div>

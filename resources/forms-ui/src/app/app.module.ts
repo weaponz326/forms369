@@ -9,6 +9,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { AppRoutingModule } from './app-routing.module';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { NgxPageScrollCoreModule } from 'ngx-page-scroll-core';
+import { PdfViewerModule } from 'ng2-pdf-viewer';
 
 import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule} from '@angular/material/input';
@@ -97,6 +98,7 @@ import { ExecAccountsListPageComponent } from './pages/dashboard/executive/exec-
 import { ExecFormsListPageComponent } from './pages/dashboard/executive/exec-forms-list-page/exec-forms-list-page.component';
 import { ChangePasswordPageComponent } from './pages/change-password-page/change-password-page.component';
 import { ClientAuthPageComponent } from './pages/client-auth-page/client-auth-page.component';
+import { FormPrintingPageComponent } from './pages/dashboard/front-desk/form-printing-page/form-printing-page.component';
 
 @NgModule({
   declarations: [
@@ -179,6 +181,7 @@ import { ClientAuthPageComponent } from './pages/client-auth-page/client-auth-pa
     ExecFormsListPageComponent,
     ChangePasswordPageComponent,
     ClientAuthPageComponent,
+    FormPrintingPageComponent,
   ],
   imports: [
     BrowserModule,
@@ -187,6 +190,7 @@ import { ClientAuthPageComponent } from './pages/client-auth-page/client-auth-pa
     AppRoutingModule,
     OrderModule,
     ClipboardModule,
+    PdfViewerModule,
     NgbModule,
     NgbAlertModule,
     NgbModalModule,
