@@ -101,6 +101,7 @@ import { ClientAuthPageComponent } from './pages/client-auth-page/client-auth-pa
 import { FormPrintingPageComponent } from './pages/dashboard/front-desk/form-printing-page/form-printing-page.component';
 import { ForgotPasswordPageComponent } from './pages/forgot-password-page/forgot-password-page.component';
 import { FormPrintingDefaultPageComponent } from './pages/dashboard/front-desk/form-printing-default-page/form-printing-default-page.component';
+import { NotFoundPageComponent } from './pages/not-found-page/not-found-page.component';
 
 @NgModule({
   declarations: [
@@ -186,6 +187,7 @@ import { FormPrintingDefaultPageComponent } from './pages/dashboard/front-desk/f
     FormPrintingPageComponent,
     ForgotPasswordPageComponent,
     FormPrintingDefaultPageComponent,
+    NotFoundPageComponent,
   ],
   imports: [
     BrowserModule,

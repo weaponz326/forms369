@@ -1189,6 +1189,17 @@ module.exports = "<div class=\"container-scroller\">\n  <div class=\"container-f
 
 /***/ }),
 
+/***/ "./node_modules/raw-loader/index.js!./src/app/pages/not-found-page/not-found-page.component.html":
+/*!**********************************************************************************************!*\
+  !*** ./node_modules/raw-loader!./src/app/pages/not-found-page/not-found-page.component.html ***!
+  \**********************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = "<p>not-found-page works!</p>\n"
+
+/***/ }),
+
 /***/ "./node_modules/raw-loader/index.js!./src/app/pages/register-page/register-page.component.html":
 /*!********************************************************************************************!*\
   !*** ./node_modules/raw-loader!./src/app/pages/register-page/register-page.component.html ***!
@@ -1929,6 +1940,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _pages_dashboard_front_desk_form_printing_page_form_printing_page_component__WEBPACK_IMPORTED_MODULE_97__ = __webpack_require__(/*! ./pages/dashboard/front-desk/form-printing-page/form-printing-page.component */ "./src/app/pages/dashboard/front-desk/form-printing-page/form-printing-page.component.ts");
 /* harmony import */ var _pages_forgot_password_page_forgot_password_page_component__WEBPACK_IMPORTED_MODULE_98__ = __webpack_require__(/*! ./pages/forgot-password-page/forgot-password-page.component */ "./src/app/pages/forgot-password-page/forgot-password-page.component.ts");
 /* harmony import */ var _pages_dashboard_front_desk_form_printing_default_page_form_printing_default_page_component__WEBPACK_IMPORTED_MODULE_99__ = __webpack_require__(/*! ./pages/dashboard/front-desk/form-printing-default-page/form-printing-default-page.component */ "./src/app/pages/dashboard/front-desk/form-printing-default-page/form-printing-default-page.component.ts");
+/* harmony import */ var _pages_not_found_page_not_found_page_component__WEBPACK_IMPORTED_MODULE_100__ = __webpack_require__(/*! ./pages/not-found-page/not-found-page.component */ "./src/app/pages/not-found-page/not-found-page.component.ts");
+
 
 
 
@@ -2124,6 +2137,7 @@ AppModule = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
             _pages_dashboard_front_desk_form_printing_page_form_printing_page_component__WEBPACK_IMPORTED_MODULE_97__["FormPrintingPageComponent"],
             _pages_forgot_password_page_forgot_password_page_component__WEBPACK_IMPORTED_MODULE_98__["ForgotPasswordPageComponent"],
             _pages_dashboard_front_desk_form_printing_default_page_form_printing_default_page_component__WEBPACK_IMPORTED_MODULE_99__["FormPrintingDefaultPageComponent"],
+            _pages_not_found_page_not_found_page_component__WEBPACK_IMPORTED_MODULE_100__["NotFoundPageComponent"],
         ],
         imports: [
             _angular_platform_browser__WEBPACK_IMPORTED_MODULE_1__["BrowserModule"],
@@ -2612,7 +2626,8 @@ let AdminLoginPageComponent = class AdminLoginPageComponent {
         this.formBuilder = formBuilder;
         this.accountService = accountService;
         this.localStorageService = localStorageService;
-        this.checkAccessToLogin();
+        console.log('env: ' + "development");
+        // this.checkAccessToLogin();
     }
     ngOnInit() {
         this.buildForm();
@@ -12917,6 +12932,48 @@ LoginPageComponent = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
         styles: [__webpack_require__(/*! ./login-page.component.css */ "./src/app/pages/login-page/login-page.component.css")]
     })
 ], LoginPageComponent);
+
+
+
+/***/ }),
+
+/***/ "./src/app/pages/not-found-page/not-found-page.component.css":
+/*!*******************************************************************!*\
+  !*** ./src/app/pages/not-found-page/not-found-page.component.css ***!
+  \*******************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = "\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IiIsImZpbGUiOiJzcmMvYXBwL3BhZ2VzL25vdC1mb3VuZC1wYWdlL25vdC1mb3VuZC1wYWdlLmNvbXBvbmVudC5jc3MifQ== */"
+
+/***/ }),
+
+/***/ "./src/app/pages/not-found-page/not-found-page.component.ts":
+/*!******************************************************************!*\
+  !*** ./src/app/pages/not-found-page/not-found-page.component.ts ***!
+  \******************************************************************/
+/*! exports provided: NotFoundPageComponent */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "NotFoundPageComponent", function() { return NotFoundPageComponent; });
+/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm2015/core.js");
+
+
+let NotFoundPageComponent = class NotFoundPageComponent {
+    constructor() { }
+    ngOnInit() {
+    }
+};
+NotFoundPageComponent = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
+    Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Component"])({
+        selector: 'app-not-found-page',
+        template: __webpack_require__(/*! raw-loader!./not-found-page.component.html */ "./node_modules/raw-loader/index.js!./src/app/pages/not-found-page/not-found-page.component.html"),
+        styles: [__webpack_require__(/*! ./not-found-page.component.css */ "./src/app/pages/not-found-page/not-found-page.component.css")]
+    })
+], NotFoundPageComponent);
 
 
 
