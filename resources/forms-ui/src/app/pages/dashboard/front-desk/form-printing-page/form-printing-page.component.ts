@@ -1,6 +1,7 @@
 import { Component, OnInit, Input } from '@angular/core';
+import * as _ from 'lodash';
 import { PDFDocumentProxy } from 'ng2-pdf-viewer';
-import { PDFAnnotationData, PDFPageProxy } from 'pdfjs-dist';
+import { PDFAnnotationData, PDFPageProxy, PDFProgressData } from 'pdfjs-dist';
 import { FormGroup, FormControl, FormBuilder } from '@angular/forms';
 
 @Component({
@@ -17,19 +18,24 @@ export class FormPrintingPageComponent implements OnInit {
   hasError: boolean;
   myForm: FormGroup;
   inputList: Input[];
+  clientFormDetails: any[];
 
   constructor(private _fb: FormBuilder) {
     this.inputList = [];
     this.dpiRatio = 96 / 72;
     this.pdfSrc = 'https://forms369.com/test.pdf';
+    this.clientFormDetails = [];
   }
 
   ngOnInit() {
     this.myForm = this._fb.group({});
   }
 
-  onProgress() {
+  onProgress(progressData: PDFProgressData) {
     this.loading = true;
+    if (progressData.loaded) {
+      this.loading = false;
+    }
   }
 
   onError() {
@@ -37,29 +43,40 @@ export class FormPrintingPageComponent implements OnInit {
     this.hasError = true;
   }
 
-  private createInput(annotation: any, rect: number[] = null) {
-    const formControl = new FormControl(annotation.buttonValue || '');
+  fieldNamesMatch(pdfFieldName: string, clientFieldName: string) {
+    return pdfFieldName == clientFieldName ? true : false;
+  }
 
+  fieldTypesMatch(pdfFieldType: string, clientFieldType: string) {
+    return pdfFieldType == clientFieldType ? true : false;
+  }
+
+  private createInput(annotation: any, rect: number[] = null) {
     const input = new Input();
+    const formControl = new FormControl(annotation.buttonValue || '');
+    const clientDataKeys = _.keys(this.form.client_submitted_details);
     input.name = annotation.fieldName;
 
-    if (annotation.fieldType === 'Tx') {
-        if (annotation.fieldName == 'surname') {
+    // match client data to the corresponding form field on the pdf form.
+    _.forEach(clientDataKeys, (key, i) => {
+      if (annotation.fieldType === 'Tx') {
+
+        // check if field names match
+        if (this.fieldNamesMatch(annotation.fieldName, key)) {
+
+          // set the client data to this field
           input.type = 'text';
-          input.value = 'Addo';
+          input.value = this.form.client_submitted_details[key];
         }
-        else {
-          input.type = 'text';
-          input.value = 'Ralph Marvin';
-        }
-    }
+      }
+    });
 
     // Calculate all the positions and sizes
     if (rect) {
-        input.top = rect[1] - (rect[1] - rect[3]);
-        input.left = rect[0];
-        input.height = (rect[1] - rect[3]);
-        input.width = (rect[2] - rect[0]);
+      input.top = rect[1] - (rect[1] - rect[3]);
+      input.left = rect[0];
+      input.height = (rect[1] - rect[3]);
+      input.width = (rect[2] - rect[0]);
     }
 
     this.inputList.push(input);
@@ -69,10 +86,6 @@ export class FormPrintingPageComponent implements OnInit {
   addInput(annotation: any, rect: number[] = null) {
     console.log(annotation);
     this.myForm.addControl(annotation.fieldName, this.createInput(annotation, rect));
-    if (annotation.fieldName == 'surname') {
-      console.log('found');
-      annotation.fieldValue = 'Ralph';
-    }
   }
 
   pdfFileLoadComplete(pdf: PDFDocumentProxy) {
@@ -103,16 +116,14 @@ export class FormPrintingPageComponent implements OnInit {
           });
       });
     }
-
-    this.loading = false;
   }
 
   public getInputPosition(input: any): any {
     return {
-        top: `${input.top}px`,
-        left: `${input.left}px`,
-        height: `${input.height}px`,
-        width: `${input.width}px`,
+      top: `${input.top}px`,
+      left: `${input.left}px`,
+      height: `${input.height}px`,
+      width: `${input.width}px`,
     };
   }
 

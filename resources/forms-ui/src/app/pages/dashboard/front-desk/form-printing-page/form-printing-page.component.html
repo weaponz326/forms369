@@ -4,13 +4,12 @@
       <div class="spinner-border m-5" style="width: 5rem; height: 5rem;" role="status">
         <span class="sr-only">Loading...</span>
       </div>
-      
     </div>
     <p>Processing data. Please wait ...</p>
   </div>
 </div>
 
-<div *ngIf="!loading" class="container">
+<div class="container">
   <!-- Little trick to center the inputs to the viewer -->
   <div class="form-container">
     <form id="input-form" [formGroup]="myForm" novalidate>
@@ -24,15 +23,16 @@
           [formControlName]="input.name" 
           [value]="input.value"
           [ngStyle]="getInputPosition(input)">
-
       </div>
     </form>
   </div>
+
+  <!-- Pdf Viewer -->
   <pdf-viewer
     id="viewer"
     [src]="pdfSrc"
     (error)="onError($event)"
     (on-progress)="onProgress($event)"
     (after-load-complete)="pdfFileLoadComplete($event)">
-  </pdf-viewerid="viewer">
+  </pdf-viewer>
 </div>

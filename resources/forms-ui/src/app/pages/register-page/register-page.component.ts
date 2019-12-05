@@ -14,10 +14,11 @@ import { AccountService } from 'src/app/services/account/account.service';
 export class RegisterPageComponent implements OnInit {
 
   form: FormGroup;
+  error: string;
   created: boolean;
   loading: boolean;
   submitted: boolean;
-  emailInUse: boolean;
+  dynamicError: boolean;
   countryDialCodes: Array<any>;
   countriesList: Array<ICountry>;
 
@@ -96,10 +97,27 @@ export class RegisterPageComponent implements OnInit {
     return user;
   }
 
+  handleLaravelErrors(e: any) {
+    if (e.errors.username) {
+      console.log('ok');
+      this.error = e.errors.username;
+      this.dynamicError = true;
+    }
+    else if (e.errors.email) {
+      this.error = e.errors.email;
+      this.dynamicError = true;
+    }
+    else if (e.errors.password) {
+      this.error = e.errors.password;
+      this.dynamicError = true;
+    }
+  }
+
   register() {
     console.log('yeah');
     this.loading = true;
     this.submitted = true;
+    this.dynamicError = false;
     if (this.form.invalid) {
       this.form.enable();
       this.loading = false;
@@ -126,7 +144,8 @@ export class RegisterPageComponent implements OnInit {
           err => {
             this.form.enable();
             this.loading = false;
-            console.log(err);
+            console.log(JSON.stringify(err));
+            this.handleLaravelErrors(err.error);
           }
         );
       }

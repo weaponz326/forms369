@@ -19,17 +19,14 @@
               <a role="button" routerLink="/login" class="btn btn-block btn-primary btn-lg font-weight-medium auth-form-btn">Log In</a>
             </div>
 
-            <div *ngIf="emailInUse" class="mt-2 mb-5">
-              <div class="alert alert-success alert-dismissible fade show" role="alert">
+            <div *ngIf="dynamicError" class="mt-2 mb-5">
+              <div class="alert alert-danger alert-dismissible fade show" role="alert">
                 <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                   <span aria-hidden="true">&times;</span>
                 </button>
                 <h3 class="alert-heading">Hey there!</h3>
-                <p class="lead"><strong>Email Address </strong> is already in use</p>
-                <hr>
-                <p class="mb-0 lead">There is already an account with the email address you just provided.</p>
+                <p class="lead"><strong>{{ error }}</strong></p>
               </div>
-              <a role="button" routerLink="/login" class="btn btn-block btn-primary btn-lg font-weight-medium auth-form-btn">Log In</a>
             </div>
 
             <h4 *ngIf="!created">New here?</h4>
