@@ -107,7 +107,18 @@ class ClientController extends Controller
         $updated_at = now();
         $name = $firstname . ' ' . $lastname;
         $country = $request->country;
-        
+
+        //get user and check if new email and uniqueness
+        $getclient = DB::table('users')
+        ->where('id', $id)
+        ->first();
+
+        if($getclient->email != $email){
+            $this->validate($request, [
+                'email'=>'required|email|unique:users'
+            ]);
+        }
+
         try {
             //edit user in the in the users table
             DB::table('users')
