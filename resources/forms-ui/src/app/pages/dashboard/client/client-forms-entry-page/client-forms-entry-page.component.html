@@ -30,12 +30,14 @@
                     <div class="form-builder-container">
                       <div id="form-render"></div>
                     </div>
-                    <button *ngIf="loading" class="btn btn-primary btn-lg mr-2" type="button" disabled>
-                      <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
-                      <span class="sr-only">Please wait...</span>
-                    </button>
-                    <button *ngIf="!loading" type="submit" class="btn btn-primary btn-lg mr-2" (click)="submit()">Submit</button>
-                    <button type="button" class="btn btn-light btn-lg" (click)="cancel()">Cancel</button>
+                    <div class="buttons-list">
+                      <button *ngIf="loading" class="btn btn-primary btn-lg mr-2" type="button" disabled>
+                        <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+                        <span class="sr-only">Please wait...</span>
+                      </button>
+                      <button *ngIf="!loading" type="submit" class="btn btn-primary btn-lg mr-2" (click)="submit()">Submit</button>
+                      <button type="button" class="btn btn-light btn-lg" (click)="cancel()">Cancel</button>
+                    </div>
                   </form>
                 </div>
               </div>

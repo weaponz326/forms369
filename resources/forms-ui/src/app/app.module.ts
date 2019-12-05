@@ -99,6 +99,8 @@ import { ExecFormsListPageComponent } from './pages/dashboard/executive/exec-for
 import { ChangePasswordPageComponent } from './pages/change-password-page/change-password-page.component';
 import { ClientAuthPageComponent } from './pages/client-auth-page/client-auth-page.component';
 import { FormPrintingPageComponent } from './pages/dashboard/front-desk/form-printing-page/form-printing-page.component';
+import { ForgotPasswordPageComponent } from './pages/forgot-password-page/forgot-password-page.component';
+import { FormPrintingDefaultPageComponent } from './pages/dashboard/front-desk/form-printing-default-page/form-printing-default-page.component';
 
 @NgModule({
   declarations: [
@@ -182,6 +184,8 @@ import { FormPrintingPageComponent } from './pages/dashboard/front-desk/form-pri
     ChangePasswordPageComponent,
     ClientAuthPageComponent,
     FormPrintingPageComponent,
+    ForgotPasswordPageComponent,
+    FormPrintingDefaultPageComponent,
   ],
   imports: [
     BrowserModule,

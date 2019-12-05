@@ -91,6 +91,7 @@ export class ClientService {
           resolve(res);
         },
         err => {
+          console.log('Error: ' + JSON.stringify(err));
           reject(err);
         }
       );

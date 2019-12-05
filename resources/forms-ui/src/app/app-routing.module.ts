@@ -73,6 +73,8 @@ import { ExecFormsListPageComponent } from './pages/dashboard/executive/exec-for
 import { ChangePasswordPageComponent } from './pages/change-password-page/change-password-page.component';
 import { ClientAuthPageComponent } from './pages/client-auth-page/client-auth-page.component';
 import { FormPrintingPageComponent } from './pages/dashboard/front-desk/form-printing-page/form-printing-page.component';
+import { ForgotPasswordPageComponent } from './pages/forgot-password-page/forgot-password-page.component';
+import { FormPrintingDefaultPageComponent } from './pages/dashboard/front-desk/form-printing-default-page/form-printing-default-page.component';
 
 const routes: Routes = [
   {
@@ -98,6 +100,10 @@ const routes: Routes = [
   {
     path: 'register',
     component: RegisterPageComponent
+  },
+  {
+    path: 'forgot',
+    component: ForgotPasswordPageComponent
   },
   {
     path: 'master_register',
@@ -302,6 +308,10 @@ const routes: Routes = [
       {
         path: 'print_form',
         component: FormPrintingPageComponent
+      },
+      {
+        path: 'print_form_default',
+        component: FormPrintingDefaultPageComponent
       },
       {
         path: 'lists',

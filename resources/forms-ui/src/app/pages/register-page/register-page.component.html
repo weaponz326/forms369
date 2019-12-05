@@ -38,7 +38,7 @@
               <div class="row">
                 <div class="col-md-6">
                   <div class="form-group">
-                    <input type="text" class="form-control form-control-lg" formControlName="firstName"
+                    <input type="text" class="form-control" formControlName="firstName"
                       placeholder="First Name" [ngClass]="{'input-control-error': submitted && f.firstName.errors}">
                     <div *ngIf="submitted && f.firstName.errors">
                       <p class="input-error" *ngIf="f.firstName.errors.required">First name is required</p>
@@ -47,7 +47,7 @@
                 </div>
                 <div class="col-md-6">
                   <div class="form-group">
-                    <input type="text" class="form-control form-control-lg" formControlName="lastName"
+                    <input type="text" class="form-control" formControlName="lastName"
                       placeholder="Last Name" [ngClass]="{'input-control-error': submitted && f.lastName.errors}">
                     <div *ngIf="submitted && f.lastName.errors">
                       <p class="input-error" *ngIf="f.lastName.errors.required">Last name is required</p>
@@ -56,14 +56,14 @@
                 </div>
               </div>
               <div class="form-group">
-                <input type="text" class="form-control form-control-lg" formControlName="username"
+                <input type="text" class="form-control" formControlName="username"
                   placeholder="Username" [ngClass]="{'input-control-error': submitted && f.username.errors}">
                 <div *ngIf="submitted && f.username.errors">
                   <p class="input-error" *ngIf="f.username.errors.required">Username is required</p>
                 </div>
               </div>
               <div class="form-group">
-                <input type="email" class="form-control form-control-lg" formControlName="emailAddress"
+                <input type="email" class="form-control" formControlName="emailAddress"
                   placeholder="Email Address" [ngClass]="{'input-control-error': submitted && f.emailAddress.errors}">
                 <div *ngIf="submitted && f.emailAddress.errors">
                   <p class="input-error" *ngIf="f.emailAddress.errors.email">Must be a valid email address</p>
@@ -71,8 +71,8 @@
                 </div>
               </div>
               <div class="form-group row" style="margin-left: 0px;">
-                <input type="text" formControlName="dialCode" disabled class="form-control form-control-lg"
-                  style="text-align: center; width: 20%;">
+                <input type="text" formControlName="dialCode" disabled class="form-control"
+                  style="text-align: center; width: 20%; padding-left: 5px; padding-right: 5px;">
                 <!-- <div class="form-control form-control-lg" style="text-align: center; width: 30%; padding-left: .54rem; padding-right: .54rem;">
                   <mat-select placeholder="Country Code" formControlName="dialCode" disabled>
                     <mat-select-trigger>
@@ -86,7 +86,7 @@
                   </mat-select>
                 </div> -->
                 <div style="width: 78%;">
-                  <input type="text" class="form-control form-control-lg" formControlName="phone"
+                  <input type="text" class="form-control" formControlName="phone"
                     autocomplete="new-password" placeholder="24 123 1234" id="phone"
                     [ngClass]="{'input-control-error': submitted && f.phone.errors}">
                 </div>
@@ -96,7 +96,7 @@
                 </div>
               </div>
               <div class="form-group">
-                <select class="form-control form-control-lg" formControlName="country"
+                <select class="form-control" formControlName="country"
                   [ngClass]="{'input-control-error': submitted && f.country.errors}" (change)="onCountrySelect($event)">
                   <option value="" disabled>Country</option>
                   <option *ngFor="let country of countriesList | orderBy: 'country.name.common'"
@@ -109,15 +109,22 @@
                 </div>
               </div>
               <div class="form-group">
-                <input type="password" class="form-control form-control-lg" formControlName="password"
+                <input type="password" class="form-control" formControlName="password"
                   placeholder="Password" [ngClass]="{'input-control-error': submitted && f.password.errors}">
                 <div *ngIf="submitted && f.password.errors">
                   <p class="input-error" *ngIf="f.password.errors.minlength">Password must be atleast 6 characters</p>
                   <p class="input-error" *ngIf="f.password.errors.required">Password is required</p>
                 </div>
               </div>
+              <div class="form-group">
+                <input type="password" class="form-control" formControlName="pwdConfirmation"
+                  placeholder="Confirm Password" [ngClass]="{'input-control-error': submitted && f.pwdConfirmation.errors}">
+                <div *ngIf="submitted && f.pwdConfirmation.errors">
+                  <p class="input-error" *ngIf="f.pwdConfirmation.errors.minlength">Passwords do not match</p>
+                  <p class="input-error" *ngIf="f.pwdConfirmation.errors.required">Password confirmation is required</p>
+                </div>
+              </div>
               <div class="mt-3">
-                <!-- <a class="btn btn-block btn-primary btn-lg font-weight-medium auth-form-btn" routerLink="/git_admin">SIGN UP</a> -->
                 <button type="submit" *ngIf="!loading" class="btn btn-block btn-primary btn-lg font-weight-medium auth-form-btn">SIGN UP</button>
                 <button type="button" *ngIf="loading" class="btn btn-block btn-primary btn-lg font-weight-medium auth-form-btn" disabled>
                   <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span> &nbsp; &nbsp;

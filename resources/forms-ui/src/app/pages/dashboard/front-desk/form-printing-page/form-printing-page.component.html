@@ -1,21 +1,33 @@
-<div class="container">
-    <p>form-printing-page works!</p>
-
-    <!-- Little trick to center the inputs to the viewer -->
-    <div class="form-container">
-      <form id="input-form" [formGroup]="myForm" novalidate>
-
-        <!-- Cycle through all the inputs -->
-        <div *ngFor="let input of inputList">
-
-          <!-- Insert an input accordingly and get the style/position from the component -->
-          <input type="text" [name]="input.name" [formControlName]="input.name" [value]="input.value"
-            [ngStyle]="getInputPosition(input)">
-
-        </div>
-      </form>
+<div *ngIf="loading" class="row m-md-5 text-center">
+  <div class="col-md-12 col-sm-12 m-md-5">
+    <div class="d-flex justify-content-center">
+      <div class="spinner-border m-5" style="width: 5rem; height: 5rem;" role="status">
+        <span class="sr-only">Loading...</span>
+      </div>
+      
     </div>
-    <pdf-viewer id="viewer" [render-text]="true" [render-text-mode]="1" [src]="pdfSrc"
-      (after-load-complete)="pdfFileLoadComplete($event)">
-    </pdf-viewer>
+    <p>Processing data. Please wait ...</p>
+  </div>
+</div>
+
+<div class="container">
+  <!-- Little trick to center the inputs to the viewer -->
+  <div class="form-container">
+    <form id="input-form" [formGroup]="myForm" novalidate>
+
+      <!-- Cycle through all the inputs -->
+      <div *ngFor="let input of inputList">
+
+        <!-- Insert an input accordingly and get the style/position from the component -->
+        <input type="text"
+          [name]="input.name"
+          [formControlName]="input.name" 
+          [value]="input.value"
+          [ngStyle]="getInputPosition(input)">
+
+      </div>
+    </form>
+  </div>
+  <pdf-viewer id="viewer" [src]="pdfSrc" (on-progress)="onProgress($event)" (after-load-complete)="pdfFileLoadComplete($event)">
+  </pdf-viewer>
 </div>

@@ -75,6 +75,7 @@ export class ClientAuthPageComponent implements OnInit {
             // save user data locally.
             const user = response.user as Users;
             this.localStorage.token = response.token;
+            this.localStorage.tokenExpiration = response.expires_at;
             this.localStorage.saveUserInformation(user);
 
             // clear client data used to help with authentication.
