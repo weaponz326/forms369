@@ -233,6 +233,11 @@ Route::get('front_desk/preview', function () {
     return View::make('index');
 });
 
+Route::get('front_desk/print_form', function () {
+    View::addExtension('html', 'php');
+    return View::make('index');
+});
+
 Route::get('front_desk/lists/submitted', function () {
     View::addExtension('html', 'php');
     return View::make('index');

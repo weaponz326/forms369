@@ -41,7 +41,7 @@
                 </p>
                 <div class="text-lg-center mt-5 mb-5">
                   <div class="card-text">
-                    <i class="mdi mdi-file-document-edit-outline" style="font-size: 8em;"></i>
+                    <i class="mdi mdi-timer" style="font-size: 8em;"></i>
                   </div>
                   <div class="card-text">
                     <h3>No Forms Currently In Processing</h3>
@@ -84,16 +84,16 @@
                   <table class="table table-hover">
                     <thead>
                       <tr>
-                        <th>Form Identifier.</th>
-                        <th>Form Name</th>
-                        <th>Submitted By</th>
-                        <th>Submitted On</th>
-                        <th>Actions</th>
+                        <th><strong>Code.</strong></th>
+                        <th><strong>Form Name</strong></th>
+                        <th><strong>Submitted By</strong></th>
+                        <th><strong>Submitted On</strong></th>
+                        <th><strong>Actions</strong></th>
                       </tr>
                     </thead>
                     <tbody>
                       <tr class="hover-cursor" *ngFor="let form of processingFormsList">
-                        <td>{{ form.form_code }}</td>
+                        <td>{{ form.submission_code }}</td>
                         <td>{{ form.form_name }}</td>
                         <td>{{ form.client_name }}</td>
                         <td>{{ form.submitted_at | date }}</td>
@@ -121,3 +121,45 @@
     </div>
   </div>
 </div>
+
+<!-- <ng-template #load let-modal>
+  <div class="modal-body">
+     <div class="d-flex justify-content-center">
+       <div class="spinner-border m-5" style="width: 5rem; height: 5rem;" role="status">
+         <span class="sr-only">Loading...</span>
+       </div>
+     </div>
+     <p><strong>Loading</strong></p>
+  </div>
+</ng-template>
+
+<ng-template #complete let-modal>
+  <div class="modal-body">
+    <p><strong>Are you sure you want to delete <span class="text-primary">this template</span> ?</strong></p>
+    <p>All information associated with this template will be permanently deleted.
+      <span class="text-danger">This operation can not be undone.</span>
+    </p>
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-danger" (click)="modal.close('delete')">Delete</button>
+  </div>
+</ng-template>
+
+<ng-template #confirm let-modal>
+  <div class="modal-header">
+    <h4 class="modal-title" id="modal-title">Go Ahead ?</h4>
+    <button type="button" class="close" aria-describedby="modal-title" (click)="modal.dismiss('Cross click')">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <p><strong>Are you sure you want to delete <span class="text-primary">this template</span> ?</strong></p>
+    <p>All information associated with this template will be permanently deleted.
+      <span class="text-danger">This operation can not be undone.</span>
+    </p>
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-outline-secondary" (click)="modal.dismiss('cancel')">Cancel</button>
+    <button type="button" class="btn btn-danger" (click)="modal.close('delete')">Delete</button>
+  </div>
+</ng-template> -->

@@ -33,20 +33,25 @@ export class FrontDesktopHomePageComponent implements OnInit {
     private analyticService: AnalyticsService,
     private frontDeskService: FrontDeskService,
   ) {
-    this.checkAccessToLogin().then(
-      res => {
-        if (res == 'ok') {
-          this.user = this.localStorage.getUser();
-          this.firstname = this.user.firstname;
-          const merchant_id = _.toString(this.user.merchant_id);
+    this.user = this.localStorage.getUser();
+    this.firstname = this.user.firstname;
+    const merchant_id = _.toString(this.user.merchant_id);
 
-          this.getFrontDeskAnalytics(merchant_id);
-        }
-        else {
-          this.router.navigateByUrl('auth');
-        }
-      }
-    );
+    this.getFrontDeskAnalytics(merchant_id);
+    // this.checkAccessToLogin().then(
+    //   res => {
+    //     if (res == 'ok') {
+    //       this.user = this.localStorage.getUser();
+    //       this.firstname = this.user.firstname;
+    //       const merchant_id = _.toString(this.user.merchant_id);
+
+    //       this.getFrontDeskAnalytics(merchant_id);
+    //     }
+    //     else {
+    //       this.router.navigateByUrl('auth');
+    //     }
+    //   }
+    // );
   }
 
   ngOnInit() {
@@ -136,6 +141,7 @@ export class FrontDesktopHomePageComponent implements OnInit {
 
   submit() {
     this.submitted = true;
+    this.notValidCode = false;
     if (this.form.valid) {
       this.loading = true;
       const code = this.f.code.value;
@@ -143,16 +149,19 @@ export class FrontDesktopHomePageComponent implements OnInit {
         res => {
           if (!_.isEmpty(res)) {
             this.loading = false;
+            this.submitted = false;
             this.notValidCode = false;
             this.router.navigateByUrl('/front_desk/view_form', { state: { form: res }});
           }
           else {
             this.loading = false;
+            this.submitted = false;
             this.notValidCode = true;
           }
         },
         err => {
           this.loading = false;
+          this.submitted = false;
           this.notValidCode = true;
         }
       );

@@ -17,6 +17,10 @@
     margin-top: 12px;
 }
 
+p.lead {
+    font-weight: normal;
+}
+
 section.section-one {
     margin-bottom: 10px;
 }

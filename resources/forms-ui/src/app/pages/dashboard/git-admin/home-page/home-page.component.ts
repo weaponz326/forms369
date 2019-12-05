@@ -118,7 +118,7 @@ export class HomePageComponent implements OnInit {
     this.loading = true;
     this.getBranchAnalytics();
     this.getCompanyAnalytics();
-    // this.getAccountsAnalytics();
+    this.getAccountsAnalytics();
     this.getFormAnalytics();
   }
 
