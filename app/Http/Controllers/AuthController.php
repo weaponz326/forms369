@@ -384,7 +384,20 @@ class AuthController extends Controller
     protected function createClient(Request $request, $id){
 
         //get, encode and encrypt all user details 
-        $data = $request->all();
+        //get and encrypt user details 
+        $firstname = $request->firstname;
+        $lastname = $request->lastname;
+        $email = $request->email;
+        $country = $request->country;
+        $phone = $request->phone;
+
+        $data = array(
+            'firstname' => $firstname, 
+            'lastname' => $lastname, 
+            'email' => $email, 
+            'country' => $country, 
+            'phone' => $phone
+        );
         $encodeddata = json_encode($data);
         $encrypteddata = Crypt::encryptString($encodeddata);
         $created_at = now();
