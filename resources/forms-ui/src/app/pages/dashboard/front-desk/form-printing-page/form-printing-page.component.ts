@@ -14,6 +14,7 @@ export class FormPrintingPageComponent implements OnInit {
   pdfSrc: string;
   dpiRatio: any;
   loading: boolean;
+  hasError: boolean;
   myForm: FormGroup;
   inputList: Input[];
 
@@ -29,6 +30,11 @@ export class FormPrintingPageComponent implements OnInit {
 
   onProgress() {
     this.loading = true;
+  }
+
+  onError() {
+    this.loading = false;
+    this.hasError = true;
   }
 
   private createInput(annotation: any, rect: number[] = null) {
@@ -97,6 +103,8 @@ export class FormPrintingPageComponent implements OnInit {
           });
       });
     }
+
+    this.loading = false;
   }
 
   public getInputPosition(input: any): any {

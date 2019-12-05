@@ -10,7 +10,7 @@
   </div>
 </div>
 
-<div class="container">
+<div *ngIf="!loading" class="container">
   <!-- Little trick to center the inputs to the viewer -->
   <div class="form-container">
     <form id="input-form" [formGroup]="myForm" novalidate>
@@ -28,6 +28,11 @@
       </div>
     </form>
   </div>
-  <pdf-viewer id="viewer" [src]="pdfSrc" (on-progress)="onProgress($event)" (after-load-complete)="pdfFileLoadComplete($event)">
-  </pdf-viewer>
+  <pdf-viewer
+    id="viewer"
+    [src]="pdfSrc"
+    (error)="onError($event)"
+    (on-progress)="onProgress($event)"
+    (after-load-complete)="pdfFileLoadComplete($event)">
+  </pdf-viewerid="viewer">
 </div>
