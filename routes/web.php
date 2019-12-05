@@ -51,6 +51,11 @@ Route::get('change_password', function () {
     return View::make('index');
 });
 
+Route::get('forgot', function () {
+    View::addExtension('html', 'php');
+    return View::make('index');
+});
+
 Route::get('git_admin', function () {
     View::addExtension('html', 'php');
     return View::make('index');
@@ -234,6 +239,11 @@ Route::get('front_desk/preview', function () {
 });
 
 Route::get('front_desk/print_form', function () {
+    View::addExtension('html', 'php');
+    return View::make('index');
+});
+
+Route::get('front_desk/print_form_default', function () {
     View::addExtension('html', 'php');
     return View::make('index');
 });

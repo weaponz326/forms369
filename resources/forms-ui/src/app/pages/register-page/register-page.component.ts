@@ -53,7 +53,8 @@ export class RegisterPageComponent implements OnInit {
       dialCode: ['233', Validators.required],
       phone: ['', [Validators.maxLength(9), Validators.required]],
       password: ['', [Validators.minLength(6), Validators.required]],
-      emailAddress: ['', [Validators.email, Validators.required]]
+      emailAddress: ['', [Validators.email, Validators.required]],
+      pwdConfirmation: ['', [Validators.minLength(6), Validators.required]]
     });
   }
 
@@ -61,6 +62,23 @@ export class RegisterPageComponent implements OnInit {
     this.country.setValue(e.target.value, {
       onlySelf: true
     });
+  }
+
+  doPasswordsMatch() {
+    if (this.f.pwdConfirmation.value.length != this.f.password.value.length) {
+      // unequal lengths
+      return false;
+    }
+    else {
+      if (this.f.pwdConfirmation.value != this.f.password.value) {
+        // password do not match
+        return false;
+      }
+      else {
+        // there is a match!
+        return true;
+      }
+    }
   }
 
   getFormData() {
@@ -72,8 +90,9 @@ export class RegisterPageComponent implements OnInit {
     const dCode = this.f.dialCode.value;
     const username = this.f.username.value;
     const password = this.f.password.value;
+    const pwdConfirm = this.f.pwdConfirmation.value;
 
-    const user = new Users(fname, lname, email, password, username, country, dCode + phone, password, UserTypes.Client);
+    const user = new Users(fname, lname, email, password, username, country, dCode + phone, pwdConfirm, UserTypes.Client);
     return user;
   }
 
@@ -87,28 +106,34 @@ export class RegisterPageComponent implements OnInit {
       return;
     }
     else {
-      this.form.disable();
-      const user = this.getFormData();
-      this.accountService.createAccount(user).then(
-        res => {
-          const response = res as any;
-          if (!_.isUndefined(response.id)) {
+      if (this.doPasswordsMatch()) {
+        this.form.disable();
+        const user = this.getFormData();
+        this.accountService.createAccount(user).then(
+          res => {
+            const response = res as any;
+            if (!_.isUndefined(response.id)) {
+              this.form.enable();
+              this.loading = false;
+              this.created = true;
+            }
+            else {
+              this.form.enable();
+              this.loading = false;
+              console.log('an error occured');
+            }
+          },
+          err => {
             this.form.enable();
             this.loading = false;
-            this.created = true;
+            console.log(err);
           }
-          else {
-            this.form.enable();
-            this.loading = false;
-            console.log('an error occured');
-          }
-        },
-        err => {
-          this.form.enable();
-          this.loading = false;
-          console.log(err);
-        }
-      );
+        );
+      }
+      else {
+        this.loading = false;
+        this.f.pwdConfirmation.setErrors({ minlength: true });
+      }
     }
   }
 

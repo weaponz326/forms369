@@ -24,4 +24,12 @@ export class LocalStorageService {
     return sessionStorage.getItem('x-auth');
   }
 
+  public set tokenExpiration(v: string) {
+    sessionStorage.setItem('token_expiration', v);
+  }
+
+  public get tokenExpiration(): string {
+    return sessionStorage.getItem('token_expiration');
+  }
+
 }

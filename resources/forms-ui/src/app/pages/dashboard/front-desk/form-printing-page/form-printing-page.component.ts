@@ -13,6 +13,8 @@ export class FormPrintingPageComponent implements OnInit {
   form: any;
   pdfSrc: string;
   dpiRatio: any;
+  loading: boolean;
+  hasError: boolean;
   myForm: FormGroup;
   inputList: Input[];
 
@@ -24,6 +26,15 @@ export class FormPrintingPageComponent implements OnInit {
 
   ngOnInit() {
     this.myForm = this._fb.group({});
+  }
+
+  onProgress() {
+    this.loading = true;
+  }
+
+  onError() {
+    this.loading = false;
+    this.hasError = true;
   }
 
   private createInput(annotation: any, rect: number[] = null) {
@@ -92,6 +103,8 @@ export class FormPrintingPageComponent implements OnInit {
           });
       });
     }
+
+    this.loading = false;
   }
 
   public getInputPosition(input: any): any {

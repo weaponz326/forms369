@@ -29,7 +29,7 @@ export class LoginPageComponent implements OnInit {
     private router: Router,
     private formBuilder: FormBuilder,
     private accountService: AccountService,
-    private localStorageService: LocalStorageService
+    private localStorage: LocalStorageService
   ) { }
 
   ngOnInit() {
@@ -75,42 +75,60 @@ export class LoginPageComponent implements OnInit {
     }
   }
 
-  login() {
-    this.loading = true;
-    this.submitted = true;
-    this.authFailed = false;
-    this.deactivated = false;
-    this.userNotFound = false;
-    this.notConfirmed = false;
-    this.invalidPassword = false;
-    if (this.form.invalid) {
-      this.form.enable();
-      this.loading = false;
+  didUserLoggedOut() {
+    const authToken = this.localStorage.token;
+    if (_.isNull(authToken) || _.isUndefined(authToken)) {
+      // user logged out
+      return true;
     }
     else {
-      this.form.disable();
-      const login = this.getFormData();
-      this.accountService.authenticate(login.username, login.password).then(
-        res => {
-          const response = res as any;
-          this.form.enable();
-          this.loading = false;
-          if (_.isUndefined(response.message)) {
-            console.log('res: ' + response);
-            sessionStorage.setItem('client_id', response.id);
-            sessionStorage.setItem('client_phone', response.phone);
-            this.router.navigateByUrl('client_auth');
+      // user didn't log out, check if token has expired.
+      const expire_at = this.localStorage.tokenExpiration;
+      return false;
+    }
+  }
+
+  login() {
+    if (this.didUserLoggedOut()) {
+      this.loading = true;
+      this.submitted = true;
+      this.authFailed = false;
+      this.deactivated = false;
+      this.userNotFound = false;
+      this.notConfirmed = false;
+      this.invalidPassword = false;
+      if (this.form.invalid) {
+        this.form.enable();
+        this.loading = false;
+      }
+      else {
+        this.form.disable();
+        const login = this.getFormData();
+        this.accountService.authenticate(login.username, login.password).then(
+          res => {
+            const response = res as any;
+            this.form.enable();
+            this.loading = false;
+            if (_.isUndefined(response.message)) {
+              console.log('res: ' + response);
+              sessionStorage.setItem('client_id', response.id);
+              sessionStorage.setItem('client_phone', response.phone);
+              this.router.navigateByUrl('client_auth');
+            }
+            else {
+              this.handleLoginErrorResponses(response);
+            }
+          },
+          err => {
+            this.form.enable();
+            this.loading = false;
+            this.handleLoginErrorResponses(err.error);
           }
-          else {
-            this.handleLoginErrorResponses(response);
-          }
-        },
-        err => {
-          this.form.enable();
-          this.loading = false;
-          this.handleLoginErrorResponses(err.error);
-        }
-      );
+        );
+      }
+    }
+    else {
+      this.router.navigateByUrl('client');
     }
   }
 
