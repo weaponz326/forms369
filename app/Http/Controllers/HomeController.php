@@ -391,6 +391,50 @@ class HomeController extends Controller
         $message = (new SetupController)->createMerchant($request);
         return $message;
     }
+
+    /**
+    * Business logics 
+     * uploadPrintFile Upload original form document for printing
+     *
+     * @param  mixed $request
+     *
+     * @return \Illuminate\Http\Response success or error message
+     */
+    protected function uploadPrintFile(Request $request, $merchant_id, $form_code)
+     {
+        $message = (new SetupController)->uploadPrintFile($request, $merchant_id, $form_code);
+        return $message;
+     }
+
+     /**
+      * Business logics
+     * editPrintFile Edit original form document for printing
+     *
+     * @param  mixed $request
+     *
+     * @return \Illuminate\Http\Response success or error message
+     */
+    protected function editPrintFile(Request $request, $merchant_id, $form_code)
+    {
+        $message = (new SetupController)->editPrintFile($request, $merchant_id, $form_code);
+        return $message;  
+    }
+
+    /**
+     * Business logics 
+     * getPrintFile get original form document for printing
+     *
+     * @param  mixed $request
+     *
+     * @return \Illuminate\Http\Response success or error message
+     */
+    protected function getPrintFile(Request $request, $merchant_id, $form_code)
+    {
+        $message = (new SetupController)->getPrintFile($request, $merchant_id, $form_code);
+        return $message;
+    }
+    
+
      /**
      * getMerchantsForDropdown get all registered companies to populate dropdown
      *
