@@ -45,7 +45,9 @@ export class FrontDeskPreviewFormPageComponent implements OnInit {
     this.fBuilderService.disableFormFields(this.form.form_fields);
   }
 
-  print() {}
+  print() {
+    this.router.navigateByUrl('/front_desk/print_form', { state: { form: this.form }});
+  }
 
   download() {}
 }
