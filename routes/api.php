@@ -111,8 +111,12 @@ Route::group(['middleware' => ['auth:api'], 'prefix' => 'v1'], function(){
     Route::get('getNumCompanyBranches/{id}', 'HomeController@getNumCompanyBranches')->name('getNumCompanyBranches')->middleware('scope:GIT_Admin,company_admin,branch_admin,super_executive');
     Route::get('getCompanyBranchDetails/{id}', 'HomeController@getCompanyBranchDetails')->name('getCompanyBranchDetails')->middleware('scope:GIT_Admin,super_executive,company_admin,branch_executive,branch_admin');
     
-    
+    //upload and edit form print document for a form apis
+    Route::post('uploadPrintFile/{merchant_id}/{code}', 'HomeController@uploadPrintFile')->name('uploadPrintFile')->middleware('scope:GIT_Admin,company_admin');
+    Route::post('editPrintFile/{merchant_id}/{code}', 'HomeController@editPrintFile')->name('editPrintFile')->middleware('scope:GIT_Admin,company_admin');
+    Route::get('getPrintFile/{merchant_id}/{code}', 'HomeController@getPrintFile')->name('getPrintFile')->middleware('scope:GIT_Admin,company_admin,branch_admin,frontdesk');
 
+  
     //user types setup, view and update apis
     Route::post('createUserType', 'HomeController@createUserType')->name('createUserType')->middleware('scope:GIT_Admin');
     Route::post('editUserType', 'HomeController@editUserType')->name('editUserType')->middleware('scope:GIT_Admin');

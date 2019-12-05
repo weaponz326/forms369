@@ -18,6 +18,130 @@ use Illuminate\Support\Facades\Log;
 use Response;
 class SetupController extends Controller
 {
+
+    /**
+     * uploadPrintFile Upload original form document for printing
+     *
+     * @param  mixed $request
+     *
+     * @return \Illuminate\Http\Response success or error message
+     */
+     public function uploadPrintFile(Request $request, $merchant_id, $form_code){
+        
+        $this->validate($request, [
+            'file' => 'required|mimes:pdf'
+        ]);
+
+        $file = $request->file('file');
+        $filename = $file->getClientOriginalName();
+    
+        $url=$merchant_id.'_'.$form_code.'.pdf';
+        $upload=Storage::disk('local')->put('files/'.$url,  File::get($file));
+        $uploaded_at = now();
+        $message = 'Failed';
+
+        if($upload){
+            try {
+                $id = DB::table('uploads')->insertGetId(
+                    [
+                        'url' => $url, 
+                        'uploaded_at' => $uploaded_at,
+                        'merchant_id' => $merchant_id,
+                        'form_code' => $form_code
+                    ]
+                );
+    
+                 //get user creating the new merchant
+                $user = $request->user();
+                $userid = $user['id'];
+
+                Log::channel('mysql')->info('User with id: ' . $userid .' successsfully uploaded a print document for merchant with id: '. $merchant_id);
+                $message = 'Ok';
+    
+            }catch(Exception $e) {
+                Log::channel('mysql')->info('User with id: ' . $userid .' unsuccesssfully uploaded a print document for merchant with id: '. $merchant_id);
+                $message = "Failed";
+            } 
+        }
+        return response()->json([
+            'message' => $message
+        ]);
+    }
+
+
+    /**
+     * editPrintFile Edit original form document for printing
+     *
+     * @param  mixed $request
+     *
+     * @return \Illuminate\Http\Response success or error message
+     */
+     public function editPrintFile(Request $request, $merchant_id, $form_code){
+        
+        $this->validate($request, [
+            'file' => 'required|mimes:pdf'
+        ]);
+
+        $file = $request->file('file');
+        $filename = $file->getClientOriginalName();
+    
+        $url=$merchant_id.'_'.$form_code.'.pdf';
+        $upload=Storage::disk('local')->put('files/'.$url,  File::get($file));
+        $updated_at = now();
+        $message = 'Failed';
+
+        if($upload){
+            try {
+                DB::table('uploads')
+                ->where([
+                    ['form_code', '=', $form_code],
+                    ['merchant_id', '=', $merchant_id]
+                ])->update(
+                [
+                    'url' => $url, 
+                    'updated_at' => $updated_at
+                ]
+                );
+    
+                 //get user creating the new merchant
+                $user = $request->user();
+                $userid = $user['id'];
+
+                Log::channel('mysql')->info('User with id: ' . $userid .' successsfully editted a print document for merchant with id: '. $merchant_id);
+                $message = 'Ok';
+    
+            }catch(Exception $e) {
+                Log::channel('mysql')->info('User with id: ' . $userid .' unsuccesssfully editted a print document for merchant with id: '. $merchant_id);
+                $message = "Failed";
+            } 
+        }
+        return response()->json([
+            'message' => $message
+        ]);
+    }
+
+    /**
+     * getPrintFile get original form document for printing
+     *
+     * @param  mixed $request
+     *
+     * @return \Illuminate\Http\Response success or error message
+     */
+    public function getPrintFile(Request $request, $merchant_id, $form_code)
+    {
+        //get all registered companies 
+        $getfile = DB::table('uploads')->
+        where([
+            ['merchant_id', '=', $merchant_id],
+            ['form_code', '=', $form_code]
+            ])->first();
+
+        $response = [
+        'file' => $getfile
+        ];
+        return response()->json($response, 200);
+    }
+        
     
     /**
      * createMerchant create a new merchant
@@ -34,7 +158,8 @@ class SetupController extends Controller
             'super_id'=>'required',
             'admin_id'=>'required',
             'logo' => 'required|mimes:jpeg,jpg,png,gif,psd,tiff',
-            'small_logo' => 'nullable|mimes:jpeg,jpg,png,gif,psd,tiff'
+            'small_logo' => 'nullable|mimes:jpeg,jpg,png,gif,psd,tiff',
+            'can_print' => 'required'
         ]);
 
         $logo = NULL;
@@ -84,6 +209,7 @@ class SetupController extends Controller
         $admin_id = $request->admin_id;
         $status = 1;
         $created_at = now();
+        $can_print = $request->can_print;
 
         //get user creating the new merchant
         $user = $request->user();
@@ -105,7 +231,8 @@ class SetupController extends Controller
                     'super_id' => $super_id,
                     'admin_id' => $admin_id, 
                     'created_at' => $created_at,
-                    'created_by' => $userid
+                    'created_by' => $userid,
+                    'can_print' => $can_print
                 ]
             );
 
@@ -158,7 +285,8 @@ class SetupController extends Controller
             'country' => 'required',
             'super_id'=>'required',
             'admin_id'=>'required',
-            'logo' => 'required'
+            'logo' => 'required',
+            'can_print' => 'required'
         ]); 
 
         $name = Crypt::encryptString($request->merchant_name);
@@ -169,6 +297,7 @@ class SetupController extends Controller
         $updated_at = now();
         $logo = $request->logo;
         $small_logo = $request->small_logo;
+        $can_print = $request->can_print;
 
         //get user creating the new merchant
         $user = $request->user();
@@ -193,7 +322,8 @@ class SetupController extends Controller
                     'super_id' => $super_id,
                     'admin_id' => $admin_id, 
                     'updated_at' => $updated_at,
-                    'updated_by' => $userid
+                    'updated_by' => $userid,
+                    'can_print' => $can_print
                 ]
             );
 
@@ -651,6 +781,7 @@ class SetupController extends Controller
             $merchantsdata['super_executive_name'] = Crypt::decryptString($items->exec_name);
             $merchantsdata['company_admin_id'] = $items->admin_id;
             $merchantsdata['company_admin_name'] = Crypt::decryptString($items->admin_name);
+            $merchantsdata['can_print'] = $items->can_print;
             $merchantsdata['created_by'] = $items->created_by;
             $merchantsdata['created_at'] = $items->created_at;
             $merchantsdata['updated_at'] = $items->updated_at;
@@ -691,6 +822,7 @@ class SetupController extends Controller
             $merchantsdata['super_executive_name'] = Crypt::decryptString($items->exec_name);
             $merchantsdata['company_admin_id'] = $items->admin_id;
             $merchantsdata['company_admin_name'] = Crypt::decryptString($items->admin_name);
+            $merchantsdata['can_print'] = $items->can_print;
             $merchantsdata['created_by'] = $items->created_by;
             $merchantsdata['created_at'] = $items->created_at;
             $merchantsdata['updated_at'] = $items->updated_at;
@@ -799,6 +931,7 @@ class SetupController extends Controller
             $merchantsdata['super_executive_name'] = empty($items->exec_name) ? '' : Crypt::decryptString($items->exec_name);
             $merchantsdata['company_admin_id'] = $items->admin_id;
             $merchantsdata['company_admin_name'] = Crypt::decryptString($items->admin_name);
+            $merchantsdata['can_print'] = $items->can_print;
             $merchantsdata['created_by'] = $items->created_by;
             $merchantsdata['created_at'] = $items->created_at;
             $merchantsdata['updated_at'] = $items->updated_at;
@@ -847,6 +980,7 @@ class SetupController extends Controller
             $merchantsdata['super_executive_name'] = empty($items->exec_name) ? '' : Crypt::decryptString($items->exec_name);
             $merchantsdata['company_admin_id'] = $items->admin_id;
             $merchantsdata['company_admin_name'] = Crypt::decryptString($items->admin_name);
+            $merchantsdata['can_print'] = $items->can_print;
             $merchantsdata['created_by'] = $items->created_by;
             $merchantsdata['created_at'] = $items->created_at;
             $merchantsdata['updated_at'] = $items->updated_at;
