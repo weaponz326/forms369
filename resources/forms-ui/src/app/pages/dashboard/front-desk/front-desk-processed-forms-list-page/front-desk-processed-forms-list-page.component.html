@@ -99,7 +99,7 @@
                         <td>{{ form.last_processed | date }}</td>
                         <td>
                           <button type="button" class="btn btn-light bg-white btn-icon"
-                            data-toggle="tooltip" data-placement="top" title="Print">
+                            data-toggle="tooltip" data-placement="top" title="Print" (click)="print($event, form)">
                             <i class="mdi mdi-printer text-muted"></i>
                           </button>
                         </td>

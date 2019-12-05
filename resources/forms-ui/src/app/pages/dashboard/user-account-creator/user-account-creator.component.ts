@@ -79,6 +79,7 @@ export class UserAccountCreatorComponent implements OnInit {
       userType: ['', Validators.required],
       branch: ['', Validators.required],
       merchant: ['', Validators.required],
+      dialCode: ['233', Validators.required],
       phone: ['', [Validators.maxLength(20), Validators.required]],
       password: ['', [Validators.minLength(6), Validators.required]],
       emailAddress: ['', [Validators.email, Validators.required]]
@@ -138,10 +139,11 @@ export class UserAccountCreatorComponent implements OnInit {
   }
 
   getFormData() {
-    const phone = this.f.fphone.value;
+    const phone = this.f.phone.value;
     const lname = this.f.lastName.value;
     const fname = this.f.firstName.value;
     const country = this.f.country.value;
+    const dCode = this.f.dialCode.value;
     const username = this.f.username.value;
     const password = this.f.password.value;
     const userType = this.f.userType.value;
@@ -151,10 +153,10 @@ export class UserAccountCreatorComponent implements OnInit {
 
     if (this.isAdmin) {
       const merchantId = this.localStorage.getUser().merchant_id;
-      return new Users(fname, lname, email, password, username, country, phone, password, userType, null, null, merchantId, branch_id);
+      return new Users(fname, lname, email, password, username, country, dCode + phone, password, userType, null, null, merchantId, branch_id);
     }
     else {
-      const user = new Users(fname, lname, email, password, username, country, phone, password, userType, null, null, merchant_id, branch_id);
+      const user = new Users(fname, lname, email, password, username, country, dCode + phone, password, userType, null, null, merchant_id, branch_id);
       return user;
     }
   }

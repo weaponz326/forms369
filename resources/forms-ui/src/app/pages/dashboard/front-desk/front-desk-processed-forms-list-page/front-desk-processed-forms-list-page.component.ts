@@ -35,16 +35,23 @@ export class FrontDeskProcessedFormsListPageComponent implements OnInit {
     this.router.navigateByUrl('/front_desk/preview', { state: { form: form }});
   }
 
+  print(ev: Event, form: any) {
+    ev.stopPropagation();
+    this.router.navigateByUrl('front_desk/print_form', { state: { form: form }});
+  }
+
   getAllProcessedForms() {
     this.loading = true;
+    const processedForms = [];
     const merchant_id = this.user.merchant_id.toString();
     this.frontDeskService.getSubmittedFormByStatusAndMerchant(2, merchant_id).then(
       res => {
         if (res.length != 0) {
           this.hasData = true;
           _.forEach(res, (form) => {
-            this.processedFormsList.push(form);
+            processedForms.push(form);
           });
+          this.processedFormsList = _.reverse(_.sortBy(processedForms, (f) => f.created_at));
           this.loading = false;
         }
         else {
