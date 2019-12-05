@@ -117,7 +117,7 @@ class AuthController extends Controller
         }
     }
 
-
+    //https://isms.wigalsolutions.com/ismsweb/sendmsg/?username=fregye&password=aw0tw3ba&from=GiTLog&to=233501879144&message=hello
     /**
     * send two way authentication code sms
     * @param  mixed $from the sender
@@ -758,9 +758,10 @@ class AuthController extends Controller
         $user->save();
         
         if($user){
-            return response()->json([
-                'message' => 'Successfully verified'
-            ]);
+            return redirect()->route('login');
+            // return response()->json([
+            //     'message' => 'Successfully verified'
+            // ]);
 
         }
     }

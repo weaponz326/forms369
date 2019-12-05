@@ -2,7 +2,7 @@
     {{-- Header --}}
     @slot('header')
         @component('mail::header', ['url' => config('app.url')])
-            <img src="http://127.0.0.1:8000/logo.png" alt="GIT">
+            <img src="http://127.0.0.1:8000/images/logo.png" alt="GIT">
         @endcomponent
     @endslot
 
