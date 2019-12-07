@@ -23,21 +23,31 @@ export class AdminHomePageComponent implements OnInit {
     private analyticService: AnalyticsService,
     private localStorage: LocalStorageService
   ) {
-    this.checkAccessToLogin().then(
-      res => {
-        if (res == 'ok') {
-          this.firstName = this.localStorage.getUser().firstname;
-          this.merchantIdentifier = this.localStorage.getUser().merchant_id;
-        }
-        else {
-          this.router.navigateByUrl('auth');
-        }
-      }
-    );
+    this.initVars();
   }
 
   ngOnInit() {
     this.getAnalytics();
+  }
+
+  initVars() {
+    if (window.location.origin == 'http://localhost:4200') {
+      this.firstName = this.localStorage.getUser().firstname;
+      this.merchantIdentifier = this.localStorage.getUser().merchant_id;
+    }
+    else {
+      this.checkAccessToLogin().then(
+        res => {
+          if (res == 'ok') {
+            this.firstName = this.localStorage.getUser().firstname;
+            this.merchantIdentifier = this.localStorage.getUser().merchant_id;
+          }
+          else {
+            this.router.navigateByUrl('auth');
+          }
+        }
+      );
+    }
   }
 
   openForms() {
