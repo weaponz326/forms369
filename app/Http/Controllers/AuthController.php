@@ -835,6 +835,14 @@ class AuthController extends Controller
         $first_time = $user['first_time'];
         $user_type = $user['usertype'];
         $phone = $user['phone'];
+        $merchant_id = $user['merchant_id'];
+
+        //get can print column from merchant table
+        $print_status = DB::table('merchants')
+            ->where('id', $merchant_id)
+            ->first();
+
+        $can_print = $print_status->can_print;
 
         if($first_time){
             if($user_type != 26){
@@ -907,7 +915,8 @@ class AuthController extends Controller
         $response = [
             'user' => $user,
             'token' => $token,
-            'expires_at' => $expires_at
+            'expires_at' => $expires_at,
+            'can_print' =>  $can_print
         ];
 
         return response()->json($response, 200);
