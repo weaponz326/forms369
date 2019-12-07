@@ -38,6 +38,7 @@ export class CompanyService {
       form.set('logo', logo);
       form.set('country', merchant.country);
       form.set('small_logo', merchant.small_logo);
+      form.set('can_print', merchant.can_print);
       form.set('merchant_name', merchant.merchant_name);
       form.set('super_id', merchant.super_id.toString());
       form.set('admin_id', merchant.admin_id.toString());
@@ -102,6 +103,7 @@ export class CompanyService {
             const form = new FormData();
             form.set('logo', filename);
             form.set('country', merchant.country);
+            form.set('can_print', merchant.can_print);
             form.set('merchant_name', merchant.merchant_name);
             form.set('super_id', merchant.super_id.toString());
             form.set('admin_id', merchant.admin_id.toString());
@@ -123,6 +125,7 @@ export class CompanyService {
         const form = new FormData();
         form.set('logo', merchant.logo);
         form.set('country', merchant.country);
+        form.set('can_print', merchant.can_print);
         form.set('merchant_name', merchant.merchant_name);
         form.set('super_id', merchant.super_id.toString());
         form.set('admin_id', merchant.admin_id.toString());
@@ -311,6 +314,21 @@ export class CompanyService {
           }
         },
         err => {
+          reject(err);
+        }
+      );
+    });
+  }
+
+  deleteCompany(id: string): Promise<any> {
+    return new Promise((Resolve, reject) => {
+      const url = this.endpointService.apiHost + 'api/v1/' + id;
+      this.http.post(url, {}, { headers: this.endpointService.headers() }).subscribe(
+        res => {
+          console.log('res: ' + JSON.stringify(res));
+        },
+        err => {
+          console.log('err: ' + JSON.stringify(err));
           reject(err);
         }
       );

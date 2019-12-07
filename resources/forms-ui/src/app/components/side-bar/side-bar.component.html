@@ -21,7 +21,7 @@
     </li>
     <li class="nav-item">
       <a class="nav-link" data-toggle="collapse" href="#code" aria-expanded="false" aria-controls="code">
-        <i class="mdi mdi-cart-outline menu-icon"></i>
+        <i class="mdi mdi-lock-outline menu-icon"></i>
         <span class="menu-title">Access Code</span>
         <i class="menu-arrow"></i>
       </a>
@@ -29,7 +29,7 @@
         <ul class="nav flex-column sub-menu">
           <li class="nav-item">
             <a class="nav-link" routerLink="/git_admin/create/access_code">
-              <i class="mdi mdi-file-document-edit-outline menu-icon"></i>
+              <i class="mdi mdi-plus-circle-multiple-outline menu-icon"></i>
               <span class="menu-title">Create New</span>
             </a>
           </li>
@@ -44,7 +44,7 @@
     </li>
     <li class="nav-item">
       <a class="nav-link" data-toggle="collapse" href="#template" aria-expanded="false" aria-controls="template">
-        <i class="mdi mdi-cart-outline menu-icon"></i>
+        <i class="mdi mdi-file-document-box-multiple-outline menu-icon"></i>
         <span class="menu-title">Templates</span>
         <i class="menu-arrow"></i>
       </a>
@@ -58,16 +58,16 @@
           </li>
           <li class="nav-item">
             <a class="nav-link" routerLink="/templates/list">
-            <i class="mdi mdi-format-list-bulleted menu-icon"></i>
-            <span class="menu-title">All Templates</span>
-          </a>
+              <i class="mdi mdi-format-list-bulleted menu-icon"></i>
+              <span class="menu-title">All Templates</span>
+            </a>
           </li>
         </ul>
       </div>
     </li>
     <li class="nav-item">
       <a class="nav-link" data-toggle="collapse" href="#section" aria-expanded="false" aria-controls="section">
-        <i class="mdi mdi-account-group-outline menu-icon"></i>
+        <i class="mdi mdi-file-check-outline menu-icon"></i>
         <span class="menu-title">Form Section</span>
         <i class="menu-arrow"></i>
       </a>
@@ -143,17 +143,23 @@
     </li>
     <li class="nav-item">
       <a class="nav-link" data-toggle="collapse" href="#company" aria-expanded="false" aria-controls="company">
-        <i class="mdi mdi-circle-outline menu-icon"></i>
+        <i class="mdi mdi-lighthouse menu-icon"></i>
         <span class="menu-title">Company</span>
         <i class="menu-arrow"></i>
       </a>
       <div class="collapse" id="company">
         <ul class="nav flex-column sub-menu">
           <li class="nav-item">
-            <a class="nav-link" routerLink="/git_admin/create/company">Create New</a>
+            <a class="nav-link" routerLink="/git_admin/create/company">
+              <i class="mdi mdi-plus-circle-multiple-outline menu-icon"></i>
+              <span class="menu-title">Create New</span>
+            </a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" routerLink="/git_admin/lists/company">View Companies</a>
+            <a class="nav-link" routerLink="/git_admin/lists/company">
+              <i class="mdi mdi-format-list-bulleted-square menu-icon"></i>
+              <span class="menu-title">View Companies</span>
+            </a>
           </li>
         </ul>
       </div>
@@ -167,10 +173,16 @@
       <div class="collapse" id="branches">
         <ul class="nav flex-column sub-menu">
           <li class="nav-item">
-            <a class="nav-link" routerLink="/git_admin/create/branch">Create New</a>
+            <a class="nav-link" routerLink="/git_admin/create/branch">
+              <i class="mdi mdi-plus-circle-multiple-outline menu-icon"></i>
+              <span class="menu-title">Create New</span>
+            </a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" routerLink="/git_admin/lists/branch">View Branches</a>
+            <a class="nav-link" routerLink="/git_admin/lists/branch">
+              <i class="mdi mdi-format-list-numbered menu-icon"></i>
+              <span class="menu-title">View Branches</span>
+            </a>
           </li>
         </ul>
       </div>
@@ -188,7 +200,7 @@
         <span class="menu-title">Home</span>
       </a>
     </li>
-    <li class="nav-item">
+    <li *ngIf="isAdmin" class=" nav-item">
       <a class="nav-link" routerLink="/admin/create/form">
         <i class="mdi mdi-file-document-edit-outline menu-icon"></i>
         <span class="menu-title">New Form</span>

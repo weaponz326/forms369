@@ -14,11 +14,12 @@ import { AccountService } from 'src/app/services/account/account.service';
 })
 export class AdminRegisterPageComponent implements OnInit {
 
+  error: string;
   form: FormGroup;
   created: boolean;
   loading: boolean;
   submitted: boolean;
-  emailInUse: boolean;
+  dynamicError: boolean;
   countriesList: Array<ICountry>;
 
   constructor(
@@ -49,10 +50,10 @@ export class AdminRegisterPageComponent implements OnInit {
       lastName: ['', Validators.required],
       country: ['', Validators.required],
       username: ['', Validators.required],
-      userType: ['', Validators.required],
+      dialCode: ['233', Validators.required],
+      emailAddress: ['', [Validators.email, Validators.required]],
       phone: ['', [Validators.maxLength(20), Validators.required]],
-      password: ['', [Validators.minLength(6), Validators.required]],
-      emailAddress: ['', [Validators.email, Validators.required]]
+      password: ['', [Validators.minLength(6), Validators.required]]
     });
   }
 
@@ -68,22 +69,27 @@ export class AdminRegisterPageComponent implements OnInit {
     const fname = this.f.firstName.value;
     const email = this.f.emailAddress.value;
     const country = this.f.country.value;
+    const dCode = this.f.dialCode.value;
     const username = this.f.username.value;
     const password = this.f.password.value;
 
-    const user = new Users(fname, lname, email, password, username, country, phone, password, UserTypes.GitAdmin);
+    const user = new Users(fname, lname, email, password, username, country, dCode + phone, password, UserTypes.GitAdmin);
     return user;
   }
 
-  resolveLaravelError(error: any) {
-    const key = Object.keys(error);
-    const value = Object.values(key);
-    switch (key[0]) {
-      case 'email':
-        this.emailInUse = true;
-        break;
-      default:
-        break;
+  resolveLaravelError(e: any) {
+    if (e.errors.username) {
+      console.log('ok');
+      this.error = e.errors.username;
+      this.dynamicError = true;
+    }
+    else if (e.errors.email) {
+      this.error = e.errors.email;
+      this.dynamicError = true;
+    }
+    else if (e.errors.password) {
+      this.error = e.errors.password;
+      this.dynamicError = true;
     }
   }
 
@@ -95,6 +101,7 @@ export class AdminRegisterPageComponent implements OnInit {
     console.log('yeah');
     this.loading = true;
     this.submitted = true;
+    this.dynamicError = false;
     if (this.form.invalid) {
       this.form.enable();
       this.loading = false;
@@ -121,7 +128,7 @@ export class AdminRegisterPageComponent implements OnInit {
           this.form.enable();
           this.loading = false;
           console.log(JSON.stringify(err));
-          this.resolveLaravelError(err.error.errors);
+          this.resolveLaravelError(err.error);
         }
       );
     }

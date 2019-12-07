@@ -35,6 +35,11 @@ export class FrontDeskSubmittedFormsListPageComponent implements OnInit {
     this.router.navigateByUrl('/front_desk/preview', { state: { form: form }});
   }
 
+  print(ev: Event, form: any) {
+    ev.stopPropagation();
+    this.router.navigateByUrl('front_desk/print_form', { state: { form: form }});
+  }
+
   getAllSubmittedForms() {
     this.loading = true;
     const merchant_id = this.user.merchant_id.toString();

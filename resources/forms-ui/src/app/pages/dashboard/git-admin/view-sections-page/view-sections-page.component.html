@@ -104,7 +104,7 @@
 
                 <div *ngIf="viewMode == 'grid'" class="row">
                   <div class="col-md-4 grid-margin stretch-card" *ngFor="let form of sectionsList; let i = index">
-                    <div class="card hover-cursor animated fadeInDown fast" (click)="view(form)">
+                    <div class="card hover-cursor animated fadeInDown fast" (click)="view($event, form)">
                       <div class="card-body">
                         <p class="card-title">{{ form.heading }}</p>
                         <div class="card-text">
@@ -132,7 +132,7 @@
                 <div *ngIf="viewMode == 'list'" class="row">
                   <div class="list-group" style="width: 100%;">
                     <div class="list-group-item hover-cursor list-group-item-action animated fadeInDown" *ngFor="let form of sectionsList; let i = index">
-                      <div class="row" (click)="view(form)">
+                      <div class="row" (click)="view($event, form)">
                         <div class="col-8">
                           <span class="card-title mt-2">{{ form.heading }}</span>
                           <h1 class="display-4 mb-1 mt-2">{{ form.heading }}</h1>

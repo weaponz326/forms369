@@ -3,14 +3,13 @@ import * as _ from 'lodash';
 import { Router } from '@angular/router';
 import { Merchants } from 'src/app/models/merchants.model';
 import { CompanyService } from 'src/app/services/company/company.service';
-import { EndpointService } from 'src/app/services/endpoint/endpoint.service';
 import { ListViewService } from 'src/app/services/view/list-view.service';
+import { EndpointService } from 'src/app/services/endpoint/endpoint.service';
 
 @Component({
   selector: 'app-view-company-lists-page',
   templateUrl: './view-company-lists-page.component.html',
-  styleUrls: ['./view-company-lists-page.component.css'],
-  providers: [CompanyService, EndpointService]
+  styleUrls: ['./view-company-lists-page.component.css']
 })
 export class ViewCompanyListsPageComponent implements OnInit {
 

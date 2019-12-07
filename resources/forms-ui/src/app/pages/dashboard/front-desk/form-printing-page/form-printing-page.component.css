@@ -4,6 +4,12 @@
   justify-content: center;
 }
 
+.toolbar {
+  text-align: center;
+  padding: 20px 0px;
+  margin: 15px 0px;
+}
+
 #input-form {
     position: relative;
     z-index: 1;

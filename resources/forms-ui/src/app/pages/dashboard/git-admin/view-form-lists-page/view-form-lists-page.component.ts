@@ -131,6 +131,7 @@ export class ViewFormListsPageComponent implements OnInit {
 
   getAllForms() {
     this.loading = true;
+    this.hasError = false; // in case there was an error and the user used the retry button
     this.formService.getAllForms().then(
       res => {
         const forms = res as any;

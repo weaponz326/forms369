@@ -9,6 +9,7 @@ import { CountryPickerService, ICountry } from 'ngx-country-picker';
 import { CompanyService } from 'src/app/services/company/company.service';
 import { ExecutiveService } from 'src/app/services/executive/executive.service';
 import { LocalStorageService } from 'src/app/services/storage/local-storage.service';
+import { DateTimeService } from 'src/app/services/date-time/date-time.service';
 
 @Component({
   selector: 'app-edit-company-page',
@@ -20,6 +21,7 @@ export class EditCompanyPageComponent implements OnInit {
 
   form: FormGroup;
   hasLogo: boolean;
+  canPrint: boolean;
   created: boolean;
   loading: boolean;
   _loading: boolean;
@@ -42,7 +44,9 @@ export class EditCompanyPageComponent implements OnInit {
     private router: Router,
     private formBuilder: FormBuilder,
     private companyService: CompanyService,
+    private dateTimeService: DateTimeService,
     private executiveService: ExecutiveService,
+    private localService: LocalStorageService,
     private countryPickerService: CountryPickerService
   ) {
     this.navigatedData = window.history.state.company;
@@ -52,6 +56,9 @@ export class EditCompanyPageComponent implements OnInit {
     this.superExecutivesList = [];
     this.executivesEmailList = [];
     this.companyAdminEmailList = [];
+    if (!_.isUndefined(this.navigatedData.can_print)) {
+      this.canPrint = this.navigatedData.can_print == 1 ? true : false;
+    }
 
     this.initializeView();
   }
@@ -75,6 +82,12 @@ export class EditCompanyPageComponent implements OnInit {
     return this.form.get('country');
   }
 
+  togglePrint() {
+    this.f.allowPrint.value == '1'
+      ? this.f.allowPrint.setValue('0')
+      : this.f.allowPrint.setValue('1');
+  }
+
   filter(collection: Array<string>, value: string) {
     console.log('filtering');
     const filterValue = value.toLowerCase();
@@ -87,6 +100,7 @@ export class EditCompanyPageComponent implements OnInit {
       smallLogoName: [this.navigatedData.small_logo],
       smallLogoFile: [''],
       logo: [''],
+      allowPrint: ['0', Validators.required],
       country: [this.navigatedData.country, Validators.required],
       name: [this.navigatedData.merchant_name, Validators.required],
       companyAdmin: ['', Validators.required],
@@ -128,6 +142,8 @@ export class EditCompanyPageComponent implements OnInit {
   getFormData() {
     let super_admin_id = 0;
     let super_executive_id = 0;
+    const created_at = this.dateTimeService.getToday(true);
+    const user_id = this.localService.getUser().id.toString();
     _.forEach(this.superExecutivesList, (executive) => {
       if (executive.email == this.f.superExecutive.value) {
         super_executive_id = executive.id;
@@ -142,7 +158,17 @@ export class EditCompanyPageComponent implements OnInit {
     const logo = this.navigatedData.logo.substring(this.navigatedData.logo.lastIndexOf('/') + 1);
     console.log('logo filename: ' + logo);
     const merchant = new Merchants(
-      this.f.name.value, this.f.country.value, '', super_executive_id, '', '', super_admin_id, '', null, logo
+      this.f.name.value,
+      this.f.country.value,
+      '',
+      super_executive_id,
+      '',
+      user_id,
+      super_admin_id,
+      this.f.allowPrint.value,
+      created_at,
+      null,
+      logo
     );
     return merchant;
   }
@@ -260,10 +286,7 @@ export class EditCompanyPageComponent implements OnInit {
   }
 
   view() {
-    this.form.reset();
-    this.logoImage = '';
-    this.submitted = false;
-    this.created = !this.created;
+    this.router.navigateByUrl('git_admin/lists/company');
   }
 
 }

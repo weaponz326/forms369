@@ -23,8 +23,13 @@ export class FormPrintingPageComponent implements OnInit {
   constructor(private _fb: FormBuilder) {
     this.inputList = [];
     this.dpiRatio = 96 / 72;
-    this.pdfSrc = 'https://forms369.com/test.pdf';
+    this.pdfSrc = 'https://forms369.com/test1.pdf';
     this.clientFormDetails = [];
+    this.form = window.history.state.form;
+    window.onafterprint = () => {
+      console.log('print window closed');
+      this.showPrintButton();
+    };
   }
 
   ngOnInit() {
@@ -38,7 +43,7 @@ export class FormPrintingPageComponent implements OnInit {
     }
   }
 
-  onError() {
+  onError(error: any) {
     this.loading = false;
     this.hasError = true;
   }
@@ -68,6 +73,41 @@ export class FormPrintingPageComponent implements OnInit {
           input.type = 'text';
           input.value = this.form.client_submitted_details[key];
         }
+
+        console.log('Tx Values: ' + annotation.fieldValue);
+      }
+      // checkbox
+      else if (annotation.fieldType === 'Btn' && annotation.checkBox) {
+
+        // check if field names match
+        if (this.fieldNamesMatch(annotation.fieldName, key)) {
+
+          // set the client data to this field
+          input.type = 'checkbox';
+          if (annotation.exportValue == this.form.client_submitted_details[key]) {
+            input.value = this.form.client_submitted_details[key];
+            input.checked = true;
+            console.log('selected value: ' + this.form.client_submitted_details[key]);
+          }
+        }
+      }
+      // radio button
+      else if (annotation.fieldType === 'Btn' && annotation.radioButton) {
+
+        // check if field name match
+        if (this.fieldNamesMatch(annotation.fieldName, key)) {
+
+          // set the client data to this field
+          input.type = 'checkbox';
+          if (annotation.exportValue == this.form.client_submitted_details[key]) {
+            input.value = this.form.client_submitted_details[key];
+            input.checked = true;
+            console.log('selected radio: ' + this.form.client_submitted_details[key]);
+          }
+        }
+      }
+      else {
+        console.log('new type encountered: ' + annotation.fieldType);
       }
     });
 
@@ -118,13 +158,28 @@ export class FormPrintingPageComponent implements OnInit {
     }
   }
 
-  public getInputPosition(input: any): any {
+  getInputPosition(input: any): any {
     return {
       top: `${input.top}px`,
       left: `${input.left}px`,
       height: `${input.height}px`,
       width: `${input.width}px`,
     };
+  }
+
+  private hidePrintButton() {
+    const printBtn = document.getElementById('print-button');
+    printBtn.style.display = 'none';
+  }
+
+  private showPrintButton() {
+    const printBtn = document.getElementById('print-button');
+    printBtn.style.display = 'initial';
+  }
+
+  print() {
+    this.hidePrintButton();
+    window.print();
   }
 
 }

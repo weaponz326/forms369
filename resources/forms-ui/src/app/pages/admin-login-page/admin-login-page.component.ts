@@ -28,7 +28,8 @@ export class AdminLoginPageComponent implements OnInit {
     private accountService: AccountService,
     private localStorageService: LocalStorageService
   ) {
-    this.checkAccessToLogin();
+    console.log('env: ' + process.env.NODE_ENV);
+    // this.checkAccessToLogin();
   }
 
   ngOnInit() {
