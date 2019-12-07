@@ -33,29 +33,36 @@ export class FrontDesktopHomePageComponent implements OnInit {
     private analyticService: AnalyticsService,
     private frontDeskService: FrontDeskService,
   ) {
-    this.user = this.localStorage.getUser();
-    this.firstname = this.user.firstname;
-    const merchant_id = _.toString(this.user.merchant_id);
-
-    this.getFrontDeskAnalytics(merchant_id);
-    // this.checkAccessToLogin().then(
-    //   res => {
-    //     if (res == 'ok') {
-    //       this.user = this.localStorage.getUser();
-    //       this.firstname = this.user.firstname;
-    //       const merchant_id = _.toString(this.user.merchant_id);
-
-    //       this.getFrontDeskAnalytics(merchant_id);
-    //     }
-    //     else {
-    //       this.router.navigateByUrl('auth');
-    //     }
-    //   }
-    // );
+    this.initVars();
   }
 
   ngOnInit() {
     this.setupForm();
+  }
+
+  initVars() {
+    if (window.location.origin == 'http://localhost:4200') {
+      this.user = this.localStorage.getUser();
+      this.firstname = this.user.firstname;
+      const merchant_id = _.toString(this.user.merchant_id);
+      this.getFrontDeskAnalytics(merchant_id);
+    }
+    else {
+      this.checkAccessToLogin().then(
+        res => {
+          if (res == 'ok') {
+            this.user = this.localStorage.getUser();
+            this.firstname = this.user.firstname;
+            const merchant_id = _.toString(this.user.merchant_id);
+  
+            this.getFrontDeskAnalytics(merchant_id);
+          }
+          else {
+            this.router.navigateByUrl('auth');
+          }
+        }
+      );
+    }
   }
 
   public get f() {
