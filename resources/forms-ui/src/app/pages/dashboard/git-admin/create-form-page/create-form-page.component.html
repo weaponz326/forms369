@@ -45,7 +45,7 @@
 
                 <form [formGroup]="form">
                   <div class="row mt-4">
-                    <div class="col-8">
+                    <div class="col-4">
                       <div class="form-group">
                         <input type="text" formControlName="name" class="form-control" placeholder="Whats the name of your form ?"
                           [ngClass]="{'input-control-error': submitted && f.name.errors}">
@@ -54,7 +54,7 @@
                         </div>
                       </div>
                     </div>
-                    <div class="col-4">
+                    <div class="col-3">
                       <div class="form-group">
                         <select class="form-control" formControlName="merchant" (change)="onMerchantSelect($event)"
                           [ngClass]="{'input-control-error': submitted && f.merchant.errors}">
@@ -68,6 +68,18 @@
                         </div>
                       </div>
                     </div>
+                    <div class="col-5">
+                      <div class="form-group">
+                        <input #pdfFile type="file" (change)="inputFileChanged($event)" name="pdfFile" class="file-upload-default">
+                        <div class="input-group col-xs-12">
+                          <input type="file" style="overflow: hidden; height: 0px; width: 0px;">
+                          <input type="text" formControlName="pdf" class="form-control file-upload-info" placeholder="Upload Your Form PDF" readonly>
+                          <span class="input-group-append">
+                            <button class="file-upload-browse btn btn-primary" type="button" (click)="showFilePicker()">Upload PDF</button>
+                          </span>
+                        </div>
+                      </div>
+                    </div>
                   </div>
 
                   <div class="form-builder-container">
@@ -75,7 +87,7 @@
                   </div>
 
                   <button type="submit" *ngIf="!loading" class="btn btn-primary mt-2 mr-1" (click)="create()">Create</button>
-                  <button type="submit" *ngIf="!loading" class="btn btn-primary mt-2 mr-1" (click)="publish()">Create & Publish</button>
+                  <!-- <button type="submit" *ngIf="!loading" class="btn btn-primary mt-2 mr-1" (click)="publish()">Create & Publish</button> -->
                   <button type="button" *ngIf="loading" class="btn btn-primary mr-2" disabled>
                     <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>&nbsp; &nbsp;
                     Please wait...
@@ -121,3 +133,19 @@
     </div>
   </div>
 </div>
+
+<ng-template #badtype let-modal>
+  <div class="modal-header">
+    <h4 class="modal-title" id="modal-title">Bad File Format ?</h4>
+    <button type="button" class="close" aria-describedby="modal-title" (click)="modal.dismiss()">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <p><strong>Wrong file type selected!.</strong></p>
+    <p>Please make sure the file you selected has a file extension of .pdf or the file is a valid PDF file.</p>
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-danger" (click)="modal.close()">Ok, Got It</button>
+  </div>
+</ng-template>

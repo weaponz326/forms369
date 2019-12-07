@@ -1,4 +1,4 @@
-import { Component, OnInit, Inject } from '@angular/core';
+import { Component, OnInit, Inject, ViewChild, ElementRef } from '@angular/core';
 declare var $: any;
 import * as _ from 'lodash';
 import { Router } from '@angular/router';
@@ -9,6 +9,7 @@ import { FormsService } from 'src/app/services/forms/forms.service';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { CompanyService } from 'src/app/services/company/company.service';
 import { FormBuilderService } from 'src/app/services/form-builder/form-builder.service';
+import { LocalStorageService } from 'src/app/services/storage/local-storage.service';
 
 @Component({
   selector: 'app-create-form-page',
@@ -19,6 +20,7 @@ export class CreateFormPageComponent implements OnInit {
 
   form: FormGroup;
   formBuilder: any;
+  filename: string;
   created: boolean;
   loading: boolean;
   _loading: boolean;
@@ -27,16 +29,20 @@ export class CreateFormPageComponent implements OnInit {
   hasError: boolean;
   submitted: boolean;
   toPublish: boolean;
+  showFileUpload: boolean;
   allMerchantsList: Array<any>;
+  @ViewChild('pdfFile', { static: false }) pdfFileElement: ElementRef;
 
   constructor(
     private router: Router,
     private _formBuilder: FormBuilder,
     private formService: FormsService,
     private companyService: CompanyService,
+    private localService: LocalStorageService,
     private formBuilderService: FormBuilderService
   ) {
     this.allMerchantsList = [];
+    this.handleUploadFileView();
     this.getCompanies();
   }
 
@@ -67,6 +73,7 @@ export class CreateFormPageComponent implements OnInit {
 
   buildForm() {
     this.form = this._formBuilder.group({
+      pdf: ['', Validators.required],
       name: ['', Validators.required],
       merchant: ['', Validators.required]
     });
@@ -84,6 +91,20 @@ export class CreateFormPageComponent implements OnInit {
     this._merchant.setValue(e.target.value, {
       onlySelf: true
     });
+  }
+
+  inputFileChanged(ev: Event) {
+    const pdf_file = this.pdfFileElement.nativeElement as HTMLInputElement;
+    this.f.pdf.setValue(pdf_file.files[0].name);
+  }
+
+  showFilePicker() {
+    const element = this.pdfFileElement.nativeElement as HTMLInputElement;
+    element.click();
+  }
+
+  handleUploadFileView() {
+    // const user = this.localService.getUser().
   }
 
   getCompanies() {

@@ -28,21 +28,29 @@ export class HomePageComponent implements OnInit {
     private analyticService: AnalyticsService,
     private localStorageService: LocalStorageService
   ) {
-    this.firstName = this.localStorageService.getUser().firstname;
-    // this.checkAccessToLogin().then(
-    //   res => {
-    //     if (res == 'ok') {
-    //       this.firstName = this.localStorageService.getUser().firstname;
-    //     }
-    //     else {
-    //       this.router.navigateByUrl('auth');
-    //     }
-    //   }
-    // );
+    this.initVars();
   }
 
   ngOnInit() {
     this.getAnalytics();
+  }
+
+  initVars() {
+    if (window.location.origin != 'http://localhost:4200') {
+      this.checkAccessToLogin().then(
+        res => {
+          if (res == 'ok') {
+            this.firstName = this.localStorageService.getUser().firstname;
+          }
+          else {
+            this.router.navigateByUrl('auth');
+          }
+        }
+      );
+    }
+    else {
+      this.firstName = this.localStorageService.getUser().firstname;
+    }
   }
 
   openCompanies() {
