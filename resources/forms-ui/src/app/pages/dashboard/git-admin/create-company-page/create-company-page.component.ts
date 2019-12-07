@@ -74,6 +74,12 @@ export class CreateCompanyPageComponent implements OnInit {
     return this.form.get('country');
   }
 
+  togglePrint() {
+    this.f.allowPrint.value == '1'
+      ? this.f.allowPrint.setValue('0')
+      : this.f.allowPrint.setValue('1');
+  }
+
   filter(collection: Array<any>, value: string) {
     console.log('filtering');
     const filterValue = value.toLowerCase();
@@ -88,6 +94,7 @@ export class CreateCompanyPageComponent implements OnInit {
       name: ['', Validators.required],
       logo: ['', Validators.required],
       country: ['', Validators.required],
+      allowPrint: ['0', Validators.required],
       companyAdmin: ['', Validators.required],
       superExecutive: ['', Validators.required]
     });
@@ -125,20 +132,35 @@ export class CreateCompanyPageComponent implements OnInit {
   }
 
   getFormData() {
+    let company_admin_id = 0;
+    let super_executive_id = 0;
     const created_at = this.dateTimeService.getToday(true);
     const user_id = this.localStorageService.getUser().id.toString();
-    const git_admin_id = this.localStorageService.getUser().gitadmin.toString();
     const smallLogo = _.isNull(this.f.smallLogoFile.value) ? '' : this.f.smallLogoFile.value;
+
+    _.forEach(this.superExecutivesList, (executive) => {
+      if (executive.email == this.f.superExecutive.value) {
+        console.log('cccccccccc: ' + executive.id);
+        super_executive_id = executive.id;
+      }
+    });
+    _.forEach(this.companyAdminsList, (admin) => {
+      if (admin.email == this.f.companyAdmin.value) {
+        company_admin_id = admin.id;
+      }
+    });
+
     const merchant = new Merchants(
       this.f.name.value,
       this.f.country.value,
       smallLogo,
-      295,
+      super_executive_id,
       user_id,
       created_at,
-      268,
-      git_admin_id
+      company_admin_id,
+      this.f.allowPrint.value
     );
+
     return merchant;
   }
 

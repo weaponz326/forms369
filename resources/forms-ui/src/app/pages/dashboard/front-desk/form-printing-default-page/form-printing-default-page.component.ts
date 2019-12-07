@@ -7,9 +7,18 @@ import { Component, OnInit } from '@angular/core';
 })
 export class FormPrintingDefaultPageComponent implements OnInit {
 
-  constructor() { }
+  form: any;
+  clientData: any;
+
+  constructor() {
+    this.clientData = this.form.client_submitted_details;
+  }
 
   ngOnInit() {
+    window.onafterprint = () => {
+      console.log('print window closed');
+      // this.showPrintButton();
+    };
   }
 
 }

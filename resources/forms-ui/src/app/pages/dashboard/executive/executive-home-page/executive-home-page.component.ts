@@ -23,7 +23,6 @@ export class ExecutiveHomePageComponent implements OnInit {
   totalNoSubmitted: string;
   totalNoProcessed: string;
   totalNoProcessing: string;
-  // isBranchSuperExec: boolean;
 
   constructor(
     private router: Router,
@@ -31,24 +30,31 @@ export class ExecutiveHomePageComponent implements OnInit {
     private localStorage: LocalStorageService,
     private analyticService: AnalyticsService,
   ) {
-    this.checkAccessToLogin().then(
-      res => {
-        if (res == 'ok') {
-          this.firstname = this.localStorage.getUser().firstname;
-          this.merchantId = toString(this.localStorage.getUser().merchant_id);
-          alert(this.merchantId);
-          // this.isBranchSuperExec = this.localStorage.getUser().usertype == UserTypes.BranchSuperExecutive ? true : false;
-        }
-        else {
-          this.router.navigateByUrl('auth');
-        }
-      },
-      err => {}
-    );
+    this.initVars();
   }
 
   ngOnInit() {
     this.getAnalytics();
+  }
+
+  initVars() {
+    if (window.location.origin == 'http://localhost:4200') {
+      this.firstname = this.localStorage.getUser().firstname;
+      this.merchantId = toString(this.localStorage.getUser().merchant_id);
+    }
+    else {
+      this.checkAccessToLogin().then(
+        res => {
+          if (res == 'ok') {
+            this.firstname = this.localStorage.getUser().firstname;
+            this.merchantId = toString(this.localStorage.getUser().merchant_id);
+          }
+          else {
+            this.router.navigateByUrl('auth');
+          }
+        }
+      );
+    }
   }
 
   openForms() {
