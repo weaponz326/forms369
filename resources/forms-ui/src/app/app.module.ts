@@ -30,7 +30,6 @@ import { ClientHomePageComponent } from './pages/dashboard/client/client-home-pa
 import { CreateFormPageComponent } from './pages/dashboard/git-admin/create-form-page/create-form-page.component';
 import { ClientFormMerchantsPageComponent } from './pages/dashboard/client/client-form-merchants-page/client-form-merchants-page.component';
 import { ClientListFormsPageComponent } from './pages/dashboard/client/client-list-forms-page/client-list-forms-page.component';
-import { ClientListFormDataPageComponent } from './pages/dashboard/client/client-list-form-data-page/client-list-form-data-page.component';
 import { FrontDesktopHomePageComponent } from './pages/dashboard/front-desk/front-desk-home-page/front-desk-home-page.component';
 import { CreateCompanyPageComponent } from './pages/dashboard/git-admin/create-company-page/create-company-page.component';
 import { CreateBranchPageComponent } from './pages/dashboard/git-admin/create-branch-page/create-branch-page.component';
@@ -117,7 +116,6 @@ import { NotFoundPageComponent } from './pages/not-found-page/not-found-page.com
     ClientHomePageComponent,
     ClientFormMerchantsPageComponent,
     ClientListFormsPageComponent,
-    ClientListFormDataPageComponent,
     FrontDesktopHomePageComponent,
     CreateCompanyPageComponent,
     CreateBranchPageComponent,
@@ -200,10 +198,10 @@ import { NotFoundPageComponent } from './pages/not-found-page/not-found-page.com
     NgbModule,
     NgbAlertModule,
     NgbModalModule,
-    ReactiveFormsModule,
     MatIconModule,
     MatInputModule,
     MatSelectModule,
+    ReactiveFormsModule,
     MatDatepickerModule,
     MatNativeDateModule,
     MatAutocompleteModule,
@@ -218,7 +216,4 @@ import { NotFoundPageComponent } from './pages/not-found-page/not-found-page.com
   bootstrap: [AppComponent]
 })
 export class AppModule {
-  constructor(matIconRegistry: MatIconRegistry, domSanitizer: DomSanitizer) {
-    matIconRegistry.addSvgIconSet(domSanitizer.bypassSecurityTrustResourceUrl('/assets/mdi.svg'));
-  }
 }

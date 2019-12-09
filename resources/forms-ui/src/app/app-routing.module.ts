@@ -8,7 +8,6 @@ import { CreateFormPageComponent } from './pages/dashboard/git-admin/create-form
 import { ClientHomePageComponent } from './pages/dashboard/client/client-home-page/client-home-page.component';
 import { ClientFormMerchantsPageComponent } from './pages/dashboard/client/client-form-merchants-page/client-form-merchants-page.component';
 import { ClientListFormsPageComponent } from './pages/dashboard/client/client-list-forms-page/client-list-forms-page.component';
-import { ClientListFormDataPageComponent } from './pages/dashboard/client/client-list-form-data-page/client-list-form-data-page.component';
 import { FrontDesktopHomePageComponent } from './pages/dashboard/front-desk/front-desk-home-page/front-desk-home-page.component';
 import { CreateCompanyPageComponent } from './pages/dashboard/git-admin/create-company-page/create-company-page.component';
 import { CreateBranchPageComponent } from './pages/dashboard/git-admin/create-branch-page/create-branch-page.component';
@@ -266,10 +265,6 @@ const routes: Routes = [
       {
         path: 'forms',
         component: ClientListFormsPageComponent
-      },
-      {
-        path: 'form_data',
-        component: ClientListFormDataPageComponent
       },
       {
         path: 'forms_filled',

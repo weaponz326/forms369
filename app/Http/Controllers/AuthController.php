@@ -848,7 +848,7 @@ class AuthController extends Controller
             ->where('id', $merchant_id)
             ->first();
 
-        $can_print = $print_status->can_print;
+        $can_print = $print_status['can_print'];
 
         if($first_time){
             if($user_type != 26){
