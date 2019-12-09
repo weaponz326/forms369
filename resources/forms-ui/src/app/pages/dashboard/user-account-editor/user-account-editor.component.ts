@@ -188,4 +188,7 @@ export class UserAccountEditorComponent implements OnInit {
     }
   }
 
+  cancel() {
+    window.history.back();
+  }
 }

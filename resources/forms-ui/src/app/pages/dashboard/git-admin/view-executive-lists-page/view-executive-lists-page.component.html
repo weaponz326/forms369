@@ -34,6 +34,21 @@
           <div class="col-lg-12 grid-margin stretch-card">
             <div class="card">
               <div class="card-body">
+                <div *ngIf="showDeleteMessage">
+                  <div *ngIf="isDeleteSuccess" class="alert alert-success alert-dismissible fadeOut" role="alert">
+                    <strong>Success!</strong> 1 Super Executive account deleted successfully
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                      <span aria-hidden="true">&times;</span>
+                    </button>
+                  </div>
+
+                  <div *ngIf="!isDeleteSuccess" class="alert alert-success alert-dismissible fadeOut" role="alert">
+                    <strong>Ooops!</strong> Something went wrong deleting a super executive account. Please try again.
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                      <span aria-hidden="true">&times;</span>
+                    </button>
+                  </div>
+                </div>
                 <app-view-account-lists-page
                   [userType]="userType"
                   (edit)="edit($event)"
@@ -50,3 +65,33 @@
     </div>
   </div>
 </div>
+
+<ng-template #loading let-modal>
+  <div class="modal-body">
+    <div class="d-flex justify-content-center">
+      <div class="spinner-border m-5" style="width: 4rem; height: 4rem;" role="status">
+        <span class="sr-only">Loading...</span>
+      </div>
+    </div>
+    <p class="text-center">Please wait...</p>
+  </div>
+</ng-template>
+
+<ng-template #confirm let-modal>
+  <div class="modal-header">
+    <h4 class="modal-title" id="modal-title">Delete User ?</h4>
+    <button type="button" class="close" aria-describedby="modal-title" (click)="modal.dismiss('Cross click')">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <p><strong>Are you sure you want to delete <span class="text-primary">this user</span> ?</strong></p>
+    <p>All information associated with this user will be permanently deleted.
+      <span class="text-danger">This operation can not be undone.</span>
+    </p>
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-outline-secondary" (click)="modal.dismiss('cancel')">Cancel</button>
+    <button type="button" class="btn btn-danger" (click)="modal.close('delete')">Delete</button>
+  </div>
+</ng-template>

@@ -110,7 +110,7 @@
                 </div>
 
                 <div *ngIf="viewMode == 'grid'" class="row">
-                  <div class="col-md-4 grid-margin stretch-card" *ngFor="let form of formsList">
+                  <div class="col-md-4 grid-margin stretch-card" *ngFor="let form of formsList; let i=index">
                     <div class="card hover-cursor animated fadeInDown fast" (click)="view($event, form)">
                       <div class="card-body">
                         <p class="card-title">{{ form.merchant_name }}</p>
@@ -125,7 +125,7 @@
                               <i class="mdi mdi-pulse"></i>
                               View
                             </button>
-                            <button type="button" class="btn btn-outline-secondary" (click)="delete($event, form.id)">
+                            <button type="button" class="btn btn-outline-secondary" (click)="delete($event, form.form_code, i)">
                               <i class="mdi mdi-delete-outline"></i>
                               Delete
                             </button>
@@ -138,7 +138,7 @@
 
                 <div *ngIf="viewMode == 'list'" class="row">
                   <div class="list-group" style="width: 100%;">
-                    <div class="list-group-item hover-cursor list-group-item-action animated fadeInDown" *ngFor="let form of formsList">
+                    <div class="list-group-item hover-cursor list-group-item-action animated fadeInDown" *ngFor="let form of formsList; let i=index">
                       <div class="row" (click)="view($event, form)">
                         <div class="col-8"> 
                           <span class="card-title mt-2">{{ form.merchant_name }}</span>
@@ -154,7 +154,7 @@
                               <i class="mdi mdi-pulse"></i>
                               View
                             </button>
-                            <button type="button" class="btn btn-outline-secondary" (click)="delete($event, form.id)">
+                            <button type="button" class="btn btn-outline-secondary" (click)="delete($event, form.form_code. i)">
                               <i class="mdi mdi-delete-outline"></i>
                               Delete
                             </button>
@@ -205,3 +205,33 @@
     </div>
   </div>
 </div>
+
+<ng-template #loader let-modal>
+  <div class="modal-body">
+    <div class="d-flex justify-content-center">
+      <div class="spinner-border m-5" style="width: 4rem; height: 4rem;" role="status">
+        <span class="sr-only">Loading...</span>
+      </div>
+    </div>
+    <p class="text-center">Please wait...</p>
+  </div>
+</ng-template>
+
+<ng-template #confirm let-modal>
+  <div class="modal-header">
+    <h4 class="modal-title" id="modal-title">Delete Form ?</h4>
+    <button type="button" class="close" aria-describedby="modal-title" (click)="modal.dismiss('Cross click')">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <p><strong>Are you sure you want to delete <span class="text-primary">this form</span> ?</strong></p>
+    <p>All information associated with this form will be permanently deleted.
+      <span class="text-danger">This operation can not be undone.</span>
+    </p>
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-outline-secondary" (click)="modal.dismiss('cancel')">Cancel</button>
+    <button type="button" class="btn btn-danger" (click)="modal.close('delete')">Delete</button>
+  </div>
+</ng-template>

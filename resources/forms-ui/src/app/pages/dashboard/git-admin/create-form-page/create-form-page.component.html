@@ -45,7 +45,7 @@
 
                 <form [formGroup]="form">
                   <div class="row mt-4">
-                    <div class="col-4">
+                    <div [ngClass]="{'col-4': showFileUpload, 'col-6': !showFileUpload}">
                       <div class="form-group">
                         <input type="text" formControlName="name" class="form-control" placeholder="Whats the name of your form ?"
                           [ngClass]="{'input-control-error': submitted && f.name.errors}">
@@ -54,7 +54,7 @@
                         </div>
                       </div>
                     </div>
-                    <div class="col-3">
+                    <div [ngClass]="{'col-3': showFileUpload, 'col-6': !showFileUpload}">
                       <div class="form-group">
                         <select class="form-control" formControlName="merchant" (change)="onMerchantSelect($event)"
                           [ngClass]="{'input-control-error': submitted && f.merchant.errors}">
@@ -68,15 +68,18 @@
                         </div>
                       </div>
                     </div>
-                    <div class="col-5">
+                    <div *ngIf="showFileUpload" class="col-5">
                       <div class="form-group">
-                        <input #pdfFile type="file" (change)="inputFileChanged($event)" name="pdfFile" class="file-upload-default">
+                        <input #pdfFile type="file" (change)="inputFileChanged($event)" class="file-upload-default">
                         <div class="input-group col-xs-12">
                           <input type="file" style="overflow: hidden; height: 0px; width: 0px;">
                           <input type="text" formControlName="pdf" class="form-control file-upload-info" placeholder="Upload Your Form PDF" readonly>
                           <span class="input-group-append">
                             <button class="file-upload-browse btn btn-primary" type="button" (click)="showFilePicker()">Upload PDF</button>
                           </span>
+                        </div>
+                        <div *ngIf="submitted && f.pdf.errors">
+                          <p class="input-error" *ngIf="f.pdf.errors.required">PDF file is required</p>
                         </div>
                       </div>
                     </div>
@@ -87,7 +90,7 @@
                   </div>
 
                   <button type="submit" *ngIf="!loading" class="btn btn-primary mt-2 mr-1" (click)="create()">Create</button>
-                  <!-- <button type="submit" *ngIf="!loading" class="btn btn-primary mt-2 mr-1" (click)="publish()">Create & Publish</button> -->
+                  <button type="submit" *ngIf="!loading && !showFileUpload" class="btn btn-primary mt-2 mr-1" (click)="publish()">Create & Publish</button>
                   <button type="button" *ngIf="loading" class="btn btn-primary mr-2" disabled>
                     <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>&nbsp; &nbsp;
                     Please wait...
@@ -123,6 +126,33 @@
                   <button type="button" class="btn btn-dark btn-lg btn-icon-text mr-2" (click)="ok()">
                     <i class="mdi mdi-check"></i>
                     Ok
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div *ngIf="uploadError" class="row">
+          <div class="col-md-12 grid-margin">
+            <div class="card pt-5 pb-5 text-center">
+              <div class="card-body">
+                <p class="card-title">Failed</p>
+                <p class="text-muted"></p>
+                <div class="card-text">
+                  <i class="mdi mdi-cloud-off-outline text-secondary" style="font-size: 10em;"></i>
+                  <h2>File Upload Failed</h2>
+                  <p class="text-muted">
+                    Ooops! An error occured uploading your PDF. Please check to make sure the file is not corrupted.
+                    Also check if you have a stable internet connection or our server may be down.
+                  </p>
+                </div>
+                <div class="card-text mt-4">
+                  <button type="button" class="btn btn-primary btn-lg btn-icon-text mr-2" (click)="ok1()">
+                    Ok
+                  </button>
+                  <button type="button" class="btn btn-primary btn-lg btn-icon-text mr-2" (click)="retry()">
+                    Retry
                   </button>
                 </div>
               </div>

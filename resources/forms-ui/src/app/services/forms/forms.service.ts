@@ -216,6 +216,7 @@ export class FormsService {
   deleteForm(id: string): Promise<any> {
     return new Promise((resolve, reject) => {
       const url = this.endpointService.apiHost + 'api/v1/deleteForm/' + id;
+      console.log(url);
       this.http.post(url, {}, { headers: this.headers }).subscribe(
         res => {
           console.log('del_forms: ' + JSON.stringify(res));
@@ -239,6 +240,32 @@ export class FormsService {
         },
         err => {
           console.log('edit_forms_error: ' + JSON.stringify(err));
+          reject(err);
+        }
+      );
+    });
+  }
+
+  uploafFormPDF(merchant_id: string, form_code: string, pdf: File): Promise<boolean> {
+    return new Promise((resolve, reject) => {
+      const form = new FormData();
+      const fileHeader = this.endpointService.headers(true);
+      const url = this.endpointService.apiHost + 'api/v1/uploadPrintFile/' + merchant_id + '/' + form_code;
+
+      form.set('file', pdf);
+      this.http.post(url, form, { headers: fileHeader }).subscribe(
+        res => {
+          console.log('response: ' + JSON.stringify(res));
+          const response = res as any;
+          if (_.toLower(response.message) == 'ok') {
+            resolve(true);
+          }
+          else {
+            resolve(false);
+          }
+        },
+        err => {
+          console.log('error: ' + JSON.stringify(err));
           reject(err);
         }
       );

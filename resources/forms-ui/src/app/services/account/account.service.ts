@@ -482,4 +482,15 @@ export class AccountService {
       );
     });
   }
+
+  deleteAccount(id: string): Promise<any> {
+    return new Promise((resolve, reject) => {
+      const header = this.endpointService.headers();
+      const url = this.endpointService.apiHost + 'api/v1//' + id;
+      this.http.post(url, {}, { headers: header }).subscribe(
+        res => {},
+        err => {}
+      );
+    });
+  }
 }
