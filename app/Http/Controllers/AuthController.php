@@ -804,6 +804,12 @@ class AuthController extends Controller
             }
 
             $attemptuserusername = User::where('username', '=', $request->username)->first();
+            if(empty($attemptuserusername)){
+                $error_response = [
+                    'message' => 'USER_NOT_FOUND'
+                ];
+                return response()->json($error_response, 400);
+            }
             if($attemptuserusername['status'] == 0){
 
                 $error_response = [
@@ -842,7 +848,7 @@ class AuthController extends Controller
             ->where('id', $merchant_id)
             ->first();
 
-        $can_print = $print_status['can_print'];
+        $can_print = $print_status->can_print;
 
         if($first_time){
             if($user_type != 26){
@@ -1501,6 +1507,29 @@ class AuthController extends Controller
         return response()->json($response, 200);
    
    }
+
+   /**
+     * deleteUser delete a user from the database
+     * @return void\Illuminate\Http\Response success or error message
+     * @param  mixed $request
+     * @param  mixed $id of the user to be deleted
+     */
+    public function deleteUser(Request $request, $id){
+        try {
+            DB::table('users')->where('id', '=', $id)->delete();
+            $response = [
+                'message' => 'Ok'
+            ];
+            return response()->json($response, 200);
+        }catch(Exception $e) {
+            $response = [
+                'message' => 'Failed'
+            ];
+            return response()->json($response, 400);
+
+        }    
+
+    }
 
 
 }

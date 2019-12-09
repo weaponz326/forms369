@@ -180,7 +180,7 @@ class SetupController extends Controller
                 $logo = $url;
                     // return Response::json($url);
             }else{
-                return Reponse::json('Logo upload unsuccessful');
+                return Response::json('Logo upload unsuccessful');
             }
         }
 
@@ -200,7 +200,7 @@ class SetupController extends Controller
                 $small_logo = $url;
                     //return Response::json($url);
             }else{
-                return Reponse::json('Small logo upload unsuccessful');
+                return Response::json('Small logo upload unsuccessful');
             }
         }
 

@@ -24,6 +24,18 @@ class HomeController extends Controller
 
     }
 
+     /**
+      * Business logics
+     * deleteUser delete a user from the database
+     * @return void\Illuminate\Http\Response success or error message
+     * @param  mixed $request
+     * @param  mixed $id of the user to be deleted
+     */
+    public function deleteUser(Request $request, $id){
+        $message = (new AuthController)->deleteUser($request, $id);
+        return $message;
+    }
+
     /**
     * Reset user password at first login
     * @param  mixed $request
@@ -1022,6 +1034,34 @@ class HomeController extends Controller
     protected function getAllClients(Request $request)
     {
         $message = (new ClientController)->getAllClients($request);
+        return $message;
+    }
+
+     /**
+      * Business logics 
+     * Upload form attachements
+     *
+     * @param  mixed $request
+     *
+     * @return \Illuminate\Http\Response success or error message
+     */
+    public function uploadattachments(Request $request, $client_id, $form_code, $submission_code)
+    {
+        $message = (new ClientController)->uploadattachments($request, $client_id, $form_code, $submission_code);
+        return $message;
+    }
+
+     /**
+      * Business logics 
+     * getAttachments get all attachments during a form submission
+     *
+     * @param  mixed $request
+     *
+     * @return \Illuminate\Http\Response containing all attachment
+     */
+    public function getAttachments(Request $request, $submission_code)
+    {
+        $message = (new ClientController)->getAttachments($request, $submission_code);
         return $message;
     }
 
