@@ -1038,6 +1038,34 @@ class HomeController extends Controller
     }
 
      /**
+      * Business logics 
+     * Upload form attachements
+     *
+     * @param  mixed $request
+     *
+     * @return \Illuminate\Http\Response success or error message
+     */
+    public function uploadattachments(Request $request, $client_id, $form_code, $submission_code)
+    {
+        $message = (new ClientController)->uploadattachments($request, $client_id, $form_code, $submission_code);
+        return $message;
+    }
+
+     /**
+      * Business logics 
+     * getAttachments get all attachments during a form submission
+     *
+     * @param  mixed $request
+     *
+     * @return \Illuminate\Http\Response containing all attachment
+     */
+    public function getAttachments(Request $request, $submission_code)
+    {
+        $message = (new ClientController)->getAttachments($request, $submission_code);
+        return $message;
+    }
+
+     /**
       * Business logics to get details of a client for a clients profile
      * getClientsDetails get all details of a client 
      *

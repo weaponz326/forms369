@@ -9,6 +9,9 @@ use Illuminate\Support\Facades\Crypt;
 
 use Illuminate\Pagination\Paginator;
 use Illuminate\Support\Facades\Log;
+use Response;
+use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\File;
 class ClientController extends Controller
 {
     
@@ -262,11 +265,13 @@ class ClientController extends Controller
         ->join('users', 'users.id', '=', 'client_id')
         ->join('forms', 'forms.form_code', '=', 'form_id')
         ->join('merchants', 'merchants.id', '=', 'forms.merchant_id')
+        // ->join('attachments','attachments.submission_code', '=', 'submitted_forms.submission_code')
         ->select('submitted_forms.*','merchants.merchant_name AS merchant_name',
         'users.name', 'users.email', 'forms.name AS form_name', 'forms.form_fields')
         ->where('submitted_forms.client_id', $id)
         ->paginate(15);
       
+        return $getforms;
         //clean data
         $submittedformdata = [];
 
@@ -389,5 +394,98 @@ class ClientController extends Controller
         return response()->json($response, 200);
     }
 
- 
+  /**
+     * uploadattachments Upload form attachments
+     *
+     * @param  mixed $request
+     *
+     * @return \Illuminate\Http\Response success or error message
+     */
+    public function uploadattachments(Request $request, $client_id, $form_code, $submission_code){
+
+        //file to storage and save name in database
+        if($request->hasFile('file'))
+        {
+            $this->validate($request, [
+                'key' => 'required'
+            ]);
+            
+            $attachment = $request->file('file');
+            $filename = $attachment->getClientOriginalName();
+            $extension = $attachment->getClientOriginalExtension();
+
+            $excludedfileExtension=['exec','zip','dmg', 'rar', 'iso', 'phar', 'sql'];
+
+            $check=in_array($extension,$excludedfileExtension);
+
+            if($check){
+                return Response::json('Invalid_Attachment');
+            }else{
+
+                $current_date_time = Carbon::now()->toDateTimeString(); // Produces something like "2019-03-11 12:25:00"
+                $url=$attachment->getFilename().'_'.$submission_code. '_'.$current_date_time.'.'.$extension;
+                $url = str_replace(':', '_', $url);
+                $upload=Storage::disk('local')->put('attachments/'.$url,  File::get($attachment));
+                if($upload)
+                {
+                    $logo = $url;
+                        
+                }else{
+                    return Response::json('Attachment upload unsuccessful');
+                }
+            }
+            $message = 'Failed';
+
+            if($upload){
+                $key = $request->key;
+                $uploaded_at = now();
+
+                try {
+                    $id = DB::table('attachments')->insertGetId(
+                        [
+                            'url' => $url, 
+                            'uploaded_at' => $uploaded_at,
+                            'submission_code' => $submission_code,
+                            'form_code' => $form_code,
+                            'client_id' => $client_id,
+                            'key' => $key
+                        ]
+                    );
+
+                    Log::channel('mysql')->info('Client with id: ' . $client_id .' successsfully uploaded attachments for form with submission code: '. $submission_code);
+                    $message = 'Ok';
+        
+                }catch(Exception $e) {
+                    Log::channel('mysql')->error('Client with id: ' . $client_id .' unsuccesssfully uploaded attachments for form with submission code: '. $submission_code);
+                    $message = "Failed";
+                } 
+            }
+            return response()->json([
+                'message' => $message
+            ]);
+
+                
+        }else{
+            return Response::json('No Attachment');
+        }
+    }
+
+    /**
+     * getAttachments get all attachments during a form submission
+     *
+     * @param  mixed $request
+     *
+     * @return \Illuminate\Http\Response containing all attachment
+     */
+    public function getAttachments(Request $request, $submission_code)
+    {
+        $getattachements = DB::table('attachments')
+        ->where('submission_code', $submission_code)
+        ->get(); 
+
+        $response = [
+            'attachments' => $getattachements
+        ];
+        return response()->json($response, 200);
+    }
 }

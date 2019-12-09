@@ -804,6 +804,12 @@ class AuthController extends Controller
             }
 
             $attemptuserusername = User::where('username', '=', $request->username)->first();
+            if(empty($attemptuserusername)){
+                $error_response = [
+                    'message' => 'USER_NOT_FOUND'
+                ];
+                return response()->json($error_response, 400);
+            }
             if($attemptuserusername['status'] == 0){
 
                 $error_response = [

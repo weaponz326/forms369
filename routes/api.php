@@ -118,7 +118,11 @@ Route::group(['middleware' => ['auth:api'], 'prefix' => 'v1'], function(){
     Route::post('editPrintFile/{merchant_id}/{code}', 'HomeController@editPrintFile')->name('editPrintFile')->middleware('scope:GIT_Admin,company_admin');
     Route::get('getPrintFile/{merchant_id}/{code}', 'HomeController@getPrintFile')->name('getPrintFile')->middleware('scope:GIT_Admin,company_admin,branch_admin,frontdesk');
 
-  
+    //form attachments 
+    Route::post('uploadattachments/{client_id}/{form_code}/{sub_code}', 'HomeController@uploadattachments')->name('uploadattachments')->middleware('scope:GIT_Admin,client');
+    Route::get('getAttachments/{sub_code}', 'HomeController@getAttachments')->name('getAttachments')->middleware('scope:GIT_Admin,client,company_admin,branch_admin,frontdesk');
+    
+    
     //user types setup, view and update apis
     Route::post('createUserType', 'HomeController@createUserType')->name('createUserType')->middleware('scope:GIT_Admin');
     Route::post('editUserType', 'HomeController@editUserType')->name('editUserType')->middleware('scope:GIT_Admin');
