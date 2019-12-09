@@ -79,6 +79,9 @@ Route::group(['middleware' => ['auth:api'], 'prefix' => 'v1'], function(){
     //logout user
     Route::get('logoutUser', 'HomeController@logout')->name('logoutUser');
     
+    //delete user
+    Route::post('deleteUser/{id}', 'HomeController@deleteUser')->name('deleteUser')->middleware('scope:GIT_Admin');
+    
 
     //merchant setup, view and update apis
     Route::post('uploadImage', 'HomeController@imageUpload')->name('uploadImage')->middleware('scope:GIT_Admin,company_admin,branch_admin');

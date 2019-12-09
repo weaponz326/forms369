@@ -24,6 +24,18 @@ class HomeController extends Controller
 
     }
 
+     /**
+      * Business logics
+     * deleteUser delete a user from the database
+     * @return void\Illuminate\Http\Response success or error message
+     * @param  mixed $request
+     * @param  mixed $id of the user to be deleted
+     */
+    public function deleteUser(Request $request, $id){
+        $message = (new AuthController)->deleteUser($request, $id);
+        return $message;
+    }
+
     /**
     * Reset user password at first login
     * @param  mixed $request
