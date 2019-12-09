@@ -1,6 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild, TemplateRef } from '@angular/core';
 import * as _ from 'lodash';
 import { Router } from '@angular/router';
+import { NgbModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
 import { FormsService } from 'src/app/services/forms/forms.service';
 import { ListViewService } from 'src/app/services/view/list-view.service';
 
@@ -22,9 +23,13 @@ export class ViewFormListsPageComponent implements OnInit {
   hasMoreError: boolean;
   formsList: Array<any>;
   allFormsList: Array<any>;
+  loadingModalRef: NgbModalRef;
+  @ViewChild('loader', { static: false }) loadingModal: TemplateRef<any>;
+  @ViewChild('confirm', { static: false }) confirmModal: TemplateRef<any>;
 
   constructor(
     private router: Router,
+    private modalService: NgbModal,
     private formService: FormsService,
     private listViewService: ListViewService
   ) {
@@ -37,6 +42,14 @@ export class ViewFormListsPageComponent implements OnInit {
 
   ngOnInit() {
     this.filterState = 'all';
+  }
+
+  showLoadingModal() {
+    this.loadingModalRef = this.modalService.open(this.loadingModal, { centered: true });
+  }
+
+  hideLoadingModal() {
+    this.loadingModalRef.close();
   }
 
   showAll() {
@@ -111,8 +124,30 @@ export class ViewFormListsPageComponent implements OnInit {
     this.router.navigateByUrl('/git_admin/setup_form');
   }
 
-  delete(ev: Event, id: string) {
+  delete(ev: Event, id: string, index: number) {
     ev.stopPropagation();
+    this.modalService.open(this.confirmModal, { centered: true }).result.then(
+      result => {
+        if (result == 'delete') {
+          this.showLoadingModal();
+          this.formService.deleteForm(id).then(
+            ok => {
+              const res = ok as any;
+              if (_.toLower(res.message) == 'ok') {
+                this.allFormsList.splice(index, 1);
+                this.hideLoadingModal();
+              }
+              else {
+                this.hideLoadingModal();
+              }
+            },
+            err => {
+              this.hideLoadingModal();
+            }
+          );
+        }
+      }
+    );
   }
 
   checkIfHasMore() {

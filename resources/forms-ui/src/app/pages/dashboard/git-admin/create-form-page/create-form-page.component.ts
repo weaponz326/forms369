@@ -1,10 +1,8 @@
-import { Component, OnInit, Inject, ViewChild, ElementRef } from '@angular/core';
+import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
 declare var $: any;
 import * as _ from 'lodash';
 import { Router } from '@angular/router';
-import { DOCUMENT } from '@angular/common';
 import { Forms } from 'src/app/models/forms.model';
-import { PageScrollService } from 'ngx-page-scroll-core';
 import { FormsService } from 'src/app/services/forms/forms.service';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { CompanyService } from 'src/app/services/company/company.service';
@@ -19,6 +17,7 @@ import { LocalStorageService } from 'src/app/services/storage/local-storage.serv
 export class CreateFormPageComponent implements OnInit {
 
   form: FormGroup;
+  pdfFile: File;
   formBuilder: any;
   filename: string;
   created: boolean;
@@ -29,6 +28,7 @@ export class CreateFormPageComponent implements OnInit {
   hasError: boolean;
   submitted: boolean;
   toPublish: boolean;
+  uploadError: boolean;
   showFileUpload: boolean;
   allMerchantsList: Array<any>;
   @ViewChild('pdfFile', { static: false }) pdfFileElement: ElementRef;
@@ -42,7 +42,6 @@ export class CreateFormPageComponent implements OnInit {
     private formBuilderService: FormBuilderService
   ) {
     this.allMerchantsList = [];
-    this.handleUploadFileView();
     this.getCompanies();
   }
 
@@ -91,11 +90,13 @@ export class CreateFormPageComponent implements OnInit {
     this._merchant.setValue(e.target.value, {
       onlySelf: true
     });
+    this.handleUploadFileView(this.f.merchant.value);
   }
 
   inputFileChanged(ev: Event) {
     const pdf_file = this.pdfFileElement.nativeElement as HTMLInputElement;
     this.f.pdf.setValue(pdf_file.files[0].name);
+    this.pdfFile = pdf_file.files[0];
   }
 
   showFilePicker() {
@@ -103,8 +104,23 @@ export class CreateFormPageComponent implements OnInit {
     element.click();
   }
 
-  handleUploadFileView() {
-    // const user = this.localService.getUser().
+  handleUploadFileView(merchant_id: string) {
+    _.forEach(this.allMerchantsList, (merchant, i) => {
+      if (merchant_id == merchant.id) {
+        this.showFileUpload = merchant.can_print == 1 ? true : false;
+        return;
+      }
+      else {
+        // if its the last item in the array
+        if (i == this.allMerchantsList.length) {
+          // remove validator set on pdf because pdf isnt going to be
+          // uploaded so there is no need to make it required.
+          console.log('last in array which isnt can_print');
+          this.f.pdf.clearValidators();
+          this.f.pdf.updateValueAndValidity();
+        }
+      }
+    });
   }
 
   getCompanies() {
@@ -129,8 +145,7 @@ export class CreateFormPageComponent implements OnInit {
     return this.formBuilder.actions.getData();
   }
 
-  save() {
-    this.loading = true;
+  createForm() {
     const form = this.getForm();
     const formData = new Forms();
     console.log('json: ' + JSON.stringify(form));
@@ -158,6 +173,25 @@ export class CreateFormPageComponent implements OnInit {
         this.toPublish = false;
       }
     );
+  }
+
+  createFormWithPDF() {
+    this.formService.uploafFormPDF(this.f.merchant.value, this.formCode, this.pdfFile).then(
+      res => {
+        this.createForm();
+      },
+      err => {
+        this.loading = false;
+        this.created = false;
+        this.uploadError = true;
+      }
+    );
+  }
+
+  save() {
+    this.loading = true;
+    this.toPublish = this.showFileUpload ? false : true;
+    this.showFileUpload ? this.createFormWithPDF() : this.createForm();
   }
 
   reset() {
@@ -189,6 +223,16 @@ export class CreateFormPageComponent implements OnInit {
 
   ok() {
     this.router.navigateByUrl('/git_admin/lists/form');
+  }
+
+  ok1() {
+    this.created = false;
+    this.uploadError = false;
+  }
+
+  retry() {
+    this.uploadError = false;
+    this.save();
   }
 
 }

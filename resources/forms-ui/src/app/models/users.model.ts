@@ -10,6 +10,7 @@ export class Users {
         public password_confirmation?: string,
         public user_type?: number,
         public usertype?: number,
+        public can_print?: number,
         public gitadmin?: number,
         public merchant_id?: number,
         public branch_id?: number,

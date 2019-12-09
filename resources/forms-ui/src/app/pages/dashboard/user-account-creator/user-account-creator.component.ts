@@ -285,6 +285,17 @@ export class UserAccountCreatorComponent implements OnInit {
     }
   }
 
-  cancel() {}
+  cancel() {
+    this.f.firstName.setValue('');
+    this.f.lastName.setValue('');
+    this.f.country.setValue('');
+    this.f.username.setValue('');
+    this.f.userType.setValue('');
+    this.f.branch.setValue('');
+    this.f.merchant.setValue('');
+    this.f.phone.setValue('');
+    this.f.password.setValue('');
+    this.f.emailAddress.setValue('');
+  }
 
 }
