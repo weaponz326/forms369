@@ -54,7 +54,7 @@ export class FrontDesktopHomePageComponent implements OnInit {
             this.user = this.localStorage.getUser();
             this.firstname = this.user.firstname;
             const merchant_id = _.toString(this.user.merchant_id);
-  
+
             this.getFrontDeskAnalytics(merchant_id);
           }
           else {

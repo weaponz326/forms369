@@ -287,8 +287,9 @@ export class AnalyticsService {
       const url = this.endpointService.apiHost + 'api/v1/getNumSubmittedFormsByStatus/0/' + merchant_id;
       this.http.get(url, { headers: this.headers }).subscribe(
         res => {
-          console.log('forms: ' + res);
+          // console.log('forms: ' + res);
           const response = res as any;
+          console.log('forms: ' + response.num_forms);
           resolve(response.num_forms);
         },
         err => {

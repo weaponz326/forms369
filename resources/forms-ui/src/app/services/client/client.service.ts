@@ -199,6 +199,50 @@ export class ClientService {
     });
   }
 
+  fillClientProfileData(form_sections: Array<any>, client_data: Array<any>) {
+    _.forEach(form_sections, (section) => {
+      console.log('**se: ' + section.heading);
+      _.forEach(section.form_fields, (form) => {
+        if (!_.isUndefined(form.name)) {
+          const element_names = document.getElementsByName(form.name);
+          const client_keys = _.keys(client_data);
+          _.forEach(client_keys, (client) => {
+            if (form.name == client) {
+              _.forEach(element_names, (element) => {
+                const form_field = element as HTMLInputElement;
+                // we check if the element is a radio button, checkbox or and input field
+                if (form_field.type == 'radio') {
+                  // this is a radio button.
+                  _.forEach(form.values, (value) => {
+                    const radio_label = form_field.nextSibling.textContent;
+                    if (_.toLower(radio_label) == _.toLower(client_data[client])) {
+                      form_field.value = client_data[client];
+                      form_field.checked = true;
+                    }
+                  });
+                }
+                else if (form_field.type == 'checkbox') {
+                  // this is a checkbox.
+                  const checkbox_label = form_field.nextSibling.textContent;
+                  _.forEach(form.values, (value) => {
+                    if (_.toLower(checkbox_label) == _.toLower(client_data[client])) {
+                      form_field.value = client_data[client];
+                      form_field.checked = true;
+                    }
+                  });
+                }
+                else {
+                  // this is a text input.
+                  form_field.value = client_data[client];
+                }
+              });
+            }
+          });
+        }
+      });
+    });
+  }
+
   getUpdatedClientFormData(new_form_data: any, existing_client_data: any) {
     const obj = _.toPlainObject(new_form_data);
     const keys = _.keys(obj);

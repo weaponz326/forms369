@@ -2,3 +2,8 @@
     font-size: 0.65rem;
     text-transform: uppercase;
 }
+
+.btn-pwd {
+    height: 46px;
+    line-height: 16px;
+}

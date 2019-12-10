@@ -37,7 +37,8 @@ export class FrontDeskProcessedFormsListPageComponent implements OnInit {
 
   print(ev: Event, form: any) {
     ev.stopPropagation();
-    this.router.navigateByUrl('front_desk/print_form', { state: { form: form }});
+    // this.router.navigateByUrl('front_desk/print_form', { state: { form: form }});
+    this.router.navigateByUrl('front_desk/print_form_default', { state: { form: form }});
   }
 
   getAllProcessedForms() {

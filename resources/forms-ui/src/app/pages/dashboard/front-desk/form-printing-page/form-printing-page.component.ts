@@ -23,7 +23,7 @@ export class FormPrintingPageComponent implements OnInit {
   constructor(private _fb: FormBuilder) {
     this.inputList = [];
     this.dpiRatio = 96 / 72;
-    this.pdfSrc = 'https://forms369.com/test1.pdf';
+    this.pdfSrc = 'https://forms369.com/test.pdf';
     this.clientFormDetails = [];
     this.form = window.history.state.form;
     window.onafterprint = () => {
