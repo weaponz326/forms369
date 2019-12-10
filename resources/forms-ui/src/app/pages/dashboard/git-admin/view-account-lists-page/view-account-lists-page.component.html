@@ -77,6 +77,21 @@
       </div>
     </div>
     <div class="tab-content py-0 px-0">
+      <div *ngIf="showDeleteMessage">
+        <div *ngIf="isDeleteSuccess" class="alert alert-success alert-dismissible fadeOut" role="alert">
+          <strong>Success!</strong> 1 Super Executive account deleted successfully
+          <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+
+        <div *ngIf="!isDeleteSuccess" class="alert alert-success alert-dismissible fadeOut" role="alert">
+          <strong>Ooops!</strong> Something went wrong deleting a super executive account. Please try again.
+          <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+      </div>
       <div class="tab-pane fade show active" id="companies" role="tabpanel" aria-labelledby="companies-tab">
         <div class="table-responsive">
           <table class="table table-hover">
@@ -90,7 +105,7 @@
               </tr>
             </thead>
             <tbody>
-              <tr class="hover-cursor" *ngFor="let user of collection">
+              <tr class="hover-cursor" *ngFor="let user of collection; let i = index">
                 <td>{{ user.username }}</td>
                 <td>{{ user.email }}</td>
                 <td *ngIf="userType != 20">{{ user.merchant_name }}</td>
@@ -107,7 +122,7 @@
                       <i class="mdi mdi-eye-outline text-muted"></i>
                     </button>
                     <button type="button" class="btn btn-light bg-white btn-icon mr-3 d-sm-none d-md-block"
-                      data-toggle="tooltip" data-placement="top" title="Delete" (click)="_delete(user.id)">
+                      data-toggle="tooltip" data-placement="top" title="Delete" (click)="_delete(user.id, i)">
                       <i class="mdi mdi-delete-outline text-muted"></i>
                     </button>
                     <!-- <button type="button" class="btn btn-light bg-white btn-icon mr-3 d-sm-block">
@@ -123,3 +138,33 @@
     </div>
   </div>
 </div>
+
+<ng-template #loader let-modal>
+  <div class="modal-body">
+    <div class="d-flex justify-content-center">
+      <div class="spinner-border m-5" style="width: 4rem; height: 4rem;" role="status">
+        <span class="sr-only">Loading...</span>
+      </div>
+    </div>
+    <p class="text-center">Please wait...</p>
+  </div>
+</ng-template>
+
+<ng-template #confirm let-modal>
+  <div class="modal-header">
+    <h4 class="modal-title" id="modal-title">Delete User ?</h4>
+    <button type="button" class="close" aria-describedby="modal-title" (click)="modal.dismiss('Cross click')">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <p><strong>Are you sure you want to delete <span class="text-primary">this user</span> ?</strong></p>
+    <p>All information associated with this user will be permanently deleted.
+      <span class="text-danger">This operation can not be undone.</span>
+    </p>
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-outline-secondary" (click)="modal.dismiss('cancel')">Cancel</button>
+    <button type="button" class="btn btn-danger" (click)="modal.close('delete')">Delete</button>
+  </div>
+</ng-template>

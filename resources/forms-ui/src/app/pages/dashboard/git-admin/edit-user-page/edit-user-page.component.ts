@@ -22,7 +22,28 @@ export class EditUserPageComponent implements OnInit {
   }
 
   ok() {
-    this.router.navigateByUrl('/git_admin/lists/admin');
+    switch (this.userType) {
+      case 'Front Desk':
+        this.router.navigateByUrl('/git_admin/lists/front_desk');
+        break;
+      case 'GIT Admin':
+        this.router.navigateByUrl('/git_admin/lists/admin');
+        break;
+      case 'Branch Admin':
+        this.router.navigateByUrl('/git_admin/lists/branch_admin');
+        break;
+      case 'Company Admin':
+        this.router.navigateByUrl('/git_admin/lists/company_admin');
+        break;
+      case 'Super Executive':
+        this.router.navigateByUrl('/git_admin/lists/super_executive');
+        break;
+      case 'Branch Super Executive':
+        this.router.navigateByUrl('/git_admin/lists/branch_executive');
+        break;
+      default:
+        break;
+    }
   }
 
   editAccount(ev: any) {
@@ -55,6 +76,9 @@ export class EditUserPageComponent implements OnInit {
         break;
       case UserTypes.SuperExecutive:
         this.userType = 'Super Executive';
+        break;
+      case UserTypes.GitAdmin:
+        this.userType = 'GIT Admin';
         break;
       default:
         break;

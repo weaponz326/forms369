@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter, ViewChild, TemplateRef } from '@angular/core';
 import * as _ from 'lodash';
 import { Router } from '@angular/router';
 import { UserTypes } from 'src/app/enums/user-types.enum';
@@ -7,6 +7,8 @@ import { BranchService } from 'src/app/services/branch/branch.service';
 import { CompanyService } from 'src/app/services/company/company.service';
 import { ExecutiveService } from 'src/app/services/executive/executive.service';
 import { FrontDeskService } from 'src/app/services/front-desk/front-desk.service';
+import { NgbModalRef, NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { AccountService } from 'src/app/services/account/account.service';
 
 @Component({
   selector: 'app-view-account-lists-page',
@@ -24,18 +26,25 @@ export class ViewAccountListsPageComponent implements OnInit {
   @Input() userType: any;
   @Input() branchId: any;
   @Input() merchantId: any;
+  isDeleteSuccess: boolean;
+  showDeleteMessage: boolean;
   collection: Array<any>;
   allCollection: Array<any>;
+  loadingModalRef: NgbModalRef;
   @Output() edit = new EventEmitter();
   @Output() view = new EventEmitter();
   @Output() delete = new EventEmitter();
   @Output() dataLoaded = new EventEmitter();
   @Output() dataLoadedError = new EventEmitter();
+  @ViewChild('loader', { static: false }) loadingModal: TemplateRef<any>;
+  @ViewChild('confirm', { static: false }) confirmModal: TemplateRef<any>;
 
   constructor(
     private router: Router,
+    private modalService: NgbModal,
     private adminService: AdminService,
     private branchService: BranchService,
+    private accountService: AccountService,
     private companyService: CompanyService,
     private frontDeskService: FrontDeskService,
     private executiveService: ExecutiveService
@@ -49,6 +58,20 @@ export class ViewAccountListsPageComponent implements OnInit {
     this.getAccountDetails();
   }
 
+  showLoadingDialog() {
+    this.loadingModalRef = this.modalService.open(this.loadingModal, { centered: true });
+  }
+
+  hideLoadingDialog() {
+    this.loadingModalRef.close();
+  }
+
+  handleAlertTimeout() {
+    setTimeout(() => {
+      this.showDeleteMessage = false;
+    }, 5000);
+  }
+
   _edit(id: string) {
     this.edit.emit(id);
   }
@@ -57,8 +80,35 @@ export class ViewAccountListsPageComponent implements OnInit {
     this.view.emit(id);
   }
 
-  _delete(id: string) {
-    this.delete.emit(id);
+  _delete(id: string, index: number) {
+    this.modalService.open(this.confirmModal, { centered: true }).result.then(
+      result => {
+        if (result == 'delete') {
+          this.deleteUser(id, index);
+        }
+      }
+    );
+  }
+
+  deleteUser(id: any, index: number) {
+    this.showLoadingDialog();
+    this.accountService.deleteAccount(id).then(
+      ok => {
+        if (ok) {
+          this.hideLoadingDialog();
+          this.showDeleteMessage = true;
+          this.isDeleteSuccess = true;
+          this.handleAlertTimeout();
+          this.collection.splice(index, 1);
+        }
+      },
+      err => {
+        this.hideLoadingDialog();
+        this.showDeleteMessage = true;
+        this.isDeleteSuccess = false;
+        this.handleAlertTimeout();
+      }
+    );
   }
 
   showAll() {

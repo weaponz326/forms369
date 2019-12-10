@@ -39,7 +39,7 @@
                   <form [formGroup]="form" (ngSubmit)="create()" class="forms-sample">
                     <div class="row">
                       <div class="col-md-12 col-sm-12 text-center">
-                        <img #selectedLogo [src]="logoImage" alt="" class="img-circle">
+                        <img *ngIf="hasLogo" #selectedLogo [src]="logoImage" alt="" class="img-circle">
                         <br>
                         <i *ngIf="!hasLogo" class="mdi mdi-account-supervisor-circle"
                           style="font-size: 10em; color: #666;"></i>
@@ -103,7 +103,7 @@
                       </div>
                     </div>
                     <div class="row">
-                      <div class="col-md-6">
+                      <div class="col-sm-12 col-md-4">
                         <div class="form-group">
                           <select class="form-control form-control-lg" formControlName="country"
                             (change)="onCountrySelect($event)">
@@ -118,7 +118,7 @@
                           </div>
                         </div>
                       </div>
-                      <div class="col-md-6">
+                      <div class="col-sm-12 col-md-8">
                         <div class="form-group">
                           <input #smallLogo type="file" (change)="inputFileChanged_1($event)" name="smallLogoFile"
                             class="file-upload-default">

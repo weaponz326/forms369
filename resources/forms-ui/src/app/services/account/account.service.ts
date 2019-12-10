@@ -483,13 +483,20 @@ export class AccountService {
     });
   }
 
-  deleteAccount(id: string): Promise<any> {
+  deleteAccount(id: string): Promise<boolean> {
     return new Promise((resolve, reject) => {
       const header = this.endpointService.headers();
-      const url = this.endpointService.apiHost + 'api/v1//' + id;
+      const url = this.endpointService.apiHost + 'api/v1/deleteUser/' + id;
       this.http.post(url, {}, { headers: header }).subscribe(
-        res => {},
-        err => {}
+        res => {
+          const response = res as any;
+          _.toLower(response.message) == 'ok'
+            ? resolve(true)
+            : resolve(false);
+        },
+        err => {
+          reject(err);
+        }
       );
     });
   }

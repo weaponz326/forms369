@@ -15,6 +15,7 @@ import { LocalStorageService } from 'src/app/services/storage/local-storage.serv
 export class AdminLoginPageComponent implements OnInit {
   form: FormGroup;
   loading: boolean;
+  waiting: boolean;
   created: boolean;
   submitted: boolean;
   deactivated: boolean;
@@ -36,8 +37,13 @@ export class AdminLoginPageComponent implements OnInit {
   }
 
   initVars() {
+    // this.checkAccessToLogin();
+    this.waiting = true;
     if (window.location.origin != 'http://localhost:4200') {
       this.checkAccessToLogin();
+    }
+    else {
+      this.waiting = false;
     }
   }
 
@@ -74,6 +80,7 @@ export class AdminLoginPageComponent implements OnInit {
           // the response message is: Access_granted
           // we do nothing, we allow them to see login
           // page and give them access to login.
+          this.waiting = false;
         }
       },
       err => {}

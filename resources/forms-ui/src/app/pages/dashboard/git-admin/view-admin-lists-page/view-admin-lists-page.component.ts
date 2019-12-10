@@ -28,8 +28,6 @@ export class ViewAdminListsPageComponent implements OnInit {
     this.router.navigateByUrl('git_admin/details/user_account', { state: { id: id }});
   }
 
-  delete(id: any) {}
-
   dataLoaded(ev: any) {
     if (_.isNull(ev)) {
       this.hasNoAccount = true;
