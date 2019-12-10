@@ -491,7 +491,8 @@ class AuthController extends Controller
             'user_type' => 'required',
             'country' => 'required',
             'email' => 'required',
-            'phone' => 'required'
+            'phone' => 'required',
+            'status' => 'required'
         ]);
 
         //get and encrypt user details 
@@ -505,6 +506,7 @@ class AuthController extends Controller
         $country = $request->country;
         $email = $request->email;
         $phone = $request->phone;
+        $status = $request->status;
             
         if($request->has('merchant_id'))
         {
@@ -585,7 +587,8 @@ class AuthController extends Controller
                     'updated_at' => $updated_at,
                     'email' => $email,
                     'country' => $country,
-                    'phone' => $phone
+                    'phone' => $phone,
+                    'status' => $status
                 ]
             );
 
@@ -607,7 +610,8 @@ class AuthController extends Controller
                     'updated_at' => $updated_at,
                     'email' => $email,
                     'country' => $country,
-                    'phone' => $phone
+                    'phone' => $phone,
+                    'status' => $status
                 ]
             );
 
@@ -852,7 +856,11 @@ class AuthController extends Controller
             ->where('id', $merchant_id)
             ->first();
 
-        $can_print = $print_status->can_print;
+        $can_print = 0;
+        // return $print_status;
+        if(!empty($print_status) && $print_status != null){
+            $can_print = $print_status->can_print;
+        }
 
         if($first_time){
             if($user_type != 26){
@@ -998,6 +1006,7 @@ class AuthController extends Controller
              $userdata['last_login_at'] = $items->last_login_at;
              $userdata['last_login_ip'] = $items->last_login_ip;
              $userdata['status'] = $items->status;
+             $userdata['phone'] = $items->phone;
              $userdata['merchant_id'] = $items->merchant_id;
              $userdata['merchant_name'] = empty($items->merchant_name) ? '' : Crypt::decryptString($items->merchant_name);
              $userdata['branch_id'] = $items->branch_id;
