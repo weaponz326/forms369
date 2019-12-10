@@ -1,26 +1,22 @@
 <div class="view">
-    <div class="container">
-      <div class="row">
-        <div class="col-12">
-            <div class="table-responsive">
-                <table class="table">
-                    <thead>
-                        <tr>
-                            <th *ngFor="let item of clientData | keyvalue">
-                                {{ item.key }}
-                            </th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td *ngFor="let item of clientData | keyvalue">
-                                {{ item.value }}
-                            </td>
-                        </tr>
-                    </tbody>
-                </table>
-            </div>
+  <div class="text-center mb-3">
+    <button id="print-button" class="btn btn-primary" (click)="print()">Print</button>
+  </div>
+  <div class="container">
+    <div class="row">
+      <div class="col-8 offset-2">
+        <div class="img-view">
+          <img [src]="logo" alt="logo" class="img-fluid">
+        </div>
+        <div class="row" *ngFor="let item of clientFormData">
+          <div class="col-6">
+            <h5><strong>{{ item.title }}</strong></h5>
+          </div>
+          <div class="col-6">
+            <h5>{{ item.data }}</h5>
+          </div>
         </div>
       </div>
     </div>
+  </div>
 </div>

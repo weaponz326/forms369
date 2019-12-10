@@ -47,8 +47,7 @@ export class UserAccountCreatorComponent implements OnInit {
     this.merchantsList = [];
     this.branchNamesList = [];
     this.merchantNamesList = [];
-    this.isAdmin = this.localStorage.getUser().usertype == UserTypes.CompanyAdmin ? true : false;
-    this.isFrontDesk = this.isAdmin ? true : false;
+    this.isAdmin = this.localStorage.getUser().usertype == UserTypes.GitAdmin ? true : false;
 
     this.initializeView();
   }
@@ -80,7 +79,7 @@ export class UserAccountCreatorComponent implements OnInit {
       branch: ['', Validators.required],
       merchant: ['', Validators.required],
       dialCode: ['233', Validators.required],
-      phone: ['', [Validators.maxLength(20), Validators.required]],
+      phone: ['', [Validators.maxLength(9), Validators.required]],
       password: ['', [Validators.minLength(6), Validators.required]],
       emailAddress: ['', [Validators.email, Validators.required]]
     });
@@ -199,7 +198,7 @@ export class UserAccountCreatorComponent implements OnInit {
   }
 
   getCompany() {
-    this.companyService.getAllCompanies().then(
+    this.companyService.getAllCompanyCollection().then(
       res => {
         const merchants = res as any;
         console.log(JSON.stringify(merchants));

@@ -4,6 +4,7 @@ import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { ClientService } from 'src/app/services/client/client.service';
 import { LocalStorageService } from 'src/app/services/storage/local-storage.service';
 import { FormBuilderService } from 'src/app/services/form-builder/form-builder.service';
+import { SectionsService } from 'src/app/services/sections/sections.service';
 
 @Component({
   selector: 'app-client-profile-page',
@@ -22,21 +23,25 @@ export class ClientProfilePageComponent implements OnInit {
   alert_title: string;
   isConnected: boolean;
   alert_message: string;
+  allFormSections: Array<any>;
   @ViewChild('updated', { static: false }) updatedDialog: TemplateRef<any>;
   @ViewChild('confirm', { static: false }) confirmDialog: TemplateRef<any>;
 
   constructor(
     private modalService: NgbModal,
     private clientService: ClientService,
+    private sectionService: SectionsService,
     private formBuilder: FormBuilderService,
     private localStorage: LocalStorageService
   ) {
     this.user = this.localStorage.getUser();
     console.log('user_id: ' + this.user.id);
-    this.getAllClientData();
+    this.allFormSections = [];
+    // this.getAllClientData();
   }
 
   ngOnInit() {
+    this.getAllFormSections();
   }
 
   showUpdatedDialog(isSuccess: boolean) {
@@ -62,6 +67,9 @@ export class ClientProfilePageComponent implements OnInit {
           this.loading = false;
           this.allUserData = res[0].client_details[0];
           console.log('details: ' + this.allUserData);
+          setTimeout(() => {
+            this.clientService.fillClientProfileData(this.allFormSections, res[0].client_details[0]);
+          }, 1000);
         }
         else {
           this.hasData = false;
@@ -96,6 +104,29 @@ export class ClientProfilePageComponent implements OnInit {
     });
 
     return JSON.stringify(user_form_data);
+  }
+
+  getAllFormSections() {
+    this.loading = true;
+    this.sectionService.getAllSections().then(
+      res => {
+        if (res.length != 0) {
+          this.hasData = true;
+          this.loading = false;
+          _.forEach(res, (section) => {
+            this.allFormSections.push(section);
+          });
+          this.getAllClientData();
+        }
+        else {
+          this.hasData = false;
+          this.loading = false;
+        }
+      },
+      err => {
+        this.loading = false;
+      }
+    );
   }
 
   updateData() {

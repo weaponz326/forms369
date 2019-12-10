@@ -271,7 +271,7 @@ class ClientController extends Controller
         ->where('submitted_forms.client_id', $id)
         ->paginate(15);
       
-        return $getforms;
+        // return $getforms;
         //clean data
         $submittedformdata = [];
 

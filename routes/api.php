@@ -88,7 +88,7 @@ Route::group(['middleware' => ['auth:api'], 'prefix' => 'v1'], function(){
     Route::post('createMerchant', 'HomeController@createMerchant')->name('createMerchant')->middleware('scope:GIT_Admin');
     Route::post('editMerchant/{id}', 'HomeController@editMerchant')->name('editMerchant')->middleware('scope:GIT_Admin,company_admin');
     Route::get('getAllMerchants', 'HomeController@getMerchants')->name('getAllMerchants')->middleware('scope:GIT_Admin,client');
-    Route::get('getMerchantDetails/{id}', 'HomeController@getMerchantDetails')->name('getMerchantDetails')->middleware('scope:GIT_Admin,super_executive,company_admin,branch_executive,branch_admin');
+    Route::get('getMerchantDetails/{id}', 'HomeController@getMerchantDetails')->name('getMerchantDetails')->middleware('scope:GIT_Admin,super_executive,company_admin,branch_executive,branch_admin,frontdesk');
     Route::get('getAllMerchantsByCountry/{country}', 'HomeController@getAllMerchantsByCountry')->name('getAllMerchantsByCountry');
     Route::get('getNumMerchants', 'HomeController@getNumMerchants')->name('getNumMerchants')->middleware('scope:GIT_Admin');
     Route::get('getNumActiveMerchants', 'HomeController@getNumActiveMerchants')->name('getNumActiveMerchants')->middleware('scope:GIT_Admin');
@@ -214,7 +214,7 @@ Route::group(['middleware' => ['auth:api'], 'prefix' => 'v1'], function(){
   //form sectiosn apis
   Route::post('createSection', 'HomeController@createSection')->name('createSection')->middleware('scope:GIT_Admin'); 
   Route::post('editSection/{id}', 'HomeController@editSection')->name('editSection')->middleware('scope:GIT_Admin'); 
-  Route::get('getAllSections', 'HomeController@getAllSections')->name('getAllSections')->middleware('scope:GIT_Admin,company_admin,branch_admin');
+  Route::get('getAllSections', 'HomeController@getAllSections')->name('getAllSections')->middleware('scope:GIT_Admin,company_admin,branch_admin,client');
   Route::post('deleteSection/{id}', 'HomeController@deleteSection')->name('deleteSection')->middleware('scope:GIT_Admin');  
   Route::get('searchSectionByHeading/{term}', 'HomeController@searchSectionByHeading')->name('searchSectionByHeading')->middleware('scope:GIT_Admin,company_admin,branch_admin');
   
