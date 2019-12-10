@@ -490,7 +490,8 @@ class AuthController extends Controller
             'username'=>'required',
             'user_type' => 'required',
             'country' => 'required',
-            'email' => 'required'
+            'email' => 'required',
+            'phone' => 'required'
         ]);
 
         //get and encrypt user details 
@@ -503,6 +504,7 @@ class AuthController extends Controller
         $name = $firstname . ' ' . $lastname;
         $country = $request->country;
         $email = $request->email;
+        $phone = $request->phone;
             
         if($request->has('merchant_id'))
         {
@@ -582,7 +584,8 @@ class AuthController extends Controller
                     'usertype' => $user_type,
                     'updated_at' => $updated_at,
                     'email' => $email,
-                    'country' => $country
+                    'country' => $country,
+                    'phone' => $phone
                 ]
             );
 
@@ -603,7 +606,8 @@ class AuthController extends Controller
                     'usertype' => $user_type,
                     'updated_at' => $updated_at,
                     'email' => $email,
-                    'country' => $country
+                    'country' => $country,
+                    'phone' => $phone
                 ]
             );
 
@@ -848,7 +852,7 @@ class AuthController extends Controller
             ->where('id', $merchant_id)
             ->first();
 
-        $can_print = $print_status['can_print'];
+        $can_print = $print_status->can_print;
 
         if($first_time){
             if($user_type != 26){

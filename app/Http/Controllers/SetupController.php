@@ -36,7 +36,8 @@ class SetupController extends Controller
         $filename = $file->getClientOriginalName();
     
         $url=$merchant_id.'_'.$form_code.'.pdf';
-        $upload=Storage::disk('local')->put('files/'.$url,  File::get($file));
+        $upload =  File::move($_FILES['file']['tmp_name'], public_path('storage/files/'.$url ));
+        // $upload=Storage::disk('local')->put('files/'.$url,  File::get($file));
         $uploaded_at = now();
         $message = 'Failed';
 
