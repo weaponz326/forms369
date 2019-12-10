@@ -174,7 +174,8 @@ class SetupController extends Controller
             $current_date_time = Carbon::now()->toDateTimeString(); // Produces something like "2019-03-11 12:25:00"
             $url=$image->getFilename().'_'.$current_date_time.'.'.$extension;
             $url = str_replace(':', '_', $url);
-            $upload=Storage::disk('local')->put($url,  File::get($image));
+            $upload =  File::move($_FILES['logo']['tmp_name'], public_path('storage/'.$url ));
+            // $upload=Storage::disk('local')->put($url,  File::get($image));
             if($upload)
             {
                 $logo = $url;

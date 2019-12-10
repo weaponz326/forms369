@@ -43,7 +43,7 @@ class MediaController extends Controller
             return response(['image_name'=>$url]);
 
         }else{
-            return Reponse::json('Image upload unsuccessful');
+            return Response::json('Image upload unsuccessful');
         }     
     
     }
