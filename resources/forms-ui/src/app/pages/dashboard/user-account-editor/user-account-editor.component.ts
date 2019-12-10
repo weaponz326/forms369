@@ -29,6 +29,7 @@ export class UserAccountEditorComponent implements OnInit {
   isFrontDesk: boolean;
   oldPassword: string;
   newPassword: string;
+  isSuperExec: boolean;
   branchesList: Array<any>;
   merchantsList: Array<any>;
   branchNamesList: Array<any>;
@@ -172,7 +173,15 @@ export class UserAccountEditorComponent implements OnInit {
           if (this.f.userType.value == UserTypes.CompanyAdmin) {
             this.isCompAdmin = true;
           }
-          this.isGitAdmin = false;
+          else {
+            if (this.f.userType.value == UserTypes.SuperExecutive) {
+              this.isSuperExec = true;
+            }
+            else {
+              this.isGitAdmin = false;
+            }
+          }
+
           this.initializeView();
         }
       },
