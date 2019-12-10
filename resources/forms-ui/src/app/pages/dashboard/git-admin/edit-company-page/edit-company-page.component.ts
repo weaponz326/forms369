@@ -97,14 +97,15 @@ export class EditCompanyPageComponent implements OnInit {
   buildForm() {
     this.logoImage = this.navigatedData.logo;
     this.form = this.formBuilder.group({
-      smallLogoName: [this.navigatedData.small_logo],
-      smallLogoFile: [''],
       logo: [''],
-      allowPrint: ['0', Validators.required],
+      smallLogoFile: [''],
+      status: [this.navigatedData.status],
+      companyAdmin: ['', Validators.required],
+      superExecutive: ['', Validators.required],
+      smallLogoName: [this.navigatedData.small_logo],
       country: [this.navigatedData.country, Validators.required],
       name: [this.navigatedData.merchant_name, Validators.required],
-      companyAdmin: ['', Validators.required],
-      superExecutive: ['', Validators.required]
+      allowPrint: [this.navigatedData.can_print, Validators.required],
     });
   }
 
@@ -167,7 +168,7 @@ export class EditCompanyPageComponent implements OnInit {
       super_admin_id,
       this.f.allowPrint.value,
       created_at,
-      null,
+      this.f.status.value,
       logo
     );
     return merchant;

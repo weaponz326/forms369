@@ -62,10 +62,11 @@ export class EditBranchPageComponent implements OnInit {
 
   buildForm() {
     this.form = this.formBuilder.group({
-      merchant: [this.navigatedData.merchant_name, Validators.required],
-      branchName: [this.navigatedData.branch_name, Validators.required],
+      status: [this.navigatedData.status],
       branchAdmin: ['', Validators.required],
-      branchSupervisor: ['', Validators.required]
+      branchSupervisor: ['', Validators.required],
+      merchant: [this.navigatedData.merchant_name, Validators.required],
+      branchName: [this.navigatedData.branch_name, Validators.required]
     });
   }
 
@@ -94,7 +95,8 @@ export class EditBranchPageComponent implements OnInit {
       merchant_id,
       this.f.branchName.value,
       branch_super_id,
-      brandh_admin_id
+      brandh_admin_id,
+      this.f.status.value
     );
     return branch;
   }

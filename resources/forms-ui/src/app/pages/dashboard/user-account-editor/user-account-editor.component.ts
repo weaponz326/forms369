@@ -91,6 +91,7 @@ export class UserAccountEditorComponent implements OnInit {
 
   buildForm() {
     this.form = this.formBuilder.group({
+      status: [''],
       firstName: ['', Validators.required],
       lastName: ['', Validators.required],
       country: ['', Validators.required],
@@ -145,6 +146,8 @@ export class UserAccountEditorComponent implements OnInit {
     });
   }
 
+  onStatusChange(e: any) {}
+
   getAccountDetails() {
     this.accountService.getAccount(this.userId).then(
       res => {
@@ -152,6 +155,7 @@ export class UserAccountEditorComponent implements OnInit {
         this.userDetails = account;
         console.log('xxxxxxxxx: ' + this.userDetails.merchant_name);
         this.f.phone.setValue(account.phone);
+        this.f.status.setValue(account.status);
         this.f.country.setValue(account.country);
         this.f.lastName.setValue(account.lastname);
         this.f.username.setValue(account.username);
@@ -172,10 +176,14 @@ export class UserAccountEditorComponent implements OnInit {
         else {
           if (this.f.userType.value == UserTypes.CompanyAdmin) {
             this.isCompAdmin = true;
+            this.f.branch.clearValidators();
+            this.f.branch.updateValueAndValidity();
           }
           else {
             if (this.f.userType.value == UserTypes.SuperExecutive) {
               this.isSuperExec = true;
+              this.f.branch.clearValidators();
+              this.f.branch.updateValueAndValidity();
             }
             else {
               this.isGitAdmin = false;
@@ -271,6 +279,7 @@ export class UserAccountEditorComponent implements OnInit {
   getFormData() {
     const user: Users = new Users();
     const phone = this.f.phone.value;
+    const status = this.f.status.value;
     const lname = this.f.lastName.value;
     const fname = this.f.firstName.value;
     const email = this.f.emailAddress.value;
@@ -285,23 +294,25 @@ export class UserAccountEditorComponent implements OnInit {
     if (this.isGitAdmin) {
       const merchantId = this.localStorage.getUser().merchant_id;
       if (this.f.password.disabled) {
-        user.firstname = fname;
-        user.lastname = lname;
         user.email = email;
-        user.username = username,
+        user.status = status;
+        user.lastname = lname;
+        user.firstname = fname;
         user.country = country;
+        user.username = username,
         user.user_type = userType;
         user.phone = dCode + phone;
         user.merchant_id = merchantId,
         user.branch_id = branch_id;
       }
       else {
-        user.firstname = fname;
-        user.lastname = lname;
         user.email = email;
+        user.status = status;
+        user.lastname = lname;
+        user.firstname = fname;
+        user.country = country;
         user.password = password,
         user.username = username,
-        user.country = country;
         user.user_type = userType;
         user.phone = dCode + phone,
         user.merchant_id = merchantId,
@@ -312,23 +323,25 @@ export class UserAccountEditorComponent implements OnInit {
     }
     else {
       if (this.f.password.disabled) {
-        user.firstname = fname;
-        user.lastname = lname;
         user.email = email;
-        user.username = username,
+        user.status = status;
+        user.lastname = lname;
+        user.firstname = fname;
         user.country = country;
+        user.username = username,
         user.user_type = userType;
         user.phone = dCode + phone;
         user.merchant_id = merchant_id,
         user.branch_id = branch_id;
       }
       else {
-        user.firstname = fname;
-        user.lastname = lname;
         user.email = email;
+        user.status = status;
+        user.lastname = lname;
+        user.firstname = fname;
+        user.country = country;
         user.password = password,
         user.username = username,
-        user.country = country;
         user.user_type = userType;
         user.phone = dCode + phone,
         user.merchant_id = merchant_id,
