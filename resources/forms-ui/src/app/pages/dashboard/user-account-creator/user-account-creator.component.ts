@@ -128,8 +128,12 @@ export class UserAccountCreatorComponent implements OnInit {
     }
   }
 
-  resolveStrCharacters(ev: Event) {
-    var charC = ev.which
+  resolveStrCharacters(e: KeyboardEvent) {
+    const regExp = new RegExp(/^\d*\.?\d*$/);
+    if (!regExp.test(this.f.phone.value)) {
+      const value = this.f.phone.value.substring(0, this.f.phone.value.length - 1);
+      this.f.phone.setValue(value);
+    }
   }
 
   companySelected(value: any) {

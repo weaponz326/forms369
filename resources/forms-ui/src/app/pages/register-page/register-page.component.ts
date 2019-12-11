@@ -82,6 +82,14 @@ export class RegisterPageComponent implements OnInit {
     }
   }
 
+  resolveStrCharacters(e: KeyboardEvent) {
+    const regExp = new RegExp(/^\d*\.?\d*$/);
+    if (!regExp.test(this.f.phone.value)) {
+      const value = this.f.phone.value.substring(0, this.f.phone.value.length - 1);
+      this.f.phone.setValue(value);
+    }
+  }
+
   getFormData() {
     const lname = this.f.lastName.value;
     const fname = this.f.firstName.value;

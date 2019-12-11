@@ -52,8 +52,8 @@ export class AdminRegisterPageComponent implements OnInit {
       username: ['', Validators.required],
       dialCode: ['233', Validators.required],
       emailAddress: ['', [Validators.email, Validators.required]],
-      phone: ['', [Validators.maxLength(20), Validators.required]],
-      password: ['', [Validators.minLength(6), Validators.required]]
+      password: ['', [Validators.minLength(6), Validators.required]],
+      phone: ['', [Validators.maxLength(9), Validators.minLength(9), Validators.required]],
     });
   }
 
@@ -90,6 +90,14 @@ export class AdminRegisterPageComponent implements OnInit {
     else if (e.errors.password) {
       this.error = e.errors.password;
       this.dynamicError = true;
+    }
+  }
+
+  resolveStrCharacters(e: KeyboardEvent) {
+    const regExp = new RegExp(/^\d*\.?\d*$/);
+    if (!regExp.test(this.f.phone.value)) {
+      const value = this.f.phone.value.substring(0, this.f.phone.value.length - 1);
+      this.f.phone.setValue(value);
     }
   }
 
