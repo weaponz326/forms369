@@ -289,14 +289,15 @@ class SetupController extends Controller
             'super_id'=>'required',
             'admin_id'=>'required',
             'logo' => 'required',
-            'can_print' => 'required'
+            'can_print' => 'required',
+            'status' => 'required'
         ]); 
 
         $name = Crypt::encryptString($request->merchant_name);
         $country = $request->country;
         $super_id = $request->super_id;
         $admin_id = $request->admin_id;
-        $status = 1;
+        $status = $request->status;
         $updated_at = now();
         $logo = $request->logo;
         $small_logo = $request->small_logo;
@@ -326,7 +327,8 @@ class SetupController extends Controller
                     'admin_id' => $admin_id, 
                     'updated_at' => $updated_at,
                     'updated_by' => $userid,
-                    'can_print' => $can_print
+                    'can_print' => $can_print,
+                    'status' => $status
                 ]
             );
 
@@ -460,13 +462,14 @@ class SetupController extends Controller
             'merchant_id' => 'required',
             'branch_super_id'=>'required',
             'branch_admin_id'=>'required',
+            'status' => 'required'
         ]);
 
         $name = Crypt::encryptString($request->branch_name);
         $merchant_id = $request->merchant_id;
         $branch_super_id = $request->branch_super_id;
         $branch_admin_id = $request->branch_admin_id;
-        $status = 1;
+        $status = $request->status;
         $updated_at = now();
 
         //get user creating the new merchant
@@ -485,7 +488,8 @@ class SetupController extends Controller
                     'branch_super_id' => $branch_super_id,
                     'updated_by' => $userid, 
                     'updated_at' => $updated_at,
-                    'branch_admin_id' => $branch_admin_id
+                    'branch_admin_id' => $branch_admin_id,
+                    'status' => $status
                 ]
             );
 
