@@ -86,6 +86,11 @@
                                       <td>{{ company.company_admin_name }}</td>
                                     </tr>
                                     <tr class="hover-cursor">
+                                      <td><strong>Can Print</strong></td>
+                                      <td *ngIf="company.can_print == 0">No</td>
+                                      <td *ngIf="company.can_print == 1">Yes</td>
+                                    </tr>
+                                    <tr class="hover-cursor">
                                       <td><strong>Created On</strong></td>
                                       <td>{{ company.created_at | date }}</td>
                                     </tr>
@@ -97,51 +102,6 @@
                         </div>
                       </div>
                     </div>
-                    <!-- <div class="col-6">
-                      <div class="accordion mt-3" id="accordionExample1">
-                        <div class="card">
-                          <div class="card-header" id="headingTwo">
-                            <h2 class="mb-0">
-                              <button class="btn" type="button" data-toggle="collapse" data-target="#collapseTwo"
-                                aria-expanded="true" aria-controls="collapseTwo">
-                                Forms - {{ company.merchant_name }}
-                              </button>
-                            </h2>
-                          </div>
-                          <div id="collapseTwo" class="collapse show" aria-labelledby="headingTwo"
-                            data-parent="#accordionExample1">
-                            <div class="card-body">
-                              <div class="table-responsive">
-                                <table class="table table-hover">
-                                  <tbody>
-                                    <tr class="hover-cursor">
-                                      <td><strong>Company Name</strong></td>
-                                      <td>{{ company.merchant_name }}</td>
-                                    </tr>
-                                    <tr class="hover-cursor">
-                                      <td><strong>Country</strong></td>
-                                      <td>{{ company.country }}</td>
-                                    </tr>
-                                    <tr class="hover-cursor">
-                                      <td><strong>Super Executive</strong></td>
-                                      <td>{{ company.super_executive_name }}</td>
-                                    </tr>
-                                    <tr class="hover-cursor">
-                                      <td><strong>Company Admin</strong></td>
-                                      <td>{{ company.company_admin_name }}</td>
-                                    </tr>
-                                    <tr class="hover-cursor">
-                                      <td><strong>Created On</strong></td>
-                                      <td>{{ company.created_at | date }}</td>
-                                    </tr>
-                                  </tbody>
-                                </table>
-                              </div>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                    </div> -->
                   </div>
                 </div>
               </div>

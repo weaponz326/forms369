@@ -106,7 +106,7 @@ export class FormBuilderService {
         fields: [
           {
             type: 'text',
-            name: 'email-address',
+            name: 'email',
             label: 'Email Address',
             required: true,
             className: this.formFieldClassName

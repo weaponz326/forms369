@@ -10,3 +10,7 @@
 select.form-control {
     color: #555555 !important;
 }
+
+.page-body-wrapper {
+    padding-top: 32px;
+}

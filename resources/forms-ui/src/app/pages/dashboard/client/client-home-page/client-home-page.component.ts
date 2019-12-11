@@ -21,7 +21,7 @@ export class ClientHomePageComponent implements OnInit {
   }
 
   openFormsData() {
-    this.router.navigateByUrl('/client/form_data');
+    this.router.navigateByUrl('/client/profile');
   }
 
   openFormsFilled() {

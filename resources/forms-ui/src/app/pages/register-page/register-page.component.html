@@ -88,8 +88,9 @@
                     [ngClass]="{'input-control-error': submitted && f.phone.errors}">
                 </div>
                 <div *ngIf="submitted && f.phone.errors">
-                  <p class="input-error" *ngIf="f.phone.errors.maxlength">Phone Number cannot exceed 9 characters. Don't start with 0</p>
-                  <p class="input-error" *ngIf="f.phone.errors.required">Phone Number is required</p>
+                  <p class="input-error" *ngIf="f.phone.errors.required">Phone number is required</p>
+                  <p class="input-error" *ngIf="f.phone.errors.minlength">Phone number cannot ebe less than 9 digits</p>
+                  <p class="input-error" *ngIf="f.phone.errors.maxlength">Phone number cannot exceed 9 digits. Don't start with 0</p>
                 </div>
               </div>
               <div class="form-group">

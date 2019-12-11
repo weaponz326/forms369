@@ -14,3 +14,7 @@
 .sidebar .nav .nav-item .nav-link i.menu-icon {
     color: #777;
 }
+
+.sidebar .nav:not(.sub-menu) {
+    position: absolute;
+}

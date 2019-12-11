@@ -52,10 +52,10 @@ export class RegisterPageComponent implements OnInit {
       country: ['', Validators.required],
       username: ['', Validators.required],
       dialCode: ['233', Validators.required],
-      phone: ['', [Validators.maxLength(9), Validators.required]],
-      password: ['', [Validators.minLength(6), Validators.required]],
+      password: ['', [Validators.minLength(8), Validators.required]],
       emailAddress: ['', [Validators.email, Validators.required]],
-      pwdConfirmation: ['', [Validators.minLength(6), Validators.required]]
+      pwdConfirmation: ['', [Validators.minLength(8), Validators.required]],
+      phone: ['', [Validators.maxLength(9), Validators.minLength(9), Validators.required]],
     });
   }
 

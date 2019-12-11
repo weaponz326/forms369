@@ -100,9 +100,9 @@ export class UserAccountEditorComponent implements OnInit {
       branch: ['', Validators.required],
       merchant: ['', Validators.required],
       dialCode: ['233', Validators.required],
-      phone: ['', [Validators.maxLength(9), Validators.required]],
-      password: ['', [Validators.minLength(6), Validators.required]],
-      emailAddress: ['', [Validators.email, Validators.required]]
+      password: ['', [Validators.minLength(8), Validators.required]],
+      emailAddress: ['', [Validators.email, Validators.required]],
+      phone: ['', [Validators.maxLength(9), Validators.minLength(9), Validators.required]],
     });
 
     this.f.password.disable();

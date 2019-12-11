@@ -20,7 +20,7 @@
         </div>
 
         <div class="row">
-          <div class="col-12 col-md-8 offset-md-2">
+          <div class="col-12 col-md-8 offset-md-2 mb-3">
             <div class="search-bar">
               <form>
                 <input type="text" class="search-form form-control" name="query" [(ngModel)]="query" placeholder="Search by code or by name"
@@ -31,7 +31,7 @@
         </div>
 
         <div *ngIf="loading" class="row p-5">
-          <div class="col-md-12 p-5">
+          <div class="col-md-12 m-5">
             <div class="d-flex justify-content-center">
               <div class="spinner-border m-5" style="width: 5rem; height: 5rem;" role="status">
                 <span class="sr-only">Loading...</span>

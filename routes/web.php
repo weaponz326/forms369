@@ -111,6 +111,11 @@ Route::get('git_admin/lists/company', function () {
     return View::make('index');
 });
 
+Route::get('git_admin/lists/access_code', function () {
+    View::addExtension('html', 'php');
+    return View::make('index');
+});
+
 Route::get('git_admin/lists/admin', function () {
     View::addExtension('html', 'php');
     return View::make('index');
