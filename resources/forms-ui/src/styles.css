@@ -160,6 +160,13 @@ select.form-control {
     font-size: 30px;
 }
 
+.status-dot {
+    border: 5px solid;
+    width: 5px;
+    border-radius: 20px;
+    margin: 0 auto;
+}
+
 .img-circle {
     height: 250px;
     width: 250px;
