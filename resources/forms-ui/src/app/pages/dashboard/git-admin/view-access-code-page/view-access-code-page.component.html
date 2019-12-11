@@ -94,7 +94,7 @@
               <div class="card-body">
                 <h4 class="card-title">List Access Codes</h4>
                 <p class="card-description">
-                  List of all new forms that have been submitted for processing
+                  List of all new access codes that have been created.
                 </p>
                 <div class="table-responsive">
                   <table class="table table-hover">
@@ -105,15 +105,33 @@
                         <th>Device Name</th>
                         <th>Source Usage</th>
                         <th>Created On</th>
+                        <th>Status</th>
+                        <th>Actions</th>
                       </tr>
                     </thead>
                     <tbody>
-                      <tr class="hover-cursor" *ngFor="let code of accessCodesList" (click)="open(code)">
+                      <tr class="hover-cursor" *ngFor="let code of accessCodesList">
                         <td>{{ code.merchant_name }}</td>
                         <td>{{ code.accesscode }}</td>
                         <td>{{ code.devicename }}</td>
                         <td>{{ code.sourceusage }}</td>
                         <td>{{ code.created_at | date }}</td>
+                        <td>
+                          <div *ngIf="code.active == 0" class="text-center text-danger status-dot"></div>
+                          <div *ngIf="code.active == 1" class="text-center text-success status-dot"></div>
+                        </td>
+                        <td>
+                          <div class="d-flex align-items-end flex-wrap">
+                            <button *ngIf="code.active == 0" type="button" class="btn btn-light bg-white btn-icon mr-1"
+                              (click)="activate(code.accesscode)">
+                              <i class="mdi mdi-check text-success"></i>
+                            </button>
+                            <button *ngIf="code.active == 1" type="button" class="btn btn-light bg-white btn-icon mr-1"
+                              (click)="deactivate(code.accesscode)">
+                              <i class="mdi mdi-close text-danger"></i>
+                            </button>
+                          </div>
+                        </td>
                       </tr>
                     </tbody>
                   </table>
@@ -160,3 +178,52 @@
     </div>
   </div>
 </div>
+
+<ng-template #loader let-modal>
+  <div class="modal-body">
+    <div class="d-flex justify-content-center">
+      <div class="spinner-border m-5" style="width: 4rem; height: 4rem;" role="status">
+        <span class="sr-only">Loading...</span>
+      </div>
+    </div>
+    <p class="text-center">Please wait...</p>
+  </div>
+</ng-template>
+
+<ng-template #confirmActivate let-modal>
+  <div class="modal-header">
+    <h4 class="modal-title" id="modal-title">Activate Access Code ?</h4>
+    <button type="button" class="close" aria-describedby="modal-title" (click)="modal.dismiss('close')">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <p><strong>Are you sure you want to activate <span class="text-primary">this access code</span> ?</strong></p>
+    <p>Activating an access code makes it possible for users to access private parts of Form369.com
+      <span class="text-danger">Please be sure before you continue.</span>
+    </p>
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-outline-secondary" (click)="modal.dismiss('cancel')">Cancel</button>
+    <button type="button" class="btn btn-primary" (click)="modal.close('activate')">Activate</button>
+  </div>
+</ng-template>
+
+<ng-template #confirmDeactivate let-modal>
+  <div class="modal-header">
+    <h4 class="modal-title" id="modal-title">De-Activate Access Code ?</h4>
+    <button type="button" class="close" aria-describedby="modal-title" (click)="modal.dismiss('close')">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <p><strong>Are you sure you want to deactivate <span class="text-primary">this access code</span> ?</strong></p>
+    <p>De-Activating an access code makes it impossible for users to access private parts of Form369.com
+      <span class="text-danger">Please be sure before you continue.</span>
+    </p>
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-outline-secondary" (click)="modal.dismiss('cancel')">Cancel</button>
+    <button type="button" class="btn btn-danger" (click)="modal.close('deactivate')">Deactivate</button>
+  </div>
+</ng-template>

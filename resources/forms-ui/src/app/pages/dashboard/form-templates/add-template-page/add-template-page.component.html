@@ -47,7 +47,7 @@
                     <div class="col-9">
                       <div class="form-group">
                         <input type="text" formControlName="name" class="form-control"
-                          placeholder="Whats the name of your form ?"
+                          placeholder="Enter Template Name"
                           [ngClass]="{'input-control-error': submitted && f.name.errors}">
                         <div *ngIf="submitted && f.name.errors">
                           <p class="input-error" *ngIf="f.name.errors.required">Form name is required</p>
@@ -65,7 +65,7 @@
                     <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>&nbsp; &nbsp;
                     Please wait...
                   </button>
-                  <button *ngIf="!loading" class="btn btn-primary mt-2 mr-1" (click)="reset()">Reset</button>
+                  <button type="button" *ngIf="!loading" class="btn btn-primary mt-2 mr-1" (click)="reset()">Reset</button>
                 </form>
               </div>
             </div>
@@ -85,7 +85,7 @@
                   <p class="text-muted">You have succesfully created a a form template</p>
                 </div>
                 <div class="card-text mt-4">
-                  <button type="button" class="btn btn-primary btn-lg btn-icon-text mr-2" (click)="bringBackForm()">
+                  <button type="button" class="btn btn-primary btn-lg btn-icon-text mr-2" (click)="createNew()">
                     <i class="mdi mdi-plus"></i>
                     Create New
                   </button>

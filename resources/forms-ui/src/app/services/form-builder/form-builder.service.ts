@@ -347,6 +347,30 @@ export class FormBuilderService {
     });
   }
 
+  generateSectionAndDefaultFormFields(): Promise<any> {
+    return new Promise((resolve, reject) => {
+      const allFormFields = [];
+      this.generateFormFieldsBySections().then(
+        fields => {
+          _.forEach(fields, (field) => {
+            allFormFields.push(field);
+          });
+
+          const defaultFormFields = this.generateFormFields();
+          _.forEach(defaultFormFields, (defaultField) => {
+            allFormFields.push(defaultField);
+          });
+
+          resolve(allFormFields);
+        },
+        error => {
+          console.log('error: ' + JSON.stringify(error));
+          reject(error);
+        }
+      );
+    });
+  }
+
   getUserFilledData(client_id: string): Promise<any> {
     return new Promise((resolve, reject) => {
       const url = this.endpointService.apiHost + 'api/v1/getClientsDetails/' + client_id;

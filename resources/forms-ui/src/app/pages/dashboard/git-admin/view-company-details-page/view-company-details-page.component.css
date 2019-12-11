@@ -3,3 +3,7 @@
     height: 100px;
     border-radius: 50%;
 }
+
+.btn-icon-text {
+    padding: 11px 20px;
+}

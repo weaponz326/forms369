@@ -59,8 +59,6 @@ export class CreateFormPageComponent implements OnInit {
           disabledActionButtons: ['data', 'clear', 'save'],
           disableFields: this.formBuilderService.disableSectionFormFields()
         });
-
-        this.formCode = this.formBuilderService.generateUniqueFormCode();
         this._loading = false;
       },
       error => {
@@ -105,20 +103,12 @@ export class CreateFormPageComponent implements OnInit {
   }
 
   handleUploadFileView(merchant_id: string) {
+    console.log('handling can upload view');
     _.forEach(this.allMerchantsList, (merchant, i) => {
       if (merchant_id == merchant.id) {
+        console.log('gotIT: ' + merchant.can_print);
         this.showFileUpload = merchant.can_print == 1 ? true : false;
         return;
-      }
-      else {
-        // if its the last item in the array
-        if (i == this.allMerchantsList.length) {
-          // remove validator set on pdf because pdf isnt going to be
-          // uploaded so there is no need to make it required.
-          console.log('last in array which isnt can_print');
-          this.f.pdf.clearValidators();
-          this.f.pdf.updateValueAndValidity();
-        }
       }
     });
   }
@@ -176,6 +166,7 @@ export class CreateFormPageComponent implements OnInit {
   }
 
   createFormWithPDF() {
+    this.toPublish = false;
     this.formService.uploafFormPDF(this.f.merchant.value, this.formCode, this.pdfFile).then(
       res => {
         this.createForm();
@@ -190,7 +181,6 @@ export class CreateFormPageComponent implements OnInit {
 
   save() {
     this.loading = true;
-    this.toPublish = this.showFileUpload ? false : true;
     this.showFileUpload ? this.createFormWithPDF() : this.createForm();
   }
 
@@ -199,17 +189,36 @@ export class CreateFormPageComponent implements OnInit {
   }
 
   create() {
+    this.formCode = this.formBuilderService.generateUniqueFormCode();
     this.submitted = true;
-    if (this.form.valid) {
-      this.save();
+    this.toPublish = false;
+    if (this.showFileUpload) {
+      if (this.form.valid) {
+        this.save();
+      }
+    }
+    else {
+      // remove pdf validations
+      this.f.pdf.clearValidators();
+      this.f.pdf.updateValueAndValidity();
+
+      if (this.form.valid) {
+        this.save();
+      }
     }
   }
 
   publish() {
+    this.formCode = this.formBuilderService.generateUniqueFormCode();
     this.submitted = true;
+    this.toPublish = true;
+
+    // remove pdf validations
+    this.f.pdf.clearValidators();
+    this.f.pdf.updateValueAndValidity();
+
     if (this.form.valid) {
-      this.toPublish = true;
-      this.save();
+      this.createForm();
     }
   }
 

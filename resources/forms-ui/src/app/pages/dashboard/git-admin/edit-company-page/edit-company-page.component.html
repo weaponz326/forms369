@@ -120,16 +120,28 @@
                           </div>
                         </div>
                       </div>
-                      <div class="col-md-12 text-center">
+                    </div>
+                    <div class="row">
+                      <div class="col-md-6">
                         <div class="form-group">
-                          <div class="btn-group-toggle" data-toggle="buttons">
-                            <label class="btn btn-outline-primary" (click)="togglePrint()"
-                              style="box-shadow: none; outline: none;" [ngClass]="{'active': canPrint}" >
-                              <input type="checkbox" formControlName="allowPrint" checked autocomplete="off"> Allow Printing
-                            </label>
-                          </div>
+                          <select class="form-control form-control-lg" formControlName="allowPrint">
+                            <option value="" disabled>Printing Status</option>
+                            <option value="1">Allow </option>
+                            <option value="0">Do not Allow</option>
+                          </select>
                         </div>
                       </div>
+                      <div class="col-md-6">
+                        <div class="form-group">
+                          <select class="form-control form-control-lg" formControlName="status">
+                            <option value="" disabled>Company Status</option>
+                            <option value="1">Active </option>
+                            <option value="0">In-Active </option>
+                          </select>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="row">
                       <div class="col-md-12 text-center">
                         <div class="form-group">
                           <button *ngIf="loading" class="btn btn-primary btn-lg mr-2" type="button" disabled>

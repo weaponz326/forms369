@@ -175,26 +175,26 @@ export class EditAccessCodePageComponent implements OnInit {
       this.form.disable();
       const access_code = this.getFormData();
       console.log('body: ' + JSON.stringify(access_code));
-      this.accountService.createAccessCode(access_code).then(
-        code => {
-          console.log(code);
-          if (!_.isEmpty(code) || !_.isNull(code)) {
-            this.form.enable();
-            this.created = true;
-            this.loading = false;
-          } else {
-            this.form.enable();
-            this.created = false;
-            this.loading = false;
-          }
-        },
-        err => {
-          this.form.enable();
-          this.created = false;
-          this.loading = false;
-          console.log(JSON.stringify(err));
-        }
-      );
+      // this.accountService.editAccess(access_code).then(
+      //   code => {
+      //     console.log(code);
+      //     if (!_.isEmpty(code) || !_.isNull(code)) {
+      //       this.form.enable();
+      //       this.created = true;
+      //       this.loading = false;
+      //     } else {
+      //       this.form.enable();
+      //       this.created = false;
+      //       this.loading = false;
+      //     }
+      //   },
+      //   err => {
+      //     this.form.enable();
+      //     this.created = false;
+      //     this.loading = false;
+      //     console.log(JSON.stringify(err));
+      //   }
+      // );
     }
   }
 
@@ -206,26 +206,8 @@ export class EditAccessCodePageComponent implements OnInit {
     this.router.navigateByUrl('git_admin/lists/access_code');
   }
 
-  isFormEmpty() {
-    if (
-      _.isEmpty(this.f.branch.value) && _.isEmpty(this.f.merchant.value)
-      && _.isEmpty(this.f.deviceName.value) && _.isEmpty(this.f.sourceName.value)
-    ) {
-      return true;
-    }
-    else {
-      return false;
-    }
-  }
-
   cancel() {
-    if (!this.isFormEmpty()) {
-      this.modalService.open(this.modalTemplateRef, { centered: true }).result.then(result => {
-        if (result == 'yes') {
-          this.clearData();
-        }
-      });
-    }
+    this.ok();
   }
 
   clearData() {

@@ -35,14 +35,14 @@ export class AddTemplatePageComponent implements OnInit {
     this._loading = true;
     this.buildForm();
 
-    this.formBuilderService.generateFormFieldsBySections().then(
+    this.formBuilderService.generateSectionAndDefaultFormFields().then(
       form_elements => {
         this.formBuilder = $(document.getElementById('fb-editor')).formBuilder({
           controlPosition: 'left',
           inputSets: form_elements,
           scrollToFieldOnAdd: false,
           disabledActionButtons: ['data', 'clear', 'save'],
-          disableFields: this.formBuilderService.disableSectionFormFields()
+          disableFields: this.formBuilderService.disableDefaultFormControls()
         });
 
         this._loading = false;
@@ -108,12 +108,14 @@ export class AddTemplatePageComponent implements OnInit {
     }
   }
 
-  bringBackForm() {
-    this.router.navigateByUrl('templates/create');
+  createNew() {
+    this.formBuilder.actions.clearFields();
+    this.created = false;
+    this.form.reset();
   }
 
   preview() {
-    this.router.navigateByUrl('templates/details/form', { state: { form: this.templateForm }});
+    this.router.navigateByUrl('/templates/view', { state: { form: this.templateForm }});
   }
 
 }
