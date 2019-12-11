@@ -104,6 +104,7 @@ export class CompanyService {
             form.set('logo', filename);
             form.set('country', merchant.country);
             form.set('can_print', merchant.can_print);
+            form.set('status', merchant.status.toString());
             form.set('merchant_name', merchant.merchant_name);
             form.set('super_id', merchant.super_id.toString());
             form.set('admin_id', merchant.admin_id.toString());
@@ -126,6 +127,7 @@ export class CompanyService {
         form.set('logo', merchant.logo);
         form.set('country', merchant.country);
         form.set('can_print', merchant.can_print);
+        form.set('status', merchant.status.toString());
         form.set('merchant_name', merchant.merchant_name);
         form.set('super_id', merchant.super_id.toString());
         form.set('admin_id', merchant.admin_id.toString());
