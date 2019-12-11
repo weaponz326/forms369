@@ -15528,7 +15528,7 @@ let EndpointService = class EndpointService {
     constructor() {
         this.productionApiHost = '';
         this.localApiHost = 'http://127.0.0.1:8000/';
-        this.apiHost = this.localApiHost;
+        this.apiHost = this.productionApiHost;
         this.storageHost = this.apiHost + 'storage/';
     }
     /**

@@ -89,7 +89,7 @@
                 </div>
                 <div *ngIf="submitted && f.phone.errors">
                   <p class="input-error" *ngIf="f.phone.errors.required">Phone number is required</p>
-                  <p class="input-error" *ngIf="f.phone.errors.minlength">Phone number cannot ebe less than 9 digits</p>
+                  <p class="input-error" *ngIf="f.phone.errors.minlength">Phone number cannot be less than 9 digits</p>
                   <p class="input-error" *ngIf="f.phone.errors.maxlength">Phone number cannot exceed 9 digits. Don't start with 0</p>
                 </div>
               </div>
@@ -110,7 +110,7 @@
                 <input type="password" class="form-control" formControlName="password"
                   placeholder="Password" [ngClass]="{'input-control-error': submitted && f.password.errors}">
                 <div *ngIf="submitted && f.password.errors">
-                  <p class="input-error" *ngIf="f.password.errors.minlength">Password must be atleast 6 characters</p>
+                  <p class="input-error" *ngIf="f.password.errors.minlength">Password must be atleast 8 characters</p>
                   <p class="input-error" *ngIf="f.password.errors.required">Password is required</p>
                 </div>
               </div>

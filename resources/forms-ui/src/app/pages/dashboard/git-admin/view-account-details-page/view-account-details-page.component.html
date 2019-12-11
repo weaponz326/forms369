@@ -31,8 +31,14 @@
                       <div class="col-6 col-md-6 offset-3 offset-md-3">
                         <h3><strong>{{ user.merchant_name }}</strong></h3>
                         <h3 class="display-3 mt-3 mb-3">{{ accountType }}</h3>
-                        <button *ngIf="!_loading" class="btn btn-outline-primary mr-2"
-                          [ngClass]="{'active': isActive}" (click)="accountActivation()">Active</button>
+                        <!-- <button *ngIf="!_loading" class="btn mr-2"
+                          [ngClass]="{'btn-success': isActive, 'btn-danger': !isActive}" (click)="accountActivation()">
+                          Active
+                        </button>
+                        <button *ngIf="!_loading" class="btn mr-2"
+                          [ngClass]="{'btn-success': isActive, 'btn-danger': !isActive}" (click)="accountActivation()">
+                          Active
+                        </button> -->
                         <button *ngIf="_loading" class="btn btn-primary" type="button" disabled>
                           <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
                           Loading...
@@ -84,6 +90,11 @@
                                       <tr class="hover-cursor">
                                         <td><strong>Country</strong></td>
                                         <td>{{ user.country }}</td>
+                                      </tr>
+                                      <tr class="hover-cursor">
+                                        <td><strong>Status</strong></td>
+                                        <td *ngIf="user.status == 1">Active</td>
+                                        <td *ngIf="user.status == 0">In Active</td>
                                       </tr>
                                       <tr class="hover-cursor">
                                         <td><strong>User Type</strong></td>

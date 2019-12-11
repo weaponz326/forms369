@@ -32,6 +32,10 @@ export class ViewTemplatePageComponent implements OnInit {
     this.router.navigateByUrl('templates/edit/', { state: { form: this.form }});
   }
 
+  import() {
+    this.router.navigateByUrl('admin/create/form', { state: { template: this.form }});
+  }
+
   download() {}
 
 }

@@ -128,6 +128,10 @@ export class UserAccountCreatorComponent implements OnInit {
     }
   }
 
+  resolveStrCharacters(ev: Event) {
+    var charC = ev.which
+  }
+
   companySelected(value: any) {
     this.getCompanyBranches();
   }

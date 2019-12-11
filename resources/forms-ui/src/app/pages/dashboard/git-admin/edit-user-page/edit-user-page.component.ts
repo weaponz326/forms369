@@ -10,6 +10,7 @@ import { UserTypes } from 'src/app/enums/user-types.enum';
 export class EditUserPageComponent implements OnInit {
 
   id: string;
+  url: string;
   created: boolean;
   userType: string;
   emailInUse: boolean;
@@ -22,28 +23,7 @@ export class EditUserPageComponent implements OnInit {
   }
 
   ok() {
-    switch (this.userType) {
-      case 'Front Desk':
-        this.router.navigateByUrl('/git_admin/lists/front_desk');
-        break;
-      case 'GIT Admin':
-        this.router.navigateByUrl('/git_admin/lists/admin');
-        break;
-      case 'Branch Admin':
-        this.router.navigateByUrl('/git_admin/lists/branch_admin');
-        break;
-      case 'Company Admin':
-        this.router.navigateByUrl('/git_admin/lists/company_admin');
-        break;
-      case 'Super Executive':
-        this.router.navigateByUrl('/git_admin/lists/super_executive');
-        break;
-      case 'Branch Super Executive':
-        this.router.navigateByUrl('/git_admin/lists/branch_executive');
-        break;
-      default:
-        break;
-    }
+    this.router.navigateByUrl(this.url);
   }
 
   editAccount(ev: any) {
@@ -64,21 +44,27 @@ export class EditUserPageComponent implements OnInit {
     switch (Number(ev)) {
       case UserTypes.BranchAdmin:
         this.userType = 'Branch Admin';
+        this.url = '/git_admin/lists/branch_admin';
         break;
       case UserTypes.BranchSuperExecutive:
         this.userType = 'Branch Super Executive';
+        this.url = '/git_admin/lists/branch_executive';
         break;
       case UserTypes.CompanyAdmin:
         this.userType = 'Company Admin';
+        this.url = '/git_admin/lists/company_admin';
         break;
       case UserTypes.FrontDesk:
         this.userType = 'Front Desk';
+        this.url = '/git_admin/lists/front_desk';
         break;
       case UserTypes.SuperExecutive:
         this.userType = 'Super Executive';
+        this.url = '/git_admin/lists/super_executive';
         break;
       case UserTypes.GitAdmin:
         this.userType = 'GIT Admin';
+        this.url = '/git_admin/lists/admin';
         break;
       default:
         break;

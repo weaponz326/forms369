@@ -43,7 +43,6 @@ export class CreateUserAccountPageComponent implements OnInit {
   }
 
   getUserType(ev: any) {
-    console.log('user_type: ' + UserTypes.SuperExecutive);
     switch (Number(ev)) {
       case UserTypes.GitAdmin:
         this.userType = 'GIT Admin';

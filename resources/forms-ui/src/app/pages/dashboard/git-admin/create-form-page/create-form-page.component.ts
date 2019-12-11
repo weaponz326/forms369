@@ -139,44 +139,55 @@ export class CreateFormPageComponent implements OnInit {
     const form = this.getForm();
     const formData = new Forms();
     console.log('json: ' + JSON.stringify(form));
-    formData.form_fields = form;
-    formData.name = this.f.name.value;
-    formData.form_code = this.formCode;
-    formData.status = this.toPublish ? 1 : 0;
-    formData.merchant_id = parseInt(this.f.merchant.value);
 
-    this.formService.createForm(formData).then(
-      res => {
-        this.loading = false;
-        this.toPublish = false;
-        if (_.toLower(res.message) == 'ok') {
-          this.created = true;
-          this.formName = formData.name;
-        }
-        else {
+    if (form.length == 0) {
+      alert('Form fields cannot be empty');
+    }
+    else {
+      formData.form_fields = form;
+      formData.name = this.f.name.value;
+      formData.form_code = this.formCode;
+      formData.status = this.toPublish ? 1 : 0;
+      formData.merchant_id = parseInt(this.f.merchant.value);
+
+      this.formService.createForm(formData).then(
+        res => {
+          this.loading = false;
+          this.toPublish = false;
+          if (_.toLower(res.message) == 'ok') {
+            this.created = true;
+            this.formName = formData.name;
+          }
+          else {
+            this.created = false;
+          }
+        },
+        err => {
+          this.loading = false;
           this.created = false;
+          this.toPublish = false;
         }
-      },
-      err => {
-        this.loading = false;
-        this.created = false;
-        this.toPublish = false;
-      }
-    );
+      );
+    }
   }
 
   createFormWithPDF() {
     this.toPublish = false;
-    this.formService.uploafFormPDF(this.f.merchant.value, this.formCode, this.pdfFile).then(
-      res => {
-        this.createForm();
-      },
-      err => {
-        this.loading = false;
-        this.created = false;
-        this.uploadError = true;
-      }
-    );
+    if (this.getForm().length == 0) {
+      alert('Form field cannot be empty');
+    }
+    else {
+      this.formService.uploafFormPDF(this.f.merchant.value, this.formCode, this.pdfFile).then(
+        res => {
+          this.createForm();
+        },
+        err => {
+          this.loading = false;
+          this.created = false;
+          this.uploadError = true;
+        }
+      );
+    }
   }
 
   save() {
