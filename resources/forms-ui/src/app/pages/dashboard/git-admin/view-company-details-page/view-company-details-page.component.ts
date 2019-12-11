@@ -22,14 +22,15 @@ export class ViewCompanyDetailsPageComponent implements OnInit {
   ) {
     this.company = window.history.state.company;
     this.isActive = this.company.status == 1 ? true : false;
-    console.log(this.company);
+    this.id = this.company.id;
+    console.log('comp:' + this.company);
   }
 
   ngOnInit() {
   }
 
   edit(id: string) {
-    this.router.navigateByUrl('/git_admin/edit/company', { state: { id: id }});
+    this.router.navigateByUrl('/git_admin/edit/company', { state: { company: this.company }});
   }
 
   toggleStatus() {

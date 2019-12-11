@@ -2,10 +2,10 @@ import { Component, OnInit, TemplateRef, ViewChild } from '@angular/core';
 import * as _ from 'lodash';
 import { Router } from '@angular/router';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { UserTypes } from 'src/app/enums/user-types.enum';
 import { ListViewService } from 'src/app/services/view/list-view.service';
 import { TemplatesService } from 'src/app/services/templates/templates.service';
 import { LocalStorageService } from 'src/app/services/storage/local-storage.service';
-import { UserTypes } from 'src/app/enums/user-types.enum';
 
 @Component({
   selector: 'app-list-template-page',
@@ -117,7 +117,8 @@ export class ListTemplatePageComponent implements OnInit {
     }
   }
 
-  edit(form: any) {
+  edit(ev: Event, form: any) {
+    ev.stopPropagation();
     this.router.navigateByUrl('templates/edit', { state: { form: form }});
   }
 
@@ -129,7 +130,8 @@ export class ListTemplatePageComponent implements OnInit {
     this.router.navigateByUrl('templates/create');
   }
 
-  delete(id: string, index: number) {
+  delete(ev: Event, id: string, index: number) {
+    ev.stopPropagation();
     this.modalService.open(this.modalTemplateRef, { centered: true }).result.then((result) => {
       if (result == 'delete') {
         this.deleteTemplate(id, index);
@@ -137,7 +139,8 @@ export class ListTemplatePageComponent implements OnInit {
     });
   }
 
-  import(template: any) {
+  import(ev: Event, template: any) {
+    ev.stopPropagation();
     this.router.navigateByUrl('admin/create/form', { state: { template: template }});
   }
 

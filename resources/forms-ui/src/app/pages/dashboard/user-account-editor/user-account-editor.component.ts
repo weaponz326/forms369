@@ -153,8 +153,6 @@ export class UserAccountEditorComponent implements OnInit {
       res => {
         const account = res;
         this.userDetails = account;
-        console.log('xxxxxxxxx: ' + this.userDetails.merchant_name);
-        this.f.phone.setValue(account.phone);
         this.f.status.setValue(account.status);
         this.f.country.setValue(account.country);
         this.f.lastName.setValue(account.lastname);
@@ -162,6 +160,7 @@ export class UserAccountEditorComponent implements OnInit {
         this.f.userType.setValue(account.user_type);
         this.f.emailAddress.setValue(account.email);
         this.f.firstName.setValue(account.firstname);
+        this.f.phone.setValue(account.phone.substring(3));
 
         if (this.f.userType.value == UserTypes.GitAdmin) {
           // remove validation of merchant and branch

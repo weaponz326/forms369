@@ -108,12 +108,14 @@ export class AddTemplatePageComponent implements OnInit {
     }
   }
 
-  bringBackForm() {
-    this.router.navigateByUrl('templates/create');
+  createNew() {
+    this.formBuilder.actions.clearFields();
+    this.created = false;
+    this.form.reset();
   }
 
   preview() {
-    this.router.navigateByUrl('templates/details/form', { state: { form: this.templateForm }});
+    this.router.navigateByUrl('/templates/view', { state: { form: this.templateForm }});
   }
 
 }

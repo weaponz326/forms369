@@ -237,4 +237,8 @@ export class EditBranchPageComponent implements OnInit {
     this.created = !this.created;
   }
 
+  cancel() {
+    this.router.navigateByUrl('/git_admin/lists/branch');
+  }
+
 }
