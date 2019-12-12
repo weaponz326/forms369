@@ -60,8 +60,8 @@
                               {{ item }}
                             </mat-option>
                           </mat-autocomplete>
-                          <div *ngIf="submitted && f.name.errors">
-                            <p class="input-error" *ngIf="f.name.errors.required">Super Executive is required</p>
+                          <div *ngIf="submitted && f.superExecutive.errors">
+                            <p class="input-error" *ngIf="f.superExecutive.errors.required">Super Executive is required</p>
                           </div>
                         </div>
                       </div>
@@ -74,8 +74,8 @@
                               {{ item }}
                             </mat-option>
                           </mat-autocomplete>
-                          <div *ngIf="submitted && f.name.errors">
-                            <p class="input-error" *ngIf="f.name.errors.required">Company Admin is required</p>
+                          <div *ngIf="submitted && f.companyAdmin.errors">
+                            <p class="input-error" *ngIf="f.companyAdmin.errors.required">Company Admin is required</p>
                           </div>
                         </div>
                       </div>

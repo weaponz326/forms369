@@ -126,6 +126,11 @@ Route::get('git_admin/lists/form', function () {
     return View::make('index');
 });
 
+Route::get('git_admin/lists/company', function () {
+    View::addExtension('html', 'php');
+    return View::make('index');
+});
+
 Route::get('git_admin/lists/branch_admin', function () {
     View::addExtension('html', 'php');
     return View::make('index');

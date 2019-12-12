@@ -148,6 +148,7 @@ export class AdminLoginPageComponent implements OnInit {
       const login = this.getFormData();
       this.accountService.authenticate(login.username, login.password).then(
         res => {
+          sessionStorage.clear(); // TESTING SOMETHING!!!
           const response = res as any;
           this.form.enable();
           this.loading = false;

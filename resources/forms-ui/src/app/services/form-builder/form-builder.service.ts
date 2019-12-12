@@ -22,7 +22,6 @@ export class FormBuilderService {
     return [
       'autocomplete',
       'button',
-      'date',
       'hidden',
       'number',
     ];
@@ -34,7 +33,6 @@ export class FormBuilderService {
       'autocomplete',
       'button',
       'checkbox-group',
-      'date',
       'file',
       'hidden',
       'number',
