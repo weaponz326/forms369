@@ -1,5 +1,6 @@
 import { Component, OnInit, Input } from '@angular/core';
 import * as _ from 'lodash';
+import * as moment from 'moment';
 import { PDFDocumentProxy } from 'ng2-pdf-viewer';
 import { PDFAnnotationData, PDFPageProxy, PDFProgressData } from 'pdfjs-dist';
 import { FormGroup, FormControl, FormBuilder } from '@angular/forms';
@@ -23,7 +24,7 @@ export class FormPrintingPageComponent implements OnInit {
   constructor(private _fb: FormBuilder) {
     this.inputList = [];
     this.dpiRatio = 96 / 72;
-    this.pdfSrc = 'https://forms369.com/test.pdf';
+    this.pdfSrc = 'https://forms369.com/test2.pdf';
     this.clientFormDetails = [];
     this.form = window.history.state.form;
     window.onafterprint = () => {
@@ -56,6 +57,10 @@ export class FormPrintingPageComponent implements OnInit {
     return pdfFieldType == clientFieldType ? true : false;
   }
 
+  resolveDateFormat(date: string) {
+    return moment().format('DD MMM YYYY');
+  }
+
   private createInput(annotation: any, rect: number[] = null) {
     const input = new Input();
     const formControl = new FormControl(annotation.buttonValue || '');
@@ -68,10 +73,19 @@ export class FormPrintingPageComponent implements OnInit {
 
         // check if field names match
         if (this.fieldNamesMatch(annotation.fieldName, key)) {
-
           // set the client data to this field
           input.type = 'text';
-          input.value = this.form.client_submitted_details[key];
+          const value = this.form.client_submitted_details[key];
+
+          // handle formatting of dates if the key is a date.
+          if (_.includes(key, 'd-o-b') || _.includes(key, 'date')) {
+            console.log('key: ' + key);
+            const formatted_date = this.resolveDateFormat(value);
+            input.value = formatted_date;
+          }
+          else {
+            input.value = value;
+          }
         }
 
         console.log('Tx Values: ' + annotation.fieldValue);

@@ -16,8 +16,8 @@ import { LocalStorageService } from 'src/app/services/storage/local-storage.serv
 })
 export class CreateFormPageComponent implements OnInit {
 
-  form: FormGroup;
   pdfFile: File;
+  form: FormGroup;
   formBuilder: any;
   filename: string;
   created: boolean;
@@ -70,7 +70,7 @@ export class CreateFormPageComponent implements OnInit {
 
   buildForm() {
     this.form = this._formBuilder.group({
-      pdf: ['', Validators.required],
+      pdf: [''],
       name: ['', Validators.required],
       merchant: ['', Validators.required]
     });

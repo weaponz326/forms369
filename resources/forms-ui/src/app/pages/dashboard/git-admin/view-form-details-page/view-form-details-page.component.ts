@@ -22,7 +22,7 @@ export class ViewFormDetailsPageComponent implements OnInit {
   }
 
   ngOnInit() {
-    const formData = this.form.form_fields;
+    const formData = this.form.form_fields || this.form;
     this.formRenderer = document.getElementById('fb-editor');
     const formRenderOpts = { formData, dataType: 'json' };
     $(this.formRenderer).formRender(formRenderOpts);

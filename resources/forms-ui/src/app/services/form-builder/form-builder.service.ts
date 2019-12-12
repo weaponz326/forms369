@@ -332,7 +332,7 @@ export class FormBuilderService {
           console.log('res: ' + JSON.stringify(res));
           _.forEach(res, (section) => {
             form_fields.push({
-              icon: 'P',
+              icon: '*',
               label: section.heading,
               fields: section.form_fields
             });

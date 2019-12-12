@@ -60,27 +60,32 @@ export class CreateSectionPageComponent implements OnInit {
     this.loading = true;
     const formSection = this.getForm();
     console.log('json: ' + JSON.stringify(formSection));
-    const sectionData = {
-      form_fields: formSection,
-      heading: this.f.heading.value
-    };
+    if (formSection.length == 0) {
+      alert('Form fields cannot be empty');
+    }
+    else {
+      const sectionData = {
+        form_fields: formSection,
+        heading: this.f.heading.value
+      };
 
-    this.sectionService.createSection(sectionData).then(
-      res => {
-        this.loading = false;
-        if (_.toLower(res.message) == 'ok') {
-          this.created = true;
-          this.sectionHeading = sectionData.heading;
-        }
-        else {
+      this.sectionService.createSection(sectionData).then(
+        res => {
+          this.loading = false;
+          if (_.toLower(res.message) == 'ok') {
+            this.created = true;
+            this.sectionHeading = sectionData.heading;
+          }
+          else {
+            this.created = false;
+          }
+        },
+        err => {
+          this.loading = false;
           this.created = false;
         }
-      },
-      err => {
-        this.loading = false;
-        this.created = false;
-      }
-    );
+      );
+    }
   }
 
   reset() {

@@ -153,6 +153,7 @@ export class AdminLoginPageComponent implements OnInit {
           this.loading = false;
           if (_.isUndefined(response.message)) {
             const user = response.user as Users;
+            user.can_print = response.can_print;
             this.localStorageService.token = response.token;
             this.localStorageService.saveUserInformation(user);
             this.navigateToUserDashboard(user.usertype);
