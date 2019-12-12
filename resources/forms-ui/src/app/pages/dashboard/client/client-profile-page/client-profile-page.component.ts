@@ -22,6 +22,7 @@ export class ClientProfilePageComponent implements OnInit {
   hasError: boolean;
   alert_title: string;
   isConnected: boolean;
+  noFilledData: boolean;
   alert_message: string;
   allFormSections: Array<any>;
   @ViewChild('updated', { static: false }) updatedDialog: TemplateRef<any>;
@@ -57,7 +58,7 @@ export class ClientProfilePageComponent implements OnInit {
     }
   }
 
-  getAllClientData() {
+  getAllClientDataNew() {
     this.loading = true;
     this.formBuilder.getUserFilledData(_.toString(this.user.id)).then(
       res => {
@@ -67,9 +68,33 @@ export class ClientProfilePageComponent implements OnInit {
           this.loading = false;
           this.allUserData = res[0].client_details[0];
           console.log('details: ' + this.allUserData);
+        }
+        else {
+          this.hasData = false;
+          this.loading = false;
+        }
+      },
+      err => {
+        console.log('error: ' + JSON.stringify(err));
+        this.loading = false;
+        this.hasError = true;
+      }
+    );
+  }
+
+  getAllClientData() {
+    this.loading = true;
+    this.formBuilder.getUserFilledData(_.toString(this.user.id)).then(
+      res => {
+        console.log('user_data: ' + JSON.stringify(res));
+        if (res.length > 0) {
+          this.hasData = true;
+          this.loading = false;
+          const userData = res[0].client_details[0];
+          console.log('details: ' + userData);
           setTimeout(() => {
-            this.clientService.fillClientProfileData(this.allFormSections, res[0].client_details[0]);
-          }, 1000);
+            this.clientService.fillClientProfileData(this.allFormSections, userData);
+          }, 500);
         }
         else {
           this.hasData = false;
@@ -113,14 +138,21 @@ export class ClientProfilePageComponent implements OnInit {
         if (res.length != 0) {
           this.hasData = true;
           this.loading = false;
+          console.log('filled data');
           _.forEach(res, (section) => {
             this.allFormSections.push(section);
           });
           this.getAllClientData();
         }
         else {
-          this.hasData = false;
-          this.loading = false;
+          console.log('no filled data');
+          this.noFilledData = true;
+          this.getAllClientDataNew();
+          // this.hasData = false;
+          // this.loading = false;
+          // this.hasData = true;
+          // this.loading = false;
+          // this.getAllClientData();
         }
       },
       err => {

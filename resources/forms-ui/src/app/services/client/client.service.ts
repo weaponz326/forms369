@@ -133,8 +133,8 @@ export class ClientService {
       const url = this.endpointService.apiHost + 'api/v1/getClientSubmittedForms/' + id;
       this.http.get(url, { headers: this.headers }).subscribe(
         res => {
-          console.log('submitted forms: ' + JSON.stringify(res));
           const response = res as any;
+          console.log('submitted forms: ' + JSON.stringify(response.forms.data));
           resolve(response.forms.data);
         },
         err => {
