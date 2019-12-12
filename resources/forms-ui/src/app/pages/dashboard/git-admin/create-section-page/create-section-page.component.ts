@@ -61,6 +61,7 @@ export class CreateSectionPageComponent implements OnInit {
     const formSection = this.getForm();
     console.log('json: ' + JSON.stringify(formSection));
     if (formSection.length == 0) {
+      this.loading = false;
       alert('Form fields cannot be empty');
     }
     else {

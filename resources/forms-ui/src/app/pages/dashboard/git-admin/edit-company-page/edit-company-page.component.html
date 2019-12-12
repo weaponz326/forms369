@@ -149,7 +149,7 @@
                             Please wait...
                           </button>
                           <button *ngIf="!loading" type="submit" class="btn btn-primary btn-lg mr-2">SUBMIT</button>
-                          <button class="btn btn-light btn-lg">CANCEL</button>
+                          <button type="button" class="btn btn-light btn-lg">CANCEL</button>
                         </div>
                       </div>
                     </div>
@@ -172,10 +172,10 @@
                   <p class="text-muted">You have succesfully updated a company</p>
                 </div>
                 <div class="card-text mt-4">
-                  <button type="button" class="btn btn-primary btn-lg btn-icon-text mr-2" (click)="view()">
+                  <!-- <button type="button" class="btn btn-primary btn-lg btn-icon-text mr-2" (click)="view()">
                     <i class="mdi mdi-pulse"></i>
                     View
-                  </button>
+                  </button> -->
                   <button type="button" class="btn btn-secondary btn-lg mr-2" (click)="ok()">
                     <i class="mdi mdi-check"></i>
                     Ok

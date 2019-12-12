@@ -34,12 +34,12 @@
                     <div class="col-4 offset-4">
                       <!-- <img [src]="company.logo" class="logo mb-5" alt="logo"> -->
                       <h3 class="display-4 font-weight-bold">{{ branch.merchant_name }}</h3>
-                      <button *ngIf="!_loading" class="btn btn-outline-primary mr-2" [ngClass]="{'active': isActive}"
+                      <!-- <button *ngIf="!_loading" class="btn btn-outline-primary mr-2" [ngClass]="{'active': isActive}"
                         (click)="toggleStatus()">Active</button>
                       <button *ngIf="_loading" class="btn btn-primary" type="button" disabled>
                         <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
                         Loading...
-                      </button>
+                      </button> -->
                       <button class="btn btn-outline-primary btn-icon-text" (click)="edit(branch.id)">
                         <i class="mdi mdi-pencil-outline"></i>
                         Edit
@@ -54,7 +54,7 @@
                             <h2 class="mb-0">
                               <button class="btn" type="button" data-toggle="collapse" data-target="#collapseOne"
                                 aria-expanded="true" aria-controls="collapseOne">
-                                Branch Details - {{ branch.merchant_name }}
+                                Branch Details - {{ branch.merchant_name }} ({{ branch.branch_name }})
                               </button>
                             </h2>
                           </div>
@@ -79,6 +79,11 @@
                                     <tr class="hover-cursor">
                                       <td><strong>Branch Admin</strong></td>
                                       <td>{{ branch.branch_admin_name }}</td>
+                                    </tr>
+                                    <tr class="hover-cursor">
+                                      <td><strong>Branch Status</strong></td>
+                                      <td *ngIf="branch.status == 1">Active</td>
+                                      <td *ngIf="branch.status == 0">In Active</td>
                                     </tr>
                                     <tr class="hover-cursor">
                                       <td><strong>Created On</strong></td>

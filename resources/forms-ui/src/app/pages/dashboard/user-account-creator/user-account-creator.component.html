@@ -1,5 +1,5 @@
 <form [formGroup]="form" (ngSubmit)="register()" class="pt-3">
-  <div *ngIf="isAdmin" class="form-group">
+  <div *ngIf="isGitAdmin" class="form-group">
     <select class="form-control" formControlName="userType"
       [ngClass]="{'input-control-error': submitted && f.userType.errors}" (change)="onUserSelect($event)">
       <option value="" disabled>Choose User Type</option>
@@ -34,8 +34,9 @@
       </div>
     </div>
   </div>
-  <div *ngIf="isFrontDesk && !isAdmin" class="row">
-    <div class="col-md-6">
+  <div class="row" *ngIf="!isAdmin || isFrontDesk">
+    <div [ngClass]="{'col-md-12': isCompAdmin || isSuperExec, 'col-md-6': isFrontDesk}"
+      *ngIf="isCompAdmin || isSuperExec || isFrontDesk">
       <div class="form-group">
         <input type="text" class="form-control" formControlName="merchant" placeholder="Company Name"
           [matAutocomplete]="auto" [ngClass]="{'input-control-error': submitted && f.merchant.errors}">
@@ -49,7 +50,7 @@
         </div>
       </div>
     </div>
-    <div class="col-md-6">
+    <div class="col-md-6" *ngIf="!isCompAdmin && !isSuperExec">
       <div class="form-group">
         <input type="text" class="form-control" formControlName="branch" placeholder="Branch Name"
           [matAutocomplete]="auto_1" [ngClass]="{'input-control-error': submitted && f.branch.errors}">
@@ -121,7 +122,7 @@
     <input type="password" class="form-control" formControlName="password" placeholder="Password"
       autocomplete="new-password" [ngClass]="{'input-control-error': submitted && f.password.errors}">
     <div *ngIf="submitted && f.password.errors">
-      <p class="input-error" *ngIf="f.password.errors.minlength">Password must be atleast 6 characters</p>
+      <p class="input-error" *ngIf="f.password.errors.minlength">Password must be atleast 8 characters</p>
       <p class="input-error" *ngIf="f.password.errors.required">Password is required</p>
     </div>
   </div>

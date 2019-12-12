@@ -29,6 +29,12 @@ body {
     font-family: 'OpenSans_Regular';
 }
 
+.align-right {
+    top: 10px;
+    position: absolute;
+    right: 10px;
+}
+
 .btn {
     line-height: 20px;
     font-weight: 700;

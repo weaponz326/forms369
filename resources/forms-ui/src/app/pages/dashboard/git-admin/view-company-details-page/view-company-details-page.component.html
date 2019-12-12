@@ -40,11 +40,11 @@
                     <div class="col-4 offset-4">
                       <img [src]="company.logo" class="logo mb-5" alt="logo">
                       <h3 class="display-4 font-weight-bold">{{ company.merchant_name }}</h3>
-                      <button *ngIf="!_loading" class="btn btn-outline-primary mr-2" [ngClass]="{'active': isActive}" (click)="toggleStatus()">Active</button>
+                      <!-- <button *ngIf="!_loading" class="btn btn-outline-primary mr-2" [ngClass]="{'active': isActive}" (click)="toggleStatus()">Active</button>
                       <button *ngIf="_loading" class="btn btn-primary" type="button" disabled>
                         <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
                         Loading...
-                      </button>
+                      </button> -->
                       <button class="btn btn-outline-primary btn-icon-text" (click)="edit(company.id)">
                         <i class="mdi mdi-pencil-outline"></i>
                         Edit
@@ -89,6 +89,11 @@
                                       <td><strong>Can Print</strong></td>
                                       <td *ngIf="company.can_print == 0">No</td>
                                       <td *ngIf="company.can_print == 1">Yes</td>
+                                    </tr>
+                                    <tr class="hover-cursor">
+                                      <td><strong>Status</strong></td>
+                                      <td *ngIf="company.status == 1">Active</td>
+                                      <td *ngIf="company.status == 0">In Active</td>
                                     </tr>
                                     <tr class="hover-cursor">
                                       <td><strong>Created On</strong></td>

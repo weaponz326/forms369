@@ -176,6 +176,21 @@ Route::get('git_admin/details/form', function () {
     return View::make('index');
 });
 
+Route::get('git_admin/create/section', function () {
+    View::addExtension('html', 'php');
+    return View::make('index');
+});
+
+Route::get('git_admin/edit/section', function () {
+    View::addExtension('html', 'php');
+    return View::make('index');
+});
+
+Route::get('git_admin/lists/section', function () {
+    View::addExtension('html', 'php');
+    return View::make('index');
+});
+
 /**
  * Client Routes
  */

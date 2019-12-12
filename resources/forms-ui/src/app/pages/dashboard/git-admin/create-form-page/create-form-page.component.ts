@@ -50,14 +50,14 @@ export class CreateFormPageComponent implements OnInit {
     this._loading = true;
     this.buildForm();
 
-    this.formBuilderService.generateFormFieldsBySections().then(
+    this.formBuilderService.generateSectionAndDefaultFormFields().then(
       form_elements => {
         this.formBuilder = $(document.getElementById('fb-editor')).formBuilder({
           controlPosition: 'left',
           inputSets: form_elements,
           scrollToFieldOnAdd: false,
           disabledActionButtons: ['data', 'clear', 'save'],
-          disableFields: this.formBuilderService.disableSectionFormFields()
+          disableFields: this.formBuilderService.disableDefaultFormControls()
         });
         this._loading = false;
       },
@@ -142,6 +142,7 @@ export class CreateFormPageComponent implements OnInit {
 
     if (form.length == 0) {
       alert('Form fields cannot be empty');
+      this.loading = false;
     }
     else {
       formData.form_fields = form;

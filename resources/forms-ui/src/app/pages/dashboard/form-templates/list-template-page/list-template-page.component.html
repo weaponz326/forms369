@@ -129,12 +129,18 @@
                   </div>
                 </div>
 
-                <div *ngIf="viewMode == 'grid'" class="row">
+                <div *ngIf="viewMode == 'grid'" class="row t-list">
                   <div class="col-md-4 grid-margin stretch-card" *ngFor="let template of templatesList; let i = index">
                     <div class="card hover-cursor animated fadeInDown fast" (click)="view(template)">
                       <div class="card-body">
                         <div class="card-text">
-                          <h1 class="display-4 mb-4">{{ template.name }}</h1>
+                          <h1 class="display-4 mb-4 mr-3">{{ template.name }}</h1>
+                          <div *ngIf="isGitAdmin" class="align-right">
+                            <button type="button" class="btn btn-sm"
+                              (click)="delete($event, template.id, i)">
+                              <i class="mdi mdi-delete-outline text-danger"></i>
+                            </button>
+                          </div>
                           <div class="btn-group" role="group" aria-label="Basic example">
                             <button type="button" class="btn btn-outline-secondary" (click)="edit($event, template)">
                               <i class="mdi mdi-pencil-outline"></i>
@@ -144,14 +150,15 @@
                               <i class="mdi mdi-pulse"></i>
                               View
                             </button>
-                            <button *ngIf="isGitAdmin" type="button" class="btn btn-outline-secondary" (click)="delete($event, template.id, i)">
-                              <i class="mdi mdi-delete-outline"></i>
-                              Delete
-                            </button>
-                            <button *ngIf="!isGitAdmin" type="button" class="btn btn-outline-secondary" (click)="import($event, template)">
+                            <button type="button" class="btn btn-outline-secondary"
+                              (click)="import($event, template)">
                               <i class="mdi mdi-download-outline"></i>
                               Use
                             </button>
+                            <!-- <button type="button" class="btn btn-outline-secondary" (click)="delete($event, template.id, i)">
+                              <i class="mdi mdi-delete-outline"></i>
+                              Delete
+                            </button> -->
                           </div>
                         </div>
                       </div>
@@ -165,10 +172,10 @@
                       <div class="list-group-item hover-cursor list-group-item-action animated fadeInDown"
                         *ngFor="let template of templatesList; let i = index">
                         <div class="row" (click)="view(template)">
-                          <div class="col-8">
+                          <div class="col-6">
                             <h1 class="display-4 mb-1 mt-2">{{ template.name }}</h1>
                           </div>
-                          <div class="col-4">
+                          <div class="col-6">
                             <div class="btn-group mt-2" role="group" aria-label="Basic example">
                               <button type="button" class="btn btn-outline-secondary" (click)="edit($event, template)">
                                 <i class="mdi mdi-pencil-outline"></i>
@@ -177,6 +184,11 @@
                               <button type="button" class="btn btn-outline-secondary" (click)="view($event, template)">
                                 <i class="mdi mdi-pulse"></i>
                                 View
+                              </button>
+                              <button type="button" class="btn btn-outline-secondary"
+                                (click)="import($event, template)">
+                                <i class="mdi mdi-download-outline"></i>
+                                Use
                               </button>
                               <button type="button" class="btn btn-outline-secondary" (click)="delete($event, template.id, i)">
                                 <i class="mdi mdi-delete-outline"></i>

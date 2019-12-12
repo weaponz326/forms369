@@ -11,3 +11,9 @@
     padding-top: 7px;
     padding-bottom: 7px;
 }
+
+.t-list .btn-group > .btn, 
+.t-list .btn-group-vertical > .btn {
+    padding-left: 15px;
+    padding-right: 15px;
+}

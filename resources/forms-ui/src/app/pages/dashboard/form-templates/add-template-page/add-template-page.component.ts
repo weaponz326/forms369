@@ -73,6 +73,7 @@ export class AddTemplatePageComponent implements OnInit {
     this.loading = true;
     const template = this.getTemplate();
     if (template.length == 0) {
+      this.loading = false;
       alert('Form fields cannot be empty');
     }
     else {

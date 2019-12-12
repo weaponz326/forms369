@@ -23,7 +23,10 @@ export class UserAccountCreatorComponent implements OnInit {
   isAdmin: boolean;
   loading: boolean;
   submitted: boolean;
+  isGitAdmin: boolean;
   isFrontDesk: boolean;
+  isCompAdmin: boolean;
+  isSuperExec: boolean;
   branchesList: Array<any>;
   merchantsList: Array<any>;
   branchNamesList: Array<any>;
@@ -48,6 +51,7 @@ export class UserAccountCreatorComponent implements OnInit {
     this.branchNamesList = [];
     this.merchantNamesList = [];
     this.isAdmin = this.localStorage.getUser().usertype == UserTypes.GitAdmin ? true : false;
+    this.isGitAdmin = this.localStorage.getUser().usertype == UserTypes.GitAdmin ? true : false;
 
     this.initializeView();
   }
@@ -86,7 +90,7 @@ export class UserAccountCreatorComponent implements OnInit {
   }
 
   initializeView() {
-    if (!this.isAdmin) {
+    if (!this.isGitAdmin) {
       this.getCompany();
     }
   }
@@ -101,30 +105,40 @@ export class UserAccountCreatorComponent implements OnInit {
     this.userType.setValue(e.target.value, {
       onlySelf: true
     });
-    this.isFrontDesk = this.f.userType.value == UserTypes.FrontDesk ? true : false;
-    if (!this.isFrontDesk) {
+
+    this.isAdmin = this.f.userType.value == UserTypes.GitAdmin ? true : false;
+    this.isCompAdmin = this.f.userType.value == UserTypes.CompanyAdmin ? true : false;
+    this.isSuperExec = this.f.userType.value == UserTypes.SuperExecutive ? true : false;
+    this.isFrontDesk =
+      this.f.userType.value == UserTypes.FrontDesk ||
+      this.f.userType.value == UserTypes.BranchSuperExecutive ||
+      this.f.userType.value == UserTypes.BranchAdmin ? true : false;
+
+    if (this.isCompAdmin || this.isSuperExec) {
+      // remove validators
+      this.f.branch.clearValidators();
+      this.f.branch.updateValueAndValidity();
+    }
+
+    if (this.f.userType.value == UserTypes.GitAdmin) {
       // remove validation of merchant and branch
       // so the account can be created.
       this.f.branch.clearValidators();
       this.f.merchant.clearValidators();
       this.f.branch.updateValueAndValidity();
       this.f.merchant.updateValueAndValidity();
-      console.log('removed validators');
+    }
+    else {
+      this.getCompany();
     }
   }
 
-  // This method handles the removal of validations
-  // on merchant and branches when an admin is creating an account.
   handleUserSelection() {
-    if (this.isAdmin) {
-      // remove validation of merchant and branch
-      // so the account can be created.
+    if (!this.isGitAdmin) {
+      // if logged in user is not a GIT Admin it means logged in user can only create
+      // a front desk account. And since we are hiding the option to choose which kind
+      // of user to be created, we have to set the user to Front Desk.
       this.f.userType.setValue('25');
-      this.f.branch.clearValidators();
-      this.f.merchant.clearValidators();
-      this.f.branch.updateValueAndValidity();
-      this.f.merchant.updateValueAndValidity();
-      console.log('removed validators');
     }
   }
 
@@ -293,16 +307,17 @@ export class UserAccountCreatorComponent implements OnInit {
   }
 
   cancel() {
-    this.f.firstName.setValue('');
-    this.f.lastName.setValue('');
-    this.f.country.setValue('');
-    this.f.username.setValue('');
-    this.f.userType.setValue('');
-    this.f.branch.setValue('');
-    this.f.merchant.setValue('');
-    this.f.phone.setValue('');
-    this.f.password.setValue('');
-    this.f.emailAddress.setValue('');
+    // this.f.firstName.setValue('');
+    // this.f.lastName.setValue('');
+    // this.f.country.setValue('');
+    // this.f.username.setValue('');
+    // this.f.userType.setValue('');
+    // this.f.branch.setValue('');
+    // this.f.merchant.setValue('');
+    // this.f.phone.setValue('');
+    // this.f.password.setValue('');
+    // this.f.emailAddress.setValue('');
+    window.history.back();
   }
 
 }
