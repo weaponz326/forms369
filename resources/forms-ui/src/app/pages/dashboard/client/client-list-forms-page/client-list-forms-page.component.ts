@@ -133,7 +133,7 @@ export class ClientListFormsPageComponent implements OnInit {
   getAllForms() {
     this.loading = true;
     const merchant_id = this.company.id;
-    this.formService.getAllFormsByMerchant(merchant_id).then(
+    this.formService.getAllFormsByStatusAndMerchant(merchant_id, '1').then(
       res => {
         const forms = res as any;
         this.hasMore = this.checkIfHasMore();

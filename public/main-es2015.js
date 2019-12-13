@@ -778,7 +778,7 @@ module.exports = "<div class=\"container-scroller\">\n  <app-navigation-bar></ap
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<div class=\"container-scroller\">\n  <app-navigation-bar></app-navigation-bar>\n  <div class=\"container-fluid page-body-wrapper\">\n    <app-side-bar></app-side-bar>\n    <div class=\"main-panel\">\n      <div class=\"content-wrapper\">\n        <div class=\"row\">\n          <div class=\"col-md-12 grid-margin\">\n            <div class=\"d-flex justify-content-between flex-wrap\">\n              <div class=\"d-flex align-items-end flex-wrap\">\n                <div class=\"mr-md-3 mr-xl-5\">\n                  <h2>Processed Forms</h2>\n                  <p class=\"mb-md-0\">Your administrative dashboard.</p>\n                </div>\n                <div class=\"d-flex\">\n                </div>\n              </div>\n              <div class=\"d-flex justify-content-between align-items-end flex-wrap\">\n              </div>\n            </div>\n          </div>\n        </div>\n\n        <div *ngIf=\"loading\" class=\"row m-5\">\n          <div class=\"col-md-12 m-5\">\n            <div class=\"d-flex justify-content-center\">\n              <div class=\"spinner-border m-5\" style=\"width: 5rem; height: 5rem;\" role=\"status\">\n                <span class=\"sr-only\">Loading...</span>\n              </div>\n            </div>\n          </div>\n        </div>\n\n        <div *ngIf=\"!loading && !hasData\" class=\"row\">\n          <div class=\"col-lg-12 grid-margin stretch-card\">\n            <div class=\"card text-center pt-5 pb-5\">\n              <div class=\"card-body mt-5 mb-5\">\n                <h4 class=\"card-title\">No Data Found</h4>\n                <p class=\"card-description\">\n                  No forms found.\n                </p>\n                <div class=\"text-lg-center mt-5 mb-5\">\n                  <div class=\"card-text\">\n                    <i class=\"mdi mdi-file-check-outline\" style=\"font-size: 8em;\"></i>\n                  </div>\n                  <div class=\"card-text\">\n                    <h3>No Processed Forms</h3>\n                    <p class=\"text-muted\">There are no processed forms yet!</p>\n                  </div>\n                </div>\n              </div>\n            </div>\n          </div>\n        </div>\n\n        <div *ngIf=\"hasError\" class=\"row\">\n          <div class=\"col-lg-12 grid-margin stretch-card\">\n            <div class=\"card text-center pt-5 pb-5\">\n              <div class=\"card-body mt-5 mb-5\">\n                <h4 class=\"card-title\">Error Ocuured</h4>\n                <p class=\"card-description\">\n                  Ooops! Something went wrong!\n                </p>\n                <div class=\"text-lg-center mt-5 mb-5\">\n                  <div class=\"card-text\">\n                    <i class=\"mdi mdi-close-network-outline\" style=\"font-size: 8em;\"></i>\n                  </div>\n                  <div class=\"card-text\">\n                    <h3>We couldn't get your forms</h3>\n                    <p class=\"text-muted\">You may not have internet connection or our servers maybe down.</p>\n                    <button class=\"btn btn-primary\" type=\"button\" (click)=\"retry()\">Retry</button>\n                  </div>\n                </div>\n              </div>\n            </div>\n          </div>\n        </div>\n\n        <div *ngIf=\"!loading && hasData\" class=\"row\">\n          <div class=\"col-lg-12 grid-margin stretch-card\">\n            <div class=\"card\">\n              <div class=\"card-body\">\n                <div class=\"table-responsive\">\n                  <table class=\"table table-hover\">\n                    <thead>\n                      <tr>\n                        <th><strong>Code.</strong></th>\n                        <th><strong>Form Name</strong></th>\n                        <th><strong>Submitted By</strong></th>\n                        <th><strong>Processed On</strong></th>\n                        <th><strong>Action</strong></th>\n                      </tr>\n                    </thead>\n                    <tbody>\n                      <tr class=\"hover-cursor\" *ngFor=\"let form of processedFormsList\" (click)=\"open(form)\">\n                        <td>{{ form.submission_code }}</td>\n                        <td>{{ form.form_name }}</td>\n                        <td>{{ form.client_name }}</td>\n                        <td>{{ form.last_processed | date }}</td>\n                        <td>\n                          <button type=\"button\" class=\"btn btn-light bg-white btn-icon\"\n                            data-toggle=\"tooltip\" data-placement=\"top\" title=\"Print\" (click)=\"print($event, form)\">\n                            <i class=\"mdi mdi-printer text-muted\"></i>\n                          </button>\n                        </td>\n                      </tr>\n                    </tbody>\n                  </table>\n                </div>\n              </div>\n            </div>\n          </div>\n        </div>\n      </div>\n    </div>\n  </div>\n</div>"
+module.exports = "<div class=\"container-scroller\">\n  <app-navigation-bar></app-navigation-bar>\n  <div class=\"container-fluid page-body-wrapper\">\n    <app-side-bar></app-side-bar>\n    <div class=\"main-panel\">\n      <div class=\"content-wrapper\">\n        <div class=\"row\">\n          <div class=\"col-md-12 grid-margin\">\n            <div class=\"d-flex justify-content-between flex-wrap\">\n              <div class=\"d-flex align-items-end flex-wrap\">\n                <div class=\"mr-md-3 mr-xl-5\">\n                  <h2>Processed Forms</h2>\n                  <p class=\"mb-md-0\">Your administrative dashboard.</p>\n                </div>\n                <div class=\"d-flex\">\n                </div>\n              </div>\n              <div class=\"d-flex justify-content-between align-items-end flex-wrap\">\n              </div>\n            </div>\n          </div>\n        </div>\n\n        <div *ngIf=\"loading\" class=\"row m-5\">\n          <div class=\"col-md-12 m-5\">\n            <div class=\"d-flex justify-content-center\">\n              <div class=\"spinner-border m-5\" style=\"width: 5rem; height: 5rem;\" role=\"status\">\n                <span class=\"sr-only\">Loading...</span>\n              </div>\n            </div>\n          </div>\n        </div>\n\n        <div *ngIf=\"!loading && !hasData\" class=\"row\">\n          <div class=\"col-lg-12 grid-margin stretch-card\">\n            <div class=\"card text-center pt-5 pb-5\">\n              <div class=\"card-body mt-5 mb-5\">\n                <h4 class=\"card-title\">No Data Found</h4>\n                <p class=\"card-description\">\n                  No forms found.\n                </p>\n                <div class=\"text-lg-center mt-5 mb-5\">\n                  <div class=\"card-text\">\n                    <i class=\"mdi mdi-file-check-outline\" style=\"font-size: 8em;\"></i>\n                  </div>\n                  <div class=\"card-text\">\n                    <h3>No Processed Forms</h3>\n                    <p class=\"text-muted\">There are no processed forms yet!</p>\n                  </div>\n                </div>\n              </div>\n            </div>\n          </div>\n        </div>\n\n        <div *ngIf=\"hasError\" class=\"row\">\n          <div class=\"col-lg-12 grid-margin stretch-card\">\n            <div class=\"card text-center pt-5 pb-5\">\n              <div class=\"card-body mt-5 mb-5\">\n                <h4 class=\"card-title\">Error Ocuured</h4>\n                <p class=\"card-description\">\n                  Ooops! Something went wrong!\n                </p>\n                <div class=\"text-lg-center mt-5 mb-5\">\n                  <div class=\"card-text\">\n                    <i class=\"mdi mdi-close-network-outline\" style=\"font-size: 8em;\"></i>\n                  </div>\n                  <div class=\"card-text\">\n                    <h3>We couldn't get your forms</h3>\n                    <p class=\"text-muted\">You may not have internet connection or our servers maybe down.</p>\n                    <button class=\"btn btn-primary\" type=\"button\" (click)=\"retry()\">Retry</button>\n                  </div>\n                </div>\n              </div>\n            </div>\n          </div>\n        </div>\n\n        <div *ngIf=\"!loading && hasData\" class=\"row\">\n          <div class=\"col-lg-12 grid-margin stretch-card\">\n            <div class=\"card\">\n              <div class=\"card-body\">\n                <div class=\"table-responsive\">\n                  <table class=\"table table-hover\">\n                    <thead>\n                      <tr>\n                        <th><strong>Code.</strong></th>\n                        <th><strong>Form Name</strong></th>\n                        <th><strong>Submitted By</strong></th>\n                        <th><strong>Processed On</strong></th>\n                        <th><strong>Action</strong></th>\n                      </tr>\n                    </thead>\n                    <tbody>\n                      <tr class=\"hover-cursor\" *ngFor=\"let form of processedFormsList\" (click)=\"open(form)\">\n                        <td>{{ form.submission_code }}</td>\n                        <td>{{ form.form_name }}</td>\n                        <td>{{ form.client_name }}</td>\n                        <td>{{ form.last_processed | date }}</td>\n                        <td>\n                          <button type=\"button\" class=\"btn btn-light bg-white btn-icon\"\n                            data-toggle=\"tooltip\" data-placement=\"top\" title=\"Print\" (click)=\"print($event, form)\">\n                            <i class=\"mdi mdi-printer text-muted\"></i>\n                          </button>\n                        </td>\n                      </tr>\n                    </tbody>\n                  </table>\n                </div>\n              </div>\n            </div>\n          </div>\n        </div>\n\n        <div *ngIf=\"loadingMore\" class=\"row m-md-2\">\n          <div class=\"col-md-12 col-sm-12 m-md-2\">\n            <div class=\"d-flex justify-content-center\">\n              <div class=\"spinner-border m-2\" style=\"width: 2rem; height: 2rem;\" role=\"status\">\n                <span class=\"sr-only\">Loading...</span>\n              </div>\n            </div>\n          </div>\n        </div>\n\n        <div *ngIf=\"hasMoreError\" class=\"row m-md-2\">\n          <div class=\"col-md-8 col-sm-12 offset-md-2\">\n            <div class=\"alert alert-danger\" role=\"alert\">\n              <h4 class=\"alert-heading\">Connection Failed!</h4>\n              <p>\n                Oops!! Couldn't get you the rest of the data. Please make sure you have an active internet connection.\n                Maybe, our servers may be down.\n              </p>\n              <hr>\n              <p class=\"mb-0\">We are really sorry for this inconvenience. Please click on the load more button again.\n              </p>\n            </div>\n          </div>\n        </div>\n\n        <div *ngIf=\"hasMore\" class=\"row\">\n          <div class=\"col-md-4 col-sm-6 offset-sm-3 offset-lg-4\">\n            <div class=\"text-center\">\n              <button type=\"button\" class=\"btn btn-primary btn-rounded btn-fw\" (click)=\"loadMore()\">Load More</button>\n            </div>\n          </div>\n        </div>\n        \n      </div>\n    </div>\n  </div>\n</div>"
 
 /***/ }),
 
@@ -5164,7 +5164,7 @@ let ClientListFormsPageComponent = class ClientListFormsPageComponent {
     getAllForms() {
         this.loading = true;
         const merchant_id = this.company.id;
-        this.formService.getAllFormsByMerchant(merchant_id).then(res => {
+        this.formService.getAllFormsByStatusAndMerchant(merchant_id, '1').then(res => {
             const forms = res;
             this.hasMore = this.checkIfHasMore();
             if (forms.length > 0) {
@@ -7092,7 +7092,7 @@ let FormPrintingPageComponent = class FormPrintingPageComponent {
         this._fb = _fb;
         this.inputList = [];
         this.dpiRatio = 96 / 72;
-        this.pdfSrc = 'https://forms369.com/test2.pdf';
+        this.pdfSrc = 'https://forms369.com/EDITED_TAX_RELIEF_APPLICATION_FORM.pdf';
         this.clientFormDetails = [];
         this.form = window.history.state.form;
         window.onafterprint = () => {
@@ -7571,11 +7571,15 @@ let FrontDeskProcessedFormsListPageComponent = class FrontDeskProcessedFormsList
             ? this.router.navigateByUrl('front_desk/print_form', { state: { form: form } })
             : this.router.navigateByUrl('front_desk/print_form_default', { state: { form: form } });
     }
+    checkIfHasMore() {
+        return lodash__WEBPACK_IMPORTED_MODULE_2__["isEmpty"](this.frontDeskService.nextPaginationUrl) ? false : true;
+    }
     getAllProcessedForms() {
         this.loading = true;
         const processedForms = [];
         const merchant_id = this.user.merchant_id.toString();
         this.frontDeskService.getSubmittedFormByStatusAndMerchant(2, merchant_id).then(res => {
+            this.hasMore = this.checkIfHasMore();
             if (res.length != 0) {
                 this.hasData = true;
                 lodash__WEBPACK_IMPORTED_MODULE_2__["forEach"](res, (form) => {
@@ -7591,6 +7595,22 @@ let FrontDeskProcessedFormsListPageComponent = class FrontDeskProcessedFormsList
         }, err => {
             this.hasError = true;
             this.loading = false;
+        });
+    }
+    loadMore() {
+        this.loadingMore = true;
+        const merchant_id = this.user.merchant_id.toString();
+        const moreUrl = this.frontDeskService.nextPaginationUrl;
+        this.frontDeskService.getSubmittedFormByStatusAndMerchant(2, merchant_id, moreUrl).then(res => {
+            this.loadingMore = false;
+            this.hasMoreError = false;
+            lodash__WEBPACK_IMPORTED_MODULE_2__["forEach"](res, (form) => {
+                this.processedFormsList.push(form);
+            });
+            this.loading = false;
+        }, err => {
+            this.loadingMore = false;
+            this.hasMoreError = true;
         });
     }
     retry() {
@@ -16815,12 +16835,15 @@ let FrontDeskService = class FrontDeskService {
             });
         });
     }
-    getSubmittedFormByStatusAndMerchant(status, merchant_id) {
+    getSubmittedFormByStatusAndMerchant(status, merchant_id, page_url) {
         return new Promise((resolve, reject) => {
-            const url = this.endpointService.apiHost + 'api/v1/getSubmittedFormByStatusAndMerchant/' + status + '/' + merchant_id;
+            const url = !lodash__WEBPACK_IMPORTED_MODULE_2__["isUndefined"](page_url)
+                ? page_url
+                : this.endpointService.apiHost + 'api/v1/getSubmittedFormByStatusAndMerchant/' + status + '/' + merchant_id;
             this.http.get(url, { headers: this.headers }).subscribe(res => {
                 console.log('res: ' + JSON.stringify(res));
                 const response = res;
+                this.nextPaginationUrl = response.submitted_forms.next_page_url;
                 resolve(response.submitted_forms.data);
             }, err => {
                 console.log('err: ' + JSON.stringify(err));
