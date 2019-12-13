@@ -244,10 +244,7 @@ export class EditFormPageComponent implements OnInit {
   }
 
   editForm() {
-    console.log(this.formBuilder.actions.getData());
-    this.loading = true;
     const form = this.getForm();
-
     if (form.length == 0) {
       this.loading = false;
       alert('Form field cannot be empty');
@@ -279,6 +276,24 @@ export class EditFormPageComponent implements OnInit {
     }
   }
 
+  editFormWithPDF() {
+    if (this.getForm().length == 0) {
+      alert('Form field cannot be empty');
+    }
+    else {
+      this.formService.uploafFormPDF(this.f.merchant.value, this.formCode, this.pdfFile).then(
+        res => {
+          this.editForm();
+        },
+        err => {
+          this.loading = false;
+          this.created = false;
+          this.uploadError = true;
+        }
+      );
+    }
+  }
+
   reset() {
     this.formBuilder.actions.clearFields();
   }
@@ -286,7 +301,8 @@ export class EditFormPageComponent implements OnInit {
   edit() {
     this.submitted = true;
     if (this.form.valid) {
-      this.editForm();
+      this.loading = true;
+      this.pdfFile == null ? this.editForm() : this.editFormWithPDF();
     }
   }
 

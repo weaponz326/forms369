@@ -161,10 +161,10 @@ export class UserAccountCreatorComponent implements OnInit {
 
   getFormData() {
     const phone = this.f.phone.value;
+    const dCode = this.f.dialCode.value;
     const lname = this.f.lastName.value;
     const fname = this.f.firstName.value;
     const country = this.f.country.value;
-    const dCode = this.f.dialCode.value;
     const username = this.f.username.value;
     const password = this.f.password.value;
     const userType = this.f.userType.value;
