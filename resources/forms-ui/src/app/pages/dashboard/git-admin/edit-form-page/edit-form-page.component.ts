@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
+import { Component, OnInit, ViewChild, ElementRef, TemplateRef } from '@angular/core';
 declare var $: any;
 import * as _ from 'lodash';
 import { Router } from '@angular/router';
@@ -7,6 +7,7 @@ import { FormsService } from 'src/app/services/forms/forms.service';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { CompanyService } from 'src/app/services/company/company.service';
 import { FormBuilderService } from 'src/app/services/form-builder/form-builder.service';
+import { NgbModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
   selector: 'app-edit-form-page',
@@ -26,15 +27,25 @@ export class EditFormPageComponent implements OnInit {
   formCode: string;
   merchant: string;
   hasError: boolean;
+  alertTitle: string;
   formStatus: string;
   submitted: boolean;
+  alertMessage: string;
+  alertSuccess: boolean;
+  isPublished: boolean;
   uploadError: boolean;
   showFileUpload: boolean;
   allMerchantsList: Array<any>;
-  @ViewChild('pdfFile', { static: false }) pdfFileElement: ElementRef;
+  loadingModalRef: NgbModalRef;
+  @ViewChild('pdfFile', {static: false}) pdfFileElement: ElementRef;
+  @ViewChild('status', {static: false}) statusModal: TemplateRef<any>;
+  @ViewChild('loader', {static: false}) loadingModal: TemplateRef<any>;
+  @ViewChild('publish', {static: false}) publishModal: TemplateRef<any>;
+  @ViewChild('unpublish', {static: false}) unPublishModal: TemplateRef<any>;
 
   constructor(
     private router: Router,
+    private modalService: NgbModal,
     private _formBuilder: FormBuilder,
     private formService: FormsService,
     private companyService: CompanyService,
@@ -43,6 +54,8 @@ export class EditFormPageComponent implements OnInit {
     this.merchant = '';
     this.allMerchantsList = [];
     this._form = window.history.state.form;
+    this.isPublished = this._form.status == 1 ? true : false;
+
     this.getCompanies();
   }
 
@@ -71,6 +84,14 @@ export class EditFormPageComponent implements OnInit {
         this.hasError = true;
       }
     );
+  }
+
+  showLoadingModal() {
+    this.loadingModalRef = this.modalService.open(this.loadingModal, { centered: true });
+  }
+
+  hideLoadingModal() {
+    this.loadingModalRef.close();
   }
 
   buildForm() {
@@ -118,6 +139,86 @@ export class EditFormPageComponent implements OnInit {
     });
   }
 
+  publishForm() {
+    console.log('publish');
+    this.modalService.open(this.publishModal, { centered: true }).result.then(
+      result => {
+        if (result == 'publish') {
+          this.showLoadingModal();
+          this.formService.changeFormStatus(this._form.form_code, 1).then(
+            res => {
+              const response = res as any;
+              if (_.toLower(response.message) == 'ok') {
+                this.alertTitle = 'Success';
+                this.alertMessage = 'Form has been successfully published';
+                this.alertSuccess = true;
+                this.isPublished = true;
+                this.hideLoadingModal();
+                this.modalService.open(this.statusModal, { centered: true });
+              }
+              else {
+                this.alertTitle = 'Failed';
+                this.alertMessage = 'Form failed to be published';
+                this.alertSuccess = false;
+                this.isPublished = false;
+                this.hideLoadingModal();
+                this.modalService.open(this.statusModal, { centered: true });
+              }
+            },
+            err => {
+              this.alertTitle = 'Failed';
+              this.alertMessage = 'Form failed to be published';
+              this.alertSuccess = false;
+              this.isPublished = false;
+              this.hideLoadingModal();
+              this.modalService.open(this.statusModal, { centered: true });
+            }
+          );
+        }
+      }
+    );
+  }
+
+  unpublishForm() {
+    console.log('unpublish');
+    this.modalService.open(this.unPublishModal, { centered: true }).result.then(
+      result => {
+        if (result == 'unpublish') {
+          this.showLoadingModal();
+          this.formService.changeFormStatus(this._form.form_code, 0).then(
+            res => {
+              const response = res as any;
+              if (_.toLower(response.message) == 'ok') {
+                this.alertTitle = 'Success';
+                this.alertMessage = 'Form has been successfully unpublished';
+                this.alertSuccess = true;
+                this.isPublished = false;
+                this.hideLoadingModal();
+                this.modalService.open(this.statusModal, { centered: true });
+              }
+              else {
+                this.alertTitle = 'Failed';
+                this.alertMessage = 'Form failed to be unpublished';
+                this.alertSuccess = false;
+                this.isPublished = true;
+                this.hideLoadingModal();
+                this.modalService.open(this.statusModal, { centered: true });
+              }
+            },
+            err => {
+              this.alertTitle = 'Failed';
+              this.alertMessage = 'Form failed to be unpublished';
+              this.alertSuccess = false;
+              this.isPublished = true;
+              this.hideLoadingModal();
+              this.modalService.open(this.statusModal, { centered: true });
+            }
+          );
+        }
+      }
+    );
+  }
+
   getCompanies() {
     this._loading = true;
     this.companyService.getAllCompanyCollection().then(
@@ -146,7 +247,7 @@ export class EditFormPageComponent implements OnInit {
     console.log(this.formBuilder.actions.getData());
     this.loading = true;
     const form = this.getForm();
-    
+
     if (form.length == 0) {
       this.loading = false;
       alert('Form field cannot be empty');

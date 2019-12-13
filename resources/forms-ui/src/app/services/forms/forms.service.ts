@@ -172,7 +172,7 @@ export class FormsService {
    * @returns {Promise<any>}
    * @memberof FormBuilderService
    */
-  changeFormStatus(code: string, status: string): Promise<any> {
+  changeFormStatus(code: string, status: number): Promise<any> {
     return new Promise((resolve, reject) => {
       const url = this.endpointService.apiHost + 'api/v1/changeFormStatus/' + code + '/' + status;
       this.http.post(url, {}, { headers: this.headers }).subscribe(

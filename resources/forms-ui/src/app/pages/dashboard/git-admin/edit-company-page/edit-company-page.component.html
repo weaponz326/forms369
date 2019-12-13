@@ -149,7 +149,7 @@
                             Please wait...
                           </button>
                           <button *ngIf="!loading" type="submit" class="btn btn-primary btn-lg mr-2">SUBMIT</button>
-                          <button type="button" class="btn btn-light btn-lg">CANCEL</button>
+                          <button type="button" class="btn btn-light btn-lg" (click)="cancel()">CANCEL</button>
                         </div>
                       </div>
                     </div>
