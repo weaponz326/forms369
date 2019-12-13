@@ -190,7 +190,7 @@ export class CreateFormPageComponent implements OnInit {
 
   save() {
     this.loading = true;
-    this.pdfFile == null ? this.createFormWithPDF() : this.createForm();
+    this.pdfFile == null ? this.createForm() : this.createFormWithPDF();
   }
 
   reset() {

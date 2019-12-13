@@ -3,11 +3,12 @@ declare var $: any;
 import * as _ from 'lodash';
 import { Router } from '@angular/router';
 import { Forms } from 'src/app/models/forms.model';
+import { NgbModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
 import { FormsService } from 'src/app/services/forms/forms.service';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { CompanyService } from 'src/app/services/company/company.service';
 import { FormBuilderService } from 'src/app/services/form-builder/form-builder.service';
-import { NgbModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
+import { LocalStorageService } from 'src/app/services/storage/local-storage.service';
 
 @Component({
   selector: 'app-edit-form-page',
@@ -49,13 +50,14 @@ export class EditFormPageComponent implements OnInit {
     private _formBuilder: FormBuilder,
     private formService: FormsService,
     private companyService: CompanyService,
+    private localStorage: LocalStorageService,
     private formBuilderService: FormBuilderService
   ) {
     this.merchant = '';
     this.allMerchantsList = [];
     this._form = window.history.state.form;
     this.isPublished = this._form.status == 1 ? true : false;
-
+    // this.showFileUpload = this.localStorage.getUser().can_print ? true : false;
     this.getCompanies();
   }
 
@@ -231,6 +233,8 @@ export class EditFormPageComponent implements OnInit {
         this.merchant = this._form.merchant_id;
         this.f.merchant.setValue(this._form.merchant_id);
         this._loading = false;
+
+        this.handleUploadFileView(this.f.merchant.value);
       },
       err => {
         this._loading = false;

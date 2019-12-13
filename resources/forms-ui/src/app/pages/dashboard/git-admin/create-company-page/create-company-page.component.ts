@@ -247,12 +247,13 @@ export class CreateCompanyPageComponent implements OnInit {
   }
 
   cancel() {
-    this.logoImage = '';
-    this.hasLogo = false;
-    this.f.name.setValue('');
-    this.f.country.setValue('');
-    this.f.companyAdmin.setValue('');
-    this.f.superExecutive.setValue('');
+    // this.logoImage = '';
+    // this.hasLogo = false;
+    // this.f.name.setValue('');
+    // this.f.country.setValue('');
+    // this.f.companyAdmin.setValue('');
+    // this.f.superExecutive.setValue('');
+    this.ok();
   }
 
   bringBackForm() {
