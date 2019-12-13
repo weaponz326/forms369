@@ -48,9 +48,9 @@ Route::group(['middleware' => ['auth:api'], 'prefix' => 'v1'], function(){
     Route::post('enableUser/{id}', 'HomeController@enableUser')->name('enableUser')->middleware('scope:GIT_Admin,company_admin,branch_admin');
     
     //get all users in a company, param:merchant_id
-    Route::get('getAllUsersByMerchant/{id}', 'HomeController@getAllUsersByMerchant')->name('getAllUsersByMerchant')->middleware('scope:GIT_Admin,company_admin,branch_admin');
+    Route::get('getAllUsersByMerchant/{id}', 'HomeController@getAllUsersByMerchant')->name('getAllUsersByMerchant')->middleware('scope:GIT_Admin,company_admin,branch_admin,branch_executive,super_executive');
     //get number of all users in a company, param:merchant_id
-    Route::get('getNumAllUsersByMerchant/{id}', 'HomeController@getNumAllUsersByMerchant')->name('getNumAllUsersByMerchant')->middleware('scope:GIT_Admin,company_admin,branch_admin,super_executive');
+    Route::get('getNumAllUsersByMerchant/{id}', 'HomeController@getNumAllUsersByMerchant')->name('getNumAllUsersByMerchant')->middleware('scope:GIT_Admin,company_admin,branch_admin,super_executive,branch_executive');
     
     //get all users in a branch, param:branch_id
     Route::get('getAllUsersByBranch/{id}', 'HomeController@getAllUsersByBranch')->name('getAllUsersByBranch')->middleware('scope:GIT_Admin,company_admin,branch_admin');
@@ -110,7 +110,7 @@ Route::group(['middleware' => ['auth:api'], 'prefix' => 'v1'], function(){
     Route::get('getNumBranches', 'HomeController@getNumBranches')->name('getNumBranches')->middleware('scope:GIT_Admin');
 
     Route::get('getCompanyBranches/{id}', 'HomeController@getCompanyBranches')->name('getCompanyBranches')->middleware('scope:GIT_Admin,company_admin,branch_admin,super_executive,branch_executive');
-    Route::get('getNumCompanyBranches/{id}', 'HomeController@getNumCompanyBranches')->name('getNumCompanyBranches')->middleware('scope:GIT_Admin,company_admin,branch_admin,super_executive');
+    Route::get('getNumCompanyBranches/{id}', 'HomeController@getNumCompanyBranches')->name('getNumCompanyBranches')->middleware('scope:GIT_Admin,company_admin,branch_admin,super_executive,branch_executive');
     Route::get('getCompanyBranchDetails/{id}', 'HomeController@getCompanyBranchDetails')->name('getCompanyBranchDetails')->middleware('scope:GIT_Admin,super_executive,company_admin,branch_executive,branch_admin');
     
     //upload and edit form print document for a form apis
@@ -188,7 +188,7 @@ Route::group(['middleware' => ['auth:api'], 'prefix' => 'v1'], function(){
 
   //get merchant submitted forms by status: proccess, submitted, in_process
   //@param status and merchant_id
-  Route::get('getNumSubmittedFormsByStatus/{status}/{id}', 'HomeController@getNumSubmittedFormsByStatus')->name('getNumSubmittedFormsByStatus')->middleware('scope:GIT_Admin,frontdesk,super_executive');   
+  Route::get('getNumSubmittedFormsByStatus/{status}/{id}', 'HomeController@getNumSubmittedFormsByStatus')->name('getNumSubmittedFormsByStatus')->middleware('scope:GIT_Admin,frontdesk,super_executive,branch_executive');   
   //@param status and branch_id                                  
   Route::get('getNumBranchProcessedFormsByStatus/{status}/{id}', 'HomeController@getNumBranchProcessedFormsByStatus')->name('getNumBranchProcessedFormsByStatus')->middleware('scope:GIT_Admin,super_executive,branch_executive');                                     
   Route::get('viewRespondentData/{code}', 'HomeController@viewRespondentData')->name('viewRespondentData')->middleware('scope:GIT_Admin,super_executive,branch_executive,company_admin,branch_admin');                                     

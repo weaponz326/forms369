@@ -348,8 +348,8 @@ class FormsController extends Controller
         ->leftjoin('uploads', 'forms.form_code', '=', 'uploads.form_code')
         ->select('forms.*','merchants.merchant_name AS merchant_name','merchants.can_print', 'uploads.url')
         ->where([
-            ['temps', 'like', '%'.$term.'%'],
-            ['form_code','=',1]
+            ['forms.temps', 'like', '%'.$term .'%'],
+            ['forms.status','=',1]
         ])
         ->get();
       
