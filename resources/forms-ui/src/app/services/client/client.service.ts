@@ -263,7 +263,7 @@ export class ClientService {
    */
   findFormsByCode(form_code: string): Promise<any> {
     return new Promise((resolve, reject) => {
-      const url = this.endpointService.apiHost + 'api/v1/getSubmittedFormByCode/' + form_code;
+      const url = this.endpointService.apiHost + 'api/v1/getFormDetails/' + form_code;
       this.http.get(url, { headers: this.headers }).subscribe(
         res => {
           console.log('forms_by_code: ' + JSON.stringify(res));
