@@ -1,10 +1,8 @@
-import { Component, OnInit, Inject } from '@angular/core';
+import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
 declare var $: any;
 import * as _ from 'lodash';
 import { Router } from '@angular/router';
-import { DOCUMENT } from '@angular/common';
 import { Forms } from 'src/app/models/forms.model';
-import { PageScrollService } from 'ngx-page-scroll-core';
 import { FormsService } from 'src/app/services/forms/forms.service';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { CompanyService } from 'src/app/services/company/company.service';
@@ -18,6 +16,7 @@ import { FormBuilderService } from 'src/app/services/form-builder/form-builder.s
 export class EditFormPageComponent implements OnInit {
 
   _form: any;
+  pdfFile: File;
   form: FormGroup;
   formBuilder: any;
   created: boolean;
@@ -29,15 +28,16 @@ export class EditFormPageComponent implements OnInit {
   hasError: boolean;
   formStatus: string;
   submitted: boolean;
+  uploadError: boolean;
+  showFileUpload: boolean;
   allMerchantsList: Array<any>;
+  @ViewChild('pdfFile', { static: false }) pdfFileElement: ElementRef;
 
   constructor(
     private router: Router,
     private _formBuilder: FormBuilder,
     private formService: FormsService,
     private companyService: CompanyService,
-    private pageScroller: PageScrollService,
-    @Inject(DOCUMENT) private document: any,
     private formBuilderService: FormBuilderService
   ) {
     this.merchant = '';
@@ -54,7 +54,7 @@ export class EditFormPageComponent implements OnInit {
     this.formStatus = this._form.status;
     this.formCode = this._form.form_code;
 
-    this.formBuilderService.generateFormFieldsBySections().then(
+    this.formBuilderService.generateSectionAndDefaultFormFields().then(
       form_elements => {
         this.formBuilder = $(document.getElementById('fb-editor')).formBuilder({
           controlPosition: 'left',
@@ -62,7 +62,7 @@ export class EditFormPageComponent implements OnInit {
           scrollToFieldOnAdd: false,
           defaultFields: this._form.form_fields,
           disabledActionButtons: ['data', 'clear', 'save'],
-          disableFields: this.formBuilderService.disableSectionFormFields()
+          disableFields: this.formBuilderService.disableDefaultFormControls()
         });
         this._loading = false;
       },
@@ -75,8 +75,9 @@ export class EditFormPageComponent implements OnInit {
 
   buildForm() {
     this.form = this._formBuilder.group({
+      pdf: [''],
+      merchant: ['', Validators.required],
       name: [this._form.name, Validators.required],
-      merchant: ['', Validators.required]
     });
   }
 
@@ -91,6 +92,29 @@ export class EditFormPageComponent implements OnInit {
   onMerchantSelect(e: any) {
     this._merchant.setValue(e.target.value, {
       onlySelf: true
+    });
+    this.handleUploadFileView(this.f.merchant.value);
+  }
+
+  inputFileChanged(ev: Event) {
+    const pdf_file = this.pdfFileElement.nativeElement as HTMLInputElement;
+    this.f.pdf.setValue(pdf_file.files[0].name);
+    this.pdfFile = pdf_file.files[0];
+  }
+
+  showFilePicker() {
+    const element = this.pdfFileElement.nativeElement as HTMLInputElement;
+    element.click();
+  }
+
+  handleUploadFileView(merchant_id: string) {
+    console.log('handling can upload view');
+    _.forEach(this.allMerchantsList, (merchant, i) => {
+      if (merchant_id == merchant.id) {
+        console.log('gotIT: ' + merchant.can_print);
+        this.showFileUpload = merchant.can_print == 1 ? true : false;
+        return;
+      }
     });
   }
 
@@ -118,41 +142,40 @@ export class EditFormPageComponent implements OnInit {
     return this.formBuilder.actions.getData();
   }
 
-  scrollToTop() {
-    this.pageScroller.scroll({
-      document: this.document,
-      speed: 1000,
-      scrollTarget: '.content-wrapper'
-    });
-  }
-
   editForm() {
     console.log(this.formBuilder.actions.getData());
     this.loading = true;
     const form = this.getForm();
-    const formData = new Forms();
-    formData.form_fields = form;
-    formData.name = this.f.name.value;
-    formData.form_code = this._form.form_code;
-    formData.status = _.toInteger(this.formStatus);
-    formData.merchant_id = parseInt(this.f.merchant.value);
+    
+    if (form.length == 0) {
+      this.loading = false;
+      alert('Form field cannot be empty');
+    }
+    else {
+      const formData = new Forms();
+      formData.form_fields = form;
+      formData.name = this.f.name.value;
+      formData.form_code = this._form.form_code;
+      formData.status = _.toInteger(this.formStatus);
+      formData.merchant_id = parseInt(this.f.merchant.value);
 
-    this.formService.editForm(this._form.form_code, formData).then(
-      res => {
-        this.loading = false;
-        if (_.toLower(res.message) == 'ok') {
-          this.created = true;
-          this._form = formData;
-        }
-        else {
+      this.formService.editForm(this._form.form_code, formData).then(
+        res => {
+          this.loading = false;
+          if (_.toLower(res.message) == 'ok') {
+            this.created = true;
+            this._form = formData;
+          }
+          else {
+            this.created = false;
+          }
+        },
+        err => {
+          this.loading = false;
           this.created = false;
         }
-      },
-      err => {
-        this.loading = false;
-        this.created = false;
-      }
-    );
+      );
+    }
   }
 
   reset() {
@@ -164,17 +187,10 @@ export class EditFormPageComponent implements OnInit {
     if (this.form.valid) {
       this.editForm();
     }
-    else {
-      this.scrollToTop();
-    }
   }
 
   preview() {
     this.router.navigateByUrl('/git_admin/details/form', { state: { form: this._form }});
-  }
-
-  bringBackForm() {
-    this.router.navigateByUrl('git_admin/setup_form');
   }
 
   ok() {

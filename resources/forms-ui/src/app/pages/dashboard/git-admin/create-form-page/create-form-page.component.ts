@@ -7,7 +7,6 @@ import { FormsService } from 'src/app/services/forms/forms.service';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { CompanyService } from 'src/app/services/company/company.service';
 import { FormBuilderService } from 'src/app/services/form-builder/form-builder.service';
-import { LocalStorageService } from 'src/app/services/storage/local-storage.service';
 
 @Component({
   selector: 'app-create-form-page',
@@ -19,7 +18,6 @@ export class CreateFormPageComponent implements OnInit {
   pdfFile: File;
   form: FormGroup;
   formBuilder: any;
-  filename: string;
   created: boolean;
   loading: boolean;
   _loading: boolean;
@@ -38,7 +36,6 @@ export class CreateFormPageComponent implements OnInit {
     private _formBuilder: FormBuilder,
     private formService: FormsService,
     private companyService: CompanyService,
-    private localService: LocalStorageService,
     private formBuilderService: FormBuilderService
   ) {
     this.allMerchantsList = [];
