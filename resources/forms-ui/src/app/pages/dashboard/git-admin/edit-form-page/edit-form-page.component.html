@@ -68,21 +68,21 @@
                         </div>
                       </div>
                     </div>
-                  </div>
-                  <div *ngIf="showFileUpload" class="col-5">
-                    <div class="form-group">
-                      <input #pdfFile type="file" (change)="inputFileChanged($event)" class="file-upload-default">
-                      <div class="input-group col-xs-12">
-                        <input type="file" style="overflow: hidden; height: 0px; width: 0px;">
-                        <input type="text" formControlName="pdf" class="form-control file-upload-info"
-                          placeholder="Upload Your Form PDF" readonly>
-                        <span class="input-group-append">
-                          <button class="file-upload-browse btn btn-primary" type="button"
-                            (click)="showFilePicker()">Upload PDF</button>
-                        </span>
-                      </div>
-                      <div *ngIf="submitted && f.pdf.errors">
-                        <p class="input-error" *ngIf="f.pdf.errors.required">PDF file is required</p>
+                    <div *ngIf="showFileUpload" class="col-5">
+                      <div class="form-group">
+                        <input #pdfFile type="file" (change)="inputFileChanged($event)" class="file-upload-default">
+                        <div class="input-group col-xs-12">
+                          <input type="file" style="overflow: hidden; height: 0px; width: 0px;">
+                          <input type="text" formControlName="pdf" class="form-control file-upload-info"
+                            placeholder="Upload Your Form PDF" readonly>
+                          <span class="input-group-append">
+                            <button class="file-upload-browse btn btn-primary" type="button"
+                              (click)="showFilePicker()">Upload PDF</button>
+                          </span>
+                        </div>
+                        <div *ngIf="submitted && f.pdf.errors">
+                          <p class="input-error" *ngIf="f.pdf.errors.required">PDF file is required</p>
+                        </div>
                       </div>
                     </div>
                   </div>

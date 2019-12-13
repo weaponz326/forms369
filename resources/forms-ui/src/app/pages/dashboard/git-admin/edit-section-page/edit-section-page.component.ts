@@ -61,28 +61,34 @@ export class EditSectionPageComponent implements OnInit {
     console.log(this.formBuilder.actions.getData());
     this.loading = true;
     const sectionForm = this.getForm();
-    const sectionData = {
-      form_fields: sectionForm,
-      heading: this.f.heading.value
-    };
 
-    this.sectionService.editSection(this.formSection.id, sectionData).then(
-      res => {
-        this.loading = false;
-        if (_.toLower(res.message) == 'ok') {
-          this.created = true;
-          // this._form = formData;
-          this.sectionHeading = sectionData.heading;
-        }
-        else {
+    if (sectionForm.length == 0) {
+      this.loading = false;
+      alert('Form fields cannot be empty');
+    }
+    else {
+      const sectionData = {
+        form_fields: sectionForm,
+        heading: this.f.heading.value
+      };
+
+      this.sectionService.editSection(this.formSection.id, sectionData).then(
+        res => {
+          this.loading = false;
+          if (_.toLower(res.message) == 'ok') {
+            this.created = true;
+            this.sectionHeading = sectionData.heading;
+          }
+          else {
+            this.created = false;
+          }
+        },
+        err => {
+          this.loading = false;
           this.created = false;
         }
-      },
-      err => {
-        this.loading = false;
-        this.created = false;
-      }
-    );
+      );
+    }
   }
 
   reset() {

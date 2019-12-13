@@ -38,7 +38,7 @@ export class EditTemplatePageComponent implements OnInit {
     this.buildForm();
 
     this.formName = this._form.name;
-    this.formBuilderService.generateFormFieldsBySections().then(
+    this.formBuilderService.generateSectionAndDefaultFormFields().then(
       form_elements => {
         this.formBuilder = $(document.getElementById('fb-editor')).formBuilder({
           controlPosition: 'left',
@@ -46,7 +46,7 @@ export class EditTemplatePageComponent implements OnInit {
           scrollToFieldOnAdd: false,
           defaultFields: this._form.form_fields,
           disabledActionButtons: ['data', 'clear', 'save'],
-          disableFields: this.formBuilderService.disableSectionFormFields()
+          disableFields: this.formBuilderService.disableDefaultFormControls()
         });
         this._loading = false;
       },
@@ -75,27 +75,34 @@ export class EditTemplatePageComponent implements OnInit {
     console.log(this.formBuilder.actions.getData());
     this.loading = true;
     const template = this.getTemplate();
-    const templateData = {
-      name: this.f.name.value,
-      form_fields: template
-    };
 
-    this.templateService.editTemplate(this._form.id, templateData).then(
-      res => {
-        this.loading = false;
-        if (_.toLower(res.message) == 'ok') {
-          this.created = true;
-          this._form = templateData;
-        }
-        else {
+    if (template.length == 0) {
+      this.loading = false;
+      alert('Form fields cannot be empty');
+    }
+    else {
+      const templateData = {
+        name: this.f.name.value,
+        form_fields: template
+      };
+
+      this.templateService.editTemplate(this._form.id, templateData).then(
+        res => {
+          this.loading = false;
+          if (_.toLower(res.message) == 'ok') {
+            this.created = true;
+            this._form = templateData;
+          }
+          else {
+            this.created = false;
+          }
+        },
+        err => {
+          this.loading = false;
           this.created = false;
         }
-      },
-      err => {
-        this.loading = false;
-        this.created = false;
-      }
-    );
+      );
+    }
   }
 
   reset() {

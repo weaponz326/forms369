@@ -2,3 +2,9 @@
   font-size: .875rem;
   padding: 0.6rem 1.5rem;
 }
+
+.data-list .btn-group > .btn,
+.data-list .btn-group-vertical > .btn {
+    padding-right: 15px;
+    padding-left: 15px;
+}
