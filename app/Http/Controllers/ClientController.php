@@ -229,9 +229,29 @@ class ClientController extends Controller
                      'updated_at' => $submitted_at
                  ]
              );
-             
-             Log::channel('mysql')->info('Client  with id: ' . $id .' successsfully submitted form with code: '. $code);
-             $message = 'Ok';
+            //get logged in user
+            $user = $request->user();
+            $phone = $user['phone'];
+
+            //get merchant name and form name
+            $getdetails = DB::table('forms')
+            ->join('merchants', 'forms.merchant_id', '=', 'merchants.id')
+            ->select('merchants.merchant_name AS merchant_name','forms.name AS form_name')
+            ->where('forms.form_code', $code)
+            ->first();;
+
+            $merchant = Crypt::decryptString($getdetails->merchant_name);
+            $form_name = Crypt::decryptString($getdetails->form_name);
+            
+            //send submission code to users SMS
+            $from = "GiTLog";
+            $mobile = $phone;
+            $msg = $form_name ." successfully submitted to ". $merchant .".\r\n". "Submission Code: " .$submission_code;
+            $status = (new AuthController)->sendsms($from,$mobile,$msg);
+            if($status){
+                Log::channel('mysql')->info('Client  with id: ' . $id .' successsfully submitted form with code: '. $code);
+                $message = 'Ok';
+            }    
  
          }catch(Exception $e) {
             Log::channel('mysql')->error('Client  with id: ' . $id .' unsuccesssfully submitted form with code: '. $code);

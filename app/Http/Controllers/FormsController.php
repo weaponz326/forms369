@@ -347,7 +347,10 @@ class FormsController extends Controller
         ->join('merchants', 'merchants.id', '=', 'merchant_id')
         ->leftjoin('uploads', 'forms.form_code', '=', 'uploads.form_code')
         ->select('forms.*','merchants.merchant_name AS merchant_name','merchants.can_print', 'uploads.url')
-        ->where('temps', 'like', '%'.$term.'%')
+        ->where([
+            ['temps', 'like', '%'.$term.'%'],
+            ['form_code','=',1]
+        ])
         ->get();
       
         //clean data
