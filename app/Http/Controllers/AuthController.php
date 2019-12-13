@@ -611,7 +611,8 @@ class AuthController extends Controller
                     'email' => $email,
                     'country' => $country,
                     'phone' => $phone,
-                    'status' => $status
+                    'status' => $status,
+                    'first_time' => 1
                 ]
             );
 
