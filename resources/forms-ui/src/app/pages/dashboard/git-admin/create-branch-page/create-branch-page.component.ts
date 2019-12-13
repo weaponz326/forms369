@@ -227,10 +227,11 @@ export class CreateBranchPageComponent implements OnInit {
   }
 
   cancel() {
-    this.f.merchant.setValue('');
-    this.f.branchName.setValue('');
-    this.f.branchAdmin.setValue('');
-    this.f.branchSupervisor.setValue('');
+    // this.f.merchant.setValue('');
+    // this.f.branchName.setValue('');
+    // this.f.branchAdmin.setValue('');
+    // this.f.branchSupervisor.setValue('');
+    this.router.navigateByUrl('/git_admin/lists/branch');
   }
 
   bringBackForm() {

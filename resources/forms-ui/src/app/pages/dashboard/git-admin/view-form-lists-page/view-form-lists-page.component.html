@@ -109,7 +109,7 @@
                   </div>
                 </div>
 
-                <div *ngIf="viewMode == 'grid'" class="row">
+                <div *ngIf="viewMode == 'grid'" class="row data-list">
                   <div class="col-md-4 grid-margin stretch-card" *ngFor="let form of formsList; let i=index">
                     <div class="card hover-cursor animated fadeInDown fast" (click)="view($event, form)">
                       <div class="card-body">
@@ -136,7 +136,7 @@
                   </div>
                 </div>
 
-                <div *ngIf="viewMode == 'list'" class="row">
+                <div *ngIf="viewMode == 'list'" class="row data-list">
                   <div class="list-group" style="width: 100%;">
                     <div class="list-group-item hover-cursor list-group-item-action animated fadeInDown" *ngFor="let form of formsList; let i=index">
                       <div class="row" (click)="view($event, form)">
@@ -154,7 +154,7 @@
                               <i class="mdi mdi-pulse"></i>
                               View
                             </button>
-                            <button type="button" class="btn btn-outline-secondary" (click)="delete($event, form.form_code. i)">
+                            <button type="button" class="btn btn-outline-secondary" (click)="delete($event, form.form_code, i)">
                               <i class="mdi mdi-delete-outline"></i>
                               Delete
                             </button>

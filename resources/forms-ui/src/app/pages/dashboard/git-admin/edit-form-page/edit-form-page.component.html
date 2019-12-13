@@ -17,6 +17,14 @@
                 </div>
               </div>
               <div class="d-flex justify-content-between align-items-end flex-wrap">
+                <button *ngIf="isPublished" type="button" class="btn btn-danger btn-icon-text mr-3 mt-2 mt-xl-0" (click)="unpublishForm()">
+                  <i class="mdi mdi-block-helper"></i>
+                  Unpublish Form
+                </button>
+                <button *ngIf="!isPublished" type="button" class="btn btn-success btn-icon-text mr-3 mt-2 mt-xl-0" (click)="publishForm()">
+                  <i class="mdi mdi-cloud-upload-outline"></i>
+                  Publish Form
+                </button>
               </div>
             </div>
           </div>
@@ -45,7 +53,7 @@
 
                 <form [formGroup]="form">
                   <div class="row mt-4">
-                    <div class="col-8">
+                    <div [ngClass]="{'col-4': showFileUpload, 'col-6': !showFileUpload}">
                       <div class="form-group">
                         <input type="text" formControlName="name" class="form-control" placeholder="Whats the name of your form ?"
                           [ngClass]="{'input-control-error': submitted && f.name.errors}">
@@ -54,7 +62,7 @@
                         </div>
                       </div>
                     </div>
-                    <div class="col-4">
+                    <div [ngClass]="{'col-3': showFileUpload, 'col-6': !showFileUpload}">
                       <div class="form-group">
                         <select class="form-control" formControlName="merchant" (change)="onMerchantSelect($event)"
                           [ngClass]="{'input-control-error': submitted && f.merchant.errors}">
@@ -65,6 +73,23 @@
                         </select>
                         <div *ngIf="submitted && f.merchant.errors">
                           <p class="input-error" *ngIf="f.merchant.errors.required">Company is required</p>
+                        </div>
+                      </div>
+                    </div>
+                    <div *ngIf="showFileUpload" class="col-5">
+                      <div class="form-group">
+                        <input #pdfFile type="file" (change)="inputFileChanged($event)" class="file-upload-default">
+                        <div class="input-group col-xs-12">
+                          <input type="file" style="overflow: hidden; height: 0px; width: 0px;">
+                          <input type="text" formControlName="pdf" class="form-control file-upload-info"
+                            placeholder="Upload Your Form PDF" readonly>
+                          <span class="input-group-append">
+                            <button class="file-upload-browse btn btn-primary" type="button"
+                              (click)="showFilePicker()">Upload PDF</button>
+                          </span>
+                        </div>
+                        <div *ngIf="submitted && f.pdf.errors">
+                          <p class="input-error" *ngIf="f.pdf.errors.required">PDF file is required</p>
                         </div>
                       </div>
                     </div>
@@ -99,10 +124,10 @@
                   <p class="text-muted">You have succesfully updated a form</p>
                 </div>
                 <div class="card-text mt-4">
-                  <button type="button" class="btn btn-primary btn-lg btn-icon-text mr-2" (click)="bringBackForm()">
+                  <!-- <button type="button" class="btn btn-primary btn-lg btn-icon-text mr-2" (click)="bringBackForm()">
                     <i class="mdi mdi-plus"></i>
                     Create New
-                  </button>
+                  </button> -->
                   <button type="button" class="btn btn-dark btn-lg btn-icon-text mr-2" (click)="ok()">
                     <i class="mdi mdi-check"></i>
                     Ok
@@ -116,3 +141,60 @@
     </div>
   </div>
 </div>
+
+<ng-template #loader let-modal>
+  <div class="modal-body">
+    <div class="d-flex justify-content-center">
+      <div class="spinner-border m-5" style="width: 4rem; height: 4rem;" role="status">
+        <span class="sr-only">Loading...</span>
+      </div>
+    </div>
+    <p class="text-center">Please wait...</p>
+  </div>
+</ng-template>
+
+<ng-template #publish let-modal>
+  <div class="modal-header">
+    <h4 class="modal-title" id="modal-title">Publish Form ?</h4>
+    <button type="button" class="close" aria-describedby="modal-title" (click)="modal.dismiss('close')">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <p><strong>Are you sure you want to publish <span class="text-primary">this form</span> ?</strong></p>
+    <p>Publishing this form makes it visible to all client users. Please be sure before you continue.</p>
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-outline-secondary" (click)="modal.dismiss('cancel')">Cancel</button>
+    <button type="button" class="btn btn-danger" (click)="modal.close('publish')">Publish</button>
+  </div>
+</ng-template>
+
+<ng-template #unpublish let-modal>
+  <div class="modal-header">
+    <h4 class="modal-title" id="modal-title">Unpublish Form ?</h4>
+    <button type="button" class="close" aria-describedby="modal-title" (click)="modal.dismiss('close')">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <p><strong>Are you sure you want to unpublish <span class="text-primary">this form</span> ?</strong></p>
+    <p>Unpublishing this form makes it invisible to all client users. Please be sure before you continue.</p>
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-outline-secondary" (click)="modal.dismiss('cancel')">Cancel</button>
+    <button type="button" class="btn btn-danger" (click)="modal.close('unpublish')">Unpublish</button>
+  </div>
+</ng-template>
+
+<ng-template #status let-modal>
+  <div class="modal-body text-center">
+    <h3>{{ alertTitle }}</h3>
+    <i *ngIf="alertSuccess" class="mdi mdi-check-circle-outline text-primary" style="font-size: 7em;"></i>
+    <i *ngIf="!alertSuccess" class="mdi mdi-close-circle-outline text-danger" style="font-size: 7em;"></i>
+    <p>{{ alertMessage }}</p>
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-primary" (click)="modal.close()">Ok</button>
+  </div>
+</ng-template>

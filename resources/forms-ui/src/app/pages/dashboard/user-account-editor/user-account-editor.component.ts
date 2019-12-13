@@ -100,9 +100,9 @@ export class UserAccountEditorComponent implements OnInit {
       branch: ['', Validators.required],
       merchant: ['', Validators.required],
       dialCode: ['233', Validators.required],
-      phone: ['', [Validators.maxLength(9), Validators.required]],
-      password: ['', [Validators.minLength(6), Validators.required]],
-      emailAddress: ['', [Validators.email, Validators.required]]
+      password: ['', [Validators.minLength(8), Validators.required]],
+      emailAddress: ['', [Validators.email, Validators.required]],
+      phone: ['', [Validators.maxLength(9), Validators.minLength(9), Validators.required]],
     });
 
     this.f.password.disable();
@@ -112,7 +112,7 @@ export class UserAccountEditorComponent implements OnInit {
     if (this.isGitAdmin) {
       // remove validation of merchant and branch
       // so the account can be created.
-      this.f.userType.setValue('25');
+      // this.f.userType.setValue('25');
       this.f.branch.clearValidators();
       this.f.merchant.clearValidators();
       this.f.branch.updateValueAndValidity();
@@ -281,12 +281,12 @@ export class UserAccountEditorComponent implements OnInit {
     const status = this.f.status.value;
     const lname = this.f.lastName.value;
     const fname = this.f.firstName.value;
-    const email = this.f.emailAddress.value;
     const country = this.f.country.value;
     const dCode = this.f.dialCode.value;
     const username = this.f.username.value;
     const password = this.f.password.value;
     const userType = this.f.userType.value;
+    const email = this.f.emailAddress.value;
     const branch_id = this.getSelectedBranchIdentifier();
     const merchant_id = this.getSelectedMerchantIdentifier();
 
@@ -298,11 +298,11 @@ export class UserAccountEditorComponent implements OnInit {
         user.lastname = lname;
         user.firstname = fname;
         user.country = country;
-        user.username = username,
+        user.username = username;
         user.user_type = userType;
         user.phone = dCode + phone;
-        user.merchant_id = merchantId,
         user.branch_id = branch_id;
+        user.merchant_id = merchantId;
       }
       else {
         user.email = email;
@@ -310,28 +310,30 @@ export class UserAccountEditorComponent implements OnInit {
         user.lastname = lname;
         user.firstname = fname;
         user.country = country;
-        user.password = password,
-        user.username = username,
+        user.password = password;
+        user.username = username;
         user.user_type = userType;
-        user.phone = dCode + phone,
-        user.merchant_id = merchantId,
+        user.phone = dCode + phone;
         user.branch_id = branch_id;
+        user.merchant_id = merchantId;
+        console.log('must include password: ' + password);
       }
 
       return user;
     }
     else {
-      if (this.f.password.disabled) {
+      if (this.f.password.value.length == 0) {
         user.email = email;
         user.status = status;
         user.lastname = lname;
         user.firstname = fname;
         user.country = country;
-        user.username = username,
+        user.username = username;
         user.user_type = userType;
         user.phone = dCode + phone;
-        user.merchant_id = merchant_id,
         user.branch_id = branch_id;
+        user.merchant_id = merchant_id;
+        console.log('must include _password: ' + password);
       }
       else {
         user.email = email;
@@ -339,12 +341,13 @@ export class UserAccountEditorComponent implements OnInit {
         user.lastname = lname;
         user.firstname = fname;
         user.country = country;
-        user.password = password,
-        user.username = username,
+        user.password = password;
+        user.username = username;
         user.user_type = userType;
-        user.phone = dCode + phone,
-        user.merchant_id = merchant_id,
+        user.phone = dCode + phone;
         user.branch_id = branch_id;
+        user.merchant_id = merchant_id;
+        console.log('must include _password: ' + password);
       }
 
       return user;
@@ -367,9 +370,18 @@ export class UserAccountEditorComponent implements OnInit {
     }
   }
 
+  resolveStrCharacters(e: KeyboardEvent) {
+    const regExp = new RegExp(/^\d*\.?\d*$/);
+    if (!regExp.test(this.f.phone.value)) {
+      const value = this.f.phone.value.substring(0, this.f.phone.value.length - 1);
+      this.f.phone.setValue(value);
+    }
+  }
+
   editPassword() {
     this.f.password.enable();
-    this.f.password.setValue('');
+    // this.f.password.setValue('');
+    // this.f.password.updateValueAndValidity();
   }
 
   edit() {
@@ -410,6 +422,9 @@ export class UserAccountEditorComponent implements OnInit {
   }
 
   cancel() {
+    // quick hack to prevent displaying blank page when user navigates back
+    // because of the history.state being set null by the browser.
+    window.history.back();
     window.history.back();
   }
 }

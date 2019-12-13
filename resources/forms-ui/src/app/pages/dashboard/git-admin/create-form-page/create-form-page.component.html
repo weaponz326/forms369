@@ -70,7 +70,7 @@
                     </div>
                     <div *ngIf="showFileUpload" class="col-5">
                       <div class="form-group">
-                        <input #pdfFile type="file" (change)="inputFileChanged($event)" class="file-upload-default">
+                        <input #pdfFile type="file" accept="application/pdf" (change)="inputFileChanged($event)" class="file-upload-default">
                         <div class="input-group col-xs-12">
                           <input type="file" style="overflow: hidden; height: 0px; width: 0px;">
                           <input type="text" formControlName="pdf" class="form-control file-upload-info" placeholder="Upload Your Form PDF" readonly>

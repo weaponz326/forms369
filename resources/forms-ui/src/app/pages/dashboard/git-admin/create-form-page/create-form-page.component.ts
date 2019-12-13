@@ -7,7 +7,6 @@ import { FormsService } from 'src/app/services/forms/forms.service';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { CompanyService } from 'src/app/services/company/company.service';
 import { FormBuilderService } from 'src/app/services/form-builder/form-builder.service';
-import { LocalStorageService } from 'src/app/services/storage/local-storage.service';
 
 @Component({
   selector: 'app-create-form-page',
@@ -16,10 +15,9 @@ import { LocalStorageService } from 'src/app/services/storage/local-storage.serv
 })
 export class CreateFormPageComponent implements OnInit {
 
-  form: FormGroup;
   pdfFile: File;
+  form: FormGroup;
   formBuilder: any;
-  filename: string;
   created: boolean;
   loading: boolean;
   _loading: boolean;
@@ -38,7 +36,6 @@ export class CreateFormPageComponent implements OnInit {
     private _formBuilder: FormBuilder,
     private formService: FormsService,
     private companyService: CompanyService,
-    private localService: LocalStorageService,
     private formBuilderService: FormBuilderService
   ) {
     this.allMerchantsList = [];
@@ -50,14 +47,14 @@ export class CreateFormPageComponent implements OnInit {
     this._loading = true;
     this.buildForm();
 
-    this.formBuilderService.generateFormFieldsBySections().then(
+    this.formBuilderService.generateSectionAndDefaultFormFields().then(
       form_elements => {
         this.formBuilder = $(document.getElementById('fb-editor')).formBuilder({
           controlPosition: 'left',
           inputSets: form_elements,
           scrollToFieldOnAdd: false,
           disabledActionButtons: ['data', 'clear', 'save'],
-          disableFields: this.formBuilderService.disableSectionFormFields()
+          disableFields: this.formBuilderService.disableDefaultFormControls()
         });
         this._loading = false;
       },
@@ -70,7 +67,7 @@ export class CreateFormPageComponent implements OnInit {
 
   buildForm() {
     this.form = this._formBuilder.group({
-      pdf: ['', Validators.required],
+      pdf: [''],
       name: ['', Validators.required],
       merchant: ['', Validators.required]
     });
@@ -139,49 +136,61 @@ export class CreateFormPageComponent implements OnInit {
     const form = this.getForm();
     const formData = new Forms();
     console.log('json: ' + JSON.stringify(form));
-    formData.form_fields = form;
-    formData.name = this.f.name.value;
-    formData.form_code = this.formCode;
-    formData.status = this.toPublish ? 1 : 0;
-    formData.merchant_id = parseInt(this.f.merchant.value);
 
-    this.formService.createForm(formData).then(
-      res => {
-        this.loading = false;
-        this.toPublish = false;
-        if (_.toLower(res.message) == 'ok') {
-          this.created = true;
-          this.formName = formData.name;
-        }
-        else {
+    if (form.length == 0) {
+      alert('Form fields cannot be empty');
+      this.loading = false;
+    }
+    else {
+      formData.form_fields = form;
+      formData.name = this.f.name.value;
+      formData.form_code = this.formCode;
+      formData.status = this.toPublish ? 1 : 0;
+      formData.merchant_id = parseInt(this.f.merchant.value);
+
+      this.formService.createForm(formData).then(
+        res => {
+          this.loading = false;
+          this.toPublish = false;
+          if (_.toLower(res.message) == 'ok') {
+            this.created = true;
+            this.formName = formData.name;
+          }
+          else {
+            this.created = false;
+          }
+        },
+        err => {
+          this.loading = false;
           this.created = false;
+          this.toPublish = false;
         }
-      },
-      err => {
-        this.loading = false;
-        this.created = false;
-        this.toPublish = false;
-      }
-    );
+      );
+    }
   }
 
   createFormWithPDF() {
     this.toPublish = false;
-    this.formService.uploafFormPDF(this.f.merchant.value, this.formCode, this.pdfFile).then(
-      res => {
-        this.createForm();
-      },
-      err => {
-        this.loading = false;
-        this.created = false;
-        this.uploadError = true;
-      }
-    );
+    if (this.getForm().length == 0) {
+      alert('Form field cannot be empty');
+    }
+    else {
+      this.formService.uploafFormPDF(this.f.merchant.value, this.formCode, this.pdfFile).then(
+        res => {
+          this.createForm();
+        },
+        err => {
+          this.loading = false;
+          this.created = false;
+          this.uploadError = true;
+        }
+      );
+    }
   }
 
   save() {
     this.loading = true;
-    this.showFileUpload ? this.createFormWithPDF() : this.createForm();
+    this.pdfFile == null ? this.createForm() : this.createFormWithPDF();
   }
 
   reset() {

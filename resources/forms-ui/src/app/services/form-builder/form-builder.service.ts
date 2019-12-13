@@ -22,7 +22,6 @@ export class FormBuilderService {
     return [
       'autocomplete',
       'button',
-      'date',
       'hidden',
       'number',
     ];
@@ -34,7 +33,6 @@ export class FormBuilderService {
       'autocomplete',
       'button',
       'checkbox-group',
-      'date',
       'file',
       'hidden',
       'number',
@@ -106,7 +104,7 @@ export class FormBuilderService {
         fields: [
           {
             type: 'text',
-            name: 'email-address',
+            name: 'email',
             label: 'Email Address',
             required: true,
             className: this.formFieldClassName
@@ -332,7 +330,7 @@ export class FormBuilderService {
           console.log('res: ' + JSON.stringify(res));
           _.forEach(res, (section) => {
             form_fields.push({
-              icon: 'P',
+              icon: '*',
               label: section.heading,
               fields: section.form_fields
             });

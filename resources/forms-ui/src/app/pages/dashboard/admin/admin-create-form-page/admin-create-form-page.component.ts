@@ -103,30 +103,37 @@ export class AdminCreateFormPageComponent implements OnInit {
     this.loading = true;
     const form = this.getForm();
     const formData = new Forms();
-    formData.form_fields = form;
-    formData.name = this.f.name.value;
-    formData.form_code = this.formCode;
-    formData.merchant_id = this.merchant_id;
-    formData.status = this.toPublish ? 1 : 0;
 
-    this.formService.createForm(formData).then(
-      res => {
-        this.loading = false;
-        this.toPublish = false;
-        if (_.toLower(res.message) == 'ok') {
-          this.created = true;
-          this.formName = formData.name;
-        }
-        else {
+    if (form.length == 0) {
+      this.loading = false;
+      alert('Form fields cannot be empty');
+    }
+    else {
+      formData.form_fields = form;
+      formData.name = this.f.name.value;
+      formData.form_code = this.formCode;
+      formData.merchant_id = this.merchant_id;
+      formData.status = this.toPublish ? 1 : 0;
+
+      this.formService.createForm(formData).then(
+        res => {
+          this.loading = false;
+          this.toPublish = false;
+          if (_.toLower(res.message) == 'ok') {
+            this.created = true;
+            this.formName = formData.name;
+          }
+          else {
+            this.created = false;
+          }
+        },
+        err => {
+          this.loading = false;
           this.created = false;
+          this.toPublish = false;
         }
-      },
-      err => {
-        this.loading = false;
-        this.created = false;
-        this.toPublish = false;
-      }
-    );
+      );
+    }
   }
 
   reset() {

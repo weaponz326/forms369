@@ -330,4 +330,36 @@ export class AnalyticsService {
       );
     });
   }
+
+  // getSuperExecutiveSubmittedFormsCount(merchant_id: string): Promise<any> {
+  //   return new Promise((resolve, reject) => {
+  //     const url = this.endpointService.apiHost + 'api/v1/getNumAllFormsByStatusAndMerchant/0/' + merchant_id;
+  //     this.http.get(url, { headers: this.headers }).subscribe(
+  //       res => {
+  //         console.log('forms: ' + res);
+  //         const response = res as any;
+  //         resolve(response.num_forms);
+  //       },
+  //       err => {
+  //         reject(err);
+  //       }
+  //     );
+  //   });
+  // }
+
+  // getSuperExecutiveProcessedFormsCount(merchant_id: string): Promise<any> {
+  //   return new Promise((resolve, reject) => {
+  //     const url = this.endpointService.apiHost + 'api/v1/getNumAllFormsByStatusAndMerchant/0/' + merchant_id;
+  //     this.http.get(url, { headers: this.headers }).subscribe(
+  //       res => {
+  //         console.log('forms: ' + res);
+  //         const response = res as any;
+  //         resolve(response.num_forms);
+  //       },
+  //       err => {
+  //         reject(err);
+  //       }
+  //     );
+  //   });
+  // }
 }

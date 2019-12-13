@@ -52,10 +52,10 @@ export class RegisterPageComponent implements OnInit {
       country: ['', Validators.required],
       username: ['', Validators.required],
       dialCode: ['233', Validators.required],
-      phone: ['', [Validators.maxLength(9), Validators.required]],
-      password: ['', [Validators.minLength(6), Validators.required]],
+      password: ['', [Validators.minLength(8), Validators.required]],
       emailAddress: ['', [Validators.email, Validators.required]],
-      pwdConfirmation: ['', [Validators.minLength(6), Validators.required]]
+      pwdConfirmation: ['', [Validators.minLength(8), Validators.required]],
+      phone: ['', [Validators.maxLength(9), Validators.minLength(9), Validators.required]],
     });
   }
 
@@ -79,6 +79,14 @@ export class RegisterPageComponent implements OnInit {
         // there is a match!
         return true;
       }
+    }
+  }
+
+  resolveStrCharacters(e: KeyboardEvent) {
+    const regExp = new RegExp(/^\d*\.?\d*$/);
+    if (!regExp.test(this.f.phone.value)) {
+      const value = this.f.phone.value.substring(0, this.f.phone.value.length - 1);
+      this.f.phone.setValue(value);
     }
   }
 

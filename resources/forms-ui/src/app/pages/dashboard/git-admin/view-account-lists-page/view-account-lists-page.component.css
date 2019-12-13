@@ -2,3 +2,7 @@
     font-size: .875rem;
     padding: 0.6rem 1.5rem;
 }
+
+.alert-dismissible .close {
+    top: -5px;
+}

@@ -318,6 +318,8 @@ export class AccountService {
         return 'Front Desk';
       case UserTypes.SuperExecutive:
         return 'Super Executive';
+      case UserTypes.GitAdmin:
+        return 'GIt Admin';
       default:
         break;
     }

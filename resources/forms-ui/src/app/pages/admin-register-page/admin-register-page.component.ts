@@ -18,6 +18,7 @@ export class AdminRegisterPageComponent implements OnInit {
   form: FormGroup;
   created: boolean;
   loading: boolean;
+  waiting: boolean;
   submitted: boolean;
   dynamicError: boolean;
   countriesList: Array<ICountry>;
@@ -28,12 +29,25 @@ export class AdminRegisterPageComponent implements OnInit {
     private accountService: AccountService,
     private countryPickerService: CountryPickerService
   ) {
+    this.initVars();
     this.countriesList = [];
   }
 
   ngOnInit() {
     this.countryPickerService.getCountries().subscribe(countries => { this.countriesList = countries; });
     this.buildForm();
+  }
+
+  initVars() {
+    // this.checkAccessToLogin();
+    console.log('hit access protection');
+    this.waiting = true;
+    if (window.location.origin != 'http://localhost:4200') {
+      this.checkAccessToLogin();
+    }
+    else {
+      this.waiting = false;
+    }
   }
 
   public get f() {
@@ -52,8 +66,8 @@ export class AdminRegisterPageComponent implements OnInit {
       username: ['', Validators.required],
       dialCode: ['233', Validators.required],
       emailAddress: ['', [Validators.email, Validators.required]],
-      phone: ['', [Validators.maxLength(20), Validators.required]],
-      password: ['', [Validators.minLength(6), Validators.required]]
+      password: ['', [Validators.minLength(6), Validators.required]],
+      phone: ['', [Validators.maxLength(9), Validators.minLength(9), Validators.required]],
     });
   }
 
@@ -91,6 +105,35 @@ export class AdminRegisterPageComponent implements OnInit {
       this.error = e.errors.password;
       this.dynamicError = true;
     }
+  }
+
+  resolveStrCharacters(e: KeyboardEvent) {
+    const regExp = new RegExp(/^\d*\.?\d*$/);
+    if (!regExp.test(this.f.phone.value)) {
+      const value = this.f.phone.value.substring(0, this.f.phone.value.length - 1);
+      this.f.phone.setValue(value);
+    }
+  }
+
+  checkAccessToLogin() {
+    this.accountService.checkLoginAccess().then(
+      res => {
+        const response = res as any;
+        if (response.message == 'No_access_code') {
+          this.router.navigateByUrl('auth');
+        }
+        else if (response.message == 'Re_enter_access_code') {
+          this.router.navigateByUrl('auth');
+        }
+        else {
+          // the response message is: Access_granted
+          // we do nothing, we allow them to see login
+          // page and give them access to login.
+          this.waiting = false;
+        }
+      },
+      err => {}
+    );
   }
 
   openDashboard() {

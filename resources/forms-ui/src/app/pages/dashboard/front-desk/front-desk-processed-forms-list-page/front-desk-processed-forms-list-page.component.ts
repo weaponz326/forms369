@@ -15,6 +15,7 @@ export class FrontDeskProcessedFormsListPageComponent implements OnInit {
   hasData: boolean;
   loading: boolean;
   hasError: boolean;
+  can_print: boolean;
   processedFormsList: Array<any>;
 
   constructor(
@@ -24,6 +25,7 @@ export class FrontDeskProcessedFormsListPageComponent implements OnInit {
   ) {
     this.processedFormsList = [];
     this.user = this.localStorage.getUser();
+    this.can_print = this.user.can_print == 1 ? true : false;
 
     this.getAllProcessedForms();
   }
@@ -37,8 +39,9 @@ export class FrontDeskProcessedFormsListPageComponent implements OnInit {
 
   print(ev: Event, form: any) {
     ev.stopPropagation();
-    // this.router.navigateByUrl('front_desk/print_form', { state: { form: form }});
-    this.router.navigateByUrl('front_desk/print_form_default', { state: { form: form }});
+    !this.can_print
+      ? this.router.navigateByUrl('front_desk/print_form', { state: { form: form }})
+      : this.router.navigateByUrl('front_desk/print_form_default', { state: { form: form }});
   }
 
   getAllProcessedForms() {

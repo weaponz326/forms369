@@ -72,29 +72,35 @@ export class AddTemplatePageComponent implements OnInit {
     console.log(this.formBuilder.actions.getData());
     this.loading = true;
     const template = this.getTemplate();
-    const templateData = {
-      name: this.f.name.value,
-      form_fields: template
-    };
+    if (template.length == 0) {
+      this.loading = false;
+      alert('Form fields cannot be empty');
+    }
+    else {
+      const templateData = {
+        name: this.f.name.value,
+        form_fields: template
+      };
 
-    console.log(templateData);
-    this.templateService.createTemplate(templateData).then(
-      res => {
-        this.loading = false;
-        if (_.toLower(res.message) == 'ok') {
-          this.created = true;
-          this.templateForm = templateData;
-          this.formName = templateData.name;
-        }
-        else {
+      console.log(templateData);
+      this.templateService.createTemplate(templateData).then(
+        res => {
+          this.loading = false;
+          if (_.toLower(res.message) == 'ok') {
+            this.created = true;
+            this.templateForm = templateData;
+            this.formName = templateData.name;
+          }
+          else {
+            this.created = false;
+          }
+        },
+        err => {
+          this.loading = false;
           this.created = false;
         }
-      },
-      err => {
-        this.loading = false;
-        this.created = false;
-      }
-    );
+      );
+    }
   }
 
   reset() {

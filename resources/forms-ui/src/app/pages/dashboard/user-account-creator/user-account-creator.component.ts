@@ -23,7 +23,10 @@ export class UserAccountCreatorComponent implements OnInit {
   isAdmin: boolean;
   loading: boolean;
   submitted: boolean;
+  isGitAdmin: boolean;
   isFrontDesk: boolean;
+  isCompAdmin: boolean;
+  isSuperExec: boolean;
   branchesList: Array<any>;
   merchantsList: Array<any>;
   branchNamesList: Array<any>;
@@ -48,6 +51,7 @@ export class UserAccountCreatorComponent implements OnInit {
     this.branchNamesList = [];
     this.merchantNamesList = [];
     this.isAdmin = this.localStorage.getUser().usertype == UserTypes.GitAdmin ? true : false;
+    this.isGitAdmin = this.localStorage.getUser().usertype == UserTypes.GitAdmin ? true : false;
 
     this.initializeView();
   }
@@ -79,14 +83,14 @@ export class UserAccountCreatorComponent implements OnInit {
       branch: ['', Validators.required],
       merchant: ['', Validators.required],
       dialCode: ['233', Validators.required],
-      phone: ['', [Validators.maxLength(9), Validators.required]],
-      password: ['', [Validators.minLength(6), Validators.required]],
-      emailAddress: ['', [Validators.email, Validators.required]]
+      password: ['', [Validators.minLength(8), Validators.required]],
+      emailAddress: ['', [Validators.email, Validators.required]],
+      phone: ['', [Validators.maxLength(9), Validators.minLength(9), Validators.required]],
     });
   }
 
   initializeView() {
-    if (!this.isAdmin) {
+    if (!this.isGitAdmin) {
       this.getCompany();
     }
   }
@@ -101,30 +105,48 @@ export class UserAccountCreatorComponent implements OnInit {
     this.userType.setValue(e.target.value, {
       onlySelf: true
     });
-    this.isFrontDesk = this.f.userType.value == UserTypes.FrontDesk ? true : false;
-    if (!this.isFrontDesk) {
+
+    this.isAdmin = this.f.userType.value == UserTypes.GitAdmin ? true : false;
+    this.isCompAdmin = this.f.userType.value == UserTypes.CompanyAdmin ? true : false;
+    this.isSuperExec = this.f.userType.value == UserTypes.SuperExecutive ? true : false;
+    this.isFrontDesk =
+      this.f.userType.value == UserTypes.FrontDesk ||
+      this.f.userType.value == UserTypes.BranchSuperExecutive ||
+      this.f.userType.value == UserTypes.BranchAdmin ? true : false;
+
+    if (this.isCompAdmin || this.isSuperExec) {
+      // remove validators
+      this.f.branch.clearValidators();
+      this.f.branch.updateValueAndValidity();
+    }
+
+    if (this.f.userType.value == UserTypes.GitAdmin) {
       // remove validation of merchant and branch
       // so the account can be created.
       this.f.branch.clearValidators();
       this.f.merchant.clearValidators();
       this.f.branch.updateValueAndValidity();
       this.f.merchant.updateValueAndValidity();
-      console.log('removed validators');
+    }
+    else {
+      this.getCompany();
     }
   }
 
-  // This method handles the removal of validations
-  // on merchant and branches when an admin is creating an account.
   handleUserSelection() {
-    if (this.isAdmin) {
-      // remove validation of merchant and branch
-      // so the account can be created.
+    if (!this.isGitAdmin) {
+      // if logged in user is not a GIT Admin it means logged in user can only create
+      // a front desk account. And since we are hiding the option to choose which kind
+      // of user to be created, we have to set the user to Front Desk.
       this.f.userType.setValue('25');
-      this.f.branch.clearValidators();
-      this.f.merchant.clearValidators();
-      this.f.branch.updateValueAndValidity();
-      this.f.merchant.updateValueAndValidity();
-      console.log('removed validators');
+    }
+  }
+
+  resolveStrCharacters(e: KeyboardEvent) {
+    const regExp = new RegExp(/^\d*\.?\d*$/);
+    if (!regExp.test(this.f.phone.value)) {
+      const value = this.f.phone.value.substring(0, this.f.phone.value.length - 1);
+      this.f.phone.setValue(value);
     }
   }
 
@@ -139,10 +161,10 @@ export class UserAccountCreatorComponent implements OnInit {
 
   getFormData() {
     const phone = this.f.phone.value;
+    const dCode = this.f.dialCode.value;
     const lname = this.f.lastName.value;
     const fname = this.f.firstName.value;
     const country = this.f.country.value;
-    const dCode = this.f.dialCode.value;
     const username = this.f.username.value;
     const password = this.f.password.value;
     const userType = this.f.userType.value;
@@ -285,16 +307,17 @@ export class UserAccountCreatorComponent implements OnInit {
   }
 
   cancel() {
-    this.f.firstName.setValue('');
-    this.f.lastName.setValue('');
-    this.f.country.setValue('');
-    this.f.username.setValue('');
-    this.f.userType.setValue('');
-    this.f.branch.setValue('');
-    this.f.merchant.setValue('');
-    this.f.phone.setValue('');
-    this.f.password.setValue('');
-    this.f.emailAddress.setValue('');
+    // this.f.firstName.setValue('');
+    // this.f.lastName.setValue('');
+    // this.f.country.setValue('');
+    // this.f.username.setValue('');
+    // this.f.userType.setValue('');
+    // this.f.branch.setValue('');
+    // this.f.merchant.setValue('');
+    // this.f.phone.setValue('');
+    // this.f.password.setValue('');
+    // this.f.emailAddress.setValue('');
+    window.history.back();
   }
 
 }

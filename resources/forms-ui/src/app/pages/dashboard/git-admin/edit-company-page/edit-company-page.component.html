@@ -60,8 +60,8 @@
                               {{ item }}
                             </mat-option>
                           </mat-autocomplete>
-                          <div *ngIf="submitted && f.name.errors">
-                            <p class="input-error" *ngIf="f.name.errors.required">Super Executive is required</p>
+                          <div *ngIf="submitted && f.superExecutive.errors">
+                            <p class="input-error" *ngIf="f.superExecutive.errors.required">Super Executive is required</p>
                           </div>
                         </div>
                       </div>
@@ -74,8 +74,8 @@
                               {{ item }}
                             </mat-option>
                           </mat-autocomplete>
-                          <div *ngIf="submitted && f.name.errors">
-                            <p class="input-error" *ngIf="f.name.errors.required">Company Admin is required</p>
+                          <div *ngIf="submitted && f.companyAdmin.errors">
+                            <p class="input-error" *ngIf="f.companyAdmin.errors.required">Company Admin is required</p>
                           </div>
                         </div>
                       </div>
@@ -149,7 +149,7 @@
                             Please wait...
                           </button>
                           <button *ngIf="!loading" type="submit" class="btn btn-primary btn-lg mr-2">SUBMIT</button>
-                          <button class="btn btn-light btn-lg">CANCEL</button>
+                          <button type="button" class="btn btn-light btn-lg" (click)="cancel()">CANCEL</button>
                         </div>
                       </div>
                     </div>
@@ -172,10 +172,10 @@
                   <p class="text-muted">You have succesfully updated a company</p>
                 </div>
                 <div class="card-text mt-4">
-                  <button type="button" class="btn btn-primary btn-lg btn-icon-text mr-2" (click)="view()">
+                  <!-- <button type="button" class="btn btn-primary btn-lg btn-icon-text mr-2" (click)="view()">
                     <i class="mdi mdi-pulse"></i>
                     View
-                  </button>
+                  </button> -->
                   <button type="button" class="btn btn-secondary btn-lg mr-2" (click)="ok()">
                     <i class="mdi mdi-check"></i>
                     Ok

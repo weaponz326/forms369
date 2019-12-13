@@ -290,4 +290,8 @@ export class EditCompanyPageComponent implements OnInit {
     this.router.navigateByUrl('git_admin/lists/company');
   }
 
+  cancel() {
+    this.ok();
+  }
+
 }

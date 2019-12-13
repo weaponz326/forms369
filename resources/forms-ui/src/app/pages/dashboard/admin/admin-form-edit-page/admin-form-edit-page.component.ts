@@ -87,7 +87,7 @@ export class AdminFormEditPageComponent implements OnInit {
     const form = this.getForm();
     const formData = new Forms();
     formData.form_fields = form;
-    formData.name = this.formName;
+    formData.name = this.f.name.value;
     formData.merchant_id = this.merchant_id;
     formData.form_code = this._form.form_code;
     formData.status = _.toInteger(this.formStatus);

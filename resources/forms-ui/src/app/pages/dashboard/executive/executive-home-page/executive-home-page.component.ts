@@ -34,7 +34,7 @@ export class ExecutiveHomePageComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.getAnalytics();
+    // this.getAnalytics();
   }
 
   initVars() {
@@ -48,6 +48,7 @@ export class ExecutiveHomePageComponent implements OnInit {
           if (res == 'ok') {
             this.firstname = this.localStorage.getUser().firstname;
             this.merchantId = toString(this.localStorage.getUser().merchant_id);
+            this.getAnalytics();
           }
           else {
             this.router.navigateByUrl('auth');

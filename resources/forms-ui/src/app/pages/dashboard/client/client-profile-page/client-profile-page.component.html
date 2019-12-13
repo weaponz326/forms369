@@ -97,45 +97,62 @@
             <div class="card">
               <div class="card-body">
                 <div class="card-text">
-                  <div class="mt-3 mb-3" *ngFor="let section of allFormSections">
-                    <h6 class="text-uppercase mb-3">{{ section.heading }}</h6>
-                    <div class="form-group" *ngFor="let item of section.form_fields">
-                      <!-- Input fields -->
-                      <div *ngIf="item.type == 'text'">
-                        <label><strong>{{ item.label }}</strong></label>
-                        <input type="{{ item.type }}" id="{{ item.name }}" name="{{ item.name }}" class="form-control">
-                      </div>
-
-                      <!-- Radio buttons -->
-                      <div *ngIf="item.type == 'radio-group'">
-                        <label><strong>{{ item.label }}</strong></label>
-                        <div style="width: 100%; float: left;" *ngFor="let radio of item.values">
-                          <input style="width: 10%; float: left; margin-right: 10px;" type="radio" id="{{ item.name }}" name="{{ item.name }}" class="form-control">
-                          <p style="width: 80%; padding-top: 13px;">{{ radio.label }}</p>
+                  <div *ngIf="!noFilledData">
+                    <div class="mt-3 mb-3" *ngFor="let section of allFormSections">
+                      <h6 class="text-uppercase mb-3">{{ section.heading }}</h6>
+                      <div class="form-group" *ngFor="let item of section.form_fields">
+                        <!-- Input fields -->
+                        <div *ngIf="item.type == 'text'">
+                          <label><strong>{{ item.label }}</strong></label>
+                          <input type="{{ item.type }}" id="{{ item.name }}" name="{{ item.name }}" class="form-control">
                         </div>
-                      </div>
 
-                      <!-- checkboxes -->
-                      <div *ngIf="item.type == 'checkbox-group'">
-                        <label><strong>{{ item.label }}</strong></label>
-                        <div style="width: 100%; float: left;" *ngFor="let checkbox of item.values">
-                          <input style="width: 10%; float: left; margin-right: 10px;" type="checkbox" id="{{ item.name }}" name="{{ item.name }}" class="form-control">
-                          <p style="width: 80%; padding-top: 13px;">{{ checkbox.label }}</p>
+                        <!-- Radio buttons -->
+                        <div *ngIf="item.type == 'radio-group'">
+                          <label><strong>{{ item.label }}</strong></label>
+                          <div style="width: 100%; float: left;" *ngFor="let radio of item.values">
+                            <input style="width: 6%; float: left; margin-right: 10px;" type="radio" id="{{ item.name }}" name="{{ item.name }}" class="form-control">
+                            <p style="width: 80%; padding-top: 13px;">{{ radio.label }}</p>
+                          </div>
                         </div>
-                      </div>
 
-                      <!-- date picker -->
-                      <div *ngIf="item.type == 'date'">
-                        <label><strong>{{ item.label }}</strong></label>
-                        <input type="{{ item.type }}" id="{{ item.name }}" name="{{ item.name }}" class="form-control">
-                      </div>
+                        <!-- checkboxes -->
+                        <div *ngIf="item.type == 'checkbox-group'">
+                          <label><strong>{{ item.label }}</strong></label>
+                          <div style="width: 100%; float: left;" *ngFor="let checkbox of item.values">
+                            <input style="width: 6%; float: left; margin-right: 10px;" type="checkbox" id="{{ item.name }}" name="{{ item.name }}" class="form-control">
+                            <p style="width: 80%; padding-top: 13px;">{{ checkbox.label }}</p>
+                          </div>
+                        </div>
 
-                      <!-- file -->
-                      <div *ngIf="item.type == 'file'">
-                        <label><strong>{{ item.label }}</strong></label>
-                        <input multiple type="{{ item.type }}" id="{{ item.name }}" name="{{ item.name }}" class="form-control">
+                        <!-- date picker -->
+                        <div *ngIf="item.type == 'date'">
+                          <label><strong>{{ item.label }}</strong></label>
+                          <input type="{{ item.type }}" id="{{ item.name }}" name="{{ item.name }}" class="form-control">
+                        </div>
+
+                        <!-- file -->
+                        <div *ngIf="item.type == 'file'">
+                          <label><strong>{{ item.label }}</strong></label>
+                          <input multiple type="{{ item.type }}" id="{{ item.name }}" name="{{ item.name }}" class="form-control">
+                        </div>
                       </div>
                     </div>
+                  </div>
+
+                  <div *ngIf="noFilledData">
+                    <div class="form-group" *ngFor="let item of allUserData | keyvalue">
+                      <label><strong class="text-capitalize">{{ transformToRealText(item.key) }}</strong></label>
+                      <input type="text" id="{{ item.key }}" class="form-control" [value]="item.value">
+                    </div>
+                    <button class="form-group mt-3">
+                      <button *ngIf="updating" class="btn btn-primary btn-lg mr-2" type="button" disabled>
+                        <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+                        <span class="sr-only">Please wait...</span>
+                      </button>
+                      <button *ngIf="!updating" type="submit" class="btn btn-primary btn-lg mr-2" (click)="save()">Save Changes</button>
+                      <button type="button" class="btn btn-light btn-lg" (click)="cancel()">Cancel</button>
+                    </button>
                   </div>
                   
                   <div class="form-group mt-3">
@@ -146,18 +163,6 @@
                     <button *ngIf="!updating" type="submit" class="btn btn-primary btn-lg mr-2" (click)="save()">Save Changes</button>
                     <button type="button" class="btn btn-light btn-lg" (click)="cancel()">Cancel</button>
                   </div>
-                  <!-- <div class="form-group" *ngFor="let item of allUserData | keyvalue">
-                    <label><strong>{{ transformToRealText(item.key) | uppercase }}</strong></label>
-                    <input type="text" id="{{ item.key }}" class="form-control" [value]="item.value">
-                  </div>
-                  <div class="form-group mt-3">
-                    <button *ngIf="updating" class="btn btn-primary btn-lg mr-2" type="button" disabled>
-                      <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
-                      <span class="sr-only">Please wait...</span>
-                    </button>
-                    <button *ngIf="!updating" type="submit" class="btn btn-primary btn-lg mr-2" (click)="save()">Save Changes</button>
-                    <button type="button" class="btn btn-light btn-lg" (click)="cancel()">Cancel</button>
-                  </div> -->
                 </div>
               </div>
             </div>
