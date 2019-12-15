@@ -9,7 +9,7 @@
             <div class="d-flex justify-content-between flex-wrap">
               <div class="d-flex align-items-end flex-wrap">
                 <div class="mr-md-3 mr-xl-5">
-                  <h2>All Branches</h2>
+                  <h2>All Users</h2>
                   <p class="mb-md-0">Your administrative dashboard.</p>
                 </div>
                 <div class="d-flex">
@@ -46,15 +46,15 @@
               <div class="card-body mt-5 mb-5">
                 <h4 class="card-title">No Data Found</h4>
                 <p class="card-description">
-                  No company branches found.
+                  No users found.
                 </p>
                 <div class="text-lg-center mt-5 mb-5">
                   <div class="card-text">
                     <i class="mdi mdi-account-alert-outline" style="font-size: 8em;"></i>
                   </div>
                   <div class="card-text">
-                    <h3>No Available Branches</h3>
-                    <p class="text-muted">This company doesn't have any branches yet!</p>
+                    <h3>No Available Users</h3>
+                    <p class="text-muted">This company doesn't have any user accounts yet!</p>
                   </div>
                 </div>
               </div>
@@ -75,7 +75,7 @@
                     <i class="mdi mdi-close-network-outline" style="font-size: 8em;"></i>
                   </div>
                   <div class="card-text">
-                    <h3>We couldn't get your branches</h3>
+                    <h3>We couldn't get your user accounts</h3>
                     <p class="text-muted">An error has occured on our servers or you might not have internet connection
                     </p>
                   </div>
@@ -112,7 +112,7 @@
                         <th><strong>Full Name</strong></th>
                         <th><strong>Email Address</strong></th>
                         <th><strong>Branch Name</strong></th>
-                        <th>Status</th>
+                        <th><strong>Status</strong></th>
                         <th><strong>Last Login</strong></th>
                       </tr>
                     </thead>
@@ -121,9 +121,10 @@
                         <td>{{ user.full_name }}</td>
                         <td>{{ user.email }}</td>
                         <td>{{ user.branch_name }}</td>
-                        <td *ngIf="user.status == 1"><label class="badge badge-success text-center">Active</label>
+                        <td>
+                          <label *ngIf="user.status == 1" class="badge badge-success text-center">Active</label>
+                          <label *ngIf="user.status == 0" class="badge badge-danger text-center">In-Active</label>
                         </td>
-                        <td *ngIf="user.status != 1"><label class="badge badge-danger text-center">In-Active</label>
                         <td>{{ user.last_login_at | date:'medium' }}</td>
                       </tr>
                     </tbody>
@@ -153,8 +154,7 @@
                 Maybe, our servers may be down.
               </p>
               <hr>
-              <p class="mb-0">We are really sorry for this inconvenience. Please click on the load more button again.
-              </p>
+              <p class="mb-0">We are really sorry for this inconvenience. Please click on the load more button again.</p>
             </div>
           </div>
         </div>

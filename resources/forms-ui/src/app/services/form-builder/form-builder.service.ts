@@ -410,7 +410,7 @@ export class FormBuilderService {
       return code;
     }
     else {
-      this.generateUniqueFormCode();
+      return this.generateUniqueFormCode();
     }
   }
 

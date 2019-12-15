@@ -188,6 +188,14 @@ export class ClientService {
                   form_field.checked = true;
                 }
               }
+              else if (form_field.getAttribute('type') == 'checkbox') {
+                // this is a checkbox.
+                const checkbox_label = form_field.nextElementSibling.textContent;
+                if (_.toLower(checkbox_label) == _.toLower(client_data[client])) {
+                  form_field.value = client_data[client];
+                  form_field.checked = true;
+                }
+              }
               else {
                 // this is a text input.
                 form_field.value = client_data[client];
