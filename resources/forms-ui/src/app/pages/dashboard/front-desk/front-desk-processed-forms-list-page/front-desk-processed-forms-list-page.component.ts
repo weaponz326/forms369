@@ -36,7 +36,8 @@ export class FrontDeskProcessedFormsListPageComponent implements OnInit {
   ngOnInit() {
   }
 
-  open(form: any) {
+  open(e: Event, form: any) {
+    e.stopPropagation();
     this.router.navigateByUrl('/front_desk/preview', { state: { form: form }});
   }
 

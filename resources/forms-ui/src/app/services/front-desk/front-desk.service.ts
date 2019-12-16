@@ -157,7 +157,7 @@ export class FrontDeskService {
   completeForm(code: string, clientData: any): Promise<any> {
     return new Promise((resolve, reject) => {
       const url = this.endpointService.apiHost + 'api/v1/processSubmitForm/' + code + '/' + '2';
-      this.http.post(url, JSON.stringify(clientData), { headers: this.headers }).subscribe(
+      this.http.post(url, clientData, { headers: this.headers }).subscribe(
         res => {
           console.log('res: ' + JSON.stringify(res));
           resolve(res);
@@ -174,7 +174,7 @@ export class FrontDeskService {
     return new Promise((resolve, reject) => {
       const url = this.endpointService.apiHost + 'api/v1/processSubmitForm/' + code + '/' + '1';
       console.log('processForm: ' + JSON.stringify(clientData));
-      this.http.post(url, JSON.stringify(clientData), { headers: this.headers }).subscribe(
+      this.http.post(url, clientData, { headers: this.headers }).subscribe(
         res => {
           console.log('res: ' + JSON.stringify(res));
           resolve(res);
@@ -190,7 +190,7 @@ export class FrontDeskService {
   unprocessForm(code: string, clientData: any): Promise<any> {
     return new Promise((resolve, reject) => {
       const url = this.endpointService.apiHost + 'api/v1/processSubmitForm/' + code + '/' + '0';
-      this.http.post(url, JSON.stringify(clientData), { headers: this.headers }).subscribe(
+      this.http.post(url, clientData, { headers: this.headers }).subscribe(
         res => {
           console.log('res: ' + JSON.stringify(res));
           resolve(res);

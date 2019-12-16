@@ -49,14 +49,33 @@ export class AdminFormEditPageComponent implements OnInit {
     this.formStatus = this._form.status;
     this.formCode = this._form.form_code;
 
-    this.formBuilder = $(document.getElementById('fb-editor')).formBuilder({
-      controlPosition: 'left',
-      scrollToFieldOnAdd: false,
-      defaultFields: this._form.form_fields,
-      disabledActionButtons: ['data', 'clear', 'save'],
-      inputSets: this.formBuilderService.generateFormFields(),
-      disableFields: this.formBuilderService.disableDefaultFormControls()
-    });
+    // this.formBuilder = $(document.getElementById('fb-editor')).formBuilder({
+    //   controlPosition: 'left',
+    //   scrollToFieldOnAdd: false,
+    //   defaultFields: this._form.form_fields,
+    //   disabledActionButtons: ['data', 'clear', 'save'],
+    //   inputSets: this.formBuilderService.generateFormFields(),
+    //   disableFields: this.formBuilderService.disableDefaultFormControls()
+    // });
+
+    this.formBuilderService.generateSectionAndDefaultFormFields().then(
+      form_elements => {
+        this.formBuilder = $(document.getElementById('fb-editor')).formBuilder({
+          controlPosition: 'left',
+          inputSets: form_elements,
+          scrollToFieldOnAdd: false,
+          defaultFields: this._form.form_fields,
+          disabledActionButtons: ['data', 'clear', 'save'],
+          disableFields: this.formBuilderService.disableDefaultFormControls()
+        });
+
+        // this._loading = false;
+      },
+      error => {
+        // this._loading = false;
+        // this.hasError = true;
+      }
+    );
   }
 
   buildForm() {

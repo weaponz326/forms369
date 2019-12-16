@@ -16,7 +16,7 @@
                 </div>
               </div>
               <div class="d-flex justify-content-between align-items-end flex-wrap">
-                <button type="button" class="btn btn-light bg-white btn-icon mr-3 d-none d-md-block ">
+                <!-- <button type="button" class="btn btn-light bg-white btn-icon mr-3 d-none d-md-block ">
                   <i class="mdi mdi-download text-muted"></i>
                 </button>
                 <button type="button" class="btn btn-light bg-white btn-icon mr-3 mt-2 mt-xl-0">
@@ -24,7 +24,7 @@
                 </button>
                 <button type="button" class="btn btn-light bg-white btn-icon mr-3 mt-2 mt-xl-0">
                   <i class="mdi mdi-plus text-muted"></i>
-                </button>
+                </button> -->
               </div>
             </div>
           </div>
@@ -40,30 +40,54 @@
           </div>
         </div>
 
-        <div *ngIf="isProcessed" class="row">
-          <div class="col-lg-12 grid-margin stretch-card">
-            <div class="card text-center pt-5 pb-5">
-              <div class="card-body mt-5 mb-5">
-                <h4 class="card-title">Processed</h4>
-                <p class="card-text">
-                  This {{ formName }} form has been processed.
-                </p>
-                <div class="text-lg-center mt-5 mb-5">
-                  <div class="card-text">
-                    <i class="mdi mdi-file-question" style="font-size: 8em;"></i>
-                  </div>
-                  <div class="card-text mt-2">
-                    <h3>Form Already Processed</h3>
-                    <p class="text-muted">{{ form.submission_code }} has already been processed</p>
-                    <p class="text-muted">{{ form.submission_code }} was processed on {{ lastProcessed | date }}</p>
-                  </div>
+        <div [hidden]="completed || submitted || rejected" class="row">
+          <div class="col-md-8 offset-md-2 grid-margin stretch-card">
+            <div class="card">
+              <div class="card-body">
+                <p class="card-title">{{ formName }}</p>
+                <div class="card-text">
+                  <form class="forms-sample">
+                    <div class="form-builder-container">
+                      <div id="form-render"></div>
+                    </div>
+                    <button *ngIf="loading" class="btn btn-primary btn-lg mr-2" type="button" disabled>
+                      <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+                      <span class="sr-only">Please wait...</span>
+                    </button>
+                    <button *ngIf="!loading && !isProcessed" type="submit" class="btn btn-primary btn-lg mr-2" (click)="complete()">Complete</button>
+                    <button *ngIf="!loading && !isProcessed && !isProcessing" type="submit" class="btn btn-primary btn-lg mr-2" (click)="process()">Processing</button>
+                    <button *ngIf="!loading && !isProcessed" type="submit" class="btn btn-light btn-lg" (click)="reject()">Reject</button>
+                  </form>
                 </div>
               </div>
             </div>
           </div>
         </div>
 
-        <div *ngIf="isProcessing" class="row">
+         <!-- <div *ngIf="isProcessed" class="row">
+           <div class="col-lg-12 grid-margin stretch-card">
+             <div class="card text-center pt-5 pb-5">
+               <div class="card-body mt-5 mb-5">
+                 <h4 class="card-title">Processed</h4>
+                 <p class="card-text">
+                   This {{ formName }} form has been processed.
+                 </p>
+                 <div class="text-lg-center mt-5 mb-5">
+                   <div class="card-text">
+                     <i class="mdi mdi-file-question" style="font-size: 8em;"></i>
+                   </div>
+                   <div class="card-text mt-2">
+                     <h3>Form Already Processed</h3>
+                     <p class="text-muted">{{ form.submission_code }} has already been processed</p>
+                     <p class="text-muted">{{ form.submission_code }} was processed on {{ lastProcessed | date }}</p>
+                   </div>
+                 </div>
+               </div>
+             </div>
+           </div>
+         </div> -->
+
+        <!-- <div *ngIf="isProcessing" class="row">
           <div class="col-lg-12 grid-margin stretch-card">
             <div class="card text-center pt-5 pb-5">
               <div class="card-body mt-5 mb-5">
@@ -78,37 +102,14 @@
                   <div class="card-text mt-2">
                     <h3>Processing Form</h3>
                     <p class="text-muted">{{ form.submission_code }} is in processing</p>
-                    <p class="text-muted">{{ form.submission_code }} was last accessed for processing on {{ lastProcessed | date }}</p>
+                    <p class="text-muted">{{ form.submission_code }} was last accessed for processing on
+                      {{ lastProcessed | date }}</p>
                   </div>
                 </div>
               </div>
             </div>
           </div>
-        </div>
-
-        <div [hidden]="isProcessed || isProcessing || completed || submitted || rejected" class="row">
-          <div class="col-md-8 offset-md-2 grid-margin stretch-card">
-            <div class="card">
-              <div class="card-body">
-                <p class="card-title">{{ formName }}</p>
-                <div class="card-text">
-                  <form class="forms-sample">
-                    <div class="form-builder-container">
-                      <div id="form-render"></div>
-                    </div>
-                    <button *ngIf="loading" class="btn btn-primary btn-lg mr-2" type="button" disabled>
-                      <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
-                      <span class="sr-only">Please wait...</span>
-                    </button>
-                    <button *ngIf="!loading" type="submit" class="btn btn-primary btn-lg mr-2" (click)="complete()">Complete</button>
-                    <button *ngIf="!loading" type="submit" class="btn btn-primary btn-lg mr-2" (click)="process()">Processing</button>
-                    <button class="btn btn-light btn-lg" (click)="reject()">Reject</button>
-                  </form>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
+        </div> -->
 
         <div class="row" *ngIf="submitted">
           <div class="col-md-12 grid-margin">

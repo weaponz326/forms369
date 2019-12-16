@@ -41,17 +41,17 @@ Route::get('register', function () {
     return View::make('index');
 });
 
+Route::get('forgot', function () {
+    View::addExtension('html', 'php');
+    return View::make('index');
+});
+
 Route::get('master_register', function () {
     View::addExtension('html', 'php');
     return View::make('index');
 });
 
 Route::get('change_password', function () {
-    View::addExtension('html', 'php');
-    return View::make('index');
-});
-
-Route::get('forgot', function () {
     View::addExtension('html', 'php');
     return View::make('index');
 });
@@ -86,17 +86,17 @@ Route::get('git_admin/create/access_code', function () {
     return View::make('index');
 });
 
-Route::get('git_admin/edit/form/:id', function () {
+Route::get('git_admin/edit/form', function () {
     View::addExtension('html', 'php');
     return View::make('index');
 });
 
-Route::get('git_admin/edit/branch/:id', function () {
+Route::get('git_admin/edit/branch', function () {
     View::addExtension('html', 'php');
     return View::make('index');
 });
 
-Route::get('git_admin/edit/company/:id', function () {
+Route::get('git_admin/edit/company', function () {
     View::addExtension('html', 'php');
     return View::make('index');
 });
@@ -106,12 +106,17 @@ Route::get('git_admin/edit/user_account', function () {
     return View::make('index');
 });
 
-Route::get('git_admin/lists/company', function () {
+Route::get('git_admin/edit/section', function () {
     View::addExtension('html', 'php');
     return View::make('index');
 });
 
-Route::get('git_admin/lists/access_code', function () {
+Route::get('git_admin/edit/access_code', function () {
+    View::addExtension('html', 'php');
+    return View::make('index');
+});
+
+Route::get('git_admin/lists/company', function () {
     View::addExtension('html', 'php');
     return View::make('index');
 });
@@ -122,11 +127,6 @@ Route::get('git_admin/lists/admin', function () {
 });
 
 Route::get('git_admin/lists/form', function () {
-    View::addExtension('html', 'php');
-    return View::make('index');
-});
-
-Route::get('git_admin/lists/company', function () {
     View::addExtension('html', 'php');
     return View::make('index');
 });
@@ -161,6 +161,16 @@ Route::get('git_admin/lists/front_desk', function () {
     return View::make('index');
 });
 
+Route::get('git_admin/lists/section', function () {
+    View::addExtension('html', 'php');
+    return View::make('index');
+});
+
+Route::get('git_admin/lists/access_code', function () {
+    View::addExtension('html', 'php');
+    return View::make('index');
+});
+
 Route::get('git_admin/details/branch', function () {
     View::addExtension('html', 'php');
     return View::make('index');
@@ -186,16 +196,6 @@ Route::get('git_admin/create/section', function () {
     return View::make('index');
 });
 
-Route::get('git_admin/edit/section', function () {
-    View::addExtension('html', 'php');
-    return View::make('index');
-});
-
-Route::get('git_admin/lists/section', function () {
-    View::addExtension('html', 'php');
-    return View::make('index');
-});
-
 /**
  * Client Routes
  */
@@ -210,16 +210,7 @@ Route::get('client/form_merchant', function () {
     return View::make('index');
 });
 
-Route::get('client/branchs', function () {
-    View::addExtension('html', 'php');
-    return View::make('index');
-});
 Route::get('client/forms', function () {
-    View::addExtension('html', 'php');
-    return View::make('index');
-});
-
-Route::get('client/form_data', function () {
     View::addExtension('html', 'php');
     return View::make('index');
 });

@@ -92,7 +92,7 @@
                       </tr>
                     </thead>
                     <tbody>
-                      <tr class="hover-cursor" *ngFor="let form of processedFormsList" (click)="open(form)">
+                      <tr class="hover-cursor" *ngFor="let form of processedFormsList" (click)="open($event, form)">
                         <td>{{ form.submission_code }}</td>
                         <td>{{ form.form_name }}</td>
                         <td>{{ form.client_name }}</td>

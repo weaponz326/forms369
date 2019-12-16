@@ -1,4 +1,6 @@
 import { Component } from '@angular/core';
+import { Router, NavigationStart } from '@angular/router';
+import { filter } from 'rxjs/operators';
 declare var $: any;
 
 @Component({
@@ -8,13 +10,13 @@ declare var $: any;
 })
 export class AppComponent {
 
-  constructor() {
-    // this.expireAuthToken();
-  }
-
-  expireAuthToken() {
-    setInterval(() => {
-      console.log('checking if token is expired');
-    }, 5000);
+  constructor(private _router: Router) {
+    this._router.events.pipe(
+      filter(e => e instanceof NavigationStart),
+      filter((e: NavigationStart) => e.navigationTrigger == 'popstate')
+    )
+    .subscribe((x: NavigationStart) => {
+      this._router.getCurrentNavigation().extras.state = { ...x.restoredState, navigationId: x.id };
+    });
   }
 }

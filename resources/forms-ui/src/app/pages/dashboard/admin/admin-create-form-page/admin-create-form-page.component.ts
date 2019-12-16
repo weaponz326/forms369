@@ -51,14 +51,14 @@ export class AdminCreateFormPageComponent implements OnInit {
   handleFormRender() {
     if (_.isUndefined(this.template) || _.isNull(this.template)) {
       this.formCode = this.formBuilderService.generateUniqueFormCode();
-      this.formBuilderService.generateFormFieldsBySections().then(
+      this.formBuilderService.generateSectionAndDefaultFormFields().then(
         form_elements => {
           this.formBuilder = $(document.getElementById('fb-editor')).formBuilder({
             controlPosition: 'left',
             inputSets: form_elements,
             scrollToFieldOnAdd: false,
             disabledActionButtons: ['data', 'clear', 'save'],
-            disableFields: this.formBuilderService.disableSectionFormFields()
+            disableFields: this.formBuilderService.disableDefaultFormControls()
           });
 
           this._loading = false;
@@ -156,6 +156,9 @@ export class AdminCreateFormPageComponent implements OnInit {
   }
 
   bringBackForm() {
+    this.reset();
+    this.submitted = false;
+    this.f.name.setValue('');
     this.created = !this.created;
   }
 
@@ -163,8 +166,8 @@ export class AdminCreateFormPageComponent implements OnInit {
     this.router.navigateByUrl('/admin/details/form', { state: { form: this.getForm() }});
   }
 
-  goHome() {
-    this.router.navigateByUrl('/admin');
+  ok() {
+    this.router.navigateByUrl('/admin/lists/form');
   }
 
 }

@@ -49,7 +49,7 @@
                       <form [formGroup]="form" (ngSubmit)="submit()" class="submit-form">
                         <div class="form-group">
                           <input matInput type="text" autofocus formControlName="code" class="form-control large-form"
-                            placeholder="Enter Code Here..." [ngClass]="{'input-control-error': submitted && f.code.errors}">
+                            placeholder="Enter Code" [ngClass]="{'input-control-error': submitted && f.code.errors}">
                           <div *ngIf="submitted && f.code.errors">
                             <p class="input-error" *ngIf="f.code.errors.required">Please enter the submission code</p>
                             <p class="input-error" *ngIf="f.code.errors.minlength">The entered code is not a valid submission code.</p>
@@ -79,7 +79,7 @@
             <div class="card hover-cursor hover-primary" (click)="open('submitted')">
               <div class="card-body">
                 <p class="card-title">Total No. Of Forms Submitted</p>
-                <p class="text-muted">A list of all forms you've filled</p>
+                <p class="text-muted">A list of all forms you've have been submitted, processed and in processing</p>
                 <div class="card-text">
                   <h1 style="font-size: 4em;">{{ totalNoSubmitted }}</h1>
                 </div>
@@ -90,7 +90,7 @@
             <div class="card hover-cursor hover-primary" (click)="open('processed')">
               <div class="card-body">
                 <p class="card-title">Total No. Of Processed Forms</p>
-                <p class="text-muted">A list of all forms you've filled</p>
+                <p class="text-muted">A list of all forms you've processed</p>
                 <div class="card-text">
                   <h1 style="font-size: 4em;">{{ totalNoProcessed }}</h1>
                 </div>
@@ -100,8 +100,8 @@
           <div class="col-md-4 grid-margin stretch-card">
             <div class="card hover-cursor hover-primary" (click)="open('processing')">
               <div class="card-body">
-                <p class="card-title">Total No. Of Forms In-Processing</p>
-                <p class="text-muted">A list of all forms you've filled</p>
+                <p class="card-title">Total No. Of Forms In Process</p>
+                <p class="text-muted">A list of all forms being processed</p>
                 <div class="card-text">
                   <h1 style="font-size: 4em;">{{ totalNoProcessing }}</h1>
                 </div>

@@ -16,21 +16,44 @@ export class ClientUnsentFormsPageComponent implements OnInit {
   hasData: boolean;
   loading: boolean;
   hasError: boolean;
+  filterState: string;
   isConnected: boolean;
-  unSentFormsList: Array<any>;
+  submittedFormsList: Array<any>;
+  allSubmittedFormsList: Array<any>;
+  processedSubmittedFormsList: Array<any>;
+  processingSubmittedFormsList: Array<any>;
 
   constructor(
     private router: Router,
     private clientService: ClientService,
     private localStorage: LocalStorageService
   ) {
-    this.unSentFormsList = [];
+    this.submittedFormsList = [];
+    this.allSubmittedFormsList = [];
+    this.processedSubmittedFormsList = [];
+    this.processingSubmittedFormsList = [];
     this.user = this.localStorage.getUser();
     this.isConnected = window.navigator.onLine ? true : false;
   }
 
   ngOnInit() {
+    this.filterState = 'all';
     this.getAllUnsentForms();
+  }
+
+  showAll() {
+    this.filterState = 'all';
+    this.submittedFormsList =  this.allSubmittedFormsList;
+  }
+
+  showProcessed() {
+    this.filterState = 'processed';
+    this.submittedFormsList = _.filter(this.allSubmittedFormsList, (history) => history.form_status == 2);
+  }
+
+  showProcessing() {
+    this.filterState = 'processing';
+    this.submittedFormsList = _.filter(this.allSubmittedFormsList, (history) => history.form_status == 1);
   }
 
   getAllUnsentForms() {
@@ -43,8 +66,9 @@ export class ClientUnsentFormsPageComponent implements OnInit {
           this.hasData = true;
           this.loading = false;
           _.forEach(forms, (form) => {
-            this.unSentFormsList.push(form);
+            this.submittedFormsList.push(form);
           });
+          this.allSubmittedFormsList = this.submittedFormsList;
         }
         else {
           this.hasData = false;
