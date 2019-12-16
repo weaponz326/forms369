@@ -37,9 +37,9 @@ export class FrontDeskService {
     });
   }
 
-  getForm(form_code: string): Promise<any> {
+  getForm(form_code: string, merchant_id: string): Promise<any> {
     return new Promise((resolve, reject) => {
-      const url = this.endpointService.apiHost + 'api/v1/getSubmittedFormByCode/' + form_code;
+      const url = this.endpointService.apiHost + 'api/v1/FrontDeskGetSubmittedFormByCode/' + form_code + '/' + merchant_id;
       this.http.get(url, { headers: this.headers }).subscribe(
         res => {
           console.log('submitted_form: ' + JSON.stringify(res));
@@ -108,7 +108,6 @@ export class FrontDeskService {
       const url = !_.isUndefined(page_url)
         ? page_url
         : this.endpointService.apiHost + 'api/v1/getSubmittedFormByStatusAndMerchant/' + status + '/' + merchant_id;
-
       this.http.get(url, { headers: this.headers }).subscribe(
         res => {
           console.log('res: ' + JSON.stringify(res));

@@ -4,6 +4,7 @@ import * as moment from 'moment';
 import { PDFDocumentProxy } from 'ng2-pdf-viewer';
 import { PDFAnnotationData, PDFPageProxy, PDFProgressData } from 'pdfjs-dist';
 import { FormGroup, FormControl, FormBuilder } from '@angular/forms';
+import { EndpointService } from 'src/app/services/endpoint/endpoint.service';
 
 @Component({
   selector: 'app-form-printing-page',
@@ -21,14 +22,13 @@ export class FormPrintingPageComponent implements OnInit {
   inputList: Input[];
   clientFormDetails: any[];
 
-  constructor(private _fb: FormBuilder) {
+  constructor(private _fb: FormBuilder, private endpointService: EndpointService) {
     this.inputList = [];
     this.dpiRatio = 96 / 72;
-    this.pdfSrc = 'https://forms369.com/EDITED_TAX_RELIEF_APPLICATION_FORM.pdf';
     this.clientFormDetails = [];
     this.form = window.history.state.form;
+    this.pdfSrc = this.endpointService.storageHost + this.form.file_url;
     window.onafterprint = () => {
-      console.log('print window closed');
       this.showPrintButton();
     };
   }

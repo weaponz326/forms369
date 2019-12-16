@@ -42,7 +42,7 @@ export class FrontDeskProcessedFormsListPageComponent implements OnInit {
 
   print(ev: Event, form: any) {
     ev.stopPropagation();
-    !this.can_print
+    this.can_print
       ? this.router.navigateByUrl('front_desk/print_form', { state: { form: form }})
       : this.router.navigateByUrl('front_desk/print_form_default', { state: { form: form }});
   }
@@ -86,6 +86,7 @@ export class FrontDeskProcessedFormsListPageComponent implements OnInit {
       res => {
         this.loadingMore = false;
         this.hasMoreError = false;
+        this.hasMore = this.checkIfHasMore();
         _.forEach(res, (form) => {
           this.processedFormsList.push(form);
         });

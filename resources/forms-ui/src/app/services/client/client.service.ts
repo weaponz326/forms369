@@ -232,6 +232,8 @@ export class ClientService {
                 else if (form_field.type == 'checkbox') {
                   // this is a checkbox.
                   const checkbox_label = form_field.nextSibling.textContent;
+                  console.log('check_lbl: ' + checkbox_label);
+                  console.log('value: ' + client_data[client]);
                   _.forEach(form.values, (value) => {
                     if (_.toLower(checkbox_label) == _.toLower(client_data[client])) {
                       form_field.value = client_data[client];
