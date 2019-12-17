@@ -318,7 +318,27 @@ Route::get('admin/lists/branch', function () {
     return View::make('index');
 });
 
-Route::get('admin/lists/account', function () {
+Route::get('admin/lists/front_desk', function () {
+    View::addExtension('html', 'php');
+    return View::make('index');
+});
+
+Route::get('admin/lists/branch_admin', function () {
+    View::addExtension('html', 'php');
+    return View::make('index');
+});
+
+Route::get('admin/lists/company_admin', function () {
+    View::addExtension('html', 'php');
+    return View::make('index');
+});
+
+Route::get('admin/lists/branch_executive', function () {
+    View::addExtension('html', 'php');
+    return View::make('index');
+});
+
+Route::get('admin/lists/super_executive', function () {
     View::addExtension('html', 'php');
     return View::make('index');
 });

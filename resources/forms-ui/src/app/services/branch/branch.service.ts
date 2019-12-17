@@ -188,6 +188,26 @@ export class BranchService {
     });
   }
 
+  getBranchAdmins(id: string, isMerchant?: boolean) {
+    return new Promise((resolve, reject) => {
+      const url = !_.isUndefined(isMerchant) && isMerchant
+        ? this.endpointService.apiHost + 'api/v1/getMerchantUsersByType/' + id + '/' + UserTypes.BranchAdmin
+        : this.endpointService.apiHost + 'api/v1/getBranchUsersByType/' + id + '/' + UserTypes.BranchAdmin;
+      this.http.get(url, { headers: this.headers }).subscribe(
+        res => {
+          console.log('response: ' + JSON.stringify(res));
+          const response = res as any;
+          resolve(response.users.data);
+        },
+        err => {
+          console.log('error: ' + JSON.stringify(err));
+          reject(err);
+        }
+      );
+    });
+  }
+
+
   enableBranch(id: string): Promise<boolean> {
     return new Promise((resolve, reject) => {
       const url = this.endpointService.apiHost + 'api/v1/enableBranch/' + id;

@@ -220,8 +220,8 @@ Route::group(['middleware' => ['auth:api'], 'prefix' => 'v1'], function(){
   
   
   //apis for drop down
-  Route::get('getMerchantsForDropdown', 'HomeController@getMerchantsForDropdown')->name('getMerchantsForDropdown')->middleware('scope:GIT_Admin');
-  Route::get('getAllBranchesForDropdown', 'HomeController@getAllBranchesForDropdown')->name('getAllBranchesForDropdown')->middleware('scope:GIT_Admin');
+  Route::get('getMerchantsForDropdown', 'HomeController@getMerchantsForDropdown')->name('getMerchantsForDropdown')->middleware('scope:GIT_Admin,company_admin');
+  Route::get('getAllBranchesForDropdown', 'HomeController@getAllBranchesForDropdown')->name('getAllBranchesForDropdown')->middleware('scope:GIT_Admin,company_admin');
   Route::get('getAllUsersByTypeForDropdown/{type_id}', 'HomeController@getAllUsersByTypeForDropdown')->name('getAllUsersByTypeForDropdown')->middleware('scope:GIT_Admin,company_admin,branch_admin');
 
 });

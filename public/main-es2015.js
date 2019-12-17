@@ -349,7 +349,7 @@ module.exports = "<!-- partial:partials/_navbar.html -->\n<nav class=\"navbar co
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<!-- git admin -->\n<nav *ngIf=\"isGitAdmin\" class=\"sidebar sidebar-offcanvas\" id=\"sidebar\">\n  <ul class=\"nav\">\n    <li class=\"nav-item\">\n      <a class=\"nav-link\" routerLink=\"/git_admin\">\n        <i class=\"mdi mdi-home menu-icon\"></i>\n        <span class=\"menu-title\">Home</span>\n      </a>\n    </li>\n    <li class=\"nav-item\">\n      <a class=\"nav-link\" routerLink=\"/git_admin/setup_form\">\n        <i class=\"mdi mdi-file-document-edit-outline menu-icon\"></i>\n        <span class=\"menu-title\">New Form</span>\n      </a>\n    </li>\n    <li class=\"nav-item\">\n      <a class=\"nav-link\" routerLink=\"/git_admin/lists/form\">\n        <i class=\"mdi mdi-file-document-box-outline menu-icon\"></i>\n        <span class=\"menu-title\">All Forms</span>\n      </a>\n    </li>\n    <li class=\"nav-item\">\n      <a class=\"nav-link\" data-toggle=\"collapse\" href=\"#code\" aria-expanded=\"false\" aria-controls=\"code\">\n        <i class=\"mdi mdi-lock-outline menu-icon\"></i>\n        <span class=\"menu-title\">Access Code</span>\n        <i class=\"menu-arrow\"></i>\n      </a>\n      <div class=\"collapse\" id=\"code\">\n        <ul class=\"nav flex-column sub-menu\">\n          <li class=\"nav-item\">\n            <a class=\"nav-link\" routerLink=\"/git_admin/create/access_code\">\n              <i class=\"mdi mdi-plus-circle-multiple-outline menu-icon\"></i>\n              <span class=\"menu-title\">Create New</span>\n            </a>\n          </li>\n          <li class=\"nav-item\">\n            <a class=\"nav-link\" routerLink=\"/git_admin/lists/access_code\">\n              <i class=\"mdi mdi-format-list-bulleted menu-icon\"></i>\n              <span class=\"menu-title\">View Code</span>\n            </a>\n          </li>\n        </ul>\n      </div>\n    </li>\n    <li class=\"nav-item\">\n      <a class=\"nav-link\" data-toggle=\"collapse\" href=\"#template\" aria-expanded=\"false\" aria-controls=\"template\">\n        <i class=\"mdi mdi-file-document-box-multiple-outline menu-icon\"></i>\n        <span class=\"menu-title\">Templates</span>\n        <i class=\"menu-arrow\"></i>\n      </a>\n      <div class=\"collapse\" id=\"template\">\n        <ul class=\"nav flex-column sub-menu\">\n          <li class=\"nav-item\">\n            <a class=\"nav-link\" routerLink=\"/templates/create\">\n              <i class=\"mdi mdi-plus-outline menu-icon\"></i>\n              <span class=\"menu-title\">Create Template</span>\n            </a>\n          </li>\n          <li class=\"nav-item\">\n            <a class=\"nav-link\" routerLink=\"/templates/list\">\n              <i class=\"mdi mdi-format-list-bulleted menu-icon\"></i>\n              <span class=\"menu-title\">All Templates</span>\n            </a>\n          </li>\n        </ul>\n      </div>\n    </li>\n    <li class=\"nav-item\">\n      <a class=\"nav-link\" data-toggle=\"collapse\" href=\"#section\" aria-expanded=\"false\" aria-controls=\"section\">\n        <i class=\"mdi mdi-file-check-outline menu-icon\"></i>\n        <span class=\"menu-title\">Form Section</span>\n        <i class=\"menu-arrow\"></i>\n      </a>\n      <div class=\"collapse\" id=\"section\">\n        <ul class=\"nav flex-column sub-menu\">\n          <li class=\"nav-item\">\n            <a class=\"nav-link\" routerLink=\"/git_admin/create/section\">\n              <i class=\"mdi mdi-plus menu-icon\"></i>\n              <span class=\"menu-title\">Create Section</span>\n            </a>\n          </li>\n          <li class=\"nav-item\">\n            <a class=\"nav-link\" routerLink=\"/git_admin/lists/section\">\n              <i class=\"mdi mdi-desktop-mac menu-icon\"></i>\n              <span class=\"menu-title\">View Section</span>\n            </a>\n          </li>\n        </ul>\n      </div>\n    </li>\n    <li class=\"nav-item\">\n      <a class=\"nav-link\" data-toggle=\"collapse\" href=\"#account\" aria-expanded=\"false\" aria-controls=\"account\">\n        <i class=\"mdi mdi-account-group-outline menu-icon\"></i>\n        <span class=\"menu-title\">Accounts</span>\n        <i class=\"menu-arrow\"></i>\n      </a>\n      <div class=\"collapse\" id=\"account\">\n        <ul class=\"nav flex-column sub-menu\">\n          <li class=\"nav-item\">\n            <a class=\"nav-link\" routerLink=\"/git_admin/create/user_account\">\n              <i class=\"mdi mdi-plus menu-icon\"></i>\n              <span class=\"menu-title\">Setup Account</span>\n            </a>\n          </li>\n          <li class=\"nav-item\">\n            <a class=\"nav-link\" routerLink=\"/git_admin/lists/front_desk\">\n              <i class=\"mdi mdi-desktop-mac menu-icon\"></i>\n              <span class=\"menu-title\">Front Desks</span>\n            </a>\n          </li>\n          <li class=\"nav-item\">\n            <a class=\"nav-link\" routerLink=\"/git_admin/lists/admin\">\n              <i class=\"mdi mdi-account-supervisor menu-icon\"></i>\n              <span class=\"menu-title\">GIT Admins</span>\n            </a>\n          </li>\n          <li class=\"nav-item\">\n            <a class=\"nav-link\" routerLink=\"/git_admin/lists/branch_admin\">\n              <i class=\"mdi mdi-leaf-maple menu-icon\"></i>\n              <span class=\"menu-title\">Branch Admins</span>\n            </a>\n          </li>\n          <li class=\"nav-item\">\n            <a class=\"nav-link\" routerLink=\"/git_admin/lists/company_admin\">\n              <i class=\"mdi mdi-lighthouse menu-icon\"></i>\n              <span class=\"menu-title\">Company Admins</span>\n            </a>\n          </li>\n          <li class=\"nav-item\">\n            <a class=\"nav-link\" routerLink=\"/git_admin/lists/branch_executive\">\n              <i class=\"mdi mdi-script-outline menu-icon\"></i>\n              <span class=\"menu-title\">Branch Super-Executives</span>\n            </a>\n          </li>\n          <li class=\"nav-item\">\n            <a class=\"nav-link\" routerLink=\"/git_admin/lists/super_executive\">\n              <i class=\"mdi mdi-view-dashboard-outline menu-icon\"></i>\n              <span class=\"menu-title\">Super Executives</span>\n            </a>\n          </li>\n        </ul>\n      </div>\n    </li>\n    <li class=\"nav-item\">\n      <a class=\"nav-link\" data-toggle=\"collapse\" href=\"#company\" aria-expanded=\"false\" aria-controls=\"company\">\n        <i class=\"mdi mdi-lighthouse menu-icon\"></i>\n        <span class=\"menu-title\">Company</span>\n        <i class=\"menu-arrow\"></i>\n      </a>\n      <div class=\"collapse\" id=\"company\">\n        <ul class=\"nav flex-column sub-menu\">\n          <li class=\"nav-item\">\n            <a class=\"nav-link\" routerLink=\"/git_admin/create/company\">\n              <i class=\"mdi mdi-plus-circle-multiple-outline menu-icon\"></i>\n              <span class=\"menu-title\">Create New</span>\n            </a>\n          </li>\n          <li class=\"nav-item\">\n            <a class=\"nav-link\" routerLink=\"/git_admin/lists/company\">\n              <i class=\"mdi mdi-format-list-bulleted-square menu-icon\"></i>\n              <span class=\"menu-title\">View Companies</span>\n            </a>\n          </li>\n        </ul>\n      </div>\n    </li>\n    <li class=\"nav-item\">\n      <a class=\"nav-link\" data-toggle=\"collapse\" href=\"#branches\" aria-expanded=\"false\" aria-controls=\"branches\">\n        <i class=\"mdi mdi-view-headline menu-icon\"></i>\n        <span class=\"menu-title\">Branches</span>\n        <i class=\"menu-arrow\"></i>\n      </a>\n      <div class=\"collapse\" id=\"branches\">\n        <ul class=\"nav flex-column sub-menu\">\n          <li class=\"nav-item\">\n            <a class=\"nav-link\" routerLink=\"/git_admin/create/branch\">\n              <i class=\"mdi mdi-plus-circle-multiple-outline menu-icon\"></i>\n              <span class=\"menu-title\">Create New</span>\n            </a>\n          </li>\n          <li class=\"nav-item\">\n            <a class=\"nav-link\" routerLink=\"/git_admin/lists/branch\">\n              <i class=\"mdi mdi-format-list-numbered menu-icon\"></i>\n              <span class=\"menu-title\">View Branches</span>\n            </a>\n          </li>\n        </ul>\n      </div>\n    </li>\n  </ul>\n</nav>\n<!-- git-admin -->\n\n<!-- comp admin -->\n<nav *ngIf=\"isAdmin || isBranchAdmin\" class=\"sidebar sidebar-offcanvas\" id=\"sidebar\">\n  <ul class=\"nav\">\n    <li class=\"nav-item\">\n      <a class=\"nav-link\" routerLink=\"/admin\">\n        <i class=\"mdi mdi-home menu-icon\"></i>\n        <span class=\"menu-title\">Home</span>\n      </a>\n    </li>\n    <li *ngIf=\"isAdmin\" class=\" nav-item\">\n      <a class=\"nav-link\" routerLink=\"/admin/create/form\">\n        <i class=\"mdi mdi-file-document-edit-outline menu-icon\"></i>\n        <span class=\"menu-title\">New Form</span>\n      </a>\n    </li>\n    <li class=\"nav-item\">\n      <a class=\"nav-link\" routerLink=\"/admin/lists/form\">\n        <i class=\"mdi mdi-file-document-box-outline menu-icon\"></i>\n        <span class=\"menu-title\">All Forms</span>\n      </a>\n    </li>\n    <li class=\"nav-item\">\n      <a class=\"nav-link\" routerLink=\"/templates/list\">\n        <i class=\"mdi mdi-format-list-bulleted menu-icon\"></i>\n        <span class=\"menu-title\">All Templates</span>\n      </a>\n    </li>\n    <li class=\"nav-item\">\n      <a class=\"nav-link\" data-toggle=\"collapse\" href=\"#account\" aria-expanded=\"false\" aria-controls=\"account\">\n        <i class=\"mdi mdi-account-group-outline menu-icon\"></i>\n        <span class=\"menu-title\">Accounts</span>\n        <i class=\"menu-arrow\"></i>\n      </a>\n      <div class=\"collapse\" id=\"account\">\n        <ul class=\"nav flex-column sub-menu\">\n          <li class=\"nav-item\">\n            <a class=\"nav-link\" routerLink=\"/admin/create/account\">\n              <i class=\"mdi mdi-plus menu-icon\"></i>\n              <span class=\"menu-title\">Setup Account</span>\n            </a>\n          </li>\n          <li class=\"nav-item\">\n            <a class=\"nav-link\" routerLink=\"/admin/lists/account\">\n              <i class=\"mdi mdi-desktop-mac menu-icon\"></i>\n              <span class=\"menu-title\">Front Desks</span>\n            </a>\n          </li>\n        </ul>\n      </div>\n    </li>\n    <li class=\"nav-item\">\n      <a class=\"nav-link\" routerLink=\"/admin/lists/branch\">\n        <i class=\"mdi mdi-view-headline menu-icon\"></i>\n        <span class=\"menu-title\">View Branches</span>\n      </a>\n    </li>\n  </ul>\n</nav>\n<!-- /.comp admin -->\n\n<!-- client -->\n<nav *ngIf=\"isClient\" class=\"sidebar sidebar-offcanvas\" id=\"sidebar\">\n  <ul class=\"nav\">\n    <li class=\"nav-item\">\n      <a class=\"nav-link\" routerLink=\"/client\">\n        <i class=\"mdi mdi-home menu-icon\"></i>\n        <span class=\"menu-title\">Home</span>\n      </a>\n    </li>\n    <li class=\"nav-item\">\n      <a class=\"nav-link\" routerLink=\"/client/form_merchant\">\n        <i class=\"mdi mdi-plus menu-icon\"></i>\n        <span class=\"menu-title\">Pick A Form</span>\n      </a>\n    </li>\n    <li class=\"nav-item\">\n      <a class=\"nav-link\" routerLink=\"/client/profile\">\n        <i class=\"mdi mdi-account-card-details-outline menu-icon\"></i>\n        <span class=\"menu-title\">My Profile</span>\n      </a>\n    </li>\n    <li class=\"nav-item\">\n      <a class=\"nav-link\" routerLink=\"/client/forms_filled\">\n        <i class=\"mdi mdi-rocket menu-icon\"></i>\n        <span class=\"menu-title\">My History</span>\n      </a>\n    </li>\n    <li class=\"nav-item\">\n      <a class=\"nav-link\" routerLink=\"/client/unsent_forms\">\n        <i class=\"mdi mdi-file-document-box-multiple-outline menu-icon\"></i>\n        <span class=\"menu-title\">Submitted Forms</span>\n      </a>\n    </li>\n  </ul>\n</nav>\n<!-- /.client sidemenu -->\n\n<!-- front-desk -->\n<nav *ngIf=\"isFrontDesk\" class=\"sidebar sidebar-offcanvas\" id=\"sidebar\">\n  <ul class=\"nav\">\n    <li class=\"nav-item\">\n      <a class=\"nav-link\" routerLink=\"/front_desk\">\n        <i class=\"mdi mdi-home menu-icon\"></i>\n        <span class=\"menu-title\">Home</span>\n      </a>\n    </li>\n    <li class=\"nav-item\">\n      <a class=\"nav-link\" routerLink=\"/front_desk/lists/submitted\">\n        <i class=\"mdi mdi-file-document-edit-outline menu-icon\"></i>\n        <span class=\"menu-title\">History</span>\n      </a>\n    </li>\n    <li class=\"nav-item\">\n      <a class=\"nav-link\" routerLink=\"/front_desk/lists/processed\">\n        <i class=\"mdi mdi-file-document-edit-outline menu-icon\"></i>\n        <span class=\"menu-title\">Processed Forms</span>\n      </a>\n    </li>\n    <li class=\"nav-item\">\n      <a class=\"nav-link\" routerLink=\"/front_desk/lists/processing\">\n        <i class=\"mdi mdi-file-document-edit-outline menu-icon\"></i>\n        <span class=\"menu-title\">Forms In-Processing</span>\n      </a>\n    </li>\n  </ul>\n</nav>\n<!-- /.front-desk -->\n\n<!-- executive -->\n<nav *ngIf=\"isExecutive || isBranchSuperExec\" class=\"sidebar sidebar-offcanvas\" id=\"sidebar\">\n  <ul class=\"nav\">\n    <li class=\"nav-item\">\n      <a class=\"nav-link\" routerLink=\"/executive\">\n        <i class=\"mdi mdi-home menu-icon\"></i>\n        <span class=\"menu-title\">Home</span>\n      </a>\n    </li>\n    <li class=\"nav-item\">\n      <a class=\"nav-link\" routerLink=\"/executive/forms\">\n        <i class=\"mdi mdi-file-document-box-multiple-outline menu-icon\"></i>\n        <span class=\"menu-title\">Forms</span>\n      </a>\n    </li>\n    <li class=\"nav-item\">\n      <a class=\"nav-link\" routerLink=\"/executive/branches\">\n        <i class=\"mdi mdi-office-building menu-icon\"></i>\n        <span class=\"menu-title\">Branches</span>\n      </a>\n    </li>\n    <li class=\"nav-item\">\n      <a class=\"nav-link\" routerLink=\"/executive/processed\">\n        <i class=\"mdi mdi-check-all menu-icon\"></i>\n        <span class=\"menu-title\">Processed Forms</span>\n      </a>\n    </li>\n    <li class=\"nav-item\">\n      <a class=\"nav-link\" routerLink=\"/executive/submitted\">\n        <i class=\"mdi mdi-file-check-outline menu-icon\"></i>\n        <span class=\"menu-title\">Submitted Forms</span>\n      </a>\n    </li>\n    <li class=\"nav-item\">\n      <a class=\"nav-link\" routerLink=\"/executive/processing\">\n        <i class=\"mdi mdi-timer menu-icon\"></i>\n        <span class=\"menu-title\">Forms In-Processing</span>\n      </a>\n    </li>\n  </ul>\n</nav>\n<!-- /.executive -->"
+module.exports = "<!-- git admin -->\n<nav *ngIf=\"isGitAdmin\" class=\"sidebar sidebar-offcanvas\" id=\"sidebar\">\n  <ul class=\"nav\">\n    <li class=\"nav-item\">\n      <a class=\"nav-link\" routerLink=\"/git_admin\">\n        <i class=\"mdi mdi-home menu-icon\"></i>\n        <span class=\"menu-title\">Home</span>\n      </a>\n    </li>\n    <li class=\"nav-item\">\n      <a class=\"nav-link\" routerLink=\"/git_admin/setup_form\">\n        <i class=\"mdi mdi-file-document-edit-outline menu-icon\"></i>\n        <span class=\"menu-title\">New Form</span>\n      </a>\n    </li>\n    <li class=\"nav-item\">\n      <a class=\"nav-link\" routerLink=\"/git_admin/lists/form\">\n        <i class=\"mdi mdi-file-document-box-outline menu-icon\"></i>\n        <span class=\"menu-title\">All Forms</span>\n      </a>\n    </li>\n    <li class=\"nav-item\">\n      <a class=\"nav-link\" data-toggle=\"collapse\" href=\"#code\" aria-expanded=\"false\" aria-controls=\"code\">\n        <i class=\"mdi mdi-lock-outline menu-icon\"></i>\n        <span class=\"menu-title\">Access Code</span>\n        <i class=\"menu-arrow\"></i>\n      </a>\n      <div class=\"collapse\" id=\"code\">\n        <ul class=\"nav flex-column sub-menu\">\n          <li class=\"nav-item\">\n            <a class=\"nav-link\" routerLink=\"/git_admin/create/access_code\">\n              <i class=\"mdi mdi-plus-circle-multiple-outline menu-icon\"></i>\n              <span class=\"menu-title\">Create New</span>\n            </a>\n          </li>\n          <li class=\"nav-item\">\n            <a class=\"nav-link\" routerLink=\"/git_admin/lists/access_code\">\n              <i class=\"mdi mdi-format-list-bulleted menu-icon\"></i>\n              <span class=\"menu-title\">View Code</span>\n            </a>\n          </li>\n        </ul>\n      </div>\n    </li>\n    <li class=\"nav-item\">\n      <a class=\"nav-link\" data-toggle=\"collapse\" href=\"#template\" aria-expanded=\"false\" aria-controls=\"template\">\n        <i class=\"mdi mdi-file-document-box-multiple-outline menu-icon\"></i>\n        <span class=\"menu-title\">Templates</span>\n        <i class=\"menu-arrow\"></i>\n      </a>\n      <div class=\"collapse\" id=\"template\">\n        <ul class=\"nav flex-column sub-menu\">\n          <li class=\"nav-item\">\n            <a class=\"nav-link\" routerLink=\"/templates/create\">\n              <i class=\"mdi mdi-plus-outline menu-icon\"></i>\n              <span class=\"menu-title\">Create Template</span>\n            </a>\n          </li>\n          <li class=\"nav-item\">\n            <a class=\"nav-link\" routerLink=\"/templates/list\">\n              <i class=\"mdi mdi-format-list-bulleted menu-icon\"></i>\n              <span class=\"menu-title\">All Templates</span>\n            </a>\n          </li>\n        </ul>\n      </div>\n    </li>\n    <li class=\"nav-item\">\n      <a class=\"nav-link\" data-toggle=\"collapse\" href=\"#section\" aria-expanded=\"false\" aria-controls=\"section\">\n        <i class=\"mdi mdi-file-check-outline menu-icon\"></i>\n        <span class=\"menu-title\">Form Section</span>\n        <i class=\"menu-arrow\"></i>\n      </a>\n      <div class=\"collapse\" id=\"section\">\n        <ul class=\"nav flex-column sub-menu\">\n          <li class=\"nav-item\">\n            <a class=\"nav-link\" routerLink=\"/git_admin/create/section\">\n              <i class=\"mdi mdi-plus menu-icon\"></i>\n              <span class=\"menu-title\">Create Section</span>\n            </a>\n          </li>\n          <li class=\"nav-item\">\n            <a class=\"nav-link\" routerLink=\"/git_admin/lists/section\">\n              <i class=\"mdi mdi-desktop-mac menu-icon\"></i>\n              <span class=\"menu-title\">View Section</span>\n            </a>\n          </li>\n        </ul>\n      </div>\n    </li>\n    <li class=\"nav-item\">\n      <a class=\"nav-link\" data-toggle=\"collapse\" href=\"#account\" aria-expanded=\"false\" aria-controls=\"account\">\n        <i class=\"mdi mdi-account-group-outline menu-icon\"></i>\n        <span class=\"menu-title\">Accounts</span>\n        <i class=\"menu-arrow\"></i>\n      </a>\n      <div class=\"collapse\" id=\"account\">\n        <ul class=\"nav flex-column sub-menu\">\n          <li class=\"nav-item\">\n            <a class=\"nav-link\" routerLink=\"/git_admin/create/user_account\">\n              <i class=\"mdi mdi-plus menu-icon\"></i>\n              <span class=\"menu-title\">Setup Account</span>\n            </a>\n          </li>\n          <li class=\"nav-item\">\n            <a class=\"nav-link\" routerLink=\"/git_admin/lists/front_desk\">\n              <i class=\"mdi mdi-desktop-mac menu-icon\"></i>\n              <span class=\"menu-title\">Front Desks</span>\n            </a>\n          </li>\n          <li class=\"nav-item\">\n            <a class=\"nav-link\" routerLink=\"/git_admin/lists/admin\">\n              <i class=\"mdi mdi-account-supervisor menu-icon\"></i>\n              <span class=\"menu-title\">GIT Admins</span>\n            </a>\n          </li>\n          <li class=\"nav-item\">\n            <a class=\"nav-link\" routerLink=\"/git_admin/lists/branch_admin\">\n              <i class=\"mdi mdi-leaf-maple menu-icon\"></i>\n              <span class=\"menu-title\">Branch Admins</span>\n            </a>\n          </li>\n          <li class=\"nav-item\">\n            <a class=\"nav-link\" routerLink=\"/git_admin/lists/company_admin\">\n              <i class=\"mdi mdi-lighthouse menu-icon\"></i>\n              <span class=\"menu-title\">Company Admins</span>\n            </a>\n          </li>\n          <li class=\"nav-item\">\n            <a class=\"nav-link\" routerLink=\"/git_admin/lists/branch_executive\">\n              <i class=\"mdi mdi-script-outline menu-icon\"></i>\n              <span class=\"menu-title\">Branch Super-Executives</span>\n            </a>\n          </li>\n          <li class=\"nav-item\">\n            <a class=\"nav-link\" routerLink=\"/git_admin/lists/super_executive\">\n              <i class=\"mdi mdi-view-dashboard-outline menu-icon\"></i>\n              <span class=\"menu-title\">Super Executives</span>\n            </a>\n          </li>\n        </ul>\n      </div>\n    </li>\n    <li class=\"nav-item\">\n      <a class=\"nav-link\" data-toggle=\"collapse\" href=\"#company\" aria-expanded=\"false\" aria-controls=\"company\">\n        <i class=\"mdi mdi-lighthouse menu-icon\"></i>\n        <span class=\"menu-title\">Company</span>\n        <i class=\"menu-arrow\"></i>\n      </a>\n      <div class=\"collapse\" id=\"company\">\n        <ul class=\"nav flex-column sub-menu\">\n          <li class=\"nav-item\">\n            <a class=\"nav-link\" routerLink=\"/git_admin/create/company\">\n              <i class=\"mdi mdi-plus-circle-multiple-outline menu-icon\"></i>\n              <span class=\"menu-title\">Create New</span>\n            </a>\n          </li>\n          <li class=\"nav-item\">\n            <a class=\"nav-link\" routerLink=\"/git_admin/lists/company\">\n              <i class=\"mdi mdi-format-list-bulleted-square menu-icon\"></i>\n              <span class=\"menu-title\">View Companies</span>\n            </a>\n          </li>\n        </ul>\n      </div>\n    </li>\n    <li class=\"nav-item\">\n      <a class=\"nav-link\" data-toggle=\"collapse\" href=\"#branches\" aria-expanded=\"false\" aria-controls=\"branches\">\n        <i class=\"mdi mdi-view-headline menu-icon\"></i>\n        <span class=\"menu-title\">Branches</span>\n        <i class=\"menu-arrow\"></i>\n      </a>\n      <div class=\"collapse\" id=\"branches\">\n        <ul class=\"nav flex-column sub-menu\">\n          <li class=\"nav-item\">\n            <a class=\"nav-link\" routerLink=\"/git_admin/create/branch\">\n              <i class=\"mdi mdi-plus-circle-multiple-outline menu-icon\"></i>\n              <span class=\"menu-title\">Create New</span>\n            </a>\n          </li>\n          <li class=\"nav-item\">\n            <a class=\"nav-link\" routerLink=\"/git_admin/lists/branch\">\n              <i class=\"mdi mdi-format-list-numbered menu-icon\"></i>\n              <span class=\"menu-title\">View Branches</span>\n            </a>\n          </li>\n        </ul>\n      </div>\n    </li>\n  </ul>\n</nav>\n<!-- git-admin -->\n\n<!-- comp admin -->\n<nav *ngIf=\"isAdmin || isBranchAdmin\" class=\"sidebar sidebar-offcanvas\" id=\"sidebar\">\n  <ul class=\"nav\">\n    <li class=\"nav-item\">\n      <a class=\"nav-link\" routerLink=\"/admin\">\n        <i class=\"mdi mdi-home menu-icon\"></i>\n        <span class=\"menu-title\">Home</span>\n      </a>\n    </li>\n    <li *ngIf=\"isAdmin\" class=\" nav-item\">\n      <a class=\"nav-link\" routerLink=\"/admin/create/form\">\n        <i class=\"mdi mdi-file-document-edit-outline menu-icon\"></i>\n        <span class=\"menu-title\">New Form</span>\n      </a>\n    </li>\n    <li class=\"nav-item\">\n      <a class=\"nav-link\" routerLink=\"/admin/lists/form\">\n        <i class=\"mdi mdi-file-document-box-outline menu-icon\"></i>\n        <span class=\"menu-title\">All Forms</span>\n      </a>\n    </li>\n    <li class=\"nav-item\">\n      <a class=\"nav-link\" routerLink=\"/templates/list\">\n        <i class=\"mdi mdi-format-list-bulleted menu-icon\"></i>\n        <span class=\"menu-title\">All Templates</span>\n      </a>\n    </li>\n    <li class=\"nav-item\">\n      <a class=\"nav-link\" data-toggle=\"collapse\" href=\"#account\" aria-expanded=\"false\" aria-controls=\"account\">\n        <i class=\"mdi mdi-account-group-outline menu-icon\"></i>\n        <span class=\"menu-title\">Accounts</span>\n        <i class=\"menu-arrow\"></i>\n      </a>\n      <div class=\"collapse\" id=\"account\">\n        <ul class=\"nav flex-column sub-menu\">\n          <li class=\"nav-item\">\n            <a class=\"nav-link\" routerLink=\"/admin/create/account\">\n              <i class=\"mdi mdi-plus menu-icon\"></i>\n              <span class=\"menu-title\">Setup Account</span>\n            </a>\n          </li>\n          <li class=\"nav-item\">\n            <a class=\"nav-link\" routerLink=\"/admin/lists/front_desk\">\n              <i class=\"mdi mdi-desktop-mac menu-icon\"></i>\n              <span class=\"menu-title\">Front Desks</span>\n            </a>\n          </li>\n          <li class=\"nav-item\">\n            <a class=\"nav-link\" routerLink=\"/admin/lists/branch_admin\">\n              <i class=\"mdi mdi-leaf-maple menu-icon\"></i>\n              <span class=\"menu-title\">Branch Admins</span>\n            </a>\n          </li>\n          <li class=\"nav-item\">\n            <a class=\"nav-link\" routerLink=\"/admin/lists/company_admin\">\n              <i class=\"mdi mdi-lighthouse menu-icon\"></i>\n              <span class=\"menu-title\">Company Admins</span>\n            </a>\n          </li>\n          <li class=\"nav-item\">\n            <a class=\"nav-link\" routerLink=\"/admin/lists/branch_executive\">\n              <i class=\"mdi mdi-script-outline menu-icon\"></i>\n              <span class=\"menu-title\">Branch Super-Executives</span>\n            </a>\n          </li>\n          <li class=\"nav-item\">\n            <a class=\"nav-link\" routerLink=\"/admin/lists/super_executive\">\n              <i class=\"mdi mdi-view-dashboard-outline menu-icon\"></i>\n              <span class=\"menu-title\">Super Executives</span>\n            </a>\n          </li>\n        </ul>\n      </div>\n    </li>\n    <li class=\"nav-item\">\n      <a class=\"nav-link\" routerLink=\"/admin/lists/branch\">\n        <i class=\"mdi mdi-view-headline menu-icon\"></i>\n        <span class=\"menu-title\">View Branches</span>\n      </a>\n    </li>\n  </ul>\n</nav>\n<!-- /.comp admin -->\n\n<!-- client -->\n<nav *ngIf=\"isClient\" class=\"sidebar sidebar-offcanvas\" id=\"sidebar\">\n  <ul class=\"nav\">\n    <li class=\"nav-item\">\n      <a class=\"nav-link\" routerLink=\"/client\">\n        <i class=\"mdi mdi-home menu-icon\"></i>\n        <span class=\"menu-title\">Home</span>\n      </a>\n    </li>\n    <li class=\"nav-item\">\n      <a class=\"nav-link\" routerLink=\"/client/form_merchant\">\n        <i class=\"mdi mdi-plus menu-icon\"></i>\n        <span class=\"menu-title\">Pick A Form</span>\n      </a>\n    </li>\n    <li class=\"nav-item\">\n      <a class=\"nav-link\" routerLink=\"/client/profile\">\n        <i class=\"mdi mdi-account-card-details-outline menu-icon\"></i>\n        <span class=\"menu-title\">My Profile</span>\n      </a>\n    </li>\n    <li class=\"nav-item\">\n      <a class=\"nav-link\" routerLink=\"/client/forms_filled\">\n        <i class=\"mdi mdi-rocket menu-icon\"></i>\n        <span class=\"menu-title\">My History</span>\n      </a>\n    </li>\n    <li class=\"nav-item\">\n      <a class=\"nav-link\" routerLink=\"/client/unsent_forms\">\n        <i class=\"mdi mdi-file-document-box-multiple-outline menu-icon\"></i>\n        <span class=\"menu-title\">Submitted Forms</span>\n      </a>\n    </li>\n  </ul>\n</nav>\n<!-- /.client sidemenu -->\n\n<!-- front-desk -->\n<nav *ngIf=\"isFrontDesk\" class=\"sidebar sidebar-offcanvas\" id=\"sidebar\">\n  <ul class=\"nav\">\n    <li class=\"nav-item\">\n      <a class=\"nav-link\" routerLink=\"/front_desk\">\n        <i class=\"mdi mdi-home menu-icon\"></i>\n        <span class=\"menu-title\">Home</span>\n      </a>\n    </li>\n    <li class=\"nav-item\">\n      <a class=\"nav-link\" routerLink=\"/front_desk/lists/submitted\">\n        <i class=\"mdi mdi-file-document-edit-outline menu-icon\"></i>\n        <span class=\"menu-title\">History</span>\n      </a>\n    </li>\n    <li class=\"nav-item\">\n      <a class=\"nav-link\" routerLink=\"/front_desk/lists/processed\">\n        <i class=\"mdi mdi-file-document-edit-outline menu-icon\"></i>\n        <span class=\"menu-title\">Processed Forms</span>\n      </a>\n    </li>\n    <li class=\"nav-item\">\n      <a class=\"nav-link\" routerLink=\"/front_desk/lists/processing\">\n        <i class=\"mdi mdi-file-document-edit-outline menu-icon\"></i>\n        <span class=\"menu-title\">Forms In-Processing</span>\n      </a>\n    </li>\n  </ul>\n</nav>\n<!-- /.front-desk -->\n\n<!-- executive -->\n<nav *ngIf=\"isExecutive || isBranchSuperExec\" class=\"sidebar sidebar-offcanvas\" id=\"sidebar\">\n  <ul class=\"nav\">\n    <li class=\"nav-item\">\n      <a class=\"nav-link\" routerLink=\"/executive\">\n        <i class=\"mdi mdi-home menu-icon\"></i>\n        <span class=\"menu-title\">Home</span>\n      </a>\n    </li>\n    <li class=\"nav-item\">\n      <a class=\"nav-link\" routerLink=\"/executive/forms\">\n        <i class=\"mdi mdi-file-document-box-multiple-outline menu-icon\"></i>\n        <span class=\"menu-title\">Forms</span>\n      </a>\n    </li>\n    <li class=\"nav-item\">\n      <a class=\"nav-link\" routerLink=\"/executive/branches\">\n        <i class=\"mdi mdi-office-building menu-icon\"></i>\n        <span class=\"menu-title\">Branches</span>\n      </a>\n    </li>\n    <li class=\"nav-item\">\n      <a class=\"nav-link\" routerLink=\"/executive/processed\">\n        <i class=\"mdi mdi-check-all menu-icon\"></i>\n        <span class=\"menu-title\">Processed Forms</span>\n      </a>\n    </li>\n    <li class=\"nav-item\">\n      <a class=\"nav-link\" routerLink=\"/executive/submitted\">\n        <i class=\"mdi mdi-file-check-outline menu-icon\"></i>\n        <span class=\"menu-title\">Submitted Forms</span>\n      </a>\n    </li>\n    <li class=\"nav-item\">\n      <a class=\"nav-link\" routerLink=\"/executive/processing\">\n        <i class=\"mdi mdi-timer menu-icon\"></i>\n        <span class=\"menu-title\">Forms In-Processing</span>\n      </a>\n    </li>\n  </ul>\n</nav>\n<!-- /.executive -->"
 
 /***/ }),
 
@@ -492,7 +492,18 @@ module.exports = "<div class=\"container-scroller\">\n  <app-navigation-bar></ap
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<div class=\"container-scroller\">\n  <app-navigation-bar></app-navigation-bar>\n  <div class=\"container-fluid page-body-wrapper\">\n    <app-side-bar></app-side-bar>\n    <div class=\"main-panel\">\n      <div class=\"content-wrapper\">\n        <div class=\"row\">\n          <div class=\"col-md-12 grid-margin\">\n            <div class=\"d-flex justify-content-between flex-wrap\">\n              <div class=\"d-flex align-items-end flex-wrap\">\n                <div class=\"mr-md-3 mr-xl-5\">\n                  <h2>Account Details</h2>\n                  <p class=\"mb-md-0\">Your administrative dashboard.</p>\n                </div>\n                <div class=\"d-flex\">\n                </div>\n              </div>\n              <div class=\"d-flex justify-content-between align-items-end flex-wrap\">\n              </div>\n            </div>\n          </div>\n        </div>\n\n        <div *ngIf=\"!loading\" class=\"row\">\n          <div class=\"col-lg-12 grid-margin stretch-card\">\n            <div class=\"card\">\n              <div class=\"card-body\">\n                <div class=\"card-text\">\n                  <div class=\"container\">\n                    <div class=\"row\">\n                      <div class=\"col-6 col-md-6 offset-2 offset-md-2\">\n                        <h1 class=\"display-3\">{{ accountType }}</h1>\n                      </div>\n                      <div class=\"col-4 col-md-4\">\n                        <button *ngIf=\"!_loading\" class=\"btn btn-outline-secondary mr-2\" [ngClass]=\"{'active': isActive}\" (click)=\"accountActivation()\">Active</button>\n                        <button *ngIf=\"_loading\" class=\"btn btn-primary\" type=\"button\" disabled>\n                          <span class=\"spinner-border spinner-border-sm\" role=\"status\" aria-hidden=\"true\"></span>\n                          Loading...\n                        </button>\n                        <button class=\"btn btn-outline-secondary btn-icon-text\" (click)=\"edit(user.id)\">\n                          <i class=\"mdi mdi-pencil-outline\"></i>\n                          Edit\n                        </button>\n                      </div>\n                    </div>\n                    <!-- <div class=\"row account-details ml-5 mt-5\">\n                      <div class=\"col-3 col-md-3 offset-1 offset-md-1\">\n                        <h5>First Name :</h5>\n                      </div>\n                      <div class=\"col-7 col-md-7\">\n                        <h5>{{ user.firstname }}</h5>\n                      </div>\n                      <div class=\"col-3 col-md-3 offset-1 offset-md-1\">\n                        <h5>Last Name :</h5>\n                      </div>\n                      <div class=\"col-7 col-md-7\">\n                        <h5>{{ user.lastname }}</h5>\n                      </div>\n                      <div class=\"col-3 col-md-3 offset-1 offset-md-1\">\n                        <h5>Username :</h5>\n                      </div>\n                      <div class=\"col-7 col-md-7\">\n                        <h5>{{ user.username }}</h5>\n                      </div>\n                      <div class=\"col-3 col-md-3 offset-1 offset-md-1\">\n                        <h5>Email Address :</h5>\n                      </div>\n                      <div class=\"col-7 col-md-7\">\n                        <h5>{{ user.email }}</h5>\n                      </div>\n                      <div class=\"col-3 col-md-3 offset-1 offset-md-1\">\n                        <h5>Country :</h5>\n                      </div>\n                      <div class=\"col-7 col-md-7\">\n                        <h5>{{ user.country }}</h5>\n                      </div>\n                      <div class=\"col-3 col-md-3 offset-1 offset-md-1\">\n                        <h5>Company Name :</h5>\n                      </div>\n                      <div class=\"col-7 col-md-7\">\n                        <h5>{{ user.merchant_name }}</h5>\n                      </div>\n                      <div class=\"col-3 col-md-3 offset-1 offset-md-1\">\n                        <h5>Branch Name :</h5>\n                      </div>\n                      <div class=\"col-7 col-md-7\">\n                        <h5>{{ user.branch_name }}</h5>\n                      </div>\n                      <div class=\"col-3 col-md-3 offset-1 offset-md-1\">\n                        <h5>User Type :</h5>\n                      </div>\n                      <div class=\"col-7 col-md-7\">\n                        <h5>{{ accountType }}</h5>\n                      </div>\n                      <div class=\"col-3 col-md-3 offset-1 offset-md-1\">\n                        <h5>Last Login :</h5>\n                      </div>\n                      <div class=\"col-7 col-md-7\">\n                        <h5>{{ user.last_login_at | date }}</h5>\n                      </div>\n                      <div class=\"col-3 col-md-3 offset-1 offset-md-1\">\n                        <h5>Account Created On :</h5>\n                      </div>\n                      <div class=\"col-7 col-md-7\">\n                        <h5>{{ user.created_at | date }}</h5>\n                      </div>\n                      <div class=\"col-3 col-md-3 offset-1 offset-md-1\">\n                        <h5>Last Updated On :</h5>\n                      </div>\n                      <div class=\"col-7 col-md-7\">\n                        <h5>{{ user.updated_at | date }}</h5>\n                      </div>\n                    </div> -->\n                    <div class=\"row account-details ml-5 mt-5\">\n                      <div class=\"col-12\">\n                        <div class=\"accordion mt-3\" id=\"accordionExample\">\n                          <div class=\"card\">\n                            <div class=\"card-header\" id=\"headingOne\">\n                              <h2 class=\"mb-0\">\n                                <button class=\"btn\" type=\"button\" data-toggle=\"collapse\" data-target=\"#collapseOne\"\n                                  aria-expanded=\"true\" aria-controls=\"collapseOne\">\n                                  User Account Details - {{ user.full_name }}\n                                </button>\n                              </h2>\n                            </div>\n                            <div id=\"collapseOne\" class=\"collapse show\" aria-labelledby=\"headingOne\"\n                              data-parent=\"#accordionExample\">\n                              <div class=\"card-body\">\n                                <div class=\"table-responsive\">\n                                  <table class=\"table table-hover\">\n                                    <tbody>\n                                      <tr class=\"hover-cursor\">\n                                        <td><strong>First Name</strong></td>\n                                        <td>{{ user.firstname }}</td>\n                                      </tr>\n                                      <tr class=\"hover-cursor\">\n                                        <td><strong>Last Name</strong></td>\n                                        <td>{{ user.lastname }}</td>\n                                      </tr>\n                                      <tr class=\"hover-cursor\">\n                                        <td><strong>Username</strong></td>\n                                        <td>{{ user.username }}</td>\n                                      </tr>\n                                      <tr class=\"hover-cursor\">\n                                        <td><strong>Email Address</strong></td>\n                                        <td>{{ user.email }}</td>\n                                      </tr>\n                                      <tr class=\"hover-cursor\">\n                                        <td><strong>Country</strong></td>\n                                        <td>{{ user.country }}</td>\n                                      </tr>\n                                      <tr class=\"hover-cursor\">\n                                        <td><strong>User Type</strong></td>\n                                        <td>{{ accountType }}</td>\n                                      </tr>\n                                      <tr class=\"hover-cursor\">\n                                        <td><strong>Last Login on</strong></td>\n                                        <td>{{ user.last_login_at | date:'medium' }}</td>\n                                      </tr>\n                                      <tr class=\"hover-cursor\">\n                                        <td><strong>Create On</strong></td>\n                                        <td>{{ user.created_at | date }}</td>\n                                      </tr>\n                                      <tr class=\"hover-cursor\">\n                                        <td><strong>Updated On</strong></td>\n                                        <td>{{ user.updated_at | date }}</td>\n                                      </tr>\n                                    </tbody>\n                                  </table>\n                                </div>\n                              </div>\n                            </div>\n                          </div>\n                        </div>\n                      </div>\n                    </div>\n                  </div>\n                </div>\n              </div>\n            </div>\n          </div>\n        </div>\n      </div>\n    </div>\n  </div>\n</div>\n"
+module.exports = "<div class=\"container-scroller\">\n  <app-navigation-bar></app-navigation-bar>\n  <div class=\"container-fluid page-body-wrapper\">\n    <app-side-bar></app-side-bar>\n    <div class=\"main-panel\">\n      <div class=\"content-wrapper\">\n        <div class=\"row\">\n          <div class=\"col-md-12 grid-margin\">\n            <div class=\"d-flex justify-content-between flex-wrap\">\n              <div class=\"d-flex align-items-end flex-wrap\">\n                <div class=\"mr-md-3 mr-xl-5\">\n                  <h2>Account Details</h2>\n                  <p class=\"mb-md-0\">Your administrative dashboard.</p>\n                </div>\n                <div class=\"d-flex\">\n                </div>\n              </div>\n              <div class=\"d-flex justify-content-between align-items-end flex-wrap\">\n              </div>\n            </div>\n          </div>\n        </div>\n\n        <div *ngIf=\"!loading\" class=\"row\">\n          <div class=\"col-lg-12 grid-margin stretch-card\">\n            <div class=\"card\">\n              <div class=\"card-body\">\n                <div class=\"card-text\">\n                  <div class=\"container\">\n                    <div class=\"row text-center\">\n                      <div class=\"col-6 col-md-6 offset-3 offset-md-3\">\n                        <h3><strong>{{ user.merchant_name }}</strong></h3>\n                        <h3 class=\"display-3 mt-3 mb-3\">{{ accountType }}</h3>\n                        <!-- <button *ngIf=\"!_loading\" class=\"btn mr-2\"\n                          [ngClass]=\"{'btn-success': isActive, 'btn-danger': !isActive}\" (click)=\"accountActivation()\">\n                          Active\n                        </button>\n                        <button *ngIf=\"!_loading\" class=\"btn mr-2\"\n                          [ngClass]=\"{'btn-success': isActive, 'btn-danger': !isActive}\" (click)=\"accountActivation()\">\n                          Active\n                        </button> -->\n                        <!-- <button *ngIf=\"_loading\" class=\"btn btn-primary\" type=\"button\" disabled>\n                          <span class=\"spinner-border spinner-border-sm\" role=\"status\" aria-hidden=\"true\"></span>\n                          Loading...\n                        </button> -->\n                        <button *ngIf=\"user.user_type == 25\" class=\"btn btn-outline-secondary btn-icon-text\" (click)=\"edit(user.id)\">\n                          <i class=\"mdi mdi-pencil-outline\"></i>\n                          Edit\n                        </button>\n                      </div>\n                    </div>\n                    <div class=\"row account-details ml-5 mt-5\">\n                      <div class=\"col-12\">\n                        <div class=\"accordion mt-3\" id=\"accordionExample\">\n                          <div class=\"card\">\n                            <div class=\"card-header\" id=\"headingOne\">\n                              <h2 class=\"mb-0\">\n                                <button class=\"btn\" type=\"button\" data-toggle=\"collapse\" data-target=\"#collapseOne\"\n                                  aria-expanded=\"true\" aria-controls=\"collapseOne\">\n                                  User Account Details - {{ user.full_name }}\n                                </button>\n                              </h2>\n                            </div>\n                            <div id=\"collapseOne\" class=\"collapse show\" aria-labelledby=\"headingOne\"\n                              data-parent=\"#accordionExample\">\n                              <div class=\"card-body\">\n                                <div class=\"table-responsive\">\n                                  <table class=\"table table-hover\">\n                                    <tbody>\n                                      <tr class=\"hover-cursor\">\n                                        <td><strong>First Name</strong></td>\n                                        <td>{{ user.firstname }}</td>\n                                      </tr>\n                                      <tr class=\"hover-cursor\">\n                                        <td><strong>Last Name</strong></td>\n                                        <td>{{ user.lastname }}</td>\n                                      </tr>\n                                      <tr class=\"hover-cursor\">\n                                        <td><strong>Username</strong></td>\n                                        <td>{{ user.username }}</td>\n                                      </tr>\n                                      <tr class=\"hover-cursor\">\n                                        <td><strong>Email Address</strong></td>\n                                        <td>{{ user.email }}</td>\n                                      </tr>\n                                      <tr class=\"hover-cursor\">\n                                        <td><strong>Country</strong></td>\n                                        <td>{{ user.country }}</td>\n                                      </tr>\n                                      <tr class=\"hover-cursor\">\n                                        <td><strong>Status</strong></td>\n                                        <td *ngIf=\"user.status == 1\">Active</td>\n                                        <td *ngIf=\"user.status == 0\">In Active</td>\n                                      </tr>\n                                      <tr class=\"hover-cursor\">\n                                        <td><strong>User Type</strong></td>\n                                        <td>{{ accountType }}</td>\n                                      </tr>\n                                      <tr class=\"hover-cursor\">\n                                        <td><strong>Last Login on</strong></td>\n                                        <td>{{ user.last_login_at | date:'medium' }}</td>\n                                      </tr>\n                                      <tr class=\"hover-cursor\">\n                                        <td><strong>Create On</strong></td>\n                                        <td>{{ user.created_at | date }}</td>\n                                      </tr>\n                                      <tr class=\"hover-cursor\">\n                                        <td><strong>Updated On</strong></td>\n                                        <td>{{ user.updated_at | date }}</td>\n                                      </tr>\n                                    </tbody>\n                                  </table>\n                                </div>\n                              </div>\n                            </div>\n                          </div>\n                        </div>\n                      </div>\n                    </div>\n                  </div>\n                </div>\n              </div>\n            </div>\n          </div>\n        </div>\n      </div>\n    </div>\n  </div>\n</div>"
+
+/***/ }),
+
+/***/ "./node_modules/raw-loader/index.js!./src/app/pages/dashboard/admin/admin-view-branch-admins-page/admin-view-branch-admins-page.component.html":
+/*!********************************************************************************************************************************************!*\
+  !*** ./node_modules/raw-loader!./src/app/pages/dashboard/admin/admin-view-branch-admins-page/admin-view-branch-admins-page.component.html ***!
+  \********************************************************************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = "<div class=\"container-scroller\">\n  <app-navigation-bar></app-navigation-bar>\n  <div class=\"container-fluid page-body-wrapper\">\n    <app-side-bar></app-side-bar>\n    <div class=\"main-panel\">\n      <div class=\"content-wrapper\">\n        <div class=\"row\">\n          <div class=\"col-md-12 grid-margin\">\n            <div class=\"d-flex justify-content-between flex-wrap\">\n              <div class=\"d-flex align-items-end flex-wrap\">\n                <div class=\"mr-md-3 mr-xl-5\">\n                  <h2>Branch Admin Accounts</h2>\n                  <p class=\"mb-md-0\">Your administrative dashboard.</p>\n                </div>\n                <div class=\"d-flex\">\n                </div>\n              </div>\n              <div class=\"d-flex justify-content-between align-items-end flex-wrap\">\n              </div>\n            </div>\n          </div>\n        </div>\n        <div class=\"row\">\n          <div class=\"col-lg-12 grid-margin stretch-card\">\n            <div class=\"card\">\n              <div class=\"card-body\">\n                <app-view-account-lists-page\n                  [canView]=\"true\"\n                  [canEdit]=\"false\"\n                  [canDelete]=\"false\"\n                  [userType]=\"userType\"\n                  (edit)=\"edit($event)\"\n                  (view)=\"view($event)\"\n                  [branchId]=\"branchId\"\n                  [merchantId]=\"merchantId\"\n                  (delete)=\"delete($event)\"\n                  (dataLoaded)=\"dataLoaded($event)\"\n                  (dataLoadedError)=\"dataLoadedError($event)\">\n                </app-view-account-lists-page>\n              </div>\n            </div>\n          </div>\n        </div>\n      </div>\n    </div>\n  </div>\n</div>"
 
 /***/ }),
 
@@ -507,6 +518,17 @@ module.exports = "<div class=\"container-scroller\">\n  <app-navigation-bar></ap
 
 /***/ }),
 
+/***/ "./node_modules/raw-loader/index.js!./src/app/pages/dashboard/admin/admin-view-branch-executives-page/admin-view-branch-executives-page.component.html":
+/*!****************************************************************************************************************************************************!*\
+  !*** ./node_modules/raw-loader!./src/app/pages/dashboard/admin/admin-view-branch-executives-page/admin-view-branch-executives-page.component.html ***!
+  \****************************************************************************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = "<div class=\"container-scroller\">\n  <app-navigation-bar></app-navigation-bar>\n  <div class=\"container-fluid page-body-wrapper\">\n    <app-side-bar></app-side-bar>\n    <div class=\"main-panel\">\n      <div class=\"content-wrapper\">\n        <div class=\"row\">\n          <div class=\"col-md-12 grid-margin\">\n            <div class=\"d-flex justify-content-between flex-wrap\">\n              <div class=\"d-flex align-items-end flex-wrap\">\n                <div class=\"mr-md-3 mr-xl-5\">\n                  <h2>Branch Executive Accounts</h2>\n                  <p class=\"mb-md-0\">Your administrative dashboard.</p>\n                </div>\n                <div class=\"d-flex\">\n                </div>\n              </div>\n              <div class=\"d-flex justify-content-between align-items-end flex-wrap\">\n              </div>\n            </div>\n          </div>\n        </div>\n        <div class=\"row\">\n          <div class=\"col-lg-12 grid-margin stretch-card\">\n            <div class=\"card\">\n              <div class=\"card-body\">\n                <app-view-account-lists-page\n                  [canView]=\"true\"\n                  [canEdit]=\"false\"\n                  [canDelete]=\"false\"\n                  [userType]=\"userType\"\n                  (edit)=\"edit($event)\"\n                  (view)=\"view($event)\"\n                  [branchId]=\"branchId\"\n                  [merchantId]=\"merchantId\"\n                  (delete)=\"delete($event)\"\n                  (dataLoaded)=\"dataLoaded($event)\"\n                  (dataLoadedError)=\"dataLoadedError($event)\">\n                </app-view-account-lists-page>\n              </div>\n            </div>\n          </div>\n        </div>\n      </div>\n    </div>\n  </div>\n</div>"
+
+/***/ }),
+
 /***/ "./node_modules/raw-loader/index.js!./src/app/pages/dashboard/admin/admin-view-branches-page/admin-view-branches-page.component.html":
 /*!**********************************************************************************************************************************!*\
   !*** ./node_modules/raw-loader!./src/app/pages/dashboard/admin/admin-view-branches-page/admin-view-branches-page.component.html ***!
@@ -518,6 +540,28 @@ module.exports = "<div class=\"container-scroller\">\n  <app-navigation-bar></ap
 
 /***/ }),
 
+/***/ "./node_modules/raw-loader/index.js!./src/app/pages/dashboard/admin/admin-view-company-admins-page/admin-view-company-admins-page.component.html":
+/*!**********************************************************************************************************************************************!*\
+  !*** ./node_modules/raw-loader!./src/app/pages/dashboard/admin/admin-view-company-admins-page/admin-view-company-admins-page.component.html ***!
+  \**********************************************************************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = "<div class=\"container-scroller\">\n  <app-navigation-bar></app-navigation-bar>\n  <div class=\"container-fluid page-body-wrapper\">\n    <app-side-bar></app-side-bar>\n    <div class=\"main-panel\">\n      <div class=\"content-wrapper\">\n        <div class=\"row\">\n          <div class=\"col-md-12 grid-margin\">\n            <div class=\"d-flex justify-content-between flex-wrap\">\n              <div class=\"d-flex align-items-end flex-wrap\">\n                <div class=\"mr-md-3 mr-xl-5\">\n                  <h2>Company Admin Accounts</h2>\n                  <p class=\"mb-md-0\">Your administrative dashboard.</p>\n                </div>\n                <div class=\"d-flex\">\n                </div>\n              </div>\n              <div class=\"d-flex justify-content-between align-items-end flex-wrap\">\n              </div>\n            </div>\n          </div>\n        </div>\n        <div class=\"row\">\n          <div class=\"col-lg-12 grid-margin stretch-card\">\n            <div class=\"card\">\n              <div class=\"card-body\">\n                <app-view-account-lists-page\n                  [canView]=\"true\"\n                  [canEdit]=\"false\"\n                  [canDelete]=\"false\"\n                  [userType]=\"userType\"\n                  (edit)=\"edit($event)\"\n                  (view)=\"view($event)\"\n                  [branchId]=\"branchId\"\n                  [merchantId]=\"merchantId\"\n                  (delete)=\"delete($event)\"\n                  (dataLoaded)=\"dataLoaded($event)\"\n                  (dataLoadedError)=\"dataLoadedError($event)\">\n                </app-view-account-lists-page>\n              </div>\n            </div>\n          </div>\n        </div>\n      </div>\n    </div>\n  </div>\n</div>"
+
+/***/ }),
+
+/***/ "./node_modules/raw-loader/index.js!./src/app/pages/dashboard/admin/admin-view-company-executives-page/admin-view-company-executives-page.component.html":
+/*!******************************************************************************************************************************************************!*\
+  !*** ./node_modules/raw-loader!./src/app/pages/dashboard/admin/admin-view-company-executives-page/admin-view-company-executives-page.component.html ***!
+  \******************************************************************************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = "<div class=\"container-scroller\">\n  <app-navigation-bar></app-navigation-bar>\n  <div class=\"container-fluid page-body-wrapper\">\n    <app-side-bar></app-side-bar>\n    <div class=\"main-panel\">\n      <div class=\"content-wrapper\">\n        <div class=\"row\">\n          <div class=\"col-md-12 grid-margin\">\n            <div class=\"d-flex justify-content-between flex-wrap\">\n              <div class=\"d-flex align-items-end flex-wrap\">\n                <div class=\"mr-md-3 mr-xl-5\">\n                  <h2>Super Executive Accounts</h2>\n                  <p class=\"mb-md-0\">Your administrative dashboard.</p>\n                </div>\n                <div class=\"d-flex\">\n                </div>\n              </div>\n              <div class=\"d-flex justify-content-between align-items-end flex-wrap\">\n              </div>\n            </div>\n          </div>\n        </div>\n        <div class=\"row\">\n          <div class=\"col-lg-12 grid-margin stretch-card\">\n            <div class=\"card\">\n              <div class=\"card-body\">\n                <app-view-account-lists-page\n                  [canView]=\"true\"\n                  [canEdit]=\"false\"\n                  [canDelete]=\"false\"\n                  [userType]=\"userType\"\n                  (edit)=\"edit($event)\"\n                  (view)=\"view($event)\"\n                  [branchId]=\"branchId\"\n                  [merchantId]=\"merchantId\"\n                  (delete)=\"delete($event)\"\n                  (dataLoaded)=\"dataLoaded($event)\"\n                  (dataLoadedError)=\"dataLoadedError($event)\">\n                </app-view-account-lists-page>\n              </div>\n            </div>\n          </div>\n        </div>\n      </div>\n    </div>\n  </div>\n</div>"
+
+/***/ }),
+
 /***/ "./node_modules/raw-loader/index.js!./src/app/pages/dashboard/admin/admin-view-front-desks-page/admin-view-front-desks-page.component.html":
 /*!****************************************************************************************************************************************!*\
   !*** ./node_modules/raw-loader!./src/app/pages/dashboard/admin/admin-view-front-desks-page/admin-view-front-desks-page.component.html ***!
@@ -525,7 +569,7 @@ module.exports = "<div class=\"container-scroller\">\n  <app-navigation-bar></ap
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<div class=\"container-scroller\">\n  <app-navigation-bar></app-navigation-bar>\n  <div class=\"container-fluid page-body-wrapper\">\n    <app-side-bar></app-side-bar>\n    <div class=\"main-panel\">\n      <div class=\"content-wrapper\">\n        <div class=\"row\">\n          <div class=\"col-md-12 grid-margin\">\n            <div class=\"d-flex justify-content-between flex-wrap\">\n              <div class=\"d-flex align-items-end flex-wrap\">\n                <div class=\"mr-md-3 mr-xl-5\">\n                  <h2>Front Desk Accounts</h2>\n                  <p class=\"mb-md-0\">Your administrative dashboard.</p>\n                </div>\n                <div class=\"d-flex\">\n                </div>\n              </div>\n              <div class=\"d-flex justify-content-between align-items-end flex-wrap\">\n                <!-- <button type=\"button\" class=\"btn btn-light bg-white btn-icon mr-3 d-none d-md-block \">\n                  <i class=\"mdi mdi-download text-muted\"></i>\n                </button> -->\n                <!-- <button type=\"button\" class=\"btn btn-light bg-white btn-icon mr-3 mt-2 mt-xl-0\">\n                  <i class=\"mdi mdi-clock-outline text-muted\"></i>\n                </button> -->\n                <!-- <button type=\"button\" class=\"btn btn-light bg-white btn-icon mr-3 mt-2 mt-xl-0\">\n                  <i class=\"mdi mdi-plus text-muted\"></i>\n                </button> -->\n              </div>\n            </div>\n          </div>\n        </div>\n        <div class=\"row\">\n          <div class=\"col-lg-12 grid-margin stretch-card\">\n            <div class=\"card\">\n              <div class=\"card-body\">\n                <app-view-account-lists-page\n                  [userType]=\"userType\"\n                  (edit)=\"edit($event)\"\n                  (view)=\"view($event)\"\n                  [branchId]=\"branchId\"\n                  [merchantId]=\"merchantId\"\n                  (delete)=\"delete($event)\"\n                  (dataLoaded)=\"dataLoaded($event)\"\n                  (dataLoadedError)=\"dataLoadedError($event)\">\n                </app-view-account-lists-page>\n              </div>\n            </div>\n          </div>\n        </div>\n      </div>\n    </div>\n  </div>\n</div>"
+module.exports = "<div class=\"container-scroller\">\n  <app-navigation-bar></app-navigation-bar>\n  <div class=\"container-fluid page-body-wrapper\">\n    <app-side-bar></app-side-bar>\n    <div class=\"main-panel\">\n      <div class=\"content-wrapper\">\n        <div class=\"row\">\n          <div class=\"col-md-12 grid-margin\">\n            <div class=\"d-flex justify-content-between flex-wrap\">\n              <div class=\"d-flex align-items-end flex-wrap\">\n                <div class=\"mr-md-3 mr-xl-5\">\n                  <h2>Front Desk Accounts</h2>\n                  <p class=\"mb-md-0\">Your administrative dashboard.</p>\n                </div>\n                <div class=\"d-flex\">\n                </div>\n              </div>\n              <div class=\"d-flex justify-content-between align-items-end flex-wrap\">\n                <!-- <button type=\"button\" class=\"btn btn-light bg-white btn-icon mr-3 d-none d-md-block \">\n                  <i class=\"mdi mdi-download text-muted\"></i>\n                </button> -->\n                <!-- <button type=\"button\" class=\"btn btn-light bg-white btn-icon mr-3 mt-2 mt-xl-0\">\n                  <i class=\"mdi mdi-clock-outline text-muted\"></i>\n                </button> -->\n                <!-- <button type=\"button\" class=\"btn btn-light bg-white btn-icon mr-3 mt-2 mt-xl-0\">\n                  <i class=\"mdi mdi-plus text-muted\"></i>\n                </button> -->\n              </div>\n            </div>\n          </div>\n        </div>\n        <div class=\"row\">\n          <div class=\"col-lg-12 grid-margin stretch-card\">\n            <div class=\"card\">\n              <div class=\"card-body\">\n                <app-view-account-lists-page\n                  [canEdit]=\"true\"\n                  [canView]=\"true\"\n                  [canDelete]=\"true\"\n                  [userType]=\"userType\"\n                  (edit)=\"edit($event)\"\n                  (view)=\"view($event)\"\n                  [branchId]=\"branchId\"\n                  [merchantId]=\"merchantId\"\n                  (delete)=\"delete($event)\"\n                  (dataLoaded)=\"dataLoaded($event)\"\n                  (dataLoadedError)=\"dataLoadedError($event)\">\n                </app-view-account-lists-page>\n              </div>\n            </div>\n          </div>\n        </div>\n      </div>\n    </div>\n  </div>\n</div>"
 
 /***/ }),
 
@@ -558,7 +602,7 @@ module.exports = "<div class=\"container-scroller\">\n  <app-navigation-bar></ap
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<div class=\"container-scroller\">\n  <app-navigation-bar></app-navigation-bar>\n  <div class=\"container-fluid page-body-wrapper\">\n    <app-side-bar></app-side-bar>\n    <div class=\"main-panel\">\n      <div class=\"content-wrapper\">\n        <div class=\"row\">\n          <div class=\"col-md-12 grid-margin\">\n            <div class=\"d-flex justify-content-between flex-wrap\">\n              <div class=\"d-flex align-items-end flex-wrap\">\n                <div class=\"mr-md-3 mr-xl-5\">\n                  <h2>My History</h2>\n                </div>\n                <div class=\"d-flex\">\n                </div>\n              </div>\n              <div class=\"d-flex justify-content-between align-items-end flex-wrap\">\n              </div>\n            </div>\n          </div>\n        </div>\n\n        <div *ngIf=\"loading\" class=\"row m-5\">\n          <div class=\"col-md-12 p-md-5\">\n            <div class=\"d-flex justify-content-center\">\n              <div class=\"spinner-border m-5\" style=\"width: 5rem; height: 5rem;\" role=\"status\">\n                <span class=\"sr-only\">Loading...</span>\n              </div>\n            </div>\n          </div>\n        </div>\n\n        <div *ngIf=\"!hasData && !loading\" class=\"row\">\n          <div class=\"col-lg-12 grid-margin stretch-card\">\n            <div class=\"card text-center pt-5 pb-5\">\n              <div class=\"card-body mt-5 mb-5\">\n                <h4 class=\"card-title\">No Data Found</h4>\n                <p class=\"card-description\">\n                  No data has been found.\n                </p>\n                <div class=\"text-lg-center mt-5 mb-5\">\n                  <div class=\"card-text\">\n                    <i class=\"mdi mdi-rocket\" style=\"font-size: 8em;\"></i>\n                  </div>\n                  <div class=\"card-text\">\n                    <h3>No Available Form History</h3>\n                    <p class=\"text-muted\">You havent filled any forms yet! All the forms you filled will be displayed here to make it easy to re-fill again.</p>\n                  </div>\n                  <div class=\"card-text mt-5\">\n                    <button class=\"btn btn-primary\" type=\"button\" (click)=\"pickForm()\">Pick A Form</button>\n                  </div>\n                </div>\n              </div>\n            </div>\n          </div>\n        </div>\n\n        <div *ngIf=\"hasError && !hasData\" class=\"row\">\n          <div class=\"col-lg-12 grid-margin stretch-card\">\n            <div class=\"card text-center pt-5 pb-5\">\n              <div class=\"card-body mt-5 mb-5\">\n                <h4 class=\"card-title\">Error Ocuured</h4>\n                <p class=\"card-description\">\n                  Ooops! Something went wrong!\n                </p>\n                <div class=\"text-lg-center mt-5 mb-5\">\n                  <div class=\"card-text\">\n                    <i class=\"mdi mdi-close-network-outline\" style=\"font-size: 8em;\"></i>\n                  </div>\n                  <div class=\"card-text\">\n                    <h3>We couldn't filled forms</h3>\n                    <p class=\"text-muted\">You may not have internet connection or our servers maybe down.</p>\n                    <button class=\"btn btn-primary\" type=\"button\" (click)=\"retry()\">Retry</button>\n                  </div>\n                </div>\n              </div>\n            </div>\n          </div>\n        </div>\n        \n        <div *ngIf=\"!loading && hasData\" class=\"row\">\n          <!-- <div class=\"col-12 text-center mb-3\">\n            <div class=\"btn-group\" role=\"group\" aria-label=\"Filter By\">\n              <button type=\"button\" class=\"btn btn-outline-primary\" [ngClass]=\"{'active': filterState == 'all'}\" (click)=\"showAll()\">All</button>\n              <button type=\"button\" class=\"btn btn-outline-primary\" [ngClass]=\"{'active': filterState == 'processed'}\" (click)=\"showProcessed()\">Processed</button>\n              <button type=\"button\" class=\"btn btn-outline-primary\" [ngClass]=\"{'active': filterState == 'processing'}\" (click)=\"showProcessing()\">Processing</button>\n            </div>\n          </div> -->\n          <div class=\"col-md-4 grid-margin stretch-card\" *ngFor=\"let item of historyCollection\">\n            <div class=\"card hover-cursor\" (click)=\"openFormEntry(item)\">\n              <div class=\"card-body\">\n                <p class=\"card-title\">{{ item.form_name }}</p>\n                <p class=\"text-muted\">Open and quickly fill out this form</p>\n              </div>\n            </div>\n          </div>\n        </div>\n      </div>\n      <!-- content -->\n      <!-- footer -->\n      <app-footer-bar></app-footer-bar>\n      <!-- partial -->\n    </div>\n    <!-- main-panel -->\n  </div>\n</div>"
+module.exports = "<div class=\"container-scroller\">\n  <app-navigation-bar></app-navigation-bar>\n  <div class=\"container-fluid page-body-wrapper\">\n    <app-side-bar></app-side-bar>\n    <div class=\"main-panel\">\n      <div class=\"content-wrapper\">\n        <div class=\"row\">\n          <div class=\"col-md-12 grid-margin\">\n            <div class=\"d-flex justify-content-between flex-wrap\">\n              <div class=\"d-flex align-items-end flex-wrap\">\n                <div class=\"mr-md-3 mr-xl-5\">\n                  <h2>My History</h2>\n                </div>\n                <div class=\"d-flex\">\n                </div>\n              </div>\n              <div class=\"d-flex justify-content-between align-items-end flex-wrap\">\n              </div>\n            </div>\n          </div>\n        </div>\n\n        <div *ngIf=\"loading\" class=\"row m-5\">\n          <div class=\"col-md-12 p-md-5\">\n            <div class=\"d-flex justify-content-center\">\n              <div class=\"spinner-border m-5\" style=\"width: 5rem; height: 5rem;\" role=\"status\">\n                <span class=\"sr-only\">Loading...</span>\n              </div>\n            </div>\n          </div>\n        </div>\n\n        <div *ngIf=\"!hasData && !loading\" class=\"row\">\n          <div class=\"col-lg-12 grid-margin stretch-card\">\n            <div class=\"card text-center pt-5 pb-5\">\n              <div class=\"card-body mt-5 mb-5\">\n                <h4 class=\"card-title\">No Data Found</h4>\n                <p class=\"card-description\">\n                  No data has been found.\n                </p>\n                <div class=\"text-lg-center mt-5 mb-5\">\n                  <div class=\"card-text\">\n                    <i class=\"mdi mdi-rocket\" style=\"font-size: 8em;\"></i>\n                  </div>\n                  <div class=\"card-text\">\n                    <h3>No Available Form History</h3>\n                    <p class=\"text-muted\">You havent filled any forms yet! All the forms you filled will be displayed here to make it easy to re-fill again.</p>\n                  </div>\n                  <div class=\"card-text mt-5\">\n                    <button class=\"btn btn-primary\" type=\"button\" (click)=\"pickForm()\">Pick A Form</button>\n                  </div>\n                </div>\n              </div>\n            </div>\n          </div>\n        </div>\n\n        <div *ngIf=\"hasError && !hasData\" class=\"row\">\n          <div class=\"col-lg-12 grid-margin stretch-card\">\n            <div class=\"card text-center pt-5 pb-5\">\n              <div class=\"card-body mt-5 mb-5\">\n                <h4 class=\"card-title\">Error Ocuured</h4>\n                <p class=\"card-description\">\n                  Ooops! Something went wrong!\n                </p>\n                <div class=\"text-lg-center mt-5 mb-5\">\n                  <div class=\"card-text\">\n                    <i class=\"mdi mdi-close-network-outline\" style=\"font-size: 8em;\"></i>\n                  </div>\n                  <div class=\"card-text\">\n                    <h3>We couldn't filled forms</h3>\n                    <p class=\"text-muted\">You may not have internet connection or our servers maybe down.</p>\n                    <button class=\"btn btn-primary\" type=\"button\" (click)=\"retry()\">Retry</button>\n                  </div>\n                </div>\n              </div>\n            </div>\n          </div>\n        </div>\n        \n        <div *ngIf=\"!loading && hasData\" class=\"row\">\n          <div class=\"col-12 text-center mb-3\">\n            <div class=\"btn-group\" role=\"group\" aria-label=\"Filter By\">\n              <button type=\"button\" class=\"btn btn-outline-primary\" [ngClass]=\"{'active': filterState == 'all'}\" (click)=\"showAll()\">All</button>\n              <button type=\"button\" class=\"btn btn-outline-primary\" [ngClass]=\"{'active': filterState == 'processed'}\" (click)=\"showProcessed()\">Processed</button>\n              <button type=\"button\" class=\"btn btn-outline-primary\" [ngClass]=\"{'active': filterState == 'processing'}\" (click)=\"showProcessing()\">Processing</button>\n            </div>\n          </div>\n          <div class=\"col-md-4 grid-margin stretch-card\" *ngFor=\"let item of historyCollection\">\n            <div class=\"card hover-cursor\" (click)=\"openFormEntry(item)\">\n              <div class=\"card-body\">\n                <p class=\"card-title\">{{ item.form_name }}</p>\n                <p class=\"text-muted\">Open and quickly fill out this form</p>\n              </div>\n            </div>\n          </div>\n        </div>\n      </div>\n      <!-- content -->\n      <!-- footer -->\n      <app-footer-bar></app-footer-bar>\n      <!-- partial -->\n    </div>\n    <!-- main-panel -->\n  </div>\n</div>"
 
 /***/ }),
 
@@ -679,7 +723,7 @@ module.exports = "<div class=\"container-scroller\">\n  <app-navigation-bar></ap
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<div class=\"container-scroller\">\n  <app-navigation-bar></app-navigation-bar>\n  <div class=\"container-fluid page-body-wrapper\">\n    <app-side-bar></app-side-bar>\n    <div class=\"main-panel\">\n      <div class=\"content-wrapper\">\n        <div class=\"row\">\n          <div class=\"col-md-12 grid-margin\">\n            <div class=\"d-flex justify-content-between flex-wrap\">\n              <div class=\"d-flex align-items-end flex-wrap\">\n                <div class=\"mr-md-3 mr-xl-5\">\n                  <h2>Welcome back, {{ firstname }}</h2>\n                  <p class=\"mb-md-0\">Your administrative dashboard.</p>\n                </div>\n                <div class=\"d-flex\">\n                </div>\n              </div>\n              <div class=\"d-flex justify-content-between align-items-end flex-wrap\">\n              </div>\n            </div>\n          </div>\n        </div>\n\n        <div *ngIf=\"loading\" class=\"row\">\n          <div class=\"col-md-12\">\n            <div class=\"d-flex justify-content-center pb-5 pt-5\">\n              <div class=\"spinner-border mt-5\" style=\"width: 6rem; height: 6rem;\" role=\"status\">\n                <span class=\"sr-only\">Loading...</span>\n              </div>\n            </div>\n          </div>\n        </div>\n        \n        <div *ngIf=\"!loading\" class=\"row mb-5 text-center pb-3\">\n          <!-- <div class=\"col-10 offset-1\">\n            <div class=\"text-center\">\n              <form class=\"form-inline\">\n                <div *ngIf=\"isBranchSuperExec\" class=\"form-group\">\n                  <select class=\"form-control form-control-lg\" style=\"width: 220px;\">\n                    <option value=\"a\">Select Company Branch</option>\n                    <option value=\"a\">Branch One</option>\n                    <option value=\"a\">Branch One</option>\n                    <option value=\"a\">Branch One</option>\n                    <option value=\"a\">Branch One</option>\n                  </select>\n                </div>\n                <div class=\"form-group\">\n                  <div class=\"input-group\">\n                    <input class=\"form-control form-control-lg\" placeholder=\"Select Start Date\" name=\"dp\" [(ngModel)]=\"startDate\" ngbDatepicker\n                      #d=\"ngbDatepicker\">\n                    <div class=\"input-group-append\">\n                      <button class=\"btn btn-outline-secondary\" (click)=\"d.toggle()\" type=\"button\">\n                        <i class=\"mdi mdi-calendar-outline\"></i>\n                      </button>\n                    </div>\n                  </div>\n                </div>\n                <div class=\"form-group\">\n                  <div class=\"input-group\">\n                    <input class=\"form-control form-control-lg\" placeholder=\"Select End Date\" name=\"dp\" [(ngModel)]=\"endDate\" ngbDatepicker\n                      #d1=\"ngbDatepicker\">\n                    <div class=\"input-group-append\">\n                      <button class=\"btn btn-outline-secondary\" (click)=\"d1.toggle()\" type=\"button\">\n                        <i class=\"mdi mdi-calendar-outline\"></i>\n                      </button>\n                    </div>\n                  </div>\n                </div>\n                <button type=\"submit\" class=\"btn btn-outline-dark btn-lg ml-2\">Filter</button>\n              </form>\n            </div>\n          </div> -->\n        </div>\n\n        <div *ngIf=\"!loading\" class=\"row\">\n          <div class=\"col-md-4 grid-margin stretch-card\">\n            <div class=\"card hover-cursor hover-primary\" (click)=\"openForms()\">\n              <div class=\"card-body\">\n                <p class=\"card-title\">Available Forms</p>\n                <h1 class=\"display-2\">{{ numTotalForms }}</h1>\n                <div class=\"card-text\">\n                  <i class=\"mdi mdi-file-outline\" style=\"font-size: 3em;\"></i>\n                </div>\n                <p class=\"text-muted\">Total number of forms that have not been completely processed</p>\n              </div>\n            </div>\n          </div>\n\n          <div class=\"col-md-4 grid-margin stretch-card\">\n            <div class=\"card hover-cursor hover-primary\" (click)=\"openProcessed()\">\n              <div class=\"card-body\">\n                <p class=\"card-title\">Processed Forms</p>\n                <h1 class=\"display-2\">{{ totalNoProcessed }}</h1>\n                <div class=\"card-text\">\n                  <i class=\"mdi mdi-file-document-edit-outline\" style=\"font-size: 3em;\"></i>\n                </div>\n                <p class=\"text-muted\">Total number of forms that have been processed</p>\n              </div>\n            </div>\n          </div>\n\n          <div class=\"col-md-4 grid-margin stretch-card\">\n            <div class=\"card hover-cursor hover-primary\" (click)=\"openProcessing()\">\n              <div class=\"card-body\">\n                <p class=\"card-title\">Forms In Processing</p>\n                <h1 class=\"display-2\">{{ totalNoProcessing }}</h1>\n                <div class=\"card-text\">\n                  <i class=\"mdi mdi-timer\" style=\"font-size: 3em;\"></i>\n                </div>\n                <p class=\"text-muted\">Total number of forms that have not been completely processed</p>\n              </div>\n            </div>\n          </div>\n        </div>\n\n        <div *ngIf=\"!loading\" class=\"row\">\n          <div class=\"col-md-4 grid-margin stretch-card\">\n            <div class=\"card hover-cursor hover-primary\" (click)=\"openSubmitted()\">\n              <div class=\"card-body\">\n                <p class=\"card-title\">Submitted Forms</p>\n                <h1 class=\"display-2\">{{ totalNoSubmitted }}</h1>\n                <div class=\"card-text\">\n                  <i class=\"mdi mdi-mailbox-open-outline\" style=\"font-size: 3em;\"></i>\n                </div>\n                <p class=\"text-muted\">Total of forms that have been submitted</p>\n              </div>\n            </div>\n          </div>\n\n          <div class=\"col-md-4 grid-margin stretch-card\">\n            <div class=\"card hover-cursor hover-primary\" (click)=\"openBranches()\">\n              <div class=\"card-body\">\n                <p class=\"card-title\">Total No. Of Branches</p>\n                <h1 class=\"display-2\">{{ numTotalBranches }}</h1>\n                <div class=\"card-text\">\n                  <i class=\"mdi mdi-office-building\" style=\"font-size: 3em;\"></i>\n                </div>\n                <p class=\"text-muted\">Total of forms that have been submitted</p>\n              </div>\n            </div>\n          </div>\n\n          <!-- <div class=\"col-md-3 grid-margin stretch-card\">\n            <div class=\"card hover-cursor hover-primary\" (click)=\"openBranches()\">\n              <div class=\"card-body\">\n                <p class=\"card-title\">Total No. Of Active Branches</p>\n                <h1 class=\"display-2\">{{ numTotalActiveBranches }}</h1>\n                <div class=\"card-text\">\n                  <i class=\"mdi mdi-check-all\" style=\"font-size: 3em;\"></i>\n                </div>\n                <p class=\"text-muted\">Total of forms that have been submitted</p>\n              </div>\n            </div>\n          </div>\n\n          <div class=\"col-md-3 grid-margin stretch-card\">\n            <div class=\"card hover-cursor hover-primary\" (click)=\"openBranches()\">\n              <div class=\"card-body\">\n                <p class=\"card-title\">Total No. Of In-Active Branches</p>\n                <h1 class=\"display-2\">{{ numTotalInActiveBranches }}</h1>\n                <div class=\"card-text\">\n                  <i class=\"mdi mdi-network-off-outline\" style=\"font-size: 3em;\"></i>\n                </div>\n                <p class=\"text-muted\">Total of forms that have been submitted</p>\n              </div>\n            </div>\n          </div> -->\n\n          <div class=\"col-md-4 grid-margin stretch-card\">\n            <div class=\"card hover-cursor hover-primary\" (click)=\"openAccounts()\">\n              <div class=\"card-body\">\n                <p class=\"card-title\">Total No. Of Users</p>\n                <h1 class=\"display-2\">{{ numTotalUsers }}</h1>\n                <div class=\"card-text\">\n                  <i class=\"mdi mdi-account-group-outline\" style=\"font-size: 3em;\"></i>\n                </div>\n                <p class=\"text-muted\">Total of forms that have been submitted</p>\n              </div>\n            </div>\n          </div>\n        </div>\n        \n      </div>\n      <!-- content -->\n      <!-- footer -->\n      <app-footer-bar></app-footer-bar>\n      <!-- partial -->\n    </div>\n    <!-- main ends -->\n  </div>\n</div>\n"
+module.exports = "<div class=\"container-scroller\">\n  <app-navigation-bar></app-navigation-bar>\n  <div class=\"container-fluid page-body-wrapper\">\n    <app-side-bar></app-side-bar>\n    <div class=\"main-panel\">\n      <div class=\"content-wrapper\">\n        <div class=\"row\">\n          <div class=\"col-md-12 grid-margin\">\n            <div class=\"d-flex justify-content-between flex-wrap\">\n              <div class=\"d-flex align-items-end flex-wrap\">\n                <div class=\"mr-md-3 mr-xl-5\">\n                  <h2>Welcome back, {{ firstname }}</h2>\n                  <p class=\"mb-md-0\">Your administrative dashboard.</p>\n                </div>\n                <div class=\"d-flex\">\n                </div>\n              </div>\n              <div class=\"d-flex justify-content-between align-items-end flex-wrap\">\n              </div>\n            </div>\n          </div>\n        </div>\n\n        <div *ngIf=\"loading\" class=\"row\">\n          <div class=\"col-md-12\">\n            <div class=\"d-flex justify-content-center pb-5 pt-5\">\n              <div class=\"spinner-border mt-5\" style=\"width: 6rem; height: 6rem;\" role=\"status\">\n                <span class=\"sr-only\">Loading...</span>\n              </div>\n            </div>\n          </div>\n        </div>\n        \n        <div *ngIf=\"!loading\" class=\"row mb-5 text-center pb-3\">\n          <!-- <div class=\"col-10 offset-1\">\n            <div class=\"text-center\">\n              <form class=\"form-inline\">\n                <div *ngIf=\"isBranchSuperExec\" class=\"form-group\">\n                  <select class=\"form-control form-control-lg\" style=\"width: 220px;\">\n                    <option value=\"a\">Select Company Branch</option>\n                    <option value=\"a\">Branch One</option>\n                    <option value=\"a\">Branch One</option>\n                    <option value=\"a\">Branch One</option>\n                    <option value=\"a\">Branch One</option>\n                  </select>\n                </div>\n                <div class=\"form-group\">\n                  <div class=\"input-group\">\n                    <input class=\"form-control form-control-lg\" placeholder=\"Select Start Date\" name=\"dp\" [(ngModel)]=\"startDate\" ngbDatepicker\n                      #d=\"ngbDatepicker\">\n                    <div class=\"input-group-append\">\n                      <button class=\"btn btn-outline-secondary\" (click)=\"d.toggle()\" type=\"button\">\n                        <i class=\"mdi mdi-calendar-outline\"></i>\n                      </button>\n                    </div>\n                  </div>\n                </div>\n                <div class=\"form-group\">\n                  <div class=\"input-group\">\n                    <input class=\"form-control form-control-lg\" placeholder=\"Select End Date\" name=\"dp\" [(ngModel)]=\"endDate\" ngbDatepicker\n                      #d1=\"ngbDatepicker\">\n                    <div class=\"input-group-append\">\n                      <button class=\"btn btn-outline-secondary\" (click)=\"d1.toggle()\" type=\"button\">\n                        <i class=\"mdi mdi-calendar-outline\"></i>\n                      </button>\n                    </div>\n                  </div>\n                </div>\n                <button type=\"submit\" class=\"btn btn-outline-dark btn-lg ml-2\">Filter</button>\n              </form>\n            </div>\n          </div> -->\n        </div>\n\n        <div *ngIf=\"!loading\" class=\"row\">\n          <div class=\"col-md-4 grid-margin stretch-card\">\n            <div class=\"card hover-cursor hover-primary\" (click)=\"openForms()\">\n              <div class=\"card-body\">\n                <p class=\"card-title\">Available Forms</p>\n                <h1 class=\"display-2\">{{ numTotalForms }}</h1>\n                <div class=\"card-text\">\n                  <i class=\"mdi mdi-file-outline\" style=\"font-size: 3em;\"></i>\n                </div>\n                <p class=\"text-muted\">Total number of forms that have not been completely processed</p>\n              </div>\n            </div>\n          </div>\n\n          <div class=\"col-md-4 grid-margin stretch-card\">\n            <div class=\"card hover-cursor hover-primary\" (click)=\"openProcessed()\">\n              <div class=\"card-body\">\n                <p class=\"card-title\">Processed Forms</p>\n                <h1 class=\"display-2\">{{ totalNoProcessed }}</h1>\n                <div class=\"card-text\">\n                  <i class=\"mdi mdi-file-document-edit-outline\" style=\"font-size: 3em;\"></i>\n                </div>\n                <p class=\"text-muted\">Total number of forms that have been processed</p>\n              </div>\n            </div>\n          </div>\n\n          <div class=\"col-md-4 grid-margin stretch-card\">\n            <div class=\"card hover-cursor hover-primary\" (click)=\"openProcessing()\">\n              <div class=\"card-body\">\n                <p class=\"card-title\">Forms In-Processing</p>\n                <h1 class=\"display-2\">{{ totalNoProcessing }}</h1>\n                <div class=\"card-text\">\n                  <i class=\"mdi mdi-timer\" style=\"font-size: 3em;\"></i>\n                </div>\n                <p class=\"text-muted\">Total number of forms that have not been completely processed</p>\n              </div>\n            </div>\n          </div>\n        </div>\n\n        <div *ngIf=\"!loading\" class=\"row\">\n          <div class=\"col-md-4 grid-margin stretch-card\">\n            <div class=\"card hover-cursor hover-primary\" (click)=\"openSubmitted()\">\n              <div class=\"card-body\">\n                <p class=\"card-title\">Submitted Forms</p>\n                <h1 class=\"display-2\">{{ totalNoSubmitted }}</h1>\n                <div class=\"card-text\">\n                  <i class=\"mdi mdi-mailbox-open-outline\" style=\"font-size: 3em;\"></i>\n                </div>\n                <p class=\"text-muted\">Total of forms that have been submitted</p>\n              </div>\n            </div>\n          </div>\n\n          <div class=\"col-md-4 grid-margin stretch-card\">\n            <div class=\"card hover-cursor hover-primary\" (click)=\"openBranches()\">\n              <div class=\"card-body\">\n                <p class=\"card-title\">Total No. Of Branches</p>\n                <h1 class=\"display-2\">{{ numTotalBranches }}</h1>\n                <div class=\"card-text\">\n                  <i class=\"mdi mdi-office-building\" style=\"font-size: 3em;\"></i>\n                </div>\n                <p class=\"text-muted\">Total of forms that have been submitted</p>\n              </div>\n            </div>\n          </div>\n\n          <!-- <div class=\"col-md-3 grid-margin stretch-card\">\n            <div class=\"card hover-cursor hover-primary\" (click)=\"openBranches()\">\n              <div class=\"card-body\">\n                <p class=\"card-title\">Total No. Of Active Branches</p>\n                <h1 class=\"display-2\">{{ numTotalActiveBranches }}</h1>\n                <div class=\"card-text\">\n                  <i class=\"mdi mdi-check-all\" style=\"font-size: 3em;\"></i>\n                </div>\n                <p class=\"text-muted\">Total of forms that have been submitted</p>\n              </div>\n            </div>\n          </div>\n\n          <div class=\"col-md-3 grid-margin stretch-card\">\n            <div class=\"card hover-cursor hover-primary\" (click)=\"openBranches()\">\n              <div class=\"card-body\">\n                <p class=\"card-title\">Total No. Of In-Active Branches</p>\n                <h1 class=\"display-2\">{{ numTotalInActiveBranches }}</h1>\n                <div class=\"card-text\">\n                  <i class=\"mdi mdi-network-off-outline\" style=\"font-size: 3em;\"></i>\n                </div>\n                <p class=\"text-muted\">Total of forms that have been submitted</p>\n              </div>\n            </div>\n          </div> -->\n\n          <div class=\"col-md-4 grid-margin stretch-card\">\n            <div class=\"card hover-cursor hover-primary\" (click)=\"openAccounts()\">\n              <div class=\"card-body\">\n                <p class=\"card-title\">Total No. Of Users</p>\n                <h1 class=\"display-2\">{{ numTotalUsers }}</h1>\n                <div class=\"card-text\">\n                  <i class=\"mdi mdi-account-group-outline\" style=\"font-size: 3em;\"></i>\n                </div>\n                <p class=\"text-muted\">Total of forms that have been submitted</p>\n              </div>\n            </div>\n          </div>\n        </div>\n        \n      </div>\n      <!-- content -->\n      <!-- footer -->\n      <app-footer-bar></app-footer-bar>\n      <!-- partial -->\n    </div>\n    <!-- main ends -->\n  </div>\n</div>\n"
 
 /***/ }),
 
@@ -954,7 +998,7 @@ module.exports = "<div class=\"container-scroller\">\n  <app-navigation-bar></ap
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<div class=\"container-scroller\">\n  <app-navigation-bar></app-navigation-bar>\n  <div class=\"container-fluid page-body-wrapper\">\n    <app-side-bar></app-side-bar>\n    <div class=\"main-panel\">\n      <div class=\"content-wrapper\">\n        <div class=\"row\">\n          <div class=\"col-md-12 grid-margin\">\n            <div class=\"d-flex justify-content-between flex-wrap\">\n              <div class=\"d-flex align-items-end flex-wrap\">\n                <div class=\"mr-md-3 mr-xl-5\">\n                  <h2>Welcome back, {{ firstName }}</h2>\n                  <p class=\"mb-md-0\">Your administrative dashboard.</p>\n                </div>\n                <div class=\"d-flex\">\n                </div>\n              </div>\n              <div class=\"d-flex justify-content-between align-items-end flex-wrap\">\n                <a routerLink=\"/git_admin/setup_form\" role=\"button\" class=\"btn btn-primary mt-2 mt-xl-0\">Setup A New Form</a>\n              </div>\n            </div>\n          </div>\n        </div>\n\n        <div *ngIf=\"loading\" class=\"row\">\n          <div class=\"col-md-12\">\n            <div class=\"d-flex justify-content-center pb-5 pt-5\">\n              <div class=\"spinner-border mt-5\" style=\"width: 6rem; height: 6rem;\" role=\"status\">\n                <span class=\"sr-only\">Loading...</span>\n              </div>\n            </div>\n          </div>\n        </div>\n\n        <div *ngIf=\"!loading\" class=\"row\">\n          <div class=\"col-md-3 grid-margin stretch-card\">\n            <div class=\"card hover-cursor hover-primary\" (click)=\"openCompanies()\">\n              <div class=\"card-body\">\n                <p class=\"card-title\">Total No. Companies</p>\n                <h1 class=\"display-2\">{{ numTotalCompany }}</h1>\n                <div class=\"card-text\">\n                  <i class=\"mdi mdi-account-group-outline\" style=\"font-size: 3em;\"></i>\n                </div>\n                <p class=\"text-muted\">Total number of companies created</p>\n              </div>\n            </div>\n          </div>\n\n          <div class=\"col-md-3 grid-margin stretch-card\">\n            <div class=\"card hover-cursor hover-primary\" (click)=\"openCompanies()\">\n              <div class=\"card-body\">\n                <p class=\"card-title\">Total No. Active Companies</p>\n                <h1 class=\"display-2\">{{ numTotalActiveCompany }}</h1>\n                <div class=\"card-text\">\n                  <i class=\"mdi mdi-lighthouse\" style=\"font-size: 3em;\"></i>\n                </div>\n                <p class=\"text-muted\">Total number of active companies</p>\n              </div>\n            </div>\n          </div>\n\n          <div class=\"col-md-3 grid-margin stretch-card\">\n            <div class=\"card hover-cursor hover-primary\" (click)=\"openCompanies()\">\n              <div class=\"card-body\">\n                <p class=\"card-title\">Total No. Inactive Companies</p>\n                <h1 class=\"display-2\">{{ numTotalInActiveCompany }}</h1>\n                <div class=\"card-text\">\n                  <i class=\"mdi mdi-network-strength-off\" style=\"font-size: 3em;\"></i>\n                </div>\n                <p class=\"text-muted\">Total number of companies that are not active</p>\n              </div>\n            </div>\n          </div>\n\n          <div class=\"col-md-3 grid-margin stretch-card\">\n            <div class=\"card hover-cursor hover-primary\" (click)=\"openBranches()\">\n              <div class=\"card-body\">\n                <p class=\"card-title\">Total No. Branches</p>\n                <h1 class=\"display-2\">{{ numTotalBranches }}</h1>\n                <div class=\"card-text\">\n                  <i class=\"mdi mdi-office-building\" style=\"font-size: 3em;\"></i>\n                </div>\n                <p class=\"text-muted\">Total number of branches created</p>\n              </div>\n            </div>\n          </div>\n        </div>\n\n        <div *ngIf=\"!loading\" class=\"row\">\n          <div class=\"col-md-3 grid-margin stretch-card\">\n            <div class=\"card hover-cursor hover-primary\" (click)=\"openBranches()\">\n              <div class=\"card-body\">\n                <p class=\"card-title\">Total No Active Branches</p>\n                <h1 class=\"display-2\">{{ numTotalActiveBranches }}</h1>\n                <div class=\"card-text\">\n                  <i class=\"mdi mdi-speedometer\" style=\"font-size: 3em;\"></i>\n                </div>\n                <p class=\"text-muted\">Total number of active branches</p>\n              </div>\n            </div>\n          </div>\n\n          <div class=\"col-md-3 grid-margin stretch-card\">\n            <div class=\"card hover-cursor hover-primary\" (click)=\"openBranches()\">\n              <div class=\"card-body\">\n                <p class=\"card-title\">Total No Inactive Branch</p>\n                <h1 class=\"display-2\">{{ numTotalInActiveBranches }}</h1>\n                <div class=\"card-text\">\n                  <i class=\"mdi mdi-sign-caution\" style=\"font-size: 3em;\"></i>\n                </div>\n                <p class=\"text-muted\">Total number of branches that are not active</p>\n              </div>\n            </div>\n          </div>\n\n          <div class=\"col-md-3 grid-margin stretch-card\">\n            <div class=\"card hover-cursor hover-primary\" (click)=\"openForms()\">\n              <div class=\"card-body\">\n                <p class=\"card-title\">Available Forms</p>\n                <h1 class=\"display-2\">{{ numTotalForms }}</h1>\n                <div class=\"card-text\">\n                  <i class=\"mdi mdi-file-document-edit-outline\" style=\"font-size: 3em;\"></i>\n                </div>\n                <p class=\"text-muted\">Total number of forms created</p>\n              </div>\n            </div>\n          </div>\n\n          <div class=\"col-md-3 grid-margin stretch-card\">\n            <div class=\"card hover-cursor hover-primary\">\n              <div class=\"card-body\">\n                <p class=\"card-title\">Total No. Accounts</p>\n                <h1 class=\"display-2\">{{ numTotalUsers }}</h1>\n                <div class=\"card-text\">\n                  <i class=\"mdi mdi-account-group-outline\" style=\"font-size: 3em;\"></i>\n                </div>\n                <p class=\"text-muted\">Total number of user accounts</p>\n              </div>\n            </div>\n          </div>\n        </div>\n      </div>\n      <!-- content -->\n      <!-- footer -->\n      <app-footer-bar></app-footer-bar>\n      <!-- footer -->\n    </div>\n    <!-- main-panel ends -->\n  </div>\n</div>\n"
+module.exports = "<div class=\"container-scroller\">\n  <app-navigation-bar></app-navigation-bar>\n  <div class=\"container-fluid page-body-wrapper\">\n    <app-side-bar></app-side-bar>\n    <div class=\"main-panel\">\n      <div class=\"content-wrapper\">\n        <div class=\"row\">\n          <div class=\"col-md-12 grid-margin\">\n            <div class=\"d-flex justify-content-between flex-wrap\">\n              <div class=\"d-flex align-items-end flex-wrap\">\n                <div class=\"mr-md-3 mr-xl-5\">\n                  <h2>Welcome back, {{ firstName }}</h2>\n                  <p class=\"mb-md-0\">Your administrative dashboard.</p>\n                </div>\n                <div class=\"d-flex\">\n                </div>\n              </div>\n              <div class=\"d-flex justify-content-between align-items-end flex-wrap\">\n                <a routerLink=\"/git_admin/setup_form\" role=\"button\" class=\"btn btn-primary mt-2 mt-xl-0\">Setup A New Form</a>\n              </div>\n            </div>\n          </div>\n        </div>\n\n        <div *ngIf=\"loading\" class=\"row\">\n          <div class=\"col-md-12\">\n            <div class=\"d-flex justify-content-center pb-5 pt-5\">\n              <div class=\"spinner-border mt-5\" style=\"width: 6rem; height: 6rem;\" role=\"status\">\n                <span class=\"sr-only\">Loading...</span>\n              </div>\n            </div>\n          </div>\n        </div>\n\n        <div *ngIf=\"!loading\" class=\"row\">\n          <div class=\"col-md-3 grid-margin stretch-card\">\n            <div class=\"card hover-cursor hover-primary\" (click)=\"openCompanies()\">\n              <div class=\"card-body\">\n                <p class=\"card-title\">Total No. Companies</p>\n                <h1 class=\"display-2\">{{ numTotalCompany }}</h1>\n                <div class=\"card-text\">\n                  <i class=\"mdi mdi-account-group-outline\" style=\"font-size: 3em;\"></i>\n                </div>\n                <p class=\"text-muted\">Total number of companies</p>\n              </div>\n            </div>\n          </div>\n\n          <div class=\"col-md-3 grid-margin stretch-card\">\n            <div class=\"card hover-cursor hover-primary\" (click)=\"openCompanies()\">\n              <div class=\"card-body\">\n                <p class=\"card-title\">Total No. Active Companies</p>\n                <h1 class=\"display-2\">{{ numTotalActiveCompany }}</h1>\n                <div class=\"card-text\">\n                  <i class=\"mdi mdi-lighthouse\" style=\"font-size: 3em;\"></i>\n                </div>\n                <p class=\"text-muted\">Total number of active companies</p>\n              </div>\n            </div>\n          </div>\n\n          <div class=\"col-md-3 grid-margin stretch-card\">\n            <div class=\"card hover-cursor hover-primary\" (click)=\"openCompanies()\">\n              <div class=\"card-body\">\n                <p class=\"card-title\">Total No. Inactive Companies</p>\n                <h1 class=\"display-2\">{{ numTotalInActiveCompany }}</h1>\n                <div class=\"card-text\">\n                  <i class=\"mdi mdi-network-strength-off\" style=\"font-size: 3em;\"></i>\n                </div>\n                <p class=\"text-muted\">Total number of inactive companies</p>\n              </div>\n            </div>\n          </div>\n\n          <div class=\"col-md-3 grid-margin stretch-card\">\n            <div class=\"card hover-cursor hover-primary\" (click)=\"openBranches()\">\n              <div class=\"card-body\">\n                <p class=\"card-title\">Total No. Branches</p>\n                <h1 class=\"display-2\">{{ numTotalBranches }}</h1>\n                <div class=\"card-text\">\n                  <i class=\"mdi mdi-office-building\" style=\"font-size: 3em;\"></i>\n                </div>\n                <p class=\"text-muted\">Total number of branches</p>\n              </div>\n            </div>\n          </div>\n        </div>\n\n        <div *ngIf=\"!loading\" class=\"row\">\n          <div class=\"col-md-3 grid-margin stretch-card\">\n            <div class=\"card hover-cursor hover-primary\" (click)=\"openBranches()\">\n              <div class=\"card-body\">\n                <p class=\"card-title\">Total No. Active Branches</p>\n                <h1 class=\"display-2\">{{ numTotalActiveBranches }}</h1>\n                <div class=\"card-text\">\n                  <i class=\"mdi mdi-speedometer\" style=\"font-size: 3em;\"></i>\n                </div>\n                <p class=\"text-muted\">Total number of active branches</p>\n              </div>\n            </div>\n          </div>\n\n          <div class=\"col-md-3 grid-margin stretch-card\">\n            <div class=\"card hover-cursor hover-primary\" (click)=\"openBranches()\">\n              <div class=\"card-body\">\n                <p class=\"card-title\">Total No. Inactive Branch</p>\n                <h1 class=\"display-2\">{{ numTotalInActiveBranches }}</h1>\n                <div class=\"card-text\">\n                  <i class=\"mdi mdi-sign-caution\" style=\"font-size: 3em;\"></i>\n                </div>\n                <p class=\"text-muted\">Total number of inactive branches</p>\n              </div>\n            </div>\n          </div>\n\n          <div class=\"col-md-3 grid-margin stretch-card\">\n            <div class=\"card hover-cursor hover-primary\" (click)=\"openForms()\">\n              <div class=\"card-body\">\n                <p class=\"card-title\">Total No. Forms</p>\n                <h1 class=\"display-2\">{{ numTotalForms }}</h1>\n                <div class=\"card-text\">\n                  <i class=\"mdi mdi-file-document-edit-outline\" style=\"font-size: 3em;\"></i>\n                </div>\n                <p class=\"text-muted\">Total number of forms</p>\n              </div>\n            </div>\n          </div>\n\n          <div class=\"col-md-3 grid-margin stretch-card\">\n            <div class=\"card hover-cursor hover-primary\">\n              <div class=\"card-body\">\n                <p class=\"card-title\">Total No. Accounts</p>\n                <h1 class=\"display-2\">{{ numTotalUsers }}</h1>\n                <div class=\"card-text\">\n                  <i class=\"mdi mdi-account-group-outline\" style=\"font-size: 3em;\"></i>\n                </div>\n                <p class=\"text-muted\">Total number of users</p>\n              </div>\n            </div>\n          </div>\n        </div>\n      </div>\n      <!-- content -->\n      <!-- footer -->\n      <app-footer-bar></app-footer-bar>\n      <!-- footer -->\n    </div>\n    <!-- main-panel ends -->\n  </div>\n</div>\n"
 
 /***/ }),
 
@@ -987,7 +1031,7 @@ module.exports = "<div class=\"container-scroller\">\n  <app-navigation-bar></ap
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<div *ngIf=\"loading\" class=\"row m-5\">\n  <div class=\"col-md-12 col-sm-12 m-md-5\">\n    <div class=\"d-flex justify-content-center\">\n      <div class=\"spinner-border m-5\" style=\"width: 5rem; height: 5rem;\" role=\"status\">\n        <span class=\"sr-only\">Loading...</span>\n      </div>\n    </div>\n  </div>\n</div>\n\n<div *ngIf=\"hasNoData\" class=\"row\">\n  <div class=\"col-lg-12 grid-margin stretch-card\">\n    <div class=\"card text-center pt-5 pb-5\">\n      <div class=\"card-body mt-5 mb-5\">\n        <h4 class=\"card-title\">No Accounts Found</h4>\n        <p class=\"card-description\"></p>\n        <div class=\"text-lg-center mt-5 mb-5\">\n          <div class=\"card-text\">\n            <i class=\"mdi mdi-account-alert-outline\" style=\"font-size: 8em;\"></i>\n          </div>\n          <div class=\"card-text\">\n            <h3 class=\"display-4\">No {{ user }} Accounts</h3>\n            <p class=\"text-muted\">All {{ user }} accounts would be displayed here</p>\n          </div>\n          <div class=\"card-text mt-3 mb-5\">\n            <button class=\"btn btn-outline-primary btn-lg btn-icon-text\" (click)=\"createAccount()\">\n              <i class=\"mdi mdi-plus\"></i>\n              Create New\n            </button>\n          </div>\n        </div>\n      </div>\n    </div>\n  </div>\n</div>\n\n<div *ngIf=\"hasError\" class=\"row\">\n  <div class=\"col-lg-12 grid-margin stretch-card\">\n    <div class=\"card text-center pt-5 pb-5\">\n      <div class=\"card-body mt-5 mb-5\">\n        <h4 class=\"card-title\">Error Ocuured</h4>\n        <p class=\"card-description\">\n          Ooops! Something went wrong!\n        </p>\n        <div class=\"text-lg-center mt-5 mb-5\">\n          <div class=\"card-text\">\n            <i class=\"mdi mdi-close-network-outline\" style=\"font-size: 8em;\"></i>\n          </div>\n          <div class=\"card-text\">\n            <h3>We couldn't get your {{ user }} accounts.</h3>\n            <p class=\"text-muted\">You may not have internet connection or our servers maybe down.</p>\n            <button class=\"btn btn-primary\" type=\"button\" (click)=\"retry()\">Retry</button>\n          </div>\n        </div>\n      </div>\n    </div>\n  </div>\n</div>\n\n<div *ngIf=\"!loading && !hasNoData && !hasError\" class=\"row\">\n  <div class=\"col-md-12\">\n    <div class=\"text-lg-center mt-3 mb-5\">\n      <div class=\"btn-group\" role=\"group\" aria-label=\"Sort By\">\n        <button type=\"button\" class=\"btn btn-outline-secondary\" [ngClass]=\"{'active': filterState == 'all'}\" (click)=\"showAll()\">All</button>\n        <button type=\"button\" class=\"btn btn-outline-secondary\" [ngClass]=\"{'active': filterState == 'active'}\" (click)=\"showActive()\">Active</button>\n        <button type=\"button\" class=\"btn btn-outline-secondary\" [ngClass]=\"{'active': filterState == 'inactive'}\" (click)=\"showInActive()\">In Active</button>\n        <div class=\"dropdown\">\n          <button type=\"button\" class=\"btn btn-outline-secondary dropdown-toggle\" id=\"sortMenuButton\" data-toggle=\"dropdown\" aria-haspopup=\"true\" aria-expanded=\"false\">Sort By</button>\n          <div class=\"dropdown-menu\" aria-labelledby=\"sortMenuButton\">\n            <button type=\"button\" class=\"dropdown-item\" (click)=\"sort('username')\">Username</button>\n            <button type=\"button\" class=\"dropdown-item\" (click)=\"sort('email')\">Email Address</button>\n            <button type=\"button\" class=\"dropdown-item\" (click)=\"sort('merchant')\">Company Name</button>\n            <button type=\"button\" class=\"dropdown-item\" (click)=\"sort('status')\">Status</button>\n            <button type=\"button\" class=\"dropdown-item\" (click)=\"sort('created')\">Date Created</button>\n          </div>\n        </div>\n      </div>\n    </div>\n    <div class=\"tab-content py-0 px-0\">\n      <div *ngIf=\"showDeleteMessage\">\n        <div *ngIf=\"isDeleteSuccess\" class=\"alert alert-success alert-dismissible fadeOut\" role=\"alert\">\n          <strong>Success!</strong> 1 {{ user }} account deleted successfully\n          <button type=\"button\" class=\"close\" data-dismiss=\"alert\" aria-label=\"Close\">\n            <span aria-hidden=\"true\">&times;</span>\n          </button>\n        </div>\n\n        <div *ngIf=\"!isDeleteSuccess\" class=\"alert alert-success alert-dismissible fadeOut\" role=\"alert\">\n          <strong>Ooops!</strong> Something went wrong deleting a super executive account. Please try again.\n          <button type=\"button\" class=\"close\" data-dismiss=\"alert\" aria-label=\"Close\">\n            <span aria-hidden=\"true\">&times;</span>\n          </button>\n        </div>\n      </div>\n      <div class=\"tab-pane fade show active\" id=\"companies\" role=\"tabpanel\" aria-labelledby=\"companies-tab\">\n        <div class=\"table-responsive\">\n          <table class=\"table table-hover\">\n            <thead>\n              <tr>\n                <th>Username</th>\n                <th>Email Address</th>\n                <th *ngIf=\"userType != 20\">Company Name</th>\n                <th>Status.</th>\n                <th>Actions</th>\n              </tr>\n            </thead>\n            <tbody>\n              <tr class=\"hover-cursor\" *ngFor=\"let user of collection; let i = index\">\n                <td>{{ user.username }}</td>\n                <td>{{ user.email }}</td>\n                <td *ngIf=\"userType != 20\">{{ user.merchant_name }}</td>\n                <td *ngIf=\"user.status == 1\"><label class=\"badge badge-success text-center\">Active</label></td>\n                <td *ngIf=\"user.status != 1\"><label class=\"badge badge-danger text-center\">In-Active</label></td>\n                <td>\n                  <div class=\"d-flex align-items-end flex-wrap\">\n                    <button type=\"button\" class=\"btn btn-light bg-white btn-icon mr-3 d-sm-none d-md-block\"\n                      data-toggle=\"tooltip\" data-placement=\"top\" title=\"Edit\" (click)=\"_edit(user.id)\">\n                      <i class=\"mdi mdi-pencil-outline text-muted\"></i>\n                    </button>\n                    <button type=\"button\" class=\"btn btn-light bg-white btn-icon mr-3 d-sm-none d-md-block \"\n                      data-toggle=\"tooltip\" data-placement=\"top\" title=\"View Details\" (click)=\"_view(user.id)\">\n                      <i class=\"mdi mdi-eye-outline text-muted\"></i>\n                    </button>\n                    <button type=\"button\" class=\"btn btn-light bg-white btn-icon mr-3 d-sm-none d-md-block\"\n                      data-toggle=\"tooltip\" data-placement=\"top\" title=\"Delete\" (click)=\"_delete(user.id, i)\">\n                      <i class=\"mdi mdi-delete-outline text-muted\"></i>\n                    </button>\n                    <!-- <button type=\"button\" class=\"btn btn-light bg-white btn-icon mr-3 d-sm-block\">\n                      <i class=\"mdi mdi-dots-vertical text-muted\"></i>\n                    </button> -->\n                  </div>\n                </td>\n              </tr>\n            </tbody>\n          </table>\n        </div>\n      </div>\n    </div>\n  </div>\n</div>\n\n<ng-template #loader let-modal>\n  <div class=\"modal-body\">\n    <div class=\"d-flex justify-content-center\">\n      <div class=\"spinner-border m-5\" style=\"width: 4rem; height: 4rem;\" role=\"status\">\n        <span class=\"sr-only\">Loading...</span>\n      </div>\n    </div>\n    <p class=\"text-center\">Please wait...</p>\n  </div>\n</ng-template>\n\n<ng-template #confirm let-modal>\n  <div class=\"modal-header\">\n    <h4 class=\"modal-title\" id=\"modal-title\">Delete User ?</h4>\n    <button type=\"button\" class=\"close\" aria-describedby=\"modal-title\" (click)=\"modal.dismiss('Cross click')\">\n      <span aria-hidden=\"true\">&times;</span>\n    </button>\n  </div>\n  <div class=\"modal-body\">\n    <p><strong>Are you sure you want to delete <span class=\"text-primary\">this user</span> ?</strong></p>\n    <p>All information associated with this user will be permanently deleted.\n      <span class=\"text-danger\">This operation can not be undone.</span>\n    </p>\n  </div>\n  <div class=\"modal-footer\">\n    <button type=\"button\" class=\"btn btn-outline-secondary\" (click)=\"modal.dismiss('cancel')\">Cancel</button>\n    <button type=\"button\" class=\"btn btn-danger\" (click)=\"modal.close('delete')\">Delete</button>\n  </div>\n</ng-template>"
+module.exports = "<div *ngIf=\"loading\" class=\"row m-5\">\n  <div class=\"col-md-12 col-sm-12 m-md-5\">\n    <div class=\"d-flex justify-content-center\">\n      <div class=\"spinner-border m-5\" style=\"width: 5rem; height: 5rem;\" role=\"status\">\n        <span class=\"sr-only\">Loading...</span>\n      </div>\n    </div>\n  </div>\n</div>\n\n<div *ngIf=\"hasNoData\" class=\"row\">\n  <div class=\"col-lg-12 grid-margin stretch-card\">\n    <div class=\"card text-center pt-5 pb-5\">\n      <div class=\"card-body mt-5 mb-5\">\n        <h4 class=\"card-title\">No Accounts Found</h4>\n        <p class=\"card-description\"></p>\n        <div class=\"text-lg-center mt-5 mb-5\">\n          <div class=\"card-text\">\n            <i class=\"mdi mdi-account-alert-outline\" style=\"font-size: 8em;\"></i>\n          </div>\n          <div class=\"card-text\">\n            <h3 class=\"display-4\">No {{ user }} Accounts</h3>\n            <p class=\"text-muted\">All {{ user }} accounts would be displayed here</p>\n          </div>\n          <div class=\"card-text mt-3 mb-5\">\n            <button class=\"btn btn-outline-primary btn-lg btn-icon-text\" (click)=\"createAccount()\">\n              <i class=\"mdi mdi-plus\"></i>\n              Create New\n            </button>\n          </div>\n        </div>\n      </div>\n    </div>\n  </div>\n</div>\n\n<div *ngIf=\"hasError\" class=\"row\">\n  <div class=\"col-lg-12 grid-margin stretch-card\">\n    <div class=\"card text-center pt-5 pb-5\">\n      <div class=\"card-body mt-5 mb-5\">\n        <h4 class=\"card-title\">Error Ocuured</h4>\n        <p class=\"card-description\">\n          Ooops! Something went wrong!\n        </p>\n        <div class=\"text-lg-center mt-5 mb-5\">\n          <div class=\"card-text\">\n            <i class=\"mdi mdi-close-network-outline\" style=\"font-size: 8em;\"></i>\n          </div>\n          <div class=\"card-text\">\n            <h3>We couldn't get your {{ user }} accounts.</h3>\n            <p class=\"text-muted\">You may not have internet connection or our servers maybe down.</p>\n            <button class=\"btn btn-primary\" type=\"button\" (click)=\"retry()\">Retry</button>\n          </div>\n        </div>\n      </div>\n    </div>\n  </div>\n</div>\n\n<div *ngIf=\"!loading && !hasNoData && !hasError\" class=\"row\">\n  <div class=\"col-md-12\">\n    <div class=\"text-lg-center mt-3 mb-5\">\n      <div class=\"btn-group\" role=\"group\" aria-label=\"Sort By\">\n        <button type=\"button\" class=\"btn btn-outline-secondary\" [ngClass]=\"{'active': filterState == 'all'}\" (click)=\"showAll()\">All</button>\n        <button type=\"button\" class=\"btn btn-outline-secondary\" [ngClass]=\"{'active': filterState == 'active'}\" (click)=\"showActive()\">Active</button>\n        <button type=\"button\" class=\"btn btn-outline-secondary\" [ngClass]=\"{'active': filterState == 'inactive'}\" (click)=\"showInActive()\">In Active</button>\n        <div class=\"dropdown\">\n          <button type=\"button\" class=\"btn btn-outline-secondary dropdown-toggle\" id=\"sortMenuButton\" data-toggle=\"dropdown\" aria-haspopup=\"true\" aria-expanded=\"false\">Sort By</button>\n          <div class=\"dropdown-menu\" aria-labelledby=\"sortMenuButton\">\n            <button type=\"button\" class=\"dropdown-item\" (click)=\"sort('username')\">Username</button>\n            <button type=\"button\" class=\"dropdown-item\" (click)=\"sort('email')\">Email Address</button>\n            <button type=\"button\" class=\"dropdown-item\" (click)=\"sort('merchant')\">Company Name</button>\n            <button type=\"button\" class=\"dropdown-item\" (click)=\"sort('status')\">Status</button>\n            <button type=\"button\" class=\"dropdown-item\" (click)=\"sort('created')\">Date Created</button>\n          </div>\n        </div>\n      </div>\n    </div>\n    <div class=\"tab-content py-0 px-0\">\n      <div *ngIf=\"showDeleteMessage\">\n        <div *ngIf=\"isDeleteSuccess\" class=\"alert alert-success alert-dismissible fadeOut\" role=\"alert\">\n          <strong>Success!</strong> 1 {{ user }} account deleted successfully\n          <button type=\"button\" class=\"close\" data-dismiss=\"alert\" aria-label=\"Close\">\n            <span aria-hidden=\"true\">&times;</span>\n          </button>\n        </div>\n\n        <div *ngIf=\"!isDeleteSuccess\" class=\"alert alert-success alert-dismissible fadeOut\" role=\"alert\">\n          <strong>Ooops!</strong> Something went wrong deleting a super executive account. Please try again.\n          <button type=\"button\" class=\"close\" data-dismiss=\"alert\" aria-label=\"Close\">\n            <span aria-hidden=\"true\">&times;</span>\n          </button>\n        </div>\n      </div>\n      <div class=\"tab-pane fade show active\" id=\"companies\" role=\"tabpanel\" aria-labelledby=\"companies-tab\">\n        <div class=\"table-responsive\">\n          <table class=\"table table-hover\">\n            <thead>\n              <tr>\n                <th>Username</th>\n                <th>Email Address</th>\n                <th *ngIf=\"userType != 20\">Company Name</th>\n                <th>Status.</th>\n                <th>Actions</th>\n              </tr>\n            </thead>\n            <tbody>\n              <tr class=\"hover-cursor\" *ngFor=\"let user of collection; let i = index\">\n                <td>{{ user.username }}</td>\n                <td>{{ user.email }}</td>\n                <td *ngIf=\"userType != 20\">{{ user.merchant_name }}</td>\n                <td *ngIf=\"user.status == 1\"><label class=\"badge badge-success text-center\">Active</label></td>\n                <td *ngIf=\"user.status != 1\"><label class=\"badge badge-danger text-center\">In-Active</label></td>\n                <td>\n                  <div class=\"d-flex align-items-end flex-wrap\">\n                    <button *ngIf=\"canEdit\" type=\"button\" class=\"btn btn-light bg-white btn-icon mr-3 d-sm-none d-md-block\"\n                      data-toggle=\"tooltip\" data-placement=\"top\" title=\"Edit\" (click)=\"_edit(user.id)\">\n                      <i class=\"mdi mdi-pencil-outline text-muted\"></i>\n                    </button>\n                    <button *ngIf=\"canView\" type=\"button\" class=\"btn btn-light bg-white btn-icon mr-3 d-sm-none d-md-block \"\n                      data-toggle=\"tooltip\" data-placement=\"top\" title=\"View Details\" (click)=\"_view(user.id)\">\n                      <i class=\"mdi mdi-eye-outline text-muted\"></i>\n                    </button>\n                    <button *ngIf=\"canDelete\" type=\"button\" class=\"btn btn-light bg-white btn-icon mr-3 d-sm-none d-md-block\"\n                      data-toggle=\"tooltip\" data-placement=\"top\" title=\"Delete\" (click)=\"_delete(user.id, i)\">\n                      <i class=\"mdi mdi-delete-outline text-muted\"></i>\n                    </button>\n                    <!-- <button type=\"button\" class=\"btn btn-light bg-white btn-icon mr-3 d-sm-block\">\n                      <i class=\"mdi mdi-dots-vertical text-muted\"></i>\n                    </button> -->\n                  </div>\n                </td>\n              </tr>\n            </tbody>\n          </table>\n        </div>\n      </div>\n    </div>\n  </div>\n</div>\n\n<ng-template #loader let-modal>\n  <div class=\"modal-body\">\n    <div class=\"d-flex justify-content-center\">\n      <div class=\"spinner-border m-5\" style=\"width: 4rem; height: 4rem;\" role=\"status\">\n        <span class=\"sr-only\">Loading...</span>\n      </div>\n    </div>\n    <p class=\"text-center\">Please wait...</p>\n  </div>\n</ng-template>\n\n<ng-template #confirm let-modal>\n  <div class=\"modal-header\">\n    <h4 class=\"modal-title\" id=\"modal-title\">Delete User ?</h4>\n    <button type=\"button\" class=\"close\" aria-describedby=\"modal-title\" (click)=\"modal.dismiss('Cross click')\">\n      <span aria-hidden=\"true\">&times;</span>\n    </button>\n  </div>\n  <div class=\"modal-body\">\n    <p><strong>Are you sure you want to delete <span class=\"text-primary\">this user</span> ?</strong></p>\n    <p>All information associated with this user will be permanently deleted.\n      <span class=\"text-danger\">This operation can not be undone.</span>\n    </p>\n  </div>\n  <div class=\"modal-footer\">\n    <button type=\"button\" class=\"btn btn-outline-secondary\" (click)=\"modal.dismiss('cancel')\">Cancel</button>\n    <button type=\"button\" class=\"btn btn-danger\" (click)=\"modal.close('delete')\">Delete</button>\n  </div>\n</ng-template>"
 
 /***/ }),
 
@@ -1141,7 +1185,7 @@ module.exports = "<div class=\"container-scroller\">\n  <app-navigation-bar></ap
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<form [formGroup]=\"form\" (ngSubmit)=\"register()\" class=\"pt-3\">\n  <div *ngIf=\"isGitAdmin\" class=\"form-group\">\n    <select class=\"form-control\" formControlName=\"userType\"\n      [ngClass]=\"{'input-control-error': submitted && f.userType.errors}\" (change)=\"onUserSelect($event)\">\n      <option value=\"\" disabled>Choose User Type</option>\n      <option value=\"20\">GIT Admin</option>\n      <option value=\"21\">Super Executive</option>\n      <option value=\"22\">Branch Super-Executive</option>\n      <option value=\"23\">Company Admin</option>\n      <option value=\"24\">Branch Admin</option>\n      <option value=\"25\">Front Desk</option>\n    </select>\n    <div *ngIf=\"submitted && f.userType.errors\">\n      <p class=\"input-error\" *ngIf=\"f.userType.errors.required\">User type is required</p>\n    </div>\n  </div>\n  <div class=\"row\">\n    <div class=\"col-md-6\">\n      <div class=\"form-group\">\n        <input type=\"text\" class=\"form-control\" formControlName=\"firstName\" placeholder=\"First Name\"\n          [ngClass]=\"{'input-control-error': submitted && f.firstName.errors}\">\n        <div *ngIf=\"submitted && f.firstName.errors\">\n          <p class=\"input-error\" *ngIf=\"f.firstName.errors.required\">First name is required</p>\n        </div>\n      </div>\n    </div>\n    <div class=\"col-md-6\">\n      <div class=\"form-group\">\n        <input type=\"text\" class=\"form-control\" formControlName=\"lastName\" placeholder=\"Last Name\"\n          [ngClass]=\"{'input-control-error': submitted && f.lastName.errors}\">\n        <div *ngIf=\"submitted && f.lastName.errors\">\n          <p class=\"input-error\" *ngIf=\"f.lastName.errors.required\">Last name is required</p>\n        </div>\n      </div>\n    </div>\n  </div>\n  <div class=\"row\" *ngIf=\"!isAdmin || isFrontDesk\">\n    <div [ngClass]=\"{'col-md-12': isCompAdmin || isSuperExec, 'col-md-6': isFrontDesk}\"\n      *ngIf=\"isCompAdmin || isSuperExec || isFrontDesk\">\n      <div class=\"form-group\">\n        <input type=\"text\" class=\"form-control\" formControlName=\"merchant\" placeholder=\"Company Name\"\n          [matAutocomplete]=\"auto\" [ngClass]=\"{'input-control-error': submitted && f.merchant.errors}\">\n        <mat-autocomplete #auto=\"matAutocomplete\" (optionSelected)=\"companySelected($event.option.value)\">\n          <mat-option *ngFor=\"let item of filteredMerchants | async\" [value]=\"item\">\n            {{ item }}\n          </mat-option>\n        </mat-autocomplete>\n        <div *ngIf=\"submitted && f.merchant.errors\">\n          <p class=\"input-error\" *ngIf=\"f.merchant.errors.required\">Company is required</p>\n        </div>\n      </div>\n    </div>\n    <div class=\"col-md-6\" *ngIf=\"!isCompAdmin && !isSuperExec\">\n      <div class=\"form-group\">\n        <input type=\"text\" class=\"form-control\" formControlName=\"branch\" placeholder=\"Branch Name\"\n          [matAutocomplete]=\"auto_1\" [ngClass]=\"{'input-control-error': submitted && f.branch.errors}\">\n        <mat-autocomplete #auto_1=\"matAutocomplete\">\n          <mat-option *ngFor=\"let item of filteredBranches | async\" [value]=\"item\">\n            {{ item }}\n          </mat-option>\n        </mat-autocomplete>\n        <div *ngIf=\"submitted && f.branch.errors\">\n          <p class=\"input-error\" *ngIf=\"f.branch.errors.required\">Branch is required</p>\n        </div>\n      </div>\n    </div>\n  </div>\n  <div class=\"form-group\">\n    <input type=\"text\" class=\"form-control\" formControlName=\"username\" placeholder=\"Username\"\n      [ngClass]=\"{'input-control-error': submitted && f.username.errors}\">\n    <div *ngIf=\"submitted && f.username.errors\">\n      <p class=\"input-error\" *ngIf=\"f.username.errors.required\">Username is required</p>\n    </div>\n  </div>\n  <div class=\"form-group\">\n    <input type=\"email\" class=\"form-control\" formControlName=\"emailAddress\" placeholder=\"Email Address\"\n      [ngClass]=\"{'input-control-error': submitted && f.emailAddress.errors}\">\n    <div *ngIf=\"submitted && f.emailAddress.errors\">\n      <p class=\"input-error\" *ngIf=\"f.emailAddress.errors.email\">Must be a valid email address</p>\n      <p class=\"input-error\" *ngIf=\"f.emailAddress.errors.required\">Email address is required</p>\n    </div>\n  </div>\n  <div class=\"form-group row\" style=\"margin-left: 0px;\">\n    <input type=\"text\" formControlName=\"dialCode\" disabled class=\"form-control\"\n      style=\"text-align: center; width: 20%; padding-left: 5px; padding-right: 5px;\">\n    <!-- !!! DON'T REMOVE THIS !!! -->\n    <!-- <div class=\"form-control form-control-lg\" style=\"text-align: center; width: 30%; padding-left: .54rem; padding-right: .54rem;\">\n      <mat-select placeholder=\"Country Code\" formControlName=\"dialCode\" disabled>\n        <mat-select-trigger>\n          <span *ngIf=\"f.dialCode.value\">\n            {{ f.dialCode.value }}\n          </span>\n        </mat-select-trigger>\n        <mat-option *ngFor=\"let item of countryDialCodes\" [value]=\"item.dial_code\">\n          {{ item.name }} ({{ item.dial_code }})\n        </mat-option>\n      </mat-select>\n    </div> -->\n    <div style=\"width: 78%;\">\n      <input type=\"tel\" class=\"form-control\" formControlName=\"phone\" autocomplete=\"new-password\" (keyup)=\"resolveStrCharacters($event)\"\n        placeholder=\"Example: 24 123 1234\" id=\"phone\" [ngClass]=\"{'input-control-error': submitted && f.phone.errors}\">\n    </div>\n    <div *ngIf=\"submitted && f.phone.errors\">\n      <p class=\"input-error\" *ngIf=\"f.phone.errors.required\">Phone number is required</p>\n      <p class=\"input-error\" *ngIf=\"f.phone.errors.minlength\">Phone number cannot be less than 9 digits</p>\n      <p class=\"input-error\" *ngIf=\"f.phone.errors.maxlength\">Phone number cannot exceed 9 characters. Don't start with 0</p>\n    </div>\n  </div>\n  <div class=\"form-group\">\n    <select class=\"form-control\" formControlName=\"country\"\n      [ngClass]=\"{'input-control-error': submitted && f.country.errors}\" (change)=\"onCountrySelect($event)\">\n      <option value=\"\" disabled>Country</option>\n      <option *ngFor=\"let country of countriesList | orderBy: 'country.name.common'\" [value]=\"country.name.common\">\n        {{ country.name.common }}\n      </option>\n    </select>\n    <div *ngIf=\"submitted && f.country.errors\">\n      <p class=\"input-error\" *ngIf=\"f.country.errors.required\">Country is required</p>\n    </div>\n  </div>\n  <div class=\"form-group\">\n    <input type=\"password\" class=\"form-control\" formControlName=\"password\" placeholder=\"Password\"\n      autocomplete=\"new-password\" [ngClass]=\"{'input-control-error': submitted && f.password.errors}\">\n    <div *ngIf=\"submitted && f.password.errors\">\n      <p class=\"input-error\" *ngIf=\"f.password.errors.minlength\">Password must be atleast 8 characters</p>\n      <p class=\"input-error\" *ngIf=\"f.password.errors.required\">Password is required</p>\n    </div>\n  </div>\n  <div class=\"mt-3\">\n    <button type=\"submit\" *ngIf=\"!loading\" class=\"btn btn-primary btn-lg mr-2\">SUBMIT</button>\n    <button *ngIf=\"loading\" class=\"btn btn-primary btn-lg mr-2\" type=\"button\" disabled>\n      <span class=\"spinner-border spinner-border-sm\" role=\"status\" aria-hidden=\"true\"></span>&nbsp; &nbsp;\n      Please wait\n    </button>\n    <button type=\"button\" class=\"btn btn-light btn-lg\" (click)=\"cancel()\">CANCEL</button>\n  </div>\n</form>\n\n<ng-template #confirm let-modal>\n  <div class=\"modal-header\">\n    <h4 class=\"modal-title\" id=\"modal-title\">Cancel ?</h4>\n    <button type=\"button\" class=\"close\" aria-describedby=\"modal-title\" (click)=\"modal.dismiss('closed')\">\n      <span aria-hidden=\"true\">&times;</span>\n    </button>\n  </div>\n  <div class=\"modal-body\">\n    <p><strong>Are you sure you want to cancel <span class=\"text-primary\">the creation of this company</span> ?</strong>\n    </p>\n    <p>All information provided will be permanently lost.\n      <span class=\"text-danger\">This operation can not be undone.</span>\n    </p>\n  </div>\n  <div class=\"modal-footer\">\n    <button type=\"button\" class=\"btn btn-outline-secondary\" (click)=\"modal.dismiss('no')\">No</button>\n    <button type=\"button\" class=\"btn btn-danger\" (click)=\"modal.close('yes')\">Yes</button>\n  </div>\n</ng-template>"
+module.exports = "<form [formGroup]=\"form\" (ngSubmit)=\"register()\" class=\"pt-3\">\n  <div *ngIf=\"isGitAdmin\" class=\"form-group\">\n    <select class=\"form-control\" formControlName=\"userType\"\n      [ngClass]=\"{'input-control-error': submitted && f.userType.errors}\" (change)=\"onUserSelect($event)\">\n      <option value=\"\" disabled>Choose User Type</option>\n      <option value=\"20\">GIT Admin</option>\n      <option value=\"21\">Super Executive</option>\n      <option value=\"22\">Branch Super-Executive</option>\n      <option value=\"23\">Company Admin</option>\n      <option value=\"24\">Branch Admin</option>\n      <option value=\"25\">Front Desk</option>\n    </select>\n    <div *ngIf=\"submitted && f.userType.errors\">\n      <p class=\"input-error\" *ngIf=\"f.userType.errors.required\">User type is required</p>\n    </div>\n  </div>\n  <div class=\"row\">\n    <div class=\"col-md-6\">\n      <div class=\"form-group\">\n        <input type=\"text\" class=\"form-control\" formControlName=\"firstName\" placeholder=\"First Name\"\n          [ngClass]=\"{'input-control-error': submitted && f.firstName.errors}\">\n        <div *ngIf=\"submitted && f.firstName.errors\">\n          <p class=\"input-error\" *ngIf=\"f.firstName.errors.required\">First name is required</p>\n        </div>\n      </div>\n    </div>\n    <div class=\"col-md-6\">\n      <div class=\"form-group\">\n        <input type=\"text\" class=\"form-control\" formControlName=\"lastName\" placeholder=\"Last Name\"\n          [ngClass]=\"{'input-control-error': submitted && f.lastName.errors}\">\n        <div *ngIf=\"submitted && f.lastName.errors\">\n          <p class=\"input-error\" *ngIf=\"f.lastName.errors.required\">Last name is required</p>\n        </div>\n      </div>\n    </div>\n  </div>\n  <div class=\"row\" *ngIf=\"!isAdmin || isFrontDesk\">\n    <div [ngClass]=\"{'col-md-12': isCompAdmin || isSuperExec, 'col-md-6': isFrontDesk}\"\n      *ngIf=\"isCompAdmin || isSuperExec || isFrontDesk\">\n      <div class=\"form-group\">\n        <input type=\"text\" class=\"form-control\" formControlName=\"merchant\" placeholder=\"Company Name\"\n          [matAutocomplete]=\"auto\" [ngClass]=\"{'input-control-error': submitted && f.merchant.errors}\">\n        <mat-autocomplete #auto=\"matAutocomplete\" (optionSelected)=\"companySelected($event.option.value)\">\n          <mat-option *ngFor=\"let item of filteredMerchants | async\" [value]=\"item\">\n            {{ item }}\n          </mat-option>\n        </mat-autocomplete>\n        <div *ngIf=\"submitted && f.merchant.errors\">\n          <p class=\"input-error\" *ngIf=\"f.merchant.errors.required\">Company is required</p>\n        </div>\n      </div>\n    </div>\n    <div [ngClass]=\"{'col-md-6': !isCompAdmin && !isSuperExec, 'col-md-12': isCompAdmin && isSuperExec}\">\n      <!-- <div> -->\n        <div class=\"form-group\" *ngIf=\"!isCompAdmin && !isSuperExec\">\n          <input type=\"text\" class=\"form-control\" formControlName=\"branch\" placeholder=\"Branch Name\"\n            [matAutocomplete]=\"auto_1\" [ngClass]=\"{'input-control-error': submitted && f.branch.errors}\">\n          <mat-autocomplete #auto_1=\"matAutocomplete\">\n            <mat-option *ngFor=\"let item of filteredBranches | async\" [value]=\"item\">\n              {{ item }}\n            </mat-option>\n          </mat-autocomplete>\n          <div *ngIf=\"submitted && f.branch.errors\">\n            <p class=\"input-error\" *ngIf=\"f.branch.errors.required\">Branch is required</p>\n          </div>\n        </div>\n      <!-- </div> -->\n    </div>\n  </div>\n  <div class=\"form-group\">\n    <input type=\"text\" class=\"form-control\" formControlName=\"username\" placeholder=\"Username\"\n      [ngClass]=\"{'input-control-error': submitted && f.username.errors}\">\n    <div *ngIf=\"submitted && f.username.errors\">\n      <p class=\"input-error\" *ngIf=\"f.username.errors.required\">Username is required</p>\n    </div>\n  </div>\n  <div class=\"form-group\">\n    <input type=\"email\" class=\"form-control\" formControlName=\"emailAddress\" placeholder=\"Email Address\"\n      [ngClass]=\"{'input-control-error': submitted && f.emailAddress.errors}\">\n    <div *ngIf=\"submitted && f.emailAddress.errors\">\n      <p class=\"input-error\" *ngIf=\"f.emailAddress.errors.email\">Must be a valid email address</p>\n      <p class=\"input-error\" *ngIf=\"f.emailAddress.errors.required\">Email address is required</p>\n    </div>\n  </div>\n  <div class=\"form-group row\" style=\"margin-left: 0px;\">\n    <input type=\"text\" formControlName=\"dialCode\" disabled class=\"form-control\"\n      style=\"text-align: center; width: 20%; padding-left: 5px; padding-right: 5px;\">\n    <!-- !!! DON'T REMOVE THIS !!! -->\n    <!-- <div class=\"form-control form-control-lg\" style=\"text-align: center; width: 30%; padding-left: .54rem; padding-right: .54rem;\">\n      <mat-select placeholder=\"Country Code\" formControlName=\"dialCode\" disabled>\n        <mat-select-trigger>\n          <span *ngIf=\"f.dialCode.value\">\n            {{ f.dialCode.value }}\n          </span>\n        </mat-select-trigger>\n        <mat-option *ngFor=\"let item of countryDialCodes\" [value]=\"item.dial_code\">\n          {{ item.name }} ({{ item.dial_code }})\n        </mat-option>\n      </mat-select>\n    </div> -->\n    <div style=\"width: 78%;\">\n      <input type=\"tel\" class=\"form-control\" formControlName=\"phone\" autocomplete=\"new-password\" (keyup)=\"resolveStrCharacters($event)\"\n        placeholder=\"Example: 24 123 1234\" id=\"phone\" [ngClass]=\"{'input-control-error': submitted && f.phone.errors}\">\n    </div>\n    <div *ngIf=\"submitted && f.phone.errors\">\n      <p class=\"input-error\" *ngIf=\"f.phone.errors.required\">Phone number is required</p>\n      <p class=\"input-error\" *ngIf=\"f.phone.errors.minlength\">Phone number cannot be less than 9 digits</p>\n      <p class=\"input-error\" *ngIf=\"f.phone.errors.maxlength\">Phone number cannot exceed 9 characters. Don't start with 0</p>\n    </div>\n  </div>\n  <div class=\"form-group\">\n    <select class=\"form-control\" formControlName=\"country\"\n      [ngClass]=\"{'input-control-error': submitted && f.country.errors}\" (change)=\"onCountrySelect($event)\">\n      <option value=\"\" disabled>Country</option>\n      <option *ngFor=\"let country of countriesList | orderBy: 'country.name.common'\" [value]=\"country.name.common\">\n        {{ country.name.common }}\n      </option>\n    </select>\n    <div *ngIf=\"submitted && f.country.errors\">\n      <p class=\"input-error\" *ngIf=\"f.country.errors.required\">Country is required</p>\n    </div>\n  </div>\n  <div class=\"form-group\">\n    <input type=\"password\" class=\"form-control\" formControlName=\"password\" placeholder=\"Password\"\n      autocomplete=\"new-password\" [ngClass]=\"{'input-control-error': submitted && f.password.errors}\">\n    <div *ngIf=\"submitted && f.password.errors\">\n      <p class=\"input-error\" *ngIf=\"f.password.errors.minlength\">Password must be atleast 8 characters</p>\n      <p class=\"input-error\" *ngIf=\"f.password.errors.required\">Password is required</p>\n    </div>\n  </div>\n  <div class=\"mt-3\">\n    <button type=\"submit\" *ngIf=\"!loading\" class=\"btn btn-primary btn-lg mr-2\">SUBMIT</button>\n    <button *ngIf=\"loading\" class=\"btn btn-primary btn-lg mr-2\" type=\"button\" disabled>\n      <span class=\"spinner-border spinner-border-sm\" role=\"status\" aria-hidden=\"true\"></span>&nbsp; &nbsp;\n      Please wait\n    </button>\n    <button type=\"button\" class=\"btn btn-light btn-lg\" (click)=\"cancel()\">CANCEL</button>\n  </div>\n</form>\n\n<ng-template #confirm let-modal>\n  <div class=\"modal-header\">\n    <h4 class=\"modal-title\" id=\"modal-title\">Cancel ?</h4>\n    <button type=\"button\" class=\"close\" aria-describedby=\"modal-title\" (click)=\"modal.dismiss('closed')\">\n      <span aria-hidden=\"true\">&times;</span>\n    </button>\n  </div>\n  <div class=\"modal-body\">\n    <p><strong>Are you sure you want to cancel <span class=\"text-primary\">the creation of this company</span> ?</strong>\n    </p>\n    <p>All information provided will be permanently lost.\n      <span class=\"text-danger\">This operation can not be undone.</span>\n    </p>\n  </div>\n  <div class=\"modal-footer\">\n    <button type=\"button\" class=\"btn btn-outline-secondary\" (click)=\"modal.dismiss('no')\">No</button>\n    <button type=\"button\" class=\"btn btn-danger\" (click)=\"modal.close('yes')\">Yes</button>\n  </div>\n</ng-template>"
 
 /***/ }),
 
@@ -1152,7 +1196,7 @@ module.exports = "<form [formGroup]=\"form\" (ngSubmit)=\"register()\" class=\"p
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<form [formGroup]=\"form\" (ngSubmit)=\"edit()\" class=\"pt-3\">\n  <div *ngIf=\"!isAdmin\" class=\"form-group\">\n    <select class=\"form-control\" formControlName=\"userType\"\n      [ngClass]=\"{'input-control-error': submitted && f.userType.errors}\" (change)=\"onUserSelect($event)\">\n      <option value=\"\" disabled>Choose User Type</option>\n      <option value=\"20\">GIT Admin</option>\n      <option value=\"21\">Super Executive</option>\n      <option value=\"22\">Branch Super-Executive</option>\n      <option value=\"23\">Company Admin</option>\n      <option value=\"24\">Branch Admin</option>\n      <option value=\"25\">Front Desk</option>\n    </select>\n    <div *ngIf=\"submitted && f.userType.errors\">\n      <p class=\"input-error\" *ngIf=\"f.userType.errors.required\">User type is required</p>\n    </div>\n  </div>\n  <div class=\"row\">\n    <div class=\"col-md-6\">\n      <div class=\"form-group\">\n        <input type=\"text\" class=\"form-control\" formControlName=\"firstName\" placeholder=\"First Name\"\n          [ngClass]=\"{'input-control-error': submitted && f.firstName.errors}\">\n        <div *ngIf=\"submitted && f.firstName.errors\">\n          <p class=\"input-error\" *ngIf=\"f.firstName.errors.required\">First name is required</p>\n        </div>\n      </div>\n    </div>\n    <div class=\"col-md-6\">\n      <div class=\"form-group\">\n        <input type=\"text\" class=\"form-control\" formControlName=\"lastName\" placeholder=\"Last Name\"\n          [ngClass]=\"{'input-control-error': submitted && f.lastName.errors}\">\n        <div *ngIf=\"submitted && f.lastName.errors\">\n          <p class=\"input-error\" *ngIf=\"f.lastName.errors.required\">Last name is required</p>\n        </div>\n      </div>\n    </div>\n  </div>\n  <div *ngIf=\"!isGitAdmin\" class=\"row\">\n    <div [ngClass]=\"{'col-md-12': isCompAdmin || isSuperExec, 'col-md-6': !isCompAdmin || !isSuperExec}\">\n      <div class=\"form-group\">\n        <input type=\"text\" class=\"form-control\" formControlName=\"merchant\" placeholder=\"Company Name\"\n          [matAutocomplete]=\"auto\" [ngClass]=\"{'input-control-error': submitted && f.merchant.errors}\">\n        <mat-autocomplete #auto=\"matAutocomplete\" (optionSelected)=\"companySelected($event.option.value)\">\n          <mat-option *ngFor=\"let item of filteredMerchants | async\" [value]=\"item\">\n            {{ item }}\n          </mat-option>\n        </mat-autocomplete>\n        <div *ngIf=\"submitted && f.merchant.errors\">\n          <p class=\"input-error\" *ngIf=\"f.merchant.errors.required\">Company is required</p>\n        </div>\n      </div>\n    </div>\n    <div *ngIf=\"!isCompAdmin && !isSuperExec\" class=\"col-md-6\">\n      <div class=\"form-group\">\n        <input type=\"text\" class=\"form-control\" formControlName=\"branch\" placeholder=\"Branch Name\"\n          [matAutocomplete]=\"auto_1\" [ngClass]=\"{'input-control-error': submitted && f.branch.errors}\">\n        <mat-autocomplete #auto_1=\"matAutocomplete\">\n          <mat-option *ngFor=\"let item of filteredBranches | async\" [value]=\"item\">\n            {{ item }}\n          </mat-option>\n        </mat-autocomplete>\n        <div *ngIf=\"submitted && f.branch.errors\">\n          <p class=\"input-error\" *ngIf=\"f.branch.errors.required\">Branch is required</p>\n        </div>\n      </div>\n    </div>\n  </div>\n  <div class=\"form-group\">\n    <input type=\"text\" class=\"form-control\" formControlName=\"username\" placeholder=\"Username\"\n      [ngClass]=\"{'input-control-error': submitted && f.username.errors}\">\n    <div *ngIf=\"submitted && f.username.errors\">\n      <p class=\"input-error\" *ngIf=\"f.username.errors.required\">Username is required</p>\n    </div>\n  </div>\n  <div class=\"form-group\">\n    <input type=\"email\" class=\"form-control\" formControlName=\"emailAddress\" placeholder=\"Email Address\"\n      [ngClass]=\"{'input-control-error': submitted && f.emailAddress.errors}\">\n    <div *ngIf=\"submitted && f.emailAddress.errors\">\n      <p class=\"input-error\" *ngIf=\"f.emailAddress.errors.email\">Must be a valid email address</p>\n      <p class=\"input-error\" *ngIf=\"f.emailAddress.errors.required\">Email address is required</p>\n    </div>\n  </div>\n   <div class=\"form-group row\" style=\"margin-left: 0px;\">\n     <input type=\"text\" formControlName=\"dialCode\" disabled class=\"form-control\"\n       style=\"text-align: center; width: 20%; padding-left: 5px; padding-right: 5px;\">\n     <!-- !!! DON'T REMOVE THIS !!! -->\n     <!-- <div class=\"form-control form-control-lg\" style=\"text-align: center; width: 30%; padding-left: .54rem; padding-right: .54rem;\">\n      <mat-select placeholder=\"Country Code\" formControlName=\"dialCode\" disabled>\n        <mat-select-trigger>\n          <span *ngIf=\"f.dialCode.value\">\n            {{ f.dialCode.value }}\n          </span>\n        </mat-select-trigger>\n        <mat-option *ngFor=\"let item of countryDialCodes\" [value]=\"item.dial_code\">\n          {{ item.name }} ({{ item.dial_code }})\n        </mat-option>\n      </mat-select>\n    </div> -->\n     <div style=\"width: 78%;\">\n       <input type=\"text\" class=\"form-control\" formControlName=\"phone\" autocomplete=\"new-password\"\n         (keyup)=\"resolveStrCharacters($event)\"\n         placeholder=\"Example: 24 123 1234\" id=\"phone\" [ngClass]=\"{'input-control-error': submitted && f.phone.errors}\">\n     </div>\n     <div *ngIf=\"submitted && f.phone.errors\">\n       <p class=\"input-error\" *ngIf=\"f.phone.errors.required\">Phone number is required</p>\n       <p class=\"input-error\" *ngIf=\"f.phone.errors.minlength\">Phone number cannot be less than 9 digits</p>\n       <p class=\"input-error\" *ngIf=\"f.phone.errors.maxlength\">Phone number cannot exceed 9 characters. Don't start with 0</p>\n     </div>\n   </div>\n  <div class=\"form-group\">\n    <select class=\"form-control\" formControlName=\"country\"\n      [ngClass]=\"{'input-control-error': submitted && f.country.errors}\" (change)=\"onCountrySelect($event)\">\n      <option value=\"\" disabled>Country</option>\n      <option *ngFor=\"let country of countriesList | orderBy: 'country.name.common'\" [value]=\"country.name.common\">\n        {{ country.name.common }}\n      </option>\n    </select>\n    <div *ngIf=\"submitted && f.country.errors\">\n      <p class=\"input-error\" *ngIf=\"f.country.errors.required\">Country is required</p>\n    </div>\n  </div>\n  <!-- <div class=\"form-group\">\n    <div class=\"input-group mb-1\">\n      <input type=\"password\" class=\"form-control\" formControlName=\"password\" placeholder=\"Password\"\n        autocomplete=\"new-password\" [ngClass]=\"{'input-control-error': submitted && f.password.errors}\">\n    </div>\n    <div *ngIf=\"submitted && f.password.errors\">\n      <p class=\"input-error\" *ngIf=\"f.password.errors.minlength\">Password must be atleast 6 characters</p>\n      <p class=\"input-error\" *ngIf=\"f.password.errors.required\">Password is required</p>\n    </div>\n  </div> -->\n  <div class=\"form-group\">\n    <div class=\"input-group mb-1\">\n      <input type=\"password\" class=\"form-control\" formControlName=\"password\" placeholder=\"Change Password\"\n        autocomplete=\"new-password\" [ngClass]=\"{'input-control-error': submitted && f.password.errors}\">\n      <div class=\"input-group-append\">\n        <button type=\"button\" class=\"btn btn-outline-primary btn-pwd\" (click)=\"editPassword()\">Edit</button>\n      </div>\n    </div>\n    <div *ngIf=\"submitted && f.password.errors\">\n      <p class=\"input-error\" *ngIf=\"f.password.errors.minlength\">Password must be atleast 8 characters</p>\n      <p class=\"input-error\" *ngIf=\"f.password.errors.required\">Password is required</p>\n    </div>\n  </div>\n  <div class=\"form-group\">\n    <select class=\"form-control\" formControlName=\"status\" (change)=\"onStatusChange($event)\">\n      <option value=\"\" disabled>Account Status</option>\n      <option value=\"1\">Active </option>\n      <option value=\"0\">In-Active </option>\n    </select>\n  </div>\n  <div class=\"mt-3\">\n    <button type=\"submit\" *ngIf=\"!loading\" class=\"btn btn-primary btn-lg mr-2\">SUBMIT</button>\n    <button *ngIf=\"loading\" class=\"btn btn-primary btn-lg mr-2\" type=\"button\" disabled>\n      <span class=\"spinner-border spinner-border-sm\" role=\"status\" aria-hidden=\"true\"></span>&nbsp; &nbsp;\n      Please wait\n    </button>\n    <button type=\"button\" class=\"btn btn-light btn-lg\" (click)=\"cancel()\">CANCEL</button>\n  </div>\n</form>"
+module.exports = "<form [formGroup]=\"form\" (ngSubmit)=\"edit()\" class=\"pt-3\">\n  <div *ngIf=\"isGitAdmin\" class=\"form-group\">\n    <select class=\"form-control\" formControlName=\"userType\"\n      [ngClass]=\"{'input-control-error': submitted && f.userType.errors}\" (change)=\"onUserSelect($event)\">\n      <option value=\"\" disabled>Choose User Type</option>\n      <option value=\"20\">GIT Admin</option>\n      <option value=\"21\">Super Executive</option>\n      <option value=\"22\">Branch Super-Executive</option>\n      <option value=\"23\">Company Admin</option>\n      <option value=\"24\">Branch Admin</option>\n      <option value=\"25\">Front Desk</option>\n    </select>\n    <div *ngIf=\"submitted && f.userType.errors\">\n      <p class=\"input-error\" *ngIf=\"f.userType.errors.required\">User type is required</p>\n    </div>\n  </div>\n  <div class=\"row\">\n    <div class=\"col-md-6\">\n      <div class=\"form-group\">\n        <input type=\"text\" class=\"form-control\" formControlName=\"firstName\" placeholder=\"First Name\"\n          [ngClass]=\"{'input-control-error': submitted && f.firstName.errors}\">\n        <div *ngIf=\"submitted && f.firstName.errors\">\n          <p class=\"input-error\" *ngIf=\"f.firstName.errors.required\">First name is required</p>\n        </div>\n      </div>\n    </div>\n    <div class=\"col-md-6\">\n      <div class=\"form-group\">\n        <input type=\"text\" class=\"form-control\" formControlName=\"lastName\" placeholder=\"Last Name\"\n          [ngClass]=\"{'input-control-error': submitted && f.lastName.errors}\">\n        <div *ngIf=\"submitted && f.lastName.errors\">\n          <p class=\"input-error\" *ngIf=\"f.lastName.errors.required\">Last name is required</p>\n        </div>\n      </div>\n    </div>\n  </div>\n  <div *ngIf=\"!isGitAdmin\" class=\"row\">\n    <div [ngClass]=\"{'col-md-12': !isCompAdmin || isSuperExec, 'col-md-6': !isCompAdmin || !isSuperExec}\">\n      <div class=\"form-group\">\n        <input type=\"text\" class=\"form-control\" formControlName=\"merchant\" placeholder=\"Company Name\"\n          [matAutocomplete]=\"auto\" [ngClass]=\"{'input-control-error': submitted && f.merchant.errors}\">\n        <mat-autocomplete #auto=\"matAutocomplete\" (optionSelected)=\"companySelected($event.option.value)\">\n          <mat-option *ngFor=\"let item of filteredMerchants | async\" [value]=\"item\">\n            {{ item }}\n          </mat-option>\n        </mat-autocomplete>\n        <div *ngIf=\"submitted && f.merchant.errors\">\n          <p class=\"input-error\" *ngIf=\"f.merchant.errors.required\">Company is required</p>\n        </div>\n      </div>\n    </div>\n    <div *ngIf=\"!isCompAdmin && !isSuperExec\"\n      [ngClass]=\"{'col-md-12': !isCompAdmin || !isSuperExec, 'col-md-6': isCompAdmin && isSuperExec}\">\n      <div class=\"form-group\">\n        <input type=\"text\" class=\"form-control\" formControlName=\"branch\" placeholder=\"Branch Name\"\n          [matAutocomplete]=\"auto_1\" [ngClass]=\"{'input-control-error': submitted && f.branch.errors}\">\n        <mat-autocomplete #auto_1=\"matAutocomplete\">\n          <mat-option *ngFor=\"let item of filteredBranches | async\" [value]=\"item\">\n            {{ item }}\n          </mat-option>\n        </mat-autocomplete>\n        <div *ngIf=\"submitted && f.branch.errors\">\n          <p class=\"input-error\" *ngIf=\"f.branch.errors.required\">Branch is required</p>\n        </div>\n      </div>\n    </div>\n  </div>\n  <div class=\"form-group\">\n    <input type=\"text\" class=\"form-control\" formControlName=\"username\" placeholder=\"Username\"\n      [ngClass]=\"{'input-control-error': submitted && f.username.errors}\">\n    <div *ngIf=\"submitted && f.username.errors\">\n      <p class=\"input-error\" *ngIf=\"f.username.errors.required\">Username is required</p>\n    </div>\n  </div>\n  <div class=\"form-group\">\n    <input type=\"email\" class=\"form-control\" formControlName=\"emailAddress\" placeholder=\"Email Address\"\n      [ngClass]=\"{'input-control-error': submitted && f.emailAddress.errors}\">\n    <div *ngIf=\"submitted && f.emailAddress.errors\">\n      <p class=\"input-error\" *ngIf=\"f.emailAddress.errors.email\">Must be a valid email address</p>\n      <p class=\"input-error\" *ngIf=\"f.emailAddress.errors.required\">Email address is required</p>\n    </div>\n  </div>\n   <div class=\"form-group row\" style=\"margin-left: 0px;\">\n     <input type=\"text\" formControlName=\"dialCode\" disabled class=\"form-control\"\n       style=\"text-align: center; width: 20%; padding-left: 5px; padding-right: 5px;\">\n     <!-- !!! DON'T REMOVE THIS !!! -->\n     <!-- <div class=\"form-control form-control-lg\" style=\"text-align: center; width: 30%; padding-left: .54rem; padding-right: .54rem;\">\n      <mat-select placeholder=\"Country Code\" formControlName=\"dialCode\" disabled>\n        <mat-select-trigger>\n          <span *ngIf=\"f.dialCode.value\">\n            {{ f.dialCode.value }}\n          </span>\n        </mat-select-trigger>\n        <mat-option *ngFor=\"let item of countryDialCodes\" [value]=\"item.dial_code\">\n          {{ item.name }} ({{ item.dial_code }})\n        </mat-option>\n      </mat-select>\n    </div> -->\n     <div style=\"width: 78%;\">\n       <input type=\"text\" class=\"form-control\" formControlName=\"phone\" autocomplete=\"new-password\"\n         (keyup)=\"resolveStrCharacters($event)\"\n         placeholder=\"Example: 24 123 1234\" id=\"phone\" [ngClass]=\"{'input-control-error': submitted && f.phone.errors}\">\n     </div>\n     <div *ngIf=\"submitted && f.phone.errors\">\n       <p class=\"input-error\" *ngIf=\"f.phone.errors.required\">Phone number is required</p>\n       <p class=\"input-error\" *ngIf=\"f.phone.errors.minlength\">Phone number cannot be less than 9 digits</p>\n       <p class=\"input-error\" *ngIf=\"f.phone.errors.maxlength\">Phone number cannot exceed 9 characters. Don't start with 0</p>\n     </div>\n   </div>\n  <div class=\"form-group\">\n    <select class=\"form-control\" formControlName=\"country\"\n      [ngClass]=\"{'input-control-error': submitted && f.country.errors}\" (change)=\"onCountrySelect($event)\">\n      <option value=\"\" disabled>Country</option>\n      <option *ngFor=\"let country of countriesList | orderBy: 'country.name.common'\" [value]=\"country.name.common\">\n        {{ country.name.common }}\n      </option>\n    </select>\n    <div *ngIf=\"submitted && f.country.errors\">\n      <p class=\"input-error\" *ngIf=\"f.country.errors.required\">Country is required</p>\n    </div>\n  </div>\n  <!-- <div class=\"form-group\">\n    <div class=\"input-group mb-1\">\n      <input type=\"password\" class=\"form-control\" formControlName=\"password\" placeholder=\"Password\"\n        autocomplete=\"new-password\" [ngClass]=\"{'input-control-error': submitted && f.password.errors}\">\n    </div>\n    <div *ngIf=\"submitted && f.password.errors\">\n      <p class=\"input-error\" *ngIf=\"f.password.errors.minlength\">Password must be atleast 6 characters</p>\n      <p class=\"input-error\" *ngIf=\"f.password.errors.required\">Password is required</p>\n    </div>\n  </div> -->\n  <div class=\"form-group\">\n    <div class=\"input-group mb-1\">\n      <input type=\"password\" class=\"form-control\" formControlName=\"password\" placeholder=\"Change Password\"\n        autocomplete=\"new-password\" [ngClass]=\"{'input-control-error': submitted && f.password.errors}\">\n      <div class=\"input-group-append\">\n        <button type=\"button\" class=\"btn btn-outline-primary btn-pwd\" (click)=\"editPassword()\">Edit</button>\n      </div>\n    </div>\n    <div *ngIf=\"submitted && f.password.errors\">\n      <p class=\"input-error\" *ngIf=\"f.password.errors.minlength\">Password must be atleast 8 characters</p>\n      <p class=\"input-error\" *ngIf=\"f.password.errors.required\">Password is required</p>\n    </div>\n  </div>\n  <div class=\"form-group\">\n    <select class=\"form-control\" formControlName=\"status\" (change)=\"onStatusChange($event)\">\n      <option value=\"\" disabled>Account Status</option>\n      <option value=\"1\">Active </option>\n      <option value=\"0\">In-Active </option>\n    </select>\n  </div>\n  <div class=\"mt-3\">\n    <button type=\"submit\" *ngIf=\"!loading\" class=\"btn btn-primary btn-lg mr-2\">SUBMIT</button>\n    <button *ngIf=\"loading\" class=\"btn btn-primary btn-lg mr-2\" type=\"button\" disabled>\n      <span class=\"spinner-border spinner-border-sm\" role=\"status\" aria-hidden=\"true\"></span>&nbsp; &nbsp;\n      Please wait\n    </button>\n    <button type=\"button\" class=\"btn btn-light btn-lg\" (click)=\"cancel()\">CANCEL</button>\n  </div>\n</form>"
 
 /***/ }),
 
@@ -1298,6 +1342,14 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _pages_dashboard_front_desk_form_printing_page_form_printing_page_component__WEBPACK_IMPORTED_MODULE_74__ = __webpack_require__(/*! ./pages/dashboard/front-desk/form-printing-page/form-printing-page.component */ "./src/app/pages/dashboard/front-desk/form-printing-page/form-printing-page.component.ts");
 /* harmony import */ var _pages_forgot_password_page_forgot_password_page_component__WEBPACK_IMPORTED_MODULE_75__ = __webpack_require__(/*! ./pages/forgot-password-page/forgot-password-page.component */ "./src/app/pages/forgot-password-page/forgot-password-page.component.ts");
 /* harmony import */ var _pages_dashboard_front_desk_form_printing_default_page_form_printing_default_page_component__WEBPACK_IMPORTED_MODULE_76__ = __webpack_require__(/*! ./pages/dashboard/front-desk/form-printing-default-page/form-printing-default-page.component */ "./src/app/pages/dashboard/front-desk/form-printing-default-page/form-printing-default-page.component.ts");
+/* harmony import */ var _pages_dashboard_admin_admin_view_branch_admins_page_admin_view_branch_admins_page_component__WEBPACK_IMPORTED_MODULE_77__ = __webpack_require__(/*! ./pages/dashboard/admin/admin-view-branch-admins-page/admin-view-branch-admins-page.component */ "./src/app/pages/dashboard/admin/admin-view-branch-admins-page/admin-view-branch-admins-page.component.ts");
+/* harmony import */ var _pages_dashboard_admin_admin_view_company_admins_page_admin_view_company_admins_page_component__WEBPACK_IMPORTED_MODULE_78__ = __webpack_require__(/*! ./pages/dashboard/admin/admin-view-company-admins-page/admin-view-company-admins-page.component */ "./src/app/pages/dashboard/admin/admin-view-company-admins-page/admin-view-company-admins-page.component.ts");
+/* harmony import */ var _pages_dashboard_admin_admin_view_branch_executives_page_admin_view_branch_executives_page_component__WEBPACK_IMPORTED_MODULE_79__ = __webpack_require__(/*! ./pages/dashboard/admin/admin-view-branch-executives-page/admin-view-branch-executives-page.component */ "./src/app/pages/dashboard/admin/admin-view-branch-executives-page/admin-view-branch-executives-page.component.ts");
+/* harmony import */ var _pages_dashboard_admin_admin_view_company_executives_page_admin_view_company_executives_page_component__WEBPACK_IMPORTED_MODULE_80__ = __webpack_require__(/*! ./pages/dashboard/admin/admin-view-company-executives-page/admin-view-company-executives-page.component */ "./src/app/pages/dashboard/admin/admin-view-company-executives-page/admin-view-company-executives-page.component.ts");
+
+
+
+
 
 
 
@@ -1703,12 +1755,28 @@ const routes = [
                         component: _pages_dashboard_admin_admin_form_lists_page_admin_form_lists_page_component__WEBPACK_IMPORTED_MODULE_22__["AdminFormListsPageComponent"]
                     },
                     {
-                        path: 'account',
+                        path: 'front_desk',
                         component: _pages_dashboard_admin_admin_view_front_desks_page_admin_view_front_desks_page_component__WEBPACK_IMPORTED_MODULE_56__["AdminViewFrontDesksPageComponent"]
                     },
                     {
                         path: 'branch',
                         component: _pages_dashboard_admin_admin_view_branches_page_admin_view_branches_page_component__WEBPACK_IMPORTED_MODULE_57__["AdminViewBranchesPageComponent"]
+                    },
+                    {
+                        path: 'branch_admin',
+                        component: _pages_dashboard_admin_admin_view_branch_admins_page_admin_view_branch_admins_page_component__WEBPACK_IMPORTED_MODULE_77__["AdminViewBranchAdminsPageComponent"]
+                    },
+                    {
+                        path: 'company_admin',
+                        component: _pages_dashboard_admin_admin_view_company_admins_page_admin_view_company_admins_page_component__WEBPACK_IMPORTED_MODULE_78__["AdminViewCompanyAdminsPageComponent"]
+                    },
+                    {
+                        path: 'branch_executive',
+                        component: _pages_dashboard_admin_admin_view_branch_executives_page_admin_view_branch_executives_page_component__WEBPACK_IMPORTED_MODULE_79__["AdminViewBranchExecutivesPageComponent"]
+                    },
+                    {
+                        path: 'super_executive',
+                        component: _pages_dashboard_admin_admin_view_company_executives_page_admin_view_company_executives_page_component__WEBPACK_IMPORTED_MODULE_80__["AdminViewCompanyExecutivesPageComponent"]
                     }
                 ]
             },
@@ -1929,6 +1997,14 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _pages_forgot_password_page_forgot_password_page_component__WEBPACK_IMPORTED_MODULE_97__ = __webpack_require__(/*! ./pages/forgot-password-page/forgot-password-page.component */ "./src/app/pages/forgot-password-page/forgot-password-page.component.ts");
 /* harmony import */ var _pages_dashboard_front_desk_form_printing_default_page_form_printing_default_page_component__WEBPACK_IMPORTED_MODULE_98__ = __webpack_require__(/*! ./pages/dashboard/front-desk/form-printing-default-page/form-printing-default-page.component */ "./src/app/pages/dashboard/front-desk/form-printing-default-page/form-printing-default-page.component.ts");
 /* harmony import */ var _pages_not_found_page_not_found_page_component__WEBPACK_IMPORTED_MODULE_99__ = __webpack_require__(/*! ./pages/not-found-page/not-found-page.component */ "./src/app/pages/not-found-page/not-found-page.component.ts");
+/* harmony import */ var _pages_dashboard_admin_admin_view_branch_admins_page_admin_view_branch_admins_page_component__WEBPACK_IMPORTED_MODULE_100__ = __webpack_require__(/*! ./pages/dashboard/admin/admin-view-branch-admins-page/admin-view-branch-admins-page.component */ "./src/app/pages/dashboard/admin/admin-view-branch-admins-page/admin-view-branch-admins-page.component.ts");
+/* harmony import */ var _pages_dashboard_admin_admin_view_company_admins_page_admin_view_company_admins_page_component__WEBPACK_IMPORTED_MODULE_101__ = __webpack_require__(/*! ./pages/dashboard/admin/admin-view-company-admins-page/admin-view-company-admins-page.component */ "./src/app/pages/dashboard/admin/admin-view-company-admins-page/admin-view-company-admins-page.component.ts");
+/* harmony import */ var _pages_dashboard_admin_admin_view_branch_executives_page_admin_view_branch_executives_page_component__WEBPACK_IMPORTED_MODULE_102__ = __webpack_require__(/*! ./pages/dashboard/admin/admin-view-branch-executives-page/admin-view-branch-executives-page.component */ "./src/app/pages/dashboard/admin/admin-view-branch-executives-page/admin-view-branch-executives-page.component.ts");
+/* harmony import */ var _pages_dashboard_admin_admin_view_company_executives_page_admin_view_company_executives_page_component__WEBPACK_IMPORTED_MODULE_103__ = __webpack_require__(/*! ./pages/dashboard/admin/admin-view-company-executives-page/admin-view-company-executives-page.component */ "./src/app/pages/dashboard/admin/admin-view-company-executives-page/admin-view-company-executives-page.component.ts");
+
+
+
+
 
 
 
@@ -2117,6 +2193,10 @@ AppModule = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
             _pages_forgot_password_page_forgot_password_page_component__WEBPACK_IMPORTED_MODULE_97__["ForgotPasswordPageComponent"],
             _pages_dashboard_front_desk_form_printing_default_page_form_printing_default_page_component__WEBPACK_IMPORTED_MODULE_98__["FormPrintingDefaultPageComponent"],
             _pages_not_found_page_not_found_page_component__WEBPACK_IMPORTED_MODULE_99__["NotFoundPageComponent"],
+            _pages_dashboard_admin_admin_view_branch_admins_page_admin_view_branch_admins_page_component__WEBPACK_IMPORTED_MODULE_100__["AdminViewBranchAdminsPageComponent"],
+            _pages_dashboard_admin_admin_view_company_admins_page_admin_view_company_admins_page_component__WEBPACK_IMPORTED_MODULE_101__["AdminViewCompanyAdminsPageComponent"],
+            _pages_dashboard_admin_admin_view_branch_executives_page_admin_view_branch_executives_page_component__WEBPACK_IMPORTED_MODULE_102__["AdminViewBranchExecutivesPageComponent"],
+            _pages_dashboard_admin_admin_view_company_executives_page_admin_view_company_executives_page_component__WEBPACK_IMPORTED_MODULE_103__["AdminViewCompanyExecutivesPageComponent"],
         ],
         imports: [
             _angular_platform_browser__WEBPACK_IMPORTED_MODULE_1__["BrowserModule"],
@@ -4341,6 +4421,86 @@ AdminViewAccountDetailsPageComponent = tslib__WEBPACK_IMPORTED_MODULE_0__["__dec
 
 /***/ }),
 
+/***/ "./src/app/pages/dashboard/admin/admin-view-branch-admins-page/admin-view-branch-admins-page.component.css":
+/*!*****************************************************************************************************************!*\
+  !*** ./src/app/pages/dashboard/admin/admin-view-branch-admins-page/admin-view-branch-admins-page.component.css ***!
+  \*****************************************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = "\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IiIsImZpbGUiOiJzcmMvYXBwL3BhZ2VzL2Rhc2hib2FyZC9hZG1pbi9hZG1pbi12aWV3LWJyYW5jaC1hZG1pbnMtcGFnZS9hZG1pbi12aWV3LWJyYW5jaC1hZG1pbnMtcGFnZS5jb21wb25lbnQuY3NzIn0= */"
+
+/***/ }),
+
+/***/ "./src/app/pages/dashboard/admin/admin-view-branch-admins-page/admin-view-branch-admins-page.component.ts":
+/*!****************************************************************************************************************!*\
+  !*** ./src/app/pages/dashboard/admin/admin-view-branch-admins-page/admin-view-branch-admins-page.component.ts ***!
+  \****************************************************************************************************************/
+/*! exports provided: AdminViewBranchAdminsPageComponent */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "AdminViewBranchAdminsPageComponent", function() { return AdminViewBranchAdminsPageComponent; });
+/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm2015/core.js");
+/* harmony import */ var lodash__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! lodash */ "./node_modules/lodash/lodash.js");
+/* harmony import */ var lodash__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(lodash__WEBPACK_IMPORTED_MODULE_2__);
+/* harmony import */ var _angular_router__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @angular/router */ "./node_modules/@angular/router/fesm2015/router.js");
+/* harmony import */ var src_app_enums_user_types_enum__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! src/app/enums/user-types.enum */ "./src/app/enums/user-types.enum.ts");
+/* harmony import */ var src_app_services_storage_local_storage_service__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! src/app/services/storage/local-storage.service */ "./src/app/services/storage/local-storage.service.ts");
+
+
+
+
+
+
+let AdminViewBranchAdminsPageComponent = class AdminViewBranchAdminsPageComponent {
+    constructor(router, localStorage) {
+        this.router = router;
+        this.localStorage = localStorage;
+        this.userType = src_app_enums_user_types_enum__WEBPACK_IMPORTED_MODULE_4__["UserTypes"].BranchAdmin;
+        this.branchId = this.localStorage.getUser().branch_id;
+        this.merchantId = this.localStorage.getUser().merchant_id;
+    }
+    ngOnInit() {
+    }
+    view(id) {
+        this.router.navigateByUrl('admin/details/account', { state: { id: id } });
+    }
+    dataLoaded(ev) {
+        if (lodash__WEBPACK_IMPORTED_MODULE_2__["isNull"](ev)) {
+            this.hasNoAccount = true;
+        }
+        else {
+            this.hasNoAccount = false;
+        }
+    }
+    dataLoadedError(ev) {
+        if (lodash__WEBPACK_IMPORTED_MODULE_2__["isNull"](ev)) {
+            console.log('no error');
+        }
+        else {
+            console.log(ev);
+        }
+    }
+};
+AdminViewBranchAdminsPageComponent.ctorParameters = () => [
+    { type: _angular_router__WEBPACK_IMPORTED_MODULE_3__["Router"] },
+    { type: src_app_services_storage_local_storage_service__WEBPACK_IMPORTED_MODULE_5__["LocalStorageService"] }
+];
+AdminViewBranchAdminsPageComponent = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
+    Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Component"])({
+        selector: 'app-admin-view-branch-admins-page',
+        template: __webpack_require__(/*! raw-loader!./admin-view-branch-admins-page.component.html */ "./node_modules/raw-loader/index.js!./src/app/pages/dashboard/admin/admin-view-branch-admins-page/admin-view-branch-admins-page.component.html"),
+        styles: [__webpack_require__(/*! ./admin-view-branch-admins-page.component.css */ "./src/app/pages/dashboard/admin/admin-view-branch-admins-page/admin-view-branch-admins-page.component.css")]
+    })
+], AdminViewBranchAdminsPageComponent);
+
+
+
+/***/ }),
+
 /***/ "./src/app/pages/dashboard/admin/admin-view-branch-details-page/admin-view-branch-details-page.component.css":
 /*!*******************************************************************************************************************!*\
   !*** ./src/app/pages/dashboard/admin/admin-view-branch-details-page/admin-view-branch-details-page.component.css ***!
@@ -4413,6 +4573,86 @@ AdminViewBranchDetailsPageComponent = tslib__WEBPACK_IMPORTED_MODULE_0__["__deco
         styles: [__webpack_require__(/*! ./admin-view-branch-details-page.component.css */ "./src/app/pages/dashboard/admin/admin-view-branch-details-page/admin-view-branch-details-page.component.css")]
     })
 ], AdminViewBranchDetailsPageComponent);
+
+
+
+/***/ }),
+
+/***/ "./src/app/pages/dashboard/admin/admin-view-branch-executives-page/admin-view-branch-executives-page.component.css":
+/*!*************************************************************************************************************************!*\
+  !*** ./src/app/pages/dashboard/admin/admin-view-branch-executives-page/admin-view-branch-executives-page.component.css ***!
+  \*************************************************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = "\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IiIsImZpbGUiOiJzcmMvYXBwL3BhZ2VzL2Rhc2hib2FyZC9hZG1pbi9hZG1pbi12aWV3LWJyYW5jaC1leGVjdXRpdmVzLXBhZ2UvYWRtaW4tdmlldy1icmFuY2gtZXhlY3V0aXZlcy1wYWdlLmNvbXBvbmVudC5jc3MifQ== */"
+
+/***/ }),
+
+/***/ "./src/app/pages/dashboard/admin/admin-view-branch-executives-page/admin-view-branch-executives-page.component.ts":
+/*!************************************************************************************************************************!*\
+  !*** ./src/app/pages/dashboard/admin/admin-view-branch-executives-page/admin-view-branch-executives-page.component.ts ***!
+  \************************************************************************************************************************/
+/*! exports provided: AdminViewBranchExecutivesPageComponent */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "AdminViewBranchExecutivesPageComponent", function() { return AdminViewBranchExecutivesPageComponent; });
+/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm2015/core.js");
+/* harmony import */ var lodash__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! lodash */ "./node_modules/lodash/lodash.js");
+/* harmony import */ var lodash__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(lodash__WEBPACK_IMPORTED_MODULE_2__);
+/* harmony import */ var _angular_router__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @angular/router */ "./node_modules/@angular/router/fesm2015/router.js");
+/* harmony import */ var src_app_enums_user_types_enum__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! src/app/enums/user-types.enum */ "./src/app/enums/user-types.enum.ts");
+/* harmony import */ var src_app_services_storage_local_storage_service__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! src/app/services/storage/local-storage.service */ "./src/app/services/storage/local-storage.service.ts");
+
+
+
+
+
+
+let AdminViewBranchExecutivesPageComponent = class AdminViewBranchExecutivesPageComponent {
+    constructor(router, localStorage) {
+        this.router = router;
+        this.localStorage = localStorage;
+        this.userType = src_app_enums_user_types_enum__WEBPACK_IMPORTED_MODULE_4__["UserTypes"].BranchSuperExecutive;
+        this.branchId = this.localStorage.getUser().branch_id;
+        this.merchantId = this.localStorage.getUser().merchant_id;
+    }
+    ngOnInit() {
+    }
+    view(id) {
+        this.router.navigateByUrl('admin/details/account', { state: { id: id } });
+    }
+    dataLoaded(ev) {
+        if (lodash__WEBPACK_IMPORTED_MODULE_2__["isNull"](ev)) {
+            this.hasNoAccount = true;
+        }
+        else {
+            this.hasNoAccount = false;
+        }
+    }
+    dataLoadedError(ev) {
+        if (lodash__WEBPACK_IMPORTED_MODULE_2__["isNull"](ev)) {
+            console.log('no error');
+        }
+        else {
+            console.log(ev);
+        }
+    }
+};
+AdminViewBranchExecutivesPageComponent.ctorParameters = () => [
+    { type: _angular_router__WEBPACK_IMPORTED_MODULE_3__["Router"] },
+    { type: src_app_services_storage_local_storage_service__WEBPACK_IMPORTED_MODULE_5__["LocalStorageService"] }
+];
+AdminViewBranchExecutivesPageComponent = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
+    Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Component"])({
+        selector: 'app-admin-view-branch-executives-page',
+        template: __webpack_require__(/*! raw-loader!./admin-view-branch-executives-page.component.html */ "./node_modules/raw-loader/index.js!./src/app/pages/dashboard/admin/admin-view-branch-executives-page/admin-view-branch-executives-page.component.html"),
+        styles: [__webpack_require__(/*! ./admin-view-branch-executives-page.component.css */ "./src/app/pages/dashboard/admin/admin-view-branch-executives-page/admin-view-branch-executives-page.component.css")]
+    })
+], AdminViewBranchExecutivesPageComponent);
 
 
 
@@ -4566,6 +4806,166 @@ AdminViewBranchesPageComponent = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"
 
 /***/ }),
 
+/***/ "./src/app/pages/dashboard/admin/admin-view-company-admins-page/admin-view-company-admins-page.component.css":
+/*!*******************************************************************************************************************!*\
+  !*** ./src/app/pages/dashboard/admin/admin-view-company-admins-page/admin-view-company-admins-page.component.css ***!
+  \*******************************************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = "\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IiIsImZpbGUiOiJzcmMvYXBwL3BhZ2VzL2Rhc2hib2FyZC9hZG1pbi9hZG1pbi12aWV3LWNvbXBhbnktYWRtaW5zLXBhZ2UvYWRtaW4tdmlldy1jb21wYW55LWFkbWlucy1wYWdlLmNvbXBvbmVudC5jc3MifQ== */"
+
+/***/ }),
+
+/***/ "./src/app/pages/dashboard/admin/admin-view-company-admins-page/admin-view-company-admins-page.component.ts":
+/*!******************************************************************************************************************!*\
+  !*** ./src/app/pages/dashboard/admin/admin-view-company-admins-page/admin-view-company-admins-page.component.ts ***!
+  \******************************************************************************************************************/
+/*! exports provided: AdminViewCompanyAdminsPageComponent */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "AdminViewCompanyAdminsPageComponent", function() { return AdminViewCompanyAdminsPageComponent; });
+/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm2015/core.js");
+/* harmony import */ var lodash__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! lodash */ "./node_modules/lodash/lodash.js");
+/* harmony import */ var lodash__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(lodash__WEBPACK_IMPORTED_MODULE_2__);
+/* harmony import */ var _angular_router__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @angular/router */ "./node_modules/@angular/router/fesm2015/router.js");
+/* harmony import */ var src_app_enums_user_types_enum__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! src/app/enums/user-types.enum */ "./src/app/enums/user-types.enum.ts");
+/* harmony import */ var src_app_services_storage_local_storage_service__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! src/app/services/storage/local-storage.service */ "./src/app/services/storage/local-storage.service.ts");
+
+
+
+
+
+
+let AdminViewCompanyAdminsPageComponent = class AdminViewCompanyAdminsPageComponent {
+    constructor(router, localStorage) {
+        this.router = router;
+        this.localStorage = localStorage;
+        this.userType = src_app_enums_user_types_enum__WEBPACK_IMPORTED_MODULE_4__["UserTypes"].CompanyAdmin;
+        this.branchId = this.localStorage.getUser().branch_id;
+        this.merchantId = this.localStorage.getUser().merchant_id;
+    }
+    ngOnInit() {
+    }
+    view(id) {
+        this.router.navigateByUrl('admin/details/account', { state: { id: id } });
+    }
+    dataLoaded(ev) {
+        if (lodash__WEBPACK_IMPORTED_MODULE_2__["isNull"](ev)) {
+            this.hasNoAccount = true;
+        }
+        else {
+            this.hasNoAccount = false;
+        }
+    }
+    dataLoadedError(ev) {
+        if (lodash__WEBPACK_IMPORTED_MODULE_2__["isNull"](ev)) {
+            console.log('no error');
+        }
+        else {
+            console.log(ev);
+        }
+    }
+};
+AdminViewCompanyAdminsPageComponent.ctorParameters = () => [
+    { type: _angular_router__WEBPACK_IMPORTED_MODULE_3__["Router"] },
+    { type: src_app_services_storage_local_storage_service__WEBPACK_IMPORTED_MODULE_5__["LocalStorageService"] }
+];
+AdminViewCompanyAdminsPageComponent = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
+    Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Component"])({
+        selector: 'app-admin-view-company-admins-page',
+        template: __webpack_require__(/*! raw-loader!./admin-view-company-admins-page.component.html */ "./node_modules/raw-loader/index.js!./src/app/pages/dashboard/admin/admin-view-company-admins-page/admin-view-company-admins-page.component.html"),
+        styles: [__webpack_require__(/*! ./admin-view-company-admins-page.component.css */ "./src/app/pages/dashboard/admin/admin-view-company-admins-page/admin-view-company-admins-page.component.css")]
+    })
+], AdminViewCompanyAdminsPageComponent);
+
+
+
+/***/ }),
+
+/***/ "./src/app/pages/dashboard/admin/admin-view-company-executives-page/admin-view-company-executives-page.component.css":
+/*!***************************************************************************************************************************!*\
+  !*** ./src/app/pages/dashboard/admin/admin-view-company-executives-page/admin-view-company-executives-page.component.css ***!
+  \***************************************************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = "\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IiIsImZpbGUiOiJzcmMvYXBwL3BhZ2VzL2Rhc2hib2FyZC9hZG1pbi9hZG1pbi12aWV3LWNvbXBhbnktZXhlY3V0aXZlcy1wYWdlL2FkbWluLXZpZXctY29tcGFueS1leGVjdXRpdmVzLXBhZ2UuY29tcG9uZW50LmNzcyJ9 */"
+
+/***/ }),
+
+/***/ "./src/app/pages/dashboard/admin/admin-view-company-executives-page/admin-view-company-executives-page.component.ts":
+/*!**************************************************************************************************************************!*\
+  !*** ./src/app/pages/dashboard/admin/admin-view-company-executives-page/admin-view-company-executives-page.component.ts ***!
+  \**************************************************************************************************************************/
+/*! exports provided: AdminViewCompanyExecutivesPageComponent */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "AdminViewCompanyExecutivesPageComponent", function() { return AdminViewCompanyExecutivesPageComponent; });
+/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm2015/core.js");
+/* harmony import */ var lodash__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! lodash */ "./node_modules/lodash/lodash.js");
+/* harmony import */ var lodash__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(lodash__WEBPACK_IMPORTED_MODULE_2__);
+/* harmony import */ var _angular_router__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @angular/router */ "./node_modules/@angular/router/fesm2015/router.js");
+/* harmony import */ var src_app_enums_user_types_enum__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! src/app/enums/user-types.enum */ "./src/app/enums/user-types.enum.ts");
+/* harmony import */ var src_app_services_storage_local_storage_service__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! src/app/services/storage/local-storage.service */ "./src/app/services/storage/local-storage.service.ts");
+
+
+
+
+
+
+let AdminViewCompanyExecutivesPageComponent = class AdminViewCompanyExecutivesPageComponent {
+    constructor(router, localStorage) {
+        this.router = router;
+        this.localStorage = localStorage;
+        this.userType = src_app_enums_user_types_enum__WEBPACK_IMPORTED_MODULE_4__["UserTypes"].SuperExecutive;
+        this.branchId = this.localStorage.getUser().branch_id;
+        this.merchantId = this.localStorage.getUser().merchant_id;
+    }
+    ngOnInit() {
+    }
+    view(id) {
+        this.router.navigateByUrl('admin/details/account', { state: { id: id } });
+    }
+    dataLoaded(ev) {
+        if (lodash__WEBPACK_IMPORTED_MODULE_2__["isNull"](ev)) {
+            this.hasNoAccount = true;
+        }
+        else {
+            this.hasNoAccount = false;
+        }
+    }
+    dataLoadedError(ev) {
+        if (lodash__WEBPACK_IMPORTED_MODULE_2__["isNull"](ev)) {
+            console.log('no error');
+        }
+        else {
+            console.log(ev);
+        }
+    }
+};
+AdminViewCompanyExecutivesPageComponent.ctorParameters = () => [
+    { type: _angular_router__WEBPACK_IMPORTED_MODULE_3__["Router"] },
+    { type: src_app_services_storage_local_storage_service__WEBPACK_IMPORTED_MODULE_5__["LocalStorageService"] }
+];
+AdminViewCompanyExecutivesPageComponent = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
+    Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Component"])({
+        selector: 'app-admin-view-company-executives-page',
+        template: __webpack_require__(/*! raw-loader!./admin-view-company-executives-page.component.html */ "./node_modules/raw-loader/index.js!./src/app/pages/dashboard/admin/admin-view-company-executives-page/admin-view-company-executives-page.component.html"),
+        styles: [__webpack_require__(/*! ./admin-view-company-executives-page.component.css */ "./src/app/pages/dashboard/admin/admin-view-company-executives-page/admin-view-company-executives-page.component.css")]
+    })
+], AdminViewCompanyExecutivesPageComponent);
+
+
+
+/***/ }),
+
 /***/ "./src/app/pages/dashboard/admin/admin-view-front-desks-page/admin-view-front-desks-page.component.css":
 /*!*************************************************************************************************************!*\
   !*** ./src/app/pages/dashboard/admin/admin-view-front-desks-page/admin-view-front-desks-page.component.css ***!
@@ -4591,9 +4991,9 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm2015/core.js");
 /* harmony import */ var lodash__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! lodash */ "./node_modules/lodash/lodash.js");
 /* harmony import */ var lodash__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(lodash__WEBPACK_IMPORTED_MODULE_2__);
-/* harmony import */ var src_app_enums_user_types_enum__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! src/app/enums/user-types.enum */ "./src/app/enums/user-types.enum.ts");
-/* harmony import */ var src_app_services_storage_local_storage_service__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! src/app/services/storage/local-storage.service */ "./src/app/services/storage/local-storage.service.ts");
-/* harmony import */ var _angular_router__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @angular/router */ "./node_modules/@angular/router/fesm2015/router.js");
+/* harmony import */ var _angular_router__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @angular/router */ "./node_modules/@angular/router/fesm2015/router.js");
+/* harmony import */ var src_app_enums_user_types_enum__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! src/app/enums/user-types.enum */ "./src/app/enums/user-types.enum.ts");
+/* harmony import */ var src_app_services_storage_local_storage_service__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! src/app/services/storage/local-storage.service */ "./src/app/services/storage/local-storage.service.ts");
 
 
 
@@ -4604,7 +5004,7 @@ let AdminViewFrontDesksPageComponent = class AdminViewFrontDesksPageComponent {
     constructor(router, localStorage) {
         this.router = router;
         this.localStorage = localStorage;
-        this.userType = src_app_enums_user_types_enum__WEBPACK_IMPORTED_MODULE_3__["UserTypes"].FrontDesk;
+        this.userType = src_app_enums_user_types_enum__WEBPACK_IMPORTED_MODULE_4__["UserTypes"].FrontDesk;
         this.branchId = this.localStorage.getUser().branch_id;
         this.merchantId = this.localStorage.getUser().merchant_id;
     }
@@ -4635,8 +5035,8 @@ let AdminViewFrontDesksPageComponent = class AdminViewFrontDesksPageComponent {
     }
 };
 AdminViewFrontDesksPageComponent.ctorParameters = () => [
-    { type: _angular_router__WEBPACK_IMPORTED_MODULE_5__["Router"] },
-    { type: src_app_services_storage_local_storage_service__WEBPACK_IMPORTED_MODULE_4__["LocalStorageService"] }
+    { type: _angular_router__WEBPACK_IMPORTED_MODULE_3__["Router"] },
+    { type: src_app_services_storage_local_storage_service__WEBPACK_IMPORTED_MODULE_5__["LocalStorageService"] }
 ];
 AdminViewFrontDesksPageComponent = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
     Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Component"])({
@@ -4692,6 +5092,7 @@ let ClientFormMerchantsPageComponent = class ClientFormMerchantsPageComponent {
         this.clientService = clientService;
         this.companyService = companyService;
         this.endpointService = endpointService;
+        this.query = '';
         this.formsList = [];
         this.companyList = [];
         this.getCompanies();
@@ -4789,41 +5190,43 @@ let ClientFormMerchantsPageComponent = class ClientFormMerchantsPageComponent {
     }
     search(e) {
         if (e.key == 'Enter') {
-            // we need to know whether the user is searching by a form code
-            // or the user is searching by a form name.
-            // First, check if its a form code.
-            console.log(this.query);
-            this.hasMore = false;
-            this.hasError = false;
-            this.formsList = [];
-            this.companyList = [];
-            if (/\d/.test(this.query)) {
-                if (this.query.length == 6) {
-                    // search fby form code, based on the input
-                    // the user might be searching by a form code.
-                    console.log('searching by form code');
-                    this.searchByFormCode();
+            if (this.query.length != 0) {
+                // we need to know whether the user is searching by a form code
+                // or the user is searching by a form name.
+                // First, check if its a form code.
+                console.log(this.query);
+                this.hasMore = false;
+                this.hasError = false;
+                this.formsList = [];
+                this.companyList = [];
+                if (/\d/.test(this.query)) {
+                    if (this.query.length == 6) {
+                        // search fby form code, based on the input
+                        // the user might be searching by a form code.
+                        console.log('searching by form code');
+                        this.searchByFormCode();
+                    }
+                    else {
+                        // the input contains a number but is more than 6 characters
+                        // in lenght, this might be a form name.
+                        console.log('searching by form name');
+                        this.searchByFormName();
+                    }
                 }
                 else {
-                    // the input contains a number but is more than 6 characters
-                    // in lenght, this might be a form name.
-                    console.log('searching by form name');
+                    // since all our form codes includes digits, and this
+                    // users input doesnt include a digit, search by form name.
+                    console.log('searching by form name last');
                     this.searchByFormName();
                 }
             }
             else {
-                // since all our form codes includes digits, and this
-                // users input doesnt include a digit, search by form name.
-                console.log('searching by form name last');
-                this.searchByFormName();
-            }
-        }
-        else {
-            if (this.foundNoForm && this.query.length == 0) {
-                this.hasData = true;
-                this.foundNoForm = false;
-                console.log('hererer');
-                this.getCompanies();
+                if (this.foundNoForm && this.query.length == 0) {
+                    this.hasData = true;
+                    this.foundNoForm = false;
+                    console.log('hererer');
+                    this.getCompanies();
+                }
             }
         }
     }
@@ -8893,7 +9296,7 @@ let CreateCompanyPageComponent = class CreateCompanyPageComponent {
         });
     }
     getCompanyAdmins() {
-        this.companyService.getCompanyAdmins().then(res => {
+        this.companyService.getAllCompanyAdmins().then(res => {
             const admins = res;
             if (admins.length != 0) {
                 lodash__WEBPACK_IMPORTED_MODULE_2__["forEach"](admins, (admin) => {
@@ -9197,6 +9600,11 @@ let CreateFormPageComponent = class CreateFormPageComponent {
         this.router.navigateByUrl('/git_admin/details/form', { state: { form: this.getForm() } });
     }
     bringBackForm() {
+        this.reset();
+        this.submitted = false;
+        this.f.pdf.setValue('');
+        this.f.name.setValue('');
+        this.f.merchant.setValue('');
         this.created = !this.created;
     }
     ok() {
@@ -10095,7 +10503,7 @@ let EditCompanyPageComponent = class EditCompanyPageComponent {
         });
     }
     getCompanyAdmins() {
-        this.companyService.getCompanyAdmins().then(res => {
+        this.companyService.getAllCompanyAdmins().then(res => {
             const admins = res;
             if (admins.length != 0) {
                 lodash__WEBPACK_IMPORTED_MODULE_2__["forEach"](admins, (admin) => {
@@ -11170,10 +11578,22 @@ let ViewAccountListsPageComponent = class ViewAccountListsPageComponent {
         this.dataLoadedError = new _angular_core__WEBPACK_IMPORTED_MODULE_1__["EventEmitter"]();
         this.collection = [];
         this.allCollection = [];
+        this.handleActionButtonsVisibility();
     }
     ngOnInit() {
         this.filterState = 'all';
         this.getAccountDetails();
+    }
+    handleActionButtonsVisibility() {
+        if (lodash__WEBPACK_IMPORTED_MODULE_2__["isUndefined"](this.canEdit)) {
+            this.canEdit = true;
+        }
+        if (lodash__WEBPACK_IMPORTED_MODULE_2__["isUndefined"](this.canView)) {
+            this.canView = true;
+        }
+        if (lodash__WEBPACK_IMPORTED_MODULE_2__["isUndefined"](this.canDelete)) {
+            this.canDelete = true;
+        }
     }
     showLoadingDialog() {
         this.loadingModalRef = this.modalService.open(this.loadingModal, { centered: true });
@@ -11378,8 +11798,43 @@ let ViewAccountListsPageComponent = class ViewAccountListsPageComponent {
         });
     }
     getCompanyAdminAccounts() {
+        if (lodash__WEBPACK_IMPORTED_MODULE_2__["isUndefined"](this.merchantId) && lodash__WEBPACK_IMPORTED_MODULE_2__["isUndefined"](this.branchId)) {
+            console.log('is GitAdmin');
+            this.getCompanyAdminForGitAdmin();
+        }
+        else {
+            console.log('is company or branch admin');
+            this.getCompanyAdminForCompAdmin();
+        }
+    }
+    getCompanyAdminForGitAdmin() {
         this.loading = true;
-        this.companyService.getCompanyAdmins().then(res => {
+        this.companyService.getAllCompanyAdmins().then(res => {
+            const accounts = res;
+            console.log('comp_admin: ' + JSON.stringify(accounts));
+            this.loading = false;
+            this.dataLoaded.emit(accounts);
+            this.dataLoadedError.emit(null);
+            if (accounts.length > 0) {
+                this.hasNoData = false;
+                lodash__WEBPACK_IMPORTED_MODULE_2__["forEach"](accounts, (admin) => {
+                    this.collection.push(admin);
+                });
+                this.allCollection = this.collection;
+            }
+            else {
+                this.hasNoData = true;
+            }
+        }, err => {
+            this.loading = false;
+            this.hasError = true;
+            this.dataLoaded.emit(null);
+            this.dataLoadedError.emit(err);
+        });
+    }
+    getCompanyAdminForCompAdmin() {
+        this.loading = true;
+        this.companyService.getCompanyAdmins(this.merchantId).then(res => {
             const accounts = res;
             console.log('comp_admin: ' + JSON.stringify(accounts));
             this.loading = false;
@@ -11403,6 +11858,23 @@ let ViewAccountListsPageComponent = class ViewAccountListsPageComponent {
         });
     }
     getBranchAdminAccounts() {
+        if (this.branchId == 0 || lodash__WEBPACK_IMPORTED_MODULE_2__["isNull"](this.branchId)) {
+            console.log('is company admin');
+            console.log('has branch id: ' + this.branchId);
+            this.getBranchAdminForCompAdmin();
+        }
+        else if (!lodash__WEBPACK_IMPORTED_MODULE_2__["isUndefined"](this.merchantId) && this.merchantId > 0) {
+            console.log('is branch admin');
+            console.log('has branch id: ' + this.merchantId);
+            this.getBranchAdminForBranchAdmin();
+        }
+        else {
+            console.log('is GitAdmin');
+            console.log('has branch id: ' + this.branchId + 'and merchant id: ' + this.merchantId);
+            this.getBranchAdminForGitAdmin();
+        }
+    }
+    getBranchAdminForGitAdmin() {
         this.loading = true;
         this.branchService.getAllBranchAdmins().then(res => {
             const accounts = res;
@@ -11427,7 +11899,67 @@ let ViewAccountListsPageComponent = class ViewAccountListsPageComponent {
             this.dataLoadedError.emit(err);
         });
     }
+    getBranchAdminForCompAdmin() {
+        this.loading = true;
+        this.branchService.getBranchAdmins(this.merchantId, true).then(res => {
+            const accounts = res;
+            console.log('branch_admin: ' + JSON.stringify(accounts));
+            this.loading = false;
+            this.dataLoaded.emit(accounts);
+            this.dataLoadedError.emit(null);
+            if (accounts.length > 0) {
+                this.hasNoData = false;
+                lodash__WEBPACK_IMPORTED_MODULE_2__["forEach"](accounts, (admin) => {
+                    this.collection.push(admin);
+                });
+                this.allCollection = this.collection;
+            }
+            else {
+                this.hasNoData = true;
+            }
+        }, err => {
+            this.loading = false;
+            this.hasError = true;
+            this.dataLoaded.emit(null);
+            this.dataLoadedError.emit(err);
+        });
+    }
+    getBranchAdminForBranchAdmin() {
+        this.loading = true;
+        this.branchService.getBranchAdmins(this.branchId, false).then(res => {
+            const accounts = res;
+            console.log('branch_admin: ' + JSON.stringify(accounts));
+            this.loading = false;
+            this.dataLoaded.emit(accounts);
+            this.dataLoadedError.emit(null);
+            if (accounts.length > 0) {
+                this.hasNoData = false;
+                lodash__WEBPACK_IMPORTED_MODULE_2__["forEach"](accounts, (admin) => {
+                    this.collection.push(admin);
+                });
+                this.allCollection = this.collection;
+            }
+            else {
+                this.hasNoData = true;
+            }
+        }, err => {
+            this.loading = false;
+            this.hasError = true;
+            this.dataLoaded.emit(null);
+            this.dataLoadedError.emit(err);
+        });
+    }
     getSuperExecutiveAccounts() {
+        if (lodash__WEBPACK_IMPORTED_MODULE_2__["isUndefined"](this.merchantId) && lodash__WEBPACK_IMPORTED_MODULE_2__["isUndefined"](this.branchId)) {
+            console.log('is GitAdmin');
+            this.getSuperExecutiveForGitAdmin();
+        }
+        else {
+            console.log('is company or branch admin');
+            this.getSuperExecutiveForCompAdmin();
+        }
+    }
+    getSuperExecutiveForGitAdmin() {
         this.loading = true;
         this.executiveService.getSuperExecutives().then(res => {
             const accounts = res;
@@ -11452,9 +11984,69 @@ let ViewAccountListsPageComponent = class ViewAccountListsPageComponent {
             this.dataLoadedError.emit(err);
         });
     }
+    getSuperExecutiveForCompAdmin() {
+        this.loading = true;
+        this.executiveService.getCompanySuperExecutives(this.merchantId).then(res => {
+            const accounts = res;
+            console.log('super_exec: ' + JSON.stringify(accounts));
+            this.loading = false;
+            this.dataLoaded.emit(accounts);
+            this.dataLoadedError.emit(null);
+            if (accounts.length > 0) {
+                this.hasNoData = false;
+                lodash__WEBPACK_IMPORTED_MODULE_2__["forEach"](accounts, (admin) => {
+                    this.collection.push(admin);
+                });
+                this.allCollection = this.collection;
+            }
+            else {
+                this.hasNoData = true;
+            }
+        }, err => {
+            this.loading = false;
+            this.hasError = true;
+            this.dataLoaded.emit(null);
+            this.dataLoadedError.emit(err);
+        });
+    }
     getBranchSuperExecutiveAccounts() {
+        if (lodash__WEBPACK_IMPORTED_MODULE_2__["isUndefined"](this.merchantId) && lodash__WEBPACK_IMPORTED_MODULE_2__["isUndefined"](this.branchId)) {
+            console.log('is GitAdmin');
+            this.getBranchExecutiveForGitAdmin();
+        }
+        else {
+            console.log('is company or branch admin');
+            this.getBranchExecutiveForCompAdmin();
+        }
+    }
+    getBranchExecutiveForGitAdmin() {
         this.loading = true;
         this.executiveService.getBranchSuperExecutives().then(res => {
+            const accounts = res;
+            console.log('branch_super_exec: ' + JSON.stringify(accounts));
+            this.loading = false;
+            this.dataLoaded.emit(accounts);
+            this.dataLoadedError.emit(null);
+            if (accounts.length > 0) {
+                this.hasNoData = false;
+                lodash__WEBPACK_IMPORTED_MODULE_2__["forEach"](accounts, (admin) => {
+                    this.collection.push(admin);
+                });
+                this.allCollection = this.collection;
+            }
+            else {
+                this.hasNoData = true;
+            }
+        }, err => {
+            this.loading = false;
+            this.hasError = true;
+            this.dataLoaded.emit(null);
+            this.dataLoadedError.emit(err);
+        });
+    }
+    getBranchExecutiveForCompAdmin() {
+        this.loading = true;
+        this.executiveService.getCompanyBranchSuperExecutives(this.merchantId).then(res => {
             const accounts = res;
             console.log('branch_super_exec: ' + JSON.stringify(accounts));
             this.loading = false;
@@ -11536,6 +12128,15 @@ tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
 tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
     Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Input"])()
 ], ViewAccountListsPageComponent.prototype, "merchantId", void 0);
+tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
+    Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Input"])()
+], ViewAccountListsPageComponent.prototype, "canEdit", void 0);
+tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
+    Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Input"])()
+], ViewAccountListsPageComponent.prototype, "canView", void 0);
+tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
+    Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Input"])()
+], ViewAccountListsPageComponent.prototype, "canDelete", void 0);
 tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
     Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Output"])()
 ], ViewAccountListsPageComponent.prototype, "edit", void 0);
@@ -13235,7 +13836,7 @@ let UserAccountCreatorComponent = class UserAccountCreatorComponent {
             return new src_app_models_users_model__WEBPACK_IMPORTED_MODULE_4__["Users"](fname, lname, email, password, username, country, dCode + phone, password, userType, null, null, merchantId, branch_id);
         }
         else {
-            const user = new src_app_models_users_model__WEBPACK_IMPORTED_MODULE_4__["Users"](fname, lname, email, password, username, country, dCode + phone, password, userType, null, null, merchant_id, branch_id);
+            const user = new src_app_models_users_model__WEBPACK_IMPORTED_MODULE_4__["Users"](fname, lname, email, password, username, country, dCode + phone, password, userType, userType, null, null, merchant_id, branch_id);
             return user;
         }
     }
@@ -13726,7 +14327,6 @@ let UserAccountEditorComponent = class UserAccountEditorComponent {
         // this.f.password.updateValueAndValidity();
     }
     edit() {
-        console.log('yeh');
         this.loading = true;
         this.submitted = true;
         this.handleUserSelection();
@@ -15321,6 +15921,21 @@ let BranchService = class BranchService {
             });
         });
     }
+    getBranchAdmins(id, isMerchant) {
+        return new Promise((resolve, reject) => {
+            const url = !lodash__WEBPACK_IMPORTED_MODULE_2__["isUndefined"](isMerchant) && isMerchant
+                ? this.endpointService.apiHost + 'api/v1/getMerchantUsersByType/' + id + '/' + src_app_enums_user_types_enum__WEBPACK_IMPORTED_MODULE_3__["UserTypes"].BranchAdmin
+                : this.endpointService.apiHost + 'api/v1/getBranchUsersByType/' + id + '/' + src_app_enums_user_types_enum__WEBPACK_IMPORTED_MODULE_3__["UserTypes"].BranchAdmin;
+            this.http.get(url, { headers: this.headers }).subscribe(res => {
+                console.log('response: ' + JSON.stringify(res));
+                const response = res;
+                resolve(response.users.data);
+            }, err => {
+                console.log('error: ' + JSON.stringify(err));
+                reject(err);
+            });
+        });
+    }
     enableBranch(id) {
         return new Promise((resolve, reject) => {
             const url = this.endpointService.apiHost + 'api/v1/enableBranch/' + id;
@@ -15916,12 +16531,12 @@ let CompanyService = class CompanyService {
         });
     }
     /**
-     * Gets a list of all admins assigned to a company.
+     * Gets a list of all admins assigned to all company.
      *
      * @returns {Promise<any>}
      * @memberof CompanyService
      */
-    getCompanyAdmins(allowPagination) {
+    getAllCompanyAdmins(allowPagination) {
         return new Promise((resolve, reject) => {
             const url = !lodash__WEBPACK_IMPORTED_MODULE_2__["isUndefined"](allowPagination) || allowPagination
                 ? this.endpointService.apiHost + 'api/v1/getAllUsersByType/' + src_app_enums_user_types_enum__WEBPACK_IMPORTED_MODULE_6__["UserTypes"].CompanyAdmin
@@ -15932,6 +16547,26 @@ let CompanyService = class CompanyService {
                 return !lodash__WEBPACK_IMPORTED_MODULE_2__["isUndefined"](allowPagination) || allowPagination
                     ? resolve(response.users.data)
                     : resolve(response.users);
+            }, err => {
+                console.log('error: ' + JSON.stringify(err));
+                reject(err);
+            });
+        });
+    }
+    /**
+     * Gets a list of all company admins assigned to a specified.
+     *
+     * @param {string} merchant_id
+     * @returns {Promise<any>}
+     * @memberof CompanyService
+     */
+    getCompanyAdmins(merchant_id) {
+        return new Promise((resolve, reject) => {
+            const url = this.endpointService.apiHost + 'api/v1/getMerchantUsersByType/' + merchant_id + '/' + src_app_enums_user_types_enum__WEBPACK_IMPORTED_MODULE_6__["UserTypes"].CompanyAdmin;
+            this.http.get(url, { headers: this.headers }).subscribe(res => {
+                console.log('response: ' + JSON.stringify(res));
+                const response = res;
+                resolve(response.users.data);
             }, err => {
                 console.log('error: ' + JSON.stringify(err));
                 reject(err);
@@ -16188,6 +16823,19 @@ let ExecutiveService = class ExecutiveService {
             });
         });
     }
+    getCompanySuperExecutives(merchant_id) {
+        return new Promise((resolve, reject) => {
+            const url = this.endpointService.apiHost + 'api/v1/getMerchantUsersByType/' + merchant_id + '/' + src_app_enums_user_types_enum__WEBPACK_IMPORTED_MODULE_5__["UserTypes"].SuperExecutive;
+            this.http.get(url, { headers: this.headers }).subscribe(res => {
+                console.log('response: ' + JSON.stringify(res));
+                const response = res;
+                resolve(response.users.data);
+            }, err => {
+                console.log('error: ' + JSON.stringify(err));
+                reject(err);
+            });
+        });
+    }
     /**
      * Gets a list of all branch super executives.
      *
@@ -16205,6 +16853,19 @@ let ExecutiveService = class ExecutiveService {
                 return !lodash__WEBPACK_IMPORTED_MODULE_2__["isUndefined"](allowPagination) || allowPagination
                     ? resolve(response.users.data)
                     : resolve(response.users);
+            }, err => {
+                console.log('error: ' + JSON.stringify(err));
+                reject(err);
+            });
+        });
+    }
+    getCompanyBranchSuperExecutives(merchant_id) {
+        return new Promise((resolve, reject) => {
+            const url = this.endpointService.apiHost + 'api/v1/getMerchantUsersByType/' + merchant_id + '/' + src_app_enums_user_types_enum__WEBPACK_IMPORTED_MODULE_5__["UserTypes"].BranchSuperExecutive;
+            this.http.get(url, { headers: this.headers }).subscribe(res => {
+                console.log('response: ' + JSON.stringify(res));
+                const response = res;
+                resolve(response.users.data);
             }, err => {
                 console.log('error: ' + JSON.stringify(err));
                 reject(err);

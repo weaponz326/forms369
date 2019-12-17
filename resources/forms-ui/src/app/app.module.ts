@@ -101,6 +101,10 @@ import { FormPrintingPageComponent } from './pages/dashboard/front-desk/form-pri
 import { ForgotPasswordPageComponent } from './pages/forgot-password-page/forgot-password-page.component';
 import { FormPrintingDefaultPageComponent } from './pages/dashboard/front-desk/form-printing-default-page/form-printing-default-page.component';
 import { NotFoundPageComponent } from './pages/not-found-page/not-found-page.component';
+import { AdminViewBranchAdminsPageComponent } from './pages/dashboard/admin/admin-view-branch-admins-page/admin-view-branch-admins-page.component';
+import { AdminViewCompanyAdminsPageComponent } from './pages/dashboard/admin/admin-view-company-admins-page/admin-view-company-admins-page.component';
+import { AdminViewBranchExecutivesPageComponent } from './pages/dashboard/admin/admin-view-branch-executives-page/admin-view-branch-executives-page.component';
+import { AdminViewCompanyExecutivesPageComponent } from './pages/dashboard/admin/admin-view-company-executives-page/admin-view-company-executives-page.component';
 
 @NgModule({
   declarations: [
@@ -186,6 +190,10 @@ import { NotFoundPageComponent } from './pages/not-found-page/not-found-page.com
     ForgotPasswordPageComponent,
     FormPrintingDefaultPageComponent,
     NotFoundPageComponent,
+    AdminViewBranchAdminsPageComponent,
+    AdminViewCompanyAdminsPageComponent,
+    AdminViewBranchExecutivesPageComponent,
+    AdminViewCompanyExecutivesPageComponent,
   ],
   imports: [
     BrowserModule,
