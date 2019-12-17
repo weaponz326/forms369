@@ -27,90 +27,28 @@
               <div class="card-body">
                 <div class="card-text">
                   <div class="container">
-                    <div class="row">
-                      <div class="col-6 col-md-6 offset-2 offset-md-2">
-                        <h1 class="display-3">{{ accountType }}</h1>
-                      </div>
-                      <div class="col-4 col-md-4">
-                        <button *ngIf="!_loading" class="btn btn-outline-secondary mr-2" [ngClass]="{'active': isActive}" (click)="accountActivation()">Active</button>
-                        <button *ngIf="_loading" class="btn btn-primary" type="button" disabled>
+                    <div class="row text-center">
+                      <div class="col-6 col-md-6 offset-3 offset-md-3">
+                        <h3><strong>{{ user.merchant_name }}</strong></h3>
+                        <h3 class="display-3 mt-3 mb-3">{{ accountType }}</h3>
+                        <!-- <button *ngIf="!_loading" class="btn mr-2"
+                          [ngClass]="{'btn-success': isActive, 'btn-danger': !isActive}" (click)="accountActivation()">
+                          Active
+                        </button>
+                        <button *ngIf="!_loading" class="btn mr-2"
+                          [ngClass]="{'btn-success': isActive, 'btn-danger': !isActive}" (click)="accountActivation()">
+                          Active
+                        </button> -->
+                        <!-- <button *ngIf="_loading" class="btn btn-primary" type="button" disabled>
                           <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
                           Loading...
-                        </button>
-                        <button class="btn btn-outline-secondary btn-icon-text" (click)="edit(user.id)">
+                        </button> -->
+                        <button *ngIf="user.user_type == 25" class="btn btn-outline-secondary btn-icon-text" (click)="edit(user.id)">
                           <i class="mdi mdi-pencil-outline"></i>
                           Edit
                         </button>
                       </div>
                     </div>
-                    <!-- <div class="row account-details ml-5 mt-5">
-                      <div class="col-3 col-md-3 offset-1 offset-md-1">
-                        <h5>First Name :</h5>
-                      </div>
-                      <div class="col-7 col-md-7">
-                        <h5>{{ user.firstname }}</h5>
-                      </div>
-                      <div class="col-3 col-md-3 offset-1 offset-md-1">
-                        <h5>Last Name :</h5>
-                      </div>
-                      <div class="col-7 col-md-7">
-                        <h5>{{ user.lastname }}</h5>
-                      </div>
-                      <div class="col-3 col-md-3 offset-1 offset-md-1">
-                        <h5>Username :</h5>
-                      </div>
-                      <div class="col-7 col-md-7">
-                        <h5>{{ user.username }}</h5>
-                      </div>
-                      <div class="col-3 col-md-3 offset-1 offset-md-1">
-                        <h5>Email Address :</h5>
-                      </div>
-                      <div class="col-7 col-md-7">
-                        <h5>{{ user.email }}</h5>
-                      </div>
-                      <div class="col-3 col-md-3 offset-1 offset-md-1">
-                        <h5>Country :</h5>
-                      </div>
-                      <div class="col-7 col-md-7">
-                        <h5>{{ user.country }}</h5>
-                      </div>
-                      <div class="col-3 col-md-3 offset-1 offset-md-1">
-                        <h5>Company Name :</h5>
-                      </div>
-                      <div class="col-7 col-md-7">
-                        <h5>{{ user.merchant_name }}</h5>
-                      </div>
-                      <div class="col-3 col-md-3 offset-1 offset-md-1">
-                        <h5>Branch Name :</h5>
-                      </div>
-                      <div class="col-7 col-md-7">
-                        <h5>{{ user.branch_name }}</h5>
-                      </div>
-                      <div class="col-3 col-md-3 offset-1 offset-md-1">
-                        <h5>User Type :</h5>
-                      </div>
-                      <div class="col-7 col-md-7">
-                        <h5>{{ accountType }}</h5>
-                      </div>
-                      <div class="col-3 col-md-3 offset-1 offset-md-1">
-                        <h5>Last Login :</h5>
-                      </div>
-                      <div class="col-7 col-md-7">
-                        <h5>{{ user.last_login_at | date }}</h5>
-                      </div>
-                      <div class="col-3 col-md-3 offset-1 offset-md-1">
-                        <h5>Account Created On :</h5>
-                      </div>
-                      <div class="col-7 col-md-7">
-                        <h5>{{ user.created_at | date }}</h5>
-                      </div>
-                      <div class="col-3 col-md-3 offset-1 offset-md-1">
-                        <h5>Last Updated On :</h5>
-                      </div>
-                      <div class="col-7 col-md-7">
-                        <h5>{{ user.updated_at | date }}</h5>
-                      </div>
-                    </div> -->
                     <div class="row account-details ml-5 mt-5">
                       <div class="col-12">
                         <div class="accordion mt-3" id="accordionExample">
@@ -148,6 +86,11 @@
                                       <tr class="hover-cursor">
                                         <td><strong>Country</strong></td>
                                         <td>{{ user.country }}</td>
+                                      </tr>
+                                      <tr class="hover-cursor">
+                                        <td><strong>Status</strong></td>
+                                        <td *ngIf="user.status == 1">Active</td>
+                                        <td *ngIf="user.status == 0">In Active</td>
                                       </tr>
                                       <tr class="hover-cursor">
                                         <td><strong>User Type</strong></td>

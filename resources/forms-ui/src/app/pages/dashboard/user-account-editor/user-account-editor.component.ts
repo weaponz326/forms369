@@ -385,7 +385,6 @@ export class UserAccountEditorComponent implements OnInit {
   }
 
   edit() {
-    console.log('yeh');
     this.loading = true;
     this.submitted = true;
     this.handleUserSelection();

@@ -236,6 +236,11 @@ export class CreateFormPageComponent implements OnInit {
   }
 
   bringBackForm() {
+    this.reset();
+    this.submitted = false;
+    this.f.pdf.setValue('');
+    this.f.name.setValue('');
+    this.f.merchant.setValue('');
     this.created = !this.created;
   }
 

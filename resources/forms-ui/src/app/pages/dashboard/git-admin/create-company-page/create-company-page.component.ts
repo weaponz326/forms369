@@ -190,7 +190,7 @@ export class CreateCompanyPageComponent implements OnInit {
   }
 
   getCompanyAdmins() {
-    this.companyService.getCompanyAdmins().then(
+    this.companyService.getAllCompanyAdmins().then(
       res => {
         const admins = res as any;
         if (admins.length != 0) {

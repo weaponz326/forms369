@@ -42,6 +42,23 @@ export class ExecutiveService {
     });
   }
 
+  getCompanySuperExecutives(merchant_id: string): Promise<any> {
+    return new Promise((resolve, reject) => {
+      const url = this.endpointService.apiHost + 'api/v1/getMerchantUsersByType/' + merchant_id + '/' + UserTypes.SuperExecutive;
+      this.http.get(url, { headers: this.headers }).subscribe(
+        res => {
+          console.log('response: ' + JSON.stringify(res));
+          const response = res as any;
+          resolve(response.users.data);
+        },
+        err => {
+          console.log('error: ' + JSON.stringify(err));
+          reject(err);
+        }
+      );
+    });
+  }
+
   /**
    * Gets a list of all branch super executives.
    *
@@ -60,6 +77,23 @@ export class ExecutiveService {
           return !_.isUndefined(allowPagination) || allowPagination
             ? resolve(response.users.data)
             : resolve(response.users);
+        },
+        err => {
+          console.log('error: ' + JSON.stringify(err));
+          reject(err);
+        }
+      );
+    });
+  }
+
+  getCompanyBranchSuperExecutives(merchant_id: string): Promise<any> {
+    return new Promise((resolve, reject) => {
+      const url = this.endpointService.apiHost + 'api/v1/getMerchantUsersByType/' + merchant_id + '/' + UserTypes.BranchSuperExecutive;
+      this.http.get(url, { headers: this.headers }).subscribe(
+        res => {
+          console.log('response: ' + JSON.stringify(res));
+          const response = res as any;
+          resolve(response.users.data);
         },
         err => {
           console.log('error: ' + JSON.stringify(err));

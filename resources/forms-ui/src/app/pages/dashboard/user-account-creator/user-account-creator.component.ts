@@ -177,7 +177,7 @@ export class UserAccountCreatorComponent implements OnInit {
       return new Users(fname, lname, email, password, username, country, dCode + phone, password, userType, null, null, merchantId, branch_id);
     }
     else {
-      const user = new Users(fname, lname, email, password, username, country, dCode + phone, password, userType, null, null, merchant_id, branch_id);
+      const user = new Users(fname, lname, email, password, username, country, dCode + phone, password, userType, userType, null, null, merchant_id, branch_id);
       return user;
     }
   }

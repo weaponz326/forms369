@@ -242,12 +242,12 @@ export class CompanyService {
   }
 
   /**
-   * Gets a list of all admins assigned to a company.
+   * Gets a list of all admins assigned to all company.
    *
    * @returns {Promise<any>}
    * @memberof CompanyService
    */
-  getCompanyAdmins(allowPagination?: boolean): Promise<any> {
+  getAllCompanyAdmins(allowPagination?: boolean): Promise<any> {
     return new Promise((resolve, reject) => {
       const url = !_.isUndefined(allowPagination) || allowPagination
         ? this.endpointService.apiHost + 'api/v1/getAllUsersByType/' + UserTypes.CompanyAdmin
@@ -259,6 +259,30 @@ export class CompanyService {
           return !_.isUndefined(allowPagination) || allowPagination
             ? resolve(response.users.data)
             : resolve(response.users);
+        },
+        err => {
+          console.log('error: ' + JSON.stringify(err));
+          reject(err);
+        }
+      );
+    });
+  }
+
+  /**
+   * Gets a list of all company admins assigned to a specified.
+   *
+   * @param {string} merchant_id
+   * @returns {Promise<any>}
+   * @memberof CompanyService
+   */
+  getCompanyAdmins(merchant_id: string): Promise<any> {
+    return new Promise((resolve, reject) => {
+      const url = this.endpointService.apiHost + 'api/v1/getMerchantUsersByType/' + merchant_id + '/' + UserTypes.CompanyAdmin;
+      this.http.get(url, { headers: this.headers }).subscribe(
+        res => {
+          console.log('response: ' + JSON.stringify(res));
+          const response = res as any;
+          resolve(response.users.data);
         },
         err => {
           console.log('error: ' + JSON.stringify(err));

@@ -1,5 +1,5 @@
 <form [formGroup]="form" (ngSubmit)="edit()" class="pt-3">
-  <div *ngIf="!isAdmin" class="form-group">
+  <div *ngIf="isGitAdmin" class="form-group">
     <select class="form-control" formControlName="userType"
       [ngClass]="{'input-control-error': submitted && f.userType.errors}" (change)="onUserSelect($event)">
       <option value="" disabled>Choose User Type</option>
@@ -35,7 +35,7 @@
     </div>
   </div>
   <div *ngIf="!isGitAdmin" class="row">
-    <div [ngClass]="{'col-md-12': isCompAdmin || isSuperExec, 'col-md-6': !isCompAdmin || !isSuperExec}">
+    <div [ngClass]="{'col-md-12': !isCompAdmin || isSuperExec, 'col-md-6': !isCompAdmin || !isSuperExec}">
       <div class="form-group">
         <input type="text" class="form-control" formControlName="merchant" placeholder="Company Name"
           [matAutocomplete]="auto" [ngClass]="{'input-control-error': submitted && f.merchant.errors}">
@@ -49,7 +49,8 @@
         </div>
       </div>
     </div>
-    <div *ngIf="!isCompAdmin && !isSuperExec" class="col-md-6">
+    <div *ngIf="!isCompAdmin && !isSuperExec"
+      [ngClass]="{'col-md-12': !isCompAdmin || !isSuperExec, 'col-md-6': isCompAdmin && isSuperExec}">
       <div class="form-group">
         <input type="text" class="form-control" formControlName="branch" placeholder="Branch Name"
           [matAutocomplete]="auto_1" [ngClass]="{'input-control-error': submitted && f.branch.errors}">

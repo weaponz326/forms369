@@ -26,6 +26,9 @@ export class ViewAccountListsPageComponent implements OnInit {
   @Input() userType: any;
   @Input() branchId: any;
   @Input() merchantId: any;
+  @Input() canEdit: boolean;
+  @Input() canView: boolean;
+  @Input() canDelete: boolean;
   isDeleteSuccess: boolean;
   showDeleteMessage: boolean;
   collection: Array<any>;
@@ -51,11 +54,27 @@ export class ViewAccountListsPageComponent implements OnInit {
   ) {
     this.collection = [];
     this.allCollection = [];
+
+    this.handleActionButtonsVisibility();
   }
 
   ngOnInit() {
     this.filterState = 'all';
     this.getAccountDetails();
+  }
+
+  handleActionButtonsVisibility() {
+    if (_.isUndefined(this.canEdit)) {
+      this.canEdit = true;
+    }
+
+    if (_.isUndefined(this.canView)) {
+      this.canView = true;
+    }
+
+    if (_.isUndefined(this.canDelete)) {
+      this.canDelete = true;
+    }
   }
 
   showLoadingDialog() {
@@ -295,8 +314,48 @@ export class ViewAccountListsPageComponent implements OnInit {
   }
 
   getCompanyAdminAccounts() {
+    if (_.isUndefined(this.merchantId) && _.isUndefined(this.branchId)) {
+      console.log('is GitAdmin');
+      this.getCompanyAdminForGitAdmin();
+    }
+    else {
+      console.log('is company or branch admin');
+      this.getCompanyAdminForCompAdmin();
+    }
+  }
+
+  getCompanyAdminForGitAdmin() {
     this.loading = true;
-    this.companyService.getCompanyAdmins().then(
+    this.companyService.getAllCompanyAdmins().then(
+      res => {
+        const accounts = res as any;
+        console.log('comp_admin: ' + JSON.stringify(accounts));
+        this.loading = false;
+        this.dataLoaded.emit(accounts);
+        this.dataLoadedError.emit(null);
+        if (accounts.length > 0) {
+          this.hasNoData = false;
+          _.forEach(accounts, (admin) => {
+            this.collection.push(admin);
+          });
+          this.allCollection = this.collection;
+        }
+        else {
+          this.hasNoData = true;
+        }
+      },
+      err => {
+        this.loading = false;
+        this.hasError = true;
+        this.dataLoaded.emit(null);
+        this.dataLoadedError.emit(err);
+      }
+    );
+  }
+
+  getCompanyAdminForCompAdmin() {
+    this.loading = true;
+    this.companyService.getCompanyAdmins(this.merchantId).then(
       res => {
         const accounts = res as any;
         console.log('comp_admin: ' + JSON.stringify(accounts));
@@ -324,6 +383,24 @@ export class ViewAccountListsPageComponent implements OnInit {
   }
 
   getBranchAdminAccounts() {
+    if (this.branchId == 0 || _.isNull(this.branchId)) {
+      console.log('is company admin');
+      console.log('has branch id: ' + this.branchId);
+      this.getBranchAdminForCompAdmin();
+    }
+    else if (!_.isUndefined(this.merchantId) && this.merchantId > 0) {
+      console.log('is branch admin');
+      console.log('has branch id: ' + this.merchantId);
+      this.getBranchAdminForBranchAdmin();
+    }
+    else {
+      console.log('is GitAdmin');
+      console.log('has branch id: ' + this.branchId + 'and merchant id: ' + this.merchantId);
+      this.getBranchAdminForGitAdmin();
+    }
+  }
+
+  getBranchAdminForGitAdmin() {
     this.loading = true;
     this.branchService.getAllBranchAdmins().then(
       res => {
@@ -352,7 +429,76 @@ export class ViewAccountListsPageComponent implements OnInit {
     );
   }
 
+  getBranchAdminForCompAdmin() {
+    this.loading = true;
+    this.branchService.getBranchAdmins(this.merchantId, true).then(
+      res => {
+        const accounts = res as any;
+        console.log('branch_admin: ' + JSON.stringify(accounts));
+        this.loading = false;
+        this.dataLoaded.emit(accounts);
+        this.dataLoadedError.emit(null);
+        if (accounts.length > 0) {
+          this.hasNoData = false;
+          _.forEach(accounts, (admin) => {
+            this.collection.push(admin);
+          });
+          this.allCollection = this.collection;
+        }
+        else {
+          this.hasNoData = true;
+        }
+      },
+      err => {
+        this.loading = false;
+        this.hasError = true;
+        this.dataLoaded.emit(null);
+        this.dataLoadedError.emit(err);
+      }
+    );
+  }
+
+  getBranchAdminForBranchAdmin() {
+    this.loading = true;
+    this.branchService.getBranchAdmins(this.branchId, false).then(
+      res => {
+        const accounts = res as any;
+        console.log('branch_admin: ' + JSON.stringify(accounts));
+        this.loading = false;
+        this.dataLoaded.emit(accounts);
+        this.dataLoadedError.emit(null);
+        if (accounts.length > 0) {
+          this.hasNoData = false;
+          _.forEach(accounts, (admin) => {
+            this.collection.push(admin);
+          });
+          this.allCollection = this.collection;
+        }
+        else {
+          this.hasNoData = true;
+        }
+      },
+      err => {
+        this.loading = false;
+        this.hasError = true;
+        this.dataLoaded.emit(null);
+        this.dataLoadedError.emit(err);
+      }
+    );
+  }
+
   getSuperExecutiveAccounts() {
+    if (_.isUndefined(this.merchantId) && _.isUndefined(this.branchId)) {
+      console.log('is GitAdmin');
+      this.getSuperExecutiveForGitAdmin();
+    }
+    else {
+      console.log('is company or branch admin');
+      this.getSuperExecutiveForCompAdmin();
+    }
+  }
+
+  getSuperExecutiveForGitAdmin() {
     this.loading = true;
     this.executiveService.getSuperExecutives().then(
       res => {
@@ -381,9 +527,78 @@ export class ViewAccountListsPageComponent implements OnInit {
     );
   }
 
+  getSuperExecutiveForCompAdmin() {
+    this.loading = true;
+    this.executiveService.getCompanySuperExecutives(this.merchantId).then(
+      res => {
+        const accounts = res as any;
+        console.log('super_exec: ' + JSON.stringify(accounts));
+        this.loading = false;
+        this.dataLoaded.emit(accounts);
+        this.dataLoadedError.emit(null);
+        if (accounts.length > 0) {
+          this.hasNoData = false;
+          _.forEach(accounts, (admin) => {
+            this.collection.push(admin);
+          });
+          this.allCollection = this.collection;
+        }
+        else {
+          this.hasNoData = true;
+        }
+      },
+      err => {
+        this.loading = false;
+        this.hasError = true;
+        this.dataLoaded.emit(null);
+        this.dataLoadedError.emit(err);
+      }
+    );
+  }
+
   getBranchSuperExecutiveAccounts() {
+    if (_.isUndefined(this.merchantId) && _.isUndefined(this.branchId)) {
+      console.log('is GitAdmin');
+      this.getBranchExecutiveForGitAdmin();
+    }
+    else {
+      console.log('is company or branch admin');
+      this.getBranchExecutiveForCompAdmin();
+    }
+  }
+
+  getBranchExecutiveForGitAdmin() {
     this.loading = true;
     this.executiveService.getBranchSuperExecutives().then(
+      res => {
+        const accounts = res as any;
+        console.log('branch_super_exec: ' + JSON.stringify(accounts));
+        this.loading = false;
+        this.dataLoaded.emit(accounts);
+        this.dataLoadedError.emit(null);
+        if (accounts.length > 0) {
+          this.hasNoData = false;
+          _.forEach(accounts, (admin) => {
+            this.collection.push(admin);
+          });
+          this.allCollection = this.collection;
+        }
+        else {
+          this.hasNoData = true;
+        }
+      },
+      err => {
+        this.loading = false;
+        this.hasError = true;
+        this.dataLoaded.emit(null);
+        this.dataLoadedError.emit(err);
+      }
+    );
+  }
+
+  getBranchExecutiveForCompAdmin() {
+    this.loading = true;
+    this.executiveService.getCompanyBranchSuperExecutives(this.merchantId).then(
       res => {
         const accounts = res as any;
         console.log('branch_super_exec: ' + JSON.stringify(accounts));

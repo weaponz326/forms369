@@ -113,15 +113,15 @@
                 <td *ngIf="user.status != 1"><label class="badge badge-danger text-center">In-Active</label></td>
                 <td>
                   <div class="d-flex align-items-end flex-wrap">
-                    <button type="button" class="btn btn-light bg-white btn-icon mr-3 d-sm-none d-md-block"
+                    <button *ngIf="canEdit" type="button" class="btn btn-light bg-white btn-icon mr-3 d-sm-none d-md-block"
                       data-toggle="tooltip" data-placement="top" title="Edit" (click)="_edit(user.id)">
                       <i class="mdi mdi-pencil-outline text-muted"></i>
                     </button>
-                    <button type="button" class="btn btn-light bg-white btn-icon mr-3 d-sm-none d-md-block "
+                    <button *ngIf="canView" type="button" class="btn btn-light bg-white btn-icon mr-3 d-sm-none d-md-block "
                       data-toggle="tooltip" data-placement="top" title="View Details" (click)="_view(user.id)">
                       <i class="mdi mdi-eye-outline text-muted"></i>
                     </button>
-                    <button type="button" class="btn btn-light bg-white btn-icon mr-3 d-sm-none d-md-block"
+                    <button *ngIf="canDelete" type="button" class="btn btn-light bg-white btn-icon mr-3 d-sm-none d-md-block"
                       data-toggle="tooltip" data-placement="top" title="Delete" (click)="_delete(user.id, i)">
                       <i class="mdi mdi-delete-outline text-muted"></i>
                     </button>
