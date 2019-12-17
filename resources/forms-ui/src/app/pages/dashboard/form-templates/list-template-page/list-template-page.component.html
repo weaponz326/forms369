@@ -142,7 +142,8 @@
                             </button>
                           </div>
                           <div class="btn-group" role="group" aria-label="Basic example">
-                            <button type="button" class="btn btn-outline-secondary" (click)="edit($event, template)">
+                            <button *ngIf="isGitAdmin" type="button" class="btn btn-outline-secondary"
+                              (click)="edit($event, template)">
                               <i class="mdi mdi-pencil-outline"></i>
                               Edit
                             </button>
@@ -172,12 +173,13 @@
                       <div class="list-group-item hover-cursor list-group-item-action animated fadeInDown"
                         *ngFor="let template of templatesList; let i = index">
                         <div class="row" (click)="view(template)">
-                          <div class="col-6">
+                          <div [ngClass]="{'col-8': !isGitAdmin, 'col-6': isGitAdmin}">
                             <h1 class="display-4 mb-1 mt-2">{{ template.name }}</h1>
                           </div>
-                          <div class="col-6">
+                          <div [ngClass]="{'col-4': !isGitAdmin, 'col-6': isGitAdmin}">
                             <div class="btn-group mt-2" role="group" aria-label="Basic example">
-                              <button type="button" class="btn btn-outline-secondary" (click)="edit($event, template)">
+                              <button *ngIf="isGitAdmin" type="button" class="btn btn-outline-secondary"
+                                (click)="edit($event, template)">
                                 <i class="mdi mdi-pencil-outline"></i>
                                 Edit
                               </button>
@@ -190,7 +192,8 @@
                                 <i class="mdi mdi-download-outline"></i>
                                 Use
                               </button>
-                              <button type="button" class="btn btn-outline-secondary" (click)="delete($event, template.id, i)">
+                              <button *ngIf="isGitAdmin" type="button" class="btn btn-outline-secondary"
+                                (click)="delete($event, template.id, i)">
                                 <i class="mdi mdi-delete-outline"></i>
                                 Delete
                               </button>

@@ -70,17 +70,25 @@ export class AdminCreateFormPageComponent implements OnInit {
       );
     }
     else {
-      this._loading = true;
       this.formCode = this.formBuilderService.generateUniqueFormCode();
-      this.formBuilder = $(document.getElementById('fb-editor')).formBuilder({
-        controlPosition: 'left',
-        scrollToFieldOnAdd: false,
-        defaultFields: this.template.form_fields,
-        disabledActionButtons: ['data', 'clear', 'save'],
-        inputSets: this.formBuilderService.generateFormFields(),
-        disableFields: this.formBuilderService.disableSectionFormFields()
-      });
-      this._loading = false;
+      this.formBuilderService.generateSectionAndDefaultFormFields().then(
+        form_elements => {
+          this.formBuilder = $(document.getElementById('fb-editor')).formBuilder({
+            controlPosition: 'left',
+            inputSets: form_elements,
+            scrollToFieldOnAdd: false,
+            defaultFields: this.template.form_fields,
+            disabledActionButtons: ['data', 'clear', 'save'],
+            disableFields: this.formBuilderService.disableDefaultFormControls()
+          });
+
+          this._loading = false;
+        },
+        error => {
+          this._loading = false;
+          this.hasError = true;
+        }
+      );
     }
   }
 

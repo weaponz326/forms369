@@ -8,7 +8,6 @@ import { FormsService } from 'src/app/services/forms/forms.service';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { CompanyService } from 'src/app/services/company/company.service';
 import { FormBuilderService } from 'src/app/services/form-builder/form-builder.service';
-import { LocalStorageService } from 'src/app/services/storage/local-storage.service';
 
 @Component({
   selector: 'app-edit-form-page',
@@ -50,14 +49,12 @@ export class EditFormPageComponent implements OnInit {
     private _formBuilder: FormBuilder,
     private formService: FormsService,
     private companyService: CompanyService,
-    private localStorage: LocalStorageService,
     private formBuilderService: FormBuilderService
   ) {
     this.merchant = '';
     this.allMerchantsList = [];
     this._form = window.history.state.form;
     this.isPublished = this._form.status == 1 ? true : false;
-    // this.showFileUpload = this.localStorage.getUser().can_print ? true : false;
     this.getCompanies();
   }
 
