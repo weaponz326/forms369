@@ -115,9 +115,12 @@ export class UserAccountCreatorComponent implements OnInit {
       this.f.userType.value == UserTypes.BranchAdmin ? true : false;
 
     if (this.isCompAdmin || this.isSuperExec) {
-      // remove validators
+      // remove validators of merchant and branch
+      // so the account can be created.
       this.f.branch.clearValidators();
+      this.f.merchant.clearValidators();
       this.f.branch.updateValueAndValidity();
+      this.f.merchant.updateValueAndValidity();
     }
 
     if (this.f.userType.value == UserTypes.GitAdmin) {
