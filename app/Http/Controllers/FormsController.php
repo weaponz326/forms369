@@ -39,7 +39,15 @@ class FormsController extends Controller
         $merchant_id = $request->merchant_id;
         $form_code = $request->form_code;
         $status = $request->status;
-        $can_view = $request->can_view;
+
+        if($request->has('can_view'))
+        {
+            $can_view = $request->can_view;
+
+        }else{
+            $can_view =0;
+        }
+        
         $name = Crypt::encryptString($request->name);
 
         $created_at = now();
@@ -122,7 +130,13 @@ class FormsController extends Controller
         $merchant_id = $request->merchant_id;
         $form_code = $request->form_code;
         $status = $request->status;
-        $can_view = $request->can_view;
+        if($request->has('can_view'))
+        {
+            $can_view = $request->can_view;
+
+        }else{
+            $can_view =0;
+        }
         $name = Crypt::encryptString($request->name);
 
         $updated_at = now();
