@@ -39,6 +39,7 @@ class FormsController extends Controller
         $merchant_id = $request->merchant_id;
         $form_code = $request->form_code;
         $status = $request->status;
+        $can_view = $request->can_view;
         $name = Crypt::encryptString($request->name);
 
         $created_at = now();
@@ -58,7 +59,8 @@ class FormsController extends Controller
                     'merchant_id' => $merchant_id,
                     'created_by' => $userid, 
                     'created_at' => $created_at,
-                    'temps' => $request->name
+                    'temps' => $request->name,
+                    'can_view' => $can_view
                 ]
             );
             $title = $request->name;
@@ -120,6 +122,7 @@ class FormsController extends Controller
         $merchant_id = $request->merchant_id;
         $form_code = $request->form_code;
         $status = $request->status;
+        $can_view = $request->can_view;
         $name = Crypt::encryptString($request->name);
 
         $updated_at = now();
@@ -141,7 +144,8 @@ class FormsController extends Controller
                     'merchant_id' => $merchant_id,
                     'updated_by' => $userid, 
                     'updated_at' => $updated_at,
-                    'temps' => $request->name
+                    'temps' => $request->name,
+                    'can_view' => $can_view
                 ]
             );
 
@@ -316,6 +320,7 @@ class FormsController extends Controller
             $formdata['merchant_id'] = $items->merchant_id;
             $formdata['merchant_name'] = Crypt::decryptString($items->merchant_name);
             $formdata['can_print'] = $items->can_print;
+            $formdata['can_view'] = $items->can_view;
             $formdata['file_url'] = $items->url;
             $formdata['created_by'] = $items->created_by;
             $formdata['created_at'] = $items->created_at;
@@ -364,6 +369,7 @@ class FormsController extends Controller
             $formdata['merchant_id'] = $items->merchant_id;
             $formdata['merchant_name'] = Crypt::decryptString($items->merchant_name);
             $formdata['can_print'] = $items->can_print;
+            $formdata['can_view'] = $items->can_view;
             $formdata['file_url'] = $items->url;
             $formdata['created_by'] = $items->created_by;
             $formdata['created_at'] = $items->created_at;
@@ -410,6 +416,7 @@ class FormsController extends Controller
             $formdata['merchant_id'] = $items->merchant_id;
             $formdata['merchant_name'] = Crypt::decryptString($items->merchant_name);
             $formdata['can_print'] = $items->can_print;
+            $formdata['can_view'] = $items->can_view;
             $formdata['file_url'] = $items->url;
             $formdata['created_by'] = $items->created_by;
             $formdata['created_at'] = $items->created_at;
@@ -482,6 +489,7 @@ class FormsController extends Controller
             $formdata['merchant_id'] = $items->merchant_id;
             $formdata['merchant_name'] = Crypt::decryptString($items->merchant_name);
             $formdata['can_print'] = $items->can_print;
+            $formdata['can_view'] = $items->can_view;
             $formdata['file_url'] = $items->url;
             $formdata['created_by'] = $items->created_by;
             $formdata['created_at'] = $items->created_at;
@@ -528,6 +536,7 @@ class FormsController extends Controller
             $formdata['merchant_id'] = $items->merchant_id;
             $formdata['merchant_name'] = Crypt::decryptString($items->merchant_name);
             $formdata['can_print'] = $items->can_print;
+            $formdata['can_view'] = $items->can_view;
             $formdata['file_url'] = $items->url;
             $formdata['created_by'] = $items->created_by;
             $formdata['created_at'] = $items->created_at;
@@ -575,6 +584,7 @@ class FormsController extends Controller
             $formdata['merchant_id'] = $items->merchant_id;
             $formdata['merchant_name'] = Crypt::decryptString($items->merchant_name);
             $formdata['can_print'] = $items->can_print;
+            $formdata['can_view'] = $items->can_view;
             $formdata['file_url'] = $items->url;
             $formdata['created_by'] = $items->created_by;
             $formdata['created_at'] = $items->created_at;

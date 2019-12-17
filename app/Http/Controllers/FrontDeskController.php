@@ -24,7 +24,7 @@ class FrontDeskController extends Controller
         ->join('forms', 'forms.form_code', '=', 'form_id')
         ->join('merchants', 'merchants.id', '=', 'forms.merchant_id')
         ->select('submitted_forms.*','merchants.merchant_name AS merchant_name',
-        'users.name', 'users.email', 'forms.name AS form_name', 'forms.form_fields')
+        'users.name', 'users.email', 'forms.name AS form_name', 'forms.form_fields', 'forms.can_view')
         ->paginate(15);
       
         //clean data
@@ -39,6 +39,7 @@ class FrontDeskController extends Controller
             $submittedformdata['client_id'] = $items->client_id;
             $submittedformdata['client_name'] = $items->name;
             $submittedformdata['email'] = $items->email;
+            $submittedformdata['can_view'] = $items->can_view;
             $submittedformdata['client_submitted_details'] = json_decode(Crypt::decryptString($items->client_details));
             $submittedformdata['form_status'] = $items->status;
             $submittedformdata['submitted_at'] = $items->submitted_at;
@@ -70,7 +71,7 @@ class FrontDeskController extends Controller
         ->join('forms', 'forms.form_code', '=', 'form_id')
         ->join('merchants', 'merchants.id', '=', 'forms.merchant_id')
         ->select('submitted_forms.*','merchants.merchant_name AS merchant_name',
-        'users.name', 'users.email', 'forms.name AS form_name', 'forms.form_fields')
+        'users.name', 'users.email', 'forms.name AS form_name', 'forms.form_fields', 'forms.can_view')
         ->where('merchants.id', $id)
         ->paginate(15);
       
@@ -86,6 +87,7 @@ class FrontDeskController extends Controller
             $submittedformdata['client_id'] = $items->client_id;
             $submittedformdata['client_name'] = $items->name;
             $submittedformdata['email'] = $items->email;
+            $submittedformdata['can_view'] = $items->can_view;
             $submittedformdata['client_submitted_details'] = json_decode(Crypt::decryptString($items->client_details));
             $submittedformdata['form_status'] = $items->status;
             $submittedformdata['submitted_at'] = $items->submitted_at;
@@ -116,7 +118,7 @@ class FrontDeskController extends Controller
         ->join('forms', 'forms.form_code', '=', 'form_id')
         ->join('merchants', 'merchants.id', '=', 'forms.merchant_id')
         ->select('submitted_forms.*','merchants.merchant_name AS merchant_name',
-        'users.name', 'users.email', 'forms.name AS form_name', 'forms.form_fields')
+        'users.name', 'users.email', 'forms.name AS form_name', 'forms.form_fields', 'forms.can_view')
         ->where('submission_code', $code)
         ->get();
       
@@ -132,6 +134,7 @@ class FrontDeskController extends Controller
             $submittedformdata['client_id'] = $items->client_id;
             $submittedformdata['client_name'] = $items->name;
             $submittedformdata['email'] = $items->email;
+            $submittedformdata['can_view'] = $items->can_view;
             $submittedformdata['client_submitted_details'] = json_decode(Crypt::decryptString($items->client_details));
             $submittedformdata['form_status'] = $items->status;
             $submittedformdata['submitted_at'] = $items->submitted_at;
@@ -164,7 +167,7 @@ class FrontDeskController extends Controller
         ->join('forms', 'forms.form_code', '=', 'form_id')
         ->join('merchants', 'merchants.id', '=', 'forms.merchant_id')
         ->select('submitted_forms.*','merchants.merchant_name AS merchant_name',
-        'users.name', 'users.email', 'forms.name AS form_name', 'forms.form_fields')
+        'users.name', 'users.email', 'forms.name AS form_name', 'forms.form_fields', 'forms.can_view')
         ->where('submission_code', $code)
         ->where('forms.merchant_id', $id)
         ->get();
@@ -181,6 +184,7 @@ class FrontDeskController extends Controller
             $submittedformdata['client_id'] = $items->client_id;
             $submittedformdata['client_name'] = $items->name;
             $submittedformdata['email'] = $items->email;
+            $submittedformdata['can_view'] = $items->can_view;
             $submittedformdata['client_submitted_details'] = json_decode(Crypt::decryptString($items->client_details));
             $submittedformdata['form_status'] = $items->status;
             $submittedformdata['submitted_at'] = $items->submitted_at;
@@ -214,7 +218,7 @@ class FrontDeskController extends Controller
         ->join('forms', 'forms.form_code', '=', 'form_id')
         ->join('merchants', 'merchants.id', '=', 'forms.merchant_id')
         ->select('submitted_forms.*','merchants.merchant_name AS merchant_name',
-        'users.name', 'users.email', 'forms.name AS form_name', 'forms.form_fields')
+        'users.name', 'users.email', 'forms.name AS form_name', 'forms.form_fields', 'forms.can_view')
         ->where('submitted_forms.status', $status)
         ->where('merchants.id', $id)
         ->paginate(15);
@@ -231,6 +235,7 @@ class FrontDeskController extends Controller
             $submittedformdata['client_id'] = $items->client_id;
             $submittedformdata['client_name'] = $items->name;
             $submittedformdata['email'] = $items->email;
+            $submittedformdata['can_view'] = $items->can_view;
             $submittedformdata['client_submitted_details'] = json_decode(Crypt::decryptString($items->client_details));
             $submittedformdata['form_status'] = $items->status;
             $submittedformdata['submitted_at'] = $items->submitted_at;
