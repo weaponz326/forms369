@@ -19,9 +19,9 @@
         </div>
 
         <div *ngIf="loading" class="row p-5">
-          <div class="col-md-12 p-md-5">
+          <div class="col-md-12">
             <div class="d-flex justify-content-center">
-              <div class="spinner-border m-5" style="width: 5rem; height: 5rem;" role="status">
+              <div class="spinner-border m-5" style="width: 4rem; height: 4rem;" role="status">
                 <span class="sr-only">Loading...</span>
               </div>
             </div>
@@ -145,14 +145,14 @@
                       <label><strong class="text-capitalize">{{ transformToRealText(item.key) }}</strong></label>
                       <input type="text" id="{{ item.key }}" class="form-control" [value]="item.value">
                     </div>
-                    <button class="form-group mt-3">
+                    <!-- <button class="form-group mt-3">
                       <button *ngIf="updating" class="btn btn-primary btn-lg mr-2" type="button" disabled>
                         <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
                         <span class="sr-only">Please wait...</span>
                       </button>
                       <button *ngIf="!updating" type="submit" class="btn btn-primary btn-lg mr-2" (click)="save()">Save Changes</button>
                       <button type="button" class="btn btn-light btn-lg" (click)="cancel()">Cancel</button>
-                    </button>
+                    </button> -->
                   </div>
                   
                   <div class="form-group mt-3">

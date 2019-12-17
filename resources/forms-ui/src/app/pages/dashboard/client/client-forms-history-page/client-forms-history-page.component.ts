@@ -16,7 +16,11 @@ export class ClientFormsHistoryPageComponent implements OnInit {
   hasData: boolean;
   loading: boolean;
   hasError: boolean;
+  filterState: string;
   historyCollection: Array<any>;
+  allHistoryCollection: Array<any>;
+  processedHistoryCollection: Array<any>;
+  processingHistoryCollection: Array<any>;
 
   constructor(
     private router: Router,
@@ -24,11 +28,15 @@ export class ClientFormsHistoryPageComponent implements OnInit {
     private localStorageService: LocalStorageService
   ) {
     this.historyCollection = [];
+    this.allHistoryCollection = [];
+    this.processedHistoryCollection = [];
+    this.processingHistoryCollection = [];
     this.user = this.localStorageService.getUser();
     this.getAllHistory();
   }
 
   ngOnInit() {
+    this.filterState = 'all';
   }
 
   openFormEntry(form: any) {
@@ -37,6 +45,21 @@ export class ClientFormsHistoryPageComponent implements OnInit {
 
   pickForm() {
     this.router.navigateByUrl('/client/form_merchant');
+  }
+
+  showAll() {
+    this.filterState = 'all';
+    this.historyCollection =  this.allHistoryCollection;
+  }
+
+  showProcessed() {
+    this.filterState = 'processed';
+    this.historyCollection = _.filter(this.allHistoryCollection, (history) => history.form_status == 2);
+  }
+
+  showProcessing() {
+    this.filterState = 'processing';
+    this.historyCollection = _.filter(this.allHistoryCollection, (history) => history.form_status == 1);
   }
 
   getAllHistory() {
@@ -49,6 +72,7 @@ export class ClientFormsHistoryPageComponent implements OnInit {
           _.forEach(forms, (form) => {
             this.historyCollection.push(form);
           });
+          this.allHistoryCollection = this.historyCollection;
         }
         else {
           this.hasData = false;

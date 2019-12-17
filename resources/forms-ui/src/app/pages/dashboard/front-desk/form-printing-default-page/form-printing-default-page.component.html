@@ -8,13 +8,17 @@
         <div class="img-view">
           <img [src]="logo" alt="logo" class="img-fluid">
         </div>
-        <div class="row" *ngFor="let item of clientFormData">
+        <div class="title-view">
+          <h1>{{ form.form_name }}</h1>
+        </div>
+        <div class="row" *ngFor="let item of clientFormData; let i=index">
           <div class="col-6">
             <h5><strong>{{ item.title }}</strong></h5>
           </div>
           <div class="col-6">
             <h5>{{ item.data }}</h5>
           </div>
+          <div *ngIf="i > 10" class="page-break"></div>
         </div>
       </div>
     </div>

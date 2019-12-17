@@ -16,13 +16,13 @@ export class FrontDeskProcessingFormsListPageComponent implements OnInit {
   hasData: boolean;
   loading: boolean;
   hasError: boolean;
+  responseMessage: string;
+  loadingModalRef: NgbModalRef;
   processingFormsList: Array<any>;
-  // loadingModalRef: NgbModalRef;
-  // confirmModalRef: NgbModalRef;
-  // completedModalRef: NgbModalRef;
-  // @ViewChild('load', { static: false }) loadingModal: TemplateRef<any>;
-  // @ViewChild('confirm', { static: false }) confirmModal: TemplateRef<any>;
-  // @ViewChild('completed', { static: false }) completedModal: TemplateRef<any>;
+  @ViewChild('loader', { static: false }) loadingModal: TemplateRef<any>;
+  @ViewChild('confirm', { static: false }) confirmModal: TemplateRef<any>;
+  @ViewChild('response', { static: false }) responseModal: TemplateRef<any>;
+  @ViewChild('complete', { static: false }) completedModal: TemplateRef<any>;
 
   constructor(
     private router: Router,
@@ -39,23 +39,24 @@ export class FrontDeskProcessingFormsListPageComponent implements OnInit {
   ngOnInit() {
   }
 
-  open(form: any) {
+  open(e: Event, form: any) {
+    e.stopPropagation();
     this.router.navigateByUrl('/front_desk/view_form', { state: { form: form }});
   }
 
-  // showLoadingDialog() {
-  //   this.modalService.open(this.loadingModal, { centered: true });
-  // }
+  showLoadingDialog() {
+    this.loadingModalRef = this.modalService.open(this.loadingModal, { centered: true });
+  }
 
-  // showConfirmDialog() {
-  //   this.confirmModalRef = this.modalService.open(this.confirmModal, { centered: true });
-  // }
+  showResponseDialog() {
+    this.modalService.open(this.responseModal, { centered: true });
+  }
 
-  // showCompletedDialog() {
-  //   this.completedModalRef = this.modalService.open(this.completedModal, { centered: true });
-  // }
-
-  showNotCompleteDialog() {}
+  handleLastItemSlice(list: any[]) {
+    if (list.length == 0) {
+      this.hasData = false;
+    }
+  }
 
   getAllFormsInProcessing() {
     this.loading = true;
@@ -81,45 +82,72 @@ export class FrontDeskProcessingFormsListPageComponent implements OnInit {
     );
   }
 
-  complete(submission_code: string) {
-    // this.showLoadingDialog();
-    this.frontDeskService.completeForm(submission_code, '').then(
-      res => {
-        const response = res as any;
-        if (_.toLower(response.message) == 'ok') {
-          // this.loadingModalRef.close();
-          // this.showCompletedDialog();
+  completeForm(e: Event, form: any, submission_code: string, index: number) {
+    e.stopPropagation();
+    this.modalService.open(this.completedModal, { centered: true }).result.then(
+      result => {
+        if (result == 'complete') {
+          this.showLoadingDialog();
+          this.frontDeskService.completeForm(submission_code, form.client_submitted_details).then(
+            res => {
+              const response = res as any;
+              if (_.toLower(response.message) == 'ok') {
+                this.loadingModalRef.close();
+                this.processingFormsList.splice(index, 1);
+                this.handleLastItemSlice(this.processingFormsList);
+                this.responseMessage = '1 Form Successfully Completed';
+                this.showResponseDialog();
+              }
+              else {
+                this.loadingModalRef.close();
+                this.processingFormsList.splice(index, 1);
+                this.handleLastItemSlice(this.processingFormsList);
+                this.responseMessage = 'Form Failed to Complete';
+                this.showResponseDialog();
+              }
+            },
+            err => {
+              this.loadingModalRef.close();
+              this.responseMessage = 'Oops! An error occured completing this form. Please try again!.';
+              this.showResponseDialog();
+            }
+          );
         }
-        else {
-          // this.loadingModalRef.close();
-          this.showNotCompleteDialog();
-        }
-      },
-      err => {
-        // this.loadingModalRef.close();
-        this.showNotCompleteDialog();
       }
     );
   }
 
-  unprocess(submission_code: string) {
-    // this.showLoadingDialog();
-    this.frontDeskService.unprocessForm(submission_code, '').then(
-      res => {
-        const response = res as any;
-        if (_.toLower(response.message) == 'ok') {
-          // this.loadingModalRef.close();
-          // this.showCompletedDialog();
+  rejectForm(e: Event, form: any, submission_code: string, index: number) {
+    e.stopPropagation();
+    this.modalService.open(this.confirmModal, { centered: true }).result.then(
+      result => {
+        if (result == 'undo') {
+          this.showLoadingDialog();
+          this.frontDeskService.unprocessForm(submission_code, form.client_submitted_details).then(
+            res => {
+              const response = res as any;
+              if (_.toLower(response.message) == 'ok') {
+                this.loadingModalRef.close();
+                this.processingFormsList.splice(index, 1);
+                this.handleLastItemSlice(this.processingFormsList);
+                this.responseMessage = '1 Form Successfully Rejected';
+                this.showResponseDialog();
+              }
+              else {
+                this.loadingModalRef.close();
+                this.processingFormsList.splice(index, 1);
+                this.handleLastItemSlice(this.processingFormsList);
+                this.responseMessage = 'Form Rejection Failed';
+                this.showResponseDialog();
+              }
+            },
+            err => {
+              this.loadingModalRef.close();
+              this.responseMessage = 'Oops! An error occured rejecting this form. Please try again!.';
+              this.showResponseDialog();
+            }
+          );
         }
-        else {
-          // this.loadingModalRef.close();
-          this.showNotCompleteDialog();
-        }
-      },
-      err => {
-        this.hasError = true;
-        // this.loadingModalRef.close();
-        this.showNotCompleteDialog();
       }
     );
   }

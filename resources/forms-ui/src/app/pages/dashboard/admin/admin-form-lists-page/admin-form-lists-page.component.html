@@ -124,7 +124,7 @@
                               <i class="mdi mdi-pulse"></i>
                               View
                             </button>
-                            <button type="button" class="btn btn-outline-secondary" (click)="delete($event, form.id, i)">
+                            <button type="button" class="btn btn-outline-secondary" (click)="delete($event, form.form_code, i)">
                               <i class="mdi mdi-delete-outline"></i>
                               Delete
                             </button>
@@ -140,11 +140,11 @@
                     <div class="list-group-item hover-cursor list-group-item-action animated fadeInDown"
                        *ngFor="let form of formsList; let i=index">
                       <div class="row" (click)="view(form)">
-                        <div class="col-8"> 
+                        <div class="col-8 col-md-7 col-sm-6"> 
                           <span class="card-title mt-2">{{ form.merchant_name }}</span>
                           <h1 class="display-4 mb-1 mt-2">{{ form.name }}</h1>
                         </div>
-                        <div class="col-4">
+                        <div class="col-4 col-md-5 col-sm-6">
                           <div class="btn-group mt-2" role="group" aria-label="Basic example">
                             <button type="button" class="btn btn-outline-secondary" (click)="edit($event, form)">
                               <i class="mdi mdi-pencil-outline"></i>
@@ -154,7 +154,7 @@
                               <i class="mdi mdi-pulse"></i>
                               View
                             </button>
-                            <button type="button" class="btn btn-outline-secondary" (click)="delete($event, form.id, i)">
+                            <button type="button" class="btn btn-outline-secondary" (click)="delete($event, form.form_code, i)">
                               <i class="mdi mdi-delete-outline"></i>
                               Delete
                             </button>

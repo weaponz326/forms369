@@ -27,13 +27,13 @@ export class AdminHomePageComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.getAnalytics();
   }
 
   initVars() {
     if (window.location.origin == 'http://localhost:4200') {
       this.firstName = this.localStorage.getUser().firstname;
       this.merchantIdentifier = this.localStorage.getUser().merchant_id;
+      this.getAnalytics();
     }
     else {
       this.checkAccessToLogin().then(
@@ -41,6 +41,7 @@ export class AdminHomePageComponent implements OnInit {
           if (res == 'ok') {
             this.firstName = this.localStorage.getUser().firstname;
             this.merchantIdentifier = this.localStorage.getUser().merchant_id;
+            this.getAnalytics();
           }
           else {
             this.router.navigateByUrl('auth');
@@ -51,7 +52,15 @@ export class AdminHomePageComponent implements OnInit {
   }
 
   openForms() {
-    this.router.navigateByUrl('/admin/form_lists');
+    this.router.navigateByUrl('/admin/lists/form');
+  }
+
+  openBranches() {
+    this.router.navigateByUrl('/admin/lists/branch');
+  }
+
+  openAccounts() {
+    this.router.navigateByUrl('/admin/lists/accounts');
   }
 
   getAnalytics() {

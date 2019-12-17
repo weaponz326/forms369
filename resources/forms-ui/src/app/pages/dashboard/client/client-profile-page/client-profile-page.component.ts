@@ -125,9 +125,30 @@ export class ClientProfilePageComponent implements OnInit {
     const user_form_data = {};
     const allElements = document.querySelectorAll('input');
     _.forEach(allElements, (element) => {
-      user_form_data[element.id] = element.value;
+      if (element.type == 'radio') {
+        const radio_label = element.nextSibling.textContent;
+        console.log('radio_label: ' + radio_label);
+        if (element.checked) {
+          user_form_data[element.id] = radio_label;
+        }
+      }
+
+      if (element.type == 'checkbox') {
+        const checkbox_label = element.nextSibling.textContent;
+        console.log('checkbox_label: ' + checkbox_label);
+        if (element.checked) {
+          user_form_data[element.id] = checkbox_label;
+       }
+      }
+
+      if (element.type == 'date' || element.type == 'text') {
+        console.log(element);
+        console.log('is_input: ' + element.value);
+        user_form_data[element.id] = element.value;
+      }
     });
 
+    console.log('submitted_data: ' + user_form_data['d-o-b']);
     return JSON.stringify(user_form_data);
   }
 

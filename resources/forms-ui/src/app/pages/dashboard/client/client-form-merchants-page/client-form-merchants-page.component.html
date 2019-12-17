@@ -108,7 +108,7 @@
           </div>
         </div>
 
-        <div *ngIf="!isConnected" class="row">
+        <!-- <div *ngIf="!isConnected" class="row">
           <div class="col-md-12 grid-margin">
             <div class="card text-center">
               <div class="card-body">
@@ -122,7 +122,7 @@
               </div>
             </div>
           </div>
-        </div>
+        </div> -->
 
         <div *ngIf="!loading && hasData" class="row">
           <div class="col-md-4 grid-margin stretch-card" *ngFor="let company of companyList">
@@ -141,7 +141,7 @@
         <div *ngIf="!loading && hasData" class="row" style="margin-top: 25px;">
           <div class="col-md-4 text-center grid-margin stretch-card" *ngFor="let form of formsList">
             <div class="card hover-cursor animated fadeInDown slow" (click)="openForm(form)">
-              <div class="card-body">
+              <div class="card-body" style="text-align: left;">
                 <p class="card-title">{{ form.name }}</p>
                 <div class="card-text">
                   <p class="text-muted">Click to open form and start filling.</p>

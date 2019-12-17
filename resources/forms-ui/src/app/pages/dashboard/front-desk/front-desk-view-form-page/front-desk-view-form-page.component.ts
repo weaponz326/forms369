@@ -64,10 +64,14 @@ export class FrontDeskViewFormPageComponent implements OnInit {
     if (this.form.form_status == 2) {
       this.isProcessed = true;
       this.lastProcessed = this.form.last_processed;
+      const client_data = this.form.client_submitted_details;
+      this.frontDeskService.setFormWithClientData(data, client_data);
     }
     else if (this.form.form_status == 1) {
       this.isProcessing = true;
       this.lastProcessed = this.form.last_processed;
+      const client_data = this.form.client_submitted_details;
+      this.frontDeskService.setFormWithClientData(data, client_data);
     }
     else {
       const client_data = this.form.client_submitted_details;

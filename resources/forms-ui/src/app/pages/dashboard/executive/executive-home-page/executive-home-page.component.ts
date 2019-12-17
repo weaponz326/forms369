@@ -31,16 +31,17 @@ export class ExecutiveHomePageComponent implements OnInit {
     private analyticService: AnalyticsService,
   ) {
     this.initVars();
+    this.setDefaultCounts();
   }
 
   ngOnInit() {
-    // this.getAnalytics();
   }
 
   initVars() {
     if (window.location.origin == 'http://localhost:4200') {
       this.firstname = this.localStorage.getUser().firstname;
       this.merchantId = toString(this.localStorage.getUser().merchant_id);
+      this.getAnalytics();
     }
     else {
       this.checkAccessToLogin().then(
@@ -56,6 +57,15 @@ export class ExecutiveHomePageComponent implements OnInit {
         }
       );
     }
+  }
+
+  setDefaultCounts() {
+    this.numTotalUsers = '0';
+    this.numTotalForms = '0';
+    this.numTotalBranches = '0';
+    this.totalNoSubmitted = '0';
+    this.totalNoProcessed = '0';
+    this.totalNoProcessing = '0';
   }
 
   openForms() {

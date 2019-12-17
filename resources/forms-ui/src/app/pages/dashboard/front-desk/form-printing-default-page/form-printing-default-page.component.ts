@@ -14,6 +14,7 @@ export class FormPrintingDefaultPageComponent implements OnInit {
   form: any;
   client: any;
   logo: string;
+  break: boolean;
   formKeys: Array<string>;
   formValues: Array<string>;
   clientFormData: Array<any>;
@@ -31,6 +32,16 @@ export class FormPrintingDefaultPageComponent implements OnInit {
     window.onafterprint = () => {
       console.log('print window closed');
       this.showPrintButton();
+    };
+
+    window.onbeforeprint = () => {
+      _.forEach(this.clientFormData, (data, i) => {
+        if (i == 25) {
+          this.break = true;
+          console.log('breaking page ...');
+        }
+      });
+      console.log('try splitting page here');
     };
   }
 

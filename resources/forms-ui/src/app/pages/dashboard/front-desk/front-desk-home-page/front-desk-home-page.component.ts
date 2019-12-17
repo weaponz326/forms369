@@ -34,6 +34,7 @@ export class FrontDesktopHomePageComponent implements OnInit {
     private frontDeskService: FrontDeskService,
   ) {
     this.initVars();
+    this.setDefaultCounts();
   }
 
   ngOnInit() {
@@ -65,6 +66,12 @@ export class FrontDesktopHomePageComponent implements OnInit {
     }
   }
 
+  setDefaultCounts() {
+    this.totalNoSubmitted = '0';
+    this.totalNoProcessed = '0';
+    this.totalNoProcessing = '0';
+  }
+
   public get f() {
     return this.form.controls;
   }
@@ -78,13 +85,13 @@ export class FrontDesktopHomePageComponent implements OnInit {
   open(view: string) {
     switch (view) {
       case 'submitted':
-        this.router.navigateByUrl('/front_desk/submitted');
+        this.router.navigateByUrl('/front_desk/lists/submitted');
         break;
       case 'processed':
-        this.router.navigateByUrl('/front_desk/processed');
+        this.router.navigateByUrl('/front_desk/lists/processed');
         break;
       case 'processing':
-        this.router.navigateByUrl('/front_desk/processing');
+        this.router.navigateByUrl('/front_desk/lists/processing');
         break;
       default:
         break;
@@ -152,7 +159,8 @@ export class FrontDesktopHomePageComponent implements OnInit {
     if (this.form.valid) {
       this.loading = true;
       const code = this.f.code.value;
-      this.frontDeskService.getForm(code).then(
+      const merchant_id = _.toString(this.user.merchant_id);
+      this.frontDeskService.getForm(code, merchant_id).then(
         res => {
           if (!_.isEmpty(res)) {
             this.loading = false;

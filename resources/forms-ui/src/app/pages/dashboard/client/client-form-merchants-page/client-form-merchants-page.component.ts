@@ -56,6 +56,7 @@ export class ClientFormMerchantsPageComponent implements OnInit {
     this.companyService.getAllCompanies().then(
       res => {
         this.loading = false;
+        this.hasError = false;
         const merchants = res as any;
         this.hasMore = this.checkIfHasMore();
         if (merchants.length > 0) {
@@ -151,6 +152,7 @@ export class ClientFormMerchantsPageComponent implements OnInit {
       // or the user is searching by a form name.
       // First, check if its a form code.
       console.log(this.query);
+      this.hasMore = false;
       this.hasError = false;
       this.formsList = [];
       this.companyList = [];
