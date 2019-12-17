@@ -1122,7 +1122,7 @@ class AuthController extends Controller
         //get all registered companies 
         $getusers = DB::table('users')
         ->join('merchants', 'merchants.id', '=', 'merchant_id')
-        ->join('company_branches', 'company_branches.id', '=', 'branch_id')
+        ->leftjoin('company_branches', 'company_branches.id', '=', 'branch_id')
         ->select('users.*','merchants.merchant_name AS merchant_name','company_branches.branchname AS branch_name')
        ->where('users.merchant_id', $id)
        ->paginate(15);
@@ -1141,9 +1141,9 @@ class AuthController extends Controller
             $userdata['last_login_ip'] = $items->last_login_ip;
             $userdata['status'] = $items->status;
             $userdata['merchant_id'] = $items->merchant_id;
-            $userdata['merchant_name'] = Crypt::decryptString($items->merchant_name);
+            $userdata['merchant_name'] = empty($items->merchant_name) ? '' : Crypt::decryptString($items->merchant_name);
             $userdata['branch_id'] = $items->branch_id;
-            $userdata['branch_name'] = Crypt::decryptString($items->branch_name);
+            $userdata['branch_name'] = empty($items->branch_name) ? '' : Crypt::decryptString($items->branch_name);
             $userdata['user_type'] = $items->usertype;
             $userdata['created_at'] = $items->created_at;
             $userdata['updated_at'] = $items->updated_at;
