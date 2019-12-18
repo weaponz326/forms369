@@ -11,7 +11,7 @@ export class ListViewService {
   getDesiredViewMode() {
     const mode = localStorage.getItem('view_mode');
     console.log('mode: ' + mode);
-    return _.isNull(mode) ? 'grid' : mode;
+    return this.isTabletDevice() ? 'list' : _.isNull(mode) ? 'grid' : mode;
   }
 
   getSortOrder() {
@@ -25,5 +25,10 @@ export class ListViewService {
 
   setSortOrder(order: string) {
     localStorage.setItem('sort_order', order);
+  }
+
+  isTabletDevice() {
+    const isTablet = window.matchMedia('only screen and (min-width: 768px) and (max-width: 1024px)');
+    return isTablet.matches ? true : false;
   }
 }
