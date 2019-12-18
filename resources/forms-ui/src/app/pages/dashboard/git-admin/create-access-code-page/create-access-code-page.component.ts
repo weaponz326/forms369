@@ -60,7 +60,7 @@ export class CreateAccessCodePageComponent implements OnInit {
 
   buildForm() {
     this.form = this.formBuilder.group({
-      branch: ['', Validators.required],
+      branch: [''],
       merchant: ['', Validators.required],
       deviceName: ['', Validators.required],
       sourceName: ['', Validators.required]

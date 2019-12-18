@@ -61,6 +61,12 @@ export class UserAccountEditorComponent implements OnInit {
   }
 
   ngOnInit() {
+    if (!_.isUndefined(this.userId)) {
+      console.log('is undefined oooooooooooo');
+      sessionStorage.setItem('u_id', this.userId);
+      this.userId = sessionStorage.getItem('u_id');
+    }
+
     this.countryPickerService.getCountries().subscribe(countries => { this.countriesList = countries; });
     this.buildForm();
     this.getAccountDetails();
@@ -149,7 +155,9 @@ export class UserAccountEditorComponent implements OnInit {
   onStatusChange(e: any) {}
 
   getAccountDetails() {
-    this.accountService.getAccount(this.userId).then(
+    console.log('the user id: ' + this.userId);
+    const u_id = sessionStorage.getItem('u_id');
+    this.accountService.getAccount(this.userId || u_id).then(
       res => {
         const account = res;
         this.userDetails = account;

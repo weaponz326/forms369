@@ -21,9 +21,28 @@ export class ViewCompanyDetailsPageComponent implements OnInit {
     private companyService: CompanyService
   ) {
     this.company = window.history.state.company;
+    this.resolveReloadDataLoss();
     this.isActive = this.company.status == 1 ? true : false;
     this.id = this.company.id;
     console.log('comp:' + this.company);
+  }
+
+  /**
+   * This is just a little hack to prevent loss of data passed in to window.history.state
+   * whenever the page is reloaded. The purpose is to ensure we still have the data needed
+   * to help build all the elements of this page.
+   *
+   * @version 0.0.2
+   * @memberof EditFormPageComponent
+   */
+  resolveReloadDataLoss() {
+    if (!_.isUndefined(this.company)) {
+      console.log('is undefined oooooooooooo');
+      sessionStorage.setItem('u_company', JSON.stringify(this.company));
+    }
+    else {
+      this.company = JSON.parse(sessionStorage.getItem('u_company'));
+    }
   }
 
   ngOnInit() {

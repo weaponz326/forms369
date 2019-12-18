@@ -249,8 +249,8 @@ export class CreateFormPageComponent implements OnInit {
   }
 
   ok1() {
-    this.created = false;
     this.uploadError = false;
+    this.created = !this.created;
   }
 
   retry() {

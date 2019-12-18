@@ -41,6 +41,7 @@ export class EditBranchPageComponent implements OnInit {
     private executiveService: ExecutiveService
   ) {
     this.navigatedData = window.history.state.branch;
+    this.resolveReloadDataLoss();
     console.log(this.navigatedData);
     this.companiesList = [];
     this.companyNamesList = [];
@@ -50,6 +51,24 @@ export class EditBranchPageComponent implements OnInit {
     this.branchExecutiveEmailList = [];
 
     this.initializeView();
+  }
+
+  /**
+   * This is just a little hack to prevent loss of data passed in to window.history.state
+   * whenever the page is reloaded. The purpose is to ensure we still have the data needed
+   * to help build all the elements of this page.
+   *
+   * @version 0.0.2
+   * @memberof EditFormPageComponent
+   */
+  resolveReloadDataLoss() {
+    if (!_.isUndefined(this.navigatedData)) {
+      console.log('is undefined oooooooooooo');
+      sessionStorage.setItem('u_data', JSON.stringify(this.navigatedData));
+    }
+    else {
+      this.navigatedData = JSON.parse(sessionStorage.getItem('u_data'));
+    }
   }
 
   ngOnInit() {

@@ -104,7 +104,10 @@ export class CreateSectionPageComponent implements OnInit {
     this.router.navigateByUrl('/git_admin/details/section', { state: { form: this.getForm() } });
   }
 
-  bringBackForm() {
+  createNew() {
+    this.reset();
+    this.submitted = false;
+    this.f.heading.setValue('');
     this.created = !this.created;
   }
 

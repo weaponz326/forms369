@@ -50,6 +50,7 @@ export class EditCompanyPageComponent implements OnInit {
     private countryPickerService: CountryPickerService
   ) {
     this.navigatedData = window.history.state.company;
+    this.resolveReloadDataLoss();
     console.log(this.navigatedData);
     this.countriesList = [];
     this.companyAdminsList = [];
@@ -61,6 +62,24 @@ export class EditCompanyPageComponent implements OnInit {
     }
 
     this.initializeView();
+  }
+
+  /**
+   * This is just a little hack to prevent loss of data passed in to window.history.state
+   * whenever the page is reloaded. The purpose is to ensure we still have the data needed
+   * to help build all the elements of this page.
+   *
+   * @version 0.0.2
+   * @memberof EditFormPageComponent
+   */
+  resolveReloadDataLoss() {
+    if (!_.isUndefined(this.navigatedData)) {
+      console.log('is undefined oooooooooooo');
+      sessionStorage.setItem('u_data', JSON.stringify(this.navigatedData));
+    }
+    else {
+      this.navigatedData = JSON.parse(sessionStorage.getItem('u_data'));
+    }
   }
 
   ngOnInit() {
