@@ -41,7 +41,7 @@
                       <div class="col-md-12 text-center">
                         <img #selectedLogo [src]="logoImage" alt="logo" class="img-circle mb-4">
                         <br>
-                        <input #logoFile type="file" formControlName="logo" (change)="inputFileChanged($event)"
+                        <input #logoFile type="file" accept="image/*" formControlName="logo" (change)="inputFileChanged($event)"
                           style="overflow: hidden; height: 0px; width: 0px;">
                         <div *ngIf="submitted && f.logo.errors">
                           <p class="input-error" *ngIf="f.logo.errors.required">Logo is required</p>
@@ -107,8 +107,8 @@
                       </div>
                       <div class="col-md-6">
                         <div class="form-group">
-                          <input #smallLogo type="file" (change)="inputFileChanged_1($event)" name="smallLogoFile"
-                            class="file-upload-default">
+                          <input #smallLogo type="file" accept="image/*" (change)="inputFileChanged_1($event)"
+                            name="smallLogoFile" class="file-upload-default">
                           <div class="input-group col-xs-12">
                             <input type="text" formControlName="smallLogoName"
                               class="form-control form-control-lg file-upload-info" readonly

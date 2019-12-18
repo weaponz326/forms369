@@ -300,7 +300,7 @@ export class UserAccountEditorComponent implements OnInit {
 
     if (this.isGitAdmin) {
       const merchantId = this.localStorage.getUser().merchant_id;
-      if (this.f.password.disabled) {
+      if (this.f.password.value.length == 0) {
         user.email = email;
         user.status = status;
         user.lastname = lname;
