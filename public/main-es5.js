@@ -514,7 +514,7 @@ module.exports = "<div class=\"container-scroller\">\n  <app-navigation-bar></ap
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<div class=\"container-scroller\">\n  <app-navigation-bar></app-navigation-bar>\n  <div class=\"container-fluid page-body-wrapper\">\n    <app-side-bar></app-side-bar>\n    <div class=\"main-panel\">\n      <div class=\"content-wrapper\">\n        <div class=\"row\">\n          <div class=\"col-md-12 grid-margin\">\n            <div class=\"d-flex justify-content-between flex-wrap\">\n              <div class=\"d-flex align-items-end flex-wrap\">\n                <div class=\"mr-md-3 mr-xl-5\">\n                  <h2>Branch Details</h2>\n                  <p class=\"mb-md-0\">Your administrative dashboard.</p>\n                </div>\n                <div class=\"d-flex\">\n                </div>\n              </div>\n              <div class=\"d-flex justify-content-between align-items-end flex-wrap\">\n              </div>\n            </div>\n          </div>\n        </div>\n\n        <div *ngIf=\"!loading\" class=\"row\">\n          <div class=\"col-lg-12 grid-margin stretch-card\">\n            <div class=\"card\">\n              <div class=\"card-body\">\n                <div class=\"card-text\">\n                  <div class=\"container\">\n                    <div class=\"row\">\n                      <div class=\"col-6 col-md-6 offset-2 offset-md-2\">\n                        <h1 class=\"display-3\">{{ branch.merchant_name }}</h1>\n                      </div>\n                      <div class=\"col-4 col-md-4\">\n                        <button *ngIf=\"!_loading\" class=\"btn btn-outline-secondary mr-2\"\n                          [ngClass]=\"{'active': isActive}\" (click)=\"toggleStatus()\">Active</button>\n                        <button *ngIf=\"_loading\" class=\"btn btn-primary\" type=\"button\" disabled>\n                          <span class=\"spinner-border spinner-border-sm\" role=\"status\" aria-hidden=\"true\"></span>\n                          Loading...\n                        </button>\n                      </div>\n                    </div>\n                    <div class=\"row account-details ml-5 mt-5\">\n                      <div class=\"col-3 col-md-3 offset-1 offset-md-1\">\n                        <h5>Company Name :</h5>\n                      </div>\n                      <div class=\"col-7 col-md-7\">\n                        <h5>{{ branch.merchant_name }}</h5>\n                      </div>\n                      <div class=\"col-3 col-md-3 offset-1 offset-md-1\">\n                        <h5>Branch Super Executive :</h5>\n                      </div>\n                      <div class=\"col-7 col-md-7\">\n                        <h5>{{ branch.branch_super_executive_name }}</h5>\n                      </div>\n                      <div class=\"col-3 col-md-3 offset-1 offset-md-1\">\n                        <h5>Company Admin :</h5>\n                      </div>\n                      <div class=\"col-7 col-md-7\">\n                        <h5>{{ branch.branch_admin_name }}</h5>\n                      </div>\n                      <div class=\"col-3 col-md-3 offset-1 offset-md-1\">\n                        <h5>Created At :</h5>\n                      </div>\n                      <div class=\"col-7 col-md-7\">\n                        <h5>{{ branch.created_at | date }}</h5>\n                      </div>\n                      <div class=\"col-3 col-md-3 offset-1 offset-md-1\">\n                        <h5>Updated At :</h5>\n                      </div>\n                      <div class=\"col-7 col-md-7\">\n                        <h5>{{ branch.updated_at | date }}</h5>\n                      </div>\n                      <div class=\"col-3 col-md-3 offset-1 offset-md-1\">\n                        <h5>Branch Name :</h5>\n                      </div>\n                      <div class=\"col-7 col-md-7\">\n                        <h5>{{ branch.branch_name }}</h5>\n                      </div>\n                      <div class=\"col-3 col-md-3 offset-1 offset-md-1\">\n                        <h5>Account Created On :</h5>\n                      </div>\n                      <div class=\"col-7 col-md-7\">\n                        <h5>{{ branch.created_at | date }}</h5>\n                      </div>\n                    </div>\n                  </div>\n                </div>\n              </div>\n            </div>\n          </div>\n        </div>\n      </div>\n    </div>\n  </div>\n</div>"
+module.exports = "<div class=\"container-scroller\">\n  <app-navigation-bar></app-navigation-bar>\n  <div class=\"container-fluid page-body-wrapper\">\n    <app-side-bar></app-side-bar>\n    <div class=\"main-panel\">\n      <div class=\"content-wrapper\">\n        <div class=\"row\">\n          <div class=\"col-md-12 grid-margin\">\n            <div class=\"d-flex justify-content-between flex-wrap\">\n              <div class=\"d-flex align-items-end flex-wrap\">\n                <div class=\"mr-md-3 mr-xl-5\">\n                  <h2>Branch Details</h2>\n                  <p class=\"mb-md-0\">Your administrative dashboard.</p>\n                </div>\n                <div class=\"d-flex\">\n                </div>\n              </div>\n              <div class=\"d-flex justify-content-between align-items-end flex-wrap\">\n              </div>\n            </div>\n          </div>\n        </div>\n\n        <div *ngIf=\"!loading\" class=\"row\">\n          <div class=\"col-lg-12 grid-margin stretch-card\">\n            <div class=\"card\">\n              <div class=\"card-body\">\n                <div class=\"card-text\">\n                  <div class=\"container\">\n                    <div class=\"row text-center\">\n                      <div class=\"col-6 col-md-6 offset-3 offset-md-3\">\n                        <h4>{{ branch.merchant_name }}</h4>\n                        <h1 class=\"display-3 mt-3\">{{ branch.branch_name }}</h1>\n                      </div>\n                    </div>\n                    <div class=\"row\">\n                      <div class=\"col-12\">\n                        <div class=\"accordion mt-3\" id=\"accordionExample\">\n                          <div class=\"card\">\n                            <div class=\"card-header\" id=\"headingOne\">\n                              <h2 class=\"mb-0\">\n                                <button class=\"btn\" type=\"button\" data-toggle=\"collapse\" data-target=\"#collapseOne\"\n                                  aria-expanded=\"true\" aria-controls=\"collapseOne\">\n                                  Branch Details - {{ branch.merchant_name }} ({{ branch.branch_name }})\n                                </button>\n                              </h2>\n                            </div>\n                            <div id=\"collapseOne\" class=\"collapse show\" aria-labelledby=\"headingOne\"\n                              data-parent=\"#accordionExample\">\n                              <div class=\"card-body\">\n                                <div class=\"table-responsive\">\n                                  <table class=\"table table-hover\">\n                                    <tbody>\n                                      <tr class=\"hover-cursor\">\n                                        <td><strong>Branch Name</strong></td>\n                                        <td>{{ branch.branch_name }}</td>\n                                      </tr>\n                                      <tr class=\"hover-cursor\">\n                                        <td><strong>Company Name</strong></td>\n                                        <td>{{ branch.merchant_name }}</td>\n                                      </tr>\n                                      <tr class=\"hover-cursor\">\n                                        <td><strong>Branch Super Executive</strong></td>\n                                        <td>{{ branch.branch_super_executive_name }}</td>\n                                      </tr>\n                                      <tr class=\"hover-cursor\">\n                                        <td><strong>Branch Admin</strong></td>\n                                        <td>{{ branch.branch_admin_name }}</td>\n                                      </tr>\n                                      <tr class=\"hover-cursor\">\n                                        <td><strong>Branch Status</strong></td>\n                                        <td *ngIf=\"branch.status == 1\">Active</td>\n                                        <td *ngIf=\"branch.status == 0\">In Active</td>\n                                      </tr>\n                                      <tr class=\"hover-cursor\">\n                                        <td><strong>Created On</strong></td>\n                                        <td>{{ branch.created_at | date }}</td>\n                                      </tr>\n                                    </tbody>\n                                  </table>\n                                </div>\n                              </div>\n                            </div>\n                          </div>\n                        </div>\n                      </div>\n                    </div>\n                  </div>\n                </div>\n              </div>\n            </div>\n          </div>\n        </div>\n      </div>\n    </div>\n  </div>\n</div>"
 
 /***/ }),
 
@@ -3824,9 +3824,27 @@ var AdminFormEditPageComponent = /** @class */ (function () {
         this.formBuilderService = formBuilderService;
         this._loading = true;
         this._form = window.history.state.form;
+        this.resolveReloadDataLoss();
         this.merchant_id = this.localStorage.getUser().merchant_id;
         console.log('merchant id: ' + this.merchant_id);
     }
+    /**
+     * This is just a little hack to prevent loss of data passed in to window.history.state
+     * whenever the page is reloaded. The purpose is to ensure we still have the data needed
+     * to help build all the elements of this page.
+     *
+     * @version 0.0.2
+     * @memberof EditFormPageComponent
+     */
+    AdminFormEditPageComponent.prototype.resolveReloadDataLoss = function () {
+        if (!lodash__WEBPACK_IMPORTED_MODULE_2__["isUndefined"](this._form)) {
+            console.log('is undefined oooooooooooo');
+            sessionStorage.setItem('u_form', JSON.stringify(this._form));
+        }
+        else {
+            this._form = JSON.parse(sessionStorage.getItem('u_form'));
+        }
+    };
     AdminFormEditPageComponent.prototype.ngOnInit = function () {
         var _this = this;
         this.created = false;
@@ -4231,8 +4249,11 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "AdminFormViewPageComponent", function() { return AdminFormViewPageComponent; });
 /* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
-/* harmony import */ var _angular_router__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @angular/router */ "./node_modules/@angular/router/fesm5/router.js");
-/* harmony import */ var src_app_services_form_builder_form_builder_service__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! src/app/services/form-builder/form-builder.service */ "./src/app/services/form-builder/form-builder.service.ts");
+/* harmony import */ var lodash__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! lodash */ "./node_modules/lodash/lodash.js");
+/* harmony import */ var lodash__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(lodash__WEBPACK_IMPORTED_MODULE_2__);
+/* harmony import */ var _angular_router__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @angular/router */ "./node_modules/@angular/router/fesm5/router.js");
+/* harmony import */ var src_app_services_form_builder_form_builder_service__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! src/app/services/form-builder/form-builder.service */ "./src/app/services/form-builder/form-builder.service.ts");
+
 
 
 
@@ -4242,7 +4263,25 @@ var AdminFormViewPageComponent = /** @class */ (function () {
         this.router = router;
         this.fBuilderService = fBuilderService;
         this.form = window.history.state.form;
+        this.resolveReloadDataLoss();
     }
+    /**
+     * This is just a little hack to prevent loss of data passed in to window.history.state
+     * whenever the page is reloaded. The purpose is to ensure we still have the data needed
+     * to help build all the elements of this page.
+     *
+     * @version 0.0.2
+     * @memberof EditFormPageComponent
+     */
+    AdminFormViewPageComponent.prototype.resolveReloadDataLoss = function () {
+        if (!lodash__WEBPACK_IMPORTED_MODULE_2__["isUndefined"](this.form)) {
+            console.log('is undefined oooooooooooo');
+            sessionStorage.setItem('u_form', JSON.stringify(this.form));
+        }
+        else {
+            this.form = JSON.parse(sessionStorage.getItem('u_form'));
+        }
+    };
     AdminFormViewPageComponent.prototype.ngOnInit = function () {
         var formData = this.form.form_fields || this.form;
         this.formRenderer = document.getElementById('fb-editor');
@@ -4257,8 +4296,8 @@ var AdminFormViewPageComponent = /** @class */ (function () {
         this.router.navigateByUrl('git_admin/edit/form/' + this.form.form_code, { state: { form: this.form } });
     };
     AdminFormViewPageComponent.ctorParameters = function () { return [
-        { type: _angular_router__WEBPACK_IMPORTED_MODULE_2__["Router"] },
-        { type: src_app_services_form_builder_form_builder_service__WEBPACK_IMPORTED_MODULE_3__["FormBuilderService"] }
+        { type: _angular_router__WEBPACK_IMPORTED_MODULE_3__["Router"] },
+        { type: src_app_services_form_builder_form_builder_service__WEBPACK_IMPORTED_MODULE_4__["FormBuilderService"] }
     ]; };
     AdminFormViewPageComponent = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Component"])({
@@ -4438,8 +4477,11 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "AdminViewAccountDetailsPageComponent", function() { return AdminViewAccountDetailsPageComponent; });
 /* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
-/* harmony import */ var _angular_router__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @angular/router */ "./node_modules/@angular/router/fesm5/router.js");
-/* harmony import */ var src_app_services_account_account_service__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! src/app/services/account/account.service */ "./src/app/services/account/account.service.ts");
+/* harmony import */ var lodash__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! lodash */ "./node_modules/lodash/lodash.js");
+/* harmony import */ var lodash__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(lodash__WEBPACK_IMPORTED_MODULE_2__);
+/* harmony import */ var _angular_router__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @angular/router */ "./node_modules/@angular/router/fesm5/router.js");
+/* harmony import */ var src_app_services_account_account_service__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! src/app/services/account/account.service */ "./src/app/services/account/account.service.ts");
+
 
 
 
@@ -4449,8 +4491,19 @@ var AdminViewAccountDetailsPageComponent = /** @class */ (function () {
         this.router = router;
         this.accountService = accountService;
         this.id = window.history.state.id;
+        this.resolveReloadDataLoss();
         this.getAccountDetails();
     }
+    AdminViewAccountDetailsPageComponent.prototype.resolveReloadDataLoss = function () {
+        if (!lodash__WEBPACK_IMPORTED_MODULE_2__["isUndefined"](this.id)) {
+            console.log('is undefined oooooooooooo');
+            sessionStorage.setItem('u_id', this.id);
+            this.id = sessionStorage.getItem('u_id');
+        }
+        else {
+            this.id = sessionStorage.getItem('u_id');
+        }
+    };
     AdminViewAccountDetailsPageComponent.prototype.ngOnInit = function () {
     };
     AdminViewAccountDetailsPageComponent.prototype.edit = function (id) {
@@ -4493,14 +4546,14 @@ var AdminViewAccountDetailsPageComponent = /** @class */ (function () {
         });
     };
     AdminViewAccountDetailsPageComponent.ctorParameters = function () { return [
-        { type: _angular_router__WEBPACK_IMPORTED_MODULE_2__["Router"] },
-        { type: src_app_services_account_account_service__WEBPACK_IMPORTED_MODULE_3__["AccountService"] }
+        { type: _angular_router__WEBPACK_IMPORTED_MODULE_3__["Router"] },
+        { type: src_app_services_account_account_service__WEBPACK_IMPORTED_MODULE_4__["AccountService"] }
     ]; };
     AdminViewAccountDetailsPageComponent = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Component"])({
             selector: 'app-admin-view-account-details-page',
             template: __webpack_require__(/*! raw-loader!./admin-view-account-details-page.component.html */ "./node_modules/raw-loader/index.js!./src/app/pages/dashboard/admin/admin-view-account-details-page/admin-view-account-details-page.component.html"),
-            providers: [src_app_services_account_account_service__WEBPACK_IMPORTED_MODULE_3__["AccountService"]],
+            providers: [src_app_services_account_account_service__WEBPACK_IMPORTED_MODULE_4__["AccountService"]],
             styles: [__webpack_require__(/*! ./admin-view-account-details-page.component.css */ "./src/app/pages/dashboard/admin/admin-view-account-details-page/admin-view-account-details-page.component.css")]
         })
     ], AdminViewAccountDetailsPageComponent);
@@ -4614,21 +4667,39 @@ module.exports = ".account-details .col-3 {\n    padding: 10px 0px;\n    text-al
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "AdminViewBranchDetailsPageComponent", function() { return AdminViewBranchDetailsPageComponent; });
 /* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
-/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
-/* harmony import */ var _angular_router__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @angular/router */ "./node_modules/@angular/router/fesm5/router.js");
+/* harmony import */ var lodash__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! lodash */ "./node_modules/lodash/lodash.js");
+/* harmony import */ var lodash__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(lodash__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
 /* harmony import */ var src_app_services_branch_branch_service__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! src/app/services/branch/branch.service */ "./src/app/services/branch/branch.service.ts");
 
 
 
 
 var AdminViewBranchDetailsPageComponent = /** @class */ (function () {
-    function AdminViewBranchDetailsPageComponent(router, branchService) {
-        this.router = router;
+    function AdminViewBranchDetailsPageComponent(branchService) {
         this.branchService = branchService;
         this.branch = window.history.state.branch;
+        this.resolveReloadDataLoss();
         this.isActive = this.branch.status == 1 ? true : false;
         console.log(this.branch);
     }
+    /**
+     * This is just a little hack to prevent loss of data passed in to window.history.state
+     * whenever the page is reloaded. The purpose is to ensure we still have the data needed
+     * to help build all the elements of this page.
+     *
+     * @version 0.0.2
+     * @memberof EditFormPageComponent
+     */
+    AdminViewBranchDetailsPageComponent.prototype.resolveReloadDataLoss = function () {
+        if (!lodash__WEBPACK_IMPORTED_MODULE_1__["isUndefined"](this.branch)) {
+            console.log('is undefined oooooooooooo');
+            sessionStorage.setItem('u_data', JSON.stringify(this.branch));
+        }
+        else {
+            this.branch = JSON.parse(sessionStorage.getItem('u_data'));
+        }
+    };
     AdminViewBranchDetailsPageComponent.prototype.ngOnInit = function () {
     };
     AdminViewBranchDetailsPageComponent.prototype.toggleStatus = function () {
@@ -4655,11 +4726,10 @@ var AdminViewBranchDetailsPageComponent = /** @class */ (function () {
         });
     };
     AdminViewBranchDetailsPageComponent.ctorParameters = function () { return [
-        { type: _angular_router__WEBPACK_IMPORTED_MODULE_2__["Router"] },
         { type: src_app_services_branch_branch_service__WEBPACK_IMPORTED_MODULE_3__["BranchService"] }
     ]; };
     AdminViewBranchDetailsPageComponent = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
-        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Component"])({
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_2__["Component"])({
             selector: 'app-admin-view-branch-details-page',
             template: __webpack_require__(/*! raw-loader!./admin-view-branch-details-page.component.html */ "./node_modules/raw-loader/index.js!./src/app/pages/dashboard/admin/admin-view-branch-details-page/admin-view-branch-details-page.component.html"),
             styles: [__webpack_require__(/*! ./admin-view-branch-details-page.component.css */ "./src/app/pages/dashboard/admin/admin-view-branch-details-page/admin-view-branch-details-page.component.css")]

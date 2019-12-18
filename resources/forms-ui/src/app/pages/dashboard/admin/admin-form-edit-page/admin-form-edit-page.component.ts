@@ -47,8 +47,27 @@ export class AdminFormEditPageComponent implements OnInit {
   ) {
     this._loading = true;
     this._form = window.history.state.form;
+    this.resolveReloadDataLoss();
     this.merchant_id = this.localStorage.getUser().merchant_id;
     console.log('merchant id: ' + this.merchant_id);
+  }
+
+  /**
+   * This is just a little hack to prevent loss of data passed in to window.history.state
+   * whenever the page is reloaded. The purpose is to ensure we still have the data needed
+   * to help build all the elements of this page.
+   *
+   * @version 0.0.2
+   * @memberof EditFormPageComponent
+   */
+  resolveReloadDataLoss() {
+    if (!_.isUndefined(this._form)) {
+      console.log('is undefined oooooooooooo');
+      sessionStorage.setItem('u_form', JSON.stringify(this._form));
+    }
+    else {
+      this._form = JSON.parse(sessionStorage.getItem('u_form'));
+    }
   }
 
   ngOnInit() {

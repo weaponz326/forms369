@@ -23,7 +23,19 @@ export class AdminViewAccountDetailsPageComponent implements OnInit {
     private accountService: AccountService
   ) {
     this.id = window.history.state.id;
+    this.resolveReloadDataLoss();
     this.getAccountDetails();
+  }
+
+  resolveReloadDataLoss() {
+    if (!_.isUndefined(this.id)) {
+      console.log('is undefined oooooooooooo');
+      sessionStorage.setItem('u_id', this.id);
+      this.id = sessionStorage.getItem('u_id');
+    }
+    else {
+      this.id = sessionStorage.getItem('u_id');
+    }
   }
 
   ngOnInit() {

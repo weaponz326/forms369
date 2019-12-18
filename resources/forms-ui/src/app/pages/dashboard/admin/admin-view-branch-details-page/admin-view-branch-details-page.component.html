@@ -27,61 +27,62 @@
               <div class="card-body">
                 <div class="card-text">
                   <div class="container">
-                    <div class="row">
-                      <div class="col-6 col-md-6 offset-2 offset-md-2">
-                        <h1 class="display-3">{{ branch.merchant_name }}</h1>
-                      </div>
-                      <div class="col-4 col-md-4">
-                        <button *ngIf="!_loading" class="btn btn-outline-secondary mr-2"
-                          [ngClass]="{'active': isActive}" (click)="toggleStatus()">Active</button>
-                        <button *ngIf="_loading" class="btn btn-primary" type="button" disabled>
-                          <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
-                          Loading...
-                        </button>
+                    <div class="row text-center">
+                      <div class="col-6 col-md-6 offset-3 offset-md-3">
+                        <h4>{{ branch.merchant_name }}</h4>
+                        <h1 class="display-3 mt-3">{{ branch.branch_name }}</h1>
                       </div>
                     </div>
-                    <div class="row account-details ml-5 mt-5">
-                      <div class="col-3 col-md-3 offset-1 offset-md-1">
-                        <h5>Company Name :</h5>
-                      </div>
-                      <div class="col-7 col-md-7">
-                        <h5>{{ branch.merchant_name }}</h5>
-                      </div>
-                      <div class="col-3 col-md-3 offset-1 offset-md-1">
-                        <h5>Branch Super Executive :</h5>
-                      </div>
-                      <div class="col-7 col-md-7">
-                        <h5>{{ branch.branch_super_executive_name }}</h5>
-                      </div>
-                      <div class="col-3 col-md-3 offset-1 offset-md-1">
-                        <h5>Company Admin :</h5>
-                      </div>
-                      <div class="col-7 col-md-7">
-                        <h5>{{ branch.branch_admin_name }}</h5>
-                      </div>
-                      <div class="col-3 col-md-3 offset-1 offset-md-1">
-                        <h5>Created At :</h5>
-                      </div>
-                      <div class="col-7 col-md-7">
-                        <h5>{{ branch.created_at | date }}</h5>
-                      </div>
-                      <div class="col-3 col-md-3 offset-1 offset-md-1">
-                        <h5>Updated At :</h5>
-                      </div>
-                      <div class="col-7 col-md-7">
-                        <h5>{{ branch.updated_at | date }}</h5>
-                      </div>
-                      <div class="col-3 col-md-3 offset-1 offset-md-1">
-                        <h5>Branch Name :</h5>
-                      </div>
-                      <div class="col-7 col-md-7">
-                        <h5>{{ branch.branch_name }}</h5>
-                      </div>
-                      <div class="col-3 col-md-3 offset-1 offset-md-1">
-                        <h5>Account Created On :</h5>
-                      </div>
-                      <div class="col-7 col-md-7">
-                        <h5>{{ branch.created_at | date }}</h5>
+                    <div class="row">
+                      <div class="col-12">
+                        <div class="accordion mt-3" id="accordionExample">
+                          <div class="card">
+                            <div class="card-header" id="headingOne">
+                              <h2 class="mb-0">
+                                <button class="btn" type="button" data-toggle="collapse" data-target="#collapseOne"
+                                  aria-expanded="true" aria-controls="collapseOne">
+                                  Branch Details - {{ branch.merchant_name }} ({{ branch.branch_name }})
+                                </button>
+                              </h2>
+                            </div>
+                            <div id="collapseOne" class="collapse show" aria-labelledby="headingOne"
+                              data-parent="#accordionExample">
+                              <div class="card-body">
+                                <div class="table-responsive">
+                                  <table class="table table-hover">
+                                    <tbody>
+                                      <tr class="hover-cursor">
+                                        <td><strong>Branch Name</strong></td>
+                                        <td>{{ branch.branch_name }}</td>
+                                      </tr>
+                                      <tr class="hover-cursor">
+                                        <td><strong>Company Name</strong></td>
+                                        <td>{{ branch.merchant_name }}</td>
+                                      </tr>
+                                      <tr class="hover-cursor">
+                                        <td><strong>Branch Super Executive</strong></td>
+                                        <td>{{ branch.branch_super_executive_name }}</td>
+                                      </tr>
+                                      <tr class="hover-cursor">
+                                        <td><strong>Branch Admin</strong></td>
+                                        <td>{{ branch.branch_admin_name }}</td>
+                                      </tr>
+                                      <tr class="hover-cursor">
+                                        <td><strong>Branch Status</strong></td>
+                                        <td *ngIf="branch.status == 1">Active</td>
+                                        <td *ngIf="branch.status == 0">In Active</td>
+                                      </tr>
+                                      <tr class="hover-cursor">
+                                        <td><strong>Created On</strong></td>
+                                        <td>{{ branch.created_at | date }}</td>
+                                      </tr>
+                                    </tbody>
+                                  </table>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
                       </div>
                     </div>
                   </div>
