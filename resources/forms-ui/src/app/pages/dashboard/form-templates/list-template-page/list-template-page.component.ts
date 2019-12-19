@@ -142,7 +142,7 @@ export class ListTemplatePageComponent implements OnInit {
   import(ev: Event, template: any) {
     ev.stopPropagation();
     this.isGitAdmin
-      ? this.router.navigateByUrl('git_admin/edit/form', { state: { form: template }})
+      ? this.router.navigateByUrl('git_admin/setup_form', { state: { template: template }})
       : this.router.navigateByUrl('admin/create/form', { state: { template: template }});
   }
 

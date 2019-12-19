@@ -16,6 +16,7 @@ import { FormBuilderService } from 'src/app/services/form-builder/form-builder.s
 export class CreateFormPageComponent implements OnInit {
 
   pdfFile: File;
+  template: any;
   form: FormGroup;
   formBuilder: any;
   created: boolean;
@@ -38,31 +39,58 @@ export class CreateFormPageComponent implements OnInit {
     private companyService: CompanyService,
     private formBuilderService: FormBuilderService
   ) {
+    this.template = window.history.state.template;
     this.allMerchantsList = [];
     this.getCompanies();
+  }
+
+  renderForm() {
+    if (_.isUndefined(this.template) || _.isNull(this.template)) {
+      this.formBuilderService.generateSectionAndDefaultFormFields().then(
+        form_elements => {
+          this.formBuilder = $(document.getElementById('fb-editor')).formBuilder({
+            controlPosition: 'left',
+            inputSets: form_elements,
+            scrollToFieldOnAdd: false,
+            disabledActionButtons: ['data', 'clear', 'save'],
+            disableFields: this.formBuilderService.disableDefaultFormControls()
+          });
+          this._loading = false;
+        },
+        error => {
+          this._loading = false;
+          this.hasError = true;
+        }
+      );
+    }
+    else {
+      this.formCode = this.formBuilderService.generateUniqueFormCode();
+      this.formBuilderService.generateSectionAndDefaultFormFields().then(
+        form_elements => {
+          this.formBuilder = $(document.getElementById('fb-editor')).formBuilder({
+            controlPosition: 'left',
+            inputSets: form_elements,
+            scrollToFieldOnAdd: false,
+            defaultFields: this.template.form_fields,
+            disabledActionButtons: ['data', 'clear', 'save'],
+            disableFields: this.formBuilderService.disableDefaultFormControls()
+          });
+
+          this._loading = false;
+        },
+        error => {
+          this._loading = false;
+          this.hasError = true;
+        }
+      );
+    }
   }
 
   ngOnInit() {
     this.created = false;
     this._loading = true;
     this.buildForm();
-
-    this.formBuilderService.generateSectionAndDefaultFormFields().then(
-      form_elements => {
-        this.formBuilder = $(document.getElementById('fb-editor')).formBuilder({
-          controlPosition: 'left',
-          inputSets: form_elements,
-          scrollToFieldOnAdd: false,
-          disabledActionButtons: ['data', 'clear', 'save'],
-          disableFields: this.formBuilderService.disableDefaultFormControls()
-        });
-        this._loading = false;
-      },
-      error => {
-        this._loading = false;
-        this.hasError = true;
-      }
-    );
+    this.renderForm();
   }
 
   buildForm() {

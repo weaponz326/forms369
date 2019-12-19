@@ -2,7 +2,6 @@ import { Component, OnInit } from '@angular/core';
 declare var $: any;
 import * as _ from 'lodash';
 import { Router } from '@angular/router';
-import { DOCUMENT } from '@angular/common';
 import { Forms } from 'src/app/models/forms.model';
 import { FormsService } from 'src/app/services/forms/forms.service';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
