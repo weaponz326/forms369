@@ -136,7 +136,7 @@ export class EditTemplatePageComponent implements OnInit {
   }
 
   preview() {
-    this.router.navigateByUrl('templates/details/form', { state: { form: this._form }});
+    this.router.navigateByUrl('templates/view', { state: { form: this._form }});
   }
 
   bringBackForm() {

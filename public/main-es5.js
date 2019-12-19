@@ -767,7 +767,7 @@ module.exports = "<div class=\"container-scroller\">\n  <app-navigation-bar></ap
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<div class=\"container-scroller\">\n  <app-navigation-bar></app-navigation-bar>\n  <div class=\"container-fluid page-body-wrapper\">\n    <app-side-bar></app-side-bar>\n    <div class=\"main-panel\">\n      <div class=\"content-wrapper\">\n\n        <div class=\"row\">\n          <div class=\"col-md-12 grid-margin\">\n            <div class=\"d-flex justify-content-between flex-wrap\">\n              <div class=\"d-flex align-items-end flex-wrap\">\n                <div class=\"mr-md-3 mr-xl-5\">\n                  <h2>{{ form.name }}</h2>\n                  <p class=\"mb-md-0\">Preview a form.</p>\n                </div>\n                <div class=\"d-flex\">\n                  <!-- <i class=\"mdi mdi-home text-muted hover-cursor\"></i>\n                  <p class=\"text-muted mb-0 hover-cursor\">&nbsp;/&nbsp;Home&nbsp;/&nbsp;</p>\n                  <p class=\"text-primary mb-0 hover-cursor\">Analytics</p> -->\n                </div>\n              </div>\n              <div class=\"d-flex justify-content-between align-items-end flex-wrap\">\n                <!-- <button type=\"button\" class=\"btn btn-light bg-white btn-icon mr-3 d-none d-md-block\" (click)=\"download()\">\n                  <i class=\"mdi mdi-download text-muted\"></i>\n                </button> -->\n                <button *ngIf=\"isGitAdmin\" type=\"button\" class=\"btn btn-light bg-white btn-icon mr-3 mt-2 mt-xl-0\" (click)=\"edit()\">\n                  <i class=\"mdi mdi-pencil-outline text-muted\"></i>\n                </button>\n                <button *ngIf=\"!isGitAdmin\" type=\"button\" class=\"btn btn-primary btn-sm mr-3 mt-2 mt-xl-0\" (click)=\"import()\">\n                  Use Template\n                </button>\n              </div>\n            </div>\n          </div>\n        </div>\n\n        <div class=\"row\">\n          <div class=\"col-md-8 offset-md-2 grid-margin stretch-card\">\n            <div class=\"card\" style=\"height: 750px; overflow: scroll;\">\n              <div class=\"card-body\">\n                <p class=\"card-title\">Preview Form</p>\n                <p class=\"text-muted\"></p>\n                <div class=\"form-container\">\n                  <div id=\"fb-editor\"></div>\n                </div>\n              </div>\n            </div>\n          </div>\n        </div>\n      </div>\n    </div>\n  </div>\n</div>"
+module.exports = "<div class=\"container-scroller\">\n  <app-navigation-bar></app-navigation-bar>\n  <div class=\"container-fluid page-body-wrapper\">\n    <app-side-bar></app-side-bar>\n    <div class=\"main-panel\">\n      <div class=\"content-wrapper\">\n\n        <div class=\"row\">\n          <div class=\"col-md-12 grid-margin\">\n            <div class=\"d-flex justify-content-between flex-wrap\">\n              <div class=\"d-flex align-items-end flex-wrap\">\n                <div class=\"mr-md-3 mr-xl-5\">\n                  <h2>{{ form.name }}</h2>\n                  <p class=\"mb-md-0\">Preview a form.</p>\n                </div>\n                <div class=\"d-flex\">\n                  <!-- <i class=\"mdi mdi-home text-muted hover-cursor\"></i>\n                  <p class=\"text-muted mb-0 hover-cursor\">&nbsp;/&nbsp;Home&nbsp;/&nbsp;</p>\n                  <p class=\"text-primary mb-0 hover-cursor\">Analytics</p> -->\n                </div>\n              </div>\n              <div class=\"d-flex justify-content-between align-items-end flex-wrap\">\n                <!-- <button type=\"button\" class=\"btn btn-light bg-white btn-icon mr-3 d-none d-md-block\" (click)=\"download()\">\n                  <i class=\"mdi mdi-download text-muted\"></i>\n                </button> -->\n                <!-- <button *ngIf=\"isGitAdmin\" type=\"button\" class=\"btn btn-light bg-white btn-icon mr-3 mt-2 mt-xl-0\" (click)=\"edit()\">\n                  <i class=\"mdi mdi-pencil-outline text-muted\"></i>\n                </button> -->\n                <button *ngIf=\"!isGitAdmin\" type=\"button\" class=\"btn btn-primary btn-sm mr-3 mt-2 mt-xl-0\" (click)=\"import()\">\n                  Use Template\n                </button>\n              </div>\n            </div>\n          </div>\n        </div>\n\n        <div class=\"row\">\n          <div class=\"col-md-8 offset-md-2 grid-margin stretch-card\">\n            <div class=\"card\" style=\"height: 750px; overflow: scroll;\">\n              <div class=\"card-body\">\n                <p class=\"card-title\">Preview Form</p>\n                <p class=\"text-muted\"></p>\n                <div class=\"form-container\">\n                  <div id=\"fb-editor\"></div>\n                </div>\n              </div>\n            </div>\n          </div>\n        </div>\n      </div>\n    </div>\n  </div>\n</div>"
 
 /***/ }),
 
@@ -7435,7 +7435,7 @@ var EditTemplatePageComponent = /** @class */ (function () {
         }
     };
     EditTemplatePageComponent.prototype.preview = function () {
-        this.router.navigateByUrl('templates/details/form', { state: { form: this._form } });
+        this.router.navigateByUrl('templates/view', { state: { form: this._form } });
     };
     EditTemplatePageComponent.prototype.bringBackForm = function () {
         this.router.navigateByUrl('templates/create');
@@ -7764,9 +7764,9 @@ var ViewTemplatePageComponent = /** @class */ (function () {
         var formRenderOpts = { formData: formData, dataType: 'json' };
         $(this.formRenderer).formRender(formRenderOpts);
     };
-    ViewTemplatePageComponent.prototype.edit = function () {
-        this.router.navigateByUrl('templates/edit/', { state: { form: this.form } });
-    };
+    // edit() {
+    //   this.router.navigateByUrl('templates/edit', { state: { form: this.form }});
+    // }
     ViewTemplatePageComponent.prototype.import = function () {
         this.router.navigateByUrl('admin/create/form', { state: { template: this.form } });
     };

@@ -47,9 +47,9 @@ export class ViewTemplatePageComponent implements OnInit {
     $(this.formRenderer).formRender(formRenderOpts);
   }
 
-  edit() {
-    this.router.navigateByUrl('templates/edit/', { state: { form: this.form }});
-  }
+  // edit() {
+  //   this.router.navigateByUrl('templates/edit', { state: { form: this.form }});
+  // }
 
   import() {
     this.router.navigateByUrl('admin/create/form', { state: { template: this.form }});
