@@ -38,9 +38,28 @@ export class FrontDeskViewFormPageComponent implements OnInit {
     private frontDeskService: FrontDeskService
   ) {
     this.form = window.history.state.form;
+    this.resolveReloadDataLoss();
     this.formName = this.form.form_name;
     this.user = this.localStorage.getUser();
     console.log('form: ' + JSON.stringify(this.form));
+  }
+
+  /**
+   * This is just a little hack to prevent loss of data passed in to window.history.state
+   * whenever the page is reloaded. The purpose is to ensure we still have the data needed
+   * to help build all the elements of this page.
+   *
+   * @version 0.0.2
+   * @memberof EditFormPageComponent
+   */
+  resolveReloadDataLoss() {
+    if (!_.isUndefined(this.form)) {
+      console.log('is undefined oooooooooooo');
+      sessionStorage.setItem('u_form', JSON.stringify(this.form));
+    }
+    else {
+      this.form = JSON.parse(sessionStorage.getItem('u_form'));
+    }
   }
 
   ngOnInit() {
@@ -54,7 +73,7 @@ export class FrontDeskViewFormPageComponent implements OnInit {
   renderForm() {
     const formData = this.form.form_fields;
     this.formRenderer = document.getElementById('form-render');
-    const renderOptions = { formData, dataType: 'json '};
+    const renderOptions = { formData, dataType: 'json' };
     this.formInstance = $(this.formRenderer).formRender(renderOptions);
 
     this.setFormData(formData);
