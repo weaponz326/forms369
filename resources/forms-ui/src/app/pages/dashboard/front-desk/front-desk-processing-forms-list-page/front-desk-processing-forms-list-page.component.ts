@@ -13,9 +13,12 @@ import { LocalStorageService } from 'src/app/services/storage/local-storage.serv
 })
 export class FrontDeskProcessingFormsListPageComponent implements OnInit {
   user: Users;
+  hasMore: boolean;
   hasData: boolean;
   loading: boolean;
   hasError: boolean;
+  loadingMore: boolean;
+  hasMoreError: boolean;
   responseMessage: string;
   loadingModalRef: NgbModalRef;
   processingFormsList: Array<any>;
@@ -44,6 +47,10 @@ export class FrontDeskProcessingFormsListPageComponent implements OnInit {
     this.router.navigateByUrl('/front_desk/view_form', { state: { form: form }});
   }
 
+  checkIfHasMore() {
+    return _.isEmpty(this.frontDeskService.nextPaginationUrl) ? false : true;
+  }
+
   showLoadingDialog() {
     this.loadingModalRef = this.modalService.open(this.loadingModal, { centered: true });
   }
@@ -63,6 +70,7 @@ export class FrontDeskProcessingFormsListPageComponent implements OnInit {
     const merchant_id = this.user.merchant_id.toString();
     this.frontDeskService.getSubmittedFormByStatusAndMerchant(1, merchant_id).then(
       res => {
+        this.hasMore = this.checkIfHasMore();
         if (res.length != 0) {
           this.hasData = true;
           this.loading = false;
@@ -78,6 +86,27 @@ export class FrontDeskProcessingFormsListPageComponent implements OnInit {
       err => {
         this.hasError = true;
         this.loading = false;
+      }
+    );
+  }
+
+  loadMore() {
+    this.loadingMore = true;
+    const merchant_id = this.user.merchant_id.toString();
+    const moreUrl = this.frontDeskService.nextPaginationUrl;
+    this.frontDeskService.getSubmittedFormByStatusAndMerchant(1, merchant_id, moreUrl).then(
+      res => {
+        this.loadingMore = false;
+        this.hasMoreError = false;
+        this.hasMore = this.checkIfHasMore();
+        _.forEach(res, (form) => {
+          this.processingFormsList.push(form);
+        });
+        this.loading = false;
+      },
+      err => {
+        this.loadingMore = false;
+        this.hasMoreError = true;
       }
     );
   }

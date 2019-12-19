@@ -14,7 +14,10 @@ export class ExecSubmittedFormsListPageComponent implements OnInit {
   user: Users;
   loading: boolean;
   hasData: boolean;
+  hasMore: boolean;
   hasError: boolean;
+  loadingMore: boolean;
+  hasMoreError: boolean;
   submittedFormsList: Array<any>;
 
   constructor(
@@ -31,11 +34,16 @@ export class ExecSubmittedFormsListPageComponent implements OnInit {
   ngOnInit() {
   }
 
+  checkIfHasMore() {
+    return _.isEmpty(this.frontDeskService.nextPaginationUrl) ? false : true;
+  }
+
   getAllSubmittedForms() {
     this.loading = true;
     const merchant_id = this.user.merchant_id.toString();
     this.frontDeskService.getSubmittedFormByStatusAndMerchant(0, merchant_id).then(
       res => {
+        this.hasMore = this.checkIfHasMore();
         if (res.length != 0) {
           this.hasData = true;
           this.loading = false;
@@ -51,6 +59,27 @@ export class ExecSubmittedFormsListPageComponent implements OnInit {
       err => {
         this.hasError = true;
         this.loading = false;
+      }
+    );
+  }
+
+  loadMore() {
+    this.loadingMore = true;
+    const merchant_id = this.user.merchant_id.toString();
+    const moreUrl = this.frontDeskService.nextPaginationUrl;
+    this.frontDeskService.getSubmittedFormByStatusAndMerchant(0, merchant_id, moreUrl).then(
+      res => {
+        this.loadingMore = false;
+        this.hasMoreError = false;
+        this.hasMore = this.checkIfHasMore();
+        _.forEach(res, (form) => {
+          this.submittedFormsList.push(form);
+        });
+        this.loading = false;
+      },
+      err => {
+        this.loadingMore = false;
+        this.hasMoreError = true;
       }
     );
   }
