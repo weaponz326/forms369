@@ -811,7 +811,7 @@ module.exports = "<div class=\"container-scroller\">\n  <app-navigation-bar></ap
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<div class=\"container-scroller\">\n  <app-navigation-bar></app-navigation-bar>\n  <div class=\"container-fluid page-body-wrapper\">\n    <app-side-bar></app-side-bar>\n    <div class=\"main-panel\">\n      <div class=\"content-wrapper\">\n\n        <div class=\"row\">\n          <div class=\"col-md-12 grid-margin\">\n            <div class=\"d-flex justify-content-between flex-wrap\">\n              <div class=\"d-flex align-items-end flex-wrap\">\n                <div class=\"mr-md-3 mr-xl-5\">\n                  <h2>{{ form.form_name }}</h2>\n                  <p class=\"mb-md-0\">Preview a form.</p>\n                </div>\n                <div class=\"d-flex\">\n                </div>\n              </div>\n              <div class=\"d-flex justify-content-between align-items-end flex-wrap\">\n                <button type=\"button\" class=\"btn btn-light bg-white btn-icon mr-3 d-none d-md-block\" (click)=\"download()\">\n                  <i class=\"mdi mdi-download text-muted\"></i>\n                </button>\n                <button type=\"button\" class=\"btn btn-light bg-white btn-icon mr-3 mt-2 mt-xl-0\" (click)=\"print()\">\n                  <i class=\"mdi mdi-printer text-muted\"></i>\n                </button>\n              </div>\n            </div>\n          </div>\n        </div>\n\n        <div class=\"row\">\n          <div class=\"col-md-8 offset-md-2 grid-margin stretch-card\">\n            <div class=\"card\" style=\"height: 750px; overflow: scroll;\">\n              <div class=\"card-body\">\n                <p class=\"card-title\">Preview Form</p>\n                <p class=\"text-muted\"></p>\n                <div class=\"form-container\">\n                  <div id=\"fb-editor\"></div>\n                </div>\n              </div>\n            </div>\n          </div>\n        </div>\n      </div>\n    </div>\n  </div>\n</div>"
+module.exports = "<div class=\"container-scroller\">\n  <app-navigation-bar></app-navigation-bar>\n  <div class=\"container-fluid page-body-wrapper\">\n    <app-side-bar></app-side-bar>\n    <div class=\"main-panel\">\n      <div class=\"content-wrapper\">\n\n        <div class=\"row\">\n          <div class=\"col-md-12 grid-margin\">\n            <div class=\"d-flex justify-content-between flex-wrap\">\n              <div class=\"d-flex align-items-end flex-wrap\">\n                <div class=\"mr-md-3 mr-xl-5\">\n                  <h2>{{ form.form_name }}</h2>\n                  <p class=\"mb-md-0\">Preview a form.</p>\n                </div>\n                <div class=\"d-flex\">\n                </div>\n              </div>\n              <div class=\"d-flex justify-content-between align-items-end flex-wrap\">\n                <!-- <button type=\"button\" class=\"btn btn-light bg-white btn-icon mr-3 d-none d-md-block\" (click)=\"download()\">\n                  <i class=\"mdi mdi-download text-muted\"></i>\n                </button> -->\n                <button type=\"button\" class=\"btn btn-light bg-white btn-icon mr-3 mt-2 mt-xl-0\" (click)=\"print()\">\n                  <i class=\"mdi mdi-printer text-muted\"></i>\n                </button>\n              </div>\n            </div>\n          </div>\n        </div>\n\n        <div class=\"row\">\n          <div class=\"col-md-8 offset-md-2 grid-margin stretch-card\">\n            <div class=\"card\" style=\"height: 750px; overflow: scroll;\">\n              <div class=\"card-body\">\n                <p class=\"card-title\">Preview Form</p>\n                <p class=\"text-muted\"></p>\n                <div class=\"form-container\">\n                  <div id=\"fb-editor\"></div>\n                </div>\n              </div>\n            </div>\n          </div>\n        </div>\n      </div>\n    </div>\n  </div>\n</div>"
 
 /***/ }),
 
@@ -3719,7 +3719,7 @@ var AdminEditUserPageComponent = /** @class */ (function () {
     AdminEditUserPageComponent.prototype.ngOnInit = function () {
     };
     AdminEditUserPageComponent.prototype.goBack = function () {
-        this.router.navigateByUrl('admin/lists/account');
+        this.router.navigateByUrl('admin/lists/front_desk');
     };
     AdminEditUserPageComponent.prototype.editAccount = function (ev) {
         console.log('response: ' + ev);
@@ -7844,6 +7844,23 @@ var FormPrintingDefaultPageComponent = /** @class */ (function () {
         this.initVars();
         this.getMerchant();
     }
+    /**
+     * This is just a little hack to prevent loss of data passed in to window.history.state
+     * whenever the page is reloaded. The purpose is to ensure we still have the data needed
+     * to help build all the elements of this page.
+     *
+     * @version 0.0.2
+     * @memberof EditFormPageComponent
+     */
+    FormPrintingDefaultPageComponent.prototype.resolveReloadDataLoss = function () {
+        if (!lodash__WEBPACK_IMPORTED_MODULE_1__["isUndefined"](this.form)) {
+            console.log('is undefined oooooooooooo');
+            sessionStorage.setItem('u_form', JSON.stringify(this.form));
+        }
+        else {
+            this.form = JSON.parse(sessionStorage.getItem('u_form'));
+        }
+    };
     FormPrintingDefaultPageComponent.prototype.ngOnInit = function () {
         var _this = this;
         window.onafterprint = function () {
@@ -7866,6 +7883,7 @@ var FormPrintingDefaultPageComponent = /** @class */ (function () {
         this.formValues = [];
         this.clientFormData = [];
         this.form = window.history.state.form;
+        this.resolveReloadDataLoss();
         this.client = this.form.client_submitted_details;
         this.formKeys = lodash__WEBPACK_IMPORTED_MODULE_1__["keys"](this.client);
         this.formValues = lodash__WEBPACK_IMPORTED_MODULE_1__["values"](this.client);
@@ -7970,11 +7988,29 @@ var FormPrintingPageComponent = /** @class */ (function () {
         this.dpiRatio = 96 / 72;
         this.clientFormDetails = [];
         this.form = window.history.state.form;
+        this.resolveReloadDataLoss();
         this.pdfSrc = this.endpointService.storageHost + this.form.file_url;
         window.onafterprint = function () {
             _this.showPrintButton();
         };
     }
+    /**
+     * This is just a little hack to prevent loss of data passed in to window.history.state
+     * whenever the page is reloaded. The purpose is to ensure we still have the data needed
+     * to help build all the elements of this page.
+     *
+     * @version 0.0.2
+     * @memberof EditFormPageComponent
+     */
+    FormPrintingPageComponent.prototype.resolveReloadDataLoss = function () {
+        if (!lodash__WEBPACK_IMPORTED_MODULE_2__["isUndefined"](this.form)) {
+            console.log('is undefined oooooooooooo');
+            sessionStorage.setItem('u_form', JSON.stringify(this.form));
+        }
+        else {
+            this.form = JSON.parse(sessionStorage.getItem('u_form'));
+        }
+    };
     FormPrintingPageComponent.prototype.ngOnInit = function () {
         this.myForm = this._fb.group({});
     };
@@ -8362,10 +8398,13 @@ module.exports = "\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "FrontDeskPreviewFormPageComponent", function() { return FrontDeskPreviewFormPageComponent; });
 /* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
-/* harmony import */ var _angular_router__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/router */ "./node_modules/@angular/router/fesm5/router.js");
-/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
-/* harmony import */ var src_app_services_form_builder_form_builder_service__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! src/app/services/form-builder/form-builder.service */ "./src/app/services/form-builder/form-builder.service.ts");
-/* harmony import */ var src_app_services_front_desk_front_desk_service__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! src/app/services/front-desk/front-desk.service */ "./src/app/services/front-desk/front-desk.service.ts");
+/* harmony import */ var lodash__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! lodash */ "./node_modules/lodash/lodash.js");
+/* harmony import */ var lodash__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(lodash__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var _angular_router__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @angular/router */ "./node_modules/@angular/router/fesm5/router.js");
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
+/* harmony import */ var src_app_services_form_builder_form_builder_service__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! src/app/services/form-builder/form-builder.service */ "./src/app/services/form-builder/form-builder.service.ts");
+/* harmony import */ var src_app_services_front_desk_front_desk_service__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! src/app/services/front-desk/front-desk.service */ "./src/app/services/front-desk/front-desk.service.ts");
+
 
 
 
@@ -8377,7 +8416,25 @@ var FrontDeskPreviewFormPageComponent = /** @class */ (function () {
         this.frontDeskService = frontDeskService;
         this.fBuilderService = fBuilderService;
         this.form = window.history.state.form;
+        this.resolveReloadDataLoss();
     }
+    /**
+     * This is just a little hack to prevent loss of data passed in to window.history.state
+     * whenever the page is reloaded. The purpose is to ensure we still have the data needed
+     * to help build all the elements of this page.
+     *
+     * @version 0.0.2
+     * @memberof EditFormPageComponent
+     */
+    FrontDeskPreviewFormPageComponent.prototype.resolveReloadDataLoss = function () {
+        if (!lodash__WEBPACK_IMPORTED_MODULE_1__["isUndefined"](this.form)) {
+            console.log('is undefined oooooooooooo');
+            sessionStorage.setItem('u_form', JSON.stringify(this.form));
+        }
+        else {
+            this.form = JSON.parse(sessionStorage.getItem('u_form'));
+        }
+    };
     FrontDeskPreviewFormPageComponent.prototype.ngOnInit = function () {
         this.renderForm();
     };
@@ -8401,12 +8458,12 @@ var FrontDeskPreviewFormPageComponent = /** @class */ (function () {
     };
     FrontDeskPreviewFormPageComponent.prototype.download = function () { };
     FrontDeskPreviewFormPageComponent.ctorParameters = function () { return [
-        { type: _angular_router__WEBPACK_IMPORTED_MODULE_1__["Router"] },
-        { type: src_app_services_front_desk_front_desk_service__WEBPACK_IMPORTED_MODULE_4__["FrontDeskService"] },
-        { type: src_app_services_form_builder_form_builder_service__WEBPACK_IMPORTED_MODULE_3__["FormBuilderService"] }
+        { type: _angular_router__WEBPACK_IMPORTED_MODULE_2__["Router"] },
+        { type: src_app_services_front_desk_front_desk_service__WEBPACK_IMPORTED_MODULE_5__["FrontDeskService"] },
+        { type: src_app_services_form_builder_form_builder_service__WEBPACK_IMPORTED_MODULE_4__["FormBuilderService"] }
     ]; };
     FrontDeskPreviewFormPageComponent = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
-        Object(_angular_core__WEBPACK_IMPORTED_MODULE_2__["Component"])({
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_3__["Component"])({
             selector: 'app-front-desk-preview-form-page',
             template: __webpack_require__(/*! raw-loader!./front-desk-preview-form-page.component.html */ "./node_modules/raw-loader/index.js!./src/app/pages/dashboard/front-desk/front-desk-preview-form-page/front-desk-preview-form-page.component.html"),
             styles: [__webpack_require__(/*! ./front-desk-preview-form-page.component.css */ "./src/app/pages/dashboard/front-desk/front-desk-preview-form-page/front-desk-preview-form-page.component.css")]
@@ -8904,10 +8961,28 @@ var FrontDeskViewFormPageComponent = /** @class */ (function () {
         this.localStorage = localStorage;
         this.frontDeskService = frontDeskService;
         this.form = window.history.state.form;
+        this.resolveReloadDataLoss();
         this.formName = this.form.form_name;
         this.user = this.localStorage.getUser();
         console.log('form: ' + JSON.stringify(this.form));
     }
+    /**
+     * This is just a little hack to prevent loss of data passed in to window.history.state
+     * whenever the page is reloaded. The purpose is to ensure we still have the data needed
+     * to help build all the elements of this page.
+     *
+     * @version 0.0.2
+     * @memberof EditFormPageComponent
+     */
+    FrontDeskViewFormPageComponent.prototype.resolveReloadDataLoss = function () {
+        if (!lodash__WEBPACK_IMPORTED_MODULE_2__["isUndefined"](this.form)) {
+            console.log('is undefined oooooooooooo');
+            sessionStorage.setItem('u_form', JSON.stringify(this.form));
+        }
+        else {
+            this.form = JSON.parse(sessionStorage.getItem('u_form'));
+        }
+    };
     FrontDeskViewFormPageComponent.prototype.ngOnInit = function () {
         this.renderForm();
     };
@@ -8917,7 +8992,7 @@ var FrontDeskViewFormPageComponent = /** @class */ (function () {
     FrontDeskViewFormPageComponent.prototype.renderForm = function () {
         var formData = this.form.form_fields;
         this.formRenderer = document.getElementById('form-render');
-        var renderOptions = { formData: formData, dataType: 'json ' };
+        var renderOptions = { formData: formData, dataType: 'json' };
         this.formInstance = $(this.formRenderer).formRender(renderOptions);
         this.setFormData(formData);
     };

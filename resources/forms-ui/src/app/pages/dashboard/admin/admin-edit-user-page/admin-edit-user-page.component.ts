@@ -1,4 +1,4 @@
-import { Component, OnInit, Output, EventEmitter, Input } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { UserTypes } from 'src/app/enums/user-types.enum';
 
@@ -21,7 +21,7 @@ export class AdminEditUserPageComponent implements OnInit {
   }
 
   goBack() {
-    this.router.navigateByUrl('admin/lists/account');
+    this.router.navigateByUrl('admin/lists/front_desk');
   }
 
   editAccount(ev: any) {
