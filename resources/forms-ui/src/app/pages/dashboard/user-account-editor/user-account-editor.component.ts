@@ -457,9 +457,6 @@ export class UserAccountEditorComponent implements OnInit {
   }
 
   cancel() {
-    // quick hack to prevent displaying blank page when user navigates back
-    // because of the history.state being set null by the browser.
-    window.history.back();
     window.history.back();
   }
 }
