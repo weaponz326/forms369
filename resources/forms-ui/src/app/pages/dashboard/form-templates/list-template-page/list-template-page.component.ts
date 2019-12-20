@@ -23,6 +23,8 @@ export class ListTemplatePageComponent implements OnInit {
   isGitAdmin: boolean;
   sortingOrder: string;
   foundNoForm: boolean;
+  loadingMore: boolean;
+  hasMoreError: boolean;
   ascSortSelected: boolean;
   descSortSelected: boolean;
   templatesList: Array<any>;
@@ -133,6 +135,10 @@ export class ListTemplatePageComponent implements OnInit {
     this.router.navigateByUrl('templates/create');
   }
 
+  checkIfHasMore() {
+    return _.isNull(this.templatesService.nextPaginationUrl) ? false : true;
+  }
+
   delete(ev: Event, id: string, index: number) {
     ev.stopPropagation();
     this.modalService.open(this.modalTemplateRef, { centered: true }).result.then((result) => {
@@ -163,6 +169,7 @@ export class ListTemplatePageComponent implements OnInit {
     this.templatesService.getAllTemplates().then(
       res => {
         const templates = res as any;
+        this.hasMore = this.checkIfHasMore();
         if (templates.length > 0) {
           this.hasNoData = false;
           _.forEach(templates, (form) => {
@@ -222,7 +229,25 @@ export class ListTemplatePageComponent implements OnInit {
     }
   }
 
-  loadMore() {}
+  loadMore() {
+    this.loadingMore = true;
+    const moreUrl = this.templatesService.nextPaginationUrl;
+    this.templatesService.getAllTemplates(moreUrl).then(
+      res => {
+        this.loadingMore = false;
+        this.hasMoreError = false;
+        const templates = res as any;
+        this.hasMore = this.checkIfHasMore();
+        _.forEach(templates, (template) => {
+          this.templatesList.push(template);
+        });
+      },
+      err => {
+        this.loadingMore = false;
+        this.hasMoreError = true;
+      }
+    );
+  }
 
   retry() {
     this.getAllTemplates();

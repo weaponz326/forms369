@@ -17,6 +17,8 @@ export class ViewSectionsPageComponent implements OnInit {
   hasError: boolean;
   hasNoData: boolean;
   filterState: string;
+  loadingMore: boolean;
+  hasMoreError: boolean;
   sectionsList: Array<any>;
   @ViewChild('confirm', { static: false }) modalTemplateRef: TemplateRef<any>;
 
@@ -35,6 +37,10 @@ export class ViewSectionsPageComponent implements OnInit {
   ngOnInit() {
     this.filterState = 'all';
   }
+
+  // checkIfHasMore() {
+  //   return _.isNull(this.sectionService.nextPaginationUrl) ? false : true;
+  // }
 
   toggleViewMode(mode: string) {
     switch (mode) {
