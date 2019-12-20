@@ -140,6 +140,8 @@ export class CreateAccessCodePageComponent implements OnInit {
   }
 
   getCompanyBranches() {
+    this.branchesList = [];
+    this.branchNamesList = [];
     const id = this.getSelectedMerchantIdentifier();
     console.log('selected company_id: ' + id);
     this.branchService.getBranch(id.toString()).then(
@@ -169,9 +171,20 @@ export class CreateAccessCodePageComponent implements OnInit {
       return true;
     }
 
-    if (form_data.branch_id == 0) {
-      this.f.branch.setErrors({ null: true });
-      return true;
+    // if (form_data.branch_id == 0) {
+    //   this.f.branch.setErrors({ null: true });
+    //   return true;
+    // }
+
+    if (this.f.branch.value == '') {
+      this.f.branch.clearValidators();
+      this.f.branch.updateValueAndValidity();
+    }
+    else {
+      if (form_data.branch_id == 0) {
+        this.f.branch.setErrors({ null: true });
+        return true;
+      }
     }
 
     return false;

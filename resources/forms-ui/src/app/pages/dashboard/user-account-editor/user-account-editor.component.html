@@ -35,7 +35,8 @@
     </div>
   </div>
   <div *ngIf="!isGitAdmin" class="row">
-    <div [ngClass]="{'col-md-12': !isCompAdmin || isSuperExec, 'col-md-6': !isCompAdmin || !isSuperExec}">
+    <div
+      [ngClass]="{'col-md-6': !isCompAdmin || !isSuperExec || !isFrontDesk, 'col-md-12': isCompAdmin || isSuperExec || isFrontDesk}">
       <div class="form-group">
         <input type="text" class="form-control" formControlName="merchant" placeholder="Company Name"
           [matAutocomplete]="auto" [ngClass]="{'input-control-error': submitted && f.merchant.errors}">
@@ -46,11 +47,12 @@
         </mat-autocomplete>
         <div *ngIf="submitted && f.merchant.errors">
           <p class="input-error" *ngIf="f.merchant.errors.required">Company is required</p>
+          <p class="input-error" *ngIf="f.merchant.errors.null">Company provided doesnt exist. Please check your spelling.</p>
         </div>
       </div>
     </div>
     <div *ngIf="!isCompAdmin && !isSuperExec"
-      [ngClass]="{'col-md-12': !isCompAdmin || !isSuperExec, 'col-md-6': isCompAdmin && isSuperExec}">
+      [ngClass]="{'col-md-12': !isCompAdmin || !isSuperExec, 'col-md-6': isCompAdmin || isSuperExec}">
       <div class="form-group">
         <input type="text" class="form-control" formControlName="branch" placeholder="Branch Name"
           [matAutocomplete]="auto_1" [ngClass]="{'input-control-error': submitted && f.branch.errors}">
@@ -61,6 +63,7 @@
         </mat-autocomplete>
         <div *ngIf="submitted && f.branch.errors">
           <p class="input-error" *ngIf="f.branch.errors.required">Branch is required</p>
+          <p class="input-error" *ngIf="f.branch.errors.null">Branch provided doesnt exist. Please check your spelling.</p>
         </div>
       </div>
     </div>

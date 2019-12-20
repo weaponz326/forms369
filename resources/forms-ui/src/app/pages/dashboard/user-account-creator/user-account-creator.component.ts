@@ -118,8 +118,11 @@ export class UserAccountCreatorComponent implements OnInit {
       // remove validators of merchant and branch
       // so the account can be created.
       this.f.branch.clearValidators();
-      this.f.merchant.clearValidators();
       this.f.branch.updateValueAndValidity();
+
+      // Since merchant isnt a required field in our form in this case, and also
+      // we need to make sure the right merchant has been selected.
+      delete this.f.merchant.errors.required;
       this.f.merchant.updateValueAndValidity();
     }
 
@@ -185,6 +188,22 @@ export class UserAccountCreatorComponent implements OnInit {
     }
   }
 
+  containErrors(data: Users) {
+    if (data.merchant_id == 0) {
+      console.log('no merchant');
+      this.f.merchant.setErrors({ null: true });
+      return true;
+    }
+
+    if (data.branch_id == 0) {
+      console.log('no branch');
+      this.f.branch.setErrors({ null: true });
+      return true;
+    }
+
+    return false;
+  }
+
   resolveLaravelError(error: any) {
     const key = Object.keys(error);
     const value = Object.values(key);
@@ -247,6 +266,8 @@ export class UserAccountCreatorComponent implements OnInit {
   }
 
   getCompanyBranches() {
+    this.branchesList = [];
+    this.branchNamesList = [];
     const id = this.getSelectedMerchantIdentifier();
     console.log('selected company_id: ' + id);
     this.branchService.getBranch(id.toString()).then(
@@ -279,33 +300,37 @@ export class UserAccountCreatorComponent implements OnInit {
     if (this.form.invalid) {
       this.form.enable();
       this.loading = false;
-      return;
     }
     else {
-      this.form.disable();
       const user = this.getFormData();
-      this.accountService.createAccount(user).then(
-        res => {
-          const response = res as any;
-          if (response.id) {
+      if (!this.containErrors(user)) {
+        this.form.disable();
+        this.accountService.createAccount(user).then(
+          res => {
+            const response = res as any;
+            if (response.id) {
+              this.form.enable();
+              this.loading = false;
+              this.accountCreated.emit('created');
+              this.userAccount.emit(this.userType.value);
+            }
+            else {
+              this.form.enable();
+              this.loading = false;
+              this.accountCreated.emit('not_created');
+            }
+          },
+          err => {
             this.form.enable();
             this.loading = false;
-            this.accountCreated.emit('created');
-            this.userAccount.emit(this.userType.value);
+            console.log(JSON.stringify(err));
+            this.resolveLaravelError(err.error.errors);
           }
-          else {
-            this.form.enable();
-            this.loading = false;
-            this.accountCreated.emit('not_created');
-          }
-        },
-        err => {
-          this.form.enable();
-          this.loading = false;
-          console.log(JSON.stringify(err));
-          this.resolveLaravelError(err.error.errors);
-        }
-      );
+        );
+      }
+      else {
+        this.loading = false;
+      }
     }
   }
 
