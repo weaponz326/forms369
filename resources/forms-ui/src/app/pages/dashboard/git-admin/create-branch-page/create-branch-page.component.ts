@@ -96,6 +96,25 @@ export class CreateBranchPageComponent implements OnInit {
     return branch;
   }
 
+  containErrors(data: CompanyBranches) {
+    if (data.branch_super_id == 0) {
+      this.f.branchSupervisor.setErrors({ null: true });
+      return true;
+    }
+
+    if (data.branch_admin_id == 0) {
+      this.f.branchAdmin.setErrors({ null: true });
+      return true;
+    }
+
+    if (data.merchant_id == 0) {
+      this.f.merchant.setErrors({ null: true });
+      return true;
+    }
+
+    return false;
+  }
+
   initializeView() {
     this._loading = true;
     this.getCompany();
@@ -173,7 +192,7 @@ export class CreateBranchPageComponent implements OnInit {
           _.forEach(admins, (admin) => {
             this.branchAdminsList.push(admin);
             this.branchAdminEmailList.push(admin.email);
-            console.log('braem: ' + this.branchAdminEmailList);
+            console.log('bra___em: ' + this.branchAdminEmailList);
           });
           this._loading = false;
           this.filteredBranchAdmins = this.f.branchAdmin.valueChanges.pipe(
@@ -199,26 +218,31 @@ export class CreateBranchPageComponent implements OnInit {
       this.loading = false;
     }
     else {
-      this.form.disable();
       const branch = this.getFormData();
-      this.branchService.createBranch(branch).then(
-        res => {
-          this.form.enable();
-          this.loading = false;
-          const response = res as any;
-          if (_.toLower(response.message) == 'ok') {
-            this.created = true;
-          }
-          else {
+      if (!this.containErrors(branch)) {
+        this.form.disable();
+        this.branchService.createBranch(branch).then(
+          res => {
+            this.form.enable();
+            this.loading = false;
+            const response = res as any;
+            if (_.toLower(response.message) == 'ok') {
+              this.created = true;
+            }
+            else {
+              this.created = false;
+            }
+          },
+          err => {
+            this.form.enable();
             this.created = false;
+            this.loading = false;
           }
-        },
-        err => {
-          this.form.enable();
-          this.created = false;
-          this.loading = false;
-        }
-      );
+        );
+      }
+      else {
+        this.loading = false;
+      }
     }
   }
 

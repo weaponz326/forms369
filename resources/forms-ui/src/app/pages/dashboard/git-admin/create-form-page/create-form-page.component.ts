@@ -200,6 +200,7 @@ export class CreateFormPageComponent implements OnInit {
   createFormWithPDF() {
     this.toPublish = false;
     if (this.getForm().length == 0) {
+      this.loading = false;
       alert('Form field cannot be empty');
     }
     else {
@@ -226,9 +227,9 @@ export class CreateFormPageComponent implements OnInit {
   }
 
   create() {
-    this.formCode = this.formBuilderService.generateUniqueFormCode();
     this.submitted = true;
     this.toPublish = false;
+    this.formCode = this.formBuilderService.generateUniqueFormCode();
     if (this.showFileUpload) {
       if (this.form.valid) {
         this.save();
@@ -236,6 +237,7 @@ export class CreateFormPageComponent implements OnInit {
     }
     else {
       // remove pdf validations
+      console.log('no upload');
       this.f.pdf.clearValidators();
       this.f.pdf.updateValueAndValidity();
 
@@ -256,7 +258,13 @@ export class CreateFormPageComponent implements OnInit {
     this.f.pdf.updateValueAndValidity();
 
     if (this.form.valid) {
+      console.log('form is valid');
       this.createForm();
+    }
+    else {
+      this.loading = false;
+      this.toPublish = false;
+      console.log('form not valid');
     }
   }
 

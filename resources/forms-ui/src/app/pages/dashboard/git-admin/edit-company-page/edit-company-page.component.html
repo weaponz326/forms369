@@ -62,6 +62,7 @@
                           </mat-autocomplete>
                           <div *ngIf="submitted && f.superExecutive.errors">
                             <p class="input-error" *ngIf="f.superExecutive.errors.required">Super Executive is required</p>
+                            <p class="input-error" *ngIf="f.superExecutive.errors.null">Super executive doesnt exist. Please check your spelling.</p>
                           </div>
                         </div>
                       </div>
@@ -76,6 +77,7 @@
                           </mat-autocomplete>
                           <div *ngIf="submitted && f.companyAdmin.errors">
                             <p class="input-error" *ngIf="f.companyAdmin.errors.required">Company Admin is required</p>
+                            <p class="input-error" *ngIf="f.companyAdmin.errors.null">Company admin doesnt exist. Please check your spelling.</p>
                           </div>
                         </div>
                       </div>

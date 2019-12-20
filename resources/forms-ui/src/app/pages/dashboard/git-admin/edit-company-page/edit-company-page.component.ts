@@ -193,6 +193,20 @@ export class EditCompanyPageComponent implements OnInit {
     return merchant;
   }
 
+  containErrors(data: Merchants) {
+    if (data.super_id == 0) {
+      this.f.superExecutive.setErrors({ null: true });
+      return true;
+    }
+
+    if (data.admin_id == 0) {
+      this.f.companyAdmin.setErrors({ null: true });
+      return true;
+    }
+
+    return false;
+  }
+
   getSuperExecutive() {
     this.executiveService.getSuperExecutives().then(
       res => {
@@ -295,9 +309,15 @@ export class EditCompanyPageComponent implements OnInit {
       return;
     }
     else {
-      this.form.disable();
-      const logoFile = this.logoFile.nativeElement as HTMLInputElement;
-      logoFile.files[0] == null ? this.editWithNoLogo() : this.editWithLogo();
+      const data = this.getFormData();
+      if (!this.containErrors(data)) {
+        this.form.disable();
+        const logoFile = this.logoFile.nativeElement as HTMLInputElement;
+        logoFile.files[0] == null ? this.editWithNoLogo() : this.editWithLogo();
+      }
+      else {
+        this.loading = false;
+      }
     }
   }
 

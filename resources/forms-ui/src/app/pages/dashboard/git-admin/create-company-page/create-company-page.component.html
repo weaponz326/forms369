@@ -68,8 +68,9 @@
                                 <small class="autocomplete-small">{{ item.merchant_name }}</small> <br>
                               </mat-option>
                             </mat-autocomplete>
-                          <div *ngIf="submitted && f.name.errors">
-                            <p class="input-error" *ngIf="f.name.errors.required">Super Executive is required</p>
+                          <div *ngIf="submitted && f.superExecutive.errors">
+                            <p class="input-error" *ngIf="f.superExecutive.errors.required">Super Executive is required</p>
+                            <p class="input-error" *ngIf="f.superExecutive.errors.null">Super executive doesnt exist. Please check your spelling.</p>
                           </div>
                         </div>
                       </div>
@@ -87,8 +88,9 @@
                                 <small class="autocomplete-small">{{ item.merchant_name }}</small> <br>
                               </mat-option>
                             </mat-autocomplete>
-                          <div *ngIf="submitted && f.name.errors">
-                            <p class="input-error" *ngIf="f.name.errors.required">Company Admin is required</p>
+                          <div *ngIf="submitted && f.companyAdmin.errors">
+                            <p class="input-error" *ngIf="f.companyAdmin.errors.required">Company Admin is required</p>
+                            <p class="input-error" *ngIf="f.companyAdmin.errors.null">Company admin doesnt exist. Please check your spelling.</p>
                           </div>
                         </div>
                       </div>

@@ -163,6 +163,20 @@ export class CreateAccessCodePageComponent implements OnInit {
     );
   }
 
+  containsErrors(form_data: any) {
+    if (form_data.merchant_id == 0) {
+      this.f.merchant.setErrors({ null: true });
+      return true;
+    }
+
+    if (form_data.branch_id == 0) {
+      this.f.branch.setErrors({ null: true });
+      return true;
+    }
+
+    return false;
+  }
+
   create() {
     this.loading = true;
     this.submitted = true;
@@ -171,30 +185,35 @@ export class CreateAccessCodePageComponent implements OnInit {
       this.loading = false;
       return;
     } else {
-      this.form.disable();
       const access_code = this.getFormData();
-      console.log('body: ' + JSON.stringify(access_code));
-      this.accountService.createAccessCode(access_code).then(
-        code => {
-          console.log(code);
-          if (!_.isEmpty(code) || !_.isNull(code)) {
-            this.form.enable();
-            this.created = true;
-            this.loading = false;
-            this.accessCode = code;
-          } else {
+      if (!this.containsErrors(access_code)) {
+        this.form.disable();
+        console.log('body: ' + JSON.stringify(access_code));
+        this.accountService.createAccessCode(access_code).then(
+          code => {
+            console.log(code);
+            if (!_.isEmpty(code) || !_.isNull(code)) {
+              this.form.enable();
+              this.created = true;
+              this.loading = false;
+              this.accessCode = code;
+            } else {
+              this.form.enable();
+              this.created = false;
+              this.loading = false;
+            }
+          },
+          err => {
             this.form.enable();
             this.created = false;
             this.loading = false;
+            console.log(JSON.stringify(err));
           }
-        },
-        err => {
-          this.form.enable();
-          this.created = false;
-          this.loading = false;
-          console.log(JSON.stringify(err));
-        }
-      );
+        );
+      }
+      else {
+        this.loading = false;
+      }
     }
   }
 

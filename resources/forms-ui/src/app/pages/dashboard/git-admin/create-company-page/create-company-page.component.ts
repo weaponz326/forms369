@@ -164,6 +164,20 @@ export class CreateCompanyPageComponent implements OnInit {
     return merchant;
   }
 
+  containErrors(data: Merchants) {
+    if (data.super_id == 0) {
+      this.f.superExecutive.setErrors({ null: true });
+      return true;
+    }
+
+    if (data.admin_id == 0) {
+      this.f.companyAdmin.setErrors({ null: true });
+      return true;
+    }
+
+    return false;
+  }
+
   getSuperExecutive() {
     this.executiveService.getSuperExecutives().then(
       res => {
@@ -219,26 +233,31 @@ export class CreateCompanyPageComponent implements OnInit {
       return;
     }
     else {
-      this.form.disable();
       const merchant = this.getFormData();
-      const logoFile = this.logoFile.nativeElement as HTMLInputElement;
-      this.companyService.createCompany(merchant, logoFile.files[0]).then(
-        res => {
-          this.form.enable();
-          this.loading = false;
-          const response = res as any;
-          if (_.toLower(response.message) == 'ok') {
-            this.created = true;
+      if (!this.containErrors(merchant)) {
+        this.form.disable();
+        const logoFile = this.logoFile.nativeElement as HTMLInputElement;
+        this.companyService.createCompany(merchant, logoFile.files[0]).then(
+          res => {
+            this.form.enable();
+            this.loading = false;
+            const response = res as any;
+            if (_.toLower(response.message) == 'ok') {
+              this.created = true;
+            }
+            else {
+              this.created = false;
+            }
+          },
+          err => {
+            this.form.enable();
+            this.loading = false;
           }
-          else {
-            this.created = false;
-          }
-        },
-        err => {
-          this.form.enable();
-          this.loading = false;
-        }
-      );
+        );
+      }
+      else {
+        this.loading = false;
+      }
     }
   }
 

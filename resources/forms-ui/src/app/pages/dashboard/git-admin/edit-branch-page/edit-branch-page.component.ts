@@ -120,6 +120,25 @@ export class EditBranchPageComponent implements OnInit {
     return branch;
   }
 
+  containErrors(data: CompanyBranches) {
+    if (data.branch_super_id == 0) {
+      this.f.branchSupervisor.setErrors({ null: true });
+      return true;
+    }
+
+    if (data.branch_admin_id == 0) {
+      this.f.branchAdmin.setErrors({ null: true });
+      return true;
+    }
+
+    if (data.merchant_id == 0) {
+      this.f.merchant.setErrors({ null: true });
+      return true;
+    }
+
+    return false;
+  }
+
   initializeView() {
     this._loading = true;
     this.getCompany();
@@ -223,26 +242,31 @@ export class EditBranchPageComponent implements OnInit {
       this.loading = false;
     }
     else {
-      this.form.disable();
       const branch = this.getFormData();
-      this.branchService.editBranch(this.navigatedData.id, branch).then(
-        res => {
-          this.form.enable();
-          this.loading = false;
-          const response = res as any;
-          if (_.toLower(response.message) == 'ok') {
-            this.created = true;
-          }
-          else {
+      if (!this.containErrors(branch)) {
+        this.form.disable();
+        this.branchService.editBranch(this.navigatedData.id, branch).then(
+          res => {
+            this.form.enable();
+            this.loading = false;
+            const response = res as any;
+            if (_.toLower(response.message) == 'ok') {
+              this.created = true;
+            }
+            else {
+              this.created = false;
+            }
+          },
+          err => {
+            this.form.enable();
             this.created = false;
+            this.loading = false;
           }
-        },
-        err => {
-          this.form.enable();
-          this.created = false;
-          this.loading = false;
-        }
-      );
+        );
+      }
+      else {
+        this.loading = false;
+      }
     }
   }
 

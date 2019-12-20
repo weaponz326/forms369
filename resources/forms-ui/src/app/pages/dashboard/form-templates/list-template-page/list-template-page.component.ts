@@ -36,6 +36,7 @@ export class ListTemplatePageComponent implements OnInit {
     private templatesService: TemplatesService
   ) {
     this.templatesList = [];
+    this.sortingBy = 'created';
     this.sortingOrder = this.listViewService.getSortOrder();
     this.viewMode = this.listViewService.getDesiredViewMode();
     this.isGitAdmin = this.localStorage.getUser().usertype == UserTypes.GitAdmin ? true : false;
@@ -110,9 +111,11 @@ export class ListTemplatePageComponent implements OnInit {
 
   sortByCreatedDate(order: string) {
     if (order == 'asc') {
+      console.log('sorting asc');
       this.templatesList = _.sortBy(this.templatesList, (item) => item.created_at);
     }
     else {
+      console.log('sorting desc');
       this.templatesList = _.reverse(_.sortBy(this.templatesList, (item) => item.created_at));
     }
   }
