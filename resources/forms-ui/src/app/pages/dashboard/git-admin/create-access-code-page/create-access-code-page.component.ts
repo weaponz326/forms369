@@ -219,13 +219,14 @@ export class CreateAccessCodePageComponent implements OnInit {
   }
 
   cancel() {
-    if (!this.isFormEmpty()) {
-      this.modalService.open(this.modalTemplateRef, { centered: true }).result.then(result => {
-        if (result == 'yes') {
-          this.clearData();
-        }
-      });
-    }
+    this.ok();
+    // if (!this.isFormEmpty()) {
+    //   this.modalService.open(this.modalTemplateRef, { centered: true }).result.then(result => {
+    //     if (result == 'yes') {
+    //       this.clearData();
+    //     }
+    //   });
+    // }
   }
 
   clearData() {

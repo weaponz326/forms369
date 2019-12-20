@@ -1,22 +1,22 @@
-import { BrowserModule, DomSanitizer } from '@angular/platform-browser';
+import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 import { OrderModule } from 'ngx-order-pipe';
 import { ClipboardModule } from 'ngx-clipboard';
+import { PdfViewerModule } from 'ng2-pdf-viewer';
 import { CountryPickerModule } from 'ngx-country-picker';
 import { HttpClientModule } from '@angular/common/http';
 import { AppRoutingModule } from './app-routing.module';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { NgxPageScrollCoreModule } from 'ngx-page-scroll-core';
-import { PdfViewerModule } from 'ng2-pdf-viewer';
 
-import { MatIconModule, MatIconRegistry } from '@angular/material/icon';
+import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule} from '@angular/material/input';
-import { MatAutocompleteModule, MatSelectModule } from '@angular/material';
 import { MatNativeDateModule } from '@angular/material/core';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { NgbModalModule, NgbAlertModule } from '@ng-bootstrap/ng-bootstrap';
+import { MatAutocompleteModule, MatSelectModule } from '@angular/material';
 
 import { AppComponent } from './app.component';
 import { SideBarComponent } from './components/side-bar/side-bar.component';
@@ -105,6 +105,7 @@ import { AdminViewBranchAdminsPageComponent } from './pages/dashboard/admin/admi
 import { AdminViewCompanyAdminsPageComponent } from './pages/dashboard/admin/admin-view-company-admins-page/admin-view-company-admins-page.component';
 import { AdminViewBranchExecutivesPageComponent } from './pages/dashboard/admin/admin-view-branch-executives-page/admin-view-branch-executives-page.component';
 import { AdminViewCompanyExecutivesPageComponent } from './pages/dashboard/admin/admin-view-company-executives-page/admin-view-company-executives-page.component';
+import { FrontDeskClientsFormDataPageComponent } from './pages/dashboard/front-desk/front-desk-clients-form-data-page/front-desk-clients-form-data-page.component';
 
 @NgModule({
   declarations: [
@@ -194,6 +195,7 @@ import { AdminViewCompanyExecutivesPageComponent } from './pages/dashboard/admin
     AdminViewCompanyAdminsPageComponent,
     AdminViewBranchExecutivesPageComponent,
     AdminViewCompanyExecutivesPageComponent,
+    FrontDeskClientsFormDataPageComponent,
   ],
   imports: [
     BrowserModule,

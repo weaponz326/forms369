@@ -793,6 +793,17 @@ module.exports = "<div *ngIf=\"loading\" class=\"row m-md-5 text-center\">\n  <d
 
 /***/ }),
 
+/***/ "./node_modules/raw-loader/index.js!./src/app/pages/dashboard/front-desk/front-desk-clients-form-data-page/front-desk-clients-form-data-page.component.html":
+/*!*********************************************************************************************************************************************************!*\
+  !*** ./node_modules/raw-loader!./src/app/pages/dashboard/front-desk/front-desk-clients-form-data-page/front-desk-clients-form-data-page.component.html ***!
+  \*********************************************************************************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = "<p>front-desk-clients-form-data-page works!</p>\n"
+
+/***/ }),
+
 /***/ "./node_modules/raw-loader/index.js!./src/app/pages/dashboard/front-desk/front-desk-home-page/front-desk-home-page.component.html":
 /*!*******************************************************************************************************************************!*\
   !*** ./node_modules/raw-loader!./src/app/pages/dashboard/front-desk/front-desk-home-page/front-desk-home-page.component.html ***!
@@ -1009,7 +1020,7 @@ module.exports = "<div class=\"container-scroller\">\n  <app-navigation-bar></ap
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<div class=\"container-scroller\">\n  <app-navigation-bar></app-navigation-bar>\n  <div class=\"container-fluid page-body-wrapper\">\n    <app-side-bar></app-side-bar>\n    <div class=\"main-panel\">\n      <div class=\"content-wrapper\">\n        <div class=\"row\">\n          <div class=\"col-md-12 grid-margin\">\n            <div class=\"d-flex justify-content-between flex-wrap\">\n              <div class=\"d-flex align-items-end flex-wrap\">\n                <div class=\"mr-md-3 mr-xl-5\">\n                  <h2>All Access Codes</h2>\n                  <p class=\"mb-md-0\">Your administrative dashboard.</p>\n                </div>\n                <div class=\"d-flex\">\n                  <!-- <i class=\"mdi mdi-home text-muted hover-cursor\">\n                  <p class=\"text-muted mb-0 hover-cursor\">&nbsp;/&nbsp;Home&nbsp;/&nbsp;</p>\n                  <p class=\"text-primary mb-0 hover-cursor\">In-Processing</p> -->\n                </div>\n              </div>\n              <div class=\"d-flex justify-content-between align-items-end flex-wrap\">\n                <!-- <button type=\"button\" class=\"btn btn-light bg-white btn-icon mr-3 d-none d-md-block \">\n                  <i class=\"mdi mdi-download text-muted\"></i>\n                </button>\n                <button type=\"button\" class=\"btn btn-light bg-white btn-icon mr-3 mt-2 mt-xl-0\">\n                  <i class=\"mdi mdi-clock-outline text-muted\"></i>\n                </button>\n                <button type=\"button\" class=\"btn btn-light bg-white btn-icon mr-3 mt-2 mt-xl-0\">\n                  <i class=\"mdi mdi-plus text-muted\"></i>\n                </button> -->\n              </div>\n            </div>\n          </div>\n        </div>\n\n        <div *ngIf=\"loading\" class=\"row m-md-5\">\n          <div class=\"col-md-12 col-sm-12 m-md-5\">\n            <div class=\"d-flex justify-content-center\">\n              <div class=\"spinner-border m-5\" style=\"width: 5rem; height: 5rem;\" role=\"status\">\n                <span class=\"sr-only\">Loading...</span>\n              </div>\n            </div>\n          </div>\n        </div>\n\n        <div *ngIf=\"!loading && !hasData\" class=\"row\">\n          <div class=\"col-lg-12 grid-margin stretch-card\">\n            <div class=\"card text-center pt-5 pb-5\">\n              <div class=\"card-body mt-5 mb-5\">\n                <h4 class=\"card-title\">No Data Found</h4>\n                <p class=\"card-description\">\n                  No access codes found.\n                </p>\n                <div class=\"text-lg-center mt-5 mb-5\">\n                  <div class=\"card-text\">\n                    <i class=\"mdi mdi-lock-pattern\" style=\"font-size: 8em;\"></i>\n                  </div>\n                  <div class=\"card-text\">\n                    <h3>No Access Codes</h3>\n                    <p class=\"text-muted\">There are no access codes created yet!</p>\n                  </div>\n                </div>\n              </div>\n            </div>\n          </div>\n        </div>\n\n        <div *ngIf=\"hasError\" class=\"row\">\n          <div class=\"col-lg-12 grid-margin stretch-card\">\n            <div class=\"card text-center pt-5 pb-5\">\n              <div class=\"card-body mt-5 mb-5\">\n                <h4 class=\"card-title\">Error Ocuured</h4>\n                <p class=\"card-description\">\n                  Ooops! Something went wrong!\n                </p>\n                <div class=\"text-lg-center mt-5 mb-5\">\n                  <div class=\"card-text\">\n                    <i class=\"mdi mdi-close-network-outline\" style=\"font-size: 8em;\"></i>\n                  </div>\n                  <div class=\"card-text\">\n                    <h3>We couldn't get your branches</h3>\n                    <p class=\"text-muted\">An error has occured on our servers or you might not have internet connection\n                    </p>\n                  </div>\n                </div>\n              </div>\n            </div>\n          </div>\n        </div>\n\n        <div *ngIf=\"!loading && hasData\" class=\"row\">\n          <div class=\"col-lg-12 grid-margin stretch-card\">\n            <div class=\"card\">\n              <div class=\"card-body\">\n                <h4 class=\"card-title\">List Access Codes</h4>\n                <p class=\"card-description\">\n                  List of all new access codes that have been created.\n                </p>\n                <div class=\"table-responsive\">\n                  <table class=\"table table-hover\">\n                    <thead>\n                      <tr>\n                        <th>Merchant Name</th>\n                        <th>Access Code</th>\n                        <th>Device Name</th>\n                        <th>Source Usage</th>\n                        <th>Created On</th>\n                        <th>Status</th>\n                        <th>Actions</th>\n                      </tr>\n                    </thead>\n                    <tbody>\n                      <tr class=\"hover-cursor\" *ngFor=\"let code of accessCodesList\">\n                        <td>{{ code.merchant_name }}</td>\n                        <td>{{ code.accesscode }}</td>\n                        <td>{{ code.devicename }}</td>\n                        <td>{{ code.sourceusage }}</td>\n                        <td>{{ code.created_at | date }}</td>\n                        <td>\n                          <div *ngIf=\"code.active == 1\" class=\"text-center text-success status-dot\"></div>\n                          <div *ngIf=\"code.active == 0\" class=\"text-center text-danger status-dot\"></div>\n                        </td>\n                        <td>\n                          <div class=\"d-flex align-items-end flex-wrap\">\n                            <button *ngIf=\"code.active == 0\" type=\"button\" class=\"btn btn-light bg-white btn-icon mr-1\"\n                              (click)=\"activate(code.accesscode)\">\n                              <i class=\"mdi mdi-check text-success\"></i>\n                            </button>\n                            <button *ngIf=\"code.active == 1\" type=\"button\" class=\"btn btn-light bg-white btn-icon mr-1\"\n                              (click)=\"deactivate(code.accesscode)\">\n                              <i class=\"mdi mdi-close text-danger\"></i>\n                            </button>\n                          </div>\n                        </td>\n                      </tr>\n                    </tbody>\n                  </table>\n                </div>\n              </div>\n            </div>\n          </div>\n        </div>\n\n        <div *ngIf=\"loadingMore\" class=\"row m-md-2\">\n          <div class=\"col-md-12 col-sm-12 m-md-2\">\n            <div class=\"d-flex justify-content-center\">\n              <div class=\"spinner-border m-2\" style=\"width: 2rem; height: 2rem;\" role=\"status\">\n                <span class=\"sr-only\">Loading...</span>\n              </div>\n            </div>\n          </div>\n        </div>\n\n        <div *ngIf=\"hasMoreError\" class=\"row m-md-2\">\n          <div class=\"col-md-8 col-sm-12 offset-md-2\">\n            <div class=\"alert alert-danger\" role=\"alert\">\n              <h4 class=\"alert-heading\">Connection Failed!</h4>\n              <p>\n                Oops! Couldn't get you the rest of the data. Please make sure you have an active internet connection.\n                Maybe, our servers may be down.\n              </p>\n              <hr>\n              <p class=\"mb-0\">We are really sorry for this inconvenience. Please click on the load more button again.\n              </p>\n            </div>\n          </div>\n        </div>\n\n        <div *ngIf=\"hasMore\" class=\"row\">\n          <div class=\"col-md-4 col-sm-6 offset-sm-3 offset-lg-4\">\n            <div class=\"text-center\">\n              <button type=\"button\" class=\"btn btn-secondary btn-rounded btn-fw\" (click)=\"loadMore()\">Load More</button>\n            </div>\n          </div>\n        </div>\n\n      </div>\n    </div>\n  </div>\n</div>\n\n<ng-template #loader let-modal>\n  <div class=\"modal-body\">\n    <div class=\"d-flex justify-content-center\">\n      <div class=\"spinner-border m-5\" style=\"width: 4rem; height: 4rem;\" role=\"status\">\n        <span class=\"sr-only\">Loading...</span>\n      </div>\n    </div>\n    <p class=\"text-center\">Please wait...</p>\n  </div>\n</ng-template>\n\n<ng-template #confirmActivate let-modal>\n  <div class=\"modal-header\">\n    <h4 class=\"modal-title\" id=\"modal-title\">Activate Access Code ?</h4>\n    <button type=\"button\" class=\"close\" aria-describedby=\"modal-title\" (click)=\"modal.dismiss('close')\">\n      <span aria-hidden=\"true\">&times;</span>\n    </button>\n  </div>\n  <div class=\"modal-body\">\n    <p><strong>Are you sure you want to activate <span class=\"text-primary\">this access code</span> ?</strong></p>\n    <p>Activating an access code makes it possible for users to access private parts of Form369.com\n      <span class=\"text-danger\">Please be sure before you continue.</span>\n    </p>\n  </div>\n  <div class=\"modal-footer\">\n    <button type=\"button\" class=\"btn btn-outline-secondary\" (click)=\"modal.dismiss('cancel')\">Cancel</button>\n    <button type=\"button\" class=\"btn btn-primary\" (click)=\"modal.close('activate')\">Activate</button>\n  </div>\n</ng-template>\n\n<ng-template #confirmDeactivate let-modal>\n  <div class=\"modal-header\">\n    <h4 class=\"modal-title\" id=\"modal-title\">De-Activate Access Code ?</h4>\n    <button type=\"button\" class=\"close\" aria-describedby=\"modal-title\" (click)=\"modal.dismiss('close')\">\n      <span aria-hidden=\"true\">&times;</span>\n    </button>\n  </div>\n  <div class=\"modal-body\">\n    <p><strong>Are you sure you want to deactivate <span class=\"text-primary\">this access code</span> ?</strong></p>\n    <p>De-Activating an access code makes it impossible for users to access private parts of Form369.com\n      <span class=\"text-danger\">Please be sure before you continue.</span>\n    </p>\n  </div>\n  <div class=\"modal-footer\">\n    <button type=\"button\" class=\"btn btn-outline-secondary\" (click)=\"modal.dismiss('cancel')\">Cancel</button>\n    <button type=\"button\" class=\"btn btn-danger\" (click)=\"modal.close('deactivate')\">Deactivate</button>\n  </div>\n</ng-template>"
+module.exports = "<div class=\"container-scroller\">\n  <app-navigation-bar></app-navigation-bar>\n  <div class=\"container-fluid page-body-wrapper\">\n    <app-side-bar></app-side-bar>\n    <div class=\"main-panel\">\n      <div class=\"content-wrapper\">\n        <div class=\"row\">\n          <div class=\"col-md-12 grid-margin\">\n            <div class=\"d-flex justify-content-between flex-wrap\">\n              <div class=\"d-flex align-items-end flex-wrap\">\n                <div class=\"mr-md-3 mr-xl-5\">\n                  <h2>All Access Codes</h2>\n                  <p class=\"mb-md-0\">Your administrative dashboard.</p>\n                </div>\n                <div class=\"d-flex\">\n                  <!-- <i class=\"mdi mdi-home text-muted hover-cursor\">\n                  <p class=\"text-muted mb-0 hover-cursor\">&nbsp;/&nbsp;Home&nbsp;/&nbsp;</p>\n                  <p class=\"text-primary mb-0 hover-cursor\">In-Processing</p> -->\n                </div>\n              </div>\n              <div class=\"d-flex justify-content-between align-items-end flex-wrap\">\n                <!-- <button type=\"button\" class=\"btn btn-light bg-white btn-icon mr-3 d-none d-md-block \">\n                  <i class=\"mdi mdi-download text-muted\"></i>\n                </button>\n                <button type=\"button\" class=\"btn btn-light bg-white btn-icon mr-3 mt-2 mt-xl-0\">\n                  <i class=\"mdi mdi-clock-outline text-muted\"></i>\n                </button>\n                <button type=\"button\" class=\"btn btn-light bg-white btn-icon mr-3 mt-2 mt-xl-0\">\n                  <i class=\"mdi mdi-plus text-muted\"></i>\n                </button> -->\n              </div>\n            </div>\n          </div>\n        </div>\n\n        <div *ngIf=\"loading\" class=\"row m-md-5\">\n          <div class=\"col-md-12 col-sm-12 m-md-5\">\n            <div class=\"d-flex justify-content-center\">\n              <div class=\"spinner-border m-5\" style=\"width: 5rem; height: 5rem;\" role=\"status\">\n                <span class=\"sr-only\">Loading...</span>\n              </div>\n            </div>\n          </div>\n        </div>\n\n        <div *ngIf=\"!loading && !hasData\" class=\"row\">\n          <div class=\"col-lg-12 grid-margin stretch-card\">\n            <div class=\"card text-center pt-5 pb-5\">\n              <div class=\"card-body mt-5 mb-5\">\n                <h4 class=\"card-title\">No Data Found</h4>\n                <p class=\"card-description\">\n                  No access codes found.\n                </p>\n                <div class=\"text-lg-center mt-5 mb-5\">\n                  <div class=\"card-text\">\n                    <i class=\"mdi mdi-lock-pattern\" style=\"font-size: 8em;\"></i>\n                  </div>\n                  <div class=\"card-text\">\n                    <h3>No Access Codes</h3>\n                    <p class=\"text-muted\">There are no access codes created yet!</p>\n                  </div>\n                </div>\n              </div>\n            </div>\n          </div>\n        </div>\n\n        <div *ngIf=\"hasError\" class=\"row\">\n          <div class=\"col-lg-12 grid-margin stretch-card\">\n            <div class=\"card text-center pt-5 pb-5\">\n              <div class=\"card-body mt-5 mb-5\">\n                <h4 class=\"card-title\">Error Ocuured</h4>\n                <p class=\"card-description\">\n                  Ooops! Something went wrong!\n                </p>\n                <div class=\"text-lg-center mt-5 mb-5\">\n                  <div class=\"card-text\">\n                    <i class=\"mdi mdi-close-network-outline\" style=\"font-size: 8em;\"></i>\n                  </div>\n                  <div class=\"card-text\">\n                    <h3>We couldn't get your branches</h3>\n                    <p class=\"text-muted\">An error has occured on our servers or you might not have internet connection\n                    </p>\n                  </div>\n                </div>\n              </div>\n            </div>\n          </div>\n        </div>\n\n        <div *ngIf=\"!loading && hasData\" class=\"row\">\n          <div class=\"col-lg-12 grid-margin stretch-card\">\n            <div class=\"card\">\n              <div class=\"card-body\">\n                <h4 class=\"card-title\">List Access Codes</h4>\n                <p class=\"card-description\">\n                  List of all new access codes that have been created.\n                </p>\n                <div class=\"table-responsive\">\n                  <table class=\"table table-hover\">\n                    <thead>\n                      <tr>\n                        <th>Merchant Name</th>\n                        <th>Access Code</th>\n                        <th>Device Name</th>\n                        <th>Source Usage</th>\n                        <th>Created On</th>\n                        <th>Status</th>\n                        <th>Actions</th>\n                      </tr>\n                    </thead>\n                    <tbody>\n                      <tr class=\"hover-cursor\" *ngFor=\"let code of accessCodesList\">\n                        <td>{{ code.merchant_name }}</td>\n                        <td>{{ code.accesscode }}</td>\n                        <td>{{ code.devicename }}</td>\n                        <td>{{ code.sourceusage }}</td>\n                        <td>{{ code.created_at | date }}</td>\n                        <td>\n                          <div *ngIf=\"code.active == 0\" class=\"text-center text-success status-dot\"></div>\n                          <div *ngIf=\"code.active == 1\" class=\"text-center text-danger status-dot\"></div>\n                        </td>\n                        <td>\n                          <div class=\"d-flex align-items-end flex-wrap\">\n                            <button *ngIf=\"code.active == 1\" type=\"button\" class=\"btn btn-light bg-white btn-icon mr-1\"\n                              (click)=\"activate(code.accesscode)\">\n                              <i class=\"mdi mdi-check text-success\"></i>\n                            </button>\n                            <button *ngIf=\"code.active == 0\" type=\"button\" class=\"btn btn-light bg-white btn-icon mr-1\"\n                              (click)=\"deactivate(code.accesscode)\">\n                              <i class=\"mdi mdi-close text-danger\"></i>\n                            </button>\n                          </div>\n                        </td>\n                      </tr>\n                    </tbody>\n                  </table>\n                </div>\n              </div>\n            </div>\n          </div>\n        </div>\n\n        <div *ngIf=\"loadingMore\" class=\"row m-md-2\">\n          <div class=\"col-md-12 col-sm-12 m-md-2\">\n            <div class=\"d-flex justify-content-center\">\n              <div class=\"spinner-border m-2\" style=\"width: 2rem; height: 2rem;\" role=\"status\">\n                <span class=\"sr-only\">Loading...</span>\n              </div>\n            </div>\n          </div>\n        </div>\n\n        <div *ngIf=\"hasMoreError\" class=\"row m-md-2\">\n          <div class=\"col-md-8 col-sm-12 offset-md-2\">\n            <div class=\"alert alert-danger\" role=\"alert\">\n              <h4 class=\"alert-heading\">Connection Failed!</h4>\n              <p>\n                Oops! Couldn't get you the rest of the data. Please make sure you have an active internet connection.\n                Maybe, our servers may be down.\n              </p>\n              <hr>\n              <p class=\"mb-0\">We are really sorry for this inconvenience. Please click on the load more button again.\n              </p>\n            </div>\n          </div>\n        </div>\n\n        <div *ngIf=\"hasMore\" class=\"row\">\n          <div class=\"col-md-4 col-sm-6 offset-sm-3 offset-lg-4\">\n            <div class=\"text-center\">\n              <button type=\"button\" class=\"btn btn-secondary btn-rounded btn-fw\" (click)=\"loadMore()\">Load More</button>\n            </div>\n          </div>\n        </div>\n\n      </div>\n    </div>\n  </div>\n</div>\n\n<ng-template #loader let-modal>\n  <div class=\"modal-body\">\n    <div class=\"d-flex justify-content-center\">\n      <div class=\"spinner-border m-5\" style=\"width: 4rem; height: 4rem;\" role=\"status\">\n        <span class=\"sr-only\">Loading...</span>\n      </div>\n    </div>\n    <p class=\"text-center\">Please wait...</p>\n  </div>\n</ng-template>\n\n<ng-template #confirmActivate let-modal>\n  <div class=\"modal-header\">\n    <h4 class=\"modal-title\" id=\"modal-title\">Activate Access Code ?</h4>\n    <button type=\"button\" class=\"close\" aria-describedby=\"modal-title\" (click)=\"modal.dismiss('close')\">\n      <span aria-hidden=\"true\">&times;</span>\n    </button>\n  </div>\n  <div class=\"modal-body\">\n    <p><strong>Are you sure you want to activate <span class=\"text-primary\">this access code</span> ?</strong></p>\n    <p>Activating an access code makes it possible for users to access private parts of Form369.com\n      <span class=\"text-danger\">Please be sure before you continue.</span>\n    </p>\n  </div>\n  <div class=\"modal-footer\">\n    <button type=\"button\" class=\"btn btn-outline-secondary\" (click)=\"modal.dismiss('cancel')\">Cancel</button>\n    <button type=\"button\" class=\"btn btn-primary\" (click)=\"modal.close('activate')\">Activate</button>\n  </div>\n</ng-template>\n\n<ng-template #confirmDeactivate let-modal>\n  <div class=\"modal-header\">\n    <h4 class=\"modal-title\" id=\"modal-title\">De-Activate Access Code ?</h4>\n    <button type=\"button\" class=\"close\" aria-describedby=\"modal-title\" (click)=\"modal.dismiss('close')\">\n      <span aria-hidden=\"true\">&times;</span>\n    </button>\n  </div>\n  <div class=\"modal-body\">\n    <p><strong>Are you sure you want to deactivate <span class=\"text-primary\">this access code</span> ?</strong></p>\n    <p>De-Activating an access code makes it impossible for users to access private parts of Form369.com\n      <span class=\"text-danger\">Please be sure before you continue.</span>\n    </p>\n  </div>\n  <div class=\"modal-footer\">\n    <button type=\"button\" class=\"btn btn-outline-secondary\" (click)=\"modal.dismiss('cancel')\">Cancel</button>\n    <button type=\"button\" class=\"btn btn-danger\" (click)=\"modal.close('deactivate')\">Deactivate</button>\n  </div>\n</ng-template>"
 
 /***/ }),
 
@@ -1346,6 +1357,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _pages_dashboard_admin_admin_view_company_admins_page_admin_view_company_admins_page_component__WEBPACK_IMPORTED_MODULE_78__ = __webpack_require__(/*! ./pages/dashboard/admin/admin-view-company-admins-page/admin-view-company-admins-page.component */ "./src/app/pages/dashboard/admin/admin-view-company-admins-page/admin-view-company-admins-page.component.ts");
 /* harmony import */ var _pages_dashboard_admin_admin_view_branch_executives_page_admin_view_branch_executives_page_component__WEBPACK_IMPORTED_MODULE_79__ = __webpack_require__(/*! ./pages/dashboard/admin/admin-view-branch-executives-page/admin-view-branch-executives-page.component */ "./src/app/pages/dashboard/admin/admin-view-branch-executives-page/admin-view-branch-executives-page.component.ts");
 /* harmony import */ var _pages_dashboard_admin_admin_view_company_executives_page_admin_view_company_executives_page_component__WEBPACK_IMPORTED_MODULE_80__ = __webpack_require__(/*! ./pages/dashboard/admin/admin-view-company-executives-page/admin-view-company-executives-page.component */ "./src/app/pages/dashboard/admin/admin-view-company-executives-page/admin-view-company-executives-page.component.ts");
+/* harmony import */ var _pages_dashboard_front_desk_front_desk_clients_form_data_page_front_desk_clients_form_data_page_component__WEBPACK_IMPORTED_MODULE_81__ = __webpack_require__(/*! ./pages/dashboard/front-desk/front-desk-clients-form-data-page/front-desk-clients-form-data-page.component */ "./src/app/pages/dashboard/front-desk/front-desk-clients-form-data-page/front-desk-clients-form-data-page.component.ts");
+
 
 
 
@@ -1674,6 +1687,10 @@ var routes = [
                     {
                         path: 'processing',
                         component: _pages_dashboard_front_desk_front_desk_processing_forms_list_page_front_desk_processing_forms_list_page_component__WEBPACK_IMPORTED_MODULE_33__["FrontDeskProcessingFormsListPageComponent"]
+                    },
+                    {
+                        path: 'client_form_data',
+                        component: _pages_dashboard_front_desk_front_desk_clients_form_data_page_front_desk_clients_form_data_page_component__WEBPACK_IMPORTED_MODULE_81__["FrontDeskClientsFormDataPageComponent"]
                     }
                 ]
             }
@@ -1908,17 +1925,17 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _angular_forms__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @angular/forms */ "./node_modules/@angular/forms/fesm5/forms.js");
 /* harmony import */ var ngx_order_pipe__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ngx-order-pipe */ "./node_modules/ngx-order-pipe/fesm5/ngx-order-pipe.js");
 /* harmony import */ var ngx_clipboard__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ngx-clipboard */ "./node_modules/ngx-clipboard/fesm5/ngx-clipboard.js");
-/* harmony import */ var ngx_country_picker__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ngx-country-picker */ "./node_modules/ngx-country-picker/index.js");
-/* harmony import */ var _angular_common_http__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! @angular/common/http */ "./node_modules/@angular/common/fesm5/http.js");
-/* harmony import */ var _app_routing_module__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./app-routing.module */ "./src/app/app-routing.module.ts");
-/* harmony import */ var _ng_bootstrap_ng_bootstrap__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! @ng-bootstrap/ng-bootstrap */ "./node_modules/@ng-bootstrap/ng-bootstrap/fesm5/ng-bootstrap.js");
-/* harmony import */ var ngx_page_scroll_core__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ngx-page-scroll-core */ "./node_modules/ngx-page-scroll-core/fesm5/ngx-page-scroll-core.js");
-/* harmony import */ var ng2_pdf_viewer__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! ng2-pdf-viewer */ "./node_modules/ng2-pdf-viewer/fesm5/ng2-pdf-viewer.js");
+/* harmony import */ var ng2_pdf_viewer__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ng2-pdf-viewer */ "./node_modules/ng2-pdf-viewer/fesm5/ng2-pdf-viewer.js");
+/* harmony import */ var ngx_country_picker__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ngx-country-picker */ "./node_modules/ngx-country-picker/index.js");
+/* harmony import */ var _angular_common_http__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! @angular/common/http */ "./node_modules/@angular/common/fesm5/http.js");
+/* harmony import */ var _app_routing_module__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ./app-routing.module */ "./src/app/app-routing.module.ts");
+/* harmony import */ var _ng_bootstrap_ng_bootstrap__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! @ng-bootstrap/ng-bootstrap */ "./node_modules/@ng-bootstrap/ng-bootstrap/fesm5/ng-bootstrap.js");
+/* harmony import */ var ngx_page_scroll_core__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! ngx-page-scroll-core */ "./node_modules/ngx-page-scroll-core/fesm5/ngx-page-scroll-core.js");
 /* harmony import */ var _angular_material_icon__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! @angular/material/icon */ "./node_modules/@angular/material/esm5/icon.es5.js");
 /* harmony import */ var _angular_material_input__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! @angular/material/input */ "./node_modules/@angular/material/esm5/input.es5.js");
-/* harmony import */ var _angular_material__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! @angular/material */ "./node_modules/@angular/material/esm5/material.es5.js");
-/* harmony import */ var _angular_material_core__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(/*! @angular/material/core */ "./node_modules/@angular/material/esm5/core.es5.js");
-/* harmony import */ var _angular_material_datepicker__WEBPACK_IMPORTED_MODULE_16__ = __webpack_require__(/*! @angular/material/datepicker */ "./node_modules/@angular/material/esm5/datepicker.es5.js");
+/* harmony import */ var _angular_material_core__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! @angular/material/core */ "./node_modules/@angular/material/esm5/core.es5.js");
+/* harmony import */ var _angular_material_datepicker__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(/*! @angular/material/datepicker */ "./node_modules/@angular/material/esm5/datepicker.es5.js");
+/* harmony import */ var _angular_material__WEBPACK_IMPORTED_MODULE_16__ = __webpack_require__(/*! @angular/material */ "./node_modules/@angular/material/esm5/material.es5.js");
 /* harmony import */ var _app_component__WEBPACK_IMPORTED_MODULE_17__ = __webpack_require__(/*! ./app.component */ "./src/app/app.component.ts");
 /* harmony import */ var _components_side_bar_side_bar_component__WEBPACK_IMPORTED_MODULE_18__ = __webpack_require__(/*! ./components/side-bar/side-bar.component */ "./src/app/components/side-bar/side-bar.component.ts");
 /* harmony import */ var _components_footer_bar_footer_bar_component__WEBPACK_IMPORTED_MODULE_19__ = __webpack_require__(/*! ./components/footer-bar/footer-bar.component */ "./src/app/components/footer-bar/footer-bar.component.ts");
@@ -2006,6 +2023,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _pages_dashboard_admin_admin_view_company_admins_page_admin_view_company_admins_page_component__WEBPACK_IMPORTED_MODULE_101__ = __webpack_require__(/*! ./pages/dashboard/admin/admin-view-company-admins-page/admin-view-company-admins-page.component */ "./src/app/pages/dashboard/admin/admin-view-company-admins-page/admin-view-company-admins-page.component.ts");
 /* harmony import */ var _pages_dashboard_admin_admin_view_branch_executives_page_admin_view_branch_executives_page_component__WEBPACK_IMPORTED_MODULE_102__ = __webpack_require__(/*! ./pages/dashboard/admin/admin-view-branch-executives-page/admin-view-branch-executives-page.component */ "./src/app/pages/dashboard/admin/admin-view-branch-executives-page/admin-view-branch-executives-page.component.ts");
 /* harmony import */ var _pages_dashboard_admin_admin_view_company_executives_page_admin_view_company_executives_page_component__WEBPACK_IMPORTED_MODULE_103__ = __webpack_require__(/*! ./pages/dashboard/admin/admin-view-company-executives-page/admin-view-company-executives-page.component */ "./src/app/pages/dashboard/admin/admin-view-company-executives-page/admin-view-company-executives-page.component.ts");
+/* harmony import */ var _pages_dashboard_front_desk_front_desk_clients_form_data_page_front_desk_clients_form_data_page_component__WEBPACK_IMPORTED_MODULE_104__ = __webpack_require__(/*! ./pages/dashboard/front-desk/front-desk-clients-form-data-page/front-desk-clients-form-data-page.component */ "./src/app/pages/dashboard/front-desk/front-desk-clients-form-data-page/front-desk-clients-form-data-page.component.ts");
+
 
 
 
@@ -2203,31 +2222,32 @@ var AppModule = /** @class */ (function () {
                 _pages_dashboard_admin_admin_view_company_admins_page_admin_view_company_admins_page_component__WEBPACK_IMPORTED_MODULE_101__["AdminViewCompanyAdminsPageComponent"],
                 _pages_dashboard_admin_admin_view_branch_executives_page_admin_view_branch_executives_page_component__WEBPACK_IMPORTED_MODULE_102__["AdminViewBranchExecutivesPageComponent"],
                 _pages_dashboard_admin_admin_view_company_executives_page_admin_view_company_executives_page_component__WEBPACK_IMPORTED_MODULE_103__["AdminViewCompanyExecutivesPageComponent"],
+                _pages_dashboard_front_desk_front_desk_clients_form_data_page_front_desk_clients_form_data_page_component__WEBPACK_IMPORTED_MODULE_104__["FrontDeskClientsFormDataPageComponent"],
             ],
             imports: [
                 _angular_platform_browser__WEBPACK_IMPORTED_MODULE_1__["BrowserModule"],
                 _angular_forms__WEBPACK_IMPORTED_MODULE_3__["FormsModule"],
-                _angular_common_http__WEBPACK_IMPORTED_MODULE_7__["HttpClientModule"],
-                _app_routing_module__WEBPACK_IMPORTED_MODULE_8__["AppRoutingModule"],
+                _angular_common_http__WEBPACK_IMPORTED_MODULE_8__["HttpClientModule"],
+                _app_routing_module__WEBPACK_IMPORTED_MODULE_9__["AppRoutingModule"],
                 ngx_order_pipe__WEBPACK_IMPORTED_MODULE_4__["OrderModule"],
                 ngx_clipboard__WEBPACK_IMPORTED_MODULE_5__["ClipboardModule"],
-                ng2_pdf_viewer__WEBPACK_IMPORTED_MODULE_11__["PdfViewerModule"],
-                _ng_bootstrap_ng_bootstrap__WEBPACK_IMPORTED_MODULE_9__["NgbModule"],
-                _ng_bootstrap_ng_bootstrap__WEBPACK_IMPORTED_MODULE_9__["NgbAlertModule"],
-                _ng_bootstrap_ng_bootstrap__WEBPACK_IMPORTED_MODULE_9__["NgbModalModule"],
+                ng2_pdf_viewer__WEBPACK_IMPORTED_MODULE_6__["PdfViewerModule"],
+                _ng_bootstrap_ng_bootstrap__WEBPACK_IMPORTED_MODULE_10__["NgbModule"],
+                _ng_bootstrap_ng_bootstrap__WEBPACK_IMPORTED_MODULE_10__["NgbAlertModule"],
+                _ng_bootstrap_ng_bootstrap__WEBPACK_IMPORTED_MODULE_10__["NgbModalModule"],
                 _angular_material_icon__WEBPACK_IMPORTED_MODULE_12__["MatIconModule"],
                 _angular_material_input__WEBPACK_IMPORTED_MODULE_13__["MatInputModule"],
-                _angular_material__WEBPACK_IMPORTED_MODULE_14__["MatSelectModule"],
+                _angular_material__WEBPACK_IMPORTED_MODULE_16__["MatSelectModule"],
                 _angular_forms__WEBPACK_IMPORTED_MODULE_3__["ReactiveFormsModule"],
-                _angular_material_datepicker__WEBPACK_IMPORTED_MODULE_16__["MatDatepickerModule"],
-                _angular_material_core__WEBPACK_IMPORTED_MODULE_15__["MatNativeDateModule"],
-                _angular_material__WEBPACK_IMPORTED_MODULE_14__["MatAutocompleteModule"],
-                ngx_country_picker__WEBPACK_IMPORTED_MODULE_6__["CountryPickerModule"].forRoot({
+                _angular_material_datepicker__WEBPACK_IMPORTED_MODULE_15__["MatDatepickerModule"],
+                _angular_material_core__WEBPACK_IMPORTED_MODULE_14__["MatNativeDateModule"],
+                _angular_material__WEBPACK_IMPORTED_MODULE_16__["MatAutocompleteModule"],
+                ngx_country_picker__WEBPACK_IMPORTED_MODULE_7__["CountryPickerModule"].forRoot({
                     baseUrl: 'assets/',
                     filename: 'countries.json'
                 }),
                 _angular_platform_browser_animations__WEBPACK_IMPORTED_MODULE_59__["BrowserAnimationsModule"],
-                ngx_page_scroll_core__WEBPACK_IMPORTED_MODULE_10__["NgxPageScrollCoreModule"]
+                ngx_page_scroll_core__WEBPACK_IMPORTED_MODULE_11__["NgxPageScrollCoreModule"]
             ],
             providers: [],
             bootstrap: [_app_component__WEBPACK_IMPORTED_MODULE_17__["AppComponent"]]
@@ -8171,6 +8191,50 @@ var FormPrintingPageComponent = /** @class */ (function () {
 
 /***/ }),
 
+/***/ "./src/app/pages/dashboard/front-desk/front-desk-clients-form-data-page/front-desk-clients-form-data-page.component.css":
+/*!******************************************************************************************************************************!*\
+  !*** ./src/app/pages/dashboard/front-desk/front-desk-clients-form-data-page/front-desk-clients-form-data-page.component.css ***!
+  \******************************************************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = "\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IiIsImZpbGUiOiJzcmMvYXBwL3BhZ2VzL2Rhc2hib2FyZC9mcm9udC1kZXNrL2Zyb250LWRlc2stY2xpZW50cy1mb3JtLWRhdGEtcGFnZS9mcm9udC1kZXNrLWNsaWVudHMtZm9ybS1kYXRhLXBhZ2UuY29tcG9uZW50LmNzcyJ9 */"
+
+/***/ }),
+
+/***/ "./src/app/pages/dashboard/front-desk/front-desk-clients-form-data-page/front-desk-clients-form-data-page.component.ts":
+/*!*****************************************************************************************************************************!*\
+  !*** ./src/app/pages/dashboard/front-desk/front-desk-clients-form-data-page/front-desk-clients-form-data-page.component.ts ***!
+  \*****************************************************************************************************************************/
+/*! exports provided: FrontDeskClientsFormDataPageComponent */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "FrontDeskClientsFormDataPageComponent", function() { return FrontDeskClientsFormDataPageComponent; });
+/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
+
+
+var FrontDeskClientsFormDataPageComponent = /** @class */ (function () {
+    function FrontDeskClientsFormDataPageComponent() {
+    }
+    FrontDeskClientsFormDataPageComponent.prototype.ngOnInit = function () {
+    };
+    FrontDeskClientsFormDataPageComponent = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Component"])({
+            selector: 'app-front-desk-clients-form-data-page',
+            template: __webpack_require__(/*! raw-loader!./front-desk-clients-form-data-page.component.html */ "./node_modules/raw-loader/index.js!./src/app/pages/dashboard/front-desk/front-desk-clients-form-data-page/front-desk-clients-form-data-page.component.html"),
+            styles: [__webpack_require__(/*! ./front-desk-clients-form-data-page.component.css */ "./src/app/pages/dashboard/front-desk/front-desk-clients-form-data-page/front-desk-clients-form-data-page.component.css")]
+        })
+    ], FrontDeskClientsFormDataPageComponent);
+    return FrontDeskClientsFormDataPageComponent;
+}());
+
+
+
+/***/ }),
+
 /***/ "./src/app/pages/dashboard/front-desk/front-desk-home-page/front-desk-home-page.component.css":
 /*!****************************************************************************************************!*\
   !*** ./src/app/pages/dashboard/front-desk/front-desk-home-page/front-desk-home-page.component.css ***!
@@ -9319,14 +9383,14 @@ var CreateAccessCodePageComponent = /** @class */ (function () {
         }
     };
     CreateAccessCodePageComponent.prototype.cancel = function () {
-        var _this = this;
-        if (!this.isFormEmpty()) {
-            this.modalService.open(this.modalTemplateRef, { centered: true }).result.then(function (result) {
-                if (result == 'yes') {
-                    _this.clearData();
-                }
-            });
-        }
+        this.ok();
+        // if (!this.isFormEmpty()) {
+        //   this.modalService.open(this.modalTemplateRef, { centered: true }).result.then(result => {
+        //     if (result == 'yes') {
+        //       this.clearData();
+        //     }
+        //   });
+        // }
     };
     CreateAccessCodePageComponent.prototype.clearData = function () {
         this.f.branch.setValue('');
@@ -10107,9 +10171,10 @@ var CreateFormPageComponent = /** @class */ (function () {
         }
     };
     CreateFormPageComponent.prototype.publish = function () {
-        this.formCode = this.formBuilderService.generateUniqueFormCode();
+        this.loading = true;
         this.submitted = true;
         this.toPublish = true;
+        this.formCode = this.formBuilderService.generateUniqueFormCode();
         // remove pdf validations
         this.f.pdf.clearValidators();
         this.f.pdf.updateValueAndValidity();
@@ -11373,6 +11438,7 @@ var EditFormPageComponent = /** @class */ (function () {
                         _this.alertMessage = 'Form has been successfully published';
                         _this.alertSuccess = true;
                         _this.isPublished = true;
+                        _this.formStatus = '1';
                         _this.hideLoadingModal();
                         _this.modalService.open(_this.statusModal, { centered: true });
                     }
@@ -11408,6 +11474,7 @@ var EditFormPageComponent = /** @class */ (function () {
                         _this.alertMessage = 'Form has been successfully unpublished';
                         _this.alertSuccess = true;
                         _this.isPublished = false;
+                        _this.formStatus = '0';
                         _this.hideLoadingModal();
                         _this.modalService.open(_this.statusModal, { centered: true });
                     }
@@ -15923,7 +15990,6 @@ var AccountService = /** @class */ (function () {
             });
         });
     };
-    // editAccessCode()
     AccountService.prototype.getCountryDialCodes = function () {
         var _this = this;
         return new Promise(function (resolve, reject) {
@@ -15997,7 +16063,7 @@ var AccountService = /** @class */ (function () {
         return new Promise(function (resolve, reject) {
             var url = _this.endpointService.apiHost + 'api/v1/activateAccessCode/' + access_code;
             _this.http.post(url, {}, { headers: _this.authHeaders }).subscribe(function (res) {
-                console.log('res: ' + JSON.stringify(res));
+                console.log('res____: ' + JSON.stringify(res));
                 var response = res;
                 if (lodash__WEBPACK_IMPORTED_MODULE_2__["toLower"](response.message) == 'ok') {
                     resolve(true);
@@ -16006,7 +16072,7 @@ var AccountService = /** @class */ (function () {
                     resolve(false);
                 }
             }, function (err) {
-                console.log('err: ' + JSON.stringify(err));
+                console.log('err_____: ' + JSON.stringify(err));
                 reject(err);
             });
         });
@@ -16023,7 +16089,7 @@ var AccountService = /** @class */ (function () {
         return new Promise(function (resolve, reject) {
             var url = _this.endpointService.apiHost + 'api/v1/deactivateAccessCode/' + access_code;
             _this.http.post(url, {}, { headers: _this.authHeaders }).subscribe(function (res) {
-                console.log('res: ' + JSON.stringify(res));
+                console.log('res______: ' + JSON.stringify(res));
                 var response = res;
                 if (lodash__WEBPACK_IMPORTED_MODULE_2__["toLower"](response.message) == 'ok') {
                     resolve(true);
@@ -16032,7 +16098,7 @@ var AccountService = /** @class */ (function () {
                     resolve(false);
                 }
             }, function (err) {
-                console.log('err: ' + JSON.stringify(err));
+                console.log('err_____: ' + JSON.stringify(err));
                 reject(err);
             });
         });

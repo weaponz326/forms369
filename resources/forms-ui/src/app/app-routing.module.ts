@@ -78,6 +78,7 @@ import { AdminViewBranchAdminsPageComponent } from './pages/dashboard/admin/admi
 import { AdminViewCompanyAdminsPageComponent } from './pages/dashboard/admin/admin-view-company-admins-page/admin-view-company-admins-page.component';
 import { AdminViewBranchExecutivesPageComponent } from './pages/dashboard/admin/admin-view-branch-executives-page/admin-view-branch-executives-page.component';
 import { AdminViewCompanyExecutivesPageComponent } from './pages/dashboard/admin/admin-view-company-executives-page/admin-view-company-executives-page.component';
+import { FrontDeskClientsFormDataPageComponent } from './pages/dashboard/front-desk/front-desk-clients-form-data-page/front-desk-clients-form-data-page.component';
 
 const routes: Routes = [
   {
@@ -326,6 +327,10 @@ const routes: Routes = [
           {
             path: 'processing',
             component: FrontDeskProcessingFormsListPageComponent
+          },
+          {
+            path: 'client_form_data',
+            component: FrontDeskClientsFormDataPageComponent
           }
         ]
       }

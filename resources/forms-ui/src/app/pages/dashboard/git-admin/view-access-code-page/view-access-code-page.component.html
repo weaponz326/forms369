@@ -117,16 +117,16 @@
                         <td>{{ code.sourceusage }}</td>
                         <td>{{ code.created_at | date }}</td>
                         <td>
-                          <div *ngIf="code.active == 1" class="text-center text-success status-dot"></div>
-                          <div *ngIf="code.active == 0" class="text-center text-danger status-dot"></div>
+                          <div *ngIf="code.active == 0" class="text-center text-success status-dot"></div>
+                          <div *ngIf="code.active == 1" class="text-center text-danger status-dot"></div>
                         </td>
                         <td>
                           <div class="d-flex align-items-end flex-wrap">
-                            <button *ngIf="code.active == 0" type="button" class="btn btn-light bg-white btn-icon mr-1"
+                            <button *ngIf="code.active == 1" type="button" class="btn btn-light bg-white btn-icon mr-1"
                               (click)="activate(code.accesscode)">
                               <i class="mdi mdi-check text-success"></i>
                             </button>
-                            <button *ngIf="code.active == 1" type="button" class="btn btn-light bg-white btn-icon mr-1"
+                            <button *ngIf="code.active == 0" type="button" class="btn btn-light bg-white btn-icon mr-1"
                               (click)="deactivate(code.accesscode)">
                               <i class="mdi mdi-close text-danger"></i>
                             </button>

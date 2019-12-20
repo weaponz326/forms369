@@ -246,9 +246,10 @@ export class CreateFormPageComponent implements OnInit {
   }
 
   publish() {
-    this.formCode = this.formBuilderService.generateUniqueFormCode();
+    this.loading = true;
     this.submitted = true;
     this.toPublish = true;
+    this.formCode = this.formBuilderService.generateUniqueFormCode();
 
     // remove pdf validations
     this.f.pdf.clearValidators();

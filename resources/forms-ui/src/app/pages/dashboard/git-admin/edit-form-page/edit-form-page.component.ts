@@ -172,6 +172,7 @@ export class EditFormPageComponent implements OnInit {
                 this.alertMessage = 'Form has been successfully published';
                 this.alertSuccess = true;
                 this.isPublished = true;
+                this.formStatus = '1';
                 this.hideLoadingModal();
                 this.modalService.open(this.statusModal, { centered: true });
               }
@@ -212,6 +213,7 @@ export class EditFormPageComponent implements OnInit {
                 this.alertMessage = 'Form has been successfully unpublished';
                 this.alertSuccess = true;
                 this.isPublished = false;
+                this.formStatus = '0';
                 this.hideLoadingModal();
                 this.modalService.open(this.statusModal, { centered: true });
               }
