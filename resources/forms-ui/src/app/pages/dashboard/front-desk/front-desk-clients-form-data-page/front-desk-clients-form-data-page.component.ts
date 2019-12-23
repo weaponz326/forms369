@@ -36,4 +36,7 @@ export class FrontDeskClientsFormDataPageComponent implements OnInit {
     );
   }
 
+  retry() {
+  }
+
 }
