@@ -98,10 +98,14 @@
                         <td>{{ form.client_name }}</td>
                         <td>{{ form.last_processed | date }}</td>
                         <td>
-                          <button type="button" class="btn btn-light bg-white btn-icon"
-                            data-toggle="tooltip" data-placement="top" title="Print" (click)="print($event, form)">
+                          <button type="button" class="btn btn-light bg-white btn-icon" data-toggle="tooltip"
+                            data-placement="top" title="Print" (click)="print($event, form)">
                             <i class="mdi mdi-printer text-muted"></i>
                           </button>
+                          <!-- <button type="button" class="btn btn-light bg-white btn-icon" data-toggle="tooltip"
+                            data-placement="top" title="View Data" (click)="view($event, form.form_code)">
+                            <i class="mdi mdi-eye text-muted"></i>
+                          </button> -->
                         </td>
                       </tr>
                     </tbody>
