@@ -79,6 +79,7 @@ import { AdminViewCompanyAdminsPageComponent } from './pages/dashboard/admin/adm
 import { AdminViewBranchExecutivesPageComponent } from './pages/dashboard/admin/admin-view-branch-executives-page/admin-view-branch-executives-page.component';
 import { AdminViewCompanyExecutivesPageComponent } from './pages/dashboard/admin/admin-view-company-executives-page/admin-view-company-executives-page.component';
 import { FrontDeskClientsFormDataPageComponent } from './pages/dashboard/front-desk/front-desk-clients-form-data-page/front-desk-clients-form-data-page.component';
+import { InvalidConfirmationPageComponent } from './pages/invalid-confirmation-page/invalid-confirmation-page.component';
 
 const routes: Routes = [
   {
@@ -116,6 +117,10 @@ const routes: Routes = [
   {
     path: 'change_password',
     component: ChangePasswordPageComponent
+  },
+  {
+    path: 'invalid_confirm_link',
+    component: InvalidConfirmationPageComponent
   },
   {
     path: 'git_admin',

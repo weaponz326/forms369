@@ -56,6 +56,11 @@ Route::get('change_password', function () {
     return View::make('index');
 });
 
+Route::get('invalid_confirm_link', function () {
+    View::addExtension('html', 'php');
+    return View::make('index');
+});
+
 Route::get('git_admin', function () {
     View::addExtension('html', 'php');
     return View::make('index');
