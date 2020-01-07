@@ -118,7 +118,9 @@ export class UserAccountCreatorComponent implements OnInit {
       // remove validators of merchant and branch
       // so the account can be created.
       this.f.branch.clearValidators();
+      this.f.merchant.clearValidators();
       this.f.branch.updateValueAndValidity();
+      this.f.merchant.updateValueAndValidity();
 
       // Since merchant isnt a required field in our form in this case, and also
       // we need to make sure the right merchant has been selected.
@@ -189,10 +191,15 @@ export class UserAccountCreatorComponent implements OnInit {
   }
 
   containErrors(data: Users) {
-    if (data.merchant_id == 0) {
-      console.log('no merchant');
-      this.f.merchant.setErrors({ null: true });
-      return true;
+    if (this.f.merchant.value == '') {
+      return false;
+    }
+    else {
+      if (data.merchant_id == 0) {
+        console.log('no merchant');
+        this.f.merchant.setErrors({ null: true });
+        return true;
+      }
     }
 
     if (data.branch_id == 0) {

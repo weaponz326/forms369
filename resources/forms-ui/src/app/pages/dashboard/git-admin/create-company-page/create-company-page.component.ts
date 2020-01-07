@@ -94,7 +94,7 @@ export class CreateCompanyPageComponent implements OnInit {
       name: ['', Validators.required],
       logo: ['', Validators.required],
       country: ['', Validators.required],
-      allowPrint: ['0', Validators.required],
+      allowPrint: ['', Validators.required],
       companyAdmin: ['', Validators.required],
       superExecutive: ['', Validators.required]
     });

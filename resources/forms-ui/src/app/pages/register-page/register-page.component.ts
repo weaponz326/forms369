@@ -33,7 +33,7 @@ export class RegisterPageComponent implements OnInit {
 
   ngOnInit() {
     this.countryPickerService.getCountries().subscribe(countries => { this.countriesList = countries; });
-    this.accountService.getCountryDialCodes().then(country_dial_codes => { this.countryDialCodes = country_dial_codes; });
+    // this.accountService.getCountryDialCodes().then(country_dial_codes => { this.countryDialCodes = country_dial_codes; });
     this.buildForm();
   }
 

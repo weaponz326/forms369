@@ -472,7 +472,7 @@ export class AccountService {
   logOut(): Promise<any> {
     return new Promise((resolve, reject) => {
       const url = this.endpointService.apiHost + 'api/v1/logoutUser';
-      this.http.get(url, { headers: this.headers }).subscribe(
+      this.http.get(url, { headers: this.authHeaders }).subscribe(
         res => {
           sessionStorage.clear();
           resolve(res);

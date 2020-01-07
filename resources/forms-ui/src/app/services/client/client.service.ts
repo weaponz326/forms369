@@ -329,6 +329,11 @@ export class ClientService {
     return toFillFormFields;
   }
 
+  /**
+   * Highlights all input fields that are required but 
+   * have not been filled by the user.
+   * @param {Array<any>} form_data 
+   */
   highlightUnFilledFormFields(form_data: Array<any>) {
     document.querySelectorAll('input').forEach((input) => {
       input.style.borderColor = '#acacac';
@@ -338,5 +343,43 @@ export class ClientService {
         document.getElementById(field.name).style.borderColor = '#e2898d';
       });
     }
+  }
+
+  uploadFormAttachments(client_id: string, form_code: string, submission_code: string, file: File): Promise<boolean> {
+    return new Promise((resolve, reject) => {
+      const url = this.endpointService.apiHost + `api/v1/uploadattachments/${client_id}/${form_code}/${submission_code}`;
+      const form = new FormData();
+      form.set('file', file);
+
+      this.http.post(url, form, { headers: this.endpointService.headers(true) }).subscribe(
+        res => {
+          const response = res as any;
+          if (_.toLower(response.message) == 'ok') {
+            resolve(true);
+          }
+          else {
+            resolve(false);
+          }
+        },
+        err => {
+          reject(err);
+        }
+      );
+    });
+  }
+
+  getFormAttachment(submission_code: string): Promise<any> {
+    return new Promise((resolve, reject) => {
+      const url = this.endpointService.apiHost + 'getAttachments/' + submission_code;
+      this.http.get(url, { headers: this.endpointService.headers() }).subscribe(
+        res => {
+          const response = res as any;
+          resolve(response.attachments);
+        },
+        err => {
+          reject(err);
+        }
+      )
+    });
   }
 }

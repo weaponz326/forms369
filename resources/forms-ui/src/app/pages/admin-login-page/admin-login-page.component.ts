@@ -37,7 +37,6 @@ export class AdminLoginPageComponent implements OnInit {
   }
 
   initVars() {
-    // this.checkAccessToLogin();
     this.waiting = true;
     if (window.location.origin != 'http://localhost:4200') {
       this.checkAccessToLogin();
