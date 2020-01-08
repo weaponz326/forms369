@@ -16,7 +16,7 @@
                 </div>
               </div>
               <div class="d-flex justify-content-between align-items-end flex-wrap">
-                <button type="button" class="btn btn-light bg-white btn-icon mr-3 mt-2 mt-xl-0"
+                <button *ngIf="isGitAdmin" type="button" class="btn btn-light bg-white btn-icon mr-3 mt-2 mt-xl-0"
                   (click)="openNewBranch()">
                   <i class="mdi mdi-plus text-muted"></i>
                 </button>

@@ -55,11 +55,13 @@ export class FrontDeskSubmittedFormsListPageComponent implements OnInit {
       res => {
         this.hasMore = this.checkIfHasMore();
         if (res.length != 0) {
-          this.hasData = true;
           _.forEach(res, (form) => {
-            this.submittedFormsList.push(form);
+            if (form.can_view == 1) {
+              this.submittedFormsList.push(form);
+            }
           });
           this.loading = false;
+          this.hasData = this.submittedFormsList.length == 0 ? false : true;
         }
         else {
           this.hasData = false;
@@ -83,7 +85,9 @@ export class FrontDeskSubmittedFormsListPageComponent implements OnInit {
         this.hasMoreError = false;
         this.hasMore = this.checkIfHasMore();
         _.forEach(res, (form) => {
-          this.submittedFormsList.push(form);
+          if (form.can_view == 1) {
+            this.submittedFormsList.push(form);
+          }
         });
         this.loading = false;
       },

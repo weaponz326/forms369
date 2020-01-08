@@ -197,8 +197,13 @@ export class ClientService {
                 }
               }
               else {
-                // this is a text input.
-                form_field.value = client_data[client];
+                // this is an input, check if a file input or a text input
+                if (form_field.type == 'file') {
+                  // do something
+                }
+                else {
+                  form_field.value = client_data[client];
+                }
               }
             });
           }
@@ -345,10 +350,11 @@ export class ClientService {
     }
   }
 
-  uploadFormAttachments(client_id: string, form_code: string, submission_code: string, file: File): Promise<boolean> {
+  uploadFormAttachments(client_id: string, form_code: string, submission_code: string, key: string, file: File): Promise<boolean> {
     return new Promise((resolve, reject) => {
       const url = this.endpointService.apiHost + `api/v1/uploadattachments/${client_id}/${form_code}/${submission_code}`;
       const form = new FormData();
+      form.set('key', key);
       form.set('file', file);
 
       this.http.post(url, form, { headers: this.endpointService.headers(true) }).subscribe(
@@ -362,6 +368,7 @@ export class ClientService {
           }
         },
         err => {
+          console.log('file upload error: ' + JSON.stringify(err));
           reject(err);
         }
       );
@@ -379,7 +386,7 @@ export class ClientService {
         err => {
           reject(err);
         }
-      )
+      );
     });
   }
 }

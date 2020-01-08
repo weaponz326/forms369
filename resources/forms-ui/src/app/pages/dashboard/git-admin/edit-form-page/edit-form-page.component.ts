@@ -116,6 +116,7 @@ export class EditFormPageComponent implements OnInit {
   buildForm() {
     this.form = this._formBuilder.group({
       pdf: [''],
+      canView: [this._form.can_view],
       merchant: ['', Validators.required],
       name: [this._form.name, Validators.required],
     });
@@ -279,6 +280,7 @@ export class EditFormPageComponent implements OnInit {
       formData.form_code = this._form.form_code;
       formData.status = _.toInteger(this.formStatus);
       formData.merchant_id = parseInt(this.f.merchant.value);
+      formData.can_view = this.f.canView.value == '' ? 0 : this.f.canView.value;
 
       this.formService.editForm(this._form.form_code, formData).then(
         res => {
