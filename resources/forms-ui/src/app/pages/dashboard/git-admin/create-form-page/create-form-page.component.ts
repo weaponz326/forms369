@@ -96,6 +96,7 @@ export class CreateFormPageComponent implements OnInit {
   buildForm() {
     this.form = this._formBuilder.group({
       pdf: [''],
+      canView: [''],
       name: ['', Validators.required],
       merchant: ['', Validators.required]
     });
@@ -175,6 +176,7 @@ export class CreateFormPageComponent implements OnInit {
       formData.form_code = this.formCode;
       formData.status = this.toPublish ? 1 : 0;
       formData.merchant_id = parseInt(this.f.merchant.value);
+      formData.can_view = this.f.canView.value == '' ? 0 : this.f.canView.value;
 
       this.formService.createForm(formData).then(
         res => {

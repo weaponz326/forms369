@@ -18,8 +18,8 @@ export class AdminCreateUserPageComponent implements OnInit {
   ngOnInit() {
   }
 
-  goHome() {
-    this.router.navigateByUrl('/admin');
+  ok() {
+    this.router.navigateByUrl('/admin/lists/front_desk');
   }
 
   bringBackForm() {

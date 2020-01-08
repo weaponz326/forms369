@@ -25,6 +25,7 @@ export class UserAccountCreatorComponent implements OnInit {
   submitted: boolean;
   isGitAdmin: boolean;
   isFrontDesk: boolean;
+  isCompUser: boolean;
   isCompAdmin: boolean;
   isSuperExec: boolean;
   branchesList: Array<any>;
@@ -90,9 +91,18 @@ export class UserAccountCreatorComponent implements OnInit {
   }
 
   initializeView() {
-    if (!this.isGitAdmin) {
-      this.getCompany();
+    console.log('user_type: ' + this.localStorage.getUser().usertype);
+    const user_type = this.localStorage.getUser().usertype;
+    this.isCompUser =
+      user_type == UserTypes.CompanyAdmin ||
+      user_type == UserTypes.BranchAdmin ? true : false;
+    if (user_type == UserTypes.BranchAdmin || user_type == UserTypes.CompanyAdmin) {
+      const merchant_id = this.localStorage.getUser().merchant_id;
+      this.getCompanyBranches(merchant_id);
     }
+    // if (!this.isGitAdmin) {
+    //   this.getCompany();
+    // }
   }
 
   onCountrySelect(e: any) {
@@ -147,6 +157,10 @@ export class UserAccountCreatorComponent implements OnInit {
       // a front desk account. And since we are hiding the option to choose which kind
       // of user to be created, we have to set the user to Front Desk.
       this.f.userType.setValue('25');
+      if (this.isCompUser) {
+        this.f.merchant.clearValidators();
+        this.f.merchant.updateValueAndValidity();
+      }
     }
   }
 
@@ -180,13 +194,12 @@ export class UserAccountCreatorComponent implements OnInit {
     const branch_id = this.getSelectedBranchIdentifier();
     const merchant_id = this.getSelectedMerchantIdentifier();
 
-    if (this.isAdmin) {
+    if (this.isAdmin || this.isCompUser) {
       const merchantId = this.localStorage.getUser().merchant_id;
-      return new Users(fname, lname, email, password, username, country, dCode + phone, password, userType, null, null, merchantId, branch_id);
+      return new Users(fname, lname, email, password, username, country, dCode + phone, password, userType, userType, null, null, merchantId, branch_id);
     }
     else {
-      const user = new Users(fname, lname, email, password, username, country, dCode + phone, password, userType, userType, null, null, merchant_id, branch_id);
-      return user;
+      return new Users(fname, lname, email, password, username, country, dCode + phone, password, userType, userType, null, null, merchant_id, branch_id);
     }
   }
 
@@ -272,10 +285,12 @@ export class UserAccountCreatorComponent implements OnInit {
     );
   }
 
-  getCompanyBranches() {
+  getCompanyBranches(merchant_id?: number) {
     this.branchesList = [];
     this.branchNamesList = [];
-    const id = this.getSelectedMerchantIdentifier();
+    const id = !_.isUndefined(merchant_id)
+      ? merchant_id
+      : this.getSelectedMerchantIdentifier();
     console.log('selected company_id: ' + id);
     this.branchService.getBranch(id.toString()).then(
       res => {
@@ -305,6 +320,7 @@ export class UserAccountCreatorComponent implements OnInit {
     this.submitted = true;
     this.handleUserSelection();
     if (this.form.invalid) {
+      console.log('errrrrrrr: ' + this.form.errors);
       this.form.enable();
       this.loading = false;
     }

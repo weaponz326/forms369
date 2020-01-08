@@ -49,6 +49,7 @@ export class AdminFormEditPageComponent implements OnInit {
     this._form = window.history.state.form;
     this.resolveReloadDataLoss();
     this.merchant_id = this.localStorage.getUser().merchant_id;
+    this.isPublished = this._form.status == 1 ? true : false;
     console.log('merchant id: ' + this.merchant_id);
   }
 
@@ -181,6 +182,7 @@ export class AdminFormEditPageComponent implements OnInit {
                 this.alertMessage = 'Form has been successfully published';
                 this.alertSuccess = true;
                 this.isPublished = true;
+                this.formStatus = '1';
                 this.hideLoadingModal();
                 this.modalService.open(this.statusModal, { centered: true });
               }
@@ -221,6 +223,7 @@ export class AdminFormEditPageComponent implements OnInit {
                 this.alertMessage = 'Form has been successfully unpublished';
                 this.alertSuccess = true;
                 this.isPublished = false;
+                this.formStatus = '0';
                 this.hideLoadingModal();
                 this.modalService.open(this.statusModal, { centered: true });
               }

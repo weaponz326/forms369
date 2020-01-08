@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { LocalStorageService } from 'src/app/services/storage/local-storage.service';
 import { UserTypes } from 'src/app/enums/user-types.enum';
+import { LocalStorageService } from 'src/app/services/storage/local-storage.service';
 
 @Component({
   selector: 'app-side-bar',
@@ -17,7 +17,9 @@ export class SideBarComponent implements OnInit {
   isBranchAdmin: boolean;
   isBranchSuperExec: boolean;
 
-  constructor(private localStorageService: LocalStorageService) {
+  constructor(
+    private localStorage: LocalStorageService
+  ) {
     this.showSideBarMenu();
     console.log('git: ' + this.isGitAdmin);
   }
@@ -26,7 +28,7 @@ export class SideBarComponent implements OnInit {
   }
 
   showSideBarMenu() {
-    const user = this.localStorageService.getUser().usertype;
+    const user = this.localStorage.getUser().usertype;
     switch (user) {
       case UserTypes.Client:
         this.isClient = true;

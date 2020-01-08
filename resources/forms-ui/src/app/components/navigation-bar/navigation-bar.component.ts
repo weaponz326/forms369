@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { AccountService } from 'src/app/services/account/account.service';
 import { LocalStorageService } from 'src/app/services/storage/local-storage.service';
+import { UserTypes } from 'src/app/enums/user-types.enum';
 
 @Component({
   selector: 'app-navigation-bar',
@@ -11,14 +12,16 @@ import { LocalStorageService } from 'src/app/services/storage/local-storage.serv
 export class NavigationBarComponent implements OnInit {
 
   fullName: string;
+  userType: UserTypes;
 
   constructor(
     private router: Router,
     private accountService: AccountService,
-    private localStorageService: LocalStorageService
+    private localStorage: LocalStorageService
   ) {
-    const firstName = this.localStorageService.getUser().firstname;
-    const lastName = this.localStorageService.getUser().lastname;
+    this.userType = this.localStorage.getUser().user_type;
+    const lastName = this.localStorage.getUser().lastname;
+    const firstName = this.localStorage.getUser().firstname;
     this.fullName = firstName + ' ' + lastName;
   }
 
@@ -26,16 +29,22 @@ export class NavigationBarComponent implements OnInit {
   }
 
   openHome() {
+    this.router.navigateByUrl('user_auth');
+  }
+
+  openClientHome() {
     this.router.navigateByUrl('login');
   }
 
   logout() {
     this.accountService.logOut().then(
       res => {
-        this.openHome();
+        this.userType == UserTypes.Client
+          ? this.openClientHome() : this.openHome();
       },
       err => {
-        this.openHome();
+        this.userType == UserTypes.Client
+          ? this.openClientHome() : this.openHome();
       }
     );
   }

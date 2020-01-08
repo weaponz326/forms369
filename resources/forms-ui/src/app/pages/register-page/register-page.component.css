@@ -16,6 +16,7 @@ p.lead {
 
 .content-wrapper {
     background-size: cover;
+    background-repeat: no-repeat;
     background: linear-gradient(rgba(5,5,5,0.2), rgba(0,0,0,0.8)), url('https://behalnetwork.com/wp-content/uploads/2018/11/bn-website-bg.png') !important;
 }
 

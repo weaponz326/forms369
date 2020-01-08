@@ -51,9 +51,9 @@
         </div>
       </div>
     </div>
-    <div [ngClass]="{'col-md-6': !isCompAdmin && !isSuperExec, 'col-md-12': isCompAdmin && isSuperExec}">
+    <div [ngClass]="{'col-md-6': !isCompAdmin || !isSuperExec, 'col-md-12': isCompAdmin || isSuperExec || this.isCompUser}">
       <!-- <div> -->
-        <div class="form-group" *ngIf="!isCompAdmin && !isSuperExec">
+        <div class="form-group" *ngIf="!isCompAdmin || !isSuperExec">
           <input type="text" class="form-control" formControlName="branch" placeholder="Branch Name"
             [matAutocomplete]="auto_1" [ngClass]="{'input-control-error': submitted && f.branch.errors}">
           <mat-autocomplete #auto_1="matAutocomplete">

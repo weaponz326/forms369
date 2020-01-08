@@ -60,8 +60,7 @@ export class FrontDeskProcessedFormsListPageComponent implements OnInit {
   getAllProcessedForms() {
     this.loading = true;
     const processedForms = [];
-    const merchant_id = this.user.merchant_id.toString();
-    this.frontDeskService.getSubmittedFormByStatusAndMerchant(2, merchant_id).then(
+    this.frontDeskService.getAllFormsProcessedByUser(this.user.id.toString()).then(
       res => {
         this.hasMore = this.checkIfHasMore();
         if (res.length != 0) {
@@ -86,9 +85,8 @@ export class FrontDeskProcessedFormsListPageComponent implements OnInit {
 
   loadMore() {
     this.loadingMore = true;
-    const merchant_id = this.user.merchant_id.toString();
     const moreUrl = this.frontDeskService.nextPaginationUrl;
-    this.frontDeskService.getSubmittedFormByStatusAndMerchant(2, merchant_id, moreUrl).then(
+    this.frontDeskService.getAllFormsProcessedByUser(this.user.id.toString()).then(
       res => {
         this.loadingMore = false;
         this.hasMoreError = false;

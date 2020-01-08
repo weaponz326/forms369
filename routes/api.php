@@ -191,7 +191,7 @@ Route::group(['middleware' => ['auth:api'], 'prefix' => 'v1'], function(){
   Route::get('getNumSubmittedFormsByStatus/{status}/{id}', 'HomeController@getNumSubmittedFormsByStatus')->name('getNumSubmittedFormsByStatus')->middleware('scope:GIT_Admin,frontdesk,super_executive,branch_executive');   
   //@param status and branch_id                                  
   Route::get('getNumBranchProcessedFormsByStatus/{status}/{id}', 'HomeController@getNumBranchProcessedFormsByStatus')->name('getNumBranchProcessedFormsByStatus')->middleware('scope:GIT_Admin,super_executive,branch_executive');                                     
-  Route::get('viewRespondentData/{code}', 'HomeController@viewRespondentData')->name('viewRespondentData')->middleware('scope:GIT_Admin,super_executive,branch_executive,company_admin,branch_admin');                                     
+  Route::get('viewRespondentData/{code}', 'HomeController@viewRespondentData')->name('viewRespondentData')->middleware('scope:GIT_Admin,super_executive,branch_executive,company_admin,branch_admin,frontdesk');                                     
 
   
   //templates endpoints 

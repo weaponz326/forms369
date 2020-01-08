@@ -70,13 +70,14 @@ export class FrontDeskService {
     });
   }
 
-  getAllFormsProcessed(user_id: string): Promise<any> {
+  getAllFormsProcessedByUser(user_id: string): Promise<any> {
     return new Promise((resolve, reject) => {
       const url = this.endpointService.apiHost + 'api/v1/getAllFormsProcessedByFrontDeskPerson/' + user_id;
       this.http.get(url, { headers: this.headers }).subscribe(
         res => {
           console.log('res: ' + JSON.stringify(res));
-          resolve(res);
+          const response = res as any;
+          resolve(response.processed_forms.data);
         },
         err => {
           console.log('err: ' + JSON.stringify(err));
@@ -119,6 +120,16 @@ export class FrontDeskService {
           console.log('err: ' + JSON.stringify(err));
           reject(err);
         }
+      );
+    });
+  }
+
+  getRespondantData(form_code: string): Promise<any> {
+    return new Promise((resolve, reject) => {
+      const url = this.endpointService.apiHost + 'api/v1/viewRespondentData/' + form_code;
+      this.http.get(url, { headers: this.headers }).subscribe(
+        res => {},
+        err => {}
       );
     });
   }

@@ -26,6 +26,8 @@ export class ClientFormsEntryPageComponent implements OnInit {
   formRenderer: any;
   clientProfile: any;
   formGenCode: string;
+  attachmentFiles: Array<File>;
+  attachmentKeys: Array<string>;
   @ViewChild('confirm', { static: false }) confirmDialog: TemplateRef<any>;
 
   constructor(
@@ -37,13 +39,34 @@ export class ClientFormsEntryPageComponent implements OnInit {
     private localStorage: LocalStorageService
   ) {
     this.formFiles = 0;
+    this.attachmentKeys = [];
+    this.attachmentFiles = [];
     this.form = history.state.form;
+    this.resolveReloadDataLoss();
     this.user = this.localStorage.getUser();
     console.log('form: ' + JSON.stringify(this.form));
   }
 
   ngOnInit() {
     this.renderForm();
+  }
+
+  /**
+   * This is just a little hack to prevent loss of data passed in to window.history.state
+   * whenever the page is reloaded. The purpose is to ensure we still have the data needed
+   * to help build all the elements of this page.
+   *
+   * @version 0.0.2
+   * @memberof EditFormPageComponent
+   */
+  resolveReloadDataLoss() {
+    if (!_.isUndefined(this.form)) {
+      console.log('is undefined oooooooooooo');
+      sessionStorage.setItem('u_form', JSON.stringify(this.form));
+    }
+    else {
+      this.form = JSON.parse(sessionStorage.getItem('u_form'));
+    }
   }
 
   renderForm() {
@@ -53,6 +76,7 @@ export class ClientFormsEntryPageComponent implements OnInit {
     const renderOptions = { formData, dataType: 'json' };
     this.formInstance = $(this.formRenderer).formRender(renderOptions);
 
+    this.appendOnChangeEventToFileInput();
     this.setFormData(formData);
   }
 
@@ -73,11 +97,25 @@ export class ClientFormsEntryPageComponent implements OnInit {
     return this.formInstance.userData;
   }
 
+  appendOnChangeEventToFileInput() {
+    const all_inputs = document.querySelectorAll('input');
+    _.forEach(all_inputs, (input) => {
+      if (input.type == 'file') {
+        input.onchange = (e: any) => {
+          const file = e.target.files[0] as File;
+          console.log(file);
+          this.attachmentFiles.push(file);
+        };
+      }
+    });
+  }
+
   checkIfHasFileUpload(form_data) {
     _.forEach(form_data, (fields) => {
-      if (fields.name == 'file') {
+      if (fields.type == 'file') {
         this.hasFile = true;
         this.formFiles += 1;
+        this.attachmentKeys.push(fields.name);
       }
     });
   }
@@ -103,12 +141,12 @@ export class ClientFormsEntryPageComponent implements OnInit {
             console.log('new updates: ' + updated_data);
             this.clientService.submitForm(_.toString(this.user.id), this.form.form_code, this.clientProfile.client_details[0], JSON.parse(updated_data)).then(
               res => {
-                this.created = true;
-                this.loading = false;
+                // this.created = true;
+                // this.loading = false;
                 this.formGenCode = res.code;
-                // if (this.hasFile) {
-                //   this.uploadFormAttachments();
-                // }
+                if (this.hasFile) {
+                  this.uploadFormAttachments(this.formGenCode);
+                }
               },
               err => {
                 this.loading = false;
@@ -120,28 +158,62 @@ export class ClientFormsEntryPageComponent implements OnInit {
     );
   }
 
-  uploadFormAttachments() {
-    // we can tell the number of attachments this form has by
-    // checking the formFiles variable's value.
-    const num_of_attachments = this.formFiles;
-    if (num_of_attachments > 1) {
-      for (let i = 0; i < num_of_attachments; i++) {
-        this.clientService.uploadFormAttachments(
-          this.user.id.toString(),
-          this.form.form_code,
-          this.formGenCode, null
-        ).then(
-          ok => {
-            if (ok) {
-              this.created = true;
-              this.loading = false;
-            }
-          },
-          err => {
+  uploadFormFile(form_code: string, key: string, index?: number) {
+    if (_.isUndefined(index) || _.isNull(index)) {
+      this.clientService.uploadFormAttachments(this.user.id.toString(), this.form.form_code, form_code, key, this.attachmentFiles[0]).then(
+        ok => {
+          if (ok) {
+            console.log('file upload done');
+            this.created = true;
             this.loading = false;
           }
-        );
+          else {
+            console.log('file upload failed');
+            this.loading = false;
+          }
+        },
+        err => {
+          console.log('file upload error');
+          this.loading = false;
+        }
+      );
+    }
+    else {
+      // its being called in a loop, this means there are more than one attachments.
+      this.clientService.uploadFormAttachments(this.user.id.toString(), this.form.form_code, form_code, key, this.attachmentFiles[index]).then(
+        ok => {
+          if (ok) {
+            console.log('file upload done');
+            this.created = true;
+            this.loading = false;
+          }
+          else {
+            console.log('file upload failed');
+            this.loading = false;
+          }
+        },
+        err => {
+          console.log('file upload error');
+          this.loading = false;
+        }
+      );
+    }
+  }
+
+  uploadFormAttachments(form_code: string) {
+    // we can tell the number of attachments this form has by
+    // checking the formFiles variable's value.
+    console.log('doing upload');
+    const num_of_attachments = this.formFiles;
+    if (num_of_attachments > 1) {
+      console.log('will do multiple uploads');
+      for (let i = 0; i < num_of_attachments; i++) {
+        this.uploadFormFile(form_code, this.attachmentKeys[i], i);
       }
+    }
+    else {
+      console.log('will do single upload');
+      this.uploadFormFile(form_code, this.attachmentKeys[0]);
     }
   }
 

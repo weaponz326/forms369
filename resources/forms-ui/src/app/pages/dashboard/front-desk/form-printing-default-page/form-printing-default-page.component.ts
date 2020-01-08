@@ -1,8 +1,8 @@
 import * as _ from 'lodash';
 import { Component, OnInit } from '@angular/core';
 import { CompanyService } from 'src/app/services/company/company.service';
-import { LocalStorageService } from 'src/app/services/storage/local-storage.service';
 import { EndpointService } from 'src/app/services/endpoint/endpoint.service';
+import { LocalStorageService } from 'src/app/services/storage/local-storage.service';
 
 @Component({
   selector: 'app-form-printing-default-page',
@@ -69,8 +69,10 @@ export class FormPrintingDefaultPageComponent implements OnInit {
     this.clientFormData = [];
 
     this.form = window.history.state.form;
+    console.log('form: ' + JSON.stringify(this.form));
     this.resolveReloadDataLoss();
     this.client = this.form.client_submitted_details;
+    console.log('client: ' + JSON.stringify(this.client));
 
     this.formKeys = _.keys(this.client);
     this.formValues = _.values(this.client);

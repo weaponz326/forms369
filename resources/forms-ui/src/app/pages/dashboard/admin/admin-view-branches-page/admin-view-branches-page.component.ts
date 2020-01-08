@@ -4,6 +4,7 @@ import { Router } from '@angular/router';
 import { BranchService } from 'src/app/services/branch/branch.service';
 import { ListViewService } from 'src/app/services/view/list-view.service';
 import { LocalStorageService } from 'src/app/services/storage/local-storage.service';
+import { UserTypes } from 'src/app/enums/user-types.enum';
 
 @Component({
   selector: 'app-admin-view-branches-page',
@@ -19,6 +20,7 @@ export class AdminViewBranchesPageComponent implements OnInit {
   hasNoData: boolean;
   filterState: string;
   merchant_id: number;
+  isGitAdmin: boolean;
   branchesList: Array<any>;
   allBranchesList: Array<any>;
 
@@ -32,6 +34,7 @@ export class AdminViewBranchesPageComponent implements OnInit {
     this.allBranchesList = [];
     this.viewMode = this.listViewService.getDesiredViewMode();
     this.merchant_id = this.localStorage.getUser().merchant_id;
+    this.isGitAdmin = this.localStorage.getUser().usertype == UserTypes.GitAdmin ? true : false;
     this.getCompanyBranches();
   }
 
