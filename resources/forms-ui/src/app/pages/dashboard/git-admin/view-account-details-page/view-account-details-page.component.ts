@@ -27,6 +27,11 @@ export class ViewAccountDetailsPageComponent implements OnInit {
   }
 
   ngOnInit() {
+    if (!_.isUndefined(this.id)) {
+      console.log('is undefined oooooooooooo');
+      sessionStorage.setItem('u_id', this.id);
+      this.id = sessionStorage.getItem('u_id');
+    }
   }
 
   edit(id: string) {
@@ -65,7 +70,8 @@ export class ViewAccountDetailsPageComponent implements OnInit {
 
   getAccountDetails() {
     this.loading = true;
-    this.accountService.getAccount(this.id).then(
+    const u_id = sessionStorage.getItem('u_id');
+    this.accountService.getAccount(this.id || u_id).then(
       account => {
         this.user = account;
         console.log('user___: ' + JSON.stringify(this.user));

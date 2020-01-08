@@ -20,6 +20,8 @@ export class ClientFormsEntryPageComponent implements OnInit {
   user: Users;
   loading: boolean;
   created: boolean;
+  hasFile: boolean;
+  formFiles: number;
   formInstance: any;
   formRenderer: any;
   clientProfile: any;
@@ -34,6 +36,7 @@ export class ClientFormsEntryPageComponent implements OnInit {
     private formBuilder: FormBuilderService,
     private localStorage: LocalStorageService
   ) {
+    this.formFiles = 0;
     this.form = history.state.form;
     this.user = this.localStorage.getUser();
     console.log('form: ' + JSON.stringify(this.form));
@@ -45,6 +48,7 @@ export class ClientFormsEntryPageComponent implements OnInit {
 
   renderForm() {
     const formData = this.form.form_fields;
+    this.checkIfHasFileUpload(formData);
     this.formRenderer = document.getElementById('form-render');
     const renderOptions = { formData, dataType: 'json' };
     this.formInstance = $(this.formRenderer).formRender(renderOptions);
@@ -67,6 +71,15 @@ export class ClientFormsEntryPageComponent implements OnInit {
 
   getFormData() {
     return this.formInstance.userData;
+  }
+
+  checkIfHasFileUpload(form_data) {
+    _.forEach(form_data, (fields) => {
+      if (fields.name == 'file') {
+        this.hasFile = true;
+        this.formFiles += 1;
+      }
+    });
   }
 
   submit() {
@@ -93,6 +106,9 @@ export class ClientFormsEntryPageComponent implements OnInit {
                 this.created = true;
                 this.loading = false;
                 this.formGenCode = res.code;
+                // if (this.hasFile) {
+                //   this.uploadFormAttachments();
+                // }
               },
               err => {
                 this.loading = false;
@@ -102,6 +118,31 @@ export class ClientFormsEntryPageComponent implements OnInit {
         }
       }
     );
+  }
+
+  uploadFormAttachments() {
+    // we can tell the number of attachments this form has by
+    // checking the formFiles variable's value.
+    const num_of_attachments = this.formFiles;
+    if (num_of_attachments > 1) {
+      for (let i = 0; i < num_of_attachments; i++) {
+        this.clientService.uploadFormAttachments(
+          this.user.id.toString(),
+          this.form.form_code,
+          this.formGenCode, null
+        ).then(
+          ok => {
+            if (ok) {
+              this.created = true;
+              this.loading = false;
+            }
+          },
+          err => {
+            this.loading = false;
+          }
+        );
+      }
+    }
   }
 
   copy() {

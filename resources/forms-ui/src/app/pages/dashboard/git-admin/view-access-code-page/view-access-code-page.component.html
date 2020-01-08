@@ -122,11 +122,11 @@
                         </td>
                         <td>
                           <div class="d-flex align-items-end flex-wrap">
-                            <button *ngIf="code.active == 0" type="button" class="btn btn-light bg-white btn-icon mr-1"
+                            <button *ngIf="code.active == 1" type="button" class="btn btn-light bg-white btn-icon mr-1"
                               (click)="activate(code.accesscode)">
                               <i class="mdi mdi-check text-success"></i>
                             </button>
-                            <button *ngIf="code.active == 1" type="button" class="btn btn-light bg-white btn-icon mr-1"
+                            <button *ngIf="code.active == 0" type="button" class="btn btn-light bg-white btn-icon mr-1"
                               (click)="deactivate(code.accesscode)">
                               <i class="mdi mdi-close text-danger"></i>
                             </button>

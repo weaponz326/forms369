@@ -51,11 +51,31 @@ export class EditFormPageComponent implements OnInit {
     private companyService: CompanyService,
     private formBuilderService: FormBuilderService
   ) {
+    console.log('im constructor');
     this.merchant = '';
     this.allMerchantsList = [];
     this._form = window.history.state.form;
+    this.resolveReloadDataLoss();
     this.isPublished = this._form.status == 1 ? true : false;
     this.getCompanies();
+  }
+
+  /**
+   * This is just a little hack to prevent loss of data passed in to window.history.state
+   * whenever the page is reloaded. The purpose is to ensure we still have the data needed
+   * to help build all the elements of this page.
+   *
+   * @version 0.0.2
+   * @memberof EditFormPageComponent
+   */
+  resolveReloadDataLoss() {
+    if (!_.isUndefined(this._form)) {
+      console.log('is undefined oooooooooooo');
+      sessionStorage.setItem('u_form', JSON.stringify(this._form));
+    }
+    else {
+      this._form = JSON.parse(sessionStorage.getItem('u_form'));
+    }
   }
 
   ngOnInit() {
@@ -72,8 +92,8 @@ export class EditFormPageComponent implements OnInit {
           controlPosition: 'left',
           inputSets: form_elements,
           scrollToFieldOnAdd: false,
-          defaultFields: this._form.form_fields,
           disabledActionButtons: ['data', 'clear', 'save'],
+          defaultFields: this._form.form_fields,
           disableFields: this.formBuilderService.disableDefaultFormControls()
         });
         this._loading = false;
@@ -152,6 +172,7 @@ export class EditFormPageComponent implements OnInit {
                 this.alertMessage = 'Form has been successfully published';
                 this.alertSuccess = true;
                 this.isPublished = true;
+                this.formStatus = '1';
                 this.hideLoadingModal();
                 this.modalService.open(this.statusModal, { centered: true });
               }
@@ -192,6 +213,7 @@ export class EditFormPageComponent implements OnInit {
                 this.alertMessage = 'Form has been successfully unpublished';
                 this.alertSuccess = true;
                 this.isPublished = false;
+                this.formStatus = '0';
                 this.hideLoadingModal();
                 this.modalService.open(this.statusModal, { centered: true });
               }

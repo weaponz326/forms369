@@ -23,6 +23,8 @@ export class ListTemplatePageComponent implements OnInit {
   isGitAdmin: boolean;
   sortingOrder: string;
   foundNoForm: boolean;
+  loadingMore: boolean;
+  hasMoreError: boolean;
   ascSortSelected: boolean;
   descSortSelected: boolean;
   templatesList: Array<any>;
@@ -36,6 +38,7 @@ export class ListTemplatePageComponent implements OnInit {
     private templatesService: TemplatesService
   ) {
     this.templatesList = [];
+    this.sortingBy = 'created';
     this.sortingOrder = this.listViewService.getSortOrder();
     this.viewMode = this.listViewService.getDesiredViewMode();
     this.isGitAdmin = this.localStorage.getUser().usertype == UserTypes.GitAdmin ? true : false;
@@ -110,9 +113,11 @@ export class ListTemplatePageComponent implements OnInit {
 
   sortByCreatedDate(order: string) {
     if (order == 'asc') {
+      console.log('sorting asc');
       this.templatesList = _.sortBy(this.templatesList, (item) => item.created_at);
     }
     else {
+      console.log('sorting desc');
       this.templatesList = _.reverse(_.sortBy(this.templatesList, (item) => item.created_at));
     }
   }
@@ -130,6 +135,10 @@ export class ListTemplatePageComponent implements OnInit {
     this.router.navigateByUrl('templates/create');
   }
 
+  checkIfHasMore() {
+    return _.isNull(this.templatesService.nextPaginationUrl) ? false : true;
+  }
+
   delete(ev: Event, id: string, index: number) {
     ev.stopPropagation();
     this.modalService.open(this.modalTemplateRef, { centered: true }).result.then((result) => {
@@ -142,7 +151,7 @@ export class ListTemplatePageComponent implements OnInit {
   import(ev: Event, template: any) {
     ev.stopPropagation();
     this.isGitAdmin
-      ? this.router.navigateByUrl('git_admin/edit/form', { state: { form: template }})
+      ? this.router.navigateByUrl('git_admin/setup_form', { state: { template: template }})
       : this.router.navigateByUrl('admin/create/form', { state: { template: template }});
   }
 
@@ -160,6 +169,7 @@ export class ListTemplatePageComponent implements OnInit {
     this.templatesService.getAllTemplates().then(
       res => {
         const templates = res as any;
+        this.hasMore = this.checkIfHasMore();
         if (templates.length > 0) {
           this.hasNoData = false;
           _.forEach(templates, (form) => {
@@ -219,7 +229,25 @@ export class ListTemplatePageComponent implements OnInit {
     }
   }
 
-  loadMore() {}
+  loadMore() {
+    this.loadingMore = true;
+    const moreUrl = this.templatesService.nextPaginationUrl;
+    this.templatesService.getAllTemplates(moreUrl).then(
+      res => {
+        this.loadingMore = false;
+        this.hasMoreError = false;
+        const templates = res as any;
+        this.hasMore = this.checkIfHasMore();
+        _.forEach(templates, (template) => {
+          this.templatesList.push(template);
+        });
+      },
+      err => {
+        this.loadingMore = false;
+        this.hasMoreError = true;
+      }
+    );
+  }
 
   retry() {
     this.getAllTemplates();

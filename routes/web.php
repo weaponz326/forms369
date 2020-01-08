@@ -56,6 +56,11 @@ Route::get('change_password', function () {
     return View::make('index');
 });
 
+Route::get('invalid_confirm_link', function () {
+    View::addExtension('html', 'php');
+    return View::make('index');
+});
+
 Route::get('git_admin', function () {
     View::addExtension('html', 'php');
     return View::make('index');
@@ -275,6 +280,11 @@ Route::get('front_desk/lists/processing', function () {
 });
 
 Route::get('front_desk/lists/processed', function () {
+    View::addExtension('html', 'php');
+    return View::make('index');
+});
+
+Route::get('front_desk/lists/client_form_data', function () {
     View::addExtension('html', 'php');
     return View::make('index');
 });

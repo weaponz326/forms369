@@ -39,6 +39,7 @@
                       </mat-autocomplete>
                       <div *ngIf="submitted && f.merchant.errors">
                         <p class="input-error" *ngIf="f.merchant.errors.required">Company is required</p>
+                        <p class="input-error" *ngIf="f.merchant.errors.null">Company provided doesnt exist. Please check your spelling.</p>
                       </div>
                     </div>
                     <div class="form-group">
@@ -49,6 +50,9 @@
                           {{ item }}
                         </mat-option>
                       </mat-autocomplete>
+                      <div *ngIf="submitted && f.branch.errors">
+                        <p class="input-error" *ngIf="f.branch.errors.null">Branch provided doesnt exist. Please check your spelling.</p>
+                      </div>
                     </div>
                     <div class="form-group">
                       <input type="text" class="form-control form-control-lg" formControlName="sourceName"

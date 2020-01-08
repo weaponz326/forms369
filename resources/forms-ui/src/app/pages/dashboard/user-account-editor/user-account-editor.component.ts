@@ -30,6 +30,7 @@ export class UserAccountEditorComponent implements OnInit {
   oldPassword: string;
   newPassword: string;
   isSuperExec: boolean;
+  isBranchAdmin: boolean;
   branchesList: Array<any>;
   merchantsList: Array<any>;
   branchNamesList: Array<any>;
@@ -61,6 +62,12 @@ export class UserAccountEditorComponent implements OnInit {
   }
 
   ngOnInit() {
+    if (!_.isUndefined(this.userId)) {
+      console.log('is undefined oooooooooooo');
+      sessionStorage.setItem('u_id', this.userId);
+      this.userId = sessionStorage.getItem('u_id');
+    }
+
     this.countryPickerService.getCountries().subscribe(countries => { this.countriesList = countries; });
     this.buildForm();
     this.getAccountDetails();
@@ -146,10 +153,10 @@ export class UserAccountEditorComponent implements OnInit {
     });
   }
 
-  onStatusChange(e: any) {}
-
   getAccountDetails() {
-    this.accountService.getAccount(this.userId).then(
+    console.log('the user id: ' + this.userId);
+    const u_id = sessionStorage.getItem('u_id');
+    this.accountService.getAccount(this.userId || u_id).then(
       res => {
         const account = res;
         this.userDetails = account;
@@ -160,7 +167,13 @@ export class UserAccountEditorComponent implements OnInit {
         this.f.userType.setValue(account.user_type);
         this.f.emailAddress.setValue(account.email);
         this.f.firstName.setValue(account.firstname);
-        this.f.phone.setValue(account.phone.substring(3));
+        // this.f.phone.setValue(account.phone.substring(3));
+        this.isCompAdmin = this.f.userType.value == UserTypes.CompanyAdmin ? true : false;
+        this.isSuperExec = this.f.userType.value == UserTypes.SuperExecutive ? true : false;
+        this.isFrontDesk =
+          this.f.userType.value == UserTypes.FrontDesk ||
+          this.f.userType.value == UserTypes.BranchSuperExecutive ||
+          this.f.userType.value == UserTypes.BranchAdmin ? true : false;
 
         if (this.f.userType.value == UserTypes.GitAdmin) {
           // remove validation of merchant and branch
@@ -226,6 +239,8 @@ export class UserAccountEditorComponent implements OnInit {
   }
 
   getCompanyBranches() {
+    this.branchesList = [];
+    this.branchNamesList = [];
     const id = this.getSelectedMerchantIdentifier();
     console.log('selected company_id: ' + id);
     this.branchService.getBranch(id.toString()).then(
@@ -292,7 +307,7 @@ export class UserAccountEditorComponent implements OnInit {
 
     if (this.isGitAdmin) {
       const merchantId = this.localStorage.getUser().merchant_id;
-      if (this.f.password.disabled) {
+      if (this.f.password.value.length == 0) {
         user.email = email;
         user.status = status;
         user.lastname = lname;
@@ -354,6 +369,27 @@ export class UserAccountEditorComponent implements OnInit {
     }
   }
 
+  containErrors(data: Users) {
+    if (data.merchant_id == 0) {
+      console.log('no merchant');
+      this.f.merchant.setErrors({ null: true });
+      return true;
+    }
+
+    if (this.isCompAdmin) {
+      return false;
+    }
+    else {
+      if (data.branch_id == 0) {
+        console.log('no branch');
+        this.f.branch.setErrors({ null: true });
+        return true;
+      }
+    }
+
+    return false;
+  }
+
   resolveLaravelError(error: any) {
     console.log('err: ' + error);
     if (!_.isUndefined(error)) {
@@ -394,36 +430,38 @@ export class UserAccountEditorComponent implements OnInit {
       return;
     }
     else {
-      this.form.disable();
       const user = this.getFormData();
-      this.accountService.editAccount(this.userId, user).then(
-        res => {
-          if (res) {
+      if (!this.containErrors(user)) {
+        this.form.disable();
+        this.accountService.editAccount(this.userId, user).then(
+          res => {
+            if (res) {
+              this.form.enable();
+              this.loading = false;
+              this.accountCreated.emit('created');
+              this.userAccount.emit(this.userType.value);
+            }
+            else {
+              this.form.enable();
+              this.loading = false;
+              this.accountCreated.emit('not_created');
+            }
+          },
+          err => {
             this.form.enable();
             this.loading = false;
-            this.accountCreated.emit('created');
-            this.userAccount.emit(this.userType.value);
+            console.log(JSON.stringify(err));
+            this.resolveLaravelError(err.error.errors);
           }
-          else {
-            this.form.enable();
-            this.loading = false;
-            this.accountCreated.emit('not_created');
-          }
-        },
-        err => {
-          this.form.enable();
-          this.loading = false;
-          console.log(JSON.stringify(err));
-          this.resolveLaravelError(err.error.errors);
-        }
-      );
+        );
+      }
+      else {
+        this.loading = false;
+      }
     }
   }
 
   cancel() {
-    // quick hack to prevent displaying blank page when user navigates back
-    // because of the history.state being set null by the browser.
-    window.history.back();
     window.history.back();
   }
 }

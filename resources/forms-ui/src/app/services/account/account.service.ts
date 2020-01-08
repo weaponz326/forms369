@@ -144,8 +144,6 @@ export class AccountService {
     });
   }
 
-  // editAccessCode()
-
   getCountryDialCodes(): Promise<any> {
     return new Promise((resolve, reject) => {
       this.http.get('assets/countries_dial_codes.json').subscribe(
@@ -228,7 +226,7 @@ export class AccountService {
       const url = this.endpointService.apiHost + 'api/v1/activateAccessCode/' + access_code;
       this.http.post(url, {}, { headers: this.authHeaders }).subscribe(
         res => {
-          console.log('res: ' + JSON.stringify(res));
+          console.log('res____: ' + JSON.stringify(res));
           const response = res as any;
           if (_.toLower(response.message) == 'ok') {
             resolve(true);
@@ -238,7 +236,7 @@ export class AccountService {
           }
         },
         err => {
-          console.log('err: ' + JSON.stringify(err));
+          console.log('err_____: ' + JSON.stringify(err));
           reject(err);
         }
       );
@@ -257,7 +255,7 @@ export class AccountService {
       const url = this.endpointService.apiHost + 'api/v1/deactivateAccessCode/' + access_code;
       this.http.post(url, {}, { headers: this.authHeaders }).subscribe(
         res => {
-          console.log('res: ' + JSON.stringify(res));
+          console.log('res______: ' + JSON.stringify(res));
           const response = res as any;
           if (_.toLower(response.message) == 'ok') {
             resolve(true);
@@ -267,7 +265,7 @@ export class AccountService {
           }
         },
         err => {
-          console.log('err: ' + JSON.stringify(err));
+          console.log('err_____: ' + JSON.stringify(err));
           reject(err);
         }
       );
@@ -474,7 +472,7 @@ export class AccountService {
   logOut(): Promise<any> {
     return new Promise((resolve, reject) => {
       const url = this.endpointService.apiHost + 'api/v1/logoutUser';
-      this.http.get(url, { headers: this.headers }).subscribe(
+      this.http.get(url, { headers: this.authHeaders }).subscribe(
         res => {
           sessionStorage.clear();
           resolve(res);

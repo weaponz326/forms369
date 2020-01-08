@@ -46,10 +46,15 @@ export class ViewAccessCodePageComponent implements OnInit {
     this.loadingModalRef.close();
   }
 
+  checkIfHasMore() {
+    return _.isEmpty(this.accountService.nextPaginationUrl) ? false : true;
+  }
+
   getAllAccessCodes() {
     this.loading = true;
     this.accountService.getAllAccessCodes().then(
       codes => {
+        this.hasMore = this.checkIfHasMore();
         if (codes.length != 0) {
           this.hasData = true;
           this.loading = false;
@@ -116,6 +121,23 @@ export class ViewAccessCodePageComponent implements OnInit {
     );
   }
 
-  loadMore() {}
+  loadMore() {
+    this.loadingMore = true;
+    const moreUrl = this.accountService.nextPaginationUrl;
+    this.accountService.getAllAccessCodes(moreUrl).then(
+      codes => {
+        this.loadingMore = false;
+        this.hasMoreError = false;
+        this.hasMore = this.checkIfHasMore();
+        _.forEach(codes, (code) => {
+          this.accessCodesList.push(code);
+        });
+      },
+      err => {
+        this.loadingMore = false;
+        this.hasMoreError = true;
+      }
+    );
+  }
 
 }

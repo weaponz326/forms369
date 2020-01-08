@@ -53,6 +53,7 @@
                           </mat-autocomplete>
                           <div *ngIf="submitted && f.branchSupervisor.errors">
                             <p class="input-error" *ngIf="f.branchSupervisor.errors.required">Branch Super Executive is required</p>
+                            <p class="input-error" *ngIf="f.branchSupervisor.errors.null">Branch super executive doesnt exist. Please check your spelling.</p>
                           </div>
                         </div>
                       </div>
@@ -72,6 +73,7 @@
                           </mat-autocomplete>
                           <div *ngIf="submitted && f.branchAdmin.errors">
                             <p class="input-error" *ngIf="f.branchAdmin.errors.required">Branch Admin is required</p>
+                            <p class="input-error" *ngIf="f.branchAdmin.errors.null">Branch admin doesnt exist. Please check your spelling.</p>
                           </div>
                         </div>
                       </div>
@@ -88,6 +90,7 @@
                           </mat-autocomplete>
                           <div *ngIf="submitted && f.merchant.errors">
                             <p class="input-error" *ngIf="f.merchant.errors.required">Company is required</p>
+                            <p class="input-error" *ngIf="f.merchant.errors.null">Company provided doesnt exist. Please check your spelling.</p>
                           </div>
                         </div>
                       </div>

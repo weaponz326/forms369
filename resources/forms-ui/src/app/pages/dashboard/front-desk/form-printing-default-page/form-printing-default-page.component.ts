@@ -28,6 +28,24 @@ export class FormPrintingDefaultPageComponent implements OnInit {
     this.getMerchant();
   }
 
+  /**
+   * This is just a little hack to prevent loss of data passed in to window.history.state
+   * whenever the page is reloaded. The purpose is to ensure we still have the data needed
+   * to help build all the elements of this page.
+   *
+   * @version 0.0.2
+   * @memberof EditFormPageComponent
+   */
+  resolveReloadDataLoss() {
+    if (!_.isUndefined(this.form)) {
+      console.log('is undefined oooooooooooo');
+      sessionStorage.setItem('u_form', JSON.stringify(this.form));
+    }
+    else {
+      this.form = JSON.parse(sessionStorage.getItem('u_form'));
+    }
+  }
+
   ngOnInit() {
     window.onafterprint = () => {
       console.log('print window closed');
@@ -51,6 +69,7 @@ export class FormPrintingDefaultPageComponent implements OnInit {
     this.clientFormData = [];
 
     this.form = window.history.state.form;
+    this.resolveReloadDataLoss();
     this.client = this.form.client_submitted_details;
 
     this.formKeys = _.keys(this.client);

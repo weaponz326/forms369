@@ -20,8 +20,27 @@ export class ViewBranchDetailsPageComponent implements OnInit {
     private branchService: BranchService
   ) {
     this.branch = window.history.state.branch;
+    this.resolveReloadDataLoss();
     this.isActive = this.branch.status == 1 ? true : false;
     console.log(this.branch);
+  }
+
+  /**
+   * This is just a little hack to prevent loss of data passed in to window.history.state
+   * whenever the page is reloaded. The purpose is to ensure we still have the data needed
+   * to help build all the elements of this page.
+   *
+   * @version 0.0.2
+   * @memberof EditFormPageComponent
+   */
+  resolveReloadDataLoss() {
+    if (!_.isUndefined(this.branch)) {
+      console.log('is undefined oooooooooooo');
+      sessionStorage.setItem('u_data', JSON.stringify(this.branch));
+    }
+    else {
+      this.branch = JSON.parse(sessionStorage.getItem('u_data'));
+    }
   }
 
   ngOnInit() {

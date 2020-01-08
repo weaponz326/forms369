@@ -16,6 +16,7 @@ import { FormBuilderService } from 'src/app/services/form-builder/form-builder.s
 export class CreateFormPageComponent implements OnInit {
 
   pdfFile: File;
+  template: any;
   form: FormGroup;
   formBuilder: any;
   created: boolean;
@@ -38,31 +39,58 @@ export class CreateFormPageComponent implements OnInit {
     private companyService: CompanyService,
     private formBuilderService: FormBuilderService
   ) {
+    this.template = window.history.state.template;
     this.allMerchantsList = [];
     this.getCompanies();
+  }
+
+  renderForm() {
+    if (_.isUndefined(this.template) || _.isNull(this.template)) {
+      this.formBuilderService.generateSectionAndDefaultFormFields().then(
+        form_elements => {
+          this.formBuilder = $(document.getElementById('fb-editor')).formBuilder({
+            controlPosition: 'left',
+            inputSets: form_elements,
+            scrollToFieldOnAdd: false,
+            disabledActionButtons: ['data', 'clear', 'save'],
+            disableFields: this.formBuilderService.disableDefaultFormControls()
+          });
+          this._loading = false;
+        },
+        error => {
+          this._loading = false;
+          this.hasError = true;
+        }
+      );
+    }
+    else {
+      this.formCode = this.formBuilderService.generateUniqueFormCode();
+      this.formBuilderService.generateSectionAndDefaultFormFields().then(
+        form_elements => {
+          this.formBuilder = $(document.getElementById('fb-editor')).formBuilder({
+            controlPosition: 'left',
+            inputSets: form_elements,
+            scrollToFieldOnAdd: false,
+            defaultFields: this.template.form_fields,
+            disabledActionButtons: ['data', 'clear', 'save'],
+            disableFields: this.formBuilderService.disableDefaultFormControls()
+          });
+
+          this._loading = false;
+        },
+        error => {
+          this._loading = false;
+          this.hasError = true;
+        }
+      );
+    }
   }
 
   ngOnInit() {
     this.created = false;
     this._loading = true;
     this.buildForm();
-
-    this.formBuilderService.generateSectionAndDefaultFormFields().then(
-      form_elements => {
-        this.formBuilder = $(document.getElementById('fb-editor')).formBuilder({
-          controlPosition: 'left',
-          inputSets: form_elements,
-          scrollToFieldOnAdd: false,
-          disabledActionButtons: ['data', 'clear', 'save'],
-          disableFields: this.formBuilderService.disableDefaultFormControls()
-        });
-        this._loading = false;
-      },
-      error => {
-        this._loading = false;
-        this.hasError = true;
-      }
-    );
+    this.renderForm();
   }
 
   buildForm() {
@@ -172,6 +200,7 @@ export class CreateFormPageComponent implements OnInit {
   createFormWithPDF() {
     this.toPublish = false;
     if (this.getForm().length == 0) {
+      this.loading = false;
       alert('Form field cannot be empty');
     }
     else {
@@ -198,9 +227,9 @@ export class CreateFormPageComponent implements OnInit {
   }
 
   create() {
-    this.formCode = this.formBuilderService.generateUniqueFormCode();
     this.submitted = true;
     this.toPublish = false;
+    this.formCode = this.formBuilderService.generateUniqueFormCode();
     if (this.showFileUpload) {
       if (this.form.valid) {
         this.save();
@@ -208,6 +237,7 @@ export class CreateFormPageComponent implements OnInit {
     }
     else {
       // remove pdf validations
+      console.log('no upload');
       this.f.pdf.clearValidators();
       this.f.pdf.updateValueAndValidity();
 
@@ -218,16 +248,23 @@ export class CreateFormPageComponent implements OnInit {
   }
 
   publish() {
-    this.formCode = this.formBuilderService.generateUniqueFormCode();
+    this.loading = true;
     this.submitted = true;
     this.toPublish = true;
+    this.formCode = this.formBuilderService.generateUniqueFormCode();
 
     // remove pdf validations
     this.f.pdf.clearValidators();
     this.f.pdf.updateValueAndValidity();
 
     if (this.form.valid) {
+      console.log('form is valid');
       this.createForm();
+    }
+    else {
+      this.loading = false;
+      this.toPublish = false;
+      console.log('form not valid');
     }
   }
 
@@ -249,8 +286,8 @@ export class CreateFormPageComponent implements OnInit {
   }
 
   ok1() {
-    this.created = false;
     this.uploadError = false;
+    this.created = !this.created;
   }
 
   retry() {

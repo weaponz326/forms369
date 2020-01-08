@@ -60,7 +60,7 @@ export class CreateAccessCodePageComponent implements OnInit {
 
   buildForm() {
     this.form = this.formBuilder.group({
-      branch: ['', Validators.required],
+      branch: [''],
       merchant: ['', Validators.required],
       deviceName: ['', Validators.required],
       sourceName: ['', Validators.required]
@@ -140,6 +140,8 @@ export class CreateAccessCodePageComponent implements OnInit {
   }
 
   getCompanyBranches() {
+    this.branchesList = [];
+    this.branchNamesList = [];
     const id = this.getSelectedMerchantIdentifier();
     console.log('selected company_id: ' + id);
     this.branchService.getBranch(id.toString()).then(
@@ -163,6 +165,31 @@ export class CreateAccessCodePageComponent implements OnInit {
     );
   }
 
+  containsErrors(form_data: any) {
+    if (form_data.merchant_id == 0) {
+      this.f.merchant.setErrors({ null: true });
+      return true;
+    }
+
+    // if (form_data.branch_id == 0) {
+    //   this.f.branch.setErrors({ null: true });
+    //   return true;
+    // }
+
+    if (this.f.branch.value == '') {
+      this.f.branch.clearValidators();
+      this.f.branch.updateValueAndValidity();
+    }
+    else {
+      if (form_data.branch_id == 0) {
+        this.f.branch.setErrors({ null: true });
+        return true;
+      }
+    }
+
+    return false;
+  }
+
   create() {
     this.loading = true;
     this.submitted = true;
@@ -171,30 +198,35 @@ export class CreateAccessCodePageComponent implements OnInit {
       this.loading = false;
       return;
     } else {
-      this.form.disable();
       const access_code = this.getFormData();
-      console.log('body: ' + JSON.stringify(access_code));
-      this.accountService.createAccessCode(access_code).then(
-        code => {
-          console.log(code);
-          if (!_.isEmpty(code) || !_.isNull(code)) {
-            this.form.enable();
-            this.created = true;
-            this.loading = false;
-            this.accessCode = code;
-          } else {
+      if (!this.containsErrors(access_code)) {
+        this.form.disable();
+        console.log('body: ' + JSON.stringify(access_code));
+        this.accountService.createAccessCode(access_code).then(
+          code => {
+            console.log(code);
+            if (!_.isEmpty(code) || !_.isNull(code)) {
+              this.form.enable();
+              this.created = true;
+              this.loading = false;
+              this.accessCode = code;
+            } else {
+              this.form.enable();
+              this.created = false;
+              this.loading = false;
+            }
+          },
+          err => {
             this.form.enable();
             this.created = false;
             this.loading = false;
+            console.log(JSON.stringify(err));
           }
-        },
-        err => {
-          this.form.enable();
-          this.created = false;
-          this.loading = false;
-          console.log(JSON.stringify(err));
-        }
-      );
+        );
+      }
+      else {
+        this.loading = false;
+      }
     }
   }
 
@@ -219,13 +251,14 @@ export class CreateAccessCodePageComponent implements OnInit {
   }
 
   cancel() {
-    if (!this.isFormEmpty()) {
-      this.modalService.open(this.modalTemplateRef, { centered: true }).result.then(result => {
-        if (result == 'yes') {
-          this.clearData();
-        }
-      });
-    }
+    this.ok();
+    // if (!this.isFormEmpty()) {
+    //   this.modalService.open(this.modalTemplateRef, { centered: true }).result.then(result => {
+    //     if (result == 'yes') {
+    //       this.clearData();
+    //     }
+    //   });
+    // }
   }
 
   clearData() {

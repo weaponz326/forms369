@@ -113,7 +113,7 @@
                   <div class="col-md-4 grid-margin stretch-card" *ngFor="let form of formsList; let i=index">
                     <div class="card hover-cursor animated fadeInDown fast" (click)="view($event, form)">
                       <div class="card-body">
-                        <p class="card-title">{{ form.merchant_name }}</p>
+                        <p class="card-title">{{ form.merchant_name }} - ({{ form.form_code }})</p>
                         <div class="card-text">
                           <h1 class="display-4 mb-4">{{ form.name }}</h1>
                           <div class="btn-group" role="group" aria-label="Basic example">
@@ -140,11 +140,11 @@
                   <div class="list-group" style="width: 100%;">
                     <div class="list-group-item hover-cursor list-group-item-action animated fadeInDown" *ngFor="let form of formsList; let i=index">
                       <div class="row" (click)="view($event, form)">
-                        <div class="col-8"> 
+                        <div class="col-7"> 
                           <span class="card-title mt-2">{{ form.merchant_name }}</span>
                           <h1 class="display-4 mb-1 mt-2">{{ form.name }}</h1>
                         </div>
-                        <div class="col-4">
+                        <div class="col-5">
                           <div class="btn-group mt-2" role="group" aria-label="Basic example">
                             <button type="button" class="btn btn-outline-secondary" (click)="edit($event, form)">
                               <i class="mdi mdi-pencil-outline"></i>

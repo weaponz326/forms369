@@ -226,7 +226,6 @@ export class ViewFormListsPageComponent implements OnInit {
         this.hasMore = this.checkIfHasMore();
         _.forEach(forms, (form) => {
           this.formsList.push(form);
-          this.allFormsList = _.reverse(this.formsList);
         });
       },
       err => {

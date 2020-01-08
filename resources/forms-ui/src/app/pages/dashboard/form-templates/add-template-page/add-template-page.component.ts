@@ -115,9 +115,9 @@ export class AddTemplatePageComponent implements OnInit {
   }
 
   createNew() {
-    this.formBuilder.actions.clearFields();
-    this.created = false;
+    this.reset();
     this.form.reset();
+    this.created = !this.created;
   }
 
   preview() {

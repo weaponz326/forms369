@@ -434,7 +434,7 @@ class ClientController extends Controller
             $filename = $attachment->getClientOriginalName();
             $extension = $attachment->getClientOriginalExtension();
 
-            $excludedfileExtension=['exec','zip','dmg', 'rar', 'iso', 'phar', 'sql'];
+            $excludedfileExtension=['exec','zip','dmg', 'rar', 'iso', 'phar', 'sql', 'js', 'html', 'php'];
 
             $check=in_array($extension,$excludedfileExtension);
 
