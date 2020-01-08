@@ -16,7 +16,6 @@ use Auth;
 use Illuminate\Pagination\Paginator;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Log;
-
 class AuthController extends Controller
 {
    
@@ -969,7 +968,7 @@ class AuthController extends Controller
 
         $user->token()->revoke();
 
-        Auth::logout();
+        // Auth::logout();
         return response()->json([
             'message' => 'Successfully logged out'
         ]);
