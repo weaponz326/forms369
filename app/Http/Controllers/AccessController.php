@@ -153,8 +153,24 @@ class AccessController extends Controller
 
         $device_name = $request->device_name;
         $source_usage = $request->source_usage; 
-        $merchant_id = $request->merchant_id;
-        $branch_id = $request->branch_id;
+        if($request->has('merchant_id'))
+        {
+            $merchant_id = $request->merchant_id;
+
+        }else{
+            $merchant_id =0;
+        }
+
+        if($request->has('branch_id'))
+        {
+            $branch_id = $request->branch_id;
+
+        }else{
+            $branch_id =0;
+        }
+
+        // $merchant_id = $request->merchant_id;
+        // $branch_id = $request->branch_id;
         $access_code = rand();
         $active = 0;
         $created_at = now();
