@@ -915,7 +915,7 @@ class HomeController extends Controller
      */
     protected function getFormbyName(Request $request, $term)
     {
-        $message = (new FormsController)->getFormbyName($request, $term);
+        $message = (new FormsController)->getFormbyNameorMerchant($request, $term);
         return $message;
 
     }

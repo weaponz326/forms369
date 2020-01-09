@@ -207,6 +207,7 @@ class SetupController extends Controller
         }
 
         $name = Crypt::encryptString($request->merchant_name);
+        $temp = $request->merchant_name;
         $country = $request->country;
         $super_id = $request->super_id;
         $admin_id = $request->admin_id;
@@ -235,7 +236,8 @@ class SetupController extends Controller
                     'admin_id' => $admin_id, 
                     'created_at' => $created_at,
                     'created_by' => $userid,
-                    'can_print' => $can_print
+                    'can_print' => $can_print,
+                    'temp' => $temp
                 ]
             );
 
@@ -302,6 +304,7 @@ class SetupController extends Controller
         $logo = $request->logo;
         $small_logo = $request->small_logo;
         $can_print = $request->can_print;
+        $temp = $request->merchant_name;
 
         //get user creating the new merchant
         $user = $request->user();
@@ -328,7 +331,7 @@ class SetupController extends Controller
                     'updated_at' => $updated_at,
                     'updated_by' => $userid,
                     'can_print' => $can_print,
-                    'status' => $status
+                    'temp' => $temp
                 ]
             );
 
