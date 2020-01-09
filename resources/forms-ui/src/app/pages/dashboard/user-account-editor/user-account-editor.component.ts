@@ -167,7 +167,7 @@ export class UserAccountEditorComponent implements OnInit {
         this.f.userType.setValue(account.user_type);
         this.f.emailAddress.setValue(account.email);
         this.f.firstName.setValue(account.firstname);
-        // this.f.phone.setValue(account.phone.substring(3));
+        this.f.phone.setValue(account.phone.substring(3));
         this.isCompAdmin = this.f.userType.value == UserTypes.CompanyAdmin ? true : false;
         this.isSuperExec = this.f.userType.value == UserTypes.SuperExecutive ? true : false;
         this.isFrontDesk =
@@ -370,13 +370,18 @@ export class UserAccountEditorComponent implements OnInit {
   }
 
   containErrors(data: Users) {
-    if (data.merchant_id == 0) {
-      console.log('no merchant');
-      this.f.merchant.setErrors({ null: true });
-      return true;
+    if (this.isGitAdmin) {
+      return false;
+    }
+    else {
+      if (data.merchant_id == 0) {
+        console.log('no merchant');
+        this.f.merchant.setErrors({ null: true });
+        return true;
+      }
     }
 
-    if (this.isCompAdmin) {
+    if (this.isCompAdmin || this.isSuperExec) {
       return false;
     }
     else {

@@ -96,13 +96,13 @@ export class UserAccountCreatorComponent implements OnInit {
     this.isCompUser =
       user_type == UserTypes.CompanyAdmin ||
       user_type == UserTypes.BranchAdmin ? true : false;
-    if (user_type == UserTypes.BranchAdmin || user_type == UserTypes.CompanyAdmin) {
+    if (this.isCompUser) {
+      this.getCompany();
+    }
+    if (user_type == UserTypes.BranchAdmin || user_type == UserTypes.BranchSuperExecutive) {
       const merchant_id = this.localStorage.getUser().merchant_id;
       this.getCompanyBranches(merchant_id);
     }
-    // if (!this.isGitAdmin) {
-    //   this.getCompany();
-    // }
   }
 
   onCountrySelect(e: any) {
@@ -128,9 +128,9 @@ export class UserAccountCreatorComponent implements OnInit {
       // remove validators of merchant and branch
       // so the account can be created.
       this.f.branch.clearValidators();
-      this.f.merchant.clearValidators();
+      // this.f.merchant.clearValidators();
       this.f.branch.updateValueAndValidity();
-      this.f.merchant.updateValueAndValidity();
+      // this.f.merchant.updateValueAndValidity();
 
       // Since merchant isnt a required field in our form in this case, and also
       // we need to make sure the right merchant has been selected.
@@ -215,10 +215,15 @@ export class UserAccountCreatorComponent implements OnInit {
       }
     }
 
-    if (data.branch_id == 0) {
-      console.log('no branch');
-      this.f.branch.setErrors({ null: true });
-      return true;
+    if (this.isCompAdmin || this.isSuperExec) {
+      return false;
+    }
+    else {
+      if (data.branch_id == 0) {
+        console.log('no branch');
+        this.f.branch.setErrors({ null: true });
+        return true;
+      }
     }
 
     return false;
