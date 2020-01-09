@@ -14822,7 +14822,9 @@ let UserAccountCreatorComponent = class UserAccountCreatorComponent {
         if (this.isCompUser) {
             this.getCompany();
         }
-        if (user_type == src_app_enums_user_types_enum__WEBPACK_IMPORTED_MODULE_5__["UserTypes"].BranchAdmin || user_type == src_app_enums_user_types_enum__WEBPACK_IMPORTED_MODULE_5__["UserTypes"].BranchSuperExecutive) {
+        if (user_type == src_app_enums_user_types_enum__WEBPACK_IMPORTED_MODULE_5__["UserTypes"].BranchAdmin ||
+            user_type == src_app_enums_user_types_enum__WEBPACK_IMPORTED_MODULE_5__["UserTypes"].CompanyAdmin ||
+            user_type == src_app_enums_user_types_enum__WEBPACK_IMPORTED_MODULE_5__["UserTypes"].BranchSuperExecutive) {
             const merchant_id = this.localStorage.getUser().merchant_id;
             this.getCompanyBranches(merchant_id);
         }

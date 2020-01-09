@@ -99,7 +99,11 @@ export class UserAccountCreatorComponent implements OnInit {
     if (this.isCompUser) {
       this.getCompany();
     }
-    if (user_type == UserTypes.BranchAdmin || user_type == UserTypes.BranchSuperExecutive) {
+    if (
+      user_type == UserTypes.BranchAdmin ||
+      user_type == UserTypes.CompanyAdmin ||
+      user_type == UserTypes.BranchSuperExecutive
+    ) {
       const merchant_id = this.localStorage.getUser().merchant_id;
       this.getCompanyBranches(merchant_id);
     }
