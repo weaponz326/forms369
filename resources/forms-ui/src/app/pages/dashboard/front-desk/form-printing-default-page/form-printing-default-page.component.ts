@@ -1,4 +1,5 @@
 import * as _ from 'lodash';
+import { Printd } from 'printd';
 import { Component, OnInit } from '@angular/core';
 import { CompanyService } from 'src/app/services/company/company.service';
 import { EndpointService } from 'src/app/services/endpoint/endpoint.service';
@@ -14,7 +15,6 @@ export class FormPrintingDefaultPageComponent implements OnInit {
   form: any;
   client: any;
   logo: string;
-  break: boolean;
   formKeys: Array<string>;
   formValues: Array<string>;
   clientFormData: Array<any>;
@@ -47,40 +47,39 @@ export class FormPrintingDefaultPageComponent implements OnInit {
   }
 
   ngOnInit() {
-    window.onafterprint = () => {
-      console.log('print window closed');
-      this.showPrintButton();
-    };
-
-    window.onbeforeprint = () => {
-      _.forEach(this.clientFormData, (data, i) => {
-        if (i == 25) {
-          this.break = true;
-          console.log('breaking page ...');
-        }
-      });
-      console.log('try splitting page here');
-    };
   }
 
   initVars() {
     this.formKeys = [];
     this.formValues = [];
     this.clientFormData = [];
+    const formFieldKeys = [];
 
     this.form = window.history.state.form;
     console.log('form: ' + JSON.stringify(this.form));
     this.resolveReloadDataLoss();
+
     this.client = this.form.client_submitted_details;
     console.log('client: ' + JSON.stringify(this.client));
 
     this.formKeys = _.keys(this.client);
     this.formValues = _.values(this.client);
+    const formFields = this.form.form_fields;
+    _.forEach(formFields, (field) => {
+      if (!_.isUndefined(field.name)) {
+        console.log('ffffff: ' + field.name);
+        formFieldKeys.push(field.name);
+      }
+    });
 
     _.forEach(this.formKeys, (key, i) => {
-      this.clientFormData.push({
-        title: this.transformText(key),
-        data: this.formValues[i]
+      _.forEach(formFieldKeys, (field) => {
+        if (field == key) {
+          this.clientFormData.push({
+            title: this.transformText(key),
+            data: this.formValues[i]
+          });
+        }
       });
     });
   }
@@ -107,19 +106,42 @@ export class FormPrintingDefaultPageComponent implements OnInit {
     );
   }
 
-  private hidePrintButton() {
-    const printBtn = document.getElementById('print-button');
-    printBtn.style.display = 'none';
-  }
+  printViewCss() {
+    const css = [
+      'https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css',
+      `
+      h5 > strong {
+        font-size: 13px;
+        text-transform: uppercase;
+      }
 
-  private showPrintButton() {
-    const printBtn = document.getElementById('print-button');
-    printBtn.style.display = 'initial';
+      .container .col-8 {
+        padding-top: 10px;
+      }
+
+      .img-view, .title-view {
+        text-align: center;
+      }
+
+      .img-view > img {
+        width: 180px;
+        height: 180px;
+        margin-bottom: 25px;
+      }
+
+      .title-view h1 {
+        margin-bottom: 40px;
+      }
+    `];
+
+    return css;
   }
 
   print() {
-    this.hidePrintButton();
-    window.print();
+    const styles = this.printViewCss();
+    const el = document.getElementById('print-view');
+    const d = new Printd();
+    d.print(el, styles);
   }
 
 }

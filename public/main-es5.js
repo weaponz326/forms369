@@ -778,7 +778,7 @@ module.exports = "<div class=\"container-scroller\">\n  <app-navigation-bar></ap
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<div class=\"view\">\n  <div class=\"text-center mb-3\">\n    <button id=\"print-button\" class=\"btn btn-primary\" (click)=\"print()\">Print</button>\n  </div>\n  <div class=\"container\">\n    <div class=\"row\">\n      <div class=\"col-8 offset-2\">\n        <div class=\"img-view\">\n          <img [src]=\"logo\" alt=\"logo\" class=\"img-fluid\">\n        </div>\n        <div class=\"title-view\">\n          <h1>{{ form.form_name }}</h1>\n        </div>\n        <div class=\"row\" *ngFor=\"let item of clientFormData; let i=index\">\n          <div class=\"col-6\">\n            <h5><strong>{{ item.title }}</strong></h5>\n          </div>\n          <div class=\"col-6\">\n            <h5>{{ item.data }}</h5>\n          </div>\n          <div *ngIf=\"i > 10\" class=\"page-break\"></div>\n        </div>\n      </div>\n    </div>\n  </div>\n</div>"
+module.exports = "<div class=\"view\">\n  <div class=\"text-center mb-3\">\n    <button id=\"print-button\" class=\"btn btn-primary\" (click)=\"print()\">Print</button>\n  </div>\n  <div class=\"container\" id=\"print-view\">\n    <div class=\"row\">\n      <div class=\"col-8 offset-2\">\n        <div class=\"img-view\">\n          <img [src]=\"logo\" alt=\"logo\" class=\"img-fluid\">\n        </div>\n        <div class=\"title-view\">\n          <h1>{{ form.form_name }}</h1>\n        </div>\n        <div class=\"row\" *ngFor=\"let item of clientFormData; let i=index\">\n          <div class=\"col-6\">\n            <h5><strong>{{ item.title }}</strong></h5>\n          </div>\n          <div class=\"col-6\">\n            <h5>{{ item.data }}</h5>\n          </div>\n        </div>\n      </div>\n    </div>\n  </div>\n</div>"
 
 /***/ }),
 
@@ -7987,7 +7987,7 @@ var ViewTemplatePageComponent = /** @class */ (function () {
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = ".view {\n    padding: 5px;\n    margin: 5px;\n}\n\n.container {\n    border: 1px solid #ccc;\n}\n\n.row {\n    padding: 10px 2px;\n}\n\nh5 {\n    font-size: 13px;\n    text-transform: uppercase;\n}\n\n.container .col-8 {\n    padding-top: 10px;\n}\n\n.img-view, .title-view {\n    text-align: center;\n}\n\n.img-view > img {\n    width: 180px;\n    height: 180px;\n    margin-bottom: 25px;\n}\n\n.title-view h1 {\n    margin-bottom: 20px;\n}\n\n/* .page-break {\n    page-break-after: always;\n} */\n\n@media screen {\n\t.page-break\t{ height:10px; border-top:1px dotted #999; margin-bottom:13px; }\n}\n\n@media print {\n\t.page-break { height:0; page-break-before:always; margin:0; border-top:none; }\n}\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInNyYy9hcHAvcGFnZXMvZGFzaGJvYXJkL2Zyb250LWRlc2svZm9ybS1wcmludGluZy1kZWZhdWx0LXBhZ2UvZm9ybS1wcmludGluZy1kZWZhdWx0LXBhZ2UuY29tcG9uZW50LmNzcyJdLCJuYW1lcyI6W10sIm1hcHBpbmdzIjoiQUFBQTtJQUNJLFlBQVk7SUFDWixXQUFXO0FBQ2Y7O0FBRUE7SUFDSSxzQkFBc0I7QUFDMUI7O0FBRUE7SUFDSSxpQkFBaUI7QUFDckI7O0FBRUE7SUFDSSxlQUFlO0lBQ2YseUJBQXlCO0FBQzdCOztBQUVBO0lBQ0ksaUJBQWlCO0FBQ3JCOztBQUVBO0lBQ0ksa0JBQWtCO0FBQ3RCOztBQUVBO0lBQ0ksWUFBWTtJQUNaLGFBQWE7SUFDYixtQkFBbUI7QUFDdkI7O0FBRUE7SUFDSSxtQkFBbUI7QUFDdkI7O0FBRUE7O0dBRUc7O0FBRUg7Q0FDQyxjQUFjLFdBQVcsRUFBRSwwQkFBMEIsRUFBRSxrQkFBa0IsRUFBRTtBQUM1RTs7QUFDQTtDQUNDLGNBQWMsUUFBUSxFQUFFLHdCQUF3QixFQUFFLFFBQVEsRUFBRSxlQUFlLEVBQUU7QUFDOUUiLCJmaWxlIjoic3JjL2FwcC9wYWdlcy9kYXNoYm9hcmQvZnJvbnQtZGVzay9mb3JtLXByaW50aW5nLWRlZmF1bHQtcGFnZS9mb3JtLXByaW50aW5nLWRlZmF1bHQtcGFnZS5jb21wb25lbnQuY3NzIiwic291cmNlc0NvbnRlbnQiOlsiLnZpZXcge1xuICAgIHBhZGRpbmc6IDVweDtcbiAgICBtYXJnaW46IDVweDtcbn1cblxuLmNvbnRhaW5lciB7XG4gICAgYm9yZGVyOiAxcHggc29saWQgI2NjYztcbn1cblxuLnJvdyB7XG4gICAgcGFkZGluZzogMTBweCAycHg7XG59XG5cbmg1IHtcbiAgICBmb250LXNpemU6IDEzcHg7XG4gICAgdGV4dC10cmFuc2Zvcm06IHVwcGVyY2FzZTtcbn1cblxuLmNvbnRhaW5lciAuY29sLTgge1xuICAgIHBhZGRpbmctdG9wOiAxMHB4O1xufVxuXG4uaW1nLXZpZXcsIC50aXRsZS12aWV3IHtcbiAgICB0ZXh0LWFsaWduOiBjZW50ZXI7XG59XG5cbi5pbWctdmlldyA+IGltZyB7XG4gICAgd2lkdGg6IDE4MHB4O1xuICAgIGhlaWdodDogMTgwcHg7XG4gICAgbWFyZ2luLWJvdHRvbTogMjVweDtcbn1cblxuLnRpdGxlLXZpZXcgaDEge1xuICAgIG1hcmdpbi1ib3R0b206IDIwcHg7XG59XG5cbi8qIC5wYWdlLWJyZWFrIHtcbiAgICBwYWdlLWJyZWFrLWFmdGVyOiBhbHdheXM7XG59ICovXG5cbkBtZWRpYSBzY3JlZW4ge1xuXHQucGFnZS1icmVha1x0eyBoZWlnaHQ6MTBweDsgYm9yZGVyLXRvcDoxcHggZG90dGVkICM5OTk7IG1hcmdpbi1ib3R0b206MTNweDsgfVxufVxuQG1lZGlhIHByaW50IHtcblx0LnBhZ2UtYnJlYWsgeyBoZWlnaHQ6MDsgcGFnZS1icmVhay1iZWZvcmU6YWx3YXlzOyBtYXJnaW46MDsgYm9yZGVyLXRvcDpub25lOyB9XG59Il19 */"
+module.exports = ".view {\n    padding: 5px;\n    margin: 5px;\n}\n\n.container {\n    border: 1px solid #ccc;\n}\n\n.row {\n    padding: 10px 2px;\n}\n\nh5 {\n    font-size: 13px;\n    text-transform: uppercase;\n}\n\n.container .col-8 {\n    padding-top: 10px;\n}\n\n.img-view, .title-view {\n    text-align: center;\n}\n\n.img-view > img {\n    width: 180px;\n    height: 180px;\n    margin-bottom: 25px;\n}\n\n.title-view h1 {\n    margin-bottom: 20px;\n}\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInNyYy9hcHAvcGFnZXMvZGFzaGJvYXJkL2Zyb250LWRlc2svZm9ybS1wcmludGluZy1kZWZhdWx0LXBhZ2UvZm9ybS1wcmludGluZy1kZWZhdWx0LXBhZ2UuY29tcG9uZW50LmNzcyJdLCJuYW1lcyI6W10sIm1hcHBpbmdzIjoiQUFBQTtJQUNJLFlBQVk7SUFDWixXQUFXO0FBQ2Y7O0FBRUE7SUFDSSxzQkFBc0I7QUFDMUI7O0FBRUE7SUFDSSxpQkFBaUI7QUFDckI7O0FBRUE7SUFDSSxlQUFlO0lBQ2YseUJBQXlCO0FBQzdCOztBQUVBO0lBQ0ksaUJBQWlCO0FBQ3JCOztBQUVBO0lBQ0ksa0JBQWtCO0FBQ3RCOztBQUVBO0lBQ0ksWUFBWTtJQUNaLGFBQWE7SUFDYixtQkFBbUI7QUFDdkI7O0FBRUE7SUFDSSxtQkFBbUI7QUFDdkIiLCJmaWxlIjoic3JjL2FwcC9wYWdlcy9kYXNoYm9hcmQvZnJvbnQtZGVzay9mb3JtLXByaW50aW5nLWRlZmF1bHQtcGFnZS9mb3JtLXByaW50aW5nLWRlZmF1bHQtcGFnZS5jb21wb25lbnQuY3NzIiwic291cmNlc0NvbnRlbnQiOlsiLnZpZXcge1xuICAgIHBhZGRpbmc6IDVweDtcbiAgICBtYXJnaW46IDVweDtcbn1cblxuLmNvbnRhaW5lciB7XG4gICAgYm9yZGVyOiAxcHggc29saWQgI2NjYztcbn1cblxuLnJvdyB7XG4gICAgcGFkZGluZzogMTBweCAycHg7XG59XG5cbmg1IHtcbiAgICBmb250LXNpemU6IDEzcHg7XG4gICAgdGV4dC10cmFuc2Zvcm06IHVwcGVyY2FzZTtcbn1cblxuLmNvbnRhaW5lciAuY29sLTgge1xuICAgIHBhZGRpbmctdG9wOiAxMHB4O1xufVxuXG4uaW1nLXZpZXcsIC50aXRsZS12aWV3IHtcbiAgICB0ZXh0LWFsaWduOiBjZW50ZXI7XG59XG5cbi5pbWctdmlldyA+IGltZyB7XG4gICAgd2lkdGg6IDE4MHB4O1xuICAgIGhlaWdodDogMTgwcHg7XG4gICAgbWFyZ2luLWJvdHRvbTogMjVweDtcbn1cblxuLnRpdGxlLXZpZXcgaDEge1xuICAgIG1hcmdpbi1ib3R0b206IDIwcHg7XG59Il19 */"
 
 /***/ }),
 
@@ -8004,10 +8004,13 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
 /* harmony import */ var lodash__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! lodash */ "./node_modules/lodash/lodash.js");
 /* harmony import */ var lodash__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(lodash__WEBPACK_IMPORTED_MODULE_1__);
-/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
-/* harmony import */ var src_app_services_company_company_service__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! src/app/services/company/company.service */ "./src/app/services/company/company.service.ts");
-/* harmony import */ var src_app_services_endpoint_endpoint_service__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! src/app/services/endpoint/endpoint.service */ "./src/app/services/endpoint/endpoint.service.ts");
-/* harmony import */ var src_app_services_storage_local_storage_service__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! src/app/services/storage/local-storage.service */ "./src/app/services/storage/local-storage.service.ts");
+/* harmony import */ var printd__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! printd */ "./node_modules/printd/index.js");
+/* harmony import */ var printd__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(printd__WEBPACK_IMPORTED_MODULE_2__);
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
+/* harmony import */ var src_app_services_company_company_service__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! src/app/services/company/company.service */ "./src/app/services/company/company.service.ts");
+/* harmony import */ var src_app_services_endpoint_endpoint_service__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! src/app/services/endpoint/endpoint.service */ "./src/app/services/endpoint/endpoint.service.ts");
+/* harmony import */ var src_app_services_storage_local_storage_service__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! src/app/services/storage/local-storage.service */ "./src/app/services/storage/local-storage.service.ts");
+
 
 
 
@@ -8040,26 +8043,13 @@ var FormPrintingDefaultPageComponent = /** @class */ (function () {
         }
     };
     FormPrintingDefaultPageComponent.prototype.ngOnInit = function () {
-        var _this = this;
-        window.onafterprint = function () {
-            console.log('print window closed');
-            _this.showPrintButton();
-        };
-        window.onbeforeprint = function () {
-            lodash__WEBPACK_IMPORTED_MODULE_1__["forEach"](_this.clientFormData, function (data, i) {
-                if (i == 25) {
-                    _this.break = true;
-                    console.log('breaking page ...');
-                }
-            });
-            console.log('try splitting page here');
-        };
     };
     FormPrintingDefaultPageComponent.prototype.initVars = function () {
         var _this = this;
         this.formKeys = [];
         this.formValues = [];
         this.clientFormData = [];
+        var formFieldKeys = [];
         this.form = window.history.state.form;
         console.log('form: ' + JSON.stringify(this.form));
         this.resolveReloadDataLoss();
@@ -8067,10 +8057,21 @@ var FormPrintingDefaultPageComponent = /** @class */ (function () {
         console.log('client: ' + JSON.stringify(this.client));
         this.formKeys = lodash__WEBPACK_IMPORTED_MODULE_1__["keys"](this.client);
         this.formValues = lodash__WEBPACK_IMPORTED_MODULE_1__["values"](this.client);
+        var formFields = this.form.form_fields;
+        lodash__WEBPACK_IMPORTED_MODULE_1__["forEach"](formFields, function (field) {
+            if (!lodash__WEBPACK_IMPORTED_MODULE_1__["isUndefined"](field.name)) {
+                console.log('ffffff: ' + field.name);
+                formFieldKeys.push(field.name);
+            }
+        });
         lodash__WEBPACK_IMPORTED_MODULE_1__["forEach"](this.formKeys, function (key, i) {
-            _this.clientFormData.push({
-                title: _this.transformText(key),
-                data: _this.formValues[i]
+            lodash__WEBPACK_IMPORTED_MODULE_1__["forEach"](formFieldKeys, function (field) {
+                if (field == key) {
+                    _this.clientFormData.push({
+                        title: _this.transformText(key),
+                        data: _this.formValues[i]
+                    });
+                }
             });
         });
     };
@@ -8093,25 +8094,26 @@ var FormPrintingDefaultPageComponent = /** @class */ (function () {
             _this.logo = _this.endpointService.storageHost + merchant_logo;
         });
     };
-    FormPrintingDefaultPageComponent.prototype.hidePrintButton = function () {
-        var printBtn = document.getElementById('print-button');
-        printBtn.style.display = 'none';
-    };
-    FormPrintingDefaultPageComponent.prototype.showPrintButton = function () {
-        var printBtn = document.getElementById('print-button');
-        printBtn.style.display = 'initial';
+    FormPrintingDefaultPageComponent.prototype.printViewCss = function () {
+        var css = [
+            'https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css',
+            "\n      h5 > strong {\n        font-size: 13px;\n        text-transform: uppercase;\n      }\n\n      .container .col-8 {\n        padding-top: 10px;\n      }\n\n      .img-view, .title-view {\n        text-align: center;\n      }\n\n      .img-view > img {\n        width: 180px;\n        height: 180px;\n        margin-bottom: 25px;\n      }\n\n      .title-view h1 {\n        margin-bottom: 40px;\n      }\n    "
+        ];
+        return css;
     };
     FormPrintingDefaultPageComponent.prototype.print = function () {
-        this.hidePrintButton();
-        window.print();
+        var styles = this.printViewCss();
+        var el = document.getElementById('print-view');
+        var d = new printd__WEBPACK_IMPORTED_MODULE_2__["Printd"]();
+        d.print(el, styles);
     };
     FormPrintingDefaultPageComponent.ctorParameters = function () { return [
-        { type: src_app_services_company_company_service__WEBPACK_IMPORTED_MODULE_3__["CompanyService"] },
-        { type: src_app_services_endpoint_endpoint_service__WEBPACK_IMPORTED_MODULE_4__["EndpointService"] },
-        { type: src_app_services_storage_local_storage_service__WEBPACK_IMPORTED_MODULE_5__["LocalStorageService"] }
+        { type: src_app_services_company_company_service__WEBPACK_IMPORTED_MODULE_4__["CompanyService"] },
+        { type: src_app_services_endpoint_endpoint_service__WEBPACK_IMPORTED_MODULE_5__["EndpointService"] },
+        { type: src_app_services_storage_local_storage_service__WEBPACK_IMPORTED_MODULE_6__["LocalStorageService"] }
     ]; };
     FormPrintingDefaultPageComponent = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
-        Object(_angular_core__WEBPACK_IMPORTED_MODULE_2__["Component"])({
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_3__["Component"])({
             selector: 'app-form-printing-default-page',
             template: __webpack_require__(/*! raw-loader!./form-printing-default-page.component.html */ "./node_modules/raw-loader/index.js!./src/app/pages/dashboard/front-desk/form-printing-default-page/form-printing-default-page.component.html"),
             styles: [__webpack_require__(/*! ./form-printing-default-page.component.css */ "./src/app/pages/dashboard/front-desk/form-printing-default-page/form-printing-default-page.component.css")]
