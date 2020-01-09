@@ -107,6 +107,7 @@ import { AdminViewBranchExecutivesPageComponent } from './pages/dashboard/admin/
 import { AdminViewCompanyExecutivesPageComponent } from './pages/dashboard/admin/admin-view-company-executives-page/admin-view-company-executives-page.component';
 import { FrontDeskClientsFormDataPageComponent } from './pages/dashboard/front-desk/front-desk-clients-form-data-page/front-desk-clients-form-data-page.component';
 import { InvalidConfirmationPageComponent } from './pages/invalid-confirmation-page/invalid-confirmation-page.component';
+import { FrontDeskClientsFormPageComponent } from './pages/dashboard/front-desk/front-desk-clients-form-page/front-desk-clients-form-page.component';
 
 @NgModule({
   declarations: [
@@ -198,6 +199,7 @@ import { InvalidConfirmationPageComponent } from './pages/invalid-confirmation-p
     AdminViewCompanyExecutivesPageComponent,
     FrontDeskClientsFormDataPageComponent,
     InvalidConfirmationPageComponent,
+    FrontDeskClientsFormPageComponent,
   ],
   imports: [
     BrowserModule,

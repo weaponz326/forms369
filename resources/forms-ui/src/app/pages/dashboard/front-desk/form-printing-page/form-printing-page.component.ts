@@ -77,7 +77,7 @@ export class FormPrintingPageComponent implements OnInit {
   }
 
   resolveDateFormat(date: string) {
-    return moment().format('DD MMM YYYY');
+    return moment(date).format('DD MMM YYYY');
   }
 
   private createInput(annotation: any, rect: number[] = null) {

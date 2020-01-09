@@ -1,0 +1,8 @@
+.table thead th {
+    font-size: 0.75rem;
+    white-space: nowrap;
+}
+
+.table td {
+    line-height: 21px;
+}

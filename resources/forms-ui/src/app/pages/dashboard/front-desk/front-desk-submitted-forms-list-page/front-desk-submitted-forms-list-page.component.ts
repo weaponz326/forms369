@@ -53,7 +53,7 @@ export class FrontDeskSubmittedFormsListPageComponent implements OnInit {
     const merchant_id = this.user.merchant_id.toString();
     this.frontDeskService.getSubmittedFormByStatusAndMerchant(0, merchant_id).then(
       res => {
-        this.hasMore = this.checkIfHasMore();
+        // this.hasMore = this.checkIfHasMore();
         if (res.length != 0) {
           _.forEach(res, (form) => {
             if (form.can_view == 1) {
@@ -62,6 +62,7 @@ export class FrontDeskSubmittedFormsListPageComponent implements OnInit {
           });
           this.loading = false;
           this.hasData = this.submittedFormsList.length == 0 ? false : true;
+          this.hasMore = this.submittedFormsList.length < 15 ? false : this.checkIfHasMore();
         }
         else {
           this.hasData = false;

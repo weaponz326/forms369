@@ -124,12 +124,20 @@ export class FrontDeskService {
     });
   }
 
-  getRespondantData(form_code: string): Promise<any> {
+  getRespondantData(form_code: string, page_url?: string): Promise<any> {
     return new Promise((resolve, reject) => {
-      const url = this.endpointService.apiHost + 'api/v1/viewRespondentData/' + form_code;
+      const url = !_.isUndefined(page_url)
+        ? page_url
+        : this.endpointService.apiHost + 'api/v1/viewRespondentData/' + form_code;
       this.http.get(url, { headers: this.headers }).subscribe(
-        res => {},
-        err => {}
+        res => {
+          const response = res as any;
+          this.nextPaginationUrl = response.respondents_data.next_page_url;
+          resolve(response.respondents_data.data);
+        },
+        err => {
+          reject(err);
+        }
       );
     });
   }

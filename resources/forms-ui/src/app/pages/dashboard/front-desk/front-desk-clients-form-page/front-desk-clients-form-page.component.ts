@@ -2,15 +2,15 @@ import { Component, OnInit } from '@angular/core';
 import * as _ from 'lodash';
 import { Router } from '@angular/router';
 import { Users } from 'src/app/models/users.model';
-import { FrontDeskService } from 'src/app/services/front-desk/front-desk.service';
+import { FormsService } from 'src/app/services/forms/forms.service';
 import { LocalStorageService } from 'src/app/services/storage/local-storage.service';
 
 @Component({
-  selector: 'app-front-desk-processed-forms-list-page',
-  templateUrl: './front-desk-processed-forms-list-page.component.html',
-  styleUrls: ['./front-desk-processed-forms-list-page.component.css']
+  selector: 'app-front-desk-clients-form-page',
+  templateUrl: './front-desk-clients-form-page.component.html',
+  styleUrls: ['./front-desk-clients-form-page.component.css']
 })
-export class FrontDeskProcessedFormsListPageComponent implements OnInit {
+export class FrontDeskClientsFormPageComponent implements OnInit {
   user: Users;
   hasMore: boolean;
   hasData: boolean;
@@ -19,18 +19,16 @@ export class FrontDeskProcessedFormsListPageComponent implements OnInit {
   can_print: boolean;
   loadingMore: boolean;
   hasMoreError: boolean;
-  processedFormsList: Array<any>;
+  allFormsList: Array<any>;
 
   constructor(
     private router: Router,
+    private formsService: FormsService,
     private localStorage: LocalStorageService,
-    private frontDeskService: FrontDeskService,
   ) {
-    this.processedFormsList = [];
+    this.allFormsList = [];
     this.user = this.localStorage.getUser();
-    this.can_print = this.user.can_print == 1 ? true : false;
-
-    this.getAllProcessedForms();
+    this.getAllMerchantForms();
   }
 
   ngOnInit() {
@@ -38,32 +36,23 @@ export class FrontDeskProcessedFormsListPageComponent implements OnInit {
 
   open(e: Event, form: any) {
     e.stopPropagation();
-    this.router.navigateByUrl('/front_desk/preview', { state: { form: form }});
-  }
-
-  print(ev: Event, form: any) {
-    ev.stopPropagation();
-    this.can_print
-      ? this.router.navigateByUrl('front_desk/print_form', { state: { form: form }})
-      : this.router.navigateByUrl('front_desk/print_form_default', { state: { form: form }});
+    this.router.navigateByUrl('/front_desk/lists/client_form_data', { state: { form: form }});
   }
 
   checkIfHasMore() {
-    return _.isEmpty(this.frontDeskService.nextPaginationUrl) ? false : true;
+    return _.isEmpty(this.formsService.nextPaginationUrl) ? false : true;
   }
 
-  getAllProcessedForms() {
+  getAllMerchantForms() {
     this.loading = true;
-    const processedForms = [];
-    this.frontDeskService.getAllFormsProcessedByUser(this.user.id.toString()).then(
+    this.formsService.getAllFormsByMerchant(this.user.merchant_id.toString()).then(
       res => {
         this.hasMore = this.checkIfHasMore();
         if (res.length != 0) {
           this.hasData = true;
           _.forEach(res, (form) => {
-            processedForms.push(form);
+            this.allFormsList.push(form);
           });
-          this.processedFormsList = _.reverse(_.sortBy(processedForms, (f) => f.created_at));
           this.loading = false;
         }
         else {
@@ -80,14 +69,14 @@ export class FrontDeskProcessedFormsListPageComponent implements OnInit {
 
   loadMore() {
     this.loadingMore = true;
-    const moreUrl = this.frontDeskService.nextPaginationUrl;
-    this.frontDeskService.getAllFormsProcessedByUser(this.user.id.toString()).then(
+    const moreUrl = this.formsService.nextPaginationUrl;
+    this.formsService.getAllFormsByMerchant(this.user.merchant_id.toString(), moreUrl).then(
       res => {
         this.loadingMore = false;
         this.hasMoreError = false;
         this.hasMore = this.checkIfHasMore();
         _.forEach(res, (form) => {
-          this.processedFormsList.push(form);
+          this.allFormsList.push(form);
         });
         this.loading = false;
       },
@@ -99,7 +88,7 @@ export class FrontDeskProcessedFormsListPageComponent implements OnInit {
   }
 
   retry() {
-    this.getAllProcessedForms();
+    this.getAllMerchantForms();
   }
 
 }

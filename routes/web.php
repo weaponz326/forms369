@@ -284,6 +284,11 @@ Route::get('front_desk/lists/processed', function () {
     return View::make('index');
 });
 
+Route::get('front_desk/lists/client_forms', function () {
+    View::addExtension('html', 'php');
+    return View::make('index');
+});
+
 Route::get('front_desk/lists/client_form_data', function () {
     View::addExtension('html', 'php');
     return View::make('index');
