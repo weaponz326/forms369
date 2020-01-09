@@ -30,6 +30,36 @@
                     <div class="form-builder-container">
                       <div id="form-render"></div>
                     </div>
+
+                    <div class="attachments-section">
+                      <div class="card">
+                        <div class="card-body">
+                          <h5 class="card-title">Form Attachments / Documents</h5>
+                          <h6 class="card-subtitle mb-2 text-muted">Below are attachments you've uploaded for this form</h6>
+                          <div class="row">
+                            <div class="col-10" style="padding-right: 8px;">
+                              <nav aria-label="breadcrumb">
+                                <ol class="breadcrumb">
+                                  <li class="breadcrumb-item">
+                                    <i class="mdi mdi-image menu-icon"></i>
+                                    <a href="#">IMG_0000000000001111111111.jpg</a>
+                                  </li>
+                                </ol>
+                              </nav>
+                            </div>
+                            <div class="col-2" style="padding-right: 3px; padding-left: 4px;">
+                              <button class="btn btn-danger btn-icon mr-1">
+                                <i class="mdi mdi-trash-can-outline"></i>
+                              </button>
+                              <button class="btn btn-primary btn-icon">
+                                <i class="mdi mdi-trash-can-outline"></i>
+                              </button>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+
                     <div class="buttons-list">
                       <button *ngIf="loading" class="btn btn-primary btn-lg mr-2" type="button" disabled>
                         <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>

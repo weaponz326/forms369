@@ -5,3 +5,21 @@ and (max-device-width: 825px) {
         padding: 1rem 2rem;
     }
 }
+
+.breadcrumb {
+    padding-top: 3px;
+    padding-bottom: 5px;
+}
+
+.breadcrumb-item > i {
+    font-size: 20px;
+    margin-right: 10px;
+    top: 3px;
+    position: relative;
+}
+
+ol li {
+    line-height: 1.8;
+    white-space: pre-wrap;
+    word-break: break-word;
+}
