@@ -27,8 +27,8 @@ export class CreateCompanyPageComponent implements OnInit {
   logoImage: string;
   submitted: boolean;
   companyAdminsList: Array<any>;
-  superExecutivesList: Array<any>;
   countriesList: Array<ICountry>;
+  superExecutivesList: Array<any>;
   executivesEmailList: Array<any>;
   companyAdminEmailList: Array<string>;
   filteredAdminsList: Observable<string[]>;
@@ -266,12 +266,6 @@ export class CreateCompanyPageComponent implements OnInit {
   }
 
   cancel() {
-    // this.logoImage = '';
-    // this.hasLogo = false;
-    // this.f.name.setValue('');
-    // this.f.country.setValue('');
-    // this.f.companyAdmin.setValue('');
-    // this.f.superExecutive.setValue('');
     this.ok();
   }
 

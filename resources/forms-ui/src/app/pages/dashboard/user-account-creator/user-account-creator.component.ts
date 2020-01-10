@@ -132,14 +132,14 @@ export class UserAccountCreatorComponent implements OnInit {
       // remove validators of merchant and branch
       // so the account can be created.
       this.f.branch.clearValidators();
-      // this.f.merchant.clearValidators();
+      this.f.merchant.clearValidators();
       this.f.branch.updateValueAndValidity();
-      // this.f.merchant.updateValueAndValidity();
+      this.f.merchant.updateValueAndValidity();
 
       // Since merchant isnt a required field in our form in this case, and also
       // we need to make sure the right merchant has been selected.
-      delete this.f.merchant.errors.required;
-      this.f.merchant.updateValueAndValidity();
+      // delete this.f.merchant.errors.required;
+      // this.f.merchant.updateValueAndValidity();
     }
 
     if (this.f.userType.value == UserTypes.GitAdmin) {

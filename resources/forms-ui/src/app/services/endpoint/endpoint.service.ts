@@ -16,7 +16,7 @@ export class EndpointService {
     this.productionApiHost = '';
     this.localApiHost = 'http://127.0.0.1:8000/';
     this.apiHost = window.origin == 'http://localhost:4200' ? this.localApiHost : this.productionApiHost;
-    this.storageHost = this.apiHost + 'storage/';
+    this.storageHost = window.origin == 'http://localhost:4200' ? this.apiHost + 'storage/' : this.productionApiHost;
   }
 
   /**

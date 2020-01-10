@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
 import * as _ from 'lodash';
+import { UserTypes } from 'src/app/enums/user-types.enum';
 import { EndpointService } from '../endpoint/endpoint.service';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { UserTypes } from 'src/app/enums/user-types.enum';
 
 @Injectable({
   providedIn: 'root'

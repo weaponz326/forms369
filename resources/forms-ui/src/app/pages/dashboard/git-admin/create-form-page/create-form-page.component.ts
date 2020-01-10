@@ -279,6 +279,7 @@ export class CreateFormPageComponent implements OnInit {
     this.submitted = false;
     this.f.pdf.setValue('');
     this.f.name.setValue('');
+    this.f.canView.setValue('');
     this.f.merchant.setValue('');
     this.created = !this.created;
   }

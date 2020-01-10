@@ -4,8 +4,10 @@ import * as _ from 'lodash';
 import { Router } from '@angular/router';
 import { ClipboardService } from 'ngx-clipboard';
 import { Users } from 'src/app/models/users.model';
-import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { NgbModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
 import { ClientService } from 'src/app/services/client/client.service';
+import { EndpointService } from 'src/app/services/endpoint/endpoint.service';
+import { DownloaderService } from 'src/app/services/downloader/downloader.service';
 import { LocalStorageService } from 'src/app/services/storage/local-storage.service';
 import { FormBuilderService } from 'src/app/services/form-builder/form-builder.service';
 
@@ -18,6 +20,7 @@ export class ClientFormsEntryPageComponent implements OnInit {
 
   form: any;
   user: Users;
+  imgUrl: string;
   loading: boolean;
   created: boolean;
   hasFile: boolean;
@@ -26,9 +29,16 @@ export class ClientFormsEntryPageComponent implements OnInit {
   formRenderer: any;
   clientProfile: any;
   formGenCode: string;
+  documentUrl: string;
+  showAttachments: boolean;
+  docDialogRef: NgbModalRef;
+  loadingAttachments: boolean;
   attachmentFiles: Array<File>;
   attachmentKeys: Array<string>;
+  existingAttachments: Array<any>;
   @ViewChild('confirm', { static: false }) confirmDialog: TemplateRef<any>;
+  @ViewChild('viewImgAttachment', { static: false }) viewImgDialog: TemplateRef<any>;
+  @ViewChild('viewDocAttachment', { static: false }) viewDocDialog: TemplateRef<any>;
 
   constructor(
     private router: Router,
@@ -36,15 +46,19 @@ export class ClientFormsEntryPageComponent implements OnInit {
     private clipboard: ClipboardService,
     private clientService: ClientService,
     private formBuilder: FormBuilderService,
-    private localStorage: LocalStorageService
+    private endpointService: EndpointService,
+    private localStorage: LocalStorageService,
+    private downloadService: DownloaderService,
   ) {
     this.formFiles = 0;
     this.attachmentKeys = [];
     this.attachmentFiles = [];
+    this.existingAttachments = [];
     this.form = history.state.form;
     this.resolveReloadDataLoss();
     this.user = this.localStorage.getUser();
     console.log('form: ' + JSON.stringify(this.form));
+    this.getFormAttachments(this.form.submission_code);
   }
 
   ngOnInit() {
@@ -110,7 +124,7 @@ export class ClientFormsEntryPageComponent implements OnInit {
     });
   }
 
-  checkIfHasFileUpload(form_data) {
+  checkIfHasFileUpload(form_data: any) {
     _.forEach(form_data, (fields) => {
       if (fields.type == 'file') {
         this.hasFile = true;
@@ -118,6 +132,70 @@ export class ClientFormsEntryPageComponent implements OnInit {
         this.attachmentKeys.push(fields.name);
       }
     });
+  }
+
+  willUseExistingAttachment(unfilled_fields: any[]) {
+    // Over here, we ensure if there are existing attachments
+    // and the input["file"] is empty we dont prevent them from
+    // submitted eventhough it is required.
+    // if (_.isNull(inputElement) || _.isUndefined(inputElement)) {
+    //   return;
+    // }
+    // else {
+    //   if (inputElement.type == 'file' && inputElement.name == field_name) {
+    //     // we use the existing attachments.
+    //     return true;
+    //   }
+    //   else {
+    //     return false;
+    //   }
+    // }
+    let fields = [];
+    _.forEach(this.existingAttachments, (attachment) => {
+      _.forEach(unfilled_fields, (field) => {
+        if (attachment.key == field.name) {
+          fields = _.filter(unfilled_fields, (f) => f.name != field.name);
+        }
+      });
+    });
+
+    console.log('unfilllllllllleeeeed: ' + JSON.stringify(fields));
+    return fields;
+  }
+
+  submitFormWithAttachments(user_data: any) {
+    console.log('is submitting');
+    const filled_data = this.formBuilder.getFormUserData(user_data);
+    const updated_data = this.clientService.getUpdatedClientFormData(JSON.parse(filled_data), this.clientProfile.client_details[0]);
+    console.log('new updates: ' + updated_data);
+    this.clientService.submitForm(_.toString(this.user.id), this.form.form_code, this.clientProfile.client_details[0], JSON.parse(updated_data)).then(
+      res => {
+        this.formGenCode = res.code;
+        if (this.hasFile) {
+          this.uploadFormAttachments(this.formGenCode);
+        }
+      },
+      err => {
+        this.loading = false;
+      }
+    );
+  }
+
+  submitFormWithoutAttachments(user_data: any) {
+    console.log('is submitting in unfilled');
+    const filled_data = this.formBuilder.getFormUserData(user_data);
+    const updated_data = this.clientService.getUpdatedClientFormData(JSON.parse(filled_data), this.clientProfile.client_details[0]);
+    console.log('new updates: ' + updated_data);
+    this.clientService.submitForm(_.toString(this.user.id), this.form.form_code, this.clientProfile.client_details[0], JSON.parse(updated_data)).then(
+      res => {
+        this.created = true;
+        this.loading = false;
+        this.formGenCode = res.code;
+      },
+      err => {
+        this.loading = false;
+      }
+    );
   }
 
   submit() {
@@ -130,28 +208,19 @@ export class ClientFormsEntryPageComponent implements OnInit {
           console.log('this form: ' + this.formBuilder.getFormUserData(user_data));
           const unfilled = this.clientService.validateFormFilled(user_data);
           if (unfilled.length != 0) {
-            this.loading = false;
+            const fields = this.willUseExistingAttachment(unfilled);
             console.log('unfilled: ' + JSON.stringify(unfilled));
-            this.clientService.highlightUnFilledFormFields(unfilled);
+            console.log('unfilled_1: ' + JSON.stringify(fields));
+            if (fields.length > 0) {
+              this.loading = false;
+              this.clientService.highlightUnFilledFormFields(fields);
+            }
+            else {
+              this.submitFormWithoutAttachments(user_data);
+            }
           }
           else {
-            console.log('is submitting');
-            const filled_data = this.formBuilder.getFormUserData(user_data);
-            const updated_data = this.clientService.getUpdatedClientFormData(JSON.parse(filled_data), this.clientProfile.client_details[0]);
-            console.log('new updates: ' + updated_data);
-            this.clientService.submitForm(_.toString(this.user.id), this.form.form_code, this.clientProfile.client_details[0], JSON.parse(updated_data)).then(
-              res => {
-                // this.created = true;
-                // this.loading = false;
-                this.formGenCode = res.code;
-                if (this.hasFile) {
-                  this.uploadFormAttachments(this.formGenCode);
-                }
-              },
-              err => {
-                this.loading = false;
-              }
-            );
+            this.submitFormWithAttachments(user_data);
           }
         }
       }
@@ -217,6 +286,71 @@ export class ClientFormsEntryPageComponent implements OnInit {
     }
   }
 
+  getFormAttachments(form_code: string) {
+    this.loadingAttachments = true;
+    this.clientService.getFormAttachment(form_code).then(
+      res => {
+        console.log('resssss: ' + JSON.stringify(res));
+        if (res.length > 0) {
+          this.showAttachments = true;
+          _.forEach(res, (doc) => {
+            console.log('doc: ' + JSON.stringify(doc));
+            this.existingAttachments.push(doc);
+          });
+        }
+        else {
+          this.showAttachments =  false;
+        }
+
+        this.loadingAttachments = false;
+      },
+      err => {
+        console.log('get_a_error: ' + JSON.stringify(err));
+        this.loadingAttachments = false;
+      }
+    );
+  }
+
+  detectAttachmentIcon(extension: string) {
+    switch (extension) {
+      case 'jpg':
+      case 'png':
+      case 'gif':
+      case 'jpeg':
+        return 'mdi mdi-image';
+      case 'doc':
+      case 'xls':
+      case 'docx':
+        return 'mdi mdi-document';
+      default:
+        return 'mdi mdi-text';
+    }
+  }
+
+  openModal(e: Event, url: string) {
+    const index = url.lastIndexOf('.') + 1;
+    const file_extension = url.substr(index);
+    console.log('extension: ' + file_extension);
+    if (file_extension == 'jpg' || file_extension == 'png' || file_extension == 'gif' || file_extension == 'jpeg') {
+      this.openImageAttachmentModal(e, url);
+    }
+    else {
+      this.openDocumentAttachmentModal(e, url);
+    }
+  }
+
+  openImageAttachmentModal(e: Event, url: string) {
+    e.stopPropagation();
+    this.imgUrl = this.endpointService.apiHost + 'storage/attachments/' + url;
+    this.modalServiuce.open(this.viewImgDialog, { centered: true });
+  }
+
+  openDocumentAttachmentModal(e: Event, url: string) {
+    e.stopPropagation();
+    this.documentUrl = this.endpointService.apiHost + 'storage/attachments/' + url;
+    this.docDialogRef = this.modalServiuce.open(this.viewDocDialog, { centered: true });
+  }
+
   copy() {
     this.clipboard.copyFromContent(this.formGenCode);
   }
@@ -227,6 +361,16 @@ export class ClientFormsEntryPageComponent implements OnInit {
 
   ok() {
     this.router.navigateByUrl('/client/unsent_forms');
+  }
+
+  downloadDoc(url: string) {
+    this.docDialogRef.close();
+    this.download(url);
+  }
+
+  download(url: string) {
+    const file_url = this.endpointService.apiHost + 'storage/attachments/' + url;
+    this.downloadService.download(file_url);
   }
 
 }

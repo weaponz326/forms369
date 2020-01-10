@@ -104,6 +104,7 @@ export class AddTemplatePageComponent implements OnInit {
   }
 
   reset() {
+    this.submitted = false;
     this.formBuilder.actions.clearFields();
   }
 

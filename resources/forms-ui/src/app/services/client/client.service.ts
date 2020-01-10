@@ -9,6 +9,8 @@ import { EndpointService } from '../endpoint/endpoint.service';
 export class ClientService {
 
   headers: HttpHeaders;
+  public nextPaginationUrl: string;
+
   constructor(private http: HttpClient, private endpointService: EndpointService) {
     this.headers = this.endpointService.headers();
   }
@@ -128,13 +130,16 @@ export class ClientService {
     });
   }
 
-  getAllSubmittedForms(id: string): Promise<any> {
+  getAllSubmittedForms(id: string, page_url?: string): Promise<any> {
     return new Promise((resolve, reject) => {
-      const url = this.endpointService.apiHost + 'api/v1/getClientSubmittedForms/' + id;
+      const url = !_.isUndefined(page_url)
+        ? page_url
+        : this.endpointService.apiHost + 'api/v1/getClientSubmittedForms/' + id;
       this.http.get(url, { headers: this.headers }).subscribe(
         res => {
           const response = res as any;
           console.log('submitted forms: ' + JSON.stringify(response.forms.data));
+          this.nextPaginationUrl = response.forms.next_page_url;
           resolve(response.forms.data);
         },
         err => {
@@ -323,10 +328,20 @@ export class ClientService {
     _.forEach(form_data, (data) => {
       // we are only checking form fields with the required attribute associated with them
       if (!_.isUndefined(data.required)) {
-        // if the userData array is empty we return this cueernt form field object
         console.log('userData: ' + data.userData);
-        if (data.userData == '') {
-          toFillFormFields.push(data);
+        if (data.type == 'file') {
+          // if form filed is a file. it doesnt have a userData property so we check if
+          // the field type is a file.
+          const elem = document.getElementById(data.name) as HTMLInputElement;
+          if (elem.value == '') {
+            toFillFormFields.push(data);
+          }
+        }
+        else {
+          // if the userData array is empty we return this current form field object
+          if (data.userData == '') {
+            toFillFormFields.push(data);
+          }
         }
       }
     });
@@ -335,9 +350,9 @@ export class ClientService {
   }
 
   /**
-   * Highlights all input fields that are required but 
+   * Highlights all input fields that are required but
    * have not been filled by the user.
-   * @param {Array<any>} form_data 
+   * @param {Array<any>} form_data
    */
   highlightUnFilledFormFields(form_data: Array<any>) {
     document.querySelectorAll('input').forEach((input) => {
@@ -388,10 +403,11 @@ export class ClientService {
 
   getFormAttachment(submission_code: string): Promise<any> {
     return new Promise((resolve, reject) => {
-      const url = this.endpointService.apiHost + 'getAttachments/' + submission_code;
+      const url = this.endpointService.apiHost + 'api/v1/getAttachments/' + submission_code;
       this.http.get(url, { headers: this.endpointService.headers() }).subscribe(
         res => {
           const response = res as any;
+          console.log('response: ' + JSON.stringify(response));
           resolve(response.attachments);
         },
         err => {

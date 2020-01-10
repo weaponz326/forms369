@@ -189,13 +189,17 @@ export class UserAccountEditorComponent implements OnInit {
           if (this.f.userType.value == UserTypes.CompanyAdmin) {
             this.isCompAdmin = true;
             this.f.branch.clearValidators();
+            this.f.merchant.clearValidators();
             this.f.branch.updateValueAndValidity();
+            this.f.merchant.updateValueAndValidity();
           }
           else {
             if (this.f.userType.value == UserTypes.SuperExecutive) {
               this.isSuperExec = true;
               this.f.branch.clearValidators();
+              this.f.merchant.clearValidators();
               this.f.branch.updateValueAndValidity();
+              this.f.merchant.updateValueAndValidity();
             }
             else {
               this.isGitAdmin = false;
@@ -375,9 +379,14 @@ export class UserAccountEditorComponent implements OnInit {
     }
     else {
       if (data.merchant_id == 0) {
-        console.log('no merchant');
-        this.f.merchant.setErrors({ null: true });
-        return true;
+        if (this.f.merchant.value == '') {
+          return false;
+        }
+        else {
+          console.log('no merchant');
+          this.f.merchant.setErrors({ null: true });
+          return true;
+        }
       }
     }
 
