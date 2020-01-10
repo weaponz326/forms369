@@ -154,7 +154,7 @@ class SetupController extends Controller
     public function createMerchant(Request $request){
         
         $this->validate($request, [
-            'merchant_name' => 'required',
+            'merchant_name' => 'required|unique:merchants',
             'country' => 'required',
             'super_id'=>'required',
             'admin_id'=>'required',
