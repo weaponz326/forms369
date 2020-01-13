@@ -14,10 +14,13 @@ export class ClientUnsentFormsPageComponent implements OnInit {
 
   user: Users;
   hasData: boolean;
+  hasMore: boolean;
   loading: boolean;
   hasError: boolean;
   filterState: string;
   isConnected: boolean;
+  loadingMore: boolean;
+  hasMoreError: boolean;
   submittedFormsList: Array<any>;
   allSubmittedFormsList: Array<any>;
   processedSubmittedFormsList: Array<any>;
@@ -56,12 +59,16 @@ export class ClientUnsentFormsPageComponent implements OnInit {
     this.submittedFormsList = _.filter(this.allSubmittedFormsList, (history) => history.form_status == 1);
   }
 
+  checkIfHasMore() {
+    return _.isNull(this.clientService.nextPaginationUrl) ? false : true;
+  }
+
   getAllUnsentForms() {
     this.loading = true;
     const client_id = _.toString(this.user.id);
     this.clientService.getAllSubmittedForms(client_id).then(
-      res => {
-        const forms = res as any;
+      forms => {
+        this.hasMore = this.checkIfHasMore();
         if (forms.length > 0) {
           this.hasData = true;
           this.loading = false;
@@ -82,7 +89,27 @@ export class ClientUnsentFormsPageComponent implements OnInit {
     );
   }
 
-  loadMore() {}
+  loadMore() {
+    this.loadingMore = true;
+    this.hasMoreError = false;
+    const client_id = _.toString(this.user.id);
+    const moreUrl = this.clientService.nextPaginationUrl;
+    this.clientService.getAllSubmittedForms(client_id, moreUrl).then(
+      forms => {
+        this.loadingMore = false;
+        this.hasMoreError = false;
+        this.hasMore = this.checkIfHasMore();
+        _.forEach(forms, (form) => {
+          this.submittedFormsList.push(form);
+        });
+        this.allSubmittedFormsList = this.submittedFormsList;
+      },
+      err => {
+        this.loadingMore = false;
+        this.hasMoreError = true;
+      }
+    );
+  }
 
   retry() {
     this.getAllUnsentForms();

@@ -5,6 +5,9 @@ import { PDFDocumentProxy } from 'ng2-pdf-viewer';
 import { PDFAnnotationData, PDFPageProxy, PDFProgressData } from 'pdfjs-dist';
 import { FormGroup, FormControl, FormBuilder } from '@angular/forms';
 import { EndpointService } from 'src/app/services/endpoint/endpoint.service';
+import { FrontDeskService } from 'src/app/services/front-desk/front-desk.service';
+import { LocalStorageService } from 'src/app/services/storage/local-storage.service';
+import { Users } from 'src/app/models/users.model';
 
 @Component({
   selector: 'app-form-printing-page',
@@ -12,8 +15,8 @@ import { EndpointService } from 'src/app/services/endpoint/endpoint.service';
   styleUrls: ['./form-printing-page.component.css']
 })
 export class FormPrintingPageComponent implements OnInit {
-
   form: any;
+  user: Users;
   pdfSrc: string;
   dpiRatio: any;
   loading: boolean;
@@ -22,16 +25,30 @@ export class FormPrintingPageComponent implements OnInit {
   inputList: Input[];
   clientFormDetails: any[];
 
-  constructor(private _fb: FormBuilder, private endpointService: EndpointService) {
+  constructor(
+    private _fb: FormBuilder,
+    private endpointService: EndpointService,
+    private frontDeskService: FrontDeskService,
+    private localStorage: LocalStorageService
+  ) {
     this.inputList = [];
     this.dpiRatio = 96 / 72;
     this.clientFormDetails = [];
     this.form = window.history.state.form;
     this.resolveReloadDataLoss();
-    this.pdfSrc = this.endpointService.storageHost + this.form.file_url;
-    window.onafterprint = () => {
-      this.showPrintButton();
-    };
+    this.user = this.localStorage.getUser();
+
+    this.frontDeskService.getPrintPDFFile(this.form.form_code, this.user.merchant_id.toString()).then(
+      url => {
+        console.log('ssss: ' + JSON.stringify(url));
+        this.pdfSrc = this.endpointService.storageHost + 'files/' + url;
+        alert('pdf url: ' + this.pdfSrc);
+        window.onafterprint = () => {
+          this.showPrintButton();
+        };
+      },
+      err => {}
+    );
   }
 
   /**

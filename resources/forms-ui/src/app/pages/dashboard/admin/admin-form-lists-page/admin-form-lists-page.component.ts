@@ -5,6 +5,7 @@ import { NgbModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
 import { FormsService } from 'src/app/services/forms/forms.service';
 import { ListViewService } from 'src/app/services/view/list-view.service';
 import { LocalStorageService } from 'src/app/services/storage/local-storage.service';
+import { UserTypes } from 'src/app/enums/user-types.enum';
 
 @Component({
   selector: 'app-admin-form-lists-page',
@@ -19,7 +20,10 @@ export class AdminFormListsPageComponent implements OnInit {
   hasNoData: boolean;
   merchant_id: string;
   filterState: string;
+  loadingMore: boolean;
+  hasMoreError: boolean;
   formsList: Array<any>;
+  isBranchAdmin: boolean;
   allFormsList: Array<any>;
   loadingModalRef: NgbModalRef;
   @ViewChild('loader', { static: false }) loadingModal: TemplateRef<any>;
@@ -36,6 +40,7 @@ export class AdminFormListsPageComponent implements OnInit {
     this.allFormsList = [];
     this.viewMode = this.listViewService.getDesiredViewMode();
     this.merchant_id = this.localStorage.getUser().merchant_id.toString();
+    this.isBranchAdmin = this.localStorage.getUser().usertype == UserTypes.BranchAdmin ? true : false;
 
     this.getAllForms();
   }
@@ -107,11 +112,16 @@ export class AdminFormListsPageComponent implements OnInit {
     this.router.navigateByUrl('admin/create/form');
   }
 
+  checkIfHasMore() {
+    return _.isNull(this.formService.nextPaginationUrl) ? false : true;
+  }
+
   getAllForms() {
     this.loading = true;
     this.formService.getAllFormsByMerchant(this.merchant_id).then(
       res => {
         const forms = res as any;
+        this.hasMore = this.checkIfHasMore();
         if (forms.length > 0) {
           this.hasNoData = false;
           _.forEach(forms, (form) => {
@@ -131,7 +141,25 @@ export class AdminFormListsPageComponent implements OnInit {
     );
   }
 
-  loadMore() {}
+  loadMore() {
+    this.loadingMore = true;
+    const moreUrl = this.formService.nextPaginationUrl;
+    this.formService.getAllFormsByMerchant(this.merchant_id, moreUrl).then(
+      res => {
+        this.loadingMore = false;
+        this.hasMoreError = false;
+        const forms = res as any;
+        this.hasMore = this.checkIfHasMore();
+        _.forEach(forms, (form) => {
+          this.formsList.push(form);
+        });
+      },
+      err => {
+        this.loadingMore = false;
+        this.hasMoreError = true;
+      }
+    );
+  }
 
   edit(ev: Event, form: any) {
     ev.stopPropagation();

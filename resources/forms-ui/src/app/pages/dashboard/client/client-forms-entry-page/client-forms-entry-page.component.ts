@@ -10,6 +10,7 @@ import { EndpointService } from 'src/app/services/endpoint/endpoint.service';
 import { DownloaderService } from 'src/app/services/downloader/downloader.service';
 import { LocalStorageService } from 'src/app/services/storage/local-storage.service';
 import { FormBuilderService } from 'src/app/services/form-builder/form-builder.service';
+import { FileUploadsService } from 'src/app/services/file-uploads/file-uploads.service';
 
 @Component({
   selector: 'app-client-forms-entry-page',
@@ -42,13 +43,14 @@ export class ClientFormsEntryPageComponent implements OnInit {
 
   constructor(
     private router: Router,
-    private modalServiuce: NgbModal,
+    private modalService: NgbModal,
     private clipboard: ClipboardService,
     private clientService: ClientService,
     private formBuilder: FormBuilderService,
     private endpointService: EndpointService,
     private localStorage: LocalStorageService,
     private downloadService: DownloaderService,
+    private fileUploadService: FileUploadsService
   ) {
     this.formFiles = 0;
     this.attachmentKeys = [];
@@ -134,14 +136,18 @@ export class ClientFormsEntryPageComponent implements OnInit {
     });
   }
 
-  willUseExistingAttachment(unfilled_fields: any[]) {
-    // Over here, we ensure if there are existing attachments
-    // and the input["file"] is empty we dont prevent them from
-    let fields = [];
+  getExistingAttachments(unfilled_fields: any[]) {
+    // This gets all the existing attachments so they can be uploaded
+    // if the user doesnt choose any new file.
+    const fields = [];
     _.forEach(this.existingAttachments, (attachment) => {
+      console.log('attachment: ' + JSON.stringify(attachment));
       _.forEach(unfilled_fields, (field) => {
-        if (attachment.key == field.name) {
-          fields = _.filter(unfilled_fields, (f) => f.name != field.name);
+        if (field.type == 'file') {
+          if (attachment.key == field.name) {
+            // fields = _.filter(unfilled_fields, (f) => f.name != field.name);
+            fields.push(field);
+          }
         }
       });
     });
@@ -161,6 +167,10 @@ export class ClientFormsEntryPageComponent implements OnInit {
         if (this.hasFile) {
           this.uploadFormAttachments(this.formGenCode);
         }
+        else {
+          this.loading = false;
+          this.created = true;
+        }
       },
       err => {
         this.loading = false;
@@ -168,16 +178,30 @@ export class ClientFormsEntryPageComponent implements OnInit {
     );
   }
 
-  submitFormWithoutAttachments(user_data: any) {
-    console.log('is submitting in unfilled');
+  submitFormWithExistingAttachments(user_data: any) {
+    console.log('is submitting with existing attachment');
     const filled_data = this.formBuilder.getFormUserData(user_data);
     const updated_data = this.clientService.getUpdatedClientFormData(JSON.parse(filled_data), this.clientProfile.client_details[0]);
     console.log('new updates: ' + updated_data);
     this.clientService.submitForm(_.toString(this.user.id), this.form.form_code, this.clientProfile.client_details[0], JSON.parse(updated_data)).then(
       res => {
-        this.created = true;
-        this.loading = false;
         this.formGenCode = res.code;
+        if (this.existingAttachments.length > 0) {
+          _.forEach(this.existingAttachments, (attachment) => {
+            const index = attachment.url.lastIndexOf('.') + 1;
+            const extension = attachment.url.substr(index);
+            const mimeType = 'image/' + extension;
+            const filename = Date.now().toString();
+            const attachmentHost = this.endpointService.storageHost + 'attachments/';
+            const observable = this.fileUploadService.srcToBase64(attachmentHost + attachment.url, mimeType);
+            observable.subscribe(
+              base64Str => {
+                const fileObj = this.fileUploadService.convertBase64ToFile(base64Str, filename);
+                this.uploadConvertedFormAttachment(this.formGenCode, attachment.key, fileObj);
+              }
+            );
+          });
+        }
       },
       err => {
         this.loading = false;
@@ -186,7 +210,7 @@ export class ClientFormsEntryPageComponent implements OnInit {
   }
 
   submit() {
-    this.modalServiuce.open(this.confirmDialog, { centered: true }).result.then(
+    this.modalService.open(this.confirmDialog, { centered: true }).result.then(
       result => {
         if (result == 'yes') {
           this.loading = true;
@@ -194,16 +218,16 @@ export class ClientFormsEntryPageComponent implements OnInit {
           console.log(JSON.stringify(user_data));
           console.log('this form: ' + this.formBuilder.getFormUserData(user_data));
           const unfilled = this.clientService.validateFormFilled(user_data);
+          console.log('unfilled: ' + JSON.stringify(unfilled));
           if (unfilled.length != 0) {
-            const fields = this.willUseExistingAttachment(unfilled);
-            console.log('unfilled: ' + JSON.stringify(unfilled));
-            console.log('unfilled_1: ' + JSON.stringify(fields));
-            if (fields.length > 0) {
+            const fileFields = this.getExistingAttachments(unfilled);
+            console.log('fileFields: ' + JSON.stringify(fileFields));
+            if (fileFields.length == 0) {
               this.loading = false;
-              this.clientService.highlightUnFilledFormFields(fields);
+              this.clientService.highlightUnFilledFormFields(unfilled);
             }
             else {
-              this.submitFormWithoutAttachments(user_data);
+              this.submitFormWithExistingAttachments(user_data);
             }
           }
           else {
@@ -273,6 +297,32 @@ export class ClientFormsEntryPageComponent implements OnInit {
     }
   }
 
+  uploadConvertedFormAttachment(form_code: string, key: string, file: File) {
+    console.log('doing existing upload');
+    console.log('form_code: ' + form_code);
+    console.log('key: ' + key);
+    console.log(file);
+    if (!_.isUndefined(file) || !_.isNull(file)) {
+      this.clientService.uploadFormAttachments(this.user.id.toString(), this.form.form_code, form_code, key, file).then(
+        ok => {
+          if (ok) {
+            console.log('file upload done');
+            this.created = true;
+            this.loading = false;
+          }
+          else {
+            console.log('file upload failed');
+            this.loading = false;
+          }
+        },
+        err => {
+          console.log('file upload error');
+          this.loading = false;
+        }
+      );
+    }
+  }
+
   getFormAttachments(form_code: string) {
     this.loadingAttachments = true;
     this.clientService.getFormAttachment(form_code).then(
@@ -298,22 +348,6 @@ export class ClientFormsEntryPageComponent implements OnInit {
     );
   }
 
-  detectAttachmentIcon(extension: string) {
-    switch (extension) {
-      case 'jpg':
-      case 'png':
-      case 'gif':
-      case 'jpeg':
-        return 'mdi mdi-image';
-      case 'doc':
-      case 'xls':
-      case 'docx':
-        return 'mdi mdi-document';
-      default:
-        return 'mdi mdi-text';
-    }
-  }
-
   openModal(e: Event, url: string) {
     const index = url.lastIndexOf('.') + 1;
     const file_extension = url.substr(index);
@@ -329,13 +363,13 @@ export class ClientFormsEntryPageComponent implements OnInit {
   openImageAttachmentModal(e: Event, url: string) {
     e.stopPropagation();
     this.imgUrl = this.endpointService.apiHost + 'storage/attachments/' + url;
-    this.modalServiuce.open(this.viewImgDialog, { centered: true });
+    this.modalService.open(this.viewImgDialog, { centered: true });
   }
 
   openDocumentAttachmentModal(e: Event, url: string) {
     e.stopPropagation();
     this.documentUrl = this.endpointService.apiHost + 'storage/attachments/' + url;
-    this.docDialogRef = this.modalServiuce.open(this.viewDocDialog, { centered: true });
+    this.docDialogRef = this.modalService.open(this.viewDocDialog, { centered: true });
   }
 
   copy() {
@@ -352,7 +386,7 @@ export class ClientFormsEntryPageComponent implements OnInit {
 
   downloadDoc(url: string) {
     this.docDialogRef.close();
-    this.download(url);
+    this.downloadService.download(url);
   }
 
   download(url: string) {

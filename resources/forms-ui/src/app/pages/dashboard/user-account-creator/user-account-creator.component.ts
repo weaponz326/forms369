@@ -208,14 +208,19 @@ export class UserAccountCreatorComponent implements OnInit {
   }
 
   containErrors(data: Users) {
-    if (this.f.merchant.value == '') {
+    if (this.isGitAdmin) {
       return false;
     }
     else {
       if (data.merchant_id == 0) {
-        console.log('no merchant');
-        this.f.merchant.setErrors({ null: true });
-        return true;
+        if (this.f.merchant.value == '') {
+          return false;
+        }
+        else {
+          console.log('no merchant');
+          this.f.merchant.setErrors({ null: true });
+          return true;
+        }
       }
     }
 
@@ -229,8 +234,6 @@ export class UserAccountCreatorComponent implements OnInit {
         return true;
       }
     }
-
-    return false;
   }
 
   resolveLaravelError(error: any) {

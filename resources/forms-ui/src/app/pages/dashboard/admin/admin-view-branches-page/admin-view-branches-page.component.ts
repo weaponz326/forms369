@@ -21,6 +21,8 @@ export class AdminViewBranchesPageComponent implements OnInit {
   filterState: string;
   merchant_id: number;
   isGitAdmin: boolean;
+  loadingMore: boolean;
+  hasMoreError: boolean;
   branchesList: Array<any>;
   allBranchesList: Array<any>;
 
@@ -93,6 +95,10 @@ export class AdminViewBranchesPageComponent implements OnInit {
     this.branchesList = _.filter(this.allBranchesList, (branch) =>  branch.status == 0);
   }
 
+  checkIfHasMore() {
+    return _.isNull(this.branchService.nextPaginationUrl) ? false : true;
+  }
+
   openNewBranch() {
     this.router.navigateByUrl('admin/create/branch');
   }
@@ -112,6 +118,7 @@ export class AdminViewBranchesPageComponent implements OnInit {
     this.branchService.getBranch(_.toString(this.merchant_id)).then(
       res => {
         const branches = res as any;
+        this.hasMore = this.checkIfHasMore();
         if (branches.length > 0) {
           this.hasNoData = false;
           _.forEach(branches, (branch) => {
@@ -131,7 +138,26 @@ export class AdminViewBranchesPageComponent implements OnInit {
     );
   }
 
-  loadMore() {}
+  loadMore() {
+    this.loadingMore = true;
+    const moreUrl = this.branchService.nextPaginationUrl;
+    this.branchService.getBranch(_.toString(this.merchant_id), moreUrl).then(
+      res => {
+        this.loadingMore = false;
+        this.hasMoreError = false;
+        const branches = res as any;
+        this.hasMore = this.checkIfHasMore();
+        _.forEach(branches, (branch) => {
+          this.branchesList.push(branch);
+          this.allBranchesList = this.branchesList;
+        });
+      },
+      err => {
+        this.loadingMore = false;
+        this.hasMoreError = true;
+      }
+    );
+  }
 
   retry() {
     this.getCompanyBranches();

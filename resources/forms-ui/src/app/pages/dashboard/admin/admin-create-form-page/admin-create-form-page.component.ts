@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
 declare var $: any;
 import * as _ from 'lodash';
 import { Router } from '@angular/router';
@@ -15,6 +15,7 @@ import { FormBuilderService } from 'src/app/services/form-builder/form-builder.s
 })
 export class AdminCreateFormPageComponent implements OnInit {
   template: any;
+  pdfFile: File;
   form: FormGroup;
   formName: string;
   formBuilder: any;
@@ -26,6 +27,9 @@ export class AdminCreateFormPageComponent implements OnInit {
   submitted: boolean;
   toPublish: boolean;
   merchant_id: number;
+  uploadError: boolean;
+  showFileUpload: boolean;
+  @ViewChild('pdfFile', { static: false }) pdfFileElement: ElementRef;
 
   constructor(
     private router: Router,
@@ -37,6 +41,7 @@ export class AdminCreateFormPageComponent implements OnInit {
     this.merchant_id = this.localStorage.getUser().merchant_id;
     console.log('merchant id: ' + this.merchant_id);
     this.template = window.history.state.template;
+    this.handleUploadFileView();
   }
 
   ngOnInit() {
@@ -45,6 +50,11 @@ export class AdminCreateFormPageComponent implements OnInit {
     this.buildForm();
 
     this.handleFormRender();
+  }
+
+  handleUploadFileView() {
+    console.log('handling can upload view');
+    this.showFileUpload = this.localStorage.getUser().can_print == 1 ? true : false;
   }
 
   handleFormRender() {
@@ -93,6 +103,8 @@ export class AdminCreateFormPageComponent implements OnInit {
 
   buildForm() {
     this.form = this._formBuilder.group({
+      pdf: [''],
+      canView: [''],
       name: ['', Validators.required]
     });
   }
@@ -105,7 +117,18 @@ export class AdminCreateFormPageComponent implements OnInit {
     return this.formBuilder.actions.getData();
   }
 
-  save() {
+  inputFileChanged(ev: Event) {
+    const pdf_file = this.pdfFileElement.nativeElement as HTMLInputElement;
+    this.f.pdf.setValue(pdf_file.files[0].name);
+    this.pdfFile = pdf_file.files[0];
+  }
+
+  showFilePicker() {
+    const element = this.pdfFileElement.nativeElement as HTMLInputElement;
+    element.click();
+  }
+
+  createForm() {
     console.log(this.formBuilder.actions.getData());
     this.loading = true;
     const form = this.getForm();
@@ -121,6 +144,7 @@ export class AdminCreateFormPageComponent implements OnInit {
       formData.form_code = this.formCode;
       formData.merchant_id = this.merchant_id;
       formData.status = this.toPublish ? 1 : 0;
+      formData.can_view = this.f.canView.value == '' ? 0 : this.f.canView.value;
 
       this.formService.createForm(formData).then(
         res => {
@@ -143,14 +167,61 @@ export class AdminCreateFormPageComponent implements OnInit {
     }
   }
 
+  createFormWithPDF() {
+    this.toPublish = false;
+    if (this.getForm().length == 0) {
+      this.loading = false;
+      alert('Form field cannot be empty');
+    }
+    else {
+      this.formService.uploafFormPDF(this.merchant_id.toString(), this.formCode, this.pdfFile).then(
+        res => {
+          this.createForm();
+        },
+        err => {
+          this.loading = false;
+          this.created = false;
+          this.uploadError = true;
+        }
+      );
+    }
+  }
+
   reset() {
     this.formBuilder.actions.clearFields();
   }
 
+  // create() {
+  //   this.submitted = true;
+  //   if (this.form.valid) {
+  //     this.save();
+  //   }
+  // }
+
+
+  save() {
+    this.loading = true;
+    this.pdfFile == null ? this.createForm() : this.createFormWithPDF();
+  }
+
   create() {
     this.submitted = true;
-    if (this.form.valid) {
-      this.save();
+    this.toPublish = false;
+    this.formCode = this.formBuilderService.generateUniqueFormCode();
+    if (this.showFileUpload) {
+      if (this.form.valid) {
+        this.save();
+      }
+    }
+    else {
+      // remove pdf validations
+      console.log('no upload');
+      this.f.pdf.clearValidators();
+      this.f.pdf.updateValueAndValidity();
+
+      if (this.form.valid) {
+        this.save();
+      }
     }
   }
 
@@ -165,7 +236,9 @@ export class AdminCreateFormPageComponent implements OnInit {
   bringBackForm() {
     this.reset();
     this.submitted = false;
+    this.f.pdf.setValue('');
     this.f.name.setValue('');
+    this.f.canView.setValue('');
     this.created = !this.created;
   }
 

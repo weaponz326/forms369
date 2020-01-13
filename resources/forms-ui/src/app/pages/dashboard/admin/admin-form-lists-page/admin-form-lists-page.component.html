@@ -19,7 +19,8 @@
                 </div>
               </div>
               <div class="d-flex justify-content-between align-items-end flex-wrap">
-                <button type="button" class="btn btn-light bg-white btn-icon mr-3 mt-2 mt-xl-0" (click)="openNewForm()">
+                <button *ngIf="!isBranchAdmin" type="button" class="btn btn-light bg-white btn-icon mr-3 mt-2 mt-xl-0"
+                  (click)="openNewForm()">
                   <i class="mdi mdi-plus text-muted"></i>
                 </button>
                 <button type="button" class="btn btn-light bg-white btn-icon mr-3 mt-2 mt-xl-0" (click)="toggleViewMode('list')">
@@ -110,7 +111,7 @@
 
                 <div *ngIf="viewMode == 'grid'" class="row">
                   <div class="col-md-4 grid-margin stretch-card" *ngFor="let form of formsList; let i=index">
-                    <div class="card hover-cursor animated fadeInDown fast" (click)="view(form)">
+                    <div class="card hover-cursor animated fadeInDown fast" (click)="view($event, form)">
                       <div class="card-body">
                         <p class="card-title">{{ form.merchant_name }}</p>
                         <div class="card-text">
@@ -139,7 +140,7 @@
                   <div class="list-group" style="width: 100%;">
                     <div class="list-group-item hover-cursor list-group-item-action animated fadeInDown"
                        *ngFor="let form of formsList; let i=index">
-                      <div class="row" (click)="view(form)">
+                      <div class="row" (click)="view($event, form)">
                         <div class="col-8 col-md-7 col-sm-6"> 
                           <span class="card-title mt-2">{{ form.merchant_name }}</span>
                           <h1 class="display-4 mb-1 mt-2">{{ form.name }}</h1>
@@ -163,11 +164,40 @@
                       </div>
                     </div>
                   </div>
+                </div>
+
+                <div *ngIf="loadingMore" class="row m-md-2">
+                  <div class="col-md-12 col-sm-12 m-md-2">
+                    <div class="d-flex justify-content-center">
+                      <div class="spinner-border m-2" style="width: 2rem; height: 2rem;" role="status">
+                        <span class="sr-only">Loading...</span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <div *ngIf="hasMoreError" class="row m-md-2">
+                  <div class="col-md-8 col-sm-12 offset-md-2">
+                    <div class="alert alert-danger" role="alert">
+                      <h4 class="alert-heading">Connection Failed!</h4>
+                      <p>
+                        Oops!! Couldn't get you the rest of the data. Please make sure you have an active internet
+                        connection.
+                        Maybe, our servers may be down.
+                      </p>
+                      <hr>
+                      <p class="mb-0">
+                        We are really sorry for this inconvenience. Please click on the load more button again.
+                      </p>
+                    </div>
+                  </div>
+                </div>
 
                 <div *ngIf="hasMore" class="row">
                   <div class="col-md-4 col-sm-6 offset-sm-3 offset-lg-4">
                     <div class="text-center">
-                      <button type="button" class="btn btn-secondary btn-rounded btn-fw">Load More</button>
+                      <button type="button" class="btn btn-secondary btn-rounded btn-fw" (click)="loadMore()">Load
+                        More</button>
                     </div>
                   </div>
                 </div>
