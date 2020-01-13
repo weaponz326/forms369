@@ -137,19 +137,6 @@ export class ClientFormsEntryPageComponent implements OnInit {
   willUseExistingAttachment(unfilled_fields: any[]) {
     // Over here, we ensure if there are existing attachments
     // and the input["file"] is empty we dont prevent them from
-    // submitted eventhough it is required.
-    // if (_.isNull(inputElement) || _.isUndefined(inputElement)) {
-    //   return;
-    // }
-    // else {
-    //   if (inputElement.type == 'file' && inputElement.name == field_name) {
-    //     // we use the existing attachments.
-    //     return true;
-    //   }
-    //   else {
-    //     return false;
-    //   }
-    // }
     let fields = [];
     _.forEach(this.existingAttachments, (attachment) => {
       _.forEach(unfilled_fields, (field) => {

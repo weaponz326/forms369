@@ -88,7 +88,7 @@
           </div>
         </div>
 
-        <div *ngIf="!isConnected" class="row">
+        <div *ngIf="!loading && !isConnected && !hasData" class="row">
           <div class="col-md-12 grid-margin">
             <div class="card text-center">
               <div class="card-body">
