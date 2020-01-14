@@ -2,12 +2,13 @@ import { Component, OnInit, Input } from '@angular/core';
 import * as _ from 'lodash';
 import * as moment from 'moment';
 import { PDFDocumentProxy } from 'ng2-pdf-viewer';
-import { PDFAnnotationData, PDFPageProxy, PDFProgressData } from 'pdfjs-dist';
+import { Users } from 'src/app/models/users.model';
 import { FormGroup, FormControl, FormBuilder } from '@angular/forms';
 import { EndpointService } from 'src/app/services/endpoint/endpoint.service';
+import { PDFAnnotationData, PDFPageProxy, PDFProgressData } from 'pdfjs-dist';
 import { FrontDeskService } from 'src/app/services/front-desk/front-desk.service';
 import { LocalStorageService } from 'src/app/services/storage/local-storage.service';
-import { Users } from 'src/app/models/users.model';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-form-printing-page',
@@ -26,11 +27,13 @@ export class FormPrintingPageComponent implements OnInit {
   clientFormDetails: any[];
 
   constructor(
+    private router: Router,
     private _fb: FormBuilder,
     private endpointService: EndpointService,
     private frontDeskService: FrontDeskService,
     private localStorage: LocalStorageService
   ) {
+    this.loading = true;
     this.inputList = [];
     this.dpiRatio = 96 / 72;
     this.clientFormDetails = [];
@@ -39,13 +42,18 @@ export class FormPrintingPageComponent implements OnInit {
     this.user = this.localStorage.getUser();
 
     this.frontDeskService.getPrintPDFFile(this.form.form_code, this.user.merchant_id.toString()).then(
-      url => {
-        console.log('ssss: ' + JSON.stringify(url));
-        this.pdfSrc = this.endpointService.storageHost + 'files/' + url;
-        alert('pdf url: ' + this.pdfSrc);
-        window.onafterprint = () => {
-          this.showPrintButton();
-        };
+      file => {
+        if (_.isUndefined(file) || _.isNull(file)) {
+          alert('No PDF file is available for this form. Redirecting you to do a default printing');
+          this.router.navigateByUrl('front_desk/print_form_default', { state: { form: this.form }, replaceUrl: true });
+        }
+        else {
+          console.log('ssss: ' + JSON.stringify(file.url));
+          this.pdfSrc = this.endpointService.storageHost + 'files/' + file.url;
+          window.onafterprint = () => {
+            this.showPrintButton();
+          };
+        }
       },
       err => {}
     );

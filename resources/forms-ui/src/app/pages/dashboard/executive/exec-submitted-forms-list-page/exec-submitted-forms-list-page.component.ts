@@ -34,6 +34,16 @@ export class ExecSubmittedFormsListPageComponent implements OnInit {
   ngOnInit() {
   }
 
+  open(e: Event, form: any) {
+    e.stopPropagation();
+    this.router.navigateByUrl('/front_desk/preview', { state: { form: form }});
+  }
+
+  print(ev: Event, form: any) {
+    ev.stopPropagation();
+    this.router.navigateByUrl('front_desk/print_form', { state: { form: form }});
+  }
+
   checkIfHasMore() {
     return _.isEmpty(this.frontDeskService.nextPaginationUrl) ? false : true;
   }
@@ -45,11 +55,14 @@ export class ExecSubmittedFormsListPageComponent implements OnInit {
       res => {
         this.hasMore = this.checkIfHasMore();
         if (res.length != 0) {
-          this.hasData = true;
-          this.loading = false;
           _.forEach(res, (form) => {
-            this.submittedFormsList.push(form);
+            if (form.can_view == 1) {
+              this.submittedFormsList.push(form);
+            }
           });
+          this.loading = false;
+          this.hasData = this.submittedFormsList.length == 0 ? false : true;
+          this.hasMore = this.submittedFormsList.length < 15 ? false : this.checkIfHasMore();
         }
         else {
           this.hasData = false;
@@ -73,7 +86,9 @@ export class ExecSubmittedFormsListPageComponent implements OnInit {
         this.hasMoreError = false;
         this.hasMore = this.checkIfHasMore();
         _.forEach(res, (form) => {
-          this.submittedFormsList.push(form);
+          if (form.can_view == 1) {
+            this.submittedFormsList.push(form);
+          }
         });
         this.loading = false;
       },

@@ -173,14 +173,14 @@ export class FrontDeskService {
     });
   }
 
-  getPrintPDFFile(form_code: string, merchant_id: string): Promise<string> {
+  getPrintPDFFile(form_code: string, merchant_id: string): Promise<any> {
     return new Promise((resolve, reject) => {
       const url = this.endpointService.apiHost + 'api/v1/getPrintFile/' + merchant_id + '/' + form_code;
       this.http.get(url, { headers: this.headers }).subscribe(
         res => {
           console.log('res: ' + JSON.stringify(res));
           const response = res as any;
-          resolve(response.file.url);
+          resolve(response.file);
         },
         err => {
           console.log('err: ' + JSON.stringify(err));

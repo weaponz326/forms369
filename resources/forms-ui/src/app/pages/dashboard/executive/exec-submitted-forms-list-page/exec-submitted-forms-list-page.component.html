@@ -9,7 +9,7 @@
             <div class="d-flex justify-content-between flex-wrap">
               <div class="d-flex align-items-end flex-wrap">
                 <div class="mr-md-3 mr-xl-5">
-                  <h2>History</h2>
+                  <h2>Submitted For</h2>
                   <p class="mb-md-0">Your administrative dashboard.</p>
                 </div>
                 <div class="d-flex">
@@ -98,6 +98,7 @@
                           <th><strong>Form Name.</strong></th>
                           <th><strong>Submitted By</strong></th>
                           <th><strong>Submitted On</strong></th>
+                          <th><strong>Action</strong></th>
                         </tr>
                       </thead>
                       <tbody>
@@ -106,6 +107,12 @@
                           <td>{{ form.form_name }}</td>
                           <td>{{ form.client_name }}</td>
                           <td>{{ form.submitted_at | date }}</td>
+                          <td>
+                            <button type="button" class="btn btn-light bg-white btn-icon" data-toggle="tooltip"
+                              data-placement="top" title="Print" (click)="print($event, form)">
+                              <i class="mdi mdi-printer text-muted"></i>
+                            </button>
+                          </td>
                         </tr>
                       </tbody>
                     </table>
@@ -135,8 +142,7 @@
                 Maybe, our servers may be down.
               </p>
               <hr>
-              <p class="mb-0">We are really sorry for this inconvenience. Please click on the load more button again.
-              </p>
+              <p class="mb-0">We are really sorry for this inconvenience. Please click on the load more button again.</p>
             </div>
           </div>
         </div>

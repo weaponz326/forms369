@@ -1,8 +1,20 @@
 <div class="view">
-  <div class="text-center mb-3">
+  <div *ngIf="loading" class="row m-md-5 text-center">
+    <div class="col-md-12 col-sm-12 m-md-5">
+      <div class="d-flex justify-content-center">
+        <div class="spinner-border m-5" style="width: 2rem; height: 2rem; color: #4d83ff" role="status">
+          <span class="sr-only">Loading...</span>
+        </div>
+      </div>
+      <p><strong>Preparing for printing! Please wait ...</strong></p>
+    </div>
+  </div>
+
+  <div *ngIf="!loading" class="text-center mb-3">
     <button id="print-button" class="btn btn-primary" (click)="print()">Print</button>
   </div>
-  <div class="container" id="print-view">
+
+  <div *ngIf="!loading"  class="container" id="print-view">
     <div class="row">
       <div class="col-8 offset-2">
         <div class="img-view">

@@ -15,6 +15,8 @@ export class FormPrintingDefaultPageComponent implements OnInit {
   form: any;
   client: any;
   logo: string;
+  loading: boolean;
+  hasError: boolean;
   formKeys: Array<string>;
   formValues: Array<string>;
   clientFormData: Array<any>;
@@ -97,11 +99,17 @@ export class FormPrintingDefaultPageComponent implements OnInit {
   }
 
   getMerchant() {
+    this.loading = true;
     const merchant_id = this.localService.getUser().merchant_id;
     this.companyService.getCompany(merchant_id).then(
       merchant => {
+        this.loading = false;
         const merchant_logo = merchant[0].logo;
         this.logo = this.endpointService.storageHost + merchant_logo;
+      },
+      error => {
+        this.loading = false;
+        this.hasError = true;
       }
     );
   }
