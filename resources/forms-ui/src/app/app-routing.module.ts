@@ -81,6 +81,8 @@ import { AdminViewCompanyExecutivesPageComponent } from './pages/dashboard/admin
 import { FrontDeskClientsFormDataPageComponent } from './pages/dashboard/front-desk/front-desk-clients-form-data-page/front-desk-clients-form-data-page.component';
 import { InvalidConfirmationPageComponent } from './pages/invalid-confirmation-page/invalid-confirmation-page.component';
 import { FrontDeskClientsFormPageComponent } from './pages/dashboard/front-desk/front-desk-clients-form-page/front-desk-clients-form-page.component';
+import { ExecClientFormsPageComponent } from './pages/dashboard/executive/exec-client-forms-page/exec-client-forms-page.component';
+import { ExecClientsFormsDataPageComponent } from './pages/dashboard/executive/exec-clients-forms-data-page/exec-clients-forms-data-page.component';
 
 const routes: Routes = [
   {
@@ -377,6 +379,14 @@ const routes: Routes = [
       {
         path: 'branches',
         component: ExecBranchesListPageComponent
+      },
+      {
+        path: 'client_forms',
+        component: ExecClientFormsPageComponent
+      },
+      {
+        path: 'clients_form_data',
+        component: ExecClientsFormsDataPageComponent
       }
     ]
   },

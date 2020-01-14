@@ -437,4 +437,14 @@ Route::get('executive/accounts', function () {
 Route::get('executive/branches', function () {
     View::addExtension('html', 'php');
     return View::make('index');
+});
+
+Route::get('executive/client_forms', function () {
+    View::addExtension('html', 'php');
+    return View::make('index');
+}); 
+
+Route::get('executive/clients_form_data', function () {
+    View::addExtension('html', 'php');
+    return View::make('index');
 }); 
