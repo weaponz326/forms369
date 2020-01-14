@@ -110,6 +110,7 @@ import { InvalidConfirmationPageComponent } from './pages/invalid-confirmation-p
 import { FrontDeskClientsFormPageComponent } from './pages/dashboard/front-desk/front-desk-clients-form-page/front-desk-clients-form-page.component';
 import { ExecClientFormsPageComponent } from './pages/dashboard/executive/exec-client-forms-page/exec-client-forms-page.component';
 import { ExecClientsFormsDataPageComponent } from './pages/dashboard/executive/exec-clients-forms-data-page/exec-clients-forms-data-page.component';
+import { ClientFormLinkPageComponent } from './pages/dashboard/client/client-form-link-page/client-form-link-page.component';
 
 @NgModule({
   declarations: [
@@ -204,6 +205,7 @@ import { ExecClientsFormsDataPageComponent } from './pages/dashboard/executive/e
     FrontDeskClientsFormPageComponent,
     ExecClientFormsPageComponent,
     ExecClientsFormsDataPageComponent,
+    ClientFormLinkPageComponent,
   ],
   imports: [
     BrowserModule,

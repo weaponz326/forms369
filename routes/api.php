@@ -35,11 +35,13 @@ Route::post('ValidateAccessCode/{code}', 'HomeController@ValidateAccessCode')->n
 Route::post('sendTwoWayAuthenticationCode/{id}/{phone}', 'HomeController@sendTwoWayAuthenticationCode')->name('sendTwoWayAuthenticationCode'); 
 Route::post('twoWayAuthenticationVerification/{id}/{code}/{phone}', 'HomeController@twoWayAuthenticationVerification')->name('twoWayAuthenticationVerification');  
 
+Route::get('getFormViaLink/{id}', 'HomeController@getFormViaLink')->name('getFormViaLink')->middleware('signed');
+
 //protected routes 
 Route::group(['middleware' => ['auth:api'], 'prefix' => 'v1'], function(){
     Route::get('getNumAllUsers', 'HomeController@getNumAllUsers')->name('getNumAllUsers')->middleware('scope:GIT_Admin');
   
-    Route::get('getFormViaLink/{id}', 'HomeController@getFormViaLink')->name('getFormViaLink')->middleware('signed');
+    // Route::get('getFormViaLink/{id}', 'HomeController@getFormViaLink')->name('getFormViaLink')->middleware('signed');
 
     //use endpoints 
     Route::post('editUser/{id}', 'HomeController@editUser')->name('editUser');

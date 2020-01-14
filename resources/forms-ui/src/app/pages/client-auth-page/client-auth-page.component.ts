@@ -1,12 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import * as _ from 'lodash';
 import { Router } from '@angular/router';
-import { UserTypes } from 'src/app/enums/user-types.enum';
-import { FormGroup, FormBuilder, Validators } from '@angular/forms';
-import { AccountService } from 'src/app/services/account/account.service';
-import { ClientService } from 'src/app/services/client/client.service';
 import { Users } from 'src/app/models/users.model';
+import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { ClientService } from 'src/app/services/client/client.service';
 import { LocalStorageService } from 'src/app/services/storage/local-storage.service';
+import { FrontDeskService } from 'src/app/services/front-desk/front-desk.service';
 
 @Component({
   selector: 'app-client-auth-page',
@@ -24,7 +23,8 @@ export class ClientAuthPageComponent implements OnInit {
     private router: Router,
     private formBuilder: FormBuilder,
     private clientService: ClientService,
-    private localStorage: LocalStorageService
+    private localStorage: LocalStorageService,
+    private frontDeskService: FrontDeskService,
   ) { }
 
   ngOnInit() {
@@ -54,6 +54,24 @@ export class ClientAuthPageComponent implements OnInit {
     }
   }
 
+  handleDashboardNavigation() {
+    // check whether user used a shared link.
+    console.log('is running handleDashboardNavigation');
+    const shared_form_code = sessionStorage.getItem('shared_link');
+    if (_.isUndefined(shared_form_code) || _.isNull(shared_form_code)) {
+      this.loading = false;
+      this.router.navigateByUrl('/client');
+    }
+    else {
+      this.clientService.findFormsByCode(shared_form_code).then(
+        form => {
+          this.loading = false;
+          this.router.navigateByUrl('/client/form_entry', { state: { form: form }});
+        }
+      );
+    }
+  }
+
   submit() {
     this.loading = true;
     this.submitted = true;
@@ -69,7 +87,6 @@ export class ClientAuthPageComponent implements OnInit {
       this.clientService.verifyAuthCode(id, authCode, phone).then(
         res => {
           this.form.enable();
-          this.loading = false;
           const response = res as any;
           if (_.isUndefined(response.message)) {
             // save user data locally.
@@ -82,8 +99,7 @@ export class ClientAuthPageComponent implements OnInit {
             sessionStorage.removeItem('client_id');
             sessionStorage.removeItem('client_phone');
 
-            // open dashboard home
-            this.router.navigateByUrl('/client');
+            this.handleDashboardNavigation();
           }
           else {
             this.handleLoginErrorResponses(response);

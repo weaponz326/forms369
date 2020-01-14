@@ -16,6 +16,7 @@ import { FormBuilderService } from 'src/app/services/form-builder/form-builder.s
 })
 export class AdminFormEditPageComponent implements OnInit {
   _form: any;
+  pdfFile: File;
   form: FormGroup;
   formBuilder: any;
   created: boolean;
@@ -29,10 +30,13 @@ export class AdminFormEditPageComponent implements OnInit {
   submitted: boolean;
   merchant_id: number;
   isPublished: boolean;
+  uploadError: boolean;
   alertMessage: string;
   alertSuccess: boolean;
+  showFileUpload: boolean;
   loadingModalRef: NgbModalRef;
   @ViewChild('status', {static: false}) statusModal: TemplateRef<any>;
+  @ViewChild('pdfFile', { static: false }) pdfFileElement: ElementRef;
   @ViewChild('loader', {static: false}) loadingModal: TemplateRef<any>;
   @ViewChild('publish', {static: false}) publishModal: TemplateRef<any>;
   @ViewChild('unpublish', {static: false}) unPublishModal: TemplateRef<any>;
@@ -51,6 +55,7 @@ export class AdminFormEditPageComponent implements OnInit {
     this.merchant_id = this.localStorage.getUser().merchant_id;
     this.isPublished = this._form.status == 1 ? true : false;
     console.log('merchant id: ' + this.merchant_id);
+    this.handleUploadFileView();
   }
 
   /**
@@ -99,6 +104,11 @@ export class AdminFormEditPageComponent implements OnInit {
     );
   }
 
+  handleUploadFileView() {
+    console.log('handling can upload view');
+    this.showFileUpload = this.localStorage.getUser().can_print == 1 ? true : false;
+  }
+
   showLoadingModal() {
     this.loadingModalRef = this.modalService.open(this.loadingModal, { centered: true });
   }
@@ -109,6 +119,8 @@ export class AdminFormEditPageComponent implements OnInit {
 
   buildForm() {
     this.form = this._formBuilder.group({
+      pdf: [''],
+      canView: [this._form.can_view],
       name: [this._form.name, Validators.required]
     });
   }
@@ -119,6 +131,17 @@ export class AdminFormEditPageComponent implements OnInit {
 
   getForm() {
     return this.formBuilder.actions.getData();
+  }
+
+  inputFileChanged(ev: Event) {
+    const pdf_file = this.pdfFileElement.nativeElement as HTMLInputElement;
+    this.f.pdf.setValue(pdf_file.files[0].name);
+    this.pdfFile = pdf_file.files[0];
+  }
+
+  showFilePicker() {
+    const element = this.pdfFileElement.nativeElement as HTMLInputElement;
+    element.click();
   }
 
   editForm() {
@@ -137,6 +160,7 @@ export class AdminFormEditPageComponent implements OnInit {
       formData.merchant_id = this.merchant_id;
       formData.form_code = this._form.form_code;
       formData.status = _.toInteger(this.formStatus);
+      formData.can_view = this.f.canView.value == '' ? 0 : this.f.canView.value;
 
       this.formService.editForm(this._form.form_code, formData).then(
         res => {
@@ -161,12 +185,38 @@ export class AdminFormEditPageComponent implements OnInit {
     this.formBuilder.actions.clearFields();
   }
 
+  editFormWithPDF() {
+    if (this.getForm().length == 0) {
+      alert('Form field cannot be empty');
+    }
+    else {
+      this.formService.editFormPDF(this.merchant_id.toString(), this.formCode, this.pdfFile).then(
+        res => {
+          this.editForm();
+        },
+        err => {
+          this.loading = false;
+          this.created = false;
+          this.uploadError = true;
+        }
+      );
+    }
+  }
+
   edit() {
     this.submitted = true;
     if (this.form.valid) {
-      this.editForm();
+      this.loading = true;
+      this.pdfFile == null ? this.editForm() : this.editFormWithPDF();
     }
   }
+
+  // edit() {
+  //   this.submitted = true;
+  //   if (this.form.valid) {
+  //     this.editForm();
+  //   }
+  // }
 
   publishForm() {
     console.log('publish');

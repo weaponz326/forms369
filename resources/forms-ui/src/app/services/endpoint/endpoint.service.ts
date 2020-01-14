@@ -30,6 +30,7 @@ export class EndpointService {
   headers(isUploadRequest?: boolean) {
     let httpHeaders: HttpHeaders;
     const token = sessionStorage.getItem('x-auth');
+    console.log('token: ' + token);
     if (_.isUndefined(isUploadRequest) || !isUploadRequest) {
       httpHeaders = new HttpHeaders({
         'Accept': 'application/json',

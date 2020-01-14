@@ -106,8 +106,8 @@
                       <tr class="hover-cursor" *ngFor="let form of allFormsList">
                         <td>{{ form.form_code }}</td>
                         <td>{{ form.name }}</td>
-                        <td *ngIf="form.status == 1"><label class="badge badge-success text-center">Active</label></td>
-                        <td *ngIf="form.status != 1"><label class="badge badge-danger text-center">In-Active</label>
+                        <td *ngIf="form.status == 1"><label class="badge badge-success text-center">Published</label></td>
+                        <td *ngIf="form.status != 1"><label class="badge badge-danger text-center">Unpublished</label>
                         </td>
                         <td>{{ form.created_at | date }}</td>
                       </tr>

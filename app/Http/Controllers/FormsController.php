@@ -835,35 +835,37 @@ class FormsController extends Controller
     public function getFormViaLink(Request $request, $code){
 
         //get all registered companies 
-        $getform = DB::table('forms')
-        ->join('merchants', 'merchants.id', '=', 'merchant_id')
-        ->select('forms.*','merchants.merchant_name AS merchant_name')
-        ->where('form_code', $code)
-        ->get();
+        // $getform = DB::table('forms')
+        // ->join('merchants', 'merchants.id', '=', 'merchant_id')
+        // ->select('forms.*','merchants.merchant_name AS merchant_name')
+        // ->where('form_code', $code)
+        // ->get();
       
-        //clean data
-        $formdata = [];
+        // //clean data
+        // $formdata = [];
 
-        $form = $getform->map(function($items){
-            $formdata['form_code'] = $items->form_code;
-            $formdata['name'] = Crypt::decryptString($items->name);
-            $formdata['status'] = $items->status;
-            $formdata['form_fields'] = json_decode(Crypt::decryptString($items->form_fields));
-            $formdata['merchant_id'] = $items->merchant_id;
-            $formdata['merchant_name'] = Crypt::decryptString($items->merchant_name);
-            $formdata['created_by'] = $items->created_by;
-            $formdata['created_at'] = $items->created_at;
-            $formdata['updated_at'] = $items->updated_at;
-            $formdata['updated_by'] = $items->updated_by;
+        // $form = $getform->map(function($items){
+        //     $formdata['form_code'] = $items->form_code;
+        //     $formdata['name'] = Crypt::decryptString($items->name);
+        //     $formdata['status'] = $items->status;
+        //     $formdata['form_fields'] = json_decode(Crypt::decryptString($items->form_fields));
+        //     $formdata['merchant_id'] = $items->merchant_id;
+        //     $formdata['merchant_name'] = Crypt::decryptString($items->merchant_name);
+        //     $formdata['created_by'] = $items->created_by;
+        //     $formdata['created_at'] = $items->created_at;
+        //     $formdata['updated_at'] = $items->updated_at;
+        //     $formdata['updated_by'] = $items->updated_by;
 
-            return $formdata;
-         });
+        //     return $formdata;
+        //  });
 
-         $response = [
-            'form' => $form
-        ];
-        return response()->json($response, 200);
-
+        //  $response = [
+        //     'form' => $form
+        // ];
+        // return response()->json($response, 200);
+        // echo "<script>window.sessionStorage.setItem('code', '.$code.');</script>";
+        // return redirect()->route('form_link');
+        return redirect()->route('form_link', ['id' => $code]);
     }
 
 

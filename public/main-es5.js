@@ -349,7 +349,7 @@ module.exports = "<!-- partial:partials/_navbar.html -->\n<nav class=\"navbar co
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<!-- git admin -->\n<nav *ngIf=\"isGitAdmin\" class=\"sidebar sidebar-offcanvas\" id=\"sidebar\">\n  <ul class=\"nav\">\n    <li class=\"nav-item\">\n      <a class=\"nav-link\" routerLink=\"/git_admin\">\n        <i class=\"mdi mdi-home menu-icon\"></i>\n        <span class=\"menu-title\">Home</span>\n      </a>\n    </li>\n    <li class=\"nav-item\">\n      <a class=\"nav-link\" routerLink=\"/git_admin/setup_form\">\n        <i class=\"mdi mdi-file-document-edit-outline menu-icon\"></i>\n        <span class=\"menu-title\">New Form</span>\n      </a>\n    </li>\n    <li class=\"nav-item\">\n      <a class=\"nav-link\" routerLink=\"/git_admin/lists/form\">\n        <i class=\"mdi mdi-file-document-box-outline menu-icon\"></i>\n        <span class=\"menu-title\">All Forms</span>\n      </a>\n    </li>\n    <li class=\"nav-item\">\n      <a class=\"nav-link\" data-toggle=\"collapse\" href=\"#code\" aria-expanded=\"false\" aria-controls=\"code\">\n        <i class=\"mdi mdi-lock-outline menu-icon\"></i>\n        <span class=\"menu-title\">Access Code</span>\n        <i class=\"menu-arrow\"></i>\n      </a>\n      <div class=\"collapse\" id=\"code\">\n        <ul class=\"nav flex-column sub-menu\">\n          <li class=\"nav-item\">\n            <a class=\"nav-link\" routerLink=\"/git_admin/create/access_code\">\n              <i class=\"mdi mdi-plus-circle-multiple-outline menu-icon\"></i>\n              <span class=\"menu-title\">Create New</span>\n            </a>\n          </li>\n          <li class=\"nav-item\">\n            <a class=\"nav-link\" routerLink=\"/git_admin/lists/access_code\">\n              <i class=\"mdi mdi-format-list-bulleted menu-icon\"></i>\n              <span class=\"menu-title\">View Code</span>\n            </a>\n          </li>\n        </ul>\n      </div>\n    </li>\n    <li class=\"nav-item\">\n      <a class=\"nav-link\" data-toggle=\"collapse\" href=\"#template\" aria-expanded=\"false\" aria-controls=\"template\">\n        <i class=\"mdi mdi-file-document-box-multiple-outline menu-icon\"></i>\n        <span class=\"menu-title\">Templates</span>\n        <i class=\"menu-arrow\"></i>\n      </a>\n      <div class=\"collapse\" id=\"template\">\n        <ul class=\"nav flex-column sub-menu\">\n          <li class=\"nav-item\">\n            <a class=\"nav-link\" routerLink=\"/templates/create\">\n              <i class=\"mdi mdi-plus-outline menu-icon\"></i>\n              <span class=\"menu-title\">Create Template</span>\n            </a>\n          </li>\n          <li class=\"nav-item\">\n            <a class=\"nav-link\" routerLink=\"/templates/list\">\n              <i class=\"mdi mdi-format-list-bulleted menu-icon\"></i>\n              <span class=\"menu-title\">All Templates</span>\n            </a>\n          </li>\n        </ul>\n      </div>\n    </li>\n    <li class=\"nav-item\">\n      <a class=\"nav-link\" data-toggle=\"collapse\" href=\"#section\" aria-expanded=\"false\" aria-controls=\"section\">\n        <i class=\"mdi mdi-file-check-outline menu-icon\"></i>\n        <span class=\"menu-title\">Form Section</span>\n        <i class=\"menu-arrow\"></i>\n      </a>\n      <div class=\"collapse\" id=\"section\">\n        <ul class=\"nav flex-column sub-menu\">\n          <li class=\"nav-item\">\n            <a class=\"nav-link\" routerLink=\"/git_admin/create/section\">\n              <i class=\"mdi mdi-plus menu-icon\"></i>\n              <span class=\"menu-title\">Create Section</span>\n            </a>\n          </li>\n          <li class=\"nav-item\">\n            <a class=\"nav-link\" routerLink=\"/git_admin/lists/section\">\n              <i class=\"mdi mdi-desktop-mac menu-icon\"></i>\n              <span class=\"menu-title\">View Section</span>\n            </a>\n          </li>\n        </ul>\n      </div>\n    </li>\n    <li class=\"nav-item\">\n      <a class=\"nav-link\" data-toggle=\"collapse\" href=\"#account\" aria-expanded=\"false\" aria-controls=\"account\">\n        <i class=\"mdi mdi-account-group-outline menu-icon\"></i>\n        <span class=\"menu-title\">Accounts</span>\n        <i class=\"menu-arrow\"></i>\n      </a>\n      <div class=\"collapse\" id=\"account\">\n        <ul class=\"nav flex-column sub-menu\">\n          <li class=\"nav-item\">\n            <a class=\"nav-link\" routerLink=\"/git_admin/create/user_account\">\n              <i class=\"mdi mdi-plus menu-icon\"></i>\n              <span class=\"menu-title\">Setup Account</span>\n            </a>\n          </li>\n          <li class=\"nav-item\">\n            <a class=\"nav-link\" routerLink=\"/git_admin/lists/front_desk\">\n              <i class=\"mdi mdi-desktop-mac menu-icon\"></i>\n              <span class=\"menu-title\">Front Desks</span>\n            </a>\n          </li>\n          <li class=\"nav-item\">\n            <a class=\"nav-link\" routerLink=\"/git_admin/lists/admin\">\n              <i class=\"mdi mdi-account-supervisor menu-icon\"></i>\n              <span class=\"menu-title\">GIT Admins</span>\n            </a>\n          </li>\n          <li class=\"nav-item\">\n            <a class=\"nav-link\" routerLink=\"/git_admin/lists/branch_admin\">\n              <i class=\"mdi mdi-leaf-maple menu-icon\"></i>\n              <span class=\"menu-title\">Branch Admins</span>\n            </a>\n          </li>\n          <li class=\"nav-item\">\n            <a class=\"nav-link\" routerLink=\"/git_admin/lists/company_admin\">\n              <i class=\"mdi mdi-lighthouse menu-icon\"></i>\n              <span class=\"menu-title\">Company Admins</span>\n            </a>\n          </li>\n          <li class=\"nav-item\">\n            <a class=\"nav-link\" routerLink=\"/git_admin/lists/branch_executive\">\n              <i class=\"mdi mdi-script-outline menu-icon\"></i>\n              <span class=\"menu-title\">Branch Super-Executives</span>\n            </a>\n          </li>\n          <li class=\"nav-item\">\n            <a class=\"nav-link\" routerLink=\"/git_admin/lists/super_executive\">\n              <i class=\"mdi mdi-view-dashboard-outline menu-icon\"></i>\n              <span class=\"menu-title\">Super Executives</span>\n            </a>\n          </li>\n        </ul>\n      </div>\n    </li>\n    <li class=\"nav-item\">\n      <a class=\"nav-link\" data-toggle=\"collapse\" href=\"#company\" aria-expanded=\"false\" aria-controls=\"company\">\n        <i class=\"mdi mdi-lighthouse menu-icon\"></i>\n        <span class=\"menu-title\">Company</span>\n        <i class=\"menu-arrow\"></i>\n      </a>\n      <div class=\"collapse\" id=\"company\">\n        <ul class=\"nav flex-column sub-menu\">\n          <li class=\"nav-item\">\n            <a class=\"nav-link\" routerLink=\"/git_admin/create/company\">\n              <i class=\"mdi mdi-plus-circle-multiple-outline menu-icon\"></i>\n              <span class=\"menu-title\">Create New</span>\n            </a>\n          </li>\n          <li class=\"nav-item\">\n            <a class=\"nav-link\" routerLink=\"/git_admin/lists/company\">\n              <i class=\"mdi mdi-format-list-bulleted-square menu-icon\"></i>\n              <span class=\"menu-title\">View Companies</span>\n            </a>\n          </li>\n        </ul>\n      </div>\n    </li>\n    <li class=\"nav-item\">\n      <a class=\"nav-link\" data-toggle=\"collapse\" href=\"#branches\" aria-expanded=\"false\" aria-controls=\"branches\">\n        <i class=\"mdi mdi-view-headline menu-icon\"></i>\n        <span class=\"menu-title\">Branches</span>\n        <i class=\"menu-arrow\"></i>\n      </a>\n      <div class=\"collapse\" id=\"branches\">\n        <ul class=\"nav flex-column sub-menu\">\n          <li class=\"nav-item\">\n            <a class=\"nav-link\" routerLink=\"/git_admin/create/branch\">\n              <i class=\"mdi mdi-plus-circle-multiple-outline menu-icon\"></i>\n              <span class=\"menu-title\">Create New</span>\n            </a>\n          </li>\n          <li class=\"nav-item\">\n            <a class=\"nav-link\" routerLink=\"/git_admin/lists/branch\">\n              <i class=\"mdi mdi-format-list-numbered menu-icon\"></i>\n              <span class=\"menu-title\">View Branches</span>\n            </a>\n          </li>\n        </ul>\n      </div>\n    </li>\n  </ul>\n</nav>\n<!-- git-admin -->\n\n<!-- comp admin -->\n<nav *ngIf=\"isAdmin || isBranchAdmin\" class=\"sidebar sidebar-offcanvas\" id=\"sidebar\">\n  <ul class=\"nav\">\n    <li class=\"nav-item\">\n      <a class=\"nav-link\" routerLink=\"/admin\">\n        <i class=\"mdi mdi-home menu-icon\"></i>\n        <span class=\"menu-title\">Home</span>\n      </a>\n    </li>\n    <li *ngIf=\"isAdmin\" class=\" nav-item\">\n      <a class=\"nav-link\" routerLink=\"/admin/create/form\">\n        <i class=\"mdi mdi-file-document-edit-outline menu-icon\"></i>\n        <span class=\"menu-title\">New Form</span>\n      </a>\n    </li>\n    <li class=\"nav-item\">\n      <a class=\"nav-link\" routerLink=\"/admin/lists/form\">\n        <i class=\"mdi mdi-file-document-box-outline menu-icon\"></i>\n        <span class=\"menu-title\">All Forms</span>\n      </a>\n    </li>\n    <li class=\"nav-item\">\n      <a class=\"nav-link\" routerLink=\"/templates/list\">\n        <i class=\"mdi mdi-format-list-bulleted menu-icon\"></i>\n        <span class=\"menu-title\">All Templates</span>\n      </a>\n    </li>\n    <li class=\"nav-item\">\n      <a class=\"nav-link\" data-toggle=\"collapse\" href=\"#account\" aria-expanded=\"false\" aria-controls=\"account\">\n        <i class=\"mdi mdi-account-group-outline menu-icon\"></i>\n        <span class=\"menu-title\">Accounts</span>\n        <i class=\"menu-arrow\"></i>\n      </a>\n      <div class=\"collapse\" id=\"account\">\n        <ul class=\"nav flex-column sub-menu\">\n          <li class=\"nav-item\">\n            <a class=\"nav-link\" routerLink=\"/admin/create/account\">\n              <i class=\"mdi mdi-plus menu-icon\"></i>\n              <span class=\"menu-title\">Setup Account</span>\n            </a>\n          </li>\n          <li class=\"nav-item\">\n            <a class=\"nav-link\" routerLink=\"/admin/lists/front_desk\">\n              <i class=\"mdi mdi-desktop-mac menu-icon\"></i>\n              <span class=\"menu-title\">Front Desks</span>\n            </a>\n          </li>\n          <li class=\"nav-item\">\n            <a class=\"nav-link\" routerLink=\"/admin/lists/branch_admin\">\n              <i class=\"mdi mdi-leaf-maple menu-icon\"></i>\n              <span class=\"menu-title\">Branch Admins</span>\n            </a>\n          </li>\n          <li class=\"nav-item\">\n            <a class=\"nav-link\" routerLink=\"/admin/lists/company_admin\">\n              <i class=\"mdi mdi-lighthouse menu-icon\"></i>\n              <span class=\"menu-title\">Company Admins</span>\n            </a>\n          </li>\n          <li class=\"nav-item\">\n            <a class=\"nav-link\" routerLink=\"/admin/lists/branch_executive\">\n              <i class=\"mdi mdi-script-outline menu-icon\"></i>\n              <span class=\"menu-title\">Branch Super-Executives</span>\n            </a>\n          </li>\n          <li class=\"nav-item\">\n            <a class=\"nav-link\" routerLink=\"/admin/lists/super_executive\">\n              <i class=\"mdi mdi-view-dashboard-outline menu-icon\"></i>\n              <span class=\"menu-title\">Super Executives</span>\n            </a>\n          </li>\n        </ul>\n      </div>\n    </li>\n    <li class=\"nav-item\">\n      <a class=\"nav-link\" routerLink=\"/admin/lists/branch\">\n        <i class=\"mdi mdi-view-headline menu-icon\"></i>\n        <span class=\"menu-title\">View Branches</span>\n      </a>\n    </li>\n  </ul>\n</nav>\n<!-- /.comp admin -->\n\n<!-- client -->\n<nav *ngIf=\"isClient\" class=\"sidebar sidebar-offcanvas\" id=\"sidebar\">\n  <ul class=\"nav\">\n    <li class=\"nav-item\">\n      <a class=\"nav-link\" routerLink=\"/client\">\n        <i class=\"mdi mdi-home menu-icon\"></i>\n        <span class=\"menu-title\">Home</span>\n      </a>\n    </li>\n    <li class=\"nav-item\">\n      <a class=\"nav-link\" routerLink=\"/client/form_merchant\">\n        <i class=\"mdi mdi-plus menu-icon\"></i>\n        <span class=\"menu-title\">Pick A Form</span>\n      </a>\n    </li>\n    <li class=\"nav-item\">\n      <a class=\"nav-link\" routerLink=\"/client/profile\">\n        <i class=\"mdi mdi-account-card-details-outline menu-icon\"></i>\n        <span class=\"menu-title\">My Profile</span>\n      </a>\n    </li>\n    <li class=\"nav-item\">\n      <a class=\"nav-link\" routerLink=\"/client/forms_filled\">\n        <i class=\"mdi mdi-rocket menu-icon\"></i>\n        <span class=\"menu-title\">My History</span>\n      </a>\n    </li>\n    <li class=\"nav-item\">\n      <a class=\"nav-link\" routerLink=\"/client/unsent_forms\">\n        <i class=\"mdi mdi-file-document-box-multiple-outline menu-icon\"></i>\n        <span class=\"menu-title\">Submitted Forms</span>\n      </a>\n    </li>\n  </ul>\n</nav>\n<!-- /.client sidemenu -->\n\n<!-- front-desk -->\n<nav *ngIf=\"isFrontDesk\" class=\"sidebar sidebar-offcanvas\" id=\"sidebar\">\n  <ul class=\"nav\">\n    <li class=\"nav-item\">\n      <a class=\"nav-link\" routerLink=\"/front_desk\">\n        <i class=\"mdi mdi-home menu-icon\"></i>\n        <span class=\"menu-title\">Home</span>\n      </a>\n    </li>\n    <li class=\"nav-item\">\n      <a class=\"nav-link\" routerLink=\"/front_desk/lists/submitted\">\n        <i class=\"mdi mdi-file-document-edit-outline menu-icon\"></i>\n        <span class=\"menu-title\">Submitted Forms</span>\n      </a>\n    </li>\n    <li class=\"nav-item\">\n      <a class=\"nav-link\" routerLink=\"/front_desk/lists/processed\">\n        <i class=\"mdi mdi-file-check-outline menu-icon\"></i>\n        <span class=\"menu-title\">Processed Forms</span>\n      </a>\n    </li>\n    <li class=\"nav-item\">\n      <a class=\"nav-link\" routerLink=\"/front_desk/lists/processing\">\n        <i class=\"mdi mdi-timer menu-icon\"></i>\n        <span class=\"menu-title\">Forms In-Processing</span>\n      </a>\n    </li>\n    <li class=\"nav-item\">\n      <a class=\"nav-link\" routerLink=\"/front_desk/lists/client_forms\">\n        <i class=\"mdi mdi-database-check menu-icon\"></i>\n        <span class=\"menu-title\">Forms Data</span>\n      </a>\n    </li>\n  </ul>\n</nav>\n<!-- /.front-desk -->\n\n<!-- executive -->\n<nav *ngIf=\"isExecutive || isBranchSuperExec\" class=\"sidebar sidebar-offcanvas\" id=\"sidebar\">\n  <ul class=\"nav\">\n    <li class=\"nav-item\">\n      <a class=\"nav-link\" routerLink=\"/executive\">\n        <i class=\"mdi mdi-home menu-icon\"></i>\n        <span class=\"menu-title\">Home</span>\n      </a>\n    </li>\n    <li class=\"nav-item\">\n      <a class=\"nav-link\" routerLink=\"/executive/forms\">\n        <i class=\"mdi mdi-file-document-box-multiple-outline menu-icon\"></i>\n        <span class=\"menu-title\">Forms</span>\n      </a>\n    </li>\n    <li class=\"nav-item\">\n      <a class=\"nav-link\" routerLink=\"/executive/branches\">\n        <i class=\"mdi mdi-office-building menu-icon\"></i>\n        <span class=\"menu-title\">Branches</span>\n      </a>\n    </li>\n    <li class=\"nav-item\">\n      <a class=\"nav-link\" routerLink=\"/executive/processed\">\n        <i class=\"mdi mdi-check-all menu-icon\"></i>\n        <span class=\"menu-title\">Processed Forms</span>\n      </a>\n    </li>\n    <li class=\"nav-item\">\n      <a class=\"nav-link\" routerLink=\"/executive/submitted\">\n        <i class=\"mdi mdi-file-check-outline menu-icon\"></i>\n        <span class=\"menu-title\">Submitted Forms</span>\n      </a>\n    </li>\n    <li class=\"nav-item\">\n      <a class=\"nav-link\" routerLink=\"/executive/processing\">\n        <i class=\"mdi mdi-timer menu-icon\"></i>\n        <span class=\"menu-title\">Forms In-Process</span>\n      </a>\n    </li>\n    <li class=\"nav-item\">\n      <a class=\"nav-link\" routerLink=\"/executive/client_forms\">\n        <i class=\"mdi mdi-database-check menu-icon\"></i>\n        <span class=\"menu-title\">Cliens Form Data</span>\n      </a>\n    </li>\n  </ul>\n</nav>\n<!-- /.executive -->"
+module.exports = "<!-- git admin -->\n<nav *ngIf=\"isGitAdmin\" class=\"sidebar sidebar-offcanvas\" id=\"sidebar\">\n  <ul class=\"nav\">\n    <li class=\"nav-item\">\n      <a class=\"nav-link\" routerLink=\"/git_admin\">\n        <i class=\"mdi mdi-home menu-icon\"></i>\n        <span class=\"menu-title\">Home</span>\n      </a>\n    </li>\n    <li class=\"nav-item\">\n      <a class=\"nav-link\" routerLink=\"/git_admin/setup_form\">\n        <i class=\"mdi mdi-file-document-edit-outline menu-icon\"></i>\n        <span class=\"menu-title\">New Form</span>\n      </a>\n    </li>\n    <li class=\"nav-item\">\n      <a class=\"nav-link\" routerLink=\"/git_admin/lists/form\">\n        <i class=\"mdi mdi-file-document-box-outline menu-icon\"></i>\n        <span class=\"menu-title\">All Forms</span>\n      </a>\n    </li>\n    <li class=\"nav-item\">\n      <a class=\"nav-link\" data-toggle=\"collapse\" href=\"#code\" aria-expanded=\"false\" aria-controls=\"code\">\n        <i class=\"mdi mdi-lock-outline menu-icon\"></i>\n        <span class=\"menu-title\">Access Code</span>\n        <i class=\"menu-arrow\"></i>\n      </a>\n      <div class=\"collapse\" id=\"code\">\n        <ul class=\"nav flex-column sub-menu\">\n          <li class=\"nav-item\">\n            <a class=\"nav-link\" routerLink=\"/git_admin/create/access_code\">\n              <i class=\"mdi mdi-plus-circle-multiple-outline menu-icon\"></i>\n              <span class=\"menu-title\">Create New</span>\n            </a>\n          </li>\n          <li class=\"nav-item\">\n            <a class=\"nav-link\" routerLink=\"/git_admin/lists/access_code\">\n              <i class=\"mdi mdi-format-list-bulleted menu-icon\"></i>\n              <span class=\"menu-title\">View Code</span>\n            </a>\n          </li>\n        </ul>\n      </div>\n    </li>\n    <li class=\"nav-item\">\n      <a class=\"nav-link\" data-toggle=\"collapse\" href=\"#template\" aria-expanded=\"false\" aria-controls=\"template\">\n        <i class=\"mdi mdi-file-document-box-multiple-outline menu-icon\"></i>\n        <span class=\"menu-title\">Templates</span>\n        <i class=\"menu-arrow\"></i>\n      </a>\n      <div class=\"collapse\" id=\"template\">\n        <ul class=\"nav flex-column sub-menu\">\n          <li class=\"nav-item\">\n            <a class=\"nav-link\" routerLink=\"/templates/create\">\n              <i class=\"mdi mdi-plus-outline menu-icon\"></i>\n              <span class=\"menu-title\">Create Template</span>\n            </a>\n          </li>\n          <li class=\"nav-item\">\n            <a class=\"nav-link\" routerLink=\"/templates/list\">\n              <i class=\"mdi mdi-format-list-bulleted menu-icon\"></i>\n              <span class=\"menu-title\">All Templates</span>\n            </a>\n          </li>\n        </ul>\n      </div>\n    </li>\n    <li class=\"nav-item\">\n      <a class=\"nav-link\" data-toggle=\"collapse\" href=\"#section\" aria-expanded=\"false\" aria-controls=\"section\">\n        <i class=\"mdi mdi-file-check-outline menu-icon\"></i>\n        <span class=\"menu-title\">Form Section</span>\n        <i class=\"menu-arrow\"></i>\n      </a>\n      <div class=\"collapse\" id=\"section\">\n        <ul class=\"nav flex-column sub-menu\">\n          <li class=\"nav-item\">\n            <a class=\"nav-link\" routerLink=\"/git_admin/create/section\">\n              <i class=\"mdi mdi-plus menu-icon\"></i>\n              <span class=\"menu-title\">Create Section</span>\n            </a>\n          </li>\n          <li class=\"nav-item\">\n            <a class=\"nav-link\" routerLink=\"/git_admin/lists/section\">\n              <i class=\"mdi mdi-desktop-mac menu-icon\"></i>\n              <span class=\"menu-title\">View Section</span>\n            </a>\n          </li>\n        </ul>\n      </div>\n    </li>\n    <li class=\"nav-item\">\n      <a class=\"nav-link\" data-toggle=\"collapse\" href=\"#account\" aria-expanded=\"false\" aria-controls=\"account\">\n        <i class=\"mdi mdi-account-group-outline menu-icon\"></i>\n        <span class=\"menu-title\">Accounts</span>\n        <i class=\"menu-arrow\"></i>\n      </a>\n      <div class=\"collapse\" id=\"account\">\n        <ul class=\"nav flex-column sub-menu\">\n          <li class=\"nav-item\">\n            <a class=\"nav-link\" routerLink=\"/git_admin/create/user_account\">\n              <i class=\"mdi mdi-plus menu-icon\"></i>\n              <span class=\"menu-title\">Setup Account</span>\n            </a>\n          </li>\n          <li class=\"nav-item\">\n            <a class=\"nav-link\" routerLink=\"/git_admin/lists/front_desk\">\n              <i class=\"mdi mdi-desktop-mac menu-icon\"></i>\n              <span class=\"menu-title\">Front Desks</span>\n            </a>\n          </li>\n          <li class=\"nav-item\">\n            <a class=\"nav-link\" routerLink=\"/git_admin/lists/admin\">\n              <i class=\"mdi mdi-account-supervisor menu-icon\"></i>\n              <span class=\"menu-title\">GIT Admins</span>\n            </a>\n          </li>\n          <li class=\"nav-item\">\n            <a class=\"nav-link\" routerLink=\"/git_admin/lists/branch_admin\">\n              <i class=\"mdi mdi-leaf-maple menu-icon\"></i>\n              <span class=\"menu-title\">Branch Admins</span>\n            </a>\n          </li>\n          <li class=\"nav-item\">\n            <a class=\"nav-link\" routerLink=\"/git_admin/lists/company_admin\">\n              <i class=\"mdi mdi-lighthouse menu-icon\"></i>\n              <span class=\"menu-title\">Company Admins</span>\n            </a>\n          </li>\n          <li class=\"nav-item\">\n            <a class=\"nav-link\" routerLink=\"/git_admin/lists/branch_executive\">\n              <i class=\"mdi mdi-script-outline menu-icon\"></i>\n              <span class=\"menu-title\">Branch Super-Executives</span>\n            </a>\n          </li>\n          <li class=\"nav-item\">\n            <a class=\"nav-link\" routerLink=\"/git_admin/lists/super_executive\">\n              <i class=\"mdi mdi-view-dashboard-outline menu-icon\"></i>\n              <span class=\"menu-title\">Super Executives</span>\n            </a>\n          </li>\n        </ul>\n      </div>\n    </li>\n    <li class=\"nav-item\">\n      <a class=\"nav-link\" data-toggle=\"collapse\" href=\"#company\" aria-expanded=\"false\" aria-controls=\"company\">\n        <i class=\"mdi mdi-lighthouse menu-icon\"></i>\n        <span class=\"menu-title\">Company</span>\n        <i class=\"menu-arrow\"></i>\n      </a>\n      <div class=\"collapse\" id=\"company\">\n        <ul class=\"nav flex-column sub-menu\">\n          <li class=\"nav-item\">\n            <a class=\"nav-link\" routerLink=\"/git_admin/create/company\">\n              <i class=\"mdi mdi-plus-circle-multiple-outline menu-icon\"></i>\n              <span class=\"menu-title\">Create New</span>\n            </a>\n          </li>\n          <li class=\"nav-item\">\n            <a class=\"nav-link\" routerLink=\"/git_admin/lists/company\">\n              <i class=\"mdi mdi-format-list-bulleted-square menu-icon\"></i>\n              <span class=\"menu-title\">View Companies</span>\n            </a>\n          </li>\n        </ul>\n      </div>\n    </li>\n    <li class=\"nav-item\">\n      <a class=\"nav-link\" data-toggle=\"collapse\" href=\"#branches\" aria-expanded=\"false\" aria-controls=\"branches\">\n        <i class=\"mdi mdi-view-headline menu-icon\"></i>\n        <span class=\"menu-title\">Branches</span>\n        <i class=\"menu-arrow\"></i>\n      </a>\n      <div class=\"collapse\" id=\"branches\">\n        <ul class=\"nav flex-column sub-menu\">\n          <li class=\"nav-item\">\n            <a class=\"nav-link\" routerLink=\"/git_admin/create/branch\">\n              <i class=\"mdi mdi-plus-circle-multiple-outline menu-icon\"></i>\n              <span class=\"menu-title\">Create New</span>\n            </a>\n          </li>\n          <li class=\"nav-item\">\n            <a class=\"nav-link\" routerLink=\"/git_admin/lists/branch\">\n              <i class=\"mdi mdi-format-list-numbered menu-icon\"></i>\n              <span class=\"menu-title\">View Branches</span>\n            </a>\n          </li>\n        </ul>\n      </div>\n    </li>\n  </ul>\n</nav>\n<!-- git-admin -->\n\n<!-- comp admin -->\n<nav *ngIf=\"isAdmin || isBranchAdmin\" class=\"sidebar sidebar-offcanvas\" id=\"sidebar\">\n  <ul class=\"nav\">\n    <li class=\"nav-item\">\n      <a class=\"nav-link\" routerLink=\"/admin\">\n        <i class=\"mdi mdi-home menu-icon\"></i>\n        <span class=\"menu-title\">Home</span>\n      </a>\n    </li>\n    <li *ngIf=\"isAdmin\" class=\" nav-item\">\n      <a class=\"nav-link\" routerLink=\"/admin/create/form\">\n        <i class=\"mdi mdi-file-document-edit-outline menu-icon\"></i>\n        <span class=\"menu-title\">New Form</span>\n      </a>\n    </li>\n    <li class=\"nav-item\">\n      <a class=\"nav-link\" routerLink=\"/admin/lists/form\">\n        <i class=\"mdi mdi-file-document-box-outline menu-icon\"></i>\n        <span class=\"menu-title\">All Forms</span>\n      </a>\n    </li>\n    <li class=\"nav-item\">\n      <a class=\"nav-link\" routerLink=\"/templates/list\">\n        <i class=\"mdi mdi-format-list-bulleted menu-icon\"></i>\n        <span class=\"menu-title\">All Templates</span>\n      </a>\n    </li>\n    <li class=\"nav-item\">\n      <a class=\"nav-link\" data-toggle=\"collapse\" href=\"#account\" aria-expanded=\"false\" aria-controls=\"account\">\n        <i class=\"mdi mdi-account-group-outline menu-icon\"></i>\n        <span class=\"menu-title\">Accounts</span>\n        <i class=\"menu-arrow\"></i>\n      </a>\n      <div class=\"collapse\" id=\"account\">\n        <ul class=\"nav flex-column sub-menu\">\n          <li class=\"nav-item\">\n            <a class=\"nav-link\" routerLink=\"/admin/create/account\">\n              <i class=\"mdi mdi-plus menu-icon\"></i>\n              <span class=\"menu-title\">Setup Account</span>\n            </a>\n          </li>\n          <li class=\"nav-item\">\n            <a class=\"nav-link\" routerLink=\"/admin/lists/front_desk\">\n              <i class=\"mdi mdi-desktop-mac menu-icon\"></i>\n              <span class=\"menu-title\">Front Desks</span>\n            </a>\n          </li>\n          <li class=\"nav-item\">\n            <a class=\"nav-link\" routerLink=\"/admin/lists/branch_admin\">\n              <i class=\"mdi mdi-leaf-maple menu-icon\"></i>\n              <span class=\"menu-title\">Branch Admins</span>\n            </a>\n          </li>\n          <li class=\"nav-item\">\n            <a class=\"nav-link\" routerLink=\"/admin/lists/company_admin\">\n              <i class=\"mdi mdi-lighthouse menu-icon\"></i>\n              <span class=\"menu-title\">Company Admins</span>\n            </a>\n          </li>\n          <li class=\"nav-item\">\n            <a class=\"nav-link\" routerLink=\"/admin/lists/branch_executive\">\n              <i class=\"mdi mdi-script-outline menu-icon\"></i>\n              <span class=\"menu-title\">Branch Super-Executives</span>\n            </a>\n          </li>\n          <li class=\"nav-item\">\n            <a class=\"nav-link\" routerLink=\"/admin/lists/super_executive\">\n              <i class=\"mdi mdi-view-dashboard-outline menu-icon\"></i>\n              <span class=\"menu-title\">Super Executives</span>\n            </a>\n          </li>\n        </ul>\n      </div>\n    </li>\n    <li class=\"nav-item\">\n      <a class=\"nav-link\" routerLink=\"/admin/lists/branch\">\n        <i class=\"mdi mdi-view-headline menu-icon\"></i>\n        <span class=\"menu-title\">View Branches</span>\n      </a>\n    </li>\n  </ul>\n</nav>\n<!-- /.comp admin -->\n\n<!-- client -->\n<nav *ngIf=\"isClient\" class=\"sidebar sidebar-offcanvas\" id=\"sidebar\">\n  <ul class=\"nav\">\n    <li class=\"nav-item\">\n      <a class=\"nav-link\" routerLink=\"/client\">\n        <i class=\"mdi mdi-home menu-icon\"></i>\n        <span class=\"menu-title\">Home</span>\n      </a>\n    </li>\n    <li class=\"nav-item\">\n      <a class=\"nav-link\" routerLink=\"/client/form_merchant\">\n        <i class=\"mdi mdi-plus menu-icon\"></i>\n        <span class=\"menu-title\">Pick A Form</span>\n      </a>\n    </li>\n    <li class=\"nav-item\">\n      <a class=\"nav-link\" routerLink=\"/client/profile\">\n        <i class=\"mdi mdi-account-card-details-outline menu-icon\"></i>\n        <span class=\"menu-title\">My Profile</span>\n      </a>\n    </li>\n    <li class=\"nav-item\">\n      <a class=\"nav-link\" routerLink=\"/client/forms_filled\">\n        <i class=\"mdi mdi-rocket menu-icon\"></i>\n        <span class=\"menu-title\">My History</span>\n      </a>\n    </li>\n    <li class=\"nav-item\">\n      <a class=\"nav-link\" routerLink=\"/client/unsent_forms\">\n        <i class=\"mdi mdi-file-document-box-multiple-outline menu-icon\"></i>\n        <span class=\"menu-title\">Submitted Forms</span>\n      </a>\n    </li>\n  </ul>\n</nav>\n<!-- /.client sidemenu -->\n\n<!-- front-desk -->\n<nav *ngIf=\"isFrontDesk\" class=\"sidebar sidebar-offcanvas\" id=\"sidebar\">\n  <ul class=\"nav\">\n    <li class=\"nav-item\">\n      <a class=\"nav-link\" routerLink=\"/front_desk\">\n        <i class=\"mdi mdi-home menu-icon\"></i>\n        <span class=\"menu-title\">Home</span>\n      </a>\n    </li>\n    <li class=\"nav-item\">\n      <a class=\"nav-link\" routerLink=\"/front_desk/lists/submitted\">\n        <i class=\"mdi mdi-file-document-edit-outline menu-icon\"></i>\n        <span class=\"menu-title\">Submitted Forms</span>\n      </a>\n    </li>\n    <li class=\"nav-item\">\n      <a class=\"nav-link\" routerLink=\"/front_desk/lists/processed\">\n        <i class=\"mdi mdi-file-check-outline menu-icon\"></i>\n        <span class=\"menu-title\">Processed Forms</span>\n      </a>\n    </li>\n    <li class=\"nav-item\">\n      <a class=\"nav-link\" routerLink=\"/front_desk/lists/processing\">\n        <i class=\"mdi mdi-timer menu-icon\"></i>\n        <span class=\"menu-title\">Forms In-Processing</span>\n      </a>\n    </li>\n    <li class=\"nav-item\">\n      <a class=\"nav-link\" routerLink=\"/front_desk/lists/client_forms\">\n        <i class=\"mdi mdi-database-check menu-icon\"></i>\n        <span class=\"menu-title\">Forms Data</span>\n      </a>\n    </li>\n  </ul>\n</nav>\n<!-- /.front-desk -->\n\n<!-- executive -->\n<nav *ngIf=\"isExecutive || isBranchSuperExec\" class=\"sidebar sidebar-offcanvas\" id=\"sidebar\">\n  <ul class=\"nav\">\n    <li class=\"nav-item\">\n      <a class=\"nav-link\" routerLink=\"/executive\">\n        <i class=\"mdi mdi-home menu-icon\"></i>\n        <span class=\"menu-title\">Home</span>\n      </a>\n    </li>\n    <li class=\"nav-item\">\n      <a class=\"nav-link\" routerLink=\"/executive/forms\">\n        <i class=\"mdi mdi-file-document-box-multiple-outline menu-icon\"></i>\n        <span class=\"menu-title\">Forms</span>\n      </a>\n    </li>\n    <li class=\"nav-item\">\n      <a class=\"nav-link\" routerLink=\"/executive/branches\">\n        <i class=\"mdi mdi-office-building menu-icon\"></i>\n        <span class=\"menu-title\">Branches</span>\n      </a>\n    </li>\n    <li class=\"nav-item\">\n      <a class=\"nav-link\" routerLink=\"/executive/processed\">\n        <i class=\"mdi mdi-check-all menu-icon\"></i>\n        <span class=\"menu-title\">Processed Forms</span>\n      </a>\n    </li>\n    <li class=\"nav-item\">\n      <a class=\"nav-link\" routerLink=\"/executive/submitted\">\n        <i class=\"mdi mdi-file-check-outline menu-icon\"></i>\n        <span class=\"menu-title\">Submitted Forms</span>\n      </a>\n    </li>\n    <li class=\"nav-item\">\n      <a class=\"nav-link\" routerLink=\"/executive/processing\">\n        <i class=\"mdi mdi-timer menu-icon\"></i>\n        <span class=\"menu-title\">Forms In-Process</span>\n      </a>\n    </li>\n    <li class=\"nav-item\">\n      <a class=\"nav-link\" routerLink=\"/executive/client_forms\">\n        <i class=\"mdi mdi-database-check menu-icon\"></i>\n        <span class=\"menu-title\">Form Data</span>\n      </a>\n    </li>\n  </ul>\n</nav>\n<!-- /.executive -->"
 
 /***/ }),
 
@@ -448,7 +448,7 @@ module.exports = "<div class=\"container-scroller\">\n  <app-navigation-bar></ap
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<div class=\"container-scroller\">\n  <app-navigation-bar></app-navigation-bar>\n  <div class=\"container-fluid page-body-wrapper\">\n    <app-side-bar></app-side-bar>\n    <div class=\"main-panel\">\n      <div class=\"content-wrapper\">\n\n        <div class=\"row\">\n          <div class=\"col-md-12 grid-margin\">\n            <div class=\"d-flex justify-content-between flex-wrap\">\n              <div class=\"d-flex align-items-end flex-wrap\">\n                <div class=\"mr-md-3 mr-xl-5\">\n                  <h2>Edit a form</h2>\n                  <p class=\"mb-md-0\">Edit a form here, just drag and drop the elements or click to add.</p>\n                </div>\n                <div class=\"d-flex\">\n                </div>\n              </div>\n              <div class=\"d-flex justify-content-between align-items-end flex-wrap\">\n                <div class=\"d-flex justify-content-between align-items-end flex-wrap\">\n                  <button *ngIf=\"isPublished\" type=\"button\" class=\"btn btn-danger btn-icon-text mr-3 mt-2 mt-xl-0\"\n                    (click)=\"unpublishForm()\">\n                    <i class=\"mdi mdi-block-helper\"></i>\n                    Unpublish Form\n                  </button>\n                  <button *ngIf=\"!isPublished\" type=\"button\" class=\"btn btn-success btn-icon-text mr-3 mt-2 mt-xl-0\"\n                    (click)=\"publishForm()\">\n                    <i class=\"mdi mdi-cloud-upload-outline\"></i>\n                    Publish Form\n                  </button>\n                </div>\n              </div>\n            </div>\n          </div>\n        </div>\n\n        <div *ngIf=\"_loading\" class=\"row\">\n          <div class=\"col-md-12\">\n            <div class=\"d-flex justify-content-center pb-5 pt-5\">\n              <div class=\"spinner-border mt-5\" style=\"width: 6rem; height: 6rem;\" role=\"status\">\n                <span class=\"sr-only\">Loading...</span>\n              </div>\n            </div>\n          </div>\n        </div>\n\n        <div [hidden]=\"_loading || created\" class=\"row\">\n          <div class=\"col-md-12 grid-margin stretch-card\">\n            <div class=\"card\" style=\"height: 750px; overflow: scroll;\">\n              <div class=\"card-body\">\n                <p class=\"card-title\">Edit Form</p>\n                <p class=\"text-muted\">\n                  Drag and drop the form elements on your the right onto the panel on the left to create your form.\n                  You can re-arrange the order of the elements you drag onto the left panel by dragging to your desired\n                  position. You can also just click on an element to add it to your form.\n                </p>\n\n                <form [formGroup]=\"form\">\n                  <div class=\"row mt-4\">\n                    <div class=\"col-9\">\n                      <div class=\"form-group\">\n                        <input type=\"text\" formControlName=\"name\" class=\"form-control\" placeholder=\"Whats the name of your form ?\"\n                          [ngClass]=\"{'input-control-error': submitted && f.name.errors}\">\n                        <div *ngIf=\"submitted && f.name.errors\">\n                          <p class=\"input-error\" *ngIf=\"f.name.errors.required\">Form name is required</p>\n                        </div>\n                      </div>\n                    </div>\n                    <div class=\"col-4\">\n                    </div>\n                  </div>\n\n                  <div class=\"form-container\">\n                    <div id=\"fb-editor\"></div>\n                  </div>\n\n                  <button type=\"submit\" *ngIf=\"!loading\" class=\"btn btn-primary mt-2 mr-1\" (click)=\"edit()\">Update</button>\n                  <button type=\"button\" *ngIf=\"loading\" class=\"btn btn-primary mr-2\" type=\"button\" disabled>\n                    <span class=\"spinner-border spinner-border-sm\" role=\"status\" aria-hidden=\"true\"></span>&nbsp; &nbsp;\n                    Please wait...\n                  </button>\n                  <button type=\"button\" *ngIf=\"!loading\" class=\"btn btn-primary mt-2 mr-1\" (click)=\"reset()\">Reset</button>\n                </form>\n              </div>\n            </div>\n          </div>\n        </div>\n\n        <div [hidden]=\"!created\" class=\"row\">\n          <div class=\"col-md-12 grid-margin\">\n            <div class=\"card pt-5 pb-5 text-center\">\n              <div class=\"card-body\">\n                <p class=\"card-title\">Success</p>\n                <p class=\"text-muted\"></p>\n                <div class=\"card-text\">\n                  <i class=\"mdi mdi-shield-check-outline text-primary\" style=\"font-size: 12em;\"></i>\n                  <h2>1 Form Updated</h2>\n                  <h4>{{ formName }} Form has been updated</h4>\n                  <p class=\"text-muted\">You have succesfully updated a form</p>\n                </div>\n                <div class=\"card-text mt-4\">\n                  <!-- <button type=\"button\" class=\"btn btn-primary btn-lg btn-icon-text mr-2\" (click)=\"bringBackForm()\">\n                    <i class=\"mdi mdi-plus\"></i>\n                    Create New\n                  </button> -->\n                  <button type=\"button\" class=\"btn btn-primary btn-lg btn-icon-text mr-2\" (click)=\"preview()\">\n                    <i class=\"mdi mdi-eye\"></i>\n                    Preview\n                  </button>\n                  <button type=\"button\" class=\"btn btn-dark btn-lg btn-icon-text mr-2\" (click)=\"ok()\">\n                    <i class=\"mdi mdi-check\"></i>\n                    Ok\n                  </button>\n                </div>\n              </div>\n            </div>\n          </div>\n        </div>\n      </div>\n    </div>\n  </div>\n</div>\n\n<ng-template #loader let-modal>\n  <div class=\"modal-body\">\n    <div class=\"d-flex justify-content-center\">\n      <div class=\"spinner-border m-5\" style=\"width: 4rem; height: 4rem;\" role=\"status\">\n        <span class=\"sr-only\">Loading...</span>\n      </div>\n    </div>\n    <p class=\"text-center\">Please wait...</p>\n  </div>\n</ng-template>\n\n<ng-template #publish let-modal>\n  <div class=\"modal-header\">\n    <h4 class=\"modal-title\" id=\"modal-title\">Publish Form ?</h4>\n    <button type=\"button\" class=\"close\" aria-describedby=\"modal-title\" (click)=\"modal.dismiss('close')\">\n      <span aria-hidden=\"true\">&times;</span>\n    </button>\n  </div>\n  <div class=\"modal-body\">\n    <p><strong>Are you sure you want to publish <span class=\"text-primary\">this form</span> ?</strong></p>\n    <p>Publishing this form makes it visible to all client users. Please be sure before you continue.</p>\n  </div>\n  <div class=\"modal-footer\">\n    <button type=\"button\" class=\"btn btn-outline-secondary\" (click)=\"modal.dismiss('cancel')\">Cancel</button>\n    <button type=\"button\" class=\"btn btn-danger\" (click)=\"modal.close('publish')\">Publish</button>\n  </div>\n</ng-template>\n\n<ng-template #unpublish let-modal>\n  <div class=\"modal-header\">\n    <h4 class=\"modal-title\" id=\"modal-title\">Unpublish Form ?</h4>\n    <button type=\"button\" class=\"close\" aria-describedby=\"modal-title\" (click)=\"modal.dismiss('close')\">\n      <span aria-hidden=\"true\">&times;</span>\n    </button>\n  </div>\n  <div class=\"modal-body\">\n    <p><strong>Are you sure you want to unpublish <span class=\"text-primary\">this form</span> ?</strong></p>\n    <p>Unpublishing this form makes it invisible to all client users. Please be sure before you continue.</p>\n  </div>\n  <div class=\"modal-footer\">\n    <button type=\"button\" class=\"btn btn-outline-secondary\" (click)=\"modal.dismiss('cancel')\">Cancel</button>\n    <button type=\"button\" class=\"btn btn-danger\" (click)=\"modal.close('unpublish')\">Unpublish</button>\n  </div>\n</ng-template>\n\n<ng-template #status let-modal>\n  <div class=\"modal-body text-center\">\n    <h3>{{ alertTitle }}</h3>\n    <i *ngIf=\"alertSuccess\" class=\"mdi mdi-check-circle-outline text-primary\" style=\"font-size: 7em;\"></i>\n    <i *ngIf=\"!alertSuccess\" class=\"mdi mdi-close-circle-outline text-danger\" style=\"font-size: 7em;\"></i>\n    <p>{{ alertMessage }}</p>\n  </div>\n  <div class=\"modal-footer\">\n    <button type=\"button\" class=\"btn btn-primary\" (click)=\"modal.close()\">Ok</button>\n  </div>\n</ng-template>"
+module.exports = "<div class=\"container-scroller\">\n  <app-navigation-bar></app-navigation-bar>\n  <div class=\"container-fluid page-body-wrapper\">\n    <app-side-bar></app-side-bar>\n    <div class=\"main-panel\">\n      <div class=\"content-wrapper\">\n\n        <div class=\"row\">\n          <div class=\"col-md-12 grid-margin\">\n            <div class=\"d-flex justify-content-between flex-wrap\">\n              <div class=\"d-flex align-items-end flex-wrap\">\n                <div class=\"mr-md-3 mr-xl-5\">\n                  <h2>Edit a form</h2>\n                  <p class=\"mb-md-0\">Edit a form here, just drag and drop the elements or click to add.</p>\n                </div>\n                <div class=\"d-flex\">\n                </div>\n              </div>\n              <div class=\"d-flex justify-content-between align-items-end flex-wrap\">\n                <div class=\"d-flex justify-content-between align-items-end flex-wrap\">\n                  <button *ngIf=\"isPublished\" type=\"button\" class=\"btn btn-danger btn-icon-text mr-3 mt-2 mt-xl-0\"\n                    (click)=\"unpublishForm()\">\n                    <i class=\"mdi mdi-block-helper\"></i>\n                    Unpublish Form\n                  </button>\n                  <button *ngIf=\"!isPublished\" type=\"button\" class=\"btn btn-success btn-icon-text mr-3 mt-2 mt-xl-0\"\n                    (click)=\"publishForm()\">\n                    <i class=\"mdi mdi-cloud-upload-outline\"></i>\n                    Publish Form\n                  </button>\n                </div>\n              </div>\n            </div>\n          </div>\n        </div>\n\n        <div *ngIf=\"_loading\" class=\"row\">\n          <div class=\"col-md-12\">\n            <div class=\"d-flex justify-content-center pb-5 pt-5\">\n              <div class=\"spinner-border mt-5\" style=\"width: 6rem; height: 6rem;\" role=\"status\">\n                <span class=\"sr-only\">Loading...</span>\n              </div>\n            </div>\n          </div>\n        </div>\n\n        <div [hidden]=\"_loading || created\" class=\"row\">\n          <div class=\"col-md-12 grid-margin stretch-card\">\n            <div class=\"card\" style=\"height: 750px; overflow: scroll;\">\n              <div class=\"card-body\">\n                <p class=\"card-title\">Edit Form</p>\n                <p class=\"text-muted\">\n                  Drag and drop the form elements on your the right onto the panel on the left to create your form.\n                  You can re-arrange the order of the elements you drag onto the left panel by dragging to your desired\n                  position. You can also just click on an element to add it to your form.\n                </p>\n\n                <form [formGroup]=\"form\">\n                  <div class=\"row mt-4\">\n                    <div [ngClass]=\"{'col-6': showFileUpload, 'col-8': !showFileUpload}\">\n                      <div class=\"form-group\">\n                        <input type=\"text\" formControlName=\"name\" class=\"form-control\"\n                          placeholder=\"Whats the name of your form ?\"\n                          [ngClass]=\"{'input-control-error': submitted && f.name.errors}\">\n                        <div *ngIf=\"submitted && f.name.errors\">\n                          <p class=\"input-error\" *ngIf=\"f.name.errors.required\">Form name is required</p>\n                        </div>\n                      </div>\n                    </div>\n                    <div class=\"col-2\">\n                      <div class=\"form-group\">\n                        <select class=\"form-control\" formControlName=\"canView\"\n                          [ngClass]=\"{'input-control-error': submitted && f.canView.errors}\">\n                          <option value=\"\" disabled>Can View</option>\n                          <option value=\"0\">No</option>\n                          <option value=\"1\">Yes</option>\n                        </select>\n                      </div>\n                    </div>\n                    <div *ngIf=\"showFileUpload\" class=\"col-4\">\n                      <div class=\"form-group\">\n                        <input #pdfFile type=\"file\" accept=\"application/pdf\" (change)=\"inputFileChanged($event)\"\n                          class=\"file-upload-default\">\n                        <div class=\"input-group col-xs-12\">\n                          <input type=\"file\" style=\"overflow: hidden; height: 0px; width: 0px;\">\n                          <input type=\"text\" formControlName=\"pdf\" class=\"form-control file-upload-info\"\n                            placeholder=\"Upload File\" readonly>\n                          <span class=\"input-group-append\">\n                            <button class=\"file-upload-browse btn btn-primary\" type=\"button\"\n                              (click)=\"showFilePicker()\">Upload PDF</button>\n                          </span>\n                        </div>\n                        <div *ngIf=\"submitted && f.pdf.errors\">\n                          <p class=\"input-error\" *ngIf=\"f.pdf.errors.required\">PDF file is required</p>\n                        </div>\n                      </div>\n                    </div>\n                  </div>\n\n                  <div class=\"form-container\">\n                    <div id=\"fb-editor\"></div>\n                  </div>\n\n                  <button type=\"submit\" *ngIf=\"!loading\" class=\"btn btn-primary mt-2 mr-1\" (click)=\"edit()\">Update</button>\n                  <button type=\"button\" *ngIf=\"loading\" class=\"btn btn-primary mr-2\" type=\"button\" disabled>\n                    <span class=\"spinner-border spinner-border-sm\" role=\"status\" aria-hidden=\"true\"></span>&nbsp; &nbsp;\n                    Please wait...\n                  </button>\n                  <button type=\"button\" *ngIf=\"!loading\" class=\"btn btn-primary mt-2 mr-1\" (click)=\"reset()\">Reset</button>\n                </form>\n              </div>\n            </div>\n          </div>\n        </div>\n\n        <div [hidden]=\"!created\" class=\"row\">\n          <div class=\"col-md-12 grid-margin\">\n            <div class=\"card pt-5 pb-5 text-center\">\n              <div class=\"card-body\">\n                <p class=\"card-title\">Success</p>\n                <p class=\"text-muted\"></p>\n                <div class=\"card-text\">\n                  <i class=\"mdi mdi-shield-check-outline text-primary\" style=\"font-size: 12em;\"></i>\n                  <h2>1 Form Updated</h2>\n                  <h4>{{ formName }} Form has been updated</h4>\n                  <p class=\"text-muted\">You have succesfully updated a form</p>\n                </div>\n                <div class=\"card-text mt-4\">\n                  <!-- <button type=\"button\" class=\"btn btn-primary btn-lg btn-icon-text mr-2\" (click)=\"bringBackForm()\">\n                    <i class=\"mdi mdi-plus\"></i>\n                    Create New\n                  </button> -->\n                  <button type=\"button\" class=\"btn btn-primary btn-lg btn-icon-text mr-2\" (click)=\"preview()\">\n                    <i class=\"mdi mdi-eye\"></i>\n                    Preview\n                  </button>\n                  <button type=\"button\" class=\"btn btn-dark btn-lg btn-icon-text mr-2\" (click)=\"ok()\">\n                    <i class=\"mdi mdi-check\"></i>\n                    Ok\n                  </button>\n                </div>\n              </div>\n            </div>\n          </div>\n        </div>\n      </div>\n    </div>\n  </div>\n</div>\n\n<ng-template #loader let-modal>\n  <div class=\"modal-body\">\n    <div class=\"d-flex justify-content-center\">\n      <div class=\"spinner-border m-5\" style=\"width: 4rem; height: 4rem;\" role=\"status\">\n        <span class=\"sr-only\">Loading...</span>\n      </div>\n    </div>\n    <p class=\"text-center\">Please wait...</p>\n  </div>\n</ng-template>\n\n<ng-template #publish let-modal>\n  <div class=\"modal-header\">\n    <h4 class=\"modal-title\" id=\"modal-title\">Publish Form ?</h4>\n    <button type=\"button\" class=\"close\" aria-describedby=\"modal-title\" (click)=\"modal.dismiss('close')\">\n      <span aria-hidden=\"true\">&times;</span>\n    </button>\n  </div>\n  <div class=\"modal-body\">\n    <p><strong>Are you sure you want to publish <span class=\"text-primary\">this form</span> ?</strong></p>\n    <p>Publishing this form makes it visible to all client users. Please be sure before you continue.</p>\n  </div>\n  <div class=\"modal-footer\">\n    <button type=\"button\" class=\"btn btn-outline-secondary\" (click)=\"modal.dismiss('cancel')\">Cancel</button>\n    <button type=\"button\" class=\"btn btn-danger\" (click)=\"modal.close('publish')\">Publish</button>\n  </div>\n</ng-template>\n\n<ng-template #unpublish let-modal>\n  <div class=\"modal-header\">\n    <h4 class=\"modal-title\" id=\"modal-title\">Unpublish Form ?</h4>\n    <button type=\"button\" class=\"close\" aria-describedby=\"modal-title\" (click)=\"modal.dismiss('close')\">\n      <span aria-hidden=\"true\">&times;</span>\n    </button>\n  </div>\n  <div class=\"modal-body\">\n    <p><strong>Are you sure you want to unpublish <span class=\"text-primary\">this form</span> ?</strong></p>\n    <p>Unpublishing this form makes it invisible to all client users. Please be sure before you continue.</p>\n  </div>\n  <div class=\"modal-footer\">\n    <button type=\"button\" class=\"btn btn-outline-secondary\" (click)=\"modal.dismiss('cancel')\">Cancel</button>\n    <button type=\"button\" class=\"btn btn-danger\" (click)=\"modal.close('unpublish')\">Unpublish</button>\n  </div>\n</ng-template>\n\n<ng-template #status let-modal>\n  <div class=\"modal-body text-center\">\n    <h3>{{ alertTitle }}</h3>\n    <i *ngIf=\"alertSuccess\" class=\"mdi mdi-check-circle-outline text-primary\" style=\"font-size: 7em;\"></i>\n    <i *ngIf=\"!alertSuccess\" class=\"mdi mdi-close-circle-outline text-danger\" style=\"font-size: 7em;\"></i>\n    <p>{{ alertMessage }}</p>\n  </div>\n  <div class=\"modal-footer\">\n    <button type=\"button\" class=\"btn btn-primary\" (click)=\"modal.close()\">Ok</button>\n  </div>\n</ng-template>"
 
 /***/ }),
 
@@ -570,6 +570,17 @@ module.exports = "<div class=\"container-scroller\">\n  <app-navigation-bar></ap
 /***/ (function(module, exports) {
 
 module.exports = "<div class=\"container-scroller\">\n  <app-navigation-bar></app-navigation-bar>\n  <div class=\"container-fluid page-body-wrapper\">\n    <app-side-bar></app-side-bar>\n    <div class=\"main-panel\">\n      <div class=\"content-wrapper\">\n        <div class=\"row\">\n          <div class=\"col-md-12 grid-margin\">\n            <div class=\"d-flex justify-content-between flex-wrap\">\n              <div class=\"d-flex align-items-end flex-wrap\">\n                <div class=\"mr-md-3 mr-xl-5\">\n                  <h2>Front Desk Accounts</h2>\n                  <p class=\"mb-md-0\">Your administrative dashboard.</p>\n                </div>\n                <div class=\"d-flex\">\n                </div>\n              </div>\n              <div class=\"d-flex justify-content-between align-items-end flex-wrap\">\n                <!-- <button type=\"button\" class=\"btn btn-light bg-white btn-icon mr-3 d-none d-md-block \">\n                  <i class=\"mdi mdi-download text-muted\"></i>\n                </button> -->\n                <!-- <button type=\"button\" class=\"btn btn-light bg-white btn-icon mr-3 mt-2 mt-xl-0\">\n                  <i class=\"mdi mdi-clock-outline text-muted\"></i>\n                </button> -->\n                <!-- <button type=\"button\" class=\"btn btn-light bg-white btn-icon mr-3 mt-2 mt-xl-0\">\n                  <i class=\"mdi mdi-plus text-muted\"></i>\n                </button> -->\n              </div>\n            </div>\n          </div>\n        </div>\n        <div class=\"row\">\n          <div class=\"col-lg-12 grid-margin stretch-card\">\n            <div class=\"card\">\n              <div class=\"card-body\">\n                <app-view-account-lists-page\n                  [canEdit]=\"true\"\n                  [canView]=\"true\"\n                  [canDelete]=\"true\"\n                  [userType]=\"userType\"\n                  (edit)=\"edit($event)\"\n                  (view)=\"view($event)\"\n                  [branchId]=\"branchId\"\n                  [merchantId]=\"merchantId\"\n                  (delete)=\"delete($event)\"\n                  (dataLoaded)=\"dataLoaded($event)\"\n                  (dataLoadedError)=\"dataLoadedError($event)\">\n                </app-view-account-lists-page>\n              </div>\n            </div>\n          </div>\n        </div>\n      </div>\n    </div>\n  </div>\n</div>"
+
+/***/ }),
+
+/***/ "./node_modules/raw-loader/index.js!./src/app/pages/dashboard/client/client-form-link-page/client-form-link-page.component.html":
+/*!*****************************************************************************************************************************!*\
+  !*** ./node_modules/raw-loader!./src/app/pages/dashboard/client/client-form-link-page/client-form-link-page.component.html ***!
+  \*****************************************************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = "<p>client-form-link-page works!</p>\n"
 
 /***/ }),
 
@@ -723,7 +734,7 @@ module.exports = "<div class=\"container-scroller\">\n  <app-navigation-bar></ap
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<div class=\"container-scroller\">\n  <app-navigation-bar></app-navigation-bar>\n  <div class=\"container-fluid page-body-wrapper\">\n    <app-side-bar></app-side-bar>\n    <div class=\"main-panel\">\n      <div class=\"content-wrapper\">\n        <div class=\"row\">\n          <div class=\"col-md-12 grid-margin\">\n            <div class=\"d-flex justify-content-between flex-wrap\">\n              <div class=\"d-flex align-items-end flex-wrap\">\n                <div class=\"mr-md-3 mr-xl-5\">\n                  <h2>Processed Forms</h2>\n                  <p class=\"mb-md-0\">Your administrative dashboard.</p>\n                </div>\n                <div class=\"d-flex\">\n                </div>\n              </div>\n              <div class=\"d-flex justify-content-between align-items-end flex-wrap\">\n              </div>\n            </div>\n          </div>\n        </div>\n\n        <div *ngIf=\"loading\" class=\"row m-5\">\n          <div class=\"col-md-12 m-5\">\n            <div class=\"d-flex justify-content-center\">\n              <div class=\"spinner-border m-5\" style=\"width: 5rem; height: 5rem;\" role=\"status\">\n                <span class=\"sr-only\">Loading...</span>\n              </div>\n            </div>\n          </div>\n        </div>\n\n        <div *ngIf=\"!loading && !hasData\" class=\"row\">\n          <div class=\"col-lg-12 grid-margin stretch-card\">\n            <div class=\"card text-center pt-5 pb-5\">\n              <div class=\"card-body mt-5 mb-5\">\n                <h4 class=\"card-title\">No Data Found</h4>\n                <p class=\"card-description\">\n                  No processed forms found.\n                </p>\n                <div class=\"text-lg-center mt-5 mb-5\">\n                  <div class=\"card-text\">\n                    <i class=\"mdi mdi-file-check-outline\" style=\"font-size: 8em;\"></i>\n                  </div>\n                  <div class=\"card-text\">\n                    <h3>No Available Processed Forms</h3>\n                    <p class=\"text-muted\">There are no processed forms yet!</p>\n                  </div>\n                </div>\n              </div>\n            </div>\n          </div>\n        </div>\n\n        <div *ngIf=\"hasError\" class=\"row\">\n          <div class=\"col-lg-12 grid-margin stretch-card\">\n            <div class=\"card text-center pt-5 pb-5\">\n              <div class=\"card-body mt-5 mb-5\">\n                <h4 class=\"card-title\">Error Ocuured</h4>\n                <p class=\"card-description\">\n                  Ooops! Something went wrong!\n                </p>\n                <div class=\"text-lg-center mt-5 mb-5\">\n                  <div class=\"card-text\">\n                    <i class=\"mdi mdi-close-network-outline\" style=\"font-size: 8em;\"></i>\n                  </div>\n                  <div class=\"card-text\">\n                    <h3>We couldn't get your processed forms</h3>\n                    <p class=\"text-muted\">You may not have internet connection or our servers maybe down.</p>\n                    <button class=\"btn btn-primary\" type=\"button\" (click)=\"retry()\">Retry</button>\n                  </div>\n                </div>\n              </div>\n            </div>\n          </div>\n        </div>\n\n        <div *ngIf=\"!loading && hasData\" class=\"row\">\n          <div class=\"col-lg-12 grid-margin stretch-card\">\n            <div class=\"card\">\n              <div class=\"card-body\">\n                <div class=\"table-responsive\">\n                  <table class=\"table table-hover\">\n                    <thead>\n                      <tr>\n                        <th><strong>Form Identifier</strong></th>\n                        <th><strong>Form Name.</strong></th>\n                        <th><strong>Submitted By</strong></th>\n                        <th><strong>Submitted On</strong></th>\n                        <th><strong>Processed On</strong></th>\n                      </tr>\n                    </thead>\n                    <tbody>\n                      <tr class=\"hover-cursor\" *ngFor=\"let form of processedFormsList\">\n                        <td>{{ form.form_code }}</td>\n                        <td>{{ form.form_name }}</td>\n                        <td>{{ form.client_name }}</td>\n                        <td>{{ form.submitted_at | date:'medium' }}</td>\n                        <td>{{ form.last_processed | date:'medium' }}</td>\n                      </tr>\n                    </tbody>\n                  </table>\n                </div>\n              </div>\n            </div>\n          </div>\n        </div>\n\n        <div *ngIf=\"loadingMore\" class=\"row m-md-2\">\n          <div class=\"col-md-12 col-sm-12 m-md-2\">\n            <div class=\"d-flex justify-content-center\">\n              <div class=\"spinner-border m-2\" style=\"width: 2rem; height: 2rem;\" role=\"status\">\n                <span class=\"sr-only\">Loading...</span>\n              </div>\n            </div>\n          </div>\n        </div>\n\n        <div *ngIf=\"hasMoreError\" class=\"row m-md-2\">\n          <div class=\"col-md-8 col-sm-12 offset-md-2\">\n            <div class=\"alert alert-danger\" role=\"alert\">\n              <h4 class=\"alert-heading\">Connection Failed!</h4>\n              <p>\n                Oops!! Couldn't get you the rest of the data. Please make sure you have an active internet connection.\n                Maybe, our servers may be down.\n              </p>\n              <hr>\n              <p class=\"mb-0\">We are really sorry for this inconvenience. Please click on the load more button again.\n              </p>\n            </div>\n          </div>\n        </div>\n\n        <div *ngIf=\"hasMore\" class=\"row\">\n          <div class=\"col-md-4 col-sm-6 offset-sm-3 offset-lg-4\">\n            <div class=\"text-center\">\n              <button type=\"button\" class=\"btn btn-primary btn-rounded btn-fw\" (click)=\"loadMore()\">Load More</button>\n            </div>\n          </div>\n        </div>\n        \n      </div>\n    </div>\n  </div>\n</div>"
+module.exports = "<div class=\"container-scroller\">\n  <app-navigation-bar></app-navigation-bar>\n  <div class=\"container-fluid page-body-wrapper\">\n    <app-side-bar></app-side-bar>\n    <div class=\"main-panel\">\n      <div class=\"content-wrapper\">\n        <div class=\"row\">\n          <div class=\"col-md-12 grid-margin\">\n            <div class=\"d-flex justify-content-between flex-wrap\">\n              <div class=\"d-flex align-items-end flex-wrap\">\n                <div class=\"mr-md-3 mr-xl-5\">\n                  <h2>Processed Forms</h2>\n                  <p class=\"mb-md-0\">Your administrative dashboard.</p>\n                </div>\n                <div class=\"d-flex\">\n                </div>\n              </div>\n              <div class=\"d-flex justify-content-between align-items-end flex-wrap\">\n              </div>\n            </div>\n          </div>\n        </div>\n\n        <div *ngIf=\"loading\" class=\"row m-5\">\n          <div class=\"col-md-12 m-5\">\n            <div class=\"d-flex justify-content-center\">\n              <div class=\"spinner-border m-5\" style=\"width: 5rem; height: 5rem;\" role=\"status\">\n                <span class=\"sr-only\">Loading...</span>\n              </div>\n            </div>\n          </div>\n        </div>\n\n        <div *ngIf=\"!loading && !hasData\" class=\"row\">\n          <div class=\"col-lg-12 grid-margin stretch-card\">\n            <div class=\"card text-center pt-5 pb-5\">\n              <div class=\"card-body mt-5 mb-5\">\n                <h4 class=\"card-title\">No Data Found</h4>\n                <p class=\"card-description\">\n                  No processed forms found.\n                </p>\n                <div class=\"text-lg-center mt-5 mb-5\">\n                  <div class=\"card-text\">\n                    <i class=\"mdi mdi-file-check-outline\" style=\"font-size: 8em;\"></i>\n                  </div>\n                  <div class=\"card-text\">\n                    <h3>No Available Processed Forms</h3>\n                    <p class=\"text-muted\">There are no processed forms yet!</p>\n                  </div>\n                </div>\n              </div>\n            </div>\n          </div>\n        </div>\n\n        <div *ngIf=\"hasError\" class=\"row\">\n          <div class=\"col-lg-12 grid-margin stretch-card\">\n            <div class=\"card text-center pt-5 pb-5\">\n              <div class=\"card-body mt-5 mb-5\">\n                <h4 class=\"card-title\">Error Ocuured</h4>\n                <p class=\"card-description\">\n                  Ooops! Something went wrong!\n                </p>\n                <div class=\"text-lg-center mt-5 mb-5\">\n                  <div class=\"card-text\">\n                    <i class=\"mdi mdi-close-network-outline\" style=\"font-size: 8em;\"></i>\n                  </div>\n                  <div class=\"card-text\">\n                    <h3>We couldn't get your processed forms</h3>\n                    <p class=\"text-muted\">You may not have internet connection or our servers maybe down.</p>\n                    <button class=\"btn btn-primary\" type=\"button\" (click)=\"retry()\">Retry</button>\n                  </div>\n                </div>\n              </div>\n            </div>\n          </div>\n        </div>\n\n        <div *ngIf=\"!loading && hasData\" class=\"row\">\n          <div class=\"col-lg-12 grid-margin stretch-card\">\n            <div class=\"card\">\n              <div class=\"card-body\">\n                <div class=\"table-responsive\">\n                  <table class=\"table table-hover\">\n                    <thead>\n                      <tr>\n                        <th><strong>Form Identifier</strong></th>\n                        <th><strong>Form Name.</strong></th>\n                        <th><strong>Submitted By</strong></th>\n                        <th><strong>Submitted On</strong></th>\n                        <th><strong>Processed On</strong></th>\n                        <th><strong>Action</strong></th>\n                      </tr>\n                    </thead>\n                    <tbody>\n                      <tr class=\"hover-cursor\" *ngFor=\"let form of processedFormsList\">\n                        <td>{{ form.form_code }}</td>\n                        <td>{{ form.form_name }}</td>\n                        <td>{{ form.client_name }}</td>\n                        <td>{{ form.submitted_at | date:'medium' }}</td>\n                        <td>{{ form.last_processed | date:'medium' }}</td>\n                        <td>\n                          <button type=\"button\" class=\"btn btn-light bg-white btn-icon\" data-toggle=\"tooltip\"\n                            data-placement=\"top\" title=\"Print\" (click)=\"print($event, form)\">\n                            <i class=\"mdi mdi-printer text-muted\"></i>\n                          </button>\n                        </td>\n                      </tr>\n                    </tbody>\n                  </table>\n                </div>\n              </div>\n            </div>\n          </div>\n        </div>\n\n        <div *ngIf=\"loadingMore\" class=\"row m-md-2\">\n          <div class=\"col-md-12 col-sm-12 m-md-2\">\n            <div class=\"d-flex justify-content-center\">\n              <div class=\"spinner-border m-2\" style=\"width: 2rem; height: 2rem;\" role=\"status\">\n                <span class=\"sr-only\">Loading...</span>\n              </div>\n            </div>\n          </div>\n        </div>\n\n        <div *ngIf=\"hasMoreError\" class=\"row m-md-2\">\n          <div class=\"col-md-8 col-sm-12 offset-md-2\">\n            <div class=\"alert alert-danger\" role=\"alert\">\n              <h4 class=\"alert-heading\">Connection Failed!</h4>\n              <p>\n                Oops!! Couldn't get you the rest of the data. Please make sure you have an active internet connection.\n                Maybe, our servers may be down.\n              </p>\n              <hr>\n              <p class=\"mb-0\">We are really sorry for this inconvenience. Please click on the load more button again.\n              </p>\n            </div>\n          </div>\n        </div>\n\n        <div *ngIf=\"hasMore\" class=\"row\">\n          <div class=\"col-md-4 col-sm-6 offset-sm-3 offset-lg-4\">\n            <div class=\"text-center\">\n              <button type=\"button\" class=\"btn btn-primary btn-rounded btn-fw\" (click)=\"loadMore()\">Load More</button>\n            </div>\n          </div>\n        </div>\n        \n      </div>\n    </div>\n  </div>\n</div>"
 
 /***/ }),
 
@@ -734,7 +745,7 @@ module.exports = "<div class=\"container-scroller\">\n  <app-navigation-bar></ap
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<div class=\"container-scroller\">\n  <app-navigation-bar></app-navigation-bar>\n  <div class=\"container-fluid page-body-wrapper\">\n    <app-side-bar></app-side-bar>\n    <div class=\"main-panel\">\n      <div class=\"content-wrapper\">\n        <div class=\"row\">\n          <div class=\"col-md-12 grid-margin\">\n            <div class=\"d-flex justify-content-between flex-wrap\">\n              <div class=\"d-flex align-items-end flex-wrap\">\n                <div class=\"mr-md-3 mr-xl-5\">\n                  <h2>History</h2>\n                  <p class=\"mb-md-0\">Your administrative dashboard.</p>\n                </div>\n                <div class=\"d-flex\">\n                </div>\n              </div>\n              <div class=\"d-flex justify-content-between align-items-end flex-wrap\">\n                <!-- <button type=\"button\" class=\"btn btn-light bg-white btn-icon mr-3 d-none d-md-block \">\n                  <i class=\"mdi mdi-download text-muted\"></i>\n                </button>\n                <button type=\"button\" class=\"btn btn-light bg-white btn-icon mr-3 mt-2 mt-xl-0\">\n                  <i class=\"mdi mdi-clock-outline text-muted\"></i>\n                </button>\n                <button type=\"button\" class=\"btn btn-light bg-white btn-icon mr-3 mt-2 mt-xl-0\">\n                  <i class=\"mdi mdi-plus text-muted\"></i>\n                </button> -->\n              </div>\n            </div>\n          </div>\n        </div>\n\n        <div *ngIf=\"loading\" class=\"row m-5\">\n          <div class=\"col-md-12 m-5\">\n            <div class=\"d-flex justify-content-center\">\n              <div class=\"spinner-border m-5\" style=\"width: 5rem; height: 5rem;\" role=\"status\">\n                <span class=\"sr-only\">Loading...</span>\n              </div>\n            </div>\n          </div>\n        </div>\n\n        <div *ngIf=\"!loading && !hasData\" class=\"row\">\n          <div class=\"col-lg-12 grid-margin stretch-card\">\n            <div class=\"card text-center pt-5 pb-5\">\n              <div class=\"card-body mt-5 mb-5\">\n                <h4 class=\"card-title\">No Data Found</h4>\n                <p class=\"card-description\">\n                  No submitted form found.\n                </p>\n                <div class=\"text-lg-center mt-5 mb-5\">\n                  <div class=\"card-text\">\n                    <i class=\"mdi mdi-file-document-box-multiple-outline\" style=\"font-size: 8em;\"></i>\n                  </div>\n                  <div class=\"card-text\">\n                    <h3>No Available Submitted Forms</h3>\n                    <p class=\"text-muted\">There are no submitted forms yet!</p>\n                  </div>\n                </div>\n              </div>\n            </div>\n          </div>\n        </div>\n\n        <div *ngIf=\"hasError\" class=\"row\">\n          <div class=\"col-lg-12 grid-margin stretch-card\">\n            <div class=\"card text-center pt-5 pb-5\">\n              <div class=\"card-body mt-5 mb-5\">\n                <h4 class=\"card-title\">Error Ocuured</h4>\n                <p class=\"card-description\">\n                  Ooops! Something went wrong!\n                </p>\n                <div class=\"text-lg-center mt-5 mb-5\">\n                  <div class=\"card-text\">\n                    <i class=\"mdi mdi-close-network-outline\" style=\"font-size: 8em;\"></i>\n                  </div>\n                  <div class=\"card-text\">\n                    <h3>We couldn't get your submitted forms</h3>\n                    <p class=\"text-muted\">You may not have internet connection or our servers maybe down.</p>\n                    <button class=\"btn btn-primary\" type=\"button\" (click)=\"retry()\">Retry</button>\n                  </div>\n                </div>\n              </div>\n            </div>\n          </div>\n        </div>\n\n        <div *ngIf=\"!loading && hasData\" class=\"row\">\n          <div class=\"col-md-12 grid-margin stretch-card\">\n            <div class=\"card hover-cursor\">\n              <div class=\"card-body\">\n                <div class=\"card-text\">\n                  <div class=\"table-responsive\">\n                    <table class=\"table table-hover\">\n                      <thead>\n                        <tr>\n                          <th><strong>Form Identifier</strong></th>\n                          <th><strong>Form Name.</strong></th>\n                          <th><strong>Submitted By</strong></th>\n                          <th><strong>Submitted On</strong></th>\n                        </tr>\n                      </thead>\n                      <tbody>\n                        <tr class=\"hover-cursor\" *ngFor=\"let form of submittedFormsList\">\n                          <td>{{ form.form_code }}</td>\n                          <td>{{ form.form_name }}</td>\n                          <td>{{ form.client_name }}</td>\n                          <td>{{ form.submitted_at | date }}</td>\n                        </tr>\n                      </tbody>\n                    </table>\n                  </div>\n                </div>\n              </div>\n            </div>\n          </div>\n        </div>\n\n        <div *ngIf=\"loadingMore\" class=\"row m-md-2\">\n          <div class=\"col-md-12 col-sm-12 m-md-2\">\n            <div class=\"d-flex justify-content-center\">\n              <div class=\"spinner-border m-2\" style=\"width: 2rem; height: 2rem;\" role=\"status\">\n                <span class=\"sr-only\">Loading...</span>\n              </div>\n            </div>\n          </div>\n        </div>\n\n        <div *ngIf=\"hasMoreError\" class=\"row m-md-2\">\n          <div class=\"col-md-8 col-sm-12 offset-md-2\">\n            <div class=\"alert alert-danger\" role=\"alert\">\n              <h4 class=\"alert-heading\">Connection Failed!</h4>\n              <p>\n                Oops!! Couldn't get you the rest of the data. Please make sure you have an active internet connection.\n                Maybe, our servers may be down.\n              </p>\n              <hr>\n              <p class=\"mb-0\">We are really sorry for this inconvenience. Please click on the load more button again.\n              </p>\n            </div>\n          </div>\n        </div>\n\n        <div *ngIf=\"hasMore\" class=\"row\">\n          <div class=\"col-md-4 col-sm-6 offset-sm-3 offset-lg-4\">\n            <div class=\"text-center\">\n              <button type=\"button\" class=\"btn btn-primary btn-rounded btn-fw\" (click)=\"loadMore()\">Load More</button>\n            </div>\n          </div>\n        </div>\n      </div>\n    </div>\n  </div>\n</div>\n"
+module.exports = "<div class=\"container-scroller\">\n  <app-navigation-bar></app-navigation-bar>\n  <div class=\"container-fluid page-body-wrapper\">\n    <app-side-bar></app-side-bar>\n    <div class=\"main-panel\">\n      <div class=\"content-wrapper\">\n        <div class=\"row\">\n          <div class=\"col-md-12 grid-margin\">\n            <div class=\"d-flex justify-content-between flex-wrap\">\n              <div class=\"d-flex align-items-end flex-wrap\">\n                <div class=\"mr-md-3 mr-xl-5\">\n                  <h2>Submitted For</h2>\n                  <p class=\"mb-md-0\">Your administrative dashboard.</p>\n                </div>\n                <div class=\"d-flex\">\n                </div>\n              </div>\n              <div class=\"d-flex justify-content-between align-items-end flex-wrap\">\n                <!-- <button type=\"button\" class=\"btn btn-light bg-white btn-icon mr-3 d-none d-md-block \">\n                  <i class=\"mdi mdi-download text-muted\"></i>\n                </button>\n                <button type=\"button\" class=\"btn btn-light bg-white btn-icon mr-3 mt-2 mt-xl-0\">\n                  <i class=\"mdi mdi-clock-outline text-muted\"></i>\n                </button>\n                <button type=\"button\" class=\"btn btn-light bg-white btn-icon mr-3 mt-2 mt-xl-0\">\n                  <i class=\"mdi mdi-plus text-muted\"></i>\n                </button> -->\n              </div>\n            </div>\n          </div>\n        </div>\n\n        <div *ngIf=\"loading\" class=\"row m-5\">\n          <div class=\"col-md-12 m-5\">\n            <div class=\"d-flex justify-content-center\">\n              <div class=\"spinner-border m-5\" style=\"width: 5rem; height: 5rem;\" role=\"status\">\n                <span class=\"sr-only\">Loading...</span>\n              </div>\n            </div>\n          </div>\n        </div>\n\n        <div *ngIf=\"!loading && !hasData\" class=\"row\">\n          <div class=\"col-lg-12 grid-margin stretch-card\">\n            <div class=\"card text-center pt-5 pb-5\">\n              <div class=\"card-body mt-5 mb-5\">\n                <h4 class=\"card-title\">No Data Found</h4>\n                <p class=\"card-description\">\n                  No submitted form found.\n                </p>\n                <div class=\"text-lg-center mt-5 mb-5\">\n                  <div class=\"card-text\">\n                    <i class=\"mdi mdi-file-document-box-multiple-outline\" style=\"font-size: 8em;\"></i>\n                  </div>\n                  <div class=\"card-text\">\n                    <h3>No Available Submitted Forms</h3>\n                    <p class=\"text-muted\">There are no submitted forms yet!</p>\n                  </div>\n                </div>\n              </div>\n            </div>\n          </div>\n        </div>\n\n        <div *ngIf=\"hasError\" class=\"row\">\n          <div class=\"col-lg-12 grid-margin stretch-card\">\n            <div class=\"card text-center pt-5 pb-5\">\n              <div class=\"card-body mt-5 mb-5\">\n                <h4 class=\"card-title\">Error Ocuured</h4>\n                <p class=\"card-description\">\n                  Ooops! Something went wrong!\n                </p>\n                <div class=\"text-lg-center mt-5 mb-5\">\n                  <div class=\"card-text\">\n                    <i class=\"mdi mdi-close-network-outline\" style=\"font-size: 8em;\"></i>\n                  </div>\n                  <div class=\"card-text\">\n                    <h3>We couldn't get your submitted forms</h3>\n                    <p class=\"text-muted\">You may not have internet connection or our servers maybe down.</p>\n                    <button class=\"btn btn-primary\" type=\"button\" (click)=\"retry()\">Retry</button>\n                  </div>\n                </div>\n              </div>\n            </div>\n          </div>\n        </div>\n\n        <div *ngIf=\"!loading && hasData\" class=\"row\">\n          <div class=\"col-md-12 grid-margin stretch-card\">\n            <div class=\"card hover-cursor\">\n              <div class=\"card-body\">\n                <div class=\"card-text\">\n                  <div class=\"table-responsive\">\n                    <table class=\"table table-hover\">\n                      <thead>\n                        <tr>\n                          <th><strong>Form Identifier</strong></th>\n                          <th><strong>Form Name.</strong></th>\n                          <th><strong>Submitted By</strong></th>\n                          <th><strong>Submitted On</strong></th>\n                          <th><strong>Action</strong></th>\n                        </tr>\n                      </thead>\n                      <tbody>\n                        <tr class=\"hover-cursor\" *ngFor=\"let form of submittedFormsList\">\n                          <td>{{ form.form_code }}</td>\n                          <td>{{ form.form_name }}</td>\n                          <td>{{ form.client_name }}</td>\n                          <td>{{ form.submitted_at | date }}</td>\n                          <td>\n                            <button type=\"button\" class=\"btn btn-light bg-white btn-icon\" data-toggle=\"tooltip\"\n                              data-placement=\"top\" title=\"Print\" (click)=\"print($event, form)\">\n                              <i class=\"mdi mdi-printer text-muted\"></i>\n                            </button>\n                          </td>\n                        </tr>\n                      </tbody>\n                    </table>\n                  </div>\n                </div>\n              </div>\n            </div>\n          </div>\n        </div>\n\n        <div *ngIf=\"loadingMore\" class=\"row m-md-2\">\n          <div class=\"col-md-12 col-sm-12 m-md-2\">\n            <div class=\"d-flex justify-content-center\">\n              <div class=\"spinner-border m-2\" style=\"width: 2rem; height: 2rem;\" role=\"status\">\n                <span class=\"sr-only\">Loading...</span>\n              </div>\n            </div>\n          </div>\n        </div>\n\n        <div *ngIf=\"hasMoreError\" class=\"row m-md-2\">\n          <div class=\"col-md-8 col-sm-12 offset-md-2\">\n            <div class=\"alert alert-danger\" role=\"alert\">\n              <h4 class=\"alert-heading\">Connection Failed!</h4>\n              <p>\n                Oops!! Couldn't get you the rest of the data. Please make sure you have an active internet connection.\n                Maybe, our servers may be down.\n              </p>\n              <hr>\n              <p class=\"mb-0\">We are really sorry for this inconvenience. Please click on the load more button again.</p>\n            </div>\n          </div>\n        </div>\n\n        <div *ngIf=\"hasMore\" class=\"row\">\n          <div class=\"col-md-4 col-sm-6 offset-sm-3 offset-lg-4\">\n            <div class=\"text-center\">\n              <button type=\"button\" class=\"btn btn-primary btn-rounded btn-fw\" (click)=\"loadMore()\">Load More</button>\n            </div>\n          </div>\n        </div>\n      </div>\n    </div>\n  </div>\n</div>\n"
 
 /***/ }),
 
@@ -800,7 +811,7 @@ module.exports = "<div class=\"container-scroller\">\n  <app-navigation-bar></ap
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<div class=\"view\">\n  <div class=\"text-center mb-3\">\n    <button id=\"print-button\" class=\"btn btn-primary\" (click)=\"print()\">Print</button>\n  </div>\n  <div class=\"container\" id=\"print-view\">\n    <div class=\"row\">\n      <div class=\"col-8 offset-2\">\n        <div class=\"img-view\">\n          <img [src]=\"logo\" alt=\"logo\" class=\"img-fluid\">\n        </div>\n        <div class=\"title-view\">\n          <h1>{{ form.form_name }}</h1>\n        </div>\n        <div class=\"row\" *ngFor=\"let item of clientFormData; let i=index\">\n          <div class=\"col-6\">\n            <h5><strong>{{ item.title }}</strong></h5>\n          </div>\n          <div class=\"col-6\">\n            <h5>{{ item.data }}</h5>\n          </div>\n        </div>\n      </div>\n    </div>\n  </div>\n</div>"
+module.exports = "<div class=\"view\">\n  <div *ngIf=\"loading\" class=\"row m-md-5 text-center\">\n    <div class=\"col-md-12 col-sm-12 m-md-5\">\n      <div class=\"d-flex justify-content-center\">\n        <div class=\"spinner-border m-5\" style=\"width: 2rem; height: 2rem; color: #4d83ff\" role=\"status\">\n          <span class=\"sr-only\">Loading...</span>\n        </div>\n      </div>\n      <p><strong>Preparing for printing! Please wait ...</strong></p>\n    </div>\n  </div>\n\n  <div *ngIf=\"!loading\" class=\"text-center mb-3\">\n    <button id=\"print-button\" class=\"btn btn-primary\" (click)=\"print()\">Print</button>\n  </div>\n\n  <div *ngIf=\"!loading\"  class=\"container\" id=\"print-view\">\n    <div class=\"row\">\n      <div class=\"col-8 offset-2\">\n        <div class=\"img-view\">\n          <img [src]=\"logo\" alt=\"logo\" class=\"img-fluid\">\n        </div>\n        <div class=\"title-view\">\n          <h1>{{ form.form_name }}</h1>\n        </div>\n        <div class=\"row\" *ngFor=\"let item of clientFormData; let i=index\">\n          <div class=\"col-6\">\n            <h5><strong>{{ item.title }}</strong></h5>\n          </div>\n          <div class=\"col-6\">\n            <h5>{{ item.data }}</h5>\n          </div>\n        </div>\n      </div>\n    </div>\n  </div>\n</div>"
 
 /***/ }),
 
@@ -811,7 +822,7 @@ module.exports = "<div class=\"view\">\n  <div class=\"text-center mb-3\">\n    
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<div *ngIf=\"loading\" class=\"row m-md-5 text-center\">\n  <div class=\"col-md-12 col-sm-12 m-md-5\">\n    <div class=\"d-flex justify-content-center\">\n      <div class=\"spinner-border m-5\" style=\"width: 5rem; height: 5rem;\" role=\"status\">\n        <span class=\"sr-only\">Loading...</span>\n      </div>\n    </div>\n    <p>Processing data. Please wait ...</p>\n  </div>\n</div>\n\n<div class=\"toolbar\">\n  <button id=\"print-button\" class=\"btn btn-primary\" (click)=\"print()\">Print</button>\n</div>\n\n<div class=\"container\">\n  <!-- Little trick to center the inputs to the viewer -->\n  <div class=\"form-container\">\n    <form id=\"input-form\" [formGroup]=\"myForm\" novalidate>\n\n      <!-- Cycle through all the inputs -->\n      <div *ngFor=\"let input of inputList\">\n\n        <!-- Insert an input accordingly and get the style/position from the component -->\n        <input\n          [type]=\"input.type\"\n          [name]=\"input.name\"\n          [formControlName]=\"input.name\" \n          [value]=\"input.value\"\n          [checked]=\"input.checked\"\n          [ngStyle]=\"getInputPosition(input)\">\n      </div>\n    </form>\n  </div>\n\n  <!-- Pdf Viewer -->\n  <pdf-viewer\n    id=\"viewer\"\n    [src]=\"pdfSrc\"\n    (error)=\"onError($event)\"\n    (on-progress)=\"onProgress($event)\"\n    (after-load-complete)=\"pdfFileLoadComplete($event)\">\n  </pdf-viewer>\n</div>"
+module.exports = "<div *ngIf=\"loading\" class=\"row m-md-5 text-center\">\n  <div class=\"col-md-12 col-sm-12 m-md-5\">\n    <div class=\"d-flex justify-content-center\">\n      <div class=\"spinner-border m-5\" style=\"width: 2rem; height: 2rem; color: #4d83ff\" role=\"status\">\n        <span class=\"sr-only\">Loading...</span>\n      </div>\n    </div>\n    <p><strong>Preparing for printing! Please wait ...</strong></p>\n  </div>\n</div>\n\n<div *ngIf=\"!loading\" class=\"toolbar\">\n  <button id=\"print-button\" class=\"btn btn-primary\" (click)=\"print()\">Print</button>\n</div>\n\n<div class=\"container\">\n  <!-- Little trick to center the inputs to the viewer -->\n  <div class=\"form-container\">\n    <form id=\"input-form\" [formGroup]=\"myForm\" novalidate>\n\n      <!-- Cycle through all the inputs -->\n      <div *ngFor=\"let input of inputList\">\n\n        <!-- Insert an input accordingly and get the style/position from the component -->\n        <input\n          [type]=\"input.type\"\n          [name]=\"input.name\"\n          [value]=\"input.value\"\n          [checked]=\"input.checked\"\n          [formControlName]=\"input.name\" \n          [ngStyle]=\"getInputPosition(input)\">\n      </div>\n    </form>\n  </div>\n\n  <!-- Pdf Viewer -->\n  <pdf-viewer\n    id=\"viewer\"\n    [src]=\"pdfSrc\"\n    (error)=\"onError($event)\"\n    (on-progress)=\"onProgress($event)\"\n    (after-load-complete)=\"pdfFileLoadComplete($event)\">\n  </pdf-viewer>\n</div>"
 
 /***/ }),
 
@@ -1406,6 +1417,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _pages_dashboard_front_desk_front_desk_clients_form_page_front_desk_clients_form_page_component__WEBPACK_IMPORTED_MODULE_83__ = __webpack_require__(/*! ./pages/dashboard/front-desk/front-desk-clients-form-page/front-desk-clients-form-page.component */ "./src/app/pages/dashboard/front-desk/front-desk-clients-form-page/front-desk-clients-form-page.component.ts");
 /* harmony import */ var _pages_dashboard_executive_exec_client_forms_page_exec_client_forms_page_component__WEBPACK_IMPORTED_MODULE_84__ = __webpack_require__(/*! ./pages/dashboard/executive/exec-client-forms-page/exec-client-forms-page.component */ "./src/app/pages/dashboard/executive/exec-client-forms-page/exec-client-forms-page.component.ts");
 /* harmony import */ var _pages_dashboard_executive_exec_clients_forms_data_page_exec_clients_forms_data_page_component__WEBPACK_IMPORTED_MODULE_85__ = __webpack_require__(/*! ./pages/dashboard/executive/exec-clients-forms-data-page/exec-clients-forms-data-page.component */ "./src/app/pages/dashboard/executive/exec-clients-forms-data-page/exec-clients-forms-data-page.component.ts");
+/* harmony import */ var _pages_dashboard_client_client_form_link_page_client_form_link_page_component__WEBPACK_IMPORTED_MODULE_86__ = __webpack_require__(/*! ./pages/dashboard/client/client-form-link-page/client-form-link-page.component */ "./src/app/pages/dashboard/client/client-form-link-page/client-form-link-page.component.ts");
+
 
 
 
@@ -1694,6 +1707,10 @@ var routes = [
             {
                 path: 'form_entry',
                 component: _pages_dashboard_client_client_forms_entry_page_client_forms_entry_page_component__WEBPACK_IMPORTED_MODULE_20__["ClientFormsEntryPageComponent"]
+            },
+            {
+                path: 'form_link',
+                component: _pages_dashboard_client_client_form_link_page_client_form_link_page_component__WEBPACK_IMPORTED_MODULE_86__["ClientFormLinkPageComponent"]
             },
             {
                 path: 'profile',
@@ -2096,6 +2113,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _pages_dashboard_front_desk_front_desk_clients_form_page_front_desk_clients_form_page_component__WEBPACK_IMPORTED_MODULE_106__ = __webpack_require__(/*! ./pages/dashboard/front-desk/front-desk-clients-form-page/front-desk-clients-form-page.component */ "./src/app/pages/dashboard/front-desk/front-desk-clients-form-page/front-desk-clients-form-page.component.ts");
 /* harmony import */ var _pages_dashboard_executive_exec_client_forms_page_exec_client_forms_page_component__WEBPACK_IMPORTED_MODULE_107__ = __webpack_require__(/*! ./pages/dashboard/executive/exec-client-forms-page/exec-client-forms-page.component */ "./src/app/pages/dashboard/executive/exec-client-forms-page/exec-client-forms-page.component.ts");
 /* harmony import */ var _pages_dashboard_executive_exec_clients_forms_data_page_exec_clients_forms_data_page_component__WEBPACK_IMPORTED_MODULE_108__ = __webpack_require__(/*! ./pages/dashboard/executive/exec-clients-forms-data-page/exec-clients-forms-data-page.component */ "./src/app/pages/dashboard/executive/exec-clients-forms-data-page/exec-clients-forms-data-page.component.ts");
+/* harmony import */ var _pages_dashboard_client_client_form_link_page_client_form_link_page_component__WEBPACK_IMPORTED_MODULE_109__ = __webpack_require__(/*! ./pages/dashboard/client/client-form-link-page/client-form-link-page.component */ "./src/app/pages/dashboard/client/client-form-link-page/client-form-link-page.component.ts");
+
 
 
 
@@ -2303,6 +2322,7 @@ var AppModule = /** @class */ (function () {
                 _pages_dashboard_front_desk_front_desk_clients_form_page_front_desk_clients_form_page_component__WEBPACK_IMPORTED_MODULE_106__["FrontDeskClientsFormPageComponent"],
                 _pages_dashboard_executive_exec_client_forms_page_exec_client_forms_page_component__WEBPACK_IMPORTED_MODULE_107__["ExecClientFormsPageComponent"],
                 _pages_dashboard_executive_exec_clients_forms_data_page_exec_clients_forms_data_page_component__WEBPACK_IMPORTED_MODULE_108__["ExecClientsFormsDataPageComponent"],
+                _pages_dashboard_client_client_form_link_page_client_form_link_page_component__WEBPACK_IMPORTED_MODULE_109__["ClientFormLinkPageComponent"],
             ],
             imports: [
                 _angular_platform_browser__WEBPACK_IMPORTED_MODULE_1__["BrowserModule"],
@@ -3405,6 +3425,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _angular_forms__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @angular/forms */ "./node_modules/@angular/forms/fesm5/forms.js");
 /* harmony import */ var src_app_services_client_client_service__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! src/app/services/client/client.service */ "./src/app/services/client/client.service.ts");
 /* harmony import */ var src_app_services_storage_local_storage_service__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! src/app/services/storage/local-storage.service */ "./src/app/services/storage/local-storage.service.ts");
+/* harmony import */ var src_app_services_front_desk_front_desk_service__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! src/app/services/front-desk/front-desk.service */ "./src/app/services/front-desk/front-desk.service.ts");
+
 
 
 
@@ -3413,11 +3435,12 @@ __webpack_require__.r(__webpack_exports__);
 
 
 var ClientAuthPageComponent = /** @class */ (function () {
-    function ClientAuthPageComponent(router, formBuilder, clientService, localStorage) {
+    function ClientAuthPageComponent(router, formBuilder, clientService, localStorage, frontDeskService) {
         this.router = router;
         this.formBuilder = formBuilder;
         this.clientService = clientService;
         this.localStorage = localStorage;
+        this.frontDeskService = frontDeskService;
     }
     ClientAuthPageComponent.prototype.ngOnInit = function () {
         this.buildForm();
@@ -3446,6 +3469,22 @@ var ClientAuthPageComponent = /** @class */ (function () {
                 break;
         }
     };
+    ClientAuthPageComponent.prototype.handleDashboardNavigation = function () {
+        var _this = this;
+        // check whether user used a shared link.
+        console.log('is running handleDashboardNavigation');
+        var shared_form_code = sessionStorage.getItem('shared_link');
+        if (lodash__WEBPACK_IMPORTED_MODULE_2__["isUndefined"](shared_form_code) || lodash__WEBPACK_IMPORTED_MODULE_2__["isNull"](shared_form_code)) {
+            this.loading = false;
+            this.router.navigateByUrl('/client');
+        }
+        else {
+            this.clientService.findFormsByCode(shared_form_code).then(function (form) {
+                _this.loading = false;
+                _this.router.navigateByUrl('/client/form_entry', { state: { form: form } });
+            });
+        }
+    };
     ClientAuthPageComponent.prototype.submit = function () {
         var _this = this;
         this.loading = true;
@@ -3461,7 +3500,6 @@ var ClientAuthPageComponent = /** @class */ (function () {
             var phone = sessionStorage.getItem('client_phone');
             this.clientService.verifyAuthCode(id, authCode, phone).then(function (res) {
                 _this.form.enable();
-                _this.loading = false;
                 var response = res;
                 if (lodash__WEBPACK_IMPORTED_MODULE_2__["isUndefined"](response.message)) {
                     // save user data locally.
@@ -3472,8 +3510,7 @@ var ClientAuthPageComponent = /** @class */ (function () {
                     // clear client data used to help with authentication.
                     sessionStorage.removeItem('client_id');
                     sessionStorage.removeItem('client_phone');
-                    // open dashboard home
-                    _this.router.navigateByUrl('/client');
+                    _this.handleDashboardNavigation();
                 }
                 else {
                     _this.handleLoginErrorResponses(response);
@@ -3489,7 +3526,8 @@ var ClientAuthPageComponent = /** @class */ (function () {
         { type: _angular_router__WEBPACK_IMPORTED_MODULE_3__["Router"] },
         { type: _angular_forms__WEBPACK_IMPORTED_MODULE_4__["FormBuilder"] },
         { type: src_app_services_client_client_service__WEBPACK_IMPORTED_MODULE_5__["ClientService"] },
-        { type: src_app_services_storage_local_storage_service__WEBPACK_IMPORTED_MODULE_6__["LocalStorageService"] }
+        { type: src_app_services_storage_local_storage_service__WEBPACK_IMPORTED_MODULE_6__["LocalStorageService"] },
+        { type: src_app_services_front_desk_front_desk_service__WEBPACK_IMPORTED_MODULE_7__["FrontDeskService"] }
     ]; };
     ClientAuthPageComponent = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Component"])({
@@ -3671,7 +3709,7 @@ var AdminCreateFormPageComponent = /** @class */ (function () {
             alert('Form field cannot be empty');
         }
         else {
-            this.formService.uploafFormPDF(this.merchant_id.toString(), this.formCode, this.pdfFile).then(function (res) {
+            this.formService.uploadFormPDF(this.merchant_id.toString(), this.formCode, this.pdfFile).then(function (res) {
                 _this.createForm();
             }, function (err) {
                 _this.loading = false;
@@ -3998,6 +4036,7 @@ var AdminFormEditPageComponent = /** @class */ (function () {
         this.merchant_id = this.localStorage.getUser().merchant_id;
         this.isPublished = this._form.status == 1 ? true : false;
         console.log('merchant id: ' + this.merchant_id);
+        this.handleUploadFileView();
     }
     /**
      * This is just a little hack to prevent loss of data passed in to window.history.state
@@ -4038,6 +4077,10 @@ var AdminFormEditPageComponent = /** @class */ (function () {
             _this.hasError = true;
         });
     };
+    AdminFormEditPageComponent.prototype.handleUploadFileView = function () {
+        console.log('handling can upload view');
+        this.showFileUpload = this.localStorage.getUser().can_print == 1 ? true : false;
+    };
     AdminFormEditPageComponent.prototype.showLoadingModal = function () {
         this.loadingModalRef = this.modalService.open(this.loadingModal, { centered: true });
     };
@@ -4046,6 +4089,8 @@ var AdminFormEditPageComponent = /** @class */ (function () {
     };
     AdminFormEditPageComponent.prototype.buildForm = function () {
         this.form = this._formBuilder.group({
+            pdf: [''],
+            canView: [this._form.can_view],
             name: [this._form.name, _angular_forms__WEBPACK_IMPORTED_MODULE_7__["Validators"].required]
         });
     };
@@ -4058,6 +4103,15 @@ var AdminFormEditPageComponent = /** @class */ (function () {
     });
     AdminFormEditPageComponent.prototype.getForm = function () {
         return this.formBuilder.actions.getData();
+    };
+    AdminFormEditPageComponent.prototype.inputFileChanged = function (ev) {
+        var pdf_file = this.pdfFileElement.nativeElement;
+        this.f.pdf.setValue(pdf_file.files[0].name);
+        this.pdfFile = pdf_file.files[0];
+    };
+    AdminFormEditPageComponent.prototype.showFilePicker = function () {
+        var element = this.pdfFileElement.nativeElement;
+        element.click();
     };
     AdminFormEditPageComponent.prototype.editForm = function () {
         var _this = this;
@@ -4075,6 +4129,7 @@ var AdminFormEditPageComponent = /** @class */ (function () {
             formData_1.merchant_id = this.merchant_id;
             formData_1.form_code = this._form.form_code;
             formData_1.status = lodash__WEBPACK_IMPORTED_MODULE_2__["toInteger"](this.formStatus);
+            formData_1.can_view = this.f.canView.value == '' ? 0 : this.f.canView.value;
             this.formService.editForm(this._form.form_code, formData_1).then(function (res) {
                 _this.loading = false;
                 if (lodash__WEBPACK_IMPORTED_MODULE_2__["toLower"](res.message) == 'ok') {
@@ -4093,12 +4148,34 @@ var AdminFormEditPageComponent = /** @class */ (function () {
     AdminFormEditPageComponent.prototype.reset = function () {
         this.formBuilder.actions.clearFields();
     };
+    AdminFormEditPageComponent.prototype.editFormWithPDF = function () {
+        var _this = this;
+        if (this.getForm().length == 0) {
+            alert('Form field cannot be empty');
+        }
+        else {
+            this.formService.editFormPDF(this.merchant_id.toString(), this.formCode, this.pdfFile).then(function (res) {
+                _this.editForm();
+            }, function (err) {
+                _this.loading = false;
+                _this.created = false;
+                _this.uploadError = true;
+            });
+        }
+    };
     AdminFormEditPageComponent.prototype.edit = function () {
         this.submitted = true;
         if (this.form.valid) {
-            this.editForm();
+            this.loading = true;
+            this.pdfFile == null ? this.editForm() : this.editFormWithPDF();
         }
     };
+    // edit() {
+    //   this.submitted = true;
+    //   if (this.form.valid) {
+    //     this.editForm();
+    //   }
+    // }
     AdminFormEditPageComponent.prototype.publishForm = function () {
         var _this = this;
         console.log('publish');
@@ -4188,6 +4265,9 @@ var AdminFormEditPageComponent = /** @class */ (function () {
     tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["ViewChild"])('status', { static: false })
     ], AdminFormEditPageComponent.prototype, "statusModal", void 0);
+    tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["ViewChild"])('pdfFile', { static: false })
+    ], AdminFormEditPageComponent.prototype, "pdfFileElement", void 0);
     tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["ViewChild"])('loader', { static: false })
     ], AdminFormEditPageComponent.prototype, "loadingModal", void 0);
@@ -5434,6 +5514,65 @@ var AdminViewFrontDesksPageComponent = /** @class */ (function () {
         })
     ], AdminViewFrontDesksPageComponent);
     return AdminViewFrontDesksPageComponent;
+}());
+
+
+
+/***/ }),
+
+/***/ "./src/app/pages/dashboard/client/client-form-link-page/client-form-link-page.component.css":
+/*!**************************************************************************************************!*\
+  !*** ./src/app/pages/dashboard/client/client-form-link-page/client-form-link-page.component.css ***!
+  \**************************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = "\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IiIsImZpbGUiOiJzcmMvYXBwL3BhZ2VzL2Rhc2hib2FyZC9jbGllbnQvY2xpZW50LWZvcm0tbGluay1wYWdlL2NsaWVudC1mb3JtLWxpbmstcGFnZS5jb21wb25lbnQuY3NzIn0= */"
+
+/***/ }),
+
+/***/ "./src/app/pages/dashboard/client/client-form-link-page/client-form-link-page.component.ts":
+/*!*************************************************************************************************!*\
+  !*** ./src/app/pages/dashboard/client/client-form-link-page/client-form-link-page.component.ts ***!
+  \*************************************************************************************************/
+/*! exports provided: ClientFormLinkPageComponent */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "ClientFormLinkPageComponent", function() { return ClientFormLinkPageComponent; });
+/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
+/* harmony import */ var _angular_router__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @angular/router */ "./node_modules/@angular/router/fesm5/router.js");
+
+
+
+var ClientFormLinkPageComponent = /** @class */ (function () {
+    function ClientFormLinkPageComponent(router) {
+        this.router = router;
+    }
+    ClientFormLinkPageComponent.prototype.ngOnInit = function () {
+        this.handleAuthentication();
+    };
+    ClientFormLinkPageComponent.prototype.handleAuthentication = function () {
+        var url = window.location.href;
+        var index = url.lastIndexOf('=') + 1;
+        var form_code = url.substring(index);
+        console.log('form_code: ' + form_code);
+        sessionStorage.setItem('shared_link', form_code);
+        this.router.navigateByUrl('login');
+    };
+    ClientFormLinkPageComponent.ctorParameters = function () { return [
+        { type: _angular_router__WEBPACK_IMPORTED_MODULE_2__["Router"] }
+    ]; };
+    ClientFormLinkPageComponent = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Component"])({
+            selector: 'app-client-form-link-page',
+            template: __webpack_require__(/*! raw-loader!./client-form-link-page.component.html */ "./node_modules/raw-loader/index.js!./src/app/pages/dashboard/client/client-form-link-page/client-form-link-page.component.html"),
+            styles: [__webpack_require__(/*! ./client-form-link-page.component.css */ "./src/app/pages/dashboard/client/client-form-link-page/client-form-link-page.component.css")]
+        })
+    ], ClientFormLinkPageComponent);
+    return ClientFormLinkPageComponent;
 }());
 
 
@@ -7378,18 +7517,15 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
 /* harmony import */ var lodash__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! lodash */ "./node_modules/lodash/lodash.js");
 /* harmony import */ var lodash__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(lodash__WEBPACK_IMPORTED_MODULE_2__);
-/* harmony import */ var _angular_router__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @angular/router */ "./node_modules/@angular/router/fesm5/router.js");
-/* harmony import */ var src_app_services_forms_forms_service__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! src/app/services/forms/forms.service */ "./src/app/services/forms/forms.service.ts");
-/* harmony import */ var src_app_services_storage_local_storage_service__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! src/app/services/storage/local-storage.service */ "./src/app/services/storage/local-storage.service.ts");
-
+/* harmony import */ var src_app_services_forms_forms_service__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! src/app/services/forms/forms.service */ "./src/app/services/forms/forms.service.ts");
+/* harmony import */ var src_app_services_storage_local_storage_service__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! src/app/services/storage/local-storage.service */ "./src/app/services/storage/local-storage.service.ts");
 
 
 
 
 
 var ExecFormsListPageComponent = /** @class */ (function () {
-    function ExecFormsListPageComponent(router, formService, localStorage) {
-        this.router = router;
+    function ExecFormsListPageComponent(formService, localStorage) {
         this.formService = formService;
         this.localStorage = localStorage;
         this.allFormsList = [];
@@ -7445,9 +7581,8 @@ var ExecFormsListPageComponent = /** @class */ (function () {
         this.getAllCompanyForms();
     };
     ExecFormsListPageComponent.ctorParameters = function () { return [
-        { type: _angular_router__WEBPACK_IMPORTED_MODULE_3__["Router"] },
-        { type: src_app_services_forms_forms_service__WEBPACK_IMPORTED_MODULE_4__["FormsService"] },
-        { type: src_app_services_storage_local_storage_service__WEBPACK_IMPORTED_MODULE_5__["LocalStorageService"] }
+        { type: src_app_services_forms_forms_service__WEBPACK_IMPORTED_MODULE_3__["FormsService"] },
+        { type: src_app_services_storage_local_storage_service__WEBPACK_IMPORTED_MODULE_4__["LocalStorageService"] }
     ]; };
     ExecFormsListPageComponent = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Component"])({
@@ -7594,15 +7729,18 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
 /* harmony import */ var lodash__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! lodash */ "./node_modules/lodash/lodash.js");
 /* harmony import */ var lodash__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(lodash__WEBPACK_IMPORTED_MODULE_2__);
-/* harmony import */ var src_app_services_front_desk_front_desk_service__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! src/app/services/front-desk/front-desk.service */ "./src/app/services/front-desk/front-desk.service.ts");
-/* harmony import */ var src_app_services_storage_local_storage_service__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! src/app/services/storage/local-storage.service */ "./src/app/services/storage/local-storage.service.ts");
+/* harmony import */ var _angular_router__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @angular/router */ "./node_modules/@angular/router/fesm5/router.js");
+/* harmony import */ var src_app_services_front_desk_front_desk_service__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! src/app/services/front-desk/front-desk.service */ "./src/app/services/front-desk/front-desk.service.ts");
+/* harmony import */ var src_app_services_storage_local_storage_service__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! src/app/services/storage/local-storage.service */ "./src/app/services/storage/local-storage.service.ts");
+
 
 
 
 
 
 var ExecProcessedFormsListPageComponent = /** @class */ (function () {
-    function ExecProcessedFormsListPageComponent(localStorage, frontDeskService) {
+    function ExecProcessedFormsListPageComponent(router, localStorage, frontDeskService) {
+        this.router = router;
         this.localStorage = localStorage;
         this.frontDeskService = frontDeskService;
         this.processedFormsList = [];
@@ -7610,6 +7748,10 @@ var ExecProcessedFormsListPageComponent = /** @class */ (function () {
         this.getAllProcessedForms();
     }
     ExecProcessedFormsListPageComponent.prototype.ngOnInit = function () {
+    };
+    ExecProcessedFormsListPageComponent.prototype.print = function (ev, form) {
+        ev.stopPropagation();
+        this.router.navigateByUrl('front_desk/print_form', { state: { form: form } });
     };
     ExecProcessedFormsListPageComponent.prototype.checkIfHasMore = function () {
         return lodash__WEBPACK_IMPORTED_MODULE_2__["isEmpty"](this.frontDeskService.nextPaginationUrl) ? false : true;
@@ -7658,8 +7800,9 @@ var ExecProcessedFormsListPageComponent = /** @class */ (function () {
         this.getAllProcessedForms();
     };
     ExecProcessedFormsListPageComponent.ctorParameters = function () { return [
-        { type: src_app_services_storage_local_storage_service__WEBPACK_IMPORTED_MODULE_4__["LocalStorageService"] },
-        { type: src_app_services_front_desk_front_desk_service__WEBPACK_IMPORTED_MODULE_3__["FrontDeskService"] }
+        { type: _angular_router__WEBPACK_IMPORTED_MODULE_3__["Router"] },
+        { type: src_app_services_storage_local_storage_service__WEBPACK_IMPORTED_MODULE_5__["LocalStorageService"] },
+        { type: src_app_services_front_desk_front_desk_service__WEBPACK_IMPORTED_MODULE_4__["FrontDeskService"] }
     ]; };
     ExecProcessedFormsListPageComponent = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Component"])({
@@ -7720,6 +7863,14 @@ var ExecSubmittedFormsListPageComponent = /** @class */ (function () {
     }
     ExecSubmittedFormsListPageComponent.prototype.ngOnInit = function () {
     };
+    ExecSubmittedFormsListPageComponent.prototype.open = function (e, form) {
+        e.stopPropagation();
+        this.router.navigateByUrl('/front_desk/preview', { state: { form: form } });
+    };
+    ExecSubmittedFormsListPageComponent.prototype.print = function (ev, form) {
+        ev.stopPropagation();
+        this.router.navigateByUrl('front_desk/print_form', { state: { form: form } });
+    };
     ExecSubmittedFormsListPageComponent.prototype.checkIfHasMore = function () {
         return lodash__WEBPACK_IMPORTED_MODULE_2__["isEmpty"](this.frontDeskService.nextPaginationUrl) ? false : true;
     };
@@ -7730,11 +7881,14 @@ var ExecSubmittedFormsListPageComponent = /** @class */ (function () {
         this.frontDeskService.getSubmittedFormByStatusAndMerchant(0, merchant_id).then(function (res) {
             _this.hasMore = _this.checkIfHasMore();
             if (res.length != 0) {
-                _this.hasData = true;
-                _this.loading = false;
                 lodash__WEBPACK_IMPORTED_MODULE_2__["forEach"](res, function (form) {
-                    _this.submittedFormsList.push(form);
+                    if (form.can_view == 1) {
+                        _this.submittedFormsList.push(form);
+                    }
                 });
+                _this.loading = false;
+                _this.hasData = _this.submittedFormsList.length == 0 ? false : true;
+                _this.hasMore = _this.submittedFormsList.length < 15 ? false : _this.checkIfHasMore();
             }
             else {
                 _this.hasData = false;
@@ -7755,7 +7909,9 @@ var ExecSubmittedFormsListPageComponent = /** @class */ (function () {
             _this.hasMoreError = false;
             _this.hasMore = _this.checkIfHasMore();
             lodash__WEBPACK_IMPORTED_MODULE_2__["forEach"](res, function (form) {
-                _this.submittedFormsList.push(form);
+                if (form.can_view == 1) {
+                    _this.submittedFormsList.push(form);
+                }
             });
             _this.loading = false;
         }, function (err) {
@@ -7811,9 +7967,9 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var lodash__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! lodash */ "./node_modules/lodash/lodash.js");
 /* harmony import */ var lodash__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(lodash__WEBPACK_IMPORTED_MODULE_2__);
 /* harmony import */ var _angular_router__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @angular/router */ "./node_modules/@angular/router/fesm5/router.js");
-/* harmony import */ var src_app_services_analytics_analytics_service__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! src/app/services/analytics/analytics.service */ "./src/app/services/analytics/analytics.service.ts");
-/* harmony import */ var src_app_services_storage_local_storage_service__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! src/app/services/storage/local-storage.service */ "./src/app/services/storage/local-storage.service.ts");
-/* harmony import */ var src_app_services_account_account_service__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! src/app/services/account/account.service */ "./src/app/services/account/account.service.ts");
+/* harmony import */ var src_app_services_account_account_service__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! src/app/services/account/account.service */ "./src/app/services/account/account.service.ts");
+/* harmony import */ var src_app_services_analytics_analytics_service__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! src/app/services/analytics/analytics.service */ "./src/app/services/analytics/analytics.service.ts");
+/* harmony import */ var src_app_services_storage_local_storage_service__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! src/app/services/storage/local-storage.service */ "./src/app/services/storage/local-storage.service.ts");
 
 
 
@@ -7843,6 +7999,7 @@ var ExecutiveHomePageComponent = /** @class */ (function () {
             this.checkAccessToLogin().then(function (res) {
                 if (res == 'ok') {
                     _this.firstname = _this.localStorage.getUser().firstname;
+                    _this.branchId = Object(lodash__WEBPACK_IMPORTED_MODULE_2__["toString"])(_this.localStorage.getUser().branch_id);
                     _this.merchantId = Object(lodash__WEBPACK_IMPORTED_MODULE_2__["toString"])(_this.localStorage.getUser().merchant_id);
                     _this.getAnalytics();
                 }
@@ -7910,8 +8067,22 @@ var ExecutiveHomePageComponent = /** @class */ (function () {
         });
     };
     ExecutiveHomePageComponent.prototype.getUserAccountsAnalytics = function () {
+        console.log(this.localStorage.getUser().branch_id);
+        this.localStorage.getUser().branch_id.toString() == '0'
+            ? this.getUsersByMerchantAccountAnalytics()
+            : this.getUsersByBranchAccountAnalytics();
+    };
+    ExecutiveHomePageComponent.prototype.getUsersByMerchantAccountAnalytics = function () {
         var _this = this;
+        console.log('getting for merchant');
         this.analyticService.getCompanyUsersCount(this.merchantId).then(function (count) {
+            _this.numTotalUsers = count;
+        });
+    };
+    ExecutiveHomePageComponent.prototype.getUsersByBranchAccountAnalytics = function () {
+        var _this = this;
+        console.log('getting for branch');
+        this.analyticService.getBranchUsersCount(this.branchId).then(function (count) {
             _this.numTotalUsers = count;
         });
     };
@@ -7948,9 +8119,9 @@ var ExecutiveHomePageComponent = /** @class */ (function () {
     };
     ExecutiveHomePageComponent.ctorParameters = function () { return [
         { type: _angular_router__WEBPACK_IMPORTED_MODULE_3__["Router"] },
-        { type: src_app_services_account_account_service__WEBPACK_IMPORTED_MODULE_6__["AccountService"] },
-        { type: src_app_services_storage_local_storage_service__WEBPACK_IMPORTED_MODULE_5__["LocalStorageService"] },
-        { type: src_app_services_analytics_analytics_service__WEBPACK_IMPORTED_MODULE_4__["AnalyticsService"] }
+        { type: src_app_services_account_account_service__WEBPACK_IMPORTED_MODULE_4__["AccountService"] },
+        { type: src_app_services_storage_local_storage_service__WEBPACK_IMPORTED_MODULE_6__["LocalStorageService"] },
+        { type: src_app_services_analytics_analytics_service__WEBPACK_IMPORTED_MODULE_5__["AnalyticsService"] }
     ]; };
     ExecutiveHomePageComponent = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Component"])({
@@ -8734,10 +8905,15 @@ var FormPrintingDefaultPageComponent = /** @class */ (function () {
     };
     FormPrintingDefaultPageComponent.prototype.getMerchant = function () {
         var _this = this;
+        this.loading = true;
         var merchant_id = this.localService.getUser().merchant_id;
         this.companyService.getCompany(merchant_id).then(function (merchant) {
+            _this.loading = false;
             var merchant_logo = merchant[0].logo;
             _this.logo = _this.endpointService.storageHost + merchant_logo;
+        }, function (error) {
+            _this.loading = false;
+            _this.hasError = true;
         });
     };
     FormPrintingDefaultPageComponent.prototype.printViewCss = function () {
@@ -8803,6 +8979,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var src_app_services_endpoint_endpoint_service__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! src/app/services/endpoint/endpoint.service */ "./src/app/services/endpoint/endpoint.service.ts");
 /* harmony import */ var src_app_services_front_desk_front_desk_service__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! src/app/services/front-desk/front-desk.service */ "./src/app/services/front-desk/front-desk.service.ts");
 /* harmony import */ var src_app_services_storage_local_storage_service__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! src/app/services/storage/local-storage.service */ "./src/app/services/storage/local-storage.service.ts");
+/* harmony import */ var _angular_router__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! @angular/router */ "./node_modules/@angular/router/fesm5/router.js");
+
 
 
 
@@ -8812,25 +8990,32 @@ __webpack_require__.r(__webpack_exports__);
 
 
 var FormPrintingPageComponent = /** @class */ (function () {
-    function FormPrintingPageComponent(_fb, endpointService, frontDeskService, localStorage) {
+    function FormPrintingPageComponent(router, _fb, endpointService, localStorage, frontDeskService) {
         var _this = this;
+        this.router = router;
         this._fb = _fb;
         this.endpointService = endpointService;
-        this.frontDeskService = frontDeskService;
         this.localStorage = localStorage;
+        this.frontDeskService = frontDeskService;
+        this.loading = true;
         this.inputList = [];
         this.dpiRatio = 96 / 72;
         this.clientFormDetails = [];
         this.form = window.history.state.form;
         this.resolveReloadDataLoss();
         this.user = this.localStorage.getUser();
-        this.frontDeskService.getPrintPDFFile(this.form.form_code, this.user.merchant_id.toString()).then(function (url) {
-            console.log('ssss: ' + JSON.stringify(url));
-            _this.pdfSrc = _this.endpointService.storageHost + 'files/' + url;
-            alert('pdf url: ' + _this.pdfSrc);
-            window.onafterprint = function () {
-                _this.showPrintButton();
-            };
+        this.frontDeskService.getPrintPDFFile(this.form.form_code, this.user.merchant_id.toString()).then(function (file) {
+            if (lodash__WEBPACK_IMPORTED_MODULE_2__["isUndefined"](file) || lodash__WEBPACK_IMPORTED_MODULE_2__["isNull"](file)) {
+                alert('No PDF file is available for this form. Redirecting you to do a default printing');
+                _this.router.navigateByUrl('front_desk/print_form_default', { state: { form: _this.form }, replaceUrl: true });
+            }
+            else {
+                console.log('ssss: ' + JSON.stringify(file.url));
+                _this.pdfSrc = _this.endpointService.storageHost + 'files/' + file.url;
+                window.onafterprint = function () {
+                    _this.showPrintButton();
+                };
+            }
         }, function (err) { });
     }
     /**
@@ -8993,10 +9178,11 @@ var FormPrintingPageComponent = /** @class */ (function () {
         window.print();
     };
     FormPrintingPageComponent.ctorParameters = function () { return [
+        { type: _angular_router__WEBPACK_IMPORTED_MODULE_8__["Router"] },
         { type: _angular_forms__WEBPACK_IMPORTED_MODULE_4__["FormBuilder"] },
         { type: src_app_services_endpoint_endpoint_service__WEBPACK_IMPORTED_MODULE_5__["EndpointService"] },
-        { type: src_app_services_front_desk_front_desk_service__WEBPACK_IMPORTED_MODULE_6__["FrontDeskService"] },
-        { type: src_app_services_storage_local_storage_service__WEBPACK_IMPORTED_MODULE_7__["LocalStorageService"] }
+        { type: src_app_services_storage_local_storage_service__WEBPACK_IMPORTED_MODULE_7__["LocalStorageService"] },
+        { type: src_app_services_front_desk_front_desk_service__WEBPACK_IMPORTED_MODULE_6__["FrontDeskService"] }
     ]; };
     FormPrintingPageComponent = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Component"])({
@@ -9667,7 +9853,7 @@ var FrontDeskProcessedFormsListPageComponent = /** @class */ (function () {
         var _this = this;
         this.loading = true;
         var processedForms = [];
-        this.frontDeskService.getAllFormsProcessedByUser(this.user.id.toString()).then(function (res) {
+        this.frontDeskService.getSubmittedFormByStatusAndMerchant(2, this.user.merchant_id.toString()).then(function (res) {
             _this.hasMore = _this.checkIfHasMore();
             if (res.length != 0) {
                 _this.hasData = true;
@@ -9690,7 +9876,7 @@ var FrontDeskProcessedFormsListPageComponent = /** @class */ (function () {
         var _this = this;
         this.loadingMore = true;
         var moreUrl = this.frontDeskService.nextPaginationUrl;
-        this.frontDeskService.getAllFormsProcessedByUser(this.user.id.toString()).then(function (res) {
+        this.frontDeskService.getSubmittedFormByStatusAndMerchant(2, this.user.merchant_id.toString(), moreUrl).then(function (res) {
             _this.loadingMore = false;
             _this.hasMoreError = false;
             _this.hasMore = _this.checkIfHasMore();
@@ -11336,7 +11522,7 @@ var CreateFormPageComponent = /** @class */ (function () {
             alert('Form field cannot be empty');
         }
         else {
-            this.formService.uploafFormPDF(this.f.merchant.value, this.formCode, this.pdfFile).then(function (res) {
+            this.formService.uploadFormPDF(this.f.merchant.value, this.formCode, this.pdfFile).then(function (res) {
                 _this.createForm();
             }, function (err) {
                 _this.loading = false;
@@ -12803,7 +12989,7 @@ var EditFormPageComponent = /** @class */ (function () {
             alert('Form field cannot be empty');
         }
         else {
-            this.formService.uploafFormPDF(this.f.merchant.value, this.formCode, this.pdfFile).then(function (res) {
+            this.formService.editFormPDF(this.merchant, this.formCode, this.pdfFile).then(function (res) {
                 _this.editForm();
             }, function (err) {
                 _this.loading = false;
@@ -17705,6 +17891,13 @@ var AccountService = /** @class */ (function () {
             });
         });
     };
+    /**
+     * Deletes a user's account.
+     *
+     * @param {string} id
+     * @returns {Promise<boolean>}
+     * @memberof AccountService
+     */
     AccountService.prototype.deleteAccount = function (id) {
         var _this = this;
         return new Promise(function (resolve, reject) {
@@ -17765,6 +17958,13 @@ var AdminService = /** @class */ (function () {
         this.endpointService = endpointService;
         this.headers = this.endpointService.headers();
     }
+    /**
+     * Gets a lists of all GIT Admin accounts.
+     *
+     * @param {boolean} [allowPagination]
+     * @returns {Promise<any>}
+     * @memberof AdminService
+     */
     AdminService.prototype.getGitAdmins = function (allowPagination) {
         var _this = this;
         return new Promise(function (resolve, reject) {
@@ -17783,6 +17983,14 @@ var AdminService = /** @class */ (function () {
             });
         });
     };
+    /**
+     * Returns a collection of all user accounts belonging to a merchant.
+     *
+     * @param {number} user_type
+     * @param {string} merchant_id
+     * @returns {Promise<any>}
+     * @memberof AdminService
+     */
     AdminService.prototype.getAllUsersByMerchant = function (user_type, merchant_id) {
         var _this = this;
         return new Promise(function (resolve, reject) {
@@ -17797,6 +18005,14 @@ var AdminService = /** @class */ (function () {
             });
         });
     };
+    /**
+     * Returns a collection of all user accounts belonging to a branch.
+     *
+     * @param {number} user_type
+     * @param {string} branch_id
+     * @returns {Promise<any>}
+     * @memberof AdminService
+     */
     AdminService.prototype.getAllUsersByBranch = function (user_type, branch_id) {
         var _this = this;
         return new Promise(function (resolve, reject) {
@@ -18085,6 +18301,13 @@ var AnalyticsService = /** @class */ (function () {
             });
         });
     };
+    /**
+     * Gets the total number of forms submitted.
+     *
+     * @param {string} merchant_id
+     * @returns {Promise<any>}
+     * @memberof AnalyticsService
+     */
     AnalyticsService.prototype.getFrontDeskSubmittedFormsCount = function (merchant_id) {
         var _this = this;
         return new Promise(function (resolve, reject) {
@@ -18099,6 +18322,13 @@ var AnalyticsService = /** @class */ (function () {
             });
         });
     };
+    /**
+     * Gets the total number of forms in-process.
+     *
+     * @param {string} merchant_id
+     * @returns {Promise<any>}
+     * @memberof AnalyticsService
+     */
     AnalyticsService.prototype.getFrontDeskProcessingFormsCount = function (merchant_id) {
         var _this = this;
         return new Promise(function (resolve, reject) {
@@ -18112,6 +18342,13 @@ var AnalyticsService = /** @class */ (function () {
             });
         });
     };
+    /**
+     * Gets the total number of forms processed.
+     *
+     * @param {string} merchant_id
+     * @returns {Promise<any>}
+     * @memberof AnalyticsService
+     */
     AnalyticsService.prototype.getFrontDeskProcessedFormsCount = function (merchant_id) {
         var _this = this;
         return new Promise(function (resolve, reject) {
@@ -18280,6 +18517,12 @@ var BranchService = /** @class */ (function () {
             });
         });
     };
+    /**
+     * Returns a collection of all branches without paginatioon.
+     *
+     * @returns {Promise<any>}
+     * @memberof BranchService
+     */
     BranchService.prototype.getAllBranchCollection = function () {
         var _this = this;
         return new Promise(function (resolve, reject) {
@@ -18318,6 +18561,14 @@ var BranchService = /** @class */ (function () {
             });
         });
     };
+    /**
+     * Gets a list of all branch admins belonging to either a merchant or branch.
+     *
+     * @param {string} id
+     * @param {boolean} [isMerchant]
+     * @returns
+     * @memberof BranchService
+     */
     BranchService.prototype.getBranchAdmins = function (id, isMerchant) {
         var _this = this;
         return new Promise(function (resolve, reject) {
@@ -18334,6 +18585,13 @@ var BranchService = /** @class */ (function () {
             });
         });
     };
+    /**
+     * Enables a disabled branch.
+     *
+     * @param {string} id
+     * @returns {Promise<boolean>}
+     * @memberof BranchService
+     */
     BranchService.prototype.enableBranch = function (id) {
         var _this = this;
         return new Promise(function (resolve, reject) {
@@ -18351,6 +18609,13 @@ var BranchService = /** @class */ (function () {
             });
         });
     };
+    /**
+     * Disables an enabled branch.
+     *
+     * @param {string} id
+     * @returns {Promise<boolean>}
+     * @memberof BranchService
+     */
     BranchService.prototype.disableBranch = function (id) {
         var _this = this;
         return new Promise(function (resolve, reject) {
@@ -18423,28 +18688,6 @@ var ClientService = /** @class */ (function () {
         this.headers = this.endpointService.headers();
     }
     /**
-     * Send a two-way authenticate code to the clients phone.
-     *
-     * @param {string} id
-     * @param {string} phone
-     * @returns {Promise<any>}
-     * @memberof ClientService
-     */
-    ClientService.prototype.sendAuthCode = function (id, phone) {
-        var _this = this;
-        return new Promise(function (resolve, reject) {
-            var header = _this.endpointService._headers();
-            var url = _this.endpointService.apiHost + ("api/sendTwoWayAuthenticationCode/" + id + "/" + phone);
-            _this.http.post(url, {}, { headers: header }).subscribe(function (res) {
-                console.log('res: ' + JSON.stringify(res));
-                resolve(res);
-            }, function (err) {
-                console.log('err: ' + JSON.stringify(err));
-                reject(err);
-            });
-        });
-    };
-    /**
      * Verifies a two-way auth code.
      *
      * @param {string} id
@@ -18467,6 +18710,16 @@ var ClientService = /** @class */ (function () {
             });
         });
     };
+    /**
+     * Submits a form.
+     *
+     * @param {string} id
+     * @param {string} code
+     * @param {*} client_data
+     * @param {*} form_data
+     * @returns {Promise<any>}
+     * @memberof ClientService
+     */
     ClientService.prototype.submitForm = function (id, code, client_data, form_data) {
         var _this = this;
         return new Promise(function (resolve, reject) {
@@ -18482,6 +18735,14 @@ var ClientService = /** @class */ (function () {
             });
         });
     };
+    /**
+     * Edits a client's account.
+     *
+     * @param {string} id
+     * @param {*} profile
+     * @returns {Promise<any>}
+     * @memberof ClientService
+     */
     ClientService.prototype.editProfile = function (id, profile) {
         var _this = this;
         return new Promise(function (resolve, reject) {
@@ -18495,6 +18756,13 @@ var ClientService = /** @class */ (function () {
             });
         });
     };
+    /**
+     * Gets acoount and forms data info for a client.
+     *
+     * @param {string} id
+     * @returns {Promise<any>}
+     * @memberof ClientService
+     */
     ClientService.prototype.getDetails = function (id) {
         var _this = this;
         return new Promise(function (resolve, reject) {
@@ -18507,6 +18775,12 @@ var ClientService = /** @class */ (function () {
             });
         });
     };
+    /**
+     * Gets a list of all clients.
+     *
+     * @returns {Promise<any>}
+     * @memberof ClientService
+     */
     ClientService.prototype.getAllClients = function () {
         var _this = this;
         return new Promise(function (resolve, reject) {
@@ -18519,6 +18793,14 @@ var ClientService = /** @class */ (function () {
             });
         });
     };
+    /**
+     * Gets a list of all forms submitted by a client.
+     *
+     * @param {string} id
+     * @param {string} [page_url]
+     * @returns {Promise<any>}
+     * @memberof ClientService
+     */
     ClientService.prototype.getAllSubmittedForms = function (id, page_url) {
         var _this = this;
         return new Promise(function (resolve, reject) {
@@ -18536,6 +18818,14 @@ var ClientService = /** @class */ (function () {
             });
         });
     };
+    /**
+     * Returns a the status of a form.
+     *
+     * @param {string} id
+     * @param {string} status
+     * @returns {Promise<any>}
+     * @memberof ClientService
+     */
     ClientService.prototype.getFormByStatus = function (id, status) {
         var _this = this;
         return new Promise(function (resolve, reject) {
@@ -18767,6 +19057,13 @@ var ClientService = /** @class */ (function () {
             });
         });
     };
+    /**
+     * Returns a attachments for a form.
+     *
+     * @param {string} submission_code
+     * @returns {Promise<any>}
+     * @memberof ClientService
+     */
     ClientService.prototype.getFormAttachment = function (submission_code) {
         var _this = this;
         return new Promise(function (resolve, reject) {
@@ -19003,6 +19300,12 @@ var CompanyService = /** @class */ (function () {
             });
         });
     };
+    /**
+     * Returns a collection of all merchants without pagination.
+     *
+     * @returns {Promise<any>}
+     * @memberof CompanyService
+     */
     CompanyService.prototype.getAllCompanyCollection = function () {
         var _this = this;
         return new Promise(function (resolve, reject) {
@@ -19110,6 +19413,13 @@ var CompanyService = /** @class */ (function () {
             });
         });
     };
+    /**
+     * Deletes a company.
+     *
+     * @param {string} id
+     * @returns {Promise<any>}
+     * @memberof CompanyService
+     */
     CompanyService.prototype.deleteCompany = function (id) {
         var _this = this;
         return new Promise(function (Resolve, reject) {
@@ -19277,6 +19587,7 @@ var EndpointService = /** @class */ (function () {
     EndpointService.prototype.headers = function (isUploadRequest) {
         var httpHeaders;
         var token = sessionStorage.getItem('x-auth');
+        console.log('token: ' + token);
         if (lodash__WEBPACK_IMPORTED_MODULE_2__["isUndefined"](isUploadRequest) || !isUploadRequest) {
             httpHeaders = new _angular_common_http__WEBPACK_IMPORTED_MODULE_3__["HttpHeaders"]({
                 'Accept': 'application/json',
@@ -20227,12 +20538,34 @@ var FormsService = /** @class */ (function () {
             });
         });
     };
-    FormsService.prototype.uploafFormPDF = function (merchant_id, form_code, pdf) {
+    FormsService.prototype.uploadFormPDF = function (merchant_id, form_code, pdf) {
         var _this = this;
         return new Promise(function (resolve, reject) {
             var form = new FormData();
             var fileHeader = _this.endpointService.headers(true);
             var url = _this.endpointService.apiHost + 'api/v1/uploadPrintFile/' + merchant_id + '/' + form_code;
+            form.set('file', pdf);
+            _this.http.post(url, form, { headers: fileHeader }).subscribe(function (res) {
+                console.log('response: ' + JSON.stringify(res));
+                var response = res;
+                if (lodash__WEBPACK_IMPORTED_MODULE_2__["toLower"](response.message) == 'ok') {
+                    resolve(true);
+                }
+                else {
+                    resolve(false);
+                }
+            }, function (err) {
+                console.log('error: ' + JSON.stringify(err));
+                reject(err);
+            });
+        });
+    };
+    FormsService.prototype.editFormPDF = function (merchant_id, form_code, pdf) {
+        var _this = this;
+        return new Promise(function (resolve, reject) {
+            var form = new FormData();
+            var fileHeader = _this.endpointService.headers(true);
+            var url = _this.endpointService.apiHost + 'api/v1/editPrintFile/' + merchant_id + '/' + form_code;
             form.set('file', pdf);
             _this.http.post(url, form, { headers: fileHeader }).subscribe(function (res) {
                 console.log('response: ' + JSON.stringify(res));
@@ -20339,13 +20672,16 @@ var FrontDeskService = /** @class */ (function () {
             });
         });
     };
-    FrontDeskService.prototype.getAllFormsProcessedByUser = function (user_id) {
+    FrontDeskService.prototype.getAllFormsProcessedByUser = function (user_id, page_url) {
         var _this = this;
         return new Promise(function (resolve, reject) {
-            var url = _this.endpointService.apiHost + 'api/v1/getAllFormsProcessedByFrontDeskPerson/' + user_id;
+            var url = !lodash__WEBPACK_IMPORTED_MODULE_2__["isUndefined"](page_url)
+                ? page_url
+                : _this.endpointService.apiHost + 'api/v1/getAllFormsProcessedByFrontDeskPerson/' + user_id;
             _this.http.get(url, { headers: _this.headers }).subscribe(function (res) {
                 console.log('res: ' + JSON.stringify(res));
                 var response = res;
+                _this.nextPaginationUrl = response.processed_forms.next_page_url;
                 resolve(response.processed_forms.data);
             }, function (err) {
                 console.log('err: ' + JSON.stringify(err));
@@ -20436,7 +20772,7 @@ var FrontDeskService = /** @class */ (function () {
             _this.http.get(url, { headers: _this.headers }).subscribe(function (res) {
                 console.log('res: ' + JSON.stringify(res));
                 var response = res;
-                resolve(response.file.url);
+                resolve(response.file);
             }, function (err) {
                 console.log('err: ' + JSON.stringify(err));
                 reject(err);

@@ -89,6 +89,7 @@
                         <th><strong>Submitted By</strong></th>
                         <th><strong>Submitted On</strong></th>
                         <th><strong>Processed On</strong></th>
+                        <th><strong>Action</strong></th>
                       </tr>
                     </thead>
                     <tbody>
@@ -98,6 +99,12 @@
                         <td>{{ form.client_name }}</td>
                         <td>{{ form.submitted_at | date:'medium' }}</td>
                         <td>{{ form.last_processed | date:'medium' }}</td>
+                        <td>
+                          <button type="button" class="btn btn-light bg-white btn-icon" data-toggle="tooltip"
+                            data-placement="top" title="Print" (click)="print($event, form)">
+                            <i class="mdi mdi-printer text-muted"></i>
+                          </button>
+                        </td>
                       </tr>
                     </tbody>
                   </table>

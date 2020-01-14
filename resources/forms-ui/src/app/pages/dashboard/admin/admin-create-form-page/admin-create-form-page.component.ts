@@ -174,7 +174,7 @@ export class AdminCreateFormPageComponent implements OnInit {
       alert('Form field cannot be empty');
     }
     else {
-      this.formService.uploafFormPDF(this.merchant_id.toString(), this.formCode, this.pdfFile).then(
+      this.formService.uploadFormPDF(this.merchant_id.toString(), this.formCode, this.pdfFile).then(
         res => {
           this.createForm();
         },

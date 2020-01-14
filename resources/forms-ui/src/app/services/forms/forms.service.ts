@@ -246,11 +246,37 @@ export class FormsService {
     });
   }
 
-  uploafFormPDF(merchant_id: string, form_code: string, pdf: File): Promise<boolean> {
+  uploadFormPDF(merchant_id: string, form_code: string, pdf: File): Promise<boolean> {
     return new Promise((resolve, reject) => {
       const form = new FormData();
       const fileHeader = this.endpointService.headers(true);
       const url = this.endpointService.apiHost + 'api/v1/uploadPrintFile/' + merchant_id + '/' + form_code;
+
+      form.set('file', pdf);
+      this.http.post(url, form, { headers: fileHeader }).subscribe(
+        res => {
+          console.log('response: ' + JSON.stringify(res));
+          const response = res as any;
+          if (_.toLower(response.message) == 'ok') {
+            resolve(true);
+          }
+          else {
+            resolve(false);
+          }
+        },
+        err => {
+          console.log('error: ' + JSON.stringify(err));
+          reject(err);
+        }
+      );
+    });
+  }
+
+  editFormPDF(merchant_id: string, form_code: string, pdf: File): Promise<boolean> {
+    return new Promise((resolve, reject) => {
+      const form = new FormData();
+      const fileHeader = this.endpointService.headers(true);
+      const url = this.endpointService.apiHost + 'api/v1/editPrintFile/' + merchant_id + '/' + form_code;
 
       form.set('file', pdf);
       this.http.post(url, form, { headers: fileHeader }).subscribe(

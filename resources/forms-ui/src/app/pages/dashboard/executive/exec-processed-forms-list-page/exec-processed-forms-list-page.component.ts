@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
 import * as _ from 'lodash';
 import { Router } from '@angular/router';
 import { Users } from 'src/app/models/users.model';
@@ -22,6 +21,7 @@ export class ExecProcessedFormsListPageComponent implements OnInit {
   processedFormsList: Array<any>;
 
   constructor(
+    private router: Router,
     private localStorage: LocalStorageService,
     private frontDeskService: FrontDeskService,
   ) {
@@ -32,6 +32,11 @@ export class ExecProcessedFormsListPageComponent implements OnInit {
   }
 
   ngOnInit() {
+  }
+
+  print(ev: Event, form: any) {
+    ev.stopPropagation();
+    this.router.navigateByUrl('front_desk/print_form', { state: { form: form }});
   }
 
   checkIfHasMore() {

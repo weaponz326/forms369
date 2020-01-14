@@ -57,16 +57,43 @@
 
                 <form [formGroup]="form">
                   <div class="row mt-4">
-                    <div class="col-9">
+                    <div [ngClass]="{'col-6': showFileUpload, 'col-8': !showFileUpload}">
                       <div class="form-group">
-                        <input type="text" formControlName="name" class="form-control" placeholder="Whats the name of your form ?"
+                        <input type="text" formControlName="name" class="form-control"
+                          placeholder="Whats the name of your form ?"
                           [ngClass]="{'input-control-error': submitted && f.name.errors}">
                         <div *ngIf="submitted && f.name.errors">
                           <p class="input-error" *ngIf="f.name.errors.required">Form name is required</p>
                         </div>
                       </div>
                     </div>
-                    <div class="col-4">
+                    <div class="col-2">
+                      <div class="form-group">
+                        <select class="form-control" formControlName="canView"
+                          [ngClass]="{'input-control-error': submitted && f.canView.errors}">
+                          <option value="" disabled>Can View</option>
+                          <option value="0">No</option>
+                          <option value="1">Yes</option>
+                        </select>
+                      </div>
+                    </div>
+                    <div *ngIf="showFileUpload" class="col-4">
+                      <div class="form-group">
+                        <input #pdfFile type="file" accept="application/pdf" (change)="inputFileChanged($event)"
+                          class="file-upload-default">
+                        <div class="input-group col-xs-12">
+                          <input type="file" style="overflow: hidden; height: 0px; width: 0px;">
+                          <input type="text" formControlName="pdf" class="form-control file-upload-info"
+                            placeholder="Upload File" readonly>
+                          <span class="input-group-append">
+                            <button class="file-upload-browse btn btn-primary" type="button"
+                              (click)="showFilePicker()">Upload PDF</button>
+                          </span>
+                        </div>
+                        <div *ngIf="submitted && f.pdf.errors">
+                          <p class="input-error" *ngIf="f.pdf.errors.required">PDF file is required</p>
+                        </div>
+                      </div>
                     </div>
                   </div>
 
