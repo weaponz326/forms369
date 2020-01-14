@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import * as _ from 'lodash';
-import { Router } from '@angular/router';
 import { FormsService } from 'src/app/services/forms/forms.service';
 import { LocalStorageService } from 'src/app/services/storage/local-storage.service';
 
@@ -20,7 +19,6 @@ export class ExecFormsListPageComponent implements OnInit {
   allFormsList: Array<any>;
 
   constructor(
-    private router: Router,
     private formService: FormsService,
     private localStorage: LocalStorageService
   ) {

@@ -81,7 +81,7 @@ export class FrontDeskProcessedFormsListPageComponent implements OnInit {
   loadMore() {
     this.loadingMore = true;
     const moreUrl = this.frontDeskService.nextPaginationUrl;
-    this.frontDeskService.getAllFormsProcessedByUser(this.user.id.toString()).then(
+    this.frontDeskService.getAllFormsProcessedByUser(this.user.id.toString(), moreUrl).then(
       res => {
         this.loadingMore = false;
         this.hasMoreError = false;

@@ -6,7 +6,4 @@ import { Injectable } from '@angular/core';
 export class ConnectivityService {
 
   constructor() { }
-
-  // isOnline(): boolean {
-  // }
 }

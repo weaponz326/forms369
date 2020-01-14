@@ -1,10 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { toString } from 'lodash';
 import { Router } from '@angular/router';
+import { UserTypes } from 'src/app/enums/user-types.enum';
+import { AccountService } from 'src/app/services/account/account.service';
 import { AnalyticsService } from 'src/app/services/analytics/analytics.service';
 import { LocalStorageService } from 'src/app/services/storage/local-storage.service';
-import { AccountService } from 'src/app/services/account/account.service';
-import { UserTypes } from 'src/app/enums/user-types.enum';
 
 @Component({
   selector: 'app-executive-home-page',
@@ -14,6 +14,7 @@ import { UserTypes } from 'src/app/enums/user-types.enum';
 export class ExecutiveHomePageComponent implements OnInit {
   loading: boolean;
   endDate: string;
+  branchId: string;
   startDate: string;
   firstname: string;
   merchantId: string;
@@ -48,6 +49,7 @@ export class ExecutiveHomePageComponent implements OnInit {
         res => {
           if (res == 'ok') {
             this.firstname = this.localStorage.getUser().firstname;
+            this.branchId = toString(this.localStorage.getUser().branch_id);
             this.merchantId = toString(this.localStorage.getUser().merchant_id);
             this.getAnalytics();
           }
@@ -134,7 +136,24 @@ export class ExecutiveHomePageComponent implements OnInit {
   }
 
   getUserAccountsAnalytics() {
+    console.log(this.localStorage.getUser().branch_id);
+    this.localStorage.getUser().branch_id.toString() == '0'
+      ? this.getUsersByMerchantAccountAnalytics()
+      : this.getUsersByBranchAccountAnalytics();
+  }
+
+  getUsersByMerchantAccountAnalytics() {
+    console.log('getting for merchant');
     this.analyticService.getCompanyUsersCount(this.merchantId).then(
+      count => {
+        this.numTotalUsers = count;
+      }
+    );
+  }
+
+  getUsersByBranchAccountAnalytics() {
+    console.log('getting for branch');
+    this.analyticService.getBranchUsersCount(this.branchId).then(
       count => {
         this.numTotalUsers = count;
       }

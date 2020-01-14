@@ -14,6 +14,13 @@ export class AdminService {
     this.headers = this.endpointService.headers();
   }
 
+  /**
+   * Gets a lists of all GIT Admin accounts.
+   *
+   * @param {boolean} [allowPagination]
+   * @returns {Promise<any>}
+   * @memberof AdminService
+   */
   getGitAdmins(allowPagination?: boolean): Promise<any> {
     return new Promise((resolve, reject) => {
       const url = !_.isUndefined(allowPagination) || allowPagination
@@ -35,6 +42,14 @@ export class AdminService {
     });
   }
 
+  /**
+   * Returns a collection of all user accounts belonging to a merchant.
+   *
+   * @param {number} user_type
+   * @param {string} merchant_id
+   * @returns {Promise<any>}
+   * @memberof AdminService
+   */
   getAllUsersByMerchant(user_type: number, merchant_id: string): Promise<any> {
     return new Promise((resolve, reject) => {
       const url = this.endpointService.apiHost + 'api/v1/getMerchantUsersByType/' + merchant_id + '/' + user_type;
@@ -52,6 +67,14 @@ export class AdminService {
     });
   }
 
+  /**
+   * Returns a collection of all user accounts belonging to a branch.
+   *
+   * @param {number} user_type
+   * @param {string} branch_id
+   * @returns {Promise<any>}
+   * @memberof AdminService
+   */
   getAllUsersByBranch(user_type: number, branch_id: string): Promise<any> {
     return new Promise((resolve, reject) => {
       const url = this.endpointService.apiHost + 'api/v1/getBranchUsersByType/' + branch_id + '/' + user_type;

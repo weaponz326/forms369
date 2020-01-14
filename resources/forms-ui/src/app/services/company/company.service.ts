@@ -224,6 +224,12 @@ export class CompanyService {
     });
   }
 
+  /**
+   * Returns a collection of all merchants without pagination.
+   *
+   * @returns {Promise<any>}
+   * @memberof CompanyService
+   */
   getAllCompanyCollection(): Promise<any> {
     return new Promise((resolve, reject) => {
       const url = this.endpointService.apiHost + 'api/v1/getMerchantsForDropdown';
@@ -346,6 +352,13 @@ export class CompanyService {
     });
   }
 
+  /**
+   * Deletes a company.
+   *
+   * @param {string} id
+   * @returns {Promise<any>}
+   * @memberof CompanyService
+   */
   deleteCompany(id: string): Promise<any> {
     return new Promise((Resolve, reject) => {
       const url = this.endpointService.apiHost + 'api/v1/' + id;

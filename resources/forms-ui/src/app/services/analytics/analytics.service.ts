@@ -282,6 +282,13 @@ export class AnalyticsService {
     });
   }
 
+  /**
+   * Gets the total number of forms submitted.
+   *
+   * @param {string} merchant_id
+   * @returns {Promise<any>}
+   * @memberof AnalyticsService
+   */
   getFrontDeskSubmittedFormsCount(merchant_id: string): Promise<any> {
     return new Promise((resolve, reject) => {
       const url = this.endpointService.apiHost + 'api/v1/getNumSubmittedFormsByStatus/0/' + merchant_id;
@@ -299,6 +306,13 @@ export class AnalyticsService {
     });
   }
 
+  /**
+   * Gets the total number of forms in-process.
+   *
+   * @param {string} merchant_id
+   * @returns {Promise<any>}
+   * @memberof AnalyticsService
+   */
   getFrontDeskProcessingFormsCount(merchant_id: string): Promise<any> {
     return new Promise((resolve, reject) => {
       const url = this.endpointService.apiHost + 'api/v1/getNumSubmittedFormsByStatus/1/' + merchant_id;
@@ -315,6 +329,13 @@ export class AnalyticsService {
     });
   }
 
+  /**
+   * Gets the total number of forms processed.
+   *
+   * @param {string} merchant_id
+   * @returns {Promise<any>}
+   * @memberof AnalyticsService
+   */
   getFrontDeskProcessedFormsCount(merchant_id: string): Promise<any> {
     return new Promise((resolve, reject) => {
       const url = this.endpointService.apiHost + 'api/v1/getNumSubmittedFormsByStatus/2/' + merchant_id;
@@ -330,36 +351,4 @@ export class AnalyticsService {
       );
     });
   }
-
-  // getSuperExecutiveSubmittedFormsCount(merchant_id: string): Promise<any> {
-  //   return new Promise((resolve, reject) => {
-  //     const url = this.endpointService.apiHost + 'api/v1/getNumAllFormsByStatusAndMerchant/0/' + merchant_id;
-  //     this.http.get(url, { headers: this.headers }).subscribe(
-  //       res => {
-  //         console.log('forms: ' + res);
-  //         const response = res as any;
-  //         resolve(response.num_forms);
-  //       },
-  //       err => {
-  //         reject(err);
-  //       }
-  //     );
-  //   });
-  // }
-
-  // getSuperExecutiveProcessedFormsCount(merchant_id: string): Promise<any> {
-  //   return new Promise((resolve, reject) => {
-  //     const url = this.endpointService.apiHost + 'api/v1/getNumAllFormsByStatusAndMerchant/0/' + merchant_id;
-  //     this.http.get(url, { headers: this.headers }).subscribe(
-  //       res => {
-  //         console.log('forms: ' + res);
-  //         const response = res as any;
-  //         resolve(response.num_forms);
-  //       },
-  //       err => {
-  //         reject(err);
-  //       }
-  //     );
-  //   });
-  // }
 }

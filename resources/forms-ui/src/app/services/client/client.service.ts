@@ -16,31 +16,6 @@ export class ClientService {
   }
 
   /**
-   * Send a two-way authenticate code to the clients phone.
-   *
-   * @param {string} id
-   * @param {string} phone
-   * @returns {Promise<any>}
-   * @memberof ClientService
-   */
-  sendAuthCode(id: string, phone: string): Promise<any> {
-    return new Promise((resolve, reject) => {
-      const header = this.endpointService._headers();
-      const url = this.endpointService.apiHost + `api/sendTwoWayAuthenticationCode/${id}/${phone}`;
-      this.http.post(url, {}, { headers: header }).subscribe(
-        res => {
-          console.log('res: ' + JSON.stringify(res));
-          resolve(res);
-        },
-        err => {
-          console.log('err: ' + JSON.stringify(err));
-          reject(err);
-        }
-      );
-    });
-  }
-
-  /**
    * Verifies a two-way auth code.
    *
    * @param {string} id
@@ -66,6 +41,16 @@ export class ClientService {
     });
   }
 
+  /**
+   * Submits a form.
+   *
+   * @param {string} id
+   * @param {string} code
+   * @param {*} client_data
+   * @param {*} form_data
+   * @returns {Promise<any>}
+   * @memberof ClientService
+   */
   submitForm(id: string, code: string, client_data: any, form_data: any): Promise<any> {
     return new Promise((resolve, reject) => {
       const body = { client_profile: client_data, form_data: form_data };
@@ -84,6 +69,14 @@ export class ClientService {
     });
   }
 
+  /**
+   * Edits a client's account.
+   *
+   * @param {string} id
+   * @param {*} profile
+   * @returns {Promise<any>}
+   * @memberof ClientService
+   */
   editProfile(id: string, profile: any): Promise<any> {
     return new Promise((resolve, reject) => {
       const body = JSON.stringify(profile);
@@ -100,6 +93,13 @@ export class ClientService {
     });
   }
 
+  /**
+   * Gets acoount and forms data info for a client.
+   *
+   * @param {string} id
+   * @returns {Promise<any>}
+   * @memberof ClientService
+   */
   getDetails(id: string): Promise<any> {
     return new Promise((resolve, reject) => {
       const url = this.endpointService.apiHost + 'api/v1/getClientsDetails/' + id;
@@ -115,6 +115,12 @@ export class ClientService {
     });
   }
 
+  /**
+   * Gets a list of all clients.
+   *
+   * @returns {Promise<any>}
+   * @memberof ClientService
+   */
   getAllClients(): Promise<any> {
     return new Promise((resolve, reject) => {
       const url = this.endpointService.apiHost + 'api/v1/getAllClients';
@@ -130,6 +136,14 @@ export class ClientService {
     });
   }
 
+  /**
+   * Gets a list of all forms submitted by a client.
+   *
+   * @param {string} id
+   * @param {string} [page_url]
+   * @returns {Promise<any>}
+   * @memberof ClientService
+   */
   getAllSubmittedForms(id: string, page_url?: string): Promise<any> {
     return new Promise((resolve, reject) => {
       const url = !_.isUndefined(page_url)
@@ -150,6 +164,14 @@ export class ClientService {
     });
   }
 
+  /**
+   * Returns a the status of a form.
+   *
+   * @param {string} id
+   * @param {string} status
+   * @returns {Promise<any>}
+   * @memberof ClientService
+   */
   getFormByStatus(id: string, status: string): Promise<any> {
     return new Promise((resolve, reject) => {
       const url = this.endpointService.apiHost + 'api/v1/getClientFormsByStatus/' + id + '/' + status;
@@ -401,6 +423,13 @@ export class ClientService {
     });
   }
 
+  /**
+   * Returns a attachments for a form.
+   *
+   * @param {string} submission_code
+   * @returns {Promise<any>}
+   * @memberof ClientService
+   */
   getFormAttachment(submission_code: string): Promise<any> {
     return new Promise((resolve, reject) => {
       const url = this.endpointService.apiHost + 'api/v1/getAttachments/' + submission_code;

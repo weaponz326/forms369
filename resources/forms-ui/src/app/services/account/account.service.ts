@@ -485,6 +485,13 @@ export class AccountService {
     });
   }
 
+  /**
+   * Deletes a user's account.
+   *
+   * @param {string} id
+   * @returns {Promise<boolean>}
+   * @memberof AccountService
+   */
   deleteAccount(id: string): Promise<boolean> {
     return new Promise((resolve, reject) => {
       const header = this.endpointService.headers();

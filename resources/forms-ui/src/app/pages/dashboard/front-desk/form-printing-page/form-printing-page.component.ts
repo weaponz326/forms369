@@ -30,8 +30,8 @@ export class FormPrintingPageComponent implements OnInit {
     private router: Router,
     private _fb: FormBuilder,
     private endpointService: EndpointService,
+    private localStorage: LocalStorageService,
     private frontDeskService: FrontDeskService,
-    private localStorage: LocalStorageService
   ) {
     this.loading = true;
     this.inputList = [];

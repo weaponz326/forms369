@@ -144,6 +144,12 @@ export class BranchService {
     });
   }
 
+  /**
+   * Returns a collection of all branches without paginatioon.
+   *
+   * @returns {Promise<any>}
+   * @memberof BranchService
+   */
   getAllBranchCollection(): Promise<any> {
     return new Promise((resolve, reject) => {
       const url = this.endpointService.apiHost + 'api/v1/getAllBranchesForDropdown';
@@ -188,6 +194,14 @@ export class BranchService {
     });
   }
 
+  /**
+   * Gets a list of all branch admins belonging to either a merchant or branch.
+   *
+   * @param {string} id
+   * @param {boolean} [isMerchant]
+   * @returns
+   * @memberof BranchService
+   */
   getBranchAdmins(id: string, isMerchant?: boolean) {
     return new Promise((resolve, reject) => {
       const url = !_.isUndefined(isMerchant) && isMerchant
@@ -207,7 +221,13 @@ export class BranchService {
     });
   }
 
-
+  /**
+   * Enables a disabled branch.
+   *
+   * @param {string} id
+   * @returns {Promise<boolean>}
+   * @memberof BranchService
+   */
   enableBranch(id: string): Promise<boolean> {
     return new Promise((resolve, reject) => {
       const url = this.endpointService.apiHost + 'api/v1/enableBranch/' + id;
@@ -228,6 +248,13 @@ export class BranchService {
     });
   }
 
+  /**
+   * Disables an enabled branch.
+   *
+   * @param {string} id
+   * @returns {Promise<boolean>}
+   * @memberof BranchService
+   */
   disableBranch(id: string): Promise<boolean> {
     return new Promise((resolve, reject) => {
       const url = this.endpointService.apiHost + 'api/v1/disableBranch/' + id;

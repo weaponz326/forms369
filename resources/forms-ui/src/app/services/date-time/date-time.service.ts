@@ -24,8 +24,4 @@ export class DateTimeService {
       return moment().format('MM-DD-YYYY hh:mm:ss');
     }
   }
-
-  // convertToMilliseconds(date1: string, date2: string): number {
-    
-  // }
 }
