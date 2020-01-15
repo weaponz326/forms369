@@ -250,6 +250,11 @@ Route::get('client/unsent_forms', function () {
     return View::make('index');
 });
 
+Route::get('client/form_link_redirect', function () {
+    View::addExtension('html', 'php');
+    return View::make('index');
+});
+
 /**
  * Front Desk Routes.
  */

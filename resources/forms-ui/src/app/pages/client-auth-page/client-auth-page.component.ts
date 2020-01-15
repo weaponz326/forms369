@@ -56,20 +56,15 @@ export class ClientAuthPageComponent implements OnInit {
 
   handleDashboardNavigation() {
     // check whether user used a shared link.
-    // console.log('is running handleDashboardNavigation');
-    // const shared_form_code = sessionStorage.getItem('shared_link');
-    // if (_.isUndefined(shared_form_code) || _.isNull(shared_form_code)) {
-    //   this.loading = false;
-    //   this.router.navigateByUrl('/client');
-    // }
-    // else {
-    //   this.clientService.findFormsByCode(shared_form_code).then(
-    //     form => {
-    //       this.loading = false;
-    //       this.router.navigateByUrl('/client/form_entry', { state: { form: form }});
-    //     }
-    //   );
-    // }
+    console.log('is running handleDashboardNavigation');
+    const shared_form_code = sessionStorage.getItem('shared_link');
+    if (_.isUndefined(shared_form_code) || _.isNull(shared_form_code)) {
+      this.loading = false;
+      this.router.navigateByUrl('/client');
+    }
+    else {
+      this.router.navigateByUrl('/client/form_link_redirect');
+    }
   }
 
   submit() {
