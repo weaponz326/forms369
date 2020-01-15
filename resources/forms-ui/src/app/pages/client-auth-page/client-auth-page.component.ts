@@ -24,7 +24,6 @@ export class ClientAuthPageComponent implements OnInit {
     private formBuilder: FormBuilder,
     private clientService: ClientService,
     private localStorage: LocalStorageService,
-    private frontDeskService: FrontDeskService,
   ) { }
 
   ngOnInit() {
@@ -58,18 +57,20 @@ export class ClientAuthPageComponent implements OnInit {
     // check whether user used a shared link.
     console.log('is running handleDashboardNavigation');
     const shared_form_code = sessionStorage.getItem('shared_link');
-    if (_.isUndefined(shared_form_code) || _.isNull(shared_form_code)) {
-      this.loading = false;
-      this.router.navigateByUrl('/client');
-    }
-    else {
-      this.clientService.findFormsByCode(shared_form_code).then(
-        form => {
-          this.loading = false;
-          this.router.navigateByUrl('/client/form_entry', { state: { form: form }});
-        }
-      );
-    }
+    this.router.navigateByUrl('/client/form_entry', { state: { form_code: shared_form_code }});
+    // if (_.isUndefined(shared_form_code) || _.isNull(shared_form_code)) {
+    //   this.loading = false;
+    //   this.router.navigateByUrl('/client');
+    // }
+    // else {
+    //   this.clientService.findFormsByCode(shared_form_code).then(
+    //     form => {
+    //       this.loading = false;
+    //       sessionStorage.removeItem('shared_link');
+    //       this.router.navigateByUrl('/client/form_entry', { state: { form: form }});
+    //     }
+    //   );
+    // }
   }
 
   submit() {
@@ -99,7 +100,8 @@ export class ClientAuthPageComponent implements OnInit {
             sessionStorage.removeItem('client_id');
             sessionStorage.removeItem('client_phone');
 
-            this.handleDashboardNavigation();
+            // this.handleDashboardNavigation();
+            this.router.navigateByUrl('/client');
           }
           else {
             this.handleLoginErrorResponses(response);

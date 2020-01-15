@@ -39,6 +39,7 @@ export class NavigationBarComponent implements OnInit {
   logout() {
     this.accountService.logOut().then(
       res => {
+        console.log('logged out');
         this.userType == UserTypes.Client
           ? this.openClientHome() : this.openHome();
       },
