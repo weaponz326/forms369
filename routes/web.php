@@ -19,7 +19,7 @@ Route::get('/', function () {
 Route::get('login', function () {
     View::addExtension('html', 'php');
     return View::make('index');
-});
+})->name('login');
 
 Route::get('auth', function () {
     View::addExtension('html', 'php');
