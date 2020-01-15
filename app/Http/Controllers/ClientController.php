@@ -291,7 +291,7 @@ class ClientController extends Controller
         ->where('submitted_forms.client_id', $id)
         ->paginate(15);
       
-        // return $getforms;
+        // return $getforms;a
         //clean data
         $submittedformdata = [];
 
@@ -502,6 +502,102 @@ class ClientController extends Controller
     {
         $getattachements = DB::table('attachments')
         ->where('submission_code', $submission_code)
+        ->get(); 
+
+        $response = [
+            'attachments' => $getattachements
+        ];
+        return response()->json($response, 200);
+    }
+
+
+/**
+     * uploadProfileAttachments Upload attachments for user profile
+     *
+     * @param  mixed $request
+     *
+     * @return \Illuminate\Http\Response success or error message
+     */
+    public function uploadProfileAttachments(Request $request, $client_id){
+
+        //file to storage and save name in database
+        if($request->hasFile('file'))
+        {
+            $this->validate($request, [
+                'key' => 'required'
+            ]);
+            
+            $attachment = $request->file('file');
+            $filename = $attachment->getClientOriginalName();
+            $extension = $attachment->getClientOriginalExtension();
+
+            $excludedfileExtension=['exec','zip','dmg', 'rar', 'iso', 'phar', 'sql', 'js', 'html', 'php'];
+
+            $check=in_array($extension,$excludedfileExtension);
+
+            if($check){
+                return Response::json('Invalid_Attachment');
+            }else{
+
+                $current_date_time = Carbon::now()->toDateTimeString(); // Produces something like "2019-03-11 12:25:00"
+                $url=$attachment->getFilename().'_'.$submission_code. '_'.$current_date_time.'.'.$extension;
+                $url = str_replace(':', '_', $url);
+                $upload =  File::move($_FILES['file']['tmp_name'], public_path('storage/attachments/'.$url ));
+                // $upload=Storage::disk('local')->put('attachments/'.$url,  File::get($attachment));
+                if($upload)
+                {
+                    $logo = $url;
+                        
+                }else{
+                    return Response::json('Attachment upload unsuccessful');
+                }
+            }
+            $message = 'Failed';
+
+            if($upload){
+                $key = $request->key;
+                $uploaded_at = now();
+
+                try {
+                    $id = DB::table('profile_atachments')->insertGetId(
+                        [
+                            'url' => $url, 
+                            'uploaded_at' => $uploaded_at,
+                            'client_id' => $client_id,
+                            'key' => $key
+                        ]
+                    );
+
+                    Log::channel('mysql')->info('Client with id: ' . $client_id .' successsfully uploaded files to profile');
+                    $message = 'Ok';
+        
+                }catch(Exception $e) {
+                    Log::channel('mysql')->error('Client with id: ' . $client_id .' unsuccesssfully uploaded files to profile');
+                    $message = "Failed";
+                } 
+            }
+            return response()->json([
+                'message' => $message
+            ]);
+
+                
+        }else{
+            return Response::json('No Attachment');
+        }
+    }
+
+
+    /**
+     * getProfileAttachments get all attachments for user profile
+     *
+     * @param  mixed $request
+     *
+     * @return \Illuminate\Http\Response containing all attachment
+     */
+    public function getProfileAttachments(Request $request, $client_id)
+    {
+        $getattachements = DB::table('profile_atachments')
+        ->where('client_id', $client_id)
         ->get(); 
 
         $response = [

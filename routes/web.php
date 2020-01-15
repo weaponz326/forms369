@@ -19,7 +19,7 @@ Route::get('/', function () {
 Route::get('login', function () {
     View::addExtension('html', 'php');
     return View::make('index');
-});
+})->name('login');
 
 Route::get('auth', function () {
     View::addExtension('html', 'php');
@@ -246,6 +246,11 @@ Route::get('client/profile', function () {
 });
 
 Route::get('client/unsent_forms', function () {
+    View::addExtension('html', 'php');
+    return View::make('index');
+});
+
+Route::get('client/form_link_redirect', function () {
     View::addExtension('html', 'php');
     return View::make('index');
 });

@@ -84,6 +84,7 @@ import { FrontDeskClientsFormPageComponent } from './pages/dashboard/front-desk/
 import { ExecClientFormsPageComponent } from './pages/dashboard/executive/exec-client-forms-page/exec-client-forms-page.component';
 import { ExecClientsFormsDataPageComponent } from './pages/dashboard/executive/exec-clients-forms-data-page/exec-clients-forms-data-page.component';
 import { ClientFormLinkPageComponent } from './pages/dashboard/client/client-form-link-page/client-form-link-page.component';
+import { ClientFormLinkRedirectPageComponent } from './pages/dashboard/client/client-form-link-redirect-page/client-form-link-redirect-page.component';
 
 const routes: Routes = [
   {
@@ -299,6 +300,10 @@ const routes: Routes = [
       {
         path: 'unsent_forms',
         component: ClientUnsentFormsPageComponent
+      },
+      {
+        path: 'form_link_redirect',
+        component: ClientFormLinkRedirectPageComponent
       }
     ]
   },

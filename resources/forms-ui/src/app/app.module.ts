@@ -111,6 +111,7 @@ import { FrontDeskClientsFormPageComponent } from './pages/dashboard/front-desk/
 import { ExecClientFormsPageComponent } from './pages/dashboard/executive/exec-client-forms-page/exec-client-forms-page.component';
 import { ExecClientsFormsDataPageComponent } from './pages/dashboard/executive/exec-clients-forms-data-page/exec-clients-forms-data-page.component';
 import { ClientFormLinkPageComponent } from './pages/dashboard/client/client-form-link-page/client-form-link-page.component';
+import { ClientFormLinkRedirectPageComponent } from './pages/dashboard/client/client-form-link-redirect-page/client-form-link-redirect-page.component';
 
 @NgModule({
   declarations: [
@@ -206,6 +207,7 @@ import { ClientFormLinkPageComponent } from './pages/dashboard/client/client-for
     ExecClientFormsPageComponent,
     ExecClientsFormsDataPageComponent,
     ClientFormLinkPageComponent,
+    ClientFormLinkRedirectPageComponent,
   ],
   imports: [
     BrowserModule,

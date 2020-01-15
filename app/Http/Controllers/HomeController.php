@@ -1059,9 +1059,40 @@ class HomeController extends Controller
      *
      * @return \Illuminate\Http\Response containing all attachment
      */
+    
     public function getAttachments(Request $request, $submission_code)
     {
         $message = (new ClientController)->getAttachments($request, $submission_code);
+        return $message;
+    }
+
+    /**
+      * Business logics 
+     * Upload profile attachements
+     *
+     * @param  mixed $request
+     *
+     * @return \Illuminate\Http\Response success or error message
+     */
+    public function uploadProfileAttachments(Request $request, $client_id)
+    {
+        $message = (new ClientController)->uploadProfileAttachments($request, $client_id);
+        return $message;
+    }
+
+     /**
+      * Business logics 
+     * getAttachments get all attachments for user profile
+     *
+     * @param  mixed $request
+     *
+     * @return \Illuminate\Http\Response containing all attachment
+     */
+
+     
+    public function getProfileAttachments(Request $request, $client_id)
+    {
+        $message = (new ClientController)->getProfileAttachments($request, $client_id);
         return $message;
     }
 
