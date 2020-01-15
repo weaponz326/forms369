@@ -154,6 +154,40 @@
                       <button type="button" class="btn btn-light btn-lg" (click)="cancel()">Cancel</button>
                     </button> -->
                   </div>
+
+                  <div *ngIf="loadingAttachments" class="row m-md-2">
+                    <div class="col-md-12 col-sm-12 m-md-2">
+                      <div class="d-flex justify-content-center">
+                        <div class="spinner-border m-2" style="width: 2rem; height: 2rem;" role="status">
+                          <span class="sr-only">Loading...</span>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="attachments-section" *ngIf="!loadingAttachments && showAttachments">
+                    <div class="card mb-4">
+                      <div class="card-body">
+                        <h5 class="card-title">Form Attachments / Documents</h5>
+                        <h6 class="card-subtitle mb-2 text-muted">Below are attachments you've uploaded for this form</h6>
+                        <div class="row" *ngFor="let file of existingAttachments">
+                          <div class="col-11" style="padding-right: 8px;">
+                            <ol class="files-list">
+                              <li class="file-item">
+                                <i class="mdi mdi-paperclip menu-icon"></i>
+                                <a class="alert-link file-link" (click)="openModal($event, file.url)">{{ file.url }}</a>
+                              </li>
+                            </ol>
+                          </div>
+                          <div class="col-1" style="padding-right: 3px; padding-left: 4px; margin-top: 7px;">
+                            <button class="btn btn-primary btn-icon" (click)="download(file.url)">
+                              <i class="mdi mdi-download-outline"></i>
+                            </button>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
                   
                   <div class="form-group mt-3">
                     <button *ngIf="updating" class="btn btn-primary btn-lg mr-2" type="button" disabled>
@@ -202,5 +236,36 @@
   </div>
   <div class="modal-footer">
     <button type="button" class="btn btn-primary" (click)="modal.close()">Ok</button>
+  </div>
+</ng-template>
+
+<ng-template #viewImgAttachment let-modal>
+  <div class="modal-header">
+    <h5 class="modal-title">Attachment File</h5>
+    <button type="button" class="close" aria-describedby="modal-title" (click)="modal.dismiss('close')">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <img [src]="imgUrl" style="width: 100%;">
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-secondary" (click)="modal.close('no')">Close</button>
+  </div>
+</ng-template>
+
+<ng-template #viewDocAttachment let-modal>
+  <div class="modal-header">
+    <h5 class="modal-title">Attachment File</h5>
+    <button type="button" class="close" aria-describedby="modal-title" (click)="modal.dismiss('close')">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <p>This is a document and cannot be viewed. Please download</p>
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-secondary" (click)="modal.close('no')">Close</button>
+    <button type="button" class="btn btn-primary" (click)="downloadDoc(documentUrl)">Download</button>
   </div>
 </ng-template>

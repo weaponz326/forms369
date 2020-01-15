@@ -19,7 +19,7 @@ export class NavigationBarComponent implements OnInit {
     private accountService: AccountService,
     private localStorage: LocalStorageService
   ) {
-    this.userType = this.localStorage.getUser().user_type;
+    this.userType = this.localStorage.getUser().usertype;
     const lastName = this.localStorage.getUser().lastname;
     const firstName = this.localStorage.getUser().firstname;
     this.fullName = firstName + ' ' + lastName;

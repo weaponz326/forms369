@@ -28,23 +28,26 @@ export class EndpointService {
    * @memberof EndpointService
    */
   headers(isUploadRequest?: boolean) {
-    let httpHeaders: HttpHeaders;
     const token = sessionStorage.getItem('x-auth');
-    console.log('token: ' + token);
+    console.log('token____: ' + token);
     if (_.isUndefined(isUploadRequest) || !isUploadRequest) {
-      httpHeaders = new HttpHeaders({
+      const httpHeaders = new HttpHeaders({
         'Accept': 'application/json',
         'Content-Type': 'application/json',
         'Authorization': 'Bearer ' + token,
       });
+
+      return httpHeaders;
     }
     else {
-      httpHeaders = new HttpHeaders({
+      const httpHeaders = new HttpHeaders({
         'Accept': 'application/json',
         'Authorization': 'Bearer ' + token,
       });
+
+      return httpHeaders;
     }
-    return httpHeaders;
+    // return httpHeaders;
   }
 
   /**

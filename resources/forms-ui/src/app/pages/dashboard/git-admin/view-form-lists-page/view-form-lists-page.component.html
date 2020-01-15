@@ -95,8 +95,8 @@
                 <div class="text-lg-center mt-3 mb-5">
                   <div class="btn-group" role="group" aria-label="Sort By">
                     <button type="button" class="btn btn-outline-secondary" [ngClass]="{'active': filterState == 'all'}" (click)="showAll()">All</button>
-                    <button type="button" class="btn btn-outline-secondary" [ngClass]="{'active': filterState == 'active'}" (click)="showActive()">Active</button>
-                    <button type="button" class="btn btn-outline-secondary" [ngClass]="{'active': filterState == 'inactive'}" (click)="showInActive()">In Active</button>
+                    <button type="button" class="btn btn-outline-secondary" [ngClass]="{'active': filterState == 'active'}" (click)="showActive()">Published</button>
+                    <button type="button" class="btn btn-outline-secondary" [ngClass]="{'active': filterState == 'inactive'}" (click)="showInActive()">Unpublished</button>
                     <div class="dropdown">
                       <button type="button" class="btn btn-outline-secondary dropdown-toggle" id="sortMenuButton"
                         data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Sort By</button>

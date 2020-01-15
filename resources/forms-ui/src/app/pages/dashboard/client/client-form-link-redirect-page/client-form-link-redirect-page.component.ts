@@ -27,8 +27,12 @@ export class ClientFormLinkRedirectPageComponent implements OnInit {
 
     this.clientService.findFormsByCode(form_code).then(
       form => {
+        console.log('got form');
         this.loading = false;
-        // sessionStorage.setItem('u_form', JSON.stringify(form));
+        // DON'T forget to remove the shared link else
+        // every login will redirect user to this form entry which
+        // isnt the desired functionality.
+        sessionStorage.removeItem('shared_link');
         this.router.navigateByUrl('/client/form_entry', { state: { form: form }});
       },
       err => {

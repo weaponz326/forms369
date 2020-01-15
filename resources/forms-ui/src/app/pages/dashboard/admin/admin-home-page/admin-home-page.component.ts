@@ -1,8 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { UserTypes } from 'src/app/enums/user-types.enum';
+import { AccountService } from 'src/app/services/account/account.service';
 import { AnalyticsService } from 'src/app/services/analytics/analytics.service';
 import { LocalStorageService } from 'src/app/services/storage/local-storage.service';
-import { AccountService } from 'src/app/services/account/account.service';
 
 @Component({
   selector: 'app-admin-home-page',
@@ -13,6 +14,7 @@ export class AdminHomePageComponent implements OnInit {
   loading: boolean;
   firstName: string;
   numTotalForms: string;
+  isBranchAdmin: boolean;
   numTotalBranches: string;
   numTotalAccounts: string;
   merchantIdentifier: number;
@@ -24,6 +26,7 @@ export class AdminHomePageComponent implements OnInit {
     private localStorage: LocalStorageService
   ) {
     this.initVars();
+    this.isBranchAdmin = this.localStorage.getUser().usertype == UserTypes.BranchAdmin ? true : false;
   }
 
   ngOnInit() {

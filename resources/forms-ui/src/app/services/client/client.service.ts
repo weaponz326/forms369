@@ -424,6 +424,41 @@ export class ClientService {
   }
 
   /**
+   * Uploads attachments for profile.
+   *
+   * @param {string} client_id
+   * @param {string} key
+   * @param {File} file
+   * @returns {Promise<any>}
+   * @memberof ClientService
+   */
+  uploadProfileAttachment(client_id: string, key: string, file: File): Promise<any> {
+    return new Promise((resolve, reject) => {
+      const url = this.endpointService.apiHost + 'api/v1/uploadProfileAttachments/' + client_id;
+      const form = new FormData();
+
+      form.set('key', key);
+      form.set('file', file);
+
+      this.http.post(url, form, { headers: this.endpointService.headers(true) }).subscribe(
+        res => {
+          const response = res as any;
+          if (_.toLower(response.message) == 'ok') {
+            resolve(true);
+          }
+          else {
+            resolve(false);
+          }
+        },
+        err => {
+          console.log('file upload error: ' + JSON.stringify(err));
+          reject(err);
+        }
+      );
+    });
+  }
+
+  /**
    * Returns a attachments for a form.
    *
    * @param {string} submission_code
@@ -433,6 +468,22 @@ export class ClientService {
   getFormAttachment(submission_code: string): Promise<any> {
     return new Promise((resolve, reject) => {
       const url = this.endpointService.apiHost + 'api/v1/getAttachments/' + submission_code;
+      this.http.get(url, { headers: this.endpointService.headers() }).subscribe(
+        res => {
+          const response = res as any;
+          console.log('response: ' + JSON.stringify(response));
+          resolve(response.attachments);
+        },
+        err => {
+          reject(err);
+        }
+      );
+    });
+  }
+
+  getProfileFormAttachment(user_id: string): Promise<any> {
+    return new Promise((resolve, reject) => {
+      const url = this.endpointService.apiHost + 'api/v1/getProfileAttachments/' + user_id;
       this.http.get(url, { headers: this.endpointService.headers() }).subscribe(
         res => {
           const response = res as any;

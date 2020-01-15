@@ -1,11 +1,11 @@
 import { Component, OnInit, ViewChild, TemplateRef } from '@angular/core';
 import * as _ from 'lodash';
 import { Router } from '@angular/router';
+import { UserTypes } from 'src/app/enums/user-types.enum';
 import { NgbModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
 import { FormsService } from 'src/app/services/forms/forms.service';
 import { ListViewService } from 'src/app/services/view/list-view.service';
 import { LocalStorageService } from 'src/app/services/storage/local-storage.service';
-import { UserTypes } from 'src/app/enums/user-types.enum';
 
 @Component({
   selector: 'app-admin-form-lists-page',
