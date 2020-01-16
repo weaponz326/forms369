@@ -52,9 +52,8 @@ export class ViewFormListsPageComponent implements OnInit {
     this.loadingModalRef.close();
   }
 
-  showAll() {
-    this.filterState = 'all';
-    this.formsList = this.allFormsList;
+  handleLoadMoreVisibility(list: Array<any>) {
+    _.isNull(list) || _.isUndefined(list) || _.isEmpty(list) || list.length < 15 ? this.hasMore = false : this.hasMore = true;
   }
 
   toggleViewMode(mode: string) {
@@ -100,14 +99,23 @@ export class ViewFormListsPageComponent implements OnInit {
     this.formsList = _.sortBy(this.formsList, (item) => item.merchant_name);
   }
 
+  showAll() {
+    this.filterState = 'all';
+    this.formsList = this.allFormsList;
+    const moreUrl = this.formService.nextPaginationUrl;
+    _.isNull(moreUrl) ? this.hasMore = false : this.hasMore = true;
+  }
+
   showActive() {
     this.filterState = 'active';
     this.formsList = _.filter(this.allFormsList, (form) =>  form.status == 1);
+    this.hasMore ? this.handleLoadMoreVisibility(this.formsList) : null;
   }
 
   showInActive() {
     this.filterState = 'inactive';
     this.formsList = _.filter(this.allFormsList, (form) =>  form.status == 0);
+    this.hasMore ? this.handleLoadMoreVisibility(this.formsList) : null;
   }
 
   edit(ev: Event, form: any) {
@@ -216,12 +224,11 @@ export class ViewFormListsPageComponent implements OnInit {
   }
 
   loadMore() {
-    this.loadingMore = true;
+    this.loadingMore = false;
+    this.hasMoreError = false;
     const moreUrl = this.formService.nextPaginationUrl;
     this.formService.getAllForms(moreUrl).then(
       res => {
-        this.loadingMore = false;
-        this.hasMoreError = false;
         const forms = res as any;
         this.hasMore = this.checkIfHasMore();
         _.forEach(forms, (form) => {

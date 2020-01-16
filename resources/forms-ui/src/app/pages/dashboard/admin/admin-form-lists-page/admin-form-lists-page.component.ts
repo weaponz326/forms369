@@ -57,9 +57,8 @@ export class AdminFormListsPageComponent implements OnInit {
     this.loadingModalRef.close();
   }
 
-  showAll() {
-    this.filterState = 'all';
-    this.formsList = this.allFormsList;
+  handleLoadMoreVisibility(list: Array<any>) {
+    _.isNull(list) || _.isUndefined(list) || _.isEmpty(list) || list.length < 15 ? this.hasMore = false : this.hasMore = true;
   }
 
   toggleViewMode(mode: string) {
@@ -98,14 +97,23 @@ export class AdminFormListsPageComponent implements OnInit {
     this.formsList = _.sortBy(this.formsList, (item) => item.created_at);
   }
 
+  showAll() {
+    this.filterState = 'all';
+    this.formsList = this.allFormsList;
+    const moreUrl = this.formService.nextPaginationUrl;
+    _.isNull(moreUrl) ? this.hasMore = false : this.hasMore = true;
+  }
+
   showActive() {
     this.filterState = 'active';
     this.formsList = _.filter(this.allFormsList, (form) =>  form.status == 1);
+    this.hasMore ? this.handleLoadMoreVisibility(this.formsList) : null;
   }
 
   showInActive() {
     this.filterState = 'inactive';
     this.formsList = _.filter(this.allFormsList, (form) =>  form.status == 0);
+    this.hasMore ? this.handleLoadMoreVisibility(this.formsList) : null;
   }
 
   openNewForm() {

@@ -45,6 +45,10 @@ export class ViewCompanyListsPageComponent implements OnInit {
     this.filterState = 'all';
   }
 
+  handleLoadMoreVisibility(list: Array<any>) {
+    _.isNull(list) || _.isUndefined(list) || _.isEmpty(list) || list.length <= 15 ? this.hasMore = false : this.hasMore = true;
+  }
+
   toggleViewMode(mode: string) {
     switch (mode) {
       case 'list':
@@ -84,16 +88,20 @@ export class ViewCompanyListsPageComponent implements OnInit {
   showAll() {
     this.filterState = 'all';
     this.companyList = this.allCompanyList;
+    const moreUrl = this.companyService.nextPaginationUrl;
+    _.isNull(moreUrl) ? this.hasMore = false : this.hasMore = true;
   }
 
   showActive() {
     this.filterState = 'active';
     this.companyList = _.filter(this.allCompanyList, (company) => company.status == 1);
+    this.hasMore ? this.handleLoadMoreVisibility(this.companyList) : null;
   }
 
   showInActive() {
     this.filterState = 'inactive';
     this.companyList = _.filter(this.allCompanyList, (company) => company.status == 0);
+    this.hasMore ? this.handleLoadMoreVisibility(this.companyList) : null;
   }
 
   openBranch(company: any) {
@@ -162,7 +170,6 @@ export class ViewCompanyListsPageComponent implements OnInit {
           company.logo = this.endpointService.storageHost + company.logo;
           this.companyList.push(company);
           this.allCompanyList = this.companyList;
-          // this.allCompanyList = _.reverse(this.companyList);
         });
       },
       err => {

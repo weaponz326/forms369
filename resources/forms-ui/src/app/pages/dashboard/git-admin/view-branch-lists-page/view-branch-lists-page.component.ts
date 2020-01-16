@@ -40,6 +40,10 @@ export class ViewBranchListsPageComponent implements OnInit {
     this.filterState = 'all';
   }
 
+  handleLoadMoreVisibility(list: Array<any>) {
+    _.isNull(list) || _.isUndefined(list) || _.isEmpty(list) || list.length <= 15 ? this.hasMore = false : this.hasMore = true;
+  }
+
   toggleViewMode(mode: string) {
     switch (mode) {
       case 'list':
@@ -86,16 +90,20 @@ export class ViewBranchListsPageComponent implements OnInit {
   showAll() {
     this.filterState = 'all';
     this.branchesList = this.allBranchesList;
+    const moreUrl = this.branchService.nextPaginationUrl;
+    _.isNull(moreUrl) ? this.hasMore = false : this.hasMore = true;
   }
 
   showActive() {
     this.filterState = 'active';
     this.branchesList = _.filter(this.allBranchesList, (branch) =>  branch.status == 1);
+    this.hasMore ? this.handleLoadMoreVisibility(this.branchesList) : null;
   }
 
   showInActive() {
     this.filterState = 'inactive';
     this.branchesList = _.filter(this.allBranchesList, (branch) =>  branch.status == 0);
+    this.hasMore ? this.handleLoadMoreVisibility(this.branchesList) : null;
   }
 
   openForms(id: string) {
