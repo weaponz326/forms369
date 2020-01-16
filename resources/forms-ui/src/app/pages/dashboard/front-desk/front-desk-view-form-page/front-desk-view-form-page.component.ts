@@ -118,6 +118,10 @@ export class FrontDeskViewFormPageComponent implements OnInit {
     }
   }
 
+  getFormData() {
+    return this.formInstance.userData;
+  }
+
   getFormAttachments(form_code: string) {
     this.loadingAttachments = true;
     this.clientService.getFormAttachment(form_code).then(
@@ -165,6 +169,12 @@ export class FrontDeskViewFormPageComponent implements OnInit {
     e.stopPropagation();
     this.documentUrl = this.endpointService.apiHost + 'storage/attachments/' + url;
     this.docDialogRef = this.modalService.open(this.viewDocDialog, { centered: true });
+  }
+
+  updateClientSubmittedDetails() {
+    // get json key which is not available on the client_submitted_details.
+
+    // update 
   }
 
   complete() {

@@ -297,20 +297,6 @@ export class ClientProfilePageComponent implements OnInit {
     });
   }
 
-  // uploadNormalAttachments(htmlInputFields: Array<HTMLInputElement>) {
-  //   console.log('doing upload');
-  //   if (htmlInputFields.length > 1) {
-  //     console.log('will do multiple uploads');
-  //     for (let i = 0; i < htmlInputFields.length; i++) {
-  //       this.uploadAttachmentFile(htmlInputFields[i].id, i);
-  //     }
-  //   }
-  //   else {
-  //     console.log('will do single upload');
-  //     this.uploadAttachmentFile(htmlInputFields[0].id);
-  //   }
-  // }
-
   uploadNormalAttachments(htmlInputField: HTMLInputElement, index: number): Promise<boolean> {
     return new Promise((resolve, reject) => {
       console.log('doing upload');
@@ -360,7 +346,9 @@ export class ClientProfilePageComponent implements OnInit {
       const fields_without_data = this.getExistingAttachments().fieldsWithoutData;
 
       if (fields_with_data.length != 0) {
+        console.log('have fields with data');
         if (fields_without_data.length != 0) {
+          console.log('have fields without data');
           _.forEach(fields_with_data, (field, i) => {
             with_data_count += 1;
             const prom = this.uploadNormalAttachments(field, i);
@@ -464,22 +452,6 @@ export class ClientProfilePageComponent implements OnInit {
         this.showUpdatedDialog(false);
       }
     );
-  }
-
-  updateUserProfile() {
-    // this.updateData();
-    // this.updateAttachments();
-
-    // setTimeout(() => {
-    //   if (this.taskRunner == 0 && this.isTaskSuccessful) {
-    //     this.updating = false;
-    //     this.showUpdatedDialog(true);
-    //   }
-    //   else {
-    //     this.updating = false;
-    //     this.showUpdatedDialog(false);
-    //   }
-    // }, 1000);
   }
 
   openModal(e: Event, url: string) {
