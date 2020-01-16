@@ -349,7 +349,7 @@ module.exports = "<!-- partial:partials/_navbar.html -->\n<nav class=\"navbar co
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<!-- git admin -->\n<nav *ngIf=\"isGitAdmin\" class=\"sidebar sidebar-offcanvas\" id=\"sidebar\">\n  <ul class=\"nav\">\n    <li class=\"nav-item\">\n      <a class=\"nav-link\" routerLink=\"/git_admin\">\n        <i class=\"mdi mdi-home menu-icon\"></i>\n        <span class=\"menu-title\">Home</span>\n      </a>\n    </li>\n    <li class=\"nav-item\">\n      <a class=\"nav-link\" routerLink=\"/git_admin/setup_form\">\n        <i class=\"mdi mdi-file-document-edit-outline menu-icon\"></i>\n        <span class=\"menu-title\">New Form</span>\n      </a>\n    </li>\n    <li class=\"nav-item\">\n      <a class=\"nav-link\" routerLink=\"/git_admin/lists/form\">\n        <i class=\"mdi mdi-file-document-box-outline menu-icon\"></i>\n        <span class=\"menu-title\">All Forms</span>\n      </a>\n    </li>\n    <li class=\"nav-item\">\n      <a class=\"nav-link\" data-toggle=\"collapse\" href=\"#code\" aria-expanded=\"false\" aria-controls=\"code\">\n        <i class=\"mdi mdi-lock-outline menu-icon\"></i>\n        <span class=\"menu-title\">Access Code</span>\n        <i class=\"menu-arrow\"></i>\n      </a>\n      <div class=\"collapse\" id=\"code\">\n        <ul class=\"nav flex-column sub-menu\">\n          <li class=\"nav-item\">\n            <a class=\"nav-link\" routerLink=\"/git_admin/create/access_code\">\n              <i class=\"mdi mdi-plus-circle-multiple-outline menu-icon\"></i>\n              <span class=\"menu-title\">Create New</span>\n            </a>\n          </li>\n          <li class=\"nav-item\">\n            <a class=\"nav-link\" routerLink=\"/git_admin/lists/access_code\">\n              <i class=\"mdi mdi-format-list-bulleted menu-icon\"></i>\n              <span class=\"menu-title\">View Code</span>\n            </a>\n          </li>\n        </ul>\n      </div>\n    </li>\n    <li class=\"nav-item\">\n      <a class=\"nav-link\" data-toggle=\"collapse\" href=\"#template\" aria-expanded=\"false\" aria-controls=\"template\">\n        <i class=\"mdi mdi-file-document-box-multiple-outline menu-icon\"></i>\n        <span class=\"menu-title\">Templates</span>\n        <i class=\"menu-arrow\"></i>\n      </a>\n      <div class=\"collapse\" id=\"template\">\n        <ul class=\"nav flex-column sub-menu\">\n          <li class=\"nav-item\">\n            <a class=\"nav-link\" routerLink=\"/templates/create\">\n              <i class=\"mdi mdi-plus-outline menu-icon\"></i>\n              <span class=\"menu-title\">Create Template</span>\n            </a>\n          </li>\n          <li class=\"nav-item\">\n            <a class=\"nav-link\" routerLink=\"/templates/list\">\n              <i class=\"mdi mdi-format-list-bulleted menu-icon\"></i>\n              <span class=\"menu-title\">All Templates</span>\n            </a>\n          </li>\n        </ul>\n      </div>\n    </li>\n    <li class=\"nav-item\">\n      <a class=\"nav-link\" data-toggle=\"collapse\" href=\"#section\" aria-expanded=\"false\" aria-controls=\"section\">\n        <i class=\"mdi mdi-file-check-outline menu-icon\"></i>\n        <span class=\"menu-title\">Form Section</span>\n        <i class=\"menu-arrow\"></i>\n      </a>\n      <div class=\"collapse\" id=\"section\">\n        <ul class=\"nav flex-column sub-menu\">\n          <li class=\"nav-item\">\n            <a class=\"nav-link\" routerLink=\"/git_admin/create/section\">\n              <i class=\"mdi mdi-plus menu-icon\"></i>\n              <span class=\"menu-title\">Create Section</span>\n            </a>\n          </li>\n          <li class=\"nav-item\">\n            <a class=\"nav-link\" routerLink=\"/git_admin/lists/section\">\n              <i class=\"mdi mdi-desktop-mac menu-icon\"></i>\n              <span class=\"menu-title\">View Section</span>\n            </a>\n          </li>\n        </ul>\n      </div>\n    </li>\n    <li class=\"nav-item\">\n      <a class=\"nav-link\" data-toggle=\"collapse\" href=\"#account\" aria-expanded=\"false\" aria-controls=\"account\">\n        <i class=\"mdi mdi-account-group-outline menu-icon\"></i>\n        <span class=\"menu-title\">Accounts</span>\n        <i class=\"menu-arrow\"></i>\n      </a>\n      <div class=\"collapse\" id=\"account\">\n        <ul class=\"nav flex-column sub-menu\">\n          <li class=\"nav-item\">\n            <a class=\"nav-link\" routerLink=\"/git_admin/create/user_account\">\n              <i class=\"mdi mdi-plus menu-icon\"></i>\n              <span class=\"menu-title\">Setup Account</span>\n            </a>\n          </li>\n          <li class=\"nav-item\">\n            <a class=\"nav-link\" routerLink=\"/git_admin/lists/front_desk\">\n              <i class=\"mdi mdi-desktop-mac menu-icon\"></i>\n              <span class=\"menu-title\">Front Desks</span>\n            </a>\n          </li>\n          <li class=\"nav-item\">\n            <a class=\"nav-link\" routerLink=\"/git_admin/lists/admin\">\n              <i class=\"mdi mdi-account-supervisor menu-icon\"></i>\n              <span class=\"menu-title\">GIT Admins</span>\n            </a>\n          </li>\n          <li class=\"nav-item\">\n            <a class=\"nav-link\" routerLink=\"/git_admin/lists/branch_admin\">\n              <i class=\"mdi mdi-leaf-maple menu-icon\"></i>\n              <span class=\"menu-title\">Branch Admins</span>\n            </a>\n          </li>\n          <li class=\"nav-item\">\n            <a class=\"nav-link\" routerLink=\"/git_admin/lists/company_admin\">\n              <i class=\"mdi mdi-lighthouse menu-icon\"></i>\n              <span class=\"menu-title\">Company Admins</span>\n            </a>\n          </li>\n          <li class=\"nav-item\">\n            <a class=\"nav-link\" routerLink=\"/git_admin/lists/branch_executive\">\n              <i class=\"mdi mdi-script-outline menu-icon\"></i>\n              <span class=\"menu-title\">Branch Super-Executives</span>\n            </a>\n          </li>\n          <li class=\"nav-item\">\n            <a class=\"nav-link\" routerLink=\"/git_admin/lists/super_executive\">\n              <i class=\"mdi mdi-view-dashboard-outline menu-icon\"></i>\n              <span class=\"menu-title\">Super Executives</span>\n            </a>\n          </li>\n        </ul>\n      </div>\n    </li>\n    <li class=\"nav-item\">\n      <a class=\"nav-link\" data-toggle=\"collapse\" href=\"#company\" aria-expanded=\"false\" aria-controls=\"company\">\n        <i class=\"mdi mdi-lighthouse menu-icon\"></i>\n        <span class=\"menu-title\">Company</span>\n        <i class=\"menu-arrow\"></i>\n      </a>\n      <div class=\"collapse\" id=\"company\">\n        <ul class=\"nav flex-column sub-menu\">\n          <li class=\"nav-item\">\n            <a class=\"nav-link\" routerLink=\"/git_admin/create/company\">\n              <i class=\"mdi mdi-plus-circle-multiple-outline menu-icon\"></i>\n              <span class=\"menu-title\">Create New</span>\n            </a>\n          </li>\n          <li class=\"nav-item\">\n            <a class=\"nav-link\" routerLink=\"/git_admin/lists/company\">\n              <i class=\"mdi mdi-format-list-bulleted-square menu-icon\"></i>\n              <span class=\"menu-title\">View Companies</span>\n            </a>\n          </li>\n        </ul>\n      </div>\n    </li>\n    <li class=\"nav-item\">\n      <a class=\"nav-link\" data-toggle=\"collapse\" href=\"#branches\" aria-expanded=\"false\" aria-controls=\"branches\">\n        <i class=\"mdi mdi-view-headline menu-icon\"></i>\n        <span class=\"menu-title\">Branches</span>\n        <i class=\"menu-arrow\"></i>\n      </a>\n      <div class=\"collapse\" id=\"branches\">\n        <ul class=\"nav flex-column sub-menu\">\n          <li class=\"nav-item\">\n            <a class=\"nav-link\" routerLink=\"/git_admin/create/branch\">\n              <i class=\"mdi mdi-plus-circle-multiple-outline menu-icon\"></i>\n              <span class=\"menu-title\">Create New</span>\n            </a>\n          </li>\n          <li class=\"nav-item\">\n            <a class=\"nav-link\" routerLink=\"/git_admin/lists/branch\">\n              <i class=\"mdi mdi-format-list-numbered menu-icon\"></i>\n              <span class=\"menu-title\">View Branches</span>\n            </a>\n          </li>\n        </ul>\n      </div>\n    </li>\n  </ul>\n</nav>\n<!-- git-admin -->\n\n<!-- comp admin -->\n<nav *ngIf=\"isAdmin || isBranchAdmin\" class=\"sidebar sidebar-offcanvas\" id=\"sidebar\">\n  <ul class=\"nav\">\n    <li class=\"nav-item\">\n      <a class=\"nav-link\" routerLink=\"/admin\">\n        <i class=\"mdi mdi-home menu-icon\"></i>\n        <span class=\"menu-title\">Home</span>\n      </a>\n    </li>\n    <li *ngIf=\"isAdmin\" class=\" nav-item\">\n      <a class=\"nav-link\" routerLink=\"/admin/create/form\">\n        <i class=\"mdi mdi-file-document-edit-outline menu-icon\"></i>\n        <span class=\"menu-title\">New Form</span>\n      </a>\n    </li>\n    <li class=\"nav-item\">\n      <a class=\"nav-link\" routerLink=\"/admin/lists/form\">\n        <i class=\"mdi mdi-file-document-box-outline menu-icon\"></i>\n        <span class=\"menu-title\">All Forms</span>\n      </a>\n    </li>\n    <li class=\"nav-item\">\n      <a class=\"nav-link\" routerLink=\"/templates/list\">\n        <i class=\"mdi mdi-format-list-bulleted menu-icon\"></i>\n        <span class=\"menu-title\">All Templates</span>\n      </a>\n    </li>\n    <li class=\"nav-item\">\n      <a class=\"nav-link\" data-toggle=\"collapse\" href=\"#account\" aria-expanded=\"false\" aria-controls=\"account\">\n        <i class=\"mdi mdi-account-group-outline menu-icon\"></i>\n        <span class=\"menu-title\">Accounts</span>\n        <i class=\"menu-arrow\"></i>\n      </a>\n      <div class=\"collapse\" id=\"account\">\n        <ul class=\"nav flex-column sub-menu\">\n          <li class=\"nav-item\">\n            <a class=\"nav-link\" routerLink=\"/admin/create/account\">\n              <i class=\"mdi mdi-plus menu-icon\"></i>\n              <span class=\"menu-title\">Setup Account</span>\n            </a>\n          </li>\n          <li class=\"nav-item\">\n            <a class=\"nav-link\" routerLink=\"/admin/lists/front_desk\">\n              <i class=\"mdi mdi-desktop-mac menu-icon\"></i>\n              <span class=\"menu-title\">Front Desks</span>\n            </a>\n          </li>\n          <li class=\"nav-item\">\n            <a class=\"nav-link\" routerLink=\"/admin/lists/branch_admin\">\n              <i class=\"mdi mdi-leaf-maple menu-icon\"></i>\n              <span class=\"menu-title\">Branch Admins</span>\n            </a>\n          </li>\n          <li class=\"nav-item\">\n            <a class=\"nav-link\" routerLink=\"/admin/lists/company_admin\">\n              <i class=\"mdi mdi-lighthouse menu-icon\"></i>\n              <span class=\"menu-title\">Company Admins</span>\n            </a>\n          </li>\n          <li class=\"nav-item\">\n            <a class=\"nav-link\" routerLink=\"/admin/lists/branch_executive\">\n              <i class=\"mdi mdi-script-outline menu-icon\"></i>\n              <span class=\"menu-title\">Branch Super-Executives</span>\n            </a>\n          </li>\n          <li class=\"nav-item\">\n            <a class=\"nav-link\" routerLink=\"/admin/lists/super_executive\">\n              <i class=\"mdi mdi-view-dashboard-outline menu-icon\"></i>\n              <span class=\"menu-title\">Super Executives</span>\n            </a>\n          </li>\n        </ul>\n      </div>\n    </li>\n    <li class=\"nav-item\">\n      <a class=\"nav-link\" routerLink=\"/admin/lists/branch\">\n        <i class=\"mdi mdi-view-headline menu-icon\"></i>\n        <span class=\"menu-title\">View Branches</span>\n      </a>\n    </li>\n  </ul>\n</nav>\n<!-- /.comp admin -->\n\n<!-- client -->\n<nav *ngIf=\"isClient\" class=\"sidebar sidebar-offcanvas\" id=\"sidebar\">\n  <ul class=\"nav\">\n    <li class=\"nav-item\">\n      <a class=\"nav-link\" routerLink=\"/client\">\n        <i class=\"mdi mdi-home menu-icon\"></i>\n        <span class=\"menu-title\">Home</span>\n      </a>\n    </li>\n    <li class=\"nav-item\">\n      <a class=\"nav-link\" routerLink=\"/client/form_merchant\">\n        <i class=\"mdi mdi-plus menu-icon\"></i>\n        <span class=\"menu-title\">Pick A Form</span>\n      </a>\n    </li>\n    <li class=\"nav-item\">\n      <a class=\"nav-link\" routerLink=\"/client/profile\">\n        <i class=\"mdi mdi-account-card-details-outline menu-icon\"></i>\n        <span class=\"menu-title\">My Profile</span>\n      </a>\n    </li>\n    <li class=\"nav-item\">\n      <a class=\"nav-link\" routerLink=\"/client/forms_filled\">\n        <i class=\"mdi mdi-rocket menu-icon\"></i>\n        <span class=\"menu-title\">My History</span>\n      </a>\n    </li>\n    <li class=\"nav-item\">\n      <a class=\"nav-link\" routerLink=\"/client/unsent_forms\">\n        <i class=\"mdi mdi-file-document-box-multiple-outline menu-icon\"></i>\n        <span class=\"menu-title\">Submitted Forms</span>\n      </a>\n    </li>\n  </ul>\n</nav>\n<!-- /.client sidemenu -->\n\n<!-- front-desk -->\n<nav *ngIf=\"isFrontDesk\" class=\"sidebar sidebar-offcanvas\" id=\"sidebar\">\n  <ul class=\"nav\">\n    <li class=\"nav-item\">\n      <a class=\"nav-link\" routerLink=\"/front_desk\">\n        <i class=\"mdi mdi-home menu-icon\"></i>\n        <span class=\"menu-title\">Home</span>\n      </a>\n    </li>\n    <li class=\"nav-item\">\n      <a class=\"nav-link\" routerLink=\"/front_desk/lists/submitted\">\n        <i class=\"mdi mdi-file-document-edit-outline menu-icon\"></i>\n        <span class=\"menu-title\">Submitted Forms</span>\n      </a>\n    </li>\n    <li class=\"nav-item\">\n      <a class=\"nav-link\" routerLink=\"/front_desk/lists/processed\">\n        <i class=\"mdi mdi-file-check-outline menu-icon\"></i>\n        <span class=\"menu-title\">Processed Forms</span>\n      </a>\n    </li>\n    <li class=\"nav-item\">\n      <a class=\"nav-link\" routerLink=\"/front_desk/lists/processing\">\n        <i class=\"mdi mdi-timer menu-icon\"></i>\n        <span class=\"menu-title\">Forms In-Processing</span>\n      </a>\n    </li>\n    <li class=\"nav-item\">\n      <a class=\"nav-link\" routerLink=\"/front_desk/lists/client_forms\">\n        <i class=\"mdi mdi-database-check menu-icon\"></i>\n        <span class=\"menu-title\">Forms Data</span>\n      </a>\n    </li>\n  </ul>\n</nav>\n<!-- /.front-desk -->\n\n<!-- executive -->\n<nav *ngIf=\"isExecutive || isBranchSuperExec\" class=\"sidebar sidebar-offcanvas\" id=\"sidebar\">\n  <ul class=\"nav\">\n    <li class=\"nav-item\">\n      <a class=\"nav-link\" routerLink=\"/executive\">\n        <i class=\"mdi mdi-home menu-icon\"></i>\n        <span class=\"menu-title\">Home</span>\n      </a>\n    </li>\n    <li class=\"nav-item\">\n      <a class=\"nav-link\" routerLink=\"/executive/forms\">\n        <i class=\"mdi mdi-file-document-box-multiple-outline menu-icon\"></i>\n        <span class=\"menu-title\">Forms</span>\n      </a>\n    </li>\n    <li class=\"nav-item\">\n      <a class=\"nav-link\" routerLink=\"/executive/branches\">\n        <i class=\"mdi mdi-office-building menu-icon\"></i>\n        <span class=\"menu-title\">Branches</span>\n      </a>\n    </li>\n    <li class=\"nav-item\">\n      <a class=\"nav-link\" routerLink=\"/executive/processed\">\n        <i class=\"mdi mdi-check-all menu-icon\"></i>\n        <span class=\"menu-title\">Processed Forms</span>\n      </a>\n    </li>\n    <li class=\"nav-item\">\n      <a class=\"nav-link\" routerLink=\"/executive/submitted\">\n        <i class=\"mdi mdi-file-check-outline menu-icon\"></i>\n        <span class=\"menu-title\">Submitted Forms</span>\n      </a>\n    </li>\n    <li class=\"nav-item\">\n      <a class=\"nav-link\" routerLink=\"/executive/processing\">\n        <i class=\"mdi mdi-timer menu-icon\"></i>\n        <span class=\"menu-title\">Forms In-Process</span>\n      </a>\n    </li>\n    <li class=\"nav-item\">\n      <a class=\"nav-link\" routerLink=\"/executive/client_forms\">\n        <i class=\"mdi mdi-database-check menu-icon\"></i>\n        <span class=\"menu-title\">Form Data</span>\n      </a>\n    </li>\n  </ul>\n</nav>\n<!-- /.executive -->"
+module.exports = "<!-- git admin -->\n<nav *ngIf=\"isGitAdmin\" class=\"sidebar sidebar-offcanvas\" id=\"sidebar\">\n  <ul class=\"nav\">\n    <li class=\"nav-item\">\n      <a class=\"nav-link\" routerLink=\"/git_admin\">\n        <i class=\"mdi mdi-home menu-icon\"></i>\n        <span class=\"menu-title\">Home</span>\n      </a>\n    </li>\n    <li class=\"nav-item\">\n      <a class=\"nav-link\" routerLink=\"/git_admin/setup_form\">\n        <i class=\"mdi mdi-file-document-edit-outline menu-icon\"></i>\n        <span class=\"menu-title\">New Form</span>\n      </a>\n    </li>\n    <li class=\"nav-item\">\n      <a class=\"nav-link\" routerLink=\"/git_admin/lists/form\">\n        <i class=\"mdi mdi-file-document-box-outline menu-icon\"></i>\n        <span class=\"menu-title\">All Forms</span>\n      </a>\n    </li>\n    <li class=\"nav-item\">\n      <a class=\"nav-link\" data-toggle=\"collapse\" href=\"#code\" aria-expanded=\"false\" aria-controls=\"code\">\n        <i class=\"mdi mdi-lock-outline menu-icon\"></i>\n        <span class=\"menu-title\">Access Code</span>\n        <i class=\"menu-arrow\"></i>\n      </a>\n      <div class=\"collapse\" id=\"code\">\n        <ul class=\"nav flex-column sub-menu\">\n          <li class=\"nav-item\">\n            <a class=\"nav-link\" routerLink=\"/git_admin/create/access_code\">\n              <i class=\"mdi mdi-plus-circle-multiple-outline menu-icon\"></i>\n              <span class=\"menu-title\">Create New</span>\n            </a>\n          </li>\n          <li class=\"nav-item\">\n            <a class=\"nav-link\" routerLink=\"/git_admin/lists/access_code\">\n              <i class=\"mdi mdi-format-list-bulleted menu-icon\"></i>\n              <span class=\"menu-title\">View Code</span>\n            </a>\n          </li>\n        </ul>\n      </div>\n    </li>\n    <li class=\"nav-item\">\n      <a class=\"nav-link\" data-toggle=\"collapse\" href=\"#template\" aria-expanded=\"false\" aria-controls=\"template\">\n        <i class=\"mdi mdi-file-document-box-multiple-outline menu-icon\"></i>\n        <span class=\"menu-title\">Templates</span>\n        <i class=\"menu-arrow\"></i>\n      </a>\n      <div class=\"collapse\" id=\"template\">\n        <ul class=\"nav flex-column sub-menu\">\n          <li class=\"nav-item\">\n            <a class=\"nav-link\" routerLink=\"/templates/create\">\n              <i class=\"mdi mdi-plus-outline menu-icon\"></i>\n              <span class=\"menu-title\">Create Template</span>\n            </a>\n          </li>\n          <li class=\"nav-item\">\n            <a class=\"nav-link\" routerLink=\"/templates/list\">\n              <i class=\"mdi mdi-format-list-bulleted menu-icon\"></i>\n              <span class=\"menu-title\">All Templates</span>\n            </a>\n          </li>\n        </ul>\n      </div>\n    </li>\n    <li class=\"nav-item\">\n      <a class=\"nav-link\" data-toggle=\"collapse\" href=\"#section\" aria-expanded=\"false\" aria-controls=\"section\">\n        <i class=\"mdi mdi-file-check-outline menu-icon\"></i>\n        <span class=\"menu-title\">Form Section</span>\n        <i class=\"menu-arrow\"></i>\n      </a>\n      <div class=\"collapse\" id=\"section\">\n        <ul class=\"nav flex-column sub-menu\">\n          <li class=\"nav-item\">\n            <a class=\"nav-link\" routerLink=\"/git_admin/create/section\">\n              <i class=\"mdi mdi-plus menu-icon\"></i>\n              <span class=\"menu-title\">Create Section</span>\n            </a>\n          </li>\n          <li class=\"nav-item\">\n            <a class=\"nav-link\" routerLink=\"/git_admin/lists/section\">\n              <i class=\"mdi mdi-desktop-mac menu-icon\"></i>\n              <span class=\"menu-title\">View Section</span>\n            </a>\n          </li>\n        </ul>\n      </div>\n    </li>\n    <li class=\"nav-item\">\n      <a class=\"nav-link\" data-toggle=\"collapse\" href=\"#account\" aria-expanded=\"false\" aria-controls=\"account\">\n        <i class=\"mdi mdi-account-group-outline menu-icon\"></i>\n        <span class=\"menu-title\">Accounts</span>\n        <i class=\"menu-arrow\"></i>\n      </a>\n      <div class=\"collapse\" id=\"account\">\n        <ul class=\"nav flex-column sub-menu\">\n          <li class=\"nav-item\">\n            <a class=\"nav-link\" routerLink=\"/git_admin/create/user_account\">\n              <i class=\"mdi mdi-plus menu-icon\"></i>\n              <span class=\"menu-title\">Setup Account</span>\n            </a>\n          </li>\n          <li class=\"nav-item\">\n            <a class=\"nav-link\" routerLink=\"/git_admin/lists/front_desk\">\n              <i class=\"mdi mdi-desktop-mac menu-icon\"></i>\n              <span class=\"menu-title\">Front Desks</span>\n            </a>\n          </li>\n          <li class=\"nav-item\">\n            <a class=\"nav-link\" routerLink=\"/git_admin/lists/admin\">\n              <i class=\"mdi mdi-account-supervisor menu-icon\"></i>\n              <span class=\"menu-title\">GIT Admins</span>\n            </a>\n          </li>\n          <li class=\"nav-item\">\n            <a class=\"nav-link\" routerLink=\"/git_admin/lists/branch_admin\">\n              <i class=\"mdi mdi-leaf-maple menu-icon\"></i>\n              <span class=\"menu-title\">Branch Admins</span>\n            </a>\n          </li>\n          <li class=\"nav-item\">\n            <a class=\"nav-link\" routerLink=\"/git_admin/lists/company_admin\">\n              <i class=\"mdi mdi-lighthouse menu-icon\"></i>\n              <span class=\"menu-title\">Company Admins</span>\n            </a>\n          </li>\n          <li class=\"nav-item\">\n            <a class=\"nav-link\" routerLink=\"/git_admin/lists/branch_executive\">\n              <i class=\"mdi mdi-script-outline menu-icon\"></i>\n              <span class=\"menu-title\">Branch Super-Executives</span>\n            </a>\n          </li>\n          <li class=\"nav-item\">\n            <a class=\"nav-link\" routerLink=\"/git_admin/lists/super_executive\">\n              <i class=\"mdi mdi-view-dashboard-outline menu-icon\"></i>\n              <span class=\"menu-title\">Super Executives</span>\n            </a>\n          </li>\n        </ul>\n      </div>\n    </li>\n    <li class=\"nav-item\">\n      <a class=\"nav-link\" data-toggle=\"collapse\" href=\"#company\" aria-expanded=\"false\" aria-controls=\"company\">\n        <i class=\"mdi mdi-lighthouse menu-icon\"></i>\n        <span class=\"menu-title\">Company</span>\n        <i class=\"menu-arrow\"></i>\n      </a>\n      <div class=\"collapse\" id=\"company\">\n        <ul class=\"nav flex-column sub-menu\">\n          <li class=\"nav-item\">\n            <a class=\"nav-link\" routerLink=\"/git_admin/create/company\">\n              <i class=\"mdi mdi-plus-circle-multiple-outline menu-icon\"></i>\n              <span class=\"menu-title\">Create New</span>\n            </a>\n          </li>\n          <li class=\"nav-item\">\n            <a class=\"nav-link\" routerLink=\"/git_admin/lists/company\">\n              <i class=\"mdi mdi-format-list-bulleted-square menu-icon\"></i>\n              <span class=\"menu-title\">View Companies</span>\n            </a>\n          </li>\n        </ul>\n      </div>\n    </li>\n    <li class=\"nav-item\">\n      <a class=\"nav-link\" data-toggle=\"collapse\" href=\"#branches\" aria-expanded=\"false\" aria-controls=\"branches\">\n        <i class=\"mdi mdi-view-headline menu-icon\"></i>\n        <span class=\"menu-title\">Branches</span>\n        <i class=\"menu-arrow\"></i>\n      </a>\n      <div class=\"collapse\" id=\"branches\">\n        <ul class=\"nav flex-column sub-menu\">\n          <li class=\"nav-item\">\n            <a class=\"nav-link\" routerLink=\"/git_admin/create/branch\">\n              <i class=\"mdi mdi-plus-circle-multiple-outline menu-icon\"></i>\n              <span class=\"menu-title\">Create New</span>\n            </a>\n          </li>\n          <li class=\"nav-item\">\n            <a class=\"nav-link\" routerLink=\"/git_admin/lists/branch\">\n              <i class=\"mdi mdi-format-list-numbered menu-icon\"></i>\n              <span class=\"menu-title\">View Branches</span>\n            </a>\n          </li>\n        </ul>\n      </div>\n    </li>\n  </ul>\n</nav>\n<!-- git-admin -->\n\n<!-- comp admin -->\n<nav *ngIf=\"isAdmin || isBranchAdmin\" class=\"sidebar sidebar-offcanvas\" id=\"sidebar\">\n  <ul class=\"nav\">\n    <li class=\"nav-item\">\n      <a class=\"nav-link\" routerLink=\"/admin\">\n        <i class=\"mdi mdi-home menu-icon\"></i>\n        <span class=\"menu-title\">Home</span>\n      </a>\n    </li>\n    <li *ngIf=\"isAdmin\" class=\" nav-item\">\n      <a class=\"nav-link\" routerLink=\"/admin/create/form\">\n        <i class=\"mdi mdi-file-document-edit-outline menu-icon\"></i>\n        <span class=\"menu-title\">New Form</span>\n      </a>\n    </li>\n    <li class=\"nav-item\">\n      <a class=\"nav-link\" routerLink=\"/admin/lists/form\">\n        <i class=\"mdi mdi-file-document-box-outline menu-icon\"></i>\n        <span class=\"menu-title\">All Forms</span>\n      </a>\n    </li>\n    <li class=\"nav-item\">\n      <a *ngIf=\"!isBranchAdmin\" class=\"nav-link\" routerLink=\"/templates/list\">\n        <i class=\"mdi mdi-format-list-bulleted menu-icon\"></i>\n        <span class=\"menu-title\">All Templates</span>\n      </a>\n    </li>\n    <li class=\"nav-item\">\n      <a class=\"nav-link\" data-toggle=\"collapse\" href=\"#account\" aria-expanded=\"false\" aria-controls=\"account\">\n        <i class=\"mdi mdi-account-group-outline menu-icon\"></i>\n        <span class=\"menu-title\">Accounts</span>\n        <i class=\"menu-arrow\"></i>\n      </a>\n      <div class=\"collapse\" id=\"account\">\n        <ul class=\"nav flex-column sub-menu\">\n          <li class=\"nav-item\">\n            <a class=\"nav-link\" routerLink=\"/admin/create/account\">\n              <i class=\"mdi mdi-plus menu-icon\"></i>\n              <span class=\"menu-title\">Setup Account</span>\n            </a>\n          </li>\n          <li class=\"nav-item\">\n            <a class=\"nav-link\" routerLink=\"/admin/lists/front_desk\">\n              <i class=\"mdi mdi-desktop-mac menu-icon\"></i>\n              <span class=\"menu-title\">Front Desks</span>\n            </a>\n          </li>\n          <li class=\"nav-item\">\n            <a class=\"nav-link\" routerLink=\"/admin/lists/branch_admin\">\n              <i class=\"mdi mdi-leaf-maple menu-icon\"></i>\n              <span class=\"menu-title\">Branch Admins</span>\n            </a>\n          </li>\n          <li class=\"nav-item\">\n            <a class=\"nav-link\" routerLink=\"/admin/lists/company_admin\">\n              <i class=\"mdi mdi-lighthouse menu-icon\"></i>\n              <span class=\"menu-title\">Company Admins</span>\n            </a>\n          </li>\n          <li class=\"nav-item\">\n            <a class=\"nav-link\" routerLink=\"/admin/lists/branch_executive\">\n              <i class=\"mdi mdi-script-outline menu-icon\"></i>\n              <span class=\"menu-title\">Branch Super-Executives</span>\n            </a>\n          </li>\n          <li class=\"nav-item\">\n            <a class=\"nav-link\" routerLink=\"/admin/lists/super_executive\">\n              <i class=\"mdi mdi-view-dashboard-outline menu-icon\"></i>\n              <span class=\"menu-title\">Super Executives</span>\n            </a>\n          </li>\n        </ul>\n      </div>\n    </li>\n    <li class=\"nav-item\">\n      <a class=\"nav-link\" routerLink=\"/admin/lists/branch\">\n        <i class=\"mdi mdi-view-headline menu-icon\"></i>\n        <span class=\"menu-title\">View Branches</span>\n      </a>\n    </li>\n  </ul>\n</nav>\n<!-- /.comp admin -->\n\n<!-- client -->\n<nav *ngIf=\"isClient\" class=\"sidebar sidebar-offcanvas\" id=\"sidebar\">\n  <ul class=\"nav\">\n    <li class=\"nav-item\">\n      <a class=\"nav-link\" routerLink=\"/client\">\n        <i class=\"mdi mdi-home menu-icon\"></i>\n        <span class=\"menu-title\">Home</span>\n      </a>\n    </li>\n    <li class=\"nav-item\">\n      <a class=\"nav-link\" routerLink=\"/client/form_merchant\">\n        <i class=\"mdi mdi-plus menu-icon\"></i>\n        <span class=\"menu-title\">Pick A Form</span>\n      </a>\n    </li>\n    <li class=\"nav-item\">\n      <a class=\"nav-link\" routerLink=\"/client/profile\">\n        <i class=\"mdi mdi-account-card-details-outline menu-icon\"></i>\n        <span class=\"menu-title\">My Profile</span>\n      </a>\n    </li>\n    <li class=\"nav-item\">\n      <a class=\"nav-link\" routerLink=\"/client/forms_filled\">\n        <i class=\"mdi mdi-rocket menu-icon\"></i>\n        <span class=\"menu-title\">My History</span>\n      </a>\n    </li>\n    <!-- <li class=\"nav-item\">\n      <a class=\"nav-link\" routerLink=\"/client/unsent_forms\">\n        <i class=\"mdi mdi-file-document-box-multiple-outline menu-icon\"></i>\n        <span class=\"menu-title\">Submitted Forms</span>\n      </a>\n    </li> -->\n  </ul>\n</nav>\n<!-- /.client sidemenu -->\n\n<!-- front-desk -->\n<nav *ngIf=\"isFrontDesk\" class=\"sidebar sidebar-offcanvas\" id=\"sidebar\">\n  <ul class=\"nav\">\n    <li class=\"nav-item\">\n      <a class=\"nav-link\" routerLink=\"/front_desk\">\n        <i class=\"mdi mdi-home menu-icon\"></i>\n        <span class=\"menu-title\">Home</span>\n      </a>\n    </li>\n    <li class=\"nav-item\">\n      <a class=\"nav-link\" routerLink=\"/front_desk/lists/submitted\">\n        <i class=\"mdi mdi-file-document-edit-outline menu-icon\"></i>\n        <span class=\"menu-title\">Submitted Forms</span>\n      </a>\n    </li>\n    <li class=\"nav-item\">\n      <a class=\"nav-link\" routerLink=\"/front_desk/lists/processed\">\n        <i class=\"mdi mdi-file-check-outline menu-icon\"></i>\n        <span class=\"menu-title\">Processed Forms</span>\n      </a>\n    </li>\n    <li class=\"nav-item\">\n      <a class=\"nav-link\" routerLink=\"/front_desk/lists/processing\">\n        <i class=\"mdi mdi-timer menu-icon\"></i>\n        <span class=\"menu-title\">Forms In-Processing</span>\n      </a>\n    </li>\n    <li class=\"nav-item\">\n      <a class=\"nav-link\" routerLink=\"/front_desk/lists/client_forms\">\n        <i class=\"mdi mdi-database-check menu-icon\"></i>\n        <span class=\"menu-title\">Forms Data</span>\n      </a>\n    </li>\n  </ul>\n</nav>\n<!-- /.front-desk -->\n\n<!-- executive -->\n<nav *ngIf=\"isExecutive || isBranchSuperExec\" class=\"sidebar sidebar-offcanvas\" id=\"sidebar\">\n  <ul class=\"nav\">\n    <li class=\"nav-item\">\n      <a class=\"nav-link\" routerLink=\"/executive\">\n        <i class=\"mdi mdi-home menu-icon\"></i>\n        <span class=\"menu-title\">Home</span>\n      </a>\n    </li>\n    <li class=\"nav-item\">\n      <a class=\"nav-link\" routerLink=\"/executive/forms\">\n        <i class=\"mdi mdi-file-document-box-multiple-outline menu-icon\"></i>\n        <span class=\"menu-title\">Forms</span>\n      </a>\n    </li>\n    <li class=\"nav-item\">\n      <a class=\"nav-link\" routerLink=\"/executive/branches\">\n        <i class=\"mdi mdi-office-building menu-icon\"></i>\n        <span class=\"menu-title\">Branches</span>\n      </a>\n    </li>\n    <li class=\"nav-item\">\n      <a class=\"nav-link\" routerLink=\"/executive/processed\">\n        <i class=\"mdi mdi-check-all menu-icon\"></i>\n        <span class=\"menu-title\">Processed Forms</span>\n      </a>\n    </li>\n    <li class=\"nav-item\">\n      <a class=\"nav-link\" routerLink=\"/executive/submitted\">\n        <i class=\"mdi mdi-file-check-outline menu-icon\"></i>\n        <span class=\"menu-title\">Submitted Forms</span>\n      </a>\n    </li>\n    <li class=\"nav-item\">\n      <a class=\"nav-link\" routerLink=\"/executive/processing\">\n        <i class=\"mdi mdi-timer menu-icon\"></i>\n        <span class=\"menu-title\">Forms In-Process</span>\n      </a>\n    </li>\n    <li class=\"nav-item\">\n      <a class=\"nav-link\" routerLink=\"/executive/client_forms\">\n        <i class=\"mdi mdi-database-check menu-icon\"></i>\n        <span class=\"menu-title\">Form Data</span>\n      </a>\n    </li>\n  </ul>\n</nav>\n<!-- /.executive -->"
 
 /***/ }),
 
@@ -459,7 +459,7 @@ module.exports = "<div class=\"container-scroller\">\n  <app-navigation-bar></ap
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<div class=\"container-scroller\">\n  <app-navigation-bar></app-navigation-bar>\n  <div class=\"container-fluid page-body-wrapper\">\n    <app-side-bar></app-side-bar>\n    <div class=\"main-panel\">\n      <div class=\"content-wrapper\">\n        <div class=\"row\">\n          <div class=\"col-md-12 grid-margin\">\n            <div class=\"d-flex justify-content-between flex-wrap\">\n              <div class=\"d-flex align-items-end flex-wrap\">\n                <div class=\"mr-md-3 mr-xl-5\">\n                  <h2>All Forms</h2>\n                  <p class=\"mb-md-0\">Your administrative dashboard.</p>\n                </div>\n                <div class=\"d-flex\">\n                  <i class=\"mdi mdi-home text-muted hover-cursor\"></i>\n                  <p class=\"text-muted mb-0 hover-cursor\">&nbsp;/&nbsp;Home&nbsp;/&nbsp;</p>\n                  <p class=\"text-primary mb-0 hover-cursor\">View Forms</p>\n                </div>\n              </div>\n              <div class=\"d-flex justify-content-between align-items-end flex-wrap\">\n                <button *ngIf=\"!isBranchAdmin\" type=\"button\" class=\"btn btn-light bg-white btn-icon mr-3 mt-2 mt-xl-0\"\n                  (click)=\"openNewForm()\">\n                  <i class=\"mdi mdi-plus text-muted\"></i>\n                </button>\n                <button type=\"button\" class=\"btn btn-light bg-white btn-icon mr-3 mt-2 mt-xl-0\" (click)=\"toggleViewMode('list')\">\n                  <i class=\"mdi mdi-view-list text-muted\"></i>\n                </button>\n                <button type=\"button\" class=\"btn btn-light bg-white btn-icon mr-3 mt-2 mt-xl-0\" (click)=\"toggleViewMode('grid')\">\n                  <i class=\"mdi mdi-view-grid text-muted\"></i>\n                </button>\n              </div>\n            </div>\n          </div>\n        </div>\n\n        <div *ngIf=\"loading\" class=\"row m-5\">\n          <div class=\"col-md-12 m-5\">\n            <div class=\"d-flex justify-content-center\">\n              <div class=\"spinner-border m-5\" style=\"width: 5rem; height: 5rem;\" role=\"status\">\n                <span class=\"sr-only\">Loading...</span>\n              </div>\n            </div>\n          </div>\n        </div>\n\n        <div *ngIf=\"hasNoData\" class=\"row\">\n          <div class=\"col-lg-12 grid-margin stretch-card\">\n            <div class=\"card text-center pt-5 pb-5\">\n              <div class=\"card-body mt-5 mb-5\">\n                <h4 class=\"card-title\">No Data Found</h4>\n                <p class=\"card-description\">\n                  No forms found.\n                </p>\n                <div class=\"text-lg-center mt-5 mb-5\">\n                  <div class=\"card-text\">\n                    <i class=\"mdi mdi-file-document-edit-outline\" style=\"font-size: 8em;\"></i>\n                  </div>\n                  <div class=\"card-text\">\n                    <h3>No Available Forms</h3>\n                    <p class=\"text-muted\">There are no created forms yet!</p>\n                  </div>\n                </div>\n              </div>\n            </div>\n          </div>\n        </div>\n\n        <div *ngIf=\"hasError\" class=\"row\">\n          <div class=\"col-lg-12 grid-margin stretch-card\">\n            <div class=\"card text-center pt-5 pb-5\">\n              <div class=\"card-body mt-5 mb-5\">\n                <h4 class=\"card-title\">Error Ocuured</h4>\n                <p class=\"card-description\">\n                  Ooops! Something went wrong!\n                </p>\n                <div class=\"text-lg-center mt-5 mb-5\">\n                  <div class=\"card-text\">\n                    <i class=\"mdi mdi-close-network-outline\" style=\"font-size: 8em;\"></i>\n                  </div>\n                  <div class=\"card-text\">\n                    <h3>We couldn't get your forms</h3>\n                    <p class=\"text-muted\">You may not have internet connection or our servers maybe down.</p>\n                    <button class=\"btn btn-primary\" type=\"button\" (click)=\"retry()\">Retry</button>\n                  </div>\n                </div>\n              </div>\n            </div>\n          </div>\n        </div>\n\n        <div *ngIf=\"!loading\" class=\"row\">\n          <div class=\"col-lg-12 grid-margin stretch-card\">\n            <div class=\"card\">\n              <div class=\"card-body\">\n                <div class=\"text-lg-center mt-3 mb-5\">\n                  <div class=\"btn-group\" role=\"group\" aria-label=\"Sort By\">\n                    <button type=\"button\" class=\"btn btn-outline-secondary\" [ngClass]=\"{'active': filterState == 'all'}\" (click)=\"showAll()\">All</button>\n                    <button type=\"button\" class=\"btn btn-outline-secondary\" [ngClass]=\"{'active': filterState == 'active'}\" (click)=\"showActive()\">Active</button>\n                    <button type=\"button\" class=\"btn btn-outline-secondary\" [ngClass]=\"{'active': filterState == 'inactive'}\" (click)=\"showInActive()\">In Active</button>\n                    <div class=\"dropdown\">\n                      <button type=\"button\" class=\"btn btn-outline-secondary dropdown-toggle\" id=\"sortMenuButton\"\n                        data-toggle=\"dropdown\" aria-haspopup=\"true\" aria-expanded=\"false\">Sort By</button>\n                      <div class=\"dropdown-menu\" aria-labelledby=\"sortMenuButton\">\n                        <button type=\"button\" class=\"dropdown-item\" (click)=\"sort('form')\">Form Name</button>\n                        <button type=\"button\" class=\"dropdown-item\" (click)=\"sort('created')\">Date Created</button>\n                      </div>\n                    </div>\n                  </div>\n                </div>\n\n                <div *ngIf=\"viewMode == 'grid'\" class=\"row\">\n                  <div class=\"col-md-4 grid-margin stretch-card\" *ngFor=\"let form of formsList; let i=index\">\n                    <div class=\"card hover-cursor animated fadeInDown fast\" (click)=\"view($event, form)\">\n                      <div class=\"card-body\">\n                        <p class=\"card-title\">{{ form.merchant_name }}</p>\n                        <div class=\"card-text\">\n                          <h1 class=\"display-4 mb-4\">{{ form.name }}</h1>\n                          <div class=\"btn-group\" role=\"group\" aria-label=\"Options\">\n                            <button type=\"button\" class=\"btn btn-outline-secondary\" (click)=\"edit($event, form)\">\n                              <i class=\"mdi mdi-pencil-outline\"></i>\n                              Edit\n                            </button>\n                            <button type=\"button\" class=\"btn btn-outline-secondary\" (click)=\"view($event, form)\">\n                              <i class=\"mdi mdi-pulse\"></i>\n                              View\n                            </button>\n                            <button type=\"button\" class=\"btn btn-outline-secondary\" (click)=\"delete($event, form.form_code, i)\">\n                              <i class=\"mdi mdi-delete-outline\"></i>\n                              Delete\n                            </button>\n                          </div>\n                        </div>\n                      </div>\n                    </div>\n                  </div>\n                </div>\n\n                <div *ngIf=\"viewMode == 'list'\" class=\"row\">\n                  <div class=\"list-group\" style=\"width: 100%;\">\n                    <div class=\"list-group-item hover-cursor list-group-item-action animated fadeInDown\"\n                       *ngFor=\"let form of formsList; let i=index\">\n                      <div class=\"row\" (click)=\"view($event, form)\">\n                        <div class=\"col-8 col-md-7 col-sm-6\"> \n                          <span class=\"card-title mt-2\">{{ form.merchant_name }}</span>\n                          <h1 class=\"display-4 mb-1 mt-2\">{{ form.name }}</h1>\n                        </div>\n                        <div class=\"col-4 col-md-5 col-sm-6\">\n                          <div class=\"btn-group mt-2\" role=\"group\" aria-label=\"Basic example\">\n                            <button type=\"button\" class=\"btn btn-outline-secondary\" (click)=\"edit($event, form)\">\n                              <i class=\"mdi mdi-pencil-outline\"></i>\n                              Edit\n                            </button>\n                            <button type=\"button\" class=\"btn btn-outline-secondary\" (click)=\"view($event, form)\">\n                              <i class=\"mdi mdi-pulse\"></i>\n                              View\n                            </button>\n                            <button type=\"button\" class=\"btn btn-outline-secondary\" (click)=\"delete($event, form.form_code, i)\">\n                              <i class=\"mdi mdi-delete-outline\"></i>\n                              Delete\n                            </button>\n                          </div>\n                        </div>\n                      </div>\n                    </div>\n                  </div>\n                </div>\n\n                <div *ngIf=\"loadingMore\" class=\"row m-md-2\">\n                  <div class=\"col-md-12 col-sm-12 m-md-2\">\n                    <div class=\"d-flex justify-content-center\">\n                      <div class=\"spinner-border m-2\" style=\"width: 2rem; height: 2rem;\" role=\"status\">\n                        <span class=\"sr-only\">Loading...</span>\n                      </div>\n                    </div>\n                  </div>\n                </div>\n\n                <div *ngIf=\"hasMoreError\" class=\"row m-md-2\">\n                  <div class=\"col-md-8 col-sm-12 offset-md-2\">\n                    <div class=\"alert alert-danger\" role=\"alert\">\n                      <h4 class=\"alert-heading\">Connection Failed!</h4>\n                      <p>\n                        Oops!! Couldn't get you the rest of the data. Please make sure you have an active internet\n                        connection.\n                        Maybe, our servers may be down.\n                      </p>\n                      <hr>\n                      <p class=\"mb-0\">\n                        We are really sorry for this inconvenience. Please click on the load more button again.\n                      </p>\n                    </div>\n                  </div>\n                </div>\n\n                <div *ngIf=\"hasMore\" class=\"row\">\n                  <div class=\"col-md-4 col-sm-6 offset-sm-3 offset-lg-4\">\n                    <div class=\"text-center\">\n                      <button type=\"button\" class=\"btn btn-secondary btn-rounded btn-fw\" (click)=\"loadMore()\">Load\n                        More</button>\n                    </div>\n                  </div>\n                </div>\n              </div>\n            </div>\n          </div>\n        </div>\n      </div>\n    </div>\n  </div>\n</div>\n\n<ng-template #loader let-modal>\n  <div class=\"modal-body\">\n    <div class=\"d-flex justify-content-center\">\n      <div class=\"spinner-border m-5\" style=\"width: 4rem; height: 4rem;\" role=\"status\">\n        <span class=\"sr-only\">Loading...</span>\n      </div>\n    </div>\n    <p class=\"text-center\">Please wait...</p>\n  </div>\n</ng-template>\n\n<ng-template #confirm let-modal>\n  <div class=\"modal-header\">\n    <h4 class=\"modal-title\" id=\"modal-title\">Delete Form ?</h4>\n    <button type=\"button\" class=\"close\" aria-describedby=\"modal-title\" (click)=\"modal.dismiss('Cross click')\">\n      <span aria-hidden=\"true\">&times;</span>\n    </button>\n  </div>\n  <div class=\"modal-body\">\n    <p><strong>Are you sure you want to delete <span class=\"text-primary\">this form</span> ?</strong></p>\n    <p>All information associated with this form will be permanently deleted.\n      <span class=\"text-danger\">This operation can not be undone.</span>\n    </p>\n  </div>\n  <div class=\"modal-footer\">\n    <button type=\"button\" class=\"btn btn-outline-secondary\" (click)=\"modal.dismiss('cancel')\">Cancel</button>\n    <button type=\"button\" class=\"btn btn-danger\" (click)=\"modal.close('delete')\">Delete</button>\n  </div>\n</ng-template>"
+module.exports = "<div class=\"container-scroller\">\n  <app-navigation-bar></app-navigation-bar>\n  <div class=\"container-fluid page-body-wrapper\">\n    <app-side-bar></app-side-bar>\n    <div class=\"main-panel\">\n      <div class=\"content-wrapper\">\n        <div class=\"row\">\n          <div class=\"col-md-12 grid-margin\">\n            <div class=\"d-flex justify-content-between flex-wrap\">\n              <div class=\"d-flex align-items-end flex-wrap\">\n                <div class=\"mr-md-3 mr-xl-5\">\n                  <h2>All Forms</h2>\n                  <p class=\"mb-md-0\">Your administrative dashboard.</p>\n                </div>\n                <div class=\"d-flex\">\n                  <i class=\"mdi mdi-home text-muted hover-cursor\"></i>\n                  <p class=\"text-muted mb-0 hover-cursor\">&nbsp;/&nbsp;Home&nbsp;/&nbsp;</p>\n                  <p class=\"text-primary mb-0 hover-cursor\">View Forms</p>\n                </div>\n              </div>\n              <div class=\"d-flex justify-content-between align-items-end flex-wrap\">\n                <button *ngIf=\"!isBranchAdmin\" type=\"button\" class=\"btn btn-light bg-white btn-icon mr-3 mt-2 mt-xl-0\"\n                  (click)=\"openNewForm()\">\n                  <i class=\"mdi mdi-plus text-muted\"></i>\n                </button>\n                <button type=\"button\" class=\"btn btn-light bg-white btn-icon mr-3 mt-2 mt-xl-0\" (click)=\"toggleViewMode('list')\">\n                  <i class=\"mdi mdi-view-list text-muted\"></i>\n                </button>\n                <button type=\"button\" class=\"btn btn-light bg-white btn-icon mr-3 mt-2 mt-xl-0\" (click)=\"toggleViewMode('grid')\">\n                  <i class=\"mdi mdi-view-grid text-muted\"></i>\n                </button>\n              </div>\n            </div>\n          </div>\n        </div>\n\n        <div *ngIf=\"loading\" class=\"row m-5\">\n          <div class=\"col-md-12 m-5\">\n            <div class=\"d-flex justify-content-center\">\n              <div class=\"spinner-border m-5\" style=\"width: 5rem; height: 5rem;\" role=\"status\">\n                <span class=\"sr-only\">Loading...</span>\n              </div>\n            </div>\n          </div>\n        </div>\n\n        <div *ngIf=\"hasNoData\" class=\"row\">\n          <div class=\"col-lg-12 grid-margin stretch-card\">\n            <div class=\"card text-center pt-5 pb-5\">\n              <div class=\"card-body mt-5 mb-5\">\n                <h4 class=\"card-title\">No Data Found</h4>\n                <p class=\"card-description\">\n                  No forms found.\n                </p>\n                <div class=\"text-lg-center mt-5 mb-5\">\n                  <div class=\"card-text\">\n                    <i class=\"mdi mdi-file-document-edit-outline\" style=\"font-size: 8em;\"></i>\n                  </div>\n                  <div class=\"card-text\">\n                    <h3>No Available Forms</h3>\n                    <p class=\"text-muted\">There are no created forms yet!</p>\n                  </div>\n                </div>\n              </div>\n            </div>\n          </div>\n        </div>\n\n        <div *ngIf=\"hasError\" class=\"row\">\n          <div class=\"col-lg-12 grid-margin stretch-card\">\n            <div class=\"card text-center pt-5 pb-5\">\n              <div class=\"card-body mt-5 mb-5\">\n                <h4 class=\"card-title\">Error Ocuured</h4>\n                <p class=\"card-description\">\n                  Ooops! Something went wrong!\n                </p>\n                <div class=\"text-lg-center mt-5 mb-5\">\n                  <div class=\"card-text\">\n                    <i class=\"mdi mdi-close-network-outline\" style=\"font-size: 8em;\"></i>\n                  </div>\n                  <div class=\"card-text\">\n                    <h3>We couldn't get your forms</h3>\n                    <p class=\"text-muted\">You may not have internet connection or our servers maybe down.</p>\n                    <button class=\"btn btn-primary\" type=\"button\" (click)=\"retry()\">Retry</button>\n                  </div>\n                </div>\n              </div>\n            </div>\n          </div>\n        </div>\n\n        <div *ngIf=\"!loading\" class=\"row\">\n          <div class=\"col-lg-12 grid-margin stretch-card\">\n            <div class=\"card\">\n              <div class=\"card-body\">\n                <div class=\"text-lg-center mt-3 mb-5\">\n                  <div class=\"btn-group\" role=\"group\" aria-label=\"Sort By\">\n                    <button type=\"button\" class=\"btn btn-outline-secondary\" [ngClass]=\"{'active': filterState == 'all'}\" (click)=\"showAll()\">All</button>\n                    <button type=\"button\" class=\"btn btn-outline-secondary\" [ngClass]=\"{'active': filterState == 'active'}\" (click)=\"showActive()\">Published</button>\n                    <button type=\"button\" class=\"btn btn-outline-secondary\" [ngClass]=\"{'active': filterState == 'inactive'}\" (click)=\"showInActive()\">UnPublished</button>\n                    <div class=\"dropdown\">\n                      <button type=\"button\" class=\"btn btn-outline-secondary dropdown-toggle\" id=\"sortMenuButton\"\n                        data-toggle=\"dropdown\" aria-haspopup=\"true\" aria-expanded=\"false\">Sort By</button>\n                      <div class=\"dropdown-menu\" aria-labelledby=\"sortMenuButton\">\n                        <button type=\"button\" class=\"dropdown-item\" (click)=\"sort('form')\">Form Name</button>\n                        <button type=\"button\" class=\"dropdown-item\" (click)=\"sort('created')\">Date Created</button>\n                      </div>\n                    </div>\n                  </div>\n                </div>\n\n                <div *ngIf=\"viewMode == 'grid'\" class=\"row\">\n                  <div class=\"col-md-4 grid-margin stretch-card\" *ngFor=\"let form of formsList; let i=index\">\n                    <div class=\"card hover-cursor animated fadeInDown fast\" (click)=\"view($event, form)\">\n                      <div class=\"card-body\">\n                        <p class=\"card-title\">{{ form.merchant_name }}</p>\n                        <div class=\"card-text\">\n                          <h1 class=\"display-4 mb-4\">{{ form.name }}</h1>\n                          <div class=\"btn-group\" role=\"group\" aria-label=\"Options\">\n                            <button *ngIf=\"!isBranchAdmin\" type=\"button\" class=\"btn btn-outline-secondary\" (click)=\"edit($event, form)\">\n                              <i class=\"mdi mdi-pencil-outline\"></i>\n                              Edit\n                            </button>\n                            <button type=\"button\" class=\"btn btn-outline-secondary\" (click)=\"view($event, form)\">\n                              <i class=\"mdi mdi-pulse\"></i>\n                              View\n                            </button>\n                            <button type=\"button\" class=\"btn btn-outline-secondary\" (click)=\"delete($event, form.form_code, i)\">\n                              <i class=\"mdi mdi-delete-outline\"></i>\n                              Delete\n                            </button>\n                          </div>\n                        </div>\n                      </div>\n                    </div>\n                  </div>\n                </div>\n\n                <div *ngIf=\"viewMode == 'list'\" class=\"row\">\n                  <div class=\"list-group\" style=\"width: 100%;\">\n                    <div class=\"list-group-item hover-cursor list-group-item-action animated fadeInDown\"\n                       *ngFor=\"let form of formsList; let i=index\">\n                      <div class=\"row\" (click)=\"view($event, form)\">\n                        <div class=\"col-8 col-md-7 col-sm-6\"> \n                          <span class=\"card-title mt-2\">{{ form.merchant_name }}</span>\n                          <h1 class=\"display-4 mb-1 mt-2\">{{ form.name }}</h1>\n                        </div>\n                        <div class=\"col-4 col-md-5 col-sm-6\">\n                          <div class=\"btn-group mt-2\" role=\"group\" aria-label=\"Basic example\">\n                            <button *ngIf=\"!isBranchAdmin\" type=\"button\" class=\"btn btn-outline-secondary\"\n                              (click)=\"edit($event, form)\">\n                              <i class=\"mdi mdi-pencil-outline\"></i>\n                              Edit\n                            </button>\n                            <button type=\"button\" class=\"btn btn-outline-secondary\" (click)=\"view($event, form)\">\n                              <i class=\"mdi mdi-pulse\"></i>\n                              View\n                            </button>\n                            <button type=\"button\" class=\"btn btn-outline-secondary\" (click)=\"delete($event, form.form_code, i)\">\n                              <i class=\"mdi mdi-delete-outline\"></i>\n                              Delete\n                            </button>\n                          </div>\n                        </div>\n                      </div>\n                    </div>\n                  </div>\n                </div>\n\n                <div *ngIf=\"loadingMore\" class=\"row m-md-2\">\n                  <div class=\"col-md-12 col-sm-12 m-md-2\">\n                    <div class=\"d-flex justify-content-center\">\n                      <div class=\"spinner-border m-2\" style=\"width: 2rem; height: 2rem;\" role=\"status\">\n                        <span class=\"sr-only\">Loading...</span>\n                      </div>\n                    </div>\n                  </div>\n                </div>\n\n                <div *ngIf=\"hasMoreError\" class=\"row m-md-2\">\n                  <div class=\"col-md-8 col-sm-12 offset-md-2\">\n                    <div class=\"alert alert-danger\" role=\"alert\">\n                      <h4 class=\"alert-heading\">Connection Failed!</h4>\n                      <p>\n                        Oops!! Couldn't get you the rest of the data. Please make sure you have an active internet\n                        connection.\n                        Maybe, our servers may be down.\n                      </p>\n                      <hr>\n                      <p class=\"mb-0\">\n                        We are really sorry for this inconvenience. Please click on the load more button again.\n                      </p>\n                    </div>\n                  </div>\n                </div>\n\n                <div *ngIf=\"hasMore\" class=\"row\">\n                  <div class=\"col-md-4 col-sm-6 offset-sm-3 offset-lg-4\">\n                    <div class=\"text-center\">\n                      <button type=\"button\" class=\"btn btn-secondary btn-rounded btn-fw\" (click)=\"loadMore()\">Load\n                        More</button>\n                    </div>\n                  </div>\n                </div>\n              </div>\n            </div>\n          </div>\n        </div>\n      </div>\n    </div>\n  </div>\n</div>\n\n<ng-template #loader let-modal>\n  <div class=\"modal-body\">\n    <div class=\"d-flex justify-content-center\">\n      <div class=\"spinner-border m-5\" style=\"width: 4rem; height: 4rem;\" role=\"status\">\n        <span class=\"sr-only\">Loading...</span>\n      </div>\n    </div>\n    <p class=\"text-center\">Please wait...</p>\n  </div>\n</ng-template>\n\n<ng-template #confirm let-modal>\n  <div class=\"modal-header\">\n    <h4 class=\"modal-title\" id=\"modal-title\">Delete Form ?</h4>\n    <button type=\"button\" class=\"close\" aria-describedby=\"modal-title\" (click)=\"modal.dismiss('Cross click')\">\n      <span aria-hidden=\"true\">&times;</span>\n    </button>\n  </div>\n  <div class=\"modal-body\">\n    <p><strong>Are you sure you want to delete <span class=\"text-primary\">this form</span> ?</strong></p>\n    <p>All information associated with this form will be permanently deleted.\n      <span class=\"text-danger\">This operation can not be undone.</span>\n    </p>\n  </div>\n  <div class=\"modal-footer\">\n    <button type=\"button\" class=\"btn btn-outline-secondary\" (click)=\"modal.dismiss('cancel')\">Cancel</button>\n    <button type=\"button\" class=\"btn btn-danger\" (click)=\"modal.close('delete')\">Delete</button>\n  </div>\n</ng-template>"
 
 /***/ }),
 
@@ -481,7 +481,7 @@ module.exports = "<div class=\"container-scroller\">\n  <app-navigation-bar></ap
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<div class=\"container-scroller\">\n  <app-navigation-bar></app-navigation-bar>\n  <div class=\"container-fluid page-body-wrapper\">\n    <app-side-bar></app-side-bar>\n    <div class=\"main-panel\">\n      <div class=\"content-wrapper\">\n        <div class=\"row\">\n          <div class=\"col-md-12 grid-margin\">\n            <div class=\"d-flex justify-content-between flex-wrap\">\n              <div class=\"d-flex align-items-end flex-wrap\">\n                <div class=\"mr-md-3 mr-xl-5\">\n                  <h2>Welcome back, {{ firstName }}</h2>\n                  <p class=\"mb-md-0\">Your administrative dashboard.</p>\n                </div>\n                <div class=\"d-flex\">\n                </div>\n              </div>\n              <div class=\"d-flex justify-content-between align-items-end flex-wrap\">\n                <a class=\"btn btn-primary mt-2 mt-xl-0\" routerLink=\"/admin/create/form\">Create A Form</a>\n              </div>\n            </div>\n          </div>\n        </div>\n        <div class=\"row\">\n          <div class=\"col-md-4 grid-margin stretch-card\">\n            <div class=\"card hover-cursor hover-primary\" (click)=\"openForms()\">\n              <div class=\"card-body\">\n                <p class=\"card-title\">Total No. Forms</p>\n                <div class=\"card-text\">\n                  <h1 style=\"font-size: 5em;\">{{ numTotalForms }}</h1>\n                  <p class=\"text-muted\">A list of all available forms</p>\n                </div>\n              </div>\n            </div>\n          </div>\n          <div class=\"col-md-4 grid-margin stretch-card\">\n            <div class=\"card hover-cursor hover-primary\" (click)=\"openBranches()\">\n              <div class=\"card-body\">\n                <p class=\"card-title\">Total No. Branches</p>\n                <div class=\"card-text\">\n                  <h1 style=\"font-size: 5em;\">{{ numTotalBranches }}</h1>\n                  <p class=\"text-muted\">A list of all branches</p>\n                </div>\n              </div>\n            </div>\n          </div>\n          <div class=\"col-md-4 grid-margin stretch-card\">\n            <div class=\"card hover-cursor hover-primary\" (click)=\"openAccounts()\">\n              <div class=\"card-body\">\n                <p class=\"card-title\">Total No. Accounts</p>\n                <div class=\"card-text\">\n                  <h1 style=\"font-size: 5em;\">{{ numTotalAccounts }}</h1>\n                  <p class=\"text-muted\">A list of all user accounts</p>\n                </div>\n              </div>\n            </div>\n          </div>\n        </div>\n      </div>\n      <!-- content -->\n      <!--footer -->\n      <app-footer-bar></app-footer-bar>\n      <!-- partial -->\n    </div>\n    <!-- main ends -->\n  </div>\n</div>\n"
+module.exports = "<div class=\"container-scroller\">\n  <app-navigation-bar></app-navigation-bar>\n  <div class=\"container-fluid page-body-wrapper\">\n    <app-side-bar></app-side-bar>\n    <div class=\"main-panel\">\n      <div class=\"content-wrapper\">\n        <div class=\"row\">\n          <div class=\"col-md-12 grid-margin\">\n            <div class=\"d-flex justify-content-between flex-wrap\">\n              <div class=\"d-flex align-items-end flex-wrap\">\n                <div class=\"mr-md-3 mr-xl-5\">\n                  <h2>Welcome back, {{ firstName }}</h2>\n                  <p class=\"mb-md-0\">Your administrative dashboard.</p>\n                </div>\n                <div class=\"d-flex\">\n                </div>\n              </div>\n              <div *ngIf=\"!isBranchAdmin\" class=\"d-flex justify-content-between align-items-end flex-wrap\">\n                <a class=\"btn btn-primary mt-2 mt-xl-0\" routerLink=\"/admin/create/form\">Create A Form</a>\n              </div>\n            </div>\n          </div>\n        </div>\n        <div class=\"row\">\n          <div class=\"col-md-4 grid-margin stretch-card\">\n            <div class=\"card hover-cursor hover-primary\" (click)=\"openForms()\">\n              <div class=\"card-body\">\n                <p class=\"card-title\">Total No. Forms</p>\n                <div class=\"card-text\">\n                  <h1 style=\"font-size: 5em;\">{{ numTotalForms }}</h1>\n                  <p class=\"text-muted\">A list of all available forms</p>\n                </div>\n              </div>\n            </div>\n          </div>\n          <div class=\"col-md-4 grid-margin stretch-card\">\n            <div class=\"card hover-cursor hover-primary\" (click)=\"openBranches()\">\n              <div class=\"card-body\">\n                <p class=\"card-title\">Total No. Branches</p>\n                <div class=\"card-text\">\n                  <h1 style=\"font-size: 5em;\">{{ numTotalBranches }}</h1>\n                  <p class=\"text-muted\">A list of all branches</p>\n                </div>\n              </div>\n            </div>\n          </div>\n          <div class=\"col-md-4 grid-margin stretch-card\">\n            <div class=\"card hover-cursor hover-primary\" (click)=\"openAccounts()\">\n              <div class=\"card-body\">\n                <p class=\"card-title\">Total No. Accounts</p>\n                <div class=\"card-text\">\n                  <h1 style=\"font-size: 5em;\">{{ numTotalAccounts }}</h1>\n                  <p class=\"text-muted\">A list of all user accounts</p>\n                </div>\n              </div>\n            </div>\n          </div>\n        </div>\n      </div>\n      <!-- content -->\n      <!--footer -->\n      <app-footer-bar></app-footer-bar>\n      <!-- partial -->\n    </div>\n    <!-- main ends -->\n  </div>\n</div>\n"
 
 /***/ }),
 
@@ -613,7 +613,7 @@ module.exports = "<div class=\"container-scroller\">\n  <app-navigation-bar></ap
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<div class=\"container-scroller\">\n  <app-navigation-bar></app-navigation-bar>\n  <div class=\"container-fluid page-body-wrapper\">\n    <app-side-bar></app-side-bar>\n    <div class=\"main-panel\">\n      <div class=\"content-wrapper\">\n        <div class=\"row\">\n          <div class=\"col-md-12 grid-margin\">\n            <div class=\"d-flex justify-content-between flex-wrap\">\n              <div class=\"d-flex align-items-end flex-wrap\">\n                <div class=\"mr-md-3 mr-xl-5\">\n                  <h2>{{ form.form_name || form.name }}</h2>\n                </div>\n                <div class=\"d-flex\">\n                </div>\n              </div>\n              <div class=\"d-flex justify-content-between align-items-end flex-wrap\">\n              </div>\n            </div>\n          </div>\n        </div>\n        <div [hidden]=\"created\" class=\"row\">\n          <div class=\"col-md-8 offset-md-2 grid-margin stretch-card\">\n            <div class=\"card\">\n              <div class=\"card-body\">\n                <p class=\"card-title\">{{ form.form_name || form.name }}</p>\n                <p class=\"text-muted\">All forms with * are required and shouldn't be left out</p>\n                <div class=\"card-text pt-5\">\n                  <form class=\"forms-sample\">\n                    <div class=\"form-builder-container\">\n                      <div id=\"form-render\"></div>\n                    </div>\n\n                    <div *ngIf=\"loadingAttachments\" class=\"row m-md-2\">\n                      <div class=\"col-md-12 col-sm-12 m-md-2\">\n                        <div class=\"d-flex justify-content-center\">\n                          <div class=\"spinner-border m-2\" style=\"width: 2rem; height: 2rem;\" role=\"status\">\n                            <span class=\"sr-only\">Loading...</span>\n                          </div>\n                        </div>\n                      </div>\n                    </div>\n\n                    <div class=\"attachments-section\" *ngIf=\"!loadingAttachments && showAttachments\">\n                      <div class=\"card mb-4\">\n                        <div class=\"card-body\">\n                        <h5 class=\"card-title\">Form Attachments / Documents</h5>\n                          <h6 class=\"card-subtitle mb-2 text-muted\">Below are attachments you've uploaded for this form</h6>\n                          <div class=\"row\" *ngFor=\"let file of existingAttachments\">\n                            <div class=\"col-11\" style=\"padding-right: 8px;\">\n                              <ol class=\"files-list\">\n                                <li class=\"file-item\">\n                                  <i class=\"mdi mdi-paperclip menu-icon\"></i>\n                                  <a class=\"alert-link file-link\" (click)=\"openModal($event, file.url)\">{{ file.url }}</a>\n                                </li>\n                              </ol>\n                            </div>\n                            <div class=\"col-1\" style=\"padding-right: 3px; padding-left: 4px; margin-top: 7px;\">\n                              <button class=\"btn btn-primary btn-icon\" (click)=\"download(file.url)\">\n                                <i class=\"mdi mdi-download-outline\"></i>\n                              </button>\n                            </div>\n                          </div>\n                        </div>\n                      </div>\n                    </div>\n\n                    <div class=\"buttons-list\">\n                      <button *ngIf=\"loading\" class=\"btn btn-primary btn-lg mr-2\" type=\"button\" disabled>\n                        <span class=\"spinner-border spinner-border-sm\" role=\"status\" aria-hidden=\"true\"></span>\n                        <span class=\"sr-only\">Please wait...</span>\n                      </button>\n                      <button *ngIf=\"!loading\" type=\"submit\" class=\"btn btn-primary btn-lg mr-2\" (click)=\"submit()\">Submit</button>\n                      <button type=\"button\" class=\"btn btn-light btn-lg\" (click)=\"cancel()\">Cancel</button>\n                    </div>\n                  </form>\n                </div>\n              </div>\n            </div>\n          </div>\n        </div>\n\n        <div *ngIf=\"created\" class=\"row\">\n          <div class=\"col-md-12 grid-margin\">\n            <div class=\"card text-center\">\n              <div class=\"card-body\">\n                <p class=\"card-title\">Form Completed Successfully</p>\n                <p class=\"text-muted\"></p>\n                <div class=\"card-text\">\n                  <i class=\"mdi mdi-shield-check-outline\" style=\"font-size: 12em;\"></i>\n                  <p class=\"text-muted\">\n                    Below is your generated code.\n                    Send this code to any {{ form.merchant_name }} branch to be processed.\n                  </p>\n                  <div class=\"code\">{{ formGenCode }}</div>\n                  <button class=\"btn btn-primary mr-2 hover-cursor\" type=\"button\" (click)=\"copy()\">\n                    <i class=\"mdi mdi-content-copy\" style=\"font-size: 20px;\"></i>\n                    <span class=\"sr-only\">Please wait...</span>\n                  </button>\n                  <button class=\"btn btn-primary mr-2 hover-cursor\" type=\"button\" (click)=\"ok()\">Ok</button>\n                </div>\n              </div>\n            </div>\n          </div>\n        </div>\n      </div>\n      <!-- content -->\n      <!-- footer -->\n      <app-footer-bar></app-footer-bar>\n      <!-- partial -->\n    </div>\n    <!-- main ends -->\n  </div>\n</div>\n\n<ng-template #confirm let-modal>\n  <div class=\"modal-header\">\n    <h4 class=\"modal-title\" id=\"modal-title\">Confirm Action</h4>\n    <button type=\"button\" class=\"close\" aria-describedby=\"modal-title\" (click)=\"modal.dismiss('Cross click')\">\n      <span aria-hidden=\"true\">&times;</span>\n    </button>\n  </div>\n  <div class=\"modal-body\">\n    <p><strong>Are you sure you want to <span class=\"text-primary\">submit this form</span> ?</strong></p>\n  </div>\n  <div class=\"modal-footer\">\n    <button type=\"button\" class=\"btn btn-outline-secondary\" (click)=\"modal.dismiss('no')\">No</button>\n    <button type=\"button\" class=\"btn btn-primary\" (click)=\"modal.close('yes')\">Yes</button>\n  </div>\n</ng-template>\n\n<ng-template #viewImgAttachment let-modal>\n  <div class=\"modal-header\">\n    <h5 class=\"modal-title\">Attachment File</h5>\n    <button type=\"button\" class=\"close\" aria-describedby=\"modal-title\" (click)=\"modal.dismiss('close')\">\n      <span aria-hidden=\"true\">&times;</span>\n    </button>\n  </div>\n  <div class=\"modal-body\">\n    <img [src]=\"imgUrl\" style=\"width: 100%;\">\n  </div>\n  <div class=\"modal-footer\">\n    <button type=\"button\" class=\"btn btn-secondary\" (click)=\"modal.close('no')\">Close</button>\n  </div>\n</ng-template>\n\n<ng-template #viewDocAttachment let-modal>\n  <div class=\"modal-header\">\n    <h5 class=\"modal-title\">Attachment File</h5>\n    <button type=\"button\" class=\"close\" aria-describedby=\"modal-title\" (click)=\"modal.dismiss('close')\">\n      <span aria-hidden=\"true\">&times;</span>\n    </button>\n  </div>\n  <div class=\"modal-body\">\n    <p>This is a document and cannot be viewed. Please download</p>\n  </div>\n  <div class=\"modal-footer\">\n    <button type=\"button\" class=\"btn btn-secondary\" (click)=\"modal.close('no')\">Close</button>\n    <button type=\"button\" class=\"btn btn-primary\" (click)=\"downloadDoc(documentUrl)\">Download</button>\n  </div>\n</ng-template>"
+module.exports = "<div class=\"container-scroller\">\n  <app-navigation-bar></app-navigation-bar>\n  <div class=\"container-fluid page-body-wrapper\">\n    <app-side-bar></app-side-bar>\n    <div class=\"main-panel\">\n      <div class=\"content-wrapper\">\n        <div class=\"row\">\n          <div class=\"col-md-12 grid-margin\">\n            <div class=\"d-flex justify-content-between flex-wrap\">\n              <div class=\"d-flex align-items-end flex-wrap\">\n                <div class=\"mr-md-3 mr-xl-5\">\n                  <h2>{{ form.form_name || form.name }}</h2>\n                </div>\n                <div class=\"d-flex\">\n                </div>\n              </div>\n              <div class=\"d-flex justify-content-between align-items-end flex-wrap\">\n              </div>\n            </div>\n          </div>\n        </div>\n        <div [hidden]=\"created\" class=\"row\">\n          <div class=\"col-md-8 offset-md-2 grid-margin stretch-card\">\n            <div class=\"card\">\n              <div class=\"card-body\">\n                <p class=\"card-title\">{{ form.form_name || form.name }}</p>\n                <p class=\"text-muted\">All forms with * are required and shouldn't be left out</p>\n                <div class=\"card-text pt-5\">\n                  <form class=\"forms-sample\">\n                    <div class=\"form-builder-container\">\n                      <div id=\"form-render\"></div>\n                    </div>\n\n                    <div *ngIf=\"loadingAttachments\" class=\"row m-md-2\">\n                      <div class=\"col-md-12 col-sm-12 m-md-2\">\n                        <div class=\"d-flex justify-content-center\">\n                          <div class=\"spinner-border m-2\" style=\"width: 2rem; height: 2rem;\" role=\"status\">\n                            <span class=\"sr-only\">Loading...</span>\n                          </div>\n                        </div>\n                      </div>\n                    </div>\n\n                    <div class=\"attachments-section\" *ngIf=\"!loadingAttachments && showAttachments\">\n                      <div class=\"card mb-4\">\n                        <div class=\"card-body\">\n                        <h5 class=\"card-title\">Form Attachments / Documents</h5>\n                          <h6 class=\"card-subtitle mb-2 text-muted\">Below are attachments you've uploaded for this form</h6>\n                          <div class=\"row\" *ngFor=\"let file of existingAttachments\">\n                            <div class=\"col-11\" style=\"padding-right: 8px;\">\n                              <ol class=\"files-list\">\n                                <li class=\"file-item\">\n                                  <i class=\"mdi mdi-paperclip menu-icon\"></i>\n                                  <a class=\"alert-link file-link\" (click)=\"openModal($event, file.url)\">{{ file.url }}</a>\n                                </li>\n                              </ol>\n                            </div>\n                            <div class=\"col-1\" style=\"padding-right: 3px; padding-left: 4px; margin-top: 7px;\">\n                              <button class=\"btn btn-primary btn-icon\" (click)=\"download(file.url)\">\n                                <i class=\"mdi mdi-download-outline\"></i>\n                              </button>\n                            </div>\n                          </div>\n                        </div>\n                      </div>\n                    </div>\n\n                    <div class=\"buttons-list\">\n                      <button *ngIf=\"loading\" class=\"btn btn-primary btn-lg mr-2\" type=\"button\" disabled>\n                        <span class=\"spinner-border spinner-border-sm\" role=\"status\" aria-hidden=\"true\"></span>\n                        <span class=\"sr-only\">Please wait...</span>\n                      </button>\n                      <button *ngIf=\"!loading\" type=\"submit\" class=\"btn btn-primary btn-lg mr-2\" (click)=\"submit()\">Submit</button>\n                      <button type=\"button\" class=\"btn btn-light btn-lg\" (click)=\"cancel()\">Cancel</button>\n                    </div>\n                  </form>\n                </div>\n              </div>\n            </div>\n          </div>\n        </div>\n\n        <div *ngIf=\"created\" class=\"row\">\n          <div class=\"col-md-12 grid-margin\">\n            <div class=\"card text-center\">\n              <div class=\"card-body\">\n                <p class=\"card-title\">Form Completed Successfully</p>\n                <p class=\"text-muted\"></p>\n                <div class=\"card-text\">\n                  <i class=\"mdi mdi-shield-check-outline\" style=\"font-size: 12em;\"></i>\n                  <p class=\"text-muted\">\n                    Below is your generated code.\n                    Send this code to any {{ form.merchant_name }} branch to be processed.\n                  </p>\n                  <div class=\"code\">{{ formGenCode }}</div>\n                  <button class=\"btn btn-primary mr-2 hover-cursor\" type=\"button\" (click)=\"copy()\">\n                    <i class=\"mdi mdi-content-copy\" style=\"font-size: 20px;\"></i>\n                    <span class=\"sr-only\">Please wait...</span>\n                  </button>\n                  <button class=\"btn btn-primary mr-2 hover-cursor\" type=\"button\" (click)=\"ok()\">Ok</button>\n                </div>\n              </div>\n            </div>\n          </div>\n        </div>\n      </div>\n      <!-- content -->\n      <!-- footer -->\n      <app-footer-bar></app-footer-bar>\n      <!-- partial -->\n    </div>\n    <!-- main ends -->\n  </div>\n</div>\n\n<ng-template #confirm let-modal>\n  <div class=\"modal-header\">\n    <h4 class=\"modal-title\" id=\"modal-title\">Confirm Action</h4>\n    <button type=\"button\" class=\"close\" aria-describedby=\"modal-title\" (click)=\"modal.dismiss('Cross click')\">\n      <span aria-hidden=\"true\">&times;</span>\n    </button>\n  </div>\n  <div class=\"modal-body\">\n    <p><strong>Are you sure you want to <span class=\"text-primary\">submit this form</span> ?</strong></p>\n  </div>\n  <div class=\"modal-footer\">\n    <button type=\"button\" class=\"btn btn-outline-primary\" (click)=\"modal.dismiss('no')\">No</button>\n    <button type=\"button\" class=\"btn btn-primary\" (click)=\"modal.close('yes')\">Yes</button>\n  </div>\n</ng-template>\n\n<ng-template #viewImgAttachment let-modal>\n  <div class=\"modal-header\">\n    <h5 class=\"modal-title\">Attachment File</h5>\n    <button type=\"button\" class=\"close\" aria-describedby=\"modal-title\" (click)=\"modal.dismiss('close')\">\n      <span aria-hidden=\"true\">&times;</span>\n    </button>\n  </div>\n  <div class=\"modal-body\" style=\"padding: 0px;\">\n    <img [src]=\"imgUrl\" style=\"width: 100%;\">\n  </div>\n  <div class=\"modal-footer\">\n    <button type=\"button\" class=\"btn btn-primary\" (click)=\"modal.close('close')\">Close</button>\n  </div>\n</ng-template>\n\n<ng-template #viewDocAttachment let-modal>\n  <div class=\"modal-header\">\n    <h5 class=\"modal-title\">Attachment File</h5>\n    <button type=\"button\" class=\"close\" aria-describedby=\"modal-title\" (click)=\"modal.dismiss('close')\">\n      <span aria-hidden=\"true\">&times;</span>\n    </button>\n  </div>\n  <div class=\"modal-body\">\n    <p>This is a document and cannot be viewed. Please download</p>\n  </div>\n  <div class=\"modal-footer\">\n    <button type=\"button\" class=\"btn btn-outline-primary\" (click)=\"modal.close('close')\">Close</button>\n    <button type=\"button\" class=\"btn btn-primary\" (click)=\"downloadDoc(documentUrl)\">Download</button>\n  </div>\n</ng-template>"
 
 /***/ }),
 
@@ -624,7 +624,7 @@ module.exports = "<div class=\"container-scroller\">\n  <app-navigation-bar></ap
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<div class=\"container-scroller\">\n  <app-navigation-bar></app-navigation-bar>\n  <div class=\"container-fluid page-body-wrapper\">\n    <app-side-bar></app-side-bar>\n    <div class=\"main-panel\">\n      <div class=\"content-wrapper\">\n        <div class=\"row\">\n          <div class=\"col-md-12 grid-margin\">\n            <div class=\"d-flex justify-content-between flex-wrap\">\n              <div class=\"d-flex align-items-end flex-wrap\">\n                <div class=\"mr-md-3 mr-xl-5\">\n                  <h2>My History</h2>\n                </div>\n                <div class=\"d-flex\">\n                </div>\n              </div>\n              <div class=\"d-flex justify-content-between align-items-end flex-wrap\">\n              </div>\n            </div>\n          </div>\n        </div>\n\n        <div *ngIf=\"loading\" class=\"row m-5\">\n          <div class=\"col-md-12 p-md-5\">\n            <div class=\"d-flex justify-content-center\">\n              <div class=\"spinner-border m-5\" style=\"width: 5rem; height: 5rem;\" role=\"status\">\n                <span class=\"sr-only\">Loading...</span>\n              </div>\n            </div>\n          </div>\n        </div>\n\n        <div *ngIf=\"!hasData && !loading\" class=\"row\">\n          <div class=\"col-lg-12 grid-margin stretch-card\">\n            <div class=\"card text-center pt-5 pb-5\">\n              <div class=\"card-body mt-5 mb-5\">\n                <h4 class=\"card-title\">No Data Found</h4>\n                <p class=\"card-description\">\n                  No data has been found.\n                </p>\n                <div class=\"text-lg-center mt-5 mb-5\">\n                  <div class=\"card-text\">\n                    <i class=\"mdi mdi-rocket\" style=\"font-size: 8em;\"></i>\n                  </div>\n                  <div class=\"card-text\">\n                    <h3>No Available Form History</h3>\n                    <p class=\"text-muted\">You havent filled any forms yet! All the forms you filled will be displayed here to make it easy to re-fill again.</p>\n                  </div>\n                  <div class=\"card-text mt-5\">\n                    <button class=\"btn btn-primary\" type=\"button\" (click)=\"pickForm()\">Pick A Form</button>\n                  </div>\n                </div>\n              </div>\n            </div>\n          </div>\n        </div>\n\n        <div *ngIf=\"hasError && !hasData\" class=\"row\">\n          <div class=\"col-lg-12 grid-margin stretch-card\">\n            <div class=\"card text-center pt-5 pb-5\">\n              <div class=\"card-body mt-5 mb-5\">\n                <h4 class=\"card-title\">Error Ocuured</h4>\n                <p class=\"card-description\">\n                  Ooops! Something went wrong!\n                </p>\n                <div class=\"text-lg-center mt-5 mb-5\">\n                  <div class=\"card-text\">\n                    <i class=\"mdi mdi-close-network-outline\" style=\"font-size: 8em;\"></i>\n                  </div>\n                  <div class=\"card-text\">\n                    <h3>We couldn't filled forms</h3>\n                    <p class=\"text-muted\">You may not have internet connection or our servers maybe down.</p>\n                    <button class=\"btn btn-primary\" type=\"button\" (click)=\"retry()\">Retry</button>\n                  </div>\n                </div>\n              </div>\n            </div>\n          </div>\n        </div>\n        \n        <div *ngIf=\"!loading && hasData\" class=\"row\">\n          <div class=\"col-12 text-center mb-3\">\n            <div class=\"btn-group\" role=\"group\" aria-label=\"Filter By\">\n              <button type=\"button\" class=\"btn btn-outline-primary\" [ngClass]=\"{'active': filterState == 'all'}\" (click)=\"showAll()\">All</button>\n              <button type=\"button\" class=\"btn btn-outline-primary\" [ngClass]=\"{'active': filterState == 'processed'}\" (click)=\"showProcessed()\">Processed</button>\n              <button type=\"button\" class=\"btn btn-outline-primary\" [ngClass]=\"{'active': filterState == 'processing'}\" (click)=\"showProcessing()\">Processing</button>\n            </div>\n          </div>\n          <div class=\"col-md-4 grid-margin stretch-card\" *ngFor=\"let item of historyCollection\">\n            <div class=\"card hover-cursor\" (click)=\"openFormEntry(item)\">\n              <div class=\"card-body\">\n                <p class=\"card-title\">{{ item.form_name }}</p>\n                <p class=\"text-muted\">Open and quickly fill out this form</p>\n              </div>\n            </div>\n          </div>\n        </div>\n\n        <div *ngIf=\"loadingMore\" class=\"row m-md-2\">\n          <div class=\"col-md-12 col-sm-12 m-md-2\">\n            <div class=\"d-flex justify-content-center\">\n              <div class=\"spinner-border m-2\" style=\"width: 2rem; height: 2rem;\" role=\"status\">\n                <span class=\"sr-only\">Loading...</span>\n              </div>\n            </div>\n          </div>\n        </div>\n\n        <div *ngIf=\"hasMoreError\" class=\"row m-md-2\">\n          <div class=\"col-md-8 col-sm-12 offset-md-2\">\n            <div class=\"alert alert-danger\" role=\"alert\">\n              <h4 class=\"alert-heading\">Connection Failed!</h4>\n              <p>\n                Oops!! Couldn't get you the rest of the data. Please make sure you have an active internet connection.\n                Maybe, our servers may be down.\n              </p>\n              <hr>\n              <p class=\"mb-0\">We are really sorry for this inconvenience. Please click on the load more button again.</p>\n            </div>\n          </div>\n        </div>\n\n        <div *ngIf=\"hasMore\" class=\"row\">\n          <div class=\"col-md-4 col-sm-6 offset-sm-3 offset-lg-4\">\n            <div class=\"text-center\">\n              <button type=\"button\" class=\"btn btn-primary btn-rounded btn-fw\" (click)=\"loadMore()\">Load More</button>\n            </div>\n          </div>\n        </div>\n      </div>\n      <!-- content -->\n      <!-- footer -->\n      <app-footer-bar></app-footer-bar>\n      <!-- partial -->\n    </div>\n    <!-- main-panel -->\n  </div>\n</div>"
+module.exports = "<div class=\"container-scroller\">\n  <app-navigation-bar></app-navigation-bar>\n  <div class=\"container-fluid page-body-wrapper\">\n    <app-side-bar></app-side-bar>\n    <div class=\"main-panel\">\n      <div class=\"content-wrapper\">\n        <div class=\"row\">\n          <div class=\"col-md-12 grid-margin\">\n            <div class=\"d-flex justify-content-between flex-wrap\">\n              <div class=\"d-flex align-items-end flex-wrap\">\n                <div class=\"mr-md-3 mr-xl-5\">\n                  <h2>My History</h2>\n                </div>\n                <div class=\"d-flex\">\n                </div>\n              </div>\n              <div class=\"d-flex justify-content-between align-items-end flex-wrap\">\n              </div>\n            </div>\n          </div>\n        </div>\n\n        <div *ngIf=\"loading\" class=\"row m-5\">\n          <div class=\"col-md-12 p-md-5\">\n            <div class=\"d-flex justify-content-center\">\n              <div class=\"spinner-border m-5\" style=\"width: 5rem; height: 5rem;\" role=\"status\">\n                <span class=\"sr-only\">Loading...</span>\n              </div>\n            </div>\n          </div>\n        </div>\n\n        <div *ngIf=\"!hasData && !loading\" class=\"row\">\n          <div class=\"col-lg-12 grid-margin stretch-card\">\n            <div class=\"card text-center pt-5 pb-5\">\n              <div class=\"card-body mt-5 mb-5\">\n                <h4 class=\"card-title\">No Data Found</h4>\n                <p class=\"card-description\">\n                  No data has been found.\n                </p>\n                <div class=\"text-lg-center mt-5 mb-5\">\n                  <div class=\"card-text\">\n                    <i class=\"mdi mdi-rocket\" style=\"font-size: 8em;\"></i>\n                  </div>\n                  <div class=\"card-text\">\n                    <h3>No Available Form History</h3>\n                    <p class=\"text-muted\">You havent filled any forms yet! All the forms you filled will be displayed here to make it easy to re-fill again.</p>\n                  </div>\n                  <div class=\"card-text mt-5\">\n                    <button class=\"btn btn-primary\" type=\"button\" (click)=\"pickForm()\">Pick A Form</button>\n                  </div>\n                </div>\n              </div>\n            </div>\n          </div>\n        </div>\n\n        <div *ngIf=\"hasError && !hasData\" class=\"row\">\n          <div class=\"col-lg-12 grid-margin stretch-card\">\n            <div class=\"card text-center pt-5 pb-5\">\n              <div class=\"card-body mt-5 mb-5\">\n                <h4 class=\"card-title\">Error Ocuured</h4>\n                <p class=\"card-description\">\n                  Ooops! Something went wrong!\n                </p>\n                <div class=\"text-lg-center mt-5 mb-5\">\n                  <div class=\"card-text\">\n                    <i class=\"mdi mdi-close-network-outline\" style=\"font-size: 8em;\"></i>\n                  </div>\n                  <div class=\"card-text\">\n                    <h3>We couldn't filled forms</h3>\n                    <p class=\"text-muted\">You may not have internet connection or our servers maybe down.</p>\n                    <button class=\"btn btn-primary\" type=\"button\" (click)=\"retry()\">Retry</button>\n                  </div>\n                </div>\n              </div>\n            </div>\n          </div>\n        </div>\n        \n        <div *ngIf=\"!loading && hasData\" class=\"row\">\n          <div class=\"col-12 text-center mb-3\">\n            <div class=\"btn-group\" role=\"group\" aria-label=\"Filter By\">\n              <button type=\"button\" class=\"btn btn-outline-primary\" [ngClass]=\"{'active': filterState == 'all'}\" (click)=\"showAll()\">All</button>\n              <button type=\"button\" class=\"btn btn-outline-primary\" [ngClass]=\"{'active': filterState == 'processed'}\" (click)=\"showProcessed()\">Processed</button>\n              <button type=\"button\" class=\"btn btn-outline-primary\" [ngClass]=\"{'active': filterState == 'processing'}\" (click)=\"showProcessing()\">Processing</button>\n            </div>\n          </div>\n          <div class=\"col-md-4 grid-margin stretch-card\" *ngFor=\"let form of historyCollection\">\n            <div class=\"card hover-cursor\" (click)=\"openFormEntry(form)\">\n              <div class=\"card-body\">\n                <p class=\"card-title\">{{ form.form_name }}</p>\n                <h1 class=\"display-4\">{{ form.submission_code }}</h1>\n                <div class=\"card-text\">\n                  <p class=\"text-muted small-text\">{{ form.submitted_at | date }}</p>\n                  <p class=\"text-muted\">Open and quickly fill out this form</p>\n                </div>\n                <!-- <p class=\"text-muted\">Open and quickly fill out this form</p> -->\n              </div>\n            </div>\n          </div>\n        </div>\n\n        <div *ngIf=\"loadingMore\" class=\"row m-md-2\">\n          <div class=\"col-md-12 col-sm-12 m-md-2\">\n            <div class=\"d-flex justify-content-center\">\n              <div class=\"spinner-border m-2\" style=\"width: 2rem; height: 2rem;\" role=\"status\">\n                <span class=\"sr-only\">Loading...</span>\n              </div>\n            </div>\n          </div>\n        </div>\n\n        <div *ngIf=\"hasMoreError\" class=\"row m-md-2\">\n          <div class=\"col-md-8 col-sm-12 offset-md-2\">\n            <div class=\"alert alert-danger\" role=\"alert\">\n              <h4 class=\"alert-heading\">Connection Failed!</h4>\n              <p>\n                Oops!! Couldn't get you the rest of the data. Please make sure you have an active internet connection.\n                Maybe, our servers may be down.\n              </p>\n              <hr>\n              <p class=\"mb-0\">We are really sorry for this inconvenience. Please click on the load more button again.</p>\n            </div>\n          </div>\n        </div>\n\n        <div *ngIf=\"hasMore\" class=\"row\">\n          <div class=\"col-md-4 col-sm-6 offset-sm-3 offset-lg-4\">\n            <div class=\"text-center\">\n              <button type=\"button\" class=\"btn btn-primary btn-rounded btn-fw\" (click)=\"loadMore()\">Load More</button>\n            </div>\n          </div>\n        </div>\n      </div>\n      <!-- content -->\n      <!-- footer -->\n      <app-footer-bar></app-footer-bar>\n      <!-- partial -->\n    </div>\n    <!-- main-panel -->\n  </div>\n</div>"
 
 /***/ }),
 
@@ -657,7 +657,7 @@ module.exports = "<div class=\"container-scroller\">\n  <app-navigation-bar></ap
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<div class=\"container-scroller\">\n  <app-navigation-bar></app-navigation-bar>\n  <div class=\"container-fluid page-body-wrapper\">\n    <app-side-bar></app-side-bar>\n    <div class=\"main-panel\">\n      <div class=\"content-wrapper\">\n        <div class=\"row\">\n          <div class=\"col-md-12 grid-margin\">\n            <div class=\"d-flex justify-content-between flex-wrap\">\n              <div class=\"d-flex align-items-end flex-wrap\">\n                <div class=\"mr-md-3 mr-xl-5\">\n                  <h2>My Profile</h2>\n                </div>\n                <div class=\"d-flex\">\n                </div>\n              </div>\n            </div>\n          </div>\n        </div>\n\n        <div *ngIf=\"loading\" class=\"row p-5\">\n          <div class=\"col-md-12\">\n            <div class=\"d-flex justify-content-center\">\n              <div class=\"spinner-border m-5\" style=\"width: 4rem; height: 4rem;\" role=\"status\">\n                <span class=\"sr-only\">Loading...</span>\n              </div>\n            </div>\n          </div>\n        </div>\n\n        <div *ngIf=\"!hasData && !loading\" class=\"row\">\n          <div class=\"col-lg-12 grid-margin stretch-card\">\n            <div class=\"card text-center pt-5 pb-5\">\n              <div class=\"card-body mt-5 mb-5\">\n                <h4 class=\"card-title\">No Data Found</h4>\n                <p class=\"card-description\">\n                  No user data found.\n                </p>\n                <div class=\"text-lg-center mt-5 mb-5\">\n                  <div class=\"card-text\">\n                    <i class=\"mdi mdi-account-card-details-outline\" style=\"font-size: 8em;\"></i>\n                  </div>\n                  <div class=\"card-text\">\n                    <h3>No Available Data</h3>\n                    <p class=\"text-muted\">\n                      You havent filled any form yet. All the data you provided will be displayed here once you fill a form.\n                    </p>\n                  </div>\n                </div>\n              </div>\n            </div>\n          </div>\n        </div>\n\n        <!-- <div *ngIf=\"isConnected\" class=\"row\">\n          <div class=\"col-md-12 grid-margin\">\n            <div class=\"card text-center\">\n              <div class=\"card-body\">\n                <p class=\"card-title\">Offline</p>\n                <p class=\"text-muted\"></p>\n                <div class=\"card-text\">\n                  <i class=\"mdi mdi-wifi-off\" style=\"font-size: 12em;\"></i>\n                  <h2>No Internet Connection</h2>\n                  <p class=\"text-muted\">You may not have internet connection or our servers maybe down.</p>\n                  <button class=\"btn btn-primary\" type=\"button\" (click)=\"retry()\">Retry</button>\n                </div>\n              </div>\n            </div>\n          </div>\n        </div> -->\n\n        <div *ngIf=\"hasError\" class=\"row\">\n          <div class=\"col-lg-12 grid-margin stretch-card\">\n            <div class=\"card text-center pt-5 pb-5\">\n              <div class=\"card-body mt-5 mb-5\">\n                <h4 class=\"card-title\">Error Ocuured</h4>\n                <p class=\"card-description\">\n                  Ooops! Something went wrong!\n                </p>\n                <div class=\"text-lg-center mt-5 mb-5\">\n                  <div class=\"card-text\">\n                    <i class=\"mdi mdi-close-network-outline\" style=\"font-size: 8em;\"></i>\n                  </div>\n                  <div class=\"card-text\">\n                    <h3>We couldn't find any forms</h3>\n                    <p class=\"text-muted\">You may not have internet connection or our servers maybe down.</p>\n                    <button class=\"btn btn-primary\" type=\"button\" (click)=\"retry()\">Retry</button>\n                  </div>\n                </div>\n              </div>\n            </div>\n          </div>\n        </div>\n\n        <div *ngIf=\"hasData && !loading\" class=\"row\">\n          <div class=\"col-lg-8 offset-lg-2 grid-margin stretch-card\">\n            <div class=\"card\">\n              <div class=\"card-body\">\n                <div class=\"card-text\">\n                  <div *ngIf=\"!noFilledData\">\n                    <div class=\"mt-3 mb-3\" *ngFor=\"let section of allFormSections\">\n                      <h6 class=\"text-uppercase mb-3\">{{ section.heading }}</h6>\n                      <div class=\"form-group\" *ngFor=\"let item of section.form_fields\">\n                        <!-- Input fields -->\n                        <div *ngIf=\"item.type == 'text'\">\n                          <label><strong>{{ item.label }}</strong></label>\n                          <input type=\"{{ item.type }}\" id=\"{{ item.name }}\" name=\"{{ item.name }}\" class=\"form-control\">\n                        </div>\n\n                        <!-- Radio buttons -->\n                        <div *ngIf=\"item.type == 'radio-group'\">\n                          <label><strong>{{ item.label }}</strong></label>\n                          <div style=\"width: 100%; float: left;\" *ngFor=\"let radio of item.values\">\n                            <input style=\"width: 6%; float: left; margin-right: 10px;\" type=\"radio\" id=\"{{ item.name }}\" name=\"{{ item.name }}\" class=\"form-control\">\n                            <p style=\"width: 80%; padding-top: 13px;\">{{ radio.label }}</p>\n                          </div>\n                        </div>\n\n                        <!-- checkboxes -->\n                        <div *ngIf=\"item.type == 'checkbox-group'\">\n                          <label><strong>{{ item.label }}</strong></label>\n                          <div style=\"width: 100%; float: left;\" *ngFor=\"let checkbox of item.values\">\n                            <input style=\"width: 6%; float: left; margin-right: 10px;\" type=\"checkbox\" id=\"{{ item.name }}\" name=\"{{ item.name }}\" class=\"form-control\">\n                            <p style=\"width: 80%; padding-top: 13px;\">{{ checkbox.label }}</p>\n                          </div>\n                        </div>\n\n                        <!-- date picker -->\n                        <div *ngIf=\"item.type == 'date'\">\n                          <label><strong>{{ item.label }}</strong></label>\n                          <input type=\"{{ item.type }}\" id=\"{{ item.name }}\" name=\"{{ item.name }}\" class=\"form-control\">\n                        </div>\n\n                        <!-- file -->\n                        <div *ngIf=\"item.type == 'file'\">\n                          <label><strong>{{ item.label }}</strong></label>\n                          <input multiple type=\"{{ item.type }}\" id=\"{{ item.name }}\" name=\"{{ item.name }}\" class=\"form-control\">\n                        </div>\n                      </div>\n                    </div>\n                  </div>\n\n                  <div *ngIf=\"noFilledData\">\n                    <div class=\"form-group\" *ngFor=\"let item of allUserData | keyvalue\">\n                      <label><strong class=\"text-capitalize\">{{ transformToRealText(item.key) }}</strong></label>\n                      <input type=\"text\" id=\"{{ item.key }}\" class=\"form-control\" [value]=\"item.value\">\n                    </div>\n                    <!-- <button class=\"form-group mt-3\">\n                      <button *ngIf=\"updating\" class=\"btn btn-primary btn-lg mr-2\" type=\"button\" disabled>\n                        <span class=\"spinner-border spinner-border-sm\" role=\"status\" aria-hidden=\"true\"></span>\n                        <span class=\"sr-only\">Please wait...</span>\n                      </button>\n                      <button *ngIf=\"!updating\" type=\"submit\" class=\"btn btn-primary btn-lg mr-2\" (click)=\"save()\">Save Changes</button>\n                      <button type=\"button\" class=\"btn btn-light btn-lg\" (click)=\"cancel()\">Cancel</button>\n                    </button> -->\n                  </div>\n                  \n                  <div class=\"form-group mt-3\">\n                    <button *ngIf=\"updating\" class=\"btn btn-primary btn-lg mr-2\" type=\"button\" disabled>\n                      <span class=\"spinner-border spinner-border-sm\" role=\"status\" aria-hidden=\"true\"></span>\n                      <span class=\"sr-only\">Please wait...</span>\n                    </button>\n                    <button *ngIf=\"!updating\" type=\"submit\" class=\"btn btn-primary btn-lg mr-2\" (click)=\"save()\">Save Changes</button>\n                    <!-- <button type=\"button\" class=\"btn btn-light btn-lg\" (click)=\"cancel()\">Cancel</button> -->\n                  </div>\n                </div>\n              </div>\n            </div>\n          </div>\n        </div>\n      </div>\n    </div>\n  </div>\n</div>\n\n<ng-template #confirm let-modal>\n  <div class=\"modal-header\">\n    <h4 class=\"modal-title\" id=\"modal-title\">Confirm Action</h4>\n    <button type=\"button\" class=\"close\" aria-describedby=\"modal-title\" (click)=\"modal.dismiss('Cross click')\">\n      <span aria-hidden=\"true\">&times;</span>\n    </button>\n  </div>\n  <div class=\"modal-body\">\n    <p><strong>Are you sure you want to <span class=\"text-primary\">discard all the changes you've made</span> ?</strong>\n    </p>\n  </div>\n  <div class=\"modal-footer\">\n    <button type=\"button\" class=\"btn btn-outline-secondary\" (click)=\"modal.dismiss('no')\">No</button>\n    <button type=\"button\" class=\"btn btn-primary\" (click)=\"modal.close('yes')\">Yes</button>\n  </div>\n</ng-template>\n\n<ng-template #updated let-modal>\n  <div class=\"modal-header\">\n    <h4 class=\"modal-title\" id=\"modal-title\">{{ alert_title }}</h4>\n    <button type=\"button\" class=\"close\" aria-describedby=\"modal-title\" (click)=\"modal.dismiss()\">\n      <span aria-hidden=\"true\">&times;</span>\n    </button>\n  </div>\n  <div class=\"modal-body\">\n    <p>{{ alert_message }}</p>\n  </div>\n  <div class=\"modal-footer\">\n    <button type=\"button\" class=\"btn btn-primary\" (click)=\"modal.close()\">Ok</button>\n  </div>\n</ng-template>"
+module.exports = "<div class=\"container-scroller\">\n  <app-navigation-bar></app-navigation-bar>\n  <div class=\"container-fluid page-body-wrapper\">\n    <app-side-bar></app-side-bar>\n    <div class=\"main-panel\">\n      <div class=\"content-wrapper\">\n        <div class=\"row\">\n          <div class=\"col-md-12 grid-margin\">\n            <div class=\"d-flex justify-content-between flex-wrap\">\n              <div class=\"d-flex align-items-end flex-wrap\">\n                <div class=\"mr-md-3 mr-xl-5\">\n                  <h2>My Profile</h2>\n                </div>\n                <div class=\"d-flex\">\n                </div>\n              </div>\n            </div>\n          </div>\n        </div>\n\n        <div *ngIf=\"loading\" class=\"row p-5\">\n          <div class=\"col-md-12\">\n            <div class=\"d-flex justify-content-center\">\n              <div class=\"spinner-border m-5\" style=\"width: 4rem; height: 4rem;\" role=\"status\">\n                <span class=\"sr-only\">Loading...</span>\n              </div>\n            </div>\n          </div>\n        </div>\n\n        <div *ngIf=\"!hasData && !loading\" class=\"row\">\n          <div class=\"col-lg-12 grid-margin stretch-card\">\n            <div class=\"card text-center pt-5 pb-5\">\n              <div class=\"card-body mt-5 mb-5\">\n                <h4 class=\"card-title\">No Data Found</h4>\n                <p class=\"card-description\">\n                  No user data found.\n                </p>\n                <div class=\"text-lg-center mt-5 mb-5\">\n                  <div class=\"card-text\">\n                    <i class=\"mdi mdi-account-card-details-outline\" style=\"font-size: 8em;\"></i>\n                  </div>\n                  <div class=\"card-text\">\n                    <h3>No Available Data</h3>\n                    <p class=\"text-muted\">\n                      You havent filled any form yet. All the data you provided will be displayed here once you fill a form.\n                    </p>\n                  </div>\n                </div>\n              </div>\n            </div>\n          </div>\n        </div>\n\n        <!-- <div *ngIf=\"isConnected\" class=\"row\">\n          <div class=\"col-md-12 grid-margin\">\n            <div class=\"card text-center\">\n              <div class=\"card-body\">\n                <p class=\"card-title\">Offline</p>\n                <p class=\"text-muted\"></p>\n                <div class=\"card-text\">\n                  <i class=\"mdi mdi-wifi-off\" style=\"font-size: 12em;\"></i>\n                  <h2>No Internet Connection</h2>\n                  <p class=\"text-muted\">You may not have internet connection or our servers maybe down.</p>\n                  <button class=\"btn btn-primary\" type=\"button\" (click)=\"retry()\">Retry</button>\n                </div>\n              </div>\n            </div>\n          </div>\n        </div> -->\n\n        <div *ngIf=\"hasError\" class=\"row\">\n          <div class=\"col-lg-12 grid-margin stretch-card\">\n            <div class=\"card text-center pt-5 pb-5\">\n              <div class=\"card-body mt-5 mb-5\">\n                <h4 class=\"card-title\">Error Ocuured</h4>\n                <p class=\"card-description\">\n                  Ooops! Something went wrong!\n                </p>\n                <div class=\"text-lg-center mt-5 mb-5\">\n                  <div class=\"card-text\">\n                    <i class=\"mdi mdi-close-network-outline\" style=\"font-size: 8em;\"></i>\n                  </div>\n                  <div class=\"card-text\">\n                    <h3>We couldn't find any forms</h3>\n                    <p class=\"text-muted\">You may not have internet connection or our servers maybe down.</p>\n                    <button class=\"btn btn-primary\" type=\"button\" (click)=\"retry()\">Retry</button>\n                  </div>\n                </div>\n              </div>\n            </div>\n          </div>\n        </div>\n\n        <div *ngIf=\"hasData && !loading\" class=\"row\">\n          <div class=\"col-lg-8 offset-lg-2 grid-margin stretch-card\">\n            <div class=\"card\">\n              <div class=\"card-body\">\n                <div class=\"card-text\">\n                  <div *ngIf=\"!noFilledData\">\n                    <div class=\"mt-3 mb-3\" *ngFor=\"let section of allFormSections\">\n                      <h6 class=\"text-uppercase mb-3\">{{ section.heading }}</h6>\n                      <div class=\"form-group\" *ngFor=\"let item of section.form_fields\">\n                        <!-- Input fields -->\n                        <div *ngIf=\"item.type == 'text'\">\n                          <label><strong>{{ item.label }}</strong></label>\n                          <input type=\"{{ item.type }}\" id=\"{{ item.name }}\" name=\"{{ item.name }}\" class=\"form-control\">\n                        </div>\n\n                        <!-- Radio buttons -->\n                        <div *ngIf=\"item.type == 'radio-group'\">\n                          <label><strong>{{ item.label }}</strong></label>\n                          <div style=\"width: 100%; float: left;\" *ngFor=\"let radio of item.values\">\n                            <input style=\"width: 6%; float: left; margin-right: 10px;\" type=\"radio\" id=\"{{ item.name }}\" name=\"{{ item.name }}\" class=\"form-control\">\n                            <p style=\"width: 80%; padding-top: 13px;\">{{ radio.label }}</p>\n                          </div>\n                        </div>\n\n                        <!-- checkboxes -->\n                        <div *ngIf=\"item.type == 'checkbox-group'\">\n                          <label><strong>{{ item.label }}</strong></label>\n                          <div style=\"width: 100%; float: left;\" *ngFor=\"let checkbox of item.values\">\n                            <input style=\"width: 6%; float: left; margin-right: 10px;\" type=\"checkbox\" id=\"{{ item.name }}\" name=\"{{ item.name }}\" class=\"form-control\">\n                            <p style=\"width: 80%; padding-top: 13px;\">{{ checkbox.label }}</p>\n                          </div>\n                        </div>\n\n                        <!-- date picker -->\n                        <div *ngIf=\"item.type == 'date'\">\n                          <label><strong>{{ item.label }}</strong></label>\n                          <input type=\"{{ item.type }}\" id=\"{{ item.name }}\" name=\"{{ item.name }}\" class=\"form-control\">\n                        </div>\n\n                        <!-- file -->\n                        <div *ngIf=\"item.type == 'file'\">\n                          <label><strong>{{ item.label }}</strong></label>\n                          <input multiple type=\"{{ item.type }}\" id=\"{{ item.name }}\" name=\"{{ item.name }}\" class=\"form-control\">\n                        </div>\n                      </div>\n                    </div>\n                  </div>\n\n                  <div *ngIf=\"noFilledData\">\n                    <div class=\"form-group\" *ngFor=\"let item of allUserData | keyvalue\">\n                      <label><strong class=\"text-capitalize\">{{ transformToRealText(item.key) }}</strong></label>\n                      <input type=\"text\" id=\"{{ item.key }}\" class=\"form-control\" [value]=\"item.value\">\n                    </div>\n                    <!-- <button class=\"form-group mt-3\">\n                      <button *ngIf=\"updating\" class=\"btn btn-primary btn-lg mr-2\" type=\"button\" disabled>\n                        <span class=\"spinner-border spinner-border-sm\" role=\"status\" aria-hidden=\"true\"></span>\n                        <span class=\"sr-only\">Please wait...</span>\n                      </button>\n                      <button *ngIf=\"!updating\" type=\"submit\" class=\"btn btn-primary btn-lg mr-2\" (click)=\"save()\">Save Changes</button>\n                      <button type=\"button\" class=\"btn btn-light btn-lg\" (click)=\"cancel()\">Cancel</button>\n                    </button> -->\n                  </div>\n\n                  <div *ngIf=\"loadingAttachments\" class=\"row m-md-2\">\n                    <div class=\"col-md-12 col-sm-12 m-md-2\">\n                      <div class=\"d-flex justify-content-center\">\n                        <div class=\"spinner-border m-2\" style=\"width: 2rem; height: 2rem;\" role=\"status\">\n                          <span class=\"sr-only\">Loading...</span>\n                        </div>\n                      </div>\n                    </div>\n                  </div>\n\n                  <div class=\"attachments-section\" *ngIf=\"!loadingAttachments && showAttachments\">\n                    <div class=\"card mb-4\">\n                      <div class=\"card-body\">\n                        <h5 class=\"card-title\">Form Attachments / Documents</h5>\n                        <h6 class=\"card-subtitle mb-2 text-muted\">Below are attachments you've uploaded for this form</h6>\n                        <div class=\"row\" *ngFor=\"let file of existingAttachments; let i = index\">\n                          <div class=\"col-10\" style=\"padding-right: 8px;\">\n                            <ol class=\"files-list\">\n                              <li class=\"file-item\">\n                                <i class=\"mdi mdi-paperclip menu-icon\"></i>\n                                <a class=\"alert-link file-link\" (click)=\"openModal($event, file.url)\">{{ file.url }}</a>\n                              </li>\n                            </ol>\n                          </div>\n                          <div class=\"col-2\" style=\"padding-right: 3px; padding-left: 4px; margin-top: 7px;\">\n                            <button class=\"btn btn-primary btn-icon mr-1\" (click)=\"download(file.url)\">\n                              <i class=\"mdi mdi-download-outline\"></i>\n                            </button>\n                            <button class=\"btn btn-primary btn-icon\" (click)=\"delete(file.url, i)\">\n                              <i class=\"mdi mdi-trash-can-outline\"></i>\n                            </button>\n                          </div>\n                        </div>\n                      </div>\n                    </div>\n                  </div>\n                  \n                  <div class=\"form-group text-center mt-3\">\n                    <button *ngIf=\"updating\" class=\"btn btn-primary btn-lg mr-2\" type=\"button\" disabled>\n                      <span class=\"spinner-border spinner-border-sm\" role=\"status\" aria-hidden=\"true\"></span>\n                      <span class=\"sr-only\">Please wait...</span>\n                    </button>\n                    <button *ngIf=\"!updating\" type=\"submit\" class=\"btn btn-primary btn-lg mr-2\" (click)=\"save()\">Save Changes</button>\n                  </div>\n                </div>\n              </div>\n            </div>\n          </div>\n        </div>\n      </div>\n    </div>\n  </div>\n</div>\n\n<ng-template #confirm let-modal>\n  <div class=\"modal-header\">\n    <h4 class=\"modal-title\" id=\"modal-title\">Confirm Action</h4>\n    <button type=\"button\" class=\"close\" aria-describedby=\"modal-title\" (click)=\"modal.dismiss('Cross click')\">\n      <span aria-hidden=\"true\">&times;</span>\n    </button>\n  </div>\n  <div class=\"modal-body\">\n    <p><strong>Are you sure you want to <span class=\"text-primary\">discard all the changes you've made</span> ?</strong>\n    </p>\n  </div>\n  <div class=\"modal-footer\">\n    <button type=\"button\" class=\"btn btn-outline-secondary\" (click)=\"modal.dismiss('no')\">No</button>\n    <button type=\"button\" class=\"btn btn-primary\" (click)=\"modal.close('yes')\">Yes</button>\n  </div>\n</ng-template>\n\n<ng-template #updated let-modal>\n  <div class=\"modal-header\">\n    <h4 class=\"modal-title\" id=\"modal-title\">{{ alert_title }}</h4>\n    <button type=\"button\" class=\"close\" aria-describedby=\"modal-title\" (click)=\"modal.dismiss()\">\n      <span aria-hidden=\"true\">&times;</span>\n    </button>\n  </div>\n  <div class=\"modal-body\">\n    <p>{{ alert_message }}</p>\n  </div>\n  <div class=\"modal-footer\">\n    <button type=\"button\" class=\"btn btn-primary\" (click)=\"modal.close()\">Ok</button>\n  </div>\n</ng-template>\n\n<ng-template #viewImgAttachment let-modal>\n  <div class=\"modal-header\">\n    <h5 class=\"modal-title\">Attachment File</h5>\n    <button type=\"button\" class=\"close\" aria-describedby=\"modal-title\" (click)=\"modal.dismiss('close')\">\n      <span aria-hidden=\"true\">&times;</span>\n    </button>\n  </div>\n  <div class=\"modal-body\">\n    <img [src]=\"imgUrl\" style=\"width: 100%;\">\n  </div>\n  <div class=\"modal-footer\">\n    <button type=\"button\" class=\"btn btn-secondary\" (click)=\"modal.close('no')\">Close</button>\n  </div>\n</ng-template>\n\n<ng-template #viewDocAttachment let-modal>\n  <div class=\"modal-header\">\n    <h5 class=\"modal-title\">Attachment File</h5>\n    <button type=\"button\" class=\"close\" aria-describedby=\"modal-title\" (click)=\"modal.dismiss('close')\">\n      <span aria-hidden=\"true\">&times;</span>\n    </button>\n  </div>\n  <div class=\"modal-body\">\n    <p>This is a document and cannot be viewed. Please download</p>\n  </div>\n  <div class=\"modal-footer\">\n    <button type=\"button\" class=\"btn btn-secondary\" (click)=\"modal.close('no')\">Close</button>\n    <button type=\"button\" class=\"btn btn-primary\" (click)=\"downloadDoc(documentUrl)\">Download</button>\n  </div>\n</ng-template>\n\n<ng-template #deleteAttachment let-modal>\n  <div class=\"modal-header\">\n    <h5 class=\"modal-title\">Delete Attachment</h5>\n    <button type=\"button\" class=\"close\" aria-describedby=\"modal-title\" (click)=\"modal.dismiss('close')\">\n      <span aria-hidden=\"true\">&times;</span>\n    </button>\n  </div>\n  <div class=\"modal-body\">\n    <p>Are you sure you want to delete this attachment ?</p>\n    <p>NOTE: Deleting this attachment is a permanent actions.</p>\n  </div>\n  <div class=\"modal-footer\">\n    <button type=\"button\" class=\"btn btn-secondary\" (click)=\"modal.close('yes')\">Yes</button>\n    <button type=\"button\" class=\"btn btn-primary\" (click)=\"modal.close('no')\">No</button>\n  </div>\n</ng-template>"
 
 /***/ }),
 
@@ -668,7 +668,7 @@ module.exports = "<div class=\"container-scroller\">\n  <app-navigation-bar></ap
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<div class=\"container-scroller\">\n  <app-navigation-bar></app-navigation-bar>\n  <div class=\"container-fluid page-body-wrapper\">\n    <app-side-bar></app-side-bar>\n    <div class=\"main-panel\">\n      <div class=\"content-wrapper\">\n        <div class=\"row\">\n          <div class=\"col-md-12 grid-margin\">\n            <div class=\"d-flex justify-content-between flex-wrap\">\n              <div class=\"d-flex align-items-end flex-wrap\">\n                <div class=\"mr-md-3 mr-xl-5\">\n                  <h2>Submitted Forms</h2>\n                </div>\n                <div class=\"d-flex\">\n                </div>\n                <div class=\"d-flex justify-content-between align-items-end flex-wrap\"></div>\n              </div>\n            </div>\n          </div>\n        </div>\n\n        <div *ngIf=\"loading\" class=\"row p-5\">\n          <div class=\"col-md-12 p-md-5\">\n            <div class=\"d-flex justify-content-center\">\n              <div class=\"spinner-border m-5\" style=\"width: 5rem; height: 5rem;\" role=\"status\">\n                <span class=\"sr-only\">Loading...</span>\n              </div>\n            </div>\n          </div>\n        </div>\n\n        <div *ngIf=\"!hasData && !loading\" class=\"row\">\n          <div class=\"col-lg-12 grid-margin stretch-card\">\n            <div class=\"card text-center pt-5 pb-5\">\n              <div class=\"card-body mt-5 mb-5\">\n                <h4 class=\"card-title\">No Data Found</h4>\n                <p class=\"card-description\">\n                  No data has been found.\n                </p>\n                <div class=\"text-lg-center mt-5 mb-5\">\n                  <div class=\"card-text\">\n                    <i class=\"mdi mdi-file-document-box-multiple-outline\" style=\"font-size: 8em;\"></i>\n                  </div>\n                  <div class=\"card-text\">\n                    <h3>No Available Form History</h3>\n                    <p class=\"text-muted\">\n                      You havent filled any forms yet! All the forms you filled will be displayed\n                      here to make it easy to re-fill again.\n                    </p>\n                  </div>\n                </div>\n              </div>\n            </div>\n          </div>\n        </div>\n\n        <div *ngIf=\"!loading && !isConnected && !hasData\" class=\"row\">\n          <div class=\"col-md-12 grid-margin\">\n            <div class=\"card text-center\">\n              <div class=\"card-body\">\n                <p class=\"card-title\">Offline</p>\n                <p class=\"text-muted\"></p>\n                <div class=\"card-text\">\n                  <i class=\"mdi mdi-wifi-off\" style=\"font-size: 12em;\"></i>\n                  <h2>No Internet Connection</h2>\n                  <p class=\"text-muted\">You don't have an active internet connection</p>\n                </div>\n              </div>\n            </div>\n          </div>\n        </div>\n\n        <div *ngIf=\"hasError\" class=\"row\">\n          <div class=\"col-lg-12 grid-margin stretch-card\">\n            <div class=\"card text-center pt-5 pb-5\">\n              <div class=\"card-body mt-5 mb-5\">\n                <h4 class=\"card-title\">Error Ocuured</h4>\n                <p class=\"card-description\">\n                  Ooops! Something went wrong!\n                </p>\n                <div class=\"text-lg-center mt-5 mb-5\">\n                  <div class=\"card-text\">\n                    <i class=\"mdi mdi-close-network-outline\" style=\"font-size: 8em;\"></i>\n                  </div>\n                  <div class=\"card-text\">\n                    <h3>We couldn't find your forms</h3>\n                    <p class=\"text-muted\">You may not have internet connection or our servers maybe down.</p>\n                    <button class=\"btn btn-primary\" type=\"button\" (click)=\"retry()\">Retry</button>\n                  </div>\n                </div>\n              </div>\n            </div>\n          </div>\n        </div>\n\n        <div *ngIf=\"!loading && hasData\" class=\"row\">\n          <div class=\"col-12 text-center mb-3\">\n            <div class=\"btn-group\" role=\"group\" aria-label=\"Filter By\">\n              <button type=\"button\" class=\"btn btn-outline-primary\" [ngClass]=\"{'active': filterState == 'all'}\" (click)=\"showAll()\">All</button>\n              <button type=\"button\" class=\"btn btn-outline-primary\" [ngClass]=\"{'active': filterState == 'processed'}\" (click)=\"showProcessed()\">Processed</button>\n              <button type=\"button\" class=\"btn btn-outline-primary\" [ngClass]=\"{'active': filterState == 'processing'}\" (click)=\"showProcessing()\">Processing</button>\n            </div>\n          </div>\n          <div class=\"col-md-4 grid-margin stretch-card\" *ngFor=\"let form of submittedFormsList\">\n            <div class=\"card hover-cursor animated fadeInDown slow\">\n              <div class=\"card-body\">\n                <p class=\"card-title\">{{ form.form_name }}</p>\n                <h1 class=\"display-4\">{{ form.submission_code }}</h1>\n                <div class=\"card-text\">\n                  <p class=\"text-muted\">{{ form.submitted_at | date }}</p>\n                </div>\n              </div>\n            </div>\n          </div>\n        </div>\n\n        <div *ngIf=\"loadingMore\" class=\"row m-md-2\">\n          <div class=\"col-md-12 col-sm-12 m-md-2\">\n            <div class=\"d-flex justify-content-center\">\n              <div class=\"spinner-border m-2\" style=\"width: 2rem; height: 2rem;\" role=\"status\">\n                <span class=\"sr-only\">Loading...</span>\n              </div>\n            </div>\n          </div>\n        </div>\n\n        <div *ngIf=\"hasMoreError\" class=\"row m-md-2\">\n          <div class=\"col-md-8 col-sm-12 offset-md-2\">\n            <div class=\"alert alert-danger\" role=\"alert\">\n              <h4 class=\"alert-heading\">Connection Failed!</h4>\n              <p>\n                Oops!! Couldn't get you the rest of the data. Please make sure you have an active internet connection.\n                Maybe, our servers may be down.\n              </p>\n              <hr>\n              <p class=\"mb-0\">We are really sorry for this inconvenience. Please click on the load more button again.\n              </p>\n            </div>\n          </div>\n        </div>\n\n        <div *ngIf=\"hasMore\" class=\"row\">\n          <div class=\"col-md-4 col-sm-6 offset-sm-3 offset-lg-4\">\n            <div class=\"text-center\">\n              <button type=\"button\" class=\"btn btn-primary btn-rounded btn-fw\" (click)=\"loadMore()\">Load More</button>\n            </div>\n          </div>\n        </div>\n      </div>\n      <!-- content -->\n      <!-- footer  -->\n      <app-footer-bar></app-footer-bar>\n      <!-- partial -->\n    </div>\n    <!-- main ends -->\n  </div>\n</div>\n"
+module.exports = "<div class=\"container-scroller\">\n  <app-navigation-bar></app-navigation-bar>\n  <div class=\"container-fluid page-body-wrapper\">\n    <app-side-bar></app-side-bar>\n    <div class=\"main-panel\">\n      <div class=\"content-wrapper\">\n        <div class=\"row\">\n          <div class=\"col-md-12 grid-margin\">\n            <div class=\"d-flex justify-content-between flex-wrap\">\n              <div class=\"d-flex align-items-end flex-wrap\">\n                <div class=\"mr-md-3 mr-xl-5\">\n                  <h2>Submitted Forms</h2>\n                </div>\n                <div class=\"d-flex\">\n                </div>\n                <div class=\"d-flex justify-content-between align-items-end flex-wrap\"></div>\n              </div>\n            </div>\n          </div>\n        </div>\n\n        <div *ngIf=\"loading\" class=\"row p-5\">\n          <div class=\"col-md-12 p-md-5\">\n            <div class=\"d-flex justify-content-center\">\n              <div class=\"spinner-border m-5\" style=\"width: 5rem; height: 5rem;\" role=\"status\">\n                <span class=\"sr-only\">Loading...</span>\n              </div>\n            </div>\n          </div>\n        </div>\n\n        <div *ngIf=\"!hasData && !loading\" class=\"row\">\n          <div class=\"col-lg-12 grid-margin stretch-card\">\n            <div class=\"card text-center pt-5 pb-5\">\n              <div class=\"card-body mt-5 mb-5\">\n                <h4 class=\"card-title\">No Data Found</h4>\n                <p class=\"card-description\">\n                  No data has been found.\n                </p>\n                <div class=\"text-lg-center mt-5 mb-5\">\n                  <div class=\"card-text\">\n                    <i class=\"mdi mdi-file-document-box-multiple-outline\" style=\"font-size: 8em;\"></i>\n                  </div>\n                  <div class=\"card-text\">\n                    <h3>No Available Form History</h3>\n                    <p class=\"text-muted\">\n                      You havent filled any forms yet! All the forms you filled will be displayed\n                      here to make it easy to re-fill again.\n                    </p>\n                  </div>\n                </div>\n              </div>\n            </div>\n          </div>\n        </div>\n\n        <div *ngIf=\"!loading && !isConnected && !hasData\" class=\"row\">\n          <div class=\"col-md-12 grid-margin\">\n            <div class=\"card text-center\">\n              <div class=\"card-body\">\n                <p class=\"card-title\">Offline</p>\n                <p class=\"text-muted\"></p>\n                <div class=\"card-text\">\n                  <i class=\"mdi mdi-wifi-off\" style=\"font-size: 12em;\"></i>\n                  <h2>No Internet Connection</h2>\n                  <p class=\"text-muted\">You don't have an active internet connection</p>\n                </div>\n              </div>\n            </div>\n          </div>\n        </div>\n\n        <div *ngIf=\"hasError\" class=\"row\">\n          <div class=\"col-lg-12 grid-margin stretch-card\">\n            <div class=\"card text-center pt-5 pb-5\">\n              <div class=\"card-body mt-5 mb-5\">\n                <h4 class=\"card-title\">Error Ocuured</h4>\n                <p class=\"card-description\">\n                  Ooops! Something went wrong!\n                </p>\n                <div class=\"text-lg-center mt-5 mb-5\">\n                  <div class=\"card-text\">\n                    <i class=\"mdi mdi-close-network-outline\" style=\"font-size: 8em;\"></i>\n                  </div>\n                  <div class=\"card-text\">\n                    <h3>We couldn't find your forms</h3>\n                    <p class=\"text-muted\">You may not have internet connection or our servers maybe down.</p>\n                    <button class=\"btn btn-primary\" type=\"button\" (click)=\"retry()\">Retry</button>\n                  </div>\n                </div>\n              </div>\n            </div>\n          </div>\n        </div>\n\n        <div *ngIf=\"!loading && hasData\" class=\"row\">\n          <div class=\"col-12 text-center mb-3\">\n            <div class=\"btn-group\" role=\"group\" aria-label=\"Filter By\">\n              <button type=\"button\" class=\"btn btn-outline-primary\" [ngClass]=\"{'active': filterState == 'all'}\" (click)=\"showAll()\">All</button>\n              <button type=\"button\" class=\"btn btn-outline-primary\" [ngClass]=\"{'active': filterState == 'processed'}\" (click)=\"showProcessed()\">Processed</button>\n              <button type=\"button\" class=\"btn btn-outline-primary\" [ngClass]=\"{'active': filterState == 'processing'}\" (click)=\"showProcessing()\">Processing</button>\n            </div>\n          </div>\n          <div class=\"col-md-4 grid-margin stretch-card\" *ngFor=\"let form of submittedFormsList\">\n            <div class=\"card hover-cursor animated fadeInDown slow\">\n              <div class=\"card-body\">\n                <p class=\"card-title\">{{ form.form_name }}</p>\n                <h1 class=\"display-4\">{{ form.submission_code }}</h1>\n                <div class=\"card-text\">\n                  <p class=\"text-muted\">{{ form.submitted_at | date }}</p>\n                </div>\n              </div>\n            </div>\n          </div>\n        </div>\n\n        <div *ngIf=\"loadingMore\" class=\"row m-md-2\">\n          <div class=\"col-md-12 col-sm-12 m-md-2\">\n            <div class=\"d-flex justify-content-center\">\n              <div class=\"spinner-border m-2\" style=\"width: 2rem; height: 2rem;\" role=\"status\">\n                <span class=\"sr-only\">Loading...</span>\n              </div>\n            </div>\n          </div>\n        </div>\n\n        <div *ngIf=\"hasMoreError\" class=\"row m-md-2\">\n          <div class=\"col-md-8 col-sm-12 offset-md-2\">\n            <div class=\"alert alert-danger\" role=\"alert\">\n              <h4 class=\"alert-heading\">Connection Failed!</h4>\n              <p>\n                Oops!! Couldn't get you the rest of the data. Please make sure you have an active internet connection.\n                Maybe, our servers may be down.\n              </p>\n              <hr>\n              <p class=\"mb-0\">We are really sorry for this inconvenience. Please click on the load more button again.</p>\n            </div>\n          </div>\n        </div>\n\n        <div *ngIf=\"hasMore\" class=\"row\">\n          <div class=\"col-md-4 col-sm-6 offset-sm-3 offset-lg-4\">\n            <div class=\"text-center\">\n              <button type=\"button\" class=\"btn btn-primary btn-rounded btn-fw\" (click)=\"loadMore()\">Load More</button>\n            </div>\n          </div>\n        </div>\n      </div>\n      <!-- content -->\n      <!-- footer  -->\n      <app-footer-bar></app-footer-bar>\n      <!-- partial -->\n    </div>\n    <!-- main ends -->\n  </div>\n</div>\n"
 
 /***/ }),
 
@@ -1218,7 +1218,7 @@ module.exports = "<div class=\"container-scroller\">\n  <app-navigation-bar></ap
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<div class=\"container-scroller\">\n  <app-navigation-bar></app-navigation-bar>\n  <div class=\"container-fluid page-body-wrapper\">\n    <app-side-bar></app-side-bar>\n    <div class=\"main-panel\">\n      <div class=\"content-wrapper\">\n        <div class=\"row\">\n          <div class=\"col-md-12 grid-margin\">\n            <div class=\"d-flex justify-content-between flex-wrap\">\n              <div class=\"d-flex align-items-end flex-wrap\">\n                <div class=\"mr-md-3 mr-xl-5\">\n                  <h2>All Forms</h2>\n                  <p class=\"mb-md-0\">Your administrative dashboard.</p>\n                </div>\n                <div class=\"d-flex\">\n                  <!-- <i class=\"mdi mdi-home text-muted hover-cursor\"></i>\n                  <p class=\"text-muted mb-0 hover-cursor\">&nbsp;/&nbsp;Home&nbsp;/&nbsp;</p>\n                  <p class=\"text-primary mb-0 hover-cursor\">View Forms</p> -->\n                </div>\n              </div>\n              <div class=\"d-flex justify-content-between align-items-end flex-wrap\">\n                <button type=\"button\" class=\"btn btn-light bg-white btn-icon mr-3 mt-2 mt-xl-0\" (click)=\"openNewForm()\">\n                  <i class=\"mdi mdi-plus text-muted\"></i>\n                </button>\n                <button type=\"button\" class=\"btn btn-light bg-white btn-icon mr-3 mt-2 mt-xl-0\" (click)=\"toggleViewMode('list')\">\n                  <i class=\"mdi mdi-view-list text-muted\"></i>\n                </button>\n                <button type=\"button\" class=\"btn btn-light bg-white btn-icon mr-3 mt-2 mt-xl-0\" (click)=\"toggleViewMode('grid')\">\n                  <i class=\"mdi mdi-view-grid text-muted\"></i>\n                </button>\n              </div>\n            </div>\n          </div>\n        </div>\n\n        <div *ngIf=\"loading\" class=\"row m-5\">\n          <div class=\"col-md-12 p-md-5\">\n            <div class=\"d-flex justify-content-center\">\n              <div class=\"spinner-border m-5\" style=\"width: 5rem; height: 5rem;\" role=\"status\">\n                <span class=\"sr-only\">Loading...</span>\n              </div>\n            </div>\n          </div>\n        </div>\n\n        <div *ngIf=\"hasNoData\" class=\"row\">\n          <div class=\"col-lg-12 grid-margin stretch-card\">\n            <div class=\"card text-center pt-5 pb-5\">\n              <div class=\"card-body mt-5 mb-5\">\n                <h4 class=\"card-title\">No Data Found</h4>\n                <p class=\"card-description\">\n                  No forms found.\n                </p>\n                <div class=\"text-lg-center mt-5 mb-5\">\n                  <div class=\"card-text\">\n                    <i class=\"mdi mdi-file-document-edit-outline\" style=\"font-size: 8em;\"></i>\n                  </div>\n                  <div class=\"card-text\">\n                    <h3>No Available Forms</h3>\n                    <p class=\"text-muted\">There are no created forms yet!</p>\n                  </div>\n                </div>\n              </div>\n            </div>\n          </div>\n        </div>\n\n        <div *ngIf=\"hasError\" class=\"row\">\n          <div class=\"col-lg-12 grid-margin stretch-card\">\n            <div class=\"card text-center pt-5 pb-5\">\n              <div class=\"card-body mt-5 mb-5\">\n                <h4 class=\"card-title\">Error Ocuured</h4>\n                <p class=\"card-description\">\n                  Ooops! Something went wrong!\n                </p>\n                <div class=\"text-lg-center mt-5 mb-5\">\n                  <div class=\"card-text\">\n                    <i class=\"mdi mdi-close-network-outline\" style=\"font-size: 8em;\"></i>\n                  </div>\n                  <div class=\"card-text\">\n                    <h3>We couldn't get your forms</h3>\n                    <p class=\"text-muted\">You may not have internet connection or our servers maybe down.</p>\n                    <button class=\"btn btn-primary\" type=\"button\" (click)=\"retry()\">Retry</button>\n                  </div>\n                </div>\n              </div>\n            </div>\n          </div>\n        </div>\n\n        <div *ngIf=\"!loading && !hasNoData && !hasError\" class=\"row\">\n          <div class=\"col-lg-12 grid-margin stretch-card\">\n            <div class=\"card\">\n              <div class=\"card-body\">\n                <div class=\"text-lg-center mt-3 mb-5\">\n                  <div class=\"btn-group\" role=\"group\" aria-label=\"Sort By\">\n                    <button type=\"button\" class=\"btn btn-outline-secondary\" [ngClass]=\"{'active': filterState == 'all'}\" (click)=\"showAll()\">All</button>\n                    <button type=\"button\" class=\"btn btn-outline-secondary\" [ngClass]=\"{'active': filterState == 'active'}\" (click)=\"showActive()\">Active</button>\n                    <button type=\"button\" class=\"btn btn-outline-secondary\" [ngClass]=\"{'active': filterState == 'inactive'}\" (click)=\"showInActive()\">In Active</button>\n                    <div class=\"dropdown\">\n                      <button type=\"button\" class=\"btn btn-outline-secondary dropdown-toggle\" id=\"sortMenuButton\"\n                        data-toggle=\"dropdown\" aria-haspopup=\"true\" aria-expanded=\"false\">Sort By</button>\n                      <div class=\"dropdown-menu\" aria-labelledby=\"sortMenuButton\">\n                        <button type=\"button\" class=\"dropdown-item\" (click)=\"sort('form')\">Form Name</button>\n                        <button type=\"button\" class=\"dropdown-item\" (click)=\"sort('merchant')\">Company Name</button>\n                        <button type=\"button\" class=\"dropdown-item\" (click)=\"sort('created')\">Date Created</button>\n                      </div>\n                    </div>\n                  </div>\n                </div>\n\n                <div *ngIf=\"viewMode == 'grid'\" class=\"row data-list\">\n                  <div class=\"col-md-4 grid-margin stretch-card\" *ngFor=\"let form of formsList; let i=index\">\n                    <div class=\"card hover-cursor animated fadeInDown fast\" (click)=\"view($event, form)\">\n                      <div class=\"card-body\">\n                        <p class=\"card-title\">{{ form.merchant_name }} - ({{ form.form_code }})</p>\n                        <div class=\"card-text\">\n                          <h1 class=\"display-4 mb-4\">{{ form.name }}</h1>\n                          <div class=\"btn-group\" role=\"group\" aria-label=\"Basic example\">\n                            <button type=\"button\" class=\"btn btn-outline-secondary\" (click)=\"edit($event, form)\">\n                              <i class=\"mdi mdi-pencil-outline\"></i>\n                              Edit\n                            </button>\n                            <button type=\"button\" class=\"btn btn-outline-secondary\" (click)=\"view($event, form)\">\n                              <i class=\"mdi mdi-pulse\"></i>\n                              View\n                            </button>\n                            <button type=\"button\" class=\"btn btn-outline-secondary\" (click)=\"delete($event, form.form_code, i)\">\n                              <i class=\"mdi mdi-delete-outline\"></i>\n                              Delete\n                            </button>\n                          </div>\n                        </div>\n                      </div>\n                    </div>\n                  </div>\n                </div>\n\n                <div *ngIf=\"viewMode == 'list'\" class=\"row data-list\">\n                  <div class=\"list-group\" style=\"width: 100%;\">\n                    <div class=\"list-group-item hover-cursor list-group-item-action animated fadeInDown\" *ngFor=\"let form of formsList; let i=index\">\n                      <div class=\"row\" (click)=\"view($event, form)\">\n                        <div class=\"col-7\"> \n                          <span class=\"card-title mt-2\">{{ form.merchant_name }}</span>\n                          <h1 class=\"display-4 mb-1 mt-2\">{{ form.name }}</h1>\n                        </div>\n                        <div class=\"col-5\">\n                          <div class=\"btn-group mt-2\" role=\"group\" aria-label=\"Basic example\">\n                            <button type=\"button\" class=\"btn btn-outline-secondary\" (click)=\"edit($event, form)\">\n                              <i class=\"mdi mdi-pencil-outline\"></i>\n                              Edit\n                            </button>\n                            <button type=\"button\" class=\"btn btn-outline-secondary\" (click)=\"view($event, form)\">\n                              <i class=\"mdi mdi-pulse\"></i>\n                              View\n                            </button>\n                            <button type=\"button\" class=\"btn btn-outline-secondary\" (click)=\"delete($event, form.form_code, i)\">\n                              <i class=\"mdi mdi-delete-outline\"></i>\n                              Delete\n                            </button>\n                          </div>\n                        </div>\n                      </div>\n                    </div>\n                  </div>\n                </div>\n\n                <div *ngIf=\"loadingMore\" class=\"row m-md-2\">\n                  <div class=\"col-md-12 col-sm-12 m-md-2\">\n                    <div class=\"d-flex justify-content-center\">\n                      <div class=\"spinner-border m-2\" style=\"width: 2rem; height: 2rem;\" role=\"status\">\n                        <span class=\"sr-only\">Loading...</span>\n                      </div>\n                    </div>\n                  </div>\n                </div>\n\n                <div *ngIf=\"hasMoreError\" class=\"row m-md-2\">\n                  <div class=\"col-md-8 col-sm-12 offset-md-2\">\n                    <div class=\"alert alert-danger\" role=\"alert\">\n                      <h4 class=\"alert-heading\">Connection Failed!</h4>\n                      <p>\n                        Oops!! Couldn't get you the rest of the data. Please make sure you have an active internet connection.\n                        Maybe, our servers may be down.\n                      </p>\n                      <hr>\n                      <p class=\"mb-0\">We are really sorry for this inconvenience. Please click on the load more button again.</p>\n                    </div>\n                  </div>\n                </div>\n\n                <div *ngIf=\"hasMore\" class=\"row\">\n                  <div class=\"col-md-4 col-sm-6 offset-sm-3 offset-lg-4\">\n                    <div class=\"text-center\">\n                      <button type=\"button\" class=\"btn btn-secondary btn-rounded btn-fw\" (click)=\"loadMore()\">Load More</button>\n                    </div>\n                  </div>\n                </div>\n                \n              </div>\n            </div>\n          </div>\n        </div>\n      </div>\n    </div>\n  </div>\n</div>\n\n<ng-template #loader let-modal>\n  <div class=\"modal-body\">\n    <div class=\"d-flex justify-content-center\">\n      <div class=\"spinner-border m-5\" style=\"width: 4rem; height: 4rem;\" role=\"status\">\n        <span class=\"sr-only\">Loading...</span>\n      </div>\n    </div>\n    <p class=\"text-center\">Please wait...</p>\n  </div>\n</ng-template>\n\n<ng-template #confirm let-modal>\n  <div class=\"modal-header\">\n    <h4 class=\"modal-title\" id=\"modal-title\">Delete Form ?</h4>\n    <button type=\"button\" class=\"close\" aria-describedby=\"modal-title\" (click)=\"modal.dismiss('Cross click')\">\n      <span aria-hidden=\"true\">&times;</span>\n    </button>\n  </div>\n  <div class=\"modal-body\">\n    <p><strong>Are you sure you want to delete <span class=\"text-primary\">this form</span> ?</strong></p>\n    <p>All information associated with this form will be permanently deleted.\n      <span class=\"text-danger\">This operation can not be undone.</span>\n    </p>\n  </div>\n  <div class=\"modal-footer\">\n    <button type=\"button\" class=\"btn btn-outline-secondary\" (click)=\"modal.dismiss('cancel')\">Cancel</button>\n    <button type=\"button\" class=\"btn btn-danger\" (click)=\"modal.close('delete')\">Delete</button>\n  </div>\n</ng-template>"
+module.exports = "<div class=\"container-scroller\">\n  <app-navigation-bar></app-navigation-bar>\n  <div class=\"container-fluid page-body-wrapper\">\n    <app-side-bar></app-side-bar>\n    <div class=\"main-panel\">\n      <div class=\"content-wrapper\">\n        <div class=\"row\">\n          <div class=\"col-md-12 grid-margin\">\n            <div class=\"d-flex justify-content-between flex-wrap\">\n              <div class=\"d-flex align-items-end flex-wrap\">\n                <div class=\"mr-md-3 mr-xl-5\">\n                  <h2>All Forms</h2>\n                  <p class=\"mb-md-0\">Your administrative dashboard.</p>\n                </div>\n                <div class=\"d-flex\">\n                  <!-- <i class=\"mdi mdi-home text-muted hover-cursor\"></i>\n                  <p class=\"text-muted mb-0 hover-cursor\">&nbsp;/&nbsp;Home&nbsp;/&nbsp;</p>\n                  <p class=\"text-primary mb-0 hover-cursor\">View Forms</p> -->\n                </div>\n              </div>\n              <div class=\"d-flex justify-content-between align-items-end flex-wrap\">\n                <button type=\"button\" class=\"btn btn-light bg-white btn-icon mr-3 mt-2 mt-xl-0\" (click)=\"openNewForm()\">\n                  <i class=\"mdi mdi-plus text-muted\"></i>\n                </button>\n                <button type=\"button\" class=\"btn btn-light bg-white btn-icon mr-3 mt-2 mt-xl-0\" (click)=\"toggleViewMode('list')\">\n                  <i class=\"mdi mdi-view-list text-muted\"></i>\n                </button>\n                <button type=\"button\" class=\"btn btn-light bg-white btn-icon mr-3 mt-2 mt-xl-0\" (click)=\"toggleViewMode('grid')\">\n                  <i class=\"mdi mdi-view-grid text-muted\"></i>\n                </button>\n              </div>\n            </div>\n          </div>\n        </div>\n\n        <div *ngIf=\"loading\" class=\"row m-5\">\n          <div class=\"col-md-12 p-md-5\">\n            <div class=\"d-flex justify-content-center\">\n              <div class=\"spinner-border m-5\" style=\"width: 5rem; height: 5rem;\" role=\"status\">\n                <span class=\"sr-only\">Loading...</span>\n              </div>\n            </div>\n          </div>\n        </div>\n\n        <div *ngIf=\"hasNoData\" class=\"row\">\n          <div class=\"col-lg-12 grid-margin stretch-card\">\n            <div class=\"card text-center pt-5 pb-5\">\n              <div class=\"card-body mt-5 mb-5\">\n                <h4 class=\"card-title\">No Data Found</h4>\n                <p class=\"card-description\">\n                  No forms found.\n                </p>\n                <div class=\"text-lg-center mt-5 mb-5\">\n                  <div class=\"card-text\">\n                    <i class=\"mdi mdi-file-document-edit-outline\" style=\"font-size: 8em;\"></i>\n                  </div>\n                  <div class=\"card-text\">\n                    <h3>No Available Forms</h3>\n                    <p class=\"text-muted\">There are no created forms yet!</p>\n                  </div>\n                </div>\n              </div>\n            </div>\n          </div>\n        </div>\n\n        <div *ngIf=\"hasError\" class=\"row\">\n          <div class=\"col-lg-12 grid-margin stretch-card\">\n            <div class=\"card text-center pt-5 pb-5\">\n              <div class=\"card-body mt-5 mb-5\">\n                <h4 class=\"card-title\">Error Ocuured</h4>\n                <p class=\"card-description\">\n                  Ooops! Something went wrong!\n                </p>\n                <div class=\"text-lg-center mt-5 mb-5\">\n                  <div class=\"card-text\">\n                    <i class=\"mdi mdi-close-network-outline\" style=\"font-size: 8em;\"></i>\n                  </div>\n                  <div class=\"card-text\">\n                    <h3>We couldn't get your forms</h3>\n                    <p class=\"text-muted\">You may not have internet connection or our servers maybe down.</p>\n                    <button class=\"btn btn-primary\" type=\"button\" (click)=\"retry()\">Retry</button>\n                  </div>\n                </div>\n              </div>\n            </div>\n          </div>\n        </div>\n\n        <div *ngIf=\"!loading && !hasNoData && !hasError\" class=\"row\">\n          <div class=\"col-lg-12 grid-margin stretch-card\">\n            <div class=\"card\">\n              <div class=\"card-body\">\n                <div class=\"text-lg-center mt-3 mb-5\">\n                  <div class=\"btn-group\" role=\"group\" aria-label=\"Sort By\">\n                    <button type=\"button\" class=\"btn btn-outline-secondary\" [ngClass]=\"{'active': filterState == 'all'}\" (click)=\"showAll()\">All</button>\n                    <button type=\"button\" class=\"btn btn-outline-secondary\" [ngClass]=\"{'active': filterState == 'active'}\" (click)=\"showActive()\">Published</button>\n                    <button type=\"button\" class=\"btn btn-outline-secondary\" [ngClass]=\"{'active': filterState == 'inactive'}\" (click)=\"showInActive()\">Unpublished</button>\n                    <div class=\"dropdown\">\n                      <button type=\"button\" class=\"btn btn-outline-secondary dropdown-toggle\" id=\"sortMenuButton\"\n                        data-toggle=\"dropdown\" aria-haspopup=\"true\" aria-expanded=\"false\">Sort By</button>\n                      <div class=\"dropdown-menu\" aria-labelledby=\"sortMenuButton\">\n                        <button type=\"button\" class=\"dropdown-item\" (click)=\"sort('form')\">Form Name</button>\n                        <button type=\"button\" class=\"dropdown-item\" (click)=\"sort('merchant')\">Company Name</button>\n                        <button type=\"button\" class=\"dropdown-item\" (click)=\"sort('created')\">Date Created</button>\n                      </div>\n                    </div>\n                  </div>\n                </div>\n\n                <div *ngIf=\"viewMode == 'grid'\" class=\"row data-list\">\n                  <div class=\"col-md-4 grid-margin stretch-card\" *ngFor=\"let form of formsList; let i=index\">\n                    <div class=\"card hover-cursor animated fadeInDown fast\" (click)=\"view($event, form)\">\n                      <div class=\"card-body\">\n                        <p class=\"card-title\">{{ form.merchant_name }} - ({{ form.form_code }})</p>\n                        <div class=\"card-text\">\n                          <h1 class=\"display-4 mb-4\">{{ form.name }}</h1>\n                          <div class=\"btn-group\" role=\"group\" aria-label=\"Basic example\">\n                            <button type=\"button\" class=\"btn btn-outline-secondary\" (click)=\"edit($event, form)\">\n                              <i class=\"mdi mdi-pencil-outline\"></i>\n                              Edit\n                            </button>\n                            <button type=\"button\" class=\"btn btn-outline-secondary\" (click)=\"view($event, form)\">\n                              <i class=\"mdi mdi-pulse\"></i>\n                              View\n                            </button>\n                            <button type=\"button\" class=\"btn btn-outline-secondary\" (click)=\"delete($event, form.form_code, i)\">\n                              <i class=\"mdi mdi-delete-outline\"></i>\n                              Delete\n                            </button>\n                          </div>\n                        </div>\n                      </div>\n                    </div>\n                  </div>\n                </div>\n\n                <div *ngIf=\"viewMode == 'list'\" class=\"row data-list\">\n                  <div class=\"list-group\" style=\"width: 100%;\">\n                    <div class=\"list-group-item hover-cursor list-group-item-action animated fadeInDown\" *ngFor=\"let form of formsList; let i=index\">\n                      <div class=\"row\" (click)=\"view($event, form)\">\n                        <div class=\"col-7\"> \n                          <span class=\"card-title mt-2\">{{ form.merchant_name }}</span>\n                          <h1 class=\"display-4 mb-1 mt-2\">{{ form.name }}</h1>\n                        </div>\n                        <div class=\"col-5\">\n                          <div class=\"btn-group mt-2\" role=\"group\" aria-label=\"Basic example\">\n                            <button type=\"button\" class=\"btn btn-outline-secondary\" (click)=\"edit($event, form)\">\n                              <i class=\"mdi mdi-pencil-outline\"></i>\n                              Edit\n                            </button>\n                            <button type=\"button\" class=\"btn btn-outline-secondary\" (click)=\"view($event, form)\">\n                              <i class=\"mdi mdi-pulse\"></i>\n                              View\n                            </button>\n                            <button type=\"button\" class=\"btn btn-outline-secondary\" (click)=\"delete($event, form.form_code, i)\">\n                              <i class=\"mdi mdi-delete-outline\"></i>\n                              Delete\n                            </button>\n                          </div>\n                        </div>\n                      </div>\n                    </div>\n                  </div>\n                </div>\n\n                <div *ngIf=\"loadingMore\" class=\"row m-md-2\">\n                  <div class=\"col-md-12 col-sm-12 m-md-2\">\n                    <div class=\"d-flex justify-content-center\">\n                      <div class=\"spinner-border m-2\" style=\"width: 2rem; height: 2rem;\" role=\"status\">\n                        <span class=\"sr-only\">Loading...</span>\n                      </div>\n                    </div>\n                  </div>\n                </div>\n\n                <div *ngIf=\"hasMoreError\" class=\"row m-md-2\">\n                  <div class=\"col-md-8 col-sm-12 offset-md-2\">\n                    <div class=\"alert alert-danger\" role=\"alert\">\n                      <h4 class=\"alert-heading\">Connection Failed!</h4>\n                      <p>\n                        Oops!! Couldn't get you the rest of the data. Please make sure you have an active internet connection.\n                        Maybe, our servers may be down.\n                      </p>\n                      <hr>\n                      <p class=\"mb-0\">We are really sorry for this inconvenience. Please click on the load more button again.</p>\n                    </div>\n                  </div>\n                </div>\n\n                <div *ngIf=\"hasMore\" class=\"row\">\n                  <div class=\"col-md-4 col-sm-6 offset-sm-3 offset-lg-4\">\n                    <div class=\"text-center\">\n                      <button type=\"button\" class=\"btn btn-secondary btn-rounded btn-fw\" (click)=\"loadMore()\">Load More</button>\n                    </div>\n                  </div>\n                </div>\n                \n              </div>\n            </div>\n          </div>\n        </div>\n      </div>\n    </div>\n  </div>\n</div>\n\n<ng-template #loader let-modal>\n  <div class=\"modal-body\">\n    <div class=\"d-flex justify-content-center\">\n      <div class=\"spinner-border m-5\" style=\"width: 4rem; height: 4rem;\" role=\"status\">\n        <span class=\"sr-only\">Loading...</span>\n      </div>\n    </div>\n    <p class=\"text-center\">Please wait...</p>\n  </div>\n</ng-template>\n\n<ng-template #confirm let-modal>\n  <div class=\"modal-header\">\n    <h4 class=\"modal-title\" id=\"modal-title\">Delete Form ?</h4>\n    <button type=\"button\" class=\"close\" aria-describedby=\"modal-title\" (click)=\"modal.dismiss('Cross click')\">\n      <span aria-hidden=\"true\">&times;</span>\n    </button>\n  </div>\n  <div class=\"modal-body\">\n    <p><strong>Are you sure you want to delete <span class=\"text-primary\">this form</span> ?</strong></p>\n    <p>All information associated with this form will be permanently deleted.\n      <span class=\"text-danger\">This operation can not be undone.</span>\n    </p>\n  </div>\n  <div class=\"modal-footer\">\n    <button type=\"button\" class=\"btn btn-outline-secondary\" (click)=\"modal.dismiss('cancel')\">Cancel</button>\n    <button type=\"button\" class=\"btn btn-danger\" (click)=\"modal.close('delete')\">Delete</button>\n  </div>\n</ng-template>"
 
 /***/ }),
 
@@ -2452,7 +2452,7 @@ let NavigationBarComponent = class NavigationBarComponent {
         this.router = router;
         this.accountService = accountService;
         this.localStorage = localStorage;
-        this.userType = this.localStorage.getUser().user_type;
+        this.userType = this.localStorage.getUser().usertype;
         const lastName = this.localStorage.getUser().lastname;
         const firstName = this.localStorage.getUser().firstname;
         this.fullName = firstName + ' ' + lastName;
@@ -4253,11 +4253,11 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var lodash__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! lodash */ "./node_modules/lodash/lodash.js");
 /* harmony import */ var lodash__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(lodash__WEBPACK_IMPORTED_MODULE_2__);
 /* harmony import */ var _angular_router__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @angular/router */ "./node_modules/@angular/router/fesm2015/router.js");
-/* harmony import */ var _ng_bootstrap_ng_bootstrap__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @ng-bootstrap/ng-bootstrap */ "./node_modules/@ng-bootstrap/ng-bootstrap/fesm2015/ng-bootstrap.js");
-/* harmony import */ var src_app_services_forms_forms_service__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! src/app/services/forms/forms.service */ "./src/app/services/forms/forms.service.ts");
-/* harmony import */ var src_app_services_view_list_view_service__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! src/app/services/view/list-view.service */ "./src/app/services/view/list-view.service.ts");
-/* harmony import */ var src_app_services_storage_local_storage_service__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! src/app/services/storage/local-storage.service */ "./src/app/services/storage/local-storage.service.ts");
-/* harmony import */ var src_app_enums_user_types_enum__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! src/app/enums/user-types.enum */ "./src/app/enums/user-types.enum.ts");
+/* harmony import */ var src_app_enums_user_types_enum__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! src/app/enums/user-types.enum */ "./src/app/enums/user-types.enum.ts");
+/* harmony import */ var _ng_bootstrap_ng_bootstrap__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @ng-bootstrap/ng-bootstrap */ "./node_modules/@ng-bootstrap/ng-bootstrap/fesm2015/ng-bootstrap.js");
+/* harmony import */ var src_app_services_forms_forms_service__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! src/app/services/forms/forms.service */ "./src/app/services/forms/forms.service.ts");
+/* harmony import */ var src_app_services_view_list_view_service__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! src/app/services/view/list-view.service */ "./src/app/services/view/list-view.service.ts");
+/* harmony import */ var src_app_services_storage_local_storage_service__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! src/app/services/storage/local-storage.service */ "./src/app/services/storage/local-storage.service.ts");
 
 
 
@@ -4278,7 +4278,7 @@ let AdminFormListsPageComponent = class AdminFormListsPageComponent {
         this.allFormsList = [];
         this.viewMode = this.listViewService.getDesiredViewMode();
         this.merchant_id = this.localStorage.getUser().merchant_id.toString();
-        this.isBranchAdmin = this.localStorage.getUser().usertype == src_app_enums_user_types_enum__WEBPACK_IMPORTED_MODULE_8__["UserTypes"].BranchAdmin ? true : false;
+        this.isBranchAdmin = this.localStorage.getUser().usertype == src_app_enums_user_types_enum__WEBPACK_IMPORTED_MODULE_4__["UserTypes"].BranchAdmin ? true : false;
         this.getAllForms();
     }
     ngOnInit() {
@@ -4290,9 +4290,8 @@ let AdminFormListsPageComponent = class AdminFormListsPageComponent {
     hideLoadingModal() {
         this.loadingModalRef.close();
     }
-    showAll() {
-        this.filterState = 'all';
-        this.formsList = this.allFormsList;
+    handleLoadMoreVisibility(list) {
+        lodash__WEBPACK_IMPORTED_MODULE_2__["isNull"](list) || lodash__WEBPACK_IMPORTED_MODULE_2__["isUndefined"](list) || lodash__WEBPACK_IMPORTED_MODULE_2__["isEmpty"](list) || list.length < 15 ? this.hasMore = false : this.hasMore = true;
     }
     toggleViewMode(mode) {
         switch (mode) {
@@ -4326,13 +4325,21 @@ let AdminFormListsPageComponent = class AdminFormListsPageComponent {
     sortByCreated() {
         this.formsList = lodash__WEBPACK_IMPORTED_MODULE_2__["sortBy"](this.formsList, (item) => item.created_at);
     }
+    showAll() {
+        this.filterState = 'all';
+        this.formsList = this.allFormsList;
+        const moreUrl = this.formService.nextPaginationUrl;
+        lodash__WEBPACK_IMPORTED_MODULE_2__["isNull"](moreUrl) ? this.hasMore = false : this.hasMore = true;
+    }
     showActive() {
         this.filterState = 'active';
         this.formsList = lodash__WEBPACK_IMPORTED_MODULE_2__["filter"](this.allFormsList, (form) => form.status == 1);
+        this.hasMore ? this.handleLoadMoreVisibility(this.formsList) : null;
     }
     showInActive() {
         this.filterState = 'inactive';
         this.formsList = lodash__WEBPACK_IMPORTED_MODULE_2__["filter"](this.allFormsList, (form) => form.status == 0);
+        this.hasMore ? this.handleLoadMoreVisibility(this.formsList) : null;
     }
     openNewForm() {
         this.router.navigateByUrl('admin/create/form');
@@ -4411,10 +4418,10 @@ let AdminFormListsPageComponent = class AdminFormListsPageComponent {
 };
 AdminFormListsPageComponent.ctorParameters = () => [
     { type: _angular_router__WEBPACK_IMPORTED_MODULE_3__["Router"] },
-    { type: _ng_bootstrap_ng_bootstrap__WEBPACK_IMPORTED_MODULE_4__["NgbModal"] },
-    { type: src_app_services_forms_forms_service__WEBPACK_IMPORTED_MODULE_5__["FormsService"] },
-    { type: src_app_services_view_list_view_service__WEBPACK_IMPORTED_MODULE_6__["ListViewService"] },
-    { type: src_app_services_storage_local_storage_service__WEBPACK_IMPORTED_MODULE_7__["LocalStorageService"] }
+    { type: _ng_bootstrap_ng_bootstrap__WEBPACK_IMPORTED_MODULE_5__["NgbModal"] },
+    { type: src_app_services_forms_forms_service__WEBPACK_IMPORTED_MODULE_6__["FormsService"] },
+    { type: src_app_services_view_list_view_service__WEBPACK_IMPORTED_MODULE_7__["ListViewService"] },
+    { type: src_app_services_storage_local_storage_service__WEBPACK_IMPORTED_MODULE_8__["LocalStorageService"] }
 ];
 tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
     Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["ViewChild"])('loader', { static: false })
@@ -4544,9 +4551,11 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm2015/core.js");
 /* harmony import */ var _angular_router__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @angular/router */ "./node_modules/@angular/router/fesm2015/router.js");
-/* harmony import */ var src_app_services_analytics_analytics_service__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! src/app/services/analytics/analytics.service */ "./src/app/services/analytics/analytics.service.ts");
-/* harmony import */ var src_app_services_storage_local_storage_service__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! src/app/services/storage/local-storage.service */ "./src/app/services/storage/local-storage.service.ts");
-/* harmony import */ var src_app_services_account_account_service__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! src/app/services/account/account.service */ "./src/app/services/account/account.service.ts");
+/* harmony import */ var src_app_enums_user_types_enum__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! src/app/enums/user-types.enum */ "./src/app/enums/user-types.enum.ts");
+/* harmony import */ var src_app_services_account_account_service__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! src/app/services/account/account.service */ "./src/app/services/account/account.service.ts");
+/* harmony import */ var src_app_services_analytics_analytics_service__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! src/app/services/analytics/analytics.service */ "./src/app/services/analytics/analytics.service.ts");
+/* harmony import */ var src_app_services_storage_local_storage_service__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! src/app/services/storage/local-storage.service */ "./src/app/services/storage/local-storage.service.ts");
+
 
 
 
@@ -4560,6 +4569,7 @@ let AdminHomePageComponent = class AdminHomePageComponent {
         this.analyticService = analyticService;
         this.localStorage = localStorage;
         this.initVars();
+        this.isBranchAdmin = this.localStorage.getUser().usertype == src_app_enums_user_types_enum__WEBPACK_IMPORTED_MODULE_3__["UserTypes"].BranchAdmin ? true : false;
     }
     ngOnInit() {
     }
@@ -4639,9 +4649,9 @@ let AdminHomePageComponent = class AdminHomePageComponent {
 };
 AdminHomePageComponent.ctorParameters = () => [
     { type: _angular_router__WEBPACK_IMPORTED_MODULE_2__["Router"] },
-    { type: src_app_services_account_account_service__WEBPACK_IMPORTED_MODULE_5__["AccountService"] },
-    { type: src_app_services_analytics_analytics_service__WEBPACK_IMPORTED_MODULE_3__["AnalyticsService"] },
-    { type: src_app_services_storage_local_storage_service__WEBPACK_IMPORTED_MODULE_4__["LocalStorageService"] }
+    { type: src_app_services_account_account_service__WEBPACK_IMPORTED_MODULE_4__["AccountService"] },
+    { type: src_app_services_analytics_analytics_service__WEBPACK_IMPORTED_MODULE_5__["AnalyticsService"] },
+    { type: src_app_services_storage_local_storage_service__WEBPACK_IMPORTED_MODULE_6__["LocalStorageService"] }
 ];
 AdminHomePageComponent = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
     Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Component"])({
@@ -5069,6 +5079,9 @@ let AdminViewBranchesPageComponent = class AdminViewBranchesPageComponent {
     ngOnInit() {
         this.filterState = 'all';
     }
+    handleLoadMoreVisibility(list) {
+        lodash__WEBPACK_IMPORTED_MODULE_2__["isNull"](list) || lodash__WEBPACK_IMPORTED_MODULE_2__["isUndefined"](list) || lodash__WEBPACK_IMPORTED_MODULE_2__["isEmpty"](list) || list.length <= 15 ? this.hasMore = false : this.hasMore = true;
+    }
     toggleViewMode(mode) {
         switch (mode) {
             case 'list':
@@ -5104,14 +5117,18 @@ let AdminViewBranchesPageComponent = class AdminViewBranchesPageComponent {
     showAll() {
         this.filterState = 'all';
         this.branchesList = this.allBranchesList;
+        const moreUrl = this.branchService.nextPaginationUrl;
+        lodash__WEBPACK_IMPORTED_MODULE_2__["isNull"](moreUrl) ? this.hasMore = false : this.hasMore = true;
     }
     showActive() {
         this.filterState = 'active';
         this.branchesList = lodash__WEBPACK_IMPORTED_MODULE_2__["filter"](this.allBranchesList, (branch) => branch.status == 1);
+        this.hasMore ? this.handleLoadMoreVisibility(this.branchesList) : null;
     }
     showInActive() {
         this.filterState = 'inactive';
         this.branchesList = lodash__WEBPACK_IMPORTED_MODULE_2__["filter"](this.allBranchesList, (branch) => branch.status == 0);
+        this.hasMore ? this.handleLoadMoreVisibility(this.branchesList) : null;
     }
     checkIfHasMore() {
         return lodash__WEBPACK_IMPORTED_MODULE_2__["isNull"](this.branchService.nextPaginationUrl) ? false : true;
@@ -5529,12 +5546,12 @@ let ClientFormLinkRedirectPageComponent = class ClientFormLinkRedirectPageCompon
         this.loading = true;
         const form_code = sessionStorage.getItem('shared_link');
         this.clientService.findFormsByCode(form_code).then(form => {
+            console.log('got form');
             this.loading = false;
             // DON'T forget to remove the shared link else
             // every login will redirect user to this form entry which
             // isnt the desired functionality.
             sessionStorage.removeItem('shared_link');
-            // sessionStorage.setItem('u_form', JSON.stringify(form));
             this.router.navigateByUrl('/client/form_entry', { state: { form: form } });
         }, err => {
             this.loading = false;
@@ -5565,7 +5582,7 @@ ClientFormLinkRedirectPageComponent = tslib__WEBPACK_IMPORTED_MODULE_0__["__deco
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = ".card-logo {\n    width: 218px;\n    height: 160px;\n    display: block;\n    margin: 0 auto;\n}\n\n.search-form {\n    border-radius: 30px;\n    background: #ececec;\n}\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInNyYy9hcHAvcGFnZXMvZGFzaGJvYXJkL2NsaWVudC9jbGllbnQtZm9ybS1tZXJjaGFudHMtcGFnZS9jbGllbnQtZm9ybS1tZXJjaGFudHMtcGFnZS5jb21wb25lbnQuY3NzIl0sIm5hbWVzIjpbXSwibWFwcGluZ3MiOiJBQUFBO0lBQ0ksWUFBWTtJQUNaLGFBQWE7SUFDYixjQUFjO0lBQ2QsY0FBYztBQUNsQjs7QUFFQTtJQUNJLG1CQUFtQjtJQUNuQixtQkFBbUI7QUFDdkIiLCJmaWxlIjoic3JjL2FwcC9wYWdlcy9kYXNoYm9hcmQvY2xpZW50L2NsaWVudC1mb3JtLW1lcmNoYW50cy1wYWdlL2NsaWVudC1mb3JtLW1lcmNoYW50cy1wYWdlLmNvbXBvbmVudC5jc3MiLCJzb3VyY2VzQ29udGVudCI6WyIuY2FyZC1sb2dvIHtcbiAgICB3aWR0aDogMjE4cHg7XG4gICAgaGVpZ2h0OiAxNjBweDtcbiAgICBkaXNwbGF5OiBibG9jaztcbiAgICBtYXJnaW46IDAgYXV0bztcbn1cblxuLnNlYXJjaC1mb3JtIHtcbiAgICBib3JkZXItcmFkaXVzOiAzMHB4O1xuICAgIGJhY2tncm91bmQ6ICNlY2VjZWM7XG59Il19 */"
+module.exports = ".card-logo {\n    width: 218px;\n    height: 160px;\n    display: block;\n    margin: 0 auto;\n}\n\n.search-form {\n    border-radius: 30px;\n    background: #fff;\n}\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInNyYy9hcHAvcGFnZXMvZGFzaGJvYXJkL2NsaWVudC9jbGllbnQtZm9ybS1tZXJjaGFudHMtcGFnZS9jbGllbnQtZm9ybS1tZXJjaGFudHMtcGFnZS5jb21wb25lbnQuY3NzIl0sIm5hbWVzIjpbXSwibWFwcGluZ3MiOiJBQUFBO0lBQ0ksWUFBWTtJQUNaLGFBQWE7SUFDYixjQUFjO0lBQ2QsY0FBYztBQUNsQjs7QUFFQTtJQUNJLG1CQUFtQjtJQUNuQixnQkFBZ0I7QUFDcEIiLCJmaWxlIjoic3JjL2FwcC9wYWdlcy9kYXNoYm9hcmQvY2xpZW50L2NsaWVudC1mb3JtLW1lcmNoYW50cy1wYWdlL2NsaWVudC1mb3JtLW1lcmNoYW50cy1wYWdlLmNvbXBvbmVudC5jc3MiLCJzb3VyY2VzQ29udGVudCI6WyIuY2FyZC1sb2dvIHtcbiAgICB3aWR0aDogMjE4cHg7XG4gICAgaGVpZ2h0OiAxNjBweDtcbiAgICBkaXNwbGF5OiBibG9jaztcbiAgICBtYXJnaW46IDAgYXV0bztcbn1cblxuLnNlYXJjaC1mb3JtIHtcbiAgICBib3JkZXItcmFkaXVzOiAzMHB4O1xuICAgIGJhY2tncm91bmQ6ICNmZmY7XG59Il19 */"
 
 /***/ }),
 
@@ -5898,13 +5915,12 @@ let ClientFormsEntryPageComponent = class ClientFormsEntryPageComponent {
             lodash__WEBPACK_IMPORTED_MODULE_2__["forEach"](unfilled_fields, (field) => {
                 if (field.type == 'file') {
                     if (attachment.key == field.name) {
-                        // fields = _.filter(unfilled_fields, (f) => f.name != field.name);
                         fields.push(field);
                     }
                 }
             });
         });
-        console.log('unfilllllllllleeeeed: ' + JSON.stringify(fields));
+        console.log('unfilleed: ' + JSON.stringify(fields));
         return fields;
     }
     submitFormWithAttachments(user_data) {
@@ -5934,13 +5950,12 @@ let ClientFormsEntryPageComponent = class ClientFormsEntryPageComponent {
             this.formGenCode = res.code;
             if (this.existingAttachments.length > 0) {
                 lodash__WEBPACK_IMPORTED_MODULE_2__["forEach"](this.existingAttachments, (attachment) => {
-                    const index = attachment.url.lastIndexOf('.') + 1;
+                    const index = attachment.url.lastIndexOf('.');
                     const extension = attachment.url.substr(index);
-                    const mimeType = 'image/' + extension;
-                    const filename = Date.now().toString();
+                    const filename = Date.now().toString() + extension;
                     const attachmentHost = this.endpointService.storageHost + 'attachments/';
-                    const observable = this.fileUploadService.srcToBase64(attachmentHost + attachment.url, mimeType);
-                    observable.subscribe(base64Str => {
+                    const p = this.fileUploadService.srcToBase64(attachmentHost + attachment.url);
+                    p.then(base64Str => {
                         const fileObj = this.fileUploadService.convertBase64ToFile(base64Str, filename);
                         this.uploadConvertedFormAttachment(this.formGenCode, attachment.key, fileObj);
                     });
@@ -6097,7 +6112,7 @@ let ClientFormsEntryPageComponent = class ClientFormsEntryPageComponent {
         window.history.back();
     }
     ok() {
-        this.router.navigateByUrl('/client/unsent_forms');
+        this.router.navigateByUrl('/client/forms_filled');
     }
     downloadDoc(url) {
         this.docDialogRef.close();
@@ -6147,7 +6162,7 @@ ClientFormsEntryPageComponent = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "@media only screen \nand (min-device-width: 320px) \nand (max-device-width: 825px) {\n    .grid-margin {\n        margin-bottom: .45rem;\n    }\n}\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInNyYy9hcHAvcGFnZXMvZGFzaGJvYXJkL2NsaWVudC9jbGllbnQtZm9ybXMtaGlzdG9yeS1wYWdlL2NsaWVudC1mb3Jtcy1oaXN0b3J5LXBhZ2UuY29tcG9uZW50LmNzcyJdLCJuYW1lcyI6W10sIm1hcHBpbmdzIjoiQUFBQTs7O0lBR0k7UUFDSSxxQkFBcUI7SUFDekI7QUFDSiIsImZpbGUiOiJzcmMvYXBwL3BhZ2VzL2Rhc2hib2FyZC9jbGllbnQvY2xpZW50LWZvcm1zLWhpc3RvcnktcGFnZS9jbGllbnQtZm9ybXMtaGlzdG9yeS1wYWdlLmNvbXBvbmVudC5jc3MiLCJzb3VyY2VzQ29udGVudCI6WyJAbWVkaWEgb25seSBzY3JlZW4gXG5hbmQgKG1pbi1kZXZpY2Utd2lkdGg6IDMyMHB4KSBcbmFuZCAobWF4LWRldmljZS13aWR0aDogODI1cHgpIHtcbiAgICAuZ3JpZC1tYXJnaW4ge1xuICAgICAgICBtYXJnaW4tYm90dG9tOiAuNDVyZW07XG4gICAgfVxufSJdfQ== */"
+module.exports = "@media only screen \nand (min-device-width: 320px) \nand (max-device-width: 825px) {\n    .grid-margin {\n        margin-bottom: .45rem;\n    }\n}\n\n.small-text {\n    font-size: 0.775rem;\n    font-weight: bold;\n}\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInNyYy9hcHAvcGFnZXMvZGFzaGJvYXJkL2NsaWVudC9jbGllbnQtZm9ybXMtaGlzdG9yeS1wYWdlL2NsaWVudC1mb3Jtcy1oaXN0b3J5LXBhZ2UuY29tcG9uZW50LmNzcyJdLCJuYW1lcyI6W10sIm1hcHBpbmdzIjoiQUFBQTs7O0lBR0k7UUFDSSxxQkFBcUI7SUFDekI7QUFDSjs7QUFFQTtJQUNJLG1CQUFtQjtJQUNuQixpQkFBaUI7QUFDckIiLCJmaWxlIjoic3JjL2FwcC9wYWdlcy9kYXNoYm9hcmQvY2xpZW50L2NsaWVudC1mb3Jtcy1oaXN0b3J5LXBhZ2UvY2xpZW50LWZvcm1zLWhpc3RvcnktcGFnZS5jb21wb25lbnQuY3NzIiwic291cmNlc0NvbnRlbnQiOlsiQG1lZGlhIG9ubHkgc2NyZWVuIFxuYW5kIChtaW4tZGV2aWNlLXdpZHRoOiAzMjBweCkgXG5hbmQgKG1heC1kZXZpY2Utd2lkdGg6IDgyNXB4KSB7XG4gICAgLmdyaWQtbWFyZ2luIHtcbiAgICAgICAgbWFyZ2luLWJvdHRvbTogLjQ1cmVtO1xuICAgIH1cbn1cblxuLnNtYWxsLXRleHQge1xuICAgIGZvbnQtc2l6ZTogMC43NzVyZW07XG4gICAgZm9udC13ZWlnaHQ6IGJvbGQ7XG59Il19 */"
 
 /***/ }),
 
@@ -6189,6 +6204,9 @@ let ClientFormsHistoryPageComponent = class ClientFormsHistoryPageComponent {
     ngOnInit() {
         this.filterState = 'all';
     }
+    handleLoadMoreVisibility(list) {
+        lodash__WEBPACK_IMPORTED_MODULE_2__["isNull"](list) || lodash__WEBPACK_IMPORTED_MODULE_2__["isUndefined"](list) || lodash__WEBPACK_IMPORTED_MODULE_2__["isEmpty"](list) || list.length <= 15 ? this.hasMore = false : this.hasMore = true;
+    }
     openFormEntry(form) {
         this.router.navigateByUrl('/client/form_entry', { state: { form: form } });
     }
@@ -6198,14 +6216,18 @@ let ClientFormsHistoryPageComponent = class ClientFormsHistoryPageComponent {
     showAll() {
         this.filterState = 'all';
         this.historyCollection = this.allHistoryCollection;
+        const moreUrl = this.clientService.nextPaginationUrl;
+        lodash__WEBPACK_IMPORTED_MODULE_2__["isNull"](moreUrl) ? this.hasMore = false : this.hasMore = true;
     }
     showProcessed() {
         this.filterState = 'processed';
         this.historyCollection = lodash__WEBPACK_IMPORTED_MODULE_2__["filter"](this.allHistoryCollection, (history) => history.form_status == 2);
+        this.hasMore ? this.handleLoadMoreVisibility(this.historyCollection) : null;
     }
     showProcessing() {
         this.filterState = 'processing';
         this.historyCollection = lodash__WEBPACK_IMPORTED_MODULE_2__["filter"](this.allHistoryCollection, (history) => history.form_status == 1);
+        this.hasMore ? this.handleLoadMoreVisibility(this.historyCollection) : null;
     }
     checkIfHasMore() {
         return lodash__WEBPACK_IMPORTED_MODULE_2__["isNull"](this.clientService.nextPaginationUrl) ? false : true;
@@ -6522,7 +6544,7 @@ ClientListFormsPageComponent = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"](
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = ".form-group {\n    margin-bottom: 0.5rem;\n}\n\n@media only screen \nand (min-device-width: 320px) \nand (max-device-width: 825px) {\n    .btn-lg {\n        padding: 1rem 1rem;\n    }\n}\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInNyYy9hcHAvcGFnZXMvZGFzaGJvYXJkL2NsaWVudC9jbGllbnQtcHJvZmlsZS1wYWdlL2NsaWVudC1wcm9maWxlLXBhZ2UuY29tcG9uZW50LmNzcyJdLCJuYW1lcyI6W10sIm1hcHBpbmdzIjoiQUFBQTtJQUNJLHFCQUFxQjtBQUN6Qjs7QUFFQTs7O0lBR0k7UUFDSSxrQkFBa0I7SUFDdEI7QUFDSiIsImZpbGUiOiJzcmMvYXBwL3BhZ2VzL2Rhc2hib2FyZC9jbGllbnQvY2xpZW50LXByb2ZpbGUtcGFnZS9jbGllbnQtcHJvZmlsZS1wYWdlLmNvbXBvbmVudC5jc3MiLCJzb3VyY2VzQ29udGVudCI6WyIuZm9ybS1ncm91cCB7XG4gICAgbWFyZ2luLWJvdHRvbTogMC41cmVtO1xufVxuXG5AbWVkaWEgb25seSBzY3JlZW4gXG5hbmQgKG1pbi1kZXZpY2Utd2lkdGg6IDMyMHB4KSBcbmFuZCAobWF4LWRldmljZS13aWR0aDogODI1cHgpIHtcbiAgICAuYnRuLWxnIHtcbiAgICAgICAgcGFkZGluZzogMXJlbSAxcmVtO1xuICAgIH1cbn0iXX0= */"
+module.exports = ".form-group {\n    margin-bottom: 0.5rem;\n}\n\n@media only screen \nand (min-device-width: 320px) \nand (max-device-width: 825px) {\n    .btn-lg {\n        padding: 1rem 1rem;\n    }\n}\n\nli.file-item > i {\n    font-size: 20px;\n    margin-right: 10px;\n    top: 3px;\n    position: relative;\n}\n\nol li {\n    line-height: 1.8;\n    white-space: pre-wrap;\n    word-break: break-word;\n}\n\nol.files-list {\n    list-style: none;\n    margin-bottom: 0rem;\n}\n\nli.file-item {\n    padding: 5px 10px;\n    margin: 4px 0px;\n    background-color: #eee;\n}\n\na:not([href]):not([tabindex]),\na:not([href]):not([tabindex]):hover {\n    cursor: pointer;\n    text-decoration: underline;\n    color: rgb(76, 131, 255);\n}\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInNyYy9hcHAvcGFnZXMvZGFzaGJvYXJkL2NsaWVudC9jbGllbnQtcHJvZmlsZS1wYWdlL2NsaWVudC1wcm9maWxlLXBhZ2UuY29tcG9uZW50LmNzcyJdLCJuYW1lcyI6W10sIm1hcHBpbmdzIjoiQUFBQTtJQUNJLHFCQUFxQjtBQUN6Qjs7QUFFQTs7O0lBR0k7UUFDSSxrQkFBa0I7SUFDdEI7QUFDSjs7QUFFQTtJQUNJLGVBQWU7SUFDZixrQkFBa0I7SUFDbEIsUUFBUTtJQUNSLGtCQUFrQjtBQUN0Qjs7QUFFQTtJQUNJLGdCQUFnQjtJQUNoQixxQkFBcUI7SUFDckIsc0JBQXNCO0FBQzFCOztBQUVBO0lBQ0ksZ0JBQWdCO0lBQ2hCLG1CQUFtQjtBQUN2Qjs7QUFFQTtJQUNJLGlCQUFpQjtJQUNqQixlQUFlO0lBQ2Ysc0JBQXNCO0FBQzFCOztBQUVBOztJQUVJLGVBQWU7SUFDZiwwQkFBMEI7SUFDMUIsd0JBQXdCO0FBQzVCIiwiZmlsZSI6InNyYy9hcHAvcGFnZXMvZGFzaGJvYXJkL2NsaWVudC9jbGllbnQtcHJvZmlsZS1wYWdlL2NsaWVudC1wcm9maWxlLXBhZ2UuY29tcG9uZW50LmNzcyIsInNvdXJjZXNDb250ZW50IjpbIi5mb3JtLWdyb3VwIHtcbiAgICBtYXJnaW4tYm90dG9tOiAwLjVyZW07XG59XG5cbkBtZWRpYSBvbmx5IHNjcmVlbiBcbmFuZCAobWluLWRldmljZS13aWR0aDogMzIwcHgpIFxuYW5kIChtYXgtZGV2aWNlLXdpZHRoOiA4MjVweCkge1xuICAgIC5idG4tbGcge1xuICAgICAgICBwYWRkaW5nOiAxcmVtIDFyZW07XG4gICAgfVxufVxuXG5saS5maWxlLWl0ZW0gPiBpIHtcbiAgICBmb250LXNpemU6IDIwcHg7XG4gICAgbWFyZ2luLXJpZ2h0OiAxMHB4O1xuICAgIHRvcDogM3B4O1xuICAgIHBvc2l0aW9uOiByZWxhdGl2ZTtcbn1cblxub2wgbGkge1xuICAgIGxpbmUtaGVpZ2h0OiAxLjg7XG4gICAgd2hpdGUtc3BhY2U6IHByZS13cmFwO1xuICAgIHdvcmQtYnJlYWs6IGJyZWFrLXdvcmQ7XG59XG5cbm9sLmZpbGVzLWxpc3Qge1xuICAgIGxpc3Qtc3R5bGU6IG5vbmU7XG4gICAgbWFyZ2luLWJvdHRvbTogMHJlbTtcbn1cblxubGkuZmlsZS1pdGVtIHtcbiAgICBwYWRkaW5nOiA1cHggMTBweDtcbiAgICBtYXJnaW46IDRweCAwcHg7XG4gICAgYmFja2dyb3VuZC1jb2xvcjogI2VlZTtcbn1cblxuYTpub3QoW2hyZWZdKTpub3QoW3RhYmluZGV4XSksXG5hOm5vdChbaHJlZl0pOm5vdChbdGFiaW5kZXhdKTpob3ZlciB7XG4gICAgY3Vyc29yOiBwb2ludGVyO1xuICAgIHRleHQtZGVjb3JhdGlvbjogdW5kZXJsaW5lO1xuICAgIGNvbG9yOiByZ2IoNzYsIDEzMSwgMjU1KTtcbn0iXX0= */"
 
 /***/ }),
 
@@ -6542,9 +6564,15 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var lodash__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(lodash__WEBPACK_IMPORTED_MODULE_2__);
 /* harmony import */ var _ng_bootstrap_ng_bootstrap__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @ng-bootstrap/ng-bootstrap */ "./node_modules/@ng-bootstrap/ng-bootstrap/fesm2015/ng-bootstrap.js");
 /* harmony import */ var src_app_services_client_client_service__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! src/app/services/client/client.service */ "./src/app/services/client/client.service.ts");
-/* harmony import */ var src_app_services_storage_local_storage_service__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! src/app/services/storage/local-storage.service */ "./src/app/services/storage/local-storage.service.ts");
-/* harmony import */ var src_app_services_form_builder_form_builder_service__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! src/app/services/form-builder/form-builder.service */ "./src/app/services/form-builder/form-builder.service.ts");
-/* harmony import */ var src_app_services_sections_sections_service__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! src/app/services/sections/sections.service */ "./src/app/services/sections/sections.service.ts");
+/* harmony import */ var src_app_services_sections_sections_service__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! src/app/services/sections/sections.service */ "./src/app/services/sections/sections.service.ts");
+/* harmony import */ var src_app_services_endpoint_endpoint_service__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! src/app/services/endpoint/endpoint.service */ "./src/app/services/endpoint/endpoint.service.ts");
+/* harmony import */ var src_app_services_downloader_downloader_service__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! src/app/services/downloader/downloader.service */ "./src/app/services/downloader/downloader.service.ts");
+/* harmony import */ var src_app_services_storage_local_storage_service__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! src/app/services/storage/local-storage.service */ "./src/app/services/storage/local-storage.service.ts");
+/* harmony import */ var src_app_services_file_uploads_file_uploads_service__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! src/app/services/file-uploads/file-uploads.service */ "./src/app/services/file-uploads/file-uploads.service.ts");
+/* harmony import */ var src_app_services_form_builder_form_builder_service__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! src/app/services/form-builder/form-builder.service */ "./src/app/services/form-builder/form-builder.service.ts");
+
+
+
 
 
 
@@ -6554,16 +6582,22 @@ __webpack_require__.r(__webpack_exports__);
 
 
 let ClientProfilePageComponent = class ClientProfilePageComponent {
-    constructor(modalService, clientService, sectionService, formBuilder, localStorage) {
+    constructor(modalService, clientService, sectionService, formBuilder, endpointService, localStorage, downloadService, fileUploadService) {
         this.modalService = modalService;
         this.clientService = clientService;
         this.sectionService = sectionService;
         this.formBuilder = formBuilder;
+        this.endpointService = endpointService;
         this.localStorage = localStorage;
+        this.downloadService = downloadService;
+        this.fileUploadService = fileUploadService;
+        this.formFiles = 0;
+        this.attachmentKeys = [];
+        this.allFormSections = [];
+        this.attachmentFiles = [];
+        this.existingAttachments = [];
         this.user = this.localStorage.getUser();
         console.log('user_id: ' + this.user.id);
-        this.allFormSections = [];
-        // this.getAllClientData();
     }
     ngOnInit() {
         this.getAllFormSections();
@@ -6600,6 +6634,28 @@ let ClientProfilePageComponent = class ClientProfilePageComponent {
             this.hasError = true;
         });
     }
+    appendOnChangeEventToFileInput() {
+        const all_inputs = document.querySelectorAll('input');
+        lodash__WEBPACK_IMPORTED_MODULE_2__["forEach"](all_inputs, (input) => {
+            if (input.type == 'file') {
+                input.onchange = (e) => {
+                    const file = e.target.files[0];
+                    console.log(file);
+                    this.attachmentFiles.push(file);
+                };
+            }
+        });
+    }
+    checkIfHasFileUpload(form_data) {
+        lodash__WEBPACK_IMPORTED_MODULE_2__["forEach"](form_data, (fields) => {
+            if (fields.type == 'file') {
+                this.hasFile = true;
+                this.formFiles += 1;
+                this.attachmentKeys.push(fields.name);
+            }
+        });
+        this.appendOnChangeEventToFileInput();
+    }
     getAllClientData() {
         this.loading = true;
         this.formBuilder.getUserFilledData(lodash__WEBPACK_IMPORTED_MODULE_2__["toString"](this.user.id)).then(res => {
@@ -6621,6 +6677,54 @@ let ClientProfilePageComponent = class ClientProfilePageComponent {
             console.log('error: ' + JSON.stringify(err));
             this.loading = false;
             this.hasError = true;
+        });
+    }
+    getExistingAttachments() {
+        // get all keys for files attachments
+        const file_input_fields = [];
+        const file_fields_with_data = [];
+        const file_fields_without_data = [];
+        const all_inputs = document.querySelectorAll('input');
+        lodash__WEBPACK_IMPORTED_MODULE_2__["forEach"](all_inputs, (input) => {
+            if (input.type == 'file') {
+                file_input_fields.push(input);
+            }
+        });
+        this.checkIfHasFileUpload(file_input_fields);
+        // get all keys and file data for file fields containing data.
+        lodash__WEBPACK_IMPORTED_MODULE_2__["forEach"](file_input_fields, (file_input) => {
+            if (file_input.value != '') {
+                console.log('have data: ' + file_input.value);
+                file_fields_with_data.push(file_input);
+            }
+            else {
+                console.log('have no data: ' + file_input.value);
+                file_fields_without_data.push(file_input);
+            }
+        });
+        return {
+            fieldsWithData: file_fields_with_data,
+            fieldsWithoutData: file_fields_without_data
+        };
+    }
+    getFormAttachments(user_id) {
+        this.loadingAttachments = true;
+        this.clientService.getProfileFormAttachment(user_id).then(res => {
+            console.log('resssss: ' + JSON.stringify(res));
+            if (res.length > 0) {
+                this.showAttachments = true;
+                lodash__WEBPACK_IMPORTED_MODULE_2__["forEach"](res, (doc) => {
+                    console.log('doc: ' + JSON.stringify(doc));
+                    this.existingAttachments.push(doc);
+                });
+            }
+            else {
+                this.showAttachments = false;
+            }
+            this.loadingAttachments = false;
+        }, err => {
+            console.log('get_a_error: ' + JSON.stringify(err));
+            this.loadingAttachments = false;
         });
     }
     transformToRealText(text) {
@@ -6668,6 +6772,7 @@ let ClientProfilePageComponent = class ClientProfilePageComponent {
                 this.hasData = true;
                 this.loading = false;
                 console.log('filled data');
+                this.getFormAttachments(this.user.id);
                 lodash__WEBPACK_IMPORTED_MODULE_2__["forEach"](res, (section) => {
                     this.allFormSections.push(section);
                 });
@@ -6675,16 +6780,144 @@ let ClientProfilePageComponent = class ClientProfilePageComponent {
             }
             else {
                 console.log('no filled data');
+                this.getFormAttachments(this.user.id);
                 this.noFilledData = true;
                 this.getAllClientDataNew();
-                // this.hasData = false;
-                // this.loading = false;
-                // this.hasData = true;
-                // this.loading = false;
-                // this.getAllClientData();
             }
         }, err => {
             this.loading = false;
+        });
+    }
+    uploadAttachmentFile(key, index) {
+        return new Promise((resolve, reject) => {
+            // its being called in a loop, this means there are more than one attachments.
+            console.log('uploading .......');
+            this.clientService.uploadProfileAttachment(this.user.id.toString(), key, this.attachmentFiles[index]).then(ok => {
+                if (ok) {
+                    console.log('file upload done');
+                    resolve(true);
+                }
+                else {
+                    console.log('file upload failed');
+                    resolve(false);
+                }
+            }, err => {
+                console.log('file upload error');
+                reject(err);
+            });
+        });
+    }
+    uploadNormalAttachments(htmlInputField, index) {
+        return new Promise((resolve, reject) => {
+            console.log('doing upload');
+            this.uploadAttachmentFile(htmlInputField.id, index).then(ok => {
+                ok ? resolve(true) : resolve(false);
+            }, err => {
+                reject(err);
+            });
+        });
+    }
+    uploadConvertedAttachment(key, file) {
+        return new Promise((resolve, reject) => {
+            console.log('doing existing upload [converted]');
+            console.log(file);
+            if (!lodash__WEBPACK_IMPORTED_MODULE_2__["isUndefined"](file) || !lodash__WEBPACK_IMPORTED_MODULE_2__["isNull"](file)) {
+                this.clientService.uploadProfileAttachment(this.user.id.toString(), key, file).then(ok => {
+                    if (ok) {
+                        console.log('file upload done');
+                        resolve(true);
+                    }
+                    else {
+                        console.log('file upload failed');
+                        resolve(false);
+                    }
+                }, err => {
+                    console.log('file upload error');
+                    reject(err);
+                });
+            }
+        });
+    }
+    updateAttachments() {
+        return new Promise((resolve, reject) => {
+            const promises = [];
+            const fields_with_data = this.getExistingAttachments().fieldsWithData;
+            const fields_without_data = this.getExistingAttachments().fieldsWithoutData;
+            console.log('fields with data length: ' + fields_with_data.length);
+            console.log('fields without data length: ' + fields_without_data.length);
+            if (fields_with_data.length != 0) {
+                console.log('have fields with data');
+                if (fields_without_data.length != 0) {
+                    console.log('have fields without data 1');
+                    if (this.existingAttachments.length > 0) {
+                        lodash__WEBPACK_IMPORTED_MODULE_2__["forEach"](this.existingAttachments, (attachment, _i) => {
+                            lodash__WEBPACK_IMPORTED_MODULE_2__["forEach"](fields_with_data, (field, i) => {
+                                console.log('field id: ' + field.id);
+                                console.log('existing id: ' + attachment.key);
+                                i += 1;
+                                if (field.id == attachment.key) {
+                                    console.log('fields with data doing upload');
+                                    const index = attachment.url.lastIndexOf('.');
+                                    const extension = attachment.url.substr(index);
+                                    const filename = Date.now().toString() + extension;
+                                    const fileHost = this.endpointService.storageHost + 'attachments/';
+                                    const p = this.fileUploadService.srcToBase64(fileHost + attachment.url);
+                                    p.then(base64Str => {
+                                        const fileObj = this.fileUploadService.convertBase64ToFile(base64Str, filename);
+                                        const _prom = this.uploadConvertedAttachment(attachment.key, fileObj);
+                                        promises.push(_prom);
+                                    });
+                                }
+                                else {
+                                    console.log('its the else');
+                                    const prom = this.uploadNormalAttachments(field, i);
+                                    promises.push(prom);
+                                }
+                                if (i == fields_with_data.length) {
+                                    // we assume the fields with data have all been uploaded
+                                    // Now we handle the fields without data.
+                                    lodash__WEBPACK_IMPORTED_MODULE_2__["forEach"](fields_without_data, (_field) => {
+                                        console.log('fields without data doing upload');
+                                        _i += 1;
+                                        if (_i == fields_without_data.length) {
+                                            // we assume its done.
+                                            Promise.all(promises).then(res => {
+                                                console.log('all uploads completed 1');
+                                                resolve(true);
+                                            }, err => {
+                                                console.log('all uploads error');
+                                                reject(err);
+                                            });
+                                        }
+                                    });
+                                }
+                            });
+                        });
+                    }
+                }
+                else {
+                    console.log('fields with Data: ' + JSON.stringify(fields_with_data));
+                    console.log('dealing with fields with data only');
+                    lodash__WEBPACK_IMPORTED_MODULE_2__["forEach"](fields_with_data, (field, i) => {
+                        const prom = this.uploadNormalAttachments(field, i);
+                        promises.push(prom);
+                        if (i == fields_without_data.length) {
+                            // we assume its done.
+                            Promise.all(promises).then(res => {
+                                console.log('all uploads completed 2');
+                                resolve(true);
+                            }, err => {
+                                console.log('all uploads error');
+                                reject(err);
+                            });
+                        }
+                    });
+                }
+            }
+            else {
+                console.log('have fields without data 2');
+                resolve(true);
+            }
         });
     }
     updateData() {
@@ -6694,8 +6927,17 @@ let ClientProfilePageComponent = class ClientProfilePageComponent {
         this.clientService.editProfile(this.user.id, JSON.parse(updatedUserData)).then(res => {
             const response = res;
             if (lodash__WEBPACK_IMPORTED_MODULE_2__["toLower"](response.message) == 'ok') {
-                this.updating = false;
-                this.showUpdatedDialog(true);
+                console.log('uploading attachment has started');
+                this.updateAttachments().then(ok => {
+                    if (ok) {
+                        this.updating = false;
+                        this.showUpdatedDialog(true);
+                    }
+                    else {
+                        this.updating = false;
+                        this.showUpdatedDialog(false);
+                    }
+                });
             }
             else {
                 this.updating = false;
@@ -6706,6 +6948,34 @@ let ClientProfilePageComponent = class ClientProfilePageComponent {
             this.showUpdatedDialog(false);
         });
     }
+    delete(url, index) {
+        this.modalService.open(this.deleteFileDialog, { centered: true }).result.then(result => {
+            // if (result == 'yes') {
+            //   this.clientService.deleteProfileAttachment();
+            // }
+        });
+    }
+    openModal(e, url) {
+        const index = url.lastIndexOf('.') + 1;
+        const file_extension = url.substr(index);
+        console.log('extension: ' + file_extension);
+        if (file_extension == 'jpg' || file_extension == 'png' || file_extension == 'gif' || file_extension == 'jpeg') {
+            this.openImageAttachmentModal(e, url);
+        }
+        else {
+            this.openDocumentAttachmentModal(e, url);
+        }
+    }
+    openImageAttachmentModal(e, url) {
+        e.stopPropagation();
+        this.imgUrl = this.endpointService.apiHost + 'storage/attachments/' + url;
+        this.modalService.open(this.viewImgDialog, { centered: true });
+    }
+    openDocumentAttachmentModal(e, url) {
+        e.stopPropagation();
+        this.documentUrl = this.endpointService.apiHost + 'storage/attachments/' + url;
+        this.docDialogRef = this.modalService.open(this.viewDocDialog, { centered: true });
+    }
     save() {
         this.updateData();
     }
@@ -6715,6 +6985,14 @@ let ClientProfilePageComponent = class ClientProfilePageComponent {
                 this.discardChanges();
             }
         });
+    }
+    downloadDoc(url) {
+        this.docDialogRef.close();
+        this.downloadService.download(url);
+    }
+    download(url) {
+        const file_url = this.endpointService.apiHost + 'storage/attachments/' + url;
+        this.downloadService.download(file_url);
     }
     discardChanges() {
         this.getAllClientData();
@@ -6729,9 +7007,12 @@ let ClientProfilePageComponent = class ClientProfilePageComponent {
 ClientProfilePageComponent.ctorParameters = () => [
     { type: _ng_bootstrap_ng_bootstrap__WEBPACK_IMPORTED_MODULE_3__["NgbModal"] },
     { type: src_app_services_client_client_service__WEBPACK_IMPORTED_MODULE_4__["ClientService"] },
-    { type: src_app_services_sections_sections_service__WEBPACK_IMPORTED_MODULE_7__["SectionsService"] },
-    { type: src_app_services_form_builder_form_builder_service__WEBPACK_IMPORTED_MODULE_6__["FormBuilderService"] },
-    { type: src_app_services_storage_local_storage_service__WEBPACK_IMPORTED_MODULE_5__["LocalStorageService"] }
+    { type: src_app_services_sections_sections_service__WEBPACK_IMPORTED_MODULE_5__["SectionsService"] },
+    { type: src_app_services_form_builder_form_builder_service__WEBPACK_IMPORTED_MODULE_10__["FormBuilderService"] },
+    { type: src_app_services_endpoint_endpoint_service__WEBPACK_IMPORTED_MODULE_6__["EndpointService"] },
+    { type: src_app_services_storage_local_storage_service__WEBPACK_IMPORTED_MODULE_8__["LocalStorageService"] },
+    { type: src_app_services_downloader_downloader_service__WEBPACK_IMPORTED_MODULE_7__["DownloaderService"] },
+    { type: src_app_services_file_uploads_file_uploads_service__WEBPACK_IMPORTED_MODULE_9__["FileUploadsService"] }
 ];
 tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
     Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["ViewChild"])('updated', { static: false })
@@ -6739,6 +7020,15 @@ tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
 tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
     Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["ViewChild"])('confirm', { static: false })
 ], ClientProfilePageComponent.prototype, "confirmDialog", void 0);
+tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
+    Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["ViewChild"])('viewImgAttachment', { static: false })
+], ClientProfilePageComponent.prototype, "viewImgDialog", void 0);
+tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
+    Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["ViewChild"])('viewDocAttachment', { static: false })
+], ClientProfilePageComponent.prototype, "viewDocDialog", void 0);
+tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
+    Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["ViewChild"])('deleteAttachment', { static: false })
+], ClientProfilePageComponent.prototype, "deleteFileDialog", void 0);
 ClientProfilePageComponent = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
     Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Component"])({
         selector: 'app-client-profile-page',
@@ -6758,7 +7048,7 @@ ClientProfilePageComponent = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "@media only screen \nand (min-device-width: 320px) \nand (max-device-width: 825px) {\n    .grid-margin {\n        margin-bottom: .45rem;\n    }\n}\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInNyYy9hcHAvcGFnZXMvZGFzaGJvYXJkL2NsaWVudC9jbGllbnQtdW5zZW50LWZvcm1zLXBhZ2UvY2xpZW50LXVuc2VudC1mb3Jtcy1wYWdlLmNvbXBvbmVudC5jc3MiXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IkFBQUE7OztJQUdJO1FBQ0kscUJBQXFCO0lBQ3pCO0FBQ0oiLCJmaWxlIjoic3JjL2FwcC9wYWdlcy9kYXNoYm9hcmQvY2xpZW50L2NsaWVudC11bnNlbnQtZm9ybXMtcGFnZS9jbGllbnQtdW5zZW50LWZvcm1zLXBhZ2UuY29tcG9uZW50LmNzcyIsInNvdXJjZXNDb250ZW50IjpbIkBtZWRpYSBvbmx5IHNjcmVlbiBcbmFuZCAobWluLWRldmljZS13aWR0aDogMzIwcHgpIFxuYW5kIChtYXgtZGV2aWNlLXdpZHRoOiA4MjVweCkge1xuICAgIC5ncmlkLW1hcmdpbiB7XG4gICAgICAgIG1hcmdpbi1ib3R0b206IC40NXJlbTtcbiAgICB9XG59Il19 */"
+module.exports = "@media only screen \nand (min-device-width: 320px) \nand (max-device-width: 825px) {\n    .grid-margin {\n        margin-bottom: .45rem;\n    }\n}\n\n\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInNyYy9hcHAvcGFnZXMvZGFzaGJvYXJkL2NsaWVudC9jbGllbnQtdW5zZW50LWZvcm1zLXBhZ2UvY2xpZW50LXVuc2VudC1mb3Jtcy1wYWdlLmNvbXBvbmVudC5jc3MiXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IkFBQUE7OztJQUdJO1FBQ0kscUJBQXFCO0lBQ3pCO0FBQ0oiLCJmaWxlIjoic3JjL2FwcC9wYWdlcy9kYXNoYm9hcmQvY2xpZW50L2NsaWVudC11bnNlbnQtZm9ybXMtcGFnZS9jbGllbnQtdW5zZW50LWZvcm1zLXBhZ2UuY29tcG9uZW50LmNzcyIsInNvdXJjZXNDb250ZW50IjpbIkBtZWRpYSBvbmx5IHNjcmVlbiBcbmFuZCAobWluLWRldmljZS13aWR0aDogMzIwcHgpIFxuYW5kIChtYXgtZGV2aWNlLXdpZHRoOiA4MjVweCkge1xuICAgIC5ncmlkLW1hcmdpbiB7XG4gICAgICAgIG1hcmdpbi1ib3R0b206IC40NXJlbTtcbiAgICB9XG59XG5cbiJdfQ== */"
 
 /***/ }),
 
@@ -7033,9 +7323,9 @@ module.exports = "\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "ExecBranchesListPageComponent", function() { return ExecBranchesListPageComponent; });
 /* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
-/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm2015/core.js");
-/* harmony import */ var lodash__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! lodash */ "./node_modules/lodash/lodash.js");
-/* harmony import */ var lodash__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(lodash__WEBPACK_IMPORTED_MODULE_2__);
+/* harmony import */ var lodash__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! lodash */ "./node_modules/lodash/lodash.js");
+/* harmony import */ var lodash__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(lodash__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm2015/core.js");
 /* harmony import */ var src_app_services_branch_branch_service__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! src/app/services/branch/branch.service */ "./src/app/services/branch/branch.service.ts");
 /* harmony import */ var src_app_services_storage_local_storage_service__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! src/app/services/storage/local-storage.service */ "./src/app/services/storage/local-storage.service.ts");
 
@@ -7049,11 +7339,14 @@ let ExecBranchesListPageComponent = class ExecBranchesListPageComponent {
         this.localStorage = localStorage;
         this.branchesList = [];
         this.allBranchesList = [];
-        this.merchantId = lodash__WEBPACK_IMPORTED_MODULE_2__["toString"](this.localStorage.getUser().merchant_id);
+        this.merchantId = lodash__WEBPACK_IMPORTED_MODULE_1__["toString"](this.localStorage.getUser().merchant_id);
         this.getCompanyBranches();
     }
     ngOnInit() {
         this.filterState = 'all';
+    }
+    handleLoadMoreVisibility(list) {
+        lodash__WEBPACK_IMPORTED_MODULE_1__["isNull"](list) || lodash__WEBPACK_IMPORTED_MODULE_1__["isUndefined"](list) || lodash__WEBPACK_IMPORTED_MODULE_1__["isEmpty"](list) || list.length <= 15 ? this.hasMore = false : this.hasMore = true;
     }
     sort(sort_category) {
         switch (sort_category) {
@@ -7068,25 +7361,29 @@ let ExecBranchesListPageComponent = class ExecBranchesListPageComponent {
         }
     }
     sortByCreated() {
-        this.branchesList = lodash__WEBPACK_IMPORTED_MODULE_2__["sortBy"](this.branchesList, (item) => item.created_at);
+        this.branchesList = lodash__WEBPACK_IMPORTED_MODULE_1__["sortBy"](this.branchesList, (item) => item.created_at);
     }
     sortByBranch() {
-        this.branchesList = lodash__WEBPACK_IMPORTED_MODULE_2__["sortBy"](this.branchesList, (item) => item.branch_name);
+        this.branchesList = lodash__WEBPACK_IMPORTED_MODULE_1__["sortBy"](this.branchesList, (item) => item.branch_name);
     }
     showAll() {
         this.filterState = 'all';
         this.branchesList = this.allBranchesList;
+        const moreUrl = this.branchService.nextPaginationUrl;
+        lodash__WEBPACK_IMPORTED_MODULE_1__["isNull"](moreUrl) ? this.hasMore = false : this.hasMore = true;
     }
     showActive() {
         this.filterState = 'active';
-        this.branchesList = lodash__WEBPACK_IMPORTED_MODULE_2__["filter"](this.allBranchesList, (branch) => branch.status == 1);
+        this.branchesList = lodash__WEBPACK_IMPORTED_MODULE_1__["filter"](this.allBranchesList, (branch) => branch.status == 1);
+        this.hasMore ? this.handleLoadMoreVisibility(this.branchesList) : null;
     }
     showInActive() {
         this.filterState = 'inactive';
-        this.branchesList = lodash__WEBPACK_IMPORTED_MODULE_2__["filter"](this.allBranchesList, (branch) => branch.status == 0);
+        this.branchesList = lodash__WEBPACK_IMPORTED_MODULE_1__["filter"](this.allBranchesList, (branch) => branch.status == 0);
+        this.hasMore ? this.handleLoadMoreVisibility(this.branchesList) : null;
     }
     checkIfHasMore() {
-        return lodash__WEBPACK_IMPORTED_MODULE_2__["isNull"](this.branchService.nextPaginationUrl) ? false : true;
+        return lodash__WEBPACK_IMPORTED_MODULE_1__["isNull"](this.branchService.nextPaginationUrl) ? false : true;
     }
     getCompanyBranches() {
         this.loading = true;
@@ -7096,9 +7393,9 @@ let ExecBranchesListPageComponent = class ExecBranchesListPageComponent {
             this.hasMore = this.checkIfHasMore();
             if (branches.length > 0) {
                 this.hasData = true;
-                lodash__WEBPACK_IMPORTED_MODULE_2__["forEach"](branches, (branch) => {
+                lodash__WEBPACK_IMPORTED_MODULE_1__["forEach"](branches, (branch) => {
                     this.branchesList.push(branch);
-                    this.allBranchesList = lodash__WEBPACK_IMPORTED_MODULE_2__["reverse"](this.branchesList);
+                    this.allBranchesList = lodash__WEBPACK_IMPORTED_MODULE_1__["reverse"](this.branchesList);
                 });
             }
             else {
@@ -7117,7 +7414,7 @@ let ExecBranchesListPageComponent = class ExecBranchesListPageComponent {
             this.hasMoreError = false;
             const branches = res;
             this.hasMore = this.checkIfHasMore();
-            lodash__WEBPACK_IMPORTED_MODULE_2__["forEach"](branches, (branch) => {
+            lodash__WEBPACK_IMPORTED_MODULE_1__["forEach"](branches, (branch) => {
                 this.branchesList.push(branch);
                 this.allBranchesList = this.branchesList;
             });
@@ -7135,7 +7432,7 @@ ExecBranchesListPageComponent.ctorParameters = () => [
     { type: src_app_services_storage_local_storage_service__WEBPACK_IMPORTED_MODULE_4__["LocalStorageService"] }
 ];
 ExecBranchesListPageComponent = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
-    Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Component"])({
+    Object(_angular_core__WEBPACK_IMPORTED_MODULE_2__["Component"])({
         selector: 'app-exec-branches-list-page',
         template: __webpack_require__(/*! raw-loader!./exec-branches-list-page.component.html */ "./node_modules/raw-loader/index.js!./src/app/pages/dashboard/executive/exec-branches-list-page/exec-branches-list-page.component.html"),
         styles: [__webpack_require__(/*! ./exec-branches-list-page.component.css */ "./src/app/pages/dashboard/executive/exec-branches-list-page/exec-branches-list-page.component.css")]
@@ -10214,6 +10511,9 @@ let FrontDeskViewFormPageComponent = class FrontDeskViewFormPageComponent {
             this.frontDeskService.setFormWithClientData(data, client_data);
         }
     }
+    getFormData() {
+        return this.formInstance.userData;
+    }
     getFormAttachments(form_code) {
         this.loadingAttachments = true;
         this.clientService.getFormAttachment(form_code).then(res => {
@@ -10254,6 +10554,10 @@ let FrontDeskViewFormPageComponent = class FrontDeskViewFormPageComponent {
         e.stopPropagation();
         this.documentUrl = this.endpointService.apiHost + 'storage/attachments/' + url;
         this.docDialogRef = this.modalService.open(this.viewDocDialog, { centered: true });
+    }
+    updateClientSubmittedDetails() {
+        // get json key which is not available on the client_submitted_details.
+        // update 
     }
     complete() {
         this.action = 'complete';
@@ -14495,6 +14799,9 @@ let ViewBranchListsPageComponent = class ViewBranchListsPageComponent {
     ngOnInit() {
         this.filterState = 'all';
     }
+    handleLoadMoreVisibility(list) {
+        lodash__WEBPACK_IMPORTED_MODULE_2__["isNull"](list) || lodash__WEBPACK_IMPORTED_MODULE_2__["isUndefined"](list) || lodash__WEBPACK_IMPORTED_MODULE_2__["isEmpty"](list) || list.length <= 15 ? this.hasMore = false : this.hasMore = true;
+    }
     toggleViewMode(mode) {
         switch (mode) {
             case 'list':
@@ -14536,14 +14843,18 @@ let ViewBranchListsPageComponent = class ViewBranchListsPageComponent {
     showAll() {
         this.filterState = 'all';
         this.branchesList = this.allBranchesList;
+        const moreUrl = this.branchService.nextPaginationUrl;
+        lodash__WEBPACK_IMPORTED_MODULE_2__["isNull"](moreUrl) ? this.hasMore = false : this.hasMore = true;
     }
     showActive() {
         this.filterState = 'active';
         this.branchesList = lodash__WEBPACK_IMPORTED_MODULE_2__["filter"](this.allBranchesList, (branch) => branch.status == 1);
+        this.hasMore ? this.handleLoadMoreVisibility(this.branchesList) : null;
     }
     showInActive() {
         this.filterState = 'inactive';
         this.branchesList = lodash__WEBPACK_IMPORTED_MODULE_2__["filter"](this.allBranchesList, (branch) => branch.status == 0);
+        this.hasMore ? this.handleLoadMoreVisibility(this.branchesList) : null;
     }
     openForms(id) {
         this.router.navigateByUrl('git_admin/lists/form', { state: { company: id } });
@@ -14912,6 +15223,9 @@ let ViewCompanyListsPageComponent = class ViewCompanyListsPageComponent {
     ngOnInit() {
         this.filterState = 'all';
     }
+    handleLoadMoreVisibility(list) {
+        lodash__WEBPACK_IMPORTED_MODULE_2__["isNull"](list) || lodash__WEBPACK_IMPORTED_MODULE_2__["isUndefined"](list) || lodash__WEBPACK_IMPORTED_MODULE_2__["isEmpty"](list) || list.length <= 15 ? this.hasMore = false : this.hasMore = true;
+    }
     toggleViewMode(mode) {
         switch (mode) {
             case 'list':
@@ -14947,14 +15261,18 @@ let ViewCompanyListsPageComponent = class ViewCompanyListsPageComponent {
     showAll() {
         this.filterState = 'all';
         this.companyList = this.allCompanyList;
+        const moreUrl = this.companyService.nextPaginationUrl;
+        lodash__WEBPACK_IMPORTED_MODULE_2__["isNull"](moreUrl) ? this.hasMore = false : this.hasMore = true;
     }
     showActive() {
         this.filterState = 'active';
         this.companyList = lodash__WEBPACK_IMPORTED_MODULE_2__["filter"](this.allCompanyList, (company) => company.status == 1);
+        this.hasMore ? this.handleLoadMoreVisibility(this.companyList) : null;
     }
     showInActive() {
         this.filterState = 'inactive';
         this.companyList = lodash__WEBPACK_IMPORTED_MODULE_2__["filter"](this.allCompanyList, (company) => company.status == 0);
+        this.hasMore ? this.handleLoadMoreVisibility(this.companyList) : null;
     }
     openBranch(company) {
         this.router.navigateByUrl('/git_admin/lists/branch', { state: { company: company } });
@@ -15011,7 +15329,6 @@ let ViewCompanyListsPageComponent = class ViewCompanyListsPageComponent {
                 company.logo = this.endpointService.storageHost + company.logo;
                 this.companyList.push(company);
                 this.allCompanyList = this.companyList;
-                // this.allCompanyList = _.reverse(this.companyList);
             });
         }, err => {
             this.loadingMore = false;
@@ -15262,9 +15579,8 @@ let ViewFormListsPageComponent = class ViewFormListsPageComponent {
     hideLoadingModal() {
         this.loadingModalRef.close();
     }
-    showAll() {
-        this.filterState = 'all';
-        this.formsList = this.allFormsList;
+    handleLoadMoreVisibility(list) {
+        lodash__WEBPACK_IMPORTED_MODULE_2__["isNull"](list) || lodash__WEBPACK_IMPORTED_MODULE_2__["isUndefined"](list) || lodash__WEBPACK_IMPORTED_MODULE_2__["isEmpty"](list) || list.length < 15 ? this.hasMore = false : this.hasMore = true;
     }
     toggleViewMode(mode) {
         switch (mode) {
@@ -15304,13 +15620,21 @@ let ViewFormListsPageComponent = class ViewFormListsPageComponent {
     sortByCompany() {
         this.formsList = lodash__WEBPACK_IMPORTED_MODULE_2__["sortBy"](this.formsList, (item) => item.merchant_name);
     }
+    showAll() {
+        this.filterState = 'all';
+        this.formsList = this.allFormsList;
+        const moreUrl = this.formService.nextPaginationUrl;
+        lodash__WEBPACK_IMPORTED_MODULE_2__["isNull"](moreUrl) ? this.hasMore = false : this.hasMore = true;
+    }
     showActive() {
         this.filterState = 'active';
         this.formsList = lodash__WEBPACK_IMPORTED_MODULE_2__["filter"](this.allFormsList, (form) => form.status == 1);
+        this.hasMore ? this.handleLoadMoreVisibility(this.formsList) : null;
     }
     showInActive() {
         this.filterState = 'inactive';
         this.formsList = lodash__WEBPACK_IMPORTED_MODULE_2__["filter"](this.allFormsList, (form) => form.status == 0);
+        this.hasMore ? this.handleLoadMoreVisibility(this.formsList) : null;
     }
     edit(ev, form) {
         ev.stopPropagation();
@@ -15399,11 +15723,10 @@ let ViewFormListsPageComponent = class ViewFormListsPageComponent {
         });
     }
     loadMore() {
-        this.loadingMore = true;
+        this.loadingMore = false;
+        this.hasMoreError = false;
         const moreUrl = this.formService.nextPaginationUrl;
         this.formService.getAllForms(moreUrl).then(res => {
-            this.loadingMore = false;
-            this.hasMoreError = false;
             const forms = res;
             this.hasMore = this.checkIfHasMore();
             lodash__WEBPACK_IMPORTED_MODULE_2__["forEach"](forms, (form) => {
@@ -18616,6 +18939,36 @@ let ClientService = class ClientService {
         });
     }
     /**
+     * Uploads attachments for profile.
+     *
+     * @param {string} client_id
+     * @param {string} key
+     * @param {File} file
+     * @returns {Promise<any>}
+     * @memberof ClientService
+     */
+    uploadProfileAttachment(client_id, key, file) {
+        return new Promise((resolve, reject) => {
+            const url = this.endpointService.apiHost + 'api/v1/uploadProfileAttachments/' + client_id;
+            const form = new FormData();
+            form.set('key', key);
+            form.set('file', file);
+            this.http.post(url, form, { headers: this.endpointService.headers(true) }).subscribe(res => {
+                const response = res;
+                if (lodash__WEBPACK_IMPORTED_MODULE_1__["toLower"](response.message) == 'ok') {
+                    resolve(true);
+                }
+                else {
+                    console.log('file_upload_f_response: ' + JSON.stringify(response));
+                    resolve(false);
+                }
+            }, err => {
+                console.log('file upload error: ' + JSON.stringify(err));
+                reject(err);
+            });
+        });
+    }
+    /**
      * Returns a attachments for a form.
      *
      * @param {string} submission_code
@@ -18625,6 +18978,18 @@ let ClientService = class ClientService {
     getFormAttachment(submission_code) {
         return new Promise((resolve, reject) => {
             const url = this.endpointService.apiHost + 'api/v1/getAttachments/' + submission_code;
+            this.http.get(url, { headers: this.endpointService.headers() }).subscribe(res => {
+                const response = res;
+                console.log('response: ' + JSON.stringify(response));
+                resolve(response.attachments);
+            }, err => {
+                reject(err);
+            });
+        });
+    }
+    getProfileFormAttachment(user_id) {
+        return new Promise((resolve, reject) => {
+            const url = this.endpointService.apiHost + 'api/v1/getProfileAttachments/' + user_id;
             this.http.get(url, { headers: this.endpointService.headers() }).subscribe(res => {
                 const response = res;
                 console.log('response: ' + JSON.stringify(response));
@@ -19125,23 +19490,24 @@ let EndpointService = class EndpointService {
      * @memberof EndpointService
      */
     headers(isUploadRequest) {
-        let httpHeaders;
         const token = sessionStorage.getItem('x-auth');
-        console.log('token: ' + token);
+        console.log('token____: ' + token);
         if (lodash__WEBPACK_IMPORTED_MODULE_2__["isUndefined"](isUploadRequest) || !isUploadRequest) {
-            httpHeaders = new _angular_common_http__WEBPACK_IMPORTED_MODULE_3__["HttpHeaders"]({
+            const httpHeaders = new _angular_common_http__WEBPACK_IMPORTED_MODULE_3__["HttpHeaders"]({
                 'Accept': 'application/json',
                 'Content-Type': 'application/json',
                 'Authorization': 'Bearer ' + token,
             });
+            return httpHeaders;
         }
         else {
-            httpHeaders = new _angular_common_http__WEBPACK_IMPORTED_MODULE_3__["HttpHeaders"]({
+            const httpHeaders = new _angular_common_http__WEBPACK_IMPORTED_MODULE_3__["HttpHeaders"]({
                 'Accept': 'application/json',
                 'Authorization': 'Bearer ' + token,
             });
+            return httpHeaders;
         }
-        return httpHeaders;
+        // return httpHeaders;
     }
     /**
      * Returns the appropriate headers if the user hasnt obtained
@@ -19296,10 +19662,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "FileUploadsService", function() { return FileUploadsService; });
 /* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm2015/core.js");
-/* harmony import */ var rxjs__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! rxjs */ "./node_modules/rxjs/_esm2015/index.js");
-/* harmony import */ var _angular_common_http__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @angular/common/http */ "./node_modules/@angular/common/fesm2015/http.js");
-/* harmony import */ var _endpoint_endpoint_service__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../endpoint/endpoint.service */ "./src/app/services/endpoint/endpoint.service.ts");
-
+/* harmony import */ var _angular_common_http__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @angular/common/http */ "./node_modules/@angular/common/fesm2015/http.js");
+/* harmony import */ var _endpoint_endpoint_service__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../endpoint/endpoint.service */ "./src/app/services/endpoint/endpoint.service.ts");
 
 
 
@@ -19339,6 +19703,7 @@ let FileUploadsService = class FileUploadsService {
      * @memberof FileUploadsService
      */
     convertBase64ToFile(dataUrl, filename) {
+        console.log('converting to base64');
         const arr = dataUrl.split(',');
         const mime = arr[0].match(/:(.*?);/)[1];
         const bstr = atob(arr[1]);
@@ -19350,55 +19715,27 @@ let FileUploadsService = class FileUploadsService {
         return new File([u8arr], filename, { type: mime });
     }
     /**
-     * Retruns a base64 encoded string from the HTMLImageElement.
-     *
-     * @private
-     * @param {HTMLImageElement} img
-     * @returns
-     * @memberof FileUploadsService
-     */
-    getBase64Image(img) {
-        const canvas = document.createElement('canvas');
-        canvas.width = img.width;
-        canvas.height = img.height;
-        const ctx = canvas.getContext('2d');
-        ctx.drawImage(img, 0, 0);
-        const dataURL = canvas.toDataURL('image/png');
-        // const dataURL = canvas.toDataURL('image/png').replace(/^data:image\/(png|jpg);base64,/, '');
-        return dataURL;
-    }
-    /**
      * Converts an image using the image url to a base64 encoded string.
      *
      * @param {string} src
-     * @param {string} mime_type
      * @returns
      * @memberof FileUploadsService
      */
-    srcToBase64(src, mime_type) {
-        return new rxjs__WEBPACK_IMPORTED_MODULE_2__["Observable"]((observer) => {
-            const img = new Image();
-            img.src = src;
-            img.crossOrigin = 'Anonymous';
-            if (!img.complete) {
-                img.onload = () => {
-                    observer.next(this.getBase64Image(img));
-                    observer.complete();
-                };
-                img.onerror = (err) => {
-                    observer.error(err);
-                };
-            }
-            else {
-                observer.next(this.getBase64Image(img));
-                observer.complete();
-            }
+    srcToBase64(url) {
+        console.log('srcToBase64');
+        return new Promise((resolve, reject) => {
+            const reader = new FileReader();
+            this.http.get(url, { responseType: 'blob' }).subscribe(blob => {
+                reader.readAsDataURL(blob);
+                reader.onload = () => resolve(reader.result.toString());
+                reader.onerror = error => reject(error);
+            });
         });
     }
 };
 FileUploadsService.ctorParameters = () => [
-    { type: _angular_common_http__WEBPACK_IMPORTED_MODULE_3__["HttpClient"] },
-    { type: _endpoint_endpoint_service__WEBPACK_IMPORTED_MODULE_4__["EndpointService"] }
+    { type: _angular_common_http__WEBPACK_IMPORTED_MODULE_2__["HttpClient"] },
+    { type: _endpoint_endpoint_service__WEBPACK_IMPORTED_MODULE_3__["EndpointService"] }
 ];
 FileUploadsService = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
     Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Injectable"])({

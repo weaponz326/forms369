@@ -9,6 +9,7 @@ import { EndpointService } from 'src/app/services/endpoint/endpoint.service';
 import { FrontDeskService } from 'src/app/services/front-desk/front-desk.service';
 import { DownloaderService } from 'src/app/services/downloader/downloader.service';
 import { LocalStorageService } from 'src/app/services/storage/local-storage.service';
+import { FormBuilderService } from 'src/app/services/form-builder/form-builder.service';
 
 @Component({
   selector: 'app-front-desk-view-form-page',
@@ -48,6 +49,7 @@ export class FrontDeskViewFormPageComponent implements OnInit {
     private router: Router,
     private modalService: NgbModal,
     private clientService: ClientService,
+    private formBuilder: FormBuilderService,
     private endpointService: EndpointService,
     private localStorage: LocalStorageService,
     private downloadService: DownloaderService,
@@ -96,6 +98,7 @@ export class FrontDeskViewFormPageComponent implements OnInit {
     const renderOptions = { formData, dataType: 'json' };
     this.formInstance = $(this.formRenderer).formRender(renderOptions);
 
+    this.appendOnChangeEventToFileInput();
     this.setFormData(formData);
   }
 
@@ -120,6 +123,20 @@ export class FrontDeskViewFormPageComponent implements OnInit {
 
   getFormData() {
     return this.formInstance.userData;
+  }
+
+  appendOnChangeEventToFileInput() {
+    const all_inputs = document.querySelectorAll('input');
+    _.forEach(all_inputs, (input) => {
+      if (input.type == 'file') {
+        this.attachmentKeys.push(input.id);
+        input.onchange = (e: any) => {
+          const file = e.target.files[0] as File;
+          console.log(file);
+          this.attachmentFiles.push(file);
+        };
+      }
+    });
   }
 
   getFormAttachments(form_code: string) {
@@ -171,12 +188,6 @@ export class FrontDeskViewFormPageComponent implements OnInit {
     this.docDialogRef = this.modalService.open(this.viewDocDialog, { centered: true });
   }
 
-  updateClientSubmittedDetails() {
-    // get json key which is not available on the client_submitted_details.
-
-    // update 
-  }
-
   complete() {
     this.action = 'complete';
     this.modalService.open(this.confirmDialog, { centered: true }).result.then(
@@ -212,6 +223,7 @@ export class FrontDeskViewFormPageComponent implements OnInit {
       result => {
         if (result == 'yes') {
           this.loading = true;
+          // this.submit();
           this.frontDeskService.processForm(this.form.submission_code, this.form.client_submitted_details).then(
             res => {
               const response = res as any;
@@ -262,6 +274,210 @@ export class FrontDeskViewFormPageComponent implements OnInit {
         }
       }
     );
+  }
+
+  getExistingAttachments(unfilled_fields: any[]) {
+    // This gets all the existing attachments so they can be uploaded
+    // if the user doesnt choose any new file.
+    const fields = [];
+    _.forEach(this.existingAttachments, (attachment) => {
+      console.log('attachment: ' + JSON.stringify(attachment));
+      _.forEach(unfilled_fields, (field) => {
+        if (field.type == 'file') {
+          if (attachment.key == field.name) {
+            fields.push(field);
+          }
+        }
+      });
+    });
+
+    console.log('unfilleed: ' + JSON.stringify(fields));
+    return fields;
+  }
+
+  uploadFormFile(form_code: string, key: string, index?: number): Promise<boolean> {
+    return new Promise((resolve, reject) => {
+      if (_.isUndefined(index) || _.isNull(index)) {
+        this.clientService.uploadFormAttachments(this.user.id.toString(), this.form.form_code, form_code, key, this.attachmentFiles[0]).then(
+          ok => {
+            if (ok) {
+              console.log('file upload done');
+              resolve(true);
+            }
+            else {
+              console.log('file upload failed');
+              resolve(false);
+            }
+          },
+          err => {
+            console.log('file upload error');
+            reject(err);
+          }
+        );
+      }
+      else {
+        // its being called in a loop, this means there are more than one attachments.
+        this.clientService.uploadFormAttachments(this.user.id.toString(), this.form.form_code, form_code, key, this.attachmentFiles[index]).then(
+          ok => {
+            if (ok) {
+              console.log('file upload done');
+              resolve(true);
+            }
+            else {
+              console.log('file upload failed');
+              resolve(false);
+            }
+          },
+          err => {
+            console.log('file upload error');
+            reject(err);
+          }
+        );
+      }
+    });
+  }
+
+  uploadFormAttachments(form_code: string): Promise<boolean> {
+    return new Promise((resolve, reject) => {
+      console.log('doing upload');
+      const promises = [];
+      const num_of_attachments = this.attachmentFiles.length;
+      if (num_of_attachments > 1) {
+        console.log('will do multiple uploads');
+        for (let i = 0; i < num_of_attachments; i++) {
+          const p = this.uploadFormFile(form_code, this.attachmentKeys[i], i);
+          promises.push(p);
+
+          if (i == num_of_attachments) {
+            Promise.all(promises).then(
+              res => {
+                resolve(true);
+              },
+              err => {
+                reject(false);
+              }
+            );
+          }
+        }
+      }
+      else {
+        console.log('will do single upload');
+        this.uploadFormFile(form_code, this.attachmentKeys[0]).then(
+          ok => {
+            ok ? resolve(true) : resolve(false);
+          },
+          err => {
+            reject(err);
+          }
+        );
+      }
+    });
+  }
+
+  submitFormWithAttachments(user_data: any): Promise<boolean> {
+    return new Promise((resolve, reject) => {
+      console.log('is submitting');
+      const filled_data = this.formBuilder.getFormUserData(user_data);
+      const updated_data = this.clientService.getUpdatedClientFormData(JSON.parse(filled_data), this.form.submitted_client_details);
+      console.log('new updates: ' + updated_data);
+      this.clientService.editProfile(this.user.id.toString(), JSON.parse(updated_data)).then(
+        res => {
+          const response = res as any;
+          if (_.toLower(response.message) == 'ok') {
+            console.log('uploading attachment has started');
+            this.uploadFormAttachments(this.form.submission_code).then(
+              ok => {
+                ok ? resolve(true) : resolve(false);
+              },
+              err => {
+                reject(err);
+              }
+            );
+          }
+          else {
+            reject();
+          }
+        },
+        err => {
+          reject(err);
+        }
+      );
+    });
+  }
+
+  submitFormWithoutAttachments(user_data: any): Promise<boolean> {
+    return new Promise((resolve, reject) => {
+      console.log('is submitting');
+      const filled_data = this.formBuilder.getFormUserData(user_data);
+      const updated_data = this.clientService.getUpdatedClientFormData(JSON.parse(filled_data), this.form.submitted_client_details);
+      console.log('new updates: ' + updated_data);
+      this.uploadFormAttachments(this.form.submission_code).then(
+        ok => {
+          ok ? resolve(true) : resolve(false);
+        },
+        err => {
+          reject(err);
+        }
+      );
+    });
+    // this.clientService.submitForm(_.toString(this.user.id), this.form.form_code, filled_data, JSON.parse(updated_data)).then(
+    //   res => {
+    //     resolve(res);
+    //   },
+    //   err => {
+    //     reject(err);
+    //   }
+    // );
+  }
+
+  submit(): Promise<boolean> {
+    return new Promise((resolve, reject) => {
+      const user_data = this.getFormData();
+      console.log(JSON.stringify(user_data));
+      console.log('client data: ' + JSON.stringify(this.form.client_submitted_details));
+      const unfilled = this.clientService.validateFormFilled(user_data);
+      console.log('unfilled: ' + JSON.stringify(unfilled));
+      if (unfilled.length != 0) {
+        const fileFields = this.getExistingAttachments(unfilled);
+        console.log('fileFields: ' + JSON.stringify(fileFields));
+        if (fileFields.length == 0) {
+          this.loading = false;
+          this.clientService.highlightUnFilledFormFields(unfilled);
+        }
+        else {
+          if (this.attachmentFiles.length > 0) {
+            // front desk added new files
+            this.submitFormWithAttachments(user_data);
+          }
+          else {
+            this.submitFormWithoutAttachments(user_data);
+          }
+        }
+      }
+      else {
+        // if (this.attachmentFiles.length > 0) {
+        //   // front desk added new files
+        //   this.submitFormWithAttachments(user_data).then(
+        //     ok => {
+        //       ok ? resolve(true) : resolve(false);
+        //     },
+        //     err => {
+        //       reject(err);
+        //     }
+        //   );
+        // }
+        // else {
+          this.submitFormWithoutAttachments(user_data).then(
+            ok => {
+              ok ? resolve(true) : resolve(false);
+            },
+            err => {
+              reject(err);
+            }
+          );
+      //   }
+      }
+    });
   }
 
   downloadDoc(url: string) {

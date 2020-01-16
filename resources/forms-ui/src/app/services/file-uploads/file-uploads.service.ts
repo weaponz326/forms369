@@ -46,6 +46,7 @@ export class FileUploadsService {
    * @memberof FileUploadsService
    */
   convertBase64ToFile(dataUrl: string, filename: string): File {
+    console.log('converting to base64');
     const arr = dataUrl.split(',');
     const mime = arr[0].match(/:(.*?);/)[1];
     const bstr = atob(arr[1]);
@@ -60,51 +61,23 @@ export class FileUploadsService {
   }
 
   /**
-   * Retruns a base64 encoded string from the HTMLImageElement.
-   *
-   * @private
-   * @param {HTMLImageElement} img
-   * @returns
-   * @memberof FileUploadsService
-   */
-  private getBase64Image(img: HTMLImageElement) {
-    const canvas = document.createElement('canvas');
-    canvas.width = img.width;
-    canvas.height = img.height;
-    const ctx = canvas.getContext('2d');
-    ctx.drawImage(img, 0, 0);
-    const dataURL = canvas.toDataURL('image/png');
-    // const dataURL = canvas.toDataURL('image/png').replace(/^data:image\/(png|jpg);base64,/, '');
-    return dataURL;
-  }
-
-  /**
    * Converts an image using the image url to a base64 encoded string.
    *
    * @param {string} src
-   * @param {string} mime_type
    * @returns
    * @memberof FileUploadsService
    */
-  srcToBase64(src: string, mime_type: string) {
-    return new Observable((observer: Observer<string>) => {
-      const img = new Image();
-      img.src = src;
-      img.crossOrigin = 'Anonymous';
-      if ( !img.complete ) {
-        img.onload = () => {
-          observer.next(this.getBase64Image(img));
-          observer.complete();
-        };
-
-        img.onerror = (err) => {
-          observer.error(err);
-        };
-      }
-      else {
-        observer.next(this.getBase64Image(img));
-        observer.complete();
-      }
+  srcToBase64(url: string): Promise<string> {
+    console.log('srcToBase64');
+    return new Promise((resolve, reject) => {
+      const reader = new FileReader();
+      this.http.get(url, { responseType: 'blob' }).subscribe(
+        blob => {
+          reader.readAsDataURL(blob);
+          reader.onload = () => resolve(reader.result.toString());
+          reader.onerror = error => reject(error);
+        }
+      );
     });
   }
 }

@@ -540,7 +540,7 @@ class ClientController extends Controller
             }else{
 
                 $current_date_time = Carbon::now()->toDateTimeString(); // Produces something like "2019-03-11 12:25:00"
-                $url=$attachment->getFilename().'_'.$submission_code. '_'.$current_date_time.'.'.$extension;
+                $url=$attachment->getFilename().'_'.$current_date_time.'.'.$extension;
                 $url = str_replace(':', '_', $url);
                 $upload =  File::move($_FILES['file']['tmp_name'], public_path('storage/attachments/'.$url ));
                 // $upload=Storage::disk('local')->put('attachments/'.$url,  File::get($attachment));
