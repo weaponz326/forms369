@@ -128,7 +128,8 @@ Route::group(['middleware' => ['auth:api'], 'prefix' => 'v1'], function(){
     //profile attachments 
     Route::post('uploadProfileAttachments/{client_id}', 'HomeController@uploadProfileAttachments')->name('uploadProfileAttachments')->middleware('scope:GIT_Admin,client');
     Route::get('getProfileAttachments/{client_id}', 'HomeController@getProfileAttachments')->name('getProfileAttachments')->middleware('scope:GIT_Admin,client,company_admin,branch_admin,frontdesk');
-    
+    Route::post('deleteProfileAttachment/{client_id}/{key}/{name}', 'HomeController@deleteProfileAttachment')->name('deleteProfileAttachment')->middleware('scope:GIT_Admin,client');
+  
     
     //user types setup, view and update apis
     Route::post('createUserType', 'HomeController@createUserType')->name('createUserType')->middleware('scope:GIT_Admin');

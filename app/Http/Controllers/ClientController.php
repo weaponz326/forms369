@@ -605,4 +605,38 @@ class ClientController extends Controller
         ];
         return response()->json($response, 200);
     }
+
+    /**
+     * getProfileAttachments get all attachments for user profile
+     *
+     * @param  mixed $request
+     *
+     * @return \Illuminate\Http\Response containing all attachment
+     */
+    public function deleteProfileAttachment(Request $request, $client_id, $key, $name)
+    {
+        $message ="Failed";
+        $deleteattachements = DB::table('profile_atachments')
+        ->where([
+            ['client_id', $client_id],
+            ['key', $key]
+        ])
+        ->delete(); 
+
+        if($deleteattachements){
+            unlink(storage_path('storage/attachments/'.$name));
+            $message = "Ok";
+        }
+
+        $response = [
+            'message' => $message
+        ];
+
+        if($message == "Ok"){
+            return response()->json($response, 200);
+        }else{
+            return response()->json($response, 400);
+        }
+        
+    }
 }

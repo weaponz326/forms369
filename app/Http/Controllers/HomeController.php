@@ -1096,6 +1096,22 @@ class HomeController extends Controller
         return $message;
     }
 
+    /**
+      * Business logics 
+     * deleteProfileAttachment gdelete an attachement from user profile
+     *
+     * @param  mixed $request
+     *
+     * @return \Illuminate\Http\Response containing an error or success message
+     */
+
+     
+    public function deleteProfileAttachment(Request $request, $client_id, $key,$name)
+    {
+        $message = (new ClientController)->deleteProfileAttachment($request, $client_id, $key, $name);
+        return $message;
+    }
+
      /**
       * Business logics to get details of a client for a clients profile
      * getClientsDetails get all details of a client 
