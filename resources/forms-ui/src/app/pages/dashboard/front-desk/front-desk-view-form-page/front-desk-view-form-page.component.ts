@@ -40,7 +40,6 @@ export class FrontDeskViewFormPageComponent implements OnInit {
   attachmentFiles: Array<File>;
   attachmentKeys: Array<string>;
   existingAttachments: Array<any>;
-  confirmDialogRef: NgbModalRef;
   @ViewChild('confirm', { static: false }) confirmDialog: TemplateRef<any>;
   @ViewChild('viewImgAttachment', { static: false }) viewImgDialog: TemplateRef<any>;
   @ViewChild('viewDocAttachment', { static: false }) viewDocDialog: TemplateRef<any>;
@@ -194,22 +193,41 @@ export class FrontDeskViewFormPageComponent implements OnInit {
       result => {
         if (result == 'yes') {
           this.loading = true;
-          this.frontDeskService.completeForm(this.form.submission_code, this.form.client_submitted_details).then(
-            res => {
-              const response = res as any;
-              if (_.toLower(response.message) == 'ok') {
-                this.loading = false;
-                this.completed = true;
+          this.submit().then(
+            ok => {
+              if (ok) {
+                console.log('submit done');
+                this.frontDeskService.completeForm(this.form.submission_code, this.form.client_submitted_details).then(
+                  res => {
+                    const response = res as any;
+                    if (_.toLower(response.message) == 'ok') {
+                      this.loading = false;
+                      this.completed = true;
+                    }
+                    else {
+                      this.loading = false;
+                      this.completed = false;
+                    }
+                  },
+                  err => {
+                    this.hasError = true;
+                    this.loading = false;
+                    this.completed = false;
+                  }
+                );
               }
               else {
+                this.hasError = true;
                 this.loading = false;
                 this.completed = false;
+                console.log('submit failed');
               }
             },
             err => {
               this.hasError = true;
               this.loading = false;
               this.completed = false;
+              console.log('error submitting details');
             }
           );
         }
@@ -223,23 +241,43 @@ export class FrontDeskViewFormPageComponent implements OnInit {
       result => {
         if (result == 'yes') {
           this.loading = true;
-          // this.submit();
-          this.frontDeskService.processForm(this.form.submission_code, this.form.client_submitted_details).then(
-            res => {
-              const response = res as any;
-              if (_.toLower(response.message) == 'ok') {
-                this.loading = false;
-                this.submitted = true;
+          this.submit().then(
+            ok => {
+              if (ok) {
+                console.log('submitting done');
+                this.frontDeskService.processForm(this.form.submission_code, this.form.client_submitted_details).then(
+                  res => {
+                    const response = res as any;
+                    console.log('process res');
+                    if (_.toLower(response.message) == 'ok') {
+                      this.loading = false;
+                      this.submitted = true;
+                    }
+                    else {
+                      this.loading = false;
+                      this.submitted = false;
+                    }
+                  },
+                  err => {
+                    console.log('process err');
+                    this.loading = false;
+                    this.submitted = false;
+                    this.hasError = true;
+                  }
+                );
               }
               else {
+                this.hasError = true;
                 this.loading = false;
-                this.submitted = false;
+                this.completed = false;
+                console.log('submitting failed');
               }
             },
             err => {
-              this.loading = false;
-              this.submitted = false;
               this.hasError = true;
+              this.loading = false;
+              this.completed = false;
+              console.log('error while submitting');
             }
           );
         }
@@ -253,22 +291,41 @@ export class FrontDeskViewFormPageComponent implements OnInit {
       result => {
         if (result == 'yes') {
           this.loading = true;
-          this.frontDeskService.unprocessForm(this.form.submission_code, this.form.client_submitted_details).then(
-            res => {
-              const response = res as any;
-              if (_.toLower(response.message) == 'ok') {
-                this.loading = false;
-                this.rejected = true;
+          this.submit().then(
+            ok => {
+              if (ok) {
+                console.log('submit done');
+                this.frontDeskService.unprocessForm(this.form.submission_code, this.form.client_submitted_details).then(
+                  res => {
+                    const response = res as any;
+                    if (_.toLower(response.message) == 'ok') {
+                      this.loading = false;
+                      this.rejected = true;
+                    }
+                    else {
+                      this.loading = false;
+                      this.rejected = false;
+                    }
+                  },
+                  err => {
+                    this.loading = false;
+                    this.hasError = true;
+                    this.rejected = false;
+                  }
+                );
               }
               else {
+                this.hasError = true;
                 this.loading = false;
-                this.rejected = false;
+                this.completed = false;
+                console.log('submit failed');
               }
             },
             err => {
-              this.loading = false;
               this.hasError = true;
-              this.rejected = false;
+              this.loading = false;
+              this.completed = false;
+              console.log('error while submitting');
             }
           );
         }
@@ -295,45 +352,24 @@ export class FrontDeskViewFormPageComponent implements OnInit {
     return fields;
   }
 
-  uploadFormFile(form_code: string, key: string, index?: number): Promise<boolean> {
+  uploadFormFile(form_code: string, key: string, index: number): Promise<boolean> {
     return new Promise((resolve, reject) => {
-      if (_.isUndefined(index) || _.isNull(index)) {
-        this.clientService.uploadFormAttachments(this.user.id.toString(), this.form.form_code, form_code, key, this.attachmentFiles[0]).then(
-          ok => {
-            if (ok) {
-              console.log('file upload done');
-              resolve(true);
-            }
-            else {
-              console.log('file upload failed');
-              resolve(false);
-            }
-          },
-          err => {
-            console.log('file upload error');
-            reject(err);
+      this.clientService.uploadFormAttachments(this.user.id.toString(), this.form.form_code, form_code, key, this.attachmentFiles[index]).then(
+        ok => {
+          if (ok) {
+            console.log('file upload done');
+            resolve(true);
           }
-        );
-      }
-      else {
-        // its being called in a loop, this means there are more than one attachments.
-        this.clientService.uploadFormAttachments(this.user.id.toString(), this.form.form_code, form_code, key, this.attachmentFiles[index]).then(
-          ok => {
-            if (ok) {
-              console.log('file upload done');
-              resolve(true);
-            }
-            else {
-              console.log('file upload failed');
-              resolve(false);
-            }
-          },
-          err => {
-            console.log('file upload error');
-            reject(err);
+          else {
+            console.log('file upload failed');
+            resolve(false);
           }
-        );
-      }
+        },
+        err => {
+          console.log('file upload error');
+          reject(err);
+        }
+      );
     });
   }
 
@@ -362,7 +398,7 @@ export class FrontDeskViewFormPageComponent implements OnInit {
       }
       else {
         console.log('will do single upload');
-        this.uploadFormFile(form_code, this.attachmentKeys[0]).then(
+        this.uploadFormFile(form_code, this.attachmentKeys[0], 0).then(
           ok => {
             ok ? resolve(true) : resolve(false);
           },
@@ -378,7 +414,7 @@ export class FrontDeskViewFormPageComponent implements OnInit {
     return new Promise((resolve, reject) => {
       console.log('is submitting');
       const filled_data = this.formBuilder.getFormUserData(user_data);
-      const updated_data = this.clientService.getUpdatedClientFormData(JSON.parse(filled_data), this.form.submitted_client_details);
+      const updated_data = this.clientService.getUpdatedClientFormData(JSON.parse(filled_data), this.form.client_submitted_details);
       console.log('new updates: ' + updated_data);
       this.clientService.editProfile(this.user.id.toString(), JSON.parse(updated_data)).then(
         res => {
@@ -408,74 +444,80 @@ export class FrontDeskViewFormPageComponent implements OnInit {
   submitFormWithoutAttachments(user_data: any): Promise<boolean> {
     return new Promise((resolve, reject) => {
       console.log('is submitting');
+      console.log('user_data: ' + JSON.stringify(user_data));
       const filled_data = this.formBuilder.getFormUserData(user_data);
-      const updated_data = this.clientService.getUpdatedClientFormData(JSON.parse(filled_data), this.form.submitted_client_details);
+      console.log('filled_data: ' + filled_data);
+      const updated_data = this.clientService.getUpdatedClientFormData(JSON.parse(filled_data), this.form.client_submitted_details);
       console.log('new updates: ' + updated_data);
-      this.uploadFormAttachments(this.form.submission_code).then(
-        ok => {
-          ok ? resolve(true) : resolve(false);
+      this.clientService.editProfile(this.user.id.toString(), JSON.parse(updated_data)).then(
+        res => {
+          console.log('edit res');
+          const response = res as any;
+          if (_.toLower(response.message) == 'ok') {
+            resolve(true);
+          }
+          else {
+            console.log('faileD: ' + response.message);
+            resolve(false);
+          }
         },
         err => {
+          console.log('edit err');
           reject(err);
         }
       );
     });
-    // this.clientService.submitForm(_.toString(this.user.id), this.form.form_code, filled_data, JSON.parse(updated_data)).then(
-    //   res => {
-    //     resolve(res);
-    //   },
-    //   err => {
-    //     reject(err);
-    //   }
-    // );
   }
 
   submit(): Promise<boolean> {
     return new Promise((resolve, reject) => {
       const user_data = this.getFormData();
       console.log(JSON.stringify(user_data));
-      console.log('client data: ' + JSON.stringify(this.form.client_submitted_details));
       const unfilled = this.clientService.validateFormFilled(user_data);
       console.log('unfilled: ' + JSON.stringify(unfilled));
       if (unfilled.length != 0) {
         const fileFields = this.getExistingAttachments(unfilled);
         console.log('fileFields: ' + JSON.stringify(fileFields));
-        if (fileFields.length == 0) {
+        if (fileFields.length != 0) {
           this.loading = false;
           this.clientService.highlightUnFilledFormFields(unfilled);
         }
         else {
           if (this.attachmentFiles.length > 0) {
             // front desk added new files
-            this.submitFormWithAttachments(user_data);
+            console.log('front desk added files uploading');
+            this.submitFormWithAttachments(user_data).then(
+              ok => {
+                ok ? resolve(true) : resolve(false);
+              },
+              err => {
+                reject(err);
+              }
+            );
           }
           else {
-            this.submitFormWithoutAttachments(user_data);
+            console.log('submitting without attachment');
+            this.submitFormWithoutAttachments(user_data).then(
+              ok => {
+                ok ? resolve(true) : resolve(false);
+              },
+              err => {
+                reject(err);
+              }
+            );
           }
         }
       }
       else {
-        // if (this.attachmentFiles.length > 0) {
-        //   // front desk added new files
-        //   this.submitFormWithAttachments(user_data).then(
-        //     ok => {
-        //       ok ? resolve(true) : resolve(false);
-        //     },
-        //     err => {
-        //       reject(err);
-        //     }
-        //   );
-        // }
-        // else {
-          this.submitFormWithoutAttachments(user_data).then(
-            ok => {
-              ok ? resolve(true) : resolve(false);
-            },
-            err => {
-              reject(err);
-            }
-          );
-      //   }
+        // since everything checks out, we dont have to upload the attachments too.
+        this.submitFormWithoutAttachments(user_data).then(
+          ok => {
+            ok ? resolve(true) : resolve(false);
+          },
+          err => {
+            reject(err);
+          }
+        );
       }
     });
   }

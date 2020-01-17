@@ -160,7 +160,7 @@ Route::group(['middleware' => ['auth:api'], 'prefix' => 'v1'], function(){
   //client, get and edit endpoints
   Route::get('getAllClients', 'HomeController@getAllClients')->name('getAllClients')->middleware('scope:GIT_Admin');
   Route::get('getClientsDetails/{id}', 'HomeController@getClientsDetails')->name('getClientsDetails')->middleware('scope:GIT_Admin,client');
-  Route::post('editClientProfile/{id}', 'HomeController@editClientProfile')->name('editClientProfile')->middleware('scope:client');
+  Route::post('editClientProfile/{id}', 'HomeController@editClientProfile')->name('editClientProfile')->middleware('scope:client,frontdesk');
   Route::post('submitForm/{id}/{code}', 'HomeController@submitForm')->name('submitForm')->middleware('scope:GIT_Admin,client');
   Route::get('getClientSubmittedForms/{id}', 'HomeController@getClientSubmittedForms')->name('getClientSubmittedForms')->middleware('scope:GIT_Admin,client');
   

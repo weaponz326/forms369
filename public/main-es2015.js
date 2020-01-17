@@ -404,7 +404,7 @@ module.exports = "<div class=\"container-scroller\">\n  <div class=\"container-f
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<div class=\"container-scroller\">\n  <div class=\"container-fluid page-body-wrapper full-page-wrapper\">\n    <div class=\"content-wrapper d-flex align-items-center auth px-0\">\n      <div class=\"row w-100 mx-0\">\n        <div class=\"col-lg-4 mx-auto\">\n          <div class=\"auth-form-light text-left py-5 px-4 px-sm-5\">\n            <a routerLink=\"/\" class=\"brand-logo\">\n              <img src=\"./assets/images/logo.png\" alt=\"logo\">\n            </a>\n            <div *ngIf=\"codeExpired\" class=\"mt-2 mb-5\">\n              <div class=\"alert alert-danger\" role=\"alert\">\n                <h3 class=\"alert-heading\">Hey there!</h3>\n                <p class=\"lead\"><strong>This code has expired and is invalid</strong></p>\n                <hr>\n                <p class=\"mb-0 lead\">Please log in in again to get a new code.</p>\n              </div>\n            </div>\n\n            <div *ngIf=\"invalidCode\" class=\"mt-2 mb-5\">\n              <div class=\"alert alert-danger\" role=\"alert\">\n                <h3 class=\"alert-heading\">Hey there!</h3>\n                <p class=\"lead\"><strong>This code is invalid</strong></p>\n                <hr>\n                <p class=\"mb-0 lead\">Please log in again to get a new code.</p>\n              </div>\n            </div>\n\n            <h4>Hello! let's get started</h4>\n            <h6 class=\"font-weight-normal\">Provide your access code to continue.</h6>\n            <form [formGroup]=\"form\" (ngSubmit)=\"submit()\" class=\"pt-3\">\n              <div class=\"form-group\">\n                <input type=\"text\" class=\"form-control form-control-lg\" formControlName=\"code\"\n                  placeholder=\"Enter Authentication Code\" [ngClass]=\"{'input-control-error': submitted && f.code.errors}\">\n                <div *ngIf=\"submitted && f.code.errors\">\n                  <p class=\"input-error\" *ngIf=\"f.code.errors.required\">Please enter the code from the SMS you recieve</p>\n                </div>\n              </div>\n              <div class=\"mt-3\">\n                <button type=\"submit\" *ngIf=\"!loading\" class=\"btn btn-block btn-primary btn-lg font-weight-medium auth-form-btn\">Continue</button>\n                <button type=\"button\" *ngIf=\"loading\"  class=\"btn btn-block btn-primary btn-lg font-weight-medium auth-form-btn\" disabled>\n                  <span class=\"spinner-border spinner-border-sm\" role=\"status\" aria-hidden=\"true\"></span> &nbsp; &nbsp;\n                  Please wait...\n                </button>\n              </div>\n            </form>\n          </div>\n        </div>\n      </div>\n    </div>\n    <!-- content ends -->\n  </div>\n  <!-- page-body ends -->\n</div>"
+module.exports = "<div class=\"container-scroller\">\n  <div class=\"container-fluid page-body-wrapper full-page-wrapper\">\n    <div class=\"content-wrapper d-flex align-items-center auth px-0\">\n      <div class=\"row w-100 mx-0\">\n        <div class=\"col-lg-4 mx-auto\">\n          <div class=\"text-center auth-form-light text-left py-5 px-4 px-sm-5\">\n            <a routerLink=\"/\" class=\"brand-logo\">\n              <img src=\"./assets/images/logo.png\" alt=\"logo\">\n            </a>\n            <div *ngIf=\"codeExpired\" class=\"mt-2 mb-5\">\n              <div class=\"alert alert-danger\" role=\"alert\">\n                <h3 class=\"alert-heading\">Hey there!</h3>\n                <p class=\"lead\"><strong>This code has expired and is invalid</strong></p>\n                <hr>\n                <p class=\"mb-0 lead\">Please log in in again to get a new code.</p>\n              </div>\n            </div>\n\n            <div *ngIf=\"invalidCode\" class=\"mt-2 mb-5\">\n              <div class=\"alert alert-danger\" role=\"alert\">\n                <h3 class=\"alert-heading\">Hey there!</h3>\n                <p class=\"lead\"><strong>This code is invalid</strong></p>\n                <hr>\n                <p class=\"mb-0 lead\">Please log in again to get a new code.</p>\n              </div>\n            </div>\n\n            <h4 class=\"text-center\">Hello! let's get started</h4>\n            <h6 class=\"text-center font-weight-normal\">Provide your access code to continue.</h6>\n            <form [formGroup]=\"form\" (ngSubmit)=\"submit()\" class=\"pt-3\">\n              <div class=\"form-group\">\n                <input type=\"text\" class=\"form-control form-control-lg\" formControlName=\"code\"\n                  placeholder=\"Enter Authentication Code\" [ngClass]=\"{'input-control-error': submitted && f.code.errors}\">\n                <div *ngIf=\"submitted && f.code.errors\">\n                  <p class=\"input-error\" *ngIf=\"f.code.errors.required\">Please enter the code from the SMS you recieve</p>\n                </div>\n              </div>\n              <div class=\"mt-3\">\n                <button type=\"submit\" *ngIf=\"!loading\" class=\"btn btn-block btn-primary btn-lg font-weight-medium auth-form-btn\">Continue</button>\n                <button type=\"button\" *ngIf=\"loading\"  class=\"btn btn-block btn-primary btn-lg font-weight-medium auth-form-btn\" disabled>\n                  <span class=\"spinner-border spinner-border-sm\" role=\"status\" aria-hidden=\"true\"></span> &nbsp; &nbsp;\n                  Please wait...\n                </button>\n              </div>\n            </form>\n          </div>\n        </div>\n      </div>\n    </div>\n    <!-- content ends -->\n  </div>\n  <!-- page-body ends -->\n</div>"
 
 /***/ }),
 
@@ -635,7 +635,7 @@ module.exports = "<div class=\"container-scroller\">\n  <app-navigation-bar></ap
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<div class=\"container-scroller\">\n  <app-navigation-bar></app-navigation-bar>\n  <div class=\"container-fluid page-body-wrapper\">\n    <app-side-bar></app-side-bar>\n    <div class=\"main-panel\">\n      <div class=\"content-wrapper\">\n        <div class=\"row\">\n          <div class=\"col-md-12 grid-margin\">\n            <div class=\"d-flex justify-content-between flex-wrap\">\n              <div class=\"d-flex align-items-end flex-wrap\">\n                <div class=\"mr-md-3 mr-xl-5\">\n                  <h2>Welcome back, {{ firstname }}</h2>\n                </div>\n                <div class=\"d-flex\">\n                </div>\n              </div>\n              <div class=\"d-flex justify-content-between align-items-end flex-wrap\">\n                <a role=\"button\" class=\"btn btn-primary mt-2 mt-xl-0\" routerLink=\"/client/form_merchant\">Pick A Form</a>\n              </div>\n            </div>\n          </div>\n        </div>\n        <div class=\"row\">\n          <div class=\"col-md-6 grid-margin stretch-card\">\n            <div class=\"card hover-cursor hover-primary\" (click)=\"openFormsFilled()\">\n              <div class=\"card-body\">\n                <p class=\"card-title\">My History</p>\n                <p class=\"text-muted\">A list of all forms you've filled</p>\n                <div class=\"card-text\">\n                  <i class=\"mdi mdi-arrange-bring-to-front\" style=\"font-size: 8em;\"></i>\n                  <p class=\"text-muted\">Quickly fill forms you've filled before in the past with ease and speed.</p>\n                </div>\n              </div>\n            </div>\n          </div>\n          <div class=\"col-md-6 grid-margin stretch-card\">\n            <div class=\"card hover-cursor hover-primary\" (click)=\"openFormsData()\">\n              <div class=\"card-body\">\n                <p class=\"card-title\">My Profile</p>\n                <p class=\"text-muted\">All your forms data</p>\n                <div class=\"card-text\">\n                  <i class=\"mdi mdi-account-outline\" style=\"font-size: 8em;\"></i>\n                  <p class=\"text-muted\">Access all the information you've provided through form filling using this application.</p>\n                </div>\n              </div>\n            </div>\n          </div>\n        </div>\n      </div>\n      <!-- content ends -->\n      <!-- footer -->\n      <app-footer-bar></app-footer-bar>\n      <!-- partial -->\n    </div>\n    <!-- main-panel ends -->\n  </div>\n</div>\n"
+module.exports = "<div class=\"container-scroller\">\n  <app-navigation-bar></app-navigation-bar>\n  <div class=\"container-fluid page-body-wrapper\">\n    <app-side-bar></app-side-bar>\n    <div class=\"main-panel\">\n      <div class=\"content-wrapper\">\n        <div class=\"row\">\n          <div class=\"col-md-12 grid-margin\">\n            <div class=\"d-flex justify-content-between flex-wrap mobile-view\">\n              <div class=\"d-flex align-items-end flex-wrap mobile-view\">\n                <div class=\"mr-md-3 mr-xl-5\">\n                  <h2>Welcome back, {{ firstname }}</h2>\n                </div>\n                <div class=\"d-flex\">\n                </div>\n              </div>\n              <div class=\"d-flex justify-content-between align-items-end flex-wrap mobile-view\">\n                <a role=\"button\" class=\"btn btn-primary mt-2 mt-xl-0\" routerLink=\"/client/form_merchant\">Pick A Form</a>\n              </div>\n            </div>\n          </div>\n        </div>\n        <div class=\"row\">\n          <div class=\"col-md-6 grid-margin stretch-card\">\n            <div class=\"card hover-cursor hover-primary\" (click)=\"openFormsFilled()\">\n              <div class=\"card-body\">\n                <p class=\"card-title\">My History</p>\n                <p class=\"text-muted\">A list of all forms you've submitted</p>\n                <div class=\"card-text\">\n                  <i class=\"mdi mdi-arrange-bring-to-front\" style=\"font-size: 8em;\"></i>\n                  <p class=\"text-muted\">Quickly fill forms you've filled before in the past with ease and speed.</p>\n                </div>\n              </div>\n            </div>\n          </div>\n          <div class=\"col-md-6 grid-margin stretch-card\">\n            <div class=\"card hover-cursor hover-primary\" (click)=\"openFormsData()\">\n              <div class=\"card-body\">\n                <p class=\"card-title\">My Profile</p>\n                <p class=\"text-muted\">All your personal information</p>\n                <div class=\"card-text\">\n                  <i class=\"mdi mdi-account-outline\" style=\"font-size: 8em;\"></i>\n                  <p class=\"text-muted\">Access all the information you've provided while submitting a form.</p>\n                </div>\n              </div>\n            </div>\n          </div>\n        </div>\n      </div>\n      <!-- content ends -->\n      <!-- footer -->\n      <app-footer-bar></app-footer-bar>\n      <!-- partial -->\n    </div>\n    <!-- main-panel ends -->\n  </div>\n</div>\n"
 
 /***/ }),
 
@@ -921,7 +921,7 @@ module.exports = "<div class=\"container-scroller\">\n  <app-navigation-bar></ap
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<div class=\"container-scroller\">\n  <app-navigation-bar></app-navigation-bar>\n  <div class=\"container-fluid page-body-wrapper\">\n    <app-side-bar></app-side-bar>\n    <div class=\"main-panel\">\n      <div class=\"content-wrapper\">\n        <div class=\"row\">\n          <div class=\"col-md-12 grid-margin\">\n            <div class=\"d-flex justify-content-between flex-wrap\">\n              <div class=\"d-flex align-items-end flex-wrap\">\n                <div class=\"mr-md-3 mr-xl-5\">\n                  <h2>{{ formName }}</h2>\n                  <p class=\"mb-md-0\">Your administrative dashboard.</p>\n                </div>\n                <div class=\"d-flex\">\n                </div>\n              </div>\n              <div class=\"d-flex justify-content-between align-items-end flex-wrap\">\n                <!-- <button type=\"button\" class=\"btn btn-light bg-white btn-icon mr-3 d-none d-md-block \">\n                  <i class=\"mdi mdi-download text-muted\"></i>\n                </button>\n                <button type=\"button\" class=\"btn btn-light bg-white btn-icon mr-3 mt-2 mt-xl-0\">\n                  <i class=\"mdi mdi-clock-outline text-muted\"></i>\n                </button>\n                <button type=\"button\" class=\"btn btn-light bg-white btn-icon mr-3 mt-2 mt-xl-0\">\n                  <i class=\"mdi mdi-plus text-muted\"></i>\n                </button> -->\n              </div>\n            </div>\n          </div>\n        </div>\n\n        <div *ngIf=\"loading\" class=\"row m-5\">\n          <div class=\"col-md-12 m-5\">\n            <div class=\"d-flex justify-content-center\">\n              <div class=\"spinner-border m-5\" style=\"width: 5rem; height: 5rem;\" role=\"status\">\n                <span class=\"sr-only\">Loading...</span>\n              </div>\n            </div>\n          </div>\n        </div>\n\n        <div [hidden]=\"completed || submitted || rejected\" class=\"row\">\n          <div class=\"col-md-8 offset-md-2 grid-margin stretch-card\">\n            <div class=\"card\">\n              <div class=\"card-body\">\n                <p class=\"card-title\">{{ formName }}</p>\n                <div class=\"card-text\">\n                  <form class=\"forms-sample\">\n                    <div class=\"form-builder-container\">\n                      <div id=\"form-render\"></div>\n                    </div>\n\n                    <div *ngIf=\"loadingAttachments\" class=\"row m-md-2\">\n                      <div class=\"col-md-12 col-sm-12 m-md-2\">\n                        <div class=\"d-flex justify-content-center\">\n                          <div class=\"spinner-border m-2\" style=\"width: 2rem; height: 2rem;\" role=\"status\">\n                            <span class=\"sr-only\">Loading...</span>\n                          </div>\n                        </div>\n                      </div>\n                    </div>\n\n                    <div class=\"attachments-section\" *ngIf=\"!loadingAttachments && showAttachments\">\n                      <div class=\"card mb-4\">\n                        <div class=\"card-body\">\n                          <h5 class=\"card-title\">Form Attachments / Documents</h5>\n                          <h6 class=\"card-subtitle mb-2 text-muted\">Below are attachments you've uploaded for this form\n                          </h6>\n                          <div class=\"row\" *ngFor=\"let file of existingAttachments\">\n                            <div class=\"col-11\" style=\"padding-right: 8px;\">\n                              <ol class=\"files-list\">\n                                <li class=\"file-item\">\n                                  <i class=\"mdi mdi-paperclip menu-icon\"></i>\n                                  <a class=\"alert-link file-link\"\n                                    (click)=\"openModal($event, file.url)\">{{ file.url }}</a>\n                                </li>\n                              </ol>\n                            </div>\n                            <div class=\"col-1\" style=\"padding-right: 3px; padding-left: 4px; margin-top: 7px;\">\n                              <button class=\"btn btn-primary btn-icon\" (click)=\"download(file.url)\">\n                                <i class=\"mdi mdi-download-outline\"></i>\n                              </button>\n                            </div>\n                          </div>\n                        </div>\n                      </div>\n                    </div>\n\n                    <button *ngIf=\"loading\" class=\"btn btn-primary btn-lg mr-2\" type=\"button\" disabled>\n                      <span class=\"spinner-border spinner-border-sm\" role=\"status\" aria-hidden=\"true\"></span>\n                      <span class=\"sr-only\">Please wait...</span>\n                    </button>\n                    <button *ngIf=\"!loading && !isProcessed\" type=\"submit\" class=\"btn btn-primary btn-lg mr-2\" (click)=\"complete()\">Complete</button>\n                    <button *ngIf=\"!loading && !isProcessed && !isProcessing\" type=\"submit\" class=\"btn btn-primary btn-lg mr-2\" (click)=\"process()\">Processing</button>\n                    <button *ngIf=\"!loading && !isProcessed\" type=\"submit\" class=\"btn btn-light btn-lg\" (click)=\"reject()\">Reject</button>\n                  </form>\n                </div>\n              </div>\n            </div>\n          </div>\n        </div>\n\n         <!-- <div *ngIf=\"isProcessed\" class=\"row\">\n           <div class=\"col-lg-12 grid-margin stretch-card\">\n             <div class=\"card text-center pt-5 pb-5\">\n               <div class=\"card-body mt-5 mb-5\">\n                 <h4 class=\"card-title\">Processed</h4>\n                 <p class=\"card-text\">\n                   This {{ formName }} form has been processed.\n                 </p>\n                 <div class=\"text-lg-center mt-5 mb-5\">\n                   <div class=\"card-text\">\n                     <i class=\"mdi mdi-file-question\" style=\"font-size: 8em;\"></i>\n                   </div>\n                   <div class=\"card-text mt-2\">\n                     <h3>Form Already Processed</h3>\n                     <p class=\"text-muted\">{{ form.submission_code }} has already been processed</p>\n                     <p class=\"text-muted\">{{ form.submission_code }} was processed on {{ lastProcessed | date }}</p>\n                   </div>\n                 </div>\n               </div>\n             </div>\n           </div>\n         </div> -->\n\n        <!-- <div *ngIf=\"isProcessing\" class=\"row\">\n          <div class=\"col-lg-12 grid-margin stretch-card\">\n            <div class=\"card text-center pt-5 pb-5\">\n              <div class=\"card-body mt-5 mb-5\">\n                <h4 class=\"card-title\">Processing</h4>\n                <p class=\"card-text\">\n                  This {{ formName }} form is being processed.\n                </p>\n                <div class=\"text-lg-center mt-5 mb-5\">\n                  <div class=\"card-text\">\n                    <i class=\"mdi mdi-file-question\" style=\"font-size: 8em;\"></i>\n                  </div>\n                  <div class=\"card-text mt-2\">\n                    <h3>Processing Form</h3>\n                    <p class=\"text-muted\">{{ form.submission_code }} is in processing</p>\n                    <p class=\"text-muted\">{{ form.submission_code }} was last accessed for processing on\n                      {{ lastProcessed | date }}</p>\n                  </div>\n                </div>\n              </div>\n            </div>\n          </div>\n        </div> -->\n\n        <div class=\"row\" *ngIf=\"submitted\">\n          <div class=\"col-md-12 grid-margin\">\n            <div class=\"card pt-5 pb-5 text-center\">\n              <div class=\"card-body\">\n                <p class=\"card-title\">Processing</p>\n                <p class=\"text-muted\"></p>\n                <div class=\"card-text\">\n                  <i class=\"mdi mdi-shield-check-outline text-primary\" style=\"font-size: 12em;\"></i>\n                  <h2>Form has been submitted for processing</h2>\n                  <p class=\"text-muted\">You have succesfully submitted this form for processing.</p>\n                </div>\n                <div class=\"card-text mt-4\">\n                  <button type=\"button\" class=\"btn btn-primary btn-lg mr-2\" (click)=\"ok()\">\n                    <i class=\"mdi mdi-check\"></i>\n                    Ok\n                  </button>\n                </div>\n              </div>\n            </div>\n          </div>\n        </div>\n\n        <div class=\"row\" *ngIf=\"completed\">\n          <div class=\"col-md-12 grid-margin\">\n            <div class=\"card pt-5 pb-5 text-center\">\n              <div class=\"card-body\">\n                <p class=\"card-title\">Success</p>\n                <p class=\"text-muted\"></p>\n                <div class=\"card-text\">\n                  <i class=\"mdi mdi-shield-check-outline text-primary\" style=\"font-size: 12em;\"></i>\n                  <h2>Form Has Been Completed</h2>\n                  <p class=\"text-muted\">You have succesfully completed processing this form.</p>\n                </div>\n                <div class=\"card-text mt-4\">\n                  <button type=\"button\" class=\"btn btn-primary btn-lg mr-2\" (click)=\"ok()\">\n                    <i class=\"mdi mdi-check\"></i>\n                    Ok\n                  </button>\n                </div>\n              </div>\n            </div>\n          </div>\n        </div>\n\n        <div class=\"row\" *ngIf=\"rejected\">\n          <div class=\"col-md-12 grid-margin\">\n            <div class=\"card pt-5 pb-5 text-center\">\n              <div class=\"card-body\">\n                <p class=\"card-title\">Success</p>\n                <p class=\"text-muted\"></p>\n                <div class=\"card-text\">\n                  <i class=\"mdi mdi-shield-check-outline text-primary\" style=\"font-size: 12em;\"></i>\n                  <h2>Form Has Been <strong class=\"text-danger\">Rejected</strong></h2>\n                  <p class=\"text-muted\">This form has been succesfully rejected.</p>\n                </div>\n                <div class=\"card-text mt-4\">\n                  <button type=\"button\" class=\"btn btn-primary btn-lg mr-2\" (click)=\"ok()\">\n                    <i class=\"mdi mdi-check\"></i>\n                    Ok\n                  </button>\n                </div>\n              </div>\n            </div>\n          </div>\n        </div>\n      </div>\n      <!-- content -->\n      <!-- footer -->\n      <app-footer-bar></app-footer-bar>\n      <!-- partial -->\n    </div>\n    <!-- main ends -->\n  </div>\n</div>\n\n<ng-template #confirm let-modal>\n  <div class=\"modal-header\">\n    <h4 class=\"modal-title\" id=\"modal-title\">Confirm Action</h4>\n    <button type=\"button\" class=\"close\" aria-describedby=\"modal-title\" (click)=\"modal.dismiss('Cross click')\">\n      <span aria-hidden=\"true\">&times;</span>\n    </button>\n  </div>\n  <div class=\"modal-body\">\n    <p><strong>Are you sure you want to <span class=\"text-primary\">{{ action }} this form</span> ?</strong></p>\n  </div>\n  <div class=\"modal-footer\">\n    <button type=\"button\" class=\"btn btn-outline-secondary\" (click)=\"modal.dismiss('no')\">No</button>\n    <button type=\"button\" class=\"btn btn-danger\" (click)=\"modal.close('yes')\">Yes</button>\n  </div>\n</ng-template>\n\n<ng-template #viewImgAttachment let-modal>\n  <div class=\"modal-header\">\n    <h5 class=\"modal-title\">Attachment File</h5>\n    <button type=\"button\" class=\"close\" aria-describedby=\"modal-title\" (click)=\"modal.dismiss('close')\">\n      <span aria-hidden=\"true\">&times;</span>\n    </button>\n  </div>\n  <div class=\"modal-body\">\n    <img [src]=\"imgUrl\" style=\"width: 100%;\">\n  </div>\n  <div class=\"modal-footer\">\n    <button type=\"button\" class=\"btn btn-secondary\" (click)=\"modal.close('no')\">Close</button>\n  </div>\n</ng-template>\n\n<ng-template #viewDocAttachment let-modal>\n  <div class=\"modal-header\">\n    <h5 class=\"modal-title\">Attachment File</h5>\n    <button type=\"button\" class=\"close\" aria-describedby=\"modal-title\" (click)=\"modal.dismiss('close')\">\n      <span aria-hidden=\"true\">&times;</span>\n    </button>\n  </div>\n  <div class=\"modal-body\">\n    <p>This is a document and cannot be viewed. Please download</p>\n  </div>\n  <div class=\"modal-footer\">\n    <button type=\"button\" class=\"btn btn-secondary\" (click)=\"modal.close('no')\">Close</button>\n    <button type=\"button\" class=\"btn btn-primary\" (click)=\"downloadDoc(documentUrl)\">Download</button>\n  </div>\n</ng-template>"
+module.exports = "<div class=\"container-scroller\">\n  <app-navigation-bar></app-navigation-bar>\n  <div class=\"container-fluid page-body-wrapper\">\n    <app-side-bar></app-side-bar>\n    <div class=\"main-panel\">\n      <div class=\"content-wrapper\">\n        <div class=\"row\">\n          <div class=\"col-md-12 grid-margin\">\n            <div class=\"d-flex justify-content-between flex-wrap\">\n              <div class=\"d-flex align-items-end flex-wrap\">\n                <div class=\"mr-md-3 mr-xl-5\">\n                  <h2>{{ formName }}</h2>\n                  <p class=\"mb-md-0\">Your administrative dashboard.</p>\n                </div>\n                <div class=\"d-flex\">\n                </div>\n              </div>\n              <div class=\"d-flex justify-content-between align-items-end flex-wrap\">\n                <!-- <button type=\"button\" class=\"btn btn-light bg-white btn-icon mr-3 d-none d-md-block \">\n                  <i class=\"mdi mdi-download text-muted\"></i>\n                </button>\n                <button type=\"button\" class=\"btn btn-light bg-white btn-icon mr-3 mt-2 mt-xl-0\">\n                  <i class=\"mdi mdi-clock-outline text-muted\"></i>\n                </button>\n                <button type=\"button\" class=\"btn btn-light bg-white btn-icon mr-3 mt-2 mt-xl-0\">\n                  <i class=\"mdi mdi-plus text-muted\"></i>\n                </button> -->\n              </div>\n            </div>\n          </div>\n        </div>\n\n        <!-- <div *ngIf=\"_loading\" class=\"row m-5\">\n          <div class=\"col-md-12 m-5\">\n            <div class=\"d-flex justify-content-center\">\n              <div class=\"spinner-border m-5\" style=\"width: 5rem; height: 5rem;\" role=\"status\">\n                <span class=\"sr-only\">Loading...</span>\n              </div>\n            </div>\n          </div>\n        </div> -->\n\n        <div [hidden]=\"completed || submitted || rejected\" class=\"row\">\n          <div class=\"col-md-8 offset-md-2 grid-margin stretch-card\">\n            <div class=\"card\">\n              <div class=\"card-body\">\n                <p class=\"card-title\">{{ formName }}</p>\n                <div class=\"card-text\">\n                  <form class=\"forms-sample\">\n                    <div class=\"form-builder-container\">\n                      <div id=\"form-render\"></div>\n                    </div>\n\n                    <div *ngIf=\"loadingAttachments\" class=\"row m-md-2\">\n                      <div class=\"col-md-12 col-sm-12 m-md-2\">\n                        <div class=\"d-flex justify-content-center\">\n                          <div class=\"spinner-border m-2\" style=\"width: 2rem; height: 2rem;\" role=\"status\">\n                            <span class=\"sr-only\">Loading...</span>\n                          </div>\n                        </div>\n                      </div>\n                    </div>\n\n                    <div class=\"attachments-section\" *ngIf=\"!loadingAttachments && showAttachments\">\n                      <div class=\"card mb-4\">\n                        <div class=\"card-body\">\n                          <h5 class=\"card-title\">Form Attachments / Documents</h5>\n                          <h6 class=\"card-subtitle mb-2 text-muted\">Below are attachments you've uploaded for this form\n                          </h6>\n                          <div class=\"row\" *ngFor=\"let file of existingAttachments\">\n                            <div class=\"col-11\" style=\"padding-right: 8px;\">\n                              <ol class=\"files-list\">\n                                <li class=\"file-item\">\n                                  <i class=\"mdi mdi-paperclip menu-icon\"></i>\n                                  <a class=\"alert-link file-link\"\n                                    (click)=\"openModal($event, file.url)\">{{ file.url }}</a>\n                                </li>\n                              </ol>\n                            </div>\n                            <div class=\"col-1\" style=\"padding-right: 3px; padding-left: 4px; margin-top: 7px;\">\n                              <button class=\"btn btn-primary btn-icon\" (click)=\"download(file.url)\">\n                                <i class=\"mdi mdi-download-outline\"></i>\n                              </button>\n                            </div>\n                          </div>\n                        </div>\n                      </div>\n                    </div>\n\n                    <button *ngIf=\"loading\" class=\"btn btn-primary btn-lg mr-2\" type=\"button\" disabled>\n                      <span class=\"spinner-border spinner-border-sm\" role=\"status\" aria-hidden=\"true\"></span>\n                      <span class=\"sr-only\">Please wait...</span>\n                    </button>\n                    <button *ngIf=\"!loading && !isProcessed\" type=\"submit\" class=\"btn btn-primary btn-lg mr-2\" (click)=\"complete()\">Complete</button>\n                    <button *ngIf=\"!loading && !isProcessed && !isProcessing\" type=\"submit\" class=\"btn btn-primary btn-lg mr-2\" (click)=\"process()\">Processing</button>\n                    <button *ngIf=\"!loading && !isProcessed\" type=\"submit\" class=\"btn btn-light btn-lg\" (click)=\"reject()\">Reject</button>\n                  </form>\n                </div>\n              </div>\n            </div>\n          </div>\n        </div>\n\n         <!-- <div *ngIf=\"isProcessed\" class=\"row\">\n           <div class=\"col-lg-12 grid-margin stretch-card\">\n             <div class=\"card text-center pt-5 pb-5\">\n               <div class=\"card-body mt-5 mb-5\">\n                 <h4 class=\"card-title\">Processed</h4>\n                 <p class=\"card-text\">\n                   This {{ formName }} form has been processed.\n                 </p>\n                 <div class=\"text-lg-center mt-5 mb-5\">\n                   <div class=\"card-text\">\n                     <i class=\"mdi mdi-file-question\" style=\"font-size: 8em;\"></i>\n                   </div>\n                   <div class=\"card-text mt-2\">\n                     <h3>Form Already Processed</h3>\n                     <p class=\"text-muted\">{{ form.submission_code }} has already been processed</p>\n                     <p class=\"text-muted\">{{ form.submission_code }} was processed on {{ lastProcessed | date }}</p>\n                   </div>\n                 </div>\n               </div>\n             </div>\n           </div>\n         </div> -->\n\n        <!-- <div *ngIf=\"isProcessing\" class=\"row\">\n          <div class=\"col-lg-12 grid-margin stretch-card\">\n            <div class=\"card text-center pt-5 pb-5\">\n              <div class=\"card-body mt-5 mb-5\">\n                <h4 class=\"card-title\">Processing</h4>\n                <p class=\"card-text\">\n                  This {{ formName }} form is being processed.\n                </p>\n                <div class=\"text-lg-center mt-5 mb-5\">\n                  <div class=\"card-text\">\n                    <i class=\"mdi mdi-file-question\" style=\"font-size: 8em;\"></i>\n                  </div>\n                  <div class=\"card-text mt-2\">\n                    <h3>Processing Form</h3>\n                    <p class=\"text-muted\">{{ form.submission_code }} is in processing</p>\n                    <p class=\"text-muted\">{{ form.submission_code }} was last accessed for processing on\n                      {{ lastProcessed | date }}</p>\n                  </div>\n                </div>\n              </div>\n            </div>\n          </div>\n        </div> -->\n\n        <div class=\"row\" *ngIf=\"submitted\">\n          <div class=\"col-md-12 grid-margin\">\n            <div class=\"card pt-5 pb-5 text-center\">\n              <div class=\"card-body\">\n                <p class=\"card-title\">Processing</p>\n                <p class=\"text-muted\"></p>\n                <div class=\"card-text\">\n                  <i class=\"mdi mdi-shield-check-outline text-primary\" style=\"font-size: 12em;\"></i>\n                  <h2>Form has been submitted for processing</h2>\n                  <p class=\"text-muted\">You have succesfully submitted this form for processing.</p>\n                </div>\n                <div class=\"card-text mt-4\">\n                  <button type=\"button\" class=\"btn btn-primary btn-lg mr-2\" (click)=\"ok()\">\n                    <i class=\"mdi mdi-check\"></i>\n                    Ok\n                  </button>\n                </div>\n              </div>\n            </div>\n          </div>\n        </div>\n\n        <div class=\"row\" *ngIf=\"completed\">\n          <div class=\"col-md-12 grid-margin\">\n            <div class=\"card pt-5 pb-5 text-center\">\n              <div class=\"card-body\">\n                <p class=\"card-title\">Success</p>\n                <p class=\"text-muted\"></p>\n                <div class=\"card-text\">\n                  <i class=\"mdi mdi-shield-check-outline text-primary\" style=\"font-size: 12em;\"></i>\n                  <h2>Form Has Been Completed</h2>\n                  <p class=\"text-muted\">You have succesfully completed processing this form.</p>\n                </div>\n                <div class=\"card-text mt-4\">\n                  <button type=\"button\" class=\"btn btn-primary btn-lg mr-2\" (click)=\"ok()\">\n                    <i class=\"mdi mdi-check\"></i>\n                    Ok\n                  </button>\n                </div>\n              </div>\n            </div>\n          </div>\n        </div>\n\n        <div class=\"row\" *ngIf=\"rejected\">\n          <div class=\"col-md-12 grid-margin\">\n            <div class=\"card pt-5 pb-5 text-center\">\n              <div class=\"card-body\">\n                <p class=\"card-title\">Success</p>\n                <p class=\"text-muted\"></p>\n                <div class=\"card-text\">\n                  <i class=\"mdi mdi-shield-check-outline text-primary\" style=\"font-size: 12em;\"></i>\n                  <h2>Form Has Been <strong class=\"text-danger\">Rejected</strong></h2>\n                  <p class=\"text-muted\">This form has been succesfully rejected.</p>\n                </div>\n                <div class=\"card-text mt-4\">\n                  <button type=\"button\" class=\"btn btn-primary btn-lg mr-2\" (click)=\"ok()\">\n                    <i class=\"mdi mdi-check\"></i>\n                    Ok\n                  </button>\n                </div>\n              </div>\n            </div>\n          </div>\n        </div>\n      </div>\n      <!-- content -->\n      <!-- footer -->\n      <app-footer-bar></app-footer-bar>\n      <!-- partial -->\n    </div>\n    <!-- main ends -->\n  </div>\n</div>\n\n<ng-template #confirm let-modal>\n  <div class=\"modal-header\">\n    <h4 class=\"modal-title\" id=\"modal-title\">Confirm Action</h4>\n    <button type=\"button\" class=\"close\" aria-describedby=\"modal-title\" (click)=\"modal.dismiss('Cross click')\">\n      <span aria-hidden=\"true\">&times;</span>\n    </button>\n  </div>\n  <div class=\"modal-body\">\n    <p><strong>Are you sure you want to <span class=\"text-primary\">{{ action }} this form</span> ?</strong></p>\n  </div>\n  <div class=\"modal-footer\">\n    <button type=\"button\" class=\"btn btn-outline-primary\" (click)=\"modal.dismiss('no')\">No</button>\n    <button type=\"button\" class=\"btn btn-danger\" (click)=\"modal.close('yes')\">Yes</button>\n  </div>\n</ng-template>\n\n<ng-template #viewImgAttachment let-modal>\n  <div class=\"modal-header\">\n    <h5 class=\"modal-title\">Attachment File</h5>\n    <button type=\"button\" class=\"close\" aria-describedby=\"modal-title\" (click)=\"modal.dismiss('close')\">\n      <span aria-hidden=\"true\">&times;</span>\n    </button>\n  </div>\n  <div class=\"modal-body\" style=\"padding: 0px;\">\n    <img [src]=\"imgUrl\" style=\"width: 100%;\">\n  </div>\n  <div class=\"modal-footer\">\n    <button type=\"button\" class=\"btn btn-primary\" (click)=\"modal.close('no')\">Close</button>\n  </div>\n</ng-template>\n\n<ng-template #viewDocAttachment let-modal>\n  <div class=\"modal-header\">\n    <h5 class=\"modal-title\">Attachment File</h5>\n    <button type=\"button\" class=\"close\" aria-describedby=\"modal-title\" (click)=\"modal.dismiss('close')\">\n      <span aria-hidden=\"true\">&times;</span>\n    </button>\n  </div>\n  <div class=\"modal-body\">\n    <p>This is a document and cannot be viewed. Please download</p>\n  </div>\n  <div class=\"modal-footer\">\n    <button type=\"button\" class=\"btn btn-outline-primary\" (click)=\"modal.close('no')\">Close</button>\n    <button type=\"button\" class=\"btn btn-primary\" (click)=\"downloadDoc(documentUrl)\">Download</button>\n  </div>\n</ng-template>"
 
 /***/ }),
 
@@ -3440,7 +3440,8 @@ let ClientAuthPageComponent = class ClientAuthPageComponent {
             this.router.navigateByUrl('/client');
         }
         else {
-            this.router.navigateByUrl('/client/form_link_redirect');
+            // this.router.navigateByUrl('/client/form_link_redirect');
+            window.location.assign('/client/form_link_redirect');
         }
     }
     submit() {
@@ -3467,8 +3468,8 @@ let ClientAuthPageComponent = class ClientAuthPageComponent {
                     // clear client data used to help with authentication.
                     sessionStorage.removeItem('client_id');
                     sessionStorage.removeItem('client_phone');
-                    // this.handleDashboardNavigation();
-                    this.router.navigateByUrl('/client');
+                    this.handleDashboardNavigation();
+                    // this.router.navigateByUrl('/client');
                 }
                 else {
                     this.handleLoginErrorResponses(response);
@@ -5469,8 +5470,8 @@ module.exports = "\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "ClientFormLinkPageComponent", function() { return ClientFormLinkPageComponent; });
 /* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
-/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm2015/core.js");
-/* harmony import */ var _angular_router__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @angular/router */ "./node_modules/@angular/router/fesm2015/router.js");
+/* harmony import */ var _angular_router__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/router */ "./node_modules/@angular/router/fesm2015/router.js");
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm2015/core.js");
 
 
 
@@ -5491,10 +5492,10 @@ let ClientFormLinkPageComponent = class ClientFormLinkPageComponent {
     }
 };
 ClientFormLinkPageComponent.ctorParameters = () => [
-    { type: _angular_router__WEBPACK_IMPORTED_MODULE_2__["Router"] }
+    { type: _angular_router__WEBPACK_IMPORTED_MODULE_1__["Router"] }
 ];
 ClientFormLinkPageComponent = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
-    Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Component"])({
+    Object(_angular_core__WEBPACK_IMPORTED_MODULE_2__["Component"])({
         selector: 'app-client-form-link-page',
         template: __webpack_require__(/*! raw-loader!./client-form-link-page.component.html */ "./node_modules/raw-loader/index.js!./src/app/pages/dashboard/client/client-form-link-page/client-form-link-page.component.html"),
         styles: [__webpack_require__(/*! ./client-form-link-page.component.css */ "./src/app/pages/dashboard/client/client-form-link-page/client-form-link-page.component.css")]
@@ -5552,7 +5553,7 @@ let ClientFormLinkRedirectPageComponent = class ClientFormLinkRedirectPageCompon
             // every login will redirect user to this form entry which
             // isnt the desired functionality.
             sessionStorage.removeItem('shared_link');
-            this.router.navigateByUrl('/client/form_entry', { state: { form: form } });
+            this.router.navigateByUrl('/client/form_entry', { state: { form: form[0] } });
         }, err => {
             this.loading = false;
             this.hasError = true;
@@ -10434,6 +10435,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var src_app_services_front_desk_front_desk_service__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! src/app/services/front-desk/front-desk.service */ "./src/app/services/front-desk/front-desk.service.ts");
 /* harmony import */ var src_app_services_downloader_downloader_service__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! src/app/services/downloader/downloader.service */ "./src/app/services/downloader/downloader.service.ts");
 /* harmony import */ var src_app_services_storage_local_storage_service__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! src/app/services/storage/local-storage.service */ "./src/app/services/storage/local-storage.service.ts");
+/* harmony import */ var src_app_services_form_builder_form_builder_service__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! src/app/services/form-builder/form-builder.service */ "./src/app/services/form-builder/form-builder.service.ts");
+
 
 
 
@@ -10445,10 +10448,11 @@ __webpack_require__.r(__webpack_exports__);
 
 
 let FrontDeskViewFormPageComponent = class FrontDeskViewFormPageComponent {
-    constructor(router, modalService, clientService, endpointService, localStorage, downloadService, frontDeskService) {
+    constructor(router, modalService, clientService, formBuilder, endpointService, localStorage, downloadService, frontDeskService) {
         this.router = router;
         this.modalService = modalService;
         this.clientService = clientService;
+        this.formBuilder = formBuilder;
         this.endpointService = endpointService;
         this.localStorage = localStorage;
         this.downloadService = downloadService;
@@ -10491,6 +10495,7 @@ let FrontDeskViewFormPageComponent = class FrontDeskViewFormPageComponent {
         this.formRenderer = document.getElementById('form-render');
         const renderOptions = { formData, dataType: 'json' };
         this.formInstance = $(this.formRenderer).formRender(renderOptions);
+        this.appendOnChangeEventToFileInput();
         this.setFormData(formData);
     }
     setFormData(data) {
@@ -10513,6 +10518,19 @@ let FrontDeskViewFormPageComponent = class FrontDeskViewFormPageComponent {
     }
     getFormData() {
         return this.formInstance.userData;
+    }
+    appendOnChangeEventToFileInput() {
+        const all_inputs = document.querySelectorAll('input');
+        lodash__WEBPACK_IMPORTED_MODULE_2__["forEach"](all_inputs, (input) => {
+            if (input.type == 'file') {
+                this.attachmentKeys.push(input.id);
+                input.onchange = (e) => {
+                    const file = e.target.files[0];
+                    console.log(file);
+                    this.attachmentFiles.push(file);
+                };
+            }
+        });
     }
     getFormAttachments(form_code) {
         this.loadingAttachments = true;
@@ -10555,29 +10573,41 @@ let FrontDeskViewFormPageComponent = class FrontDeskViewFormPageComponent {
         this.documentUrl = this.endpointService.apiHost + 'storage/attachments/' + url;
         this.docDialogRef = this.modalService.open(this.viewDocDialog, { centered: true });
     }
-    updateClientSubmittedDetails() {
-        // get json key which is not available on the client_submitted_details.
-        // update 
-    }
     complete() {
         this.action = 'complete';
         this.modalService.open(this.confirmDialog, { centered: true }).result.then(result => {
             if (result == 'yes') {
                 this.loading = true;
-                this.frontDeskService.completeForm(this.form.submission_code, this.form.client_submitted_details).then(res => {
-                    const response = res;
-                    if (lodash__WEBPACK_IMPORTED_MODULE_2__["toLower"](response.message) == 'ok') {
-                        this.loading = false;
-                        this.completed = true;
+                this.submit().then(ok => {
+                    if (ok) {
+                        console.log('submit done');
+                        this.frontDeskService.completeForm(this.form.submission_code, this.form.client_submitted_details).then(res => {
+                            const response = res;
+                            if (lodash__WEBPACK_IMPORTED_MODULE_2__["toLower"](response.message) == 'ok') {
+                                this.loading = false;
+                                this.completed = true;
+                            }
+                            else {
+                                this.loading = false;
+                                this.completed = false;
+                            }
+                        }, err => {
+                            this.hasError = true;
+                            this.loading = false;
+                            this.completed = false;
+                        });
                     }
                     else {
+                        this.hasError = true;
                         this.loading = false;
                         this.completed = false;
+                        console.log('submit failed');
                     }
                 }, err => {
                     this.hasError = true;
                     this.loading = false;
                     this.completed = false;
+                    console.log('error submitting details');
                 });
             }
         });
@@ -10587,20 +10617,38 @@ let FrontDeskViewFormPageComponent = class FrontDeskViewFormPageComponent {
         this.modalService.open(this.confirmDialog, { centered: true }).result.then(result => {
             if (result == 'yes') {
                 this.loading = true;
-                this.frontDeskService.processForm(this.form.submission_code, this.form.client_submitted_details).then(res => {
-                    const response = res;
-                    if (lodash__WEBPACK_IMPORTED_MODULE_2__["toLower"](response.message) == 'ok') {
-                        this.loading = false;
-                        this.submitted = true;
+                this.submit().then(ok => {
+                    if (ok) {
+                        console.log('submitting done');
+                        this.frontDeskService.processForm(this.form.submission_code, this.form.client_submitted_details).then(res => {
+                            const response = res;
+                            console.log('process res');
+                            if (lodash__WEBPACK_IMPORTED_MODULE_2__["toLower"](response.message) == 'ok') {
+                                this.loading = false;
+                                this.submitted = true;
+                            }
+                            else {
+                                this.loading = false;
+                                this.submitted = false;
+                            }
+                        }, err => {
+                            console.log('process err');
+                            this.loading = false;
+                            this.submitted = false;
+                            this.hasError = true;
+                        });
                     }
                     else {
+                        this.hasError = true;
                         this.loading = false;
-                        this.submitted = false;
+                        this.completed = false;
+                        console.log('submitting failed');
                     }
                 }, err => {
-                    this.loading = false;
-                    this.submitted = false;
                     this.hasError = true;
+                    this.loading = false;
+                    this.completed = false;
+                    console.log('error while submitting');
                 });
             }
         });
@@ -10610,20 +10658,190 @@ let FrontDeskViewFormPageComponent = class FrontDeskViewFormPageComponent {
         this.modalService.open(this.confirmDialog, { centered: true }).result.then(result => {
             if (result == 'yes') {
                 this.loading = true;
-                this.frontDeskService.unprocessForm(this.form.submission_code, this.form.client_submitted_details).then(res => {
-                    const response = res;
-                    if (lodash__WEBPACK_IMPORTED_MODULE_2__["toLower"](response.message) == 'ok') {
-                        this.loading = false;
-                        this.rejected = true;
+                this.submit().then(ok => {
+                    if (ok) {
+                        console.log('submit done');
+                        this.frontDeskService.unprocessForm(this.form.submission_code, this.form.client_submitted_details).then(res => {
+                            const response = res;
+                            if (lodash__WEBPACK_IMPORTED_MODULE_2__["toLower"](response.message) == 'ok') {
+                                this.loading = false;
+                                this.rejected = true;
+                            }
+                            else {
+                                this.loading = false;
+                                this.rejected = false;
+                            }
+                        }, err => {
+                            this.loading = false;
+                            this.hasError = true;
+                            this.rejected = false;
+                        });
                     }
                     else {
+                        this.hasError = true;
                         this.loading = false;
-                        this.rejected = false;
+                        this.completed = false;
+                        console.log('submit failed');
                     }
                 }, err => {
-                    this.loading = false;
                     this.hasError = true;
-                    this.rejected = false;
+                    this.loading = false;
+                    this.completed = false;
+                    console.log('error while submitting');
+                });
+            }
+        });
+    }
+    getExistingAttachments(unfilled_fields) {
+        // This gets all the existing attachments so they can be uploaded
+        // if the user doesnt choose any new file.
+        const fields = [];
+        lodash__WEBPACK_IMPORTED_MODULE_2__["forEach"](this.existingAttachments, (attachment) => {
+            console.log('attachment: ' + JSON.stringify(attachment));
+            lodash__WEBPACK_IMPORTED_MODULE_2__["forEach"](unfilled_fields, (field) => {
+                if (field.type == 'file') {
+                    if (attachment.key == field.name) {
+                        fields.push(field);
+                    }
+                }
+            });
+        });
+        console.log('unfilleed: ' + JSON.stringify(fields));
+        return fields;
+    }
+    uploadFormFile(form_code, key, index) {
+        return new Promise((resolve, reject) => {
+            this.clientService.uploadFormAttachments(this.user.id.toString(), this.form.form_code, form_code, key, this.attachmentFiles[index]).then(ok => {
+                if (ok) {
+                    console.log('file upload done');
+                    resolve(true);
+                }
+                else {
+                    console.log('file upload failed');
+                    resolve(false);
+                }
+            }, err => {
+                console.log('file upload error');
+                reject(err);
+            });
+        });
+    }
+    uploadFormAttachments(form_code) {
+        return new Promise((resolve, reject) => {
+            console.log('doing upload');
+            const promises = [];
+            const num_of_attachments = this.attachmentFiles.length;
+            if (num_of_attachments > 1) {
+                console.log('will do multiple uploads');
+                for (let i = 0; i < num_of_attachments; i++) {
+                    const p = this.uploadFormFile(form_code, this.attachmentKeys[i], i);
+                    promises.push(p);
+                    if (i == num_of_attachments) {
+                        Promise.all(promises).then(res => {
+                            resolve(true);
+                        }, err => {
+                            reject(false);
+                        });
+                    }
+                }
+            }
+            else {
+                console.log('will do single upload');
+                this.uploadFormFile(form_code, this.attachmentKeys[0], 0).then(ok => {
+                    ok ? resolve(true) : resolve(false);
+                }, err => {
+                    reject(err);
+                });
+            }
+        });
+    }
+    submitFormWithAttachments(user_data) {
+        return new Promise((resolve, reject) => {
+            console.log('is submitting');
+            const filled_data = this.formBuilder.getFormUserData(user_data);
+            const updated_data = this.clientService.getUpdatedClientFormData(JSON.parse(filled_data), this.form.client_submitted_details);
+            console.log('new updates: ' + updated_data);
+            this.clientService.editProfile(this.user.id.toString(), JSON.parse(updated_data)).then(res => {
+                const response = res;
+                if (lodash__WEBPACK_IMPORTED_MODULE_2__["toLower"](response.message) == 'ok') {
+                    console.log('uploading attachment has started');
+                    this.uploadFormAttachments(this.form.submission_code).then(ok => {
+                        ok ? resolve(true) : resolve(false);
+                    }, err => {
+                        reject(err);
+                    });
+                }
+                else {
+                    reject();
+                }
+            }, err => {
+                reject(err);
+            });
+        });
+    }
+    submitFormWithoutAttachments(user_data) {
+        return new Promise((resolve, reject) => {
+            console.log('is submitting');
+            console.log('user_data: ' + JSON.stringify(user_data));
+            const filled_data = this.formBuilder.getFormUserData(user_data);
+            console.log('filled_data: ' + filled_data);
+            const updated_data = this.clientService.getUpdatedClientFormData(JSON.parse(filled_data), this.form.client_submitted_details);
+            console.log('new updates: ' + updated_data);
+            this.clientService.editProfile(this.user.id.toString(), JSON.parse(updated_data)).then(res => {
+                console.log('edit res');
+                const response = res;
+                if (lodash__WEBPACK_IMPORTED_MODULE_2__["toLower"](response.message) == 'ok') {
+                    resolve(true);
+                }
+                else {
+                    console.log('faileD: ' + response.message);
+                    resolve(false);
+                }
+            }, err => {
+                console.log('edit err');
+                reject(err);
+            });
+        });
+    }
+    submit() {
+        return new Promise((resolve, reject) => {
+            const user_data = this.getFormData();
+            console.log(JSON.stringify(user_data));
+            const unfilled = this.clientService.validateFormFilled(user_data);
+            console.log('unfilled: ' + JSON.stringify(unfilled));
+            if (unfilled.length != 0) {
+                const fileFields = this.getExistingAttachments(unfilled);
+                console.log('fileFields: ' + JSON.stringify(fileFields));
+                if (fileFields.length != 0) {
+                    this.loading = false;
+                    this.clientService.highlightUnFilledFormFields(unfilled);
+                }
+                else {
+                    if (this.attachmentFiles.length > 0) {
+                        // front desk added new files
+                        console.log('front desk added files uploading');
+                        this.submitFormWithAttachments(user_data).then(ok => {
+                            ok ? resolve(true) : resolve(false);
+                        }, err => {
+                            reject(err);
+                        });
+                    }
+                    else {
+                        console.log('submitting without attachment');
+                        this.submitFormWithoutAttachments(user_data).then(ok => {
+                            ok ? resolve(true) : resolve(false);
+                        }, err => {
+                            reject(err);
+                        });
+                    }
+                }
+            }
+            else {
+                // since everything checks out, we dont have to upload the attachments too.
+                this.submitFormWithoutAttachments(user_data).then(ok => {
+                    ok ? resolve(true) : resolve(false);
+                }, err => {
+                    reject(err);
                 });
             }
         });
@@ -10641,6 +10859,7 @@ FrontDeskViewFormPageComponent.ctorParameters = () => [
     { type: _angular_router__WEBPACK_IMPORTED_MODULE_3__["Router"] },
     { type: _ng_bootstrap_ng_bootstrap__WEBPACK_IMPORTED_MODULE_4__["NgbModal"] },
     { type: src_app_services_client_client_service__WEBPACK_IMPORTED_MODULE_5__["ClientService"] },
+    { type: src_app_services_form_builder_form_builder_service__WEBPACK_IMPORTED_MODULE_10__["FormBuilderService"] },
     { type: src_app_services_endpoint_endpoint_service__WEBPACK_IMPORTED_MODULE_6__["EndpointService"] },
     { type: src_app_services_storage_local_storage_service__WEBPACK_IMPORTED_MODULE_9__["LocalStorageService"] },
     { type: src_app_services_downloader_downloader_service__WEBPACK_IMPORTED_MODULE_8__["DownloaderService"] },
@@ -18635,8 +18854,11 @@ let ClientService = class ClientService {
     editProfile(id, profile) {
         return new Promise((resolve, reject) => {
             const body = JSON.stringify(profile);
+            console.log('eddddit bodyyyyyy: ' + body);
             const url = this.endpointService.apiHost + 'api/v1/editClientProfile/' + id;
+            console.log('i get here');
             this.http.post(url, body, { headers: this.headers }).subscribe(res => {
+                console.log('editProfile: ' + JSON.stringify(res));
                 resolve(res);
             }, err => {
                 console.log('Error: ' + JSON.stringify(err));
@@ -18821,10 +19043,19 @@ let ClientService = class ClientService {
     getUpdatedClientFormData(new_form_data, existing_client_data) {
         const obj = lodash__WEBPACK_IMPORTED_MODULE_1__["toPlainObject"](new_form_data);
         const keys = lodash__WEBPACK_IMPORTED_MODULE_1__["keys"](obj);
-        console.log('client_k: ' + lodash__WEBPACK_IMPORTED_MODULE_1__["keys"](existing_client_data)[0]);
-        lodash__WEBPACK_IMPORTED_MODULE_1__["forEach"](keys, (key, i) => {
-            existing_client_data[key] = obj[key];
-        });
+        console.log('existing: ' + existing_client_data);
+        if (lodash__WEBPACK_IMPORTED_MODULE_1__["isArray"](existing_client_data)) {
+            console.log('client_k: ' + lodash__WEBPACK_IMPORTED_MODULE_1__["keys"](existing_client_data)[0]);
+            lodash__WEBPACK_IMPORTED_MODULE_1__["forEach"](keys, (key, i) => {
+                existing_client_data[key] = obj[key];
+            });
+        }
+        else {
+            console.log('client_kkk: ' + lodash__WEBPACK_IMPORTED_MODULE_1__["keys"](existing_client_data));
+            lodash__WEBPACK_IMPORTED_MODULE_1__["forEach"](keys, (key, i) => {
+                existing_client_data[key] = obj[key];
+            });
+        }
         return JSON.stringify(existing_client_data);
     }
     /**
@@ -18994,6 +19225,18 @@ let ClientService = class ClientService {
                 const response = res;
                 console.log('response: ' + JSON.stringify(response));
                 resolve(response.attachments);
+            }, err => {
+                reject(err);
+            });
+        });
+    }
+    deleteProfileAttachment(user_id, key, file_path) {
+        return new Promise((resolve, reject) => {
+            const url = this.endpointService.apiHost + 'api/v1/deleteProfileAttachment/';
+            this.http.post(url, {}, { headers: this.endpointService.headers() }).subscribe(res => {
+                const response = res;
+                lodash__WEBPACK_IMPORTED_MODULE_1__["toLower"](response.message) == 'ok'
+                    ? resolve(true) : resolve(false);
             }, err => {
                 reject(err);
             });

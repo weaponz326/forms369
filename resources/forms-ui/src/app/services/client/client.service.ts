@@ -80,9 +80,12 @@ export class ClientService {
   editProfile(id: string, profile: any): Promise<any> {
     return new Promise((resolve, reject) => {
       const body = JSON.stringify(profile);
+      console.log('eddddit bodyyyyyy: ' + body);
       const url = this.endpointService.apiHost + 'api/v1/editClientProfile/' + id;
+      console.log('i get here');
       this.http.post(url, body, { headers: this.headers }).subscribe(
         res => {
+          console.log('editProfile: ' + JSON.stringify(res));
           resolve(res);
         },
         err => {
@@ -288,10 +291,19 @@ export class ClientService {
   getUpdatedClientFormData(new_form_data: any, existing_client_data: any) {
     const obj = _.toPlainObject(new_form_data);
     const keys = _.keys(obj);
-    console.log('client_k: ' + _.keys(existing_client_data)[0]);
-    _.forEach(keys, (key, i) => {
-      existing_client_data[key] = obj[key];
-    });
+    console.log('existing: ' + existing_client_data);
+    if (_.isArray(existing_client_data)) {
+      console.log('client_k: ' + _.keys(existing_client_data)[0]);
+      _.forEach(keys, (key, i) => {
+        existing_client_data[key] = obj[key];
+      });
+    }
+    else {
+      console.log('client_kkk: ' + _.keys(existing_client_data));
+      _.forEach(keys, (key, i) => {
+        existing_client_data[key] = obj[key];
+      });
+    }
 
     return JSON.stringify(existing_client_data);
   }
@@ -490,6 +502,22 @@ export class ClientService {
           const response = res as any;
           console.log('response: ' + JSON.stringify(response));
           resolve(response.attachments);
+        },
+        err => {
+          reject(err);
+        }
+      );
+    });
+  }
+
+  deleteProfileAttachment(user_id: string, key: string, file_path: string): Promise<boolean> {
+    return new Promise((resolve, reject) => {
+      const url = this.endpointService.apiHost + 'api/v1/deleteProfileAttachment/';
+      this.http.post(url, {}, { headers: this.endpointService.headers() }).subscribe(
+        res => {
+          const response = res as any;
+          _.toLower(response.message) == 'ok'
+            ? resolve(true) : resolve(false);
         },
         err => {
           reject(err);
