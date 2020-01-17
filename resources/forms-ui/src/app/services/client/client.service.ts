@@ -447,6 +447,7 @@ export class ClientService {
             resolve(true);
           }
           else {
+            console.log('file_upload_f_response: ' + JSON.stringify(response));
             resolve(false);
           }
         },

@@ -5,3 +5,8 @@ and (max-device-width: 825px) {
         margin-bottom: .45rem;
     }
 }
+
+.small-text {
+    font-size: 0.775rem;
+    font-weight: bold;
+}

@@ -145,14 +145,13 @@ export class ClientFormsEntryPageComponent implements OnInit {
       _.forEach(unfilled_fields, (field) => {
         if (field.type == 'file') {
           if (attachment.key == field.name) {
-            // fields = _.filter(unfilled_fields, (f) => f.name != field.name);
             fields.push(field);
           }
         }
       });
     });
 
-    console.log('unfilllllllllleeeeed: ' + JSON.stringify(fields));
+    console.log('unfilleed: ' + JSON.stringify(fields));
     return fields;
   }
 
@@ -188,13 +187,12 @@ export class ClientFormsEntryPageComponent implements OnInit {
         this.formGenCode = res.code;
         if (this.existingAttachments.length > 0) {
           _.forEach(this.existingAttachments, (attachment) => {
-            const index = attachment.url.lastIndexOf('.') + 1;
+            const index = attachment.url.lastIndexOf('.');
             const extension = attachment.url.substr(index);
-            const mimeType = 'image/' + extension;
-            const filename = Date.now().toString();
+            const filename = Date.now().toString() + extension;
             const attachmentHost = this.endpointService.storageHost + 'attachments/';
-            const observable = this.fileUploadService.srcToBase64(attachmentHost + attachment.url, mimeType);
-            observable.subscribe(
+            const p = this.fileUploadService.srcToBase64(attachmentHost + attachment.url);
+            p.then(
               base64Str => {
                 const fileObj = this.fileUploadService.convertBase64ToFile(base64Str, filename);
                 this.uploadConvertedFormAttachment(this.formGenCode, attachment.key, fileObj);
@@ -381,7 +379,7 @@ export class ClientFormsEntryPageComponent implements OnInit {
   }
 
   ok() {
-    this.router.navigateByUrl('/client/unsent_forms');
+    this.router.navigateByUrl('/client/forms_filled');
   }
 
   downloadDoc(url: string) {

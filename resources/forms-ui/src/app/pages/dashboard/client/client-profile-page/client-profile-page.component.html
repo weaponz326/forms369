@@ -170,8 +170,8 @@
                       <div class="card-body">
                         <h5 class="card-title">Form Attachments / Documents</h5>
                         <h6 class="card-subtitle mb-2 text-muted">Below are attachments you've uploaded for this form</h6>
-                        <div class="row" *ngFor="let file of existingAttachments">
-                          <div class="col-11" style="padding-right: 8px;">
+                        <div class="row" *ngFor="let file of existingAttachments; let i = index">
+                          <div class="col-10" style="padding-right: 8px;">
                             <ol class="files-list">
                               <li class="file-item">
                                 <i class="mdi mdi-paperclip menu-icon"></i>
@@ -179,9 +179,12 @@
                               </li>
                             </ol>
                           </div>
-                          <div class="col-1" style="padding-right: 3px; padding-left: 4px; margin-top: 7px;">
-                            <button class="btn btn-primary btn-icon" (click)="download(file.url)">
+                          <div class="col-2" style="padding-right: 3px; padding-left: 4px; margin-top: 7px;">
+                            <button class="btn btn-primary btn-icon mr-1" (click)="download(file.url)">
                               <i class="mdi mdi-download-outline"></i>
+                            </button>
+                            <button class="btn btn-primary btn-icon" (click)="delete(file.url, i)">
+                              <i class="mdi mdi-trash-can-outline"></i>
                             </button>
                           </div>
                         </div>
@@ -189,13 +192,12 @@
                     </div>
                   </div>
                   
-                  <div class="form-group mt-3">
+                  <div class="form-group text-center mt-3">
                     <button *ngIf="updating" class="btn btn-primary btn-lg mr-2" type="button" disabled>
                       <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
                       <span class="sr-only">Please wait...</span>
                     </button>
                     <button *ngIf="!updating" type="submit" class="btn btn-primary btn-lg mr-2" (click)="save()">Save Changes</button>
-                    <!-- <button type="button" class="btn btn-light btn-lg" (click)="cancel()">Cancel</button> -->
                   </div>
                 </div>
               </div>
@@ -267,5 +269,22 @@
   <div class="modal-footer">
     <button type="button" class="btn btn-secondary" (click)="modal.close('no')">Close</button>
     <button type="button" class="btn btn-primary" (click)="downloadDoc(documentUrl)">Download</button>
+  </div>
+</ng-template>
+
+<ng-template #deleteAttachment let-modal>
+  <div class="modal-header">
+    <h5 class="modal-title">Delete Attachment</h5>
+    <button type="button" class="close" aria-describedby="modal-title" (click)="modal.dismiss('close')">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <p>Are you sure you want to delete this attachment ?</p>
+    <p>NOTE: Deleting this attachment is a permanent actions.</p>
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-secondary" (click)="modal.close('yes')">Yes</button>
+    <button type="button" class="btn btn-primary" (click)="modal.close('no')">No</button>
   </div>
 </ng-template>

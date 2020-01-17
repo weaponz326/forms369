@@ -86,11 +86,16 @@
               <button type="button" class="btn btn-outline-primary" [ngClass]="{'active': filterState == 'processing'}" (click)="showProcessing()">Processing</button>
             </div>
           </div>
-          <div class="col-md-4 grid-margin stretch-card" *ngFor="let item of historyCollection">
-            <div class="card hover-cursor" (click)="openFormEntry(item)">
+          <div class="col-md-4 grid-margin stretch-card" *ngFor="let form of historyCollection">
+            <div class="card hover-cursor" (click)="openFormEntry(form)">
               <div class="card-body">
-                <p class="card-title">{{ item.form_name }}</p>
-                <p class="text-muted">Open and quickly fill out this form</p>
+                <p class="card-title">{{ form.form_name }}</p>
+                <h1 class="display-4">{{ form.submission_code }}</h1>
+                <div class="card-text">
+                  <p class="text-muted small-text">{{ form.submitted_at | date }}</p>
+                  <p class="text-muted">Open and quickly fill out this form</p>
+                </div>
+                <!-- <p class="text-muted">Open and quickly fill out this form</p> -->
               </div>
             </div>
           </div>

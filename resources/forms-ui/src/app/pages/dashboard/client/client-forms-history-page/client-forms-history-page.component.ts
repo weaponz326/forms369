@@ -42,6 +42,10 @@ export class ClientFormsHistoryPageComponent implements OnInit {
     this.filterState = 'all';
   }
 
+  handleLoadMoreVisibility(list: Array<any>) {
+    _.isNull(list) || _.isUndefined(list) || _.isEmpty(list) || list.length <= 15 ? this.hasMore = false : this.hasMore = true;
+  }
+
   openFormEntry(form: any) {
     this.router.navigateByUrl('/client/form_entry', { state: { form: form }});
   }
@@ -53,16 +57,20 @@ export class ClientFormsHistoryPageComponent implements OnInit {
   showAll() {
     this.filterState = 'all';
     this.historyCollection =  this.allHistoryCollection;
+    const moreUrl = this.clientService.nextPaginationUrl;
+    _.isNull(moreUrl) ? this.hasMore = false : this.hasMore = true;
   }
 
   showProcessed() {
     this.filterState = 'processed';
     this.historyCollection = _.filter(this.allHistoryCollection, (history) => history.form_status == 2);
+    this.hasMore ? this.handleLoadMoreVisibility(this.historyCollection) : null;
   }
 
   showProcessing() {
     this.filterState = 'processing';
     this.historyCollection = _.filter(this.allHistoryCollection, (history) => history.form_status == 1);
+    this.hasMore ? this.handleLoadMoreVisibility(this.historyCollection) : null;
   }
 
   checkIfHasMore() {

@@ -4,9 +4,10 @@ import { NgbModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
 import { ClientService } from 'src/app/services/client/client.service';
 import { SectionsService } from 'src/app/services/sections/sections.service';
 import { EndpointService } from 'src/app/services/endpoint/endpoint.service';
+import { DownloaderService } from 'src/app/services/downloader/downloader.service';
 import { LocalStorageService } from 'src/app/services/storage/local-storage.service';
-import { FormBuilderService } from 'src/app/services/form-builder/form-builder.service';
 import { FileUploadsService } from 'src/app/services/file-uploads/file-uploads.service';
+import { FormBuilderService } from 'src/app/services/form-builder/form-builder.service';
 
 @Component({
   selector: 'app-client-profile-page',
@@ -38,6 +39,7 @@ export class ClientProfilePageComponent implements OnInit {
   @ViewChild('confirm', { static: false }) confirmDialog: TemplateRef<any>;
   @ViewChild('viewImgAttachment', { static: false }) viewImgDialog: TemplateRef<any>;
   @ViewChild('viewDocAttachment', { static: false }) viewDocDialog: TemplateRef<any>;
+  @ViewChild('deleteAttachment', { static: false }) deleteFileDialog: TemplateRef<any>;
 
   constructor(
     private modalService: NgbModal,
@@ -46,6 +48,7 @@ export class ClientProfilePageComponent implements OnInit {
     private formBuilder: FormBuilderService,
     private endpointService: EndpointService,
     private localStorage: LocalStorageService,
+    private downloadService: DownloaderService,
     private fileUploadService: FileUploadsService
   ) {
     this.formFiles = 0;
@@ -119,6 +122,8 @@ export class ClientProfilePageComponent implements OnInit {
         this.attachmentKeys.push(fields.name);
       }
     });
+
+    this.appendOnChangeEventToFileInput();
   }
 
   getAllClientData() {
@@ -162,14 +167,15 @@ export class ClientProfilePageComponent implements OnInit {
     });
 
     this.checkIfHasFileUpload(file_input_fields);
-    this.appendOnChangeEventToFileInput();
 
     // get all keys and file data for file fields containing data.
     _.forEach(file_input_fields, (file_input) => {
-      if (file_input.value != '' || file_input.value != null || file_input.value != undefined) {
+      if (file_input.value != '') {
+        console.log('have data: ' + file_input.value);
         file_fields_with_data.push(file_input);
       }
       else {
+        console.log('have no data: ' + file_input.value);
         file_fields_without_data.push(file_input);
       }
     });
@@ -278,6 +284,7 @@ export class ClientProfilePageComponent implements OnInit {
   uploadAttachmentFile(key: string, index: number): Promise<boolean> {
     return new Promise((resolve, reject) => {
       // its being called in a loop, this means there are more than one attachments.
+      console.log('uploading .......');
       this.clientService.uploadProfileAttachment(this.user.id.toString(), key, this.attachmentFiles[index]).then(
         ok => {
           if (ok) {
@@ -313,19 +320,18 @@ export class ClientProfilePageComponent implements OnInit {
 
   uploadConvertedAttachment(key: string, file: File): Promise<boolean> {
     return new Promise((resolve, reject) => {
-      console.log('doing existing upload');
-      console.log('key: ' + key);
+      console.log('doing existing upload [converted]');
       console.log(file);
       if (!_.isUndefined(file) || !_.isNull(file)) {
         this.clientService.uploadProfileAttachment(this.user.id.toString(), key, file).then(
           ok => {
             if (ok) {
               console.log('file upload done');
-              resolve(ok);
+              resolve(true);
             }
             else {
               console.log('file upload failed');
-              resolve(ok);
+              resolve(false);
             }
           },
           err => {
@@ -340,82 +346,94 @@ export class ClientProfilePageComponent implements OnInit {
   updateAttachments(): Promise<boolean> {
     return new Promise((resolve, reject) => {
       const promises = [];
-      let with_data_count = 0;
-      let without_data_count = 0;
       const fields_with_data = this.getExistingAttachments().fieldsWithData;
       const fields_without_data = this.getExistingAttachments().fieldsWithoutData;
 
+      console.log('fields with data length: ' + fields_with_data.length);
+      console.log('fields without data length: ' + fields_without_data.length);
       if (fields_with_data.length != 0) {
         console.log('have fields with data');
         if (fields_without_data.length != 0) {
-          console.log('have fields without data');
+          console.log('have fields without data 1');
+          if (this.existingAttachments.length > 0) {
+            _.forEach(this.existingAttachments, (attachment, _i) => {
+              _.forEach(fields_with_data, (field, i) => {
+                console.log('field id: ' + field.id);
+                console.log('existing id: ' + attachment.key);
+                i += 1;
+                if (field.id == attachment.key) {
+                  console.log('fields with data doing upload');
+                  const index = attachment.url.lastIndexOf('.');
+                  const extension = attachment.url.substr(index);
+                  const filename = Date.now().toString() + extension;
+                  const fileHost = this.endpointService.storageHost + 'attachments/';
+                  const p = this.fileUploadService.srcToBase64(fileHost + attachment.url);
+                  p.then(
+                    base64Str => {
+                      const fileObj = this.fileUploadService.convertBase64ToFile(base64Str, filename);
+                      const _prom = this.uploadConvertedAttachment(attachment.key, fileObj);
+                      promises.push(_prom);
+                    }
+                  );
+                }
+                else {
+                  console.log('its the else');
+                  const prom = this.uploadNormalAttachments(field, i);
+                  promises.push(prom);
+                }
+
+                if (i == fields_with_data.length) {
+                  // we assume the fields with data have all been uploaded
+                  // Now we handle the fields without data.
+                  _.forEach(fields_without_data, (_field) => {
+                    console.log('fields without data doing upload');
+                    _i += 1;
+
+                    if (_i == fields_without_data.length) {
+                      // we assume its done.
+                      Promise.all(promises).then(
+                        res => {
+                          console.log('all uploads completed 1');
+                          resolve(true);
+                        },
+                        err => {
+                          console.log('all uploads error');
+                          reject(err);
+                        }
+                      );
+                    }
+                  });
+                }
+              });
+            });
+          }
+        }
+        else {
+          console.log('fields with Data: ' + JSON.stringify(fields_with_data));
+          console.log('dealing with fields with data only');
           _.forEach(fields_with_data, (field, i) => {
-            with_data_count += 1;
             const prom = this.uploadNormalAttachments(field, i);
             promises.push(prom);
 
-            if (with_data_count == fields_with_data.length - 1) {
-              // we assume its done
-              _.forEach(this.existingAttachments, (attachment) => {
-                _.forEach(fields_without_data, (_field) => {
-                  without_data_count += 1;
-                  if (_field.id == attachment.key) {
-                    const index = attachment.url.lastIndexOf('.') + 1;
-                    const extension = attachment.url.substr(index);
-                    const mimeType = 'image/' + extension;
-                    const filename = Date.now().toString();
-                    const fileHost = this.endpointService.storageHost + 'attachments/';
-                    const observable = this.fileUploadService.srcToBase64(fileHost + attachment.url, mimeType);
-                    observable.subscribe(
-                      base64Str => {
-                        const fileObj = this.fileUploadService.convertBase64ToFile(base64Str, filename);
-                        const _prom = this.uploadConvertedAttachment(attachment.key, fileObj);
-                        promises.push(_prom);
-                      }
-                    );
-                  }
-
-                  if (without_data_count == fields_without_data.length - 1) {
-                    // we assume its done.
-                    Promise.all(promises).then(
-                      res => {
-                        console.log('all uploads completed');
-                        resolve(true);
-                      },
-                      err => {
-                        console.log('all uploads error');
-                        reject(err);
-                      }
-                    );
-                  }
-                });
-              });
+            if (i == fields_without_data.length) {
+              // we assume its done.
+              Promise.all(promises).then(
+                res => {
+                  console.log('all uploads completed 2');
+                  resolve(true);
+                },
+                err => {
+                  console.log('all uploads error');
+                  reject(err);
+                }
+              );
             }
           });
         }
       }
       else {
-        if (fields_without_data.length != 0) {
-          _.forEach(this.existingAttachments, (attachment) => {
-            _.forEach(fields_without_data, (field) => {
-              if (field.id == attachment.key) {
-                const index = attachment.url.lastIndexOf('.') + 1;
-                const extension = attachment.url.substr(index);
-                const mimeType = 'image/' + extension;
-                const filename = Date.now().toString();
-                const fileHost = this.endpointService.storageHost + 'attachments/';
-                const observable = this.fileUploadService.srcToBase64(fileHost + attachment.url, mimeType);
-                observable.subscribe(
-                  base64Str => {
-                    const fileObj = this.fileUploadService.convertBase64ToFile(base64Str, filename);
-                    const res = this.uploadConvertedAttachment(attachment.key, fileObj);
-                    promises.push(res);
-                  }
-                );
-              }
-            });
-          });
-        }
+        console.log('have fields without data 2');
+        resolve(true);
       }
     });
   }
@@ -450,6 +468,16 @@ export class ClientProfilePageComponent implements OnInit {
       err => {
         this.updating = false;
         this.showUpdatedDialog(false);
+      }
+    );
+  }
+
+  delete(url: string, index: number) {
+    this.modalService.open(this.deleteFileDialog, { centered: true }).result.then(
+      result => {
+        // if (result == 'yes') {
+        //   this.clientService.deleteProfileAttachment();
+        // }
       }
     );
   }
@@ -490,6 +518,16 @@ export class ClientProfilePageComponent implements OnInit {
         }
       }
     );
+  }
+
+  downloadDoc(url: string) {
+    this.docDialogRef.close();
+    this.downloadService.download(url);
+  }
+
+  download(url: string) {
+    const file_url = this.endpointService.apiHost + 'storage/attachments/' + url;
+    this.downloadService.download(file_url);
   }
 
   discardChanges() {
