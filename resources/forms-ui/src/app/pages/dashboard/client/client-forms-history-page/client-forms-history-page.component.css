@@ -10,3 +10,8 @@ and (max-device-width: 825px) {
     font-size: 0.775rem;
     font-weight: bold;
 }
+
+.search-form {
+    border-radius: 30px;
+    background: #fff;
+}

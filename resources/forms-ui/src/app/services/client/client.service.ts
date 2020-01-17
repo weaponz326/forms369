@@ -510,9 +510,18 @@ export class ClientService {
     });
   }
 
+  /**
+   * Deletes a profile attachment.
+   *
+   * @param {string} user_id
+   * @param {string} key
+   * @param {string} file_path
+   * @returns {Promise<boolean>}
+   * @memberof ClientService
+   */
   deleteProfileAttachment(user_id: string, key: string, file_path: string): Promise<boolean> {
     return new Promise((resolve, reject) => {
-      const url = this.endpointService.apiHost + 'api/v1/deleteProfileAttachment/';
+      const url = this.endpointService.apiHost + `api/v1/deleteProfileAttachment/${user_id}/${key}/${file_path}`;
       this.http.post(url, {}, { headers: this.endpointService.headers() }).subscribe(
         res => {
           const response = res as any;
@@ -520,6 +529,7 @@ export class ClientService {
             ? resolve(true) : resolve(false);
         },
         err => {
+          console.log('error: ' + JSON.stringify(err));
           reject(err);
         }
       );

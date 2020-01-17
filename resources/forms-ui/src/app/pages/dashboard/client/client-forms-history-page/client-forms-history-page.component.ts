@@ -13,10 +13,12 @@ import { Users } from 'src/app/models/users.model';
 export class ClientFormsHistoryPageComponent implements OnInit {
 
   user: Users;
+  query: string;
   hasMore: boolean;
   hasData: boolean;
   loading: boolean;
   hasError: boolean;
+  foundNoForm: boolean;
   filterState: string;
   loadingMore: boolean;
   hasMoreError: boolean;
@@ -75,6 +77,103 @@ export class ClientFormsHistoryPageComponent implements OnInit {
 
   checkIfHasMore() {
     return _.isNull(this.clientService.nextPaginationUrl) ? false : true;
+  }
+
+  searchByFormCode() {
+    this.loading = true;
+    this.clientService.findFormsByCode(this.query).then(
+      forms => {
+        if (forms.length == 0) {
+          this.loading = false;
+          this.foundNoForm = true;
+        }
+        else {
+          this.loading = false;
+          this.foundNoForm = false;
+          _.forEach(forms, (form) => {
+            // this.formsList.push(form);
+            this.historyCollection.push(form);
+          });
+        }
+      },
+      err => {
+        this.hasError = true;
+        this.loading = false;
+      }
+    );
+  }
+
+  searchByFormName() {
+    this.historyCollection = _.filter(this.historyCollection, (item) => _.includes(_.toLower(item.form_name), _.toLower(this.query)));
+    console.log(this.historyCollection);
+    // this.loading = true;
+    // this.clientService.findFormsByName(this.query).then(
+    //   forms => {
+    //     if (forms.length == 0) {
+    //       this.loading = false;
+    //       this.foundNoForm = true;
+    //     }
+    //     else {
+    //       this.loading = false;
+    //       this.foundNoForm = false;
+    //       _.forEach(forms, (form) => {
+    //         // this.formsList.push(form);
+    //         this.historyCollection = [];
+    //         this.historyCollection.push(form);
+    //       });
+    //     }
+    //   },
+    //   err => {
+    //     this.hasError = true;
+    //     this.loading = false;
+    //   }
+    // );
+  }
+
+  search(e: KeyboardEvent) {
+    if (e.key == 'Enter') {
+      if (this.query.length != 0) {
+        // we need to know whether the user is searching by a form code
+        // or the user is searching by a form name.
+        // First, check if its a form code.
+        console.log(this.query);
+        this.hasMore = false;
+        this.hasError = false;
+        // this.formsList = [];
+        this.historyCollection = this.allHistoryCollection;
+        // this.companyList = [];
+        if (/\d/.test(this.query)) {
+          if (this.query.length == 6) {
+            // search fby form code, based on the input
+            // the user might be searching by a form code.
+            console.log('searching by form code');
+            this.searchByFormCode();
+          }
+          else {
+            // the input contains a number but is more than 6 characters
+            // in lenght, this might be a form name.
+            console.log('searching by form name');
+            this.searchByFormName();
+          }
+        }
+        else {
+          // since all our form codes includes digits, and this
+          // users input doesnt include a digit, search by form name.
+          console.log('searching by form name last');
+          this.searchByFormName();
+        }
+      }
+      else {
+        this.historyCollection = this.allHistoryCollection;
+        this.hasMore = this.checkIfHasMore();
+        if (this.foundNoForm && this.query.length == 0) {
+          this.hasData = true;
+          this.foundNoForm = false;
+          console.log('hererer');
+          this.historyCollection = this.allHistoryCollection;
+        }
+      }
+    }
   }
 
   getAllHistory() {

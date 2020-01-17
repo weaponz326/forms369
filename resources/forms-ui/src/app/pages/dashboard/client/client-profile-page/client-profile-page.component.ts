@@ -87,6 +87,7 @@ export class ClientProfilePageComponent implements OnInit {
           this.loading = false;
           this.allUserData = res[0].client_details[0];
           console.log('details: ' + this.allUserData);
+          this.appendOnChangeEventToFileInput();
         }
         else {
           this.hasData = false;
@@ -102,13 +103,18 @@ export class ClientProfilePageComponent implements OnInit {
   }
 
   appendOnChangeEventToFileInput() {
+    console.log('called appendOnChangeEventToFileInput');
     const all_inputs = document.querySelectorAll('input');
+    console.log('appendOnChangeLength: ' + all_inputs.length);
     _.forEach(all_inputs, (input) => {
+      console.log('ppppppppppppppppppppp: ' + JSON.stringify(input));
       if (input.type == 'file') {
         input.onchange = (e: any) => {
+          console.log('in onchange');
           const file = e.target.files[0] as File;
           console.log(file);
           this.attachmentFiles.push(file);
+          // alert('PushAttach: ' + this.attachmentFiles.length);
         };
       }
     });
@@ -122,8 +128,6 @@ export class ClientProfilePageComponent implements OnInit {
         this.attachmentKeys.push(fields.name);
       }
     });
-
-    this.appendOnChangeEventToFileInput();
   }
 
   getAllClientData() {
@@ -138,6 +142,7 @@ export class ClientProfilePageComponent implements OnInit {
           console.log('details: ' + userData);
           setTimeout(() => {
             this.clientService.fillClientProfileData(this.allFormSections, userData);
+            this.appendOnChangeEventToFileInput();
           }, 500);
         }
         else {
@@ -171,11 +176,11 @@ export class ClientProfilePageComponent implements OnInit {
     // get all keys and file data for file fields containing data.
     _.forEach(file_input_fields, (file_input) => {
       if (file_input.value != '') {
-        console.log('have data: ' + file_input.value);
+        console.log('have data: ' + file_input);
         file_fields_with_data.push(file_input);
       }
       else {
-        console.log('have no data: ' + file_input.value);
+        console.log('have no data: ');
         file_fields_without_data.push(file_input);
       }
     });
@@ -267,12 +272,14 @@ export class ClientProfilePageComponent implements OnInit {
             this.allFormSections.push(section);
           });
           this.getAllClientData();
+          // this.appendOnChangeEventToFileInput();
         }
         else {
           console.log('no filled data');
           this.getFormAttachments(this.user.id);
           this.noFilledData = true;
           this.getAllClientDataNew();
+          // this.appendOnChangeEventToFileInput();
         }
       },
       err => {
@@ -282,10 +289,12 @@ export class ClientProfilePageComponent implements OnInit {
   }
 
   uploadAttachmentFile(key: string, index: number): Promise<boolean> {
+    // alert('Index: ' + index);
     return new Promise((resolve, reject) => {
       // its being called in a loop, this means there are more than one attachments.
       console.log('uploading .......');
-      this.clientService.uploadProfileAttachment(this.user.id.toString(), key, this.attachmentFiles[index]).then(
+      // alert('AttachFilesLength: ' + this.attachmentFiles.length);
+      this.clientService.uploadProfileAttachment(this.user.id.toString(), key, this.attachmentFiles[index - 1]).then(
         ok => {
           if (ok) {
             console.log('file upload done');
@@ -407,6 +416,31 @@ export class ClientProfilePageComponent implements OnInit {
               });
             });
           }
+          else {
+            console.log('just upload file');
+            console.log('fields with Data: ' + JSON.stringify(fields_with_data));
+            console.log('dealing with fields with data only');
+            _.forEach(fields_with_data, (field, i) => {
+              // alert(field);
+              i += 1;
+              const prom = this.uploadNormalAttachments(field, i);
+              promises.push(prom);
+
+              if (i == fields_with_data.length) {
+                // we assume its done.
+                Promise.all(promises).then(
+                  res => {
+                    console.log('all uploads completed 2');
+                    resolve(true);
+                  },
+                  err => {
+                    console.log('all uploads error');
+                    reject(err);
+                  }
+                );
+              }
+            });
+          }
         }
         else {
           console.log('fields with Data: ' + JSON.stringify(fields_with_data));
@@ -472,12 +506,22 @@ export class ClientProfilePageComponent implements OnInit {
     );
   }
 
-  delete(url: string, index: number) {
+  delete(url: string, key: string, index: number) {
     this.modalService.open(this.deleteFileDialog, { centered: true }).result.then(
       result => {
-        // if (result == 'yes') {
-        //   this.clientService.deleteProfileAttachment();
-        // }
+        if (result == 'yes') {
+          this.clientService.deleteProfileAttachment(this.user.id, key, url).then(
+            ok => {
+              if (ok)
+                console.log('deleted');
+              else
+                console.log('deleted');
+            },
+            err => {
+              console.log('error deleting file');
+            }
+          );
+        }
       }
     );
   }
