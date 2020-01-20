@@ -114,7 +114,6 @@ export class ClientFormsEntryPageComponent implements OnInit {
   }
 
   appendOnChangeEventToFileInput() {
-    console.log('fired appendOnChangeEventToFileInput');
     const all_inputs = document.querySelectorAll('input');
     _.forEach(all_inputs, (input) => {
       if (input.type == 'file') {

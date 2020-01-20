@@ -74,13 +74,10 @@ export class FrontDeskViewFormPageComponent implements OnInit {
    * @memberof EditFormPageComponent
    */
   resolveReloadDataLoss() {
-    if (!_.isUndefined(this.form)) {
-      console.log('is undefined oooooooooooo');
+    if (!_.isUndefined(this.form))
       sessionStorage.setItem('u_form', JSON.stringify(this.form));
-    }
-    else {
+    else
       this.form = JSON.parse(sessionStorage.getItem('u_form'));
-    }
   }
 
   ngOnInit() {
@@ -457,7 +454,7 @@ export class FrontDeskViewFormPageComponent implements OnInit {
             resolve(true);
           }
           else {
-            console.log('faileD: ' + response.message);
+            console.log('failed: ' + response.message);
             resolve(false);
           }
         },
@@ -496,6 +493,7 @@ export class FrontDeskViewFormPageComponent implements OnInit {
             );
           }
           else {
+            // front desk didnt add any file
             console.log('submitting without attachment');
             this.submitFormWithoutAttachments(user_data).then(
               ok => {

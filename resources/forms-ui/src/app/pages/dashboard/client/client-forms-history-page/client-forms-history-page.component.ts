@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import * as _ from 'lodash';
 import { Router } from '@angular/router';
+import { Users } from 'src/app/models/users.model';
 import { ClientService } from 'src/app/services/client/client.service';
 import { LocalStorageService } from 'src/app/services/storage/local-storage.service';
-import { Users } from 'src/app/models/users.model';
 
 @Component({
   selector: 'app-client-forms-history-page',
@@ -81,26 +81,26 @@ export class ClientFormsHistoryPageComponent implements OnInit {
 
   searchByFormCode() {
     this.loading = true;
-    this.clientService.findFormsByCode(this.query).then(
-      forms => {
-        if (forms.length == 0) {
-          this.loading = false;
-          this.foundNoForm = true;
-        }
-        else {
-          this.loading = false;
-          this.foundNoForm = false;
-          _.forEach(forms, (form) => {
-            // this.formsList.push(form);
-            this.historyCollection.push(form);
-          });
-        }
-      },
-      err => {
-        this.hasError = true;
-        this.loading = false;
-      }
-    );
+    // this.clientService.findFormsByCode(this.query).then(
+    //   forms => {
+    //     if (forms.length == 0) {
+    //       this.loading = false;
+    //       this.foundNoForm = true;
+    //     }
+    //     else {
+    //       this.loading = false;
+    //       this.foundNoForm = false;
+    //       _.forEach(forms, (form) => {
+    //         // this.formsList.push(form);
+    //         this.historyCollection.push(form);
+    //       });
+    //     }
+    //   },
+    //   err => {
+    //     this.hasError = true;
+    //     this.loading = false;
+    //   }
+    // );
   }
 
   searchByFormName() {
