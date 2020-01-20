@@ -347,7 +347,26 @@ export class FrontDeskViewFormPageComponent implements OnInit {
 
     console.log('unfilleed: ' + JSON.stringify(fields));
     return fields;
+    // const fields = [];
+    // _.forEach(this.existingAttachments, (attachment) => {
+    //   console.log('Attachments: ' + JSON.stringify(attachment));
+    // });
   }
+
+  // getExistingAttachments(unfilled_fields: any[]) {
+  //   let fields = [];
+  //   _.forEach(this.existingAttachments, (attachment) => {
+  //     console.log('attachments: ' + JSON.stringify(attachment));
+  //     // _.forEach(unfilled_fields, (field) => {
+  //     //   if (field.type == 'file') {
+  //     fields = _.filter(unfilled_fields, (f) => f.type == 'file' && f.name != attachment.key);
+  //       // }
+  //     // });
+  //   });
+
+  //   console.log('unfilleed: ' + JSON.stringify(fields));
+  //   return fields;
+  // }
 
   uploadFormFile(form_code: string, key: string, index: number): Promise<boolean> {
     return new Promise((resolve, reject) => {
@@ -475,14 +494,14 @@ export class FrontDeskViewFormPageComponent implements OnInit {
       if (unfilled.length != 0) {
         const fileFields = this.getExistingAttachments(unfilled);
         console.log('fileFields: ' + JSON.stringify(fileFields));
-        if (fileFields.length != 0) {
+        if (fileFields.length == 0) {
           this.loading = false;
           this.clientService.highlightUnFilledFormFields(unfilled);
         }
         else {
           if (this.attachmentFiles.length > 0) {
             // front desk added new files
-            console.log('front desk added files uploading');
+            console.log('front desk added files: - uploading');
             this.submitFormWithAttachments(user_data).then(
               ok => {
                 ok ? resolve(true) : resolve(false);

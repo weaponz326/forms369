@@ -136,6 +136,11 @@
                           <label><strong>{{ item.label }}</strong></label>
                           <input multiple type="{{ item.type }}" id="{{ item.name }}" name="{{ item.name }}" class="form-control">
                         </div>
+
+                        <!-- paragraphs -->
+                        <div *ngIf="item.type == 'paragraph'">
+                          <label>{{ item.label }}</label>
+                        </div>
                       </div>
                     </div>
                   </div>
