@@ -357,6 +357,41 @@ export class ClientService {
     });
   }
 
+  findFormsInHistoryByCode(client_id: string, submission_code: string): Promise<any> {
+    return new Promise((resolve, reject) => {
+      const url = this.endpointService.apiHost + `api/v1/findSubmittedFormByCode/${client_id}/${submission_code}`;
+      console.log('this is url: ' + url);
+      this.http.get(url, { headers: this.headers }).subscribe(
+        res => {
+          console.log('form_history_by_code: ' + JSON.stringify(res));
+          const response = res as any;
+          resolve(response.forms);
+        },
+        err => {
+          console.log('history_by_code err: ' + JSON.stringify(err));
+          reject(err);
+        }
+      );
+    });
+  }
+
+  findFormsInHistoryByName(client_id: string, form_name: string): Promise<any> {
+    return new Promise((resolve, reject) => {
+      const url = this.endpointService.apiHost + `api/v1/findSubmittedFormByName/${client_id}/${form_name}`;
+      this.http.get(url, { headers: this.headers }).subscribe(
+        res => {
+          console.log('form_history_by_name: ' + JSON.stringify(res));
+          const response = res as any;
+          resolve(response.forms);
+        },
+        err => {
+          console.log('history_by_name err: ' + JSON.stringify(err));
+          reject(err);
+        }
+      );
+    });
+  }
+
   validateFormFilled(form_data: Array<any>) {
     const toFillFormFields: any[] = [];
     _.forEach(form_data, (data) => {
@@ -504,6 +539,23 @@ export class ClientService {
           resolve(response.attachments);
         },
         err => {
+          reject(err);
+        }
+      );
+    });
+  }
+
+  deleteFormHistory(client_id: string, submission_code: string): Promise<boolean> {
+    return new Promise((resolve, reject) => {
+      const url = this.endpointService.apiHost + `api/v1/deleteSubmittedForm/${client_id}/${submission_code}`;
+      this.http.post(url, {}, { headers: this.headers }).subscribe(
+        res => {
+          console.log('delete history: ' + JSON.stringify(res));
+          const response = res as any;
+          response.message == 'ok' ? resolve(true) : resolve(false);
+        },
+        err => {
+          console.log('error: ' + JSON.stringify(err));
           reject(err);
         }
       );

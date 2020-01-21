@@ -21,6 +21,7 @@ export class ClientProfilePageComponent implements OnInit {
   hasData: boolean;
   hasFile: boolean;
   loading: boolean;
+  deleting: boolean;
   updating: boolean;
   allUserData: any;
   hasError: boolean;
@@ -107,14 +108,12 @@ export class ClientProfilePageComponent implements OnInit {
     const all_inputs = document.querySelectorAll('input');
     console.log('appendOnChangeLength: ' + all_inputs.length);
     _.forEach(all_inputs, (input) => {
-      console.log('ppppppppppppppppppppp: ' + JSON.stringify(input));
       if (input.type == 'file') {
         input.onchange = (e: any) => {
           console.log('in onchange');
           const file = e.target.files[0] as File;
           console.log(file);
           this.attachmentFiles.push(file);
-          // alert('PushAttach: ' + this.attachmentFiles.length);
         };
       }
     });
@@ -272,14 +271,12 @@ export class ClientProfilePageComponent implements OnInit {
             this.allFormSections.push(section);
           });
           this.getAllClientData();
-          // this.appendOnChangeEventToFileInput();
         }
         else {
           console.log('no filled data');
           this.getFormAttachments(this.user.id);
           this.noFilledData = true;
           this.getAllClientDataNew();
-          // this.appendOnChangeEventToFileInput();
         }
       },
       err => {
@@ -288,12 +285,27 @@ export class ClientProfilePageComponent implements OnInit {
     );
   }
 
+  deleteExistingAttachment(key: string) {
+    _.forEach(this.existingAttachments, (attachment) => {
+      if (attachment.key == key) {
+        this.clientService.deleteProfileAttachment(this.user.id, key, attachment.url).then(
+          ok => {
+            if (ok)
+              console.log('deleted');
+            else
+              console.log('deleted');
+          },
+          err => {
+            console.log('error deleting file');
+          }
+        );
+      }
+    });
+  }
+
   uploadAttachmentFile(key: string, index: number): Promise<boolean> {
-    // alert('Index: ' + index);
     return new Promise((resolve, reject) => {
-      // its being called in a loop, this means there are more than one attachments.
       console.log('uploading .......');
-      // alert('AttachFilesLength: ' + this.attachmentFiles.length);
       this.clientService.uploadProfileAttachment(this.user.id.toString(), key, this.attachmentFiles[index - 1]).then(
         ok => {
           if (ok) {
@@ -332,6 +344,7 @@ export class ClientProfilePageComponent implements OnInit {
       console.log('doing existing upload [converted]');
       console.log(file);
       if (!_.isUndefined(file) || !_.isNull(file)) {
+        // this.deleteExistingAttachment(key);
         this.clientService.uploadProfileAttachment(this.user.id.toString(), key, file).then(
           ok => {
             if (ok) {
@@ -377,6 +390,8 @@ export class ClientProfilePageComponent implements OnInit {
                   const filename = Date.now().toString() + extension;
                   const fileHost = this.endpointService.storageHost + 'attachments/';
                   const p = this.fileUploadService.srcToBase64(fileHost + attachment.url);
+                  // alert(attachment.key);
+                  this.deleteExistingAttachment(attachment.key);
                   p.then(
                     base64Str => {
                       const fileObj = this.fileUploadService.convertBase64ToFile(base64Str, filename);
@@ -507,18 +522,27 @@ export class ClientProfilePageComponent implements OnInit {
   }
 
   delete(url: string, key: string, index: number) {
+    this.deleting = true;
     this.modalService.open(this.deleteFileDialog, { centered: true }).result.then(
       result => {
         if (result == 'yes') {
           this.clientService.deleteProfileAttachment(this.user.id, key, url).then(
             ok => {
-              if (ok)
+              if (ok) {
                 console.log('deleted');
-              else
+                this.deleting = false;
+                this.existingAttachments.splice(index, 1);
+              }
+              else {
                 console.log('deleted');
+                this.deleting = false;
+                alert('Failed to delete attachment. Please try again!');
+              }
             },
             err => {
               console.log('error deleting file');
+              this.deleting = false;
+              alert('Failed to delete attachment. Please try again!');
             }
           );
         }

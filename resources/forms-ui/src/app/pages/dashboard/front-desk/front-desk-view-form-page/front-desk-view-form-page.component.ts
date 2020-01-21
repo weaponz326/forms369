@@ -432,7 +432,7 @@ export class FrontDeskViewFormPageComponent implements OnInit {
       const filled_data = this.formBuilder.getFormUserData(user_data);
       const updated_data = this.clientService.getUpdatedClientFormData(JSON.parse(filled_data), this.form.client_submitted_details);
       console.log('new updates: ' + updated_data);
-      this.clientService.editProfile(this.user.id.toString(), JSON.parse(updated_data)).then(
+      this.clientService.editProfile(this.form.client_id, JSON.parse(updated_data)).then(
         res => {
           const response = res as any;
           if (_.toLower(response.message) == 'ok') {
@@ -465,7 +465,7 @@ export class FrontDeskViewFormPageComponent implements OnInit {
       console.log('filled_data: ' + filled_data);
       const updated_data = this.clientService.getUpdatedClientFormData(JSON.parse(filled_data), this.form.client_submitted_details);
       console.log('new updates: ' + updated_data);
-      this.clientService.editProfile(this.user.id.toString(), JSON.parse(updated_data)).then(
+      this.clientService.editProfile(this.form.client_id, JSON.parse(updated_data)).then(
         res => {
           console.log('edit res');
           const response = res as any;

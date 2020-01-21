@@ -116,7 +116,7 @@
 <ng-template #confirm let-modal>
   <div class="modal-header">
     <h4 class="modal-title" id="modal-title">Confirm Action</h4>
-    <button type="button" class="close" aria-describedby="modal-title" (click)="modal.dismiss('Cross click')">
+    <button type="button" class="close" aria-describedby="modal-title" (click)="modal.close()">
       <span aria-hidden="true">&times;</span>
     </button>
   </div>
@@ -124,7 +124,7 @@
     <p><strong>Are you sure you want to <span class="text-primary">submit this form</span> ?</strong></p>
   </div>
   <div class="modal-footer">
-    <button type="button" class="btn btn-outline-primary" (click)="modal.dismiss('no')">No</button>
+    <button type="button" class="btn btn-outline-primary" (click)="modal.close()">No</button>
     <button type="button" class="btn btn-primary" (click)="modal.close('yes')">Yes</button>
   </div>
 </ng-template>
@@ -132,7 +132,7 @@
 <ng-template #viewImgAttachment let-modal>
   <div class="modal-header">
     <h5 class="modal-title">Attachment File</h5>
-    <button type="button" class="close" aria-describedby="modal-title" (click)="modal.dismiss('close')">
+    <button type="button" class="close" aria-describedby="modal-title" (click)="modal.close()">
       <span aria-hidden="true">&times;</span>
     </button>
   </div>
@@ -140,14 +140,14 @@
     <img [src]="imgUrl" style="width: 100%;">
   </div>
   <div class="modal-footer">
-    <button type="button" class="btn btn-primary" (click)="modal.close('close')">Close</button>
+    <button type="button" class="btn btn-primary" (click)="modal.close()">Close</button>
   </div>
 </ng-template>
 
 <ng-template #viewDocAttachment let-modal>
   <div class="modal-header">
     <h5 class="modal-title">Attachment File</h5>
-    <button type="button" class="close" aria-describedby="modal-title" (click)="modal.dismiss('close')">
+    <button type="button" class="close" aria-describedby="modal-title" (click)="modal.close()">
       <span aria-hidden="true">&times;</span>
     </button>
   </div>
@@ -155,7 +155,7 @@
     <p>This is a document and cannot be viewed. Please download</p>
   </div>
   <div class="modal-footer">
-    <button type="button" class="btn btn-outline-primary" (click)="modal.close('close')">Close</button>
+    <button type="button" class="btn btn-outline-primary" (click)="modal.close()">Close</button>
     <button type="button" class="btn btn-primary" (click)="downloadDoc(documentUrl)">Download</button>
   </div>
 </ng-template>

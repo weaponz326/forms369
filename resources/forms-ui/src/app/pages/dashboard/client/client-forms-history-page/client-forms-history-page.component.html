@@ -86,27 +86,55 @@
               <button type="button" class="btn btn-outline-primary" [ngClass]="{'active': filterState == 'processing'}" (click)="showProcessing()">Processing</button>
             </div>
           </div>
-          <!-- <div class="row mb-4"> -->
-            <div class="col-12 col-md-8 offset-md-2 mb-3">
-              <div class="search-bar">
-                <form>
-                  <input type="text" class="search-form form-control" name="query" [(ngModel)]="query"
-                    placeholder="Search by form code, form name or merchant name" aria-label="search"
-                    aria-describedby="search" (keydown)="search($event)">
-                </form>
-              </div>
+
+          <div class="col-12 col-md-8 offset-md-2 mb-3">
+            <div class="search-bar">
+              <form>
+                <input type="text" class="search-form form-control" name="query" [(ngModel)]="query"
+                  placeholder="Search by form code, form name or merchant name" aria-label="search"
+                  aria-describedby="search" (keydown)="search($event)">
+              </form>
             </div>
-          <!-- </div> -->
-          <div class="col-md-4 grid-margin stretch-card" *ngFor="let form of historyCollection">
+          </div>
+
+          <div class="col-md-4 grid-margin stretch-card" *ngFor="let form of historyCollection; let i=index">
             <div class="card hover-cursor" (click)="openFormEntry(form)">
               <div class="card-body">
-                <p class="card-title">{{ form.form_name }}</p>
+                <p class="card-title mr-3">{{ form.form_name }}</p>
+                <div class="align-right">
+                  <button type="button" class="btn btn-sm" (click)="delete($event, form.submission_code, i)">
+                    <i class="mdi mdi-delete-outline text-danger"></i>
+                  </button>
+                </div>
                 <h1 class="display-4">{{ form.submission_code }}</h1>
                 <div class="card-text">
                   <p class="text-muted small-text">{{ form.submitted_at | date }}</p>
                   <p class="text-muted">Open and quickly fill out this form</p>
                 </div>
-                <!-- <p class="text-muted">Open and quickly fill out this form</p> -->
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div *ngIf="foundNoForm && !loading" class="row">
+          <div class="col-lg-12 grid-margin stretch-card">
+            <div class="card text-center pt-5 pb-5">
+              <div class="card-body mt-5 mb-5">
+                <h4 class="card-title">No Search Result</h4>
+                <p class="card-description">
+                  No form found based on your search criteria
+                </p>
+                <div class="text-lg-center mt-5 mb-5">
+                  <div class="card-text">
+                    <i class="mdi mdi-search-web" style="font-size: 8em;"></i>
+                  </div>
+                  <div class="card-text">
+                    <h3>No Forms Found</h3>
+                    <p class="text-muted">
+                      No form found based on your search criteria.
+                    </p>
+                  </div>
+                </div>
               </div>
             </div>
           </div>
@@ -152,3 +180,22 @@
     <!-- main-panel -->
   </div>
 </div>
+
+<ng-template #confirm let-modal>
+  <div class="modal-header">
+    <h4 class="modal-title" id="modal-title">Delete</h4>
+    <button type="button" class="close" aria-describedby="modal-title" (click)="modal.close()">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <p><strong>Are you sure you want to delete <span class="text-primary">this item</span> ?</strong></p>
+    <p>All information associated with this item will be permanently deleted.
+      <span class="text-danger">This operation can not be undone.</span>
+    </p>
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-outline-primary" (click)="modal.close()">No</button>
+    <button type="button" class="btn btn-danger" (click)="modal.close('yes')">Yes</button>
+  </div>
+</ng-template>

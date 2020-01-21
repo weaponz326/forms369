@@ -1340,6 +1340,24 @@ class HomeController extends Controller
         return $message;
     }
 
+    protected function findSubmittedFormByName(Request $request, $id, $form_name)
+    {
+        $message = (new ClientController)->findSubmittedFormByName($request, $id, $form_name);
+        return $message;
+    }
+
+    protected function findSubmittedFormByCode(Request $request, $id, $form_code)
+    {
+        $message = (new ClientController)->findSubmittedFormByCode($request, $id, $form_code);
+        return $message;
+    }
+
+    protected function deleteSubmittedForm(Request $request, $client_id, $submission_code)
+    {
+        $message = (new ClientController)->deleteSubmittedForm($request, $client_id, $submission_code);
+        return $message;
+    }
+
     /**
      * Business logics 
      * getNumAllsubmittedForms number of forms submitted by a client of any status: 

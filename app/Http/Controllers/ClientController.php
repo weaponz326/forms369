@@ -280,7 +280,6 @@ class ClientController extends Controller
      */
     public function getAllsubmittedForms(Request $request, $id)
     {
-        
         $getforms = DB::table('submitted_forms')
         ->join('users', 'users.id', '=', 'client_id')
         ->join('forms', 'forms.form_code', '=', 'form_id')
@@ -291,6 +290,88 @@ class ClientController extends Controller
         ->where('submitted_forms.client_id', $id)
         ->paginate(15);
       
+        // return $getforms;a
+        //clean data
+        $submittedformdata = [];
+
+        $getforms->transform(function($items){
+            $submittedformdata['submission_code'] = $items->submission_code;
+            $submittedformdata['form_code'] = $items->form_id;
+            $submittedformdata['form_name'] = Crypt::decryptString($items->form_name);
+            $submittedformdata['form_fields'] = json_decode(Crypt::decryptString($items->form_fields));
+            $submittedformdata['merchant_name'] = Crypt::decryptString($items->merchant_name);
+            $submittedformdata['client_name'] = $items->name;
+            $submittedformdata['email'] = $items->email;
+            $submittedformdata['client_submitted_details'] = json_decode(Crypt::decryptString($items->client_details));
+            $submittedformdata['form_status'] = $items->status;
+            $submittedformdata['submitted_at'] = $items->submitted_at;
+            $submittedformdata['last_processed'] = $items->last_processed;
+            $submittedformdata['processed_by'] = $items->processed_by;
+
+            return $submittedformdata;
+         });
+     
+         $response = [
+            'forms' => $getforms
+        ];
+        return response()->json($response, 200);
+    }
+
+    public function findSubmittedFormByName(Request $request, $id, $form_name)
+    {
+        $getforms = DB::table('submitted_forms')
+        ->join('users', 'users.id', '=', 'client_id')
+        ->join('forms', 'forms.form_code', '=', 'form_id')
+        ->join('merchants', 'merchants.id', '=', 'forms.merchant_id')
+        ->select('submitted_forms.*','merchants.merchant_name AS merchant_name',
+        'users.name', 'users.email', 'forms.name AS form_name', 'forms.form_fields')
+        ->where([
+            ['submitted_forms.client_id', $id],
+            ['forms.temps', 'like', '%'.$form_name.'%']
+        ])
+        ->get();
+      
+        // return $getforms;a
+        //clean data
+        $submittedformdata = [];
+
+        $getforms->transform(function($items){
+            $submittedformdata['submission_code'] = $items->submission_code;
+            $submittedformdata['form_code'] = $items->form_id;
+            $submittedformdata['form_name'] = Crypt::decryptString($items->form_name);
+            $submittedformdata['form_fields'] = json_decode(Crypt::decryptString($items->form_fields));
+            $submittedformdata['merchant_name'] = Crypt::decryptString($items->merchant_name);
+            $submittedformdata['client_name'] = $items->name;
+            $submittedformdata['email'] = $items->email;
+            $submittedformdata['client_submitted_details'] = json_decode(Crypt::decryptString($items->client_details));
+            $submittedformdata['form_status'] = $items->status;
+            $submittedformdata['submitted_at'] = $items->submitted_at;
+            $submittedformdata['last_processed'] = $items->last_processed;
+            $submittedformdata['processed_by'] = $items->processed_by;
+
+            return $submittedformdata;
+         });
+     
+         $response = [
+            'forms' => $getforms
+        ];
+        return response()->json($response, 200);
+    }
+
+    public function findSubmittedFormByCode(Request $request, $id, $code)
+    {
+        $getforms = DB::table('submitted_forms')
+        ->join('users', 'users.id', '=', 'client_id')
+        ->join('forms', 'forms.form_code', '=', 'form_id')
+        ->join('merchants', 'merchants.id', '=', 'forms.merchant_id')
+        ->select('submitted_forms.*','merchants.merchant_name AS merchant_name',
+        'users.name', 'users.email', 'forms.name AS form_name', 'forms.form_fields')
+        ->where([
+            ['submitted_forms.client_id', $id],
+            ['submitted_forms.submission_code', 'like', '%'.$code.'%']
+        ])
+        ->get();
+    
         // return $getforms;a
         //clean data
         $submittedformdata = [];
@@ -353,7 +434,6 @@ class ClientController extends Controller
      */
     public function getClientFormsByStatus(Request $request, $id, $status)
     {
-        
         $getforms = DB::table('submitted_forms')
         ->join('users', 'users.id', '=', 'client_id')
         ->join('forms', 'forms.form_code', '=', 'form_id')
@@ -638,5 +718,34 @@ class ClientController extends Controller
             return response()->json($response, 400);
         }
         
+    }
+
+    public function deleteSubmittedForm(Request $request, $client_id, $submission_code)
+    {
+        $message = 'failed';
+        $deleteSubmittedForm = DB::table( 'submitted_forms' )
+            ->where([
+                ['client_id', $client_id],
+                ['submission_code', $submission_code]
+            ])
+            ->delete();
+
+        if ( $deleteSubmittedForm )
+        {
+            $message = 'ok';
+        }
+
+        $response = [
+            'message' => $message
+        ];
+
+        if ( $message == 'ok' )
+        {
+            return response()->json( $response, 200 );
+        }
+        else
+        {
+            return response()->json( $response, 400 );
+        }
     }
 }
