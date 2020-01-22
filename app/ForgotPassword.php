@@ -46,7 +46,7 @@ class ForgotPassword extends Notification
         return (new MailMessage)
             ->subject('Reset your Forms369 Password')
             ->line('To reset your password, click the button below:')
-            ->action('RESET YOUR PASSWORD', url($url));
+            ->action('RESET YOUR ACCOUNT', url($url));
     }
 
     /**
