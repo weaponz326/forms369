@@ -360,7 +360,7 @@ module.exports = "<!-- git admin -->\n<nav *ngIf=\"isGitAdmin\" class=\"sidebar 
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<div class=\"container-scroller\">\n  <div class=\"container-fluid page-body-wrapper full-page-wrapper\">\n    <div class=\"content-wrapper d-flex align-items-center auth px-0\">\n      <div [hidden]=\"!waiting\" class=\"row w-100 mx-0\">\n        <div class=\"col-md-12\">\n          <div class=\"d-flex justify-content-center pb-5 pt-5\">\n            <div class=\"spinner-border mt-5\" style=\"width: 4rem; height: 4rem;\" role=\"status\">\n              <span class=\"sr-only\">Loading...</span>\n            </div>\n          </div>\n        </div>\n      </div>\n\n      <div [hidden]=\"waiting\" class=\"row w-100 mx-0\">\n        <div class=\"col-lg-4 mx-auto\">\n          <div class=\"auth-form-light text-left py-5 px-4 px-sm-5\">\n              <div class=\"text-center\">\n                <a routerLink=\"/\" class=\"brand-logo\">\n                  <img src=\"./assets/images/logo.png\" alt=\"logo\">\n                </a>\n              </div> \n            <div *ngIf=\"notConfirmed\" class=\"mt-2 mb-5\">\n              <div class=\"alert alert-warning\" role=\"alert\">\n                <h3 class=\"alert-heading\">Hey there!</h3>\n                <p class=\"lead\"><strong>Your email address has not been confirmed</strong></p>\n                <hr>\n                <p class=\"lead\">A confirmation email has been sent to your email address.</p>\n                <p class=\"mb-0 lead\">Please check your email and click the activation link in the email. Thank You!</p>\n              </div>\n            </div>\n\n            <div *ngIf=\"deactivated\" class=\"mt-2 mb-5\">\n              <div class=\"alert alert-danger\" role=\"alert\">\n                <h3 class=\"alert-heading\">Hey there!</h3>\n                <p class=\"lead\"><strong>Your account has been deactivated</strong></p>\n                <hr>\n                <p class=\"mb-0 lead\">Please contact your admin</p>\n              </div>\n            </div>\n\n            <h4 class=\"text-center\">Hello! let's get started</h4>\n            <h6 class=\"font-weight-light text-center\">Sign in to continue.</h6>\n            <form [formGroup]=\"form\" (ngSubmit)=\"login()\" class=\"pt-3\">\n              <div *ngIf=\"userNotFound\" class=\"mt-2\">\n                <div class=\"alert alert-danger alert-dismissible fade show\" role=\"alert\">\n                  <strong>User Not Found!</strong>\n                  <button type=\"button\" class=\"close\" data-dismiss=\"alert\" aria-label=\"Close\">\n                    <span aria-hidden=\"true\">&times;</span>\n                  </button>\n                </div>\n              </div>\n\n              <div class=\"form-group\">\n                <input type=\"text\" class=\"form-control form-control-lg\" formControlName=\"username\"\n                  placeholder=\"Username\" [ngClass]=\"{'input-control-error': submitted && f.username.errors}\">\n                <div *ngIf=\"submitted && f.username.errors\">\n                  <p class=\"input-error\" *ngIf=\"f.username.errors.required\">Username is required</p>\n                </div>\n              </div>\n\n              <div *ngIf=\"invalidPassword\" class=\"mt-2\">\n                <div class=\"alert alert-danger alert-dismissible fade show\" role=\"alert\">\n                  <strong>Invalid Password!</strong> \n                  <button type=\"button\" class=\"close\" data-dismiss=\"alert\" aria-label=\"Close\">\n                    <span aria-hidden=\"true\">&times;</span>\n                  </button>\n                </div>\n              </div>\n              \n              <div class=\"form-group\">\n                <input type=\"password\" class=\"form-control form-control-lg\" formControlName=\"password\"\n                  placeholder=\"Password\" [ngClass]=\"{'input-control-error': submitted && f.password.errors}\">\n                <div *ngIf=\"submitted && f.password.errors\">\n                  <p class=\"input-error\" *ngIf=\"f.password.errors.minlength\">Password must be atleast 6 characters</p>\n                  <p class=\"input-error\" *ngIf=\"f.password.errors.required\">Password is required</p>\n                </div>\n              </div>\n              \n              <div class=\"mt-3\">\n                <button type=\"submit\" *ngIf=\"!loading\"\n                  class=\"btn btn-block btn-primary btn-lg font-weight-medium auth-form-btn\">sign in</button>\n                <button type=\"button\" *ngIf=\"loading\"\n                  class=\"btn btn-block btn-primary btn-lg font-weight-medium auth-form-btn\" disabled>\n                  <span class=\"spinner-border spinner-border-sm\" role=\"status\" aria-hidden=\"true\"></span> &nbsp; &nbsp;\n                  Please wait...\n                </button>\n              </div>\n              <div class=\"mt-3 text-center\">\n                <a routerLink=\"/forgot\" class=\"auth-link text-black\">Forgot password?</a>\n              </div>\n            </form>\n          </div>\n        </div>\n      </div>\n    </div>\n    <!-- content-wrapper ends -->\n  </div>\n  <!-- page-body-wrapper ends -->\n</div>"
+module.exports = "<div class=\"container-scroller\">\n  <div class=\"container-fluid page-body-wrapper full-page-wrapper\">\n    <div class=\"content-wrapper d-flex align-items-center auth px-0\">\n      <div [hidden]=\"!waiting\" class=\"row w-100 mx-0\">\n        <div class=\"col-md-12\">\n          <div class=\"d-flex justify-content-center pb-5 pt-5\">\n            <div class=\"spinner-border mt-5\" style=\"width: 4rem; height: 4rem;\" role=\"status\">\n              <span class=\"sr-only\">Loading...</span>\n            </div>\n          </div>\n        </div>\n      </div>\n\n      <div [hidden]=\"waiting\" class=\"row w-100 mx-0\">\n        <div class=\"col-lg-4 mx-auto\">\n          <div class=\"auth-form-light text-left py-5 px-4 px-sm-5\">\n              <div class=\"text-center\">\n                <a routerLink=\"/\" class=\"brand-logo\">\n                  <img src=\"./assets/images/logo.png\" alt=\"logo\">\n                </a>\n              </div> \n            <div *ngIf=\"notConfirmed\" class=\"mt-2 mb-5\">\n              <div class=\"alert alert-warning\" role=\"alert\">\n                <h3 class=\"alert-heading\">Hey there!</h3>\n                <p class=\"lead\"><strong>Your email address has not been confirmed</strong></p>\n                <hr>\n                <p class=\"lead\">A confirmation email has been sent to your email address.</p>\n                <p class=\"mb-0 lead\">Please check your email and click the activation link in the email. Thank You!</p>\n              </div>\n            </div>\n\n            <div *ngIf=\"deactivated\" class=\"mt-2 mb-5\">\n              <div class=\"alert alert-danger\" role=\"alert\">\n                <h3 class=\"alert-heading\">Hey there!</h3>\n                <p class=\"lead\"><strong>Your account has been deactivated</strong></p>\n                <hr>\n                <p class=\"mb-0 lead\">Please contact your admin</p>\n              </div>\n            </div>\n\n            <h4 class=\"text-center\">Hello! let's get started</h4>\n            <h6 class=\"font-weight-light text-center\">Sign in to continue.</h6>\n            <form [formGroup]=\"form\" (ngSubmit)=\"login()\" class=\"pt-3\">\n              <div *ngIf=\"userNotFound\" class=\"mt-2\">\n                <div class=\"alert alert-danger alert-dismissible fade show\" role=\"alert\">\n                  <strong>User Not Found!</strong>\n                  <button type=\"button\" class=\"close\" data-dismiss=\"alert\" aria-label=\"Close\">\n                    <span aria-hidden=\"true\">&times;</span>\n                  </button>\n                </div>\n              </div>\n\n              <div class=\"form-group\">\n                <input type=\"text\" class=\"form-control form-control-lg\" formControlName=\"username\"\n                  placeholder=\"Username\" [ngClass]=\"{'input-control-error': submitted && f.username.errors}\">\n                <div *ngIf=\"submitted && f.username.errors\">\n                  <p class=\"input-error\" *ngIf=\"f.username.errors.required\">Username is required</p>\n                </div>\n              </div>\n\n              <div *ngIf=\"invalidPassword\" class=\"mt-2\">\n                <div class=\"alert alert-danger alert-dismissible fade show\" role=\"alert\">\n                  <strong>Invalid Password!</strong> \n                  <button type=\"button\" class=\"close\" data-dismiss=\"alert\" aria-label=\"Close\">\n                    <span aria-hidden=\"true\">&times;</span>\n                  </button>\n                </div>\n              </div>\n              \n              <div class=\"form-group\">\n                <input type=\"password\" class=\"form-control form-control-lg\" formControlName=\"password\"\n                  placeholder=\"Password\" [ngClass]=\"{'input-control-error': submitted && f.password.errors}\">\n                <div *ngIf=\"submitted && f.password.errors\">\n                  <p class=\"input-error\" *ngIf=\"f.password.errors.minlength\">Password must be atleast 6 characters</p>\n                  <p class=\"input-error\" *ngIf=\"f.password.errors.required\">Password is required</p>\n                </div>\n              </div>\n              \n              <div class=\"mt-3\">\n                <button type=\"submit\" *ngIf=\"!loading\"\n                  class=\"btn btn-block btn-primary btn-lg font-weight-medium auth-form-btn\">sign in</button>\n                <button type=\"button\" *ngIf=\"loading\"\n                  class=\"btn btn-block btn-primary btn-lg font-weight-medium auth-form-btn\" disabled>\n                  <span class=\"spinner-border spinner-border-sm\" role=\"status\" aria-hidden=\"true\"></span> &nbsp; &nbsp;\n                  Please wait...\n                </button>\n              </div>\n              <!-- <div class=\"mt-3 text-center\">\n                <a routerLink=\"/forgot\" class=\"auth-link text-black\">Forgot password?</a>\n              </div> -->\n            </form>\n          </div>\n        </div>\n      </div>\n    </div>\n    <!-- content-wrapper ends -->\n  </div>\n  <!-- page-body-wrapper ends -->\n</div>"
 
 /***/ }),
 
@@ -1273,7 +1273,7 @@ module.exports = "<form [formGroup]=\"form\" (ngSubmit)=\"edit()\" class=\"pt-3\
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<div class=\"container-scroller\">\n  <div class=\"container-fluid page-body-wrapper full-page-wrapper\">\n    <div class=\"content-wrapper d-flex align-items-center auth px-0\">\n      <div class=\"row w-100 mx-0\">\n        <div class=\"col-lg-4 mx-auto\">\n          <div class=\"auth-form-light py-5 px-4 px-sm-5\">\n            <div class=\"text-center\">\n                <a routerLink=\"/\" class=\"brand-logo\">\n                  <img src=\"./assets/images/logo.png\" alt=\"logo\">\n                </a>\n            </div>\n            <div *ngIf=\"invalid\" class=\"mt-2 mb-5\">\n              <div class=\"alert alert-danger\" role=\"alert\">\n                <h3 class=\"alert-heading\">Hey there!</h3>\n                <p class=\"lead\"><strong>Your account has been deactivated</strong></p>\n                <hr>\n                <p class=\"mb-0 lead\">Please contact your admin</p>\n              </div>\n            </div>\n\n            <!-- account verification view -->\n            <h4 class=\"text-center\">Hello! Reset your password</h4>\n            <h6 class=\"font-weight-normal text-center\">Please verify your account.</h6>\n            <form [formGroup]=\"form\" (ngSubmit)=\"create()\" class=\"pt-3\">\n              <div class=\"form-group\">\n                <input type=\"email\" class=\"form-control form-control-lg\" formControlName=\"email\"\n                  placeholder=\"Enter Email Address\" [ngClass]=\"{'input-control-error': submitted && f.email.errors}\">\n                <div *ngIf=\"submitted && f.email.errors\">\n                  <p class=\"input-error\" *ngIf=\"f.email.errors.email\">Must be a valid email address</p>\n                  <p class=\"input-error\" *ngIf=\"f.email.errors.required\">Email address is required</p>\n                </div>\n              </div>\n              <div class=\"mt-3\">\n                <button type=\"submit\" *ngIf=\"!loading\" class=\"btn btn-block btn-primary btn-lg font-weight-medium auth-form-btn\">Verify</button>\n                <button type=\"button\" *ngIf=\"loading\" class=\"btn btn-block btn-primary btn-lg font-weight-medium auth-form-btn\" disabled>\n                  <span class=\"spinner-border spinner-border-sm\" role=\"status\" aria-hidden=\"true\"></span> &nbsp; &nbsp;\n                  Please wait...\n                </button>\n              </div>\n              <div class=\"mt-3 text-center\">\n                <a routerLink=\"/login\" class=\"auth-link text-black\">Login instead</a>\n              </div>\n            </form>\n            <!-- /. end account verification view -->\n          </div>\n        </div>\n      </div>\n    </div>\n    <!-- content ends -->\n  </div>\n  <!-- page-body ends -->\n</div>"
+module.exports = "<div class=\"container-scroller\">\n  <div class=\"container-fluid page-body-wrapper full-page-wrapper\">\n    <div class=\"content-wrapper d-flex align-items-center auth px-0\">\n      <div class=\"row w-100 mx-0\">\n        <div class=\"col-lg-4 mx-auto\">\n          <div class=\"auth-form-light py-5 px-4 px-sm-5\">\n            <div class=\"text-center\">\n                <a routerLink=\"/\" class=\"brand-logo\">\n                  <img src=\"./assets/images/logo.png\" alt=\"logo\">\n                </a>\n            </div>\n\n            <div *ngIf=\"isValid\" class=\"mt-2 mb-5\">\n              <div class=\"alert alert-success\" role=\"alert\">\n                <h3 class=\"alert-heading\">Hey there!</h3>\n                <p class=\"lead\"><strong>We've sent you an email. Open it and follow the link to reset your password.</strong></p>\n              </div>\n            </div>\n\n            <div *ngIf=\"isInvalid\" class=\"mt-2 mb-5\">\n              <div class=\"alert alert-danger\" role=\"alert\">\n                <h3 class=\"alert-heading\">Hey there!</h3>\n                <p class=\"lead\"><strong>The provided email doesnt have an account with us</strong></p>\n                <hr>\n                <p class=\"mb-0 lead\">Please make sure you've entered the correct email address</p>\n              </div>\n            </div>\n\n            <!-- account verification view -->\n            <h4 class=\"text-center\">Hello! Reset your password</h4>\n            <h6 class=\"font-weight-normal text-center\">Please verify your account.</h6>\n            <form [formGroup]=\"form\" (ngSubmit)=\"create()\" class=\"pt-3\">\n              <div class=\"form-group\">\n                <input type=\"email\" class=\"form-control form-control-lg\" formControlName=\"email\"\n                  placeholder=\"Enter Email Address\" [ngClass]=\"{'input-control-error': submitted && f.email.errors}\">\n                <div *ngIf=\"submitted && f.email.errors\">\n                  <p class=\"input-error\" *ngIf=\"f.email.errors.email\">Must be a valid email address</p>\n                  <p class=\"input-error\" *ngIf=\"f.email.errors.required\">Email address is required</p>\n                </div>\n              </div>\n              <div class=\"mt-3\">\n                <button type=\"submit\" *ngIf=\"!loading\" class=\"btn btn-block btn-primary btn-lg font-weight-medium auth-form-btn\">Verify</button>\n                <button type=\"button\" *ngIf=\"loading\" class=\"btn btn-block btn-primary btn-lg font-weight-medium auth-form-btn\" disabled>\n                  <span class=\"spinner-border spinner-border-sm\" role=\"status\" aria-hidden=\"true\"></span> &nbsp; &nbsp;\n                  Please wait...\n                </button>\n              </div>\n              <div class=\"mt-3 text-center\">\n                <a routerLink=\"/login\" class=\"auth-link text-black\">Login instead</a>\n              </div>\n            </form>\n            <!-- /. end account verification view -->\n          </div>\n        </div>\n      </div>\n    </div>\n    <!-- content ends -->\n  </div>\n  <!-- page-body ends -->\n</div>"
 
 /***/ }),
 
@@ -10754,37 +10754,31 @@ let FrontDeskViewFormPageComponent = class FrontDeskViewFormPageComponent {
         this.modalService.open(this.confirmDialog, { centered: true }).result.then(result => {
             if (result == 'yes') {
                 this.loading = true;
-                this.submit().then(ok => {
-                    if (ok) {
-                        console.log('submit done');
-                        this.frontDeskService.completeForm(this.form.submission_code, this.form.client_submitted_details).then(res => {
-                            const response = res;
-                            if (lodash__WEBPACK_IMPORTED_MODULE_2__["toLower"](response.message) == 'ok') {
-                                this.loading = false;
-                                this.completed = true;
-                            }
-                            else {
-                                this.loading = false;
-                                this.completed = false;
-                            }
-                        }, err => {
-                            this.hasError = true;
-                            this.loading = false;
-                            this.completed = false;
-                        });
+                // this.submit().then(
+                //   ok => {
+                //     if (ok) {
+                //       console.log('submit done');
+                this.frontDeskService.completeForm(this.form.submission_code, this.form.client_submitted_details).then(res => {
+                    const response = res;
+                    if (lodash__WEBPACK_IMPORTED_MODULE_2__["toLower"](response.message) == 'ok') {
+                        this.loading = false;
+                        this.completed = true;
                     }
                     else {
-                        this.hasError = true;
                         this.loading = false;
                         this.completed = false;
-                        console.log('submit failed');
                     }
                 }, err => {
                     this.hasError = true;
                     this.loading = false;
                     this.completed = false;
-                    console.log('error submitting details');
                 });
+            }
+            else {
+                this.hasError = true;
+                this.loading = false;
+                this.completed = false;
+                console.log('submit failed');
             }
         });
     }
@@ -10793,39 +10787,33 @@ let FrontDeskViewFormPageComponent = class FrontDeskViewFormPageComponent {
         this.modalService.open(this.confirmDialog, { centered: true }).result.then(result => {
             if (result == 'yes') {
                 this.loading = true;
-                this.submit().then(ok => {
-                    if (ok) {
-                        console.log('submitting done');
-                        this.frontDeskService.processForm(this.form.submission_code, this.form.client_submitted_details).then(res => {
-                            const response = res;
-                            console.log('process res');
-                            if (lodash__WEBPACK_IMPORTED_MODULE_2__["toLower"](response.message) == 'ok') {
-                                this.loading = false;
-                                this.submitted = true;
-                            }
-                            else {
-                                this.loading = false;
-                                this.submitted = false;
-                            }
-                        }, err => {
-                            console.log('process err');
-                            this.loading = false;
-                            this.submitted = false;
-                            this.hasError = true;
-                        });
+                // this.submit().then(
+                //   ok => {
+                //     if (ok) {
+                //       console.log('submitting done');
+                this.frontDeskService.processForm(this.form.submission_code, this.form.client_submitted_details).then(res => {
+                    const response = res;
+                    console.log('process res');
+                    if (lodash__WEBPACK_IMPORTED_MODULE_2__["toLower"](response.message) == 'ok') {
+                        this.loading = false;
+                        this.submitted = true;
                     }
                     else {
-                        this.hasError = true;
                         this.loading = false;
-                        this.completed = false;
-                        console.log('submitting failed');
+                        this.submitted = false;
                     }
                 }, err => {
-                    this.hasError = true;
+                    console.log('process err');
                     this.loading = false;
-                    this.completed = false;
-                    console.log('error while submitting');
+                    this.submitted = false;
+                    this.hasError = true;
                 });
+            }
+            else {
+                this.hasError = true;
+                this.loading = false;
+                this.completed = false;
+                console.log('submitting failed');
             }
         });
     }
@@ -10834,61 +10822,66 @@ let FrontDeskViewFormPageComponent = class FrontDeskViewFormPageComponent {
         this.modalService.open(this.confirmDialog, { centered: true }).result.then(result => {
             if (result == 'yes') {
                 this.loading = true;
-                this.submit().then(ok => {
-                    if (ok) {
-                        console.log('submit done');
-                        this.frontDeskService.unprocessForm(this.form.submission_code, this.form.client_submitted_details).then(res => {
-                            const response = res;
-                            if (lodash__WEBPACK_IMPORTED_MODULE_2__["toLower"](response.message) == 'ok') {
-                                this.loading = false;
-                                this.rejected = true;
-                            }
-                            else {
-                                this.loading = false;
-                                this.rejected = false;
-                            }
-                        }, err => {
-                            this.loading = false;
-                            this.hasError = true;
-                            this.rejected = false;
-                        });
+                // this.submit().then(
+                //   ok => {
+                //     if (ok) {
+                //       console.log('submit done');
+                this.frontDeskService.unprocessForm(this.form.submission_code, this.form.client_submitted_details).then(res => {
+                    const response = res;
+                    if (lodash__WEBPACK_IMPORTED_MODULE_2__["toLower"](response.message) == 'ok') {
+                        this.loading = false;
+                        this.rejected = true;
                     }
                     else {
-                        this.hasError = true;
                         this.loading = false;
-                        this.completed = false;
-                        console.log('submit failed');
+                        this.rejected = false;
                     }
                 }, err => {
-                    this.hasError = true;
                     this.loading = false;
-                    this.completed = false;
-                    console.log('error while submitting');
+                    this.hasError = true;
+                    this.rejected = false;
                 });
             }
+            else {
+                this.hasError = true;
+                this.loading = false;
+                this.completed = false;
+                console.log('submit failed');
+            }
         });
+        //   },
+        //         err => {
+        //           this.hasError = true;
+        //           this.loading = false;
+        //           this.completed = false;
+        //           console.log('error while submitting');
+        //         }
+        //       );
+        //     }
+        //   }
+        // );
     }
-    getExistingAttachments(unfilled_fields) {
-        // This gets all the existing attachments so they can be uploaded
-        // if the user doesnt choose any new file.
-        const fields = [];
-        lodash__WEBPACK_IMPORTED_MODULE_2__["forEach"](this.existingAttachments, (attachment) => {
-            console.log('attachment: ' + JSON.stringify(attachment));
-            lodash__WEBPACK_IMPORTED_MODULE_2__["forEach"](unfilled_fields, (field) => {
-                if (field.type == 'file') {
-                    if (attachment.key == field.name) {
-                        fields.push(field);
-                    }
-                }
-            });
-        });
-        console.log('unfilleed: ' + JSON.stringify(fields));
-        return fields;
-        // const fields = [];
-        // _.forEach(this.existingAttachments, (attachment) => {
-        //   console.log('Attachments: ' + JSON.stringify(attachment));
-        // });
-    }
+    // getExistingAttachments(unfilled_fields: any[]) {
+    //   // This gets all the existing attachments so they can be uploaded
+    //   // if the user doesnt choose any new file.
+    //   const fields = [];
+    //   _.forEach(this.existingAttachments, (attachment) => {
+    //     console.log('attachment: ' + JSON.stringify(attachment));
+    //     _.forEach(unfilled_fields, (field) => {
+    //       if (field.type == 'file') {
+    //         if (attachment.key == field.name) {
+    //           fields.push(field);
+    //         }
+    //       }
+    //     });
+    //   });
+    //   console.log('unfilleed: ' + JSON.stringify(fields));
+    //   return fields;
+    //   // const fields = [];
+    //   // _.forEach(this.existingAttachments, (attachment) => {
+    //   //   console.log('Attachments: ' + JSON.stringify(attachment));
+    //   // });
+    // }
     // getExistingAttachments(unfilled_fields: any[]) {
     //   let fields = [];
     //   _.forEach(this.existingAttachments, (attachment) => {
@@ -10902,144 +10895,171 @@ let FrontDeskViewFormPageComponent = class FrontDeskViewFormPageComponent {
     //   console.log('unfilleed: ' + JSON.stringify(fields));
     //   return fields;
     // }
-    uploadFormFile(form_code, key, index) {
-        return new Promise((resolve, reject) => {
-            this.clientService.uploadFormAttachments(this.user.id.toString(), this.form.form_code, form_code, key, this.attachmentFiles[index]).then(ok => {
-                if (ok) {
-                    console.log('file upload done');
-                    resolve(true);
-                }
-                else {
-                    console.log('file upload failed');
-                    resolve(false);
-                }
-            }, err => {
-                console.log('file upload error');
-                reject(err);
-            });
-        });
-    }
-    uploadFormAttachments(form_code) {
-        return new Promise((resolve, reject) => {
-            console.log('doing upload');
-            const promises = [];
-            const num_of_attachments = this.attachmentFiles.length;
-            if (num_of_attachments > 1) {
-                console.log('will do multiple uploads');
-                for (let i = 0; i < num_of_attachments; i++) {
-                    const p = this.uploadFormFile(form_code, this.attachmentKeys[i], i);
-                    promises.push(p);
-                    if (i == num_of_attachments) {
-                        Promise.all(promises).then(res => {
-                            resolve(true);
-                        }, err => {
-                            reject(false);
-                        });
-                    }
-                }
-            }
-            else {
-                console.log('will do single upload');
-                this.uploadFormFile(form_code, this.attachmentKeys[0], 0).then(ok => {
-                    ok ? resolve(true) : resolve(false);
-                }, err => {
-                    reject(err);
-                });
-            }
-        });
-    }
-    submitFormWithAttachments(user_data) {
-        return new Promise((resolve, reject) => {
-            console.log('is submitting');
-            const filled_data = this.formBuilder.getFormUserData(user_data);
-            const updated_data = this.clientService.getUpdatedClientFormData(JSON.parse(filled_data), this.form.client_submitted_details);
-            console.log('new updates: ' + updated_data);
-            this.clientService.editProfile(this.form.client_id, JSON.parse(updated_data)).then(res => {
-                const response = res;
-                if (lodash__WEBPACK_IMPORTED_MODULE_2__["toLower"](response.message) == 'ok') {
-                    console.log('uploading attachment has started');
-                    this.uploadFormAttachments(this.form.submission_code).then(ok => {
-                        ok ? resolve(true) : resolve(false);
-                    }, err => {
-                        reject(err);
-                    });
-                }
-                else {
-                    reject();
-                }
-            }, err => {
-                reject(err);
-            });
-        });
-    }
-    submitFormWithoutAttachments(user_data) {
-        return new Promise((resolve, reject) => {
-            console.log('is submitting');
-            console.log('user_data: ' + JSON.stringify(user_data));
-            const filled_data = this.formBuilder.getFormUserData(user_data);
-            console.log('filled_data: ' + filled_data);
-            const updated_data = this.clientService.getUpdatedClientFormData(JSON.parse(filled_data), this.form.client_submitted_details);
-            console.log('new updates: ' + updated_data);
-            this.clientService.editProfile(this.form.client_id, JSON.parse(updated_data)).then(res => {
-                console.log('edit res');
-                const response = res;
-                if (lodash__WEBPACK_IMPORTED_MODULE_2__["toLower"](response.message) == 'ok') {
-                    resolve(true);
-                }
-                else {
-                    console.log('failed: ' + response.message);
-                    resolve(false);
-                }
-            }, err => {
-                console.log('edit err');
-                reject(err);
-            });
-        });
-    }
-    submit() {
-        return new Promise((resolve, reject) => {
-            const user_data = this.getFormData();
-            console.log(JSON.stringify(user_data));
-            const unfilled = this.clientService.validateFormFilled(user_data);
-            console.log('unfilled: ' + JSON.stringify(unfilled));
-            if (unfilled.length != 0) {
-                const fileFields = this.getExistingAttachments(unfilled);
-                console.log('fileFields: ' + JSON.stringify(fileFields));
-                if (fileFields.length == 0) {
-                    this.loading = false;
-                    this.clientService.highlightUnFilledFormFields(unfilled);
-                }
-                else {
-                    if (this.attachmentFiles.length > 0) {
-                        // front desk added new files
-                        console.log('front desk added files: - uploading');
-                        this.submitFormWithAttachments(user_data).then(ok => {
-                            ok ? resolve(true) : resolve(false);
-                        }, err => {
-                            reject(err);
-                        });
-                    }
-                    else {
-                        // front desk didnt add any file
-                        console.log('submitting without attachment');
-                        this.submitFormWithoutAttachments(user_data).then(ok => {
-                            ok ? resolve(true) : resolve(false);
-                        }, err => {
-                            reject(err);
-                        });
-                    }
-                }
-            }
-            else {
-                // since everything checks out, we dont have to upload the attachments too.
-                this.submitFormWithoutAttachments(user_data).then(ok => {
-                    ok ? resolve(true) : resolve(false);
-                }, err => {
-                    reject(err);
-                });
-            }
-        });
-    }
+    // uploadFormFile(form_code: string, key: string, index: number): Promise<boolean> {
+    //   return new Promise((resolve, reject) => {
+    //     this.clientService.uploadFormAttachments(this.user.id.toString(), this.form.form_code, form_code, key, this.attachmentFiles[index]).then(
+    //       ok => {
+    //         if (ok) {
+    //           console.log('file upload done');
+    //           resolve(true);
+    //         }
+    //         else {
+    //           console.log('file upload failed');
+    //           resolve(false);
+    //         }
+    //       },
+    //       err => {
+    //         console.log('file upload error');
+    //         reject(err);
+    //       }
+    //     );
+    //   });
+    // }
+    // uploadFormAttachments(form_code: string): Promise<boolean> {
+    //   return new Promise((resolve, reject) => {
+    //     console.log('doing upload');
+    //     const promises = [];
+    //     const num_of_attachments = this.attachmentFiles.length;
+    //     if (num_of_attachments > 1) {
+    //       console.log('will do multiple uploads');
+    //       for (let i = 0; i < num_of_attachments; i++) {
+    //         const p = this.uploadFormFile(form_code, this.attachmentKeys[i], i);
+    //         promises.push(p);
+    //         if (i == num_of_attachments) {
+    //           Promise.all(promises).then(
+    //             res => {
+    //               resolve(true);
+    //             },
+    //             err => {
+    //               reject(false);
+    //             }
+    //           );
+    //         }
+    //       }
+    //     }
+    //     else {
+    //       console.log('will do single upload');
+    //       this.uploadFormFile(form_code, this.attachmentKeys[0], 0).then(
+    //         ok => {
+    //           ok ? resolve(true) : resolve(false);
+    //         },
+    //         err => {
+    //           reject(err);
+    //         }
+    //       );
+    //     }
+    //   });
+    // }
+    // submitFormWithAttachments(user_data: any): Promise<boolean> {
+    //   return new Promise((resolve, reject) => {
+    //     console.log('is submitting');
+    //     const filled_data = this.formBuilder.getFormUserData(user_data);
+    //     const updated_data = this.clientService.getUpdatedClientFormData(JSON.parse(filled_data), this.form.client_submitted_details);
+    //     console.log('new updates: ' + updated_data);
+    //     this.clientService.editProfile(this.form.client_id, JSON.parse(updated_data)).then(
+    //       res => {
+    //         const response = res as any;
+    //         if (_.toLower(response.message) == 'ok') {
+    //           console.log('uploading attachment has started');
+    //           this.uploadFormAttachments(this.form.submission_code).then(
+    //             ok => {
+    //               ok ? resolve(true) : resolve(false);
+    //             },
+    //             err => {
+    //               reject(err);
+    //             }
+    //           );
+    //         }
+    //         else {
+    //           reject();
+    //         }
+    //       },
+    //       err => {
+    //         reject(err);
+    //       }
+    //     );
+    //   });
+    // }
+    // submitFormWithoutAttachments(user_data: any): Promise<boolean> {
+    //   return new Promise((resolve, reject) => {
+    //     console.log('is submitting');
+    //     console.log('user_data: ' + JSON.stringify(user_data));
+    //     const filled_data = this.formBuilder.getFormUserData(user_data);
+    //     console.log('filled_data: ' + filled_data);
+    //     const updated_data = this.clientService.getUpdatedClientFormData(JSON.parse(filled_data), this.form.client_submitted_details);
+    //     console.log('new updates: ' + updated_data);
+    //     this.clientService.editProfile(this.form.client_id, JSON.parse(updated_data)).then(
+    //       res => {
+    //         console.log('edit res');
+    //         const response = res as any;
+    //         if (_.toLower(response.message) == 'ok') {
+    //           resolve(true);
+    //         }
+    //         else {
+    //           console.log('failed: ' + response.message);
+    //           resolve(false);
+    //         }
+    //       },
+    //       err => {
+    //         console.log('edit err');
+    //         reject(err);
+    //       }
+    //     );
+    //   });
+    // }
+    // submit(): Promise<boolean> {
+    //   return new Promise((resolve, reject) => {
+    //     const user_data = this.getFormData();
+    //     console.log(JSON.stringify(user_data));
+    //     const unfilled = this.clientService.validateFormFilled(user_data);
+    //     console.log('unfilled: ' + JSON.stringify(unfilled));
+    //     if (unfilled.length != 0) {
+    //       const fileFields = this.getExistingAttachments(unfilled);
+    //       console.log('fileFields: ' + JSON.stringify(fileFields));
+    //       if (fileFields.length == 0) {
+    //         this.loading = false;
+    //         this.clientService.highlightUnFilledFormFields(unfilled);
+    //       }
+    //       else {
+    //         if (this.attachmentFiles.length > 0) {
+    //           // front desk added new files
+    //           console.log('front desk added files: - uploading');
+    //           this.submitFormWithAttachments(user_data).then(
+    //             ok => {
+    //               ok ? resolve(true) : resolve(false);
+    //             },
+    //             err => {
+    //               reject(err);
+    //             }
+    //           );
+    //         }
+    //         else {
+    //           // front desk didnt add any file
+    //           console.log('submitting without attachment');
+    //           this.submitFormWithoutAttachments(user_data).then(
+    //             ok => {
+    //               ok ? resolve(true) : resolve(false);
+    //             },
+    //             err => {
+    //               reject(err);
+    //             }
+    //           );
+    //         }
+    //       }
+    //     }
+    //     else {
+    //       // since everything checks out, we dont have to upload the attachments too.
+    //       this.submitFormWithoutAttachments(user_data).then(
+    //         ok => {
+    //           ok ? resolve(true) : resolve(false);
+    //         },
+    //         err => {
+    //           reject(err);
+    //         }
+    //       );
+    //     }
+    //   });
+    // }
     downloadDoc(url) {
         this.docDialogRef.close();
         this.downloadService.download(url);
@@ -17275,8 +17295,6 @@ let ForgotPasswordPageComponent = class ForgotPasswordPageComponent {
     }
     buildForm() {
         this.form = this.formBuilder.group({
-            phone: ['', _angular_forms__WEBPACK_IMPORTED_MODULE_3__["Validators"].required],
-            dialCode: ['233', _angular_forms__WEBPACK_IMPORTED_MODULE_3__["Validators"].required],
             email: ['', [_angular_forms__WEBPACK_IMPORTED_MODULE_3__["Validators"].email, _angular_forms__WEBPACK_IMPORTED_MODULE_3__["Validators"].required]]
         });
     }
@@ -17289,24 +17307,22 @@ let ForgotPasswordPageComponent = class ForgotPasswordPageComponent {
         }
         else {
             this.form.disable();
-            // this.accountService.changeAccountPassword(user_id, newPassword).then(
-            //   res => {
-            //     const response = res as any;
-            //     this.form.enable();
-            //     this.loading = false;
-            //     if (_.toLower(response.message) == 'ok') {
-            //       sessionStorage.clear();
-            //       this.router.navigateByUrl('user_auth');
-            //     }
-            //     else {
-            //       this.invalid = true;
-            //     }
-            //   },
-            //   err => {
-            //     this.form.enable();
-            //     this.loading = false;
-            //   }
-            // );
+            this.isValid = false;
+            this.isInvalid = false;
+            this.accountService.verifyAccountForResetting(this.f.email.value).then(ok => {
+                console.log('ok: ' + ok);
+                if (ok) {
+                    this.loading = false;
+                    this.isValid = true;
+                }
+                else {
+                    this.loading = false;
+                    this.isInvalid = true;
+                }
+            }, err => {
+                this.form.enable();
+                this.loading = false;
+            });
         }
     }
 };
@@ -17675,6 +17691,7 @@ let RegisterPageComponent = class RegisterPageComponent {
         return user;
     }
     handleLaravelErrors(e) {
+        console.log('laravelError: ' + JSON.stringify(e));
         if (e.errors.username) {
             console.log('ok');
             this.error = e.errors.username;
@@ -17769,9 +17786,12 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "ResetPasswordPageComponent", function() { return ResetPasswordPageComponent; });
 /* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm2015/core.js");
-/* harmony import */ var _angular_router__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @angular/router */ "./node_modules/@angular/router/fesm2015/router.js");
-/* harmony import */ var _angular_forms__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @angular/forms */ "./node_modules/@angular/forms/fesm2015/forms.js");
-/* harmony import */ var src_app_services_account_account_service__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! src/app/services/account/account.service */ "./src/app/services/account/account.service.ts");
+/* harmony import */ var lodash__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! lodash */ "./node_modules/lodash/lodash.js");
+/* harmony import */ var lodash__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(lodash__WEBPACK_IMPORTED_MODULE_2__);
+/* harmony import */ var _angular_router__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @angular/router */ "./node_modules/@angular/router/fesm2015/router.js");
+/* harmony import */ var _angular_forms__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @angular/forms */ "./node_modules/@angular/forms/fesm2015/forms.js");
+/* harmony import */ var src_app_services_account_account_service__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! src/app/services/account/account.service */ "./src/app/services/account/account.service.ts");
+
 
 
 
@@ -17791,8 +17811,8 @@ let ResetPasswordPageComponent = class ResetPasswordPageComponent {
     }
     buildForm() {
         this.form = this.formBuilder.group({
-            password: ['', [_angular_forms__WEBPACK_IMPORTED_MODULE_3__["Validators"].required, _angular_forms__WEBPACK_IMPORTED_MODULE_3__["Validators"].minLength(6)]],
-            password2: ['', [_angular_forms__WEBPACK_IMPORTED_MODULE_3__["Validators"].required, _angular_forms__WEBPACK_IMPORTED_MODULE_3__["Validators"].minLength(6)]],
+            password: ['', [_angular_forms__WEBPACK_IMPORTED_MODULE_4__["Validators"].required, _angular_forms__WEBPACK_IMPORTED_MODULE_4__["Validators"].minLength(6)]],
+            password2: ['', [_angular_forms__WEBPACK_IMPORTED_MODULE_4__["Validators"].required, _angular_forms__WEBPACK_IMPORTED_MODULE_4__["Validators"].minLength(6)]],
         });
     }
     passwordsMatch() {
@@ -17803,17 +17823,37 @@ let ResetPasswordPageComponent = class ResetPasswordPageComponent {
             return true;
         }
     }
+    getClientId() {
+        const index = window.location.href.lastIndexOf('=') + 1;
+        const id = window.location.href.substr(index);
+        return id;
+    }
     create() {
         this.submitted = true;
         if (this.form.invalid) {
             this.form.enable();
-            this.loading = false;
         }
         else {
             if (this.passwordsMatch()) {
                 console.log('matches');
                 this.form.disable();
                 this.loading = true;
+                const client_id = this.getClientId();
+                this.accountService.changeAccountPassword(client_id, this.f.password.value).then(res => {
+                    const response = res;
+                    this.form.enable();
+                    this.loading = false;
+                    if (lodash__WEBPACK_IMPORTED_MODULE_2__["toLower"](response.message) == 'ok') {
+                        sessionStorage.clear();
+                        this.router.navigateByUrl('login');
+                    }
+                    else {
+                        this.invalid = true;
+                    }
+                }, err => {
+                    this.form.enable();
+                    this.loading = false;
+                });
             }
             else {
                 this.form.enable();
@@ -17821,31 +17861,13 @@ let ResetPasswordPageComponent = class ResetPasswordPageComponent {
                 console.log('doesnt match');
                 this.f.password2.setErrors({ unmatched: true });
             }
-            // this.accountService.changeAccountPassword(user_id, newPassword).then(
-            //   res => {
-            //     const response = res as any;
-            //     this.form.enable();
-            //     this.loading = false;
-            //     if (_.toLower(response.message) == 'ok') {
-            //       sessionStorage.clear();
-            //       this.router.navigateByUrl('user_auth');
-            //     }
-            //     else {
-            //       this.invalid = true;
-            //     }
-            //   },
-            //   err => {
-            //     this.form.enable();
-            //     this.loading = false;
-            //   }
-            // );
         }
     }
 };
 ResetPasswordPageComponent.ctorParameters = () => [
-    { type: _angular_router__WEBPACK_IMPORTED_MODULE_2__["Router"] },
-    { type: _angular_forms__WEBPACK_IMPORTED_MODULE_3__["FormBuilder"] },
-    { type: src_app_services_account_account_service__WEBPACK_IMPORTED_MODULE_4__["AccountService"] }
+    { type: _angular_router__WEBPACK_IMPORTED_MODULE_3__["Router"] },
+    { type: _angular_forms__WEBPACK_IMPORTED_MODULE_4__["FormBuilder"] },
+    { type: src_app_services_account_account_service__WEBPACK_IMPORTED_MODULE_5__["AccountService"] }
 ];
 ResetPasswordPageComponent = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
     Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Component"])({
@@ -18310,10 +18332,11 @@ let AccountService = class AccountService {
             });
         });
     }
-    verifyAccountForResetting(email, phone) {
+    verifyAccountForResetting(email) {
         return new Promise((resolve, reject) => {
-            const url = 'api/v1/';
-            this.http.post(url, {}, { headers: this.authHeaders }).subscribe(res => {
+            const body = { email: email };
+            const url = this.endpointService.apiHost + 'api/forgotPassword';
+            this.http.post(url, JSON.stringify(body), { headers: this.headers }).subscribe(res => {
                 console.log('res_: ' + JSON.stringify(res));
                 const response = res;
                 lodash__WEBPACK_IMPORTED_MODULE_2__["toLower"](response.message) == 'ok'
@@ -18325,18 +18348,21 @@ let AccountService = class AccountService {
             });
         });
     }
-    resetAccountPassword(email, new_password) {
-        return new Promise((resolve, reject) => {
-            const url = 'api/v1/';
-            this.http.post(url, {}, { headers: this.authHeaders }).subscribe(res => {
-                console.log('res_: ' + JSON.stringify(res));
-                resolve(res);
-            }, err => {
-                console.log('err_:' + JSON.stringify(err));
-                reject(err);
-            });
-        });
-    }
+    // resetAccountPassword(email: string, new_password: string): Promise<any> {
+    //   return new Promise((resolve, reject) => {
+    //     const url = 'api/v1/';
+    //     this.http.post(url, {}, { headers: this.authHeaders }).subscribe(
+    //       res => {
+    //         console.log('res_: ' + JSON.stringify(res));
+    //         resolve(res);
+    //       },
+    //       err => {
+    //         console.log('err_:' + JSON.stringify(err));
+    //         reject(err);
+    //       }
+    //     );
+    //   });
+    // }
     /**
      * Logs a user out.
      *

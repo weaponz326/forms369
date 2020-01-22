@@ -46,6 +46,8 @@ export class ForgotPasswordPageComponent implements OnInit {
     }
     else {
       this.form.disable();
+      this.isValid = false;
+      this.isInvalid = false;
       this.accountService.verifyAccountForResetting(this.f.email.value).then(
         ok => {
           console.log('ok: ' + ok);

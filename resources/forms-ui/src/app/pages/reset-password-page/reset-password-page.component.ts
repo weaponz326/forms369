@@ -45,17 +45,41 @@ export class ResetPasswordPageComponent implements OnInit {
     }
   }
 
+  getClientId() {
+    const index = window.location.href.lastIndexOf('=') + 1;
+    const id = window.location.href.substr(index);
+    return id;
+  }
+
   create() {
     this.submitted = true;
     if (this.form.invalid) {
       this.form.enable();
-      this.loading = false;
     }
     else {
       if (this.passwordsMatch()) {
         console.log('matches');
         this.form.disable();
         this.loading = true;
+        const client_id = this.getClientId();
+        this.accountService.changeAccountPassword(client_id, this.f.password.value).then(
+          res => {
+            const response = res as any;
+            this.form.enable();
+            this.loading = false;
+            if (_.toLower(response.message) == 'ok') {
+              sessionStorage.clear();
+              this.router.navigateByUrl('login');
+            }
+            else {
+              this.invalid = true;
+            }
+          },
+          err => {
+            this.form.enable();
+            this.loading = false;
+          }
+        );
       }
       else {
         this.form.enable();
@@ -63,24 +87,6 @@ export class ResetPasswordPageComponent implements OnInit {
         console.log('doesnt match');
         this.f.password2.setErrors({ unmatched: true });
       }
-      // this.accountService.changeAccountPassword(user_id, newPassword).then(
-      //   res => {
-      //     const response = res as any;
-      //     this.form.enable();
-      //     this.loading = false;
-      //     if (_.toLower(response.message) == 'ok') {
-      //       sessionStorage.clear();
-      //       this.router.navigateByUrl('user_auth');
-      //     }
-      //     else {
-      //       this.invalid = true;
-      //     }
-      //   },
-      //   err => {
-      //     this.form.enable();
-      //     this.loading = false;
-      //   }
-      // );
     }
   }
 

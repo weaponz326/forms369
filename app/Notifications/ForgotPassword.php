@@ -42,7 +42,7 @@ class ForgotPassword extends Notification
      */
     public function toMail($notifiable)
     {
-        $url = URL::temporarySignedRoute('forgotpasswordlink', now()->addMinute(10), ['token' => $notifiable->active_token]);
+        $url = URL::temporarySignedRoute('forgotpasswordlink', now()->addMinute(10), ['token' => $notifiable->passwordreset_token]);
         return (new MailMessage)
             ->subject('Reset your Forms369 Password')
             ->line('To reset your password, click the button below:')
