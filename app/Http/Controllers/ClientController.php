@@ -706,7 +706,7 @@ class ClientController extends Controller
         ->delete(); 
  
         if($deleteattachements){
-            unlink(storage_path('attachments/'.$name));
+            unlink(storage_path('app/public/attachments/'.$name));
             $message = "Ok";
         }
 
