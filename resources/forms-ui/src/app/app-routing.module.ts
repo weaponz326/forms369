@@ -85,6 +85,7 @@ import { ExecClientFormsPageComponent } from './pages/dashboard/executive/exec-c
 import { ExecClientsFormsDataPageComponent } from './pages/dashboard/executive/exec-clients-forms-data-page/exec-clients-forms-data-page.component';
 import { ClientFormLinkPageComponent } from './pages/dashboard/client/client-form-link-page/client-form-link-page.component';
 import { ClientFormLinkRedirectPageComponent } from './pages/dashboard/client/client-form-link-redirect-page/client-form-link-redirect-page.component';
+import { ResetPasswordPageComponent } from './pages/reset-password-page/reset-password-page.component';
 
 const routes: Routes = [
   {
@@ -114,6 +115,10 @@ const routes: Routes = [
   {
     path: 'forgot',
     component: ForgotPasswordPageComponent
+  },
+  {
+    path: 'reset',
+    component: ResetPasswordPageComponent
   },
   {
     path: 'master_register',

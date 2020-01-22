@@ -3,7 +3,7 @@
     <div class="content-wrapper d-flex align-items-center auth px-0">
       <div class="row w-100 mx-0">
         <div class="col-lg-4 mx-auto">
-          <div class="auth-form-light text-left py-5 px-4 px-sm-5">
+          <div class="text-center auth-form-light text-left py-5 px-4 px-sm-5">
             <a href="/" class="brand-logo">
               <img src="../assets/images/logo.png" alt="logo">
             </a>
@@ -27,8 +27,8 @@
               </div>
             </div>
 
-            <h4 *ngIf="!created">New here?</h4>
-            <h6 *ngIf="!created" class="font-weight-normal">Signing up is easy. It only takes a few steps</h6>
+            <h4 *ngIf="!created" class="text-center">Sign Up</h4>
+            <!-- <h6 *ngIf="!created" class="font-weight-normal text-center">Signing up is easy. It only takes a few steps</h6> -->
             <form *ngIf="!created" [formGroup]="form" (ngSubmit)="register()" class="pt-3">
               <!-- <div class="form-group">
                 <select class="form-control form-control-lg" formControlName="userType"

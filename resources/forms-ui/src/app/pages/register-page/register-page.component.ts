@@ -106,6 +106,7 @@ export class RegisterPageComponent implements OnInit {
   }
 
   handleLaravelErrors(e: any) {
+    console.log('laravelError: ' + JSON.stringify(e));
     if (e.errors.username) {
       console.log('ok');
       this.error = e.errors.username;

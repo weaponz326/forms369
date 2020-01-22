@@ -12,14 +12,16 @@ import { AccountService } from 'src/app/services/account/account.service';
 export class ForgotPasswordPageComponent implements OnInit {
   form: FormGroup;
   loading: boolean;
-  invalid: boolean;
+  isValid: boolean;
+  isInvalid: boolean;
   submitted: boolean;
 
   constructor(
     private router: Router,
     private formBuilder: FormBuilder,
     private accountService: AccountService
-  ) { }
+  ) {
+}
 
   ngOnInit() {
     this.buildForm();
@@ -31,7 +33,6 @@ export class ForgotPasswordPageComponent implements OnInit {
 
   buildForm() {
     this.form = this.formBuilder.group({
-      dialCode: ['233', Validators.required],
       email: ['', [Validators.email, Validators.required]]
     });
   }
@@ -45,24 +46,25 @@ export class ForgotPasswordPageComponent implements OnInit {
     }
     else {
       this.form.disable();
-      // this.accountService.changeAccountPassword(user_id, newPassword).then(
-      //   res => {
-      //     const response = res as any;
-      //     this.form.enable();
-      //     this.loading = false;
-      //     if (_.toLower(response.message) == 'ok') {
-      //       sessionStorage.clear();
-      //       this.router.navigateByUrl('user_auth');
-      //     }
-      //     else {
-      //       this.invalid = true;
-      //     }
-      //   },
-      //   err => {
-      //     this.form.enable();
-      //     this.loading = false;
-      //   }
-      // );
+      this.isValid = false;
+      this.isInvalid = false;
+      this.accountService.verifyAccountForResetting(this.f.email.value).then(
+        ok => {
+          console.log('ok: ' + ok);
+          if (ok) {
+            this.loading = false;
+            this.isValid = true;
+          }
+          else {
+            this.loading = false;
+            this.isInvalid = true;
+          }
+        },
+        err => {
+          this.form.enable();
+          this.loading = false;
+        }
+      );
     }
   }
 

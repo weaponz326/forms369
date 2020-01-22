@@ -122,27 +122,22 @@ export class UserAccountCreatorComponent implements OnInit {
 
     this.isAdmin = this.f.userType.value == UserTypes.GitAdmin ? true : false;
     this.isCompAdmin = this.f.userType.value == UserTypes.CompanyAdmin ? true : false;
-    this.isSuperExec = this.f.userType.value == UserTypes.SuperExecutive ? true : false;
+    this.isSuperExec = this.f.userType.value == UserTypes.SuperExecutive  ? true : false;
     this.isFrontDesk =
       this.f.userType.value == UserTypes.FrontDesk ||
       this.f.userType.value == UserTypes.BranchSuperExecutive ||
       this.f.userType.value == UserTypes.BranchAdmin ? true : false;
 
-    if (this.isCompAdmin || this.isSuperExec) {
+    if (this.isCompAdmin || this.isSuperExec || this.f.userType.value == UserTypes.BranchSuperExecutive) {
       // remove validators of merchant and branch
       // so the account can be created.
       this.f.branch.clearValidators();
       this.f.merchant.clearValidators();
       this.f.branch.updateValueAndValidity();
       this.f.merchant.updateValueAndValidity();
-
-      // Since merchant isnt a required field in our form in this case, and also
-      // we need to make sure the right merchant has been selected.
-      // delete this.f.merchant.errors.required;
-      // this.f.merchant.updateValueAndValidity();
     }
 
-    if (this.f.userType.value == UserTypes.GitAdmin) {
+    if (this.f.userType.value == UserTypes.GitAdmin || this.f.userType.value == UserTypes.BranchAdmin) {
       // remove validation of merchant and branch
       // so the account can be created.
       this.f.branch.clearValidators();
@@ -157,14 +152,19 @@ export class UserAccountCreatorComponent implements OnInit {
 
   handleUserSelection() {
     if (!this.isGitAdmin) {
+      console.log('not git admin');
       // if logged in user is not a GIT Admin it means logged in user can only create
       // a front desk account. And since we are hiding the option to choose which kind
       // of user to be created, we have to set the user to Front Desk.
       this.f.userType.setValue('25');
       if (this.isCompUser) {
+        console.log('is comp admin');
         this.f.merchant.clearValidators();
         this.f.merchant.updateValueAndValidity();
       }
+    }
+    else {
+      console.log('no git admin');
     }
   }
 
@@ -208,30 +208,38 @@ export class UserAccountCreatorComponent implements OnInit {
   }
 
   containErrors(data: Users) {
-    if (this.isGitAdmin) {
+    if (this.f.userType.value == UserTypes.GitAdmin) {
+      console.log('containErrors isGitAdmin');
       return false;
     }
     else {
       if (data.merchant_id == 0) {
         if (this.f.merchant.value == '') {
-          return false;
+          if (data.branch_id == 0) {
+            if (this.f.branch.value == '') {
+              return false;
+            }
+            else {
+              console.log('no branch');
+              this.f.branch.setErrors({ null: true });
+              return true;
+            }
+          }
         }
         else {
-          console.log('no merchant');
-          this.f.merchant.setErrors({ null: true });
-          return true;
+          if (data.branch_id == 0) {
+            if (this.f.branch.value == '') {
+              console.log('no merchant');
+              this.f.merchant.setErrors({ null: true });
+              return true;
+            }
+            else {
+              console.log('no branch');
+              this.f.branch.setErrors({ null: true });
+              return true;
+            }
+          }
         }
-      }
-    }
-
-    if (this.isCompAdmin || this.isSuperExec) {
-      return false;
-    }
-    else {
-      if (data.branch_id == 0) {
-        console.log('no branch');
-        this.f.branch.setErrors({ null: true });
-        return true;
       }
     }
   }
@@ -332,11 +340,12 @@ export class UserAccountCreatorComponent implements OnInit {
     this.submitted = true;
     this.handleUserSelection();
     if (this.form.invalid) {
-      console.log('errrrrrrr: ' + this.form.errors);
-      this.form.enable();
       this.loading = false;
+      console.log('errrrrrrr: ' + this.form.errors);
     }
     else {
+      this.loading = false;
+      console.log('am here');
       const user = this.getFormData();
       if (!this.containErrors(user)) {
         this.form.disable();
@@ -370,16 +379,6 @@ export class UserAccountCreatorComponent implements OnInit {
   }
 
   cancel() {
-    // this.f.firstName.setValue('');
-    // this.f.lastName.setValue('');
-    // this.f.country.setValue('');
-    // this.f.username.setValue('');
-    // this.f.userType.setValue('');
-    // this.f.branch.setValue('');
-    // this.f.merchant.setValue('');
-    // this.f.phone.setValue('');
-    // this.f.password.setValue('');
-    // this.f.emailAddress.setValue('');
     window.history.back();
   }
 

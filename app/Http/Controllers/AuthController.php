@@ -766,8 +766,8 @@ class AuthController extends Controller
             // ], 404);
         }
         if (! $request->hasValidSignature()) {
-            return redirect()->route('invalid_confirm_link');
             // abort(401, 'Link expired');
+            return redirect()->route('invalid_confirm_link');
         }
 
         $user->active_token = NULL;
