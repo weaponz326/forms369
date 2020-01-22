@@ -5,11 +5,11 @@ import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { AccountService } from 'src/app/services/account/account.service';
 
 @Component({
-  selector: 'app-forgot-password-page',
-  templateUrl: './forgot-password-page.component.html',
-  styleUrls: ['./forgot-password-page.component.css']
+  selector: 'app-reset-password-page',
+  templateUrl: './reset-password-page.component.html',
+  styleUrls: ['./reset-password-page.component.css']
 })
-export class ForgotPasswordPageComponent implements OnInit {
+export class ResetPasswordPageComponent implements OnInit {
   form: FormGroup;
   loading: boolean;
   invalid: boolean;
@@ -19,8 +19,7 @@ export class ForgotPasswordPageComponent implements OnInit {
     private router: Router,
     private formBuilder: FormBuilder,
     private accountService: AccountService
-  ) {
-}
+  ) { }
 
   ngOnInit() {
     this.buildForm();
@@ -32,21 +31,38 @@ export class ForgotPasswordPageComponent implements OnInit {
 
   buildForm() {
     this.form = this.formBuilder.group({
-      phone: ['', Validators.required],
-      dialCode: ['233', Validators.required],
-      email: ['', [Validators.email, Validators.required]]
+      password: ['', [Validators.required, Validators.minLength(6)]],
+      password2: ['', [Validators.required, Validators.minLength(6)]],
     });
   }
 
+  passwordsMatch() {
+    if (this.f.password.value != this.f.password2.value) {
+      return false;
+    }
+    else {
+      return true;
+    }
+  }
+
   create() {
-    this.loading = true;
     this.submitted = true;
     if (this.form.invalid) {
       this.form.enable();
       this.loading = false;
     }
     else {
-      this.form.disable();
+      if (this.passwordsMatch()) {
+        console.log('matches');
+        this.form.disable();
+        this.loading = true;
+      }
+      else {
+        this.form.enable();
+        this.loading = false;
+        console.log('doesnt match');
+        this.f.password2.setErrors({ unmatched: true });
+      }
       // this.accountService.changeAccountPassword(user_id, newPassword).then(
       //   res => {
       //     const response = res as any;

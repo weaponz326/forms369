@@ -463,6 +463,41 @@ export class AccountService {
     });
   }
 
+  verifyAccountForResetting(email: string, phone: string): Promise<boolean> {
+    return new Promise((resolve, reject) => {
+      const url = 'api/v1/';
+      this.http.post(url, {}, { headers: this.authHeaders }).subscribe(
+        res => {
+          console.log('res_: ' + JSON.stringify(res));
+          const response = res as any;
+          _.toLower(response.message) == 'ok'
+            ? resolve(true)
+            : resolve(false);
+        },
+        err => {
+          console.log('err_: ' + JSON.stringify(err));
+          reject(err);
+        }
+      );
+    });
+  }
+
+  resetAccountPassword(email: string, new_password: string): Promise<any> {
+    return new Promise((resolve, reject) => {
+      const url = 'api/v1/';
+      this.http.post(url, {}, { headers: this.authHeaders }).subscribe(
+        res => {
+          console.log('res_: ' + JSON.stringify(res));
+          resolve(res);
+        },
+        err => {
+          console.log('err_:' + JSON.stringify(err));
+          reject(err);
+        }
+      );
+    });
+  }
+
   /**
    * Logs a user out.
    *
@@ -471,8 +506,8 @@ export class AccountService {
    */
   logOut(): Promise<any> {
     return new Promise((resolve, reject) => {
-      const url = this.endpointService.apiHost + 'api/v1/logoutUser';
-      this.http.get(url, { headers: this.authHeaders }).subscribe(
+      const url = this.endpointService.apiHost + 'api/logoutUser';
+      this.http.get(url, { headers: this.headers }).subscribe(
         res => {
           sessionStorage.clear();
           resolve(res);

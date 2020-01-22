@@ -46,6 +46,11 @@ Route::get('forgot', function () {
     return View::make('index');
 });
 
+Route::get('reset', function () {
+    View::addExtension('html', 'php');
+    return View::make('index');
+})->reset('reset');
+
 Route::get('master_register', function () {
     View::addExtension('html', 'php');
     return View::make('index');

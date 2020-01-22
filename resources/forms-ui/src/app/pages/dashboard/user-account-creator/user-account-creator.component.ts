@@ -135,11 +135,6 @@ export class UserAccountCreatorComponent implements OnInit {
       this.f.merchant.clearValidators();
       this.f.branch.updateValueAndValidity();
       this.f.merchant.updateValueAndValidity();
-
-      // Since merchant isnt a required field in our form in this case, and also
-      // we need to make sure the right merchant has been selected.
-      // delete this.f.merchant.errors.required;
-      // this.f.merchant.updateValueAndValidity();
     }
 
     if (this.f.userType.value == UserTypes.GitAdmin) {
@@ -370,16 +365,6 @@ export class UserAccountCreatorComponent implements OnInit {
   }
 
   cancel() {
-    // this.f.firstName.setValue('');
-    // this.f.lastName.setValue('');
-    // this.f.country.setValue('');
-    // this.f.username.setValue('');
-    // this.f.userType.setValue('');
-    // this.f.branch.setValue('');
-    // this.f.merchant.setValue('');
-    // this.f.phone.setValue('');
-    // this.f.password.setValue('');
-    // this.f.emailAddress.setValue('');
     window.history.back();
   }
 
