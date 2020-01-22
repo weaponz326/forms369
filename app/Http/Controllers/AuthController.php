@@ -12,6 +12,7 @@ use Auth;
 use Illuminate\Pagination\Paginator;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Log;
+
 class AuthController extends Controller
 {
    
@@ -198,6 +199,12 @@ class AuthController extends Controller
 
         $password = bcrypt($request->new_password);
         try {
+
+            if(is_int($id)){
+
+            }else{
+                $id = Crypt::decryptString($id);
+            }
             //update user password
             DB::table('users')->where('id', $id)
             ->update(
@@ -1616,7 +1623,8 @@ class AuthController extends Controller
         
         if($user){
             Log::channel('mysql')->info('User  with id: ' . $id .' successfully reset their password');
-            return redirect()->route('reset', ['id' => $id]);
+            $encid = Crypt::encryptString($id);
+            return redirect()->route('reset', ['id' => $encid]);
 
         }
     }
