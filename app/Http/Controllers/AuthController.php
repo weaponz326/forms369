@@ -10,6 +10,7 @@ use Illuminate\Support\Facades\Crypt;
 
 use App\User;
 use App\Notifications\SignupActivate;
+use App\Notifications\ForgotPassword;
 
 use Session;
 use Auth;
@@ -968,7 +969,7 @@ class AuthController extends Controller
 
         $user->token()->revoke();
 
-        // Auth::logout();
+        Auth::logout();
         return response()->json([
             'message' => 'Successfully logged out'
         ]);
@@ -1544,5 +1545,74 @@ class AuthController extends Controller
 
     }
 
+    /**
+     * forgotPassword reset user password
+     * 
+     * @return void\Illuminate\Http\Response success or error message
+     * @param  mixed $request
+     * @param  mixed $id of the user to be deleted
+     */
+    public function forgotPassword(Request $request){
+       
+        $this->validate($request, [
+            'email' => 'required|email'
+        ]);
+
+        //get user
+        $user = User::where('email',$request->email)->first();
+
+        //check if user exists
+        if ($user === null) {
+
+            $response = [
+                'message' => 'USER_NOT_FOUND'
+            ];
+
+            return response()->json($response, 400);
+       
+        }else{
+            $user->passwordreset_token = str_random(60);
+            $user->save();
+            //send password resetlink
+            $user->notify(new ForgotPassword($user));
+
+            $response = [
+                'message' => 'OK'
+            ];
+
+            return response()->json($response, 200);
+        }
+
+    }
+
+     /**
+     * resetForgottenPassword reset user forgotten password
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
+    public function confirmForgottenPassword(Request $request, $token)
+    {
+        $user = User::where('active_token', $token)->first();
+        if (!$user) {
+            return response()->json([
+                'message' => 'This activation token is invalid.'
+            ], 404);
+        }
+        if (! $request->hasValidSignature()) {
+            abort(401, 'Link expired');
+        }
+
+        $user->passwordreset_token = NULL;
+        $current_date_time = Carbon::now()->toDateTimeString();
+        $user->password_reset_at=$current_date_time;
+        $user->save();
+        $id = $user->id;
+        
+        if($user){
+            return redirect()->route('reset', ['id' => $id]);
+
+        }
+    }
 
 }

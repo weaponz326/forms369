@@ -6,10 +6,10 @@ use Illuminate\Bus\Queueable;
 use Illuminate\Notifications\Notification;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Messages\MailMessage;
-
 use Illuminate\Support\Facades\URL;
 use Illuminate\Support\Carbon;
-class SignupActivate extends Notification
+
+class ForgotPassword extends Notification
 {
     use Queueable;
 
@@ -42,18 +42,17 @@ class SignupActivate extends Notification
      */
     public function toMail($notifiable)
     {
-       
-        $url = URL::temporarySignedRoute('signup/activate', now()->addMinute(10), ['token' => $notifiable->active_token]);
+        $url = URL::temporarySignedRoute('forgotpasswordlink', now()->addMinute(10), ['token' => $notifiable->active_token]);
         return (new MailMessage)
-            ->subject('Activate Your Account')
-            ->line('Thanks for signing up to use GIT Forms369!. You are one step away from completing registration and having access to numerous forms to fill and submit online.')
-            ->action('ACTIVATE YOUR ACCOUNT', url($url));
+            ->subject('Reset your Forms369 Password')
+            ->line('To reset your password, click the button below:')
+            ->action('RESET YOUR ACCOUNT', url($url));
     }
 
     /**
      * Get the array representation of the notification.
      *
-     * @param  mixed  $notifiablep
+     * @param  mixed  $notifiable
      * @return array
      */
     public function toArray($notifiable)

@@ -25,6 +25,32 @@ class HomeController extends Controller
     }
 
      /**
+      * Business logics 
+     * forgotPassword reset user password
+     * 
+     * @return void\Illuminate\Http\Response success or error message
+     * @param  mixed $request
+     * @param  mixed $id of the user to be deleted
+     */
+    public function forgotPassword(Request $request){
+        $message = (new AuthController)->forgotPassword($request);
+        return $message;
+    }
+
+    /**
+     * Business logics
+     * resetForgottenPassword reset user forgotten password
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
+    public function confirmForgottenPassword(Request $request, $token)
+    {
+        $message = (new AuthController)->confirmForgottenPassword($request, $token);
+        return $message;
+    }
+
+     /**
       * Business logics
      * deleteUser delete a user from the database
      * @return void\Illuminate\Http\Response success or error message
