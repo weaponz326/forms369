@@ -161,7 +161,7 @@ Route::group(['middleware' => ['auth:api'], 'prefix' => 'v1'], function(){
   //client, get and edit endpoints
   Route::get('getAllClients', 'HomeController@getAllClients')->name('getAllClients')->middleware('scope:GIT_Admin');
   Route::get('getClientsDetails/{id}', 'HomeController@getClientsDetails')->name('getClientsDetails')->middleware('scope:GIT_Admin,client');
-  Route::post('editClientProfile/{id}', 'HomeController@editClientProfile')->name('editClientProfile')->middleware('scope:client');
+  Route::post('editClientProfile/{id}', 'HomeController@editClientProfile')->name('editClientProfile')->middleware('scope:client,frontdesk');
   Route::post('submitForm/{id}/{code}', 'HomeController@submitForm')->name('submitForm')->middleware('scope:GIT_Admin,client');
   Route::get('getClientSubmittedForms/{id}', 'HomeController@getClientSubmittedForms')->name('getClientSubmittedForms')->middleware('scope:GIT_Admin,client');
   
@@ -173,6 +173,13 @@ Route::group(['middleware' => ['auth:api'], 'prefix' => 'v1'], function(){
   Route::get('FrontDeskGetSubmittedFormByCode/{code}/{id}', 'HomeController@FrontDeskGetSubmittedFormByCode')->name('FrontDeskGetSubmittedFormByCode')->middleware('scope:GIT_Admin,frontdesk');
   Route::get('getSubmittedFormByStatusAndMerchant/{status}/{id}', 'HomeController@getSubmittedFormByStatusAndMerchant')->name('getSubmittedFormByStatusAndMerchant')->middleware('scope:GIT_Admin,frontdesk,super_executive,branch_executive');
   Route::post('processSubmitForm/{code}/{status}', 'HomeController@processSubmitForm')->name('processSubmitForm')->middleware('scope:GIT_Admin,frontdesk');
+
+  // searching for client submitted forms
+  Route::get('findSubmittedFormByName/{id}/{form_name}', 'HomeController@findSubmittedFormByName')->name('findSubmittedFormByName')->middleware('scope:client');
+  Route::get('findSubmittedFormByCode/{id}/{code}', 'HomeController@findSubmittedFormByCode')->name('findSubmittedFormByCode')->middleware('scope:client');
+
+  // delete submitted form
+  Route::post('deleteSubmittedForm/{id}/{code}', 'HomeController@deleteSubmittedForm')->name('deleteSubmittedForm')->middleware('scope:client');
 
   //get forms processed by a front desk person within a particular datetime range. NB: end date exclusive
   Route::get('FormsProcessedByFrontDeskPerson/{id}/{startdate}/{enddate}', 'HomeController@FormsProcessedByFrontDeskPerson')->name('FormsProcessedByFrontDeskPerson')->middleware('scope:GIT_Admin,company_admin,branch_admin,frontdesk');

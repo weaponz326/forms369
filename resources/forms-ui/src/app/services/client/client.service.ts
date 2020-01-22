@@ -80,9 +80,12 @@ export class ClientService {
   editProfile(id: string, profile: any): Promise<any> {
     return new Promise((resolve, reject) => {
       const body = JSON.stringify(profile);
+      console.log('eddddit bodyyyyyy: ' + body);
       const url = this.endpointService.apiHost + 'api/v1/editClientProfile/' + id;
+      console.log('i get here');
       this.http.post(url, body, { headers: this.headers }).subscribe(
         res => {
+          console.log('editProfile: ' + JSON.stringify(res));
           resolve(res);
         },
         err => {
@@ -288,10 +291,19 @@ export class ClientService {
   getUpdatedClientFormData(new_form_data: any, existing_client_data: any) {
     const obj = _.toPlainObject(new_form_data);
     const keys = _.keys(obj);
-    console.log('client_k: ' + _.keys(existing_client_data)[0]);
-    _.forEach(keys, (key, i) => {
-      existing_client_data[key] = obj[key];
-    });
+    console.log('existing: ' + existing_client_data);
+    if (_.isArray(existing_client_data)) {
+      console.log('client_k: ' + _.keys(existing_client_data)[0]);
+      _.forEach(keys, (key, i) => {
+        existing_client_data[key] = obj[key];
+      });
+    }
+    else {
+      console.log('client_kkk: ' + _.keys(existing_client_data));
+      _.forEach(keys, (key, i) => {
+        existing_client_data[key] = obj[key];
+      });
+    }
 
     return JSON.stringify(existing_client_data);
   }
@@ -339,6 +351,41 @@ export class ClientService {
         },
         err => {
           console.log('f_by_name_erro: ' + JSON.stringify(err));
+          reject(err);
+        }
+      );
+    });
+  }
+
+  findFormsInHistoryByCode(client_id: string, submission_code: string): Promise<any> {
+    return new Promise((resolve, reject) => {
+      const url = this.endpointService.apiHost + `api/v1/findSubmittedFormByCode/${client_id}/${submission_code}`;
+      console.log('this is url: ' + url);
+      this.http.get(url, { headers: this.headers }).subscribe(
+        res => {
+          console.log('form_history_by_code: ' + JSON.stringify(res));
+          const response = res as any;
+          resolve(response.forms);
+        },
+        err => {
+          console.log('history_by_code err: ' + JSON.stringify(err));
+          reject(err);
+        }
+      );
+    });
+  }
+
+  findFormsInHistoryByName(client_id: string, form_name: string): Promise<any> {
+    return new Promise((resolve, reject) => {
+      const url = this.endpointService.apiHost + `api/v1/findSubmittedFormByName/${client_id}/${form_name}`;
+      this.http.get(url, { headers: this.headers }).subscribe(
+        res => {
+          console.log('form_history_by_name: ' + JSON.stringify(res));
+          const response = res as any;
+          resolve(response.forms);
+        },
+        err => {
+          console.log('history_by_name err: ' + JSON.stringify(err));
           reject(err);
         }
       );
@@ -492,6 +539,49 @@ export class ClientService {
           resolve(response.attachments);
         },
         err => {
+          reject(err);
+        }
+      );
+    });
+  }
+
+  deleteFormHistory(client_id: string, submission_code: string): Promise<boolean> {
+    return new Promise((resolve, reject) => {
+      const url = this.endpointService.apiHost + `api/v1/deleteSubmittedForm/${client_id}/${submission_code}`;
+      this.http.post(url, {}, { headers: this.headers }).subscribe(
+        res => {
+          console.log('delete history: ' + JSON.stringify(res));
+          const response = res as any;
+          response.message == 'ok' ? resolve(true) : resolve(false);
+        },
+        err => {
+          console.log('error: ' + JSON.stringify(err));
+          reject(err);
+        }
+      );
+    });
+  }
+
+  /**
+   * Deletes a profile attachment.
+   *
+   * @param {string} user_id
+   * @param {string} key
+   * @param {string} file_path
+   * @returns {Promise<boolean>}
+   * @memberof ClientService
+   */
+  deleteProfileAttachment(user_id: string, key: string, file_path: string): Promise<boolean> {
+    return new Promise((resolve, reject) => {
+      const url = this.endpointService.apiHost + `api/v1/deleteProfileAttachment/${user_id}/${key}/${file_path}`;
+      this.http.post(url, {}, { headers: this.endpointService.headers() }).subscribe(
+        res => {
+          const response = res as any;
+          _.toLower(response.message) == 'ok'
+            ? resolve(true) : resolve(false);
+        },
+        err => {
+          console.log('error: ' + JSON.stringify(err));
           reject(err);
         }
       );

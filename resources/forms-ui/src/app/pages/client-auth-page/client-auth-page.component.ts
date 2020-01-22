@@ -62,7 +62,8 @@ export class ClientAuthPageComponent implements OnInit {
       this.router.navigateByUrl('/client');
     }
     else {
-      this.router.navigateByUrl('/client/form_link_redirect');
+      // this.router.navigateByUrl('/client/form_link_redirect');
+      window.location.assign('/client/form_link_redirect');
     }
   }
 
@@ -93,8 +94,8 @@ export class ClientAuthPageComponent implements OnInit {
             sessionStorage.removeItem('client_id');
             sessionStorage.removeItem('client_phone');
 
-            // this.handleDashboardNavigation();
-            this.router.navigateByUrl('/client');
+            this.handleDashboardNavigation();
+            // this.router.navigateByUrl('/client');
           }
           else {
             this.handleLoginErrorResponses(response);

@@ -136,6 +136,11 @@
                           <label><strong>{{ item.label }}</strong></label>
                           <input multiple type="{{ item.type }}" id="{{ item.name }}" name="{{ item.name }}" class="form-control">
                         </div>
+
+                        <!-- paragraphs -->
+                        <div *ngIf="item.type == 'paragraph'">
+                          <label>{{ item.label }}</label>
+                        </div>
                       </div>
                     </div>
                   </div>
@@ -183,9 +188,13 @@
                             <button class="btn btn-primary btn-icon mr-1" (click)="download(file.url)">
                               <i class="mdi mdi-download-outline"></i>
                             </button>
-                            <button class="btn btn-primary btn-icon" (click)="delete(file.url, i)">
+                            <button class="btn btn-primary btn-icon" (click)="delete(file.url, file.key, i)">
                               <i class="mdi mdi-trash-can-outline"></i>
                             </button>
+                            <!-- <button *ngIf="deleting" class="btn btn-primary" type="button" disabled>
+                              <span class="spinner-grow spinner-grow-sm" role="status" aria-hidden="true"></span>
+                              <span class="sr-only">Loading...</span>
+                            </button>  -->
                           </div>
                         </div>
                       </div>
@@ -221,7 +230,7 @@
     </p>
   </div>
   <div class="modal-footer">
-    <button type="button" class="btn btn-outline-secondary" (click)="modal.dismiss('no')">No</button>
+    <button type="button" class="btn btn-outline-primary" (click)="modal.dismiss('no')">No</button>
     <button type="button" class="btn btn-primary" (click)="modal.close('yes')">Yes</button>
   </div>
 </ng-template>
@@ -252,7 +261,7 @@
     <img [src]="imgUrl" style="width: 100%;">
   </div>
   <div class="modal-footer">
-    <button type="button" class="btn btn-secondary" (click)="modal.close('no')">Close</button>
+    <button type="button" class="btn btn-primary" (click)="modal.close('no')">Close</button>
   </div>
 </ng-template>
 
@@ -267,7 +276,7 @@
     <p>This is a document and cannot be viewed. Please download</p>
   </div>
   <div class="modal-footer">
-    <button type="button" class="btn btn-secondary" (click)="modal.close('no')">Close</button>
+    <button type="button" class="btn btn-outline-primary" (click)="modal.close('no')">Close</button>
     <button type="button" class="btn btn-primary" (click)="downloadDoc(documentUrl)">Download</button>
   </div>
 </ng-template>
@@ -284,7 +293,7 @@
     <p>NOTE: Deleting this attachment is a permanent actions.</p>
   </div>
   <div class="modal-footer">
-    <button type="button" class="btn btn-secondary" (click)="modal.close('yes')">Yes</button>
+    <button type="button" class="btn btn-outline-primary" (click)="modal.close('yes')">Yes</button>
     <button type="button" class="btn btn-primary" (click)="modal.close('no')">No</button>
   </div>
 </ng-template>

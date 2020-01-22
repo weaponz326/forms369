@@ -33,7 +33,7 @@ export class ClientFormLinkRedirectPageComponent implements OnInit {
         // every login will redirect user to this form entry which
         // isnt the desired functionality.
         sessionStorage.removeItem('shared_link');
-        this.router.navigateByUrl('/client/form_entry', { state: { form: form }});
+        this.router.navigateByUrl('/client/form_entry', { state: { form: form[0] }});
       },
       err => {
         this.loading = false;
