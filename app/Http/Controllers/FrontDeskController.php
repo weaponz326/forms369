@@ -326,7 +326,7 @@ class FrontDeskController extends Controller
      * @return void\Illuminate\Http\Response all details of submitted form
      * 
      */
-    public function FormsProcessedByFrontDeskPerson(Request $request, $id, $startdate, $enddate)
+    public function FormsProcessedByFrontDeskPerson(Request $request, $id, $startdate, $enddate, $status)
     {
         $startdate = date($startdate);
         $enddate = date($enddate);
@@ -338,6 +338,7 @@ class FrontDeskController extends Controller
         ->select('submitted_forms.*','merchants.merchant_name AS merchant_name',
         'users.name', 'users.email', 'forms.name AS form_name', 'forms.form_fields')
         ->where('submitted_forms.processed_by', $id)
+        ->where('submitted_forms.status', $status)
         ->whereBetween('last_processed', [$startdate, $enddate])
         ->paginate(15);
       
@@ -368,6 +369,76 @@ class FrontDeskController extends Controller
         return response()->json($response, 200);
     }
 
+ /**
+     * FormsProcessedByFrontDeskPersonDaily fforms processed by a front desk person on a current day
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @param $id of front desk person
+     * @return void\Illuminate\Http\Response all details of submitted form
+     * 
+     */
+    public function FormsProcessedByFrontDeskPersonDaily(Request $request, $id, $status)
+    {
+
+        $date = $current_date_time = Carbon::now()->toDateString();
+    
+        $getprocessedforms = DB::table('submitted_forms')
+        ->join('users', 'users.id', '=', 'client_id')
+        ->join('forms', 'forms.form_code', '=', 'form_id')
+        ->join('merchants', 'merchants.id', '=', 'forms.merchant_id')
+        ->select('submitted_forms.*','merchants.merchant_name AS merchant_name',
+        'users.name', 'users.email', 'forms.name AS form_name', 'forms.form_fields')
+        ->where('submitted_forms.processed_by', $id)
+        ->where('submitted_forms.status', $status)
+        ->whereDate('last_processed', $date)
+        ->paginate(15);
+      
+        //clean data
+        $submittedformdata = [];
+
+        $getprocessedforms->transform(function($items){
+            $submittedformdata['submission_code'] = $items->submission_code;
+            $submittedformdata['form_code'] = $items->form_id;
+            $submittedformdata['form_name'] = Crypt::decryptString($items->form_name);
+            $submittedformdata['form_fields'] = json_decode(Crypt::decryptString($items->form_fields));
+            $submittedformdata['merchant_name'] = Crypt::decryptString($items->merchant_name);
+            $submittedformdata['client_id'] = $items->client_id;
+            $submittedformdata['client_name'] = $items->name;
+            $submittedformdata['email'] = $items->email;
+            $submittedformdata['client_submitted_details'] = json_decode(Crypt::decryptString($items->client_details));
+            $submittedformdata['form_status'] = $items->status;
+            $submittedformdata['submitted_at'] = $items->submitted_at;
+            $submittedformdata['last_processed'] = $items->last_processed;
+            $submittedformdata['processed_by'] = $items->processed_by;
+
+            return $submittedformdata;
+         });
+       
+         $response = [
+            'processed_forms' => $getprocessedforms
+        ];
+        return response()->json($response, 200);
+    }
+
+    /**
+     * numFormsProcessedByFrontDeskPersonDaily get num forms processed by a front desk person on a current day
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @param $id of front desk person
+     * @return void\Illuminate\Http\Response all details of submitted form
+     * 
+     */
+    public function numFormsProcessedByFrontDeskPersonDaily(Request $request, $id, $status)
+    {
+
+        $date = $current_date_time = Carbon::now()->toDateString();
+    
+        $getprocessedforms = DB::table('submitted_forms')
+        ->where('submitted_forms.status', $status)
+        ->where('submitted_forms.processed_by', $id)
+        ->whereDate('last_processed', $date)
+        ->count();
+    }
 
     /**
      * numFormsProcessedByFrontDeskPerson get the number of forms processed by a particular front desk person
@@ -379,11 +450,12 @@ class FrontDeskController extends Controller
      * @param $enddate start date range 
      * @return int number of forms processed
      */
-    public function numFormsProcessedByFrontDeskPerson(Request $request, $id, $startdate, $enddate)
+    public function numFormsProcessedByFrontDeskPerson(Request $request, $id, $startdate, $enddate, $status)
     {
         
         $getnumprocessedforms = DB::table('submitted_forms')
         ->where('submitted_forms.processed_by', $id)
+        ->where('submitted_forms.status', $status)
         ->whereBetween('last_processed', [$startdate, $enddate])
         ->count();
       
@@ -404,7 +476,7 @@ class FrontDeskController extends Controller
      * @return void\Illuminate\Http\Response all details of submitted form
      * 
      */
-    public function getAllFormsProcessedByFrontDeskPerson(Request $request, $id)
+    public function getAllFormsProcessedByFrontDeskPerson(Request $request, $id, $status)
     {
         
         $getprocessedforms = DB::table('submitted_forms')
@@ -413,6 +485,7 @@ class FrontDeskController extends Controller
         ->join('merchants', 'merchants.id', '=', 'forms.merchant_id')
         ->select('submitted_forms.*','merchants.merchant_name AS merchant_name',
         'users.name', 'users.email', 'forms.name AS form_name', 'forms.form_fields')
+        ->where('submitted_forms.status', $status)
         ->where('submitted_forms.processed_by', $id)
         ->paginate(15);
       
@@ -453,10 +526,11 @@ class FrontDeskController extends Controller
      * @return void\Illuminate\Http\Response all details of submitted form
      * 
      */
-    public function getNumAllFormsProcessedByFrontDeskPerson(Request $request, $id)
+    public function getNumAllFormsProcessedByFrontDeskPerson(Request $request, $id, $status)
     {
         
         $getprocessedforms = DB::table('submitted_forms')
+        ->where('submitted_forms.status', $status)
         ->where('submitted_forms.processed_by', $id)
         ->count();
 

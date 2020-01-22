@@ -32,7 +32,7 @@ class HomeController extends Controller
      * @param  mixed $request
      * @param  mixed $id of the user to be deleted
      */
-    public function forgotPassword(Request $request){
+    protected function forgotPassword(Request $request){
         $message = (new AuthController)->forgotPassword($request);
         return $message;
     }
@@ -44,7 +44,7 @@ class HomeController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function confirmForgottenPassword(Request $request, $token)
+    protected function confirmForgottenPassword(Request $request, $token)
     {
         $message = (new AuthController)->confirmForgottenPassword($request, $token);
         return $message;
@@ -57,7 +57,7 @@ class HomeController extends Controller
      * @param  mixed $request
      * @param  mixed $id of the user to be deleted
      */
-    public function deleteUser(Request $request, $id){
+    protected function deleteUser(Request $request, $id){
         $message = (new AuthController)->deleteUser($request, $id);
         return $message;
     }
@@ -882,7 +882,7 @@ class HomeController extends Controller
      *
      * @return void\Illuminate\Http\Response all details of a form
      */
-    public function getFormViaLink(Request $request, $code)
+    protected function getFormViaLink(Request $request, $code)
     {
         $message = (new FormsController)->getFormViaLink($request, $code);
         return $message;
@@ -1071,7 +1071,7 @@ class HomeController extends Controller
      *
      * @return \Illuminate\Http\Response success or error message
      */
-    public function uploadattachments(Request $request, $client_id, $form_code, $submission_code)
+    protected function uploadattachments(Request $request, $client_id, $form_code, $submission_code)
     {
         $message = (new ClientController)->uploadattachments($request, $client_id, $form_code, $submission_code);
         return $message;
@@ -1086,7 +1086,7 @@ class HomeController extends Controller
      * @return \Illuminate\Http\Response containing all attachment
      */
     
-    public function getAttachments(Request $request, $submission_code)
+    protected function getAttachments(Request $request, $submission_code)
     {
         $message = (new ClientController)->getAttachments($request, $submission_code);
         return $message;
@@ -1100,7 +1100,7 @@ class HomeController extends Controller
      *
      * @return \Illuminate\Http\Response success or error message
      */
-    public function uploadProfileAttachments(Request $request, $client_id)
+    protected function uploadProfileAttachments(Request $request, $client_id)
     {
         $message = (new ClientController)->uploadProfileAttachments($request, $client_id);
         return $message;
@@ -1116,7 +1116,7 @@ class HomeController extends Controller
      */
 
      
-    public function getProfileAttachments(Request $request, $client_id)
+    protected function getProfileAttachments(Request $request, $client_id)
     {
         $message = (new ClientController)->getProfileAttachments($request, $client_id);
         return $message;
@@ -1132,7 +1132,7 @@ class HomeController extends Controller
      */
 
      
-    public function deleteProfileAttachment(Request $request, $client_id, $key,$name)
+    protected function deleteProfileAttachment(Request $request, $client_id, $key,$name)
     {
         $message = (new ClientController)->deleteProfileAttachment($request, $client_id, $key, $name);
         return $message;
@@ -1281,9 +1281,9 @@ class HomeController extends Controller
      * @return void\Illuminate\Http\Response all details of submitted form
      * 
      */
-    protected function FormsProcessedByFrontDeskPerson(Request $request, $id, $startdate, $enddate)
+    protected function FormsProcessedByFrontDeskPerson(Request $request, $id, $startdate, $enddate, $status)
     {
-        $message = (new FrontDeskController)->FormsProcessedByFrontDeskPerson($request, $request, $id, $startdate, $enddate);
+        $message = (new FrontDeskController)->FormsProcessedByFrontDeskPerson($request, $request, $id, $startdate, $enddate, $status);
         return $message;
     }
 
@@ -1298,9 +1298,9 @@ class HomeController extends Controller
      * @param $enddate start date range 
      * @return int number of forms processed
      */
-    protected function numFormsProcessedByFrontDeskPerson(Request $request, $id, $startdate, $enddate)
+    protected function numFormsProcessedByFrontDeskPerson(Request $request, $id, $startdate, $enddate, $status)
     {
-        $message = (new FrontDeskController)->numFormsProcessedByFrontDeskPerson($request, $request, $id, $startdate, $enddate);
+        $message = (new FrontDeskController)->numFormsProcessedByFrontDeskPerson($request, $request, $id, $startdate, $enddate, $status);
         return $message;
     }
 
@@ -1314,9 +1314,9 @@ class HomeController extends Controller
      * @return void\Illuminate\Http\Response all details of submitted form
      * 
      */
-    protected function getAllFormsProcessedByFrontDeskPerson(Request $request, $id)
+    protected function getAllFormsProcessedByFrontDeskPerson(Request $request, $id, $status)
     {
-        $message = (new FrontDeskController)->getAllFormsProcessedByFrontDeskPerson($request, $id);
+        $message = (new FrontDeskController)->getAllFormsProcessedByFrontDeskPerson($request, $id, $status);
         return $message;
     }
 
@@ -1330,9 +1330,9 @@ class HomeController extends Controller
      * @return void\Illuminate\Http\Response all details of submitted form
      * 
      */
-    protected function getNumAllFormsProcessedByFrontDeskPerson(Request $request, $id)
+    protected function getNumAllFormsProcessedByFrontDeskPerson(Request $request, $id, $status)
     {
-        $message = (new FrontDeskController)->getNumAllFormsProcessedByFrontDeskPerson($request, $id);
+        $message = (new FrontDeskController)->getNumAllFormsProcessedByFrontDeskPerson($request, $id, $status);
         return $message;
     }
 
@@ -1538,7 +1538,7 @@ class HomeController extends Controller
      * @param  mixed $term ;  user serach term
      * @return void\Illuminate\Http\Response all details of templates matching the search term
      */
-    public function searchTemplateByName(Request $request, $term)
+    protected function searchTemplateByName(Request $request, $term)
     {
         $message = (new TemplatesController)->searchTemplateByName($request, $term);
         return $message;
@@ -1792,4 +1792,33 @@ class HomeController extends Controller
         return $message;  
     }
 
-}
+    /**
+     * Business logics
+     * FormsProcessedByFrontDeskPersonDaily fforms processed by a front desk person on a current day
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @param $id of front desk person
+     * @return void\Illuminate\Http\Response all details of submitted form
+     * 
+     */
+    protected function FormsProcessedByFrontDeskPersonDaily(Request $request, $id, $status)
+    {
+        $message = (new FrontDeskController)->FormsProcessedByFrontDeskPersonDaily($request, $id, $status);
+        return $message;  
+    }
+
+
+ /**
+     * numFormsProcessedByFrontDeskPersonDaily get num forms processed by a front desk person on a current day
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @param $id of front desk person
+     * @return void\Illuminate\Http\Response all details of submitted form
+     * 
+     */
+    protected function numFormsProcessedByFrontDeskPersonDaily(Request $request, $id, $status)
+    {
+        $message = (new FrontDeskController)->numFormsProcessedByFrontDeskPersonDaily($request, $id, $status);
+        return $message;  
+    }
+}    

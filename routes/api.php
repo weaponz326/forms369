@@ -177,7 +177,9 @@ Route::group(['middleware' => ['auth:api'], 'prefix' => 'v1'], function(){
   Route::get('FrontDeskGetSubmittedFormByCode/{code}/{id}', 'HomeController@FrontDeskGetSubmittedFormByCode')->name('FrontDeskGetSubmittedFormByCode')->middleware('scope:GIT_Admin,frontdesk');
   Route::get('getSubmittedFormByStatusAndMerchant/{status}/{id}', 'HomeController@getSubmittedFormByStatusAndMerchant')->name('getSubmittedFormByStatusAndMerchant')->middleware('scope:GIT_Admin,frontdesk,super_executive,branch_executive');
   Route::post('processSubmitForm/{code}/{status}', 'HomeController@processSubmitForm')->name('processSubmitForm')->middleware('scope:GIT_Admin,frontdesk');
-
+  Route::get('FormsProcessedByFrontDeskPersonDaily/{id}/{status}', 'HomeController@FormsProcessedByFrontDeskPersonDaily')->name('FormsProcessedByFrontDeskPersonDaily')->middleware('scope:GIT_Admin,frontdesk,super_executive,branch_executive,company_admin,branch_admin');
+  Route::get('numFormsProcessedByFrontDeskPersonDaily/{id}/{status}', 'HomeController@numFormsProcessedByFrontDeskPersonDaily')->name('numFormsProcessedByFrontDeskPersonDaily')->middleware('scope:GIT_Admin,frontdesk,super_executive,branch_executive,company_admin,branch_admin');
+  
   // searching for client submitted forms
   Route::get('findSubmittedFormByName/{id}/{form_name}', 'HomeController@findSubmittedFormByName')->name('findSubmittedFormByName')->middleware('scope:client');
   Route::get('findSubmittedFormByCode/{id}/{code}', 'HomeController@findSubmittedFormByCode')->name('findSubmittedFormByCode')->middleware('scope:client');
@@ -186,12 +188,12 @@ Route::group(['middleware' => ['auth:api'], 'prefix' => 'v1'], function(){
   Route::post('deleteSubmittedForm/{id}/{code}', 'HomeController@deleteSubmittedForm')->name('deleteSubmittedForm')->middleware('scope:client');
 
   //get forms processed by a front desk person within a particular datetime range. NB: end date exclusive
-  Route::get('FormsProcessedByFrontDeskPerson/{id}/{startdate}/{enddate}', 'HomeController@FormsProcessedByFrontDeskPerson')->name('FormsProcessedByFrontDeskPerson')->middleware('scope:GIT_Admin,company_admin,branch_admin,frontdesk');
-  Route::get('numFormsProcessedByFrontDeskPerson/{id}/{startdate}/{enddate}', 'HomeController@numFormsProcessedByFrontDeskPerson')->name('numFormsProcessedByFrontDeskPerson')->middleware('scope:GIT_Admin,company_admin,branch_admin,frontdesk,branch_executive,super_executive');
+  Route::get('FormsProcessedByFrontDeskPerson/{id}/{startdate}/{enddate}/{status}', 'HomeController@FormsProcessedByFrontDeskPerson')->name('FormsProcessedByFrontDeskPerson')->middleware('scope:GIT_Admin,company_admin,branch_admin,frontdesk');
+  Route::get('numFormsProcessedByFrontDeskPerson/{id}/{startdate}/{enddate}/{status}', 'HomeController@numFormsProcessedByFrontDeskPerson')->name('numFormsProcessedByFrontDeskPerson')->middleware('scope:GIT_Admin,company_admin,branch_admin,frontdesk,branch_executive,super_executive');
 
   //get forms processed by a front desk person of all time. NB: end date exclusive
-  Route::get('getAllFormsProcessedByFrontDeskPerson/{id}', 'HomeController@getAllFormsProcessedByFrontDeskPerson')->name('getAllFormsProcessedByFrontDeskPerson')->middleware('scope:GIT_Admin,company_admin,branch_admin,frontdesk');
-  Route::get('getNumAllFormsProcessedByFrontDeskPerson/{id}', 'HomeController@getNumAllFormsProcessedByFrontDeskPerson')->name('getNumAllFormsProcessedByFrontDeskPerson')->middleware('scope:GIT_Admin,company_admin,branch_admin,frontdesk,branch_executive,super_executive');
+  Route::get('getAllFormsProcessedByFrontDeskPerson/{id}/{status}', 'HomeController@getAllFormsProcessedByFrontDeskPerson')->name('getAllFormsProcessedByFrontDeskPerson')->middleware('scope:GIT_Admin,company_admin,branch_admin,frontdesk');
+  Route::get('getNumAllFormsProcessedByFrontDeskPerson/{id}/{status}', 'HomeController@getNumAllFormsProcessedByFrontDeskPerson')->name('getNumAllFormsProcessedByFrontDeskPerson')->middleware('scope:GIT_Admin,company_admin,branch_admin,frontdesk,branch_executive,super_executive');
 
 
   //client summaries and submitted forms
