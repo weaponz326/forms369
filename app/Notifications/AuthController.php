@@ -958,19 +958,16 @@ class AuthController extends Controller
      */
     public function logout(Request $request)
     {
-        if (Auth::check()) {
-            Auth::user()->token()->revoke();
-            Auth::user()->AauthAcessToken()->delete();
-         }
+        
         //get user and log user activity
-        // $user = $request->user();
-        // $id = $user['id'];
+        $user = $request->user();
+        $id = $user['id'];
 
-        // Log::channel('mysql')->info('User  with id: ' . $id .' successfully logged out');
+        Log::channel('mysql')->info('User  with id: ' . $id .' successfully logged out');
 
-        // $user->token()->revoke();
+        $user->token()->revoke();
 
-        // Auth::logout();
+        Auth::logout();
         return response()->json([
             'message' => 'Successfully logged out'
         ]);
@@ -1594,16 +1591,14 @@ class AuthController extends Controller
      */
     public function confirmForgottenPassword(Request $request, $token)
     {
-        $user = User::where('passwordreset_token', $token)->first();
+        $user = User::where('active_token', $token)->first();
         if (!$user) {
-            return redirect()->route('invalid_confirm_link');
-            // return response()->json([
-            //     'message' => 'This activation token is invalid.'
-            // ], 404);
+            return response()->json([
+                'message' => 'This activation token is invalid.'
+            ], 404);
         }
         if (! $request->hasValidSignature()) {
-            return redirect()->route('invalid_confirm_link');
-            // abort(401, 'Link expired');
+            abort(401, 'Link expired');
         }
 
         $user->passwordreset_token = NULL;
