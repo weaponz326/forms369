@@ -753,12 +753,14 @@ class AuthController extends Controller
     {
         $user = User::where('active_token', $token)->first();
         if (!$user) {
-            return response()->json([
-                'message' => 'This activation token is invalid.'
-            ], 404);
+            return redirect()->route('invalid_confirm_link');
+            // return response()->json([
+            //     'message' => 'This activation token is invalid.'
+            // ], 404);
         }
         if (! $request->hasValidSignature()) {
-            abort(401, 'Link expired');
+            // abort(401, 'Link expired');
+            return redirect()->route('invalid_confirm_link');
         }
 
         $user->active_token = NULL;

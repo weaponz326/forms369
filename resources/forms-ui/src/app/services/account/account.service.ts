@@ -463,10 +463,11 @@ export class AccountService {
     });
   }
 
-  verifyAccountForResetting(email: string, phone: string): Promise<boolean> {
+  verifyAccountForResetting(email: string): Promise<boolean> {
     return new Promise((resolve, reject) => {
-      const url = 'api/v1/';
-      this.http.post(url, {}, { headers: this.authHeaders }).subscribe(
+      const body = { email: email };
+      const url = this.endpointService.apiHost + 'api/forgotPassword';
+      this.http.post(url, JSON.stringify(body), { headers: this.headers }).subscribe(
         res => {
           console.log('res_: ' + JSON.stringify(res));
           const response = res as any;
@@ -482,21 +483,21 @@ export class AccountService {
     });
   }
 
-  resetAccountPassword(email: string, new_password: string): Promise<any> {
-    return new Promise((resolve, reject) => {
-      const url = 'api/v1/';
-      this.http.post(url, {}, { headers: this.authHeaders }).subscribe(
-        res => {
-          console.log('res_: ' + JSON.stringify(res));
-          resolve(res);
-        },
-        err => {
-          console.log('err_:' + JSON.stringify(err));
-          reject(err);
-        }
-      );
-    });
-  }
+  // resetAccountPassword(email: string, new_password: string): Promise<any> {
+  //   return new Promise((resolve, reject) => {
+  //     const url = 'api/v1/';
+  //     this.http.post(url, {}, { headers: this.authHeaders }).subscribe(
+  //       res => {
+  //         console.log('res_: ' + JSON.stringify(res));
+  //         resolve(res);
+  //       },
+  //       err => {
+  //         console.log('err_:' + JSON.stringify(err));
+  //         reject(err);
+  //       }
+  //     );
+  //   });
+  // }
 
   /**
    * Logs a user out.
