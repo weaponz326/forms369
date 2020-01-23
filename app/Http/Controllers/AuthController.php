@@ -200,7 +200,7 @@ class AuthController extends Controller
         $password = bcrypt($request->new_password);
         try {
 
-            if(is_int($id)){
+            if(is_numeric($id)){
 
             }else{
                 $id = Crypt::decryptString($id);

@@ -270,6 +270,7 @@ export class ClientProfilePageComponent implements OnInit {
           _.forEach(res, (section) => {
             this.allFormSections.push(section);
           });
+          this.allFormSections = this.removeDuplicateFormFields(this.allFormSections);
           this.getAllClientData();
         }
         else {
@@ -283,6 +284,20 @@ export class ClientProfilePageComponent implements OnInit {
         this.loading = false;
       }
     );
+  }
+
+  removeDuplicateFormFields(arrayFields: Array<any>) {
+    if (arrayFields.length > 1) {
+      arrayFields = arrayFields.filter((item, index, self) =>
+        index === self.findIndex((t) => (
+          t.name === item.name
+        ))
+      );
+      return arrayFields;
+    }
+    else {
+      return arrayFields;
+    }
   }
 
   deleteExistingAttachment(key: string) {

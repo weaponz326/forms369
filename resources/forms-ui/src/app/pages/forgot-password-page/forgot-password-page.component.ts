@@ -63,6 +63,9 @@ export class ForgotPasswordPageComponent implements OnInit {
         err => {
           this.form.enable();
           this.loading = false;
+          err.error.message == 'USER_NOT_FOUND'
+            ? this.isInvalid = true
+            : null;
         }
       );
     }

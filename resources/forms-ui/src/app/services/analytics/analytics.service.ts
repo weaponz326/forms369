@@ -351,4 +351,36 @@ export class AnalyticsService {
       );
     });
   }
+
+  getProcessedFormsByFrontDeskCount(user_id: string): Promise<any> {
+    return new Promise((resolve, reject) => {
+      const url = this.endpointService.apiHost + 'api/v1/getNumAllFormsProcessedByFrontDeskPerson/' + user_id + '/2';
+      this.http.get(url, { headers: this.headers }).subscribe(
+        res => {
+          console.log('forms: ' + JSON.stringify(res));
+          const response = res as any;
+          resolve(response.num_processed_forms);
+        },
+        err => {
+          reject(err);
+        }
+      );
+    });
+  }
+
+  getProcessingFormsByFrontDeskCount(user_id: string): Promise<any> {
+    return new Promise((resolve, reject) => {
+      const url = this.endpointService.apiHost + 'api/v1/getNumAllFormsProcessedByFrontDeskPerson/' + user_id + '/1';
+      this.http.get(url, { headers: this.headers }).subscribe(
+        res => {
+          console.log('forms: ' + JSON.stringify(res));
+          const response = res as any;
+          resolve(response.num_processed_forms);
+        },
+        err => {
+          reject(err);
+        }
+      );
+    });
+  }
 }

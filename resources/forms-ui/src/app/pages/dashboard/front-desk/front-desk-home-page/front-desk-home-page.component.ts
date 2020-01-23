@@ -1,12 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import * as _ from 'lodash';
 import { Router } from '@angular/router';
-import { LocalStorageService } from 'src/app/services/storage/local-storage.service';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { FrontDeskService } from 'src/app/services/front-desk/front-desk.service';
 import { Users } from 'src/app/models/users.model';
-import { AnalyticsService } from 'src/app/services/analytics/analytics.service';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { AccountService } from 'src/app/services/account/account.service';
+import { AnalyticsService } from 'src/app/services/analytics/analytics.service';
+import { FrontDeskService } from 'src/app/services/front-desk/front-desk.service';
+import { LocalStorageService } from 'src/app/services/storage/local-storage.service';
 
 @Component({
   selector: 'app-front-desk-home-page',
@@ -17,9 +17,11 @@ export class FrontDesktopHomePageComponent implements OnInit {
 
   user: Users;
   form: FormGroup;
+  user_id: string;
   loading: boolean;
   firstname: string;
   submitted: boolean;
+  merchant_id: string;
   notValidCode: boolean;
   totalNoSubmitted: string;
   totalNoProcessed: string;
@@ -42,21 +44,27 @@ export class FrontDesktopHomePageComponent implements OnInit {
   }
 
   initVars() {
+    this.user = this.localStorage.getUser();
+    this.firstname = this.user.firstname;
+    this.user_id = _.toString(this.user.id);
+    this.merchant_id = _.toString(this.user.merchant_id);
     if (window.location.origin == 'http://localhost:4200') {
-      this.user = this.localStorage.getUser();
-      this.firstname = this.user.firstname;
-      const merchant_id = _.toString(this.user.merchant_id);
-      this.getFrontDeskAnalytics(merchant_id);
+      // this.user = this.localStorage.getUser();
+      // this.firstname = this.user.firstname;
+      // this.user_id = _.toString(this.user.id);
+      // this.merchant_id = _.toString(this.user.merchant_id);
+      this.getFrontDeskAnalytics();
     }
     else {
       this.checkAccessToLogin().then(
         res => {
           if (res == 'ok') {
-            this.user = this.localStorage.getUser();
-            this.firstname = this.user.firstname;
-            const merchant_id = _.toString(this.user.merchant_id);
+            // this.user = this.localStorage.getUser();
+            // this.firstname = this.user.firstname;
+            // this.user_id = _.toString(this.user.id);
+            // this.merchant_id = _.toString(this.user.merchant_id);
 
-            this.getFrontDeskAnalytics(merchant_id);
+            this.getFrontDeskAnalytics();
           }
           else {
             this.router.navigateByUrl('auth');
@@ -123,10 +131,10 @@ export class FrontDesktopHomePageComponent implements OnInit {
     });
   }
 
-  getFrontDeskAnalytics(id: string) {
-    this.getProcessedFormsAnalytics(id);
-    this.getSubmittedFormsAnalytics(id);
-    this.getProcessingFormsAnalytics(id);
+  getFrontDeskAnalytics() {
+    this.getProcessedFormsAnalytics(this.user_id);
+    this.getProcessingFormsAnalytics(this.user_id);
+    this.getSubmittedFormsAnalytics(this.merchant_id);
   }
 
   getSubmittedFormsAnalytics(id: string) {
@@ -138,7 +146,7 @@ export class FrontDesktopHomePageComponent implements OnInit {
   }
 
   getProcessedFormsAnalytics(id: string) {
-    this.analyticService.getFrontDeskProcessedFormsCount(id).then(
+    this.analyticService.getProcessedFormsByFrontDeskCount(id).then(
       count => {
         this.totalNoProcessed = count;
       }
@@ -146,7 +154,7 @@ export class FrontDesktopHomePageComponent implements OnInit {
   }
 
   getProcessingFormsAnalytics(id: string) {
-    this.analyticService.getFrontDeskProcessingFormsCount(id).then(
+    this.analyticService.getProcessingFormsByFrontDeskCount(id).then(
       count => {
         this.totalNoProcessing = count;
       }
