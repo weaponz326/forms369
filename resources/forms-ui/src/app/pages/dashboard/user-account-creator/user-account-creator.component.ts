@@ -344,7 +344,7 @@ export class UserAccountCreatorComponent implements OnInit {
       console.log('errrrrrrr: ' + this.form.errors);
     }
     else {
-      this.loading = false;
+      // this.loading = false;
       console.log('am here');
       const user = this.getFormData();
       if (!this.containErrors(user)) {
