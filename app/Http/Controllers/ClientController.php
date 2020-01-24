@@ -187,7 +187,7 @@ class ClientController extends Controller
      * @param $code form code that is being filled 
      * @return void\Illuminate\Http\Response submission code
      */
-    public function submitForm(Request $request, $id, $code)
+    public function submitForm(Request $request, $id, $code, $edit)
     {
          $message = 'Ok';
 
@@ -221,14 +221,18 @@ class ClientController extends Controller
                  ]
              );
 
-             DB::table('client')
-             ->where('id', $id)
-             ->update(
-                 [
-                     'details' => $encrypteduserdata, 
-                     'updated_at' => $submitted_at
-                 ]
-             );
+             if($edit == 1){
+                DB::table('client')
+                ->where('id', $id)
+                ->update(
+                    [
+                        'details' => $encrypteduserdata, 
+                        'updated_at' => $submitted_at
+                    ]
+                );
+             }
+
+             
             //get logged in user
             $user = $request->user();
             $phone = $user['phone'];
