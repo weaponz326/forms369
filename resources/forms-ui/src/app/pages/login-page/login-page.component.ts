@@ -1,8 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import * as _ from 'lodash';
 import { Router } from '@angular/router';
-import { Users } from 'src/app/models/users.model';
-import { UserTypes } from 'src/app/enums/user-types.enum';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { AccountService } from 'src/app/services/account/account.service';
 import { LocalStorageService } from 'src/app/services/storage/local-storage.service';
@@ -16,7 +14,6 @@ export class LoginPageComponent implements OnInit {
 
   form: FormGroup;
   loading: boolean;
-  created: boolean;
   submitted: boolean;
   notClient: boolean;
   authFailed: boolean;

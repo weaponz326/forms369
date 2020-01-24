@@ -3,10 +3,12 @@
     <div class="content-wrapper d-flex align-items-center auth px-0">
       <div class="row w-100 mx-0">
         <div class="col-lg-4 mx-auto">
-          <div class="text-center auth-form-light text-left py-5 px-4 px-sm-5">
-            <a routerLink="/" class="brand-logo">
-              <img src="./assets/images/logo.png" alt="logo">
-            </a>
+          <div class="auth-form-light text-left py-5 px-4 px-sm-5">
+            <div class="text-center">
+              <a routerLink="/" class="brand-logo">
+                <img src="./assets/images/logo.png" alt="logo">
+              </a>
+            </div>
             <div *ngIf="codeExpired" class="mt-2 mb-5">
               <div class="alert alert-danger" role="alert">
                 <h3 class="alert-heading">Hey there!</h3>

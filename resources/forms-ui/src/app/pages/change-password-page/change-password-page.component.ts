@@ -31,8 +31,18 @@ export class ChangePasswordPageComponent implements OnInit {
 
   buildForm() {
     this.form = this.formBuilder.group({
-      password: ['', Validators.required]
+      password: ['', [Validators.required, Validators.minLength(6)]],
+      password2: ['', [Validators.required, Validators.minLength(6)]]
     });
+  }
+
+  passwordsMatch() {
+    if (this.f.password.value != this.f.password2.value) {
+      return false;
+    }
+    else {
+      return true;
+    }
   }
 
   create() {
@@ -43,27 +53,58 @@ export class ChangePasswordPageComponent implements OnInit {
       this.loading = false;
     }
     else {
-      this.form.disable();
-      const newPassword = this.f.password.value;
-      const user_id = sessionStorage.getItem('user_id');
-      this.accountService.changeAccountPassword(user_id, newPassword).then(
-        res => {
-          const response = res as any;
-          this.form.enable();
-          this.loading = false;
-          if (_.toLower(response.message) == 'ok') {
-            sessionStorage.clear();
-            this.router.navigateByUrl('user_auth');
-          }
-          else {
+      // this.form.disable();
+      // const newPassword = this.f.password.value;
+      // const user_id = sessionStorage.getItem('user_id');
+      // this.accountService.changeAccountPassword(user_id, newPassword).then(
+      //   res => {
+      //     const response = res as any;
+      //     this.form.enable();
+      //     this.loading = false;
+      //     if (_.toLower(response.message) == 'ok') {
+      //       sessionStorage.clear();
+      //       this.router.navigateByUrl('user_auth');
+      //     }
+      //     else {
+      //       this.invalid = true;
+      //     }
+      //   },
+      //   err => {
+      //     this.form.enable();
+      //     this.loading = false;
+      //   }
+      // );
+      if (this.passwordsMatch()) {
+        console.log('matches');
+        this.form.disable();
+        const newPassword = this.f.password.value;
+        const user_id = sessionStorage.getItem('user_id');
+        this.accountService.changeAccountPassword(user_id, newPassword).then(
+          res => {
+            const response = res as any;
+            this.form.enable();
+            this.loading = false;
+            if (_.toLower(response.message) == 'ok') {
+              sessionStorage.clear();
+              this.router.navigateByUrl('user_auth');
+            }
+            else {
+              this.invalid = true;
+            }
+          },
+          err => {
+            this.form.enable();
+            this.loading = false;
             this.invalid = true;
           }
-        },
-        err => {
-          this.form.enable();
-          this.loading = false;
-        }
-      );
+        );
+      }
+      else {
+        this.form.enable();
+        this.loading = false;
+        console.log('doesnt match');
+        this.f.password2.setErrors({ unmatched: true });
+      }
     }
   }
 

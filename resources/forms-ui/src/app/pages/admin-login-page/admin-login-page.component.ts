@@ -16,7 +16,6 @@ export class AdminLoginPageComponent implements OnInit {
   form: FormGroup;
   loading: boolean;
   waiting: boolean;
-  created: boolean;
   submitted: boolean;
   deactivated: boolean;
   userNotFound: boolean;

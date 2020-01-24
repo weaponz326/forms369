@@ -128,7 +128,7 @@
         <div *ngIf="!loading && hasData" class="row">
           <div class="col-md-4 grid-margin stretch-card" *ngFor="let company of companyList">
             <div class="card hover-cursor animated fadeInDown fast" (click)="open(company)">
-              <div class="card-body">
+              <div class="card-body text-center">
                 <p class="card-title">{{ company.merchant_name }}</p>
                 <div class="card-text">
                   <img [src]="company.logo" class="img-fluid card-logo mb-3" alt="logo">
