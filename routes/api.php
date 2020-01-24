@@ -16,6 +16,10 @@ use Illuminate\Http\Request;
 Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
+//form submission pin apis 
+Route::post('hasPin/{id}', 'HomeController@hasPin')->name('hasPin');
+Route::post('setPin/{id}/{pin}', 'HomeController@setPin')->name('setPin');
+Route::post('changePin/{id}', 'HomeController@changePin')->name('changePin');
 
 //register a user
 Route::post('registerUser', 'HomeController@createNewUser')->name('registerUser');

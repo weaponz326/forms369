@@ -205,7 +205,7 @@ class ClientController extends Controller
 
          $submitted_at = now();
          $status = 0;
-         $submission_code = str_random(9);
+         $submission_code = str_random(5);
      
          //save new client in the database
          try {
@@ -753,5 +753,125 @@ class ClientController extends Controller
         {
             return response()->json( $response, 400 );
         }
+    }
+
+     /**
+     * hasPin check if user has pin
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response Yes or no
+     */
+    public function hasPin(Request $request, $id)
+    {
+        $user = DB::table('users')
+        ->where('id', $id)
+        ->whereNull('pin')
+        ->get();
+
+        if(empty($user) || count($user) == 0){
+            $message = "YES";
+        }else{
+            $message = "NO";
+        }
+
+        $response = [
+            'message' => $message
+        ];
+        return response()->json( $response, 200 );
+
+    }
+
+     /**
+     * hasPin check if user has pin
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response Yes or no
+     */
+    public function setPin(Request $request, $id, $pin)
+    {
+        $updated_at = now();
+        try {
+            //set user pin
+            DB::table('users')
+            ->where('id', $id)
+            ->update(
+                [
+                    'pin' => $pin,
+                    'updated_at' => $updated_at
+                ]
+            );
+
+            $message = 'Ok';
+            $response = [
+                'message' => $message
+            ];
+            return response()->json( $response, 200 );
+            
+         }catch(Exception $e) {
+             $message = "Failed";
+             $response = [
+                'message' => $message
+            ];
+            return response()->json( $response, 400);
+         }   
+    }
+
+    /**
+     * hasPin check if user has pin
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response Yes or no
+     */
+    public function changePin(Request $request, $id)
+    {
+         //get and validate details
+         $this->validate($request, [
+            'old_pin' => 'required',
+            'new_pin' => 'required'
+        ]);
+
+        //get details from request
+        $old_pin = $request->old_pin;
+        $new_pin = $request->new_pin;
+        $updated_at = now();
+        
+        try {
+            $hasuser = DB::table('users')
+            ->where('id', $id)
+            ->where('pin', $old_pin)
+            ->get();
+
+            if(empty($hasuser) || count($hasuser) == 0){
+                $message = "INCORRECT_PIN";
+                $response = [
+                    'message' => $message
+                ];
+                return response()->json( $response, 400 );
+            }else{
+                //set user pin
+                DB::table('users')
+                ->where('id', $id)
+                ->update(
+                    [
+                        'pin' => $new_pin,
+                        'updated_at' => $updated_at
+                    ]
+                );
+
+                $message = 'Ok';
+                $response = [
+                    'message' => $message
+                ];
+                return response()->json( $response, 200 );
+            
+            }
+
+         }catch(Exception $e) {
+             $message = "Failed";
+             $response = [
+                'message' => $message
+            ];
+            return response()->json( $response, 400);
+         }   
     }
 }

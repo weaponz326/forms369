@@ -1182,6 +1182,43 @@ class HomeController extends Controller
 
     }
 
+    /**
+     * Business logics 
+     * hasPin check if user has pin
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response Yes or no
+     */
+    public function hasPin(Request $request, $id)
+    {
+        $message = (new ClientController)->hasPin($request, $id);
+        return $message;
+    }
+
+    /**
+     * hasPin check if user has pin
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response Yes or no
+     */
+    public function setPin(Request $request, $id, $pin)
+    {
+        $message = (new ClientController)->setPin($request, $id, $pin);
+        return $message;
+    }
+
+    /**
+     * hasPin check if user has pin
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response Yes or no
+     */
+    public function changePin(Request $request, $id)
+    {
+        $message = (new ClientController)->changePin($request, $id);
+        return $message;
+    }
+
      /**
       * Business logics to all submitted forms for a GIt admin
      * getAllSubmittedForms get all submitted forms
