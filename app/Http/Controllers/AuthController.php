@@ -81,7 +81,7 @@ class AuthController extends Controller
     public function sendTwoWayAuthenticationCode(Request $request, $id, $phone)
     {
         //generate a 4 character code and send to user via sms
-        $access_code = rand(1,10000);
+        $access_code = rand(1000,9999);
         $from = "GiTLog";
         $mobile = $phone;
         $msg = "GiTLog Forms369 Authentication Code: \r\n". $access_code;
@@ -1628,5 +1628,6 @@ class AuthController extends Controller
 
         }
     }
+
 
 }
