@@ -24,4 +24,8 @@ export class DateTimeService {
       return moment().format('MM-DD-YYYY hh:mm:ss');
     }
   }
+
+  getDatePart(date: string) {
+    return moment(date).format('YYYY-MM-DD');
+  }
 }

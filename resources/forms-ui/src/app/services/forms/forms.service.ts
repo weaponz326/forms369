@@ -3,6 +3,7 @@ import * as _ from 'lodash';
 import { Forms } from 'src/app/models/forms.model';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { EndpointService } from '../endpoint/endpoint.service';
+import { JsonPipe } from '@angular/common';
 
 @Injectable({
   providedIn: 'root'
@@ -154,6 +155,7 @@ export class FormsService {
       this.http.get(url, { headers: this.headers }).subscribe(
         res => {
           const response = res as any;
+          console.log('response: ' + JSON.stringify(res));
           this.nextPaginationUrl = response.forms.next_page_url;
           resolve(response.forms.data);
         },

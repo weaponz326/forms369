@@ -30,11 +30,30 @@ export class ClientListFormsPageComponent implements OnInit {
   ) {
     this.formsList = [];
     this.company = history.state.company;
+    this.resolveReloadDataLoss();
     this.isConnected = window.navigator.onLine ? true : false;
     this.getAllForms();
   }
 
   ngOnInit() {
+  }
+
+  /**
+   * This is just a little hack to prevent loss of data passed in to window.history.state
+   * whenever the page is reloaded. The purpose is to ensure we still have the data needed
+   * to help build all the elements of this page.
+   *
+   * @version 0.0.2
+   * @memberof EditFormPageComponent
+   */
+  resolveReloadDataLoss() {
+    if (!_.isUndefined(this.company)) {
+      console.log('is undefined oooooooooooo');
+      sessionStorage.setItem('company', JSON.stringify(this.company));
+    }
+    else {
+      this.company = JSON.parse(sessionStorage.getItem('company'));
+    }
   }
 
   open(form: any) {
@@ -141,6 +160,7 @@ export class ClientListFormsPageComponent implements OnInit {
           this.hasData = true;
           this.loading = false;
           _.forEach(forms, (form) => {
+            form.company_name = this.company.merchant_name;
             this.formsList.push(form);
           });
         }

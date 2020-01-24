@@ -74,6 +74,10 @@ export class CreateCompanyPageComponent implements OnInit {
     return this.form.get('country');
   }
 
+  public get print_status() {
+    return this.form.get('allowPrint');
+  }
+
   togglePrint() {
     this.f.allowPrint.value == '1'
       ? this.f.allowPrint.setValue('0')
@@ -102,6 +106,12 @@ export class CreateCompanyPageComponent implements OnInit {
 
   onCountrySelect(e: any) {
     this.country.setValue(e.target.value, {
+      onlySelf: true
+    });
+  }
+
+  onPrintSelect(e: any) {
+    this.print_status.setValue(e.target.value, {
       onlySelf: true
     });
   }

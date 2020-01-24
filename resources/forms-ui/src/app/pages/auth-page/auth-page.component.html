@@ -4,9 +4,11 @@
       <div class="row w-100 mx-0">
         <div class="col-lg-4 mx-auto">
           <div class="auth-form-light text-left py-5 px-4 px-sm-5">
-            <a routerLink="/" class="brand-logo">
-              <img src="./assets/images/logo.png" alt="logo">
-            </a>
+            <div class="text-center">
+              <a routerLink="/" class="brand-logo">
+                <img src="./assets/images/logo.png" alt="logo">
+              </a>
+            </div>
             <div *ngIf="invalid" class="mt-2 mb-5">
               <div class="alert alert-danger" role="alert">
                 <h3 class="alert-heading">Hey there!</h3>
@@ -16,8 +18,8 @@
               </div>
             </div>
 
-            <h4>Hello! let's get started</h4>
-            <h6 class="font-weight-normal">Provide your access code to continue.</h6>
+            <h4 class="text-center">Hello! let's get started</h4>
+            <h6 class="text-center font-weight-normal">Provide your access code to continue.</h6>
             <form [formGroup]="form" (ngSubmit)="login()" class="pt-3">
               <div class="form-group">
                 <input type="text" class="form-control form-control-lg" formControlName="code"

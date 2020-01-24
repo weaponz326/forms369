@@ -3,6 +3,8 @@ import * as _ from 'lodash';
 import { Router } from '@angular/router';
 import { Users } from 'src/app/models/users.model';
 import { NgbModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
+import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { DateTimeService } from 'src/app/services/date-time/date-time.service';
 import { FrontDeskService } from 'src/app/services/front-desk/front-desk.service';
 import { LocalStorageService } from 'src/app/services/storage/local-storage.service';
 
@@ -13,15 +15,18 @@ import { LocalStorageService } from 'src/app/services/storage/local-storage.serv
 })
 export class FrontDeskProcessingFormsListPageComponent implements OnInit {
   user: Users;
+  form: FormGroup;
   hasMore: boolean;
   hasData: boolean;
   loading: boolean;
   hasError: boolean;
+  submitted: boolean;
   loadingMore: boolean;
   hasMoreError: boolean;
   responseMessage: string;
   loadingModalRef: NgbModalRef;
   processingFormsList: Array<any>;
+  allProcessingFormsList: Array<any>;
   @ViewChild('loader', { static: false }) loadingModal: TemplateRef<any>;
   @ViewChild('confirm', { static: false }) confirmModal: TemplateRef<any>;
   @ViewChild('response', { static: false }) responseModal: TemplateRef<any>;
@@ -29,17 +34,32 @@ export class FrontDeskProcessingFormsListPageComponent implements OnInit {
 
   constructor(
     private router: Router,
+    private fb: FormBuilder,
     private modalService: NgbModal,
+    private dateTime: DateTimeService,
     private localStorage: LocalStorageService,
     private frontDeskService: FrontDeskService,
   ) {
     this.processingFormsList = [];
+    this.allProcessingFormsList = [];
     this.user = this.localStorage.getUser();
 
     this.getAllFormsInProcessing();
   }
 
   ngOnInit() {
+    this.buildForm();
+  }
+
+  public get f() {
+    return this.form.controls;
+  }
+
+  buildForm() {
+    this.form = this.fb.group({
+      endDate: ['', Validators.required],
+      startDate: ['', Validators.required]
+    });
   }
 
   open(e: Event, form: any) {
@@ -67,8 +87,7 @@ export class FrontDeskProcessingFormsListPageComponent implements OnInit {
 
   getAllFormsInProcessing() {
     this.loading = true;
-    const merchant_id = this.user.merchant_id.toString();
-    this.frontDeskService.getSubmittedFormByStatusAndMerchant(1, merchant_id).then(
+    this.frontDeskService.getProcessedFormsByFrontDesk(_.toString(this.user.id), 1).then(
       res => {
         this.hasMore = this.checkIfHasMore();
         if (res.length != 0) {
@@ -77,6 +96,7 @@ export class FrontDeskProcessingFormsListPageComponent implements OnInit {
           _.forEach(res, (form) => {
             this.processingFormsList.push(form);
           });
+          this.allProcessingFormsList = this.processingFormsList;
         }
         else {
           this.hasData = false;
@@ -92,9 +112,8 @@ export class FrontDeskProcessingFormsListPageComponent implements OnInit {
 
   loadMore() {
     this.loadingMore = true;
-    const merchant_id = this.user.merchant_id.toString();
     const moreUrl = this.frontDeskService.nextPaginationUrl;
-    this.frontDeskService.getSubmittedFormByStatusAndMerchant(1, merchant_id, moreUrl).then(
+    this.frontDeskService.getProcessedFormsByFrontDesk(_.toString(this.user.id), 1, moreUrl).then(
       res => {
         this.loadingMore = false;
         this.hasMoreError = false;
@@ -102,6 +121,7 @@ export class FrontDeskProcessingFormsListPageComponent implements OnInit {
         _.forEach(res, (form) => {
           this.processingFormsList.push(form);
         });
+        this.allProcessingFormsList = this.processingFormsList;
         this.loading = false;
       },
       err => {
@@ -179,6 +199,37 @@ export class FrontDeskProcessingFormsListPageComponent implements OnInit {
         }
       }
     );
+  }
+
+  filter() {
+    this.submitted = true;
+    this.processingFormsList = this.allProcessingFormsList;
+    console.log('processlist length: ' + this.processingFormsList.length);
+    if (this.form.invalid) {
+      console.log('filter form error: ' + this.form.errors);
+    }
+    else {
+      const end = this.f.endDate.value;
+      const start = this.f.startDate.value;
+
+      // Bootstrap date picker returns single digit for months from Jan to Sept
+      // In order to allow us to compare against MYSQL which returns double digits
+      // for that, we convert the month accordingly.
+      const end_month = _.toNumber(end.month) <= 9 ? '0' + end.month : end.month;
+      const start_month = _.toNumber(start.month) <= 9 ? '0' + start.month : start.month;
+
+      const end_date = end.year + '-' + end_month + '-' + end.day;
+      const start_date = start.year + '-' + start_month + '-' + start.day;
+      console.log(start_date);
+      console.log(end_date);
+
+      // Filter forms list.
+      this.processingFormsList = _.filter(this.processingFormsList,
+        (form) =>
+          this.dateTime.getDatePart(form.last_processed) >= start_date &&
+          this.dateTime.getDatePart(form.last_processed) <= end_date
+      );
+    }
   }
 
   retry() {
