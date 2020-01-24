@@ -9,7 +9,7 @@
             <div class="d-flex justify-content-between flex-wrap">
               <div class="d-flex align-items-end flex-wrap">
                 <div class="mr-md-3 mr-xl-5">
-                  <h2>{{ form.form_name || form.name }}</h2>
+                  <h2 style="line-height: 1.3;">{{ form.form_name || form.name }}</h2>
                 </div>
                 <div class="d-flex">
                 </div>
@@ -121,7 +121,7 @@
     </button>
   </div>
   <div class="modal-body">
-    <p><strong>Are you sure you want to <span class="text-primary">submit this form</span> ?</strong></p>
+    <p><strong>Would you like to update your profile with the new details provided ?</strong></p>
   </div>
   <div class="modal-footer">
     <button type="button" class="btn btn-outline-primary" (click)="modal.close()">No</button>

@@ -70,6 +70,7 @@ export class ClientProfilePageComponent implements OnInit {
       this.alert_title = 'Profile Updated Successfully';
       this.alert_message = 'You have successfully updated your account data';
       this.modalService.open(this.updatedDialog, { centered: true });
+      this.ngOnInit();
     }
     else {
       this.alert_title = 'Profile Update Failed';
@@ -175,7 +176,7 @@ export class ClientProfilePageComponent implements OnInit {
     // get all keys and file data for file fields containing data.
     _.forEach(file_input_fields, (file_input) => {
       if (file_input.value != '') {
-        console.log('have data: ' + file_input);
+        console.log(file_input);
         file_fields_with_data.push(file_input);
       }
       else {
@@ -270,7 +271,7 @@ export class ClientProfilePageComponent implements OnInit {
           _.forEach(res, (section) => {
             this.allFormSections.push(section);
           });
-          this.allFormSections = this.removeDuplicateFormFields(this.allFormSections);
+          // this.allFormSections = this.removeDuplicateFormFields(this.allFormSections);
           this.getAllClientData();
         }
         else {
@@ -321,7 +322,7 @@ export class ClientProfilePageComponent implements OnInit {
   uploadAttachmentFile(key: string, index: number): Promise<boolean> {
     return new Promise((resolve, reject) => {
       console.log('uploading .......');
-      this.clientService.uploadProfileAttachment(this.user.id.toString(), key, this.attachmentFiles[index - 1]).then(
+      this.clientService.uploadProfileAttachment(this.user.id.toString(), key, this.attachmentFiles[index]).then(
         ok => {
           if (ok) {
             console.log('file upload done');
@@ -343,6 +344,7 @@ export class ClientProfilePageComponent implements OnInit {
   uploadNormalAttachments(htmlInputField: HTMLInputElement, index: number): Promise<boolean> {
     return new Promise((resolve, reject) => {
       console.log('doing upload');
+      // alert('id: ' + htmlInputField.id);
       this.uploadAttachmentFile(htmlInputField.id, index).then(
         ok => {
           ok ? resolve(true) : resolve(false);
@@ -476,6 +478,7 @@ export class ClientProfilePageComponent implements OnInit {
           console.log('fields with Data: ' + JSON.stringify(fields_with_data));
           console.log('dealing with fields with data only');
           _.forEach(fields_with_data, (field, i) => {
+            console.log('elem_upload: ' + JSON.stringify( field));
             const prom = this.uploadNormalAttachments(field, i);
             promises.push(prom);
 

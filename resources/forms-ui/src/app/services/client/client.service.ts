@@ -51,11 +51,11 @@ export class ClientService {
    * @returns {Promise<any>}
    * @memberof ClientService
    */
-  submitForm(id: string, code: string, client_data: any, form_data: any): Promise<any> {
+  submitForm(id: string, code: string, client_data: any, form_data: any, updateProfile: number): Promise<any> {
     return new Promise((resolve, reject) => {
       const body = { client_profile: client_data, form_data: form_data };
       console.log('Body: ' + JSON.stringify(body));
-      const url = this.endpointService.apiHost + 'api/v1/submitForm/' + id + '/' + code;
+      const url = this.endpointService.apiHost + 'api/v1/submitForm/' + id + '/' + code + '/' + updateProfile;
       this.http.post(url, JSON.stringify(body), { headers: this.headers }).subscribe(
         res => {
           console.log('form_submitted: ' + JSON.stringify(res));

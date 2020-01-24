@@ -155,12 +155,13 @@ export class ClientFormsEntryPageComponent implements OnInit {
     return fields;
   }
 
-  submitFormWithAttachments(user_data: any) {
+  submitFormWithAttachments(user_data: any, updateProfile: boolean) {
     console.log('is submitting');
+    const update = updateProfile ? 1 : 0;
     const filled_data = this.formBuilder.getFormUserData(user_data);
     const updated_data = this.clientService.getUpdatedClientFormData(JSON.parse(filled_data), this.clientProfile.client_details[0]);
     console.log('new updates: ' + updated_data);
-    this.clientService.submitForm(_.toString(this.user.id), this.form.form_code, this.clientProfile.client_details[0], JSON.parse(updated_data)).then(
+    this.clientService.submitForm(_.toString(this.user.id), this.form.form_code, this.clientProfile.client_details[0], JSON.parse(updated_data), update).then(
       res => {
         this.formGenCode = res.code;
         if (this.hasFile) {
@@ -177,12 +178,13 @@ export class ClientFormsEntryPageComponent implements OnInit {
     );
   }
 
-  submitFormWithExistingAttachments(user_data: any) {
+  submitFormWithExistingAttachments(user_data: any, updateProfile: boolean) {
     console.log('is submitting with existing attachment');
+    const update = updateProfile ? 1 : 0;
     const filled_data = this.formBuilder.getFormUserData(user_data);
     const updated_data = this.clientService.getUpdatedClientFormData(JSON.parse(filled_data), this.clientProfile.client_details[0]);
     console.log('new updates: ' + updated_data);
-    this.clientService.submitForm(_.toString(this.user.id), this.form.form_code, this.clientProfile.client_details[0], JSON.parse(updated_data)).then(
+    this.clientService.submitForm(_.toString(this.user.id), this.form.form_code, this.clientProfile.client_details[0], JSON.parse(updated_data), update).then(
       res => {
         this.formGenCode = res.code;
         if (this.existingAttachments.length > 0) {
@@ -207,30 +209,57 @@ export class ClientFormsEntryPageComponent implements OnInit {
     );
   }
 
+  submitForm(updateProfile: boolean) {
+    this.loading = true;
+    const user_data = this.getFormData();
+    console.log(JSON.stringify(user_data));
+    console.log('this form: ' + this.formBuilder.getFormUserData(user_data));
+    const unfilled = this.clientService.validateFormFilled(user_data);
+    console.log('unfilled: ' + JSON.stringify(unfilled));
+    if (unfilled.length != 0) {
+      const fileFields = this.getExistingAttachments(unfilled);
+      console.log('fileFields: ' + JSON.stringify(fileFields));
+      if (fileFields.length == 0) {
+        this.loading = false;
+        this.clientService.highlightUnFilledFormFields(unfilled);
+      }
+      else {
+        this.submitFormWithExistingAttachments(user_data, updateProfile);
+      }
+    }
+    else {
+      this.submitFormWithAttachments(user_data, updateProfile);
+    }
+  }
+
   submit() {
     this.modalService.open(this.confirmDialog, { centered: true }).result.then(
       result => {
         if (result == 'yes') {
-          this.loading = true;
-          const user_data = this.getFormData();
-          console.log(JSON.stringify(user_data));
-          console.log('this form: ' + this.formBuilder.getFormUserData(user_data));
-          const unfilled = this.clientService.validateFormFilled(user_data);
-          console.log('unfilled: ' + JSON.stringify(unfilled));
-          if (unfilled.length != 0) {
-            const fileFields = this.getExistingAttachments(unfilled);
-            console.log('fileFields: ' + JSON.stringify(fileFields));
-            if (fileFields.length == 0) {
-              this.loading = false;
-              this.clientService.highlightUnFilledFormFields(unfilled);
-            }
-            else {
-              this.submitFormWithExistingAttachments(user_data);
-            }
-          }
-          else {
-            this.submitFormWithAttachments(user_data);
-          }
+          // this.loading = true;
+          // const user_data = this.getFormData();
+          // console.log(JSON.stringify(user_data));
+          // console.log('this form: ' + this.formBuilder.getFormUserData(user_data));
+          // const unfilled = this.clientService.validateFormFilled(user_data);
+          // console.log('unfilled: ' + JSON.stringify(unfilled));
+          // if (unfilled.length != 0) {
+          //   const fileFields = this.getExistingAttachments(unfilled);
+          //   console.log('fileFields: ' + JSON.stringify(fileFields));
+          //   if (fileFields.length == 0) {
+          //     this.loading = false;
+          //     this.clientService.highlightUnFilledFormFields(unfilled);
+          //   }
+          //   else {
+          //     this.submitFormWithExistingAttachments(user_data);
+          //   }
+          // }
+          // else {
+          //   this.submitFormWithAttachments(user_data);
+          // }
+          this.submitForm(true);
+        }
+        else {
+          this.submitForm(false);
         }
       }
     );

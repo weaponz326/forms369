@@ -99,7 +99,7 @@
                     <i class="mdi mdi-close-network-outline" style="font-size: 8em;"></i>
                   </div>
                   <div class="card-text">
-                    <h3>We couldn't get your branches</h3>
+                    <h3>We couldn't get the data you were looking for</h3>
                     <p class="text-muted">An error has occured on our servers or you might not have internet connection</p>
                     <button class="btn btn-primary" (click)="retry()">Retry</button>
                   </div>
@@ -108,22 +108,6 @@
             </div>
           </div>
         </div>
-
-        <!-- <div *ngIf="!isConnected" class="row">
-          <div class="col-md-12 grid-margin">
-            <div class="card text-center">
-              <div class="card-body">
-                <p class="card-title">Offline</p>
-                <p class="text-muted"></p>
-                <div class="card-text">
-                  <i class="mdi mdi-wifi-off" style="font-size: 12em;"></i>
-                  <h2>No Internet Connection</h2>
-                  <p class="text-muted">You don't have an active internet connection</p>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div> -->
 
         <div *ngIf="!loading && hasData" class="row">
           <div class="col-md-4 grid-margin stretch-card" *ngFor="let company of companyList">
@@ -143,9 +127,10 @@
           <div class="col-md-4 text-center grid-margin stretch-card" *ngFor="let form of formsList">
             <div class="card hover-cursor animated fadeInDown slow" (click)="openForm(form)">
               <div class="card-body" style="text-align: left;">
-                <p class="card-title">{{ form.name }}</p>
+                <p class="card-title">{{ form.merchant_name }}</p>
                 <div class="card-text">
-                  <p class="text-muted">Click to open form and start filling.</p>
+                  <h1 class="display-4">{{ form.name }}</h1>
+                  <!-- <p class="text-muted">Click to open form and start filling.</p> -->
                 </div>
               </div>
             </div>
