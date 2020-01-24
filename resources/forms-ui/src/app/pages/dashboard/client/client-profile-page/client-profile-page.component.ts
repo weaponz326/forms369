@@ -33,6 +33,7 @@ export class ClientProfilePageComponent implements OnInit {
   docDialogRef: NgbModalRef;
   loadingAttachments: boolean;
   allFormSections: Array<any>;
+  duplicateFields: Array<any>;
   attachmentFiles: Array<File>;
   attachmentKeys: Array<string>;
   existingAttachments: Array<any>;
@@ -57,6 +58,7 @@ export class ClientProfilePageComponent implements OnInit {
     this.allFormSections = [];
     this.attachmentFiles = [];
     this.existingAttachments = [];
+    this.duplicateFields = [];
     this.user = this.localStorage.getUser();
     console.log('user_id: ' + this.user.id);
   }
@@ -70,7 +72,6 @@ export class ClientProfilePageComponent implements OnInit {
       this.alert_title = 'Profile Updated Successfully';
       this.alert_message = 'You have successfully updated your account data';
       this.modalService.open(this.updatedDialog, { centered: true });
-      this.ngOnInit();
     }
     else {
       this.alert_title = 'Profile Update Failed';
@@ -255,7 +256,7 @@ export class ClientProfilePageComponent implements OnInit {
       }
     });
 
-    console.log('submitted_data: ' + user_form_data['d-o-b']);
+    console.log('submitted_data: ' + JSON.stringify(user_form_data));
     return JSON.stringify(user_form_data);
   }
 
@@ -269,9 +270,10 @@ export class ClientProfilePageComponent implements OnInit {
           console.log('filled data');
           this.getFormAttachments(this.user.id);
           _.forEach(res, (section) => {
+            this.setDuplicate(section.form_fields);
             this.allFormSections.push(section);
           });
-          // this.allFormSections = this.removeDuplicateFormFields(this.allFormSections);
+          this.hideDuplicateElementFields();
           this.getAllClientData();
         }
         else {
@@ -287,18 +289,25 @@ export class ClientProfilePageComponent implements OnInit {
     );
   }
 
-  removeDuplicateFormFields(arrayFields: Array<any>) {
-    if (arrayFields.length > 1) {
-      arrayFields = arrayFields.filter((item, index, self) =>
-        index === self.findIndex((t) => (
-          t.name === item.name
-        ))
-      );
-      return arrayFields;
-    }
-    else {
-      return arrayFields;
-    }
+  setDuplicate(formFields: Array<any>) {
+    _.forEach(formFields, (field) => {
+      if (!_.includes(this.duplicateFields, field.name)) {
+        console.log('duplicate no has');
+        this.duplicateFields.push(field.name);
+      }
+    });
+  }
+
+  hideDuplicateElementFields() {
+    const allElements = document.querySelectorAll('input');
+    _.forEach(allElements, (element) => {
+      _.forEach(this.duplicateFields, (duplicate) => {
+        if (element.id == duplicate) {
+          const elem = document.getElementById(element.id);
+          elem.style.display = 'none';
+        }
+      });
+    });
   }
 
   deleteExistingAttachment(key: string) {

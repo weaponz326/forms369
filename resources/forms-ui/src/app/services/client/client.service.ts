@@ -587,4 +587,62 @@ export class ClientService {
       );
     });
   }
+
+  checkFormSubmitPin(client_id: string): Promise<boolean> {
+    return new Promise((resolve, reject) => {
+      const url = this.endpointService.apiHost + 'api/v1/hasPin/' + client_id;
+      this.http.post(url, {}, { headers: this.headers }).subscribe(
+        res => {
+          console.log('res: ' + JSON.stringify(res));
+          const response = res as any;
+          _.toLower(response.message) == 'yes'
+            ? resolve(true)
+            : resolve(false);
+        },
+        err => {
+          console.log('error: ' + JSON.stringify(err));
+          reject(err);
+        }
+      );
+    });
+  }
+
+  setFormSubmitPin(user_id: string, pin: string): Promise<any> {
+    return new Promise((resolve, reject) => {
+      const url = this.endpointService.apiHost + 'api/v1/setPin/' + user_id + '/' + pin;
+      this.http.post(url, {}, { headers: this.headers }).subscribe(
+        res => {
+          console.log('res: ' + JSON.stringify(res));
+          const response = res as any;
+          _.toLower(response.message) == 'ok'
+            ? resolve(true)
+            : resolve(false);
+        },
+        err => {
+          console.log('err: ' + JSON.stringify(err));
+          reject(err);
+        }
+      );
+    });
+  }
+
+  changeFormSubmitPin(user_id: string, old_pin: string, new_pin: string): Promise<boolean> {
+    return new Promise((resolve, reject) => {
+      const body = { old_pin: old_pin, new_pin: new_pin };
+      const url = this.endpointService.apiHost + 'api/v1/changePin/' + user_id;
+      this.http.post(url, JSON.stringify(body), { headers: this.headers }).subscribe(
+        res => {
+          console.log('res: ' + JSON.stringify(res));
+          const response = res as any;
+          _.toLower(response.message) == 'ok'
+            ? resolve(true)
+            : resolve(false);
+        },
+        err => {
+          console.log('err: ' + JSON.stringify(err));
+          reject(err);
+        }
+      );
+    });
+  }
 }

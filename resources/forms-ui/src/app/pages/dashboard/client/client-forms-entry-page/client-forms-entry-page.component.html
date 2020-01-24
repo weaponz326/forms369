@@ -159,3 +159,33 @@
     <button type="button" class="btn btn-primary" (click)="downloadDoc(documentUrl)">Download</button>
   </div>
 </ng-template>
+
+<ng-template #setPin let-modal>
+  <form [formGroup]="pinForm" (ngSubmit)="createPin()">
+    <div class="modal-header">
+      <h5 class="modal-title text-uppercase">Set A PIN</h5>
+      <button type="button" class="close" aria-describedby="modal-title" (click)="modal.close()">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+    <div class="modal-body">
+      <div class="form-group pin-form-group">
+        <input type="text" class="form-control form-control-lg pin-control" formControlName="pin" placeholder="----"
+          [ngClass]="{'input-control-error': submitted && f.pin.errors}" maxlength="4" (keyup)="resolveStrCharacters($event)">
+        <div *ngIf="submitted && f.pin.errors">
+          <p class="input-error" *ngIf="f.pin.errors.required">PIN is required</p>
+          <p class="input-error" *ngIf="f.pin.errors.minlength">PIN is must be 4 (four) digits.</p>
+          <p class="input-error" *ngIf="f.pin.errors.maxlength">PIN is must be 4 (four) digits.</p>
+        </div>
+      </div>
+    </div>
+    <div class="modal-footer">
+      <button type="button" class="btn btn-outline-primary">Close</button>
+      <button type="submit" class="btn btn-primary">Create PIN</button>
+      <button type="button" class="btn btn-block btn-primary font-weight-medium" disabled>
+        <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span> &nbsp; &nbsp;
+        Please wait...
+      </button>
+    </div>
+  </form>
+</ng-template>
