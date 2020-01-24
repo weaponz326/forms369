@@ -16,10 +16,6 @@ use Illuminate\Http\Request;
 Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
-//form submission pin apis 
-Route::post('hasPin/{id}', 'HomeController@hasPin')->name('hasPin');
-Route::post('setPin/{id}/{pin}', 'HomeController@setPin')->name('setPin');
-Route::post('changePin/{id}', 'HomeController@changePin')->name('changePin');
 
 //register a user
 Route::post('registerUser', 'HomeController@createNewUser')->name('registerUser');
@@ -47,6 +43,12 @@ Route::get('getFormViaLink/{id}', 'HomeController@getFormViaLink')->name('getFor
 
 //protected routes 
 Route::group(['middleware' => ['auth:api'], 'prefix' => 'v1'], function(){
+
+    //form submission pin apis 
+    Route::post('hasPin/{id}', 'HomeController@hasPin')->name('hasPin')->middleware('scope:GIT_Admin,client');
+    Route::post('setPin/{id}/{pin}', 'HomeController@setPin')->name('setPin')->middleware('scope:GIT_Admin,client');
+    Route::post('changePin/{id}', 'HomeController@changePin')->name('changePin')->middleware('scope:GIT_Admin,client');
+
     Route::get('getNumAllUsers', 'HomeController@getNumAllUsers')->name('getNumAllUsers')->middleware('scope:GIT_Admin');
   
     // Route::get('getFormViaLink/{id}', 'HomeController@getFormViaLink')->name('getFormViaLink')->middleware('signed');
