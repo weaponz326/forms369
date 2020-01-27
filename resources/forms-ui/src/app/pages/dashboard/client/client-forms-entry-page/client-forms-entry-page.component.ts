@@ -1,6 +1,7 @@
 import { Component, OnInit, ViewChild, TemplateRef } from '@angular/core';
 declare var $: any;
 import * as _ from 'lodash';
+import Swal from 'sweetalert2';
 import { Router } from '@angular/router';
 import { ClipboardService } from 'ngx-clipboard';
 import { Users } from 'src/app/models/users.model';
@@ -23,6 +24,7 @@ export class ClientFormsEntryPageComponent implements OnInit {
   form: any;
   user: Users;
   imgUrl: string;
+  pinCode: string;
   loading: boolean;
   created: boolean;
   hasFile: boolean;
@@ -30,12 +32,17 @@ export class ClientFormsEntryPageComponent implements OnInit {
   formInstance: any;
   formRenderer: any;
   clientProfile: any;
+  submitted: boolean;
   isLoading: boolean;
   pinForm: FormGroup;
   formGenCode: string;
   documentUrl: string;
+  pinMinimum: boolean;
+  pinRequired: boolean;
+  updateProfile: boolean;
   showAttachments: boolean;
   docDialogRef: NgbModalRef;
+  pinDialogRef: NgbModalRef;
   loadingAttachments: boolean;
   setPinDialogRef: NgbModalRef;
   attachmentFiles: Array<File>;
@@ -59,6 +66,7 @@ export class ClientFormsEntryPageComponent implements OnInit {
     private downloadService: DownloaderService,
     private fileUploadService: FileUploadsService
   ) {
+    this.pinCode = '';
     this.formFiles = 0;
     this.attachmentKeys = [];
     this.attachmentFiles = [];
@@ -68,6 +76,7 @@ export class ClientFormsEntryPageComponent implements OnInit {
     this.user = this.localStorage.getUser();
     console.log('form: ' + JSON.stringify(this.form));
     this.getFormAttachments(this.form.submission_code);
+    this.checkIfUserHasFormPin();
   }
 
   ngOnInit() {
@@ -81,7 +90,7 @@ export class ClientFormsEntryPageComponent implements OnInit {
 
   initPinForm() {
     this.pinForm = this.fb.group({
-      pin: ['', [Validators.maxLength(4), Validators.minLength(4), Validators.required]]
+      pin: ['', [Validators.minLength(4), Validators.required]]
     });
   }
 
@@ -109,6 +118,36 @@ export class ClientFormsEntryPageComponent implements OnInit {
       const value = this.f.pin.value.substring(0, this.f.pin.value.length - 1);
       this.f.pin.setValue(value);
     }
+  }
+
+  showPinCreatedSuccess() {
+    Swal.fire({
+      title: 'Pin Created',
+      text: 'Your PIN has been successfully created',
+      icon: 'success',
+      confirmButtonText: 'Ok, Got It',
+      onClose: () => {
+        this.pinDialogRef = this.modalService.open(this.pinDialog, { centered: true });
+      }
+    });
+  }
+
+  showPinCreationFailed() {
+    Swal.fire({
+      title: 'Oops!',
+      text: 'Sorry! Failed to create your pin. Something went wrong. Please check your internet connection and try again or maybe our servers may be down.',
+      icon: 'error',
+      confirmButtonColor: 'Hmm, Ok'
+    });
+  }
+
+  showPinVerificationFailed() {
+    Swal.fire({
+      title: 'Oops!',
+      text: 'Sorry! Wrong PIN entered. Please check and try again',
+      icon: 'error',
+      confirmButtonColor: 'Arrrgh, Ok'
+    });
   }
 
   renderForm() {
@@ -163,16 +202,17 @@ export class ClientFormsEntryPageComponent implements OnInit {
   }
 
   checkIfUserHasFormPin() {
-    return new Promise((resolve, reject) => {
-      this.clientService.checkFormSubmitPin(this.user.id.toString()).then(
-        ok => {
-          resolve(ok);
-        },
-        err => {
-          reject(err);
+    this.clientService.checkFormSubmitPin(this.user.id.toString()).then(
+      ok => {
+        console.log('res: ' + JSON.stringify(ok));
+        if (ok) {
+          sessionStorage.setItem('has-pin', '1');
         }
-      );
-    });
+      },
+      err => {
+        console.log(';error: ' + JSON.stringify(err));
+      }
+    );
   }
 
   getExistingAttachments(unfilled_fields: any[]) {
@@ -248,76 +288,118 @@ export class ClientFormsEntryPageComponent implements OnInit {
     );
   }
 
-  submitForm(updateProfile: boolean) {
-    const hasPin = localStorage.getItem('has-pin');
+  handlePinCode(update: boolean) {
+    this.updateProfile = update;
+    const hasPin = localStorage.getItem('has_pin');
     if (_.isNull(hasPin) || _.isUndefined(hasPin)) {
-      this.checkIfUserHasFormPin().then(
-        ok => {
-          if (ok) {
-            this.modalService.open(this.setPinDialog, { centered: true }).result.then(
-              result => {
-              }
-            );
-          }
-          else {
-            this.modalService.open(this.setPinDialog, { centered: true }).result.then(
-              result => {
-                localStorage.setItem('has-pin', '1');
-              }
-            );
-          }
-        }
-      );
+      this.setPinDialogRef = this.modalService.open(this.setPinDialog, { centered: true });
     }
-    this.modalService.open(this.setPinDialog, { centered: true });
-    // this.loading = true;
-    // const user_data = this.getFormData();
-    // console.log(JSON.stringify(user_data));
-    // console.log('this form: ' + this.formBuilder.getFormUserData(user_data));
-    // const unfilled = this.clientService.validateFormFilled(user_data);
-    // console.log('unfilled: ' + JSON.stringify(unfilled));
-    // if (unfilled.length != 0) {
-    //   const fileFields = this.getExistingAttachments(unfilled);
-    //   console.log('fileFields: ' + JSON.stringify(fileFields));
-    //   if (fileFields.length == 0) {
-    //     this.loading = false;
-    //     this.clientService.highlightUnFilledFormFields(unfilled);
-    //   }
-    //   else {
-    //     this.submitFormWithExistingAttachments(user_data, updateProfile);
-    //   }
-    // }
-    // else {
-    //   this.submitFormWithAttachments(user_data, updateProfile);
-    // }
+    else {
+      this.pinDialogRef = this.modalService.open(this.pinDialog, { centered: true });
+    }
+  }
+
+  submitForm() {
+    this.loading = true;
+    const user_data = this.getFormData();
+    console.log(JSON.stringify(user_data));
+    console.log('this form: ' + this.formBuilder.getFormUserData(user_data));
+    const unfilled = this.clientService.validateFormFilled(user_data);
+    console.log('unfilled: ' + JSON.stringify(unfilled));
+    if (unfilled.length != 0) {
+      const fileFields = this.getExistingAttachments(unfilled);
+      console.log('fileFields: ' + JSON.stringify(fileFields));
+      if (fileFields.length == 0) {
+        this.loading = false;
+        this.clientService.highlightUnFilledFormFields(unfilled);
+      }
+      else {
+        this.submitFormWithExistingAttachments(user_data, this.updateProfile);
+      }
+    }
+    else {
+      this.submitFormWithAttachments(user_data, this.updateProfile);
+    }
   }
 
   submit() {
     this.modalService.open(this.confirmDialog, { centered: true }).result.then(
       result => {
         if (result == 'yes') {
-          this.submitForm(true);
+          this.handlePinCode(true);
         }
         else {
-          this.submitForm(false);
+          this.handlePinCode(false);
         }
       }
     );
   }
 
   createPin() {
-    return new Promise((resolve, reject) => {
-      const pin = this.f.pin.value;
+    this.submitted = true;
+    const pin = this.f.pin.value;
+    if (this.pinForm.valid) {
       this.isLoading = true;
       this.clientService.setFormSubmitPin(this.user.id.toString(), pin).then(
         ok => {
-          resolve(ok);
+          if (ok) {
+            this.isLoading = false;
+            this.submitted = false;
+            this.setPinDialogRef.close();
+            this.showPinCreatedSuccess();
+            localStorage.setItem('has_pin', '1');
+          }
+          else {
+            this.submitted = false;
+            this.isLoading = false;
+            this.setPinDialogRef.close();
+            this.showPinCreationFailed();
+          }
         },
         err => {
-          reject(err);
+          this.submitted = false;
+          this.isLoading = false;
+          this.setPinDialogRef.close();
+          this.showPinCreationFailed();
         }
       );
-    });
+    }
+  }
+
+  verifyPin() {
+    this.pinMinimum = false;
+    this.pinRequired = false;
+
+    if (this.pinCode == '') {
+      this.pinRequired = true;
+    }
+    else if (this.pinCode.length < 4) {
+      this.pinMinimum = true;
+    }
+    else {
+      this.isLoading = true;
+      this.pinMinimum = false;
+      this.pinRequired = false;
+      this.clientService.verifyFormSubmitPin(this.user.id.toString(), this.pinCode).then(
+        ok => {
+          if (ok) {
+            this.isLoading = false;
+            this.pinDialogRef.close();
+            this.submitForm();
+          }
+          else {
+            this.isLoading = false;
+            this.pinDialogRef.close();
+            this.showPinVerificationFailed();
+          }
+        },
+        err => {
+          this.isLoading = false;
+          this.pinDialogRef.close();
+          this.showPinVerificationFailed();
+        }
+      );
+    }
   }
 
   uploadFormFile(form_code: string, key: string, index?: number) {
