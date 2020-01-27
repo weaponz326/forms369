@@ -206,7 +206,7 @@ export class ClientFormsEntryPageComponent implements OnInit {
       ok => {
         console.log('res: ' + JSON.stringify(ok));
         if (ok) {
-          sessionStorage.setItem('has-pin', '1');
+          localStorage.setItem('has_pin', '1');
         }
       },
       err => {

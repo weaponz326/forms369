@@ -1,3 +1,4 @@
+import * as _ from 'lodash';
 import Swal from 'sweetalert2';
 import { Component, OnInit } from '@angular/core';
 import { Users } from 'src/app/models/users.model';
@@ -13,8 +14,11 @@ import { LocalStorageService } from 'src/app/services/storage/local-storage.serv
 export class ClientSettingsPageComponent implements OnInit {
   user: Users;
   form: FormGroup;
+  pinForm: FormGroup;
   loading: boolean;
+  _loading: boolean;
   submitted: boolean;
+  showSetPin: boolean;
 
   constructor(
     private fb: FormBuilder,
@@ -22,14 +26,29 @@ export class ClientSettingsPageComponent implements OnInit {
     private localStorage: LocalStorageService
   ) {
     this.user = this.localStorage.getUser();
+    const has_pin = window.localStorage.getItem('has_pin');
+    console.log('has_pin: ' + has_pin);
+    if (_.isUndefined(has_pin) || _.isNull(has_pin)) {
+      this.showSetPin = true;
+      this.checkIfUserHasFormPin();
+    }
+    else {
+      // this.showSetPin = true;
+      this.showSetPin = false;
+    }
   }
 
   ngOnInit() {
+    this.initForm();
     this.initPinForm();
   }
 
    public get f() {
     return this.form.controls;
+  }
+
+  public get _f() {
+    return this.pinForm.controls;
   }
 
   resolveStrCharacters(e: KeyboardEvent) {
@@ -45,6 +64,14 @@ export class ClientSettingsPageComponent implements OnInit {
     if (!regExp.test(this.f.newPin.value)) {
       const _v = this.f.newPin.value.substring(0, this.f.newPin.value.length - 1);
       this.f.newPin.setValue(_v);
+    }
+  }
+
+  _resolveStrCharacters(e: KeyboardEvent) {
+    const regExp = new RegExp(/^\d*\.?\d*$/);
+    if (!regExp.test(this._f.pin.value)) {
+      const _v = this._f.pin.value.substring(0, this._f.pin.value.length - 1);
+      this._f.pin.setValue(_v);
     }
   }
 
@@ -70,16 +97,39 @@ export class ClientSettingsPageComponent implements OnInit {
     Swal.fire({
       title: 'Oops!',
       text: 'Sorry!. Something went wrong, we couldn\'t change your PIN. Please check your internet connection or our servers may be down.',
-      icon: 'success',
+      icon: 'error',
       confirmButtonText: 'Hmm, Ok'
     });
   }
 
   initPinForm() {
+    this.pinForm = this.fb.group({
+      pin: ['', [Validators.minLength(4), Validators.required]]
+    });
+  }
+
+  initForm() {
     this.form = this.fb.group({
       oldPin: ['', [Validators.minLength(4), Validators.required]],
       newPin: ['', [Validators.minLength(4), Validators.required]]
     });
+  }
+
+  checkIfUserHasFormPin() {
+    this._loading = true;
+    this.clientService.checkFormSubmitPin(this.user.id.toString()).then(
+      ok => {
+        this._loading = false;
+        console.log('res: ' + JSON.stringify(ok));
+        if (ok) {
+          localStorage.setItem('has_pin', '1');
+        }
+      },
+      err => {
+        this._loading = false;
+        console.log('error: ' + JSON.stringify(err));
+      }
+    );
   }
 
   changePin() {
@@ -104,6 +154,31 @@ export class ClientSettingsPageComponent implements OnInit {
           err.error.message == 'INCORRECT_PIN'
             ? this.showIncorrectPin()
             : this.showPinChangeFailed();
+        }
+      );
+    }
+  }
+
+  createPin() {
+    this.submitted = true;
+    const pin = this._f.pin.value;
+    if (this.pinForm.valid) {
+      this.loading = true;
+      this.clientService.setFormSubmitPin(this.user.id.toString(), pin).then(
+        ok => {
+          if (ok) {
+            this.loading = false;
+            this.submitted = false;
+            localStorage.setItem('has_pin', '1');
+          }
+          else {
+            this.submitted = false;
+            this.loading = false;
+          }
+        },
+        err => {
+          this.submitted = false;
+          this.loading = false;
         }
       );
     }
