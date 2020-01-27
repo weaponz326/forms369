@@ -33,6 +33,7 @@ export class ClientProfilePageComponent implements OnInit {
   docDialogRef: NgbModalRef;
   loadingAttachments: boolean;
   allFormSections: Array<any>;
+  duplicateFields: Array<any>;
   attachmentFiles: Array<File>;
   attachmentKeys: Array<string>;
   existingAttachments: Array<any>;
@@ -57,6 +58,7 @@ export class ClientProfilePageComponent implements OnInit {
     this.allFormSections = [];
     this.attachmentFiles = [];
     this.existingAttachments = [];
+    this.duplicateFields = [];
     this.user = this.localStorage.getUser();
     console.log('user_id: ' + this.user.id);
   }
@@ -175,7 +177,7 @@ export class ClientProfilePageComponent implements OnInit {
     // get all keys and file data for file fields containing data.
     _.forEach(file_input_fields, (file_input) => {
       if (file_input.value != '') {
-        console.log('have data: ' + file_input);
+        console.log(file_input);
         file_fields_with_data.push(file_input);
       }
       else {
@@ -254,7 +256,7 @@ export class ClientProfilePageComponent implements OnInit {
       }
     });
 
-    console.log('submitted_data: ' + user_form_data['d-o-b']);
+    console.log('submitted_data: ' + JSON.stringify(user_form_data));
     return JSON.stringify(user_form_data);
   }
 
@@ -268,9 +270,10 @@ export class ClientProfilePageComponent implements OnInit {
           console.log('filled data');
           this.getFormAttachments(this.user.id);
           _.forEach(res, (section) => {
+            this.setDuplicate(section.form_fields);
             this.allFormSections.push(section);
           });
-          this.allFormSections = this.removeDuplicateFormFields(this.allFormSections);
+          this.hideDuplicateElementFields();
           this.getAllClientData();
         }
         else {
@@ -286,18 +289,25 @@ export class ClientProfilePageComponent implements OnInit {
     );
   }
 
-  removeDuplicateFormFields(arrayFields: Array<any>) {
-    if (arrayFields.length > 1) {
-      arrayFields = arrayFields.filter((item, index, self) =>
-        index === self.findIndex((t) => (
-          t.name === item.name
-        ))
-      );
-      return arrayFields;
-    }
-    else {
-      return arrayFields;
-    }
+  setDuplicate(formFields: Array<any>) {
+    _.forEach(formFields, (field) => {
+      if (!_.includes(this.duplicateFields, field.name)) {
+        console.log('duplicate no has');
+        this.duplicateFields.push(field.name);
+      }
+    });
+  }
+
+  hideDuplicateElementFields() {
+    const allElements = document.querySelectorAll('input');
+    _.forEach(allElements, (element) => {
+      _.forEach(this.duplicateFields, (duplicate) => {
+        if (element.id == duplicate) {
+          const elem = document.getElementById(element.id);
+          elem.style.display = 'none';
+        }
+      });
+    });
   }
 
   deleteExistingAttachment(key: string) {
@@ -321,7 +331,7 @@ export class ClientProfilePageComponent implements OnInit {
   uploadAttachmentFile(key: string, index: number): Promise<boolean> {
     return new Promise((resolve, reject) => {
       console.log('uploading .......');
-      this.clientService.uploadProfileAttachment(this.user.id.toString(), key, this.attachmentFiles[index - 1]).then(
+      this.clientService.uploadProfileAttachment(this.user.id.toString(), key, this.attachmentFiles[index]).then(
         ok => {
           if (ok) {
             console.log('file upload done');
@@ -343,6 +353,7 @@ export class ClientProfilePageComponent implements OnInit {
   uploadNormalAttachments(htmlInputField: HTMLInputElement, index: number): Promise<boolean> {
     return new Promise((resolve, reject) => {
       console.log('doing upload');
+      // alert('id: ' + htmlInputField.id);
       this.uploadAttachmentFile(htmlInputField.id, index).then(
         ok => {
           ok ? resolve(true) : resolve(false);
@@ -476,6 +487,7 @@ export class ClientProfilePageComponent implements OnInit {
           console.log('fields with Data: ' + JSON.stringify(fields_with_data));
           console.log('dealing with fields with data only');
           _.forEach(fields_with_data, (field, i) => {
+            console.log('elem_upload: ' + JSON.stringify( field));
             const prom = this.uploadNormalAttachments(field, i);
             promises.push(prom);
 

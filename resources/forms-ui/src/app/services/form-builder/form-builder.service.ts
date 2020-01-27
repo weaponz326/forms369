@@ -405,7 +405,7 @@ export class FormBuilderService {
    * @memberof FormBuilderService
    */
   generateUniqueFormCode(): string {
-    const code = Math.random().toString(36).substr(2, 6).toUpperCase();
+    const code = Math.random().toString(36).substr(2, 5).toUpperCase();
     if (/\d/.test(code)) {
       return code;
     }

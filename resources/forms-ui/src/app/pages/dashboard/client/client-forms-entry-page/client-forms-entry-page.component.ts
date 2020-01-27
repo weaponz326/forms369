@@ -5,6 +5,7 @@ import { Router } from '@angular/router';
 import { ClipboardService } from 'ngx-clipboard';
 import { Users } from 'src/app/models/users.model';
 import { NgbModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
+import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { ClientService } from 'src/app/services/client/client.service';
 import { EndpointService } from 'src/app/services/endpoint/endpoint.service';
 import { DownloaderService } from 'src/app/services/downloader/downloader.service';
@@ -29,20 +30,26 @@ export class ClientFormsEntryPageComponent implements OnInit {
   formInstance: any;
   formRenderer: any;
   clientProfile: any;
+  isLoading: boolean;
+  pinForm: FormGroup;
   formGenCode: string;
   documentUrl: string;
   showAttachments: boolean;
   docDialogRef: NgbModalRef;
   loadingAttachments: boolean;
+  setPinDialogRef: NgbModalRef;
   attachmentFiles: Array<File>;
   attachmentKeys: Array<string>;
   existingAttachments: Array<any>;
+  @ViewChild('pin', { static: false }) pinDialog: TemplateRef<any>;
+  @ViewChild('setPin', { static: false }) setPinDialog: TemplateRef<any>;
   @ViewChild('confirm', { static: false }) confirmDialog: TemplateRef<any>;
   @ViewChild('viewImgAttachment', { static: false }) viewImgDialog: TemplateRef<any>;
   @ViewChild('viewDocAttachment', { static: false }) viewDocDialog: TemplateRef<any>;
 
   constructor(
     private router: Router,
+    private fb: FormBuilder,
     private modalService: NgbModal,
     private clipboard: ClipboardService,
     private clientService: ClientService,
@@ -64,7 +71,18 @@ export class ClientFormsEntryPageComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.initPinForm();
     this.renderForm();
+  }
+
+  public get f() {
+    return this.pinForm.controls;
+  }
+
+  initPinForm() {
+    this.pinForm = this.fb.group({
+      pin: ['', [Validators.maxLength(4), Validators.minLength(4), Validators.required]]
+    });
   }
 
   /**
@@ -82,6 +100,14 @@ export class ClientFormsEntryPageComponent implements OnInit {
     }
     else {
       this.form = JSON.parse(sessionStorage.getItem('u_form'));
+    }
+  }
+
+  resolveStrCharacters(e: KeyboardEvent) {
+    const regExp = new RegExp(/^\d*\.?\d*$/);
+    if (!regExp.test(this.f.pin.value)) {
+      const value = this.f.pin.value.substring(0, this.f.pin.value.length - 1);
+      this.f.pin.setValue(value);
     }
   }
 
@@ -136,6 +162,19 @@ export class ClientFormsEntryPageComponent implements OnInit {
     });
   }
 
+  checkIfUserHasFormPin() {
+    return new Promise((resolve, reject) => {
+      this.clientService.checkFormSubmitPin(this.user.id.toString()).then(
+        ok => {
+          resolve(ok);
+        },
+        err => {
+          reject(err);
+        }
+      );
+    });
+  }
+
   getExistingAttachments(unfilled_fields: any[]) {
     // This gets all the existing attachments so they can be uploaded
     // if the user doesnt choose any new file.
@@ -155,12 +194,13 @@ export class ClientFormsEntryPageComponent implements OnInit {
     return fields;
   }
 
-  submitFormWithAttachments(user_data: any) {
+  submitFormWithAttachments(user_data: any, updateProfile: boolean) {
     console.log('is submitting');
+    const update = updateProfile ? 1 : 0;
     const filled_data = this.formBuilder.getFormUserData(user_data);
     const updated_data = this.clientService.getUpdatedClientFormData(JSON.parse(filled_data), this.clientProfile.client_details[0]);
     console.log('new updates: ' + updated_data);
-    this.clientService.submitForm(_.toString(this.user.id), this.form.form_code, this.clientProfile.client_details[0], JSON.parse(updated_data)).then(
+    this.clientService.submitForm(_.toString(this.user.id), this.form.form_code, this.clientProfile.client_details[0], JSON.parse(updated_data), update).then(
       res => {
         this.formGenCode = res.code;
         if (this.hasFile) {
@@ -177,12 +217,13 @@ export class ClientFormsEntryPageComponent implements OnInit {
     );
   }
 
-  submitFormWithExistingAttachments(user_data: any) {
+  submitFormWithExistingAttachments(user_data: any, updateProfile: boolean) {
     console.log('is submitting with existing attachment');
+    const update = updateProfile ? 1 : 0;
     const filled_data = this.formBuilder.getFormUserData(user_data);
     const updated_data = this.clientService.getUpdatedClientFormData(JSON.parse(filled_data), this.clientProfile.client_details[0]);
     console.log('new updates: ' + updated_data);
-    this.clientService.submitForm(_.toString(this.user.id), this.form.form_code, this.clientProfile.client_details[0], JSON.parse(updated_data)).then(
+    this.clientService.submitForm(_.toString(this.user.id), this.form.form_code, this.clientProfile.client_details[0], JSON.parse(updated_data), update).then(
       res => {
         this.formGenCode = res.code;
         if (this.existingAttachments.length > 0) {
@@ -207,33 +248,76 @@ export class ClientFormsEntryPageComponent implements OnInit {
     );
   }
 
+  submitForm(updateProfile: boolean) {
+    const hasPin = localStorage.getItem('has-pin');
+    if (_.isNull(hasPin) || _.isUndefined(hasPin)) {
+      this.checkIfUserHasFormPin().then(
+        ok => {
+          if (ok) {
+            this.modalService.open(this.setPinDialog, { centered: true }).result.then(
+              result => {
+              }
+            );
+          }
+          else {
+            this.modalService.open(this.setPinDialog, { centered: true }).result.then(
+              result => {
+                localStorage.setItem('has-pin', '1');
+              }
+            );
+          }
+        }
+      );
+    }
+    this.modalService.open(this.setPinDialog, { centered: true });
+    // this.loading = true;
+    // const user_data = this.getFormData();
+    // console.log(JSON.stringify(user_data));
+    // console.log('this form: ' + this.formBuilder.getFormUserData(user_data));
+    // const unfilled = this.clientService.validateFormFilled(user_data);
+    // console.log('unfilled: ' + JSON.stringify(unfilled));
+    // if (unfilled.length != 0) {
+    //   const fileFields = this.getExistingAttachments(unfilled);
+    //   console.log('fileFields: ' + JSON.stringify(fileFields));
+    //   if (fileFields.length == 0) {
+    //     this.loading = false;
+    //     this.clientService.highlightUnFilledFormFields(unfilled);
+    //   }
+    //   else {
+    //     this.submitFormWithExistingAttachments(user_data, updateProfile);
+    //   }
+    // }
+    // else {
+    //   this.submitFormWithAttachments(user_data, updateProfile);
+    // }
+  }
+
   submit() {
     this.modalService.open(this.confirmDialog, { centered: true }).result.then(
       result => {
         if (result == 'yes') {
-          this.loading = true;
-          const user_data = this.getFormData();
-          console.log(JSON.stringify(user_data));
-          console.log('this form: ' + this.formBuilder.getFormUserData(user_data));
-          const unfilled = this.clientService.validateFormFilled(user_data);
-          console.log('unfilled: ' + JSON.stringify(unfilled));
-          if (unfilled.length != 0) {
-            const fileFields = this.getExistingAttachments(unfilled);
-            console.log('fileFields: ' + JSON.stringify(fileFields));
-            if (fileFields.length == 0) {
-              this.loading = false;
-              this.clientService.highlightUnFilledFormFields(unfilled);
-            }
-            else {
-              this.submitFormWithExistingAttachments(user_data);
-            }
-          }
-          else {
-            this.submitFormWithAttachments(user_data);
-          }
+          this.submitForm(true);
+        }
+        else {
+          this.submitForm(false);
         }
       }
     );
+  }
+
+  createPin() {
+    return new Promise((resolve, reject) => {
+      const pin = this.f.pin.value;
+      this.isLoading = true;
+      this.clientService.setFormSubmitPin(this.user.id.toString(), pin).then(
+        ok => {
+          resolve(ok);
+        },
+        err => {
+          reject(err);
+        }
+      );
+    });
   }
 
   uploadFormFile(form_code: string, key: string, index?: number) {

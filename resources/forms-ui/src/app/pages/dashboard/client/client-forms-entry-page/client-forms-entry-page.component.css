@@ -41,3 +41,19 @@ a:not([href]):not([tabindex]):hover {
     text-decoration: underline;
     color: rgb(76, 131, 255);
 }
+
+.pin-control {
+    text-align: center;
+    font-size: 50px;
+    padding: 50px 20px;
+    letter-spacing: 14px;
+}
+
+.pin-form-group {
+    width: 50%;
+    margin: 0 auto;
+}
+
+.pin-control::placeholder {
+    color: #bbb;
+}
