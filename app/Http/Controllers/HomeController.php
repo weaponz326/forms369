@@ -1189,7 +1189,7 @@ class HomeController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response Yes or no
      */
-    public function hasPin(Request $request, $id)
+    protected function hasPin(Request $request, $id)
     {
         $message = (new ClientController)->hasPin($request, $id);
         return $message;
@@ -1201,7 +1201,7 @@ class HomeController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response Yes or no
      */
-    public function setPin(Request $request, $id, $pin)
+    protected function setPin(Request $request, $id, $pin)
     {
         $message = (new ClientController)->setPin($request, $id, $pin);
         return $message;
@@ -1213,9 +1213,21 @@ class HomeController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response Yes or no
      */
-    public function changePin(Request $request, $id)
+    protected function changePin(Request $request, $id)
     {
         $message = (new ClientController)->changePin($request, $id);
+        return $message;
+    }
+
+     /**
+     * checkPin check user provided pin during form submission
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response sucess or error message
+     */
+    protected function checkPin(Request $request, $id, $pin)
+    {
+        $message = (new ClientController)->checkPin($request, $id, $pin);
         return $message;
     }
 

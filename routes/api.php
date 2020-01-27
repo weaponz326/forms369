@@ -48,6 +48,7 @@ Route::group(['middleware' => ['auth:api'], 'prefix' => 'v1'], function(){
     Route::post('hasPin/{id}', 'HomeController@hasPin')->name('hasPin')->middleware('scope:GIT_Admin,client');
     Route::post('setPin/{id}/{pin}', 'HomeController@setPin')->name('setPin')->middleware('scope:GIT_Admin,client');
     Route::post('changePin/{id}', 'HomeController@changePin')->name('changePin')->middleware('scope:GIT_Admin,client');
+    Route::post('checkPin/{id}/{pin}', 'HomeController@checkPin')->name('checkPin')->middleware('scope:GIT_Admin,client');
 
     Route::get('getNumAllUsers', 'HomeController@getNumAllUsers')->name('getNumAllUsers')->middleware('scope:GIT_Admin');
   

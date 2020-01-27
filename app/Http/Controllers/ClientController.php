@@ -874,4 +874,44 @@ class ClientController extends Controller
             return response()->json( $response, 400);
          }   
     }
+
+     /**
+     * checkPin check user provided pin during form submission
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response sucess or error message
+     */
+    public function checkPin(Request $request, $id, $pin)
+    {
+    
+        try {
+            $checkuser = DB::table('users')
+            ->where('id', $id)
+            ->where('pin', $pin)
+            ->get();
+
+            if(!empty($checkuser) || count($checkuser) > 0){
+                $message = "Ok";
+                $response = [
+                    'message' => $message
+                ];
+                return response()->json( $response, 200 );
+            }else{
+                
+                $message = "Failed";
+                $response = [
+                    'message' => $message
+                ];
+                return response()->json( $response, 400 );
+            
+            }
+
+         }catch(Exception $e) {
+             $message = "Failed";
+             $response = [
+                'message' => $message
+            ];
+            return response()->json( $response, 400);
+         }   
+    }
 }
