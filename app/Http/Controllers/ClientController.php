@@ -890,14 +890,15 @@ class ClientController extends Controller
             ->where('pin', $pin)
             ->get();
 
-            if(!empty($checkuser) || count($checkuser) > 0){
+            if(!empty($checkuser) && count($checkuser) > 0){
+                return "not empty";
                 $message = "Ok";
                 $response = [
                     'message' => $message
                 ];
                 return response()->json( $response, 200 );
             }else{
-                
+                return "empty";
                 $message = "Failed";
                 $response = [
                     'message' => $message
