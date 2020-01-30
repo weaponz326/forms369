@@ -135,7 +135,7 @@ export class ClientFormsEntryPageComponent implements OnInit {
   showPinCreationFailed() {
     Swal.fire({
       title: 'Oops!',
-      text: 'Sorry! Failed to create your pin. Something went wrong. Please check your internet connection and try again or maybe our servers may be down.',
+      text: 'Sorry! Failed to create your pin. Something went wrong. Please check your internet connection and try again or our servers may be down.',
       icon: 'error',
       confirmButtonColor: 'Hmm, Ok'
     });
@@ -343,6 +343,7 @@ export class ClientFormsEntryPageComponent implements OnInit {
       this.clientService.setFormSubmitPin(this.user.id.toString(), pin).then(
         ok => {
           if (ok) {
+            this.pinCode = '';
             this.isLoading = false;
             this.submitted = false;
             this.setPinDialogRef.close();
@@ -383,13 +384,13 @@ export class ClientFormsEntryPageComponent implements OnInit {
       this.clientService.verifyFormSubmitPin(this.user.id.toString(), this.pinCode).then(
         ok => {
           if (ok) {
+            this.pinCode = '';
             this.isLoading = false;
             this.pinDialogRef.close();
             this.submitForm();
           }
           else {
             this.isLoading = false;
-            this.pinDialogRef.close();
             this.showPinVerificationFailed();
           }
         },
@@ -457,7 +458,13 @@ export class ClientFormsEntryPageComponent implements OnInit {
     }
     else {
       console.log('will do single upload');
-      this.uploadFormFile(form_code, this.attachmentKeys[0]);
+      if (this.attachmentKeys.length == 0) {
+        this.created = true;
+        this.loading = false;
+      }
+      else {
+        this.uploadFormFile(form_code, this.attachmentKeys[0]);
+      }
     }
   }
 

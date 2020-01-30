@@ -84,6 +84,7 @@
               <button type="button" class="btn btn-outline-primary" [ngClass]="{'active': filterState == 'all'}" (click)="showAll()">All</button>
               <button type="button" class="btn btn-outline-primary" [ngClass]="{'active': filterState == 'processed'}" (click)="showProcessed()">Processed</button>
               <button type="button" class="btn btn-outline-primary" [ngClass]="{'active': filterState == 'processing'}" (click)="showProcessing()">Processing</button>
+              <button type="button" class="btn btn-outline-primary" [ngClass]="{'active': filterState == 'rejected'}" (click)="showRejected()">Rejected</button>
             </div>
           </div>
 
@@ -109,7 +110,6 @@
                 <h1 class="display-4">{{ form.submission_code }}</h1>
                 <div class="card-text">
                   <p class="text-muted small-text">{{ form.submitted_at | date }}</p>
-                  <p class="text-muted">Open and quickly fill out this form</p>
                 </div>
               </div>
             </div>

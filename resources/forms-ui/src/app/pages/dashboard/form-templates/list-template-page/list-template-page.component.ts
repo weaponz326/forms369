@@ -127,7 +127,8 @@ export class ListTemplatePageComponent implements OnInit {
     this.router.navigateByUrl('templates/edit', { state: { form: form }});
   }
 
-  view(form: any) {
+  view(ev: Event, form: any) {
+    ev.stopPropagation();
     this.router.navigateByUrl('templates/view', { state: { form: form }});
   }
 

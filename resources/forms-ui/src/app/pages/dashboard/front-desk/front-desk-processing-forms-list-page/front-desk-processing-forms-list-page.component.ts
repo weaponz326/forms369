@@ -172,7 +172,7 @@ export class FrontDeskProcessingFormsListPageComponent implements OnInit {
       result => {
         if (result == 'undo') {
           this.showLoadingDialog();
-          this.frontDeskService.unprocessForm(submission_code, form.client_submitted_details).then(
+          this.frontDeskService.rejectForm(submission_code, form.client_submitted_details).then(
             res => {
               const response = res as any;
               if (_.toLower(response.message) == 'ok') {

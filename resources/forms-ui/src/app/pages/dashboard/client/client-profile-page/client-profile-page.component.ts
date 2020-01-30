@@ -310,22 +310,63 @@ export class ClientProfilePageComponent implements OnInit {
     });
   }
 
-  deleteExistingAttachment(key: string) {
-    _.forEach(this.existingAttachments, (attachment) => {
-      if (attachment.key == key) {
-        this.clientService.deleteProfileAttachment(this.user.id, key, attachment.url).then(
-          ok => {
-            if (ok)
-              console.log('deleted');
-            else
-              console.log('deleted');
-          },
-          err => {
-            console.log('error deleting file');
-          }
-        );
-      }
+  deleteExistingAttachment(key: string): Promise<boolean> {
+    return new Promise((resolve, reject) => {
+      _.forEach(this.existingAttachments, (attachment, i) => {
+        if (attachment.key == key) {
+          this.clientService.deleteProfileAttachment(this.user.id, attachment.key, attachment.url).then(
+            ok => {
+              if (ok) {
+                console.log('deleted');
+                resolve(true);
+              }
+              else {
+                console.log('deleted');
+                resolve(false);
+              }
+            },
+            err => {
+              console.log('error deleting file');
+              reject(err);
+            }
+          );
+        }
+      });
     });
+
+    // let _key = '';
+    // let _url = '';
+    // for (let i = 0; i < this.existingAttachments.length; i++) {
+    //   const attachment = this.existingAttachments[i];
+    //   if (attachment.key == key) {
+    //     _key = key;
+    //     _url = attachment.url;
+    //     break;
+    //   }
+    // }
+
+    // this.clientService.deleteProfileAttachment(this.user.id, _key, _url).then(
+    //   ok => {
+    //     if (ok)
+    //       console.log('deleted');
+    //     else
+    //       console.log('deleted');
+    //   },
+    //   err => {
+    //     console.log('error deleting file');
+    //   }
+    // );
+    // this.clientService.deleteProfileAttachment(this.user.id, key, url).then(
+    //   ok => {
+    //     if (ok)
+    //       console.log('deleted');
+    //     else
+    //       console.log('deleted');
+    //   },
+    //   err => {
+    //     console.log('error deleting file');
+    //   }
+    // );
   }
 
   uploadAttachmentFile(key: string, index: number): Promise<boolean> {
@@ -353,7 +394,8 @@ export class ClientProfilePageComponent implements OnInit {
   uploadNormalAttachments(htmlInputField: HTMLInputElement, index: number): Promise<boolean> {
     return new Promise((resolve, reject) => {
       console.log('doing upload');
-      // alert('id: ' + htmlInputField.id);
+      // alert('files: ' + this.attachmentFiles.length);
+      // alert('id: ' + index);
       this.uploadAttachmentFile(htmlInputField.id, index).then(
         ok => {
           ok ? resolve(true) : resolve(false);
@@ -411,24 +453,33 @@ export class ClientProfilePageComponent implements OnInit {
                 i += 1;
                 if (field.id == attachment.key) {
                   console.log('fields with data doing upload');
-                  const index = attachment.url.lastIndexOf('.');
-                  const extension = attachment.url.substr(index);
-                  const filename = Date.now().toString() + extension;
-                  const fileHost = this.endpointService.storageHost + 'attachments/';
-                  const p = this.fileUploadService.srcToBase64(fileHost + attachment.url);
-                  // alert(attachment.key);
-                  this.deleteExistingAttachment(attachment.key);
-                  p.then(
-                    base64Str => {
-                      const fileObj = this.fileUploadService.convertBase64ToFile(base64Str, filename);
-                      const _prom = this.uploadConvertedAttachment(attachment.key, fileObj);
-                      promises.push(_prom);
+                  // const index = attachment.url.lastIndexOf('.');
+                  // const extension = attachment.url.substr(index);
+                  // const filename = Date.now().toString() + extension;
+                  // const fileHost = this.endpointService.storageHost + 'attachments/';
+                  // const p = this.fileUploadService.srcToBase64(fileHost + attachment.url);
+                  const deleting = this.deleteExistingAttachment(attachment.key);
+                  deleting.then(
+                    ok => {
+                      console.log('ok');
+                      // if (ok) {
+                      //   p.then(
+                      //     base64Str => {
+                      //       const fileObj = this.fileUploadService.convertBase64ToFile(base64Str, filename);
+                      //       const _prom = this.uploadConvertedAttachment(attachment.key, fileObj);
+                      //       promises.push(_prom);
+                      //     }
+                      //   );
+                      // }
+                    },
+                    err => {
+                      console.log('existing file delete error: ' + err);
                     }
                   );
                 }
                 else {
                   console.log('its the else');
-                  const prom = this.uploadNormalAttachments(field, i);
+                  const prom = this.uploadNormalAttachments(field, i - 1);
                   promises.push(prom);
                 }
 
@@ -443,7 +494,7 @@ export class ClientProfilePageComponent implements OnInit {
                       // we assume its done.
                       Promise.all(promises).then(
                         res => {
-                          console.log('all uploads completed 1');
+                          console.log('all uploads completed 1A');
                           resolve(true);
                         },
                         err => {
@@ -463,15 +514,15 @@ export class ClientProfilePageComponent implements OnInit {
             console.log('dealing with fields with data only');
             _.forEach(fields_with_data, (field, i) => {
               // alert(field);
-              i += 1;
+              // i += 1;
               const prom = this.uploadNormalAttachments(field, i);
               promises.push(prom);
 
-              if (i == fields_with_data.length) {
+              if (i == fields_with_data.length - 1) {
                 // we assume its done.
                 Promise.all(promises).then(
                   res => {
-                    console.log('all uploads completed 2');
+                    console.log('all uploads completed 2A');
                     resolve(true);
                   },
                   err => {

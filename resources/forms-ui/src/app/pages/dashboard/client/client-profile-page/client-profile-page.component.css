@@ -11,10 +11,23 @@ and (max-device-width: 825px) {
 }
 
 li.file-item > i {
+    top: 17px;
+    left: 40px;
     font-size: 20px;
-    margin-right: 10px;
-    top: 3px;
+    position: absolute;
+}
+
+li.file-item a {
     position: relative;
+    margin-left: 45px;
+}
+
+h5.file-link-title {
+    font-size: 0.85rem;
+    text-transform: capitalize;
+    margin-left: 45px;
+    margin-top: 9px;
+    margin-bottom: 0px;
 }
 
 ol li {

@@ -574,9 +574,11 @@ export class ClientService {
   deleteProfileAttachment(user_id: string, key: string, file_path: string): Promise<boolean> {
     return new Promise((resolve, reject) => {
       const url = this.endpointService.apiHost + `api/v1/deleteProfileAttachment/${user_id}/${key}/${file_path}`;
+      console.log(url);
       this.http.post(url, {}, { headers: this.endpointService.headers() }).subscribe(
         res => {
           const response = res as any;
+          console.log('delete attach message: ' + response.message);
           _.toLower(response.message) == 'ok'
             ? resolve(true) : resolve(false);
         },

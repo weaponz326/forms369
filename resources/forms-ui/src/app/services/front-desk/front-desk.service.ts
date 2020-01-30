@@ -246,9 +246,9 @@ export class FrontDeskService {
     });
   }
 
-  unprocessForm(code: string, clientData: any): Promise<any> {
+  rejectForm(code: string, clientData: any): Promise<any> {
     return new Promise((resolve, reject) => {
-      const url = this.endpointService.apiHost + 'api/v1/processSubmitForm/' + code + '/' + '0';
+      const url = this.endpointService.apiHost + 'api/v1/processSubmitForm/' + code + '/' + '3';
       this.http.post(url, clientData, { headers: this.headers }).subscribe(
         res => {
           console.log('res: ' + JSON.stringify(res));

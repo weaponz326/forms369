@@ -152,7 +152,7 @@
     </button>
   </div>
   <div class="modal-body">
-    <p>This is a document and cannot be viewed. Please download</p>
+    <p>This document type cannot be viewed. Please download</p>
   </div>
   <div class="modal-footer">
     <button type="button" class="btn btn-outline-primary" (click)="modal.close()">Close</button>
@@ -174,7 +174,7 @@
           [ngClass]="{'input-control-error': submitted && f.pin.errors}" maxlength="4" (keyup)="resolveStrCharacters($event)">
         <div *ngIf="submitted && f.pin.errors">
           <p class="input-error" *ngIf="f.pin.errors.required">PIN is required</p>
-          <p class="input-error" *ngIf="f.pin.errors.minlength">PIN is must be 4 (four) digits.</p>
+          <p class="input-error" *ngIf="f.pin.errors.minlength">PIN must be 4 (four) digits.</p>
         </div>
       </div>
     </div>
@@ -203,7 +203,7 @@
           placeholder="----" maxlength="4" (keyup)="resolveStrCharacters($event)" autofocus>
         <div>
           <p class="input-error" *ngIf="pinRequired">PIN is required</p>
-          <p class="input-error" *ngIf="pinMinimum">PIN is must be 4 (four) digits.</p>
+          <p class="input-error" *ngIf="pinMinimum">PIN must be 4 (four) digits.</p>
         </div>
       </div>
     </div>
