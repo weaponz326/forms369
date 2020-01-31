@@ -913,7 +913,6 @@ class ClientController extends Controller
             ->get();
 
             if(!empty($checkuser) && count($checkuser) > 0){
-                return "not empty";
                 $message = "Ok";
                 $response = [
                     'message' => $message
