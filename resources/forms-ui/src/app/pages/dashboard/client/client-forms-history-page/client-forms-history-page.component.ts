@@ -1,9 +1,9 @@
-import { Component, OnInit, ViewChild, TemplateRef } from '@angular/core';
 import * as _ from 'lodash';
 import { Router } from '@angular/router';
 import { Users } from 'src/app/models/users.model';
 import { NgbModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
 import { ClientService } from 'src/app/services/client/client.service';
+import { Component, OnInit, ViewChild, TemplateRef } from '@angular/core';
 import { LocalStorageService } from 'src/app/services/storage/local-storage.service';
 
 @Component({
@@ -148,7 +148,7 @@ export class ClientFormsHistoryPageComponent implements OnInit {
         this.hasError = false;
         this.historyCollection = [];
 
-        if (/\d/.test(this.query)) {
+        if (/\d/.test(this.query) || this.query.length == 5) {
           console.log('searching by form code');
           this.searchByFormCode();
         }
@@ -165,7 +165,6 @@ export class ClientFormsHistoryPageComponent implements OnInit {
         if (this.foundNoForm && this.query.length == 0) {
           this.hasData = true;
           this.foundNoForm = false;
-          console.log('hererer');
           this.historyCollection = this.allHistoryCollection;
         }
       }

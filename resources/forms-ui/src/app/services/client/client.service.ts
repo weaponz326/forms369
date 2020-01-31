@@ -51,15 +51,16 @@ export class ClientService {
    * @returns {Promise<any>}
    * @memberof ClientService
    */
-  submitForm(id: string, code: string, client_data: any, form_data: any, updateProfile: number): Promise<any> {
+  submitForm(id: string, code: string, client_data: any, form_data: any, updateProfile: number, submission_code: string): Promise<boolean> {
     return new Promise((resolve, reject) => {
       const body = { client_profile: client_data, form_data: form_data };
       console.log('Body: ' + JSON.stringify(body));
-      const url = this.endpointService.apiHost + 'api/v1/submitForm/' + id + '/' + code + '/' + updateProfile;
+      const url = this.endpointService.apiHost + 'api/v1/submitForm/' + id + '/' + code + '/' + updateProfile + '/' + submission_code;
       this.http.post(url, JSON.stringify(body), { headers: this.headers }).subscribe(
         res => {
           console.log('form_submitted: ' + JSON.stringify(res));
-          resolve(res);
+          const response = res as any;
+          _.toLower(response.message) == 'ok' ? resolve(true) : resolve(false);
         },
         err => {
           console.log('f_submit_error: ' + JSON.stringify(err));
@@ -479,7 +480,7 @@ export class ClientService {
    * @returns {Promise<any>}
    * @memberof ClientService
    */
-  uploadProfileAttachment(client_id: string, key: string, file: File): Promise<any> {
+  uploadProfileAttachment(client_id: string, key: string, file: File): Promise<boolean> {
     return new Promise((resolve, reject) => {
       const url = this.endpointService.apiHost + 'api/v1/uploadProfileAttachments/' + client_id;
       const form = new FormData();
@@ -590,6 +591,13 @@ export class ClientService {
     });
   }
 
+  /**
+   * Checks to see if a client has a form submission pin.
+   *
+   * @param {string} client_id
+   * @returns {Promise<boolean>}
+   * @memberof ClientService
+   */
   checkFormSubmitPin(client_id: string): Promise<boolean> {
     return new Promise((resolve, reject) => {
       const url = this.endpointService.apiHost + 'api/v1/hasPin/' + client_id;
@@ -609,6 +617,14 @@ export class ClientService {
     });
   }
 
+  /**
+   * Creates a new form submission pin.
+   *
+   * @param {string} user_id
+   * @param {string} pin
+   * @returns {Promise<any>}
+   * @memberof ClientService
+   */
   setFormSubmitPin(user_id: string, pin: string): Promise<any> {
     return new Promise((resolve, reject) => {
       const url = this.endpointService.apiHost + 'api/v1/setPin/' + user_id + '/' + pin;
@@ -628,6 +644,15 @@ export class ClientService {
     });
   }
 
+  /**
+   * Updates an existing form submission pin.
+   *
+   * @param {string} user_id
+   * @param {string} old_pin
+   * @param {string} new_pin
+   * @returns {Promise<boolean>}
+   * @memberof ClientService
+   */
   changeFormSubmitPin(user_id: string, old_pin: string, new_pin: string): Promise<boolean> {
     return new Promise((resolve, reject) => {
       const body = { old_pin: old_pin, new_pin: new_pin };
@@ -648,6 +673,14 @@ export class ClientService {
     });
   }
 
+  /**
+   * Verifies a form submission pin,
+   *
+   * @param {string} user_id
+   * @param {string} pin
+   * @returns {Promise<boolean>}
+   * @memberof ClientService
+   */
   verifyFormSubmitPin(user_id: string, pin: string): Promise<boolean> {
     return new Promise((resolve, reject) => {
       const url = this.endpointService.apiHost + 'api/v1/checkPin/' + user_id + '/' + pin;

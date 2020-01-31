@@ -1,12 +1,11 @@
-import { Component, OnInit, ViewChild, TemplateRef } from '@angular/core';
 import * as _ from 'lodash';
 import { NgbModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
 import { ClientService } from 'src/app/services/client/client.service';
+import { Component, OnInit, ViewChild, TemplateRef } from '@angular/core';
 import { SectionsService } from 'src/app/services/sections/sections.service';
 import { EndpointService } from 'src/app/services/endpoint/endpoint.service';
 import { DownloaderService } from 'src/app/services/downloader/downloader.service';
 import { LocalStorageService } from 'src/app/services/storage/local-storage.service';
-import { FileUploadsService } from 'src/app/services/file-uploads/file-uploads.service';
 import { FormBuilderService } from 'src/app/services/form-builder/form-builder.service';
 
 @Component({
@@ -50,8 +49,7 @@ export class ClientProfilePageComponent implements OnInit {
     private formBuilder: FormBuilderService,
     private endpointService: EndpointService,
     private localStorage: LocalStorageService,
-    private downloadService: DownloaderService,
-    private fileUploadService: FileUploadsService
+    private downloadService: DownloaderService
   ) {
     this.formFiles = 0;
     this.attachmentKeys = [];
@@ -71,7 +69,11 @@ export class ClientProfilePageComponent implements OnInit {
     if (isSuccess) {
       this.alert_title = 'Profile Updated Successfully';
       this.alert_message = 'You have successfully updated your account data';
-      this.modalService.open(this.updatedDialog, { centered: true });
+      this.modalService.open(this.updatedDialog, { centered: true }).result.then(
+        result => {
+          result == 'ok' ? this.reload() : null;
+        }
+      );
     }
     else {
       this.alert_title = 'Profile Update Failed';
@@ -116,17 +118,8 @@ export class ClientProfilePageComponent implements OnInit {
           const file = e.target.files[0] as File;
           console.log(file);
           this.attachmentFiles.push(file);
+          this.attachmentKeys.push(input.id);
         };
-      }
-    });
-  }
-
-  checkIfHasFileUpload(form_data: Array<HTMLInputElement>) {
-    _.forEach(form_data, (fields) => {
-      if (fields.type == 'file') {
-        this.hasFile = true;
-        this.formFiles += 1;
-        this.attachmentKeys.push(fields.name);
       }
     });
   }
@@ -157,39 +150,6 @@ export class ClientProfilePageComponent implements OnInit {
         this.hasError = true;
       }
     );
-  }
-
-   getExistingAttachments() {
-    // get all keys for files attachments
-    const file_input_fields: Array<HTMLInputElement> = [];
-    const file_fields_with_data: Array<HTMLInputElement> = [];
-    const file_fields_without_data: Array<HTMLInputElement> = [];
-
-    const all_inputs = document.querySelectorAll('input');
-    _.forEach(all_inputs, (input) => {
-      if (input.type == 'file') {
-        file_input_fields.push(input);
-      }
-    });
-
-    this.checkIfHasFileUpload(file_input_fields);
-
-    // get all keys and file data for file fields containing data.
-    _.forEach(file_input_fields, (file_input) => {
-      if (file_input.value != '') {
-        console.log(file_input);
-        file_fields_with_data.push(file_input);
-      }
-      else {
-        console.log('have no data: ');
-        file_fields_without_data.push(file_input);
-      }
-    });
-
-    return {
-     fieldsWithData: file_fields_with_data,
-     fieldsWithoutData: file_fields_without_data
-   };
   }
 
   getFormAttachments(user_id: string) {
@@ -270,10 +230,8 @@ export class ClientProfilePageComponent implements OnInit {
           console.log('filled data');
           this.getFormAttachments(this.user.id);
           _.forEach(res, (section) => {
-            this.setDuplicate(section.form_fields);
             this.allFormSections.push(section);
           });
-          this.hideDuplicateElementFields();
           this.getAllClientData();
         }
         else {
@@ -289,279 +247,21 @@ export class ClientProfilePageComponent implements OnInit {
     );
   }
 
-  setDuplicate(formFields: Array<any>) {
-    _.forEach(formFields, (field) => {
-      if (!_.includes(this.duplicateFields, field.name)) {
-        console.log('duplicate no has');
-        this.duplicateFields.push(field.name);
-      }
-    });
-  }
-
-  hideDuplicateElementFields() {
-    const allElements = document.querySelectorAll('input');
-    _.forEach(allElements, (element) => {
-      _.forEach(this.duplicateFields, (duplicate) => {
-        if (element.id == duplicate) {
-          const elem = document.getElementById(element.id);
-          elem.style.display = 'none';
-        }
-      });
-    });
-  }
-
-  deleteExistingAttachment(key: string): Promise<boolean> {
+  updateAttachments(): Promise<boolean> {
     return new Promise((resolve, reject) => {
-      _.forEach(this.existingAttachments, (attachment, i) => {
-        if (attachment.key == key) {
-          this.clientService.deleteProfileAttachment(this.user.id, attachment.key, attachment.url).then(
+      if (this.attachmentFiles.length != 0) {
+        _.forEach(this.attachmentFiles, (attachment, i) => {
+          this.clientService.uploadProfileAttachment(this.user.id, this.attachmentKeys[i], attachment).then(
             ok => {
-              if (ok) {
-                console.log('deleted');
-                resolve(true);
-              }
-              else {
-                console.log('deleted');
-                resolve(false);
-              }
+              ok ? resolve(true) : resolve(false);
             },
             err => {
-              console.log('error deleting file');
               reject(err);
             }
           );
-        }
-      });
-    });
-
-    // let _key = '';
-    // let _url = '';
-    // for (let i = 0; i < this.existingAttachments.length; i++) {
-    //   const attachment = this.existingAttachments[i];
-    //   if (attachment.key == key) {
-    //     _key = key;
-    //     _url = attachment.url;
-    //     break;
-    //   }
-    // }
-
-    // this.clientService.deleteProfileAttachment(this.user.id, _key, _url).then(
-    //   ok => {
-    //     if (ok)
-    //       console.log('deleted');
-    //     else
-    //       console.log('deleted');
-    //   },
-    //   err => {
-    //     console.log('error deleting file');
-    //   }
-    // );
-    // this.clientService.deleteProfileAttachment(this.user.id, key, url).then(
-    //   ok => {
-    //     if (ok)
-    //       console.log('deleted');
-    //     else
-    //       console.log('deleted');
-    //   },
-    //   err => {
-    //     console.log('error deleting file');
-    //   }
-    // );
-  }
-
-  uploadAttachmentFile(key: string, index: number): Promise<boolean> {
-    return new Promise((resolve, reject) => {
-      console.log('uploading .......');
-      this.clientService.uploadProfileAttachment(this.user.id.toString(), key, this.attachmentFiles[index]).then(
-        ok => {
-          if (ok) {
-            console.log('file upload done');
-            resolve(true);
-          }
-          else {
-            console.log('file upload failed');
-            resolve(false);
-          }
-        },
-        err => {
-          console.log('file upload error');
-          reject(err);
-        }
-      );
-    });
-  }
-
-  uploadNormalAttachments(htmlInputField: HTMLInputElement, index: number): Promise<boolean> {
-    return new Promise((resolve, reject) => {
-      console.log('doing upload');
-      // alert('files: ' + this.attachmentFiles.length);
-      // alert('id: ' + index);
-      this.uploadAttachmentFile(htmlInputField.id, index).then(
-        ok => {
-          ok ? resolve(true) : resolve(false);
-        },
-        err => {
-          reject(err);
-        }
-      );
-    });
-  }
-
-  uploadConvertedAttachment(key: string, file: File): Promise<boolean> {
-    return new Promise((resolve, reject) => {
-      console.log('doing existing upload [converted]');
-      console.log(file);
-      if (!_.isUndefined(file) || !_.isNull(file)) {
-        // this.deleteExistingAttachment(key);
-        this.clientService.uploadProfileAttachment(this.user.id.toString(), key, file).then(
-          ok => {
-            if (ok) {
-              console.log('file upload done');
-              resolve(true);
-            }
-            else {
-              console.log('file upload failed');
-              resolve(false);
-            }
-          },
-          err => {
-            console.log('file upload error');
-            reject(err);
-          }
-        );
-      }
-    });
-  }
-
-  updateAttachments(): Promise<boolean> {
-    return new Promise((resolve, reject) => {
-      const promises = [];
-      const fields_with_data = this.getExistingAttachments().fieldsWithData;
-      const fields_without_data = this.getExistingAttachments().fieldsWithoutData;
-
-      console.log('fields with data length: ' + fields_with_data.length);
-      console.log('fields without data length: ' + fields_without_data.length);
-      if (fields_with_data.length != 0) {
-        console.log('have fields with data');
-        if (fields_without_data.length != 0) {
-          console.log('have fields without data 1');
-          if (this.existingAttachments.length > 0) {
-            _.forEach(this.existingAttachments, (attachment, _i) => {
-              _.forEach(fields_with_data, (field, i) => {
-                console.log('field id: ' + field.id);
-                console.log('existing id: ' + attachment.key);
-                i += 1;
-                if (field.id == attachment.key) {
-                  console.log('fields with data doing upload');
-                  const index = attachment.url.lastIndexOf('.');
-                  const extension = attachment.url.substr(index);
-                  const filename = Date.now().toString() + extension;
-                  const fileHost = this.endpointService.storageHost + 'attachments/';
-                  const p = this.fileUploadService.srcToBase64(fileHost + attachment.url);
-                  const deleting = this.deleteExistingAttachment(attachment.key);
-                  deleting.then(
-                    ok => {
-                      console.log('ok');
-                      if (this.existingAttachments.length == 1) {
-                        if (ok) {
-                          p.then(
-                            base64Str => {
-                              const fileObj = this.fileUploadService.convertBase64ToFile(base64Str, filename);
-                              const _prom = this.uploadConvertedAttachment(attachment.key, fileObj);
-                              promises.push(_prom);
-                            }
-                          );
-                        }
-                      }
-                    },
-                    err => {
-                      console.log('existing file delete error: ' + err);
-                    }
-                  );
-                }
-                else {
-                  console.log('its the else');
-                  const prom = this.uploadNormalAttachments(field, i - 1);
-                  promises.push(prom);
-                }
-
-                if (i == fields_with_data.length) {
-                  // we assume the fields with data have all been uploaded
-                  // Now we handle the fields without data.
-                  _.forEach(fields_without_data, (_field) => {
-                    console.log('fields without data doing upload');
-                    _i += 1;
-
-                    if (_i == fields_without_data.length) {
-                      // we assume its done.
-                      Promise.all(promises).then(
-                        res => {
-                          console.log('all uploads completed 1A');
-                          resolve(true);
-                        },
-                        err => {
-                          console.log('all uploads error');
-                          reject(err);
-                        }
-                      );
-                    }
-                  });
-                }
-              });
-            });
-          }
-          else {
-            console.log('just upload file');
-            console.log('fields with Data: ' + JSON.stringify(fields_with_data));
-            console.log('dealing with fields with data only');
-            _.forEach(fields_with_data, (field, i) => {
-              // alert(field);
-              // i += 1;
-              const prom = this.uploadNormalAttachments(field, i);
-              promises.push(prom);
-
-              if (i == fields_with_data.length - 1) {
-                // we assume its done.
-                Promise.all(promises).then(
-                  res => {
-                    console.log('all uploads completed 2A');
-                    resolve(true);
-                  },
-                  err => {
-                    console.log('all uploads error');
-                    reject(err);
-                  }
-                );
-              }
-            });
-          }
-        }
-        else {
-          console.log('fields with Data: ' + JSON.stringify(fields_with_data));
-          console.log('dealing with fields with data only');
-          _.forEach(fields_with_data, (field, i) => {
-            console.log('elem_upload: ' + JSON.stringify( field));
-            const prom = this.uploadNormalAttachments(field, i);
-            promises.push(prom);
-
-            if (i == fields_without_data.length) {
-              // we assume its done.
-              Promise.all(promises).then(
-                res => {
-                  console.log('all uploads completed 2');
-                  resolve(true);
-                },
-                err => {
-                  console.log('all uploads error');
-                  reject(err);
-                }
-              );
-            }
-          });
-        }
+        });
       }
       else {
-        console.log('have fields without data 2');
         resolve(true);
       }
     });
@@ -581,7 +281,6 @@ export class ClientProfilePageComponent implements OnInit {
               if (ok) {
                 this.updating = false;
                 this.showUpdatedDialog(true);
-                this.reload();
               }
               else {
                 this.updating = false;
@@ -692,10 +391,11 @@ export class ClientProfilePageComponent implements OnInit {
     this.attachmentKeys = [];
     this.allFormSections = [];
     this.attachmentFiles = [];
-    this.existingAttachments = [];
     this.duplicateFields = [];
+    this.existingAttachments = [];
     this.user = this.localStorage.getUser();
-    console.log('user_id: ' + this.user.id);
+    this.getAllFormSections();
+    console.log('reload');
   }
 
   returnZero() {

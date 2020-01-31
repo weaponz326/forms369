@@ -668,7 +668,7 @@ module.exports = "<div class=\"container-scroller\">\n  <app-navigation-bar></ap
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<div class=\"container-scroller\">\n  <app-navigation-bar></app-navigation-bar>\n  <div class=\"container-fluid page-body-wrapper\">\n    <app-side-bar></app-side-bar>\n    <div class=\"main-panel\">\n      <div class=\"content-wrapper\">\n        <div class=\"row\">\n          <div class=\"col-md-12 grid-margin\">\n            <div class=\"d-flex justify-content-between flex-wrap\">\n              <div class=\"d-flex align-items-end flex-wrap\">\n                <div class=\"mr-md-3 mr-xl-5\">\n                  <h2>My Profile</h2>\n                </div>\n                <div class=\"d-flex\">\n                </div>\n              </div>\n            </div>\n          </div>\n        </div>\n\n        <div *ngIf=\"loading\" class=\"row p-5\">\n          <div class=\"col-md-12\">\n            <div class=\"d-flex justify-content-center\">\n              <div class=\"spinner-border m-5\" style=\"width: 4rem; height: 4rem;\" role=\"status\">\n                <span class=\"sr-only\">Loading...</span>\n              </div>\n            </div>\n          </div>\n        </div>\n\n        <div *ngIf=\"!hasData && !loading\" class=\"row\">\n          <div class=\"col-lg-12 grid-margin stretch-card\">\n            <div class=\"card text-center pt-5 pb-5\">\n              <div class=\"card-body mt-5 mb-5\">\n                <h4 class=\"card-title\">No Data Found</h4>\n                <p class=\"card-description\">\n                  No user data found.\n                </p>\n                <div class=\"text-lg-center mt-5 mb-5\">\n                  <div class=\"card-text\">\n                    <i class=\"mdi mdi-account-card-details-outline\" style=\"font-size: 8em;\"></i>\n                  </div>\n                  <div class=\"card-text\">\n                    <h3>No Available Data</h3>\n                    <p class=\"text-muted\">\n                      You havent filled any form yet. All the data you provided will be displayed here once you fill a form.\n                    </p>\n                  </div>\n                </div>\n              </div>\n            </div>\n          </div>\n        </div>\n\n        <!-- <div *ngIf=\"isConnected\" class=\"row\">\n          <div class=\"col-md-12 grid-margin\">\n            <div class=\"card text-center\">\n              <div class=\"card-body\">\n                <p class=\"card-title\">Offline</p>\n                <p class=\"text-muted\"></p>\n                <div class=\"card-text\">\n                  <i class=\"mdi mdi-wifi-off\" style=\"font-size: 12em;\"></i>\n                  <h2>No Internet Connection</h2>\n                  <p class=\"text-muted\">You may not have internet connection or our servers maybe down.</p>\n                  <button class=\"btn btn-primary\" type=\"button\" (click)=\"retry()\">Retry</button>\n                </div>\n              </div>\n            </div>\n          </div>\n        </div> -->\n\n        <div *ngIf=\"hasError\" class=\"row\">\n          <div class=\"col-lg-12 grid-margin stretch-card\">\n            <div class=\"card text-center pt-5 pb-5\">\n              <div class=\"card-body mt-5 mb-5\">\n                <h4 class=\"card-title\">Error Ocuured</h4>\n                <p class=\"card-description\">\n                  Ooops! Something went wrong!\n                </p>\n                <div class=\"text-lg-center mt-5 mb-5\">\n                  <div class=\"card-text\">\n                    <i class=\"mdi mdi-close-network-outline\" style=\"font-size: 8em;\"></i>\n                  </div>\n                  <div class=\"card-text\">\n                    <h3>We couldn't find any forms</h3>\n                    <p class=\"text-muted\">You may not have internet connection or our servers maybe down.</p>\n                    <button class=\"btn btn-primary\" type=\"button\" (click)=\"retry()\">Retry</button>\n                  </div>\n                </div>\n              </div>\n            </div>\n          </div>\n        </div>\n\n        <div *ngIf=\"hasData && !loading\" class=\"row\">\n          <div class=\"col-lg-8 offset-lg-2 grid-margin stretch-card\">\n            <div class=\"card\">\n              <div class=\"card-body\">\n                <div class=\"card-text\">\n                  <div *ngIf=\"!noFilledData\">\n                    <div class=\"mt-3 mb-3\" *ngFor=\"let section of allFormSections\">\n                      <h6 class=\"text-uppercase mb-3\">{{ section.heading }}</h6>\n                      <div class=\"form-group\" id=\"form-fields\" *ngFor=\"let item of section.form_fields\">\n                        <!-- Input fields -->\n                        <div *ngIf=\"item.type == 'text'\">\n                          <label><strong>{{ item.label }}</strong></label>\n                          <input type=\"{{ item.type }}\" id=\"{{ item.name }}\" name=\"{{ item.name }}\" class=\"form-control\">\n                        </div>\n\n                        <!-- Radio buttons -->\n                        <div *ngIf=\"item.type == 'radio-group'\">\n                          <label><strong>{{ item.label }}</strong></label>\n                          <div style=\"width: 100%; float: left;\" *ngFor=\"let radio of item.values\">\n                            <input style=\"width: 6%; float: left; margin-right: 10px;\" type=\"radio\" id=\"{{ item.name }}\" name=\"{{ item.name }}\" class=\"form-control\">\n                            <p style=\"width: 80%; padding-top: 13px;\">{{ radio.label }}</p>\n                          </div>\n                        </div>\n\n                        <!-- checkboxes -->\n                        <div *ngIf=\"item.type == 'checkbox-group'\">\n                          <label><strong>{{ item.label }}</strong></label>\n                          <div style=\"width: 100%; float: left;\" *ngFor=\"let checkbox of item.values\">\n                            <input style=\"width: 6%; float: left; margin-right: 10px;\" type=\"checkbox\" id=\"{{ item.name }}\" name=\"{{ item.name }}\" class=\"form-control\">\n                            <p style=\"width: 80%; padding-top: 13px;\">{{ checkbox.label }}</p>\n                          </div>\n                        </div>\n\n                        <!-- date picker -->\n                        <div *ngIf=\"item.type == 'date'\">\n                          <label><strong>{{ item.label }}</strong></label>\n                          <input type=\"{{ item.type }}\" id=\"{{ item.name }}\" name=\"{{ item.name }}\" class=\"form-control\">\n                        </div>\n\n                        <!-- file -->\n                        <div *ngIf=\"item.type == 'file'\">\n                          <label><strong>{{ item.label }}</strong></label>\n                          <input multiple type=\"{{ item.type }}\" id=\"{{ item.name }}\" name=\"{{ item.name }}\" class=\"form-control\">\n                        </div>\n\n                        <!-- paragraphs -->\n                        <div *ngIf=\"item.type == 'paragraph'\">\n                          <label>{{ item.label }}</label>\n                        </div>\n                      </div>\n                    </div>\n                  </div>\n\n                  <div *ngIf=\"noFilledData\">\n                    <div class=\"form-group\" *ngFor=\"let item of allUserData | keyvalue\">\n                      <label><strong class=\"text-capitalize\">{{ transformToRealText(item.key) }}</strong></label>\n                      <input type=\"text\" id=\"{{ item.key }}\" class=\"form-control\" [value]=\"item.value\">\n                    </div>\n                    <!-- <button class=\"form-group mt-3\">\n                      <button *ngIf=\"updating\" class=\"btn btn-primary btn-lg mr-2\" type=\"button\" disabled>\n                        <span class=\"spinner-border spinner-border-sm\" role=\"status\" aria-hidden=\"true\"></span>\n                        <span class=\"sr-only\">Please wait...</span>\n                      </button>\n                      <button *ngIf=\"!updating\" type=\"submit\" class=\"btn btn-primary btn-lg mr-2\" (click)=\"save()\">Save Changes</button>\n                      <button type=\"button\" class=\"btn btn-light btn-lg\" (click)=\"cancel()\">Cancel</button>\n                    </button> -->\n                  </div>\n\n                  <div *ngIf=\"loadingAttachments\" class=\"row m-md-2\">\n                    <div class=\"col-md-12 col-sm-12 m-md-2\">\n                      <div class=\"d-flex justify-content-center\">\n                        <div class=\"spinner-border m-2\" style=\"width: 2rem; height: 2rem;\" role=\"status\">\n                          <span class=\"sr-only\">Loading...</span>\n                        </div>\n                      </div>\n                    </div>\n                  </div>\n\n                  <div class=\"attachments-section\" *ngIf=\"!loadingAttachments && showAttachments\">\n                    <div class=\"card mb-4\">\n                      <div class=\"card-body\">\n                        <h5 class=\"card-title\">Form Attachments / Documents</h5>\n                        <h6 class=\"card-subtitle mb-2 text-muted\">Below are attachments you've uploaded for this form</h6>\n                        <div class=\"row\" *ngFor=\"let file of existingAttachments; let i = index\">\n                          <div class=\"col-10\" style=\"padding-right: 8px;\">\n                            <ol class=\"files-list\">\n                              <li class=\"file-item\">\n                                <i class=\"mdi mdi-paperclip menu-icon\"></i>\n                                <h5 class=\"file-link-title\"><strong>{{ transformToRealText(file.key) }}</strong></h5>\n                                <a class=\"alert-link file-link\" (click)=\"openModal($event, file.url)\">{{ file.url }}</a>\n                              </li>\n                            </ol>\n                          </div>\n                          <div class=\"col-2\" style=\"padding-right: 3px; padding-left: 4px; margin-top: 13px;\">\n                            <button class=\"btn btn-primary btn-icon mr-1\" (click)=\"download(file.url)\">\n                              <i class=\"mdi mdi-download-outline\"></i>\n                            </button>\n                            <button class=\"btn btn-primary btn-icon\" (click)=\"delete(file.url, file.key, i)\">\n                              <i class=\"mdi mdi-trash-can-outline\"></i>\n                            </button>\n                            <!-- <button *ngIf=\"deleting\" class=\"btn btn-primary\" type=\"button\" disabled>\n                              <span class=\"spinner-grow spinner-grow-sm\" role=\"status\" aria-hidden=\"true\"></span>\n                              <span class=\"sr-only\">Loading...</span>\n                            </button>  -->\n                          </div>\n                        </div>\n                      </div>\n                    </div>\n                  </div>\n                  \n                  <div class=\"form-group text-center mt-3\">\n                    <button *ngIf=\"updating\" class=\"btn btn-primary btn-lg mr-2\" type=\"button\" disabled>\n                      <span class=\"spinner-border spinner-border-sm\" role=\"status\" aria-hidden=\"true\"></span>\n                      <span class=\"sr-only\">Please wait...</span>\n                    </button>\n                    <button *ngIf=\"!updating\" type=\"submit\" class=\"btn btn-primary btn-lg mr-2\" (click)=\"save()\">Save Changes</button>\n                  </div>\n                </div>\n              </div>\n            </div>\n          </div>\n        </div>\n      </div>\n    </div>\n  </div>\n</div>\n\n<ng-template #confirm let-modal>\n  <div class=\"modal-header\">\n    <h4 class=\"modal-title\" id=\"modal-title\">Confirm Action</h4>\n    <button type=\"button\" class=\"close\" aria-describedby=\"modal-title\" (click)=\"modal.dismiss()\">\n      <span aria-hidden=\"true\">&times;</span>\n    </button>\n  </div>\n  <div class=\"modal-body\">\n    <p><strong>Are you sure you want to <span class=\"text-primary\">discard all the changes you've made</span> ?</strong>\n    </p>\n  </div>\n  <div class=\"modal-footer\">\n    <button type=\"button\" class=\"btn btn-outline-primary\" (click)=\"modal.dismiss('no')\">No</button>\n    <button type=\"button\" class=\"btn btn-primary\" (click)=\"modal.close('yes')\">Yes</button>\n  </div>\n</ng-template>\n\n<ng-template #updated let-modal>\n  <div class=\"modal-header\">\n    <h4 class=\"modal-title\" id=\"modal-title\">{{ alert_title }}</h4>\n    <button type=\"button\" class=\"close\" aria-describedby=\"modal-title\" (click)=\"modal.dismiss()\">\n      <span aria-hidden=\"true\">&times;</span>\n    </button>\n  </div>\n  <div class=\"modal-body\">\n    <p>{{ alert_message }}</p>\n  </div>\n  <div class=\"modal-footer\">\n    <button type=\"button\" class=\"btn btn-primary\" (click)=\"modal.close()\">Ok</button>\n  </div>\n</ng-template>\n\n<ng-template #viewImgAttachment let-modal>\n  <div class=\"modal-header\">\n    <h5 class=\"modal-title\">Attachment File</h5>\n    <button type=\"button\" class=\"close\" aria-describedby=\"modal-title\" (click)=\"modal.dismiss()\">\n      <span aria-hidden=\"true\">&times;</span>\n    </button>\n  </div>\n  <div class=\"modal-body\">\n    <img [src]=\"imgUrl\" style=\"width: 100%;\">\n  </div>\n  <div class=\"modal-footer\">\n    <button type=\"button\" class=\"btn btn-primary\" (click)=\"modal.close('no')\">Close</button>\n  </div>\n</ng-template>\n\n<ng-template #viewDocAttachment let-modal>\n  <div class=\"modal-header\">\n    <h5 class=\"modal-title\">Attachment File</h5>\n    <button type=\"button\" class=\"close\" aria-describedby=\"modal-title\" (click)=\"modal.dismiss('close')\">\n      <span aria-hidden=\"true\">&times;</span>\n    </button>\n  </div>\n  <div class=\"modal-body\">\n    <p>This is a document and cannot be viewed. Please download</p>\n  </div>\n  <div class=\"modal-footer\">\n    <button type=\"button\" class=\"btn btn-outline-primary\" (click)=\"modal.close('no')\">Close</button>\n    <button type=\"button\" class=\"btn btn-primary\" (click)=\"downloadDoc(documentUrl)\">Download</button>\n  </div>\n</ng-template>\n\n<ng-template #deleteAttachment let-modal>\n  <div class=\"modal-header\">\n    <h5 class=\"modal-title\">Delete Attachment</h5>\n    <button type=\"button\" class=\"close\" aria-describedby=\"modal-title\" (click)=\"modal.dismiss('close')\">\n      <span aria-hidden=\"true\">&times;</span>\n    </button>\n  </div>\n  <div class=\"modal-body\">\n    <p><strong>Are you sure you want to delete <span class=\"text-primary\">this attachment</span> ?</strong></p>\n    <p>Deleting this attachment will be permanently action.\n      <span class=\"text-danger\">This operation can not be undone.</span>\n    </p>\n  </div>\n  <div class=\"modal-footer\">\n    <button type=\"button\" class=\"btn btn-outline-primary\" (click)=\"modal.close('yes')\">Yes</button>\n    <button type=\"button\" class=\"btn btn-primary\" (click)=\"modal.close('no')\">No</button>\n  </div>\n</ng-template>"
+module.exports = "<div class=\"container-scroller\">\n  <app-navigation-bar></app-navigation-bar>\n  <div class=\"container-fluid page-body-wrapper\">\n    <app-side-bar></app-side-bar>\n    <div class=\"main-panel\">\n      <div class=\"content-wrapper\">\n        <div class=\"row\">\n          <div class=\"col-md-12 grid-margin\">\n            <div class=\"d-flex justify-content-between flex-wrap\">\n              <div class=\"d-flex align-items-end flex-wrap\">\n                <div class=\"mr-md-3 mr-xl-5\">\n                  <h2>My Profile</h2>\n                </div>\n                <div class=\"d-flex\">\n                </div>\n              </div>\n            </div>\n          </div>\n        </div>\n\n        <div *ngIf=\"loading\" class=\"row p-5\">\n          <div class=\"col-md-12\">\n            <div class=\"d-flex justify-content-center\">\n              <div class=\"spinner-border m-5\" style=\"width: 4rem; height: 4rem;\" role=\"status\">\n                <span class=\"sr-only\">Loading...</span>\n              </div>\n            </div>\n          </div>\n        </div>\n\n        <div *ngIf=\"!hasData && !loading\" class=\"row\">\n          <div class=\"col-lg-12 grid-margin stretch-card\">\n            <div class=\"card text-center pt-5 pb-5\">\n              <div class=\"card-body mt-5 mb-5\">\n                <h4 class=\"card-title\">No Data Found</h4>\n                <p class=\"card-description\">\n                  No user data found.\n                </p>\n                <div class=\"text-lg-center mt-5 mb-5\">\n                  <div class=\"card-text\">\n                    <i class=\"mdi mdi-account-card-details-outline\" style=\"font-size: 8em;\"></i>\n                  </div>\n                  <div class=\"card-text\">\n                    <h3>No Available Data</h3>\n                    <p class=\"text-muted\">\n                      You havent filled any form yet. All the data you provided will be displayed here once you fill a form.\n                    </p>\n                  </div>\n                </div>\n              </div>\n            </div>\n          </div>\n        </div>\n\n        <!-- <div *ngIf=\"isConnected\" class=\"row\">\n          <div class=\"col-md-12 grid-margin\">\n            <div class=\"card text-center\">\n              <div class=\"card-body\">\n                <p class=\"card-title\">Offline</p>\n                <p class=\"text-muted\"></p>\n                <div class=\"card-text\">\n                  <i class=\"mdi mdi-wifi-off\" style=\"font-size: 12em;\"></i>\n                  <h2>No Internet Connection</h2>\n                  <p class=\"text-muted\">You may not have internet connection or our servers maybe down.</p>\n                  <button class=\"btn btn-primary\" type=\"button\" (click)=\"retry()\">Retry</button>\n                </div>\n              </div>\n            </div>\n          </div>\n        </div> -->\n\n        <div *ngIf=\"hasError\" class=\"row\">\n          <div class=\"col-lg-12 grid-margin stretch-card\">\n            <div class=\"card text-center pt-5 pb-5\">\n              <div class=\"card-body mt-5 mb-5\">\n                <h4 class=\"card-title\">Error Ocuured</h4>\n                <p class=\"card-description\">\n                  Ooops! Something went wrong!\n                </p>\n                <div class=\"text-lg-center mt-5 mb-5\">\n                  <div class=\"card-text\">\n                    <i class=\"mdi mdi-close-network-outline\" style=\"font-size: 8em;\"></i>\n                  </div>\n                  <div class=\"card-text\">\n                    <h3>We couldn't find any forms</h3>\n                    <p class=\"text-muted\">You may not have internet connection or our servers maybe down.</p>\n                    <button class=\"btn btn-primary\" type=\"button\" (click)=\"retry()\">Retry</button>\n                  </div>\n                </div>\n              </div>\n            </div>\n          </div>\n        </div>\n\n        <div *ngIf=\"hasData && !loading\" class=\"row\">\n          <div class=\"col-lg-8 offset-lg-2 grid-margin stretch-card\">\n            <div class=\"card\">\n              <div class=\"card-body\">\n                <div class=\"card-text\">\n                  <div *ngIf=\"!noFilledData\">\n                    <div class=\"mt-3 mb-3\" *ngFor=\"let section of allFormSections\">\n                      <h6 class=\"text-uppercase mb-3\">{{ section.heading }}</h6>\n                      <div class=\"form-group\" id=\"form-fields\" *ngFor=\"let item of section.form_fields\">\n                        <!-- Input fields -->\n                        <div *ngIf=\"item.type == 'text'\">\n                          <label><strong>{{ item.label }}</strong></label>\n                          <input type=\"{{ item.type }}\" id=\"{{ item.name }}\" name=\"{{ item.name }}\" class=\"form-control\">\n                        </div>\n\n                        <!-- Radio buttons -->\n                        <div *ngIf=\"item.type == 'radio-group'\">\n                          <label><strong>{{ item.label }}</strong></label>\n                          <div style=\"width: 100%; float: left;\" *ngFor=\"let radio of item.values\">\n                            <input style=\"width: 6%; float: left; margin-right: 10px;\" type=\"radio\" id=\"{{ item.name }}\" name=\"{{ item.name }}\" class=\"form-control\">\n                            <p style=\"width: 80%; padding-top: 13px;\">{{ radio.label }}</p>\n                          </div>\n                        </div>\n\n                        <!-- checkboxes -->\n                        <div *ngIf=\"item.type == 'checkbox-group'\">\n                          <label><strong>{{ item.label }}</strong></label>\n                          <div style=\"width: 100%; float: left;\" *ngFor=\"let checkbox of item.values\">\n                            <input style=\"width: 6%; float: left; margin-right: 10px;\" type=\"checkbox\" id=\"{{ item.name }}\" name=\"{{ item.name }}\" class=\"form-control\">\n                            <p style=\"width: 80%; padding-top: 13px;\">{{ checkbox.label }}</p>\n                          </div>\n                        </div>\n\n                        <!-- date picker -->\n                        <div *ngIf=\"item.type == 'date'\">\n                          <label><strong>{{ item.label }}</strong></label>\n                          <input type=\"{{ item.type }}\" id=\"{{ item.name }}\" name=\"{{ item.name }}\" class=\"form-control\">\n                        </div>\n\n                        <!-- file -->\n                        <div *ngIf=\"item.type == 'file'\">\n                          <label><strong>{{ item.label }}</strong></label>\n                          <input multiple type=\"{{ item.type }}\" id=\"{{ item.name }}\" name=\"{{ item.name }}\" class=\"form-control\">\n                        </div>\n\n                        <!-- paragraphs -->\n                        <div *ngIf=\"item.type == 'paragraph'\">\n                          <label>{{ item.label }}</label>\n                        </div>\n                      </div>\n                    </div>\n                  </div>\n\n                  <div *ngIf=\"noFilledData\">\n                    <div class=\"form-group\" *ngFor=\"let item of allUserData | keyvalue\">\n                      <label><strong class=\"text-capitalize\">{{ transformToRealText(item.key) }}</strong></label>\n                      <input type=\"text\" id=\"{{ item.key }}\" class=\"form-control\" [value]=\"item.value\">\n                    </div>\n                    <!-- <button class=\"form-group mt-3\">\n                      <button *ngIf=\"updating\" class=\"btn btn-primary btn-lg mr-2\" type=\"button\" disabled>\n                        <span class=\"spinner-border spinner-border-sm\" role=\"status\" aria-hidden=\"true\"></span>\n                        <span class=\"sr-only\">Please wait...</span>\n                      </button>\n                      <button *ngIf=\"!updating\" type=\"submit\" class=\"btn btn-primary btn-lg mr-2\" (click)=\"save()\">Save Changes</button>\n                      <button type=\"button\" class=\"btn btn-light btn-lg\" (click)=\"cancel()\">Cancel</button>\n                    </button> -->\n                  </div>\n\n                  <div *ngIf=\"loadingAttachments\" class=\"row m-md-2\">\n                    <div class=\"col-md-12 col-sm-12 m-md-2\">\n                      <div class=\"d-flex justify-content-center\">\n                        <div class=\"spinner-border m-2\" style=\"width: 2rem; height: 2rem;\" role=\"status\">\n                          <span class=\"sr-only\">Loading...</span>\n                        </div>\n                      </div>\n                    </div>\n                  </div>\n\n                  <div class=\"attachments-section\" *ngIf=\"!loadingAttachments && showAttachments\">\n                    <div class=\"card mb-4\">\n                      <div class=\"card-body\">\n                        <h5 class=\"card-title\">Form Attachments / Documents</h5>\n                        <h6 class=\"card-subtitle mb-2 text-muted\">Below are attachments you've uploaded for this form</h6>\n                        <div class=\"row\" *ngFor=\"let file of existingAttachments; let i = index\">\n                          <div class=\"col-10\" style=\"padding-right: 8px;\">\n                            <ol class=\"files-list\">\n                              <li class=\"file-item\">\n                                <i class=\"mdi mdi-paperclip menu-icon\"></i>\n                                <h5 class=\"file-link-title\"><strong>{{ transformToRealText(file.key) }}</strong></h5>\n                                <a class=\"alert-link file-link\" (click)=\"openModal($event, file.url)\">{{ file.url }}</a>\n                              </li>\n                            </ol>\n                          </div>\n                          <div class=\"col-2\" style=\"padding-right: 3px; padding-left: 4px; margin-top: 13px;\">\n                            <button class=\"btn btn-primary btn-icon mr-1\" (click)=\"download(file.url)\">\n                              <i class=\"mdi mdi-download-outline\"></i>\n                            </button>\n                            <button class=\"btn btn-primary btn-icon\" (click)=\"delete(file.url, file.key, i)\">\n                              <i class=\"mdi mdi-trash-can-outline\"></i>\n                            </button>\n                            <!-- <button *ngIf=\"deleting\" class=\"btn btn-primary\" type=\"button\" disabled>\n                              <span class=\"spinner-grow spinner-grow-sm\" role=\"status\" aria-hidden=\"true\"></span>\n                              <span class=\"sr-only\">Loading...</span>\n                            </button>  -->\n                          </div>\n                        </div>\n                      </div>\n                    </div>\n                  </div>\n                  \n                  <div class=\"form-group text-center mt-3\">\n                    <button *ngIf=\"updating\" class=\"btn btn-primary btn-lg mr-2\" type=\"button\" disabled>\n                      <span class=\"spinner-border spinner-border-sm\" role=\"status\" aria-hidden=\"true\"></span>\n                      <span class=\"sr-only\">Please wait...</span>\n                    </button>\n                    <button *ngIf=\"!updating\" type=\"submit\" class=\"btn btn-primary btn-lg mr-2\" (click)=\"save()\">Save Changes</button>\n                  </div>\n                </div>\n              </div>\n            </div>\n          </div>\n        </div>\n      </div>\n    </div>\n  </div>\n</div>\n\n<ng-template #confirm let-modal>\n  <div class=\"modal-header\">\n    <h4 class=\"modal-title\" id=\"modal-title\">Confirm Action</h4>\n    <button type=\"button\" class=\"close\" aria-describedby=\"modal-title\" (click)=\"modal.dismiss()\">\n      <span aria-hidden=\"true\">&times;</span>\n    </button>\n  </div>\n  <div class=\"modal-body\">\n    <p><strong>Are you sure you want to <span class=\"text-primary\">discard all the changes you've made</span> ?</strong>\n    </p>\n  </div>\n  <div class=\"modal-footer\">\n    <button type=\"button\" class=\"btn btn-outline-primary\" (click)=\"modal.dismiss('no')\">No</button>\n    <button type=\"button\" class=\"btn btn-primary\" (click)=\"modal.close('yes')\">Yes</button>\n  </div>\n</ng-template>\n\n<ng-template #updated let-modal>\n  <div class=\"modal-header\">\n    <h4 class=\"modal-title\" id=\"modal-title\">{{ alert_title }}</h4>\n    <button type=\"button\" class=\"close\" aria-describedby=\"modal-title\" (click)=\"modal.dismiss()\">\n      <span aria-hidden=\"true\">&times;</span>\n    </button>\n  </div>\n  <div class=\"modal-body\">\n    <p>{{ alert_message }}</p>\n  </div>\n  <div class=\"modal-footer\">\n    <button type=\"button\" class=\"btn btn-primary\" (click)=\"modal.close('ok')\">Ok</button>\n  </div>\n</ng-template>\n\n<ng-template #viewImgAttachment let-modal>\n  <div class=\"modal-header\">\n    <h5 class=\"modal-title\">Attachment File</h5>\n    <button type=\"button\" class=\"close\" aria-describedby=\"modal-title\" (click)=\"modal.dismiss()\">\n      <span aria-hidden=\"true\">&times;</span>\n    </button>\n  </div>\n  <div class=\"modal-body\">\n    <img [src]=\"imgUrl\" style=\"width: 100%;\">\n  </div>\n  <div class=\"modal-footer\">\n    <button type=\"button\" class=\"btn btn-primary\" (click)=\"modal.close('no')\">Close</button>\n  </div>\n</ng-template>\n\n<ng-template #viewDocAttachment let-modal>\n  <div class=\"modal-header\">\n    <h5 class=\"modal-title\">Attachment File</h5>\n    <button type=\"button\" class=\"close\" aria-describedby=\"modal-title\" (click)=\"modal.dismiss('close')\">\n      <span aria-hidden=\"true\">&times;</span>\n    </button>\n  </div>\n  <div class=\"modal-body\">\n    <p>This is a document and cannot be viewed. Please download</p>\n  </div>\n  <div class=\"modal-footer\">\n    <button type=\"button\" class=\"btn btn-outline-primary\" (click)=\"modal.close('no')\">Close</button>\n    <button type=\"button\" class=\"btn btn-primary\" (click)=\"downloadDoc(documentUrl)\">Download</button>\n  </div>\n</ng-template>\n\n<ng-template #deleteAttachment let-modal>\n  <div class=\"modal-header\">\n    <h5 class=\"modal-title\">Delete Attachment</h5>\n    <button type=\"button\" class=\"close\" aria-describedby=\"modal-title\" (click)=\"modal.dismiss('close')\">\n      <span aria-hidden=\"true\">&times;</span>\n    </button>\n  </div>\n  <div class=\"modal-body\">\n    <p><strong>Are you sure you want to delete <span class=\"text-primary\">this attachment</span> ?</strong></p>\n    <p>Deleting this attachment will be permanently action.\n      <span class=\"text-danger\">This operation can not be undone.</span>\n    </p>\n  </div>\n  <div class=\"modal-footer\">\n    <button type=\"button\" class=\"btn btn-outline-primary\" (click)=\"modal.close('yes')\">Yes</button>\n    <button type=\"button\" class=\"btn btn-primary\" (click)=\"modal.close('no')\">No</button>\n  </div>\n</ng-template>"
 
 /***/ }),
 
@@ -6090,16 +6090,16 @@ module.exports = "@media only screen \nand (min-device-width: 320px) \nand (max-
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "ClientFormsEntryPageComponent", function() { return ClientFormsEntryPageComponent; });
 /* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
-/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
-/* harmony import */ var lodash__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! lodash */ "./node_modules/lodash/lodash.js");
-/* harmony import */ var lodash__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(lodash__WEBPACK_IMPORTED_MODULE_2__);
-/* harmony import */ var sweetalert2__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! sweetalert2 */ "./node_modules/sweetalert2/dist/sweetalert2.all.js");
-/* harmony import */ var sweetalert2__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(sweetalert2__WEBPACK_IMPORTED_MODULE_3__);
-/* harmony import */ var _angular_router__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @angular/router */ "./node_modules/@angular/router/fesm5/router.js");
-/* harmony import */ var ngx_clipboard__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ngx-clipboard */ "./node_modules/ngx-clipboard/fesm5/ngx-clipboard.js");
-/* harmony import */ var _ng_bootstrap_ng_bootstrap__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! @ng-bootstrap/ng-bootstrap */ "./node_modules/@ng-bootstrap/ng-bootstrap/fesm5/ng-bootstrap.js");
-/* harmony import */ var _angular_forms__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! @angular/forms */ "./node_modules/@angular/forms/fesm5/forms.js");
-/* harmony import */ var src_app_services_client_client_service__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! src/app/services/client/client.service */ "./src/app/services/client/client.service.ts");
+/* harmony import */ var lodash__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! lodash */ "./node_modules/lodash/lodash.js");
+/* harmony import */ var lodash__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(lodash__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var sweetalert2__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! sweetalert2 */ "./node_modules/sweetalert2/dist/sweetalert2.all.js");
+/* harmony import */ var sweetalert2__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(sweetalert2__WEBPACK_IMPORTED_MODULE_2__);
+/* harmony import */ var _angular_router__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @angular/router */ "./node_modules/@angular/router/fesm5/router.js");
+/* harmony import */ var ngx_clipboard__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ngx-clipboard */ "./node_modules/ngx-clipboard/fesm5/ngx-clipboard.js");
+/* harmony import */ var _ng_bootstrap_ng_bootstrap__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @ng-bootstrap/ng-bootstrap */ "./node_modules/@ng-bootstrap/ng-bootstrap/fesm5/ng-bootstrap.js");
+/* harmony import */ var _angular_forms__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! @angular/forms */ "./node_modules/@angular/forms/fesm5/forms.js");
+/* harmony import */ var src_app_services_client_client_service__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! src/app/services/client/client.service */ "./src/app/services/client/client.service.ts");
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
 /* harmony import */ var src_app_services_endpoint_endpoint_service__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! src/app/services/endpoint/endpoint.service */ "./src/app/services/endpoint/endpoint.service.ts");
 /* harmony import */ var src_app_services_downloader_downloader_service__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! src/app/services/downloader/downloader.service */ "./src/app/services/downloader/downloader.service.ts");
 /* harmony import */ var src_app_services_storage_local_storage_service__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! src/app/services/storage/local-storage.service */ "./src/app/services/storage/local-storage.service.ts");
@@ -6156,7 +6156,7 @@ var ClientFormsEntryPageComponent = /** @class */ (function () {
     });
     ClientFormsEntryPageComponent.prototype.initPinForm = function () {
         this.pinForm = this.fb.group({
-            pin: ['', [_angular_forms__WEBPACK_IMPORTED_MODULE_7__["Validators"].minLength(4), _angular_forms__WEBPACK_IMPORTED_MODULE_7__["Validators"].required]]
+            pin: ['', [_angular_forms__WEBPACK_IMPORTED_MODULE_6__["Validators"].minLength(4), _angular_forms__WEBPACK_IMPORTED_MODULE_6__["Validators"].required]]
         });
     };
     /**
@@ -6168,7 +6168,7 @@ var ClientFormsEntryPageComponent = /** @class */ (function () {
      * @memberof EditFormPageComponent
      */
     ClientFormsEntryPageComponent.prototype.resolveReloadDataLoss = function () {
-        if (!lodash__WEBPACK_IMPORTED_MODULE_2__["isUndefined"](this.form)) {
+        if (!lodash__WEBPACK_IMPORTED_MODULE_1__["isUndefined"](this.form)) {
             console.log('is undefined oooooooooooo');
             sessionStorage.setItem('u_form', JSON.stringify(this.form));
         }
@@ -6185,7 +6185,7 @@ var ClientFormsEntryPageComponent = /** @class */ (function () {
     };
     ClientFormsEntryPageComponent.prototype.showPinCreatedSuccess = function () {
         var _this = this;
-        sweetalert2__WEBPACK_IMPORTED_MODULE_3___default.a.fire({
+        sweetalert2__WEBPACK_IMPORTED_MODULE_2___default.a.fire({
             title: 'Pin Created',
             text: 'Your PIN has been successfully created',
             icon: 'success',
@@ -6196,7 +6196,7 @@ var ClientFormsEntryPageComponent = /** @class */ (function () {
         });
     };
     ClientFormsEntryPageComponent.prototype.showPinCreationFailed = function () {
-        sweetalert2__WEBPACK_IMPORTED_MODULE_3___default.a.fire({
+        sweetalert2__WEBPACK_IMPORTED_MODULE_2___default.a.fire({
             title: 'Oops!',
             text: 'Sorry! Failed to create your pin. Something went wrong. Please check your internet connection and try again or our servers may be down.',
             icon: 'error',
@@ -6204,7 +6204,7 @@ var ClientFormsEntryPageComponent = /** @class */ (function () {
         });
     };
     ClientFormsEntryPageComponent.prototype.showPinVerificationFailed = function () {
-        sweetalert2__WEBPACK_IMPORTED_MODULE_3___default.a.fire({
+        sweetalert2__WEBPACK_IMPORTED_MODULE_2___default.a.fire({
             title: 'Oops!',
             text: 'Sorry! Wrong PIN entered. Please check and try again',
             icon: 'error',
@@ -6222,7 +6222,7 @@ var ClientFormsEntryPageComponent = /** @class */ (function () {
     };
     ClientFormsEntryPageComponent.prototype.setFormData = function (data) {
         var _this = this;
-        this.clientService.getDetails(lodash__WEBPACK_IMPORTED_MODULE_2__["toString"](this.user.id)).then(function (res) {
+        this.clientService.getDetails(lodash__WEBPACK_IMPORTED_MODULE_1__["toString"](this.user.id)).then(function (res) {
             console.log('user_data: ' + JSON.stringify(res));
             _this.clientProfile = res;
             _this.clientService.autoFillFormData(data, res.client_details[0]);
@@ -6236,7 +6236,7 @@ var ClientFormsEntryPageComponent = /** @class */ (function () {
     ClientFormsEntryPageComponent.prototype.appendOnChangeEventToFileInput = function () {
         var _this = this;
         var all_inputs = document.querySelectorAll('input');
-        lodash__WEBPACK_IMPORTED_MODULE_2__["forEach"](all_inputs, function (input) {
+        lodash__WEBPACK_IMPORTED_MODULE_1__["forEach"](all_inputs, function (input) {
             if (input.type == 'file') {
                 input.onchange = function (e) {
                     var file = e.target.files[0];
@@ -6248,7 +6248,7 @@ var ClientFormsEntryPageComponent = /** @class */ (function () {
     };
     ClientFormsEntryPageComponent.prototype.checkIfHasFileUpload = function (form_data) {
         var _this = this;
-        lodash__WEBPACK_IMPORTED_MODULE_2__["forEach"](form_data, function (fields) {
+        lodash__WEBPACK_IMPORTED_MODULE_1__["forEach"](form_data, function (fields) {
             if (fields.type == 'file') {
                 _this.hasFile = true;
                 _this.formFiles += 1;
@@ -6270,9 +6270,9 @@ var ClientFormsEntryPageComponent = /** @class */ (function () {
         // This gets all the existing attachments so they can be uploaded
         // if the user doesnt choose any new file.
         var fields = [];
-        lodash__WEBPACK_IMPORTED_MODULE_2__["forEach"](this.existingAttachments, function (attachment) {
+        lodash__WEBPACK_IMPORTED_MODULE_1__["forEach"](this.existingAttachments, function (attachment) {
             console.log('attachment: ' + JSON.stringify(attachment));
-            lodash__WEBPACK_IMPORTED_MODULE_2__["forEach"](unfilled_fields, function (field) {
+            lodash__WEBPACK_IMPORTED_MODULE_1__["forEach"](unfilled_fields, function (field) {
                 if (field.type == 'file') {
                     if (attachment.key == field.name) {
                         fields.push(field);
@@ -6283,14 +6283,14 @@ var ClientFormsEntryPageComponent = /** @class */ (function () {
         console.log('unfilleed: ' + JSON.stringify(fields));
         return fields;
     };
-    ClientFormsEntryPageComponent.prototype.submitFormWithAttachments = function (user_data, updateProfile) {
+    ClientFormsEntryPageComponent.prototype.submitFormAndAttachments = function (user_data, updateProfile) {
         var _this = this;
         console.log('is submitting');
         var update = updateProfile ? 1 : 0;
         var filled_data = this.formBuilder.getFormUserData(user_data);
         var updated_data = this.clientService.getUpdatedClientFormData(JSON.parse(filled_data), this.clientProfile.client_details[0]);
         console.log('new updates: ' + updated_data);
-        this.clientService.submitForm(lodash__WEBPACK_IMPORTED_MODULE_2__["toString"](this.user.id), this.form.form_code, this.clientProfile.client_details[0], JSON.parse(updated_data), update).then(function (res) {
+        this.clientService.submitForm(lodash__WEBPACK_IMPORTED_MODULE_1__["toString"](this.user.id), this.form.form_code, this.clientProfile.client_details[0], JSON.parse(updated_data), update).then(function (res) {
             _this.formGenCode = res.code;
             if (_this.hasFile) {
                 _this.uploadFormAttachments(_this.formGenCode);
@@ -6303,36 +6303,10 @@ var ClientFormsEntryPageComponent = /** @class */ (function () {
             _this.loading = false;
         });
     };
-    ClientFormsEntryPageComponent.prototype.submitFormWithExistingAttachments = function (user_data, updateProfile) {
-        var _this = this;
-        console.log('is submitting with existing attachment');
-        var update = updateProfile ? 1 : 0;
-        var filled_data = this.formBuilder.getFormUserData(user_data);
-        var updated_data = this.clientService.getUpdatedClientFormData(JSON.parse(filled_data), this.clientProfile.client_details[0]);
-        console.log('new updates: ' + updated_data);
-        this.clientService.submitForm(lodash__WEBPACK_IMPORTED_MODULE_2__["toString"](this.user.id), this.form.form_code, this.clientProfile.client_details[0], JSON.parse(updated_data), update).then(function (res) {
-            _this.formGenCode = res.code;
-            if (_this.existingAttachments.length > 0) {
-                lodash__WEBPACK_IMPORTED_MODULE_2__["forEach"](_this.existingAttachments, function (attachment) {
-                    var index = attachment.url.lastIndexOf('.');
-                    var extension = attachment.url.substr(index);
-                    var filename = Date.now().toString() + extension;
-                    var attachmentHost = _this.endpointService.storageHost + 'attachments/';
-                    var p = _this.fileUploadService.srcToBase64(attachmentHost + attachment.url);
-                    p.then(function (base64Str) {
-                        var fileObj = _this.fileUploadService.convertBase64ToFile(base64Str, filename);
-                        _this.uploadConvertedFormAttachment(_this.formGenCode, attachment.key, fileObj);
-                    });
-                });
-            }
-        }, function (err) {
-            _this.loading = false;
-        });
-    };
     ClientFormsEntryPageComponent.prototype.handlePinCode = function (update) {
         this.updateProfile = update;
         var hasPin = localStorage.getItem('has_pin');
-        if (lodash__WEBPACK_IMPORTED_MODULE_2__["isNull"](hasPin) || lodash__WEBPACK_IMPORTED_MODULE_2__["isUndefined"](hasPin)) {
+        if (lodash__WEBPACK_IMPORTED_MODULE_1__["isNull"](hasPin) || lodash__WEBPACK_IMPORTED_MODULE_1__["isUndefined"](hasPin)) {
             this.setPinDialogRef = this.modalService.open(this.setPinDialog, { centered: true });
         }
         else {
@@ -6354,11 +6328,11 @@ var ClientFormsEntryPageComponent = /** @class */ (function () {
                 this.clientService.highlightUnFilledFormFields(unfilled);
             }
             else {
-                this.submitFormWithExistingAttachments(user_data, this.updateProfile);
+                this.submitFormAndAttachments(user_data, this.updateProfile);
             }
         }
         else {
-            this.submitFormWithAttachments(user_data, this.updateProfile);
+            this.submitFormAndAttachments(user_data, this.updateProfile);
         }
     };
     ClientFormsEntryPageComponent.prototype.submit = function () {
@@ -6428,15 +6402,44 @@ var ClientFormsEntryPageComponent = /** @class */ (function () {
                 }
             }, function (err) {
                 _this.isLoading = false;
-                _this.pinDialogRef.close();
                 _this.showPinVerificationFailed();
             });
         }
     };
-    ClientFormsEntryPageComponent.prototype.uploadFormFile = function (form_code, key, index) {
+    ClientFormsEntryPageComponent.prototype.submitFormWithExistingAttachments = function (user_data, updateProfile) {
         var _this = this;
-        if (lodash__WEBPACK_IMPORTED_MODULE_2__["isUndefined"](index) || lodash__WEBPACK_IMPORTED_MODULE_2__["isNull"](index)) {
-            this.clientService.uploadFormAttachments(this.user.id.toString(), this.form.form_code, form_code, key, this.attachmentFiles[0]).then(function (ok) {
+        console.log('is submitting with existing attachment');
+        var update = updateProfile ? 1 : 0;
+        var filled_data = this.formBuilder.getFormUserData(user_data);
+        var updated_data = this.clientService.getUpdatedClientFormData(JSON.parse(filled_data), this.clientProfile.client_details[0]);
+        console.log('new updates: ' + updated_data);
+        this.clientService.submitForm(lodash__WEBPACK_IMPORTED_MODULE_1__["toString"](this.user.id), this.form.form_code, this.clientProfile.client_details[0], JSON.parse(updated_data), update).then(function (res) {
+            _this.formGenCode = res.code;
+            if (_this.existingAttachments.length > 0) {
+                lodash__WEBPACK_IMPORTED_MODULE_1__["forEach"](_this.existingAttachments, function (attachment) {
+                    var index = attachment.url.lastIndexOf('.');
+                    var extension = attachment.url.substr(index);
+                    var filename = Date.now().toString() + extension;
+                    var attachmentHost = _this.endpointService.storageHost + 'attachments/';
+                    var p = _this.fileUploadService.srcToBase64(attachmentHost + attachment.url);
+                    p.then(function (base64Str) {
+                        var fileObj = _this.fileUploadService.convertBase64ToFile(base64Str, filename);
+                        _this.uploadConvertedFormAttachment(_this.formGenCode, attachment.key, fileObj);
+                    });
+                });
+            }
+        }, function (err) {
+            _this.loading = false;
+        });
+    };
+    ClientFormsEntryPageComponent.prototype.uploadConvertedFormAttachment = function (form_code, key, file) {
+        var _this = this;
+        console.log('doing existing upload');
+        console.log('form_code: ' + form_code);
+        console.log('key: ' + key);
+        console.log(file);
+        if (!lodash__WEBPACK_IMPORTED_MODULE_1__["isUndefined"](file) || !lodash__WEBPACK_IMPORTED_MODULE_1__["isNull"](file)) {
+            this.clientService.uploadFormAttachments(this.user.id.toString(), this.form.form_code, form_code, key, file).then(function (ok) {
                 if (ok) {
                     console.log('file upload done');
                     _this.created = true;
@@ -6450,6 +6453,51 @@ var ClientFormsEntryPageComponent = /** @class */ (function () {
                 console.log('file upload error');
                 _this.loading = false;
             });
+        }
+    };
+    ClientFormsEntryPageComponent.prototype.uploadFormFile = function (form_code, key, index) {
+        var _this = this;
+        if (lodash__WEBPACK_IMPORTED_MODULE_1__["isUndefined"](index) || lodash__WEBPACK_IMPORTED_MODULE_1__["isNull"](index)) {
+            if (this.attachmentFiles.length != 0) {
+                this.clientService.uploadFormAttachments(this.user.id.toString(), this.form.form_code, form_code, key, this.attachmentFiles[0]).then(function (ok) {
+                    if (ok) {
+                        console.log('file upload done');
+                        _this.created = true;
+                        _this.loading = false;
+                    }
+                    else {
+                        console.log('file upload failed');
+                        _this.loading = false;
+                    }
+                }, function (err) {
+                    console.log('file upload error');
+                    _this.loading = false;
+                });
+            }
+            else {
+                // console.log('no upload');
+                // this.created = true;
+                // this.loading = false;
+                if (this.existingAttachments.length > 0) {
+                    lodash__WEBPACK_IMPORTED_MODULE_1__["forEach"](this.existingAttachments, function (attachment, i) {
+                        var idx = attachment.url.lastIndexOf('.');
+                        var extension = attachment.url.substr(idx);
+                        var filename = Date.now().toString() + extension;
+                        var attachmentHost = _this.endpointService.storageHost + 'attachments/';
+                        var p = _this.fileUploadService.srcToBase64(attachmentHost + attachment.url);
+                        p.then(function (base64Str) {
+                            var fileObj = _this.fileUploadService.convertBase64ToFile(base64Str, filename);
+                            _this.uploadConvertedFormAttachment(_this.formGenCode, attachment.key, fileObj);
+                        });
+                        if (i == _this.existingAttachments.length - 1) {
+                            console.log('we done uploading');
+                            console.log('no upload');
+                            _this.created = true;
+                            _this.loading = false;
+                        }
+                    });
+                }
+            }
         }
         else {
             // its being called in a loop, this means there are more than one attachments.
@@ -6470,6 +6518,7 @@ var ClientFormsEntryPageComponent = /** @class */ (function () {
         }
     };
     ClientFormsEntryPageComponent.prototype.uploadFormAttachments = function (form_code) {
+        var _this = this;
         // we can tell the number of attachments this form has by
         // checking the formFiles variable's value.
         console.log('doing upload');
@@ -6482,36 +6531,39 @@ var ClientFormsEntryPageComponent = /** @class */ (function () {
         }
         else {
             console.log('will do single upload');
-            if (this.attachmentKeys.length == 0) {
-                this.created = true;
-                this.loading = false;
-            }
-            else {
-                this.uploadFormFile(form_code, this.attachmentKeys[0]);
-            }
-        }
-    };
-    ClientFormsEntryPageComponent.prototype.uploadConvertedFormAttachment = function (form_code, key, file) {
-        var _this = this;
-        console.log('doing existing upload');
-        console.log('form_code: ' + form_code);
-        console.log('key: ' + key);
-        console.log(file);
-        if (!lodash__WEBPACK_IMPORTED_MODULE_2__["isUndefined"](file) || !lodash__WEBPACK_IMPORTED_MODULE_2__["isNull"](file)) {
-            this.clientService.uploadFormAttachments(this.user.id.toString(), this.form.form_code, form_code, key, file).then(function (ok) {
-                if (ok) {
-                    console.log('file upload done');
-                    _this.created = true;
-                    _this.loading = false;
+            console.log('attachments length: ' + this.attachmentFiles.length);
+            if (this.attachmentFiles.length == 0) {
+                console.log('no attachment');
+                // this.created = true;
+                // this.loading = false;
+                if (this.existingAttachments.length > 0) {
+                    lodash__WEBPACK_IMPORTED_MODULE_1__["forEach"](this.existingAttachments, function (attachment, i) {
+                        var idx = attachment.url.lastIndexOf('.');
+                        var extension = attachment.url.substr(idx);
+                        var filename = Date.now().toString() + extension;
+                        var attachmentHost = _this.endpointService.storageHost + 'attachments/';
+                        var p = _this.fileUploadService.srcToBase64(attachmentHost + attachment.url);
+                        p.then(function (base64Str) {
+                            var fileObj = _this.fileUploadService.convertBase64ToFile(base64Str, filename);
+                            _this.uploadConvertedFormAttachment(_this.formGenCode, attachment.key, fileObj);
+                        });
+                        if (i == _this.existingAttachments.length - 1) {
+                            console.log('we done uploading');
+                            console.log('no upload');
+                            _this.created = true;
+                            _this.loading = false;
+                        }
+                    });
                 }
                 else {
-                    console.log('file upload failed');
-                    _this.loading = false;
+                    this.created = true;
+                    this.loading = false;
                 }
-            }, function (err) {
-                console.log('file upload error');
-                _this.loading = false;
-            });
+            }
+            else {
+                console.log('has attachment');
+                this.uploadFormFile(form_code, this.attachmentKeys[0]);
+            }
         }
     };
     ClientFormsEntryPageComponent.prototype.getFormAttachments = function (form_code) {
@@ -6521,7 +6573,7 @@ var ClientFormsEntryPageComponent = /** @class */ (function () {
             console.log('resssss: ' + JSON.stringify(res));
             if (res.length > 0) {
                 _this.showAttachments = true;
-                lodash__WEBPACK_IMPORTED_MODULE_2__["forEach"](res, function (doc) {
+                lodash__WEBPACK_IMPORTED_MODULE_1__["forEach"](res, function (doc) {
                     console.log('doc: ' + JSON.stringify(doc));
                     _this.existingAttachments.push(doc);
                 });
@@ -6574,11 +6626,11 @@ var ClientFormsEntryPageComponent = /** @class */ (function () {
         this.downloadService.download(file_url);
     };
     ClientFormsEntryPageComponent.ctorParameters = function () { return [
-        { type: _angular_router__WEBPACK_IMPORTED_MODULE_4__["Router"] },
-        { type: _angular_forms__WEBPACK_IMPORTED_MODULE_7__["FormBuilder"] },
-        { type: _ng_bootstrap_ng_bootstrap__WEBPACK_IMPORTED_MODULE_6__["NgbModal"] },
-        { type: ngx_clipboard__WEBPACK_IMPORTED_MODULE_5__["ClipboardService"] },
-        { type: src_app_services_client_client_service__WEBPACK_IMPORTED_MODULE_8__["ClientService"] },
+        { type: _angular_router__WEBPACK_IMPORTED_MODULE_3__["Router"] },
+        { type: _angular_forms__WEBPACK_IMPORTED_MODULE_6__["FormBuilder"] },
+        { type: _ng_bootstrap_ng_bootstrap__WEBPACK_IMPORTED_MODULE_5__["NgbModal"] },
+        { type: ngx_clipboard__WEBPACK_IMPORTED_MODULE_4__["ClipboardService"] },
+        { type: src_app_services_client_client_service__WEBPACK_IMPORTED_MODULE_7__["ClientService"] },
         { type: src_app_services_form_builder_form_builder_service__WEBPACK_IMPORTED_MODULE_12__["FormBuilderService"] },
         { type: src_app_services_endpoint_endpoint_service__WEBPACK_IMPORTED_MODULE_9__["EndpointService"] },
         { type: src_app_services_storage_local_storage_service__WEBPACK_IMPORTED_MODULE_11__["LocalStorageService"] },
@@ -6586,22 +6638,22 @@ var ClientFormsEntryPageComponent = /** @class */ (function () {
         { type: src_app_services_file_uploads_file_uploads_service__WEBPACK_IMPORTED_MODULE_13__["FileUploadsService"] }
     ]; };
     tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
-        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["ViewChild"])('pin', { static: false })
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_8__["ViewChild"])('pin', { static: false })
     ], ClientFormsEntryPageComponent.prototype, "pinDialog", void 0);
     tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
-        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["ViewChild"])('setPin', { static: false })
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_8__["ViewChild"])('setPin', { static: false })
     ], ClientFormsEntryPageComponent.prototype, "setPinDialog", void 0);
     tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
-        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["ViewChild"])('confirm', { static: false })
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_8__["ViewChild"])('confirm', { static: false })
     ], ClientFormsEntryPageComponent.prototype, "confirmDialog", void 0);
     tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
-        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["ViewChild"])('viewImgAttachment', { static: false })
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_8__["ViewChild"])('viewImgAttachment', { static: false })
     ], ClientFormsEntryPageComponent.prototype, "viewImgDialog", void 0);
     tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
-        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["ViewChild"])('viewDocAttachment', { static: false })
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_8__["ViewChild"])('viewDocAttachment', { static: false })
     ], ClientFormsEntryPageComponent.prototype, "viewDocDialog", void 0);
     ClientFormsEntryPageComponent = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
-        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Component"])({
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_8__["Component"])({
             selector: 'app-client-forms-entry-page',
             template: __webpack_require__(/*! raw-loader!./client-forms-entry-page.component.html */ "./node_modules/raw-loader/index.js!./src/app/pages/dashboard/client/client-forms-entry-page/client-forms-entry-page.component.html"),
             styles: [__webpack_require__(/*! ./client-forms-entry-page.component.css */ "./src/app/pages/dashboard/client/client-forms-entry-page/client-forms-entry-page.component.css")]
@@ -6636,12 +6688,12 @@ module.exports = "@media only screen \nand (min-device-width: 320px) \nand (max-
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "ClientFormsHistoryPageComponent", function() { return ClientFormsHistoryPageComponent; });
 /* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
-/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
-/* harmony import */ var lodash__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! lodash */ "./node_modules/lodash/lodash.js");
-/* harmony import */ var lodash__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(lodash__WEBPACK_IMPORTED_MODULE_2__);
-/* harmony import */ var _angular_router__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @angular/router */ "./node_modules/@angular/router/fesm5/router.js");
-/* harmony import */ var _ng_bootstrap_ng_bootstrap__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @ng-bootstrap/ng-bootstrap */ "./node_modules/@ng-bootstrap/ng-bootstrap/fesm5/ng-bootstrap.js");
-/* harmony import */ var src_app_services_client_client_service__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! src/app/services/client/client.service */ "./src/app/services/client/client.service.ts");
+/* harmony import */ var lodash__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! lodash */ "./node_modules/lodash/lodash.js");
+/* harmony import */ var lodash__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(lodash__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var _angular_router__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @angular/router */ "./node_modules/@angular/router/fesm5/router.js");
+/* harmony import */ var _ng_bootstrap_ng_bootstrap__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @ng-bootstrap/ng-bootstrap */ "./node_modules/@ng-bootstrap/ng-bootstrap/fesm5/ng-bootstrap.js");
+/* harmony import */ var src_app_services_client_client_service__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! src/app/services/client/client.service */ "./src/app/services/client/client.service.ts");
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
 /* harmony import */ var src_app_services_storage_local_storage_service__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! src/app/services/storage/local-storage.service */ "./src/app/services/storage/local-storage.service.ts");
 
 
@@ -6667,7 +6719,7 @@ var ClientFormsHistoryPageComponent = /** @class */ (function () {
         this.filterState = 'all';
     };
     ClientFormsHistoryPageComponent.prototype.handleLoadMoreVisibility = function (list) {
-        lodash__WEBPACK_IMPORTED_MODULE_2__["isNull"](list) || lodash__WEBPACK_IMPORTED_MODULE_2__["isUndefined"](list) || lodash__WEBPACK_IMPORTED_MODULE_2__["isEmpty"](list) || list.length <= 15 ? this.hasMore = false : this.hasMore = true;
+        lodash__WEBPACK_IMPORTED_MODULE_1__["isNull"](list) || lodash__WEBPACK_IMPORTED_MODULE_1__["isUndefined"](list) || lodash__WEBPACK_IMPORTED_MODULE_1__["isEmpty"](list) || list.length <= 15 ? this.hasMore = false : this.hasMore = true;
     };
     ClientFormsHistoryPageComponent.prototype.openFormEntry = function (form) {
         this.router.navigateByUrl('/client/form_entry', { state: { form: form } });
@@ -6679,25 +6731,25 @@ var ClientFormsHistoryPageComponent = /** @class */ (function () {
         this.filterState = 'all';
         this.historyCollection = this.allHistoryCollection;
         var moreUrl = this.clientService.nextPaginationUrl;
-        lodash__WEBPACK_IMPORTED_MODULE_2__["isNull"](moreUrl) ? this.hasMore = false : this.hasMore = true;
+        lodash__WEBPACK_IMPORTED_MODULE_1__["isNull"](moreUrl) ? this.hasMore = false : this.hasMore = true;
     };
     ClientFormsHistoryPageComponent.prototype.showProcessed = function () {
         this.filterState = 'processed';
-        this.historyCollection = lodash__WEBPACK_IMPORTED_MODULE_2__["filter"](this.allHistoryCollection, function (history) { return history.form_status == 2; });
+        this.historyCollection = lodash__WEBPACK_IMPORTED_MODULE_1__["filter"](this.allHistoryCollection, function (history) { return history.form_status == 2; });
         this.hasMore ? this.handleLoadMoreVisibility(this.historyCollection) : null;
     };
     ClientFormsHistoryPageComponent.prototype.showProcessing = function () {
         this.filterState = 'processing';
-        this.historyCollection = lodash__WEBPACK_IMPORTED_MODULE_2__["filter"](this.allHistoryCollection, function (history) { return history.form_status == 1; });
+        this.historyCollection = lodash__WEBPACK_IMPORTED_MODULE_1__["filter"](this.allHistoryCollection, function (history) { return history.form_status == 1; });
         this.hasMore ? this.handleLoadMoreVisibility(this.historyCollection) : null;
     };
     ClientFormsHistoryPageComponent.prototype.showRejected = function () {
         this.filterState = 'rejected';
-        this.historyCollection = lodash__WEBPACK_IMPORTED_MODULE_2__["filter"](this.allHistoryCollection, function (history) { return history.form_status == 3; });
+        this.historyCollection = lodash__WEBPACK_IMPORTED_MODULE_1__["filter"](this.allHistoryCollection, function (history) { return history.form_status == 3; });
         this.hasMore ? this.handleLoadMoreVisibility(this.historyCollection) : null;
     };
     ClientFormsHistoryPageComponent.prototype.checkIfHasMore = function () {
-        return lodash__WEBPACK_IMPORTED_MODULE_2__["isNull"](this.clientService.nextPaginationUrl) ? false : true;
+        return lodash__WEBPACK_IMPORTED_MODULE_1__["isNull"](this.clientService.nextPaginationUrl) ? false : true;
     };
     ClientFormsHistoryPageComponent.prototype.searchByFormCode = function () {
         var _this = this;
@@ -6711,7 +6763,7 @@ var ClientFormsHistoryPageComponent = /** @class */ (function () {
             else {
                 _this.loading = false;
                 _this.foundNoForm = false;
-                lodash__WEBPACK_IMPORTED_MODULE_2__["forEach"](forms, function (form) {
+                lodash__WEBPACK_IMPORTED_MODULE_1__["forEach"](forms, function (form) {
                     // this.formsList.push(form);
                     _this.historyCollection.push(form);
                 });
@@ -6733,7 +6785,7 @@ var ClientFormsHistoryPageComponent = /** @class */ (function () {
             else {
                 _this.loading = false;
                 _this.foundNoForm = false;
-                lodash__WEBPACK_IMPORTED_MODULE_2__["forEach"](forms, function (form) {
+                lodash__WEBPACK_IMPORTED_MODULE_1__["forEach"](forms, function (form) {
                     _this.historyCollection.push(form);
                 });
             }
@@ -6752,7 +6804,7 @@ var ClientFormsHistoryPageComponent = /** @class */ (function () {
                 this.hasMore = false;
                 this.hasError = false;
                 this.historyCollection = [];
-                if (/\d/.test(this.query)) {
+                if (/\d/.test(this.query) || this.query.length == 5) {
                     console.log('searching by form code');
                     this.searchByFormCode();
                 }
@@ -6769,7 +6821,6 @@ var ClientFormsHistoryPageComponent = /** @class */ (function () {
                 if (this.foundNoForm && this.query.length == 0) {
                     this.hasData = true;
                     this.foundNoForm = false;
-                    console.log('hererer');
                     this.historyCollection = this.allHistoryCollection;
                 }
             }
@@ -6778,12 +6829,12 @@ var ClientFormsHistoryPageComponent = /** @class */ (function () {
     ClientFormsHistoryPageComponent.prototype.getAllHistory = function () {
         var _this = this;
         this.loading = true;
-        this.clientService.getAllSubmittedForms(lodash__WEBPACK_IMPORTED_MODULE_2__["toString"](this.user.id)).then(function (forms) {
+        this.clientService.getAllSubmittedForms(lodash__WEBPACK_IMPORTED_MODULE_1__["toString"](this.user.id)).then(function (forms) {
             _this.hasMore = _this.checkIfHasMore();
             if (forms.length > 0) {
                 _this.hasData = true;
                 _this.loading = false;
-                lodash__WEBPACK_IMPORTED_MODULE_2__["forEach"](forms, function (form) {
+                lodash__WEBPACK_IMPORTED_MODULE_1__["forEach"](forms, function (form) {
                     _this.historyCollection.push(form);
                 });
                 _this.allHistoryCollection = _this.historyCollection;
@@ -6802,11 +6853,11 @@ var ClientFormsHistoryPageComponent = /** @class */ (function () {
         this.loadingMore = true;
         this.hasMoreError = false;
         var moreUrl = this.clientService.nextPaginationUrl;
-        this.clientService.getAllSubmittedForms(lodash__WEBPACK_IMPORTED_MODULE_2__["toString"](this.user.id), moreUrl).then(function (forms) {
+        this.clientService.getAllSubmittedForms(lodash__WEBPACK_IMPORTED_MODULE_1__["toString"](this.user.id), moreUrl).then(function (forms) {
             _this.loadingMore = false;
             _this.hasMoreError = false;
             _this.hasMore = _this.checkIfHasMore();
-            lodash__WEBPACK_IMPORTED_MODULE_2__["forEach"](forms, function (form) {
+            lodash__WEBPACK_IMPORTED_MODULE_1__["forEach"](forms, function (form) {
                 _this.historyCollection.push(form);
             });
         }, function (err) {
@@ -6841,16 +6892,16 @@ var ClientFormsHistoryPageComponent = /** @class */ (function () {
         this.getAllHistory();
     };
     ClientFormsHistoryPageComponent.ctorParameters = function () { return [
-        { type: _angular_router__WEBPACK_IMPORTED_MODULE_3__["Router"] },
-        { type: _ng_bootstrap_ng_bootstrap__WEBPACK_IMPORTED_MODULE_4__["NgbModal"] },
-        { type: src_app_services_client_client_service__WEBPACK_IMPORTED_MODULE_5__["ClientService"] },
+        { type: _angular_router__WEBPACK_IMPORTED_MODULE_2__["Router"] },
+        { type: _ng_bootstrap_ng_bootstrap__WEBPACK_IMPORTED_MODULE_3__["NgbModal"] },
+        { type: src_app_services_client_client_service__WEBPACK_IMPORTED_MODULE_4__["ClientService"] },
         { type: src_app_services_storage_local_storage_service__WEBPACK_IMPORTED_MODULE_6__["LocalStorageService"] }
     ]; };
     tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
-        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["ViewChild"])('confirm', { static: false })
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_5__["ViewChild"])('confirm', { static: false })
     ], ClientFormsHistoryPageComponent.prototype, "confirmDialog", void 0);
     ClientFormsHistoryPageComponent = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
-        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Component"])({
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_5__["Component"])({
             selector: 'app-client-forms-history-page',
             template: __webpack_require__(/*! raw-loader!./client-forms-history-page.component.html */ "./node_modules/raw-loader/index.js!./src/app/pages/dashboard/client/client-forms-history-page/client-forms-history-page.component.html"),
             styles: [__webpack_require__(/*! ./client-forms-history-page.component.css */ "./src/app/pages/dashboard/client/client-forms-history-page/client-forms-history-page.component.css")]
@@ -7157,18 +7208,16 @@ module.exports = ".form-group {\n    margin-bottom: 0.5rem;\n}\n\n@media only sc
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "ClientProfilePageComponent", function() { return ClientProfilePageComponent; });
 /* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
-/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
-/* harmony import */ var lodash__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! lodash */ "./node_modules/lodash/lodash.js");
-/* harmony import */ var lodash__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(lodash__WEBPACK_IMPORTED_MODULE_2__);
-/* harmony import */ var _ng_bootstrap_ng_bootstrap__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @ng-bootstrap/ng-bootstrap */ "./node_modules/@ng-bootstrap/ng-bootstrap/fesm5/ng-bootstrap.js");
-/* harmony import */ var src_app_services_client_client_service__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! src/app/services/client/client.service */ "./src/app/services/client/client.service.ts");
+/* harmony import */ var lodash__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! lodash */ "./node_modules/lodash/lodash.js");
+/* harmony import */ var lodash__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(lodash__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var _ng_bootstrap_ng_bootstrap__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @ng-bootstrap/ng-bootstrap */ "./node_modules/@ng-bootstrap/ng-bootstrap/fesm5/ng-bootstrap.js");
+/* harmony import */ var src_app_services_client_client_service__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! src/app/services/client/client.service */ "./src/app/services/client/client.service.ts");
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
 /* harmony import */ var src_app_services_sections_sections_service__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! src/app/services/sections/sections.service */ "./src/app/services/sections/sections.service.ts");
 /* harmony import */ var src_app_services_endpoint_endpoint_service__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! src/app/services/endpoint/endpoint.service */ "./src/app/services/endpoint/endpoint.service.ts");
 /* harmony import */ var src_app_services_downloader_downloader_service__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! src/app/services/downloader/downloader.service */ "./src/app/services/downloader/downloader.service.ts");
 /* harmony import */ var src_app_services_storage_local_storage_service__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! src/app/services/storage/local-storage.service */ "./src/app/services/storage/local-storage.service.ts");
-/* harmony import */ var src_app_services_file_uploads_file_uploads_service__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! src/app/services/file-uploads/file-uploads.service */ "./src/app/services/file-uploads/file-uploads.service.ts");
-/* harmony import */ var src_app_services_form_builder_form_builder_service__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! src/app/services/form-builder/form-builder.service */ "./src/app/services/form-builder/form-builder.service.ts");
-
+/* harmony import */ var src_app_services_form_builder_form_builder_service__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! src/app/services/form-builder/form-builder.service */ "./src/app/services/form-builder/form-builder.service.ts");
 
 
 
@@ -7180,7 +7229,7 @@ __webpack_require__.r(__webpack_exports__);
 
 
 var ClientProfilePageComponent = /** @class */ (function () {
-    function ClientProfilePageComponent(modalService, clientService, sectionService, formBuilder, endpointService, localStorage, downloadService, fileUploadService) {
+    function ClientProfilePageComponent(modalService, clientService, sectionService, formBuilder, endpointService, localStorage, downloadService) {
         this.modalService = modalService;
         this.clientService = clientService;
         this.sectionService = sectionService;
@@ -7188,7 +7237,6 @@ var ClientProfilePageComponent = /** @class */ (function () {
         this.endpointService = endpointService;
         this.localStorage = localStorage;
         this.downloadService = downloadService;
-        this.fileUploadService = fileUploadService;
         this.formFiles = 0;
         this.attachmentKeys = [];
         this.allFormSections = [];
@@ -7202,10 +7250,13 @@ var ClientProfilePageComponent = /** @class */ (function () {
         this.getAllFormSections();
     };
     ClientProfilePageComponent.prototype.showUpdatedDialog = function (isSuccess) {
+        var _this = this;
         if (isSuccess) {
             this.alert_title = 'Profile Updated Successfully';
             this.alert_message = 'You have successfully updated your account data';
-            this.modalService.open(this.updatedDialog, { centered: true });
+            this.modalService.open(this.updatedDialog, { centered: true }).result.then(function (result) {
+                result == 'ok' ? _this.reload() : null;
+            });
         }
         else {
             this.alert_title = 'Profile Update Failed';
@@ -7216,7 +7267,7 @@ var ClientProfilePageComponent = /** @class */ (function () {
     ClientProfilePageComponent.prototype.getAllClientDataNew = function () {
         var _this = this;
         this.loading = true;
-        this.formBuilder.getUserFilledData(lodash__WEBPACK_IMPORTED_MODULE_2__["toString"](this.user.id)).then(function (res) {
+        this.formBuilder.getUserFilledData(lodash__WEBPACK_IMPORTED_MODULE_1__["toString"](this.user.id)).then(function (res) {
             console.log('user_data: ' + JSON.stringify(res));
             if (res.length > 0) {
                 _this.hasData = true;
@@ -7240,31 +7291,22 @@ var ClientProfilePageComponent = /** @class */ (function () {
         console.log('called appendOnChangeEventToFileInput');
         var all_inputs = document.querySelectorAll('input');
         console.log('appendOnChangeLength: ' + all_inputs.length);
-        lodash__WEBPACK_IMPORTED_MODULE_2__["forEach"](all_inputs, function (input) {
+        lodash__WEBPACK_IMPORTED_MODULE_1__["forEach"](all_inputs, function (input) {
             if (input.type == 'file') {
                 input.onchange = function (e) {
                     console.log('in onchange');
                     var file = e.target.files[0];
                     console.log(file);
                     _this.attachmentFiles.push(file);
+                    _this.attachmentKeys.push(input.id);
                 };
-            }
-        });
-    };
-    ClientProfilePageComponent.prototype.checkIfHasFileUpload = function (form_data) {
-        var _this = this;
-        lodash__WEBPACK_IMPORTED_MODULE_2__["forEach"](form_data, function (fields) {
-            if (fields.type == 'file') {
-                _this.hasFile = true;
-                _this.formFiles += 1;
-                _this.attachmentKeys.push(fields.name);
             }
         });
     };
     ClientProfilePageComponent.prototype.getAllClientData = function () {
         var _this = this;
         this.loading = true;
-        this.formBuilder.getUserFilledData(lodash__WEBPACK_IMPORTED_MODULE_2__["toString"](this.user.id)).then(function (res) {
+        this.formBuilder.getUserFilledData(lodash__WEBPACK_IMPORTED_MODULE_1__["toString"](this.user.id)).then(function (res) {
             console.log('user_data: ' + JSON.stringify(res));
             if (res.length > 0) {
                 _this.hasData = true;
@@ -7286,34 +7328,6 @@ var ClientProfilePageComponent = /** @class */ (function () {
             _this.hasError = true;
         });
     };
-    ClientProfilePageComponent.prototype.getExistingAttachments = function () {
-        // get all keys for files attachments
-        var file_input_fields = [];
-        var file_fields_with_data = [];
-        var file_fields_without_data = [];
-        var all_inputs = document.querySelectorAll('input');
-        lodash__WEBPACK_IMPORTED_MODULE_2__["forEach"](all_inputs, function (input) {
-            if (input.type == 'file') {
-                file_input_fields.push(input);
-            }
-        });
-        this.checkIfHasFileUpload(file_input_fields);
-        // get all keys and file data for file fields containing data.
-        lodash__WEBPACK_IMPORTED_MODULE_2__["forEach"](file_input_fields, function (file_input) {
-            if (file_input.value != '') {
-                console.log(file_input);
-                file_fields_with_data.push(file_input);
-            }
-            else {
-                console.log('have no data: ');
-                file_fields_without_data.push(file_input);
-            }
-        });
-        return {
-            fieldsWithData: file_fields_with_data,
-            fieldsWithoutData: file_fields_without_data
-        };
-    };
     ClientProfilePageComponent.prototype.getFormAttachments = function (user_id) {
         var _this = this;
         this.loadingAttachments = true;
@@ -7321,7 +7335,7 @@ var ClientProfilePageComponent = /** @class */ (function () {
             console.log('resssss: ' + JSON.stringify(res));
             if (res.length > 0) {
                 _this.showAttachments = true;
-                lodash__WEBPACK_IMPORTED_MODULE_2__["forEach"](res, function (doc) {
+                lodash__WEBPACK_IMPORTED_MODULE_1__["forEach"](res, function (doc) {
                     console.log('doc: ' + JSON.stringify(doc));
                     _this.existingAttachments.push(doc);
                 });
@@ -7336,11 +7350,11 @@ var ClientProfilePageComponent = /** @class */ (function () {
         });
     };
     ClientProfilePageComponent.prototype.transformToRealText = function (text) {
-        if (lodash__WEBPACK_IMPORTED_MODULE_2__["includes"](text, '-')) {
+        if (lodash__WEBPACK_IMPORTED_MODULE_1__["includes"](text, '-')) {
             return text.replace(/-/g, ' ');
         }
-        else if (lodash__WEBPACK_IMPORTED_MODULE_2__["includes"](text, '_')) {
-            return lodash__WEBPACK_IMPORTED_MODULE_2__["replace"](text, '_', ' ');
+        else if (lodash__WEBPACK_IMPORTED_MODULE_1__["includes"](text, '_')) {
+            return lodash__WEBPACK_IMPORTED_MODULE_1__["replace"](text, '_', ' ');
         }
         else {
             return text;
@@ -7349,7 +7363,7 @@ var ClientProfilePageComponent = /** @class */ (function () {
     ClientProfilePageComponent.prototype.getAllClientProfileData = function () {
         var user_form_data = {};
         var allElements = document.querySelectorAll('input');
-        lodash__WEBPACK_IMPORTED_MODULE_2__["forEach"](allElements, function (element) {
+        lodash__WEBPACK_IMPORTED_MODULE_1__["forEach"](allElements, function (element) {
             if (element.type == 'radio') {
                 var radio_label = element.nextSibling.textContent;
                 console.log('radio_label: ' + radio_label);
@@ -7382,11 +7396,9 @@ var ClientProfilePageComponent = /** @class */ (function () {
                 _this.loading = false;
                 console.log('filled data');
                 _this.getFormAttachments(_this.user.id);
-                lodash__WEBPACK_IMPORTED_MODULE_2__["forEach"](res, function (section) {
-                    _this.setDuplicate(section.form_fields);
+                lodash__WEBPACK_IMPORTED_MODULE_1__["forEach"](res, function (section) {
                     _this.allFormSections.push(section);
                 });
-                _this.hideDuplicateElementFields();
                 _this.getAllClientData();
             }
             else {
@@ -7399,247 +7411,19 @@ var ClientProfilePageComponent = /** @class */ (function () {
             _this.loading = false;
         });
     };
-    ClientProfilePageComponent.prototype.setDuplicate = function (formFields) {
-        var _this = this;
-        lodash__WEBPACK_IMPORTED_MODULE_2__["forEach"](formFields, function (field) {
-            if (!lodash__WEBPACK_IMPORTED_MODULE_2__["includes"](_this.duplicateFields, field.name)) {
-                console.log('duplicate no has');
-                _this.duplicateFields.push(field.name);
-            }
-        });
-    };
-    ClientProfilePageComponent.prototype.hideDuplicateElementFields = function () {
-        var _this = this;
-        var allElements = document.querySelectorAll('input');
-        lodash__WEBPACK_IMPORTED_MODULE_2__["forEach"](allElements, function (element) {
-            lodash__WEBPACK_IMPORTED_MODULE_2__["forEach"](_this.duplicateFields, function (duplicate) {
-                if (element.id == duplicate) {
-                    var elem = document.getElementById(element.id);
-                    elem.style.display = 'none';
-                }
-            });
-        });
-    };
-    ClientProfilePageComponent.prototype.deleteExistingAttachment = function (key) {
-        var _this = this;
-        return new Promise(function (resolve, reject) {
-            lodash__WEBPACK_IMPORTED_MODULE_2__["forEach"](_this.existingAttachments, function (attachment, i) {
-                if (attachment.key == key) {
-                    _this.clientService.deleteProfileAttachment(_this.user.id, attachment.key, attachment.url).then(function (ok) {
-                        if (ok) {
-                            console.log('deleted');
-                            resolve(true);
-                        }
-                        else {
-                            console.log('deleted');
-                            resolve(false);
-                        }
-                    }, function (err) {
-                        console.log('error deleting file');
-                        reject(err);
-                    });
-                }
-            });
-        });
-        // let _key = '';
-        // let _url = '';
-        // for (let i = 0; i < this.existingAttachments.length; i++) {
-        //   const attachment = this.existingAttachments[i];
-        //   if (attachment.key == key) {
-        //     _key = key;
-        //     _url = attachment.url;
-        //     break;
-        //   }
-        // }
-        // this.clientService.deleteProfileAttachment(this.user.id, _key, _url).then(
-        //   ok => {
-        //     if (ok)
-        //       console.log('deleted');
-        //     else
-        //       console.log('deleted');
-        //   },
-        //   err => {
-        //     console.log('error deleting file');
-        //   }
-        // );
-        // this.clientService.deleteProfileAttachment(this.user.id, key, url).then(
-        //   ok => {
-        //     if (ok)
-        //       console.log('deleted');
-        //     else
-        //       console.log('deleted');
-        //   },
-        //   err => {
-        //     console.log('error deleting file');
-        //   }
-        // );
-    };
-    ClientProfilePageComponent.prototype.uploadAttachmentFile = function (key, index) {
-        var _this = this;
-        return new Promise(function (resolve, reject) {
-            console.log('uploading .......');
-            _this.clientService.uploadProfileAttachment(_this.user.id.toString(), key, _this.attachmentFiles[index]).then(function (ok) {
-                if (ok) {
-                    console.log('file upload done');
-                    resolve(true);
-                }
-                else {
-                    console.log('file upload failed');
-                    resolve(false);
-                }
-            }, function (err) {
-                console.log('file upload error');
-                reject(err);
-            });
-        });
-    };
-    ClientProfilePageComponent.prototype.uploadNormalAttachments = function (htmlInputField, index) {
-        var _this = this;
-        return new Promise(function (resolve, reject) {
-            console.log('doing upload');
-            // alert('files: ' + this.attachmentFiles.length);
-            // alert('id: ' + index);
-            _this.uploadAttachmentFile(htmlInputField.id, index).then(function (ok) {
-                ok ? resolve(true) : resolve(false);
-            }, function (err) {
-                reject(err);
-            });
-        });
-    };
-    ClientProfilePageComponent.prototype.uploadConvertedAttachment = function (key, file) {
-        var _this = this;
-        return new Promise(function (resolve, reject) {
-            console.log('doing existing upload [converted]');
-            console.log(file);
-            if (!lodash__WEBPACK_IMPORTED_MODULE_2__["isUndefined"](file) || !lodash__WEBPACK_IMPORTED_MODULE_2__["isNull"](file)) {
-                // this.deleteExistingAttachment(key);
-                _this.clientService.uploadProfileAttachment(_this.user.id.toString(), key, file).then(function (ok) {
-                    if (ok) {
-                        console.log('file upload done');
-                        resolve(true);
-                    }
-                    else {
-                        console.log('file upload failed');
-                        resolve(false);
-                    }
-                }, function (err) {
-                    console.log('file upload error');
-                    reject(err);
-                });
-            }
-        });
-    };
     ClientProfilePageComponent.prototype.updateAttachments = function () {
         var _this = this;
         return new Promise(function (resolve, reject) {
-            var promises = [];
-            var fields_with_data = _this.getExistingAttachments().fieldsWithData;
-            var fields_without_data = _this.getExistingAttachments().fieldsWithoutData;
-            console.log('fields with data length: ' + fields_with_data.length);
-            console.log('fields without data length: ' + fields_without_data.length);
-            if (fields_with_data.length != 0) {
-                console.log('have fields with data');
-                if (fields_without_data.length != 0) {
-                    console.log('have fields without data 1');
-                    if (_this.existingAttachments.length > 0) {
-                        lodash__WEBPACK_IMPORTED_MODULE_2__["forEach"](_this.existingAttachments, function (attachment, _i) {
-                            lodash__WEBPACK_IMPORTED_MODULE_2__["forEach"](fields_with_data, function (field, i) {
-                                console.log('field id: ' + field.id);
-                                console.log('existing id: ' + attachment.key);
-                                i += 1;
-                                if (field.id == attachment.key) {
-                                    console.log('fields with data doing upload');
-                                    // const index = attachment.url.lastIndexOf('.');
-                                    // const extension = attachment.url.substr(index);
-                                    // const filename = Date.now().toString() + extension;
-                                    // const fileHost = this.endpointService.storageHost + 'attachments/';
-                                    // const p = this.fileUploadService.srcToBase64(fileHost + attachment.url);
-                                    var deleting = _this.deleteExistingAttachment(attachment.key);
-                                    deleting.then(function (ok) {
-                                        console.log('ok');
-                                        // if (ok) {
-                                        //   p.then(
-                                        //     base64Str => {
-                                        //       const fileObj = this.fileUploadService.convertBase64ToFile(base64Str, filename);
-                                        //       const _prom = this.uploadConvertedAttachment(attachment.key, fileObj);
-                                        //       promises.push(_prom);
-                                        //     }
-                                        //   );
-                                        // }
-                                    }, function (err) {
-                                        console.log('existing file delete error: ' + err);
-                                    });
-                                }
-                                else {
-                                    console.log('its the else');
-                                    var prom = _this.uploadNormalAttachments(field, i - 1);
-                                    promises.push(prom);
-                                }
-                                if (i == fields_with_data.length) {
-                                    // we assume the fields with data have all been uploaded
-                                    // Now we handle the fields without data.
-                                    lodash__WEBPACK_IMPORTED_MODULE_2__["forEach"](fields_without_data, function (_field) {
-                                        console.log('fields without data doing upload');
-                                        _i += 1;
-                                        if (_i == fields_without_data.length) {
-                                            // we assume its done.
-                                            Promise.all(promises).then(function (res) {
-                                                console.log('all uploads completed 1A');
-                                                resolve(true);
-                                            }, function (err) {
-                                                console.log('all uploads error');
-                                                reject(err);
-                                            });
-                                        }
-                                    });
-                                }
-                            });
-                        });
-                    }
-                    else {
-                        console.log('just upload file');
-                        console.log('fields with Data: ' + JSON.stringify(fields_with_data));
-                        console.log('dealing with fields with data only');
-                        lodash__WEBPACK_IMPORTED_MODULE_2__["forEach"](fields_with_data, function (field, i) {
-                            // alert(field);
-                            // i += 1;
-                            var prom = _this.uploadNormalAttachments(field, i);
-                            promises.push(prom);
-                            if (i == fields_with_data.length - 1) {
-                                // we assume its done.
-                                Promise.all(promises).then(function (res) {
-                                    console.log('all uploads completed 2A');
-                                    resolve(true);
-                                }, function (err) {
-                                    console.log('all uploads error');
-                                    reject(err);
-                                });
-                            }
-                        });
-                    }
-                }
-                else {
-                    console.log('fields with Data: ' + JSON.stringify(fields_with_data));
-                    console.log('dealing with fields with data only');
-                    lodash__WEBPACK_IMPORTED_MODULE_2__["forEach"](fields_with_data, function (field, i) {
-                        console.log('elem_upload: ' + JSON.stringify(field));
-                        var prom = _this.uploadNormalAttachments(field, i);
-                        promises.push(prom);
-                        if (i == fields_without_data.length) {
-                            // we assume its done.
-                            Promise.all(promises).then(function (res) {
-                                console.log('all uploads completed 2');
-                                resolve(true);
-                            }, function (err) {
-                                console.log('all uploads error');
-                                reject(err);
-                            });
-                        }
+            if (_this.attachmentFiles.length != 0) {
+                lodash__WEBPACK_IMPORTED_MODULE_1__["forEach"](_this.attachmentFiles, function (attachment, i) {
+                    _this.clientService.uploadProfileAttachment(_this.user.id, _this.attachmentKeys[i], attachment).then(function (ok) {
+                        ok ? resolve(true) : resolve(false);
+                    }, function (err) {
+                        reject(err);
                     });
-                }
+                });
             }
             else {
-                console.log('have fields without data 2');
                 resolve(true);
             }
         });
@@ -7651,7 +7435,7 @@ var ClientProfilePageComponent = /** @class */ (function () {
         var updatedUserData = this.getAllClientProfileData();
         this.clientService.editProfile(this.user.id, JSON.parse(updatedUserData)).then(function (res) {
             var response = res;
-            if (lodash__WEBPACK_IMPORTED_MODULE_2__["toLower"](response.message) == 'ok') {
+            if (lodash__WEBPACK_IMPORTED_MODULE_1__["toLower"](response.message) == 'ok') {
                 console.log('uploading attachment has started');
                 _this.updateAttachments().then(function (ok) {
                     if (ok) {
@@ -7743,36 +7527,46 @@ var ClientProfilePageComponent = /** @class */ (function () {
     ClientProfilePageComponent.prototype.retry = function () {
         this.getAllClientData();
     };
+    ClientProfilePageComponent.prototype.reload = function () {
+        this.formFiles = 0;
+        this.attachmentKeys = [];
+        this.allFormSections = [];
+        this.attachmentFiles = [];
+        this.duplicateFields = [];
+        this.existingAttachments = [];
+        this.user = this.localStorage.getUser();
+        this.getAllFormSections();
+        console.log('reload');
+    };
     ClientProfilePageComponent.prototype.returnZero = function () {
         return 0;
     };
     ClientProfilePageComponent.ctorParameters = function () { return [
-        { type: _ng_bootstrap_ng_bootstrap__WEBPACK_IMPORTED_MODULE_3__["NgbModal"] },
-        { type: src_app_services_client_client_service__WEBPACK_IMPORTED_MODULE_4__["ClientService"] },
+        { type: _ng_bootstrap_ng_bootstrap__WEBPACK_IMPORTED_MODULE_2__["NgbModal"] },
+        { type: src_app_services_client_client_service__WEBPACK_IMPORTED_MODULE_3__["ClientService"] },
         { type: src_app_services_sections_sections_service__WEBPACK_IMPORTED_MODULE_5__["SectionsService"] },
-        { type: src_app_services_form_builder_form_builder_service__WEBPACK_IMPORTED_MODULE_10__["FormBuilderService"] },
+        { type: src_app_services_form_builder_form_builder_service__WEBPACK_IMPORTED_MODULE_9__["FormBuilderService"] },
         { type: src_app_services_endpoint_endpoint_service__WEBPACK_IMPORTED_MODULE_6__["EndpointService"] },
         { type: src_app_services_storage_local_storage_service__WEBPACK_IMPORTED_MODULE_8__["LocalStorageService"] },
-        { type: src_app_services_downloader_downloader_service__WEBPACK_IMPORTED_MODULE_7__["DownloaderService"] },
-        { type: src_app_services_file_uploads_file_uploads_service__WEBPACK_IMPORTED_MODULE_9__["FileUploadsService"] }
+        { type: src_app_services_downloader_downloader_service__WEBPACK_IMPORTED_MODULE_7__["DownloaderService"] }
     ]; };
     tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
-        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["ViewChild"])('updated', { static: false })
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_4__["ViewChild"])('updated', { static: false })
     ], ClientProfilePageComponent.prototype, "updatedDialog", void 0);
     tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
-        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["ViewChild"])('confirm', { static: false })
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_4__["ViewChild"])('confirm', { static: false })
     ], ClientProfilePageComponent.prototype, "confirmDialog", void 0);
     tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
-        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["ViewChild"])('viewImgAttachment', { static: false })
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_4__["ViewChild"])('viewImgAttachment', { static: false })
     ], ClientProfilePageComponent.prototype, "viewImgDialog", void 0);
     tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
-        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["ViewChild"])('viewDocAttachment', { static: false })
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_4__["ViewChild"])('viewDocAttachment', { static: false })
     ], ClientProfilePageComponent.prototype, "viewDocDialog", void 0);
     tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
-        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["ViewChild"])('deleteAttachment', { static: false })
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_4__["ViewChild"])('deleteAttachment', { static: false })
     ], ClientProfilePageComponent.prototype, "deleteFileDialog", void 0);
     ClientProfilePageComponent = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
-        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Component"])({
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_4__["Component"])({
             selector: 'app-client-profile-page',
             template: __webpack_require__(/*! raw-loader!./client-profile-page.component.html */ "./node_modules/raw-loader/index.js!./src/app/pages/dashboard/client/client-profile-page/client-profile-page.component.html"),
             styles: [__webpack_require__(/*! ./client-profile-page.component.css */ "./src/app/pages/dashboard/client/client-profile-page/client-profile-page.component.css")]
@@ -7939,6 +7733,7 @@ var ClientSettingsPageComponent = /** @class */ (function () {
             this.clientService.changeFormSubmitPin(user_id, old_pin, new_pin).then(function (ok) {
                 _this.loading = false;
                 _this.submitted = false;
+                _this.form.reset();
                 ok
                     ? _this.showPinChangeSuccess()
                     : _this.showPinChangeFailed();
@@ -21111,6 +20906,13 @@ var ClientService = /** @class */ (function () {
             });
         });
     };
+    /**
+     * Checks to see if a client has a form submission pin.
+     *
+     * @param {string} client_id
+     * @returns {Promise<boolean>}
+     * @memberof ClientService
+     */
     ClientService.prototype.checkFormSubmitPin = function (client_id) {
         var _this = this;
         return new Promise(function (resolve, reject) {
@@ -21127,6 +20929,14 @@ var ClientService = /** @class */ (function () {
             });
         });
     };
+    /**
+     * Creates a new form submission pin.
+     *
+     * @param {string} user_id
+     * @param {string} pin
+     * @returns {Promise<any>}
+     * @memberof ClientService
+     */
     ClientService.prototype.setFormSubmitPin = function (user_id, pin) {
         var _this = this;
         return new Promise(function (resolve, reject) {
@@ -21143,6 +20953,15 @@ var ClientService = /** @class */ (function () {
             });
         });
     };
+    /**
+     * Updates an existing form submission pin.
+     *
+     * @param {string} user_id
+     * @param {string} old_pin
+     * @param {string} new_pin
+     * @returns {Promise<boolean>}
+     * @memberof ClientService
+     */
     ClientService.prototype.changeFormSubmitPin = function (user_id, old_pin, new_pin) {
         var _this = this;
         return new Promise(function (resolve, reject) {
@@ -21160,6 +20979,14 @@ var ClientService = /** @class */ (function () {
             });
         });
     };
+    /**
+     * Verifies a form submission pin,
+     *
+     * @param {string} user_id
+     * @param {string} pin
+     * @returns {Promise<boolean>}
+     * @memberof ClientService
+     */
     ClientService.prototype.verifyFormSubmitPin = function (user_id, pin) {
         var _this = this;
         return new Promise(function (resolve, reject) {
