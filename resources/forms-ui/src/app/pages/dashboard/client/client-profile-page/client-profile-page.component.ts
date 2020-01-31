@@ -453,24 +453,26 @@ export class ClientProfilePageComponent implements OnInit {
                 i += 1;
                 if (field.id == attachment.key) {
                   console.log('fields with data doing upload');
-                  // const index = attachment.url.lastIndexOf('.');
-                  // const extension = attachment.url.substr(index);
-                  // const filename = Date.now().toString() + extension;
-                  // const fileHost = this.endpointService.storageHost + 'attachments/';
-                  // const p = this.fileUploadService.srcToBase64(fileHost + attachment.url);
+                  const index = attachment.url.lastIndexOf('.');
+                  const extension = attachment.url.substr(index);
+                  const filename = Date.now().toString() + extension;
+                  const fileHost = this.endpointService.storageHost + 'attachments/';
+                  const p = this.fileUploadService.srcToBase64(fileHost + attachment.url);
                   const deleting = this.deleteExistingAttachment(attachment.key);
                   deleting.then(
                     ok => {
                       console.log('ok');
-                      // if (ok) {
-                      //   p.then(
-                      //     base64Str => {
-                      //       const fileObj = this.fileUploadService.convertBase64ToFile(base64Str, filename);
-                      //       const _prom = this.uploadConvertedAttachment(attachment.key, fileObj);
-                      //       promises.push(_prom);
-                      //     }
-                      //   );
-                      // }
+                      if (this.existingAttachments.length == 1) {
+                        if (ok) {
+                          p.then(
+                            base64Str => {
+                              const fileObj = this.fileUploadService.convertBase64ToFile(base64Str, filename);
+                              const _prom = this.uploadConvertedAttachment(attachment.key, fileObj);
+                              promises.push(_prom);
+                            }
+                          );
+                        }
+                      }
                     },
                     err => {
                       console.log('existing file delete error: ' + err);
@@ -579,6 +581,7 @@ export class ClientProfilePageComponent implements OnInit {
               if (ok) {
                 this.updating = false;
                 this.showUpdatedDialog(true);
+                this.reload();
               }
               else {
                 this.updating = false;
@@ -682,6 +685,17 @@ export class ClientProfilePageComponent implements OnInit {
 
   retry() {
     this.getAllClientData();
+  }
+
+  reload() {
+    this.formFiles = 0;
+    this.attachmentKeys = [];
+    this.allFormSections = [];
+    this.attachmentFiles = [];
+    this.existingAttachments = [];
+    this.duplicateFields = [];
+    this.user = this.localStorage.getUser();
+    console.log('user_id: ' + this.user.id);
   }
 
   returnZero() {
