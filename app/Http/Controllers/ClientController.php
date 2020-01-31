@@ -617,6 +617,7 @@ class ClientController extends Controller
             $extension = $attachment->getClientOriginalExtension();
 
             $excludedfileExtension=['exec','zip','dmg', 'rar', 'iso', 'phar', 'sql', 'js', 'html', 'php'];
+            $key = $request->key;
 
             $check=in_array($extension,$excludedfileExtension);
 
@@ -628,6 +629,28 @@ class ClientController extends Controller
                 $url=$attachment->getFilename().'_'.$current_date_time.'.'.$extension;
                 $url = str_replace(':', '_', $url);
                 $url = str_replace(' ', '_', $url);
+
+                //get and delete attachment if it already
+                try {
+                    $attached = DB::table('profile_atachments')
+                    ->where('client_id', $client_id)
+                    ->where('key', $key)
+                    ->first();
+
+            
+                    // return $attached;
+                    if(!empty($attached) && count($attached) > 0){
+                        $delete = $this->deleteProfileAttachment($request, $client_id, $key, $attached->url);
+                    }
+        
+                 }catch(Exception $e) {
+                     $message = "Failed";
+                     $response = [
+                        'message' => $message
+                    ];
+                    return response()->json( $response, 400);
+                 }  
+
                 $upload =  File::move($_FILES['file']['tmp_name'], public_path('storage/attachments/'.$url ));
                 // $upload=Storage::disk('local')->put('attachments/'.$url,  File::get($attachment));
                 if($upload)
@@ -641,7 +664,6 @@ class ClientController extends Controller
             $message = 'Failed';
 
             if($upload){
-                $key = $request->key;
                 $uploaded_at = now();
 
                 try {
