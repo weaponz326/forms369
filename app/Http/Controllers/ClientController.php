@@ -187,7 +187,7 @@ class ClientController extends Controller
      * @param $code form code that is being filled 
      * @return void\Illuminate\Http\Response submission code
      */
-    public function submitForm(Request $request, $id, $code, $edit)
+    public function submitForm(Request $request, $id, $code, $edit, $sub_code)
     {
          $message = 'Ok';
 
@@ -205,14 +205,14 @@ class ClientController extends Controller
 
          $submitted_at = now();
          $status = 0;
-         $submission_code = str_random(5);
+        //  $submission_code = str_random(5);
      
          //save new client in the database
          try {
              DB::table('submitted_forms')
              ->insert(
                  [
-                    'submission_code' => $submission_code,
+                    'submission_code' => $sub_code,
                     'form_id' => $code, 
                     'client_id' => $id,
                     'status' => $status,
@@ -250,7 +250,7 @@ class ClientController extends Controller
             //send submission code to users SMS
             $from = "GiTLog";
             $mobile = $phone;
-            $msg = $form_name ." successfully submitted to ". $merchant .".\r\n". "Submission Code: " .$submission_code;
+            $msg = $form_name ." successfully submitted to ". $merchant .".\r\n". "Submission Code: " .$sub_code;
             $status = (new AuthController)->sendsms($from,$mobile,$msg);
             if($status){
                 Log::channel('mysql')->info('Client  with id: ' . $id .' successsfully submitted form with code: '. $code);
@@ -262,14 +262,16 @@ class ClientController extends Controller
              $message = "Failed";
          }   
  
-        if($message != "Ok")
+        if($message != "Ok"){
+            return response()->json([
+                'message' => $message
+            ], 400);
+        }else{
             return response()->json([
                 'message' => $message
             ], 200);
-            
-        return response()->json([
-            'code' => $submission_code
-        ], 200);
+        }
+           
     }
 
 
@@ -519,6 +521,7 @@ class ClientController extends Controller
             $extension = $attachment->getClientOriginalExtension();
 
             $excludedfileExtension=['exec','zip','dmg', 'rar', 'iso', 'phar', 'sql', 'js', 'html', 'php'];
+            $key = $request->key;
 
             $check=in_array($extension,$excludedfileExtension);
 
@@ -530,6 +533,29 @@ class ClientController extends Controller
                 $url=$attachment->getFilename().'_'.$submission_code. '_'.$current_date_time.'.'.$extension;
                 $url = str_replace(':', '_', $url);
                 $url = str_replace(' ', '_', $url);
+
+                 //get and delete attachment if it already
+                 try {
+                    $attached = DB::table('attachments')
+                    ->where('client_id', $client_id)
+                    ->where('key', $key)
+                    ->where('submission_code', $submission_code)
+                    ->first();
+
+            
+                    // return $attached;
+                    if(!empty($attached) && count($attached) > 0){
+                        $delete = $this->deleteAttachment($request, $client_id, $key, $attached->url, $submission_code);
+                    }
+        
+                 }catch(Exception $e) {
+                     $message = "Failed";
+                     $response = [
+                        'message' => $message
+                    ];
+                    return response()->json( $response, 400);
+                 } 
+
                 $upload =  File::move($_FILES['file']['tmp_name'], public_path('storage/attachments/'.$url ));
                 // $upload=Storage::disk('local')->put('attachments/'.$url,  File::get($attachment));
                 if($upload)
@@ -543,7 +569,6 @@ class ClientController extends Controller
             $message = 'Failed';
 
             if($upload){
-                $key = $request->key;
                 $uploaded_at = now();
 
                 try {
@@ -595,6 +620,44 @@ class ClientController extends Controller
         return response()->json($response, 200);
     }
 
+
+     /**
+     * deleteAttachment delete an attachement from a form
+     *
+     * @param  mixed $request
+     * @param  mixed $key field key 
+     * @param  mixed $name file name
+     * @param  mixed $sub_code  submission code 
+     *
+     * @return \Illuminate\Http\Response containing all attachment
+     */
+    public function deleteAttachment(Request $request, $client_id, $key, $name, $sub_code)
+    {
+        $message ="Failed";
+        $deleteattachements = DB::table('attachments')
+        ->where([
+            ['submission_code', $sub_code],
+            ['key', $key],
+            ['client_id', $client_id]
+        ])
+        ->delete(); 
+ 
+        if($deleteattachements){
+            unlink(storage_path('app/public/attachments/'.$name));
+            $message = "Ok";
+        }
+
+        $response = [
+            'message' => $message
+        ];
+
+        if($message == "Ok"){
+            return response()->json($response, 200);
+        }else{
+            return response()->json($response, 400);
+        }
+        
+    }
 
 /**
      * uploadProfileAttachments Upload attachments for user profile
@@ -913,7 +976,6 @@ class ClientController extends Controller
             ->get();
 
             if(!empty($checkuser) && count($checkuser) > 0){
-                return "not empty";
                 $message = "Ok";
                 $response = [
                     'message' => $message
