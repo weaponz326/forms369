@@ -449,6 +449,8 @@ export class ClientService {
   uploadFormAttachments(client_id: string, form_code: string, submission_code: string, key: string, file: File): Promise<boolean> {
     return new Promise((resolve, reject) => {
       const url = this.endpointService.apiHost + `api/v1/uploadattachments/${client_id}/${form_code}/${submission_code}`;
+      alert('url: ' + url);
+      console.log('key: ' + key);
       const form = new FormData();
       form.set('key', key);
       form.set('file', file);

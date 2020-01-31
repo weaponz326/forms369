@@ -68,6 +68,7 @@ export class ClientFormsEntryPageComponent implements OnInit {
   ) {
     this.pinCode = '';
     this.formFiles = 0;
+    this.submissionCode = '';
     this.attachmentKeys = [];
     this.attachmentFiles = [];
     this.existingAttachments = [];
@@ -113,7 +114,7 @@ export class ClientFormsEntryPageComponent implements OnInit {
   }
 
   generateSubmissionCode() {
-    return Math.random().toString(36).slice(8);
+    return Math.random().toString(36).substr(2, 5);
   }
 
   resolveStrCharacters(e: KeyboardEvent) {
@@ -243,7 +244,7 @@ export class ClientFormsEntryPageComponent implements OnInit {
     const form_submission_code = this.generateSubmissionCode();
     this.submissionCode = form_submission_code;
     if (this.hasFile) {
-      this.uploadFormAttachments(form_submission_code, user_data, updateProfile, form_submission_code);
+      this.uploadFormAttachments(user_data, updateProfile, form_submission_code);
     }
     else {
       const update = updateProfile ? 1 : 0;
@@ -262,7 +263,7 @@ export class ClientFormsEntryPageComponent implements OnInit {
         },
         err => {
           this.loading = false;
-          alert('form submission error');
+          // alert('form submission error');
         }
       );
     }
@@ -462,13 +463,13 @@ export class ClientFormsEntryPageComponent implements OnInit {
     // }
   // }
 
-   uploadConvertedFormAttachment(form_code: string, key: string, file: File, user_data: any, updateProfile: boolean, submission_code: string) {
+   uploadConvertedFormAttachment(key: string, file: File, user_data: any, updateProfile: boolean, submission_code: string) {
     console.log('doing existing upload');
-    console.log('form_code: ' + form_code);
+    console.log('form_code: ' + submission_code);
     console.log('key: ' + key);
     console.log(file);
     if (!_.isUndefined(file) || !_.isNull(file)) {
-      this.clientService.uploadFormAttachments(this.user.id.toString(), this.form.form_code, form_code, key, file).then(
+      this.clientService.uploadFormAttachments(this.user.id.toString(), this.form.form_code, submission_code, key, file).then(
         ok => {
           if (ok) {
             console.log('file upload done');
@@ -505,10 +506,10 @@ export class ClientFormsEntryPageComponent implements OnInit {
     }
   }
 
-  uploadFormFile(form_code: string, key: string, index?: number, user_data?: any, updateProfile?: boolean, form_submission_code?: string) {
+  uploadFormFile(key: string, user_data: any, updateProfile: boolean, form_submission_code: string, index?: number) {
     if (_.isUndefined(index) || _.isNull(index)) {
       if (this.attachmentFiles.length != 0) {
-        this.clientService.uploadFormAttachments(this.user.id.toString(), this.form.form_code, form_code, key, this.attachmentFiles[0]).then(
+        this.clientService.uploadFormAttachments(this.user.id.toString(), this.form.form_code, form_submission_code, key, this.attachmentFiles[0]).then(
           ok => {
             if (ok) {
               console.log('file upload done');
@@ -554,7 +555,7 @@ export class ClientFormsEntryPageComponent implements OnInit {
             p.then(
               base64Str => {
                 const fileObj = this.fileUploadService.convertBase64ToFile(base64Str, filename);
-                this.uploadConvertedFormAttachment(form_submission_code, attachment.key, fileObj, user_data, updateProfile, form_submission_code);
+                this.uploadConvertedFormAttachment(attachment.key, fileObj, user_data, updateProfile, form_submission_code);
               }
             );
 
@@ -589,7 +590,7 @@ export class ClientFormsEntryPageComponent implements OnInit {
     }
     else {
       // its being called in a loop, this means there are more than one attachments.
-      this.clientService.uploadFormAttachments(this.user.id.toString(), this.form.form_code, form_code, key, this.attachmentFiles[index]).then(
+      this.clientService.uploadFormAttachments(this.user.id.toString(), this.form.form_code, form_submission_code, key, this.attachmentFiles[index]).then(
         ok => {
           if (ok) {
             console.log('file upload done');
@@ -638,7 +639,7 @@ export class ClientFormsEntryPageComponent implements OnInit {
       p.then(
         base64Str => {
           const fileObj = this.fileUploadService.convertBase64ToFile(base64Str, filename);
-          this.uploadConvertedFormAttachment(submission_code, attachment.key, fileObj, user_data, updateProfile, submission_code);
+          this.uploadConvertedFormAttachment(attachment.key, fileObj, user_data, updateProfile, submission_code);
         }
       );
 
@@ -670,7 +671,7 @@ export class ClientFormsEntryPageComponent implements OnInit {
     });
   }
 
-  uploadFormAttachments(form_code: string, user_data: any, updateProfile: boolean, submission_code: string) {
+  uploadFormAttachments(user_data: any, updateProfile: boolean, submission_code: string) {
     // we can tell the number of attachments this form has by
     // checking the formFiles variable's value.
     console.log('doing upload');
@@ -678,7 +679,7 @@ export class ClientFormsEntryPageComponent implements OnInit {
     if (num_of_attachments > 1) {
       console.log('will do multiple uploads');
       for (let i = 0; i < num_of_attachments; i++) {
-        this.uploadFormFile(form_code, this.attachmentKeys[i], i, user_data, updateProfile, submission_code);
+        this.uploadFormFile(this.attachmentKeys[i], user_data, updateProfile, submission_code, i);
       }
     }
     else {
@@ -713,7 +714,7 @@ export class ClientFormsEntryPageComponent implements OnInit {
       }
       else {
         console.log('has attachment');
-        this.uploadFormFile(form_code, this.attachmentKeys[0], user_data, updateProfile);
+        this.uploadFormFile(this.attachmentKeys[0], user_data, updateProfile, submission_code);
       }
     }
   }
