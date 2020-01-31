@@ -134,6 +134,7 @@ Route::group(['middleware' => ['auth:api'], 'prefix' => 'v1'], function(){
     //form attachments 
     Route::post('uploadattachments/{client_id}/{form_code}/{sub_code}', 'HomeController@uploadattachments')->name('uploadattachments')->middleware('scope:GIT_Admin,client');
     Route::get('getAttachments/{sub_code}', 'HomeController@getAttachments')->name('getAttachments')->middleware('scope:GIT_Admin,client,company_admin,branch_admin,frontdesk');
+    Route::post('deleteAttachment/{client_id}/{key}/{name}/{sub_code}', 'HomeController@deleteAttachment')->name('deleteAttachment')->middleware('scope:GIT_Admin,client,frontdesk');
     
 
     //profile attachments 
@@ -173,7 +174,7 @@ Route::group(['middleware' => ['auth:api'], 'prefix' => 'v1'], function(){
   Route::get('getAllClients', 'HomeController@getAllClients')->name('getAllClients')->middleware('scope:GIT_Admin');
   Route::get('getClientsDetails/{id}', 'HomeController@getClientsDetails')->name('getClientsDetails')->middleware('scope:GIT_Admin,client');
   Route::post('editClientProfile/{id}', 'HomeController@editClientProfile')->name('editClientProfile')->middleware('scope:client,frontdesk');
-  Route::post('submitForm/{id}/{code}/{edit}', 'HomeController@submitForm')->name('submitForm')->middleware('scope:GIT_Admin,client');
+  Route::post('submitForm/{id}/{code}/{edit}/{sub_code}', 'HomeController@submitForm')->name('submitForm')->middleware('scope:GIT_Admin,client');
   Route::get('getClientSubmittedForms/{id}', 'HomeController@getClientSubmittedForms')->name('getClientSubmittedForms')->middleware('scope:GIT_Admin,client');
   
 

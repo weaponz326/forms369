@@ -1093,6 +1093,22 @@ class HomeController extends Controller
     }
 
     /**
+     * deleteAttachment delete an attachement from a form
+     *
+     * @param  mixed $request
+     * @param  mixed $key field key 
+     * @param  mixed $name file name
+     * @param  mixed $sub_code  submission code 
+     *
+     * @return \Illuminate\Http\Response containing all attachment
+     */
+    protected function deleteAttachment(Request $request, $client_id, $key, $name, $sub_code)
+    {
+        $message = (new ClientController)->deleteAttachment($request, $client_id, $key, $name, $sub_code);
+        return $message;
+    }
+
+    /**
       * Business logics 
      * Upload profile attachements
      *
@@ -1175,9 +1191,9 @@ class HomeController extends Controller
      * @param $code form code that is being filled 
      * @return void\Illuminate\Http\Response submission code
      */
-    protected function submitForm(Request $request, $id, $code, $edit)
+    protected function submitForm(Request $request, $id, $code, $edit, $sub_code)
     {
-        $message = (new ClientController)->submitForm($request, $id, $code, $edit);
+        $message = (new ClientController)->submitForm($request, $id, $code, $edit, $sub_code);
         return $message;
 
     }
