@@ -78,6 +78,12 @@ export class ClientFormsHistoryPageComponent implements OnInit {
     this.hasMore ? this.handleLoadMoreVisibility(this.historyCollection) : null;
   }
 
+  showRejected() {
+    this.filterState = 'rejected';
+    this.historyCollection = _.filter(this.allHistoryCollection, (history) => history.form_status == 3);
+    this.hasMore ? this.handleLoadMoreVisibility(this.historyCollection) : null;
+  }
+
   checkIfHasMore() {
     return _.isNull(this.clientService.nextPaginationUrl) ? false : true;
   }

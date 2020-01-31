@@ -113,6 +113,9 @@ import { ExecClientsFormsDataPageComponent } from './pages/dashboard/executive/e
 import { ClientFormLinkPageComponent } from './pages/dashboard/client/client-form-link-page/client-form-link-page.component';
 import { ClientFormLinkRedirectPageComponent } from './pages/dashboard/client/client-form-link-redirect-page/client-form-link-redirect-page.component';
 import { ResetPasswordPageComponent } from './pages/reset-password-page/reset-password-page.component';
+import { ClientSettingsPageComponent } from './pages/dashboard/client/client-settings-page/client-settings-page.component';
+import { AccountVerifiedPageComponent } from './pages/account-verified-page/account-verified-page.component';
+import { EmailResetPasswordPageComponent } from './pages/email-reset-password-page/email-reset-password-page.component';
 
 @NgModule({
   declarations: [
@@ -210,6 +213,9 @@ import { ResetPasswordPageComponent } from './pages/reset-password-page/reset-pa
     ClientFormLinkPageComponent,
     ClientFormLinkRedirectPageComponent,
     ResetPasswordPageComponent,
+    ClientSettingsPageComponent,
+    AccountVerifiedPageComponent,
+    EmailResetPasswordPageComponent,
   ],
   imports: [
     BrowserModule,

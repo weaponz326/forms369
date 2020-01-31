@@ -260,6 +260,11 @@ Route::get('client/form_link_redirect', function () {
     return View::make('index');
 });
 
+Route::get('client/settings', function () {
+    View::addExtension('html', 'php');
+    return View::make('index');
+});
+
 /**
  * Front Desk Routes.
  */

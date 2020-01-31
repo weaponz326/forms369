@@ -229,10 +229,6 @@ export class FrontDeskViewFormPageComponent implements OnInit {
       result => {
         if (result == 'yes') {
           this.loading = true;
-          // this.submit().then(
-          //   ok => {
-          //     if (ok) {
-          //       console.log('submitting done');
           this.frontDeskService.processForm(this.form.submission_code, this.form.client_submitted_details).then(
             res => {
               const response = res as any;
@@ -270,11 +266,7 @@ export class FrontDeskViewFormPageComponent implements OnInit {
       result => {
         if (result == 'yes') {
           this.loading = true;
-          // this.submit().then(
-          //   ok => {
-          //     if (ok) {
-          //       console.log('submit done');
-          this.frontDeskService.unprocessForm(this.form.submission_code, this.form.client_submitted_details).then(
+          this.frontDeskService.rejectForm(this.form.submission_code, this.form.client_submitted_details).then(
             res => {
               const response = res as any;
               if (_.toLower(response.message) == 'ok') {

@@ -5,7 +5,6 @@ import { Users } from 'src/app/models/users.model';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { ClientService } from 'src/app/services/client/client.service';
 import { LocalStorageService } from 'src/app/services/storage/local-storage.service';
-import { FrontDeskService } from 'src/app/services/front-desk/front-desk.service';
 
 @Component({
   selector: 'app-client-auth-page',
@@ -59,7 +58,7 @@ export class ClientAuthPageComponent implements OnInit {
     const shared_form_code = sessionStorage.getItem('shared_link');
     if (_.isUndefined(shared_form_code) || _.isNull(shared_form_code)) {
       this.loading = false;
-      this.router.navigateByUrl('/client');
+      window.location.assign('/client');
     }
     else {
       // this.router.navigateByUrl('/client/form_link_redirect');

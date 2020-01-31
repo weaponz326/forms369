@@ -1,7 +1,9 @@
 import { NgModule } from '@angular/core';
+import { AuthGuard } from './services/auth.guard';
 import { Routes, RouterModule } from '@angular/router';
-import { WelcomePageComponent } from './pages/welcome-page/welcome-page.component';
+
 import { LoginPageComponent } from './pages/login-page/login-page.component';
+import { WelcomePageComponent } from './pages/welcome-page/welcome-page.component';
 import { RegisterPageComponent } from './pages/register-page/register-page.component';
 import { HomePageComponent } from './pages/dashboard/git-admin/home-page/home-page.component';
 import { CreateFormPageComponent } from './pages/dashboard/git-admin/create-form-page/create-form-page.component';
@@ -86,6 +88,7 @@ import { ExecClientsFormsDataPageComponent } from './pages/dashboard/executive/e
 import { ClientFormLinkPageComponent } from './pages/dashboard/client/client-form-link-page/client-form-link-page.component';
 import { ClientFormLinkRedirectPageComponent } from './pages/dashboard/client/client-form-link-redirect-page/client-form-link-redirect-page.component';
 import { ResetPasswordPageComponent } from './pages/reset-password-page/reset-password-page.component';
+import { ClientSettingsPageComponent } from './pages/dashboard/client/client-settings-page/client-settings-page.component';
 
 const routes: Routes = [
   {
@@ -138,14 +141,17 @@ const routes: Routes = [
       {
         path: '',
         pathMatch: 'full',
-        component: HomePageComponent
+        component: HomePageComponent,
+        canActivate: [AuthGuard]
       },
       {
         path: 'setup_form',
-        component: CreateFormPageComponent
+        component: CreateFormPageComponent,
+        canActivate: [AuthGuard]
       },
       {
         path: 'create',
+        canActivate: [AuthGuard],
         children: [
           {
             path: 'company',
@@ -171,6 +177,7 @@ const routes: Routes = [
       },
       {
         path: 'edit',
+        canActivate: [AuthGuard],
         children: [
           {
             path: 'form',
@@ -200,6 +207,7 @@ const routes: Routes = [
       },
       {
         path: 'lists',
+        canActivate: [AuthGuard],
         children: [
           {
             path: 'company',
@@ -249,6 +257,7 @@ const routes: Routes = [
       },
       {
         path: 'details',
+        canActivate: [AuthGuard],
         children: [
           {
             path: 'branch',
@@ -272,6 +281,7 @@ const routes: Routes = [
   },
   {
     path: 'client',
+    canActivate: [AuthGuard],
     children: [
       {
         path: '',
@@ -309,11 +319,16 @@ const routes: Routes = [
       {
         path: 'form_link_redirect',
         component: ClientFormLinkRedirectPageComponent
+      },
+      {
+        path: 'settings',
+        component: ClientSettingsPageComponent
       }
     ]
   },
   {
     path: 'front_desk',
+    canActivate: [AuthGuard],
     children: [
       {
         path: '',
@@ -338,6 +353,7 @@ const routes: Routes = [
       },
       {
         path: 'lists',
+        canActivate: [AuthGuard],
         children: [
           {
             path: 'submitted',
@@ -365,6 +381,7 @@ const routes: Routes = [
   },
   {
     path: 'executive',
+    canActivate: [AuthGuard],
     children: [
       {
         path: '',
@@ -407,6 +424,7 @@ const routes: Routes = [
   },
   {
     path: 'admin',
+    canActivate: [AuthGuard],
     children: [
       {
         path: '',
@@ -415,6 +433,7 @@ const routes: Routes = [
       },
       {
         path: 'create',
+        canActivate: [AuthGuard],
         children: [
           {
             path: 'form',
@@ -428,6 +447,7 @@ const routes: Routes = [
       },
       {
         path: 'edit',
+        canActivate: [AuthGuard],
         children: [
           {
             path: 'form',
@@ -441,6 +461,7 @@ const routes: Routes = [
       },
       {
         path: 'lists',
+        canActivate: [AuthGuard],
         children: [
           {
             path: 'form',
@@ -474,6 +495,7 @@ const routes: Routes = [
       },
       {
         path: 'details',
+        canActivate: [AuthGuard],
         children: [
           {
             path: 'form',
@@ -493,6 +515,7 @@ const routes: Routes = [
   },
   {
     path: 'templates',
+    canActivate: [AuthGuard],
     children: [
       {
         path: 'create',

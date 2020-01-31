@@ -18,6 +18,7 @@ export class FrontDeskClientsFormDataPageComponent implements OnInit {
   hasMore: boolean;
   hasData: boolean;
   loading: boolean;
+  hasError: boolean;
   loadingMore: boolean;
   hasMoreError: boolean;
   tableContents: Array<any>;

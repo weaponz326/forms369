@@ -69,7 +69,6 @@ export class FormPrintingDefaultPageComponent implements OnInit {
     const formFields = this.form.form_fields;
     _.forEach(formFields, (field) => {
       if (!_.isUndefined(field.name)) {
-        console.log('ffffff: ' + field.name);
         formFieldKeys.push(field.name);
       }
     });
@@ -91,7 +90,7 @@ export class FormPrintingDefaultPageComponent implements OnInit {
       return text.replace(/-/g, ' ');
     }
     else if (_.includes(text, '_')) {
-      return _.replace(text, '_', ' ');
+      return _.replace(text, /_/g, ' ');
     }
     else {
       return text;
@@ -117,8 +116,7 @@ export class FormPrintingDefaultPageComponent implements OnInit {
   printViewCss() {
     const css = [
       'https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css',
-      `
-      h5 > strong {
+      `h5 > strong {
         font-size: 13px;
         text-transform: uppercase;
       }
@@ -145,11 +143,24 @@ export class FormPrintingDefaultPageComponent implements OnInit {
     return css;
   }
 
+  printViewJs() {
+    const scripts = [`
+      const imgElement = document.querySelector('img');
+      console.log(imgElement.src);
+      const toReplace = '/front_desk';
+      imgElement.src = imgElement.src.replace(/toReplace/g, '');
+      console.log(imgElement.src);
+    `];
+
+    return scripts;
+  }
+
   print() {
     const styles = this.printViewCss();
+    const scripts = this.printViewJs();
     const el = document.getElementById('print-view');
     const d = new Printd();
-    d.print(el, styles);
+    d.print(el, styles, scripts);
   }
 
 }

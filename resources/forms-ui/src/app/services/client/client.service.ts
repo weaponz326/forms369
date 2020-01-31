@@ -574,9 +574,11 @@ export class ClientService {
   deleteProfileAttachment(user_id: string, key: string, file_path: string): Promise<boolean> {
     return new Promise((resolve, reject) => {
       const url = this.endpointService.apiHost + `api/v1/deleteProfileAttachment/${user_id}/${key}/${file_path}`;
+      console.log(url);
       this.http.post(url, {}, { headers: this.endpointService.headers() }).subscribe(
         res => {
           const response = res as any;
+          console.log('delete attach message: ' + response.message);
           _.toLower(response.message) == 'ok'
             ? resolve(true) : resolve(false);
         },
@@ -612,7 +614,7 @@ export class ClientService {
       const url = this.endpointService.apiHost + 'api/v1/setPin/' + user_id + '/' + pin;
       this.http.post(url, {}, { headers: this.headers }).subscribe(
         res => {
-          console.log('res: ' + JSON.stringify(res));
+          console.log('res___: ' + JSON.stringify(res));
           const response = res as any;
           _.toLower(response.message) == 'ok'
             ? resolve(true)
@@ -640,6 +642,25 @@ export class ClientService {
         },
         err => {
           console.log('err: ' + JSON.stringify(err));
+          reject(err);
+        }
+      );
+    });
+  }
+
+  verifyFormSubmitPin(user_id: string, pin: string): Promise<boolean> {
+    return new Promise((resolve, reject) => {
+      const url = this.endpointService.apiHost + 'api/v1/checkPin/' + user_id + '/' + pin;
+      this.http.post(url, {}, { headers: this.headers }).subscribe(
+        res => {
+          console.log('verify_pin: ' + JSON.stringify(res));
+          const response = res as any;
+          _.toLower(response.message) == 'ok'
+            ? resolve(true)
+            : resolve(false);
+        },
+        err => {
+          console.log('verify_pin_err: ' + JSON.stringify(err));
           reject(err);
         }
       );
