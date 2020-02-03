@@ -258,12 +258,10 @@ export class ClientFormsEntryPageComponent implements OnInit {
           }
           else {
             this.loading = false;
-            alert('form submission failed');
           }
         },
         err => {
           this.loading = false;
-          // alert('form submission error');
         }
       );
     }
@@ -472,26 +470,7 @@ export class ClientFormsEntryPageComponent implements OnInit {
       this.clientService.uploadFormAttachments(this.user.id.toString(), this.form.form_code, submission_code, key, file).then(
         ok => {
           if (ok) {
-            console.log('file upload done');
-            const update = updateProfile ? 1 : 0;
-            const filled_data = this.formBuilder.getFormUserData(user_data);
-            const updated_data = this.clientService.getUpdatedClientFormData(JSON.parse(filled_data), this.clientProfile.client_details[0]);
-            this.clientService.submitForm(_.toString(this.user.id), this.form.form_code, this.clientProfile.client_details[0], JSON.parse(updated_data), update, submission_code).then(
-              _ok => {
-                if (_ok) {
-                  this.loading = false;
-                  this.created = true;
-                }
-                else {
-                  this.loading = false;
-                  alert('form submission failed');
-                }
-              },
-              err => {
-                this.loading = false;
-                alert('form submission error');
-              }
-            );
+            // do nothing
           }
           else {
             console.log('file upload failed');
@@ -524,12 +503,12 @@ export class ClientFormsEntryPageComponent implements OnInit {
                   }
                   else {
                     this.loading = false;
-                    alert('form submission failed');
+                    console.log('form submission failed');
                   }
                 },
                 err => {
                   this.loading = false;
-                  alert('form submission error');
+                  console.log('form submission error 2');
                 }
               );
             }
@@ -573,12 +552,12 @@ export class ClientFormsEntryPageComponent implements OnInit {
                   }
                   else {
                     this.loading = false;
-                    alert('form submission failed');
+                    console.log('form submission failed');
                   }
                 },
                 err => {
                   this.loading = false;
-                  alert('form submission error');
+                  console.log('form submission error 3');
                 }
               );
               // this.created = true;
@@ -605,12 +584,12 @@ export class ClientFormsEntryPageComponent implements OnInit {
                 }
                 else {
                   this.loading = false;
-                  alert('form submission failed');
+                  console.log('form submission failed');
                 }
               },
               err => {
                 this.loading = false;
-                alert('form submission error');
+                console.log('form submission error 4');
               }
             );
             // this.created = true;
@@ -657,12 +636,12 @@ export class ClientFormsEntryPageComponent implements OnInit {
             }
             else {
               this.loading = false;
-              alert('form submission failed');
+              console.log('form submission failed');
             }
           },
           err => {
             this.loading = false;
-            alert('form submission error');
+            console.log('form submission error 5');
           }
         );
         // this.created = true;
@@ -702,12 +681,12 @@ export class ClientFormsEntryPageComponent implements OnInit {
               }
               else {
                 this.loading = false;
-                alert('form submission failed');
+                console.log('form submission failed');
               }
             },
             err => {
               this.loading = false;
-              alert('form submission error');
+              console.log('form submission error 6');
             }
           );
         }

@@ -624,7 +624,7 @@ module.exports = "<div class=\"container-scroller\">\n  <app-navigation-bar></ap
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<div class=\"container-scroller\">\n  <app-navigation-bar></app-navigation-bar>\n  <div class=\"container-fluid page-body-wrapper\">\n    <app-side-bar></app-side-bar>\n    <div class=\"main-panel\">\n      <div class=\"content-wrapper\">\n        <div class=\"row\">\n          <div class=\"col-md-12 grid-margin\">\n            <div class=\"d-flex justify-content-between flex-wrap\">\n              <div class=\"d-flex align-items-end flex-wrap\">\n                <div class=\"mr-md-3 mr-xl-5\">\n                  <h2 style=\"line-height: 1.3;\">{{ form.form_name || form.name }}</h2>\n                </div>\n                <div class=\"d-flex\">\n                </div>\n              </div>\n              <div class=\"d-flex justify-content-between align-items-end flex-wrap\">\n              </div>\n            </div>\n          </div>\n        </div>\n        <div [hidden]=\"created\" class=\"row\">\n          <div class=\"col-md-8 offset-md-2 grid-margin stretch-card\">\n            <div class=\"card\">\n              <div class=\"card-body\">\n                <p class=\"card-title\">{{ form.form_name || form.name }}</p>\n                <p class=\"text-muted\">All forms with * are required and shouldn't be left out</p>\n                <div class=\"card-text pt-5\">\n                  <form class=\"forms-sample\">\n                    <div class=\"form-builder-container\">\n                      <div id=\"form-render\"></div>\n                    </div>\n\n                    <div *ngIf=\"loadingAttachments\" class=\"row m-md-2\">\n                      <div class=\"col-md-12 col-sm-12 m-md-2\">\n                        <div class=\"d-flex justify-content-center\">\n                          <div class=\"spinner-border m-2\" style=\"width: 2rem; height: 2rem;\" role=\"status\">\n                            <span class=\"sr-only\">Loading...</span>\n                          </div>\n                        </div>\n                      </div>\n                    </div>\n\n                    <div class=\"attachments-section\" *ngIf=\"!loadingAttachments && showAttachments\">\n                      <div class=\"card mb-4\">\n                        <div class=\"card-body\">\n                        <h5 class=\"card-title\">Form Attachments / Documents</h5>\n                          <h6 class=\"card-subtitle mb-2 text-muted\">Below are attachments you've uploaded for this form</h6>\n                          <div class=\"row\" *ngFor=\"let file of existingAttachments\">\n                            <div class=\"col-11\" style=\"padding-right: 8px;\">\n                              <ol class=\"files-list\">\n                                <li class=\"file-item\">\n                                  <i class=\"mdi mdi-paperclip menu-icon\"></i>\n                                  <a class=\"alert-link file-link\" (click)=\"openModal($event, file.url)\">{{ file.url }}</a>\n                                </li>\n                              </ol>\n                            </div>\n                            <div class=\"col-1\" style=\"padding-right: 3px; padding-left: 4px; margin-top: 7px;\">\n                              <button class=\"btn btn-primary btn-icon\" (click)=\"download(file.url)\">\n                                <i class=\"mdi mdi-download-outline\"></i>\n                              </button>\n                            </div>\n                          </div>\n                        </div>\n                      </div>\n                    </div>\n\n                    <div class=\"buttons-list\">\n                      <button *ngIf=\"loading\" class=\"btn btn-primary btn-lg mr-2\" type=\"button\" disabled>\n                        <span class=\"spinner-border spinner-border-sm\" role=\"status\" aria-hidden=\"true\"></span>\n                        <span class=\"sr-only\">Please wait...</span>\n                      </button>\n                      <button *ngIf=\"!loading\" type=\"submit\" class=\"btn btn-primary btn-lg mr-2\" (click)=\"submit()\">Submit</button>\n                      <button type=\"button\" class=\"btn btn-light btn-lg\" (click)=\"cancel()\">Cancel</button>\n                    </div>\n                  </form>\n                </div>\n              </div>\n            </div>\n          </div>\n        </div>\n\n        <div *ngIf=\"created\" class=\"row\">\n          <div class=\"col-md-12 grid-margin\">\n            <div class=\"card text-center\">\n              <div class=\"card-body\">\n                <p class=\"card-title\">Form Completed Successfully</p>\n                <p class=\"text-muted\"></p>\n                <div class=\"card-text\">\n                  <i class=\"mdi mdi-shield-check-outline\" style=\"font-size: 12em;\"></i>\n                  <p class=\"text-muted\">\n                    Below is your generated code.\n                    Send this code to any {{ form.merchant_name }} branch to be processed.\n                  </p>\n                  <div class=\"code\">{{ formGenCode }}</div>\n                  <button class=\"btn btn-primary mr-2 hover-cursor\" type=\"button\" (click)=\"copy()\">\n                    <i class=\"mdi mdi-content-copy\" style=\"font-size: 20px;\"></i>\n                    <span class=\"sr-only\">Please wait...</span>\n                  </button>\n                  <button class=\"btn btn-primary mr-2 hover-cursor\" type=\"button\" (click)=\"ok()\">Ok</button>\n                </div>\n              </div>\n            </div>\n          </div>\n        </div>\n      </div>\n      <!-- content -->\n      <!-- footer -->\n      <app-footer-bar></app-footer-bar>\n      <!-- partial -->\n    </div>\n    <!-- main ends -->\n  </div>\n</div>\n\n<ng-template #confirm let-modal>\n  <div class=\"modal-header\">\n    <h4 class=\"modal-title\" id=\"modal-title\">Confirm Action</h4>\n    <button type=\"button\" class=\"close\" aria-describedby=\"modal-title\" (click)=\"modal.close()\">\n      <span aria-hidden=\"true\">&times;</span>\n    </button>\n  </div>\n  <div class=\"modal-body\">\n    <p><strong>Would you like to update your profile with the new details provided ?</strong></p>\n  </div>\n  <div class=\"modal-footer\">\n    <button type=\"button\" class=\"btn btn-outline-primary\" (click)=\"modal.close()\">No</button>\n    <button type=\"button\" class=\"btn btn-primary\" (click)=\"modal.close('yes')\">Yes</button>\n  </div>\n</ng-template>\n\n<ng-template #viewImgAttachment let-modal>\n  <div class=\"modal-header\">\n    <h5 class=\"modal-title\">Attachment File</h5>\n    <button type=\"button\" class=\"close\" aria-describedby=\"modal-title\" (click)=\"modal.close()\">\n      <span aria-hidden=\"true\">&times;</span>\n    </button>\n  </div>\n  <div class=\"modal-body\" style=\"padding: 0px;\">\n    <img [src]=\"imgUrl\" style=\"width: 100%;\">\n  </div>\n  <div class=\"modal-footer\">\n    <button type=\"button\" class=\"btn btn-primary\" (click)=\"modal.close()\">Close</button>\n  </div>\n</ng-template>\n\n<ng-template #viewDocAttachment let-modal>\n  <div class=\"modal-header\">\n    <h5 class=\"modal-title\">Attachment File</h5>\n    <button type=\"button\" class=\"close\" aria-describedby=\"modal-title\" (click)=\"modal.close()\">\n      <span aria-hidden=\"true\">&times;</span>\n    </button>\n  </div>\n  <div class=\"modal-body\">\n    <p>This document type cannot be viewed. Please download</p>\n  </div>\n  <div class=\"modal-footer\">\n    <button type=\"button\" class=\"btn btn-outline-primary\" (click)=\"modal.close()\">Close</button>\n    <button type=\"button\" class=\"btn btn-primary\" (click)=\"downloadDoc(documentUrl)\">Download</button>\n  </div>\n</ng-template>\n\n<ng-template #setPin let-modal>\n  <form [formGroup]=\"pinForm\" (ngSubmit)=\"createPin()\">\n    <div class=\"modal-header\">\n      <h5 class=\"modal-title text-uppercase\">Setup A New PIN</h5>\n      <button type=\"button\" class=\"close\" aria-describedby=\"modal-title\" (click)=\"modal.close()\">\n        <span aria-hidden=\"true\">&times;</span>\n      </button>\n    </div>\n    <div class=\"modal-body\">\n      <div class=\"form-group pin-form-group\">\n        <input type=\"text\" class=\"form-control form-control-lg pin-control\" formControlName=\"pin\" placeholder=\"----\"\n          [ngClass]=\"{'input-control-error': submitted && f.pin.errors}\" maxlength=\"4\" (keyup)=\"resolveStrCharacters($event)\">\n        <div *ngIf=\"submitted && f.pin.errors\">\n          <p class=\"input-error\" *ngIf=\"f.pin.errors.required\">PIN is required</p>\n          <p class=\"input-error\" *ngIf=\"f.pin.errors.minlength\">PIN must be 4 (four) digits.</p>\n        </div>\n      </div>\n    </div>\n    <div class=\"modal-footer\">\n      <button type=\"button\" class=\"btn btn-outline-primary\" (click)=\"modal.close()\">Close</button>\n      <button *ngIf=\"!isLoading\" type=\"submit\" class=\"btn btn-primary\">Create PIN</button>\n      <button *ngIf=\"isLoading\" type=\"button\" class=\"btn btn-block btn-primary font-weight-medium\" disabled>\n        <span class=\"spinner-border spinner-border-sm\" role=\"status\" aria-hidden=\"true\"></span> &nbsp; &nbsp;\n        Please wait...\n      </button>\n    </div>\n  </form>\n</ng-template>\n\n<ng-template #pin let-modal>\n  <form>\n    <div class=\"modal-header\">\n      <h5 class=\"modal-title text-uppercase\">Enter PIN To Submit Form</h5>\n      <button type=\"button\" class=\"close\" aria-describedby=\"modal-title\" (click)=\"modal.close()\">\n        <span aria-hidden=\"true\">&times;</span>\n      </button>\n    </div>\n    <div class=\"modal-body\">\n      <div class=\"form-group pin-form-group\">\n        <input type=\"text\" class=\"form-control form-control-lg pin-control\" name=\"pinCode\" [(ngModel)]=\"pinCode\" \n          placeholder=\"----\" maxlength=\"4\" (keyup)=\"resolveStrCharacters($event)\" autofocus>\n        <div>\n          <p class=\"input-error\" *ngIf=\"pinRequired\">PIN is required</p>\n          <p class=\"input-error\" *ngIf=\"pinMinimum\">PIN must be 4 (four) digits.</p>\n        </div>\n      </div>\n    </div>\n    <div class=\"modal-footer\">\n      <button type=\"button\" class=\"btn btn-outline-primary\" (click)=\"modal.close()\">Close</button>\n      <button *ngIf=\"!isLoading\" type=\"submit\" class=\"btn btn-primary\" (click)=\"verifyPin()\">Submit</button>\n      <button *ngIf=\"isLoading\" type=\"button\" class=\"btn btn-block btn-primary font-weight-medium\" disabled>\n        <span class=\"spinner-border spinner-border-sm\" role=\"status\" aria-hidden=\"true\"></span> &nbsp; &nbsp;\n        Please wait...\n      </button>\n    </div>\n  </form>\n</ng-template>"
+module.exports = "<div class=\"container-scroller\">\n  <app-navigation-bar></app-navigation-bar>\n  <div class=\"container-fluid page-body-wrapper\">\n    <app-side-bar></app-side-bar>\n    <div class=\"main-panel\">\n      <div class=\"content-wrapper\">\n        <div class=\"row\">\n          <div class=\"col-md-12 grid-margin\">\n            <div class=\"d-flex justify-content-between flex-wrap\">\n              <div class=\"d-flex align-items-end flex-wrap\">\n                <div class=\"mr-md-3 mr-xl-5\">\n                  <h2 style=\"line-height: 1.3;\">{{ form.form_name || form.name }}</h2>\n                </div>\n                <div class=\"d-flex\">\n                </div>\n              </div>\n              <div class=\"d-flex justify-content-between align-items-end flex-wrap\">\n              </div>\n            </div>\n          </div>\n        </div>\n        <div [hidden]=\"created\" class=\"row\">\n          <div class=\"col-md-8 offset-md-2 grid-margin stretch-card\">\n            <div class=\"card\">\n              <div class=\"card-body\">\n                <p class=\"card-title\">{{ form.form_name || form.name }}</p>\n                <p class=\"text-muted\">All forms with * are required and shouldn't be left out</p>\n                <div class=\"card-text pt-5\">\n                  <form class=\"forms-sample\">\n                    <div class=\"form-builder-container\">\n                      <div id=\"form-render\"></div>\n                    </div>\n\n                    <div *ngIf=\"loadingAttachments\" class=\"row m-md-2\">\n                      <div class=\"col-md-12 col-sm-12 m-md-2\">\n                        <div class=\"d-flex justify-content-center\">\n                          <div class=\"spinner-border m-2\" style=\"width: 2rem; height: 2rem;\" role=\"status\">\n                            <span class=\"sr-only\">Loading...</span>\n                          </div>\n                        </div>\n                      </div>\n                    </div>\n\n                    <div class=\"attachments-section\" *ngIf=\"!loadingAttachments && showAttachments\">\n                      <div class=\"card mb-4\">\n                        <div class=\"card-body\">\n                        <h5 class=\"card-title\">Form Attachments / Documents</h5>\n                          <h6 class=\"card-subtitle mb-2 text-muted\">Below are attachments you've uploaded for this form</h6>\n                          <div class=\"row\" *ngFor=\"let file of existingAttachments\">\n                            <div class=\"col-11\" style=\"padding-right: 8px;\">\n                              <ol class=\"files-list\">\n                                <li class=\"file-item\">\n                                  <i class=\"mdi mdi-paperclip menu-icon\"></i>\n                                  <a class=\"alert-link file-link\" (click)=\"openModal($event, file.url)\">{{ file.url }}</a>\n                                </li>\n                              </ol>\n                            </div>\n                            <div class=\"col-1\" style=\"padding-right: 3px; padding-left: 4px; margin-top: 7px;\">\n                              <button class=\"btn btn-primary btn-icon\" (click)=\"download(file.url)\">\n                                <i class=\"mdi mdi-download-outline\"></i>\n                              </button>\n                            </div>\n                          </div>\n                        </div>\n                      </div>\n                    </div>\n\n                    <div class=\"buttons-list\">\n                      <button *ngIf=\"loading\" class=\"btn btn-primary btn-lg mr-2\" type=\"button\" disabled>\n                        <span class=\"spinner-border spinner-border-sm\" role=\"status\" aria-hidden=\"true\"></span>\n                        <span class=\"sr-only\">Please wait...</span>\n                      </button>\n                      <button *ngIf=\"!loading\" type=\"submit\" class=\"btn btn-primary btn-lg mr-2\" (click)=\"submit()\">Submit</button>\n                      <button type=\"button\" class=\"btn btn-light btn-lg\" (click)=\"cancel()\">Cancel</button>\n                    </div>\n                  </form>\n                </div>\n              </div>\n            </div>\n          </div>\n        </div>\n\n        <div *ngIf=\"created\" class=\"row\">\n          <div class=\"col-md-12 grid-margin\">\n            <div class=\"card text-center\">\n              <div class=\"card-body\">\n                <p class=\"card-title\">Form Completed Successfully</p>\n                <p class=\"text-muted\"></p>\n                <div class=\"card-text\">\n                  <i class=\"mdi mdi-shield-check-outline\" style=\"font-size: 12em;\"></i>\n                  <p class=\"text-muted\">\n                    Below is your generated code.\n                    Send this code to any {{ form.merchant_name }} branch to be processed.\n                  </p>\n                  <div class=\"code\">{{ submissionCode }}</div>\n                  <button class=\"btn btn-primary mr-2 hover-cursor\" type=\"button\" (click)=\"copy()\">\n                    <i class=\"mdi mdi-content-copy\" style=\"font-size: 20px;\"></i>\n                    <span class=\"sr-only\">Please wait...</span>\n                  </button>\n                  <button class=\"btn btn-primary mr-2 hover-cursor\" type=\"button\" (click)=\"ok()\">Ok</button>\n                </div>\n              </div>\n            </div>\n          </div>\n        </div>\n      </div>\n      <!-- content -->\n      <!-- footer -->\n      <app-footer-bar></app-footer-bar>\n      <!-- partial -->\n    </div>\n    <!-- main ends -->\n  </div>\n</div>\n\n<ng-template #confirm let-modal>\n  <div class=\"modal-header\">\n    <h4 class=\"modal-title\" id=\"modal-title\">Confirm Action</h4>\n    <button type=\"button\" class=\"close\" aria-describedby=\"modal-title\" (click)=\"modal.close()\">\n      <span aria-hidden=\"true\">&times;</span>\n    </button>\n  </div>\n  <div class=\"modal-body\">\n    <p><strong>Would you like to update your profile with the new details provided ?</strong></p>\n  </div>\n  <div class=\"modal-footer\">\n    <button type=\"button\" class=\"btn btn-outline-primary\" (click)=\"modal.close()\">No</button>\n    <button type=\"button\" class=\"btn btn-primary\" (click)=\"modal.close('yes')\">Yes</button>\n  </div>\n</ng-template>\n\n<ng-template #viewImgAttachment let-modal>\n  <div class=\"modal-header\">\n    <h5 class=\"modal-title\">Attachment File</h5>\n    <button type=\"button\" class=\"close\" aria-describedby=\"modal-title\" (click)=\"modal.close()\">\n      <span aria-hidden=\"true\">&times;</span>\n    </button>\n  </div>\n  <div class=\"modal-body\" style=\"padding: 0px;\">\n    <img [src]=\"imgUrl\" style=\"width: 100%;\">\n  </div>\n  <div class=\"modal-footer\">\n    <button type=\"button\" class=\"btn btn-primary\" (click)=\"modal.close()\">Close</button>\n  </div>\n</ng-template>\n\n<ng-template #viewDocAttachment let-modal>\n  <div class=\"modal-header\">\n    <h5 class=\"modal-title\">Attachment File</h5>\n    <button type=\"button\" class=\"close\" aria-describedby=\"modal-title\" (click)=\"modal.close()\">\n      <span aria-hidden=\"true\">&times;</span>\n    </button>\n  </div>\n  <div class=\"modal-body\">\n    <p>This document type cannot be viewed. Please download</p>\n  </div>\n  <div class=\"modal-footer\">\n    <button type=\"button\" class=\"btn btn-outline-primary\" (click)=\"modal.close()\">Close</button>\n    <button type=\"button\" class=\"btn btn-primary\" (click)=\"downloadDoc(documentUrl)\">Download</button>\n  </div>\n</ng-template>\n\n<ng-template #setPin let-modal>\n  <form [formGroup]=\"pinForm\" (ngSubmit)=\"createPin()\">\n    <div class=\"modal-header\">\n      <h5 class=\"modal-title text-uppercase\">Setup A New PIN</h5>\n      <button type=\"button\" class=\"close\" aria-describedby=\"modal-title\" (click)=\"modal.close()\">\n        <span aria-hidden=\"true\">&times;</span>\n      </button>\n    </div>\n    <div class=\"modal-body\">\n      <div class=\"form-group pin-form-group\">\n        <input type=\"text\" class=\"form-control form-control-lg pin-control\" formControlName=\"pin\" placeholder=\"----\"\n          [ngClass]=\"{'input-control-error': submitted && f.pin.errors}\" maxlength=\"4\" (keyup)=\"resolveStrCharacters($event)\">\n        <div *ngIf=\"submitted && f.pin.errors\">\n          <p class=\"input-error\" *ngIf=\"f.pin.errors.required\">PIN is required</p>\n          <p class=\"input-error\" *ngIf=\"f.pin.errors.minlength\">PIN must be 4 (four) digits.</p>\n        </div>\n      </div>\n    </div>\n    <div class=\"modal-footer\">\n      <button type=\"button\" class=\"btn btn-outline-primary\" (click)=\"modal.close()\">Close</button>\n      <button *ngIf=\"!isLoading\" type=\"submit\" class=\"btn btn-primary\">Create PIN</button>\n      <button *ngIf=\"isLoading\" type=\"button\" class=\"btn btn-block btn-primary font-weight-medium\" disabled>\n        <span class=\"spinner-border spinner-border-sm\" role=\"status\" aria-hidden=\"true\"></span> &nbsp; &nbsp;\n        Please wait...\n      </button>\n    </div>\n  </form>\n</ng-template>\n\n<ng-template #pin let-modal>\n  <form>\n    <div class=\"modal-header\">\n      <h5 class=\"modal-title text-uppercase\">Enter PIN To Submit Form</h5>\n      <button type=\"button\" class=\"close\" aria-describedby=\"modal-title\" (click)=\"modal.close()\">\n        <span aria-hidden=\"true\">&times;</span>\n      </button>\n    </div>\n    <div class=\"modal-body\">\n      <div class=\"form-group pin-form-group\">\n        <input type=\"text\" class=\"form-control form-control-lg pin-control\" name=\"pinCode\" [(ngModel)]=\"pinCode\" \n          placeholder=\"----\" maxlength=\"4\" (keyup)=\"resolveStrCharacters($event)\" autofocus>\n        <div>\n          <p class=\"input-error\" *ngIf=\"pinRequired\">PIN is required</p>\n          <p class=\"input-error\" *ngIf=\"pinMinimum\">PIN must be 4 (four) digits.</p>\n        </div>\n      </div>\n    </div>\n    <div class=\"modal-footer\">\n      <button type=\"button\" class=\"btn btn-outline-primary\" (click)=\"modal.close()\">Close</button>\n      <button *ngIf=\"!isLoading\" type=\"submit\" class=\"btn btn-primary\" (click)=\"verifyPin()\">Submit</button>\n      <button *ngIf=\"isLoading\" type=\"button\" class=\"btn btn-block btn-primary font-weight-medium\" disabled>\n        <span class=\"spinner-border spinner-border-sm\" role=\"status\" aria-hidden=\"true\"></span> &nbsp; &nbsp;\n        Please wait...\n      </button>\n    </div>\n  </form>\n</ng-template>"
 
 /***/ }),
 
@@ -6019,6 +6019,7 @@ let ClientFormsEntryPageComponent = class ClientFormsEntryPageComponent {
         this.fileUploadService = fileUploadService;
         this.pinCode = '';
         this.formFiles = 0;
+        this.submissionCode = '';
         this.attachmentKeys = [];
         this.attachmentFiles = [];
         this.existingAttachments = [];
@@ -6057,6 +6058,9 @@ let ClientFormsEntryPageComponent = class ClientFormsEntryPageComponent {
         else {
             this.form = JSON.parse(sessionStorage.getItem('u_form'));
         }
+    }
+    generateSubmissionCode() {
+        return Math.random().toString(36).substr(2, 5);
     }
     resolveStrCharacters(e) {
         const regExp = new RegExp(/^\d*\.?\d*$/);
@@ -6163,22 +6167,27 @@ let ClientFormsEntryPageComponent = class ClientFormsEntryPageComponent {
     }
     submitFormAndAttachments(user_data, updateProfile) {
         console.log('is submitting');
-        const update = updateProfile ? 1 : 0;
-        const filled_data = this.formBuilder.getFormUserData(user_data);
-        const updated_data = this.clientService.getUpdatedClientFormData(JSON.parse(filled_data), this.clientProfile.client_details[0]);
-        console.log('new updates: ' + updated_data);
-        this.clientService.submitForm(lodash__WEBPACK_IMPORTED_MODULE_1__["toString"](this.user.id), this.form.form_code, this.clientProfile.client_details[0], JSON.parse(updated_data), update).then(res => {
-            this.formGenCode = res.code;
-            if (this.hasFile) {
-                this.uploadFormAttachments(this.formGenCode);
-            }
-            else {
+        const form_submission_code = this.generateSubmissionCode();
+        this.submissionCode = form_submission_code;
+        if (this.hasFile) {
+            this.uploadFormAttachments(user_data, updateProfile, form_submission_code);
+        }
+        else {
+            const update = updateProfile ? 1 : 0;
+            const filled_data = this.formBuilder.getFormUserData(user_data);
+            const updated_data = this.clientService.getUpdatedClientFormData(JSON.parse(filled_data), this.clientProfile.client_details[0]);
+            this.clientService.submitForm(lodash__WEBPACK_IMPORTED_MODULE_1__["toString"](this.user.id), this.form.form_code, this.clientProfile.client_details[0], JSON.parse(updated_data), update, form_submission_code).then(ok => {
+                if (ok) {
+                    this.loading = false;
+                    this.created = true;
+                }
+                else {
+                    this.loading = false;
+                }
+            }, err => {
                 this.loading = false;
-                this.created = true;
-            }
-        }, err => {
-            this.loading = false;
-        });
+            });
+        }
     }
     handlePinCode(update) {
         this.updateProfile = update;
@@ -6280,42 +6289,91 @@ let ClientFormsEntryPageComponent = class ClientFormsEntryPageComponent {
             });
         }
     }
-    submitFormWithExistingAttachments(user_data, updateProfile) {
-        console.log('is submitting with existing attachment');
-        const update = updateProfile ? 1 : 0;
-        const filled_data = this.formBuilder.getFormUserData(user_data);
-        const updated_data = this.clientService.getUpdatedClientFormData(JSON.parse(filled_data), this.clientProfile.client_details[0]);
-        console.log('new updates: ' + updated_data);
-        this.clientService.submitForm(lodash__WEBPACK_IMPORTED_MODULE_1__["toString"](this.user.id), this.form.form_code, this.clientProfile.client_details[0], JSON.parse(updated_data), update).then(res => {
-            this.formGenCode = res.code;
-            if (this.existingAttachments.length > 0) {
-                lodash__WEBPACK_IMPORTED_MODULE_1__["forEach"](this.existingAttachments, (attachment) => {
-                    const index = attachment.url.lastIndexOf('.');
-                    const extension = attachment.url.substr(index);
-                    const filename = Date.now().toString() + extension;
-                    const attachmentHost = this.endpointService.storageHost + 'attachments/';
-                    const p = this.fileUploadService.srcToBase64(attachmentHost + attachment.url);
-                    p.then(base64Str => {
-                        const fileObj = this.fileUploadService.convertBase64ToFile(base64Str, filename);
-                        this.uploadConvertedFormAttachment(this.formGenCode, attachment.key, fileObj);
-                    });
-                });
-            }
-        }, err => {
-            this.loading = false;
-        });
-    }
-    uploadConvertedFormAttachment(form_code, key, file) {
+    // submitFormWithExistingAttachments(user_data: any, updateProfile: boolean) {
+    //   console.log('is submitting with existing attachment');
+    //   const update = updateProfile ? 1 : 0;
+    //   const submission_code = this.generateSubmissionCode();
+    //   this.clientService.submitForm(_.toString(this.user.id), this.form.form_code, this.clientProfile.client_details[0], JSON.parse(updated_data), update, submission_code).then(
+    //     res => {
+    //       if (this.existingAttachments.length > 0) {
+    //         _.forEach(this.existingAttachments, (attachment) => {
+    //           const index = attachment.url.lastIndexOf('.');
+    //           const extension = attachment.url.substr(index);
+    //           const filename = Date.now().toString() + extension;
+    //           const attachmentHost = this.endpointService.storageHost + 'attachments/';
+    //           const p = this.fileUploadService.srcToBase64(attachmentHost + attachment.url);
+    //           p.then(
+    //             base64Str => {
+    //               const fileObj = this.fileUploadService.convertBase64ToFile(base64Str, filename);
+    //               this.uploadConvertedFormAttachment(this.formGenCode, attachment.key, fileObj);
+    //             }
+    //           );
+    //         });
+    //       }
+    //     },
+    //     err => {}
+    //   );
+    // const filled_data = this.formBuilder.getFormUserData(user_data);
+    // const updated_data = this.clientService.getUpdatedClientFormData(JSON.parse(filled_data), this.clientProfile.client_details[0]);
+    // console.log('new updates: ' + updated_data);
+    // this.clientService.submitForm(_.toString(this.user.id), this.form.form_code, this.clientProfile.client_details[0], JSON.parse(updated_data), update).then(
+    //   res => {
+    //     this.formGenCode = res.code;
+    //     if (this.existingAttachments.length > 0) {
+    //       _.forEach(this.existingAttachments, (attachment) => {
+    //         const index = attachment.url.lastIndexOf('.');
+    //         const extension = attachment.url.substr(index);
+    //         const filename = Date.now().toString() + extension;
+    //         const attachmentHost = this.endpointService.storageHost + 'attachments/';
+    //         const p = this.fileUploadService.srcToBase64(attachmentHost + attachment.url);
+    //         p.then(
+    //           base64Str => {
+    //             const fileObj = this.fileUploadService.convertBase64ToFile(base64Str, filename);
+    //             this.uploadConvertedFormAttachment(this.formGenCode, attachment.key, fileObj);
+    //           }
+    //         );
+    //       });
+    //     }
+    //   },
+    //   err => {
+    //     this.loading = false;
+    //   }
+    // );
+    // console.log('is submitting with existing attachment');
+    // const update = updateProfile ? 1 : 0;
+    // const filled_data = this.formBuilder.getFormUserData(user_data);
+    // const updated_data = this.clientService.getUpdatedClientFormData(JSON.parse(filled_data), this.clientProfile.client_details[0]);
+    // console.log('new updates: ' + updated_data);
+    // const form_submission_code = this.generateSubmissionCode();
+    // if (this.existingAttachments.length > 0) {
+    //   _.forEach(this.existingAttachments, (attachment, i) => {
+    //     const index = attachment.url.lastIndexOf('.');
+    //     const extension = attachment.url.substr(index);
+    //     const filename = Date.now().toString() + extension;
+    //     const attachmentHost = this.endpointService.storageHost + 'attachments/';
+    //     const p = this.fileUploadService.srcToBase64(attachmentHost + attachment.url);
+    //     p.then(
+    //       base64Str => {
+    //         const fileObj = this.fileUploadService.convertBase64ToFile(base64Str, filename);
+    //         this.uploadConvertedFormAttachment(form_submission_code, attachment.key, fileObj);
+    //       }
+    //     );
+    //     if (i == this.existingAttachments.length - 1) {
+    //       console.log('its done');
+    //       console.log('submit form');
+    //     }
+    //   });
+    // }
+    // }
+    uploadConvertedFormAttachment(key, file, user_data, updateProfile, submission_code) {
         console.log('doing existing upload');
-        console.log('form_code: ' + form_code);
+        console.log('form_code: ' + submission_code);
         console.log('key: ' + key);
         console.log(file);
         if (!lodash__WEBPACK_IMPORTED_MODULE_1__["isUndefined"](file) || !lodash__WEBPACK_IMPORTED_MODULE_1__["isNull"](file)) {
-            this.clientService.uploadFormAttachments(this.user.id.toString(), this.form.form_code, form_code, key, file).then(ok => {
+            this.clientService.uploadFormAttachments(this.user.id.toString(), this.form.form_code, submission_code, key, file).then(ok => {
                 if (ok) {
-                    console.log('file upload done');
-                    this.created = true;
-                    this.loading = false;
+                    // do nothing
                 }
                 else {
                     console.log('file upload failed');
@@ -6327,14 +6385,28 @@ let ClientFormsEntryPageComponent = class ClientFormsEntryPageComponent {
             });
         }
     }
-    uploadFormFile(form_code, key, index) {
+    uploadFormFile(key, user_data, updateProfile, form_submission_code, index) {
         if (lodash__WEBPACK_IMPORTED_MODULE_1__["isUndefined"](index) || lodash__WEBPACK_IMPORTED_MODULE_1__["isNull"](index)) {
             if (this.attachmentFiles.length != 0) {
-                this.clientService.uploadFormAttachments(this.user.id.toString(), this.form.form_code, form_code, key, this.attachmentFiles[0]).then(ok => {
+                this.clientService.uploadFormAttachments(this.user.id.toString(), this.form.form_code, form_submission_code, key, this.attachmentFiles[0]).then(ok => {
                     if (ok) {
                         console.log('file upload done');
-                        this.created = true;
-                        this.loading = false;
+                        const update = updateProfile ? 1 : 0;
+                        const filled_data = this.formBuilder.getFormUserData(user_data);
+                        const updated_data = this.clientService.getUpdatedClientFormData(JSON.parse(filled_data), this.clientProfile.client_details[0]);
+                        this.clientService.submitForm(lodash__WEBPACK_IMPORTED_MODULE_1__["toString"](this.user.id), this.form.form_code, this.clientProfile.client_details[0], JSON.parse(updated_data), update, form_submission_code).then(_ok => {
+                            if (_ok) {
+                                this.loading = false;
+                                this.created = true;
+                            }
+                            else {
+                                this.loading = false;
+                                console.log('form submission failed');
+                            }
+                        }, err => {
+                            this.loading = false;
+                            console.log('form submission error 2');
+                        });
                     }
                     else {
                         console.log('file upload failed');
@@ -6346,9 +6418,6 @@ let ClientFormsEntryPageComponent = class ClientFormsEntryPageComponent {
                 });
             }
             else {
-                // console.log('no upload');
-                // this.created = true;
-                // this.loading = false;
                 if (this.existingAttachments.length > 0) {
                     lodash__WEBPACK_IMPORTED_MODULE_1__["forEach"](this.existingAttachments, (attachment, i) => {
                         const idx = attachment.url.lastIndexOf('.');
@@ -6358,13 +6427,29 @@ let ClientFormsEntryPageComponent = class ClientFormsEntryPageComponent {
                         const p = this.fileUploadService.srcToBase64(attachmentHost + attachment.url);
                         p.then(base64Str => {
                             const fileObj = this.fileUploadService.convertBase64ToFile(base64Str, filename);
-                            this.uploadConvertedFormAttachment(this.formGenCode, attachment.key, fileObj);
+                            this.uploadConvertedFormAttachment(attachment.key, fileObj, user_data, updateProfile, form_submission_code);
                         });
                         if (i == this.existingAttachments.length - 1) {
                             console.log('we done uploading');
                             console.log('no upload');
-                            this.created = true;
-                            this.loading = false;
+                            const update = updateProfile ? 1 : 0;
+                            const filled_data = this.formBuilder.getFormUserData(user_data);
+                            const updated_data = this.clientService.getUpdatedClientFormData(JSON.parse(filled_data), this.clientProfile.client_details[0]);
+                            this.clientService.submitForm(lodash__WEBPACK_IMPORTED_MODULE_1__["toString"](this.user.id), this.form.form_code, this.clientProfile.client_details[0], JSON.parse(updated_data), update, form_submission_code).then(ok => {
+                                if (ok) {
+                                    this.loading = false;
+                                    this.created = true;
+                                }
+                                else {
+                                    this.loading = false;
+                                    console.log('form submission failed');
+                                }
+                            }, err => {
+                                this.loading = false;
+                                console.log('form submission error 3');
+                            });
+                            // this.created = true;
+                            // this.loading = false;
                         }
                     });
                 }
@@ -6372,11 +6457,27 @@ let ClientFormsEntryPageComponent = class ClientFormsEntryPageComponent {
         }
         else {
             // its being called in a loop, this means there are more than one attachments.
-            this.clientService.uploadFormAttachments(this.user.id.toString(), this.form.form_code, form_code, key, this.attachmentFiles[index]).then(ok => {
+            this.clientService.uploadFormAttachments(this.user.id.toString(), this.form.form_code, form_submission_code, key, this.attachmentFiles[index]).then(ok => {
                 if (ok) {
                     console.log('file upload done');
-                    this.created = true;
-                    this.loading = false;
+                    const update = updateProfile ? 1 : 0;
+                    const filled_data = this.formBuilder.getFormUserData(user_data);
+                    const updated_data = this.clientService.getUpdatedClientFormData(JSON.parse(filled_data), this.clientProfile.client_details[0]);
+                    this.clientService.submitForm(lodash__WEBPACK_IMPORTED_MODULE_1__["toString"](this.user.id), this.form.form_code, this.clientProfile.client_details[0], JSON.parse(updated_data), update, form_submission_code).then(_ok => {
+                        if (_ok) {
+                            this.loading = false;
+                            this.created = true;
+                        }
+                        else {
+                            this.loading = false;
+                            console.log('form submission failed');
+                        }
+                    }, err => {
+                        this.loading = false;
+                        console.log('form submission error 4');
+                    });
+                    // this.created = true;
+                    // this.loading = false;
                 }
                 else {
                     console.log('file upload failed');
@@ -6388,7 +6489,42 @@ let ClientFormsEntryPageComponent = class ClientFormsEntryPageComponent {
             });
         }
     }
-    uploadFormAttachments(form_code) {
+    existingUpload(user_data, updateProfile, submission_code) {
+        lodash__WEBPACK_IMPORTED_MODULE_1__["forEach"](this.existingAttachments, (attachment, i) => {
+            const idx = attachment.url.lastIndexOf('.');
+            const extension = attachment.url.substr(idx);
+            const filename = Date.now().toString() + extension;
+            const attachmentHost = this.endpointService.storageHost + 'attachments/';
+            const p = this.fileUploadService.srcToBase64(attachmentHost + attachment.url);
+            p.then(base64Str => {
+                const fileObj = this.fileUploadService.convertBase64ToFile(base64Str, filename);
+                this.uploadConvertedFormAttachment(attachment.key, fileObj, user_data, updateProfile, submission_code);
+            });
+            if (i == this.existingAttachments.length - 1) {
+                console.log('we done uploading');
+                console.log('no upload');
+                const update = updateProfile ? 1 : 0;
+                const filled_data = this.formBuilder.getFormUserData(user_data);
+                const updated_data = this.clientService.getUpdatedClientFormData(JSON.parse(filled_data), this.clientProfile.client_details[0]);
+                this.clientService.submitForm(lodash__WEBPACK_IMPORTED_MODULE_1__["toString"](this.user.id), this.form.form_code, this.clientProfile.client_details[0], JSON.parse(updated_data), update, submission_code).then(ok => {
+                    if (ok) {
+                        this.loading = false;
+                        this.created = true;
+                    }
+                    else {
+                        this.loading = false;
+                        console.log('form submission failed');
+                    }
+                }, err => {
+                    this.loading = false;
+                    console.log('form submission error 5');
+                });
+                // this.created = true;
+                // this.loading = false;
+            }
+        });
+    }
+    uploadFormAttachments(user_data, updateProfile, submission_code) {
         // we can tell the number of attachments this form has by
         // checking the formFiles variable's value.
         console.log('doing upload');
@@ -6396,7 +6532,7 @@ let ClientFormsEntryPageComponent = class ClientFormsEntryPageComponent {
         if (num_of_attachments > 1) {
             console.log('will do multiple uploads');
             for (let i = 0; i < num_of_attachments; i++) {
-                this.uploadFormFile(form_code, this.attachmentKeys[i], i);
+                this.uploadFormFile(this.attachmentKeys[i], user_data, updateProfile, submission_code, i);
             }
         }
         else {
@@ -6404,35 +6540,31 @@ let ClientFormsEntryPageComponent = class ClientFormsEntryPageComponent {
             console.log('attachments length: ' + this.attachmentFiles.length);
             if (this.attachmentFiles.length == 0) {
                 console.log('no attachment');
-                // this.created = true;
-                // this.loading = false;
                 if (this.existingAttachments.length > 0) {
-                    lodash__WEBPACK_IMPORTED_MODULE_1__["forEach"](this.existingAttachments, (attachment, i) => {
-                        const idx = attachment.url.lastIndexOf('.');
-                        const extension = attachment.url.substr(idx);
-                        const filename = Date.now().toString() + extension;
-                        const attachmentHost = this.endpointService.storageHost + 'attachments/';
-                        const p = this.fileUploadService.srcToBase64(attachmentHost + attachment.url);
-                        p.then(base64Str => {
-                            const fileObj = this.fileUploadService.convertBase64ToFile(base64Str, filename);
-                            this.uploadConvertedFormAttachment(this.formGenCode, attachment.key, fileObj);
-                        });
-                        if (i == this.existingAttachments.length - 1) {
-                            console.log('we done uploading');
-                            console.log('no upload');
-                            this.created = true;
-                            this.loading = false;
-                        }
-                    });
+                    this.existingUpload(user_data, updateProfile, submission_code);
                 }
                 else {
-                    this.created = true;
-                    this.loading = false;
+                    const update = updateProfile ? 1 : 0;
+                    const filled_data = this.formBuilder.getFormUserData(user_data);
+                    const updated_data = this.clientService.getUpdatedClientFormData(JSON.parse(filled_data), this.clientProfile.client_details[0]);
+                    this.clientService.submitForm(lodash__WEBPACK_IMPORTED_MODULE_1__["toString"](this.user.id), this.form.form_code, this.clientProfile.client_details[0], JSON.parse(updated_data), update, submission_code).then(ok => {
+                        if (ok) {
+                            this.loading = false;
+                            this.created = true;
+                        }
+                        else {
+                            this.loading = false;
+                            console.log('form submission failed');
+                        }
+                    }, err => {
+                        this.loading = false;
+                        console.log('form submission error 6');
+                    });
                 }
             }
             else {
                 console.log('has attachment');
-                this.uploadFormFile(form_code, this.attachmentKeys[0]);
+                this.uploadFormFile(this.attachmentKeys[0], user_data, updateProfile, submission_code);
             }
         }
     }
@@ -6478,7 +6610,7 @@ let ClientFormsEntryPageComponent = class ClientFormsEntryPageComponent {
         this.docDialogRef = this.modalService.open(this.viewDocDialog, { centered: true });
     }
     copy() {
-        this.clipboard.copyFromContent(this.formGenCode);
+        this.clipboard.copyFromContent(this.submissionCode);
     }
     cancel() {
         window.history.back();
@@ -19839,14 +19971,15 @@ let ClientService = class ClientService {
      * @returns {Promise<any>}
      * @memberof ClientService
      */
-    submitForm(id, code, client_data, form_data, updateProfile) {
+    submitForm(id, code, client_data, form_data, updateProfile, submission_code) {
         return new Promise((resolve, reject) => {
             const body = { client_profile: client_data, form_data: form_data };
             console.log('Body: ' + JSON.stringify(body));
-            const url = this.endpointService.apiHost + 'api/v1/submitForm/' + id + '/' + code + '/' + updateProfile;
+            const url = this.endpointService.apiHost + 'api/v1/submitForm/' + id + '/' + code + '/' + updateProfile + '/' + submission_code;
             this.http.post(url, JSON.stringify(body), { headers: this.headers }).subscribe(res => {
                 console.log('form_submitted: ' + JSON.stringify(res));
-                resolve(res);
+                const response = res;
+                lodash__WEBPACK_IMPORTED_MODULE_1__["toLower"](response.message) == 'ok' ? resolve(true) : resolve(false);
             }, err => {
                 console.log('f_submit_error: ' + JSON.stringify(err));
                 reject(err);
@@ -20189,6 +20322,7 @@ let ClientService = class ClientService {
     uploadFormAttachments(client_id, form_code, submission_code, key, file) {
         return new Promise((resolve, reject) => {
             const url = this.endpointService.apiHost + `api/v1/uploadattachments/${client_id}/${form_code}/${submission_code}`;
+            console.log('key: ' + key);
             const form = new FormData();
             form.set('key', key);
             form.set('file', file);
