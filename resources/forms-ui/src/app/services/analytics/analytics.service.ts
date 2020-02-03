@@ -294,7 +294,6 @@ export class AnalyticsService {
       const url = this.endpointService.apiHost + 'api/v1/getNumSubmittedFormsByStatus/0/' + merchant_id;
       this.http.get(url, { headers: this.headers }).subscribe(
         res => {
-          // console.log('forms: ' + res);
           const response = res as any;
           console.log('forms: ' + response.num_forms);
           resolve(response.num_forms);
@@ -344,6 +343,22 @@ export class AnalyticsService {
           console.log('forms: ' + res);
           const response = res as any;
           resolve(response.num_forms);
+        },
+        err => {
+          reject(err);
+        }
+      );
+    });
+  }
+
+  getRejectedFormsByFrontDeskCount(user_id: string): Promise<any> {
+    return new Promise((resolve, reject) => {
+      const url = this.endpointService.apiHost + 'api/v1/getNumAllFormsProcessedByFrontDeskPerson/' + user_id + '/3';
+      this.http.get(url, { headers: this.headers }).subscribe(
+        res => {
+          const response = res as any;
+          console.log('res: ' + JSON.stringify(response));
+          resolve(response.num_processed_forms);
         },
         err => {
           reject(err);

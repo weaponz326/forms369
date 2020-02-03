@@ -89,6 +89,7 @@ import { ClientFormLinkPageComponent } from './pages/dashboard/client/client-for
 import { ClientFormLinkRedirectPageComponent } from './pages/dashboard/client/client-form-link-redirect-page/client-form-link-redirect-page.component';
 import { ResetPasswordPageComponent } from './pages/reset-password-page/reset-password-page.component';
 import { ClientSettingsPageComponent } from './pages/dashboard/client/client-settings-page/client-settings-page.component';
+import { FrontDeskRejectedFormsListPageComponent } from './pages/dashboard/front-desk/front-desk-rejected-forms-list-page/front-desk-rejected-forms-list-page.component';
 
 const routes: Routes = [
   {
@@ -366,6 +367,10 @@ const routes: Routes = [
           {
             path: 'processing',
             component: FrontDeskProcessingFormsListPageComponent
+          },
+          {
+            path: 'rejected',
+            component: FrontDeskRejectedFormsListPageComponent
           },
           {
             path: 'client_forms',

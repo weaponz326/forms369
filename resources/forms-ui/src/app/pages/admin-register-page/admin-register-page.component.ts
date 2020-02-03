@@ -39,7 +39,6 @@ export class AdminRegisterPageComponent implements OnInit {
   }
 
   initVars() {
-    // this.checkAccessToLogin();
     console.log('hit access protection');
     this.waiting = true;
     if (window.location.origin != 'http://localhost:4200') {
@@ -67,6 +66,7 @@ export class AdminRegisterPageComponent implements OnInit {
       dialCode: ['233', Validators.required],
       emailAddress: ['', [Validators.email, Validators.required]],
       password: ['', [Validators.minLength(6), Validators.required]],
+      cPassword: ['', [Validators.minLength(6), Validators.required]],
       phone: ['', [Validators.maxLength(9), Validators.minLength(9), Validators.required]],
     });
   }
@@ -77,15 +77,24 @@ export class AdminRegisterPageComponent implements OnInit {
     });
   }
 
+  passwordsMatch() {
+    if (this.f.password.value != this.f.cPassword.value) {
+      return false;
+    }
+    else {
+      return true;
+    }
+  }
+
   getFormData() {
     const phone = this.f.phone.value;
     const lname = this.f.lastName.value;
-    const fname = this.f.firstName.value;
-    const email = this.f.emailAddress.value;
-    const country = this.f.country.value;
     const dCode = this.f.dialCode.value;
+    const country = this.f.country.value;
+    const fname = this.f.firstName.value;
     const username = this.f.username.value;
     const password = this.f.password.value;
+    const email = this.f.emailAddress.value;
 
     const user = new Users(fname, lname, email, password, username, country, dCode + phone, password, UserTypes.GitAdmin);
     return user;
@@ -151,29 +160,37 @@ export class AdminRegisterPageComponent implements OnInit {
       return;
     }
     else {
-      this.form.disable();
-      const user = this.getFormData();
-      this.accountService.createAccount(user).then(
-        res => {
-          const response = res as any;
-          if (!_.isUndefined(response.id)) {
+      if (this.passwordsMatch()) {
+        this.form.disable();
+        const user = this.getFormData();
+        this.accountService.createAccount(user).then(
+          res => {
+            const response = res as any;
+            if (!_.isUndefined(response.id)) {
+              this.form.enable();
+              this.loading = false;
+              this.created = true;
+            }
+            else {
+              this.form.enable();
+              this.loading = false;
+              console.log('an error occured');
+            }
+          },
+          err => {
             this.form.enable();
             this.loading = false;
-            this.created = true;
+            console.log(JSON.stringify(err));
+            this.resolveLaravelError(err.error);
           }
-          else {
-            this.form.enable();
-            this.loading = false;
-            console.log('an error occured');
-          }
-        },
-        err => {
-          this.form.enable();
-          this.loading = false;
-          console.log(JSON.stringify(err));
-          this.resolveLaravelError(err.error);
-        }
-      );
+        );
+      }
+      else {
+        this.form.enable();
+        this.loading = false;
+        console.log('doesnt match');
+        this.f.cPassword.setErrors({ unmatched: true });
+      }
     }
   }
 

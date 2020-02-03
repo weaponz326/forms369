@@ -21,3 +21,16 @@
     19. Form fields required added to create form page.
     20. Form fields required added to create template page.
     21. Form fields required added to create section page.
+    22. Several bug fixes.
+
+# version 0.0.3
+    1. Clients can now upload attachments.
+
+# version 0.0.4
+    1. A pin a required to submit form.
+    2. An option to change your form submit pin.
+    3. Front desk can now make chnages to a form submitted before processing it.
+
+# version 0.0.5
+    1. Added a confirm password field on master_register.
+    2. Now company users get an alert on first time login to change their passwords.

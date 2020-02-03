@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import * as _ from 'lodash';
+import Swal from 'sweetalert2';
 import { Router } from '@angular/router';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { AccountService } from 'src/app/services/account/account.service';
@@ -22,6 +23,7 @@ export class ChangePasswordPageComponent implements OnInit {
   ) { }
 
   ngOnInit() {
+    this.showLoginSuccessAlert();
     this.buildForm();
   }
 
@@ -45,6 +47,16 @@ export class ChangePasswordPageComponent implements OnInit {
     }
   }
 
+  showLoginSuccessAlert() {
+    Swal.fire({
+      title: 'Login Successful',
+      text: 'Your first time login was successful, please setup an new password to protected your account.',
+      icon: 'success',
+      confirmButtonText: 'Okay',
+      allowOutsideClick: false,
+    });
+  }
+
   create() {
     this.loading = true;
     this.submitted = true;
@@ -53,27 +65,6 @@ export class ChangePasswordPageComponent implements OnInit {
       this.loading = false;
     }
     else {
-      // this.form.disable();
-      // const newPassword = this.f.password.value;
-      // const user_id = sessionStorage.getItem('user_id');
-      // this.accountService.changeAccountPassword(user_id, newPassword).then(
-      //   res => {
-      //     const response = res as any;
-      //     this.form.enable();
-      //     this.loading = false;
-      //     if (_.toLower(response.message) == 'ok') {
-      //       sessionStorage.clear();
-      //       this.router.navigateByUrl('user_auth');
-      //     }
-      //     else {
-      //       this.invalid = true;
-      //     }
-      //   },
-      //   err => {
-      //     this.form.enable();
-      //     this.loading = false;
-      //   }
-      // );
       if (this.passwordsMatch()) {
         console.log('matches');
         this.form.disable();
