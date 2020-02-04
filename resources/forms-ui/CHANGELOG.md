@@ -40,3 +40,4 @@
     5, Error message alert on account setup is now cleared after an account is created.
     6. Fixed UI issues in company admin.
     7. Now admins know what form they are editing, form name added and label added for form fields as well.
+    8. Pin code is now required on client profile screen.

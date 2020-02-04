@@ -1,7 +1,9 @@
 import * as _ from 'lodash';
+import Swal from 'sweetalert2';
 import { NgbModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
+import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { ClientService } from 'src/app/services/client/client.service';
-import { Component, OnInit, ViewChild, TemplateRef } from '@angular/core';
+import { Component, OnInit, ViewChild, TemplateRef, AfterViewInit } from '@angular/core';
 import { SectionsService } from 'src/app/services/sections/sections.service';
 import { EndpointService } from 'src/app/services/endpoint/endpoint.service';
 import { DownloaderService } from 'src/app/services/downloader/downloader.service';
@@ -13,9 +15,10 @@ import { FormBuilderService } from 'src/app/services/form-builder/form-builder.s
   templateUrl: './client-profile-page.component.html',
   styleUrls: ['./client-profile-page.component.css']
 })
-export class ClientProfilePageComponent implements OnInit {
+export class ClientProfilePageComponent implements OnInit, AfterViewInit {
   user: any;
   imgUrl: string;
+  pinCode: string;
   formFiles: number;
   hasData: boolean;
   hasFile: boolean;
@@ -24,18 +27,25 @@ export class ClientProfilePageComponent implements OnInit {
   updating: boolean;
   allUserData: any;
   hasError: boolean;
+  submitted: boolean;
+  isLoading: boolean;
+  pinForm: FormGroup;
+  pinMinimum: boolean;
   documentUrl: string;
-  alert_title: string;
+  pinRequired: boolean;
   noFilledData: boolean;
-  alert_message: string;
   showAttachments: boolean;
   docDialogRef: NgbModalRef;
+  pinDialogRef: NgbModalRef;
   loadingAttachments: boolean;
   allFormSections: Array<any>;
   duplicateFields: Array<any>;
+  setPinDialogRef: NgbModalRef;
   attachmentFiles: Array<File>;
   attachmentKeys: Array<string>;
   existingAttachments: Array<any>;
+  @ViewChild('pin', { static: false }) pinDialog: TemplateRef<any>;
+  @ViewChild('setPin', { static: false }) setPinDialog: TemplateRef<any>;
   @ViewChild('updated', { static: false }) updatedDialog: TemplateRef<any>;
   @ViewChild('confirm', { static: false }) confirmDialog: TemplateRef<any>;
   @ViewChild('viewImgAttachment', { static: false }) viewImgDialog: TemplateRef<any>;
@@ -43,6 +53,7 @@ export class ClientProfilePageComponent implements OnInit {
   @ViewChild('deleteAttachment', { static: false }) deleteFileDialog: TemplateRef<any>;
 
   constructor(
+    private fb: FormBuilder,
     private modalService: NgbModal,
     private clientService: ClientService,
     private sectionService: SectionsService,
@@ -51,6 +62,7 @@ export class ClientProfilePageComponent implements OnInit {
     private localStorage: LocalStorageService,
     private downloadService: DownloaderService
   ) {
+    this.pinCode = '';
     this.formFiles = 0;
     this.attachmentKeys = [];
     this.allFormSections = [];
@@ -65,20 +77,94 @@ export class ClientProfilePageComponent implements OnInit {
     this.getAllFormSections();
   }
 
+  ngAfterViewInit() {
+    this.checkIfUserHasFormPin();
+  }
+
+  public get f() {
+    return this.pinForm.controls;
+  }
+
+  showPinCreatedSuccess() {
+    Swal.fire({
+      title: 'Pin Created',
+      text: 'Your PIN has been successfully created',
+      icon: 'success',
+      confirmButtonText: 'Ok, Got It',
+      onClose: () => {
+        this.pinDialogRef = this.modalService.open(this.pinDialog, { centered: true });
+      }
+    });
+  }
+
+  showPinCreationFailed() {
+    Swal.fire({
+      title: 'Oops!',
+      text: 'Sorry! Failed to create your pin. Something went wrong. Please check your internet connection and try again or our servers may be down.',
+      icon: 'error',
+      confirmButtonColor: 'Hmm, Ok'
+    });
+  }
+
+  showPinVerificationFailed() {
+    Swal.fire({
+      title: 'Oops!',
+      text: 'Sorry! Wrong PIN entered. Please check and try again',
+      icon: 'error',
+      confirmButtonColor: 'Arrrgh, Ok'
+    });
+  }
+
+  showPinCodeCheckErrorAlert() {
+    Swal.fire({
+      title: 'Oops!',
+      text: 'An error occured. Please make sure you have an active internet connection or our servers maybe down.',
+      icon: 'error',
+      confirmButtonColor: 'Arrrgh, Ok'
+    });
+  }
+
   showUpdatedDialog(isSuccess: boolean) {
     if (isSuccess) {
-      this.alert_title = 'Profile Updated Successfully';
-      this.alert_message = 'You have successfully updated your account data';
-      this.modalService.open(this.updatedDialog, { centered: true }).result.then(
-        result => {
-          result == 'ok' ? this.reload() : null;
+      Swal.fire({
+        title: 'Success!',
+        text: 'You have successfully updated your account data',
+        icon: 'success',
+        confirmButtonColor: 'Ok',
+        onClose: () => {
+          this.reload();
         }
-      );
+      });
     }
     else {
-      this.alert_title = 'Profile Update Failed';
-      this.alert_message = 'An error occured updating your account data. Our servers may be down or you dont have an active internet connection.';
-      this.modalService.open(this.updatedDialog, { centered: true });
+      Swal.fire({
+        title: 'Profile Update Failed!',
+        text: 'An error occured updating your account data. Our servers may be down or you dont have an active internet connection.',
+        icon: 'error',
+        confirmButtonColor: 'Ok'
+      });
+    }
+  }
+
+  initPinForm() {
+    this.pinForm = this.fb.group({
+      pin: ['', [Validators.minLength(4), Validators.required]]
+    });
+  }
+
+  resolveStrCharacters(e: KeyboardEvent) {
+    const regExp = new RegExp(/^\d*\.?\d*$/);
+    if (!regExp.test(this.f.pin.value)) {
+      const value = this.f.pin.value.substring(0, this.f.pin.value.length - 1);
+      this.f.pin.setValue(value);
+    }
+  }
+
+  resolveStrCharacters_1(e: KeyboardEvent) {
+    const regExp = new RegExp(/^\d*\.?\d*$/);
+    if (!regExp.test(this.pinCode)) {
+      const value = this.pinCode.substring(0, this.pinCode.length - 1);
+      this.pinCode = value;
     }
   }
 
@@ -122,6 +208,107 @@ export class ClientProfilePageComponent implements OnInit {
         };
       }
     });
+  }
+
+  checkIfUserHasFormPin() {
+    const hasPin = localStorage.getItem('has_pin');
+    if (_.isNull(hasPin) || _.isUndefined(hasPin)) {
+      this.clientService.checkFormSubmitPin(this.user.id.toString()).then(
+        ok => {
+          console.log('res: ' + JSON.stringify(ok));
+          if (ok) {
+            localStorage.setItem('has_pin', '1');
+            this.handlePinCode();
+          }
+          else {
+            this.handlePinCode();
+          }
+        },
+        err => {
+          console.log('error: ' + JSON.stringify(err));
+          this.showPinCodeCheckErrorAlert();
+        }
+      );
+    }
+    else {
+      this.handlePinCode();
+    }
+  }
+
+  handlePinCode() {
+    const hasPin = localStorage.getItem('has_pin');
+    if (_.isNull(hasPin) || _.isUndefined(hasPin)) {
+      this.setPinDialogRef = this.modalService.open(this.setPinDialog, { centered: true, keyboard: false, backdrop: 'static' });
+    }
+    else {
+      this.pinDialogRef = this.modalService.open(this.pinDialog, { centered: true, keyboard: false, backdrop: 'static' });
+    }
+  }
+
+  createPin() {
+    this.submitted = true;
+    const pin = this.f.pin.value;
+    if (this.pinForm.valid) {
+      this.isLoading = true;
+      this.clientService.setFormSubmitPin(this.user.id.toString(), pin).then(
+        ok => {
+          if (ok) {
+            this.pinCode = '';
+            this.isLoading = false;
+            this.submitted = false;
+            this.setPinDialogRef.close();
+            this.showPinCreatedSuccess();
+            localStorage.setItem('has_pin', '1');
+          }
+          else {
+            this.submitted = false;
+            this.isLoading = false;
+            this.setPinDialogRef.close();
+            this.showPinCreationFailed();
+          }
+        },
+        err => {
+          this.submitted = false;
+          this.isLoading = false;
+          this.setPinDialogRef.close();
+          this.showPinCreationFailed();
+        }
+      );
+    }
+  }
+
+  verifyPin() {
+    this.pinMinimum = false;
+    this.pinRequired = false;
+
+    if (this.pinCode == '') {
+      this.pinRequired = true;
+    }
+    else if (this.pinCode.length < 4) {
+      this.pinMinimum = true;
+    }
+    else {
+      this.isLoading = true;
+      this.pinMinimum = false;
+      this.pinRequired = false;
+      this.clientService.verifyFormSubmitPin(this.user.id.toString(), this.pinCode).then(
+        ok => {
+          if (ok) {
+            this.pinCode = '';
+            this.isLoading = false;
+            this.pinDialogRef.close();
+          }
+          else {
+            this.isLoading = false;
+            this.showPinVerificationFailed();
+          }
+        },
+        err => {
+          this.isLoading = false;
+          this.showPinVerificationFailed();
+        }
+      );
+    }
   }
 
   getAllClientData() {
@@ -384,6 +571,12 @@ export class ClientProfilePageComponent implements OnInit {
 
   retry() {
     this.getAllClientData();
+  }
+
+  exit() {
+    !_.isUndefined(this.setPinDialogRef) ? this.setPinDialogRef.close() : null;
+    !_.isUndefined(this.pinDialogRef) ? this.pinDialogRef.close() : null;
+    window.history.back();
   }
 
   reload() {
