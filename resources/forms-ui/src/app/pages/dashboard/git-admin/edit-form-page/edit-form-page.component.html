@@ -10,7 +10,7 @@
             <div class="d-flex justify-content-between flex-wrap">
               <div class="d-flex align-items-end flex-wrap">
                 <div class="mr-md-3 mr-xl-5">
-                  <h2>Edit a form</h2>
+                  <h2>Edit Form - {{ _form.name }}</h2>
                   <p class="mb-md-0">Edit a form here, just drag and drop the elements or click to add.</p>
                 </div>
                 <div class="d-flex">
@@ -47,14 +47,15 @@
                 <p class="card-title">Edit Form</p>
                 <p class="text-muted">
                   Drag and drop the form elements on your the right onto the panel on the left to create your form.
-                  You can re-arrange the order of the elements you drag onto the left panel by dragging to your desired
-                  position. You can also just click on an element to add it to your form.
+                  You can re-arrange the order of the elements you drag onto the left panel by dragging the form
+                  elements to your desired position. You can also click on an element to add it to your form.
                 </p>
 
                 <form [formGroup]="form">
                   <div class="row mt-4">
                     <div class="col-4">
                       <div class="form-group">
+                        <label class="label">Form Name</label>
                         <input type="text" formControlName="name" class="form-control" placeholder="Whats the name of your form ?"
                           [ngClass]="{'input-control-error': submitted && f.name.errors}">
                         <div *ngIf="submitted && f.name.errors">
@@ -64,6 +65,7 @@
                     </div>
                     <div [ngClass]="{'col-3': showFileUpload, 'col-4': !showFileUpload}">
                       <div class="form-group">
+                        <label class="label">Select Company</label>
                         <select class="form-control" formControlName="merchant" (change)="onMerchantSelect($event)"
                           [ngClass]="{'input-control-error': submitted && f.merchant.errors}">
                           <option value="">Select Company</option>
@@ -78,6 +80,7 @@
                     </div>
                     <div [ngClass]="{'col-2': showFileUpload, 'col-4': !showFileUpload}">
                       <div class="form-group">
+                        <label class="label">Can View</label>
                         <select class="form-control" formControlName="canView"
                           [ngClass]="{'input-control-error': submitted && f.canView.errors}">
                           <option value="" disabled>Can View</option>
@@ -88,14 +91,15 @@
                     </div>
                     <div *ngIf="showFileUpload" class="col-3">
                       <div class="form-group">
+                        <label class="label">Upload PDF File</label>
                         <input #pdfFile type="file" accept="application/pdf" (change)="inputFileChanged($event)" class="file-upload-default">
                         <div class="input-group col-xs-12">
                           <input type="file" style="overflow: hidden; height: 0px; width: 0px;">
                           <input type="text" formControlName="pdf" class="form-control file-upload-info"
-                            placeholder="Upload Your Form PDF" readonly>
+                            placeholder="Upload Form PDF" readonly>
                           <span class="input-group-append">
                             <button class="file-upload-browse btn btn-primary" type="button"
-                              (click)="showFilePicker()">Upload PDF</button>
+                              (click)="showFilePicker()" style="padding: 9px 15px;"><i class="mdi mdi-folder"></i></button>
                           </span>
                         </div>
                         <div *ngIf="submitted && f.pdf.errors">

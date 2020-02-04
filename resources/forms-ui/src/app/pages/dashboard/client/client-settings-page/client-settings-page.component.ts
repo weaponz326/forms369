@@ -144,6 +144,7 @@ export class ClientSettingsPageComponent implements OnInit {
         ok => {
           this.loading = false;
           this.submitted = false;
+          this.form.reset();
           ok
             ? this.showPinChangeSuccess()
             : this.showPinChangeFailed();

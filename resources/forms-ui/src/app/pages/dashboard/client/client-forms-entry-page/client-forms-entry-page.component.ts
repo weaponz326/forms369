@@ -1,4 +1,3 @@
-import { Component, OnInit, ViewChild, TemplateRef } from '@angular/core';
 declare var $: any;
 import * as _ from 'lodash';
 import Swal from 'sweetalert2';
@@ -8,6 +7,7 @@ import { Users } from 'src/app/models/users.model';
 import { NgbModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { ClientService } from 'src/app/services/client/client.service';
+import { Component, OnInit, ViewChild, TemplateRef } from '@angular/core';
 import { EndpointService } from 'src/app/services/endpoint/endpoint.service';
 import { DownloaderService } from 'src/app/services/downloader/downloader.service';
 import { LocalStorageService } from 'src/app/services/storage/local-storage.service';
@@ -35,11 +35,11 @@ export class ClientFormsEntryPageComponent implements OnInit {
   submitted: boolean;
   isLoading: boolean;
   pinForm: FormGroup;
-  formGenCode: string;
   documentUrl: string;
   pinMinimum: boolean;
   pinRequired: boolean;
   updateProfile: boolean;
+  submissionCode: string;
   showAttachments: boolean;
   docDialogRef: NgbModalRef;
   pinDialogRef: NgbModalRef;
@@ -68,6 +68,7 @@ export class ClientFormsEntryPageComponent implements OnInit {
   ) {
     this.pinCode = '';
     this.formFiles = 0;
+    this.submissionCode = '';
     this.attachmentKeys = [];
     this.attachmentFiles = [];
     this.existingAttachments = [];
@@ -110,6 +111,10 @@ export class ClientFormsEntryPageComponent implements OnInit {
     else {
       this.form = JSON.parse(sessionStorage.getItem('u_form'));
     }
+  }
+
+  generateSubmissionCode() {
+    return Math.random().toString(36).substr(2, 5);
   }
 
   resolveStrCharacters(e: KeyboardEvent) {
@@ -234,58 +239,32 @@ export class ClientFormsEntryPageComponent implements OnInit {
     return fields;
   }
 
-  submitFormWithAttachments(user_data: any, updateProfile: boolean) {
+  submitFormAndAttachments(user_data: any, updateProfile: boolean) {
     console.log('is submitting');
-    const update = updateProfile ? 1 : 0;
-    const filled_data = this.formBuilder.getFormUserData(user_data);
-    const updated_data = this.clientService.getUpdatedClientFormData(JSON.parse(filled_data), this.clientProfile.client_details[0]);
-    console.log('new updates: ' + updated_data);
-    this.clientService.submitForm(_.toString(this.user.id), this.form.form_code, this.clientProfile.client_details[0], JSON.parse(updated_data), update).then(
-      res => {
-        this.formGenCode = res.code;
-        if (this.hasFile) {
-          this.uploadFormAttachments(this.formGenCode);
-        }
-        else {
+    const form_submission_code = this.generateSubmissionCode();
+    this.submissionCode = form_submission_code;
+    if (this.hasFile) {
+      this.uploadFormAttachments(user_data, updateProfile, form_submission_code);
+    }
+    else {
+      const update = updateProfile ? 1 : 0;
+      const filled_data = this.formBuilder.getFormUserData(user_data);
+      const updated_data = this.clientService.getUpdatedClientFormData(JSON.parse(filled_data), this.clientProfile.client_details[0]);
+      this.clientService.submitForm(_.toString(this.user.id), this.form.form_code, this.clientProfile.client_details[0], JSON.parse(updated_data), update, form_submission_code).then(
+        ok => {
+          if (ok) {
+            this.loading = false;
+            this.created = true;
+          }
+          else {
+            this.loading = false;
+          }
+        },
+        err => {
           this.loading = false;
-          this.created = true;
         }
-      },
-      err => {
-        this.loading = false;
-      }
-    );
-  }
-
-  submitFormWithExistingAttachments(user_data: any, updateProfile: boolean) {
-    console.log('is submitting with existing attachment');
-    const update = updateProfile ? 1 : 0;
-    const filled_data = this.formBuilder.getFormUserData(user_data);
-    const updated_data = this.clientService.getUpdatedClientFormData(JSON.parse(filled_data), this.clientProfile.client_details[0]);
-    console.log('new updates: ' + updated_data);
-    this.clientService.submitForm(_.toString(this.user.id), this.form.form_code, this.clientProfile.client_details[0], JSON.parse(updated_data), update).then(
-      res => {
-        this.formGenCode = res.code;
-        if (this.existingAttachments.length > 0) {
-          _.forEach(this.existingAttachments, (attachment) => {
-            const index = attachment.url.lastIndexOf('.');
-            const extension = attachment.url.substr(index);
-            const filename = Date.now().toString() + extension;
-            const attachmentHost = this.endpointService.storageHost + 'attachments/';
-            const p = this.fileUploadService.srcToBase64(attachmentHost + attachment.url);
-            p.then(
-              base64Str => {
-                const fileObj = this.fileUploadService.convertBase64ToFile(base64Str, filename);
-                this.uploadConvertedFormAttachment(this.formGenCode, attachment.key, fileObj);
-              }
-            );
-          });
-        }
-      },
-      err => {
-        this.loading = false;
-      }
-    );
+      );
+    }
   }
 
   handlePinCode(update: boolean) {
@@ -314,11 +293,11 @@ export class ClientFormsEntryPageComponent implements OnInit {
         this.clientService.highlightUnFilledFormFields(unfilled);
       }
       else {
-        this.submitFormWithExistingAttachments(user_data, this.updateProfile);
+        this.submitFormAndAttachments(user_data, this.updateProfile);
       }
     }
     else {
-      this.submitFormWithAttachments(user_data, this.updateProfile);
+      this.submitFormAndAttachments(user_data, this.updateProfile);
     }
   }
 
@@ -396,41 +375,22 @@ export class ClientFormsEntryPageComponent implements OnInit {
         },
         err => {
           this.isLoading = false;
-          this.pinDialogRef.close();
           this.showPinVerificationFailed();
         }
       );
     }
   }
 
-  uploadFormFile(form_code: string, key: string, index?: number) {
-    if (_.isUndefined(index) || _.isNull(index)) {
-      this.clientService.uploadFormAttachments(this.user.id.toString(), this.form.form_code, form_code, key, this.attachmentFiles[0]).then(
+   uploadConvertedFormAttachment(key: string, file: File, user_data: any, updateProfile: boolean, submission_code: string) {
+    console.log('doing existing upload');
+    console.log('form_code: ' + submission_code);
+    console.log('key: ' + key);
+    console.log(file);
+    if (!_.isUndefined(file) || !_.isNull(file)) {
+      this.clientService.uploadFormAttachments(this.user.id.toString(), this.form.form_code, submission_code, key, file).then(
         ok => {
           if (ok) {
-            console.log('file upload done');
-            this.created = true;
-            this.loading = false;
-          }
-          else {
-            console.log('file upload failed');
-            this.loading = false;
-          }
-        },
-        err => {
-          console.log('file upload error');
-          this.loading = false;
-        }
-      );
-    }
-    else {
-      // its being called in a loop, this means there are more than one attachments.
-      this.clientService.uploadFormAttachments(this.user.id.toString(), this.form.form_code, form_code, key, this.attachmentFiles[index]).then(
-        ok => {
-          if (ok) {
-            console.log('file upload done');
-            this.created = true;
-            this.loading = false;
+            // do nothing
           }
           else {
             console.log('file upload failed');
@@ -445,7 +405,172 @@ export class ClientFormsEntryPageComponent implements OnInit {
     }
   }
 
-  uploadFormAttachments(form_code: string) {
+  uploadFormFile(key: string, user_data: any, updateProfile: boolean, form_submission_code: string, index?: number) {
+    if (_.isUndefined(index) || _.isNull(index)) {
+      if (this.attachmentFiles.length != 0) {
+        this.clientService.uploadFormAttachments(this.user.id.toString(), this.form.form_code, form_submission_code, key, this.attachmentFiles[0]).then(
+          ok => {
+            if (ok) {
+              console.log('file upload done');
+              const update = updateProfile ? 1 : 0;
+              const filled_data = this.formBuilder.getFormUserData(user_data);
+              const updated_data = this.clientService.getUpdatedClientFormData(JSON.parse(filled_data), this.clientProfile.client_details[0]);
+              this.clientService.submitForm(_.toString(this.user.id), this.form.form_code, this.clientProfile.client_details[0], JSON.parse(updated_data), update, form_submission_code).then(
+                _ok => {
+                  if (_ok) {
+                    this.loading = false;
+                    this.created = true;
+                  }
+                  else {
+                    this.loading = false;
+                    console.log('form submission failed');
+                  }
+                },
+                err => {
+                  this.loading = false;
+                  console.log('form submission error 2');
+                }
+              );
+            }
+            else {
+              console.log('file upload failed');
+              this.loading = false;
+            }
+          },
+          err => {
+            console.log('file upload error');
+            this.loading = false;
+          }
+        );
+      }
+      else {
+        if (this.existingAttachments.length > 0) {
+          _.forEach(this.existingAttachments, (attachment, i) => {
+            const idx = attachment.url.lastIndexOf('.');
+            const extension = attachment.url.substr(idx);
+            const filename = Date.now().toString() + extension;
+            const attachmentHost = this.endpointService.storageHost + 'attachments/';
+            const p = this.fileUploadService.srcToBase64(attachmentHost + attachment.url);
+            p.then(
+              base64Str => {
+                const fileObj = this.fileUploadService.convertBase64ToFile(base64Str, filename);
+                this.uploadConvertedFormAttachment(attachment.key, fileObj, user_data, updateProfile, form_submission_code);
+              }
+            );
+
+            if (i == this.existingAttachments.length - 1) {
+              console.log('we done uploading');
+              console.log('no upload');
+              const update = updateProfile ? 1 : 0;
+              const filled_data = this.formBuilder.getFormUserData(user_data);
+              const updated_data = this.clientService.getUpdatedClientFormData(JSON.parse(filled_data), this.clientProfile.client_details[0]);
+              this.clientService.submitForm(_.toString(this.user.id), this.form.form_code, this.clientProfile.client_details[0], JSON.parse(updated_data), update, form_submission_code).then(
+                ok => {
+                  if (ok) {
+                    this.loading = false;
+                    this.created = true;
+                  }
+                  else {
+                    this.loading = false;
+                    console.log('form submission failed');
+                  }
+                },
+                err => {
+                  this.loading = false;
+                  console.log('form submission error 3');
+                }
+              );
+              // this.created = true;
+              // this.loading = false;
+            }
+          });
+        }
+      }
+    }
+    else {
+      // its being called in a loop, this means there are more than one attachments.
+      this.clientService.uploadFormAttachments(this.user.id.toString(), this.form.form_code, form_submission_code, key, this.attachmentFiles[index]).then(
+        ok => {
+          if (ok) {
+            console.log('file upload done');
+            const update = updateProfile ? 1 : 0;
+            const filled_data = this.formBuilder.getFormUserData(user_data);
+            const updated_data = this.clientService.getUpdatedClientFormData(JSON.parse(filled_data), this.clientProfile.client_details[0]);
+            this.clientService.submitForm(_.toString(this.user.id), this.form.form_code, this.clientProfile.client_details[0], JSON.parse(updated_data), update, form_submission_code).then(
+              _ok => {
+                if (_ok) {
+                  this.loading = false;
+                  this.created = true;
+                }
+                else {
+                  this.loading = false;
+                  console.log('form submission failed');
+                }
+              },
+              err => {
+                this.loading = false;
+                console.log('form submission error 4');
+              }
+            );
+            // this.created = true;
+            // this.loading = false;
+          }
+          else {
+            console.log('file upload failed');
+            this.loading = false;
+          }
+        },
+        err => {
+          console.log('file upload error');
+          this.loading = false;
+        }
+      );
+    }
+  }
+
+  existingUpload(user_data: any, updateProfile: boolean, submission_code: string) {
+    _.forEach(this.existingAttachments, (attachment, i) => {
+      const idx = attachment.url.lastIndexOf('.');
+      const extension = attachment.url.substr(idx);
+      const filename = Date.now().toString() + extension;
+      const attachmentHost = this.endpointService.storageHost + 'attachments/';
+      const p = this.fileUploadService.srcToBase64(attachmentHost + attachment.url);
+      p.then(
+        base64Str => {
+          const fileObj = this.fileUploadService.convertBase64ToFile(base64Str, filename);
+          this.uploadConvertedFormAttachment(attachment.key, fileObj, user_data, updateProfile, submission_code);
+        }
+      );
+
+      if (i == this.existingAttachments.length - 1) {
+        console.log('we done uploading');
+        console.log('no upload');
+        const update = updateProfile ? 1 : 0;
+        const filled_data = this.formBuilder.getFormUserData(user_data);
+        const updated_data = this.clientService.getUpdatedClientFormData(JSON.parse(filled_data), this.clientProfile.client_details[0]);
+        this.clientService.submitForm(_.toString(this.user.id), this.form.form_code, this.clientProfile.client_details[0], JSON.parse(updated_data), update, submission_code).then(
+          ok => {
+            if (ok) {
+              this.loading = false;
+              this.created = true;
+            }
+            else {
+              this.loading = false;
+              console.log('form submission failed');
+            }
+          },
+          err => {
+            this.loading = false;
+            console.log('form submission error 5');
+          }
+        );
+        // this.created = true;
+        // this.loading = false;
+      }
+    });
+  }
+
+  uploadFormAttachments(user_data: any, updateProfile: boolean, submission_code: string) {
     // we can tell the number of attachments this form has by
     // checking the formFiles variable's value.
     console.log('doing upload');
@@ -453,44 +578,43 @@ export class ClientFormsEntryPageComponent implements OnInit {
     if (num_of_attachments > 1) {
       console.log('will do multiple uploads');
       for (let i = 0; i < num_of_attachments; i++) {
-        this.uploadFormFile(form_code, this.attachmentKeys[i], i);
+        this.uploadFormFile(this.attachmentKeys[i], user_data, updateProfile, submission_code, i);
       }
     }
     else {
       console.log('will do single upload');
-      if (this.attachmentKeys.length == 0) {
-        this.created = true;
-        this.loading = false;
+      console.log('attachments length: ' + this.attachmentFiles.length);
+      if (this.attachmentFiles.length == 0) {
+        console.log('no attachment');
+        if (this.existingAttachments.length > 0) {
+          this.existingUpload(user_data, updateProfile, submission_code);
+        }
+        else {
+          const update = updateProfile ? 1 : 0;
+          const filled_data = this.formBuilder.getFormUserData(user_data);
+          const updated_data = this.clientService.getUpdatedClientFormData(JSON.parse(filled_data), this.clientProfile.client_details[0]);
+          this.clientService.submitForm(_.toString(this.user.id), this.form.form_code, this.clientProfile.client_details[0], JSON.parse(updated_data), update, submission_code).then(
+            ok => {
+              if (ok) {
+                this.loading = false;
+                this.created = true;
+              }
+              else {
+                this.loading = false;
+                console.log('form submission failed');
+              }
+            },
+            err => {
+              this.loading = false;
+              console.log('form submission error 6');
+            }
+          );
+        }
       }
       else {
-        this.uploadFormFile(form_code, this.attachmentKeys[0]);
+        console.log('has attachment');
+        this.uploadFormFile(this.attachmentKeys[0], user_data, updateProfile, submission_code);
       }
-    }
-  }
-
-  uploadConvertedFormAttachment(form_code: string, key: string, file: File) {
-    console.log('doing existing upload');
-    console.log('form_code: ' + form_code);
-    console.log('key: ' + key);
-    console.log(file);
-    if (!_.isUndefined(file) || !_.isNull(file)) {
-      this.clientService.uploadFormAttachments(this.user.id.toString(), this.form.form_code, form_code, key, file).then(
-        ok => {
-          if (ok) {
-            console.log('file upload done');
-            this.created = true;
-            this.loading = false;
-          }
-          else {
-            console.log('file upload failed');
-            this.loading = false;
-          }
-        },
-        err => {
-          console.log('file upload error');
-          this.loading = false;
-        }
-      );
     }
   }
 
@@ -544,7 +668,7 @@ export class ClientFormsEntryPageComponent implements OnInit {
   }
 
   copy() {
-    this.clipboard.copyFromContent(this.formGenCode);
+    this.clipboard.copyFromContent(this.submissionCode);
   }
 
   cancel() {

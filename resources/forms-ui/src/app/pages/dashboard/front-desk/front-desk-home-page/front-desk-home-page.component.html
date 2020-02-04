@@ -73,18 +73,18 @@
         </div>
 
         <div class="row">
-          <div class="col-md-4 grid-margin stretch-card">
+          <div class="col-md-3 grid-margin stretch-card">
             <div class="card hover-cursor hover-primary" (click)="open('submitted')">
               <div class="card-body">
                 <p class="card-title">Total No. Of Forms Submitted</p>
-                <p class="text-muted">A list of all forms that have been submitted, processed and in processing</p>
+                <p class="text-muted">A list of all forms that have been submitted.</p>
                 <div class="card-text">
                   <h1 style="font-size: 4em;">{{ totalNoSubmitted }}</h1>
                 </div>
               </div>
             </div>
           </div>
-          <div class="col-md-4 grid-margin stretch-card">
+          <div class="col-md-3 grid-margin stretch-card">
             <div class="card hover-cursor hover-primary" (click)="open('processed')">
               <div class="card-body">
                 <p class="card-title">Total No. Of Processed Forms</p>
@@ -95,13 +95,24 @@
               </div>
             </div>
           </div>
-          <div class="col-md-4 grid-margin stretch-card">
+          <div class="col-md-3 grid-margin stretch-card">
             <div class="card hover-cursor hover-primary" (click)="open('processing')">
               <div class="card-body">
                 <p class="card-title">Total No. Of Forms In Process</p>
                 <p class="text-muted">A list of all the forms being processed</p>
                 <div class="card-text">
                   <h1 style="font-size: 4em;">{{ totalNoProcessing }}</h1>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-3 grid-margin stretch-card">
+            <div class="card hover-cursor hover-primary" (click)="open('rejected')">
+              <div class="card-body">
+                <p class="card-title">Total No. Of Forms Rejected</p>
+                <p class="text-muted">A list of all the forms rejected</p>
+                <div class="card-text">
+                  <h1 style="font-size: 4em;">{{ totalNoRejected }}</h1>
                 </div>
               </div>
             </div>

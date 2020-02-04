@@ -47,7 +47,6 @@ import { ViewAccountDetailsPageComponent } from './pages/dashboard/git-admin/vie
 import { ViewFormListsPageComponent } from './pages/dashboard/git-admin/view-form-lists-page/view-form-lists-page.component';
 import { ViewFormDetailsPageComponent } from './pages/dashboard/git-admin/view-form-details-page/view-form-details-page.component';
 import { ClientProfilePageComponent } from './pages/dashboard/client/client-profile-page/client-profile-page.component';
-import { ClientUnsentFormsPageComponent } from './pages/dashboard/client/client-unsent-forms-page/client-unsent-forms-page.component';
 import { AddTemplatePageComponent } from './pages/dashboard/form-templates/add-template-page/add-template-page.component';
 import { EditTemplatePageComponent } from './pages/dashboard/form-templates/edit-template-page/edit-template-page.component';
 import { ListTemplatePageComponent } from './pages/dashboard/form-templates/list-template-page/list-template-page.component';
@@ -89,6 +88,7 @@ import { ClientFormLinkPageComponent } from './pages/dashboard/client/client-for
 import { ClientFormLinkRedirectPageComponent } from './pages/dashboard/client/client-form-link-redirect-page/client-form-link-redirect-page.component';
 import { ResetPasswordPageComponent } from './pages/reset-password-page/reset-password-page.component';
 import { ClientSettingsPageComponent } from './pages/dashboard/client/client-settings-page/client-settings-page.component';
+import { FrontDeskRejectedFormsListPageComponent } from './pages/dashboard/front-desk/front-desk-rejected-forms-list-page/front-desk-rejected-forms-list-page.component';
 
 const routes: Routes = [
   {
@@ -312,10 +312,10 @@ const routes: Routes = [
         path: 'profile',
         component: ClientProfilePageComponent
       },
-      {
-        path: 'unsent_forms',
-        component: ClientUnsentFormsPageComponent
-      },
+      // {
+      //   path: 'unsent_forms',
+      //   component: ClientUnsentFormsPageComponent
+      // },
       {
         path: 'form_link_redirect',
         component: ClientFormLinkRedirectPageComponent
@@ -366,6 +366,10 @@ const routes: Routes = [
           {
             path: 'processing',
             component: FrontDeskProcessingFormsListPageComponent
+          },
+          {
+            path: 'rejected',
+            component: FrontDeskRejectedFormsListPageComponent
           },
           {
             path: 'client_forms',

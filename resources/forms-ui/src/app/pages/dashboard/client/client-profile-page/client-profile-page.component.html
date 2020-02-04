@@ -215,6 +215,10 @@
           </div>
         </div>
       </div>
+
+      <!-- footer -->
+      <app-footer-bar></app-footer-bar>
+      <!-- partial -->
     </div>
   </div>
 </div>
@@ -233,21 +237,6 @@
   <div class="modal-footer">
     <button type="button" class="btn btn-outline-primary" (click)="modal.dismiss('no')">No</button>
     <button type="button" class="btn btn-primary" (click)="modal.close('yes')">Yes</button>
-  </div>
-</ng-template>
-
-<ng-template #updated let-modal>
-  <div class="modal-header">
-    <h4 class="modal-title" id="modal-title">{{ alert_title }}</h4>
-    <button type="button" class="close" aria-describedby="modal-title" (click)="modal.dismiss()">
-      <span aria-hidden="true">&times;</span>
-    </button>
-  </div>
-  <div class="modal-body">
-    <p>{{ alert_message }}</p>
-  </div>
-  <div class="modal-footer">
-    <button type="button" class="btn btn-primary" (click)="modal.close()">Ok</button>
   </div>
 </ng-template>
 
@@ -299,4 +288,57 @@
     <button type="button" class="btn btn-outline-primary" (click)="modal.close('yes')">Yes</button>
     <button type="button" class="btn btn-primary" (click)="modal.close('no')">No</button>
   </div>
+</ng-template>
+
+<ng-template #setPin let-modal>
+  <form [formGroup]="pinForm" (ngSubmit)="createPin()">
+    <div class="modal-header">
+      <h5 class="modal-title text-uppercase font-weight-bold">Setup A New PIN</h5>
+    </div>
+    <div class="modal-body">
+      <div class="form-group pin-form-group">
+        <input type="text" class="form-control form-control-lg pin-control" formControlName="pin" placeholder="----"
+          [ngClass]="{'input-control-error': submitted && f.pin.errors}" maxlength="4"
+          (keyup)="resolveStrCharacters($event)">
+        <div *ngIf="submitted && f.pin.errors">
+          <p class="input-error" *ngIf="f.pin.errors.required">PIN is required</p>
+          <p class="input-error" *ngIf="f.pin.errors.minlength">PIN must be 4 (four) digits.</p>
+        </div>
+      </div>
+    </div>
+    <div class="modal-footer text-center" style="display: block;">
+      <button *ngIf="!isLoading" type="button" class="btn btn-primary" (click)="exit()">Close</button>
+      <button *ngIf="!isLoading" type="submit" class="btn btn-primary">Create PIN</button>
+      <button *ngIf="isLoading" type="button" class="btn btn-block btn-primary font-weight-medium" disabled>
+        <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span> &nbsp; &nbsp;
+        Please wait...
+      </button>
+    </div>
+  </form>
+</ng-template>
+
+<ng-template #pin let-modal>
+  <form>
+    <div class="modal-header">
+      <h6 class="modal-title text-uppercase font-weight-bold">Enter PIN To Submit Form</h6>
+    </div>
+    <div class="modal-body">
+      <div class="form-group pin-form-group">
+        <input type="text" class="form-control form-control-lg pin-control" name="pinCode" [(ngModel)]="pinCode"
+          placeholder="----" maxlength="4" (keyup)="resolveStrCharacters_1($event)" autofocus>
+        <div>
+          <p class="input-error" *ngIf="pinRequired">PIN is required</p>
+          <p class="input-error" *ngIf="pinMinimum">PIN must be 4 (four) digits.</p>
+        </div>
+      </div>
+    </div>
+    <div class="modal-footer text-center" style="display: block;">
+      <button *ngIf="!isLoading" type="button" class="btn btn-primary" (click)="exit()">Close</button>
+      <button *ngIf="!isLoading" type="submit" class="btn btn-primary" (click)="verifyPin()">Submit</button>
+      <button *ngIf="isLoading" type="button" class="btn btn-block btn-primary font-weight-medium" disabled>
+        <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span> &nbsp; &nbsp;
+        Please wait...
+      </button>
+    </div>
+  </form>
 </ng-template>

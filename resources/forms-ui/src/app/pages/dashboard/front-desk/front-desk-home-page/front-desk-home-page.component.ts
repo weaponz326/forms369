@@ -23,6 +23,7 @@ export class FrontDesktopHomePageComponent implements OnInit {
   submitted: boolean;
   merchant_id: string;
   notValidCode: boolean;
+  totalNoRejected: string;
   totalNoSubmitted: string;
   totalNoProcessed: string;
   totalNoProcessing: string;
@@ -49,21 +50,12 @@ export class FrontDesktopHomePageComponent implements OnInit {
     this.user_id = _.toString(this.user.id);
     this.merchant_id = _.toString(this.user.merchant_id);
     if (window.location.origin == 'http://localhost:4200') {
-      // this.user = this.localStorage.getUser();
-      // this.firstname = this.user.firstname;
-      // this.user_id = _.toString(this.user.id);
-      // this.merchant_id = _.toString(this.user.merchant_id);
       this.getFrontDeskAnalytics();
     }
     else {
       this.checkAccessToLogin().then(
         res => {
           if (res == 'ok') {
-            // this.user = this.localStorage.getUser();
-            // this.firstname = this.user.firstname;
-            // this.user_id = _.toString(this.user.id);
-            // this.merchant_id = _.toString(this.user.merchant_id);
-
             this.getFrontDeskAnalytics();
           }
           else {
@@ -75,6 +67,7 @@ export class FrontDesktopHomePageComponent implements OnInit {
   }
 
   setDefaultCounts() {
+    this.totalNoRejected = '0';
     this.totalNoSubmitted = '0';
     this.totalNoProcessed = '0';
     this.totalNoProcessing = '0';
@@ -100,6 +93,9 @@ export class FrontDesktopHomePageComponent implements OnInit {
         break;
       case 'processing':
         this.router.navigateByUrl('/front_desk/lists/processing');
+        break;
+      case 'rejected':
+        this.router.navigateByUrl('/front_desk/lists/rejected');
         break;
       default:
         break;
@@ -132,9 +128,18 @@ export class FrontDesktopHomePageComponent implements OnInit {
   }
 
   getFrontDeskAnalytics() {
+    this.getRejectedFormsAnalytics(this.user_id);
     this.getProcessedFormsAnalytics(this.user_id);
     this.getProcessingFormsAnalytics(this.user_id);
     this.getSubmittedFormsAnalytics(this.merchant_id);
+  }
+
+  getRejectedFormsAnalytics(id: string) {
+    this.analyticService.getRejectedFormsByFrontDeskCount(id).then(
+      count => {
+        this.totalNoRejected = count;
+      }
+    );
   }
 
   getSubmittedFormsAnalytics(id: string) {
