@@ -544,7 +544,7 @@ class ClientController extends Controller
 
             
                     // return $attached;
-                    if(!empty($attached) && count($attached) > 0){
+                    if(!empty($attached)){
                         $delete = $this->deleteAttachment($request, $client_id, $key, $attached->url, $submission_code);
                     }
         
@@ -702,7 +702,7 @@ class ClientController extends Controller
 
             
                     // return $attached;
-                    if(!empty($attached) && count($attached) > 0){
+                    if(!empty($attached)){
                         $delete = $this->deleteProfileAttachment($request, $client_id, $key, $attached->url);
                     }
         

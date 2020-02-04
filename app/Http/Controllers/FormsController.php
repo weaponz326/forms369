@@ -359,7 +359,7 @@ class FormsController extends Controller
      *
      * @return void\Illuminate\Http\Response all details of a form
      */
-    public function getFormbyNameorMerchant(Request $request, $term){
+    public function getFormbyName(Request $request, $term){
 
         //get all registered companies 
         $getform = DB::table('forms')
@@ -370,7 +370,6 @@ class FormsController extends Controller
             ['forms.temps', 'like', '%'.$term .'%'],
             ['forms.status','=',1]
         ])
-        ->orWhere('merchants.temp', 'like', '%'.$term .'%')
         ->get();
       
         //clean data
