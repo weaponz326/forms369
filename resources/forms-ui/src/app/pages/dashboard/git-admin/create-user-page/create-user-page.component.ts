@@ -27,7 +27,8 @@ export class CreateUserAccountPageComponent implements OnInit {
   }
 
   createAccount(ev: any) {
-    console.log('response: ' + ev);
+    this.emailInUse = false;
+    this.usernameInUse = false;
     if (ev == 'email_in_use') {
       this.emailInUse = true;
     }

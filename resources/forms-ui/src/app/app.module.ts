@@ -71,7 +71,6 @@ import { ViewBranchDetailsPageComponent } from './pages/dashboard/git-admin/view
 import { ViewFormListsPageComponent } from './pages/dashboard/git-admin/view-form-lists-page/view-form-lists-page.component';
 import { ViewFormDetailsPageComponent } from './pages/dashboard/git-admin/view-form-details-page/view-form-details-page.component';
 import { ClientProfilePageComponent } from './pages/dashboard/client/client-profile-page/client-profile-page.component';
-import { ClientUnsentFormsPageComponent } from './pages/dashboard/client/client-unsent-forms-page/client-unsent-forms-page.component';
 import { AddTemplatePageComponent } from './pages/dashboard/form-templates/add-template-page/add-template-page.component';
 import { EditTemplatePageComponent } from './pages/dashboard/form-templates/edit-template-page/edit-template-page.component';
 import { ListTemplatePageComponent } from './pages/dashboard/form-templates/list-template-page/list-template-page.component';
@@ -172,7 +171,6 @@ import { FrontDeskRejectedFormsListPageComponent } from './pages/dashboard/front
     ViewFormListsPageComponent,
     ViewFormDetailsPageComponent,
     ClientProfilePageComponent,
-    ClientUnsentFormsPageComponent,
     AddTemplatePageComponent,
     EditTemplatePageComponent,
     ListTemplatePageComponent,

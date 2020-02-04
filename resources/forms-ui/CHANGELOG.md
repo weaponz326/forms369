@@ -29,8 +29,14 @@
 # version 0.0.4
     1. A pin a required to submit form.
     2. An option to change your form submit pin.
-    3. Front desk can now make chnages to a form submitted before processing it.
+    3. Front desk can now make changes to a form submitted before processing it.
+    4. Fixed all grammatical errors.
 
 # version 0.0.5
     1. Added a confirm password field on master_register.
     2. Now company users get an alert on first time login to change their passwords.
+    3. Added analytics for clients on the home screen. Includes no. of submitted, processed & rejected forms.
+    4. Footer is now showing all client views.
+    5, Error message alert on account setup is now cleared after an account is created.
+    6. Fixed UI issues in company admin.
+    7. Now admins know what form they are editing, form name added and label added for form fields as well.
