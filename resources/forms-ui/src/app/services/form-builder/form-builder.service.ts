@@ -1,6 +1,5 @@
 import * as _ from 'lodash';
 import { Injectable } from '@angular/core';
-import { Forms } from 'src/app/models/forms.model';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { EndpointService } from '../endpoint/endpoint.service';
 import { SectionsService } from '../sections/sections.service';
@@ -107,6 +106,79 @@ export class FormBuilderService {
         'placeholder'
       ],
       'text': [
+        'value',
+        'access',
+        'subtype',
+        'className',
+        'placeholder'
+      ]
+    };
+  }
+
+  disableAllFieldAttrs() {
+    return {
+      'header': [
+        'access',
+        'className'
+      ],
+      'autocomplete': [
+        'access',
+        'className',
+        'placeholder',
+      ],
+      'button': [
+        'style',
+        'value',
+        'access',
+        'subtype',
+        'className'
+      ],
+      'checkbox-group': [
+        'other',
+        'toggle',
+        'access',
+        'className'
+      ],
+      'file': [
+        'access',
+        'subtype',
+        'className',
+        'placeholder',
+      ],
+      'hidden': [
+      ],
+      'number': [
+        'value',
+        'access',
+        'className',
+        'placeholder'
+      ],
+      'radio-group': [
+        'other',
+        'toggle',
+        'access',
+        'className'
+      ],
+      'select': [
+        'access',
+        'className',
+        'placeholder'
+      ],
+      'paragraph': [
+        'access',
+        'subtype',
+        'className'
+      ],
+      'textarea': [
+        'name',
+        'value',
+        'access',
+        'subtype',
+        'className',
+        'placeholder'
+      ],
+      'text': [
+        'name',
         'value',
         'access',
         'subtype',

@@ -65,6 +65,8 @@ export class EditTemplatePageComponent implements OnInit {
           scrollToFieldOnAdd: false,
           defaultFields: this._form.form_fields,
           disabledActionButtons: ['data', 'clear', 'save'],
+          typeUserAttrs: this.formBuilderService.handleFieldsTypeAttrs(),
+          typeUserDisabledAttrs: this.formBuilderService.disableFieldAttrs(),
           disableFields: this.formBuilderService.disableDefaultFormControls()
         });
         this._loading = false;

@@ -58,6 +58,8 @@ export class EditSectionPageComponent implements OnInit {
       defaultFields: this.formSection.form_fields,
       disabledActionButtons: ['data', 'clear', 'save'],
       inputSets: this.formBuilderService.generateFormFields(),
+      typeUserAttrs: this.formBuilderService.handleFieldsTypeAttrs(),
+      typeUserDisabledAttrs: this.formBuilderService.disableFieldAttrs(),
       disableFields: this.formBuilderService.disableDefaultFormControls()
     });
   }

@@ -19,6 +19,7 @@ export class ViewFormDetailsPageComponent implements OnInit {
     private fBuilderService: FormBuilderService
   ) {
     this.form = window.history.state.form;
+    console.log('this.name: ' + this.form.name);
     this.resolveReloadDataLoss();
   }
 
