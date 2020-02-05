@@ -789,7 +789,7 @@ module.exports = "<div class=\"container-scroller\">\n  <app-navigation-bar></ap
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<p>add-template-page works!</p>\n<div class=\"container-scroller\">\n  <app-navigation-bar></app-navigation-bar>\n  <div class=\"container-fluid page-body-wrapper\">\n    <app-side-bar></app-side-bar>\n    <div class=\"main-panel\">\n      <div class=\"content-wrapper\">\n\n        <!-- <div class=\"row top\">\n          <div class=\"col-md-12 grid-margin\">\n            <div class=\"d-flex justify-content-between flex-wrap\">\n              <div class=\"d-flex align-items-end flex-wrap\">\n                <div class=\"mr-md-3 mr-xl-5\">\n                  <h2>Setup a template</h2>\n                  <p class=\"mb-md-0\">Design a new form template here, just drag the elements or click to add.</p>\n                </div>\n              </div>\n              <div class=\"d-flex justify-content-between align-items-end flex-wrap\">\n              </div>\n            </div>\n          </div>\n        </div> -->\n        <div class=\"row\">\n          <div class=\"col-md-12 grid-margin\">\n            <div class=\"d-flex justify-content-between flex-wrap\">\n              <div class=\"d-flex align-items-end flex-wrap\">\n                <div class=\"mr-md-3 mr-xl-5\">\n                  <h2>Setup a template</h2>\n                  <p class=\"mb-md-0\">Design a new form template here, just drag the elements or click to add.</p>\n                </div>\n                <div class=\"d-flex\">\n                </div>\n              </div>\n              <div class=\"d-flex justify-content-between align-items-end flex-wrap\">\n              </div>\n            </div>\n          </div>\n        </div>\n\n        <div *ngIf=\"_loading\" class=\"row\">\n          <div class=\"col-md-12\">\n            <div class=\"d-flex justify-content-center pb-5 pt-5\">\n              <div class=\"spinner-border mt-5\" style=\"width: 6rem; height: 6rem;\" role=\"status\">\n                <span class=\"sr-only\">Loading...</span>\n              </div>\n            </div>\n          </div>\n        </div>\n\n        <div [hidden]=\"_loading || created\" class=\"row\">\n          <div class=\"col-md-12 grid-margin stretch-card\">\n            <div class=\"card\" style=\"height: 750px; overflow: scroll;\">\n              <div class=\"card-body\">\n                <p class=\"card-title\">Create New Template</p>\n                <p class=\"text-muted\">\n                  Drag and drop the form elements on your the right onto the panel on the left to create your form.\n                  You can re-arrange the order of the elements you drag onto the left panel by dragging to your desired\n                  position. You can also just click on an element to added for your form.\n                </p>\n\n                <form [formGroup]=\"form\" (ngSubmit)=\"create()\">\n                  <div class=\"row mt-4\">\n                    <div class=\"col-8 offset-2\">\n                      <div class=\"form-group\">\n                        <input type=\"text\" formControlName=\"name\" class=\"form-control\"\n                          placeholder=\"Enter Template Name\"\n                          [ngClass]=\"{'input-control-error': submitted && f.name.errors}\">\n                        <div *ngIf=\"submitted && f.name.errors\">\n                          <p class=\"input-error\" *ngIf=\"f.name.errors.required\">Form name is required</p>\n                        </div>\n                      </div>\n                    </div>\n                  </div>\n\n                  <div class=\"form-builder-container\">\n                    <div id=\"fb-editor\"></div>\n                  </div>\n\n                  <button type=\"submit\" *ngIf=\"!loading\" class=\"btn btn-primary mt-2 mr-1\">Create</button>\n                  <button type=\"button\" *ngIf=\"loading\" class=\"btn btn-primary mr-2\" type=\"button\" disabled>\n                    <span class=\"spinner-border spinner-border-sm\" role=\"status\" aria-hidden=\"true\"></span>&nbsp; &nbsp;\n                    Please wait...\n                  </button>\n                  <button type=\"button\" *ngIf=\"!loading\" class=\"btn btn-primary mt-2 mr-1\" (click)=\"reset()\">Reset</button>\n                </form>\n              </div>\n            </div>\n          </div>\n        </div>\n\n        <div *ngIf=\"created\" class=\"row\">\n          <div class=\"col-md-12 grid-margin\">\n            <div class=\"card pt-5 pb-5 text-center\">\n              <div class=\"card-body\">\n                <p class=\"card-title\">Success</p>\n                <p class=\"text-muted\"></p>\n                <div class=\"card-text\">\n                  <i class=\"mdi mdi-shield-check-outline text-primary\" style=\"font-size: 12em;\"></i>\n                  <h2>1 Template Created</h2>\n                  <h4><strong>{{ formName }}</strong> template has been created and published</h4>\n                  <p class=\"text-muted\">You have succesfully created a a form template</p>\n                </div>\n                <div class=\"card-text mt-4\">\n                  <button type=\"button\" class=\"btn btn-primary btn-lg btn-icon-text mr-2\" (click)=\"createNew()\">\n                    <i class=\"mdi mdi-plus\"></i>\n                    Create New\n                  </button>\n                  <button type=\"button\" class=\"btn btn-primary btn-lg btn-icon-text mr-2\" (click)=\"preview()\">\n                    <i class=\"mdi mdi-eye\"></i>\n                    Preview\n                  </button>\n                </div>\n              </div>\n            </div>\n          </div>\n        </div>\n      </div>\n    </div>\n  </div>\n</div>\n"
+module.exports = "<div class=\"container-scroller\">\n  <app-navigation-bar></app-navigation-bar>\n  <div class=\"container-fluid page-body-wrapper\">\n    <app-side-bar></app-side-bar>\n    <div class=\"main-panel\">\n      <div class=\"content-wrapper\">\n\n        <div class=\"row\">\n          <div class=\"col-md-12 grid-margin\">\n            <div class=\"d-flex justify-content-between flex-wrap\">\n              <div class=\"d-flex align-items-end flex-wrap\">\n                <div class=\"mr-md-3 mr-xl-5\">\n                  <h2>Setup a template</h2>\n                  <p class=\"mb-md-0\">Design a new form template here, just drag the elements or click to add.</p>\n                </div>\n                <div class=\"d-flex\">\n                </div>\n              </div>\n              <div class=\"d-flex justify-content-between align-items-end flex-wrap\">\n              </div>\n            </div>\n          </div>\n        </div>\n\n        <div *ngIf=\"_loading\" class=\"row\">\n          <div class=\"col-md-12\">\n            <div class=\"d-flex justify-content-center pb-5 pt-5\">\n              <div class=\"spinner-border mt-5\" style=\"width: 6rem; height: 6rem;\" role=\"status\">\n                <span class=\"sr-only\">Loading...</span>\n              </div>\n            </div>\n          </div>\n        </div>\n\n        <div [hidden]=\"_loading || created\" class=\"row\">\n          <div class=\"col-md-12 grid-margin stretch-card\">\n            <div class=\"card\" style=\"height: 750px; overflow: scroll;\">\n              <div class=\"card-body\">\n                <p class=\"card-title\">Create New Template</p>\n                <p class=\"text-muted\">\n                  Drag and drop the form elements on your the right onto the panel on the left to create your form.\n                  You can re-arrange the order of the elements you drag onto the left panel by dragging to your desired\n                  position. You can also just click on an element to added for your form.\n                </p>\n\n                <form [formGroup]=\"form\" (ngSubmit)=\"create()\">\n                  <div class=\"row mt-4\">\n                    <div class=\"col-8 offset-2\">\n                      <div class=\"form-group\">\n                        <input type=\"text\" formControlName=\"name\" class=\"form-control\" placeholder=\"Enter Template Name\"\n                          [ngClass]=\"{'input-control-error': submitted && f.name.errors}\">\n                        <div *ngIf=\"submitted && f.name.errors\">\n                          <p class=\"input-error\" *ngIf=\"f.name.errors.required\">Template name is required</p>\n                        </div>\n                      </div>\n                    </div>\n                  </div>\n\n                  <div class=\"form-builder-container\">\n                    <div id=\"fb-editor\"></div>\n                  </div>\n\n                  <button type=\"submit\" *ngIf=\"!loading\" class=\"btn btn-primary mt-2 mr-1\">Create</button>\n                  <button type=\"button\" *ngIf=\"loading\" class=\"btn btn-primary mr-2\" type=\"button\" disabled>\n                    <span class=\"spinner-border spinner-border-sm\" role=\"status\" aria-hidden=\"true\"></span>&nbsp; &nbsp;\n                    Please wait...\n                  </button>\n                  <button type=\"button\" *ngIf=\"!loading\" class=\"btn btn-primary mt-2 mr-1\" (click)=\"reset()\">Reset</button>\n                </form>\n              </div>\n            </div>\n          </div>\n        </div>\n\n        <div *ngIf=\"created\" class=\"row\">\n          <div class=\"col-md-12 grid-margin\">\n            <div class=\"card pt-5 pb-5 text-center\">\n              <div class=\"card-body\">\n                <p class=\"card-title\">Success</p>\n                <p class=\"text-muted\"></p>\n                <div class=\"card-text\">\n                  <i class=\"mdi mdi-shield-check-outline text-primary\" style=\"font-size: 12em;\"></i>\n                  <h2>1 Template Created</h2>\n                  <h4><strong>{{ formName }}</strong> template has been created and published</h4>\n                  <p class=\"text-muted\">You have succesfully created a a form template</p>\n                </div>\n                <div class=\"card-text mt-4\">\n                  <button type=\"button\" class=\"btn btn-primary btn-lg btn-icon-text mr-2\" (click)=\"createNew()\">\n                    <i class=\"mdi mdi-plus\"></i>\n                    Create New\n                  </button>\n                  <button type=\"button\" class=\"btn btn-primary btn-lg btn-icon-text mr-2\" (click)=\"preview()\">\n                    <i class=\"mdi mdi-eye\"></i>\n                    Preview\n                  </button>\n                </div>\n              </div>\n            </div>\n          </div>\n        </div>\n      </div>\n    </div>\n  </div>\n</div>\n"
 
 /***/ }),
 
@@ -800,7 +800,7 @@ module.exports = "<p>add-template-page works!</p>\n<div class=\"container-scroll
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<div class=\"container-scroller\">\n  <app-navigation-bar></app-navigation-bar>\n  <div class=\"container-fluid page-body-wrapper\">\n    <app-side-bar></app-side-bar>\n    <div class=\"main-panel\">\n      <div class=\"content-wrapper\">\n\n        <div class=\"row\">\n          <div class=\"col-md-12 grid-margin\">\n            <div class=\"d-flex justify-content-between flex-wrap\">\n              <div class=\"d-flex align-items-end flex-wrap\">\n                <div class=\"mr-md-3 mr-xl-5\">\n                  <h2>Edit a form template</h2>\n                  <p class=\"mb-md-0\">Edit a form template here, just drag and drop the elements or click to add.</p>\n                </div>\n                <div class=\"d-flex\">\n                </div>\n              </div>\n              <div class=\"d-flex justify-content-between align-items-end flex-wrap\">\n              </div>\n            </div>\n          </div>\n        </div>\n\n        <div *ngIf=\"_loading\" class=\"row\">\n          <div class=\"col-md-12\">\n            <div class=\"d-flex justify-content-center pb-5 pt-5\">\n              <div class=\"spinner-border mt-5\" style=\"width: 6rem; height: 6rem;\" role=\"status\">\n                <span class=\"sr-only\">Loading...</span>\n              </div>\n            </div>\n          </div>\n        </div>\n\n        <div [hidden]=\"_loading || created\" class=\"row\">\n          <div class=\"col-md-12 grid-margin stretch-card\">\n            <div class=\"card\" style=\"height: 750px; overflow: scroll;\">\n              <div class=\"card-body\">\n                <p class=\"card-title\">Edit Form Template</p>\n                <p class=\"text-muted\">\n                  Drag and drop the form elements on your the right onto the panel on the left to create your form.\n                  You can re-arrange the order of the elements you drag onto the left panel by dragging to your desired\n                  position. You can also just click on an element to added for your form.\n                </p>\n\n                <form [formGroup]=\"form\">\n                  <div class=\"row mt-4\">\n                    <div class=\"col-8\">\n                      <div class=\"form-group\">\n                        <input type=\"text\" formControlName=\"name\" class=\"form-control\"\n                          placeholder=\"Whats the name of your form ?\"\n                          [ngClass]=\"{'input-control-error': submitted && f.name.errors}\">\n                        <div *ngIf=\"submitted && f.name.errors\">\n                          <p class=\"input-error\" *ngIf=\"f.name.errors.required\">Form name is required</p>\n                        </div>\n                      </div>\n                    </div>\n                    <div class=\"col-4\">\n                    </div>\n                  </div>\n\n                  <div class=\"form-builder-container\">\n                    <div id=\"fb-editor\"></div>\n                  </div>\n\n                  <button type=\"submit\" *ngIf=\"!loading\" class=\"btn btn-primary mt-2 mr-1\" (click)=\"edit()\">Update</button>\n                  <button type=\"button\" *ngIf=\"loading\" class=\"btn btn-primary mr-2\" type=\"button\" disabled>\n                    <span class=\"spinner-border spinner-border-sm\" role=\"status\" aria-hidden=\"true\"></span>&nbsp; &nbsp;\n                    Please wait...\n                  </button>\n                  <button type=\"button\" *ngIf=\"!loading\" class=\"btn btn-primary mt-2 mr-1\" (click)=\"reset()\">Reset</button>\n                </form>\n              </div>\n            </div>\n          </div>\n        </div>\n\n        <div *ngIf=\"created\" class=\"row\">\n          <div class=\"col-md-12 grid-margin\">\n            <div class=\"card pt-5 pb-5 text-center\">\n              <div class=\"card-body\">\n                <p class=\"card-title\">Success</p>\n                <p class=\"text-muted\"></p>\n                <div class=\"card-text\">\n                  <i class=\"mdi mdi-shield-check-outline text-primary\" style=\"font-size: 12em;\"></i>\n                  <h2>1 Template Updated</h2>\n                  <h4>{{ formName }} template edited</h4>\n                  <p class=\"text-muted\">You have succesfully edited a template</p>\n                </div>\n                <div class=\"card-text mt-4\">\n                  <button type=\"button\" class=\"btn btn-primary btn-lg btn-icon-text mr-2\" (click)=\"bringBackForm()\">\n                    <i class=\"mdi mdi-plus\"></i>\n                    Create New\n                  </button>\n                  <button type=\"button\" class=\"btn btn-primary btn-lg btn-icon-text mr-2\" (click)=\"preview()\">\n                    <i class=\"mdi mdi-eye\"></i>\n                    Preview\n                  </button>\n                </div>\n              </div>\n            </div>\n          </div>\n        </div>\n      </div>\n    </div>\n  </div>\n</div>"
+module.exports = "<div class=\"container-scroller\">\n  <app-navigation-bar></app-navigation-bar>\n  <div class=\"container-fluid page-body-wrapper\">\n    <app-side-bar></app-side-bar>\n    <div class=\"main-panel\">\n      <div class=\"content-wrapper\">\n\n        <div class=\"row\">\n          <div class=\"col-md-12 grid-margin\">\n            <div class=\"d-flex justify-content-between flex-wrap\">\n              <div class=\"d-flex align-items-end flex-wrap\">\n                <div class=\"mr-md-3 mr-xl-5\">\n                  <h2>Edit template - {{ _form.name }}</h2>\n                  <p class=\"mb-md-0\">Edit a form template here, just drag and drop the elements or click to add.</p>\n                </div>\n                <div class=\"d-flex\">\n                </div>\n              </div>\n              <div class=\"d-flex justify-content-between align-items-end flex-wrap\">\n              </div>\n            </div>\n          </div>\n        </div>\n\n        <div *ngIf=\"_loading\" class=\"row\">\n          <div class=\"col-md-12\">\n            <div class=\"d-flex justify-content-center pb-5 pt-5\">\n              <div class=\"spinner-border mt-5\" style=\"width: 6rem; height: 6rem;\" role=\"status\">\n                <span class=\"sr-only\">Loading...</span>\n              </div>\n            </div>\n          </div>\n        </div>\n\n        <div [hidden]=\"_loading || created\" class=\"row\">\n          <div class=\"col-md-12 grid-margin stretch-card\">\n            <div class=\"card\" style=\"height: 750px; overflow: scroll;\">\n              <div class=\"card-body\">\n                <p class=\"card-title\">Edit Form template</p>\n                <p class=\"text-muted\">\n                  Drag and drop the form elements on your the right onto the panel on the left to create your form.\n                  You can re-arrange the order of the elements you drag onto the left panel by dragging to your desired\n                  position. You can also just click on an element to added for your form.\n                </p>\n\n                <form [formGroup]=\"form\">\n                  <div class=\"row mt-4\">\n                    <div class=\"col-8\">\n                      <div class=\"form-group\">\n                        <label class=\"label\">Enter Template Name</label>\n                        <input type=\"text\" formControlName=\"name\" class=\"form-control\" placeholder=\"Enter Template Name\"\n                          [ngClass]=\"{'input-control-error': submitted && f.name.errors}\">\n                        <div *ngIf=\"submitted && f.name.errors\">\n                          <p class=\"input-error\" *ngIf=\"f.name.errors.required\">Template name is required</p>\n                        </div>\n                      </div>\n                    </div>\n                    <div class=\"col-4\">\n                    </div>\n                  </div>\n\n                  <div class=\"form-builder-container\">\n                    <div id=\"fb-editor\"></div>\n                  </div>\n\n                  <button type=\"submit\" *ngIf=\"!loading\" class=\"btn btn-primary mt-2 mr-1\" (click)=\"edit()\">Update</button>\n                  <button type=\"button\" *ngIf=\"loading\" class=\"btn btn-primary mr-2\" type=\"button\" disabled>\n                    <span class=\"spinner-border spinner-border-sm\" role=\"status\" aria-hidden=\"true\"></span>&nbsp; &nbsp;\n                    Please wait...\n                  </button>\n                  <button type=\"button\" *ngIf=\"!loading\" class=\"btn btn-primary mt-2 mr-1\" (click)=\"reset()\">Reset</button>\n                </form>\n              </div>\n            </div>\n          </div>\n        </div>\n\n        <div *ngIf=\"created\" class=\"row\">\n          <div class=\"col-md-12 grid-margin\">\n            <div class=\"card pt-5 pb-5 text-center\">\n              <div class=\"card-body\">\n                <p class=\"card-title\">Success</p>\n                <p class=\"text-muted\"></p>\n                <div class=\"card-text\">\n                  <i class=\"mdi mdi-shield-check-outline text-primary\" style=\"font-size: 12em;\"></i>\n                  <h2>1 Template Updated</h2>\n                  <h4>{{ formName }} template edited</h4>\n                  <p class=\"text-muted\">You have succesfully edited a template</p>\n                </div>\n                <div class=\"card-text mt-4\">\n                  <button type=\"button\" class=\"btn btn-primary btn-lg btn-icon-text mr-2\" (click)=\"bringBackForm()\">\n                    <i class=\"mdi mdi-plus\"></i>\n                    Create New\n                  </button>\n                  <button type=\"button\" class=\"btn btn-primary btn-lg btn-icon-text mr-2\" (click)=\"preview()\">\n                    <i class=\"mdi mdi-eye\"></i>\n                    Preview\n                  </button>\n                </div>\n              </div>\n            </div>\n          </div>\n        </div>\n      </div>\n    </div>\n  </div>\n</div>"
 
 /***/ }),
 
@@ -3753,6 +3753,8 @@ let AdminCreateFormPageComponent = class AdminCreateFormPageComponent {
                     inputSets: form_elements,
                     scrollToFieldOnAdd: false,
                     disabledActionButtons: ['data', 'clear', 'save'],
+                    typeUserAttrs: this.formBuilderService.handleFieldsTypeAttrs(),
+                    typeUserDisabledAttrs: this.formBuilderService.disableFieldAttrs(),
                     disableFields: this.formBuilderService.disableDefaultFormControls()
                 });
                 this._loading = false;
@@ -3770,6 +3772,8 @@ let AdminCreateFormPageComponent = class AdminCreateFormPageComponent {
                     scrollToFieldOnAdd: false,
                     defaultFields: this.template.form_fields,
                     disabledActionButtons: ['data', 'clear', 'save'],
+                    typeUserAttrs: this.formBuilderService.handleFieldsTypeAttrs(),
+                    typeUserDisabledAttrs: this.formBuilderService.disableFieldAttrs(),
                     disableFields: this.formBuilderService.disableDefaultFormControls()
                 });
                 this._loading = false;
@@ -4197,6 +4201,8 @@ let AdminFormEditPageComponent = class AdminFormEditPageComponent {
                 scrollToFieldOnAdd: false,
                 defaultFields: this._form.form_fields,
                 disabledActionButtons: ['data', 'clear', 'save'],
+                typeUserAttrs: this.formBuilderService.handleFieldsTypeAttrs(),
+                typeUserDisabledAttrs: this.formBuilderService.disableFieldAttrs(),
                 disableFields: this.formBuilderService.disableDefaultFormControls()
             });
             this._loading = false;
@@ -9133,6 +9139,8 @@ let AddTemplatePageComponent = class AddTemplatePageComponent {
                 inputSets: form_elements,
                 scrollToFieldOnAdd: false,
                 disabledActionButtons: ['data', 'clear', 'save'],
+                typeUserAttrs: this.formBuilderService.handleFieldsTypeAttrs(),
+                typeUserDisabledAttrs: this.formBuilderService.disableFieldAttrs(),
                 disableFields: this.formBuilderService.disableDefaultFormControls()
             });
             this._loading = false;
@@ -9226,7 +9234,7 @@ AddTemplatePageComponent = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IiIsImZpbGUiOiJzcmMvYXBwL3BhZ2VzL2Rhc2hib2FyZC9mb3JtLXRlbXBsYXRlcy9lZGl0LXRlbXBsYXRlLXBhZ2UvZWRpdC10ZW1wbGF0ZS1wYWdlLmNvbXBvbmVudC5jc3MifQ== */"
+module.exports = ".label {\n    text-transform: uppercase;\n    font-weight: 600;\n    font-size: 12px;\n}\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInNyYy9hcHAvcGFnZXMvZGFzaGJvYXJkL2Zvcm0tdGVtcGxhdGVzL2VkaXQtdGVtcGxhdGUtcGFnZS9lZGl0LXRlbXBsYXRlLXBhZ2UuY29tcG9uZW50LmNzcyJdLCJuYW1lcyI6W10sIm1hcHBpbmdzIjoiQUFBQTtJQUNJLHlCQUF5QjtJQUN6QixnQkFBZ0I7SUFDaEIsZUFBZTtBQUNuQiIsImZpbGUiOiJzcmMvYXBwL3BhZ2VzL2Rhc2hib2FyZC9mb3JtLXRlbXBsYXRlcy9lZGl0LXRlbXBsYXRlLXBhZ2UvZWRpdC10ZW1wbGF0ZS1wYWdlLmNvbXBvbmVudC5jc3MiLCJzb3VyY2VzQ29udGVudCI6WyIubGFiZWwge1xuICAgIHRleHQtdHJhbnNmb3JtOiB1cHBlcmNhc2U7XG4gICAgZm9udC13ZWlnaHQ6IDYwMDtcbiAgICBmb250LXNpemU6IDEycHg7XG59Il19 */"
 
 /***/ }),
 
@@ -9293,6 +9301,8 @@ let EditTemplatePageComponent = class EditTemplatePageComponent {
                 scrollToFieldOnAdd: false,
                 defaultFields: this._form.form_fields,
                 disabledActionButtons: ['data', 'clear', 'save'],
+                typeUserAttrs: this.formBuilderService.handleFieldsTypeAttrs(),
+                typeUserDisabledAttrs: this.formBuilderService.disableFieldAttrs(),
                 disableFields: this.formBuilderService.disableDefaultFormControls()
             });
             this._loading = false;
@@ -12738,6 +12748,8 @@ let CreateFormPageComponent = class CreateFormPageComponent {
                     inputSets: form_elements,
                     scrollToFieldOnAdd: false,
                     disabledActionButtons: ['data', 'clear', 'save'],
+                    typeUserAttrs: this.formBuilderService.handleFieldsTypeAttrs(),
+                    typeUserDisabledAttrs: this.formBuilderService.disableFieldAttrs(),
                     disableFields: this.formBuilderService.disableDefaultFormControls()
                 });
                 this._loading = false;
@@ -12755,6 +12767,8 @@ let CreateFormPageComponent = class CreateFormPageComponent {
                     scrollToFieldOnAdd: false,
                     defaultFields: this.template.form_fields,
                     disabledActionButtons: ['data', 'clear', 'save'],
+                    typeUserAttrs: this.formBuilderService.handleFieldsTypeAttrs(),
+                    typeUserDisabledAttrs: this.formBuilderService.disableFieldAttrs(),
                     disableFields: this.formBuilderService.disableDefaultFormControls()
                 });
                 this._loading = false;
@@ -12919,7 +12933,8 @@ let CreateFormPageComponent = class CreateFormPageComponent {
         }
     }
     preview() {
-        this.router.navigateByUrl('/git_admin/details/form', { state: { form: this.getForm() } });
+        const form_data = { name: this.f.name.value, form_fields: this.getForm() };
+        this.router.navigateByUrl('/git_admin/details/form', { state: { form: form_data } });
     }
     bringBackForm() {
         this.reset();
@@ -13015,6 +13030,8 @@ let CreateSectionPageComponent = class CreateSectionPageComponent {
             scrollToFieldOnAdd: false,
             disabledActionButtons: ['data', 'clear', 'save'],
             inputSets: this.formBuilderService.generateFormFields(),
+            typeUserAttrs: this.formBuilderService.handleFieldsTypeAttrs(),
+            typeUserDisabledAttrs: this.formBuilderService.disableFieldAttrs(),
             disableFields: this.formBuilderService.disableDefaultFormControls()
         });
     }
@@ -13067,7 +13084,8 @@ let CreateSectionPageComponent = class CreateSectionPageComponent {
         }
     }
     preview() {
-        this.router.navigateByUrl('/git_admin/details/section', { state: { form: this.getForm() } });
+        const form_data = { heading: this.f.heading.value, form_fields: this.getForm() };
+        this.router.navigateByUrl('/git_admin/details/section', { state: { form: form_data } });
     }
     createNew() {
         this.reset();
@@ -14409,6 +14427,8 @@ let EditSectionPageComponent = class EditSectionPageComponent {
             defaultFields: this.formSection.form_fields,
             disabledActionButtons: ['data', 'clear', 'save'],
             inputSets: this.formBuilderService.generateFormFields(),
+            typeUserAttrs: this.formBuilderService.handleFieldsTypeAttrs(),
+            typeUserDisabledAttrs: this.formBuilderService.disableFieldAttrs(),
             disableFields: this.formBuilderService.disableDefaultFormControls()
         });
     }
@@ -16699,6 +16719,7 @@ let ViewFormDetailsPageComponent = class ViewFormDetailsPageComponent {
         this.router = router;
         this.fBuilderService = fBuilderService;
         this.form = window.history.state.form;
+        console.log('this.name: ' + this.form.name);
         this.resolveReloadDataLoss();
     }
     /**
@@ -21552,6 +21573,77 @@ let FormBuilderService = class FormBuilderService {
                 'placeholder'
             ],
             'text': [
+                'value',
+                'access',
+                'subtype',
+                'className',
+                'placeholder'
+            ]
+        };
+    }
+    disableAllFieldAttrs() {
+        return {
+            'header': [
+                'access',
+                'className'
+            ],
+            'autocomplete': [
+                'access',
+                'className',
+                'placeholder',
+            ],
+            'button': [
+                'style',
+                'value',
+                'access',
+                'subtype',
+                'className'
+            ],
+            'checkbox-group': [
+                'other',
+                'toggle',
+                'access',
+                'className'
+            ],
+            'file': [
+                'access',
+                'subtype',
+                'className',
+                'placeholder',
+            ],
+            'hidden': [],
+            'number': [
+                'value',
+                'access',
+                'className',
+                'placeholder'
+            ],
+            'radio-group': [
+                'other',
+                'toggle',
+                'access',
+                'className'
+            ],
+            'select': [
+                'access',
+                'className',
+                'placeholder'
+            ],
+            'paragraph': [
+                'access',
+                'subtype',
+                'className'
+            ],
+            'textarea': [
+                'name',
+                'value',
+                'access',
+                'subtype',
+                'className',
+                'placeholder'
+            ],
+            'text': [
+                'name',
                 'value',
                 'access',
                 'subtype',
