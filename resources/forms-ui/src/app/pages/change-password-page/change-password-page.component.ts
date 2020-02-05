@@ -50,7 +50,7 @@ export class ChangePasswordPageComponent implements OnInit {
   showLoginSuccessAlert() {
     Swal.fire({
       title: 'Login Successful',
-      text: 'Your first time login was successful, please setup an new password to protected your account.',
+      text: 'Your first time login was successful, please setup a new password to protect your account.',
       icon: 'success',
       confirmButtonText: 'Okay',
       allowOutsideClick: false,

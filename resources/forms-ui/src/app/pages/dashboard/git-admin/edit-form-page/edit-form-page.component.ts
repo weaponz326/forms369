@@ -92,8 +92,10 @@ export class EditFormPageComponent implements OnInit {
           controlPosition: 'left',
           inputSets: form_elements,
           scrollToFieldOnAdd: false,
-          disabledActionButtons: ['data', 'clear', 'save'],
           defaultFields: this._form.form_fields,
+          disabledActionButtons: ['data', 'clear', 'save'],
+          typeUserAttrs: this.formBuilderService.handleFieldsTypeAttrs(),
+          typeUserDisabledAttrs: this.formBuilderService.disableFieldAttrs(),
           disableFields: this.formBuilderService.disableDefaultFormControls()
         });
         this._loading = false;

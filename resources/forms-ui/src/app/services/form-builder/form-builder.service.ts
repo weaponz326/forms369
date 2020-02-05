@@ -11,11 +11,17 @@ import { SectionsService } from '../sections/sections.service';
 export class FormBuilderService {
 
   headers: HttpHeaders;
+  disableClassName: any;
   private formFieldClassName: string;
 
   constructor(private http: HttpClient, private endpointService: EndpointService, private sectionService: SectionsService) {
     this.headers = this.endpointService.headers();
     this.formFieldClassName = 'form-control';
+    this.disableClassName = {
+      className: {
+          style: 'pointer-events: none'
+        }
+    };
   }
 
   disableDefaultFormControls() {
@@ -25,6 +31,89 @@ export class FormBuilderService {
       'hidden',
       'number',
     ];
+  }
+
+  handleFieldsTypeAttrs() {
+    return {
+      text: this.disableClassName,
+      file: this.disableClassName,
+      button: this.disableClassName,
+      hidden: this.disableClassName,
+      number: this.disableClassName,
+      textarea: this.disableClassName,
+      autocomplete: this.disableClassName,
+    };
+  }
+
+  disableFieldAttrs() {
+    return {
+      'header': [
+        'access',
+        'className'
+      ],
+      'autocomplete': [
+        'access',
+        'className',
+        'placeholder',
+      ],
+      'button': [
+        'style',
+        'value',
+        'access',
+        'subtype',
+        'className'
+      ],
+      'checkbox-group': [
+        'other',
+        'toggle',
+        'access',
+        'className'
+      ],
+      'file': [
+        'access',
+        'subtype',
+        'className',
+        'placeholder',
+      ],
+      'hidden': [
+      ],
+      'number': [
+        'value',
+        'access',
+        'className',
+        'placeholder'
+      ],
+      'radio-group': [
+        'other',
+        'toggle',
+        'access',
+        'className'
+      ],
+      'select': [
+        'access',
+        'className',
+        'placeholder'
+      ],
+      'paragraph': [
+        'access',
+        'subtype',
+        'className'
+      ],
+      'textarea': [
+        'value',
+        'access',
+        'subtype',
+        'className',
+        'placeholder'
+      ],
+      'text': [
+        'value',
+        'access',
+        'subtype',
+        'className',
+        'placeholder'
+      ]
+    };
   }
 
   disableSectionFormFields() {
