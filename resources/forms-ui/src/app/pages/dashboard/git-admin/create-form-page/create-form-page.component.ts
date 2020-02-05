@@ -53,6 +53,8 @@ export class CreateFormPageComponent implements OnInit {
             inputSets: form_elements,
             scrollToFieldOnAdd: false,
             disabledActionButtons: ['data', 'clear', 'save'],
+            typeUserAttrs: this.formBuilderService.handleFieldsTypeAttrs(),
+          typeUserDisabledAttrs: this.formBuilderService.disableFieldAttrs(),
             disableFields: this.formBuilderService.disableDefaultFormControls()
           });
           this._loading = false;
@@ -73,6 +75,8 @@ export class CreateFormPageComponent implements OnInit {
             scrollToFieldOnAdd: false,
             defaultFields: this.template.form_fields,
             disabledActionButtons: ['data', 'clear', 'save'],
+            typeUserAttrs: this.formBuilderService.handleFieldsTypeAttrs(),
+            typeUserDisabledAttrs: this.formBuilderService.disableFieldAttrs(),
             disableFields: this.formBuilderService.disableDefaultFormControls()
           });
 
@@ -271,7 +275,8 @@ export class CreateFormPageComponent implements OnInit {
   }
 
   preview() {
-    this.router.navigateByUrl('/git_admin/details/form', { state: { form: this.getForm() }});
+    const form_data = { name: this.f.name.value, form_fields: this.getForm() };
+    this.router.navigateByUrl('/git_admin/details/form', { state: { form: form_data }});
   }
 
   bringBackForm() {

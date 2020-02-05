@@ -4,12 +4,12 @@ import * as _ from 'lodash';
 import { Router } from '@angular/router';
 import { Users } from 'src/app/models/users.model';
 import { NgbModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
+import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { ClientService } from 'src/app/services/client/client.service';
 import { EndpointService } from 'src/app/services/endpoint/endpoint.service';
 import { FrontDeskService } from 'src/app/services/front-desk/front-desk.service';
 import { DownloaderService } from 'src/app/services/downloader/downloader.service';
 import { LocalStorageService } from 'src/app/services/storage/local-storage.service';
-import { FormBuilderService } from 'src/app/services/form-builder/form-builder.service';
 
 @Component({
   selector: 'app-front-desk-view-form-page',
@@ -24,13 +24,16 @@ export class FrontDeskViewFormPageComponent implements OnInit {
   action: string;
   formName: string;
   loading: boolean;
+  isLoading: boolean;
   formInstance: any;
   formRenderer: any;
   hasError: boolean;
   rejected: boolean;
   completed: boolean;
   submitted: boolean;
+  _submitted: boolean;
   documentUrl: string;
+  noteForm: FormGroup;
   isProcessed: boolean;
   isProcessing: boolean;
   lastProcessed: string;
@@ -41,14 +44,15 @@ export class FrontDeskViewFormPageComponent implements OnInit {
   attachmentKeys: Array<string>;
   existingAttachments: Array<any>;
   @ViewChild('confirm', { static: false }) confirmDialog: TemplateRef<any>;
+  @ViewChild('rejectNote', { static: false }) rejectNoteModal: TemplateRef<any>;
   @ViewChild('viewImgAttachment', { static: false }) viewImgDialog: TemplateRef<any>;
   @ViewChild('viewDocAttachment', { static: false }) viewDocDialog: TemplateRef<any>;
 
   constructor(
     private router: Router,
+    private fb: FormBuilder,
     private modalService: NgbModal,
     private clientService: ClientService,
-    private formBuilder: FormBuilderService,
     private endpointService: EndpointService,
     private localStorage: LocalStorageService,
     private downloadService: DownloaderService,
@@ -81,7 +85,18 @@ export class FrontDeskViewFormPageComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.initNoteForm();
     this.renderForm();
+  }
+
+  public get f() {
+    return this.noteForm.controls;
+  }
+
+  initNoteForm() {
+    this.noteForm = this.fb.group({
+      rejectionNote: ['', Validators.required]
+    });
   }
 
   ok() {
@@ -190,10 +205,6 @@ export class FrontDeskViewFormPageComponent implements OnInit {
       result => {
         if (result == 'yes') {
           this.loading = true;
-          // this.submit().then(
-          //   ok => {
-          //     if (ok) {
-          //       console.log('submit done');
           this.frontDeskService.completeForm(this.form.submission_code, this.form.client_submitted_details).then(
             res => {
               const response = res as any;
@@ -265,25 +276,8 @@ export class FrontDeskViewFormPageComponent implements OnInit {
     this.modalService.open(this.confirmDialog, { centered: true }).result.then(
       result => {
         if (result == 'yes') {
-          this.loading = true;
-          this.frontDeskService.rejectForm(this.form.submission_code, this.form.client_submitted_details).then(
-            res => {
-              const response = res as any;
-              if (_.toLower(response.message) == 'ok') {
-                this.loading = false;
-                this.rejected = true;
-              }
-              else {
-                this.loading = false;
-                this.rejected = false;
-              }
-            },
-            err => {
-              this.loading = false;
-              this.hasError = true;
-              this.rejected = false;
-            }
-          );
+          this.modalService.dismissAll();
+          this.handleRejectionNote();
         }
         else {
           this.hasError = true;
@@ -292,6 +286,40 @@ export class FrontDeskViewFormPageComponent implements OnInit {
           console.log('submit failed');
         }
       });
+  }
+
+  rejectForm() {
+    this._submitted = true;
+    if (this.noteForm.valid) {
+      this.isLoading = true;
+      console.log('subm: ' + this._submitted);
+      this.frontDeskService.rejectForm(this.form.submission_code, this.form.client_submitted_details).then(
+        res => {
+          const response = res as any;
+          console.log('response: ' + response.message);
+          if (_.toLower(response.message) == 'ok') {
+            this.isLoading = false;
+            this.modalService.dismissAll();
+            this.rejected = true;
+          }
+          else {
+            this.isLoading = false;
+            this.modalService.dismissAll();
+            this.rejected = false;
+          }
+        },
+        err => {
+          this.isLoading = false;
+          this.modalService.dismissAll();
+          this.hasError = true;
+          this.rejected = false;
+        }
+      );
+    }
+  }
+
+  handleRejectionNote() {
+    this.modalService.open(this.rejectNoteModal, { centered: true });
   }
 
   downloadDoc(url: string) {

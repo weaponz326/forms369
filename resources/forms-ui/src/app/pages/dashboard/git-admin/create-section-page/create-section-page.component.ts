@@ -38,6 +38,8 @@ export class CreateSectionPageComponent implements OnInit {
       scrollToFieldOnAdd: false,
       disabledActionButtons: ['data', 'clear', 'save'],
       inputSets: this.formBuilderService.generateFormFields(),
+      typeUserAttrs: this.formBuilderService.handleFieldsTypeAttrs(),
+      typeUserDisabledAttrs: this.formBuilderService.disableFieldAttrs(),
       disableFields: this.formBuilderService.disableDefaultFormControls()
     });
   }
@@ -101,7 +103,8 @@ export class CreateSectionPageComponent implements OnInit {
   }
 
   preview() {
-    this.router.navigateByUrl('/git_admin/details/section', { state: { form: this.getForm() } });
+    const form_data = { heading: this.f.heading.value, form_fields: this.getForm() };
+    this.router.navigateByUrl('/git_admin/details/section', { state: { form: form_data } });
   }
 
   createNew() {

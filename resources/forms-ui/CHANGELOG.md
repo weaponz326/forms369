@@ -41,3 +41,7 @@
     6. Fixed UI issues in company admin.
     7. Now admins know what form they are editing, form name added and label added for form fields as well.
     8. Pin code is now required on client profile screen.
+    9. Front desk can view forms can now be processed. All the button are now available.
+    9. Rejection notes added to front desk. Now they can provide a reason for rejecting a form.
+    10. Form builder now hides some of the field properties.
+    11. All preview forms now displays the name of the form being previewed
