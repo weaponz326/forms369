@@ -431,6 +431,20 @@ class HomeController extends Controller
     }
 
     /**
+    * getMerchantbyName search for a merchant based on a search term
+    *
+    * @param  mixed $request
+    * @param  mixed search term
+    *
+    * @return void\Illuminate\Http\Response all merchants matching the search term
+    **/
+    protected function getMerchantbyName(Request $request, $term)
+    {
+        $message = (new SetupController)->getMerchantbyName($request, $term);
+        return $message;
+    }
+
+    /**
     * Business logics 
      * uploadPrintFile Upload original form document for printing
      *
@@ -941,7 +955,7 @@ class HomeController extends Controller
      */
     protected function getFormbyName(Request $request, $term)
     {
-        $message = (new FormsController)->getFormbyNameorMerchant($request, $term);
+        $message = (new FormsController)->getFormbyName($request, $term);
         return $message;
 
     }

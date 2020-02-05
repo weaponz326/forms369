@@ -1483,6 +1483,48 @@ class SetupController extends Controller
     }
 
     
+    /**
+     * getMerchantbyName search for a merchant based on a search term
+     *
+     * @param  mixed $request
+     * @param  mixed search term
+     *
+     * @return void\Illuminate\Http\Response all merchants matching the search term
+     */
+    public function getMerchantbyName(Request $request, $term){
+
+        //get all registered companies 
+         //get all registered companies
+         $getmerchants = DB::table('merchants')
+         ->select('merchants.*')
+        ->where([
+            ['merchants.temp', 'like', '%'.$term .'%'],
+            ['merchants.status','=',1]
+        ])
+        ->get();
+      
+        //clean data
+        $merchantsdata = [];
+        $getmerchants->transform(function($items, $key){
+            $merchantsdata['id'] = $items->id;
+            $merchantsdata['merchant_name'] = Crypt::decryptString($items->merchant_name);
+            $merchantsdata['status'] = $items->status;
+            $merchantsdata['country'] = $items->country;
+            $merchantsdata['logo'] = $items->logo;
+            $merchantsdata['small_logo'] = $items->small_logo;
+            $merchantsdata['can_print'] = $items->can_print;
+            $merchantsdata['created_by'] = $items->created_by;
+            $merchantsdata['created_at'] = $items->created_at;
+            $merchantsdata['updated_at'] = $items->updated_at;
+            return $merchantsdata;
+         });
+
+         $response = [
+            'merchants' => $getmerchants
+        ];
+        return response()->json($response, 200);
+
+    }
 
 
 }

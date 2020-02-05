@@ -106,6 +106,9 @@ Route::group(['middleware' => ['auth:api'], 'prefix' => 'v1'], function(){
     Route::get('getNumMerchants', 'HomeController@getNumMerchants')->name('getNumMerchants')->middleware('scope:GIT_Admin');
     Route::get('getNumActiveMerchants', 'HomeController@getNumActiveMerchants')->name('getNumActiveMerchants')->middleware('scope:GIT_Admin');
     Route::get('getNumInactiveMerchants', 'HomeController@getNumInactiveMerchants')->name('getNumInactiveMerchants')->middleware('scope:GIT_Admin');
+    //get all merchants matching a search term
+    Route::get('getMerchantbyName/{term}', 'HomeController@getMerchantbyName')->name('getMerchantbyName')->middleware('scope:GIT_Admin,client');
+    
    
     //enabling and disabling merchants and branches apis
     Route::post('disableMerchant/{id}', 'HomeController@disableMerchant')->name('disableMerchant')->middleware('scope:GIT_Admin');
