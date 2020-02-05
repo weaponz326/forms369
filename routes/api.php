@@ -232,7 +232,8 @@ Route::group(['middleware' => ['auth:api'], 'prefix' => 'v1'], function(){
   Route::get('getAllTemplates', 'HomeController@getAllTemplates')->name('getAllTemplates')->middleware('scope:GIT_Admin,company_admin,branch_admin');                                     
   Route::post('deleteTemplate/{id}', 'HomeController@deleteTemplate')->name('deleteTemplate')->middleware('scope:GIT_Admin');                                     
   //search template by name api
-  Route::get('searchTemplateByName/{term}', 'HomeController@searchTemplateByName')->name('searchTemplateByName')->middleware('scope:GIT_Admin,company_admin,branch_admin');                                     
+  Route::get('searchTemplateByNameOrCategory/{term}', 'HomeController@searchTemplateByNameOrCategory')->name('searchTemplateByNameOrCategory')->middleware('scope:GIT_Admin,company_admin,branch_admin');
+  Route::get('getAllTemplatesbyCategory/{id}', 'HomeController@getAllTemplatesbyCategory')->name('getAllTemplatesbyCategory')->middleware('scope:GIT_Admin,company_admin,branch_admin');                                     
 
 
   //access code creation and checks apis 
@@ -255,6 +256,12 @@ Route::group(['middleware' => ['auth:api'], 'prefix' => 'v1'], function(){
   Route::get('getMerchantsForDropdown', 'HomeController@getMerchantsForDropdown')->name('getMerchantsForDropdown')->middleware('scope:GIT_Admin,company_admin');
   Route::get('getAllBranchesForDropdown', 'HomeController@getAllBranchesForDropdown')->name('getAllBranchesForDropdown')->middleware('scope:GIT_Admin,company_admin');
   Route::get('getAllUsersByTypeForDropdown/{type_id}', 'HomeController@getAllUsersByTypeForDropdown')->name('getAllUsersByTypeForDropdown')->middleware('scope:GIT_Admin,company_admin,branch_admin');
+
+  //template category
+  Route::post('createTemplateCategory', 'HomeController@createTemplateCategory')->name('createTemplateCategory')->middleware('scope:GIT_Admin');
+  Route::get('getAllTemplateCategories', 'HomeController@getAllTemplateCategories')->name('getAllTemplateCategories')->middleware('scope:GIT_Admin,company_admin,branch_admin');
+
+  
 
 });
  

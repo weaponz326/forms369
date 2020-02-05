@@ -680,7 +680,7 @@ class SetupController extends Controller
      */
     public function getAllUserTypes(Request $request){
 
-        //get all registered companies 
+        //get all usertypes
         $getusertypes = DB::table('user_types')->where('deleted_at', null)->get();
 
          $response = [

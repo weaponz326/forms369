@@ -23,13 +23,15 @@ class TemplatesController extends Controller
     {
 
         $this->validate($request, [
-            'form_fields' => 'required'
+            'form_fields' => 'required',
+            'category_id' => 'required'
         ]); 
        
 
         //request all data on submit
         $formfields = Crypt::encryptString(json_encode($request->form_fields));
         $name = Crypt::encryptString($request->name);
+        $category_id = $request->category_id;
 
         $created_at = now();
 
@@ -45,7 +47,8 @@ class TemplatesController extends Controller
                     'form_fields' => $formfields,
                     'created_by' => $userid, 
                     'created_at' => $created_at,
-                    'temps' => $request->name
+                    'temps' => $request->name,
+                    'category_id' => $category_id
                 ]
             );
 
@@ -74,13 +77,15 @@ class TemplatesController extends Controller
     {
 
         $this->validate($request, [
-            'form_fields' => 'required'
+            'form_fields' => 'required',
+            'category_id' => 'required'
         ]); 
        
 
         //request all data on submit
         $formfields = Crypt::encryptString(json_encode($request->form_fields));
         $name = Crypt::encryptString($request->name);
+        $category_id = $request->category_id;
 
         $updated_at = now();
 
@@ -98,7 +103,8 @@ class TemplatesController extends Controller
                     'form_fields' => $formfields,
                     'updated_by' => $userid, 
                     'updated_at' => $updated_at,
-                    'temps' => $request->name
+                    'temps' => $request->name,
+                    'category_id' => $category_id
                 ]
             );
 
@@ -127,6 +133,8 @@ class TemplatesController extends Controller
 
         //get all templates
         $gettemplates = DB::table('templates')
+        ->join('template_categories', 'template_categories.id', '=', 'category_id')
+        ->select('templates.*','template_categories.name AS cat_name')
         ->paginate(15);
       
         //clean data
@@ -140,6 +148,48 @@ class TemplatesController extends Controller
             $templatedata['created_at'] = $items->created_at;
             $templatedata['updated_at'] = $items->updated_at;
             $templatedata['updated_by'] = $items->updated_by;
+            $templatedata['category_id'] = $items->category_id;
+            $templatedata['category_name'] = $items->cat_name;
+
+            return $templatedata;
+         });
+      
+         $response = [
+            'templates' => $gettemplates
+        ];
+        return response()->json($response, 200);
+
+    }
+
+    /**
+     * getAllTemplatesbyCategory get all  templates in the database under a particular category
+     *
+     * @param  mixed $request
+     *
+     * @return void\Illuminate\Http\Response all details of templates under the selected category
+     */
+    public function getAllTemplatesbyCategory(Request $request, $id){
+
+        //get all templates
+        $gettemplates = DB::table('templates')
+        ->join('template_categories', 'template_categories.id', '=', 'category_id')
+        ->select('templates.*','template_categories.name AS cat_name')
+        ->where('category_id', $id)
+        ->paginate(15);
+      
+        //clean data
+        $templatedata = [];
+
+        $gettemplates->transform(function($items){
+            $templatedata['id'] = $items->id;
+            $templatedata['name'] = Crypt::decryptString($items->name);
+            $templatedata['form_fields'] = json_decode(Crypt::decryptString($items->form_fields));
+            $templatedata['created_by'] = $items->created_by;
+            $templatedata['created_at'] = $items->created_at;
+            $templatedata['updated_at'] = $items->updated_at;
+            $templatedata['updated_by'] = $items->updated_by;
+            $templatedata['category_id'] = $items->category_id;
+            $templatedata['category_name'] = $items->cat_name;
 
             return $templatedata;
          });
@@ -159,12 +209,14 @@ class TemplatesController extends Controller
      * @param  mixed $term ;  user serach term
      * @return void\Illuminate\Http\Response all details of templates matching the search term
      */
-    public function searchTemplateByName(Request $request, $term){
+    public function searchTemplateByNameOrCategory(Request $request, $term){
 
         //get all registered companies 
         $gettemplates = DB::table('templates')
-        ->select('templates.*')
+        ->join('template_categories', 'template_categories.id', '=', 'category_id')
+        ->select('templates.*','template_categories.name AS cat_name')
         ->where('temps', 'like', '%'.$term.'%')
+        ->orWhere('template_categories.name', 'like', '%'.$term.'%')
         ->get();
       
         //clean data
@@ -178,6 +230,8 @@ class TemplatesController extends Controller
             $templatedata['created_at'] = $items->created_at;
             $templatedata['updated_at'] = $items->updated_at;
             $templatedata['updated_by'] = $items->updated_by;
+            $templatedata['category_id'] = $items->category_id;
+            $templatedata['category_name'] = $items->cat_name;
 
             return $templatedata;
          });
@@ -222,6 +276,68 @@ class TemplatesController extends Controller
         ]);
     }
 
+    /**
+     * createTemplateCategory create a new template category
+     *
+     * @param  mixed $request
+     *
+     * @return \Illuminate\Http\Response success or error message
+     */
+    public function createTemplateCategory(Request $request){
+
+        $this->validate($request, [
+            'name' => 'required'
+        ]);
+
+        $name = $request->name;
+
+        $created_at = now();
+
+        //get user creating the new merchant
+        $user = $request->user();
+        $userid = $user['id'];
+
+        try {
+            DB::table('template_categories')->insertGetId(
+                [
+                    'name' => $name, 
+                    'created_by' => $userid, 
+                    'created_at' => $created_at
+                ]
+            );
+
+            $message = 'Ok';
+            Log::channel('mysql')->info('User with id: ' . $userid .' successsfully created a new template category');
+
+        }catch(Exception $e) {
+            Log::channel('mysql')->error('User with id: ' . $userid .' unsuccesssfully created a new template category');
+            $message = "Failed";
+        } 
+            
+        return response()->json([
+            'message' => $message
+        ]);
+
+    }
+
+    /**
+     * getAllTemplateCategories get all available template categories in the database  
+     *
+     * @param  mixed $request
+     *
+     * @return void\Illuminate\Http\Response all template categories data
+     */
+    public function getAllTemplateCategories(Request $request){
+
+        //get all template categories 
+        $gettemplatecategories = DB::table('template_categories')->get();
+
+         $response = [
+            'template_categories' => $gettemplatecategories
+        ];
+        return response()->json($response, 200);
+
+    }
 
 
 }

@@ -1583,6 +1583,46 @@ class HomeController extends Controller
         return $message; 
     }
 
+
+    /**
+     * createTemplateCategory create a new template category
+     *
+     * @param  mixed $request
+     *
+     * @return \Illuminate\Http\Response success or error message
+     */
+    protected function createTemplateCategory(Request $request)
+    {
+        $message = (new TemplatesController)->createTemplateCategory($request);
+        return $message; 
+    }
+
+
+    /**
+     * getAllTemplateCategories get all available template categories in the database  
+     *
+     * @param  mixed $request
+     *
+     * @return void\Illuminate\Http\Response all template categories data
+     */
+    protected function getAllTemplateCategories(Request $request)
+    {
+        $message = (new TemplatesController)->getAllTemplateCategories($request);
+        return $message; 
+    }
+
+    /**
+     * getAllTemplatesbyCategory get all  templates in the database under a particular category
+     *
+     * @param  mixed $request
+     *
+     * @return void\Illuminate\Http\Response all details of templates under the selected category
+     */
+    protected function getAllTemplatesbyCategory(Request $request, $id)
+    {
+        $message = (new TemplatesController)->getAllTemplatesbyCategory($request, $id);
+        return $message;
+    }
     /**
      * editTemplate edit an existing template 
      *
@@ -1617,9 +1657,9 @@ class HomeController extends Controller
      * @param  mixed $term ;  user serach term
      * @return void\Illuminate\Http\Response all details of templates matching the search term
      */
-    protected function searchTemplateByName(Request $request, $term)
+    protected function searchTemplateByNameOrCategory(Request $request, $term)
     {
-        $message = (new TemplatesController)->searchTemplateByName($request, $term);
+        $message = (new TemplatesController)->searchTemplateByNameOrCategory($request, $term);
         return $message;
     }
     /**
