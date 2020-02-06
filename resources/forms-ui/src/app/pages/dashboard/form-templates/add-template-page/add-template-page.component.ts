@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 declare var $: any;
 import * as _ from 'lodash';
+import Swal from 'sweetalert2';
 import { Router } from '@angular/router';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { TemplatesService } from 'src/app/services/templates/templates.service';
@@ -22,13 +23,17 @@ export class AddTemplatePageComponent implements OnInit {
   _loading: boolean;
   hasError: boolean;
   submitted: boolean;
+  allCategoryList: Array<any>;
 
   constructor(
     private router: Router,
     private _formBuilder: FormBuilder,
     private templateService: TemplatesService,
     private formBuilderService: FormBuilderService
-  ) { }
+  ) {
+    this.allCategoryList = [];
+    this.getCategories();
+  }
 
   ngOnInit() {
     this.created = false;
@@ -58,7 +63,8 @@ export class AddTemplatePageComponent implements OnInit {
 
   buildForm() {
     this.form = this._formBuilder.group({
-      name: ['', Validators.required]
+      name: ['', Validators.required],
+      category: ['', Validators.required]
     });
   }
 
@@ -70,18 +76,39 @@ export class AddTemplatePageComponent implements OnInit {
     return this.formBuilder.actions.getData();
   }
 
+  showEmptyFieldsAlert() {
+    Swal.fire({
+      title: 'Empty Fields',
+      icon: 'error',
+      text: 'Form fields cannot be empty',
+      confirmButtonText: 'Ok, Got it'
+    });
+  }
+
+  getCategories() {
+    this.templateService.getTemplateCategories().then(
+      categories => {
+        _.forEach(categories, (category) => {
+          this.allCategoryList.push(category);
+        });
+      },
+      error => {}
+    );
+  }
+
   save() {
     console.log(this.formBuilder.actions.getData());
     this.loading = true;
     const template = this.getTemplate();
     if (template.length == 0) {
       this.loading = false;
-      alert('Form fields cannot be empty');
+      this.showEmptyFieldsAlert();
     }
     else {
       const templateData = {
+        form_fields: template,
         name: this.f.name.value,
-        form_fields: template
+        category_id: this.f.category.value
       };
 
       console.log(templateData);

@@ -45,12 +45,26 @@
 
                 <form [formGroup]="form" (ngSubmit)="create()">
                   <div class="row mt-4">
-                    <div class="col-8 offset-2">
+                    <div class="col-7">
                       <div class="form-group">
                         <input type="text" formControlName="name" class="form-control" placeholder="Enter Template Name"
                           [ngClass]="{'input-control-error': submitted && f.name.errors}">
                         <div *ngIf="submitted && f.name.errors">
                           <p class="input-error" *ngIf="f.name.errors.required">Template name is required</p>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="col-5">
+                      <div class="form-group">
+                        <select class="form-control" formControlName="category"
+                          [ngClass]="{'input-control-error': submitted && f.category.errors}">
+                          <option value="" disabled>Select Template Category</option>
+                          <option *ngFor="let category of allCategoryList" [value]="category.id">
+                            {{ category.name }}
+                          </option>
+                        </select>
+                        <div *ngIf="submitted && f.category.errors">
+                          <p class="input-error" *ngIf="f.category.errors.required">Category is required</p>
                         </div>
                       </div>
                     </div>

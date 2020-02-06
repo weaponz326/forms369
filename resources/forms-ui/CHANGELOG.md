@@ -25,12 +25,17 @@
 
 # version 0.0.3
     1. Clients can now upload attachments.
+    2. Front desks can now view attachments on submitted forms.
+    3. PDF files for forms can be uploaded when creating a form.
+    4. GIT Admin can allow fornt desks to view submitted forms without form submission.
+    5. Default and PDF printing added.
 
 # version 0.0.4
     1. A pin a required to submit form.
     2. An option to change your form submit pin.
     3. Front desk can now make changes to a form submitted before processing it.
     4. Fixed all grammatical errors.
+    5. All issues on printing fixed.
 
 # version 0.0.5
     1. Added a confirm password field on master_register.
@@ -45,3 +50,5 @@
     9. Rejection notes added to front desk. Now they can provide a reason for rejecting a form.
     10. Form builder now hides some of the field properties.
     11. All preview forms now displays the name of the form being previewed
+    12. Now clients can search for company names too.
+    13. Bug on search for clients have been fixed that prevents you to see all companies for forms when there is nothing in the search field.

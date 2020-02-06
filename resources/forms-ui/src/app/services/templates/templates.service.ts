@@ -37,6 +37,21 @@ export class TemplatesService {
     });
   }
 
+  createTemplateCategory(category: any): Promise<any> {
+    return new Promise((resolve, reject) => {
+      const body = JSON.stringify(category);
+      const url = this.endpointService.apiHost + 'api/v1/createTemplateCategory';
+      this.http.post(url, body, { headers: this.headers }).subscribe(
+        res => {
+          resolve(res);
+        },
+        err => {
+          reject(err);
+        }
+      );
+    });
+  }
+
   /**
    * Edits a form template.
    *
@@ -105,6 +120,23 @@ export class TemplatesService {
           resolve(response.templates.data);
         },
         err => {
+          reject(err);
+        }
+      );
+    });
+  }
+
+  getTemplateCategories(): Promise<any> {
+    return new Promise((resolve, reject) => {
+      const url = this.endpointService.apiHost + 'api/v1/getAllTemplateCategories';
+      this.http.get(url, { headers: this.headers }).subscribe(
+        res => {
+          console.log('res: ' + JSON.stringify(res));
+          const response = res as any;
+          resolve(response.template_categories);
+        },
+        err => {
+          console.log('errror: ' + JSON.stringify(err));
           reject(err);
         }
       );
