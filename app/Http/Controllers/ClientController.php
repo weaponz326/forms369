@@ -999,4 +999,73 @@ class ClientController extends Controller
             return response()->json( $response, 400);
          }   
     }
+
+     /**
+     * addReview add a review to a rejected form
+     *
+     * @param  mixed $request
+     *
+     * @return \Illuminate\Http\Response success or error message
+     */
+    public function addReview(Request $request){
+
+        $this->validate($request, [
+            'review' => 'required',
+            'submission_code' => 'required'
+        ]);
+
+        $review = $request->review;
+        $submission_code = $request->submission_code;
+
+        $reviewed_at = now();
+
+        //get user creating the new merchant
+        $user = $request->user();
+        $userid = $user['id'];
+
+        try {
+            DB::table('rejected_forms_reviews')->updateOrInsert(
+                [ 'form_sub_code' => $submission_code],
+                ['review' => $review, 
+                'reviewed_by' => $userid, 
+                'reviewed_at' => $reviewed_at
+                ]
+                    
+                
+            );
+
+            $message = 'Ok';
+            Log::channel('mysql')->info('User with id: ' . $userid .' successsfully rejected a form with submission' . $submission_code);
+
+        }catch(Exception $e) {
+            Log::channel('mysql')->error('User with id: ' . $userid .' unsuccesssfully rejected a form with submission' . $submission_code);
+            $message = "Failed";
+        } 
+            
+        return response()->json([
+            'message' => $message
+        ]);
+
+    }
+
+    /**
+     * getFormReview get a review for a rejected submitted form
+     *
+     * @param  mixed $request
+     *
+     * @return void\Illuminate\Http\Response aa review for the submitted form
+     */
+    public function getFormReview(Request $request, $code){
+
+        //get a review for a form
+        $getreview = DB::table('rejected_forms_reviews')
+        ->where('form_sub_code', $code)
+        ->first();
+
+         $response = [
+            'form_review' => $getreview
+        ];
+        return response()->json($response, 200);
+
+    }
 }

@@ -1092,6 +1092,32 @@ class HomeController extends Controller
     }
 
      /**
+     * addReview add a review to a rejected form
+     *
+     * @param  mixed $request
+     *
+     * @return \Illuminate\Http\Response success or error message
+     */
+    public function addReview(Request $request)
+    {
+        $message = (new ClientController)->addReview($request);
+        return $message;
+    }
+
+      /**
+     * getAllReviews get a review for a rejected submitted form
+     *
+     * @param  mixed $request
+     *
+     * @return void\Illuminate\Http\Response aa review for the submitted form
+     */
+    protected function getFormReview(Request $request, $code)
+    {
+        $message = (new ClientController)->getFormReview($request, $code);
+        return $message;
+    }
+
+     /**
       * Business logics 
      * getAttachments get all attachments during a form submission
      *
