@@ -52,3 +52,5 @@
     11. All preview forms now displays the name of the form being previewed
     12. Now clients can search for company names too.
     13. Bug on search for clients have been fixed that prevents you to see all companies for forms when there is nothing in the search field.
+    14. Templates are now created with a category.
+    15. Company Admins can now manage users.

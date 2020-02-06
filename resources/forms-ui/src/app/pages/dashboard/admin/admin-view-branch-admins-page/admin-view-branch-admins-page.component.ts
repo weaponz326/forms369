@@ -24,9 +24,11 @@ export class AdminViewBranchAdminsPageComponent implements OnInit {
   ngOnInit() {
   }
 
-  edit(ev: any) {}
+  edit(id: any) {
+    this.router.navigateByUrl('admin/edit/account', { state: { id: id }});
+  }
 
-  delete(ev: any) {}
+  delete(id: any) {}
 
   view(id: any) {
     this.router.navigateByUrl('admin/details/account', { state: { id: id }});
