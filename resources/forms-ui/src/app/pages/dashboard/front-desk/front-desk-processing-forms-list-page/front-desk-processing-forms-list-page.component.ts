@@ -15,14 +15,18 @@ import { LocalStorageService } from 'src/app/services/storage/local-storage.serv
 })
 export class FrontDeskProcessingFormsListPageComponent implements OnInit {
   user: Users;
+  index: number;
   form: FormGroup;
+  currentForm: any;
   hasMore: boolean;
   hasData: boolean;
   loading: boolean;
   hasError: boolean;
   submitted: boolean;
+  noteForm: FormGroup;
   loadingMore: boolean;
   hasMoreError: boolean;
+  submissionCode: string;
   responseMessage: string;
   loadingModalRef: NgbModalRef;
   processingFormsList: Array<any>;
@@ -31,6 +35,7 @@ export class FrontDeskProcessingFormsListPageComponent implements OnInit {
   @ViewChild('confirm', { static: false }) confirmModal: TemplateRef<any>;
   @ViewChild('response', { static: false }) responseModal: TemplateRef<any>;
   @ViewChild('complete', { static: false }) completedModal: TemplateRef<any>;
+  @ViewChild('rejectNote', { static: false }) rejectNoteModal: TemplateRef<any>;
 
   constructor(
     private router: Router,
@@ -48,11 +53,22 @@ export class FrontDeskProcessingFormsListPageComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.initNoteForm();
     this.buildForm();
   }
 
   public get f() {
     return this.form.controls;
+  }
+
+  public get _f() {
+    return this.noteForm.controls;
+  }
+
+  initNoteForm() {
+    this.noteForm = this.fb.group({
+      rejectionNote: ['', Validators.required]
+    });
   }
 
   buildForm() {
@@ -166,39 +182,59 @@ export class FrontDeskProcessingFormsListPageComponent implements OnInit {
     );
   }
 
-  rejectForm(e: Event, form: any, submission_code: string, index: number) {
+  reject(e: Event, form: any, submission_code: string, index: number) {
     e.stopPropagation();
     this.modalService.open(this.confirmModal, { centered: true }).result.then(
       result => {
         if (result == 'undo') {
-          this.showLoadingDialog();
-          this.frontDeskService.rejectForm(submission_code, form.client_submitted_details).then(
-            res => {
-              const response = res as any;
-              if (_.toLower(response.message) == 'ok') {
+          this.index = index;
+          this.currentForm = form;
+          this.submissionCode = submission_code;
+          this.modalService.dismissAll();
+          this.handleRejectionNote();
+        }
+      }
+    );
+  }
+
+  rejectForm() {
+    this.modalService.dismissAll();
+    this.showLoadingDialog();
+    this.frontDeskService.rejectForm(this.submissionCode, this.currentForm.client_submitted_details).then(
+      res => {
+        const response = res as any;
+        if (_.toLower(response.message) == 'ok') {
+          console.log('sending out the rejectioon review note');
+          this.frontDeskService.sendFormRejectionNote(this.submissionCode, this._f.rejectionNote.value).then(
+            ok => {
+              if (ok) {
                 this.loadingModalRef.close();
-                this.processingFormsList.splice(index, 1);
+                this.processingFormsList.splice(this.index, 1);
                 this.handleLastItemSlice(this.processingFormsList);
                 this.responseMessage = '1 Form Successfully Rejected';
                 this.showResponseDialog();
               }
-              else {
-                this.loadingModalRef.close();
-                this.processingFormsList.splice(index, 1);
-                this.handleLastItemSlice(this.processingFormsList);
-                this.responseMessage = 'Form Rejection Failed';
-                this.showResponseDialog();
-              }
-            },
-            err => {
-              this.loadingModalRef.close();
-              this.responseMessage = 'Oops! An error occured rejecting this form. Please try again!.';
-              this.showResponseDialog();
             }
           );
         }
+        else {
+          this.loadingModalRef.close();
+          this.processingFormsList.splice(this.index, 1);
+          this.handleLastItemSlice(this.processingFormsList);
+          this.responseMessage = 'Form Rejection Failed';
+          this.showResponseDialog();
+        }
+      },
+      err => {
+        this.loadingModalRef.close();
+        this.responseMessage = 'Oops! An error occured rejecting this form. Please try again!.';
+        this.showResponseDialog();
       }
     );
+  }
+
+  handleRejectionNote() {
+    this.modalService.open(this.rejectNoteModal, { centered: true });
   }
 
   filter() {

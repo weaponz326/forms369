@@ -195,6 +195,30 @@ export class CompanyService {
   }
 
   /**
+   * Gets a company or list of companies based on the name provided.
+   *
+   * @param {string} company_name
+   * @returns {Promise<any>}
+   * @memberof CompanyService
+   */
+  getCompanyByName(company_name: string): Promise<any> {
+    return new Promise((resolve, reject) => {
+      const url = this.endpointService.apiHost + 'api/v1/getMerchantbyName/' + company_name;
+      this.http.get(url, { headers: this.headers }).subscribe(
+        res => {
+          console.log('response_c_names: ' + JSON.stringify(res));
+          const response = res as any;
+          resolve(response.merchants);
+        },
+        err => {
+          console.log('error: ' + JSON.stringify(err));
+          reject(err);
+        }
+      );
+    });
+  }
+
+  /**
    * Gets a list of all companies. This returns the list
    * in a a paginated order of 15 companies per request.
    *

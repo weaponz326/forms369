@@ -10,3 +10,15 @@ p.lead {
     height: 50px;
     line-height: 1.2;
 }
+
+.btn-sm {
+    font-size: 0.675rem;
+    padding: 8px 4px;
+}
+
+
+.resend .btn {
+    width: 60%;
+    display: block;
+    margin: 0 auto;
+}

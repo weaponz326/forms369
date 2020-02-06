@@ -264,7 +264,7 @@ Route::group(['middleware' => ['auth:api'], 'prefix' => 'v1'], function(){
   
   //reject forms reviews apis 
   Route::post('addReview', 'HomeController@addReview')->name('addReview')->middleware('scope:GIT_Admin,super_executive,branch_executive,company_admin,branch_admin,frontdesk');
-  Route::get('getFormReview/{code}', 'HomeController@getFormReview')->name('getFormReview')->middleware('scope:GIT_Admin,super_executive,branch_executive,company_admin,branch_admin,frontdesk');
+  Route::get('getFormReview/{code}', 'HomeController@getFormReview')->name('getFormReview')->middleware('scope:GIT_Admin,super_executive,branch_executive,company_admin,branch_admin,frontdesk,client');
  
   
 
