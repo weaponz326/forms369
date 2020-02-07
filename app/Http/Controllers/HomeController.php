@@ -24,6 +24,20 @@ class HomeController extends Controller
 
     }
 
+    /**
+     * candownload indicate wheather a user can print a document or not
+     * 1 for yes, 0 for no
+     *
+     * @param  mixed $request
+     *
+     * @return \Illuminate\Http\Response success or error message
+     */
+    protected function candownload(Request $request, $id, $status)
+    {
+        $message = (new AuthController)->candownload($request, $id, $status);
+        return $message;
+    }
+
      /**
       * Business logics 
      * forgotPassword reset user password
