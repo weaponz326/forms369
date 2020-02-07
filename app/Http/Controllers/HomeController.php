@@ -1117,6 +1117,19 @@ class HomeController extends Controller
         return $message;
     }
 
+
+    /**
+     * deleteFormReview delete a review for a rejected submitted form
+     *
+     * @param  mixed $request
+     *
+     * @return void\Illuminate\Http\Response error or success message
+     */
+    protected function deleteFormReview(Request $request, $code)
+    {
+        $message = (new ClientController)->deleteFormReview($request, $code);
+        return $message;
+    }
      /**
       * Business logics 
      * getAttachments get all attachments during a form submission

@@ -776,7 +776,7 @@ class AuthController extends Controller
         $user->save();
         
         if($user){
-            return redirect()->route('login');
+            return redirect()->route('valid_confirm_link');
            
 
         }
