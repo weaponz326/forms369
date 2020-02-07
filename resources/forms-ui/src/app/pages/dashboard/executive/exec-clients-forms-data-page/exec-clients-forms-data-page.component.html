@@ -77,31 +77,68 @@
         </div>
 
         <div *ngIf="!loading && hasData" class="row">
-          <div class="col-lg-12 grid-margin stretch-card">
+          <div class="col-md-4 text-center grid-margin stretch-card">
+            <div class="card hover-cursor animated fadeInDown fast" (click)="openBranch(company)">
+              <div class="card-body">
+                <p class="card-title">company.merchant_name</p>
+                <div class="card-text">
+                  <img [src]="company.logo" class="img-fluid card-logo mb-3" alt="logo">
+                  <br>
+                  <div class="btn-group" role="group" aria-label="Basic example">
+                    <button type="button" class="btn btn-outline-primary" (click)="edit($event, company)">
+                      <i class="mdi mdi-pencil-outline"></i>
+                      Edit
+                    </button>
+                    <button type="button" class="btn btn-outline-primary" (click)="view($event, company)">
+                      <i class="mdi mdi-pulse"></i>
+                      View
+                    </button>
+                    <button type="button" class="btn btn-outline-secondary" (click)="delete($event, company.id)">
+                      <i class="mdi mdi-delete-outline"></i>
+                      Delete
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <!-- <div class="col-lg-12 grid-margin stretch-card">
             <div class="card">
               <div class="card-body">
                 <div class="table-responsive">
                   <table class="table table-hover">
                     <thead>
                       <tr>
-                        <th *ngFor="let header of tableHeaders">
-                          <strong class="text-uppercase">{{ header }}</strong>
-                        </th>
+                        <th><strong class="text-uppercase">{{ tableHeaders[0] }}</strong></th>
+                        <th><strong class="text-uppercase">{{ tableHeaders[1] }}</strong></th>
+                        <th><strong class="text-uppercase">{{ tableHeaders[2] }}</strong></th>
+                        <th><strong class="text-uppercase">{{ tableHeaders[3] }}</strong></th>
                         <th>
                           <strong class="text-uppercase">Submitted At</strong>
                         </th>
+                        <th><strong class="text-uppercase">Actions</strong></th>
                       </tr>
                     </thead>
                     <tbody>
                       <tr class="hover-cursor" *ngFor="let content of tableContents" (click)="showModal()">
-                        <td *ngFor="let data of content">{{ data }}</td>
+                        <td>{{ content[0] }}</td>
+                        <td>{{ content[1] }}</td>
+                        <td>{{ content[2] }}</td>
+                        <td>{{ content[3] }}</td>
+                        <td>{{ content[content.length - 1] }}</td>
+                        <td>
+                          <button type="button" class="btn btn-light bg-white btn-icon" data-toggle="tooltip"
+                            data-placement="top" title="Print" (click)="print($event, form)">
+                            <i class="mdi mdi-printer text-muted"></i>
+                          </button>
+                        </td>
                       </tr>
                     </tbody>
                   </table>
                 </div>
               </div>
             </div>
-          </div>
+          </div> -->
         </div>
 
         <div *ngIf="loadingMore" class="row m-md-2">
@@ -154,7 +191,8 @@
       <div class="row">
         <h3 class="download-title">Choose your desired format</h3>
         <div class="col-6">
-          <button class="btn btn-outline-primary btn-lg btn-icon-text" style="padding: 1rem 2rem;" (click)="downloadNormal()">
+          <button class="btn btn-outline-primary btn-lg btn-icon-text" style="padding: 1rem 2rem;"
+            (click)="downloadNormal()">
             <i class="mdi mdi-file-document"></i>
             Normal Format
           </button>
