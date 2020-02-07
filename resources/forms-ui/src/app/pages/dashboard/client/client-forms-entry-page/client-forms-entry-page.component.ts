@@ -76,7 +76,11 @@ export class ClientFormsEntryPageComponent implements OnInit {
     this.resolveReloadDataLoss();
     this.user = this.localStorage.getUser();
     console.log('form: ' + JSON.stringify(this.form));
-    this.getFormAttachments(this.form.submission_code);
+    console.log('submission_code: ' + this.form.submission_code);
+    // this.getFormAttachments(this.form.submission_code);
+    _.isUndefined(this.form.submission_code)
+      ? this.getFormAttachments(this.form.submission_code)
+      : this.getAttachmentsForCurrentForm(this.user.id.toString());
     this.checkIfUserHasFormPin();
   }
 
@@ -239,6 +243,17 @@ export class ClientFormsEntryPageComponent implements OnInit {
     return fields;
   }
 
+  getCurrentFormAttachmentKeys() {
+    const fileInputElements = [];
+    const inputElements = document.querySelectorAll('input');
+    _.forEach(inputElements, (element) => {
+      if (element.type == 'file')
+        fileInputElements.push(element.name);
+    });
+
+    return fileInputElements;
+  }
+
   submitFormAndAttachments(user_data: any, updateProfile: boolean) {
     console.log('is submitting');
     const form_submission_code = this.generateSubmissionCode();
@@ -389,10 +404,7 @@ export class ClientFormsEntryPageComponent implements OnInit {
     if (!_.isUndefined(file) || !_.isNull(file)) {
       this.clientService.uploadFormAttachments(this.user.id.toString(), this.form.form_code, submission_code, key, file).then(
         ok => {
-          if (ok) {
-            // do nothing
-          }
-          else {
+          if (!ok) {
             console.log('file upload failed');
             this.loading = false;
           }
@@ -621,6 +633,31 @@ export class ClientFormsEntryPageComponent implements OnInit {
   getFormAttachments(form_code: string) {
     this.loadingAttachments = true;
     this.clientService.getFormAttachment(form_code).then(
+      res => {
+        console.log('resssss: ' + JSON.stringify(res));
+        if (res.length > 0) {
+          this.showAttachments = true;
+          _.forEach(res, (doc) => {
+            console.log('doc: ' + JSON.stringify(doc));
+            this.existingAttachments.push(doc);
+          });
+        }
+        else {
+          this.showAttachments =  false;
+        }
+
+        this.loadingAttachments = false;
+      },
+      err => {
+        console.log('get_a_error: ' + JSON.stringify(err));
+        this.loadingAttachments = false;
+      }
+    );
+  }
+
+  getAttachmentsForCurrentForm(user_id: string) {
+    this.loadingAttachments = true;
+    this.clientService.getProfileFormAttachment(user_id).then(
       res => {
         console.log('resssss: ' + JSON.stringify(res));
         if (res.length > 0) {

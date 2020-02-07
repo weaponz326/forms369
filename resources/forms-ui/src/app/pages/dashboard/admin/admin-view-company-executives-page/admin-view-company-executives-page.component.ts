@@ -12,6 +12,7 @@ import { LocalStorageService } from 'src/app/services/storage/local-storage.serv
 export class AdminViewCompanyExecutivesPageComponent implements OnInit {
   userType: number;
   branchId: number;
+  canEdit: boolean;
   merchantId: number;
   hasNoAccount: boolean;
 
@@ -22,6 +23,9 @@ export class AdminViewCompanyExecutivesPageComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.canEdit = this.localStorage.getUser().usertype == UserTypes.BranchAdmin
+      ? false
+      : true;
   }
 
   edit(id: any) {

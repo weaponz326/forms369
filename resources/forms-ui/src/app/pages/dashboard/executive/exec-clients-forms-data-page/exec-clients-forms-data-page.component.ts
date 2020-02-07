@@ -1,10 +1,12 @@
-import { Component, OnInit } from '@angular/core';
 import * as _ from 'lodash';
+import Swal from 'sweetalert2';
 import * as moment from 'moment';
 import { Router } from '@angular/router';
 import { ClientService } from 'src/app/services/client/client.service';
+import { Component, OnInit, ViewChild, TemplateRef } from '@angular/core';
 import { FrontDeskService } from 'src/app/services/front-desk/front-desk.service';
 import { LocalStorageService } from 'src/app/services/storage/local-storage.service';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
   selector: 'app-exec-clients-forms-data-page',
@@ -22,9 +24,11 @@ export class ExecClientsFormsDataPageComponent implements OnInit {
   hasMoreError: boolean;
   tableContents: Array<any>;
   tableHeaders: Array<string>;
+  @ViewChild('confirm', { static: false }) downloadModal: TemplateRef<any>;
 
   constructor(
     private router: Router,
+    private modalService: NgbModal,
     private clientService: ClientService,
     private localStorage: LocalStorageService,
     private frontDeskService: FrontDeskService
@@ -60,6 +64,10 @@ export class ExecClientsFormsDataPageComponent implements OnInit {
 
   checkIfHasMore() {
     return _.isEmpty(this.frontDeskService.nextPaginationUrl) ? false : true;
+  }
+
+  showModal() {
+    this.modalService.open(this.downloadModal, { centered: true });
   }
 
   getDataHeaders(res: any) {

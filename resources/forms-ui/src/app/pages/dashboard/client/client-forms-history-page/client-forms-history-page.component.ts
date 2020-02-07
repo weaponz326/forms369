@@ -201,6 +201,7 @@ export class ClientFormsHistoryPageComponent implements OnInit {
           this.hasData = true;
           this.loading = false;
           _.forEach(forms, (form) => {
+            form.submitted_at = form.submitted_at.replace(/-/g, '/');
             this.historyCollection.push(form);
           });
           this.allHistoryCollection = this.historyCollection;

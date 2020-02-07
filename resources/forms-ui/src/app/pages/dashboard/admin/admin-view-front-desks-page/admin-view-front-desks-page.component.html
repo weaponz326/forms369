@@ -34,9 +34,9 @@
             <div class="card">
               <div class="card-body">
                 <app-view-account-lists-page
-                  [canEdit]="true"
+                  [canEdit]="canEdit"
                   [canView]="true"
-                  [canDelete]="true"
+                  [canDelete]="false"
                   [userType]="userType"
                   (edit)="edit($event)"
                   (view)="view($event)"

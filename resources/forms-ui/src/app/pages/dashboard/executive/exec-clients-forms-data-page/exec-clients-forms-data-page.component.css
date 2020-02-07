@@ -6,3 +6,9 @@
 .table td {
     line-height: 21px;
 }
+
+.download-title {
+    padding-left: 17px;
+    padding-bottom: 20px;
+    font-weight: 600;
+}
