@@ -547,6 +547,23 @@ export class ClientService {
     });
   }
 
+  getRejectionReview(submission_code: string): Promise<any> {
+    return new Promise((resolve, reject) => {
+      const url = this.endpointService.apiHost + 'api/v1/getFormReview/' + submission_code;
+      this.http.get(url, { headers: this.headers }).subscribe(
+        res => {
+          console.log('reject review: ' + JSON.stringify(res));
+          const response = res as any;
+          resolve(response.form_review);
+        },
+        err => {
+          console.log('error: ' + JSON.stringify(err));
+          reject(err);
+        }
+      );
+    });
+  }
+
   deleteFormHistory(client_id: string, submission_code: string): Promise<boolean> {
     return new Promise((resolve, reject) => {
       const url = this.endpointService.apiHost + `api/v1/deleteSubmittedForm/${client_id}/${submission_code}`;

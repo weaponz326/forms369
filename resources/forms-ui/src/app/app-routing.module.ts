@@ -89,6 +89,8 @@ import { ClientFormLinkRedirectPageComponent } from './pages/dashboard/client/cl
 import { ResetPasswordPageComponent } from './pages/reset-password-page/reset-password-page.component';
 import { ClientSettingsPageComponent } from './pages/dashboard/client/client-settings-page/client-settings-page.component';
 import { FrontDeskRejectedFormsListPageComponent } from './pages/dashboard/front-desk/front-desk-rejected-forms-list-page/front-desk-rejected-forms-list-page.component';
+import { AccountVerifiedPageComponent } from './pages/account-verified-page/account-verified-page.component';
+import { EmailResetPasswordPageComponent } from './pages/email-reset-password-page/email-reset-password-page.component';
 
 const routes: Routes = [
   {
@@ -132,8 +134,16 @@ const routes: Routes = [
     component: ChangePasswordPageComponent
   },
   {
+    path: 'valid_cofnrim_link',
+    component: AccountVerifiedPageComponent
+  },
+  {
     path: 'invalid_confirm_link',
     component: InvalidConfirmationPageComponent
+  },
+  {
+    path: 'valid_email_reset_link',
+    component: EmailResetPasswordPageComponent
   },
   {
     path: 'git_admin',

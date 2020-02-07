@@ -1,6 +1,6 @@
-import { Component, OnInit } from '@angular/core';
 import * as _ from 'lodash';
 import { Router } from '@angular/router';
+import { Component, OnInit } from '@angular/core';
 import { Merchants } from 'src/app/models/merchants.model';
 import { ClientService } from 'src/app/services/client/client.service';
 import { CompanyService } from 'src/app/services/company/company.service';
@@ -13,6 +13,7 @@ import { EndpointService } from 'src/app/services/endpoint/endpoint.service';
 })
 export class ClientFormMerchantsPageComponent implements OnInit {
   query: string;
+  title: string;
   loading: boolean;
   hasMore: boolean;
   hasError: boolean;
@@ -34,6 +35,7 @@ export class ClientFormMerchantsPageComponent implements OnInit {
     this.formsList = [];
     this.companyList = [];
     this.getCompanies();
+    this.title = 'Company';
   }
 
   ngOnInit() {
@@ -101,6 +103,27 @@ export class ClientFormMerchantsPageComponent implements OnInit {
     );
   }
 
+  searchByMerchantName() {
+    this.loading = true;
+    this.companyService.getCompanyByName(this.query).then(
+      merchants => {
+        if (merchants.length == 0) {
+          this.loading = false;
+          this.foundNoForm = true;
+        }
+        else {
+          this.loading = false;
+          this.foundNoForm = false;
+          _.forEach(merchants, (merchant) => {
+            merchant.logo = this.endpointService.storageHost + merchant.logo;
+            this.companyList.push(merchant);
+          });
+        }
+      },
+      error => {}
+    );
+  }
+
   searchByFormCode() {
     this.loading = true;
     this.clientService.findFormsByCode(this.query).then(
@@ -124,27 +147,32 @@ export class ClientFormMerchantsPageComponent implements OnInit {
     );
   }
 
-  searchByFormName() {
-    this.loading = true;
-    this.clientService.findFormsByName(this.query).then(
-      forms => {
-        if (forms.length == 0) {
+  searchByFormName(): Promise<boolean> {
+    return new Promise((resolve, reject) => {
+      this.loading = true;
+      this.clientService.findFormsByName(this.query).then(
+        forms => {
+          if (forms.length == 0) {
+            this.loading = false;
+            this.foundNoForm = true;
+            resolve(false);
+          }
+          else {
+            this.loading = false;
+            this.foundNoForm = false;
+            _.forEach(forms, (form) => {
+              this.formsList.push(form);
+            });
+            resolve(true);
+          }
+        },
+        err => {
+          this.hasError = true;
           this.loading = false;
-          this.foundNoForm = true;
+          reject(err);
         }
-        else {
-          this.loading = false;
-          this.foundNoForm = false;
-          _.forEach(forms, (form) => {
-            this.formsList.push(form);
-          });
-        }
-      },
-      err => {
-        this.hasError = true;
-        this.loading = false;
-      }
-    );
+      );
+    });
   }
 
   search(e: KeyboardEvent) {
@@ -163,24 +191,46 @@ export class ClientFormMerchantsPageComponent implements OnInit {
             // search fby form code, based on the input
             // the user might be searching by a form code.
             console.log('searching by form code');
+            this.title = 'Form';
             this.searchByFormCode();
           }
           else {
             // the input contains a number but is more than 6 characters
             // in lenght, this might be a form name.
+            this.title = 'Form';
             console.log('searching by form name');
-            this.searchByFormName();
+            this.searchByFormName().then(
+              found => {
+                if (!found) {
+                  // maybe user is searching for a company
+                  this.title = 'Company';
+                  console.log('find nothing');
+                  this.searchByMerchantName();
+                }
+              }
+            );
           }
         }
         else {
           // since all our form codes includes digits, and this
           // users input doesnt include a digit, search by form name.
+          this.title = 'Form';
           console.log('searching by form name last');
-          this.searchByFormName();
+          this.searchByFormName().then(
+            found => {
+              if (!found) {
+                // maybe user is searching for a company
+                this.title = 'Company';
+                console.log('find nothing');
+                this.searchByMerchantName();
+              }
+            }
+          );
         }
       }
       else {
-        if (this.foundNoForm && this.query.length == 0) {
+        if ((this.foundNoForm && this.query.length == 0) || this.query.length == 0) {
+          this.companyList = [];
           this.hasData = true;
           this.foundNoForm = false;
           console.log('hererer');

@@ -23,10 +23,13 @@ export class ClientFormsHistoryPageComponent implements OnInit {
   filterState: string;
   loadingMore: boolean;
   hasMoreError: boolean;
+  rejectionNote: string;
+  loadingReview: boolean;
   historyCollection: Array<any>;
   allHistoryCollection: Array<any>;
   processedHistoryCollection: Array<any>;
   processingHistoryCollection: Array<any>;
+  @ViewChild('review', { static: false }) reviewDialog: TemplateRef<any>;
   @ViewChild('confirm', { static: false }) confirmDialog: TemplateRef<any>;
 
   constructor(
@@ -35,6 +38,7 @@ export class ClientFormsHistoryPageComponent implements OnInit {
     private clientService: ClientService,
     private localStorageService: LocalStorageService
   ) {
+    this.rejectionNote = '';
     this.historyCollection = [];
     this.allHistoryCollection = [];
     this.processedHistoryCollection = [];
@@ -86,6 +90,23 @@ export class ClientFormsHistoryPageComponent implements OnInit {
 
   checkIfHasMore() {
     return _.isNull(this.clientService.nextPaginationUrl) ? false : true;
+  }
+
+  openReview(ev: Event, submission_code: string) {
+    ev.stopPropagation();
+    this.modalService.open(this.reviewDialog, { centered: true });
+    this.loadingReview = true;
+    this.clientService.getRejectionReview(submission_code).then(
+      res => {
+        console.log('ressss: ' + res);
+        this.rejectionNote = res.review.replace(/(?:\r\n|\r|\n)/g, '\n');
+        this.loadingReview = false;
+      },
+      err => {
+        console.log('error: ' + err);
+        this.loadingReview = false;
+      }
+    );
   }
 
   searchByFormCode() {

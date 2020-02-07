@@ -28,6 +28,7 @@ export class ClientListFormsPageComponent implements OnInit {
     private formService: FormsService,
     private clientService: ClientService
   ) {
+    this.query = '';
     this.formsList = [];
     this.company = history.state.company;
     this.resolveReloadDataLoss();
@@ -140,7 +141,7 @@ export class ClientListFormsPageComponent implements OnInit {
       }
     }
     else {
-      if (this.foundNoForm && this.query.length == 0) {
+      if ((this.foundNoForm && this.query.length == 0) || this.query.length == 0) {
         this.hasData = true;
         this.foundNoForm = false;
         console.log('hererereererere');

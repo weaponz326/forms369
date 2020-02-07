@@ -61,6 +61,11 @@ Route::get('change_password', function () {
     return View::make('index');
 });
 
+Route::get('valid_confirm_link', function () {
+    View::addExtension('html', 'php');
+    return View::make('index');
+})->name('valid_confirm_link');
+
 Route::get('invalid_confirm_link', function () {
     View::addExtension('html', 'php');
     return View::make('index');

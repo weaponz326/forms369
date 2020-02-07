@@ -16,6 +16,34 @@ export class FrontDeskService {
     this.headers = this.endpointService.headers();
   }
 
+  /**
+   * Sends rejection messages to the clients.
+   *
+   * @param {string} submission_code
+   * @param {string} message
+   * @returns {Promise<boolean>}
+   * @memberof FrontDeskService
+   */
+  sendFormRejectionNote(submission_code: string, message: string): Promise<boolean> {
+    return new Promise((resolve, reject) => {
+      const url = this.endpointService.apiHost + 'api/v1/addReview';
+      const body = { submission_code: submission_code, review: message };
+      this.http.post(url, JSON.stringify(body), { headers: this.headers }).subscribe(
+        res => {
+          console.log('response: ' + JSON.stringify(res));
+          const response = res as any;
+          _.toLower(response.message) == 'ok'
+            ? resolve(true)
+            : resolve(false);
+        },
+        err => {
+          console.log('error: ' + JSON.stringify(err));
+          reject(err);
+        }
+      );
+    });
+  }
+
   getFrontDeskAccounts(allowPagination?: boolean): Promise<any> {
     return new Promise((resolve, reject) => {
       const url = !_.isUndefined(allowPagination) || allowPagination

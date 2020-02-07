@@ -430,8 +430,6 @@ export class UserAccountEditorComponent implements OnInit {
 
   editPassword() {
     this.f.password.enable();
-    // this.f.password.setValue('');
-    // this.f.password.updateValueAndValidity();
   }
 
   edit() {

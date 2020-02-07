@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import * as _ from 'lodash';
+import * as moment from 'moment';
 import { Router } from '@angular/router';
 import { Users } from 'src/app/models/users.model';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
@@ -12,8 +13,10 @@ import { LocalStorageService } from 'src/app/services/storage/local-storage.serv
   styleUrls: ['./client-auth-page.component.css']
 })
 export class ClientAuthPageComponent implements OnInit {
+
   form: FormGroup;
   loading: boolean;
+  countDown: string;
   submitted: boolean;
   codeExpired: boolean;
   invalidCode: boolean;
@@ -23,7 +26,9 @@ export class ClientAuthPageComponent implements OnInit {
     private formBuilder: FormBuilder,
     private clientService: ClientService,
     private localStorage: LocalStorageService,
-  ) { }
+  ) {
+    this.setupCountDown();
+  }
 
   ngOnInit() {
      this.buildForm();
@@ -37,6 +42,12 @@ export class ClientAuthPageComponent implements OnInit {
     this.form = this.formBuilder.group({
       code: ['', Validators.required]
     });
+  }
+
+  setupCountDown() {
+    for (let i = 30; i > 30; i--) {
+      this.countDown = i.toString();
+    }
   }
 
   handleLoginErrorResponses(response: any) {

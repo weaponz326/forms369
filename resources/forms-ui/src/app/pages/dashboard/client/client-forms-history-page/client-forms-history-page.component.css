@@ -15,3 +15,41 @@ and (max-device-width: 825px) {
     border-radius: 30px;
     background: #fff;
 }
+
+.card-icon {
+    left: 78%;
+    right: 6%;
+    bottom: 33px;
+    padding: 7px 10px;
+    text-align: center;
+    border-radius: 7px;
+    position: absolute;
+    border: 1px solid #ccc;
+    /* position: relative;
+    float: right;
+    bottom: 55px;
+    padding: 7px 10px;
+    border-radius: 7px;
+    border: 1px solid #ccc; */
+}
+
+.card-icon > i {
+    font-size: 30px;
+}
+
+.msg-container {
+    background-color: #f8f8f8;
+    padding: 20px 40px;
+    border: 1px solid #ddd;
+    border-top-right-radius: 26px;
+    border-bottom-left-radius: 26px;
+}
+
+.message-content {
+    padding: 5px;
+}
+
+.message {
+    font-size: 14px;
+    font-weight: 600;
+}

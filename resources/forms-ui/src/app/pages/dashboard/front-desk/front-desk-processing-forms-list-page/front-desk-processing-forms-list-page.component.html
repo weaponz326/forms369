@@ -138,7 +138,7 @@
                               <i class="mdi mdi-check-outline text-muted"></i>
                             </button>
                             <button type="button" class="btn btn-light bg-white btn-icon mr-1"
-                              (click)="rejectForm($event, form, form.submission_code, i)" data-toggle="tooltip" data-placement="top"
+                              (click)="reject($event, form, form.submission_code, i)" data-toggle="tooltip" data-placement="top"
                               title="Reject Form">
                               <i class="mdi mdi-undo-variant text-muted"></i>
                             </button>
@@ -246,4 +246,32 @@
   <div class="modal-footer">
     <button type="button" class="btn btn-outline-primary" (click)="modal.dismiss()">OK</button>
   </div>
+</ng-template>
+
+<ng-template #rejectNote let-modal>
+  <form [formGroup]="noteForm" (ngSubmit)="rejectForm()">
+    <div class="modal-header">
+      <h4 class="modal-title font-weight-bold text-uppercase" id="modal-title" style="font-size: 13px;">Rejection Message</h4>
+      <button type="button" class="close" aria-describedby="modal-title" (click)="modal.dismiss()">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+    <div class="modal-body">
+      <div class="form-group">
+        <textarea cols="30" rows="10" class="form-control" formControlName="rejectionNote"
+          [ngClass]="{'input-control-error': _submitted && _f.rejectionNote.errors}"></textarea>
+        <div *ngIf="_submitted && _f.rejectionNote.errors">
+          <p class="input-error" *ngIf="_f.rejectionNote.errors.required">Note cannot be left blank! Please type something.</p>
+        </div>
+      </div>
+    </div>
+    <div class="modal-footer">
+      <button *ngIf="!isLoading" type="button" class="btn btn-outline-primary" (click)="modal.dismiss()">Cancel</button>
+      <button *ngIf="!isLoading" type="submit" class="btn btn-primary">Send</button>
+      <button *ngIf="isLoading" class="btn btn-primary btn-lg mr-2" type="button" disabled>
+        <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+        <span class="sr-only">Please wait...</span>
+      </button>
+    </div>
+  </form>
 </ng-template>

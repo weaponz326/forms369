@@ -22,6 +22,7 @@ export class EditTemplatePageComponent implements OnInit {
   hasError: boolean;
   _loading: boolean;
   submitted: boolean;
+  allCategoryList: Array<any>;
 
   constructor(
     private router: Router,
@@ -32,6 +33,8 @@ export class EditTemplatePageComponent implements OnInit {
     this._form = window.history.state.form;
     this.resolveReloadDataLoss();
     console.log(this._form);
+    this.allCategoryList = [];
+    this.getCategories();
   }
 
   /**
@@ -80,7 +83,8 @@ export class EditTemplatePageComponent implements OnInit {
 
   buildForm() {
     this.form = this._formBuilder.group({
-      name: [this._form.name, Validators.required]
+      name: [this._form.name, Validators.required],
+      category: [this._form.category_id, Validators.required]
     });
   }
 
@@ -90,6 +94,17 @@ export class EditTemplatePageComponent implements OnInit {
 
   getTemplate() {
     return this.formBuilder.actions.getData();
+  }
+
+  getCategories() {
+    this.templateService.getTemplateCategories().then(
+      categories => {
+        _.forEach(categories, (category) => {
+          this.allCategoryList.push(category);
+        });
+      },
+      error => {}
+    );
   }
 
   editForm() {
@@ -103,8 +118,9 @@ export class EditTemplatePageComponent implements OnInit {
     }
     else {
       const templateData = {
+        form_fields: template,
         name: this.f.name.value,
-        form_fields: template
+        category_id: this.f.category.value
       };
 
       this.templateService.editTemplate(this._form.id, templateData).then(
