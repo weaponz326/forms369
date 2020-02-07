@@ -776,7 +776,7 @@ class AuthController extends Controller
         $user->save();
         
         if($user){
-            return redirect()->route('login');
+            return redirect()->route('valid_confirm_link');
            
 
         }
@@ -1013,6 +1013,7 @@ class AuthController extends Controller
              $userdata['lastname'] = $items->lastname;
              $userdata['username'] =$items->username;
              $userdata['email'] = $items->email;
+             $userdata['can_download'] = $items->can_download;
              $userdata['country'] = $items->country;
              $userdata['last_login_at'] = $items->last_login_at;
              $userdata['last_login_ip'] = $items->last_login_ip;
@@ -1147,6 +1148,7 @@ class AuthController extends Controller
             $userdata['lastname'] = $items->lastname;
             $userdata['usename'] =$items->username;
             $userdata['email'] = $items->email;
+            $userdata['can_download'] = $items->can_download;
             $userdata['last_login_at'] = $items->last_login_at;
             $userdata['last_login_ip'] = $items->last_login_ip;
             $userdata['status'] = $items->status;
@@ -1223,6 +1225,7 @@ class AuthController extends Controller
             $userdata['lastname'] = $items->lastname;
             $userdata['usename'] =$items->username;
             $userdata['email'] = $items->email;
+            $userdata['can_download'] = $items->can_download;
             $userdata['last_login_at'] = $items->last_login_at;
             $userdata['last_login_ip'] = $items->last_login_ip;
             $userdata['status'] = $items->status;
@@ -1297,6 +1300,7 @@ class AuthController extends Controller
             $userdata['lastname'] = $items->lastname;
             $userdata['username'] =$items->username;
             $userdata['email'] = $items->email;
+            $userdata['can_download'] = $items->can_download;
             $userdata['last_login_at'] = $items->last_login_at;
             $userdata['last_login_ip'] = $items->last_login_ip;
             $userdata['status'] = $items->status;
@@ -1346,6 +1350,8 @@ class AuthController extends Controller
             $userdata['lastname'] = $items->lastname;
             $userdata['username'] =$items->username;
             $userdata['email'] = $items->email;
+            $userdata['can_download'] = $items->can_download;
+            $userdata['can_download'] = $items->can_download;
             $userdata['merchant_name'] = empty($items->merchant_name) ? '' : Crypt::decryptString($items->merchant_name);
             $userdata['last_login_at'] = $items->last_login_at;
             $userdata['last_login_ip'] = $items->last_login_ip;
@@ -1393,6 +1399,7 @@ class AuthController extends Controller
             $userdata['lastname'] = $items->lastname;
             $userdata['username'] =$items->username;
             $userdata['email'] = $items->email;
+            $userdata['can_download'] = $items->can_download;
             $userdata['merchant_name'] = empty($items->merchant_name) ? '' : Crypt::decryptString($items->merchant_name);
             $userdata['last_login_at'] = $items->last_login_at;
             $userdata['last_login_ip'] = $items->last_login_ip;
@@ -1467,6 +1474,7 @@ class AuthController extends Controller
             $userdata['lastname'] = $items->lastname;
             $userdata['usename'] =$items->username;
             $userdata['email'] = $items->email;
+            $userdata['can_download'] = $items->can_download;
             $userdata['last_login_at'] = $items->last_login_at;
             $userdata['last_login_ip'] = $items->last_login_ip;
             $userdata['status'] = $items->status;
@@ -1627,6 +1635,41 @@ class AuthController extends Controller
             return redirect()->route('reset', ['id' => $encid]);
 
         }
+    }
+    
+    /**
+     * candownload indicate wheather a user can print a document or not
+     * 1 for yes, 0 for no
+     *
+     * @param  mixed $request
+     *
+     * @return \Illuminate\Http\Response success or error message
+     */
+    public function candownload(Request $request, $id, $status){
+
+        $updated_at = now();
+        //get user creating the new merchant
+        $user = $request->user();
+        $userid = $user['id'];
+        try {
+            DB::table('users')->updateOrInsert(
+                [ 'id' => $id],
+                ['can_download' => $status]
+                    
+            );
+
+            $message = 'Ok';
+            Log::channel('mysql')->info('User with id: ' . $userid .' successsfully added can download status to user with id ' . $id);
+
+        }catch(Exception $e) {
+            Log::channel('mysql')->error('User with id: ' . $userid .' unsuccesssfully added can download status to user with id' . $id);
+            $message = "Failed";
+        } 
+            
+        return response()->json([
+            'message' => $message
+        ]);
+
     }
 
 

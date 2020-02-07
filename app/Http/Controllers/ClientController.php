@@ -1068,4 +1068,32 @@ class ClientController extends Controller
         return response()->json($response, 200);
 
     }
+
+     /**
+     * deleteFormReview delete a review for a rejected submitted form
+     *
+     * @param  mixed $request
+     *
+     * @return void\Illuminate\Http\Response error or success message
+     */
+    public function deleteFormReview(Request $request, $code){
+
+        try {
+            DB::table('rejected_forms_reviews')
+                ->where('form_sub_code', $code)
+                ->delete(); 
+
+            $message = 'Ok';
+            Log::channel('mysql')->info('User with id: ' . $userid .' successsfully deleted a review for form with submission' . $code);
+
+        }catch(Exception $e) {
+            Log::channel('mysql')->error('User with id: ' . $userid .' unsuccesssfully deleted a review form with submission' . $code);
+            $message = "Failed";
+        } 
+            
+        return response()->json([
+            'message' => $message
+        ]);
+
+    }
 }
