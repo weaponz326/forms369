@@ -24,3 +24,12 @@
 .avatar {
     border: 1px solid #ddd;
 }
+
+.dropdown .dropdown-toggle:after {
+    display: none;
+}
+
+.dropdown .dropdown-menu .dropdown-item {
+    font-size: .875rem;
+    padding: .85rem 1.5rem;
+}

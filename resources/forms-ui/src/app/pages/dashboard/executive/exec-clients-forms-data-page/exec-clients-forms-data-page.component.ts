@@ -15,6 +15,8 @@ import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 })
 export class ExecClientsFormsDataPageComponent implements OnInit {
   form: any;
+  userData: any[];
+  formName: string;
   keys: Array<any>;
   hasMore: boolean;
   hasData: boolean;
@@ -24,6 +26,7 @@ export class ExecClientsFormsDataPageComponent implements OnInit {
   hasMoreError: boolean;
   tableContents: Array<any>;
   tableHeaders: Array<string>;
+  @ViewChild('data', { static: false }) dataModal: TemplateRef<any>;
   @ViewChild('confirm', { static: false }) downloadModal: TemplateRef<any>;
 
   constructor(
@@ -34,11 +37,13 @@ export class ExecClientsFormsDataPageComponent implements OnInit {
     private frontDeskService: FrontDeskService
   ) {
     this.keys = [];
+    this.userData = [];
     this.tableHeaders = [];
     this.tableContents = [];
     this.form = window.history.state.form;
     console.log('form: ' + JSON.stringify(this.form));
     this.resolveReloadDataLoss();
+    this.formName = this.form.name;
     this.getClientData();
   }
 
@@ -66,15 +71,19 @@ export class ExecClientsFormsDataPageComponent implements OnInit {
     return _.isEmpty(this.frontDeskService.nextPaginationUrl) ? false : true;
   }
 
-  showModal() {
+  showDataModal() {
+    this.modalService.open(this.dataModal, { centered: true });
+  }
+
+  showDownloadModal() {
     this.modalService.open(this.downloadModal, { centered: true });
   }
+
+  showAttachmentsModal() {}
 
   getDataHeaders(res: any) {
     const form_fields = this.form.form_fields;
     const client_data_key = _.keys(res[0].client_submitted_details);
-    console.log('form_fields: ' + form_fields);
-    console.log('client_data_key: ' + client_data_key);
 
     _.forEach(form_fields, (field) => {
       _.forEach(client_data_key, (client_key) => {
@@ -91,7 +100,7 @@ export class ExecClientsFormsDataPageComponent implements OnInit {
 
   getDataBody(res: any) {
     let objArr = [];
-    _.forEach(res, (data, i) => {
+    _.forEach(res, data => {
       _.forEach(this.keys, (k) => {
         objArr.push(data.client_submitted_details[k]);
       });
@@ -116,6 +125,7 @@ export class ExecClientsFormsDataPageComponent implements OnInit {
           this.hasData = true;
           this.getDataHeaders(res);
           this.getDataBody(res);
+          this.userData = res[0].client_submitted_details;
         }
       },
       err => {
