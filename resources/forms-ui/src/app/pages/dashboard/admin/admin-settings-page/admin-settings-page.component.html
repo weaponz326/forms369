@@ -20,49 +20,66 @@
             </div>
           </div>
         </div>
+
         <div class="row">
-          <div class="col-md-6 grid-margin stretch-card">
+          <div class="col-lg-12 grid-margin stretch-card">
             <div class="card">
               <div class="card-body">
                 <p class="card-title">Who can download form data</p>
-                <div class="card-text">
-                  <form>
-                    <div class="check">
-                      <label class="switch">
-                        <input type="checkbox">
-                        <span class="slider round"></span>
-                      </label>
-                      <span class="switch-label-text">Super Executive</span>
+                <div class="accordion" id="accordionExample">
+                  <div class="card">
+                    <div class="card-header" id="headingOne">
+                      <h2 class="mb-0">
+                        <button class="btn btn-link" type="button" data-toggle="collapse" data-target="#frontDesk" aria-expanded="false" aria-controls="frontDesk">
+                          Select Front Desks
+                        </button>
+                      </h2>
                     </div>
-                    <div class="check">
-                      <label class="switch">
-                        <input type="checkbox">
-                        <span class="slider round"></span>
-                      </label>
-                      <span class="switch-label-text">Branch Super Executive</span>
+
+                    <div id="frontDesk" class="collapse show" aria-labelledby="headingOne" data-parent="#accordionExample">
+                      <div class="card">
+                        <div class="card-body">
+                          <div class="table-responsive">
+                            <table class="table table-striped">
+                              <thead>
+                                <tr>
+                                  <th>Select</th>
+                                  <th>Avatar</th>
+                                  <th>Full Name</th>
+                                  <th>Email Address</th>
+                                  <th>Username</th>
+                                  <th>Branch Name</th>
+                                </tr>
+                              </thead>
+                              <tbody>
+                                <tr *ngFor="let user of frontDeskLists">
+                                  <td>
+                                    <div class="check">
+                                      <label class="switch">
+                                        <input type="checkbox">
+                                        <span class="slider round"></span>
+                                      </label>
+                                    </div>
+                                  </td>
+                                  <td class="py-1">
+                                    <img src="../../images/faces/face1.jpg" alt="image" />
+                                  </td>
+                                  <td>{{ user.full_name }}</td>
+                                  <td>{{ user.email }}</td>
+                                  <td>{{ user.username }}</td>
+                                  <td>{{ user.branch_name }}</td>
+                                </tr>
+                              </tbody>
+                            </table>
+                          </div>
+                        </div>
+                      </div>
                     </div>
-                    <div class="check">
-                      <label class="switch">
-                        <input type="checkbox">
-                        <span class="slider round"></span>
-                      </label>
-                      <span class="switch-label-text">Front Desk</span>
-                    </div>
-                  </form>
+                  </div>
                 </div>
               </div>
             </div>
-          </div>
-          <div class="col-md-6 grid-margin stretch-card">
-            <!-- <div class="card hover-cursor hover-primary" (click)="openBranches()">
-              <div class="card-body">
-                <p class="card-title">Total No. Branches</p>
-                <div class="card-text">
-                  <h1 style="font-size: 5em;">{{ numTotalBranches }}</h1>
-                  <p class="text-muted">A list of all branches</p>
-                </div>
-              </div>
-            </div> -->
+            
           </div>
         </div>
       </div>

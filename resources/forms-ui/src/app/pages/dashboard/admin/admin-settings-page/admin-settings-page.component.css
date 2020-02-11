@@ -61,10 +61,16 @@ input:checked + .slider:before {
 }
 
 .switch-label-text {
-    padding-left: 12px;
-    font-weight: 500;
+  padding: 12px;
 }
 
 .check {
-    padding: 4px 15px;
+  margin-top: 10px;
+  padding: 0px 0px;
+}
+
+.user-card {
+  cursor: pointer;
+  border-radius: 10px;
+  box-shadow: 1px 1px 0px rgba(0, 0, 0, 0.068), 1px 1px 2px rgba(0, 0, 0, 0.055);
 }
