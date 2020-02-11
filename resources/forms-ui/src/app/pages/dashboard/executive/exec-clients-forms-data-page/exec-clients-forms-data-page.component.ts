@@ -2,11 +2,11 @@ import * as _ from 'lodash';
 import Swal from 'sweetalert2';
 import * as moment from 'moment';
 import { Router } from '@angular/router';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { ClientService } from 'src/app/services/client/client.service';
 import { Component, OnInit, ViewChild, TemplateRef } from '@angular/core';
 import { FrontDeskService } from 'src/app/services/front-desk/front-desk.service';
 import { LocalStorageService } from 'src/app/services/storage/local-storage.service';
-import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
   selector: 'app-exec-clients-forms-data-page',
@@ -26,6 +26,7 @@ export class ExecClientsFormsDataPageComponent implements OnInit {
   hasMoreError: boolean;
   tableContents: Array<any>;
   tableHeaders: Array<string>;
+  dtOptions: DataTables.Settings;
   @ViewChild('data', { static: false }) dataModal: TemplateRef<any>;
   @ViewChild('confirm', { static: false }) downloadModal: TemplateRef<any>;
 

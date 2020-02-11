@@ -247,6 +247,7 @@ export class ClientService {
     _.forEach(form_sections, (section) => {
       console.log('**se: ' + section.heading);
       _.forEach(section.form_fields, (form) => {
+        console.log('FormName: ' + form.name);
         if (!_.isUndefined(form.name)) {
           const element_names = document.getElementsByName(form.name);
           const client_keys = _.keys(client_data);
