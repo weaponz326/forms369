@@ -7,6 +7,7 @@ import { ClientService } from 'src/app/services/client/client.service';
 import { Component, OnInit, ViewChild, TemplateRef } from '@angular/core';
 import { FrontDeskService } from 'src/app/services/front-desk/front-desk.service';
 import { LocalStorageService } from 'src/app/services/storage/local-storage.service';
+import { Subject } from 'rxjs';
 
 @Component({
   selector: 'app-exec-clients-forms-data-page',
@@ -25,8 +26,10 @@ export class ExecClientsFormsDataPageComponent implements OnInit {
   loadingMore: boolean;
   hasMoreError: boolean;
   tableContents: Array<any>;
+  clientFormData: Array<any>;
   tableHeaders: Array<string>;
-  dtOptions: DataTables.Settings;
+  dtOptions: any;
+  dtTrigger: Subject<any>;
   @ViewChild('data', { static: false }) dataModal: TemplateRef<any>;
   @ViewChild('confirm', { static: false }) downloadModal: TemplateRef<any>;
 
@@ -37,15 +40,30 @@ export class ExecClientsFormsDataPageComponent implements OnInit {
     private localStorage: LocalStorageService,
     private frontDeskService: FrontDeskService
   ) {
+    this.dtOptions = {
+      paging: false,
+      // Declare the use of the extension in the dom parameter
+      dom: 'Bfrtip',
+      // Configure the buttons
+      buttons: [
+        'csv',
+        'print',
+        'excel',
+        'pdfHtml5'
+      ]
+    };
+    // this.dtTrigger = new Subject();
     this.keys = [];
     this.userData = [];
     this.tableHeaders = [];
     this.tableContents = [];
+    this.clientFormData = [];
     this.form = window.history.state.form;
     console.log('form: ' + JSON.stringify(this.form));
     this.resolveReloadDataLoss();
     this.formName = this.form.name;
     this.getClientData();
+    // this._get();
   }
 
   ngOnInit() {
@@ -112,6 +130,56 @@ export class ExecClientsFormsDataPageComponent implements OnInit {
     });
   }
 
+  getFullClientData(client_data: any) {
+    console.log('client: ' + JSON.stringify(client_data));
+    const form_field_keys = [];
+    const form_keys = _.keys(client_data);
+    const form_values = _.values(client_data);
+    const form_fields = this.form.form_fields;
+    _.forEach(form_fields, (field) => {
+      if (!_.isUndefined(field.name)) {
+        form_field_keys.push(field.name);
+      }
+    });
+
+    _.forEach(form_keys, (key, i) => {
+      _.forEach(form_field_keys, (field) => {
+        if (field == key) {
+          this.clientFormData.push({
+            title: this.transformText(key),
+            data: form_values[i]
+          });
+        }
+      });
+    });
+  }
+
+  _get() {
+    this.loading = true;
+    this.frontDeskService.getRespondantData(this.form.form_code).then(
+      res => {
+        this.loading = false;
+        this.hasMore = this.checkIfHasMore();
+        console.log('res: ' + JSON.stringify(res));
+        if (res.length == 0) {
+          this.hasData = false;
+        }
+        else {
+          this.hasData = true;
+          this.getDataHeaders(res);
+          this.getDataBody(res);
+          this.userData = res[0].client_submitted_details;
+          this.getFullClientData(this.userData);
+          this.dtTrigger.next();
+        }
+      },
+      err => {
+        this.loading = false;
+        console.log('err: ' + JSON.stringify(err));
+      }
+    );
+  }
+
   getClientData() {
     this.loading = true;
     this.frontDeskService.getRespondantData(this.form.form_code).then(
@@ -127,6 +195,7 @@ export class ExecClientsFormsDataPageComponent implements OnInit {
           this.getDataHeaders(res);
           this.getDataBody(res);
           this.userData = res[0].client_submitted_details;
+          this.getFullClientData(this.userData);
         }
       },
       err => {

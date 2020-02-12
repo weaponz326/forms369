@@ -105,7 +105,7 @@
           <div class="col-lg-12 grid-margin stretch-card">
             <div class="card">
               <div class="card-body">
-                <div class="table-responsive">
+                <!-- <div class="table-responsive">
                   <table class="table table-hover">
                     <thead>
                       <tr>
@@ -119,6 +119,42 @@
                     </thead>
                     <tbody>
                       <tr class="hover-cursor" *ngFor="let content of tableContents; let i=index">
+                        <td>{{ content[0] }}</td>
+                        <td>{{ content[1] }}</td>
+                        <td>{{ content[2] }}</td>
+                        <td>{{ content[3] }}</td>
+                        <td>{{ content[content.length - 1] }}</td>
+                        <td>
+                          <div class="dropdown">
+                            <button type="button" class="btn btn-light bg-white btn-icon dropdown-toggle"
+                              id="dropdownMenuButton" data-toggle="dropdown">
+                              <i class="mdi mdi-dots-horizontal text-muted"></i>
+                            </button>
+                            <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                              <a class="dropdown-item" (click)="showDataModal(i)">View Data</a>
+                              <a class="dropdown-item" (click)="showDownloadModal()">Download Data</a>
+                              <a class="dropdown-item" (click)="showAttachmentsModal()">View Attachments</a>
+                            </div>
+                          </div>
+                        </td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div> -->
+                <div class="table-responsive">
+                  <table datatable [dtOptions]="dtOptions" [dtTrigger]="dtTrigger" class="row-border hover">
+                    <thead>
+                      <tr>
+                        <th><strong class="text-uppercase">{{ tableHeaders[0] }}</strong></th>
+                        <th><strong class="text-uppercase">{{ tableHeaders[1] }}</strong></th>
+                        <th><strong class="text-uppercase">{{ tableHeaders[2] }}</strong></th>
+                        <th><strong class="text-uppercase">{{ tableHeaders[3] }}</strong></th>
+                        <th><strong class="text-uppercase">Submitted At</strong></th>
+                        <th><strong class="text-uppercase">Actions</strong></th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr *ngFor="let content of tableContents; let i=index">
                         <td>{{ content[0] }}</td>
                         <td>{{ content[1] }}</td>
                         <td>{{ content[2] }}</td>
@@ -223,48 +259,13 @@
     </button>
   </div>
   <div class="modal-body">
-    <!-- <div class="table-responsive">
-      <table class="table table-hover">
-        <thead>
-          <tr>
-            <th *ngFor="let header of tableHeaders">
-              <strong class="text-uppercase">{{ header }}</strong>
-            </th>
-            <th>
-              <strong class="text-uppercase">Submitted At</strong>
-            </th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr class="hover-cursor" *ngFor="let content of tableContents" (click)="showModal()">
-            <td *ngFor="let data of content">{{ data }}</td>
-          </tr>
-        </tbody>
-      </table>
-    </div> -->
-    <!-- <div class="table-responsive">
-      <table class="table">
-        <thead>
-          <tr *ngFor="let header of tableHeaders; let i=index">
-            <th>{{ header }}</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr *ngFor="let data of userData[0] | json">
-            <td>{{ content }}</td>
-          </tr>
-        </tbody>
-      </table>
-    </div> -->
     <div>
-      <div class="row">
-        <div class="col-4">
-          <h6 *ngFor="let header of tableHeaders">{{ header }}</h6>
+      <div class="row" style="margin: 5px 0px; padding: 4px 0px;" *ngFor="let item of clientFormData; let i=index">
+        <div class="col-6">
+          <h5 class="text-uppercase" style="font-size: 13px;"><strong>{{ item.title }} : </strong></h5>
         </div>
-        <div class="col-8">
-          <div *ngFor="let content of tableContents; let i=index">
-            <h6 *ngFor="let data of content">{{ data }}</h6>
-          </div>
+        <div class="col-6">
+          <h5 style="font-size: 0.95em;">{{ item.data }}</h5>
         </div>
       </div>
     </div>

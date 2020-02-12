@@ -44,7 +44,6 @@
                               <thead>
                                 <tr>
                                   <th>Select</th>
-                                  <th>Avatar</th>
                                   <th>Full Name</th>
                                   <th>Email Address</th>
                                   <th>Username</th>
@@ -56,13 +55,10 @@
                                   <td>
                                     <div class="check">
                                       <label class="switch">
-                                        <input type="checkbox" [value]="user.id" [name]="i" (change)="onCanDownloadFrontDesk($event, user.id)">
+                                        <input type="checkbox" [checked]="user.can_download == 1" [value]="user.id" [name]="i" (change)="onCanDownloadFrontDesk($event, user.id)">
                                         <span class="slider round"></span>
                                       </label>
                                     </div>
-                                  </td>
-                                  <td class="py-1">
-                                    <img src="../../images/faces/face1.jpg" alt="image" />
                                   </td>
                                   <td>{{ user.full_name }}</td>
                                   <td>{{ user.email }}</td>
@@ -96,7 +92,6 @@
                               <thead>
                                 <tr>
                                   <th>Select</th>
-                                  <th>Avatar</th>
                                   <th>Full Name</th>
                                   <th>Email Address</th>
                                   <th>Username</th>
@@ -108,14 +103,11 @@
                                   <td>
                                     <div class="check">
                                       <label class="switch">
-                                        <input type="checkbox" [value]="user.id" [name]="i"
-                                          (change)="onCanDownloadFrontDesk($event, user.id)">
+                                        <input type="checkbox" [checked]="user.can_download == 1" [value]="user.id"
+                                          [name]="i" (change)="onCanDownloadSuperExecutive($event, user.id)">
                                         <span class="slider round"></span>
                                       </label>
                                     </div>
-                                  </td>
-                                  <td class="py-1">
-                                    <img src="../../images/faces/face1.jpg" alt="image" />
                                   </td>
                                   <td>{{ user.full_name }}</td>
                                   <td>{{ user.email }}</td>
@@ -149,7 +141,6 @@
                               <thead>
                                 <tr>
                                   <th>Select</th>
-                                  <th>Avatar</th>
                                   <th>Full Name</th>
                                   <th>Email Address</th>
                                   <th>Username</th>
@@ -162,13 +153,10 @@
                                     <div class="check">
                                       <label class="switch">
                                         <input type="checkbox" [value]="user.id" [name]="i"
-                                          (change)="onCanDownloadFrontDesk($event, user.id)">
+                                          [checked]="user.can_download == 1" (change)="onCanDownloadBranchSuperExec($event, user.id)">
                                         <span class="slider round"></span>
                                       </label>
                                     </div>
-                                  </td>
-                                  <td class="py-1">
-                                    <img src="../../images/faces/face1.jpg" alt="image" />
                                   </td>
                                   <td>{{ user.full_name }}</td>
                                   <td>{{ user.email }}</td>

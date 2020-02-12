@@ -1,6 +1,5 @@
 import * as _ from 'lodash';
 import Swal from 'sweetalert2';
-import { Router } from '@angular/router';
 import { Component, OnInit } from '@angular/core';
 import { Users } from 'src/app/models/users.model';
 import { UserTypes } from 'src/app/enums/user-types.enum';
@@ -19,19 +18,17 @@ export class AdminSettingsPageComponent implements OnInit {
   loading: boolean;
   hasError: boolean;
   submitting: boolean;
-  isLoading: boolean;
   hasFrontDesk: boolean;
   hasSuperExecs: boolean;
   frontDeskLists: Array<any>;
   superExecLists: Array<any>;
   hasBranchSuperExecs: boolean;
   branchSuperExecLists: Array<any>;
-  selectedFrontDesks: Array<string>;
-  selectedSuperExecutives: Array<string>;
-  selectedBranchSuperExecs: Array<string>;
+  selectedFrontDesks: Array<any>;
+  selectedSuperExecutives: Array<any>;
+  selectedBranchSuperExecs: Array<any>;
 
   constructor(
-    private router: Router,
     private logging: LoggingService,
     private adminService: AdminService,
     private localStorage: LocalStorageService,
@@ -143,12 +140,17 @@ export class AdminSettingsPageComponent implements OnInit {
   onCanDownloadFrontDesk(e: any, id: string) {
     if (e.target.checked == true) {
       if (!_.includes(this.selectedFrontDesks, id)) {
-        this.selectedFrontDesks.push(id);
+        this.selectedFrontDesks.push({ id: id, value: 1 });
       }
     }
     else {
-      if (_.includes(this.selectedFrontDesks, id)) {
-        this.selectedFrontDesks = _.filter(this.selectedFrontDesks, (_id) => id != _id);
+      if (!_.includes(this.selectedFrontDesks, id)) {
+        this.selectedFrontDesks.push({ id: id, value: 0 });
+      }
+      else {
+        _.each(this.selectedFrontDesks, (i) => {
+          if (i.id == id) i.value = 0;
+        });
       }
     }
   }
@@ -157,12 +159,17 @@ export class AdminSettingsPageComponent implements OnInit {
     console.log(e);
     if (e.target.checked == true) {
       if (!_.includes(this.selectedSuperExecutives, id)) {
-        this.selectedSuperExecutives.push(id);
+        this.selectedSuperExecutives.push({ id: id, value: 1 });
       }
     }
     else {
-      if (_.includes(this.selectedSuperExecutives, id)) {
-        this.selectedSuperExecutives = _.filter(this.selectedSuperExecutives, (_id) => id != _id);
+      if (!_.includes(this.selectedSuperExecutives, id)) {
+        this.selectedSuperExecutives.push({ id: id, value: 0 });
+      }
+      else {
+        _.each(this.selectedSuperExecutives, (i) => {
+          if (i.id == id) i.value = 0;
+        });
       }
     }
   }
@@ -171,33 +178,38 @@ export class AdminSettingsPageComponent implements OnInit {
     console.log(e);
     if (e.target.checked == true) {
       if (!_.includes(this.selectedBranchSuperExecs, id)) {
-        this.selectedBranchSuperExecs.push(id);
+        this.selectedBranchSuperExecs.push({ id: id, value: 1 });
       }
     }
     else {
-      if (_.includes(this.selectedBranchSuperExecs, id)) {
-        this.selectedBranchSuperExecs = _.filter(this.selectedBranchSuperExecs, (_id) => id != _id);
+      if (!_.includes(this.selectedBranchSuperExecs, id)) {
+        this.selectedBranchSuperExecs.push({ id: id, value: 0 });
+      }
+      else {
+        _.each(this.selectedBranchSuperExecs, (i) => {
+          if (i.id == id) i.value = 0;
+        });
       }
     }
   }
 
   getCanDownloadData() {
-    const account_ids = [];
+    const accounts = [];
     const front_desk_accounts = this.selectedFrontDesks;
     const super_exec_accounts = this.selectedSuperExecutives;
     const branch_super_exec_accounts = this.selectedBranchSuperExecs;
 
     _.forEach(front_desk_accounts, (account) => {
-      account_ids.push(account);
+      accounts.push(account);
     });
     _.forEach(super_exec_accounts, (account) => {
-      account_ids.push(account);
+      accounts.push(account);
     });
     _.forEach(branch_super_exec_accounts, (account) => {
-      account_ids.push(account);
+      accounts.push(account);
     });
 
-    return this.prepareCanDownloadData(account_ids);
+    return accounts;
   }
 
   submitCanDownloadSettings() {
@@ -216,11 +228,11 @@ export class AdminSettingsPageComponent implements OnInit {
     );
   }
 
-  submitAllCanDownload(ids: string[]): Promise<boolean> {
+  submitAllCanDownload(users: any[]): Promise<boolean> {
     return new Promise((resolve, reject) => {
       const promiseArray: Array<Promise<any>> = [];
-      _.forEach(ids, (id) => {
-        const promise = this.adminService.setupCanDownloadPermission(id, 1);
+      _.forEach(users, (u) => {
+        const promise = this.adminService.setupCanDownloadPermission(u.id, u.value);
         promiseArray.push(promise);
       });
 
@@ -239,14 +251,7 @@ export class AdminSettingsPageComponent implements OnInit {
     });
   }
 
-  prepareCanDownloadData(ids: string[]) {
-    const final_data = _.filter(ids, (_id) => _id != '' || _id != null || _id != undefined);
-    console.log('dddddddd: ' + JSON.stringify(final_data));
-    return final_data;
-  }
-
   save() {
-    console.log('selected: ' + this.selectedFrontDesks);
     this.submitCanDownloadSettings();
   }
 
