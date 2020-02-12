@@ -91,4 +91,23 @@ export class AdminService {
       );
     });
   }
+
+  setupCanDownloadPermission(account_id: string, status: 1 | 0): Promise<boolean> {
+    return new Promise((resolve, reject) => {
+      console.log('acc_id: ' + account_id);
+      const url = this.endpointService.apiHost + 'api/v1/candownload/' + account_id + '/' + status;
+      this.http.post(url, {}, { headers: this.headers }).subscribe(
+        res => {
+          const response = res as any;
+          _.toLower(response.message) == 'ok'
+            ? resolve(true)
+            : resolve(false);
+        },
+        err => {
+          console.log('error: ' + JSON.stringify(err));
+          reject(err);
+        }
+      );
+    });
+  }
 }

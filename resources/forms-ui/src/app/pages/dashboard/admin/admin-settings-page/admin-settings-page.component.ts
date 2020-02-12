@@ -1,10 +1,11 @@
 import * as _ from 'lodash';
+import Swal from 'sweetalert2';
 import { Router } from '@angular/router';
 import { Component, OnInit } from '@angular/core';
 import { Users } from 'src/app/models/users.model';
 import { UserTypes } from 'src/app/enums/user-types.enum';
 import { AdminService } from 'src/app/services/admin/admin.service';
-import { FormBuilder, FormGroup, Validators, FormArray } from '@angular/forms';
+import { LoggingService } from 'src/app/services/logging/logging.service';
 import { ExecutiveService } from 'src/app/services/executive/executive.service';
 import { LocalStorageService } from 'src/app/services/storage/local-storage.service';
 
@@ -15,15 +16,12 @@ import { LocalStorageService } from 'src/app/services/storage/local-storage.serv
 })
 export class AdminSettingsPageComponent implements OnInit {
   user: Users;
-  frontDesks: any;
   loading: boolean;
   hasError: boolean;
-  submitted: boolean;
+  submitting: boolean;
   isLoading: boolean;
-  superExecutives: any;
   hasFrontDesk: boolean;
   hasSuperExecs: boolean;
-  canDownloadForm: FormGroup;
   frontDeskLists: Array<any>;
   superExecLists: Array<any>;
   hasBranchSuperExecs: boolean;
@@ -34,12 +32,11 @@ export class AdminSettingsPageComponent implements OnInit {
 
   constructor(
     private router: Router,
-    private fb: FormBuilder,
+    private logging: LoggingService,
     private adminService: AdminService,
     private localStorage: LocalStorageService,
     private executiveService: ExecutiveService
   ) {
-    this.frontDesks = [];
     this.frontDeskLists = [];
     this.superExecLists = [];
     this.selectedFrontDesks = [];
@@ -55,12 +52,22 @@ export class AdminSettingsPageComponent implements OnInit {
     this.getBranchSuperExecutives();
   }
 
-  public get f() {
-    return this.canDownloadForm.controls;
+  showCanDownloadSavedAlert() {
+    Swal.fire({
+      title: 'Saved Settings',
+      icon: 'success',
+      text: 'Settings have been successfully saved!',
+      confirmButtonText: 'Ok'
+    });
   }
 
-  public get front_desk() {
-    return this.f.canDownload as FormArray;
+  showCanDownloadFailedAlert() {
+    Swal.fire({
+      title: 'Oops!',
+      icon: 'error',
+      text: 'Failed to save settings. Please make sure you still have an active internet connection or our servers may be down.',
+      confirmButtonText: 'Arrrgh, Ok'
+    });
   }
 
   getFrontDesks() {
@@ -134,34 +141,113 @@ export class AdminSettingsPageComponent implements OnInit {
   }
 
   onCanDownloadFrontDesk(e: any, id: string) {
-    if (this.frontDesks[0] == true) {
+    if (e.target.checked == true) {
       if (!_.includes(this.selectedFrontDesks, id)) {
         this.selectedFrontDesks.push(id);
       }
     }
     else {
       if (_.includes(this.selectedFrontDesks, id)) {
-        this.selectedFrontDesks = _.filter(this.selectedFrontDesks, (_id) => id != id);
+        this.selectedFrontDesks = _.filter(this.selectedFrontDesks, (_id) => id != _id);
       }
     }
   }
 
   onCanDownloadSuperExecutive(e: any, id: string) {
     console.log(e);
+    if (e.target.checked == true) {
+      if (!_.includes(this.selectedSuperExecutives, id)) {
+        this.selectedSuperExecutives.push(id);
+      }
+    }
+    else {
+      if (_.includes(this.selectedSuperExecutives, id)) {
+        this.selectedSuperExecutives = _.filter(this.selectedSuperExecutives, (_id) => id != _id);
+      }
+    }
   }
 
-  getCanDownloadData() {}
+  onCanDownloadBranchSuperExec(e: any, id: string) {
+    console.log(e);
+    if (e.target.checked == true) {
+      if (!_.includes(this.selectedBranchSuperExecs, id)) {
+        this.selectedBranchSuperExecs.push(id);
+      }
+    }
+    else {
+      if (_.includes(this.selectedBranchSuperExecs, id)) {
+        this.selectedBranchSuperExecs = _.filter(this.selectedBranchSuperExecs, (_id) => id != _id);
+      }
+    }
+  }
 
-  saveCanDownload() {
-    const front_desks = this.canDownloadForm.value.canDownload.map((v, i) => (v ? this.frontDeskLists[i].id : null))
-    .filter(v => v !== null);
-    console.log(front_desks);
+  getCanDownloadData() {
+    const account_ids = [];
+    const front_desk_accounts = this.selectedFrontDesks;
+    const super_exec_accounts = this.selectedSuperExecutives;
+    const branch_super_exec_accounts = this.selectedBranchSuperExecs;
+
+    _.forEach(front_desk_accounts, (account) => {
+      account_ids.push(account);
+    });
+    _.forEach(super_exec_accounts, (account) => {
+      account_ids.push(account);
+    });
+    _.forEach(branch_super_exec_accounts, (account) => {
+      account_ids.push(account);
+    });
+
+    return this.prepareCanDownloadData(account_ids);
+  }
+
+  submitCanDownloadSettings() {
+    this.submitting = true;
+    const ids = this.getCanDownloadData();
+    this.submitAllCanDownload(ids).then(
+      ok => {
+        this.submitting = false;
+        ok
+          ? this.showCanDownloadSavedAlert()
+          : this.showCanDownloadFailedAlert();
+      },
+      err => {
+        this.showCanDownloadFailedAlert();
+      }
+    );
+  }
+
+  submitAllCanDownload(ids: string[]): Promise<boolean> {
+    return new Promise((resolve, reject) => {
+      const promiseArray: Array<Promise<any>> = [];
+      _.forEach(ids, (id) => {
+        const promise = this.adminService.setupCanDownloadPermission(id, 1);
+        promiseArray.push(promise);
+      });
+
+      Promise.all(promiseArray).then(
+        done => {
+          this.logging.log('done: ' + done);
+          this.logging.log('all can download settings saved');
+          resolve(true);
+        },
+        err => {
+          this.logging.log('error___: ' + JSON.stringify(err));
+          this.logging.log('failed executing all can download');
+          resolve(false);
+        }
+      );
+    });
+  }
+
+  prepareCanDownloadData(ids: string[]) {
+    const final_data = _.filter(ids, (_id) => _id != '' || _id != null || _id != undefined);
+    console.log('dddddddd: ' + JSON.stringify(final_data));
+    return final_data;
   }
 
   save() {
-    console.log('selected: ' + this.frontDesks);
-    console.log('selected_1: ' + this.selectedFrontDesks);
-    // this.saveCanDownload();
+    console.log('selected: ' + this.selectedFrontDesks);
+    this.submitCanDownloadSettings();
   }
 
 }
