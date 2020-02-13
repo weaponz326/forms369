@@ -201,7 +201,8 @@ export class FormBuilderService {
       'select',
       'paragraph',
       'textarea',
-      'text'
+      'text',
+      'date'
     ];
   }
 

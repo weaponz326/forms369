@@ -86,17 +86,17 @@ export class EditFormPageComponent implements OnInit {
     this.formStatus = this._form.status;
     this.formCode = this._form.form_code;
 
-    this.formBuilderService.generateSectionAndDefaultFormFields().then(
+    this.formBuilderService.generateFormFieldsBySections().then(
       form_elements => {
         this.formBuilder = $(document.getElementById('fb-editor')).formBuilder({
           controlPosition: 'left',
           inputSets: form_elements,
-          scrollToFieldOnAdd: false,
+          scrollToFieldOnAdd: true,
           defaultFields: this._form.form_fields,
           disabledActionButtons: ['data', 'clear', 'save'],
           typeUserAttrs: this.formBuilderService.handleFieldsTypeAttrs(),
           typeUserDisabledAttrs: this.formBuilderService.disableFieldAttrs(),
-          disableFields: this.formBuilderService.disableDefaultFormControls()
+          disableFields: this.formBuilderService.disableSectionFormFields()
         });
         this._loading = false;
       },

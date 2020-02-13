@@ -46,7 +46,7 @@ export class CreateFormPageComponent implements OnInit {
 
   renderForm() {
     if (_.isUndefined(this.template) || _.isNull(this.template)) {
-      this.formBuilderService.generateSectionAndDefaultFormFields().then(
+      this.formBuilderService.generateFormFieldsBySections().then(
         form_elements => {
           this.formBuilder = $(document.getElementById('fb-editor')).formBuilder({
             controlPosition: 'left',
@@ -54,8 +54,8 @@ export class CreateFormPageComponent implements OnInit {
             scrollToFieldOnAdd: false,
             disabledActionButtons: ['data', 'clear', 'save'],
             typeUserAttrs: this.formBuilderService.handleFieldsTypeAttrs(),
-          typeUserDisabledAttrs: this.formBuilderService.disableFieldAttrs(),
-            disableFields: this.formBuilderService.disableDefaultFormControls()
+            typeUserDisabledAttrs: this.formBuilderService.disableFieldAttrs(),
+            disableFields: this.formBuilderService.disableSectionFormFields()
           });
           this._loading = false;
         },
