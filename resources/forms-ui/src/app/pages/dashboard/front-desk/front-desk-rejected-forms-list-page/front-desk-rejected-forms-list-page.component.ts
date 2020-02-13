@@ -112,6 +112,7 @@ export class FrontDeskRejectedFormsListPageComponent implements OnInit {
           this.hasData = true;
           this.loading = false;
           _.forEach(res, (form) => {
+            form.submitted_at = this.dateTime.safeDateFormat(form.submitted_at);
             this.rejectedFormsList.push(form);
           });
           this.allRejectedFormsList = this.rejectedFormsList;
@@ -137,6 +138,7 @@ export class FrontDeskRejectedFormsListPageComponent implements OnInit {
         this.hasMoreError = false;
         this.hasMore = this.checkIfHasMore();
         _.forEach(res, (form) => {
+          form.submitted_at = this.dateTime.safeDateFormat(form.submitted_at);
           this.rejectedFormsList.push(form);
         });
         this.allRejectedFormsList = this.rejectedFormsList;

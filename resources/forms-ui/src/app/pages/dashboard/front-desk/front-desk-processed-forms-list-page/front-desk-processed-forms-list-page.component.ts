@@ -80,6 +80,7 @@ export class FrontDeskProcessedFormsListPageComponent implements OnInit {
         if (res.length != 0) {
           this.hasData = true;
           _.forEach(res, (form) => {
+            form.last_processed = this.dateTime.safeDateFormat(form.last_processed);
             this.processedFormsList.push(form);
           });
           this.allProcessedFormsList = this.processedFormsList;
@@ -106,6 +107,7 @@ export class FrontDeskProcessedFormsListPageComponent implements OnInit {
         this.hasMoreError = false;
         this.hasMore = this.checkIfHasMore();
         _.forEach(res, (form) => {
+          form.last_processed = this.dateTime.safeDateFormat(form.last_processed);
           this.processedFormsList.push(form);
         });
         this.loading = false;

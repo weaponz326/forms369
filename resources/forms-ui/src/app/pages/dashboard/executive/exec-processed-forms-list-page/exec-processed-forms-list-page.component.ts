@@ -4,6 +4,7 @@ import { Router } from '@angular/router';
 import { Users } from 'src/app/models/users.model';
 import { FrontDeskService } from 'src/app/services/front-desk/front-desk.service';
 import { LocalStorageService } from 'src/app/services/storage/local-storage.service';
+import { DateTimeService } from 'src/app/services/date-time/date-time.service';
 
 @Component({
   selector: 'app-exec-processed-forms-list-page',
@@ -22,6 +23,7 @@ export class ExecProcessedFormsListPageComponent implements OnInit {
 
   constructor(
     private router: Router,
+    private dateService: DateTimeService,
     private localStorage: LocalStorageService,
     private frontDeskService: FrontDeskService,
   ) {
@@ -52,6 +54,8 @@ export class ExecProcessedFormsListPageComponent implements OnInit {
         if (res.length != 0) {
           this.hasData = true;
           _.forEach(res, (form) => {
+            form.submitted_at = this.dateService.safeDateFormat(form.submitted_at);
+            form.last_processed = this.dateService.safeDateFormat(form.last_processed);
             this.processedFormsList.push(form);
           });
           this.loading = false;
@@ -78,6 +82,8 @@ export class ExecProcessedFormsListPageComponent implements OnInit {
         this.hasMoreError = false;
         this.hasMore = this.checkIfHasMore();
         _.forEach(res, (form) => {
+          form.submitted_at = this.dateService.safeDateFormat(form.submitted_at);
+          form.last_processed = this.dateService.safeDateFormat(form.last_processed);
           this.processedFormsList.push(form);
         });
         this.loading = false;

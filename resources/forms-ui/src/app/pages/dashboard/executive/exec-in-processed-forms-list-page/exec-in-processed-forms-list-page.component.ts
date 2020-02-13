@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import * as _ from 'lodash';
 import { Users } from 'src/app/models/users.model';
+import { DateTimeService } from 'src/app/services/date-time/date-time.service';
 import { FrontDeskService } from 'src/app/services/front-desk/front-desk.service';
 import { LocalStorageService } from 'src/app/services/storage/local-storage.service';
 
@@ -20,6 +21,7 @@ export class ExecInProcessedFormsListPageComponent implements OnInit {
   processingFormsList: Array<any>;
 
   constructor(
+    private dateService: DateTimeService,
     private localStorage: LocalStorageService,
     private frontDeskService: FrontDeskService,
   ) {
@@ -45,6 +47,7 @@ export class ExecInProcessedFormsListPageComponent implements OnInit {
         if (res.length != 0) {
           this.hasData = true;
           _.forEach(res, (form) => {
+            form.submitted_at = this.dateService.safeDateFormat(form.submitted_at);
             this.processingFormsList.push(form);
           });
           this.loading = false;
@@ -71,6 +74,7 @@ export class ExecInProcessedFormsListPageComponent implements OnInit {
         this.hasMoreError = false;
         this.hasMore = this.checkIfHasMore();
         _.forEach(res, (form) => {
+          form.submitted_at = this.dateService.safeDateFormat(form.submitted_at);
           this.processingFormsList.push(form);
         });
         this.loading = false;

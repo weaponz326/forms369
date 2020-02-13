@@ -7032,6 +7032,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var src_app_services_client_client_service__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! src/app/services/client/client.service */ "./src/app/services/client/client.service.ts");
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm2015/core.js");
 /* harmony import */ var src_app_services_storage_local_storage_service__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! src/app/services/storage/local-storage.service */ "./src/app/services/storage/local-storage.service.ts");
+/* harmony import */ var src_app_services_date_time_date_time_service__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! src/app/services/date-time/date-time.service */ "./src/app/services/date-time/date-time.service.ts");
+
 
 
 
@@ -7040,10 +7042,11 @@ __webpack_require__.r(__webpack_exports__);
 
 
 let ClientFormsHistoryPageComponent = class ClientFormsHistoryPageComponent {
-    constructor(router, modalService, clientService, localStorageService) {
+    constructor(router, modalService, clientService, dateService, localStorageService) {
         this.router = router;
         this.modalService = modalService;
         this.clientService = clientService;
+        this.dateService = dateService;
         this.localStorageService = localStorageService;
         this.rejectionNote = '';
         this.historyCollection = [];
@@ -7114,7 +7117,6 @@ let ClientFormsHistoryPageComponent = class ClientFormsHistoryPageComponent {
                 this.loading = false;
                 this.foundNoForm = false;
                 lodash__WEBPACK_IMPORTED_MODULE_1__["forEach"](forms, (form) => {
-                    // this.formsList.push(form);
                     this.historyCollection.push(form);
                 });
             }
@@ -7183,7 +7185,7 @@ let ClientFormsHistoryPageComponent = class ClientFormsHistoryPageComponent {
                 this.hasData = true;
                 this.loading = false;
                 lodash__WEBPACK_IMPORTED_MODULE_1__["forEach"](forms, (form) => {
-                    form.submitted_at = form.submitted_at.replace(/-/g, '/');
+                    form.submitted_at = this.dateService.safeDateFormat(form.submitted_at);
                     this.historyCollection.push(form);
                 });
                 this.allHistoryCollection = this.historyCollection;
@@ -7206,6 +7208,7 @@ let ClientFormsHistoryPageComponent = class ClientFormsHistoryPageComponent {
             this.hasMoreError = false;
             this.hasMore = this.checkIfHasMore();
             lodash__WEBPACK_IMPORTED_MODULE_1__["forEach"](forms, (form) => {
+                form.submitted_at = this.dateService.safeDateFormat(form.submitted_at);
                 this.historyCollection.push(form);
             });
         }, err => {
@@ -7242,6 +7245,7 @@ ClientFormsHistoryPageComponent.ctorParameters = () => [
     { type: _angular_router__WEBPACK_IMPORTED_MODULE_2__["Router"] },
     { type: _ng_bootstrap_ng_bootstrap__WEBPACK_IMPORTED_MODULE_3__["NgbModal"] },
     { type: src_app_services_client_client_service__WEBPACK_IMPORTED_MODULE_4__["ClientService"] },
+    { type: src_app_services_date_time_date_time_service__WEBPACK_IMPORTED_MODULE_7__["DateTimeService"] },
     { type: src_app_services_storage_local_storage_service__WEBPACK_IMPORTED_MODULE_6__["LocalStorageService"] }
 ];
 tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
@@ -8511,14 +8515,17 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm2015/core.js");
 /* harmony import */ var src_app_services_branch_branch_service__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! src/app/services/branch/branch.service */ "./src/app/services/branch/branch.service.ts");
 /* harmony import */ var src_app_services_storage_local_storage_service__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! src/app/services/storage/local-storage.service */ "./src/app/services/storage/local-storage.service.ts");
+/* harmony import */ var src_app_services_date_time_date_time_service__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! src/app/services/date-time/date-time.service */ "./src/app/services/date-time/date-time.service.ts");
+
 
 
 
 
 
 let ExecBranchesListPageComponent = class ExecBranchesListPageComponent {
-    constructor(branchService, localStorage) {
+    constructor(branchService, dateService, localStorage) {
         this.branchService = branchService;
+        this.dateService = dateService;
         this.localStorage = localStorage;
         this.branchesList = [];
         this.allBranchesList = [];
@@ -8577,8 +8584,8 @@ let ExecBranchesListPageComponent = class ExecBranchesListPageComponent {
             if (branches.length > 0) {
                 this.hasData = true;
                 lodash__WEBPACK_IMPORTED_MODULE_1__["forEach"](branches, (branch) => {
+                    branch.created_at = this.dateService.safeDateFormat(branch.created_at);
                     this.branchesList.push(branch);
-                    this.allBranchesList = lodash__WEBPACK_IMPORTED_MODULE_1__["reverse"](this.branchesList);
                 });
             }
             else {
@@ -8598,6 +8605,7 @@ let ExecBranchesListPageComponent = class ExecBranchesListPageComponent {
             const branches = res;
             this.hasMore = this.checkIfHasMore();
             lodash__WEBPACK_IMPORTED_MODULE_1__["forEach"](branches, (branch) => {
+                branch.created_at = this.dateService.safeDateFormat(branch.created_at);
                 this.branchesList.push(branch);
                 this.allBranchesList = this.branchesList;
             });
@@ -8612,6 +8620,7 @@ let ExecBranchesListPageComponent = class ExecBranchesListPageComponent {
 };
 ExecBranchesListPageComponent.ctorParameters = () => [
     { type: src_app_services_branch_branch_service__WEBPACK_IMPORTED_MODULE_3__["BranchService"] },
+    { type: src_app_services_date_time_date_time_service__WEBPACK_IMPORTED_MODULE_5__["DateTimeService"] },
     { type: src_app_services_storage_local_storage_service__WEBPACK_IMPORTED_MODULE_4__["LocalStorageService"] }
 ];
 ExecBranchesListPageComponent = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
@@ -9009,15 +9018,18 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var lodash__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! lodash */ "./node_modules/lodash/lodash.js");
 /* harmony import */ var lodash__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(lodash__WEBPACK_IMPORTED_MODULE_2__);
 /* harmony import */ var src_app_services_forms_forms_service__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! src/app/services/forms/forms.service */ "./src/app/services/forms/forms.service.ts");
-/* harmony import */ var src_app_services_storage_local_storage_service__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! src/app/services/storage/local-storage.service */ "./src/app/services/storage/local-storage.service.ts");
+/* harmony import */ var src_app_services_date_time_date_time_service__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! src/app/services/date-time/date-time.service */ "./src/app/services/date-time/date-time.service.ts");
+/* harmony import */ var src_app_services_storage_local_storage_service__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! src/app/services/storage/local-storage.service */ "./src/app/services/storage/local-storage.service.ts");
+
 
 
 
 
 
 let ExecFormsListPageComponent = class ExecFormsListPageComponent {
-    constructor(formService, localStorage) {
+    constructor(formService, dateService, localStorage) {
         this.formService = formService;
+        this.dateService = dateService;
         this.localStorage = localStorage;
         this.allFormsList = [];
         this.getAllCompanyForms();
@@ -9037,6 +9049,7 @@ let ExecFormsListPageComponent = class ExecFormsListPageComponent {
                 this.hasData = true;
                 this.loading = false;
                 lodash__WEBPACK_IMPORTED_MODULE_2__["forEach"](forms, (form) => {
+                    form.created_at = this.dateService.safeDateFormat(form.created_at);
                     this.allFormsList.push(form);
                 });
             }
@@ -9058,8 +9071,8 @@ let ExecFormsListPageComponent = class ExecFormsListPageComponent {
             const forms = res;
             this.hasMore = this.checkIfHasMore();
             lodash__WEBPACK_IMPORTED_MODULE_2__["forEach"](forms, (form) => {
+                form.created_at = this.dateService.safeDateFormat(form.created_at);
                 this.allFormsList.push(form);
-                this.allFormsList = lodash__WEBPACK_IMPORTED_MODULE_2__["reverse"](this.allFormsList);
             });
         }, err => {
             this.loadingMore = false;
@@ -9072,7 +9085,8 @@ let ExecFormsListPageComponent = class ExecFormsListPageComponent {
 };
 ExecFormsListPageComponent.ctorParameters = () => [
     { type: src_app_services_forms_forms_service__WEBPACK_IMPORTED_MODULE_3__["FormsService"] },
-    { type: src_app_services_storage_local_storage_service__WEBPACK_IMPORTED_MODULE_4__["LocalStorageService"] }
+    { type: src_app_services_date_time_date_time_service__WEBPACK_IMPORTED_MODULE_4__["DateTimeService"] },
+    { type: src_app_services_storage_local_storage_service__WEBPACK_IMPORTED_MODULE_5__["LocalStorageService"] }
 ];
 ExecFormsListPageComponent = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
     Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Component"])({
@@ -9111,15 +9125,18 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm2015/core.js");
 /* harmony import */ var lodash__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! lodash */ "./node_modules/lodash/lodash.js");
 /* harmony import */ var lodash__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(lodash__WEBPACK_IMPORTED_MODULE_2__);
-/* harmony import */ var src_app_services_front_desk_front_desk_service__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! src/app/services/front-desk/front-desk.service */ "./src/app/services/front-desk/front-desk.service.ts");
-/* harmony import */ var src_app_services_storage_local_storage_service__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! src/app/services/storage/local-storage.service */ "./src/app/services/storage/local-storage.service.ts");
+/* harmony import */ var src_app_services_date_time_date_time_service__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! src/app/services/date-time/date-time.service */ "./src/app/services/date-time/date-time.service.ts");
+/* harmony import */ var src_app_services_front_desk_front_desk_service__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! src/app/services/front-desk/front-desk.service */ "./src/app/services/front-desk/front-desk.service.ts");
+/* harmony import */ var src_app_services_storage_local_storage_service__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! src/app/services/storage/local-storage.service */ "./src/app/services/storage/local-storage.service.ts");
+
 
 
 
 
 
 let ExecInProcessedFormsListPageComponent = class ExecInProcessedFormsListPageComponent {
-    constructor(localStorage, frontDeskService) {
+    constructor(dateService, localStorage, frontDeskService) {
+        this.dateService = dateService;
         this.localStorage = localStorage;
         this.frontDeskService = frontDeskService;
         this.processingFormsList = [];
@@ -9139,6 +9156,7 @@ let ExecInProcessedFormsListPageComponent = class ExecInProcessedFormsListPageCo
             if (res.length != 0) {
                 this.hasData = true;
                 lodash__WEBPACK_IMPORTED_MODULE_2__["forEach"](res, (form) => {
+                    form.submitted_at = this.dateService.safeDateFormat(form.submitted_at);
                     this.processingFormsList.push(form);
                 });
                 this.loading = false;
@@ -9161,6 +9179,7 @@ let ExecInProcessedFormsListPageComponent = class ExecInProcessedFormsListPageCo
             this.hasMoreError = false;
             this.hasMore = this.checkIfHasMore();
             lodash__WEBPACK_IMPORTED_MODULE_2__["forEach"](res, (form) => {
+                form.submitted_at = this.dateService.safeDateFormat(form.submitted_at);
                 this.processingFormsList.push(form);
             });
             this.loading = false;
@@ -9174,8 +9193,9 @@ let ExecInProcessedFormsListPageComponent = class ExecInProcessedFormsListPageCo
     }
 };
 ExecInProcessedFormsListPageComponent.ctorParameters = () => [
-    { type: src_app_services_storage_local_storage_service__WEBPACK_IMPORTED_MODULE_4__["LocalStorageService"] },
-    { type: src_app_services_front_desk_front_desk_service__WEBPACK_IMPORTED_MODULE_3__["FrontDeskService"] }
+    { type: src_app_services_date_time_date_time_service__WEBPACK_IMPORTED_MODULE_3__["DateTimeService"] },
+    { type: src_app_services_storage_local_storage_service__WEBPACK_IMPORTED_MODULE_5__["LocalStorageService"] },
+    { type: src_app_services_front_desk_front_desk_service__WEBPACK_IMPORTED_MODULE_4__["FrontDeskService"] }
 ];
 ExecInProcessedFormsListPageComponent = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
     Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Component"])({
@@ -9217,6 +9237,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _angular_router__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @angular/router */ "./node_modules/@angular/router/fesm2015/router.js");
 /* harmony import */ var src_app_services_front_desk_front_desk_service__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! src/app/services/front-desk/front-desk.service */ "./src/app/services/front-desk/front-desk.service.ts");
 /* harmony import */ var src_app_services_storage_local_storage_service__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! src/app/services/storage/local-storage.service */ "./src/app/services/storage/local-storage.service.ts");
+/* harmony import */ var src_app_services_date_time_date_time_service__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! src/app/services/date-time/date-time.service */ "./src/app/services/date-time/date-time.service.ts");
+
 
 
 
@@ -9224,8 +9246,9 @@ __webpack_require__.r(__webpack_exports__);
 
 
 let ExecProcessedFormsListPageComponent = class ExecProcessedFormsListPageComponent {
-    constructor(router, localStorage, frontDeskService) {
+    constructor(router, dateService, localStorage, frontDeskService) {
         this.router = router;
+        this.dateService = dateService;
         this.localStorage = localStorage;
         this.frontDeskService = frontDeskService;
         this.processedFormsList = [];
@@ -9249,6 +9272,8 @@ let ExecProcessedFormsListPageComponent = class ExecProcessedFormsListPageCompon
             if (res.length != 0) {
                 this.hasData = true;
                 lodash__WEBPACK_IMPORTED_MODULE_2__["forEach"](res, (form) => {
+                    form.submitted_at = this.dateService.safeDateFormat(form.submitted_at);
+                    form.last_processed = this.dateService.safeDateFormat(form.last_processed);
                     this.processedFormsList.push(form);
                 });
                 this.loading = false;
@@ -9271,6 +9296,8 @@ let ExecProcessedFormsListPageComponent = class ExecProcessedFormsListPageCompon
             this.hasMoreError = false;
             this.hasMore = this.checkIfHasMore();
             lodash__WEBPACK_IMPORTED_MODULE_2__["forEach"](res, (form) => {
+                form.submitted_at = this.dateService.safeDateFormat(form.submitted_at);
+                form.last_processed = this.dateService.safeDateFormat(form.last_processed);
                 this.processedFormsList.push(form);
             });
             this.loading = false;
@@ -9285,6 +9312,7 @@ let ExecProcessedFormsListPageComponent = class ExecProcessedFormsListPageCompon
 };
 ExecProcessedFormsListPageComponent.ctorParameters = () => [
     { type: _angular_router__WEBPACK_IMPORTED_MODULE_3__["Router"] },
+    { type: src_app_services_date_time_date_time_service__WEBPACK_IMPORTED_MODULE_6__["DateTimeService"] },
     { type: src_app_services_storage_local_storage_service__WEBPACK_IMPORTED_MODULE_5__["LocalStorageService"] },
     { type: src_app_services_front_desk_front_desk_service__WEBPACK_IMPORTED_MODULE_4__["FrontDeskService"] }
 ];
@@ -9328,6 +9356,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _angular_router__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @angular/router */ "./node_modules/@angular/router/fesm2015/router.js");
 /* harmony import */ var src_app_services_front_desk_front_desk_service__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! src/app/services/front-desk/front-desk.service */ "./src/app/services/front-desk/front-desk.service.ts");
 /* harmony import */ var src_app_services_storage_local_storage_service__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! src/app/services/storage/local-storage.service */ "./src/app/services/storage/local-storage.service.ts");
+/* harmony import */ var src_app_services_date_time_date_time_service__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! src/app/services/date-time/date-time.service */ "./src/app/services/date-time/date-time.service.ts");
+
 
 
 
@@ -9335,8 +9365,9 @@ __webpack_require__.r(__webpack_exports__);
 
 
 let ExecSubmittedFormsListPageComponent = class ExecSubmittedFormsListPageComponent {
-    constructor(router, localStorage, frontDeskService) {
+    constructor(router, dateService, localStorage, frontDeskService) {
         this.router = router;
+        this.dateService = dateService;
         this.localStorage = localStorage;
         this.frontDeskService = frontDeskService;
         this.submittedFormsList = [];
@@ -9364,6 +9395,7 @@ let ExecSubmittedFormsListPageComponent = class ExecSubmittedFormsListPageCompon
             if (res.length != 0) {
                 lodash__WEBPACK_IMPORTED_MODULE_2__["forEach"](res, (form) => {
                     if (form.can_view == 1) {
+                        form.submitted_at = this.dateService.safeDateFormat(form.submitted_at);
                         this.submittedFormsList.push(form);
                     }
                 });
@@ -9390,6 +9422,7 @@ let ExecSubmittedFormsListPageComponent = class ExecSubmittedFormsListPageCompon
             this.hasMore = this.checkIfHasMore();
             lodash__WEBPACK_IMPORTED_MODULE_2__["forEach"](res, (form) => {
                 if (form.can_view == 1) {
+                    form.submitted_at = this.dateService.safeDateFormat(form.submitted_at);
                     this.submittedFormsList.push(form);
                 }
             });
@@ -9405,6 +9438,7 @@ let ExecSubmittedFormsListPageComponent = class ExecSubmittedFormsListPageCompon
 };
 ExecSubmittedFormsListPageComponent.ctorParameters = () => [
     { type: _angular_router__WEBPACK_IMPORTED_MODULE_3__["Router"] },
+    { type: src_app_services_date_time_date_time_service__WEBPACK_IMPORTED_MODULE_6__["DateTimeService"] },
     { type: src_app_services_storage_local_storage_service__WEBPACK_IMPORTED_MODULE_5__["LocalStorageService"] },
     { type: src_app_services_front_desk_front_desk_service__WEBPACK_IMPORTED_MODULE_4__["FrontDeskService"] }
 ];
@@ -11367,6 +11401,7 @@ let FrontDeskProcessedFormsListPageComponent = class FrontDeskProcessedFormsList
             if (res.length != 0) {
                 this.hasData = true;
                 lodash__WEBPACK_IMPORTED_MODULE_2__["forEach"](res, (form) => {
+                    form.last_processed = this.dateTime.safeDateFormat(form.last_processed);
                     this.processedFormsList.push(form);
                 });
                 this.allProcessedFormsList = this.processedFormsList;
@@ -11389,6 +11424,7 @@ let FrontDeskProcessedFormsListPageComponent = class FrontDeskProcessedFormsList
             this.hasMoreError = false;
             this.hasMore = this.checkIfHasMore();
             lodash__WEBPACK_IMPORTED_MODULE_2__["forEach"](res, (form) => {
+                form.last_processed = this.dateTime.safeDateFormat(form.last_processed);
                 this.processedFormsList.push(form);
             });
             this.loading = false;
@@ -11545,6 +11581,7 @@ let FrontDeskProcessingFormsListPageComponent = class FrontDeskProcessingFormsLi
                 this.hasData = true;
                 this.loading = false;
                 lodash__WEBPACK_IMPORTED_MODULE_2__["forEach"](res, (form) => {
+                    form.submitted_at = this.dateTime.safeDateFormat(form.submitted_at);
                     this.processingFormsList.push(form);
                 });
                 this.allProcessingFormsList = this.processingFormsList;
@@ -11566,6 +11603,7 @@ let FrontDeskProcessingFormsListPageComponent = class FrontDeskProcessingFormsLi
             this.hasMoreError = false;
             this.hasMore = this.checkIfHasMore();
             lodash__WEBPACK_IMPORTED_MODULE_2__["forEach"](res, (form) => {
+                form.submitted_at = this.dateTime.safeDateFormat(form.submitted_at);
                 this.processingFormsList.push(form);
             });
             this.allProcessingFormsList = this.processingFormsList;
@@ -11812,6 +11850,7 @@ let FrontDeskRejectedFormsListPageComponent = class FrontDeskRejectedFormsListPa
                 this.hasData = true;
                 this.loading = false;
                 lodash__WEBPACK_IMPORTED_MODULE_1__["forEach"](res, (form) => {
+                    form.submitted_at = this.dateTime.safeDateFormat(form.submitted_at);
                     this.rejectedFormsList.push(form);
                 });
                 this.allRejectedFormsList = this.rejectedFormsList;
@@ -11833,6 +11872,7 @@ let FrontDeskRejectedFormsListPageComponent = class FrontDeskRejectedFormsListPa
             this.hasMoreError = false;
             this.hasMore = this.checkIfHasMore();
             lodash__WEBPACK_IMPORTED_MODULE_1__["forEach"](res, (form) => {
+                form.submitted_at = this.dateTime.safeDateFormat(form.submitted_at);
                 this.rejectedFormsList.push(form);
             });
             this.allRejectedFormsList = this.rejectedFormsList;
@@ -12091,6 +12131,7 @@ let FrontDeskSubmittedFormsListPageComponent = class FrontDeskSubmittedFormsList
             if (res.length != 0) {
                 lodash__WEBPACK_IMPORTED_MODULE_2__["forEach"](res, (form) => {
                     if (form.can_view == 1) {
+                        form.submitted_at = this.dateTime.safeDateFormat(form.submitted_at);
                         this.submittedFormsList.push(form);
                     }
                 });
@@ -12118,6 +12159,7 @@ let FrontDeskSubmittedFormsListPageComponent = class FrontDeskSubmittedFormsList
             this.hasMore = this.checkIfHasMore();
             lodash__WEBPACK_IMPORTED_MODULE_2__["forEach"](res, (form) => {
                 if (form.can_view == 1) {
+                    form.submitted_at = this.dateTime.safeDateFormat(form.submitted_at);
                     this.submittedFormsList.push(form);
                 }
             });
@@ -15386,8 +15428,10 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var lodash__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! lodash */ "./node_modules/lodash/lodash.js");
 /* harmony import */ var lodash__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(lodash__WEBPACK_IMPORTED_MODULE_2__);
 /* harmony import */ var _angular_router__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @angular/router */ "./node_modules/@angular/router/fesm2015/router.js");
-/* harmony import */ var src_app_services_account_account_service__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! src/app/services/account/account.service */ "./src/app/services/account/account.service.ts");
-/* harmony import */ var _ng_bootstrap_ng_bootstrap__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @ng-bootstrap/ng-bootstrap */ "./node_modules/@ng-bootstrap/ng-bootstrap/fesm2015/ng-bootstrap.js");
+/* harmony import */ var _ng_bootstrap_ng_bootstrap__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @ng-bootstrap/ng-bootstrap */ "./node_modules/@ng-bootstrap/ng-bootstrap/fesm2015/ng-bootstrap.js");
+/* harmony import */ var src_app_services_account_account_service__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! src/app/services/account/account.service */ "./src/app/services/account/account.service.ts");
+/* harmony import */ var src_app_services_date_time_date_time_service__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! src/app/services/date-time/date-time.service */ "./src/app/services/date-time/date-time.service.ts");
+
 
 
 
@@ -15395,9 +15439,10 @@ __webpack_require__.r(__webpack_exports__);
 
 
 let ViewAccessCodePageComponent = class ViewAccessCodePageComponent {
-    constructor(router, modalService, accountService) {
+    constructor(router, modalService, dateService, accountService) {
         this.router = router;
         this.modalService = modalService;
+        this.dateService = dateService;
         this.accountService = accountService;
         this.accessCodesList = [];
         this.getAllAccessCodes();
@@ -15424,6 +15469,7 @@ let ViewAccessCodePageComponent = class ViewAccessCodePageComponent {
                 this.hasData = true;
                 this.loading = false;
                 lodash__WEBPACK_IMPORTED_MODULE_2__["forEach"](codes, (code) => {
+                    code.created_at = this.dateService.safeDateFormat(code.created_at);
                     this.accessCodesList.push(code);
                 });
             }
@@ -15479,6 +15525,7 @@ let ViewAccessCodePageComponent = class ViewAccessCodePageComponent {
             this.hasMoreError = false;
             this.hasMore = this.checkIfHasMore();
             lodash__WEBPACK_IMPORTED_MODULE_2__["forEach"](codes, (code) => {
+                code.created_at = this.dateService.safeDateFormat(code.created_at);
                 this.accessCodesList.push(code);
             });
         }, err => {
@@ -15489,8 +15536,9 @@ let ViewAccessCodePageComponent = class ViewAccessCodePageComponent {
 };
 ViewAccessCodePageComponent.ctorParameters = () => [
     { type: _angular_router__WEBPACK_IMPORTED_MODULE_3__["Router"] },
-    { type: _ng_bootstrap_ng_bootstrap__WEBPACK_IMPORTED_MODULE_5__["NgbModal"] },
-    { type: src_app_services_account_account_service__WEBPACK_IMPORTED_MODULE_4__["AccountService"] }
+    { type: _ng_bootstrap_ng_bootstrap__WEBPACK_IMPORTED_MODULE_4__["NgbModal"] },
+    { type: src_app_services_date_time_date_time_service__WEBPACK_IMPORTED_MODULE_6__["DateTimeService"] },
+    { type: src_app_services_account_account_service__WEBPACK_IMPORTED_MODULE_5__["AccountService"] }
 ];
 tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
     Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["ViewChild"])('loader', { static: false })
@@ -21756,6 +21804,17 @@ let DateTimeService = class DateTimeService {
     }
     getDatePart(date) {
         return moment__WEBPACK_IMPORTED_MODULE_3__(date).format('YYYY-MM-DD');
+    }
+    /**
+     * Tranforms a date value into the correct format which enables the angular date pipe
+     * work across all browsers
+     *
+     * @param {string} date
+     * @returns
+     * @memberof DateTimeService
+     */
+    safeDateFormat(date) {
+        return date.replace(/-/g, '/');
     }
 };
 DateTimeService = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([

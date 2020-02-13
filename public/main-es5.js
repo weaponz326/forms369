@@ -7172,6 +7172,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var src_app_services_client_client_service__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! src/app/services/client/client.service */ "./src/app/services/client/client.service.ts");
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
 /* harmony import */ var src_app_services_storage_local_storage_service__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! src/app/services/storage/local-storage.service */ "./src/app/services/storage/local-storage.service.ts");
+/* harmony import */ var src_app_services_date_time_date_time_service__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! src/app/services/date-time/date-time.service */ "./src/app/services/date-time/date-time.service.ts");
+
 
 
 
@@ -7180,10 +7182,11 @@ __webpack_require__.r(__webpack_exports__);
 
 
 var ClientFormsHistoryPageComponent = /** @class */ (function () {
-    function ClientFormsHistoryPageComponent(router, modalService, clientService, localStorageService) {
+    function ClientFormsHistoryPageComponent(router, modalService, clientService, dateService, localStorageService) {
         this.router = router;
         this.modalService = modalService;
         this.clientService = clientService;
+        this.dateService = dateService;
         this.localStorageService = localStorageService;
         this.rejectionNote = '';
         this.historyCollection = [];
@@ -7256,7 +7259,6 @@ var ClientFormsHistoryPageComponent = /** @class */ (function () {
                 _this.loading = false;
                 _this.foundNoForm = false;
                 lodash__WEBPACK_IMPORTED_MODULE_1__["forEach"](forms, function (form) {
-                    // this.formsList.push(form);
                     _this.historyCollection.push(form);
                 });
             }
@@ -7327,7 +7329,7 @@ var ClientFormsHistoryPageComponent = /** @class */ (function () {
                 _this.hasData = true;
                 _this.loading = false;
                 lodash__WEBPACK_IMPORTED_MODULE_1__["forEach"](forms, function (form) {
-                    form.submitted_at = form.submitted_at.replace(/-/g, '/');
+                    form.submitted_at = _this.dateService.safeDateFormat(form.submitted_at);
                     _this.historyCollection.push(form);
                 });
                 _this.allHistoryCollection = _this.historyCollection;
@@ -7351,6 +7353,7 @@ var ClientFormsHistoryPageComponent = /** @class */ (function () {
             _this.hasMoreError = false;
             _this.hasMore = _this.checkIfHasMore();
             lodash__WEBPACK_IMPORTED_MODULE_1__["forEach"](forms, function (form) {
+                form.submitted_at = _this.dateService.safeDateFormat(form.submitted_at);
                 _this.historyCollection.push(form);
             });
         }, function (err) {
@@ -7388,6 +7391,7 @@ var ClientFormsHistoryPageComponent = /** @class */ (function () {
         { type: _angular_router__WEBPACK_IMPORTED_MODULE_2__["Router"] },
         { type: _ng_bootstrap_ng_bootstrap__WEBPACK_IMPORTED_MODULE_3__["NgbModal"] },
         { type: src_app_services_client_client_service__WEBPACK_IMPORTED_MODULE_4__["ClientService"] },
+        { type: src_app_services_date_time_date_time_service__WEBPACK_IMPORTED_MODULE_7__["DateTimeService"] },
         { type: src_app_services_storage_local_storage_service__WEBPACK_IMPORTED_MODULE_6__["LocalStorageService"] }
     ]; };
     tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
@@ -8704,14 +8708,17 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
 /* harmony import */ var src_app_services_branch_branch_service__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! src/app/services/branch/branch.service */ "./src/app/services/branch/branch.service.ts");
 /* harmony import */ var src_app_services_storage_local_storage_service__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! src/app/services/storage/local-storage.service */ "./src/app/services/storage/local-storage.service.ts");
+/* harmony import */ var src_app_services_date_time_date_time_service__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! src/app/services/date-time/date-time.service */ "./src/app/services/date-time/date-time.service.ts");
+
 
 
 
 
 
 var ExecBranchesListPageComponent = /** @class */ (function () {
-    function ExecBranchesListPageComponent(branchService, localStorage) {
+    function ExecBranchesListPageComponent(branchService, dateService, localStorage) {
         this.branchService = branchService;
+        this.dateService = dateService;
         this.localStorage = localStorage;
         this.branchesList = [];
         this.allBranchesList = [];
@@ -8771,8 +8778,8 @@ var ExecBranchesListPageComponent = /** @class */ (function () {
             if (branches.length > 0) {
                 _this.hasData = true;
                 lodash__WEBPACK_IMPORTED_MODULE_1__["forEach"](branches, function (branch) {
+                    branch.created_at = _this.dateService.safeDateFormat(branch.created_at);
                     _this.branchesList.push(branch);
-                    _this.allBranchesList = lodash__WEBPACK_IMPORTED_MODULE_1__["reverse"](_this.branchesList);
                 });
             }
             else {
@@ -8793,6 +8800,7 @@ var ExecBranchesListPageComponent = /** @class */ (function () {
             var branches = res;
             _this.hasMore = _this.checkIfHasMore();
             lodash__WEBPACK_IMPORTED_MODULE_1__["forEach"](branches, function (branch) {
+                branch.created_at = _this.dateService.safeDateFormat(branch.created_at);
                 _this.branchesList.push(branch);
                 _this.allBranchesList = _this.branchesList;
             });
@@ -8806,6 +8814,7 @@ var ExecBranchesListPageComponent = /** @class */ (function () {
     };
     ExecBranchesListPageComponent.ctorParameters = function () { return [
         { type: src_app_services_branch_branch_service__WEBPACK_IMPORTED_MODULE_3__["BranchService"] },
+        { type: src_app_services_date_time_date_time_service__WEBPACK_IMPORTED_MODULE_5__["DateTimeService"] },
         { type: src_app_services_storage_local_storage_service__WEBPACK_IMPORTED_MODULE_4__["LocalStorageService"] }
     ]; };
     ExecBranchesListPageComponent = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
@@ -9215,15 +9224,18 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var lodash__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! lodash */ "./node_modules/lodash/lodash.js");
 /* harmony import */ var lodash__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(lodash__WEBPACK_IMPORTED_MODULE_2__);
 /* harmony import */ var src_app_services_forms_forms_service__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! src/app/services/forms/forms.service */ "./src/app/services/forms/forms.service.ts");
-/* harmony import */ var src_app_services_storage_local_storage_service__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! src/app/services/storage/local-storage.service */ "./src/app/services/storage/local-storage.service.ts");
+/* harmony import */ var src_app_services_date_time_date_time_service__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! src/app/services/date-time/date-time.service */ "./src/app/services/date-time/date-time.service.ts");
+/* harmony import */ var src_app_services_storage_local_storage_service__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! src/app/services/storage/local-storage.service */ "./src/app/services/storage/local-storage.service.ts");
+
 
 
 
 
 
 var ExecFormsListPageComponent = /** @class */ (function () {
-    function ExecFormsListPageComponent(formService, localStorage) {
+    function ExecFormsListPageComponent(formService, dateService, localStorage) {
         this.formService = formService;
+        this.dateService = dateService;
         this.localStorage = localStorage;
         this.allFormsList = [];
         this.getAllCompanyForms();
@@ -9244,6 +9256,7 @@ var ExecFormsListPageComponent = /** @class */ (function () {
                 _this.hasData = true;
                 _this.loading = false;
                 lodash__WEBPACK_IMPORTED_MODULE_2__["forEach"](forms, function (form) {
+                    form.created_at = _this.dateService.safeDateFormat(form.created_at);
                     _this.allFormsList.push(form);
                 });
             }
@@ -9266,8 +9279,8 @@ var ExecFormsListPageComponent = /** @class */ (function () {
             var forms = res;
             _this.hasMore = _this.checkIfHasMore();
             lodash__WEBPACK_IMPORTED_MODULE_2__["forEach"](forms, function (form) {
+                form.created_at = _this.dateService.safeDateFormat(form.created_at);
                 _this.allFormsList.push(form);
-                _this.allFormsList = lodash__WEBPACK_IMPORTED_MODULE_2__["reverse"](_this.allFormsList);
             });
         }, function (err) {
             _this.loadingMore = false;
@@ -9279,7 +9292,8 @@ var ExecFormsListPageComponent = /** @class */ (function () {
     };
     ExecFormsListPageComponent.ctorParameters = function () { return [
         { type: src_app_services_forms_forms_service__WEBPACK_IMPORTED_MODULE_3__["FormsService"] },
-        { type: src_app_services_storage_local_storage_service__WEBPACK_IMPORTED_MODULE_4__["LocalStorageService"] }
+        { type: src_app_services_date_time_date_time_service__WEBPACK_IMPORTED_MODULE_4__["DateTimeService"] },
+        { type: src_app_services_storage_local_storage_service__WEBPACK_IMPORTED_MODULE_5__["LocalStorageService"] }
     ]; };
     ExecFormsListPageComponent = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Component"])({
@@ -9320,15 +9334,18 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
 /* harmony import */ var lodash__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! lodash */ "./node_modules/lodash/lodash.js");
 /* harmony import */ var lodash__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(lodash__WEBPACK_IMPORTED_MODULE_2__);
-/* harmony import */ var src_app_services_front_desk_front_desk_service__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! src/app/services/front-desk/front-desk.service */ "./src/app/services/front-desk/front-desk.service.ts");
-/* harmony import */ var src_app_services_storage_local_storage_service__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! src/app/services/storage/local-storage.service */ "./src/app/services/storage/local-storage.service.ts");
+/* harmony import */ var src_app_services_date_time_date_time_service__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! src/app/services/date-time/date-time.service */ "./src/app/services/date-time/date-time.service.ts");
+/* harmony import */ var src_app_services_front_desk_front_desk_service__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! src/app/services/front-desk/front-desk.service */ "./src/app/services/front-desk/front-desk.service.ts");
+/* harmony import */ var src_app_services_storage_local_storage_service__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! src/app/services/storage/local-storage.service */ "./src/app/services/storage/local-storage.service.ts");
+
 
 
 
 
 
 var ExecInProcessedFormsListPageComponent = /** @class */ (function () {
-    function ExecInProcessedFormsListPageComponent(localStorage, frontDeskService) {
+    function ExecInProcessedFormsListPageComponent(dateService, localStorage, frontDeskService) {
+        this.dateService = dateService;
         this.localStorage = localStorage;
         this.frontDeskService = frontDeskService;
         this.processingFormsList = [];
@@ -9349,6 +9366,7 @@ var ExecInProcessedFormsListPageComponent = /** @class */ (function () {
             if (res.length != 0) {
                 _this.hasData = true;
                 lodash__WEBPACK_IMPORTED_MODULE_2__["forEach"](res, function (form) {
+                    form.submitted_at = _this.dateService.safeDateFormat(form.submitted_at);
                     _this.processingFormsList.push(form);
                 });
                 _this.loading = false;
@@ -9372,6 +9390,7 @@ var ExecInProcessedFormsListPageComponent = /** @class */ (function () {
             _this.hasMoreError = false;
             _this.hasMore = _this.checkIfHasMore();
             lodash__WEBPACK_IMPORTED_MODULE_2__["forEach"](res, function (form) {
+                form.submitted_at = _this.dateService.safeDateFormat(form.submitted_at);
                 _this.processingFormsList.push(form);
             });
             _this.loading = false;
@@ -9384,8 +9403,9 @@ var ExecInProcessedFormsListPageComponent = /** @class */ (function () {
         this.getAllFormsInProcessing();
     };
     ExecInProcessedFormsListPageComponent.ctorParameters = function () { return [
-        { type: src_app_services_storage_local_storage_service__WEBPACK_IMPORTED_MODULE_4__["LocalStorageService"] },
-        { type: src_app_services_front_desk_front_desk_service__WEBPACK_IMPORTED_MODULE_3__["FrontDeskService"] }
+        { type: src_app_services_date_time_date_time_service__WEBPACK_IMPORTED_MODULE_3__["DateTimeService"] },
+        { type: src_app_services_storage_local_storage_service__WEBPACK_IMPORTED_MODULE_5__["LocalStorageService"] },
+        { type: src_app_services_front_desk_front_desk_service__WEBPACK_IMPORTED_MODULE_4__["FrontDeskService"] }
     ]; };
     ExecInProcessedFormsListPageComponent = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Component"])({
@@ -9429,6 +9449,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _angular_router__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @angular/router */ "./node_modules/@angular/router/fesm5/router.js");
 /* harmony import */ var src_app_services_front_desk_front_desk_service__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! src/app/services/front-desk/front-desk.service */ "./src/app/services/front-desk/front-desk.service.ts");
 /* harmony import */ var src_app_services_storage_local_storage_service__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! src/app/services/storage/local-storage.service */ "./src/app/services/storage/local-storage.service.ts");
+/* harmony import */ var src_app_services_date_time_date_time_service__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! src/app/services/date-time/date-time.service */ "./src/app/services/date-time/date-time.service.ts");
+
 
 
 
@@ -9436,8 +9458,9 @@ __webpack_require__.r(__webpack_exports__);
 
 
 var ExecProcessedFormsListPageComponent = /** @class */ (function () {
-    function ExecProcessedFormsListPageComponent(router, localStorage, frontDeskService) {
+    function ExecProcessedFormsListPageComponent(router, dateService, localStorage, frontDeskService) {
         this.router = router;
+        this.dateService = dateService;
         this.localStorage = localStorage;
         this.frontDeskService = frontDeskService;
         this.processedFormsList = [];
@@ -9462,6 +9485,8 @@ var ExecProcessedFormsListPageComponent = /** @class */ (function () {
             if (res.length != 0) {
                 _this.hasData = true;
                 lodash__WEBPACK_IMPORTED_MODULE_2__["forEach"](res, function (form) {
+                    form.submitted_at = _this.dateService.safeDateFormat(form.submitted_at);
+                    form.last_processed = _this.dateService.safeDateFormat(form.last_processed);
                     _this.processedFormsList.push(form);
                 });
                 _this.loading = false;
@@ -9485,6 +9510,8 @@ var ExecProcessedFormsListPageComponent = /** @class */ (function () {
             _this.hasMoreError = false;
             _this.hasMore = _this.checkIfHasMore();
             lodash__WEBPACK_IMPORTED_MODULE_2__["forEach"](res, function (form) {
+                form.submitted_at = _this.dateService.safeDateFormat(form.submitted_at);
+                form.last_processed = _this.dateService.safeDateFormat(form.last_processed);
                 _this.processedFormsList.push(form);
             });
             _this.loading = false;
@@ -9498,6 +9525,7 @@ var ExecProcessedFormsListPageComponent = /** @class */ (function () {
     };
     ExecProcessedFormsListPageComponent.ctorParameters = function () { return [
         { type: _angular_router__WEBPACK_IMPORTED_MODULE_3__["Router"] },
+        { type: src_app_services_date_time_date_time_service__WEBPACK_IMPORTED_MODULE_6__["DateTimeService"] },
         { type: src_app_services_storage_local_storage_service__WEBPACK_IMPORTED_MODULE_5__["LocalStorageService"] },
         { type: src_app_services_front_desk_front_desk_service__WEBPACK_IMPORTED_MODULE_4__["FrontDeskService"] }
     ]; };
@@ -9543,6 +9571,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _angular_router__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @angular/router */ "./node_modules/@angular/router/fesm5/router.js");
 /* harmony import */ var src_app_services_front_desk_front_desk_service__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! src/app/services/front-desk/front-desk.service */ "./src/app/services/front-desk/front-desk.service.ts");
 /* harmony import */ var src_app_services_storage_local_storage_service__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! src/app/services/storage/local-storage.service */ "./src/app/services/storage/local-storage.service.ts");
+/* harmony import */ var src_app_services_date_time_date_time_service__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! src/app/services/date-time/date-time.service */ "./src/app/services/date-time/date-time.service.ts");
+
 
 
 
@@ -9550,8 +9580,9 @@ __webpack_require__.r(__webpack_exports__);
 
 
 var ExecSubmittedFormsListPageComponent = /** @class */ (function () {
-    function ExecSubmittedFormsListPageComponent(router, localStorage, frontDeskService) {
+    function ExecSubmittedFormsListPageComponent(router, dateService, localStorage, frontDeskService) {
         this.router = router;
+        this.dateService = dateService;
         this.localStorage = localStorage;
         this.frontDeskService = frontDeskService;
         this.submittedFormsList = [];
@@ -9580,6 +9611,7 @@ var ExecSubmittedFormsListPageComponent = /** @class */ (function () {
             if (res.length != 0) {
                 lodash__WEBPACK_IMPORTED_MODULE_2__["forEach"](res, function (form) {
                     if (form.can_view == 1) {
+                        form.submitted_at = _this.dateService.safeDateFormat(form.submitted_at);
                         _this.submittedFormsList.push(form);
                     }
                 });
@@ -9607,6 +9639,7 @@ var ExecSubmittedFormsListPageComponent = /** @class */ (function () {
             _this.hasMore = _this.checkIfHasMore();
             lodash__WEBPACK_IMPORTED_MODULE_2__["forEach"](res, function (form) {
                 if (form.can_view == 1) {
+                    form.submitted_at = _this.dateService.safeDateFormat(form.submitted_at);
                     _this.submittedFormsList.push(form);
                 }
             });
@@ -9621,6 +9654,7 @@ var ExecSubmittedFormsListPageComponent = /** @class */ (function () {
     };
     ExecSubmittedFormsListPageComponent.ctorParameters = function () { return [
         { type: _angular_router__WEBPACK_IMPORTED_MODULE_3__["Router"] },
+        { type: src_app_services_date_time_date_time_service__WEBPACK_IMPORTED_MODULE_6__["DateTimeService"] },
         { type: src_app_services_storage_local_storage_service__WEBPACK_IMPORTED_MODULE_5__["LocalStorageService"] },
         { type: src_app_services_front_desk_front_desk_service__WEBPACK_IMPORTED_MODULE_4__["FrontDeskService"] }
     ]; };
@@ -11628,6 +11662,7 @@ var FrontDeskProcessedFormsListPageComponent = /** @class */ (function () {
             if (res.length != 0) {
                 _this.hasData = true;
                 lodash__WEBPACK_IMPORTED_MODULE_2__["forEach"](res, function (form) {
+                    form.last_processed = _this.dateTime.safeDateFormat(form.last_processed);
                     _this.processedFormsList.push(form);
                 });
                 _this.allProcessedFormsList = _this.processedFormsList;
@@ -11651,6 +11686,7 @@ var FrontDeskProcessedFormsListPageComponent = /** @class */ (function () {
             _this.hasMoreError = false;
             _this.hasMore = _this.checkIfHasMore();
             lodash__WEBPACK_IMPORTED_MODULE_2__["forEach"](res, function (form) {
+                form.last_processed = _this.dateTime.safeDateFormat(form.last_processed);
                 _this.processedFormsList.push(form);
             });
             _this.loading = false;
@@ -11820,6 +11856,7 @@ var FrontDeskProcessingFormsListPageComponent = /** @class */ (function () {
                 _this.hasData = true;
                 _this.loading = false;
                 lodash__WEBPACK_IMPORTED_MODULE_2__["forEach"](res, function (form) {
+                    form.submitted_at = _this.dateTime.safeDateFormat(form.submitted_at);
                     _this.processingFormsList.push(form);
                 });
                 _this.allProcessingFormsList = _this.processingFormsList;
@@ -11842,6 +11879,7 @@ var FrontDeskProcessingFormsListPageComponent = /** @class */ (function () {
             _this.hasMoreError = false;
             _this.hasMore = _this.checkIfHasMore();
             lodash__WEBPACK_IMPORTED_MODULE_2__["forEach"](res, function (form) {
+                form.submitted_at = _this.dateTime.safeDateFormat(form.submitted_at);
                 _this.processingFormsList.push(form);
             });
             _this.allProcessingFormsList = _this.processingFormsList;
@@ -12104,6 +12142,7 @@ var FrontDeskRejectedFormsListPageComponent = /** @class */ (function () {
                 _this.hasData = true;
                 _this.loading = false;
                 lodash__WEBPACK_IMPORTED_MODULE_1__["forEach"](res, function (form) {
+                    form.submitted_at = _this.dateTime.safeDateFormat(form.submitted_at);
                     _this.rejectedFormsList.push(form);
                 });
                 _this.allRejectedFormsList = _this.rejectedFormsList;
@@ -12126,6 +12165,7 @@ var FrontDeskRejectedFormsListPageComponent = /** @class */ (function () {
             _this.hasMoreError = false;
             _this.hasMore = _this.checkIfHasMore();
             lodash__WEBPACK_IMPORTED_MODULE_1__["forEach"](res, function (form) {
+                form.submitted_at = _this.dateTime.safeDateFormat(form.submitted_at);
                 _this.rejectedFormsList.push(form);
             });
             _this.allRejectedFormsList = _this.rejectedFormsList;
@@ -12397,6 +12437,7 @@ var FrontDeskSubmittedFormsListPageComponent = /** @class */ (function () {
             if (res.length != 0) {
                 lodash__WEBPACK_IMPORTED_MODULE_2__["forEach"](res, function (form) {
                     if (form.can_view == 1) {
+                        form.submitted_at = _this.dateTime.safeDateFormat(form.submitted_at);
                         _this.submittedFormsList.push(form);
                     }
                 });
@@ -12425,6 +12466,7 @@ var FrontDeskSubmittedFormsListPageComponent = /** @class */ (function () {
             _this.hasMore = _this.checkIfHasMore();
             lodash__WEBPACK_IMPORTED_MODULE_2__["forEach"](res, function (form) {
                 if (form.can_view == 1) {
+                    form.submitted_at = _this.dateTime.safeDateFormat(form.submitted_at);
                     _this.submittedFormsList.push(form);
                 }
             });
@@ -15834,8 +15876,10 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var lodash__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! lodash */ "./node_modules/lodash/lodash.js");
 /* harmony import */ var lodash__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(lodash__WEBPACK_IMPORTED_MODULE_2__);
 /* harmony import */ var _angular_router__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @angular/router */ "./node_modules/@angular/router/fesm5/router.js");
-/* harmony import */ var src_app_services_account_account_service__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! src/app/services/account/account.service */ "./src/app/services/account/account.service.ts");
-/* harmony import */ var _ng_bootstrap_ng_bootstrap__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @ng-bootstrap/ng-bootstrap */ "./node_modules/@ng-bootstrap/ng-bootstrap/fesm5/ng-bootstrap.js");
+/* harmony import */ var _ng_bootstrap_ng_bootstrap__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @ng-bootstrap/ng-bootstrap */ "./node_modules/@ng-bootstrap/ng-bootstrap/fesm5/ng-bootstrap.js");
+/* harmony import */ var src_app_services_account_account_service__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! src/app/services/account/account.service */ "./src/app/services/account/account.service.ts");
+/* harmony import */ var src_app_services_date_time_date_time_service__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! src/app/services/date-time/date-time.service */ "./src/app/services/date-time/date-time.service.ts");
+
 
 
 
@@ -15843,9 +15887,10 @@ __webpack_require__.r(__webpack_exports__);
 
 
 var ViewAccessCodePageComponent = /** @class */ (function () {
-    function ViewAccessCodePageComponent(router, modalService, accountService) {
+    function ViewAccessCodePageComponent(router, modalService, dateService, accountService) {
         this.router = router;
         this.modalService = modalService;
+        this.dateService = dateService;
         this.accountService = accountService;
         this.accessCodesList = [];
         this.getAllAccessCodes();
@@ -15873,6 +15918,7 @@ var ViewAccessCodePageComponent = /** @class */ (function () {
                 _this.hasData = true;
                 _this.loading = false;
                 lodash__WEBPACK_IMPORTED_MODULE_2__["forEach"](codes, function (code) {
+                    code.created_at = _this.dateService.safeDateFormat(code.created_at);
                     _this.accessCodesList.push(code);
                 });
             }
@@ -15933,6 +15979,7 @@ var ViewAccessCodePageComponent = /** @class */ (function () {
             _this.hasMoreError = false;
             _this.hasMore = _this.checkIfHasMore();
             lodash__WEBPACK_IMPORTED_MODULE_2__["forEach"](codes, function (code) {
+                code.created_at = _this.dateService.safeDateFormat(code.created_at);
                 _this.accessCodesList.push(code);
             });
         }, function (err) {
@@ -15942,8 +15989,9 @@ var ViewAccessCodePageComponent = /** @class */ (function () {
     };
     ViewAccessCodePageComponent.ctorParameters = function () { return [
         { type: _angular_router__WEBPACK_IMPORTED_MODULE_3__["Router"] },
-        { type: _ng_bootstrap_ng_bootstrap__WEBPACK_IMPORTED_MODULE_5__["NgbModal"] },
-        { type: src_app_services_account_account_service__WEBPACK_IMPORTED_MODULE_4__["AccountService"] }
+        { type: _ng_bootstrap_ng_bootstrap__WEBPACK_IMPORTED_MODULE_4__["NgbModal"] },
+        { type: src_app_services_date_time_date_time_service__WEBPACK_IMPORTED_MODULE_6__["DateTimeService"] },
+        { type: src_app_services_account_account_service__WEBPACK_IMPORTED_MODULE_5__["AccountService"] }
     ]; };
     tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["ViewChild"])('loader', { static: false })
@@ -22435,6 +22483,17 @@ var DateTimeService = /** @class */ (function () {
     };
     DateTimeService.prototype.getDatePart = function (date) {
         return moment__WEBPACK_IMPORTED_MODULE_3__(date).format('YYYY-MM-DD');
+    };
+    /**
+     * Tranforms a date value into the correct format which enables the angular date pipe
+     * work across all browsers
+     *
+     * @param {string} date
+     * @returns
+     * @memberof DateTimeService
+     */
+    DateTimeService.prototype.safeDateFormat = function (date) {
+        return date.replace(/-/g, '/');
     };
     DateTimeService = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Injectable"])({

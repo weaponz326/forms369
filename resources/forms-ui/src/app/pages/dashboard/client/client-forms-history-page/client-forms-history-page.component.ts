@@ -5,6 +5,7 @@ import { NgbModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
 import { ClientService } from 'src/app/services/client/client.service';
 import { Component, OnInit, ViewChild, TemplateRef } from '@angular/core';
 import { LocalStorageService } from 'src/app/services/storage/local-storage.service';
+import { DateTimeService } from 'src/app/services/date-time/date-time.service';
 
 @Component({
   selector: 'app-client-forms-history-page',
@@ -19,8 +20,8 @@ export class ClientFormsHistoryPageComponent implements OnInit {
   hasData: boolean;
   loading: boolean;
   hasError: boolean;
-  foundNoForm: boolean;
   filterState: string;
+  foundNoForm: boolean;
   loadingMore: boolean;
   hasMoreError: boolean;
   rejectionNote: string;
@@ -36,6 +37,7 @@ export class ClientFormsHistoryPageComponent implements OnInit {
     private router: Router,
     private modalService: NgbModal,
     private clientService: ClientService,
+    private dateService: DateTimeService,
     private localStorageService: LocalStorageService
   ) {
     this.rejectionNote = '';
@@ -122,7 +124,6 @@ export class ClientFormsHistoryPageComponent implements OnInit {
           this.loading = false;
           this.foundNoForm = false;
           _.forEach(forms, (form) => {
-            // this.formsList.push(form);
             this.historyCollection.push(form);
           });
         }
@@ -201,7 +202,7 @@ export class ClientFormsHistoryPageComponent implements OnInit {
           this.hasData = true;
           this.loading = false;
           _.forEach(forms, (form) => {
-            form.submitted_at = form.submitted_at.replace(/-/g, '/');
+            form.submitted_at = this.dateService.safeDateFormat(form.submitted_at);
             this.historyCollection.push(form);
           });
           this.allHistoryCollection = this.historyCollection;
@@ -228,6 +229,7 @@ export class ClientFormsHistoryPageComponent implements OnInit {
         this.hasMoreError = false;
         this.hasMore = this.checkIfHasMore();
         _.forEach(forms, (form) => {
+          form.submitted_at = this.dateService.safeDateFormat(form.submitted_at);
           this.historyCollection.push(form);
         });
       },

@@ -4,6 +4,7 @@ import { Router } from '@angular/router';
 import { Users } from 'src/app/models/users.model';
 import { FrontDeskService } from 'src/app/services/front-desk/front-desk.service';
 import { LocalStorageService } from 'src/app/services/storage/local-storage.service';
+import { DateTimeService } from 'src/app/services/date-time/date-time.service';
 
 @Component({
   selector: 'app-exec-submitted-forms-list-page',
@@ -22,6 +23,7 @@ export class ExecSubmittedFormsListPageComponent implements OnInit {
 
   constructor(
     private router: Router,
+    private dateService: DateTimeService,
     private localStorage: LocalStorageService,
     private frontDeskService: FrontDeskService
   ) {
@@ -57,6 +59,7 @@ export class ExecSubmittedFormsListPageComponent implements OnInit {
         if (res.length != 0) {
           _.forEach(res, (form) => {
             if (form.can_view == 1) {
+              form.submitted_at = this.dateService.safeDateFormat(form.submitted_at);
               this.submittedFormsList.push(form);
             }
           });
@@ -87,6 +90,7 @@ export class ExecSubmittedFormsListPageComponent implements OnInit {
         this.hasMore = this.checkIfHasMore();
         _.forEach(res, (form) => {
           if (form.can_view == 1) {
+            form.submitted_at = this.dateService.safeDateFormat(form.submitted_at);
             this.submittedFormsList.push(form);
           }
         });
