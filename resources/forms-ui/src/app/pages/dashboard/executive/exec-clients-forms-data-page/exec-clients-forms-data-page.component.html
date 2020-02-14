@@ -22,7 +22,7 @@
                     More Options
                   </button>
                   <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                    <a class="dropdown-item" (click)="toggleFilter()">Filter</a>
+                    <a class="dropdown-item" (click)="openFilterModal()">Filter</a>
                     <a class="dropdown-item" (click)="downloadAll('csv')">Download (CSV)</a>
                     <a class="dropdown-item" (click)="downloadAll('pdf')">Download (PDF)</a>
                     <a class="dropdown-item" (click)="downloadAll('excel')">Download (Excel)</a>
@@ -32,6 +32,8 @@
             </div>
           </div>
         </div>
+
+        <!-- <div class="row m-5"></div> -->
 
         <div *ngIf="loading" class="row m-5">
           <div class="col-md-12 m-5">
@@ -174,4 +176,56 @@
   </div>
   <div class="modal-footer">
   </div>
+</ng-template>
+
+<ng-template #filter let-modal>
+  <form [formGroup]="filterForm" (ngSubmit)="onFilter()">
+    <div class="modal-header">
+      <h4 class="modal-title" id="modal-title">Filter Results</h4>
+      <button type="button" class="close" aria-describedby="modal-title" (click)="modal.dismiss('close')">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+    <div class="modal-body">
+      <div class="form-group">
+        <select formControlName="filterBy" class="form-control form-control-lg">
+          <option value="">Filter By</option>
+          <option value="processed_at">Processed Date</option>
+          <option value="submitted_at">Submitted Date</option>
+        </select>
+      </div>
+      <div class="row">
+        <div class="col-6">
+          <div class="form-group" style="margin-bottom: -0.1rem;">
+            <div class="input-group">
+              <input class="form-control form-control-lg" placeholder="Select Start Date" name="dp" formControlName="startDate" ngbDatepicker #d="ngbDatepicker">
+              <div class="input-group-append">
+                <button class="btn btn-sm btn-outline-secondary" (click)="d.toggle()" type="button">
+                  <i class="mdi mdi-calendar-outline"></i>
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-6">
+          <div class="input-group">
+            <input class="form-control form-control-lg" placeholder="Select End Date" name="dp" formControlName="endDate" ngbDatepicker #d1="ngbDatepicker">
+            <div class="input-group-append">
+              <button class="btn btn-sm btn-outline-secondary" (click)="d1.toggle()" type="button">
+                <i class="mdi mdi-calendar-outline"></i>
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="modal-footer">
+      <button type="button" class="btn btn-outline-primary" (click)="modal.dismiss()">Cancel</button>
+      <button type="submit" class="btn btn-primary">Filter</button>
+      <button *ngIf="isLoading" class="btn btn-primary btn-lg mr-2" type="button" disabled>
+        <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+        <span class="sr-only">Please wait...</span>
+      </button>
+    </div>
+  </form>
 </ng-template>

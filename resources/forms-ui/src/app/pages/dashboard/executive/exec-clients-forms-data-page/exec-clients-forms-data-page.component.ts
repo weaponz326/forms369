@@ -1,7 +1,7 @@
 import * as _ from 'lodash';
 import * as moment from 'moment';
 import { Router } from '@angular/router';
-import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { NgbModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
 import { ClientService } from 'src/app/services/client/client.service';
 import { Component, OnInit, ViewChild, TemplateRef } from '@angular/core';
 import { LoggingService } from 'src/app/services/logging/logging.service';
@@ -9,6 +9,8 @@ import { ReloadingService } from 'src/app/services/reloader/reloading.service';
 import { FrontDeskService } from 'src/app/services/front-desk/front-desk.service';
 import { DownloaderService } from 'src/app/services/downloader/downloader.service';
 import { LocalStorageService } from 'src/app/services/storage/local-storage.service';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { DateTimeService } from 'src/app/services/date-time/date-time.service';
 
 @Component({
   selector: 'app-exec-clients-forms-data-page',
@@ -24,18 +26,25 @@ export class ExecClientsFormsDataPageComponent implements OnInit {
   hasData: boolean;
   loading: boolean;
   hasError: boolean;
+  isLoading: boolean;
+  submitted: boolean;
   loadingMore: boolean;
+  filterForm: FormGroup;
   hasMoreError: boolean;
   tableContents: Array<any>;
   clientFormData: Array<any>;
   tableHeaders: Array<string>;
+  filterModalRef: NgbModalRef;
+  alltableContents: Array<any>;
+  @ViewChild('filter', { static: false }) filterModal: TemplateRef<any>;
   @ViewChild('attachment', { static: false }) attachmentsModal: TemplateRef<any>;
 
   constructor(
     private router: Router,
+    private fb: FormBuilder,
     private modalService: NgbModal,
     private logging: LoggingService,
-    private clientService: ClientService,
+    private dateTime: DateTimeService,
     private reloadService: ReloadingService,
     private localStorage: LocalStorageService,
     private downloadService: DownloaderService,
@@ -46,6 +55,15 @@ export class ExecClientsFormsDataPageComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.filterForm = this.fb.group({
+      endDate: ['', Validators.required],
+      filterBy: ['', Validators.required],
+      startDate: ['', Validators.required]
+    });
+  }
+
+  public get f() {
+    return this.filterForm.controls;
   }
 
   initVars() {
@@ -53,6 +71,7 @@ export class ExecClientsFormsDataPageComponent implements OnInit {
     this.tableHeaders = [];
     this.tableContents = [];
     this.clientFormData = [];
+    this.alltableContents = [];
     this.form = window.history.state.form;
     this.user = this.localStorage.getUser();
     console.log('form: ' + JSON.stringify(this.form));
@@ -82,6 +101,7 @@ export class ExecClientsFormsDataPageComponent implements OnInit {
 
   getDataBody(res: any) {
     let objArr = [];
+    this.alltableContents = res[0].client_submitted_details;
     _.forEach(res, data => {
       _.forEach(this.keys, k => {
         objArr.push(data.client_submitted_details[k]);
@@ -148,6 +168,10 @@ export class ExecClientsFormsDataPageComponent implements OnInit {
     }
   }
 
+  openFilterModal() {
+    this.filterModalRef = this.modalService.open(this.filterModal, { centered: true });
+  }
+
   downloadAll(format: string) {
     switch (format) {
       case 'pdf':
@@ -196,6 +220,56 @@ export class ExecClientsFormsDataPageComponent implements OnInit {
 
   retry() {
     this.getAllRespondentsData();
+  }
+
+  onFilter() {
+    this.submitted = true;
+    if (this.filterForm.valid) {
+      const filter_by = this.f.filterBy.value;
+      if (filter_by == 'processed_at') {
+        this.filterByProcessedDate();
+      }
+      else if (filter_by == 'submitted_at') {
+        this.filterBySubmittedDate();
+      }
+      else {}
+    }
+  }
+
+  filterBySubmittedDate() {
+    const end = this.f.endDate.value;
+    const start = this.f.startDate.value;
+
+    // Bootstrap date picker returns single digit for months from Jan to Sept
+    // In order to allow us to compare against MYSQL which returns double digits
+    // for that, we convert the month accordingly.
+    const end_month = _.toNumber(end.month) <= 9 ? '0' + end.month : end.month;
+    const start_month = _.toNumber(start.month) <= 9 ? '0' + start.month : start.month;
+
+    const end_date = end.year + '-' + end_month + '-' + end.day;
+    const start_date = start.year + '-' + start_month + '-' + start.day;
+    console.log(start_date);
+    console.log(end_date);
+
+    this.filterModalRef.close();
+  }
+
+  filterByProcessedDate() {
+    const end = this.f.endDate.value;
+    const start = this.f.startDate.value;
+
+    // Bootstrap date picker returns single digit for months from Jan to Sept
+    // In order to allow us to compare against MYSQL which returns double digits
+    // for that, we convert the month accordingly.
+    const end_month = _.toNumber(end.month) <= 9 ? '0' + end.month : end.month;
+    const start_month = _.toNumber(start.month) <= 9 ? '0' + start.month : start.month;
+
+    const end_date = end.year + '-' + end_month + '-' + end.day;
+    const start_date = start.year + '-' + start_month + '-' + start.day;
+    console.log(start_date);
+    console.log(end_date);
+
+    this.filterModalRef.close();
   }
 
 }

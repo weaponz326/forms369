@@ -52,3 +52,7 @@ table .dropdown .dropdown-toggle:after {
 .dropdown-menu.show {
     border: 1px solid #ddd;
 }
+
+form button[type="submit"] {
+    font-family: 'OpenSans_Bold';
+}

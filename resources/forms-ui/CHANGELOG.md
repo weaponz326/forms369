@@ -56,4 +56,6 @@
     15. Company Admins can now manage users.
     18. Now users can only create forms using sections
     19. Client profile view redesigned. Sections are displayed as tabs on the left vertically.
-    10. Company admins can set who downloads data among ffont desk, super execs & branch super execs
+    20. Company admins can set who downloads data among ffont desk, super execs & branch super execs
+    21. Executives can now print form data.
+

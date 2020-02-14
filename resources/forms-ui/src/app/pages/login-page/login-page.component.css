@@ -21,3 +21,11 @@ p.lead {
     border-top-left-radius: 3.25em;
     border-bottom-right-radius: 3.25em;
 }
+
+* {
+    font-family: 'OpenSans_Regular';
+}
+
+h1, h2, h3, h4, h5, h6 {
+    font-family: 'OpenSans_Bold';
+}

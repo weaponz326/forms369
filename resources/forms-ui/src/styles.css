@@ -29,10 +29,14 @@ html, body {
     font-family: 'OpenSans_Regular';
 }
 
+button {
+    font-family: 'OpenSans_Bold';
+}
+
 .align-right {
     top: 10px;
-    position: absolute;
     right: 10px;
+    position: absolute;
 }
 
 .btn {
