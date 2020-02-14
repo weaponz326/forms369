@@ -701,7 +701,7 @@ module.exports = "<div class=\"container-scroller\">\n  <app-navigation-bar></ap
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<div class=\"container-scroller\">\n  <app-navigation-bar></app-navigation-bar>\n  <div class=\"container-fluid page-body-wrapper\">\n    <app-side-bar></app-side-bar>\n    <div class=\"main-panel\">\n      <div class=\"content-wrapper\">\n        <div class=\"row\">\n          <div class=\"col-md-12 grid-margin\">\n            <div class=\"d-flex justify-content-between flex-wrap\">\n              <div class=\"d-flex align-items-end flex-wrap\">\n                <div class=\"mr-md-3 mr-xl-5\">\n                  <h2>All Users</h2>\n                  <p class=\"mb-md-0\">Your administrative dashboard.</p>\n                </div>\n                <div class=\"d-flex\">\n                </div>\n              </div>\n              <div class=\"d-flex justify-content-between align-items-end flex-wrap\">\n                <!-- <button type=\"button\" class=\"btn btn-light bg-white btn-icon mr-3 d-none d-md-block \">\n                  <i class=\"mdi mdi-download text-muted\"></i>\n                </button>\n                <button type=\"button\" class=\"btn btn-light bg-white btn-icon mr-3 mt-2 mt-xl-0\">\n                  <i class=\"mdi mdi-clock-outline text-muted\"></i>\n                </button>\n                <button type=\"button\" class=\"btn btn-light bg-white btn-icon mr-3 mt-2 mt-xl-0\">\n                  <i class=\"mdi mdi-plus text-muted\"></i>\n                </button> -->\n              </div>\n            </div>\n          </div>\n        </div>\n\n        <div *ngIf=\"loading\" class=\"row m-5\">\n          <div class=\"col-md-12 m-5\">\n            <div class=\"d-flex justify-content-center\">\n              <div class=\"spinner-border m-5\" style=\"width: 5rem; height: 5rem;\" role=\"status\">\n                <span class=\"sr-only\">Loading...</span>\n              </div>\n            </div>\n          </div>\n        </div>\n\n        <div *ngIf=\"!loading && !hasData\" class=\"row\">\n          <div class=\"col-lg-12 grid-margin stretch-card\">\n            <div class=\"card text-center pt-5 pb-5\">\n              <div class=\"card-body mt-5 mb-5\">\n                <h4 class=\"card-title\">No Data Found</h4>\n                <p class=\"card-description\">\n                  No users found.\n                </p>\n                <div class=\"text-lg-center mt-5 mb-5\">\n                  <div class=\"card-text\">\n                    <i class=\"mdi mdi-account-alert-outline\" style=\"font-size: 8em;\"></i>\n                  </div>\n                  <div class=\"card-text\">\n                    <h3>No Available Users</h3>\n                    <p class=\"text-muted\">This company doesn't have any user accounts yet!</p>\n                  </div>\n                </div>\n              </div>\n            </div>\n          </div>\n        </div>\n\n        <div *ngIf=\"hasError\" class=\"row\">\n          <div class=\"col-lg-12 grid-margin stretch-card\">\n            <div class=\"card text-center pt-5 pb-5\">\n              <div class=\"card-body mt-5 mb-5\">\n                <h4 class=\"card-title\">Error Ocuured</h4>\n                <p class=\"card-description\">\n                  Ooops! Something went wrong!\n                </p>\n                <div class=\"text-lg-center mt-5 mb-5\">\n                  <div class=\"card-text\">\n                    <i class=\"mdi mdi-close-network-outline\" style=\"font-size: 8em;\"></i>\n                  </div>\n                  <div class=\"card-text\">\n                    <h3>We couldn't get your user accounts</h3>\n                    <p class=\"text-muted\">An error has occured on our servers or you might not have internet connection\n                    </p>\n                  </div>\n                </div>\n              </div>\n            </div>\n          </div>\n        </div>\n\n        <div *ngIf=\"!loading && hasData\" class=\"row\">\n          <div class=\"col-lg-12 grid-margin stretch-card\">\n            <div class=\"card\">\n              <div class=\"card-body\">\n                <div class=\"text-lg-center mt-3 mb-5\">\n                  <div class=\"btn-group\" role=\"group\" aria-label=\"Sort By\">\n                    <button type=\"button\" class=\"btn btn-outline-secondary\" [ngClass]=\"{'active': filterState == 'all'}\" (click)=\"showAll()\">All</button>\n                    <button type=\"button\" class=\"btn btn-outline-secondary\" [ngClass]=\"{'active': filterState == 'active'}\" (click)=\"showActive()\">Active</button>\n                    <button type=\"button\" class=\"btn btn-outline-secondary\" [ngClass]=\"{'active': filterState == 'inactive'}\" (click)=\"showInActive()\">In Active</button>\n                    <div class=\"dropdown\">\n                      <button type=\"button\" class=\"btn btn-outline-secondary dropdown-toggle\" id=\"sortMenuButton\"\n                        data-toggle=\"dropdown\" aria-haspopup=\"true\" aria-expanded=\"false\">Sort By</button>\n                      <div class=\"dropdown-menu\" aria-labelledby=\"sortMenuButton\">\n                        <button type=\"button\" class=\"dropdown-item\" (click)=\"sort('branch')\">Branch Name</button>\n                        <button type=\"button\" class=\"dropdown-item\" (click)=\"sort('merchant')\">Company Name</button>\n                        <button type=\"button\" class=\"dropdown-item\" (click)=\"sort('created')\">Date Created</button>\n                      </div>\n                    </div>\n                  </div>\n                </div>\n                <div class=\"table-responsive\">\n                  <table class=\"table table-hover\">\n                    <thead>\n                      <tr>\n                        <th><strong>Full Name</strong></th>\n                        <th><strong>Email Address</strong></th>\n                        <th><strong>Branch Name</strong></th>\n                        <th><strong>Status</strong></th>\n                        <th><strong>Last Login</strong></th>\n                      </tr>\n                    </thead>\n                    <tbody>\n                      <tr class=\"hover-cursor\" *ngFor=\"let user of userAccounts\">\n                        <td>{{ user.full_name }}</td>\n                        <td>{{ user.email }}</td>\n                        <td>{{ user.branch_name }}</td>\n                        <td>\n                          <label *ngIf=\"user.status == 1\" class=\"badge badge-success text-center\">Active</label>\n                          <label *ngIf=\"user.status == 0\" class=\"badge badge-danger text-center\">In-Active</label>\n                        </td>\n                        <td>{{ user.last_login_at | date:'medium' }}</td>\n                      </tr>\n                    </tbody>\n                  </table>\n                </div>\n              </div>\n            </div>\n          </div>\n        </div>\n\n        <div *ngIf=\"loadingMore\" class=\"row m-md-2\">\n          <div class=\"col-md-12 col-sm-12 m-md-2\">\n            <div class=\"d-flex justify-content-center\">\n              <div class=\"spinner-border m-2\" style=\"width: 2rem; height: 2rem;\" role=\"status\">\n                <span class=\"sr-only\">Loading...</span>\n              </div>\n            </div>\n          </div>\n        </div>\n\n        <div *ngIf=\"hasMoreError\" class=\"row m-md-2\">\n          <div class=\"col-md-8 col-sm-12 offset-md-2\">\n            <div class=\"alert alert-danger\" role=\"alert\">\n              <h4 class=\"alert-heading\">Connection Failed!</h4>\n              <p>\n                Oops!! Couldn't get you the rest of the data. Please make sure you have an active internet connection.\n                Maybe, our servers may be down.\n              </p>\n              <hr>\n              <p class=\"mb-0\">We are really sorry for this inconvenience. Please click on the load more button again.</p>\n            </div>\n          </div>\n        </div>\n\n        <div *ngIf=\"hasMore\" class=\"row\">\n          <div class=\"col-md-4 col-sm-6 offset-sm-3 offset-lg-4\">\n            <div class=\"text-center\">\n              <button type=\"button\" class=\"btn btn-secondary btn-rounded btn-fw\" (click)=\"loadMore()\">Load More</button>\n            </div>\n          </div>\n        </div>\n\n      </div>\n    </div>\n  </div>\n</div>\n"
+module.exports = "<div class=\"container-scroller\">\n  <app-navigation-bar></app-navigation-bar>\n  <div class=\"container-fluid page-body-wrapper\">\n    <app-side-bar></app-side-bar>\n    <div class=\"main-panel\">\n      <div class=\"content-wrapper\">\n        <div class=\"row\">\n          <div class=\"col-md-12 grid-margin\">\n            <div class=\"d-flex justify-content-between flex-wrap\">\n              <div class=\"d-flex align-items-end flex-wrap\">\n                <div class=\"mr-md-3 mr-xl-5\">\n                  <h2>All Users</h2>\n                  <p class=\"mb-md-0\">Your administrative dashboard.</p>\n                </div>\n                <div class=\"d-flex\">\n                </div>\n              </div>\n              <div class=\"d-flex justify-content-between align-items-end flex-wrap\">\n              </div>\n            </div>\n          </div>\n        </div>\n\n        <div *ngIf=\"loading\" class=\"row m-5\">\n          <div class=\"col-md-12 m-5\">\n            <div class=\"d-flex justify-content-center\">\n              <div class=\"spinner-border m-5\" style=\"width: 5rem; height: 5rem;\" role=\"status\">\n                <span class=\"sr-only\">Loading...</span>\n              </div>\n            </div>\n          </div>\n        </div>\n\n        <div *ngIf=\"!loading && !hasData\" class=\"row\">\n          <div class=\"col-lg-12 grid-margin stretch-card\">\n            <div class=\"card text-center pt-5 pb-5\">\n              <div class=\"card-body mt-5 mb-5\">\n                <h4 class=\"card-title\">No Data Found</h4>\n                <p class=\"card-description\">\n                  No users found.\n                </p>\n                <div class=\"text-lg-center mt-5 mb-5\">\n                  <div class=\"card-text\">\n                    <i class=\"mdi mdi-account-alert-outline\" style=\"font-size: 8em;\"></i>\n                  </div>\n                  <div class=\"card-text\">\n                    <h3>No Available Users</h3>\n                    <p class=\"text-muted\">This company doesn't have any user accounts yet!</p>\n                  </div>\n                </div>\n              </div>\n            </div>\n          </div>\n        </div>\n\n        <div *ngIf=\"hasError\" class=\"row\">\n          <div class=\"col-lg-12 grid-margin stretch-card\">\n            <div class=\"card text-center pt-5 pb-5\">\n              <div class=\"card-body mt-5 mb-5\">\n                <h4 class=\"card-title\">Error Ocuured</h4>\n                <p class=\"card-description\">\n                  Ooops! Something went wrong!\n                </p>\n                <div class=\"text-lg-center mt-5 mb-5\">\n                  <div class=\"card-text\">\n                    <i class=\"mdi mdi-close-network-outline\" style=\"font-size: 8em;\"></i>\n                  </div>\n                  <div class=\"card-text\">\n                    <h3>We couldn't get your user accounts</h3>\n                    <p class=\"text-muted\">An error has occured on our servers or you might not have internet connection\n                    </p>\n                  </div>\n                </div>\n              </div>\n            </div>\n          </div>\n        </div>\n\n        <div *ngIf=\"!loading && hasData\" class=\"row\">\n          <div class=\"col-lg-12 grid-margin stretch-card\">\n            <div class=\"card\">\n              <div class=\"card-body\">\n                <div class=\"text-lg-center mt-3 mb-5\">\n                  <div class=\"btn-group\" role=\"group\" aria-label=\"Sort By\">\n                    <button type=\"button\" class=\"btn btn-outline-secondary\" [ngClass]=\"{'active': filterState == 'all'}\" (click)=\"showAll()\">All</button>\n                    <button type=\"button\" class=\"btn btn-outline-secondary\" [ngClass]=\"{'active': filterState == 'active'}\" (click)=\"showActive()\">Active</button>\n                    <button type=\"button\" class=\"btn btn-outline-secondary\" [ngClass]=\"{'active': filterState == 'inactive'}\" (click)=\"showInActive()\">In Active</button>\n                    <div class=\"dropdown\">\n                      <button type=\"button\" class=\"btn btn-outline-secondary dropdown-toggle\" id=\"sortMenuButton\"\n                        data-toggle=\"dropdown\" aria-haspopup=\"true\" aria-expanded=\"false\">Sort By</button>\n                      <div class=\"dropdown-menu\" aria-labelledby=\"sortMenuButton\">\n                        <button type=\"button\" class=\"dropdown-item\" (click)=\"sort('branch')\">Branch Name</button>\n                        <button type=\"button\" class=\"dropdown-item\" (click)=\"sort('merchant')\">Company Name</button>\n                        <button type=\"button\" class=\"dropdown-item\" (click)=\"sort('created')\">Date Created</button>\n                      </div>\n                    </div>\n                  </div>\n                </div>\n                <div class=\"table-responsive\">\n                  <table class=\"table table-hover\">\n                    <thead>\n                      <tr>\n                        <th><strong>Full Name</strong></th>\n                        <th><strong>Email Address</strong></th>\n                        <th><strong>Branch Name</strong></th>\n                        <th><strong>Status</strong></th>\n                        <th><strong>Last Login</strong></th>\n                      </tr>\n                    </thead>\n                    <tbody>\n                      <tr class=\"hover-cursor\" *ngFor=\"let user of userAccounts\">\n                        <td>{{ user.full_name }}</td>\n                        <td>{{ user.email }}</td>\n                        <td>{{ user.branch_name }}</td>\n                        <td>\n                          <label *ngIf=\"user.status == 1\" class=\"badge badge-success text-center\">Active</label>\n                          <label *ngIf=\"user.status == 0\" class=\"badge badge-danger text-center\">In-Active</label>\n                        </td>\n                        <td>{{ user.last_login_at | date:'medium' }}</td>\n                      </tr>\n                    </tbody>\n                  </table>\n                </div>\n              </div>\n            </div>\n          </div>\n        </div>\n\n        <div *ngIf=\"loadingMore\" class=\"row m-md-2\">\n          <div class=\"col-md-12 col-sm-12 m-md-2\">\n            <div class=\"d-flex justify-content-center\">\n              <div class=\"spinner-border m-2\" style=\"width: 2rem; height: 2rem;\" role=\"status\">\n                <span class=\"sr-only\">Loading...</span>\n              </div>\n            </div>\n          </div>\n        </div>\n\n        <div *ngIf=\"hasMoreError\" class=\"row m-md-2\">\n          <div class=\"col-md-8 col-sm-12 offset-md-2\">\n            <div class=\"alert alert-danger\" role=\"alert\">\n              <h4 class=\"alert-heading\">Connection Failed!</h4>\n              <p>\n                Oops!! Couldn't get you the rest of the data. Please make sure you have an active internet connection.\n                Maybe, our servers may be down.\n              </p>\n              <hr>\n              <p class=\"mb-0\">We are really sorry for this inconvenience. Please click on the load more button again.</p>\n            </div>\n          </div>\n        </div>\n\n        <div *ngIf=\"hasMore\" class=\"row\">\n          <div class=\"col-md-4 col-sm-6 offset-sm-3 offset-lg-4\">\n            <div class=\"text-center\">\n              <button type=\"button\" class=\"btn btn-secondary btn-rounded btn-fw\" (click)=\"loadMore()\">Load More</button>\n            </div>\n          </div>\n        </div>\n\n      </div>\n    </div>\n  </div>\n</div>\n"
 
 /***/ }),
 
@@ -712,7 +712,7 @@ module.exports = "<div class=\"container-scroller\">\n  <app-navigation-bar></ap
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<div class=\"container-scroller\">\n  <app-navigation-bar></app-navigation-bar>\n  <div class=\"container-fluid page-body-wrapper\">\n    <app-side-bar></app-side-bar>\n    <div class=\"main-panel\">\n      <div class=\"content-wrapper\">\n        <div class=\"row\">\n          <div class=\"col-md-12 grid-margin\">\n            <div class=\"d-flex justify-content-between flex-wrap\">\n              <div class=\"d-flex align-items-end flex-wrap\">\n                <div class=\"mr-md-3 mr-xl-5\">\n                  <h2>All Branches</h2>\n                  <p class=\"mb-md-0\">Your administrative dashboard.</p>\n                </div>\n                <div class=\"d-flex\">\n                </div>\n              </div>\n              <div class=\"d-flex justify-content-between align-items-end flex-wrap\">\n                <!-- <button type=\"button\" class=\"btn btn-light bg-white btn-icon mr-3 d-none d-md-block \">\n                  <i class=\"mdi mdi-download text-muted\"></i>\n                </button>\n                <button type=\"button\" class=\"btn btn-light bg-white btn-icon mr-3 mt-2 mt-xl-0\">\n                  <i class=\"mdi mdi-clock-outline text-muted\"></i>\n                </button>\n                <button type=\"button\" class=\"btn btn-light bg-white btn-icon mr-3 mt-2 mt-xl-0\">\n                  <i class=\"mdi mdi-plus text-muted\"></i>\n                </button> -->\n              </div>\n            </div>\n          </div>\n        </div>\n\n        <div *ngIf=\"loading\" class=\"row m-5\">\n          <div class=\"col-md-12 m-5\">\n            <div class=\"d-flex justify-content-center\">\n              <div class=\"spinner-border m-5\" style=\"width: 5rem; height: 5rem;\" role=\"status\">\n                <span class=\"sr-only\">Loading...</span>\n              </div>\n            </div>\n          </div>\n        </div>\n\n        <div *ngIf=\"!loading && !hasData\" class=\"row\">\n          <div class=\"col-lg-12 grid-margin stretch-card\">\n            <div class=\"card text-center pt-5 pb-5\">\n              <div class=\"card-body mt-5 mb-5\">\n                <h4 class=\"card-title\">No Data Found</h4>\n                <p class=\"card-description\">\n                  No company branches found.\n                </p>\n                <div class=\"text-lg-center mt-5 mb-5\">\n                  <div class=\"card-text\">\n                    <i class=\"mdi mdi-sign-caution\" style=\"font-size: 8em;\"></i>\n                  </div>\n                  <div class=\"card-text\">\n                    <h3>No Available Branches</h3>\n                    <p class=\"text-muted\">This company doesn't have any branches yet!</p>\n                  </div>\n                </div>\n              </div>\n            </div>\n          </div>\n        </div>\n\n        <div *ngIf=\"hasError\" class=\"row\">\n          <div class=\"col-lg-12 grid-margin stretch-card\">\n            <div class=\"card text-center pt-5 pb-5\">\n              <div class=\"card-body mt-5 mb-5\">\n                <h4 class=\"card-title\">Error Ocuured</h4>\n                <p class=\"card-description\">\n                  Ooops! Something went wrong!\n                </p>\n                <div class=\"text-lg-center mt-5 mb-5\">\n                  <div class=\"card-text\">\n                    <i class=\"mdi mdi-close-network-outline\" style=\"font-size: 8em;\"></i>\n                  </div>\n                  <div class=\"card-text\">\n                    <h3>We couldn't get your branches</h3>\n                    <p class=\"text-muted\">You may not have internet connection or our servers maybe down.</p>\n                    <button class=\"btn btn-primary\" type=\"button\" (click)=\"retry()\">Retry</button>\n                  </div>\n                </div>\n              </div>\n            </div>\n          </div>\n        </div>\n\n        <div *ngIf=\"!loading && hasData\" class=\"row\">\n          <div class=\"col-lg-12 grid-margin stretch-card\">\n            <div class=\"card\">\n              <div class=\"card-body\">\n                <div class=\"text-lg-center mt-3 mb-5\">\n                  <div class=\"btn-group\" role=\"group\" aria-label=\"Sort By\">\n                    <button type=\"button\" class=\"btn btn-outline-secondary\" [ngClass]=\"{'active': filterState == 'all'}\" (click)=\"showAll()\">All</button>\n                    <button type=\"button\" class=\"btn btn-outline-secondary\" [ngClass]=\"{'active': filterState == 'active'}\" (click)=\"showActive()\">Active</button>\n                    <button type=\"button\" class=\"btn btn-outline-secondary\" [ngClass]=\"{'active': filterState == 'inactive'}\" (click)=\"showInActive()\">In Active</button>\n                    <div class=\"dropdown\">\n                      <button type=\"button\" class=\"btn btn-outline-secondary dropdown-toggle\" id=\"sortMenuButton\"\n                        data-toggle=\"dropdown\" aria-haspopup=\"true\" aria-expanded=\"false\">Sort By</button>\n                      <div class=\"dropdown-menu\" aria-labelledby=\"sortMenuButton\">\n                        <button type=\"button\" class=\"dropdown-item\" (click)=\"sort('branch')\">Branch Name</button>\n                        <button type=\"button\" class=\"dropdown-item\" (click)=\"sort('created')\">Date Created</button>\n                      </div>\n                    </div>\n                  </div>\n                </div>\n                <div class=\"table-responsive\">\n                  <table class=\"table table-hover\">\n                    <thead>\n                      <tr>\n                        <th><strong>Branch Name</strong></th>\n                        <th><strong>Branch Admin</strong></th>\n                        <th><strong>Branch Executive</strong></th>\n                        <th><strong>Status</strong></th>\n                        <th><strong>Created On</strong></th>\n                      </tr>\n                    </thead>\n                    <tbody>\n                      <tr class=\"hover-cursor\" *ngFor=\"let branch of branchesList\">\n                        <td>{{ branch.branch_name }}</td>\n                        <td>{{ branch.branch_admin_name }}</td>\n                        <td>{{ branch.branch_super_executive_name }}</td>\n                        <td *ngIf=\"branch.status == 1\"><label class=\"badge badge-success text-center\">Active</label></td>\n                        <td *ngIf=\"branch.status != 1\"><label class=\"badge badge-danger text-center\">In-Active</label>\n                        <td>{{ branch.created_at | date }}</td>\n                      </tr>\n                    </tbody>\n                  </table>\n                </div>\n              </div>\n            </div>\n          </div>\n        </div>\n\n        <div *ngIf=\"loadingMore\" class=\"row m-md-2\">\n          <div class=\"col-md-12 col-sm-12 m-md-2\">\n            <div class=\"d-flex justify-content-center\">\n              <div class=\"spinner-border m-2\" style=\"width: 2rem; height: 2rem;\" role=\"status\">\n                <span class=\"sr-only\">Loading...</span>\n              </div>\n            </div>\n          </div>\n        </div>\n\n        <div *ngIf=\"hasMoreError\" class=\"row m-md-2\">\n          <div class=\"col-md-8 col-sm-12 offset-md-2\">\n            <div class=\"alert alert-danger\" role=\"alert\">\n              <h4 class=\"alert-heading\">Connection Failed!</h4>\n              <p>\n                Oops!! Couldn't get you the rest of the data. Please make sure you have an active internet connection.\n                Maybe, our servers may be down.\n              </p>\n              <hr>\n              <p class=\"mb-0\">We are really sorry for this inconvenience. Please click on the load more button again.</p>\n            </div>\n          </div>\n        </div>\n\n        <div *ngIf=\"hasMore\" class=\"row\">\n          <div class=\"col-md-4 col-sm-6 offset-sm-3 offset-lg-4\">\n            <div class=\"text-center\">\n              <button type=\"button\" class=\"btn btn-secondary btn-rounded btn-fw\" (click)=\"loadMore()\">Load More</button>\n            </div>\n          </div>\n        </div>\n\n      </div>\n    </div>\n  </div>\n</div>\n"
+module.exports = "<div class=\"container-scroller\">\n  <app-navigation-bar></app-navigation-bar>\n  <div class=\"container-fluid page-body-wrapper\">\n    <app-side-bar></app-side-bar>\n    <div class=\"main-panel\">\n      <div class=\"content-wrapper\">\n        <div class=\"row\">\n          <div class=\"col-md-12 grid-margin\">\n            <div class=\"d-flex justify-content-between flex-wrap\">\n              <div class=\"d-flex align-items-end flex-wrap\">\n                <div class=\"mr-md-3 mr-xl-5\">\n                  <h2>All Branches</h2>\n                  <p class=\"mb-md-0\">Your administrative dashboard.</p>\n                </div>\n                <div class=\"d-flex\">\n                </div>\n              </div>\n              <div class=\"d-flex justify-content-between align-items-end flex-wrap\">\n              </div>\n            </div>\n          </div>\n        </div>\n\n        <div *ngIf=\"loading\" class=\"row m-5\">\n          <div class=\"col-md-12 m-5\">\n            <div class=\"d-flex justify-content-center\">\n              <div class=\"spinner-border m-5\" style=\"width: 5rem; height: 5rem;\" role=\"status\">\n                <span class=\"sr-only\">Loading...</span>\n              </div>\n            </div>\n          </div>\n        </div>\n\n        <div *ngIf=\"!loading && !hasData\" class=\"row\">\n          <div class=\"col-lg-12 grid-margin stretch-card\">\n            <div class=\"card text-center pt-5 pb-5\">\n              <div class=\"card-body mt-5 mb-5\">\n                <h4 class=\"card-title\">No Data Found</h4>\n                <p class=\"card-description\">\n                  No company branches found.\n                </p>\n                <div class=\"text-lg-center mt-5 mb-5\">\n                  <div class=\"card-text\">\n                    <i class=\"mdi mdi-sign-caution\" style=\"font-size: 8em;\"></i>\n                  </div>\n                  <div class=\"card-text\">\n                    <h3>No Available Branches</h3>\n                    <p class=\"text-muted\">This company doesn't have any branches yet!</p>\n                  </div>\n                </div>\n              </div>\n            </div>\n          </div>\n        </div>\n\n        <div *ngIf=\"hasError\" class=\"row\">\n          <div class=\"col-lg-12 grid-margin stretch-card\">\n            <div class=\"card text-center pt-5 pb-5\">\n              <div class=\"card-body mt-5 mb-5\">\n                <h4 class=\"card-title\">Error Ocuured</h4>\n                <p class=\"card-description\">\n                  Ooops! Something went wrong!\n                </p>\n                <div class=\"text-lg-center mt-5 mb-5\">\n                  <div class=\"card-text\">\n                    <i class=\"mdi mdi-close-network-outline\" style=\"font-size: 8em;\"></i>\n                  </div>\n                  <div class=\"card-text\">\n                    <h3>We couldn't get your branches</h3>\n                    <p class=\"text-muted\">You may not have internet connection or our servers maybe down.</p>\n                    <button class=\"btn btn-primary\" type=\"button\" (click)=\"retry()\">Retry</button>\n                  </div>\n                </div>\n              </div>\n            </div>\n          </div>\n        </div>\n\n        <div *ngIf=\"!loading && hasData\" class=\"row\">\n          <div class=\"col-lg-12 grid-margin stretch-card\">\n            <div class=\"card\">\n              <div class=\"card-body\">\n                <div class=\"text-lg-center mt-3 mb-5\">\n                  <div class=\"btn-group\" role=\"group\" aria-label=\"Sort By\">\n                    <button type=\"button\" class=\"btn btn-outline-secondary\" [ngClass]=\"{'active': filterState == 'all'}\" (click)=\"showAll()\">All</button>\n                    <button type=\"button\" class=\"btn btn-outline-secondary\" [ngClass]=\"{'active': filterState == 'active'}\" (click)=\"showActive()\">Active</button>\n                    <button type=\"button\" class=\"btn btn-outline-secondary\" [ngClass]=\"{'active': filterState == 'inactive'}\" (click)=\"showInActive()\">In Active</button>\n                    <div class=\"dropdown\">\n                      <button type=\"button\" class=\"btn btn-outline-secondary dropdown-toggle\" id=\"sortMenuButton\"\n                        data-toggle=\"dropdown\" aria-haspopup=\"true\" aria-expanded=\"false\">Sort By</button>\n                      <div class=\"dropdown-menu\" aria-labelledby=\"sortMenuButton\">\n                        <button type=\"button\" class=\"dropdown-item\" (click)=\"sort('branch')\">Branch Name</button>\n                        <button type=\"button\" class=\"dropdown-item\" (click)=\"sort('created')\">Date Created</button>\n                      </div>\n                    </div>\n                  </div>\n                </div>\n                <div class=\"table-responsive\">\n                  <table class=\"table table-hover\">\n                    <thead>\n                      <tr>\n                        <th><strong>Branch Name</strong></th>\n                        <th><strong>Branch Admin</strong></th>\n                        <th><strong>Branch Executive</strong></th>\n                        <th><strong>Status</strong></th>\n                        <th><strong>Created On</strong></th>\n                      </tr>\n                    </thead>\n                    <tbody>\n                      <tr class=\"hover-cursor\" *ngFor=\"let branch of branchesList\">\n                        <td>{{ branch.branch_name }}</td>\n                        <td>{{ branch.branch_admin_name }}</td>\n                        <td>{{ branch.branch_super_executive_name }}</td>\n                        <td *ngIf=\"branch.status == 1\"><label class=\"badge badge-success text-center\">Active</label></td>\n                        <td *ngIf=\"branch.status != 1\"><label class=\"badge badge-danger text-center\">In-Active</label>\n                        <td>{{ branch.created_at | date }}</td>\n                      </tr>\n                    </tbody>\n                  </table>\n                </div>\n              </div>\n            </div>\n          </div>\n        </div>\n\n        <div *ngIf=\"loadingMore\" class=\"row m-md-2\">\n          <div class=\"col-md-12 col-sm-12 m-md-2\">\n            <div class=\"d-flex justify-content-center\">\n              <div class=\"spinner-border m-2\" style=\"width: 2rem; height: 2rem;\" role=\"status\">\n                <span class=\"sr-only\">Loading...</span>\n              </div>\n            </div>\n          </div>\n        </div>\n\n        <div *ngIf=\"hasMoreError\" class=\"row m-md-2\">\n          <div class=\"col-md-8 col-sm-12 offset-md-2\">\n            <div class=\"alert alert-danger\" role=\"alert\">\n              <h4 class=\"alert-heading\">Connection Failed!</h4>\n              <p>\n                Oops!! Couldn't get you the rest of the data. Please make sure you have an active internet connection.\n                Maybe, our servers may be down.\n              </p>\n              <hr>\n              <p class=\"mb-0\">We are really sorry for this inconvenience. Please click on the load more button again.</p>\n            </div>\n          </div>\n        </div>\n\n        <div *ngIf=\"hasMore\" class=\"row\">\n          <div class=\"col-md-4 col-sm-6 offset-sm-3 offset-lg-4\">\n            <div class=\"text-center\">\n              <button type=\"button\" class=\"btn btn-secondary btn-rounded btn-fw\" (click)=\"loadMore()\">Load More</button>\n            </div>\n          </div>\n        </div>\n\n      </div>\n    </div>\n  </div>\n</div>\n"
 
 /***/ }),
 
@@ -734,7 +734,7 @@ module.exports = "<div class=\"container-scroller\">\n  <app-navigation-bar></ap
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<div class=\"container-scroller\">\n  <app-navigation-bar></app-navigation-bar>\n  <div class=\"container-fluid page-body-wrapper\">\n    <app-side-bar></app-side-bar>\n    <div class=\"main-panel\">\n      <div class=\"content-wrapper\">\n        <div class=\"row\">\n          <div class=\"col-md-12 grid-margin\">\n            <div class=\"d-flex justify-content-between flex-wrap\">\n              <div class=\"d-flex align-items-end flex-wrap\">\n                <div class=\"mr-md-3 mr-xl-5\">\n                  <h2>Form Data - {{ formName }}</h2>\n                  <p class=\"mb-md-0\">Your administrative dashboard.</p>\n                </div>\n                <div class=\"d-flex\">\n                </div>\n              </div>\n              <div class=\"d-flex justify-content-between align-items-end flex-wrap\">\n              </div>\n            </div>\n          </div>\n        </div>\n\n        <div *ngIf=\"loading\" class=\"row m-5\">\n          <div class=\"col-md-12 m-5\">\n            <div class=\"d-flex justify-content-center\">\n              <div class=\"spinner-border m-5\" style=\"width: 5rem; height: 5rem;\" role=\"status\">\n                <span class=\"sr-only\">Loading...</span>\n              </div>\n            </div>\n          </div>\n        </div>\n\n        <div *ngIf=\"!loading && !hasData\" class=\"row\">\n          <div class=\"col-lg-12 grid-margin stretch-card\">\n            <div class=\"card text-center pt-5 pb-5\">\n              <div class=\"card-body mt-5 mb-5\">\n                <h4 class=\"card-title\">No Data Found</h4>\n                <p class=\"card-description\">\n                  No data found.\n                </p>\n                <div class=\"text-lg-center mt-5 mb-5\">\n                  <div class=\"card-text\">\n                    <i class=\"mdi mdi-file-check-outline\" style=\"font-size: 8em;\"></i>\n                  </div>\n                  <div class=\"card-text\">\n                    <h3>No user has filled this form yet!</h3>\n                    <p class=\"text-muted\">There is no data for this forms</p>\n                  </div>\n                </div>\n              </div>\n            </div>\n          </div>\n        </div>\n\n        <div *ngIf=\"hasError\" class=\"row\">\n          <div class=\"col-lg-12 grid-margin stretch-card\">\n            <div class=\"card text-center pt-5 pb-5\">\n              <div class=\"card-body mt-5 mb-5\">\n                <h4 class=\"card-title\">Error Ocuured</h4>\n                <p class=\"card-description\">\n                  Ooops! Something went wrong!\n                </p>\n                <div class=\"text-lg-center mt-5 mb-5\">\n                  <div class=\"card-text\">\n                    <i class=\"mdi mdi-close-network-outline\" style=\"font-size: 8em;\"></i>\n                  </div>\n                  <div class=\"card-text\">\n                    <h3>We couldn't get your form data</h3>\n                    <p class=\"text-muted\">You may not have internet connection or our servers maybe down.</p>\n                    <button class=\"btn btn-primary\" type=\"button\" (click)=\"retry()\">Retry</button>\n                  </div>\n                </div>\n              </div>\n            </div>\n          </div>\n        </div>\n\n        <div *ngIf=\"!loading && hasData\" class=\"row\">\n          <!-- <div class=\"col-md-4 text-center grid-margin stretch-card\">\n            <div class=\"card hover-cursor animated fadeInDown fast\">\n              <div class=\"card-body\">\n                <p class=\"card-title\">company.merchant_name</p>\n                <div class=\"card-text\">\n                  <p>Something Something</p>\n                  <br>\n                  <div class=\"btn-group\" role=\"group\" aria-label=\"Basic example\">\n                    <button type=\"button\" class=\"btn btn-outline-primary\" (click)=\"edit($event, company)\">\n                      <i class=\"mdi mdi-pencil-outline\"></i>\n                      Edit\n                    </button>\n                    <button type=\"button\" class=\"btn btn-outline-primary\" (click)=\"view($event, company)\">\n                      <i class=\"mdi mdi-pulse\"></i>\n                      View\n                    </button>\n                    <button type=\"button\" class=\"btn btn-outline-secondary\" (click)=\"delete($event, company.id)\">\n                      <i class=\"mdi mdi-delete-outline\"></i>\n                      Delete\n                    </button>\n                  </div>\n                </div>\n              </div>\n            </div>\n          </div> -->\n          <div class=\"col-lg-12 grid-margin stretch-card\">\n            <div class=\"card\">\n              <div class=\"card-body\">\n                <!-- <div class=\"table-responsive\">\n                  <table class=\"table table-hover\">\n                    <thead>\n                      <tr>\n                        <th><strong class=\"text-uppercase\">{{ tableHeaders[0] }}</strong></th>\n                        <th><strong class=\"text-uppercase\">{{ tableHeaders[1] }}</strong></th>\n                        <th><strong class=\"text-uppercase\">{{ tableHeaders[2] }}</strong></th>\n                        <th><strong class=\"text-uppercase\">{{ tableHeaders[3] }}</strong></th>\n                        <th><strong class=\"text-uppercase\">Submitted At</strong></th>\n                        <th><strong class=\"text-uppercase\">Actions</strong></th>\n                      </tr>\n                    </thead>\n                    <tbody>\n                      <tr class=\"hover-cursor\" *ngFor=\"let content of tableContents; let i=index\">\n                        <td>{{ content[0] }}</td>\n                        <td>{{ content[1] }}</td>\n                        <td>{{ content[2] }}</td>\n                        <td>{{ content[3] }}</td>\n                        <td>{{ content[content.length - 1] }}</td>\n                        <td>\n                          <div class=\"dropdown\">\n                            <button type=\"button\" class=\"btn btn-light bg-white btn-icon dropdown-toggle\"\n                              id=\"dropdownMenuButton\" data-toggle=\"dropdown\">\n                              <i class=\"mdi mdi-dots-horizontal text-muted\"></i>\n                            </button>\n                            <div class=\"dropdown-menu\" aria-labelledby=\"dropdownMenuButton\">\n                              <a class=\"dropdown-item\" (click)=\"showDataModal(i)\">View Data</a>\n                              <a class=\"dropdown-item\" (click)=\"showDownloadModal()\">Download Data</a>\n                              <a class=\"dropdown-item\" (click)=\"showAttachmentsModal()\">View Attachments</a>\n                            </div>\n                          </div>\n                        </td>\n                      </tr>\n                    </tbody>\n                  </table>\n                </div> -->\n                <div class=\"table-responsive\">\n                  <table datatable [dtOptions]=\"dtOptions\" [dtTrigger]=\"dtTrigger\" class=\"row-border hover\">\n                    <thead>\n                      <tr>\n                        <th><strong class=\"text-uppercase\">{{ tableHeaders[0] }}</strong></th>\n                        <th><strong class=\"text-uppercase\">{{ tableHeaders[1] }}</strong></th>\n                        <th><strong class=\"text-uppercase\">{{ tableHeaders[2] }}</strong></th>\n                        <th><strong class=\"text-uppercase\">{{ tableHeaders[3] }}</strong></th>\n                        <th><strong class=\"text-uppercase\">Submitted At</strong></th>\n                        <th><strong class=\"text-uppercase\">Actions</strong></th>\n                      </tr>\n                    </thead>\n                    <tbody>\n                      <tr *ngFor=\"let content of tableContents; let i=index\">\n                        <td>{{ content[0] }}</td>\n                        <td>{{ content[1] }}</td>\n                        <td>{{ content[2] }}</td>\n                        <td>{{ content[3] }}</td>\n                        <td>{{ content[content.length - 1] }}</td>\n                        <td>\n                          <div class=\"dropdown\">\n                            <button type=\"button\" class=\"btn btn-light bg-white btn-icon dropdown-toggle\"\n                              id=\"dropdownMenuButton\" data-toggle=\"dropdown\">\n                              <i class=\"mdi mdi-dots-horizontal text-muted\"></i>\n                            </button>\n                            <div class=\"dropdown-menu\" aria-labelledby=\"dropdownMenuButton\">\n                              <a class=\"dropdown-item\" (click)=\"showDataModal(i)\">View Data</a>\n                              <a class=\"dropdown-item\" (click)=\"showDownloadModal()\">Download Data</a>\n                              <a class=\"dropdown-item\" (click)=\"showAttachmentsModal()\">View Attachments</a>\n                            </div>\n                          </div>\n                        </td>\n                      </tr>\n                    </tbody>\n                  </table>\n                </div>\n              </div>\n            </div>\n          </div>\n        </div>\n\n        <div *ngIf=\"loadingMore\" class=\"row m-md-2\">\n          <div class=\"col-md-12 col-sm-12 m-md-2\">\n            <div class=\"d-flex justify-content-center\">\n              <div class=\"spinner-border m-2\" style=\"width: 2rem; height: 2rem;\" role=\"status\">\n                <span class=\"sr-only\">Loading...</span>\n              </div>\n            </div>\n          </div>\n        </div>\n\n        <div *ngIf=\"hasMoreError\" class=\"row m-md-2\">\n          <div class=\"col-md-8 col-sm-12 offset-md-2\">\n            <div class=\"alert alert-danger\" role=\"alert\">\n              <h4 class=\"alert-heading\">Connection Failed!</h4>\n              <p>\n                Oops!! Couldn't get you the rest of the data. Please make sure you have an active internet connection.\n                Maybe, our servers may be down.\n              </p>\n              <hr>\n              <p class=\"mb-0\">We are really sorry for this inconvenience. Please click on the load more button again.\n              </p>\n            </div>\n          </div>\n        </div>\n\n        <div *ngIf=\"hasMore\" class=\"row\">\n          <div class=\"col-md-4 col-sm-6 offset-sm-3 offset-lg-4\">\n            <div class=\"text-center\">\n              <button type=\"button\" class=\"btn btn-primary btn-rounded btn-fw\" (click)=\"loadMore()\">Load More</button>\n            </div>\n          </div>\n        </div>\n\n      </div>\n    </div>\n  </div>\n</div>\n\n<ng-template #confirm let-modal>\n  <div class=\"modal-header\">\n    <h4 class=\"modal-title\" id=\"modal-title\">Download Form Data</h4>\n    <button type=\"button\" class=\"close\" aria-describedby=\"modal-title\" (click)=\"modal.dismiss('close')\">\n      <span aria-hidden=\"true\">&times;</span>\n    </button>\n  </div>\n  <div class=\"modal-body\">\n    <div class=\"text-center\">\n      <div class=\"row\">\n        <h3 class=\"download-title\">Choose your desired format</h3>\n        <div class=\"col-6\">\n          <button class=\"btn btn-outline-primary btn-lg btn-icon-text\" style=\"padding: 1rem 2rem;\"\n            (click)=\"downloadNormal()\">\n            <i class=\"mdi mdi-file-document\"></i>\n            Normal Format\n          </button>\n        </div>\n        <div class=\"col-6\">\n          <button class=\"btn btn-outline-primary btn-lg btn-icon-text\" (click)=\"downloadPDF()\">\n            <i class=\"mdi mdi-file-pdf\"></i>\n            PDF Format\n          </button>\n        </div>\n      </div>\n    </div>\n  </div>\n  <div class=\"modal-footer\">\n  </div>\n</ng-template>\n\n<ng-template #data let-modal>\n  <div class=\"modal-header\">\n    <h4 class=\"modal-title\" id=\"modal-title\">User Form Data</h4>\n    <button type=\"button\" class=\"close\" aria-describedby=\"modal-title\" (click)=\"modal.dismiss('close')\">\n      <span aria-hidden=\"true\">&times;</span>\n    </button>\n  </div>\n  <div class=\"modal-body\">\n    <div>\n      <div class=\"row\" style=\"margin: 5px 0px; padding: 4px 0px;\" *ngFor=\"let item of clientFormData; let i=index\">\n        <div class=\"col-6\">\n          <h5 class=\"text-uppercase\" style=\"font-size: 13px;\"><strong>{{ item.title }} : </strong></h5>\n        </div>\n        <div class=\"col-6\">\n          <h5 style=\"font-size: 0.95em;\">{{ item.data }}</h5>\n        </div>\n      </div>\n    </div>\n  </div>\n  <div class=\"modal-footer\">\n  </div>\n</ng-template>\n\n<ng-template #attachment let-modal>\n  <div class=\"modal-header\">\n    <h4 class=\"modal-title\" id=\"modal-title\">Download Form Data</h4>\n    <button type=\"button\" class=\"close\" aria-describedby=\"modal-title\" (click)=\"modal.dismiss('close')\">\n      <span aria-hidden=\"true\">&times;</span>\n    </button>\n  </div>\n  <div class=\"modal-body\">\n    <div class=\"text-center\">\n      <div class=\"row\">\n        <h3 class=\"download-title\">Choose your desired format</h3>\n        <div class=\"col-6\">\n          <button class=\"btn btn-outline-primary btn-lg btn-icon-text\" style=\"padding: 1rem 2rem;\"\n            (click)=\"downloadNormal()\">\n            <i class=\"mdi mdi-file-document\"></i>\n            Normal Format\n          </button>\n        </div>\n        <div class=\"col-6\">\n          <button class=\"btn btn-outline-primary btn-lg btn-icon-text\" (click)=\"downloadPDF()\">\n            <i class=\"mdi mdi-file-pdf\"></i>\n            PDF Format\n          </button>\n        </div>\n      </div>\n    </div>\n  </div>\n  <div class=\"modal-footer\">\n  </div>\n</ng-template>"
+module.exports = "<div class=\"container-scroller\">\n  <app-navigation-bar></app-navigation-bar>\n  <div class=\"container-fluid page-body-wrapper\">\n    <app-side-bar></app-side-bar>\n    <div class=\"main-panel\">\n      <div class=\"content-wrapper\">\n        <div class=\"row\">\n          <div class=\"col-md-12 grid-margin\">\n            <div class=\"d-flex justify-content-between flex-wrap\">\n              <div class=\"d-flex align-items-end flex-wrap\">\n                <div class=\"mr-md-3 mr-xl-5\">\n                  <h2>Form Data - {{ form.name }}</h2>\n                  <p class=\"mb-md-0\">Your administrative dashboard.</p>\n                </div>\n                <div class=\"d-flex\">\n                </div>\n              </div>\n              <div class=\"d-flex justify-content-between align-items-end flex-wrap\">\n                <div class=\"dropdown\">\n                  <button class=\"btn btn-secondary dropdown-toggle\" type=\"button\" id=\"dropdownMenuButton\"\n                    data-toggle=\"dropdown\" aria-haspopup=\"true\" aria-expanded=\"false\">\n                    More Options\n                  </button>\n                  <div class=\"dropdown-menu\" aria-labelledby=\"dropdownMenuButton\">\n                    <a class=\"dropdown-item\" (click)=\"toggleFilter()\">Filter</a>\n                    <a class=\"dropdown-item\" (click)=\"downloadAll('csv')\">Download (CSV)</a>\n                    <a class=\"dropdown-item\" (click)=\"downloadAll('pdf')\">Download (PDF)</a>\n                    <a class=\"dropdown-item\" (click)=\"downloadAll('excel')\">Download (Excel)</a>\n                  </div>\n                </div>\n              </div>\n            </div>\n          </div>\n        </div>\n\n        <div *ngIf=\"loading\" class=\"row m-5\">\n          <div class=\"col-md-12 m-5\">\n            <div class=\"d-flex justify-content-center\">\n              <div class=\"spinner-border m-5\" style=\"width: 5rem; height: 5rem;\" role=\"status\">\n                <span class=\"sr-only\">Loading...</span>\n              </div>\n            </div>\n          </div>\n        </div>\n\n        <div *ngIf=\"!loading && !hasData\" class=\"row\">\n          <div class=\"col-lg-12 grid-margin stretch-card\">\n            <div class=\"card text-center pt-5 pb-5\">\n              <div class=\"card-body mt-5 mb-5\">\n                <h4 class=\"card-title\">No Data Found</h4>\n                <p class=\"card-description\">\n                  No data found.\n                </p>\n                <div class=\"text-lg-center mt-5 mb-5\">\n                  <div class=\"card-text\">\n                    <i class=\"mdi mdi-file-check-outline\" style=\"font-size: 8em;\"></i>\n                  </div>\n                  <div class=\"card-text\">\n                    <h3>No user has filled this form yet!</h3>\n                    <p class=\"text-muted\">There is no data for this forms</p>\n                  </div>\n                </div>\n              </div>\n            </div>\n          </div>\n        </div>\n\n        <div *ngIf=\"hasError\" class=\"row\">\n          <div class=\"col-lg-12 grid-margin stretch-card\">\n            <div class=\"card text-center pt-5 pb-5\">\n              <div class=\"card-body mt-5 mb-5\">\n                <h4 class=\"card-title\">Error Ocuured</h4>\n                <p class=\"card-description\">\n                  Ooops! Something went wrong!\n                </p>\n                <div class=\"text-lg-center mt-5 mb-5\">\n                  <div class=\"card-text\">\n                    <i class=\"mdi mdi-close-network-outline\" style=\"font-size: 8em;\"></i>\n                  </div>\n                  <div class=\"card-text\">\n                    <h3>We couldn't get your form data</h3>\n                    <p class=\"text-muted\">You may not have internet connection or our servers maybe down.</p>\n                    <button class=\"btn btn-primary\" type=\"button\" (click)=\"retry()\">Retry</button>\n                  </div>\n                </div>\n              </div>\n            </div>\n          </div>\n        </div>\n\n         <div *ngIf=\"!loading && hasData\" class=\"row\">\n           <div class=\"col-lg-12 grid-margin stretch-card\">\n             <div class=\"card\">\n               <div class=\"card-body\">\n                 <div class=\"table-responsive\">\n                   <table id=\"table-data\" class=\"table table-hover\">\n                     <thead>\n                       <tr>\n                         <th *ngFor=\"let header of tableHeaders\"><strong class=\"text-uppercase\">{{ header }}</strong></th>\n                         <th> <strong class=\"text-uppercase\">Submitted At</strong></th>\n                         <th><strong class=\"text-uppercase\">Actions</strong></th>\n                       </tr>\n                     </thead>\n                     <tbody>\n                       <tr class=\"hover-cursor\" *ngFor=\"let content of tableContents; let i=index\">\n                         <td *ngFor=\"let data of content\">{{ data }}</td>\n                         <td>\n                           <div class=\"dropdown\">\n                             <button type=\"button\" class=\"btn btn-light bg-white btn-icon dropdown-toggle\"\n                               id=\"dropdownMenuButton\" data-toggle=\"dropdown\">\n                               <i class=\"mdi mdi-dots-horizontal text-muted\"></i>\n                             </button>\n                             <div class=\"dropdown-menu\" aria-labelledby=\"dropdownMenuButton\">\n                               <a class=\"dropdown-item\" (click)=\"print($event, i)\">Print</a>\n                               <a class=\"dropdown-item\" (click)=\"showAttachmentsModal()\">View Attachments</a>\n                               <a class=\"dropdown-item\" (click)=\"downloadDataPdf()\">Download Data (PDF)</a>\n                             </div>\n                           </div>\n                         </td>\n                       </tr>\n                     </tbody>\n                   </table>\n                 </div>\n               </div>\n             </div>\n           </div>\n         </div>\n\n         <div *ngIf=\"loadingMore\" class=\"row m-md-2\">\n           <div class=\"col-md-12 col-sm-12 m-md-2\">\n             <div class=\"d-flex justify-content-center\">\n               <div class=\"spinner-border m-2\" style=\"width: 2rem; height: 2rem;\" role=\"status\">\n                 <span class=\"sr-only\">Loading...</span>\n               </div>\n             </div>\n           </div>\n         </div>\n\n         <div *ngIf=\"hasMoreError\" class=\"row m-md-2\">\n           <div class=\"col-md-8 col-sm-12 offset-md-2\">\n             <div class=\"alert alert-danger\" role=\"alert\">\n               <h4 class=\"alert-heading\">Connection Failed!</h4>\n               <p>\n                 Oops!! Couldn't get you the rest of the data. Please make sure you have an active internet connection.\n                 Maybe, our servers may be down.\n               </p>\n               <hr>\n               <p class=\"mb-0\">We are really sorry for this inconvenience. Please click on the load more button again.</p>\n             </div>\n           </div>\n         </div>\n\n         <div *ngIf=\"hasMore\" class=\"row\">\n           <div class=\"col-md-4 col-sm-6 offset-sm-3 offset-lg-4\">\n             <div class=\"text-center\">\n               <button type=\"button\" class=\"btn btn-primary btn-rounded btn-fw\" (click)=\"loadMore()\">Load More</button>\n             </div>\n           </div>\n         </div>\n\n      </div>\n    </div>\n  </div>\n</div>\n\n<ng-template #attachment let-modal>\n  <div class=\"modal-header\">\n    <h4 class=\"modal-title\" id=\"modal-title\">View Attachments</h4>\n    <button type=\"button\" class=\"close\" aria-describedby=\"modal-title\" (click)=\"modal.dismiss('close')\">\n      <span aria-hidden=\"true\">&times;</span>\n    </button>\n  </div>\n  <div class=\"modal-body\">\n  </div>\n  <div class=\"modal-footer\">\n  </div>\n</ng-template>"
 
 /***/ }),
 
@@ -745,7 +745,7 @@ module.exports = "<div class=\"container-scroller\">\n  <app-navigation-bar></ap
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<div class=\"container-scroller\">\n  <app-navigation-bar></app-navigation-bar>\n  <div class=\"container-fluid page-body-wrapper\">\n    <app-side-bar></app-side-bar>\n    <div class=\"main-panel\">\n      <div class=\"content-wrapper\">\n        <div class=\"row\">\n          <div class=\"col-md-12 grid-margin\">\n            <div class=\"d-flex justify-content-between flex-wrap\">\n              <div class=\"d-flex align-items-end flex-wrap\">\n                <div class=\"mr-md-3 mr-xl-5\">\n                  <h2>All Forms</h2>\n                  <p class=\"mb-md-0\">Your administrative dashboard.</p>\n                </div>\n                <div class=\"d-flex\">\n                  <!-- <i class=\"mdi mdi-home text-muted hover-cursor\"></i>\n                  <p class=\"text-muted mb-0 hover-cursor\">&nbsp;/&nbsp;Home&nbsp;/&nbsp;</p>\n                  <p class=\"text-primary mb-0 hover-cursor\">In-Processing</p> -->\n                </div>\n              </div>\n              <div class=\"d-flex justify-content-between align-items-end flex-wrap\">\n                <!-- <button type=\"button\" class=\"btn btn-light bg-white btn-icon mr-3 d-none d-md-block \">\n                  <i class=\"mdi mdi-download text-muted\"></i>\n                </button>\n                <button type=\"button\" class=\"btn btn-light bg-white btn-icon mr-3 mt-2 mt-xl-0\">\n                  <i class=\"mdi mdi-clock-outline text-muted\"></i>\n                </button>\n                <button type=\"button\" class=\"btn btn-light bg-white btn-icon mr-3 mt-2 mt-xl-0\">\n                  <i class=\"mdi mdi-plus text-muted\"></i>\n                </button> -->\n              </div>\n            </div>\n          </div>\n        </div>\n\n        <div *ngIf=\"loading\" class=\"row m-md-5\">\n          <div class=\"col-md-12 col-sm-12 m-md-5\">\n            <div class=\"d-flex justify-content-center\">\n              <div class=\"spinner-border m-5\" style=\"width: 5rem; height: 5rem;\" role=\"status\">\n                <span class=\"sr-only\">Loading...</span>\n              </div>\n            </div>\n          </div>\n        </div>\n\n        <div *ngIf=\"!loading && !hasData\" class=\"row\">\n          <div class=\"col-lg-12 grid-margin stretch-card\">\n            <div class=\"card text-center pt-5 pb-5\">\n              <div class=\"card-body mt-5 mb-5\">\n                <h4 class=\"card-title\">No Data Found</h4>\n                <p class=\"card-description\">\n                  No form found.\n                </p>\n                <div class=\"text-lg-center mt-5 mb-5\">\n                  <div class=\"card-text\">\n                    <i class=\"mdi mdi-file-document-edit-outline\" style=\"font-size: 8em;\"></i>\n                  </div>\n                  <div class=\"card-text\">\n                    <h3>No Available Forms</h3>\n                    <p class=\"text-muted\">This company doesn't have any forms yet!</p>\n                  </div>\n                </div>\n              </div>\n            </div>\n          </div>\n        </div>\n\n        <div *ngIf=\"hasError\" class=\"row\">\n          <div class=\"col-lg-12 grid-margin stretch-card\">\n            <div class=\"card text-center pt-5 pb-5\">\n              <div class=\"card-body mt-5 mb-5\">\n                <h4 class=\"card-title\">Error Ocuured</h4>\n                <p class=\"card-description\">\n                  Ooops! Something went wrong!\n                </p>\n                <div class=\"text-lg-center mt-5 mb-5\">\n                  <div class=\"card-text\">\n                    <i class=\"mdi mdi-close-network-outline\" style=\"font-size: 8em;\"></i>\n                  </div>\n                  <div class=\"card-text\">\n                    <h3>We couldn't get your forms</h3>\n                    <p class=\"text-muted\">You may not have internet connection or our servers maybe down.</p>\n                    <button class=\"btn btn-primary\" type=\"button\" (click)=\"retry()\">Retry</button>\n                  </div>\n                </div>\n              </div>\n            </div>\n          </div>\n        </div>\n\n        <div *ngIf=\"!loading && hasData\" class=\"row\">\n          <div class=\"col-lg-12 grid-margin stretch-card\">\n            <div class=\"card\">\n              <div class=\"card-body\">\n                <div class=\"table-responsive\">\n                  <table class=\"table table-hover\">\n                    <thead>\n                      <tr>\n                        <th><strong>Form Code.</strong></th>\n                        <th><strong>Form Name</strong></th>\n                        <th><strong>Status</strong></th>\n                        <th><strong>Created On</strong></th>\n                      </tr>\n                    </thead>\n                    <tbody>\n                      <tr class=\"hover-cursor\" *ngFor=\"let form of allFormsList\">\n                        <td>{{ form.form_code }}</td>\n                        <td>{{ form.name }}</td>\n                        <td *ngIf=\"form.status == 1\"><label class=\"badge badge-success text-center\">Published</label></td>\n                        <td *ngIf=\"form.status != 1\"><label class=\"badge badge-danger text-center\">Unpublished</label>\n                        </td>\n                        <td>{{ form.created_at | date }}</td>\n                      </tr>\n                    </tbody>\n                  </table>\n                </div>\n              </div>\n            </div>\n          </div>\n        </div>\n\n        <div *ngIf=\"loadingMore\" class=\"row m-md-2\">\n          <div class=\"col-md-12 col-sm-12 m-md-2\">\n            <div class=\"d-flex justify-content-center\">\n              <div class=\"spinner-border m-2\" style=\"width: 2rem; height: 2rem;\" role=\"status\">\n                <span class=\"sr-only\">Loading...</span>\n              </div>\n            </div>\n          </div>\n        </div>\n\n        <div *ngIf=\"hasMoreError\" class=\"row m-md-2\">\n          <div class=\"col-md-8 col-sm-12 offset-md-2\">\n            <div class=\"alert alert-danger\" role=\"alert\">\n              <h4 class=\"alert-heading\">Connection Failed!</h4>\n              <p>\n                Oops!! Couldn't get you the rest of the data. Please make sure you have an active internet connection.\n                Maybe, our servers may be down.\n              </p>\n              <hr>\n              <p class=\"mb-0\">We are really sorry for this inconvenience. Please click on the load more button again.</p>\n            </div>\n          </div>\n        </div>\n\n        <div *ngIf=\"hasMore\" class=\"row\">\n          <div class=\"col-md-4 col-sm-6 offset-sm-3 offset-lg-4\">\n            <div class=\"text-center\">\n              <button type=\"button\" class=\"btn btn-secondary btn-rounded btn-fw\" (click)=\"loadMore()\">Load More</button>\n            </div>\n          </div>\n        </div>\n        \n      </div>\n    </div>\n  </div>\n</div>\n"
+module.exports = "<div class=\"container-scroller\">\n  <app-navigation-bar></app-navigation-bar>\n  <div class=\"container-fluid page-body-wrapper\">\n    <app-side-bar></app-side-bar>\n    <div class=\"main-panel\">\n      <div class=\"content-wrapper\">\n        <div class=\"row\">\n          <div class=\"col-md-12 grid-margin\">\n            <div class=\"d-flex justify-content-between flex-wrap\">\n              <div class=\"d-flex align-items-end flex-wrap\">\n                <div class=\"mr-md-3 mr-xl-5\">\n                  <h2>All Forms</h2>\n                  <p class=\"mb-md-0\">Your administrative dashboard.</p>\n                </div>\n                <div class=\"d-flex\">\n                </div>\n              </div>\n              <div class=\"d-flex justify-content-between align-items-end flex-wrap\">\n              </div>\n            </div>\n          </div>\n        </div>\n\n        <div *ngIf=\"loading\" class=\"row m-md-5\">\n          <div class=\"col-md-12 col-sm-12 m-md-5\">\n            <div class=\"d-flex justify-content-center\">\n              <div class=\"spinner-border m-5\" style=\"width: 5rem; height: 5rem;\" role=\"status\">\n                <span class=\"sr-only\">Loading...</span>\n              </div>\n            </div>\n          </div>\n        </div>\n\n        <div *ngIf=\"!loading && !hasData\" class=\"row\">\n          <div class=\"col-lg-12 grid-margin stretch-card\">\n            <div class=\"card text-center pt-5 pb-5\">\n              <div class=\"card-body mt-5 mb-5\">\n                <h4 class=\"card-title\">No Data Found</h4>\n                <p class=\"card-description\">\n                  No form found.\n                </p>\n                <div class=\"text-lg-center mt-5 mb-5\">\n                  <div class=\"card-text\">\n                    <i class=\"mdi mdi-file-document-edit-outline\" style=\"font-size: 8em;\"></i>\n                  </div>\n                  <div class=\"card-text\">\n                    <h3>No Available Forms</h3>\n                    <p class=\"text-muted\">This company doesn't have any forms yet!</p>\n                  </div>\n                </div>\n              </div>\n            </div>\n          </div>\n        </div>\n\n        <div *ngIf=\"hasError\" class=\"row\">\n          <div class=\"col-lg-12 grid-margin stretch-card\">\n            <div class=\"card text-center pt-5 pb-5\">\n              <div class=\"card-body mt-5 mb-5\">\n                <h4 class=\"card-title\">Error Ocuured</h4>\n                <p class=\"card-description\">\n                  Ooops! Something went wrong!\n                </p>\n                <div class=\"text-lg-center mt-5 mb-5\">\n                  <div class=\"card-text\">\n                    <i class=\"mdi mdi-close-network-outline\" style=\"font-size: 8em;\"></i>\n                  </div>\n                  <div class=\"card-text\">\n                    <h3>We couldn't get your forms</h3>\n                    <p class=\"text-muted\">You may not have internet connection or our servers maybe down.</p>\n                    <button class=\"btn btn-primary\" type=\"button\" (click)=\"retry()\">Retry</button>\n                  </div>\n                </div>\n              </div>\n            </div>\n          </div>\n        </div>\n\n        <div *ngIf=\"!loading && hasData\" class=\"row\">\n          <div class=\"col-lg-12 grid-margin stretch-card\">\n            <div class=\"card\">\n              <div class=\"card-body\">\n                <div class=\"table-responsive\">\n                  <table class=\"table table-hover\">\n                    <thead>\n                      <tr>\n                        <th><strong>Form Code.</strong></th>\n                        <th><strong>Form Name</strong></th>\n                        <th><strong>Status</strong></th>\n                        <th><strong>Created On</strong></th>\n                      </tr>\n                    </thead>\n                    <tbody>\n                      <tr class=\"hover-cursor\" *ngFor=\"let form of allFormsList\">\n                        <td>{{ form.form_code }}</td>\n                        <td>{{ form.name }}</td>\n                        <td *ngIf=\"form.status == 1\"><label class=\"badge badge-success text-center\">Published</label></td>\n                        <td *ngIf=\"form.status != 1\"><label class=\"badge badge-danger text-center\">Unpublished</label>\n                        </td>\n                        <td>{{ form.created_at | date }}</td>\n                      </tr>\n                    </tbody>\n                  </table>\n                </div>\n              </div>\n            </div>\n          </div>\n        </div>\n\n        <div *ngIf=\"loadingMore\" class=\"row m-md-2\">\n          <div class=\"col-md-12 col-sm-12 m-md-2\">\n            <div class=\"d-flex justify-content-center\">\n              <div class=\"spinner-border m-2\" style=\"width: 2rem; height: 2rem;\" role=\"status\">\n                <span class=\"sr-only\">Loading...</span>\n              </div>\n            </div>\n          </div>\n        </div>\n\n        <div *ngIf=\"hasMoreError\" class=\"row m-md-2\">\n          <div class=\"col-md-8 col-sm-12 offset-md-2\">\n            <div class=\"alert alert-danger\" role=\"alert\">\n              <h4 class=\"alert-heading\">Connection Failed!</h4>\n              <p>\n                Oops!! Couldn't get you the rest of the data. Please make sure you have an active internet connection.\n                Maybe, our servers may be down.\n              </p>\n              <hr>\n              <p class=\"mb-0\">We are really sorry for this inconvenience. Please click on the load more button again.</p>\n            </div>\n          </div>\n        </div>\n\n        <div *ngIf=\"hasMore\" class=\"row\">\n          <div class=\"col-md-4 col-sm-6 offset-sm-3 offset-lg-4\">\n            <div class=\"text-center\">\n              <button type=\"button\" class=\"btn btn-secondary btn-rounded btn-fw\" (click)=\"loadMore()\">Load More</button>\n            </div>\n          </div>\n        </div>\n        \n      </div>\n    </div>\n  </div>\n</div>\n"
 
 /***/ }),
 
@@ -790,6 +790,28 @@ module.exports = "<div class=\"container-scroller\">\n  <app-navigation-bar></ap
 /***/ (function(module, exports) {
 
 module.exports = "<div class=\"container-scroller\">\n  <app-navigation-bar></app-navigation-bar>\n  <div class=\"container-fluid page-body-wrapper\">\n    <app-side-bar></app-side-bar>\n    <div class=\"main-panel\">\n      <div class=\"content-wrapper\">\n        <div class=\"row\">\n          <div class=\"col-md-12 grid-margin\">\n            <div class=\"d-flex justify-content-between flex-wrap\">\n              <div class=\"d-flex align-items-end flex-wrap\">\n                <div class=\"mr-md-3 mr-xl-5\">\n                  <h2>Welcome back, {{ firstname }}</h2>\n                  <p class=\"mb-md-0\">Your administrative dashboard.</p>\n                </div>\n                <div class=\"d-flex\">\n                </div>\n              </div>\n              <div class=\"d-flex justify-content-between align-items-end flex-wrap\">\n              </div>\n            </div>\n          </div>\n        </div>\n\n        <div *ngIf=\"loading\" class=\"row\">\n          <div class=\"col-md-12\">\n            <div class=\"d-flex justify-content-center pb-5 pt-5\">\n              <div class=\"spinner-border mt-5\" style=\"width: 6rem; height: 6rem;\" role=\"status\">\n                <span class=\"sr-only\">Loading...</span>\n              </div>\n            </div>\n          </div>\n        </div>\n        \n        <!-- <div *ngIf=\"!loading\" class=\"row mb-5 text-center pb-3\">\n          <div class=\"col-10 offset-1\">\n            <div class=\"text-center\">\n              <form class=\"form-inline\">\n                <div *ngIf=\"isBranchSuperExec\" class=\"form-group\">\n                  <select class=\"form-control form-control-lg\" style=\"width: 220px;\">\n                    <option value=\"a\">Select Company Branch</option>\n                    <option value=\"a\">Branch One</option>\n                    <option value=\"a\">Branch One</option>\n                    <option value=\"a\">Branch One</option>\n                    <option value=\"a\">Branch One</option>\n                  </select>\n                </div>\n                <div class=\"form-group\">\n                  <div class=\"input-group\">\n                    <input class=\"form-control form-control-lg\" placeholder=\"Select Start Date\" name=\"dp\" [(ngModel)]=\"startDate\" ngbDatepicker\n                      #d=\"ngbDatepicker\">\n                    <div class=\"input-group-append\">\n                      <button class=\"btn btn-outline-secondary\" (click)=\"d.toggle()\" type=\"button\">\n                        <i class=\"mdi mdi-calendar-outline\"></i>\n                      </button>\n                    </div>\n                  </div>\n                </div>\n                <div class=\"form-group\">\n                  <div class=\"input-group\">\n                    <input class=\"form-control form-control-lg\" placeholder=\"Select End Date\" name=\"dp\" [(ngModel)]=\"endDate\" ngbDatepicker\n                      #d1=\"ngbDatepicker\">\n                    <div class=\"input-group-append\">\n                      <button class=\"btn btn-outline-secondary\" (click)=\"d1.toggle()\" type=\"button\">\n                        <i class=\"mdi mdi-calendar-outline\"></i>\n                      </button>\n                    </div>\n                  </div>\n                </div>\n                <button type=\"submit\" class=\"btn btn-outline-dark btn-lg ml-2\">Filter</button>\n              </form>\n            </div>\n          </div>\n        </div> -->\n\n        <div *ngIf=\"!loading\" class=\"row\">\n          <div class=\"col-md-4 grid-margin stretch-card\">\n            <div class=\"card hover-cursor hover-primary\" (click)=\"openForms()\">\n              <div class=\"card-body\">\n                <p class=\"card-title\">Available Forms</p>\n                <h1 class=\"display-2\">{{ numTotalForms }}</h1>\n                <div class=\"card-text\">\n                  <i class=\"mdi mdi-file-outline\" style=\"font-size: 3em;\"></i>\n                </div>\n                <p class=\"text-muted\">Total number of forms available</p>\n              </div>\n            </div>\n          </div>\n\n          <div class=\"col-md-4 grid-margin stretch-card\">\n            <div class=\"card hover-cursor hover-primary\" (click)=\"openProcessed()\">\n              <div class=\"card-body\">\n                <p class=\"card-title\">Processed Forms</p>\n                <h1 class=\"display-2\">{{ totalNoProcessed }}</h1>\n                <div class=\"card-text\">\n                  <i class=\"mdi mdi-file-document-edit-outline\" style=\"font-size: 3em;\"></i>\n                </div>\n                <p class=\"text-muted\">Total number of processed forms</p>\n              </div>\n            </div>\n          </div>\n\n          <div class=\"col-md-4 grid-margin stretch-card\">\n            <div class=\"card hover-cursor hover-primary\" (click)=\"openProcessing()\">\n              <div class=\"card-body\">\n                <p class=\"card-title\">Forms In-Process</p>\n                <h1 class=\"display-2\">{{ totalNoProcessing }}</h1>\n                <div class=\"card-text\">\n                  <i class=\"mdi mdi-timer\" style=\"font-size: 3em;\"></i>\n                </div>\n                <p class=\"text-muted\">Total number of forms in-processed</p>\n              </div>\n            </div>\n          </div>\n        </div>\n\n        <div *ngIf=\"!loading\" class=\"row\">\n          <div class=\"col-md-4 grid-margin stretch-card\">\n            <div class=\"card hover-cursor hover-primary\" (click)=\"openSubmitted()\">\n              <div class=\"card-body\">\n                <p class=\"card-title\">Submitted Forms</p>\n                <h1 class=\"display-2\">{{ totalNoSubmitted }}</h1>\n                <div class=\"card-text\">\n                  <i class=\"mdi mdi-mailbox-open-outline\" style=\"font-size: 3em;\"></i>\n                </div>\n                <p class=\"text-muted\">Total number of submitted forms</p>\n              </div>\n            </div>\n          </div>\n\n          <div class=\"col-md-4 grid-margin stretch-card\">\n            <div class=\"card hover-cursor hover-primary\" (click)=\"openBranches()\">\n              <div class=\"card-body\">\n                <p class=\"card-title\">Total No. Of Branches</p>\n                <h1 class=\"display-2\">{{ numTotalBranches }}</h1>\n                <div class=\"card-text\">\n                  <i class=\"mdi mdi-office-building\" style=\"font-size: 3em;\"></i>\n                </div>\n                <p class=\"text-muted\">Total number of branches</p>\n              </div>\n            </div>\n          </div>\n\n          <!-- <div class=\"col-md-3 grid-margin stretch-card\">\n            <div class=\"card hover-cursor hover-primary\" (click)=\"openBranches()\">\n              <div class=\"card-body\">\n                <p class=\"card-title\">Total No. Of Active Branches</p>\n                <h1 class=\"display-2\">{{ numTotalActiveBranches }}</h1>\n                <div class=\"card-text\">\n                  <i class=\"mdi mdi-check-all\" style=\"font-size: 3em;\"></i>\n                </div>\n                <p class=\"text-muted\">Total of forms that have been submitted</p>\n              </div>\n            </div>\n          </div>\n\n          <div class=\"col-md-3 grid-margin stretch-card\">\n            <div class=\"card hover-cursor hover-primary\" (click)=\"openBranches()\">\n              <div class=\"card-body\">\n                <p class=\"card-title\">Total No. Of In-Active Branches</p>\n                <h1 class=\"display-2\">{{ numTotalInActiveBranches }}</h1>\n                <div class=\"card-text\">\n                  <i class=\"mdi mdi-network-off-outline\" style=\"font-size: 3em;\"></i>\n                </div>\n                <p class=\"text-muted\">Total of forms that have been submitted</p>\n              </div>\n            </div>\n          </div> -->\n\n          <div class=\"col-md-4 grid-margin stretch-card\">\n            <div class=\"card hover-cursor hover-primary\" (click)=\"openAccounts()\">\n              <div class=\"card-body\">\n                <p class=\"card-title\">Total No. Of Users</p>\n                <h1 class=\"display-2\">{{ numTotalUsers }}</h1>\n                <div class=\"card-text\">\n                  <i class=\"mdi mdi-account-group-outline\" style=\"font-size: 3em;\"></i>\n                </div>\n                <p class=\"text-muted\">Total number of user accounts</p>\n              </div>\n            </div>\n          </div>\n        </div>\n        \n      </div>\n      <!-- content -->\n      <!-- footer -->\n      <app-footer-bar></app-footer-bar>\n      <!-- partial -->\n    </div>\n    <!-- main ends -->\n  </div>\n</div>\n"
+
+/***/ }),
+
+/***/ "./node_modules/raw-loader/index.js!./src/app/pages/dashboard/executive/executive-pdf-printing-page/executive-pdf-printing-page.component.html":
+/*!********************************************************************************************************************************************!*\
+  !*** ./node_modules/raw-loader!./src/app/pages/dashboard/executive/executive-pdf-printing-page/executive-pdf-printing-page.component.html ***!
+  \********************************************************************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = "<div *ngIf=\"loading\" class=\"row m-md-5 text-center\">\n  <div class=\"col-md-12 col-sm-12 m-md-5\">\n    <div class=\"d-flex justify-content-center\">\n      <div class=\"spinner-border m-5\" style=\"width: 2rem; height: 2rem; color: #4d83ff\" role=\"status\">\n        <span class=\"sr-only\">Loading...</span>\n      </div>\n    </div>\n    <p><strong>Preparing for printing! Please wait ...</strong></p>\n  </div>\n</div>\n\n<div *ngIf=\"!loading\" class=\"toolbar\">\n  <button id=\"print-button\" class=\"btn btn-primary\" (click)=\"print()\">Print</button>\n</div>\n\n<div class=\"container\">\n  <!-- Little trick to center the inputs to the viewer -->\n  <div class=\"form-container\">\n    <form id=\"input-form\" [formGroup]=\"myForm\" novalidate>\n\n      <!-- Cycle through all the inputs -->\n      <div *ngFor=\"let input of inputList\">\n\n        <!-- Insert an input accordingly and get the style/position from the component -->\n        <input [type]=\"input.type\" [name]=\"input.name\" [value]=\"input.value\" [checked]=\"input.checked\"\n          [formControlName]=\"input.name\" [ngStyle]=\"getInputPosition(input)\">\n      </div>\n    </form>\n  </div>\n\n  <!-- Pdf Viewer -->\n  <pdf-viewer id=\"viewer\" [src]=\"pdfSrc\" (error)=\"onError($event)\" (on-progress)=\"onProgress($event)\"\n    (after-load-complete)=\"pdfFileLoadComplete($event)\">\n  </pdf-viewer>\n</div>"
+
+/***/ }),
+
+/***/ "./node_modules/raw-loader/index.js!./src/app/pages/dashboard/executive/executive-printing-page/executive-printing-page.component.html":
+/*!************************************************************************************************************************************!*\
+  !*** ./node_modules/raw-loader!./src/app/pages/dashboard/executive/executive-printing-page/executive-printing-page.component.html ***!
+  \************************************************************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = "<div class=\"view\">\n  <div *ngIf=\"loading\" class=\"row m-md-5 text-center\">\n    <div class=\"col-md-12 col-sm-12 m-md-5\">\n      <div class=\"d-flex justify-content-center\">\n        <div class=\"spinner-border m-5\" style=\"width: 2rem; height: 2rem; color: #4d83ff\" role=\"status\">\n          <span class=\"sr-only\">Loading...</span>\n        </div>\n      </div>\n      <p><strong>Preparing for printing! Please wait ...</strong></p>\n    </div>\n  </div>\n\n  <div *ngIf=\"!loading\" class=\"text-center mb-3\">\n    <button id=\"print-button\" class=\"btn btn-primary\" (click)=\"print()\">Print</button>\n  </div>\n\n  <div *ngIf=\"!loading\" class=\"container\" id=\"print-view\">\n    <div class=\"row\">\n      <div class=\"col-8 offset-2\">\n        <div class=\"img-view\">\n          <img [src]=\"logo\" alt=\"logo\" class=\"img-fluid\">\n        </div>\n        <div class=\"title-view\">\n          <h1>{{ form.form_name }}</h1>\n        </div>\n        <div class=\"row\" *ngFor=\"let item of clientFormData; let i=index\">\n          <div class=\"col-6\">\n            <h5><strong>{{ item.title }}</strong></h5>\n          </div>\n          <div class=\"col-6\">\n            <h5>{{ item.data }}</h5>\n          </div>\n        </div>\n      </div>\n    </div>\n  </div>\n</div>"
 
 /***/ }),
 
@@ -1491,6 +1513,10 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _pages_account_verified_page_account_verified_page_component__WEBPACK_IMPORTED_MODULE_91__ = __webpack_require__(/*! ./pages/account-verified-page/account-verified-page.component */ "./src/app/pages/account-verified-page/account-verified-page.component.ts");
 /* harmony import */ var _pages_email_reset_password_page_email_reset_password_page_component__WEBPACK_IMPORTED_MODULE_92__ = __webpack_require__(/*! ./pages/email-reset-password-page/email-reset-password-page.component */ "./src/app/pages/email-reset-password-page/email-reset-password-page.component.ts");
 /* harmony import */ var _pages_dashboard_admin_admin_settings_page_admin_settings_page_component__WEBPACK_IMPORTED_MODULE_93__ = __webpack_require__(/*! ./pages/dashboard/admin/admin-settings-page/admin-settings-page.component */ "./src/app/pages/dashboard/admin/admin-settings-page/admin-settings-page.component.ts");
+/* harmony import */ var _pages_dashboard_executive_executive_printing_page_executive_printing_page_component__WEBPACK_IMPORTED_MODULE_94__ = __webpack_require__(/*! ./pages/dashboard/executive/executive-printing-page/executive-printing-page.component */ "./src/app/pages/dashboard/executive/executive-printing-page/executive-printing-page.component.ts");
+/* harmony import */ var _pages_dashboard_executive_executive_pdf_printing_page_executive_pdf_printing_page_component__WEBPACK_IMPORTED_MODULE_95__ = __webpack_require__(/*! ./pages/dashboard/executive/executive-pdf-printing-page/executive-pdf-printing-page.component */ "./src/app/pages/dashboard/executive/executive-pdf-printing-page/executive-pdf-printing-page.component.ts");
+
+
 
 
 
@@ -1926,6 +1952,14 @@ const routes = [
             {
                 path: 'clients_form_data',
                 component: _pages_dashboard_executive_exec_clients_forms_data_page_exec_clients_forms_data_page_component__WEBPACK_IMPORTED_MODULE_85__["ExecClientsFormsDataPageComponent"]
+            },
+            {
+                path: 'printing',
+                component: _pages_dashboard_executive_executive_printing_page_executive_printing_page_component__WEBPACK_IMPORTED_MODULE_94__["ExecutivePrintingPageComponent"]
+            },
+            {
+                path: 'pdf_printing',
+                component: _pages_dashboard_executive_executive_pdf_printing_page_executive_pdf_printing_page_component__WEBPACK_IMPORTED_MODULE_95__["ExecutivePdfPrintingPageComponent"]
             }
         ]
     },
@@ -1944,7 +1978,7 @@ const routes = [
                 children: [
                     {
                         path: 'form',
-                        component: _pages_dashboard_admin_admin_create_form_page_admin_create_form_page_component__WEBPACK_IMPORTED_MODULE_53__["AdminCreateFormPageComponent"],
+                        component: _pages_dashboard_admin_admin_create_form_page_admin_create_form_page_component__WEBPACK_IMPORTED_MODULE_53__["AdminCreateFormPageComponent"]
                     },
                     {
                         path: 'account',
@@ -2240,6 +2274,10 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _pages_email_reset_password_page_email_reset_password_page_component__WEBPACK_IMPORTED_MODULE_114__ = __webpack_require__(/*! ./pages/email-reset-password-page/email-reset-password-page.component */ "./src/app/pages/email-reset-password-page/email-reset-password-page.component.ts");
 /* harmony import */ var _pages_dashboard_front_desk_front_desk_rejected_forms_list_page_front_desk_rejected_forms_list_page_component__WEBPACK_IMPORTED_MODULE_115__ = __webpack_require__(/*! ./pages/dashboard/front-desk/front-desk-rejected-forms-list-page/front-desk-rejected-forms-list-page.component */ "./src/app/pages/dashboard/front-desk/front-desk-rejected-forms-list-page/front-desk-rejected-forms-list-page.component.ts");
 /* harmony import */ var _pages_dashboard_admin_admin_settings_page_admin_settings_page_component__WEBPACK_IMPORTED_MODULE_116__ = __webpack_require__(/*! ./pages/dashboard/admin/admin-settings-page/admin-settings-page.component */ "./src/app/pages/dashboard/admin/admin-settings-page/admin-settings-page.component.ts");
+/* harmony import */ var _pages_dashboard_executive_executive_printing_page_executive_printing_page_component__WEBPACK_IMPORTED_MODULE_117__ = __webpack_require__(/*! ./pages/dashboard/executive/executive-printing-page/executive-printing-page.component */ "./src/app/pages/dashboard/executive/executive-printing-page/executive-printing-page.component.ts");
+/* harmony import */ var _pages_dashboard_executive_executive_pdf_printing_page_executive_pdf_printing_page_component__WEBPACK_IMPORTED_MODULE_118__ = __webpack_require__(/*! ./pages/dashboard/executive/executive-pdf-printing-page/executive-pdf-printing-page.component */ "./src/app/pages/dashboard/executive/executive-pdf-printing-page/executive-pdf-printing-page.component.ts");
+
+
 
 
 
@@ -2461,6 +2499,8 @@ AppModule = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
             _pages_email_reset_password_page_email_reset_password_page_component__WEBPACK_IMPORTED_MODULE_114__["EmailResetPasswordPageComponent"],
             _pages_dashboard_front_desk_front_desk_rejected_forms_list_page_front_desk_rejected_forms_list_page_component__WEBPACK_IMPORTED_MODULE_115__["FrontDeskRejectedFormsListPageComponent"],
             _pages_dashboard_admin_admin_settings_page_admin_settings_page_component__WEBPACK_IMPORTED_MODULE_116__["AdminSettingsPageComponent"],
+            _pages_dashboard_executive_executive_printing_page_executive_printing_page_component__WEBPACK_IMPORTED_MODULE_117__["ExecutivePrintingPageComponent"],
+            _pages_dashboard_executive_executive_pdf_printing_page_executive_pdf_printing_page_component__WEBPACK_IMPORTED_MODULE_118__["ExecutivePdfPrintingPageComponent"],
         ],
         imports: [
             _angular_platform_browser__WEBPACK_IMPORTED_MODULE_1__["BrowserModule"],
@@ -2504,7 +2544,7 @@ AppModule = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IiIsImZpbGUiOiJzcmMvYXBwL2NvbXBvbmVudHMvZm9vdGVyLWJhci9mb290ZXItYmFyLmNvbXBvbmVudC5jc3MifQ== */"
+module.exports = "* {\n    font-family: 'OpenSans_Regular';\n}\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInNyYy9hcHAvY29tcG9uZW50cy9mb290ZXItYmFyL2Zvb3Rlci1iYXIuY29tcG9uZW50LmNzcyJdLCJuYW1lcyI6W10sIm1hcHBpbmdzIjoiQUFBQTtJQUNJLCtCQUErQjtBQUNuQyIsImZpbGUiOiJzcmMvYXBwL2NvbXBvbmVudHMvZm9vdGVyLWJhci9mb290ZXItYmFyLmNvbXBvbmVudC5jc3MiLCJzb3VyY2VzQ29udGVudCI6WyIqIHtcbiAgICBmb250LWZhbWlseTogJ09wZW5TYW5zX1JlZ3VsYXInO1xufSJdfQ== */"
 
 /***/ }),
 
@@ -2627,7 +2667,7 @@ NavigationBarComponent = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = ".sidebar {\n    position: fixed;\n    overflow-x: hidden;\n}\n\n.sidebar .nav.sub-menu .nav-item::before {\n    content: none;\n}\n\n.sidebar .nav.sub-menu {\n    padding: 0.25rem 0 0.6rem 1.55rem;\n}\n\n.sidebar .nav .nav-item .nav-link i.menu-icon {\n    color: #777;\n}\n\n.sidebar .nav:not(.sub-menu) {\n    position: absolute;\n}\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInNyYy9hcHAvY29tcG9uZW50cy9zaWRlLWJhci9zaWRlLWJhci5jb21wb25lbnQuY3NzIl0sIm5hbWVzIjpbXSwibWFwcGluZ3MiOiJBQUFBO0lBQ0ksZUFBZTtJQUNmLGtCQUFrQjtBQUN0Qjs7QUFFQTtJQUNJLGFBQWE7QUFDakI7O0FBRUE7SUFDSSxpQ0FBaUM7QUFDckM7O0FBRUE7SUFDSSxXQUFXO0FBQ2Y7O0FBRUE7SUFDSSxrQkFBa0I7QUFDdEIiLCJmaWxlIjoic3JjL2FwcC9jb21wb25lbnRzL3NpZGUtYmFyL3NpZGUtYmFyLmNvbXBvbmVudC5jc3MiLCJzb3VyY2VzQ29udGVudCI6WyIuc2lkZWJhciB7XG4gICAgcG9zaXRpb246IGZpeGVkO1xuICAgIG92ZXJmbG93LXg6IGhpZGRlbjtcbn1cblxuLnNpZGViYXIgLm5hdi5zdWItbWVudSAubmF2LWl0ZW06OmJlZm9yZSB7XG4gICAgY29udGVudDogbm9uZTtcbn1cblxuLnNpZGViYXIgLm5hdi5zdWItbWVudSB7XG4gICAgcGFkZGluZzogMC4yNXJlbSAwIDAuNnJlbSAxLjU1cmVtO1xufVxuXG4uc2lkZWJhciAubmF2IC5uYXYtaXRlbSAubmF2LWxpbmsgaS5tZW51LWljb24ge1xuICAgIGNvbG9yOiAjNzc3O1xufVxuXG4uc2lkZWJhciAubmF2Om5vdCguc3ViLW1lbnUpIHtcbiAgICBwb3NpdGlvbjogYWJzb2x1dGU7XG59Il19 */"
+module.exports = "* {\n    font-family: 'OpenSans_Bold';\n}\n\n.sidebar {\n    position: fixed;\n    overflow-x: hidden;\n}\n\n.sidebar .nav.sub-menu .nav-item::before {\n    content: none;\n}\n\n.sidebar .nav.sub-menu {\n    padding: 0.25rem 0 0.6rem 1.55rem;\n}\n\n.sidebar .nav .nav-item .nav-link i.menu-icon {\n    color: #777;\n}\n\n.sidebar .nav:not(.sub-menu) {\n    position: absolute;\n}\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInNyYy9hcHAvY29tcG9uZW50cy9zaWRlLWJhci9zaWRlLWJhci5jb21wb25lbnQuY3NzIl0sIm5hbWVzIjpbXSwibWFwcGluZ3MiOiJBQUFBO0lBQ0ksNEJBQTRCO0FBQ2hDOztBQUVBO0lBQ0ksZUFBZTtJQUNmLGtCQUFrQjtBQUN0Qjs7QUFFQTtJQUNJLGFBQWE7QUFDakI7O0FBRUE7SUFDSSxpQ0FBaUM7QUFDckM7O0FBRUE7SUFDSSxXQUFXO0FBQ2Y7O0FBRUE7SUFDSSxrQkFBa0I7QUFDdEIiLCJmaWxlIjoic3JjL2FwcC9jb21wb25lbnRzL3NpZGUtYmFyL3NpZGUtYmFyLmNvbXBvbmVudC5jc3MiLCJzb3VyY2VzQ29udGVudCI6WyIqIHtcbiAgICBmb250LWZhbWlseTogJ09wZW5TYW5zX0JvbGQnO1xufVxuXG4uc2lkZWJhciB7XG4gICAgcG9zaXRpb246IGZpeGVkO1xuICAgIG92ZXJmbG93LXg6IGhpZGRlbjtcbn1cblxuLnNpZGViYXIgLm5hdi5zdWItbWVudSAubmF2LWl0ZW06OmJlZm9yZSB7XG4gICAgY29udGVudDogbm9uZTtcbn1cblxuLnNpZGViYXIgLm5hdi5zdWItbWVudSB7XG4gICAgcGFkZGluZzogMC4yNXJlbSAwIDAuNnJlbSAxLjU1cmVtO1xufVxuXG4uc2lkZWJhciAubmF2IC5uYXYtaXRlbSAubmF2LWxpbmsgaS5tZW51LWljb24ge1xuICAgIGNvbG9yOiAjNzc3O1xufVxuXG4uc2lkZWJhciAubmF2Om5vdCguc3ViLW1lbnUpIHtcbiAgICBwb3NpdGlvbjogYWJzb2x1dGU7XG59Il19 */"
 
 /***/ }),
 
@@ -8751,7 +8791,7 @@ ExecClientFormsPageComponent = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"](
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = ".table thead th {\n    font-size: 0.75rem;\n    white-space: nowrap;\n}\n\n.table td {\n    line-height: 21px;\n}\n\n.download-title {\n    padding-left: 17px;\n    padding-bottom: 20px;\n    font-weight: 600;\n}\n\n.card .card-info {\n    color: #4a4a4a;\n    margin-bottom: 0.5rem;\n    text-transform: uppercase;\n    font-size: .875rem;\n    font-weight: bold;\n}\n\n.avatar {\n    border: 1px solid #ddd;\n}\n\n.dropdown .dropdown-toggle:after {\n    display: none;\n}\n\n.dropdown .dropdown-menu .dropdown-item {\n    font-size: .875rem;\n    padding: .85rem 1.5rem;\n}\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInNyYy9hcHAvcGFnZXMvZGFzaGJvYXJkL2V4ZWN1dGl2ZS9leGVjLWNsaWVudHMtZm9ybXMtZGF0YS1wYWdlL2V4ZWMtY2xpZW50cy1mb3Jtcy1kYXRhLXBhZ2UuY29tcG9uZW50LmNzcyJdLCJuYW1lcyI6W10sIm1hcHBpbmdzIjoiQUFBQTtJQUNJLGtCQUFrQjtJQUNsQixtQkFBbUI7QUFDdkI7O0FBRUE7SUFDSSxpQkFBaUI7QUFDckI7O0FBRUE7SUFDSSxrQkFBa0I7SUFDbEIsb0JBQW9CO0lBQ3BCLGdCQUFnQjtBQUNwQjs7QUFFQTtJQUNJLGNBQWM7SUFDZCxxQkFBcUI7SUFDckIseUJBQXlCO0lBQ3pCLGtCQUFrQjtJQUNsQixpQkFBaUI7QUFDckI7O0FBRUE7SUFDSSxzQkFBc0I7QUFDMUI7O0FBRUE7SUFDSSxhQUFhO0FBQ2pCOztBQUVBO0lBQ0ksa0JBQWtCO0lBQ2xCLHNCQUFzQjtBQUMxQiIsImZpbGUiOiJzcmMvYXBwL3BhZ2VzL2Rhc2hib2FyZC9leGVjdXRpdmUvZXhlYy1jbGllbnRzLWZvcm1zLWRhdGEtcGFnZS9leGVjLWNsaWVudHMtZm9ybXMtZGF0YS1wYWdlLmNvbXBvbmVudC5jc3MiLCJzb3VyY2VzQ29udGVudCI6WyIudGFibGUgdGhlYWQgdGgge1xuICAgIGZvbnQtc2l6ZTogMC43NXJlbTtcbiAgICB3aGl0ZS1zcGFjZTogbm93cmFwO1xufVxuXG4udGFibGUgdGQge1xuICAgIGxpbmUtaGVpZ2h0OiAyMXB4O1xufVxuXG4uZG93bmxvYWQtdGl0bGUge1xuICAgIHBhZGRpbmctbGVmdDogMTdweDtcbiAgICBwYWRkaW5nLWJvdHRvbTogMjBweDtcbiAgICBmb250LXdlaWdodDogNjAwO1xufVxuXG4uY2FyZCAuY2FyZC1pbmZvIHtcbiAgICBjb2xvcjogIzRhNGE0YTtcbiAgICBtYXJnaW4tYm90dG9tOiAwLjVyZW07XG4gICAgdGV4dC10cmFuc2Zvcm06IHVwcGVyY2FzZTtcbiAgICBmb250LXNpemU6IC44NzVyZW07XG4gICAgZm9udC13ZWlnaHQ6IGJvbGQ7XG59XG5cbi5hdmF0YXIge1xuICAgIGJvcmRlcjogMXB4IHNvbGlkICNkZGQ7XG59XG5cbi5kcm9wZG93biAuZHJvcGRvd24tdG9nZ2xlOmFmdGVyIHtcbiAgICBkaXNwbGF5OiBub25lO1xufVxuXG4uZHJvcGRvd24gLmRyb3Bkb3duLW1lbnUgLmRyb3Bkb3duLWl0ZW0ge1xuICAgIGZvbnQtc2l6ZTogLjg3NXJlbTtcbiAgICBwYWRkaW5nOiAuODVyZW0gMS41cmVtO1xufSJdfQ== */"
+module.exports = "* {\n    font-family: 'OpenSans_Regular';\n}\n\n.table thead th {\n    font-size: 0.75rem;\n    white-space: nowrap;\n}\n\n.table td {\n    line-height: 21px;\n}\n\n.download-title {\n    padding-left: 17px;\n    padding-bottom: 20px;\n    font-weight: 600;\n}\n\n.card .card-info {\n    color: #4a4a4a;\n    margin-bottom: 0.5rem;\n    text-transform: uppercase;\n    font-size: .875rem;\n    font-weight: bold;\n}\n\n.avatar {\n    border: 1px solid #ddd;\n}\n\ntable .dropdown .dropdown-toggle:after {\n    display: none;\n}\n\n.dropdown-menu .dropdown-item {\n    cursor: pointer;\n}\n\n.dropdown .dropdown-menu .dropdown-item {\n    font-size: .875rem;\n    padding: .85rem 1.5rem;\n    font-family: 'OpenSans_Bold';\n}\n\n.dropdown .dropdown-menu .dropdown-item:hover {\n    font-size: .895rem;\n    padding: .85rem 1.5rem;\n    font-family: 'OpenSans_Bold';\n}\n\n.dropdown-menu.show {\n    border: 1px solid #ddd;\n}\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInNyYy9hcHAvcGFnZXMvZGFzaGJvYXJkL2V4ZWN1dGl2ZS9leGVjLWNsaWVudHMtZm9ybXMtZGF0YS1wYWdlL2V4ZWMtY2xpZW50cy1mb3Jtcy1kYXRhLXBhZ2UuY29tcG9uZW50LmNzcyJdLCJuYW1lcyI6W10sIm1hcHBpbmdzIjoiQUFBQTtJQUNJLCtCQUErQjtBQUNuQzs7QUFFQTtJQUNJLGtCQUFrQjtJQUNsQixtQkFBbUI7QUFDdkI7O0FBRUE7SUFDSSxpQkFBaUI7QUFDckI7O0FBRUE7SUFDSSxrQkFBa0I7SUFDbEIsb0JBQW9CO0lBQ3BCLGdCQUFnQjtBQUNwQjs7QUFFQTtJQUNJLGNBQWM7SUFDZCxxQkFBcUI7SUFDckIseUJBQXlCO0lBQ3pCLGtCQUFrQjtJQUNsQixpQkFBaUI7QUFDckI7O0FBRUE7SUFDSSxzQkFBc0I7QUFDMUI7O0FBRUE7SUFDSSxhQUFhO0FBQ2pCOztBQUVBO0lBQ0ksZUFBZTtBQUNuQjs7QUFFQTtJQUNJLGtCQUFrQjtJQUNsQixzQkFBc0I7SUFDdEIsNEJBQTRCO0FBQ2hDOztBQUVBO0lBQ0ksa0JBQWtCO0lBQ2xCLHNCQUFzQjtJQUN0Qiw0QkFBNEI7QUFDaEM7O0FBRUE7SUFDSSxzQkFBc0I7QUFDMUIiLCJmaWxlIjoic3JjL2FwcC9wYWdlcy9kYXNoYm9hcmQvZXhlY3V0aXZlL2V4ZWMtY2xpZW50cy1mb3Jtcy1kYXRhLXBhZ2UvZXhlYy1jbGllbnRzLWZvcm1zLWRhdGEtcGFnZS5jb21wb25lbnQuY3NzIiwic291cmNlc0NvbnRlbnQiOlsiKiB7XG4gICAgZm9udC1mYW1pbHk6ICdPcGVuU2Fuc19SZWd1bGFyJztcbn1cblxuLnRhYmxlIHRoZWFkIHRoIHtcbiAgICBmb250LXNpemU6IDAuNzVyZW07XG4gICAgd2hpdGUtc3BhY2U6IG5vd3JhcDtcbn1cblxuLnRhYmxlIHRkIHtcbiAgICBsaW5lLWhlaWdodDogMjFweDtcbn1cblxuLmRvd25sb2FkLXRpdGxlIHtcbiAgICBwYWRkaW5nLWxlZnQ6IDE3cHg7XG4gICAgcGFkZGluZy1ib3R0b206IDIwcHg7XG4gICAgZm9udC13ZWlnaHQ6IDYwMDtcbn1cblxuLmNhcmQgLmNhcmQtaW5mbyB7XG4gICAgY29sb3I6ICM0YTRhNGE7XG4gICAgbWFyZ2luLWJvdHRvbTogMC41cmVtO1xuICAgIHRleHQtdHJhbnNmb3JtOiB1cHBlcmNhc2U7XG4gICAgZm9udC1zaXplOiAuODc1cmVtO1xuICAgIGZvbnQtd2VpZ2h0OiBib2xkO1xufVxuXG4uYXZhdGFyIHtcbiAgICBib3JkZXI6IDFweCBzb2xpZCAjZGRkO1xufVxuXG50YWJsZSAuZHJvcGRvd24gLmRyb3Bkb3duLXRvZ2dsZTphZnRlciB7XG4gICAgZGlzcGxheTogbm9uZTtcbn1cblxuLmRyb3Bkb3duLW1lbnUgLmRyb3Bkb3duLWl0ZW0ge1xuICAgIGN1cnNvcjogcG9pbnRlcjtcbn1cblxuLmRyb3Bkb3duIC5kcm9wZG93bi1tZW51IC5kcm9wZG93bi1pdGVtIHtcbiAgICBmb250LXNpemU6IC44NzVyZW07XG4gICAgcGFkZGluZzogLjg1cmVtIDEuNXJlbTtcbiAgICBmb250LWZhbWlseTogJ09wZW5TYW5zX0JvbGQnO1xufVxuXG4uZHJvcGRvd24gLmRyb3Bkb3duLW1lbnUgLmRyb3Bkb3duLWl0ZW06aG92ZXIge1xuICAgIGZvbnQtc2l6ZTogLjg5NXJlbTtcbiAgICBwYWRkaW5nOiAuODVyZW0gMS41cmVtO1xuICAgIGZvbnQtZmFtaWx5OiAnT3BlblNhbnNfQm9sZCc7XG59XG5cbi5kcm9wZG93bi1tZW51LnNob3cge1xuICAgIGJvcmRlcjogMXB4IHNvbGlkICNkZGQ7XG59Il19 */"
 
 /***/ }),
 
@@ -8774,8 +8814,14 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _ng_bootstrap_ng_bootstrap__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @ng-bootstrap/ng-bootstrap */ "./node_modules/@ng-bootstrap/ng-bootstrap/fesm2015/ng-bootstrap.js");
 /* harmony import */ var src_app_services_client_client_service__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! src/app/services/client/client.service */ "./src/app/services/client/client.service.ts");
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm2015/core.js");
-/* harmony import */ var src_app_services_front_desk_front_desk_service__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! src/app/services/front-desk/front-desk.service */ "./src/app/services/front-desk/front-desk.service.ts");
-/* harmony import */ var src_app_services_storage_local_storage_service__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! src/app/services/storage/local-storage.service */ "./src/app/services/storage/local-storage.service.ts");
+/* harmony import */ var src_app_services_logging_logging_service__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! src/app/services/logging/logging.service */ "./src/app/services/logging/logging.service.ts");
+/* harmony import */ var src_app_services_reloader_reloading_service__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! src/app/services/reloader/reloading.service */ "./src/app/services/reloader/reloading.service.ts");
+/* harmony import */ var src_app_services_front_desk_front_desk_service__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! src/app/services/front-desk/front-desk.service */ "./src/app/services/front-desk/front-desk.service.ts");
+/* harmony import */ var src_app_services_downloader_downloader_service__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! src/app/services/downloader/downloader.service */ "./src/app/services/downloader/downloader.service.ts");
+/* harmony import */ var src_app_services_storage_local_storage_service__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! src/app/services/storage/local-storage.service */ "./src/app/services/storage/local-storage.service.ts");
+
+
+
 
 
 
@@ -8786,70 +8832,38 @@ __webpack_require__.r(__webpack_exports__);
 
 
 let ExecClientsFormsDataPageComponent = class ExecClientsFormsDataPageComponent {
-    constructor(router, modalService, clientService, localStorage, frontDeskService) {
+    constructor(router, modalService, logging, clientService, reloadService, localStorage, downloadService, frontDeskService) {
         this.router = router;
         this.modalService = modalService;
+        this.logging = logging;
         this.clientService = clientService;
+        this.reloadService = reloadService;
         this.localStorage = localStorage;
+        this.downloadService = downloadService;
         this.frontDeskService = frontDeskService;
-        this.dtOptions = {
-            paging: false,
-            // Declare the use of the extension in the dom parameter
-            dom: 'Bfrtip',
-            // Configure the buttons
-            buttons: [
-                'csv',
-                'print',
-                'excel',
-                'pdfHtml5'
-            ]
-        };
-        // this.dtTrigger = new Subject();
+        this.initVars();
+        this.getAllRespondentsData();
+    }
+    ngOnInit() {
+    }
+    initVars() {
         this.keys = [];
-        this.userData = [];
         this.tableHeaders = [];
         this.tableContents = [];
         this.clientFormData = [];
         this.form = window.history.state.form;
+        this.user = this.localStorage.getUser();
         console.log('form: ' + JSON.stringify(this.form));
-        this.resolveReloadDataLoss();
-        this.formName = this.form.name;
-        this.getClientData();
-        // this._get();
-    }
-    ngOnInit() {
-    }
-    /**
-     * This is just a little hack to prevent loss of data passed in to window.history.state
-     * whenever the page is reloaded. The purpose is to ensure we still have the data needed
-     * to help build all the elements of this page.
-     *
-     * @version 0.0.2
-     * @memberof EditFormPageComponent
-     */
-    resolveReloadDataLoss() {
-        if (!lodash__WEBPACK_IMPORTED_MODULE_1__["isUndefined"](this.form)) {
-            sessionStorage.setItem('u_form', JSON.stringify(this.form));
-        }
-        else {
-            this.form = JSON.parse(sessionStorage.getItem('u_form'));
-        }
+        this.form = this.reloadService.resolveReloadDataLoss(this.form);
     }
     checkIfHasMore() {
         return lodash__WEBPACK_IMPORTED_MODULE_1__["isEmpty"](this.frontDeskService.nextPaginationUrl) ? false : true;
     }
-    showDataModal() {
-        this.modalService.open(this.dataModal, { centered: true });
-    }
-    showDownloadModal() {
-        this.modalService.open(this.downloadModal, { centered: true });
-    }
-    showAttachmentsModal() { }
     getDataHeaders(res) {
         const form_fields = this.form.form_fields;
         const client_data_key = lodash__WEBPACK_IMPORTED_MODULE_1__["keys"](res[0].client_submitted_details);
-        lodash__WEBPACK_IMPORTED_MODULE_1__["forEach"](form_fields, (field) => {
-            lodash__WEBPACK_IMPORTED_MODULE_1__["forEach"](client_data_key, (client_key) => {
+        lodash__WEBPACK_IMPORTED_MODULE_1__["forEach"](form_fields, field => {
+            lodash__WEBPACK_IMPORTED_MODULE_1__["forEach"](client_data_key, client_key => {
                 if (!lodash__WEBPACK_IMPORTED_MODULE_1__["isUndefined"](field.name)) {
                     if (field.name == client_key) {
                         this.keys.push(client_key);
@@ -8863,7 +8877,7 @@ let ExecClientsFormsDataPageComponent = class ExecClientsFormsDataPageComponent 
     getDataBody(res) {
         let objArr = [];
         lodash__WEBPACK_IMPORTED_MODULE_1__["forEach"](res, data => {
-            lodash__WEBPACK_IMPORTED_MODULE_1__["forEach"](this.keys, (k) => {
+            lodash__WEBPACK_IMPORTED_MODULE_1__["forEach"](this.keys, k => {
                 objArr.push(data.client_submitted_details[k]);
             });
             objArr.push(moment__WEBPACK_IMPORTED_MODULE_2__(data.submitted_at).format('DD MMM YYYY hh:mm A'));
@@ -8872,29 +8886,7 @@ let ExecClientsFormsDataPageComponent = class ExecClientsFormsDataPageComponent 
             objArr = [];
         });
     }
-    getFullClientData(client_data) {
-        console.log('client: ' + JSON.stringify(client_data));
-        const form_field_keys = [];
-        const form_keys = lodash__WEBPACK_IMPORTED_MODULE_1__["keys"](client_data);
-        const form_values = lodash__WEBPACK_IMPORTED_MODULE_1__["values"](client_data);
-        const form_fields = this.form.form_fields;
-        lodash__WEBPACK_IMPORTED_MODULE_1__["forEach"](form_fields, (field) => {
-            if (!lodash__WEBPACK_IMPORTED_MODULE_1__["isUndefined"](field.name)) {
-                form_field_keys.push(field.name);
-            }
-        });
-        lodash__WEBPACK_IMPORTED_MODULE_1__["forEach"](form_keys, (key, i) => {
-            lodash__WEBPACK_IMPORTED_MODULE_1__["forEach"](form_field_keys, (field) => {
-                if (field == key) {
-                    this.clientFormData.push({
-                        title: this.transformText(key),
-                        data: form_values[i]
-                    });
-                }
-            });
-        });
-    }
-    _get() {
+    getAllRespondentsData() {
         this.loading = true;
         this.frontDeskService.getRespondantData(this.form.form_code).then(res => {
             this.loading = false;
@@ -8907,30 +8899,8 @@ let ExecClientsFormsDataPageComponent = class ExecClientsFormsDataPageComponent 
                 this.hasData = true;
                 this.getDataHeaders(res);
                 this.getDataBody(res);
-                this.userData = res[0].client_submitted_details;
-                this.getFullClientData(this.userData);
-                this.dtTrigger.next();
-            }
-        }, err => {
-            this.loading = false;
-            console.log('err: ' + JSON.stringify(err));
-        });
-    }
-    getClientData() {
-        this.loading = true;
-        this.frontDeskService.getRespondantData(this.form.form_code).then(res => {
-            this.loading = false;
-            this.hasMore = this.checkIfHasMore();
-            console.log('res: ' + JSON.stringify(res));
-            if (res.length == 0) {
-                this.hasData = false;
-            }
-            else {
-                this.hasData = true;
-                this.getDataHeaders(res);
-                this.getDataBody(res);
-                this.userData = res[0].client_submitted_details;
-                this.getFullClientData(this.userData);
+                console.log('submitted_data: ' + JSON.stringify(res));
+                this.clientFormData.push(res[0].client_submitted_details);
             }
         }, err => {
             this.loading = false;
@@ -8963,23 +8933,63 @@ let ExecClientsFormsDataPageComponent = class ExecClientsFormsDataPageComponent 
             return text;
         }
     }
+    downloadAll(format) {
+        switch (format) {
+            case 'pdf':
+                this.downloadAsPDF();
+                break;
+            case 'csv':
+                this.downloadAsCSV();
+                break;
+            case 'excel':
+                this.downloadAsExcel();
+                break;
+            default:
+                break;
+        }
+    }
+    downloadAsPDF() {
+        const table_id = 'table-data';
+        const filename = 'forms369_' + this.form.form_code + '_data';
+        this.downloadService.exportToPDF(table_id, filename);
+    }
+    downloadAsCSV() {
+        const table_id = 'table-data';
+        const filename = 'forms369_' + this.form.form_code + '_data';
+        this.downloadService.exportToCsv(table_id, filename);
+    }
+    downloadAsExcel() {
+        const table_id = 'table-data';
+        const filename = 'forms369_' + this.form.form_code + '_data';
+        this.downloadService.exportToExcel(table_id, filename);
+    }
+    print(e, index) {
+        e.stopPropagation();
+        const print_data = {
+            form_data: this.form.form_fields,
+            client_data: this.clientFormData[index],
+        };
+        this.user.can_print == 0
+            ? this.router.navigateByUrl('executive/printing', { state: { form: print_data } })
+            : this.router.navigateByUrl('executive/pdf_printing', { state: { form: print_data } });
+    }
     retry() {
-        this.getClientData();
+        this.getAllRespondentsData();
     }
 };
 ExecClientsFormsDataPageComponent.ctorParameters = () => [
     { type: _angular_router__WEBPACK_IMPORTED_MODULE_3__["Router"] },
     { type: _ng_bootstrap_ng_bootstrap__WEBPACK_IMPORTED_MODULE_4__["NgbModal"] },
+    { type: src_app_services_logging_logging_service__WEBPACK_IMPORTED_MODULE_7__["LoggingService"] },
     { type: src_app_services_client_client_service__WEBPACK_IMPORTED_MODULE_5__["ClientService"] },
-    { type: src_app_services_storage_local_storage_service__WEBPACK_IMPORTED_MODULE_8__["LocalStorageService"] },
-    { type: src_app_services_front_desk_front_desk_service__WEBPACK_IMPORTED_MODULE_7__["FrontDeskService"] }
+    { type: src_app_services_reloader_reloading_service__WEBPACK_IMPORTED_MODULE_8__["ReloadingService"] },
+    { type: src_app_services_storage_local_storage_service__WEBPACK_IMPORTED_MODULE_11__["LocalStorageService"] },
+    { type: src_app_services_downloader_downloader_service__WEBPACK_IMPORTED_MODULE_10__["DownloaderService"] },
+    { type: src_app_services_front_desk_front_desk_service__WEBPACK_IMPORTED_MODULE_9__["FrontDeskService"] }
 ];
 tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
-    Object(_angular_core__WEBPACK_IMPORTED_MODULE_6__["ViewChild"])('data', { static: false })
-], ExecClientsFormsDataPageComponent.prototype, "dataModal", void 0);
-tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
-    Object(_angular_core__WEBPACK_IMPORTED_MODULE_6__["ViewChild"])('confirm', { static: false })
-], ExecClientsFormsDataPageComponent.prototype, "downloadModal", void 0);
+    Object(_angular_core__WEBPACK_IMPORTED_MODULE_6__["ViewChild"])('attachment', { static: false })
+], ExecClientsFormsDataPageComponent.prototype, "attachmentsModal", void 0);
 ExecClientsFormsDataPageComponent = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
     Object(_angular_core__WEBPACK_IMPORTED_MODULE_6__["Component"])({
         selector: 'app-exec-clients-forms-data-page',
@@ -9756,6 +9766,404 @@ ExecutiveHomePageComponent = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
         styles: [__webpack_require__(/*! ./executive-home-page.component.css */ "./src/app/pages/dashboard/executive/executive-home-page/executive-home-page.component.css")]
     })
 ], ExecutiveHomePageComponent);
+
+
+
+/***/ }),
+
+/***/ "./src/app/pages/dashboard/executive/executive-pdf-printing-page/executive-pdf-printing-page.component.css":
+/*!*****************************************************************************************************************!*\
+  !*** ./src/app/pages/dashboard/executive/executive-pdf-printing-page/executive-pdf-printing-page.component.css ***!
+  \*****************************************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = ".container {\n  /* margin: 2rem; */\n  display: -webkit-box;\n  display: flex;\n  -webkit-box-pack: center;\n          justify-content: center;\n}\n\n.toolbar {\n  text-align: center;\n  padding: 20px 0px;\n  margin: 15px 0px;\n}\n\n#input-form {\n    position: relative;\n    z-index: 1;\n}\n\n#input-form input {\n    position: absolute;\n    border: none;\n    pointer-events: none;\n    background: transparent;\n}\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInNyYy9hcHAvcGFnZXMvZGFzaGJvYXJkL2V4ZWN1dGl2ZS9leGVjdXRpdmUtcGRmLXByaW50aW5nLXBhZ2UvZXhlY3V0aXZlLXBkZi1wcmludGluZy1wYWdlLmNvbXBvbmVudC5jc3MiXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IkFBQUE7RUFDRSxrQkFBa0I7RUFDbEIsb0JBQWE7RUFBYixhQUFhO0VBQ2Isd0JBQXVCO1VBQXZCLHVCQUF1QjtBQUN6Qjs7QUFFQTtFQUNFLGtCQUFrQjtFQUNsQixpQkFBaUI7RUFDakIsZ0JBQWdCO0FBQ2xCOztBQUVBO0lBQ0ksa0JBQWtCO0lBQ2xCLFVBQVU7QUFDZDs7QUFDQTtJQUNJLGtCQUFrQjtJQUNsQixZQUFZO0lBQ1osb0JBQW9CO0lBQ3BCLHVCQUF1QjtBQUMzQiIsImZpbGUiOiJzcmMvYXBwL3BhZ2VzL2Rhc2hib2FyZC9leGVjdXRpdmUvZXhlY3V0aXZlLXBkZi1wcmludGluZy1wYWdlL2V4ZWN1dGl2ZS1wZGYtcHJpbnRpbmctcGFnZS5jb21wb25lbnQuY3NzIiwic291cmNlc0NvbnRlbnQiOlsiLmNvbnRhaW5lciB7XG4gIC8qIG1hcmdpbjogMnJlbTsgKi9cbiAgZGlzcGxheTogZmxleDtcbiAganVzdGlmeS1jb250ZW50OiBjZW50ZXI7XG59XG5cbi50b29sYmFyIHtcbiAgdGV4dC1hbGlnbjogY2VudGVyO1xuICBwYWRkaW5nOiAyMHB4IDBweDtcbiAgbWFyZ2luOiAxNXB4IDBweDtcbn1cblxuI2lucHV0LWZvcm0ge1xuICAgIHBvc2l0aW9uOiByZWxhdGl2ZTtcbiAgICB6LWluZGV4OiAxO1xufVxuI2lucHV0LWZvcm0gaW5wdXQge1xuICAgIHBvc2l0aW9uOiBhYnNvbHV0ZTtcbiAgICBib3JkZXI6IG5vbmU7XG4gICAgcG9pbnRlci1ldmVudHM6IG5vbmU7XG4gICAgYmFja2dyb3VuZDogdHJhbnNwYXJlbnQ7XG59Il19 */"
+
+/***/ }),
+
+/***/ "./src/app/pages/dashboard/executive/executive-pdf-printing-page/executive-pdf-printing-page.component.ts":
+/*!****************************************************************************************************************!*\
+  !*** ./src/app/pages/dashboard/executive/executive-pdf-printing-page/executive-pdf-printing-page.component.ts ***!
+  \****************************************************************************************************************/
+/*! exports provided: ExecutivePdfPrintingPageComponent */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "ExecutivePdfPrintingPageComponent", function() { return ExecutivePdfPrintingPageComponent; });
+/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
+/* harmony import */ var lodash__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! lodash */ "./node_modules/lodash/lodash.js");
+/* harmony import */ var lodash__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(lodash__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var moment__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! moment */ "./node_modules/moment/moment.js");
+/* harmony import */ var moment__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(moment__WEBPACK_IMPORTED_MODULE_2__);
+/* harmony import */ var _angular_router__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @angular/router */ "./node_modules/@angular/router/fesm2015/router.js");
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm2015/core.js");
+/* harmony import */ var _angular_forms__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @angular/forms */ "./node_modules/@angular/forms/fesm2015/forms.js");
+/* harmony import */ var src_app_services_endpoint_endpoint_service__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! src/app/services/endpoint/endpoint.service */ "./src/app/services/endpoint/endpoint.service.ts");
+/* harmony import */ var src_app_services_front_desk_front_desk_service__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! src/app/services/front-desk/front-desk.service */ "./src/app/services/front-desk/front-desk.service.ts");
+/* harmony import */ var src_app_services_storage_local_storage_service__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! src/app/services/storage/local-storage.service */ "./src/app/services/storage/local-storage.service.ts");
+/* harmony import */ var src_app_services_reloader_reloading_service__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! src/app/services/reloader/reloading.service */ "./src/app/services/reloader/reloading.service.ts");
+
+
+
+
+
+
+
+
+
+
+let ExecutivePdfPrintingPageComponent = class ExecutivePdfPrintingPageComponent {
+    constructor(router, _fb, reloader, endpointService, localStorage, frontDeskService) {
+        this.router = router;
+        this._fb = _fb;
+        this.reloader = reloader;
+        this.endpointService = endpointService;
+        this.localStorage = localStorage;
+        this.frontDeskService = frontDeskService;
+        this.initVars();
+    }
+    ngOnInit() {
+        this.myForm = this._fb.group({});
+    }
+    initVars() {
+        this.loading = true;
+        this.inputList = [];
+        this.dpiRatio = 96 / 72;
+        this.clientFormDetails = [];
+        this.form = window.history.state.form;
+        this.form = this.reloader.resolveReloadDataLoss(this.form);
+        this.user = this.localStorage.getUser();
+        this.frontDeskService.getPrintPDFFile(this.form.form_code, this.user.merchant_id.toString()).then(file => {
+            if (lodash__WEBPACK_IMPORTED_MODULE_1__["isUndefined"](file) || lodash__WEBPACK_IMPORTED_MODULE_1__["isNull"](file)) {
+                alert('No PDF file is available for this form. Redirecting you to do a default printing');
+                this.router.navigateByUrl('executive/printing', { state: { form: this.form }, replaceUrl: true });
+            }
+            else {
+                console.log('ssss: ' + JSON.stringify(file.url));
+                this.pdfSrc = this.endpointService.storageHost + 'files/' + file.url;
+                window.onafterprint = () => {
+                    this.showPrintButton();
+                };
+            }
+        }, err => { });
+    }
+    onProgress(progressData) {
+        this.loading = true;
+        if (progressData.loaded) {
+            this.loading = false;
+        }
+    }
+    onError(error) {
+        this.loading = false;
+        this.hasError = true;
+    }
+    fieldNamesMatch(pdfFieldName, clientFieldName) {
+        return pdfFieldName == clientFieldName ? true : false;
+    }
+    fieldTypesMatch(pdfFieldType, clientFieldType) {
+        return pdfFieldType == clientFieldType ? true : false;
+    }
+    resolveDateFormat(date) {
+        return moment__WEBPACK_IMPORTED_MODULE_2__(date).format('DD MMM YYYY');
+    }
+    createInput(annotation, rect = null) {
+        const input = new _angular_core__WEBPACK_IMPORTED_MODULE_4__["Input"]();
+        const formControl = new _angular_forms__WEBPACK_IMPORTED_MODULE_5__["FormControl"](annotation.buttonValue || '');
+        const clientDataKeys = lodash__WEBPACK_IMPORTED_MODULE_1__["keys"](this.form.client_submitted_details);
+        input.name = annotation.fieldName;
+        // match client data to the corresponding form field on the pdf form.
+        lodash__WEBPACK_IMPORTED_MODULE_1__["forEach"](clientDataKeys, (key, i) => {
+            if (annotation.fieldType === 'Tx') {
+                // check if field names match
+                if (this.fieldNamesMatch(annotation.fieldName, key)) {
+                    // set the client data to this field
+                    input.type = 'text';
+                    const value = this.form.client_submitted_details[key];
+                    // handle formatting of dates if the key is a date.
+                    if (lodash__WEBPACK_IMPORTED_MODULE_1__["includes"](key, 'd-o-b') || lodash__WEBPACK_IMPORTED_MODULE_1__["includes"](key, 'date')) {
+                        console.log('key: ' + key);
+                        const formatted_date = this.resolveDateFormat(value);
+                        input.value = formatted_date;
+                    }
+                    else {
+                        input.value = value;
+                    }
+                }
+                console.log('Tx Values: ' + annotation.fieldValue);
+            }
+            // checkbox
+            else if (annotation.fieldType === 'Btn' && annotation.checkBox) {
+                // check if field names match
+                if (this.fieldNamesMatch(annotation.fieldName, key)) {
+                    // set the client data to this field
+                    input.type = 'checkbox';
+                    if (annotation.exportValue == this.form.client_submitted_details[key]) {
+                        input.value = this.form.client_submitted_details[key];
+                        input.checked = true;
+                        console.log('selected value: ' + this.form.client_submitted_details[key]);
+                    }
+                }
+            }
+            // radio button
+            else if (annotation.fieldType === 'Btn' && annotation.radioButton) {
+                // check if field name match
+                if (this.fieldNamesMatch(annotation.fieldName, key)) {
+                    // set the client data to this field
+                    input.type = 'checkbox';
+                    if (annotation.exportValue == this.form.client_submitted_details[key]) {
+                        input.value = this.form.client_submitted_details[key];
+                        input.checked = true;
+                        console.log('selected radio: ' + this.form.client_submitted_details[key]);
+                    }
+                }
+            }
+            else {
+                console.log('new type encountered: ' + annotation.fieldType);
+            }
+        });
+        // Calculate all the positions and sizes
+        if (rect) {
+            input.top = rect[1] - (rect[1] - rect[3]);
+            input.left = rect[0];
+            input.height = (rect[1] - rect[3]);
+            input.width = (rect[2] - rect[0]);
+        }
+        this.inputList.push(input);
+        return formControl;
+    }
+    addInput(annotation, rect = null) {
+        console.log(annotation);
+        this.myForm.addControl(annotation.fieldName, this.createInput(annotation, rect));
+    }
+    pdfFileLoadComplete(pdf) {
+        for (let i = 1; i <= pdf.numPages; i++) {
+            // track the current page
+            let currentPage = null;
+            pdf.getPage(i).then(p => {
+                currentPage = p;
+                // get the annotations of the current page
+                return p.getAnnotations();
+            }).then(ann => {
+                const annotations = ann;
+                annotations
+                    .filter(a => a.subtype === 'Widget') // get the form field annotation only.
+                    .forEach(a => {
+                    // get the rectangle that represents the single field
+                    // and resize it according to the current DPI.
+                    const fieldRect = currentPage
+                        .getViewport(this.dpiRatio)
+                        .convertToViewportRectangle(a.rect);
+                    // add the corresponding input
+                    this.addInput(a, fieldRect);
+                });
+            });
+        }
+    }
+    getInputPosition(input) {
+        return {
+            top: `${input.top}px`,
+            left: `${input.left}px`,
+            height: `${input.height}px`,
+            width: `${input.width}px`,
+        };
+    }
+    hidePrintButton() {
+        const printBtn = document.getElementById('print-button');
+        printBtn.style.display = 'none';
+    }
+    showPrintButton() {
+        const printBtn = document.getElementById('print-button');
+        printBtn.style.display = 'initial';
+    }
+    print() {
+        this.hidePrintButton();
+        window.print();
+    }
+};
+ExecutivePdfPrintingPageComponent.ctorParameters = () => [
+    { type: _angular_router__WEBPACK_IMPORTED_MODULE_3__["Router"] },
+    { type: _angular_forms__WEBPACK_IMPORTED_MODULE_5__["FormBuilder"] },
+    { type: src_app_services_reloader_reloading_service__WEBPACK_IMPORTED_MODULE_9__["ReloadingService"] },
+    { type: src_app_services_endpoint_endpoint_service__WEBPACK_IMPORTED_MODULE_6__["EndpointService"] },
+    { type: src_app_services_storage_local_storage_service__WEBPACK_IMPORTED_MODULE_8__["LocalStorageService"] },
+    { type: src_app_services_front_desk_front_desk_service__WEBPACK_IMPORTED_MODULE_7__["FrontDeskService"] }
+];
+ExecutivePdfPrintingPageComponent = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
+    Object(_angular_core__WEBPACK_IMPORTED_MODULE_4__["Component"])({
+        selector: 'app-executive-pdf-printing-page',
+        template: __webpack_require__(/*! raw-loader!./executive-pdf-printing-page.component.html */ "./node_modules/raw-loader/index.js!./src/app/pages/dashboard/executive/executive-pdf-printing-page/executive-pdf-printing-page.component.html"),
+        styles: [__webpack_require__(/*! ./executive-pdf-printing-page.component.css */ "./src/app/pages/dashboard/executive/executive-pdf-printing-page/executive-pdf-printing-page.component.css")]
+    })
+], ExecutivePdfPrintingPageComponent);
+
+
+
+/***/ }),
+
+/***/ "./src/app/pages/dashboard/executive/executive-printing-page/executive-printing-page.component.css":
+/*!*********************************************************************************************************!*\
+  !*** ./src/app/pages/dashboard/executive/executive-printing-page/executive-printing-page.component.css ***!
+  \*********************************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = ".view {\n    padding: 5px;\n    margin: 5px;\n}\n\n.container {\n    border: 1px solid #ccc;\n}\n\n.row {\n    padding: 10px 2px;\n}\n\nh5 {\n    font-size: 13px;\n    text-transform: uppercase;\n}\n\n.container .col-8 {\n    padding-top: 10px;\n}\n\n.img-view, .title-view {\n    text-align: center;\n}\n\n.img-view > img {\n    width: 180px;\n    height: 180px;\n    margin-bottom: 25px;\n}\n\n.title-view h1 {\n    margin-bottom: 20px;\n}\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInNyYy9hcHAvcGFnZXMvZGFzaGJvYXJkL2V4ZWN1dGl2ZS9leGVjdXRpdmUtcHJpbnRpbmctcGFnZS9leGVjdXRpdmUtcHJpbnRpbmctcGFnZS5jb21wb25lbnQuY3NzIl0sIm5hbWVzIjpbXSwibWFwcGluZ3MiOiJBQUFBO0lBQ0ksWUFBWTtJQUNaLFdBQVc7QUFDZjs7QUFFQTtJQUNJLHNCQUFzQjtBQUMxQjs7QUFFQTtJQUNJLGlCQUFpQjtBQUNyQjs7QUFFQTtJQUNJLGVBQWU7SUFDZix5QkFBeUI7QUFDN0I7O0FBRUE7SUFDSSxpQkFBaUI7QUFDckI7O0FBRUE7SUFDSSxrQkFBa0I7QUFDdEI7O0FBRUE7SUFDSSxZQUFZO0lBQ1osYUFBYTtJQUNiLG1CQUFtQjtBQUN2Qjs7QUFFQTtJQUNJLG1CQUFtQjtBQUN2QiIsImZpbGUiOiJzcmMvYXBwL3BhZ2VzL2Rhc2hib2FyZC9leGVjdXRpdmUvZXhlY3V0aXZlLXByaW50aW5nLXBhZ2UvZXhlY3V0aXZlLXByaW50aW5nLXBhZ2UuY29tcG9uZW50LmNzcyIsInNvdXJjZXNDb250ZW50IjpbIi52aWV3IHtcbiAgICBwYWRkaW5nOiA1cHg7XG4gICAgbWFyZ2luOiA1cHg7XG59XG5cbi5jb250YWluZXIge1xuICAgIGJvcmRlcjogMXB4IHNvbGlkICNjY2M7XG59XG5cbi5yb3cge1xuICAgIHBhZGRpbmc6IDEwcHggMnB4O1xufVxuXG5oNSB7XG4gICAgZm9udC1zaXplOiAxM3B4O1xuICAgIHRleHQtdHJhbnNmb3JtOiB1cHBlcmNhc2U7XG59XG5cbi5jb250YWluZXIgLmNvbC04IHtcbiAgICBwYWRkaW5nLXRvcDogMTBweDtcbn1cblxuLmltZy12aWV3LCAudGl0bGUtdmlldyB7XG4gICAgdGV4dC1hbGlnbjogY2VudGVyO1xufVxuXG4uaW1nLXZpZXcgPiBpbWcge1xuICAgIHdpZHRoOiAxODBweDtcbiAgICBoZWlnaHQ6IDE4MHB4O1xuICAgIG1hcmdpbi1ib3R0b206IDI1cHg7XG59XG5cbi50aXRsZS12aWV3IGgxIHtcbiAgICBtYXJnaW4tYm90dG9tOiAyMHB4O1xufSJdfQ== */"
+
+/***/ }),
+
+/***/ "./src/app/pages/dashboard/executive/executive-printing-page/executive-printing-page.component.ts":
+/*!********************************************************************************************************!*\
+  !*** ./src/app/pages/dashboard/executive/executive-printing-page/executive-printing-page.component.ts ***!
+  \********************************************************************************************************/
+/*! exports provided: ExecutivePrintingPageComponent */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "ExecutivePrintingPageComponent", function() { return ExecutivePrintingPageComponent; });
+/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
+/* harmony import */ var lodash__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! lodash */ "./node_modules/lodash/lodash.js");
+/* harmony import */ var lodash__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(lodash__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var printd__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! printd */ "./node_modules/printd/index.js");
+/* harmony import */ var printd__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(printd__WEBPACK_IMPORTED_MODULE_2__);
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm2015/core.js");
+/* harmony import */ var src_app_services_company_company_service__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! src/app/services/company/company.service */ "./src/app/services/company/company.service.ts");
+/* harmony import */ var src_app_services_endpoint_endpoint_service__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! src/app/services/endpoint/endpoint.service */ "./src/app/services/endpoint/endpoint.service.ts");
+/* harmony import */ var src_app_services_reloader_reloading_service__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! src/app/services/reloader/reloading.service */ "./src/app/services/reloader/reloading.service.ts");
+/* harmony import */ var src_app_services_storage_local_storage_service__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! src/app/services/storage/local-storage.service */ "./src/app/services/storage/local-storage.service.ts");
+
+
+
+
+
+
+
+
+let ExecutivePrintingPageComponent = class ExecutivePrintingPageComponent {
+    constructor(reloader, companyService, endpointService, localService) {
+        this.reloader = reloader;
+        this.companyService = companyService;
+        this.endpointService = endpointService;
+        this.localService = localService;
+        this.initVars();
+        this.getMerchant();
+    }
+    ngOnInit() {
+    }
+    initVars() {
+        this.formKeys = [];
+        this.formValues = [];
+        this.clientFormData = [];
+        const formFieldKeys = [];
+        this.form = window.history.state.form;
+        console.log('form: ' + JSON.stringify(this.form));
+        this.form = this.reloader.resolveReloadDataLoss(this.form);
+        this.client = this.form.client_data;
+        console.log('client: ' + JSON.stringify(this.client));
+        this.formKeys = lodash__WEBPACK_IMPORTED_MODULE_1__["keys"](this.client);
+        this.formValues = lodash__WEBPACK_IMPORTED_MODULE_1__["values"](this.client);
+        const formFields = this.form.form_data;
+        lodash__WEBPACK_IMPORTED_MODULE_1__["forEach"](formFields, (field) => {
+            if (!lodash__WEBPACK_IMPORTED_MODULE_1__["isUndefined"](field.name)) {
+                formFieldKeys.push(field.name);
+            }
+        });
+        lodash__WEBPACK_IMPORTED_MODULE_1__["forEach"](this.formKeys, (key, i) => {
+            lodash__WEBPACK_IMPORTED_MODULE_1__["forEach"](formFieldKeys, (field) => {
+                if (field == key) {
+                    this.clientFormData.push({
+                        title: this.transformText(key),
+                        data: this.formValues[i]
+                    });
+                }
+            });
+        });
+    }
+    getMerchant() {
+        this.loading = true;
+        const merchant_id = this.localService.getUser().merchant_id;
+        this.companyService.getCompany(merchant_id).then(merchant => {
+            this.loading = false;
+            const merchant_logo = merchant[0].logo;
+            this.logo = this.endpointService.storageHost + merchant_logo;
+        }, error => {
+            this.loading = false;
+            this.hasError = true;
+        });
+    }
+    transformText(text) {
+        if (lodash__WEBPACK_IMPORTED_MODULE_1__["includes"](text, '-')) {
+            return text.replace(/-/g, ' ');
+        }
+        else if (lodash__WEBPACK_IMPORTED_MODULE_1__["includes"](text, '_')) {
+            return lodash__WEBPACK_IMPORTED_MODULE_1__["replace"](text, /_/g, ' ');
+        }
+        else {
+            return text;
+        }
+    }
+    printViewCss() {
+        const css = [
+            'https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css',
+            `h5 > strong {
+        font-size: 13px;
+        text-transform: uppercase;
+      }
+
+      .container .col-8 {
+        padding-top: 10px;
+      }
+
+      .img-view, .title-view {
+        text-align: center;
+      }
+
+      .img-view > img {
+        width: 180px;
+        height: 180px;
+        margin-bottom: 25px;
+      }
+
+      .title-view h1 {
+        margin-bottom: 40px;
+      }
+    `
+        ];
+        return css;
+    }
+    printViewJs() {
+        const scripts = [`
+      const imgElement = document.querySelector('img');
+      console.log(imgElement.src);
+      const toReplace = '/executive';
+      imgElement.src = imgElement.src.replace(/toReplace/g, '');
+      console.log(imgElement.src);
+    `];
+        return scripts;
+    }
+    print() {
+        const styles = this.printViewCss();
+        const scripts = this.printViewJs();
+        const el = document.getElementById('print-view');
+        const d = new printd__WEBPACK_IMPORTED_MODULE_2__["Printd"]();
+        d.print(el, styles, scripts);
+    }
+};
+ExecutivePrintingPageComponent.ctorParameters = () => [
+    { type: src_app_services_reloader_reloading_service__WEBPACK_IMPORTED_MODULE_6__["ReloadingService"] },
+    { type: src_app_services_company_company_service__WEBPACK_IMPORTED_MODULE_4__["CompanyService"] },
+    { type: src_app_services_endpoint_endpoint_service__WEBPACK_IMPORTED_MODULE_5__["EndpointService"] },
+    { type: src_app_services_storage_local_storage_service__WEBPACK_IMPORTED_MODULE_7__["LocalStorageService"] }
+];
+ExecutivePrintingPageComponent = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
+    Object(_angular_core__WEBPACK_IMPORTED_MODULE_3__["Component"])({
+        selector: 'app-executive-printing-page',
+        template: __webpack_require__(/*! raw-loader!./executive-printing-page.component.html */ "./node_modules/raw-loader/index.js!./src/app/pages/dashboard/executive/executive-printing-page/executive-printing-page.component.html"),
+        styles: [__webpack_require__(/*! ./executive-printing-page.component.css */ "./src/app/pages/dashboard/executive/executive-printing-page/executive-printing-page.component.css")]
+    })
+], ExecutivePrintingPageComponent);
 
 
 
@@ -21959,9 +22367,9 @@ DateTimeService = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "DownloaderService", function() { return DownloaderService; });
 /* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
-/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm2015/core.js");
-/* harmony import */ var file_saver__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! file-saver */ "./node_modules/file-saver/dist/FileSaver.min.js");
-/* harmony import */ var file_saver__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(file_saver__WEBPACK_IMPORTED_MODULE_2__);
+/* harmony import */ var file_saver__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! file-saver */ "./node_modules/file-saver/dist/FileSaver.min.js");
+/* harmony import */ var file_saver__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(file_saver__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm2015/core.js");
 /* harmony import */ var _angular_common_http__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @angular/common/http */ "./node_modules/@angular/common/fesm2015/http.js");
 
 
@@ -21981,7 +22389,90 @@ let DownloaderService = class DownloaderService {
         const index = url.lastIndexOf('/') + 1;
         const downloaded_file_name = url.substr(index);
         this.http.get(url, { responseType: 'blob' }).subscribe(blob => {
-            Object(file_saver__WEBPACK_IMPORTED_MODULE_2__["saveAs"])(blob, downloaded_file_name);
+            Object(file_saver__WEBPACK_IMPORTED_MODULE_1__["saveAs"])(blob, downloaded_file_name);
+        });
+    }
+    /**
+     * Exports table data to Excel format.
+     *
+     * @param {string} table_id
+     * @param {string} filename
+     * @memberof DownloaderService
+     */
+    exportToExcel(table_id, filename) {
+        let download_link = null;
+        const data_type = 'application/vnd.ms-excel';
+        const table_selector = document.getElementById(table_id);
+        const html_table = table_selector.outerHTML.replace(/ /g, '%20');
+        // specify the filename
+        filename = filename + '.xls';
+        // create download link lement
+        download_link = document.createElement('a');
+        document.body.appendChild(download_link);
+        if (navigator.msSaveOrOpenBlob) {
+            const blob = new Blob(['\ufeff', html_table], {
+                type: data_type
+            });
+            navigator.msSaveOrOpenBlob(blob, filename);
+        }
+        else {
+            // create a link to the file
+            download_link.href = 'data:' + data_type + ', ' + html_table;
+            download_link.download = filename;
+            // trigger the download
+            download_link.click();
+        }
+    }
+    /**
+     * Exports table data to CSV format.
+     *
+     * @param {string} table_id
+     * @param {string} filename
+     * @memberof DownloaderService
+     */
+    exportToCsv(table_id, filename) {
+        let download_link = null;
+        const data_type = 'application/vnd.ms-excel';
+        const table_selector = document.getElementById(table_id);
+        const html_table = table_selector.outerHTML.replace(/ /g, '%20');
+        // specify the filename
+        filename = filename + '.csv';
+        // create download link lement
+        download_link = document.createElement('a');
+        document.body.appendChild(download_link);
+        if (navigator.msSaveOrOpenBlob) {
+            const blob = new Blob(['\ufeff', html_table], {
+                type: data_type
+            });
+            navigator.msSaveOrOpenBlob(blob, filename);
+        }
+        else {
+            // create a link to the file
+            download_link.href = 'data:' + data_type + ', ' + html_table;
+            download_link.download = filename;
+            // trigger the download
+            download_link.click();
+        }
+    }
+    /**
+     * Exports table data to PDF format.
+     *
+     * @param {string} table_id
+     * @param {string} filename
+     * @memberof DownloaderService
+     */
+    exportToPDF(table_id, filename) {
+        html2canvas(document.getElementById(table_id), {
+            onrendered: (canvas) => {
+                const data = canvas.toDataURL();
+                const doc_definition = {
+                    content: [{
+                            image: data,
+                            width: 900
+                        }]
+                };
+                pdfMake.createPdf(doc_definition).download(filename + '.pdf');
+            }
         });
     }
 };
@@ -21989,7 +22480,7 @@ DownloaderService.ctorParameters = () => [
     { type: _angular_common_http__WEBPACK_IMPORTED_MODULE_3__["HttpClient"] }
 ];
 DownloaderService = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
-    Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Injectable"])({
+    Object(_angular_core__WEBPACK_IMPORTED_MODULE_2__["Injectable"])({
         providedIn: 'root'
     })
 ], DownloaderService);
@@ -23442,6 +23933,53 @@ LoggingService = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
         providedIn: 'root'
     })
 ], LoggingService);
+
+
+
+/***/ }),
+
+/***/ "./src/app/services/reloader/reloading.service.ts":
+/*!********************************************************!*\
+  !*** ./src/app/services/reloader/reloading.service.ts ***!
+  \********************************************************/
+/*! exports provided: ReloadingService */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "ReloadingService", function() { return ReloadingService; });
+/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
+/* harmony import */ var lodash__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! lodash */ "./node_modules/lodash/lodash.js");
+/* harmony import */ var lodash__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(lodash__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm2015/core.js");
+
+
+
+let ReloadingService = class ReloadingService {
+    constructor() { }
+    /**
+     * This is just a little hack to prevent loss of data passed in to window.history.state
+     * whenever the page is reloaded. The purpose is to ensure we still have the data needed
+     * to help build all the elements of this page.
+     *
+     * @version 0.0.2
+     * @memberof EditFormPageComponent
+     */
+    resolveReloadDataLoss(view_data) {
+        if (!lodash__WEBPACK_IMPORTED_MODULE_1__["isUndefined"](view_data)) {
+            sessionStorage.setItem('u_form', JSON.stringify(view_data));
+            return JSON.parse(sessionStorage.getItem('u_form'));
+        }
+        else {
+            return JSON.parse(sessionStorage.getItem('u_form'));
+        }
+    }
+};
+ReloadingService = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
+    Object(_angular_core__WEBPACK_IMPORTED_MODULE_2__["Injectable"])({
+        providedIn: 'root'
+    })
+], ReloadingService);
 
 
 

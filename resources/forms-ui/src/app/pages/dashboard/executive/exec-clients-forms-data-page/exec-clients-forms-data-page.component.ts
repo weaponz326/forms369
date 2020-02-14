@@ -1,13 +1,14 @@
 import * as _ from 'lodash';
-import Swal from 'sweetalert2';
 import * as moment from 'moment';
 import { Router } from '@angular/router';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { ClientService } from 'src/app/services/client/client.service';
 import { Component, OnInit, ViewChild, TemplateRef } from '@angular/core';
+import { LoggingService } from 'src/app/services/logging/logging.service';
+import { ReloadingService } from 'src/app/services/reloader/reloading.service';
 import { FrontDeskService } from 'src/app/services/front-desk/front-desk.service';
+import { DownloaderService } from 'src/app/services/downloader/downloader.service';
 import { LocalStorageService } from 'src/app/services/storage/local-storage.service';
-import { Subject } from 'rxjs';
 
 @Component({
   selector: 'app-exec-clients-forms-data-page',
@@ -15,9 +16,9 @@ import { Subject } from 'rxjs';
   styleUrls: ['./exec-clients-forms-data-page.component.css']
 })
 export class ExecClientsFormsDataPageComponent implements OnInit {
+
   form: any;
-  userData: any[];
-  formName: string;
+  user: any;
   keys: Array<any>;
   hasMore: boolean;
   hasData: boolean;
@@ -28,84 +29,46 @@ export class ExecClientsFormsDataPageComponent implements OnInit {
   tableContents: Array<any>;
   clientFormData: Array<any>;
   tableHeaders: Array<string>;
-  dtOptions: any;
-  dtTrigger: Subject<any>;
-  @ViewChild('data', { static: false }) dataModal: TemplateRef<any>;
-  @ViewChild('confirm', { static: false }) downloadModal: TemplateRef<any>;
+  @ViewChild('attachment', { static: false }) attachmentsModal: TemplateRef<any>;
 
   constructor(
     private router: Router,
     private modalService: NgbModal,
+    private logging: LoggingService,
     private clientService: ClientService,
+    private reloadService: ReloadingService,
     private localStorage: LocalStorageService,
-    private frontDeskService: FrontDeskService
+    private downloadService: DownloaderService,
+    private frontDeskService: FrontDeskService,
   ) {
-    this.dtOptions = {
-      paging: false,
-      // Declare the use of the extension in the dom parameter
-      dom: 'Bfrtip',
-      // Configure the buttons
-      buttons: [
-        'csv',
-        'print',
-        'excel',
-        'pdfHtml5'
-      ]
-    };
-    // this.dtTrigger = new Subject();
-    this.keys = [];
-    this.userData = [];
-    this.tableHeaders = [];
-    this.tableContents = [];
-    this.clientFormData = [];
-    this.form = window.history.state.form;
-    console.log('form: ' + JSON.stringify(this.form));
-    this.resolveReloadDataLoss();
-    this.formName = this.form.name;
-    this.getClientData();
-    // this._get();
+    this.initVars();
+    this.getAllRespondentsData();
   }
 
   ngOnInit() {
   }
 
-  /**
-   * This is just a little hack to prevent loss of data passed in to window.history.state
-   * whenever the page is reloaded. The purpose is to ensure we still have the data needed
-   * to help build all the elements of this page.
-   *
-   * @version 0.0.2
-   * @memberof EditFormPageComponent
-   */
-  resolveReloadDataLoss() {
-    if (!_.isUndefined(this.form)) {
-      sessionStorage.setItem('u_form', JSON.stringify(this.form));
-    }
-    else {
-      this.form = JSON.parse(sessionStorage.getItem('u_form'));
-    }
+  initVars() {
+    this.keys = [];
+    this.tableHeaders = [];
+    this.tableContents = [];
+    this.clientFormData = [];
+    this.form = window.history.state.form;
+    this.user = this.localStorage.getUser();
+    console.log('form: ' + JSON.stringify(this.form));
+    this.form = this.reloadService.resolveReloadDataLoss(this.form);
   }
 
   checkIfHasMore() {
     return _.isEmpty(this.frontDeskService.nextPaginationUrl) ? false : true;
   }
 
-  showDataModal() {
-    this.modalService.open(this.dataModal, { centered: true });
-  }
-
-  showDownloadModal() {
-    this.modalService.open(this.downloadModal, { centered: true });
-  }
-
-  showAttachmentsModal() {}
-
   getDataHeaders(res: any) {
     const form_fields = this.form.form_fields;
     const client_data_key = _.keys(res[0].client_submitted_details);
 
-    _.forEach(form_fields, (field) => {
-      _.forEach(client_data_key, (client_key) => {
+    _.forEach(form_fields, field => {
+      _.forEach(client_data_key, client_key => {
         if (!_.isUndefined(field.name)) {
           if (field.name == client_key) {
             this.keys.push(client_key);
@@ -120,7 +83,7 @@ export class ExecClientsFormsDataPageComponent implements OnInit {
   getDataBody(res: any) {
     let objArr = [];
     _.forEach(res, data => {
-      _.forEach(this.keys, (k) => {
+      _.forEach(this.keys, k => {
         objArr.push(data.client_submitted_details[k]);
       });
       objArr.push(moment(data.submitted_at).format('DD MMM YYYY hh:mm A'));
@@ -130,31 +93,7 @@ export class ExecClientsFormsDataPageComponent implements OnInit {
     });
   }
 
-  getFullClientData(client_data: any) {
-    console.log('client: ' + JSON.stringify(client_data));
-    const form_field_keys = [];
-    const form_keys = _.keys(client_data);
-    const form_values = _.values(client_data);
-    const form_fields = this.form.form_fields;
-    _.forEach(form_fields, (field) => {
-      if (!_.isUndefined(field.name)) {
-        form_field_keys.push(field.name);
-      }
-    });
-
-    _.forEach(form_keys, (key, i) => {
-      _.forEach(form_field_keys, (field) => {
-        if (field == key) {
-          this.clientFormData.push({
-            title: this.transformText(key),
-            data: form_values[i]
-          });
-        }
-      });
-    });
-  }
-
-  _get() {
+  getAllRespondentsData() {
     this.loading = true;
     this.frontDeskService.getRespondantData(this.form.form_code).then(
       res => {
@@ -163,39 +102,12 @@ export class ExecClientsFormsDataPageComponent implements OnInit {
         console.log('res: ' + JSON.stringify(res));
         if (res.length == 0) {
           this.hasData = false;
-        }
-        else {
+        } else {
           this.hasData = true;
           this.getDataHeaders(res);
           this.getDataBody(res);
-          this.userData = res[0].client_submitted_details;
-          this.getFullClientData(this.userData);
-          this.dtTrigger.next();
-        }
-      },
-      err => {
-        this.loading = false;
-        console.log('err: ' + JSON.stringify(err));
-      }
-    );
-  }
-
-  getClientData() {
-    this.loading = true;
-    this.frontDeskService.getRespondantData(this.form.form_code).then(
-      res => {
-        this.loading = false;
-        this.hasMore = this.checkIfHasMore();
-        console.log('res: ' + JSON.stringify(res));
-        if (res.length == 0) {
-          this.hasData = false;
-        }
-        else {
-          this.hasData = true;
-          this.getDataHeaders(res);
-          this.getDataBody(res);
-          this.userData = res[0].client_submitted_details;
-          this.getFullClientData(this.userData);
+          console.log('submitted_data: ' + JSON.stringify(res));
+          this.clientFormData.push(res[0].client_submitted_details);
         }
       },
       err => {
@@ -236,8 +148,54 @@ export class ExecClientsFormsDataPageComponent implements OnInit {
     }
   }
 
+  downloadAll(format: string) {
+    switch (format) {
+      case 'pdf':
+        this.downloadAsPDF();
+        break;
+      case 'csv':
+        this.downloadAsCSV();
+        break;
+      case 'excel':
+        this.downloadAsExcel();
+        break;
+      default:
+        break;
+    }
+  }
+
+  downloadAsPDF() {
+    const table_id = 'table-data';
+    const filename = 'forms369_' + this.form.form_code + '_data';
+    this.downloadService.exportToPDF(table_id, filename);
+  }
+
+  downloadAsCSV() {
+    const table_id = 'table-data';
+    const filename = 'forms369_' + this.form.form_code + '_data';
+    this.downloadService.exportToCsv(table_id, filename);
+  }
+
+  downloadAsExcel() {
+    const table_id = 'table-data';
+    const filename = 'forms369_' + this.form.form_code + '_data';
+    this.downloadService.exportToExcel(table_id, filename);
+  }
+
+  print(e: Event, index: number) {
+    e.stopPropagation();
+    const print_data = {
+      form_data: this.form.form_fields,
+      client_data: this.clientFormData[index],
+    };
+
+    this.user.can_print == 0
+      ? this.router.navigateByUrl('executive/printing', { state: { form: print_data }})
+      : this.router.navigateByUrl('executive/pdf_printing', { state: { form: print_data } });
+  }
+
   retry() {
-    this.getClientData();
+    this.getAllRespondentsData();
   }
 
 }

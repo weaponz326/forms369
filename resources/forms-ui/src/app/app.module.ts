@@ -118,6 +118,8 @@ import { AccountVerifiedPageComponent } from './pages/account-verified-page/acco
 import { EmailResetPasswordPageComponent } from './pages/email-reset-password-page/email-reset-password-page.component';
 import { FrontDeskRejectedFormsListPageComponent } from './pages/dashboard/front-desk/front-desk-rejected-forms-list-page/front-desk-rejected-forms-list-page.component';
 import { AdminSettingsPageComponent } from './pages/dashboard/admin/admin-settings-page/admin-settings-page.component';
+import { ExecutivePrintingPageComponent } from './pages/dashboard/executive/executive-printing-page/executive-printing-page.component';
+import { ExecutivePdfPrintingPageComponent } from './pages/dashboard/executive/executive-pdf-printing-page/executive-pdf-printing-page.component';
 
 @NgModule({
   declarations: [
@@ -219,6 +221,8 @@ import { AdminSettingsPageComponent } from './pages/dashboard/admin/admin-settin
     EmailResetPasswordPageComponent,
     FrontDeskRejectedFormsListPageComponent,
     AdminSettingsPageComponent,
+    ExecutivePrintingPageComponent,
+    ExecutivePdfPrintingPageComponent,
   ],
   imports: [
     BrowserModule,

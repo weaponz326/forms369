@@ -19,9 +19,10 @@ export class ReloadingService {
   resolveReloadDataLoss(view_data: any) {
     if (!_.isUndefined(view_data)) {
       sessionStorage.setItem('u_form', JSON.stringify(view_data));
+      return JSON.parse(sessionStorage.getItem('u_form'));
     }
     else {
-      view_data = JSON.parse(sessionStorage.getItem('u_form'));
+      return JSON.parse(sessionStorage.getItem('u_form'));
     }
   }
 }

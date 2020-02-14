@@ -9,13 +9,25 @@
             <div class="d-flex justify-content-between flex-wrap">
               <div class="d-flex align-items-end flex-wrap">
                 <div class="mr-md-3 mr-xl-5">
-                  <h2>Form Data - {{ formName }}</h2>
+                  <h2>Form Data - {{ form.name }}</h2>
                   <p class="mb-md-0">Your administrative dashboard.</p>
                 </div>
                 <div class="d-flex">
                 </div>
               </div>
               <div class="d-flex justify-content-between align-items-end flex-wrap">
+                <div class="dropdown">
+                  <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton"
+                    data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    More Options
+                  </button>
+                  <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                    <a class="dropdown-item" (click)="toggleFilter()">Filter</a>
+                    <a class="dropdown-item" (click)="downloadAll('csv')">Download (CSV)</a>
+                    <a class="dropdown-item" (click)="downloadAll('pdf')">Download (PDF)</a>
+                    <a class="dropdown-item" (click)="downloadAll('excel')">Download (Excel)</a>
+                  </div>
+                </div>
               </div>
             </div>
           </div>
@@ -76,230 +88,89 @@
           </div>
         </div>
 
-        <div *ngIf="!loading && hasData" class="row">
-          <!-- <div class="col-md-4 text-center grid-margin stretch-card">
-            <div class="card hover-cursor animated fadeInDown fast">
-              <div class="card-body">
-                <p class="card-title">company.merchant_name</p>
-                <div class="card-text">
-                  <p>Something Something</p>
-                  <br>
-                  <div class="btn-group" role="group" aria-label="Basic example">
-                    <button type="button" class="btn btn-outline-primary" (click)="edit($event, company)">
-                      <i class="mdi mdi-pencil-outline"></i>
-                      Edit
-                    </button>
-                    <button type="button" class="btn btn-outline-primary" (click)="view($event, company)">
-                      <i class="mdi mdi-pulse"></i>
-                      View
-                    </button>
-                    <button type="button" class="btn btn-outline-secondary" (click)="delete($event, company.id)">
-                      <i class="mdi mdi-delete-outline"></i>
-                      Delete
-                    </button>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div> -->
-          <div class="col-lg-12 grid-margin stretch-card">
-            <div class="card">
-              <div class="card-body">
-                <!-- <div class="table-responsive">
-                  <table class="table table-hover">
-                    <thead>
-                      <tr>
-                        <th><strong class="text-uppercase">{{ tableHeaders[0] }}</strong></th>
-                        <th><strong class="text-uppercase">{{ tableHeaders[1] }}</strong></th>
-                        <th><strong class="text-uppercase">{{ tableHeaders[2] }}</strong></th>
-                        <th><strong class="text-uppercase">{{ tableHeaders[3] }}</strong></th>
-                        <th><strong class="text-uppercase">Submitted At</strong></th>
-                        <th><strong class="text-uppercase">Actions</strong></th>
-                      </tr>
-                    </thead>
-                    <tbody>
-                      <tr class="hover-cursor" *ngFor="let content of tableContents; let i=index">
-                        <td>{{ content[0] }}</td>
-                        <td>{{ content[1] }}</td>
-                        <td>{{ content[2] }}</td>
-                        <td>{{ content[3] }}</td>
-                        <td>{{ content[content.length - 1] }}</td>
-                        <td>
-                          <div class="dropdown">
-                            <button type="button" class="btn btn-light bg-white btn-icon dropdown-toggle"
-                              id="dropdownMenuButton" data-toggle="dropdown">
-                              <i class="mdi mdi-dots-horizontal text-muted"></i>
-                            </button>
-                            <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                              <a class="dropdown-item" (click)="showDataModal(i)">View Data</a>
-                              <a class="dropdown-item" (click)="showDownloadModal()">Download Data</a>
-                              <a class="dropdown-item" (click)="showAttachmentsModal()">View Attachments</a>
-                            </div>
-                          </div>
-                        </td>
-                      </tr>
-                    </tbody>
-                  </table>
-                </div> -->
-                <div class="table-responsive">
-                  <table datatable [dtOptions]="dtOptions" [dtTrigger]="dtTrigger" class="row-border hover">
-                    <thead>
-                      <tr>
-                        <th><strong class="text-uppercase">{{ tableHeaders[0] }}</strong></th>
-                        <th><strong class="text-uppercase">{{ tableHeaders[1] }}</strong></th>
-                        <th><strong class="text-uppercase">{{ tableHeaders[2] }}</strong></th>
-                        <th><strong class="text-uppercase">{{ tableHeaders[3] }}</strong></th>
-                        <th><strong class="text-uppercase">Submitted At</strong></th>
-                        <th><strong class="text-uppercase">Actions</strong></th>
-                      </tr>
-                    </thead>
-                    <tbody>
-                      <tr *ngFor="let content of tableContents; let i=index">
-                        <td>{{ content[0] }}</td>
-                        <td>{{ content[1] }}</td>
-                        <td>{{ content[2] }}</td>
-                        <td>{{ content[3] }}</td>
-                        <td>{{ content[content.length - 1] }}</td>
-                        <td>
-                          <div class="dropdown">
-                            <button type="button" class="btn btn-light bg-white btn-icon dropdown-toggle"
-                              id="dropdownMenuButton" data-toggle="dropdown">
-                              <i class="mdi mdi-dots-horizontal text-muted"></i>
-                            </button>
-                            <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                              <a class="dropdown-item" (click)="showDataModal(i)">View Data</a>
-                              <a class="dropdown-item" (click)="showDownloadModal()">Download Data</a>
-                              <a class="dropdown-item" (click)="showAttachmentsModal()">View Attachments</a>
-                            </div>
-                          </div>
-                        </td>
-                      </tr>
-                    </tbody>
-                  </table>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
+         <div *ngIf="!loading && hasData" class="row">
+           <div class="col-lg-12 grid-margin stretch-card">
+             <div class="card">
+               <div class="card-body">
+                 <div class="table-responsive">
+                   <table id="table-data" class="table table-hover">
+                     <thead>
+                       <tr>
+                         <th *ngFor="let header of tableHeaders"><strong class="text-uppercase">{{ header }}</strong></th>
+                         <th> <strong class="text-uppercase">Submitted At</strong></th>
+                         <th><strong class="text-uppercase">Actions</strong></th>
+                       </tr>
+                     </thead>
+                     <tbody>
+                       <tr class="hover-cursor" *ngFor="let content of tableContents; let i=index">
+                         <td *ngFor="let data of content">{{ data }}</td>
+                         <td>
+                           <div class="dropdown">
+                             <button type="button" class="btn btn-light bg-white btn-icon dropdown-toggle"
+                               id="dropdownMenuButton" data-toggle="dropdown">
+                               <i class="mdi mdi-dots-horizontal text-muted"></i>
+                             </button>
+                             <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                               <a class="dropdown-item" (click)="print($event, i)">Print</a>
+                               <a class="dropdown-item" (click)="showAttachmentsModal()">View Attachments</a>
+                               <a class="dropdown-item" (click)="downloadDataPdf()">Download Data (PDF)</a>
+                             </div>
+                           </div>
+                         </td>
+                       </tr>
+                     </tbody>
+                   </table>
+                 </div>
+               </div>
+             </div>
+           </div>
+         </div>
 
-        <div *ngIf="loadingMore" class="row m-md-2">
-          <div class="col-md-12 col-sm-12 m-md-2">
-            <div class="d-flex justify-content-center">
-              <div class="spinner-border m-2" style="width: 2rem; height: 2rem;" role="status">
-                <span class="sr-only">Loading...</span>
-              </div>
-            </div>
-          </div>
-        </div>
+         <div *ngIf="loadingMore" class="row m-md-2">
+           <div class="col-md-12 col-sm-12 m-md-2">
+             <div class="d-flex justify-content-center">
+               <div class="spinner-border m-2" style="width: 2rem; height: 2rem;" role="status">
+                 <span class="sr-only">Loading...</span>
+               </div>
+             </div>
+           </div>
+         </div>
 
-        <div *ngIf="hasMoreError" class="row m-md-2">
-          <div class="col-md-8 col-sm-12 offset-md-2">
-            <div class="alert alert-danger" role="alert">
-              <h4 class="alert-heading">Connection Failed!</h4>
-              <p>
-                Oops!! Couldn't get you the rest of the data. Please make sure you have an active internet connection.
-                Maybe, our servers may be down.
-              </p>
-              <hr>
-              <p class="mb-0">We are really sorry for this inconvenience. Please click on the load more button again.
-              </p>
-            </div>
-          </div>
-        </div>
+         <div *ngIf="hasMoreError" class="row m-md-2">
+           <div class="col-md-8 col-sm-12 offset-md-2">
+             <div class="alert alert-danger" role="alert">
+               <h4 class="alert-heading">Connection Failed!</h4>
+               <p>
+                 Oops!! Couldn't get you the rest of the data. Please make sure you have an active internet connection.
+                 Maybe, our servers may be down.
+               </p>
+               <hr>
+               <p class="mb-0">We are really sorry for this inconvenience. Please click on the load more button again.</p>
+             </div>
+           </div>
+         </div>
 
-        <div *ngIf="hasMore" class="row">
-          <div class="col-md-4 col-sm-6 offset-sm-3 offset-lg-4">
-            <div class="text-center">
-              <button type="button" class="btn btn-primary btn-rounded btn-fw" (click)="loadMore()">Load More</button>
-            </div>
-          </div>
-        </div>
+         <div *ngIf="hasMore" class="row">
+           <div class="col-md-4 col-sm-6 offset-sm-3 offset-lg-4">
+             <div class="text-center">
+               <button type="button" class="btn btn-primary btn-rounded btn-fw" (click)="loadMore()">Load More</button>
+             </div>
+           </div>
+         </div>
 
       </div>
     </div>
   </div>
 </div>
 
-<ng-template #confirm let-modal>
-  <div class="modal-header">
-    <h4 class="modal-title" id="modal-title">Download Form Data</h4>
-    <button type="button" class="close" aria-describedby="modal-title" (click)="modal.dismiss('close')">
-      <span aria-hidden="true">&times;</span>
-    </button>
-  </div>
-  <div class="modal-body">
-    <div class="text-center">
-      <div class="row">
-        <h3 class="download-title">Choose your desired format</h3>
-        <div class="col-6">
-          <button class="btn btn-outline-primary btn-lg btn-icon-text" style="padding: 1rem 2rem;"
-            (click)="downloadNormal()">
-            <i class="mdi mdi-file-document"></i>
-            Normal Format
-          </button>
-        </div>
-        <div class="col-6">
-          <button class="btn btn-outline-primary btn-lg btn-icon-text" (click)="downloadPDF()">
-            <i class="mdi mdi-file-pdf"></i>
-            PDF Format
-          </button>
-        </div>
-      </div>
-    </div>
-  </div>
-  <div class="modal-footer">
-  </div>
-</ng-template>
-
-<ng-template #data let-modal>
-  <div class="modal-header">
-    <h4 class="modal-title" id="modal-title">User Form Data</h4>
-    <button type="button" class="close" aria-describedby="modal-title" (click)="modal.dismiss('close')">
-      <span aria-hidden="true">&times;</span>
-    </button>
-  </div>
-  <div class="modal-body">
-    <div>
-      <div class="row" style="margin: 5px 0px; padding: 4px 0px;" *ngFor="let item of clientFormData; let i=index">
-        <div class="col-6">
-          <h5 class="text-uppercase" style="font-size: 13px;"><strong>{{ item.title }} : </strong></h5>
-        </div>
-        <div class="col-6">
-          <h5 style="font-size: 0.95em;">{{ item.data }}</h5>
-        </div>
-      </div>
-    </div>
-  </div>
-  <div class="modal-footer">
-  </div>
-</ng-template>
-
 <ng-template #attachment let-modal>
   <div class="modal-header">
-    <h4 class="modal-title" id="modal-title">Download Form Data</h4>
+    <h4 class="modal-title" id="modal-title">View Attachments</h4>
     <button type="button" class="close" aria-describedby="modal-title" (click)="modal.dismiss('close')">
       <span aria-hidden="true">&times;</span>
     </button>
   </div>
   <div class="modal-body">
-    <div class="text-center">
-      <div class="row">
-        <h3 class="download-title">Choose your desired format</h3>
-        <div class="col-6">
-          <button class="btn btn-outline-primary btn-lg btn-icon-text" style="padding: 1rem 2rem;"
-            (click)="downloadNormal()">
-            <i class="mdi mdi-file-document"></i>
-            Normal Format
-          </button>
-        </div>
-        <div class="col-6">
-          <button class="btn btn-outline-primary btn-lg btn-icon-text" (click)="downloadPDF()">
-            <i class="mdi mdi-file-pdf"></i>
-            PDF Format
-          </button>
-        </div>
-      </div>
-    </div>
   </div>
   <div class="modal-footer">
   </div>

@@ -92,6 +92,8 @@ import { FrontDeskRejectedFormsListPageComponent } from './pages/dashboard/front
 import { AccountVerifiedPageComponent } from './pages/account-verified-page/account-verified-page.component';
 import { EmailResetPasswordPageComponent } from './pages/email-reset-password-page/email-reset-password-page.component';
 import { AdminSettingsPageComponent } from './pages/dashboard/admin/admin-settings-page/admin-settings-page.component';
+import { ExecutivePrintingPageComponent } from './pages/dashboard/executive/executive-printing-page/executive-printing-page.component';
+import { ExecutivePdfPrintingPageComponent } from './pages/dashboard/executive/executive-pdf-printing-page/executive-pdf-printing-page.component';
 
 const routes: Routes = [
   {
@@ -434,6 +436,14 @@ const routes: Routes = [
       {
         path: 'clients_form_data',
         component: ExecClientsFormsDataPageComponent
+      },
+      {
+        path: 'printing',
+        component: ExecutivePrintingPageComponent
+      },
+      {
+        path: 'pdf_printing',
+        component: ExecutivePdfPrintingPageComponent
       }
     ]
   },
@@ -452,7 +462,7 @@ const routes: Routes = [
         children: [
           {
             path: 'form',
-            component: AdminCreateFormPageComponent,
+            component: AdminCreateFormPageComponent
           },
           {
             path: 'account',
