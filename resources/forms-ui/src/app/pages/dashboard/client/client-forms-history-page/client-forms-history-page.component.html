@@ -23,7 +23,7 @@
         <div *ngIf="loading" class="row m-5">
           <div class="col-md-12 p-md-5">
             <div class="d-flex justify-content-center">
-              <div class="spinner-border m-5" style="width: 5rem; height: 5rem;" role="status">
+              <div class="spinner-border m-5" style="width: 3rem; height: 3rem;" role="status">
                 <span class="sr-only">Loading...</span>
               </div>
             </div>
@@ -99,20 +99,29 @@
           </div>
 
           <div class="col-md-4 grid-margin stretch-card" *ngFor="let form of historyCollection; let i=index">
-            <div class="card hover-cursor" (click)="openFormEntry(form)">
-              <div class="card-body">
-                <p class="card-title mr-3">{{ form.form_name }}</p>
-                <div class="align-right">
-                  <button type="button" class="btn btn-sm" (click)="delete($event, form.submission_code, i)">
-                    <i class="mdi mdi-delete-outline text-danger"></i>
+            <div class="card hover-cursor">
+              <div class="align-right">
+                <div class="dropdown">
+                  <button class="btn btn-sm dropdown-toggle" type="button" id="dropdownMenuButton"
+                    data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    <i class="mdi mdi-dots-vertical"></i>
                   </button>
+                  <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                    <a class="dropdown-item" (click)="download(form)">Download</a>
+                    <a class="dropdown-item" *ngIf="form.form_status == 3"
+                      (click)="openReview($event, form.submission_code)">Rejection Message</a>
+                    <a class="dropdown-item text-danger" (click)="delete($event, form.submission_code, i)">Delete</a>
+                  </div>
                 </div>
+              </div>
+              <div class="card-body" (click)="openFormEntry($event, form)">
+                <p class="card-title mr-3">{{ form.form_name }}</p>
                 <h1 class="display-4">{{ form.submission_code }}</h1>
                 <div class="card-text">
                   <p class="text-muted small-text">{{ form.submitted_at | date }}</p>
                 </div>
                 <div class="card-icon" *ngIf="form.form_status == 3" (click)="openReview($event, form.submission_code)">
-                  <i class="mdi mdi-message-alert-outline"></i>
+                  <i class="mdi mdi-message-alert-outline text-danger"></i>
                 </div>
               </div>
             </div>

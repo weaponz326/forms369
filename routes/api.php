@@ -132,7 +132,7 @@ Route::group(['middleware' => ['auth:api'], 'prefix' => 'v1'], function(){
     //upload and edit form print document for a form apis
     Route::post('uploadPrintFile/{merchant_id}/{code}', 'HomeController@uploadPrintFile')->name('uploadPrintFile')->middleware('scope:GIT_Admin,company_admin');
     Route::post('editPrintFile/{merchant_id}/{code}', 'HomeController@editPrintFile')->name('editPrintFile')->middleware('scope:GIT_Admin,company_admin');
-    Route::get('getPrintFile/{merchant_id}/{code}', 'HomeController@getPrintFile')->name('getPrintFile')->middleware('scope:GIT_Admin,company_admin,branch_admin,frontdesk,super_executive,branch_executive');
+    Route::get('getPrintFile/{merchant_id}/{code}', 'HomeController@getPrintFile')->name('getPrintFile')->middleware('scope:GIT_Admin,company_admin,branch_admin,frontdesk,super_executive,branch_executive,client');
 
     //form attachments 
     Route::post('uploadattachments/{client_id}/{form_code}/{sub_code}', 'HomeController@uploadattachments')->name('uploadattachments')->middleware('scope:GIT_Admin,client');
@@ -264,7 +264,7 @@ Route::group(['middleware' => ['auth:api'], 'prefix' => 'v1'], function(){
   
   //reject forms reviews apis 
   Route::post('addReview', 'HomeController@addReview')->name('addReview')->middleware('scope:GIT_Admin,super_executive,branch_executive,company_admin,branch_admin,frontdesk');
-  Route::get('getFormReview/{code}', 'HomeController@getFormReview')->name('getFormReview')->middleware('scope:GIT_Admin,super_executive,branch_executive,company_admin,branch_admin,frontdesk, client');
+  Route::get('getFormReview/{code}', 'HomeController@getFormReview')->name('getFormReview')->middleware('scope:GIT_Admin,super_executive,branch_executive,company_admin,branch_admin,frontdesk,client');
   Route::post('deleteFormReview/{code}', 'HomeController@deleteFormReview')->name('deleteFormReview')->middleware('scope:GIT_Admin,super_executive,branch_executive,company_admin,branch_admin,frontdesk');
  
   //can print

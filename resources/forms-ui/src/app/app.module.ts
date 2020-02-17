@@ -120,6 +120,8 @@ import { FrontDeskRejectedFormsListPageComponent } from './pages/dashboard/front
 import { AdminSettingsPageComponent } from './pages/dashboard/admin/admin-settings-page/admin-settings-page.component';
 import { ExecutivePrintingPageComponent } from './pages/dashboard/executive/executive-printing-page/executive-printing-page.component';
 import { ExecutivePdfPrintingPageComponent } from './pages/dashboard/executive/executive-pdf-printing-page/executive-pdf-printing-page.component';
+import { ClientPrintingPageComponent } from './pages/dashboard/client/client-printing-page/client-printing-page.component';
+import { ClientPdfPrintingPageComponent } from './pages/dashboard/client/client-pdf-printing-page/client-pdf-printing-page.component';
 
 @NgModule({
   declarations: [
@@ -223,6 +225,8 @@ import { ExecutivePdfPrintingPageComponent } from './pages/dashboard/executive/e
     AdminSettingsPageComponent,
     ExecutivePrintingPageComponent,
     ExecutivePdfPrintingPageComponent,
+    ClientPrintingPageComponent,
+    ClientPdfPrintingPageComponent,
   ],
   imports: [
     BrowserModule,

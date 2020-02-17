@@ -1,0 +1,23 @@
+.container {
+  /* margin: 2rem; */
+  display: flex;
+  justify-content: center;
+}
+
+.toolbar {
+  text-align: center;
+  padding: 20px 0px;
+  margin: 15px 0px;
+}
+
+#input-form {
+    position: relative;
+    z-index: 1;
+}
+#input-form input {
+    position: absolute;
+    border: none;
+    pointer-events: none;
+    background: transparent;
+    /* border: 1px solid red; */
+}

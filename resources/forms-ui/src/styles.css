@@ -29,8 +29,12 @@ html, body {
     font-family: 'OpenSans_Regular';
 }
 
-button {
-    font-family: 'OpenSans_Bold';
+h1, h2, h3, h4, h5, h6 {
+    font-family: 'OpenSans_Bold' !important;
+}
+
+.btn {
+    font-family: 'OpenSans_Bold' !important;
 }
 
 .align-right {
@@ -209,6 +213,3 @@ select.form-control {
     outline: 0;
     box-shadow: none;
 }
-
-html, body { height: 100%; }
-body { margin: 0; font-family: "Helvetica Neue", sans-serif; }

@@ -100,14 +100,14 @@ export class DownloaderService {
   }
 
   /**
-   * Exports table data to PDF format.
+   * Exports an html element data to PDF format.
    *
-   * @param {string} table_id
+   * @param {string} element_id
    * @param {string} filename
    * @memberof DownloaderService
    */
-  exportToPDF(table_id: string, filename: string) {
-    html2canvas(document.getElementById(table_id), {
+  exportToPDF(element_id: string, filename: string) {
+    html2canvas(document.getElementById(element_id), {
       onrendered: (canvas) => {
         const data = canvas.toDataURL();
         const doc_definition = {

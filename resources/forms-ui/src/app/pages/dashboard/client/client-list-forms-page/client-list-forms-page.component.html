@@ -33,7 +33,7 @@
         <div *ngIf="loading" class="row p-5">
           <div class="col-md-12 m-5">
             <div class="d-flex justify-content-center">
-              <div class="spinner-border m-5" style="width: 5rem; height: 5rem;" role="status">
+              <div class="spinner-border m-5" style="width: 3rem; height: 3rem;" role="status">
                 <span class="sr-only">Loading...</span>
               </div>
             </div>
@@ -133,8 +133,7 @@
               <div class="card-body">
                 <p class="card-title">{{ form.company_name }}</p>
                 <div class="card-text">
-                  <h1 class="display-4">{{ form.name }}</h1>
-                  <!-- <p class="text-muted">Click to open form and start filling.</p> -->
+                  <h3>{{ form.name }}</h3>
                 </div>
               </div>
             </div>
@@ -160,8 +159,7 @@
                 Maybe, our servers may be down.
               </p>
               <hr>
-              <p class="mb-0">We are really sorry for this inconvenience. Please click on the load more button again.
-              </p>
+              <p class="mb-0">We are really sorry for this inconvenience. Please click on the load more button again.</p>
             </div>
           </div>
         </div>

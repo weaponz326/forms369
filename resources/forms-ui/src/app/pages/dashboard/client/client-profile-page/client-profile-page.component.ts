@@ -76,7 +76,7 @@ export class ClientProfilePageComponent implements OnInit, AfterViewInit {
   }
 
   ngOnInit() {
-    this.getAllFormSections();
+    // this.getAllFormSections();
   }
 
   ngAfterViewInit() {
@@ -318,6 +318,7 @@ export class ClientProfilePageComponent implements OnInit, AfterViewInit {
             this.pinCode = '';
             this.isLoading = false;
             this.pinDialogRef.close();
+            this.getAllFormSections();
           }
           else {
             this.isLoading = false;

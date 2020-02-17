@@ -1,11 +1,13 @@
 import * as _ from 'lodash';
+import Swal from 'sweetalert2';
 import { Router } from '@angular/router';
 import { Users } from 'src/app/models/users.model';
 import { NgbModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
 import { ClientService } from 'src/app/services/client/client.service';
 import { Component, OnInit, ViewChild, TemplateRef } from '@angular/core';
-import { LocalStorageService } from 'src/app/services/storage/local-storage.service';
 import { DateTimeService } from 'src/app/services/date-time/date-time.service';
+import { DownloaderService } from 'src/app/services/downloader/downloader.service';
+import { LocalStorageService } from 'src/app/services/storage/local-storage.service';
 
 @Component({
   selector: 'app-client-forms-history-page',
@@ -38,6 +40,7 @@ export class ClientFormsHistoryPageComponent implements OnInit {
     private modalService: NgbModal,
     private clientService: ClientService,
     private dateService: DateTimeService,
+    private downloadService: DownloaderService,
     private localStorageService: LocalStorageService
   ) {
     this.rejectionNote = '';
@@ -53,11 +56,20 @@ export class ClientFormsHistoryPageComponent implements OnInit {
     this.filterState = 'all';
   }
 
+  showDeleteFailedAlert() {
+    Swal.fire({
+      title: 'Oops!',
+      icon: 'error',
+      text: 'Failed to delete. Please check your internet connection and try again'
+    });
+  }
+
   handleLoadMoreVisibility(list: Array<any>) {
     _.isNull(list) || _.isUndefined(list) || _.isEmpty(list) || list.length <= 15 ? this.hasMore = false : this.hasMore = true;
   }
 
-  openFormEntry(form: any) {
+  openFormEntry(e: Event, form: any) {
+    e.stopPropagation();
     this.router.navigateByUrl('/client/form_entry', { state: { form: form }});
   }
 
@@ -247,12 +259,12 @@ export class ClientFormsHistoryPageComponent implements OnInit {
           this.historyCollection.splice(index, 1);
         }
         else {
-          alert('Failed to delete. Please try again!');
+          this.showDeleteFailedAlert();
         }
       },
       err => {
         console.log('error deleting form history');
-        alert('Failed to delete. Please try again!');
+        this.showDeleteFailedAlert();
       }
     );
   }
@@ -266,6 +278,17 @@ export class ClientFormsHistoryPageComponent implements OnInit {
         }
       }
     );
+  }
+
+  download(form: any) {
+    console.log('can_print: ' + this.user.can_print);
+    console.log(form);
+    // this.router.navigateByUrl('client/printing', { state: { form: form }});
+    this.router.navigateByUrl('client/pdf_printing', { state: { form: form } });
+    // this.router.navigateByUrl('client/pdf_printing');
+    // this.user.can_print == 0
+    //   ? this.router.navigateByUrl('client/printing')
+    //   : this.router.navigateByUrl('client/pdf_printing');
   }
 
   retry() {
