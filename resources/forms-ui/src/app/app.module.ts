@@ -5,7 +5,6 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { OrderModule } from 'ngx-order-pipe';
 import { ClipboardModule } from 'ngx-clipboard';
 import { PdfViewerModule } from 'ng2-pdf-viewer';
-import { DataTablesModule } from 'angular-datatables';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { HttpClientModule } from '@angular/common/http';
 import { AppRoutingModule } from './app-routing.module';
@@ -242,7 +241,6 @@ import { ClientPdfPrintingPageComponent } from './pages/dashboard/client/client-
     MatIconModule,
     MatInputModule,
     MatSelectModule,
-    DataTablesModule,
     ReactiveFormsModule,
     MatDatepickerModule,
     MatNativeDateModule,

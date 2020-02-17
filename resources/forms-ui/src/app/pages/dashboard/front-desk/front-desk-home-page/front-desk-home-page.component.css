@@ -13,6 +13,7 @@
     border-left: none;
     border-right: none;
     text-align: center;
+    font-family: 'OpenSans_Bold';
 }
 
 input.form-control::placeholder {

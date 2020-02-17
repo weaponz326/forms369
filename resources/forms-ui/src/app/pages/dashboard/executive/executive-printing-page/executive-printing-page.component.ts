@@ -1,6 +1,8 @@
+declare var $: any;
 import * as _ from 'lodash';
+import * as jsPDF from 'jspdf';
 import { Printd } from 'printd';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, AfterViewInit } from '@angular/core';
 import { CompanyService } from 'src/app/services/company/company.service';
 import { EndpointService } from 'src/app/services/endpoint/endpoint.service';
 import { ReloadingService } from 'src/app/services/reloader/reloading.service';
@@ -11,11 +13,12 @@ import { LocalStorageService } from 'src/app/services/storage/local-storage.serv
   templateUrl: './executive-printing-page.component.html',
   styleUrls: ['./executive-printing-page.component.css']
 })
-export class ExecutivePrintingPageComponent implements OnInit {
+export class ExecutivePrintingPageComponent implements OnInit, AfterViewInit {
   form: any;
   client: any;
   logo: string;
   loading: boolean;
+  isPrint: boolean;
   hasError: boolean;
   formKeys: Array<string>;
   formValues: Array<string>;
@@ -34,6 +37,10 @@ export class ExecutivePrintingPageComponent implements OnInit {
   ngOnInit() {
   }
 
+  ngAfterViewInit() {
+    !this.isPrint ? this.download() : null;
+  }
+
   initVars() {
     this.formKeys = [];
     this.formValues = [];
@@ -43,6 +50,15 @@ export class ExecutivePrintingPageComponent implements OnInit {
     this.form = window.history.state.form;
     console.log('form: ' + JSON.stringify(this.form));
     this.form = this.reloader.resolveReloadDataLoss(this.form);
+
+    if (this.form.print == true) {
+      this.isPrint = true;
+      alert('print is true');
+    }
+    else {
+      this.isPrint = false;
+      alert('print is false');
+    }
 
     this.client = this.form.client_data;
     console.log('client: ' + JSON.stringify(this.client));
@@ -94,6 +110,16 @@ export class ExecutivePrintingPageComponent implements OnInit {
     else {
       return text;
     }
+  }
+
+  download() {
+    const doc = new jsPDF();
+    const filename = 'forms369_' + this.form.form_code + '_data';
+    doc.addHTML($('#form-data'), () => {
+      doc.save(filename + '.pdf');
+    });
+
+    window.history.back();
   }
 
   printViewCss() {

@@ -1,3 +1,4 @@
+declare var $: any;
 import * as _ from 'lodash';
 import * as jsPDF from 'jspdf';
 import { Component, OnInit, AfterViewInit } from '@angular/core';

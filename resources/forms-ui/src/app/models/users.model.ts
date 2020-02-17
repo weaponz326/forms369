@@ -24,6 +24,7 @@ export class Users {
         public email_verified_at?: string,
         public deleted_at?: string,
         public name?: string,
+        public can_download?: number,
         public id?: number
     ) {}
 }

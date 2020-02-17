@@ -16,8 +16,8 @@
 
   <div *ngIf="!loading" class="container" id="print-view">
     <div class="row">
-      <div class="col-8 offset-2">
-        <div class="img-view">
+      <div id="form-data" class="col-8 offset-2" style="background-color: #fff;">
+        <div *ngIf="!isPrint" class="img-view">
           <img [src]="logo" alt="logo" class="img-fluid">
         </div>
         <div class="title-view">

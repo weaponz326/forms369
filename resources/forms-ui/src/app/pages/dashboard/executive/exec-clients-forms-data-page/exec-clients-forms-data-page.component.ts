@@ -2,15 +2,15 @@ import * as _ from 'lodash';
 import * as moment from 'moment';
 import { Router } from '@angular/router';
 import { NgbModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
-import { ClientService } from 'src/app/services/client/client.service';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Component, OnInit, ViewChild, TemplateRef } from '@angular/core';
 import { LoggingService } from 'src/app/services/logging/logging.service';
+import { DateTimeService } from 'src/app/services/date-time/date-time.service';
 import { ReloadingService } from 'src/app/services/reloader/reloading.service';
 import { FrontDeskService } from 'src/app/services/front-desk/front-desk.service';
 import { DownloaderService } from 'src/app/services/downloader/downloader.service';
 import { LocalStorageService } from 'src/app/services/storage/local-storage.service';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { DateTimeService } from 'src/app/services/date-time/date-time.service';
+import { ClientService } from 'src/app/services/client/client.service';
 
 @Component({
   selector: 'app-exec-clients-forms-data-page',
@@ -31,11 +31,16 @@ export class ExecClientsFormsDataPageComponent implements OnInit {
   loadingMore: boolean;
   filterForm: FormGroup;
   hasMoreError: boolean;
+  hasNoAttachments: boolean;
   tableContents: Array<any>;
   clientFormData: Array<any>;
   tableHeaders: Array<string>;
+  loadingAttachments: boolean;
+  attachmentList: Array<any>;
   filterModalRef: NgbModalRef;
+  attachModalRef: NgbModalRef;
   alltableContents: Array<any>;
+  submittedFormData: Array<any>;
   @ViewChild('filter', { static: false }) filterModal: TemplateRef<any>;
   @ViewChild('attachment', { static: false }) attachmentsModal: TemplateRef<any>;
 
@@ -45,6 +50,7 @@ export class ExecClientsFormsDataPageComponent implements OnInit {
     private modalService: NgbModal,
     private logging: LoggingService,
     private dateTime: DateTimeService,
+    private clientService: ClientService,
     private reloadService: ReloadingService,
     private localStorage: LocalStorageService,
     private downloadService: DownloaderService,
@@ -71,10 +77,12 @@ export class ExecClientsFormsDataPageComponent implements OnInit {
     this.tableHeaders = [];
     this.tableContents = [];
     this.clientFormData = [];
+    this.attachmentList = [];
     this.alltableContents = [];
+    this.submittedFormData = [];
     this.form = window.history.state.form;
     this.user = this.localStorage.getUser();
-    console.log('form: ' + JSON.stringify(this.form));
+    this.logging.log('form: ' + JSON.stringify(this.form));
     this.form = this.reloadService.resolveReloadDataLoss(this.form);
   }
 
@@ -127,7 +135,12 @@ export class ExecClientsFormsDataPageComponent implements OnInit {
           this.getDataHeaders(res);
           this.getDataBody(res);
           console.log('submitted_data: ' + JSON.stringify(res));
-          this.clientFormData.push(res[0].client_submitted_details);
+          _.forEach(res, (data) => {
+            this.submittedFormData.push(data);
+            this.clientFormData.push(data.client_submitted_details);
+          });
+          // this.submittedFormData.push(res);
+          // this.clientFormData.push(res[0].client_submitted_details);
         }
       },
       err => {
@@ -168,8 +181,40 @@ export class ExecClientsFormsDataPageComponent implements OnInit {
     }
   }
 
+  getAttachments(index: number) {
+    console.log('indeX: ' + index);
+    console.log('daaaaaata: ' + JSON.stringify(this.submittedFormData[index]));
+    this.loadingAttachments = true;
+    const selected_form = this.submittedFormData[index];
+    this.clientService.getFormAttachment(selected_form.submission_code).then(
+      files => {
+        console.log('aaaaaaa: ' + files.length);
+        if (files.length == 0) {
+          this.loadingAttachments = false;
+          this.hasNoAttachments = true;
+        }
+        else {
+          this.loadingAttachments = false;
+          _.forEach(files, (file) => {
+            this.attachmentList.push(file);
+          });
+        }
+      },
+      err => {
+        this.logging.log('error: ' + JSON.stringify(err));
+      }
+    );
+  }
+
   openFilterModal() {
     this.filterModalRef = this.modalService.open(this.filterModal, { centered: true });
+  }
+
+  openAttachmentModal(index: number) {
+    this.attachModalRef = this.modalService.open(this.attachmentsModal, { centered: true });
+    this.attachmentList = [];
+    this.hasNoAttachments = false;
+    this.getAttachments(index);
   }
 
   downloadAll(format: string) {
@@ -206,9 +251,19 @@ export class ExecClientsFormsDataPageComponent implements OnInit {
     this.downloadService.exportToExcel(table_id, filename);
   }
 
+  downloadDataPdf(index: number) {
+    const print_data = {
+      print: false,
+      form_data: this.form.form_fields,
+      client_data: this.clientFormData[index],
+    };
+    this.router.navigateByUrl('executive/pdf_printing', { state: { form: print_data } });
+  }
+
   print(e: Event, index: number) {
     e.stopPropagation();
     const print_data = {
+      print: true,
       form_data: this.form.form_fields,
       client_data: this.clientFormData[index],
     };
