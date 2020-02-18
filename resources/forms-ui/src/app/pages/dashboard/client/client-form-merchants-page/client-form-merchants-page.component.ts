@@ -187,7 +187,7 @@ export class ClientFormMerchantsPageComponent implements OnInit {
         this.formsList = [];
         this.companyList = [];
         if (/\d/.test(this.query)) {
-          if (this.query.length == 6) {
+          if (this.query.length == 5) {
             // search fby form code, based on the input
             // the user might be searching by a form code.
             console.log('searching by form code');

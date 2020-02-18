@@ -38,7 +38,7 @@
         <div *ngIf="loading" class="row m-5">
           <div class="col-md-12 m-5">
             <div class="d-flex justify-content-center">
-              <div class="spinner-border m-5" style="width: 5rem; height: 5rem;" role="status">
+              <div class="spinner-border m-5" style="width: 3rem; height: 3rem;" role="status">
                 <span class="sr-only">Loading...</span>
               </div>
             </div>
@@ -99,7 +99,7 @@
                      <thead>
                        <tr>
                          <th *ngFor="let header of tableHeaders"><strong class="text-uppercase">{{ header }}</strong></th>
-                         <th> <strong class="text-uppercase">Submitted At</strong></th>
+                         <th><strong class="text-uppercase">Submitted At</strong></th>
                          <th><strong class="text-uppercase">Actions</strong></th>
                        </tr>
                      </thead>
@@ -172,7 +172,7 @@
       <span aria-hidden="true">&times;</span>
     </button>
   </div>
-  <div class="modal-body d-block">
+  <div class="modal-body" style="padding: 0px;">
     <div *ngIf="loadingAttachments" class="row m-md-2">
       <div class="col-md-12 col-sm-12">
         <div class="d-flex justify-content-center">
@@ -188,6 +188,38 @@
         <i class="mdi mdi-image-multiple" style="font-size: 8em;"></i>
         <h1 class="display-4 pt-2">No Attachments found</h1>
         <h5>No attachments found for this form.</h5>
+      </div>
+    </div>
+
+    <div *ngIf="!hasNoAttachments" class="row m-md-2">
+      <div *ngIf="!hasDocuments" id="carouselEx" class="carousel slide" data-ride="carousel">
+        <ol class="carousel-indicators">
+          <li *ngFor="let item of attachmentList; let i=index" data-target="#carouselEx" [attr.data-slide-to]="i"
+            [ngClass]="{'active': isFirst(i)}"></li>
+        </ol>
+        <div class="carousel-inner">
+          <div *ngFor="let item of attachmentList" class="carousel-item active">
+            <img [src]="item.url" class="d-block w-100" alt="Attachment Image">
+            <div class="carousel-caption d-none d-md-block">
+              <h5>{{ transformText(item.key) }}</h5>
+            </div>
+          </div>
+        </div>
+        <a class="carousel-control-prev" href="#carouselEx" role="button" data-slide="prev">
+          <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+          <span class="sr-only">Previous</span>
+        </a>
+        <a class="carousel-control-next" href="#carouselEx" role="button" data-slide="next">
+          <span class="carousel-control-next-icon" aria-hidden="true"></span>
+          <span class="sr-only">Next</span>
+        </a>
+      </div>
+
+      <div *ngIf="hasDocuments" class="list-group">
+        <a *ngFor="let item of attachmentList" class="list-group-item list-group-item-action"
+          (click)="openModal($event, item.url)">
+          {{ transformText(item.key) | uppercase }} : {{ transformUrl(item.url) }}
+        </a>
       </div>
     </div>
   </div>
@@ -239,11 +271,39 @@
     </div>
     <div class="modal-footer">
       <button type="button" class="btn btn-outline-primary" (click)="modal.dismiss()">Cancel</button>
+      <button type="button" class="btn btn-primary" (click)="resetFilter()">Reset</button>
       <button type="submit" class="btn btn-primary">Filter</button>
-      <button *ngIf="isLoading" class="btn btn-primary btn-lg mr-2" type="button" disabled>
-        <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
-        <span class="sr-only">Please wait...</span>
-      </button>
     </div>
   </form>
+</ng-template>
+
+<ng-template #viewImgAttachment let-modal>
+  <div class="modal-header">
+    <h5 class="modal-title" id="modal-title">Attachment File</h5>
+    <button type="button" class="close" aria-describedby="modal-title" (click)="modal.close()">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body" style="padding: 0px;">
+    <img [src]="imgUrl" style="width: 100%;">
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-primary-outline" (click)="modal.close()">Close</button>
+  </div>
+</ng-template>
+
+<ng-template #viewDocAttachment let-modal>
+  <div class="modal-header">
+    <h5 class="modal-title" id="modal-title">Attachment File</h5>
+    <button type="button" class="close" aria-describedby="modal-title" (click)="modal.close()">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <p>This document type cannot be viewed. Please download</p>
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-outline-primary" (click)="modal.close()">Close</button>
+    <button type="button" class="btn btn-primary" (click)="downloadDoc(documentUrl)">Download</button>
+  </div>
 </ng-template>

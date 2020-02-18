@@ -3,14 +3,15 @@ import * as moment from 'moment';
 import { Router } from '@angular/router';
 import { NgbModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { ClientService } from 'src/app/services/client/client.service';
 import { Component, OnInit, ViewChild, TemplateRef } from '@angular/core';
 import { LoggingService } from 'src/app/services/logging/logging.service';
+import { EndpointService } from 'src/app/services/endpoint/endpoint.service';
 import { DateTimeService } from 'src/app/services/date-time/date-time.service';
 import { ReloadingService } from 'src/app/services/reloader/reloading.service';
 import { FrontDeskService } from 'src/app/services/front-desk/front-desk.service';
 import { DownloaderService } from 'src/app/services/downloader/downloader.service';
 import { LocalStorageService } from 'src/app/services/storage/local-storage.service';
-import { ClientService } from 'src/app/services/client/client.service';
 
 @Component({
   selector: 'app-exec-clients-forms-data-page',
@@ -21,6 +22,7 @@ export class ExecClientsFormsDataPageComponent implements OnInit {
 
   form: any;
   user: any;
+  imgUrl: string;
   keys: Array<any>;
   hasMore: boolean;
   hasData: boolean;
@@ -28,11 +30,14 @@ export class ExecClientsFormsDataPageComponent implements OnInit {
   hasError: boolean;
   isLoading: boolean;
   submitted: boolean;
+  documentUrl: string;
   loadingMore: boolean;
   filterForm: FormGroup;
   hasMoreError: boolean;
+  hasDocuments: boolean;
   hasNoAttachments: boolean;
   tableContents: Array<any>;
+  respondentData: Array<any>;
   clientFormData: Array<any>;
   tableHeaders: Array<string>;
   loadingAttachments: boolean;
@@ -43,6 +48,8 @@ export class ExecClientsFormsDataPageComponent implements OnInit {
   submittedFormData: Array<any>;
   @ViewChild('filter', { static: false }) filterModal: TemplateRef<any>;
   @ViewChild('attachment', { static: false }) attachmentsModal: TemplateRef<any>;
+  @ViewChild('viewDocAttachment', { static: false }) viewDocDialog: TemplateRef<any>;
+  @ViewChild('viewImgAttachment', { static: false }) viewImgDialog: TemplateRef<any>;
 
   constructor(
     private router: Router,
@@ -52,6 +59,7 @@ export class ExecClientsFormsDataPageComponent implements OnInit {
     private dateTime: DateTimeService,
     private clientService: ClientService,
     private reloadService: ReloadingService,
+    private endpointService: EndpointService,
     private localStorage: LocalStorageService,
     private downloadService: DownloaderService,
     private frontDeskService: FrontDeskService,
@@ -78,6 +86,7 @@ export class ExecClientsFormsDataPageComponent implements OnInit {
     this.tableContents = [];
     this.clientFormData = [];
     this.attachmentList = [];
+    this.respondentData = [];
     this.alltableContents = [];
     this.submittedFormData = [];
     this.form = window.history.state.form;
@@ -91,6 +100,7 @@ export class ExecClientsFormsDataPageComponent implements OnInit {
   }
 
   getDataHeaders(res: any) {
+    this.tableHeaders = [];
     const form_fields = this.form.form_fields;
     const client_data_key = _.keys(res[0].client_submitted_details);
 
@@ -109,7 +119,8 @@ export class ExecClientsFormsDataPageComponent implements OnInit {
 
   getDataBody(res: any) {
     let objArr = [];
-    this.alltableContents = res[0].client_submitted_details;
+    // this.tableContents = [];
+    // this.alltableContents = res[0].client_submitted_details;
     _.forEach(res, data => {
       _.forEach(this.keys, k => {
         objArr.push(data.client_submitted_details[k]);
@@ -134,13 +145,11 @@ export class ExecClientsFormsDataPageComponent implements OnInit {
           this.hasData = true;
           this.getDataHeaders(res);
           this.getDataBody(res);
-          console.log('submitted_data: ' + JSON.stringify(res));
+          this.respondentData = res;
           _.forEach(res, (data) => {
             this.submittedFormData.push(data);
             this.clientFormData.push(data.client_submitted_details);
           });
-          // this.submittedFormData.push(res);
-          // this.clientFormData.push(res[0].client_submitted_details);
         }
       },
       err => {
@@ -158,9 +167,20 @@ export class ExecClientsFormsDataPageComponent implements OnInit {
         this.loadingMore = false;
         this.hasMoreError = false;
         this.hasMore = this.checkIfHasMore();
-        this.getDataHeaders(res);
-        this.getDataBody(res);
-        this.loading = false;
+        console.log('res: ' + JSON.stringify(res));
+        if (res.length == 0) {
+          this.hasData = false;
+        }
+        else {
+          this.hasData = true;
+          this.getDataHeaders(res);
+          this.getDataBody(res);
+          console.log('submitted_data: ' + JSON.stringify(res));
+          _.forEach(res, (data) => {
+            this.submittedFormData.push(data);
+            this.clientFormData.push(data.client_submitted_details);
+          });
+        }
       },
       err => {
         this.loadingMore = false;
@@ -181,11 +201,29 @@ export class ExecClientsFormsDataPageComponent implements OnInit {
     }
   }
 
+  transformUrl(url: string) {
+    const index = url.lastIndexOf('/') + 1;
+    return url.substr(index);
+  }
+
+  isFirst(index: number) {
+    return index == 0 ? true : false;
+  }
+
+  isImageFile(url: string) {
+    const index = url.lastIndexOf('.') + 1;
+    const extension = url.substr(index);
+    return extension == 'jpeg' || extension == 'png' || extension == 'jpg' || extension == 'gif'
+      ? true
+      : false;
+  }
+
   getAttachments(index: number) {
     console.log('indeX: ' + index);
     console.log('daaaaaata: ' + JSON.stringify(this.submittedFormData[index]));
     this.loadingAttachments = true;
     const selected_form = this.submittedFormData[index];
+    const host = this.endpointService.apiHost + 'storage/attachments/';
     this.clientService.getFormAttachment(selected_form.submission_code).then(
       files => {
         console.log('aaaaaaa: ' + files.length);
@@ -196,6 +234,10 @@ export class ExecClientsFormsDataPageComponent implements OnInit {
         else {
           this.loadingAttachments = false;
           _.forEach(files, (file) => {
+            if (!this.isImageFile(file.url)) {
+              this.hasDocuments = true;
+            }
+            file.url = host + file.url;
             this.attachmentList.push(file);
           });
         }
@@ -215,6 +257,27 @@ export class ExecClientsFormsDataPageComponent implements OnInit {
     this.attachmentList = [];
     this.hasNoAttachments = false;
     this.getAttachments(index);
+  }
+
+  openModal(e: Event, url: string) {
+    if (this.isImageFile(url)) {
+      this.openImageAttachmentModal(e, url);
+    }
+    else {
+      this.openDocumentAttachmentModal(e, url);
+    }
+  }
+
+  openImageAttachmentModal(e: Event, url: string) {
+    e.stopPropagation();
+    this.imgUrl = url;
+    this.modalService.open(this.viewImgDialog, { centered: true });
+  }
+
+  openDocumentAttachmentModal(e: Event, url: string) {
+    e.stopPropagation();
+    this.documentUrl = url;
+    this.modalService.open(this.viewDocDialog, { centered: true });
   }
 
   downloadAll(format: string) {
@@ -277,6 +340,23 @@ export class ExecClientsFormsDataPageComponent implements OnInit {
     this.getAllRespondentsData();
   }
 
+  handleFilterDataFilling(array: Array<any>) {
+    this.keys = [];
+    this.tableContents = [];
+    this.getDataHeaders(array);
+    this.getDataBody(array);
+    console.log('submitted_data: ' + JSON.stringify(array));
+    _.forEach(array, (data) => {
+      this.submittedFormData.push(data);
+      this.clientFormData.push(data.client_submitted_details);
+    });
+  }
+
+  resetFilter() {
+    this.handleFilterDataFilling(this.respondentData);
+    this.filterModalRef.close();
+  }
+
   onFilter() {
     this.submitted = true;
     if (this.filterForm.valid) {
@@ -304,8 +384,17 @@ export class ExecClientsFormsDataPageComponent implements OnInit {
     const end_date = end.year + '-' + end_month + '-' + end.day;
     const start_date = start.year + '-' + start_month + '-' + start.day;
     console.log(start_date);
-    console.log(end_date);
+    console.log(end_month);
 
+    let submitted_forms = this.respondentData;
+    submitted_forms = _.filter(submitted_forms,
+      (f) =>
+      this.dateTime.getDatePart(f.submitted_at) >= start_date &&
+      this.dateTime.getDatePart(f.submitted_at) <= end_date
+    );
+
+    console.log('submitted: ' + JSON.stringify(submitted_forms));
+    submitted_forms.length != 0 ? this.handleFilterDataFilling(submitted_forms) : this.tableContents = [];
     this.filterModalRef.close();
   }
 
@@ -324,6 +413,16 @@ export class ExecClientsFormsDataPageComponent implements OnInit {
     console.log(start_date);
     console.log(end_date);
 
+    let submitted_forms = this.respondentData;
+    submitted_forms = _.filter(submitted_forms,
+      (f) =>
+        this.dateTime.getDatePart(f.last_processed) >= start_date &&
+        this.dateTime.getDatePart(f.last_processed) <= end_date
+    );
+
+    console.log('submitted: ' + JSON.stringify(submitted_forms));
+
+    submitted_forms.length != 0 ? this.handleFilterDataFilling(submitted_forms) : this.tableContents = [];
     this.filterModalRef.close();
   }
 

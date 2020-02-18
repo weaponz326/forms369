@@ -46,12 +46,17 @@
                       <div class="card mb-4">
                         <div class="card-body">
                         <h5 class="card-title">Form Attachments / Documents</h5>
-                          <h6 class="card-subtitle mb-2 text-muted">Below are attachments you've uploaded for this form</h6>
+                          <!-- <h6 class="card-subtitle mb-2 text-muted">Below are attachments you've uploaded for this form</h6> -->
                           <div class="row" *ngFor="let file of existingAttachments">
                             <div class="col-11" style="padding-right: 8px;">
                               <ol class="files-list">
+                                <!-- <li class="file-item">
+                                  <i class="mdi mdi-paperclip menu-icon"></i>
+                                  <a class="alert-link file-link" (click)="openModal($event, file.url)">{{ file.url }}</a>
+                                </li> -->
                                 <li class="file-item">
                                   <i class="mdi mdi-paperclip menu-icon"></i>
+                                  <h5 class="file-link-title"><strong>{{ transformToRealText(file.key) }}</strong></h5>
                                   <a class="alert-link file-link" (click)="openModal($event, file.url)">{{ file.url }}</a>
                                 </li>
                               </ol>

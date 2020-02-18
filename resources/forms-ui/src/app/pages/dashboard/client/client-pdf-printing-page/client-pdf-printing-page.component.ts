@@ -7,9 +7,9 @@ import { Component, OnInit, Input } from '@angular/core';
 import { FormGroup, FormControl, FormBuilder } from '@angular/forms';
 import { EndpointService } from 'src/app/services/endpoint/endpoint.service';
 import { PDFAnnotationData, PDFPageProxy, PDFProgressData } from 'pdfjs-dist';
+import { ReloadingService } from 'src/app/services/reloader/reloading.service';
 import { FrontDeskService } from 'src/app/services/front-desk/front-desk.service';
 import { LocalStorageService } from 'src/app/services/storage/local-storage.service';
-import { ReloadingService } from 'src/app/services/reloader/reloading.service';
 
 @Component({
   selector: 'app-client-pdf-printing-page',
@@ -54,7 +54,9 @@ export class ClientPdfPrintingPageComponent implements OnInit {
     this.frontDeskService.getPrintPDFFile(this.form.form_code, this.user.merchant_id.toString()).then(
       file => {
         if (_.isUndefined(file) || _.isNull(file)) {
-          alert('No PDF file is available for this form. Redirecting you to do a default printing');
+          this.form.print == true
+            ? alert('No PDF file is available for this form. Redirecting you to do a default printing')
+            : alert('No PDF file is available for this form. Redirecting ...');
           this.router.navigateByUrl('client/printing', { state: { form: this.form }, replaceUrl: true });
         }
         else {

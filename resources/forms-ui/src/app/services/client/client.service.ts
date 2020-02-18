@@ -176,13 +176,15 @@ export class ClientService {
    * @returns {Promise<any>}
    * @memberof ClientService
    */
-  getFormByStatus(id: string, status: string): Promise<any> {
+  getFormByStatus(id: string, status: number): Promise<any> {
     return new Promise((resolve, reject) => {
       const url = this.endpointService.apiHost + 'api/v1/getClientFormsByStatus/' + id + '/' + status;
       this.http.get(url, { headers: this.headers }).subscribe(
         res => {
           const response = res as any;
-          resolve(response.forms);
+          console.log('fbs: ' + JSON.stringify(response));
+          this.nextPaginationUrl = response.forms.next_page_url;
+          resolve(response.forms.data);
         },
         err => {
           reject(err);

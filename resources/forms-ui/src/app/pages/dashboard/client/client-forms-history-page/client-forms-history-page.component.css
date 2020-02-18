@@ -37,7 +37,7 @@ and (max-device-width: 825px) {
 
 .msg-container {
     background-color: #f8f8f8;
-    padding: 20px 40px;
+    padding: 20px 12px;
     border: 1px solid #ddd;
     border-top-right-radius: 26px;
     border-bottom-left-radius: 26px;

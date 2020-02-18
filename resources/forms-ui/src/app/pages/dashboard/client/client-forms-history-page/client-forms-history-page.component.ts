@@ -79,27 +79,136 @@ export class ClientFormsHistoryPageComponent implements OnInit {
 
   showAll() {
     this.filterState = 'all';
-    this.historyCollection =  this.allHistoryCollection;
-    const moreUrl = this.clientService.nextPaginationUrl;
-    _.isNull(moreUrl) ? this.hasMore = false : this.hasMore = true;
+    this.getAllHistory();
+    // this.historyCollection =  this.allHistoryCollection;
+    // const moreUrl = this.clientService.nextPaginationUrl;
+    // _.isNull(moreUrl) ? this.hasMore = false : this.hasMore = true;
   }
 
   showProcessed() {
     this.filterState = 'processed';
-    this.historyCollection = _.filter(this.allHistoryCollection, (history) => history.form_status == 2);
-    this.hasMore ? this.handleLoadMoreVisibility(this.historyCollection) : null;
+    this.loading = true;
+    this.historyCollection = [];
+    this.allHistoryCollection = [];
+    this.clientService.getFormByStatus(_.toString(this.user.id), 2).then(
+      forms => {
+        this.hasMore = this.checkIfHasMore();
+        if (forms.length > 0) {
+          this.hasData = true;
+          this.loading = false;
+          _.forEach(forms, (form) => {
+            form.submitted_at = this.dateService.safeDateFormat(form.submitted_at);
+            this.historyCollection.push(form);
+          });
+          this.allHistoryCollection = this.historyCollection;
+          this.hasMore ? this.handleLoadMoreVisibility(this.historyCollection) : null;
+        }
+        else {
+          this.hasData = false;
+          this.loading = false;
+        }
+      },
+      err => {
+        this.hasError = true;
+        this.loading = false;
+      }
+    );
   }
 
   showProcessing() {
     this.filterState = 'processing';
-    this.historyCollection = _.filter(this.allHistoryCollection, (history) => history.form_status == 1);
-    this.hasMore ? this.handleLoadMoreVisibility(this.historyCollection) : null;
+    this.loading = true;
+    this.historyCollection = [];
+    this.allHistoryCollection = [];
+    this.clientService.getFormByStatus(_.toString(this.user.id), 1).then(
+      forms => {
+        this.hasMore = this.checkIfHasMore();
+        if (forms.length > 0) {
+          this.hasData = true;
+          this.loading = false;
+          _.forEach(forms, (form) => {
+            form.submitted_at = this.dateService.safeDateFormat(form.submitted_at);
+            this.historyCollection.push(form);
+          });
+          this.allHistoryCollection = this.historyCollection;
+          const moreUrl = this.clientService.nextPaginationUrl;
+          _.isNull(moreUrl) ? this.hasMore = false : this.hasMore = true;
+          // this.hasMore ? this.handleLoadMoreVisibility(this.historyCollection) : null;
+        }
+        else {
+          this.hasData = false;
+          this.loading = false;
+        }
+      },
+      err => {
+        this.hasError = true;
+        this.loading = false;
+      }
+    );
+  }
+
+  showSubmitted() {
+    this.filterState = 'submitted';
+    this.loading = true;
+    this.historyCollection = [];
+    this.allHistoryCollection = [];
+    this.clientService.getFormByStatus(_.toString(this.user.id), 0).then(
+      forms => {
+        this.hasMore = this.checkIfHasMore();
+        if (forms.length > 0) {
+          this.hasData = true;
+          this.loading = false;
+          _.forEach(forms, (form) => {
+            form.submitted_at = this.dateService.safeDateFormat(form.submitted_at);
+            this.historyCollection.push(form);
+          });
+          this.allHistoryCollection = this.historyCollection;
+          const moreUrl = this.clientService.nextPaginationUrl;
+          _.isNull(moreUrl) ? this.hasMore = false : this.hasMore = true;
+          // this.hasMore ? this.handleLoadMoreVisibility(this.historyCollection) : null;
+        }
+        else {
+          this.hasData = false;
+          this.loading = false;
+        }
+      },
+      err => {
+        this.hasError = true;
+        this.loading = false;
+      }
+    );
   }
 
   showRejected() {
     this.filterState = 'rejected';
-    this.historyCollection = _.filter(this.allHistoryCollection, (history) => history.form_status == 3);
-    this.hasMore ? this.handleLoadMoreVisibility(this.historyCollection) : null;
+    this.loading = true;
+    this.historyCollection = [];
+    this.allHistoryCollection = [];
+    this.clientService.getFormByStatus(_.toString(this.user.id), 3).then(
+      forms => {
+        this.hasMore = this.checkIfHasMore();
+        if (forms.length > 0) {
+          this.hasData = true;
+          this.loading = false;
+          _.forEach(forms, (form) => {
+            form.submitted_at = this.dateService.safeDateFormat(form.submitted_at);
+            this.historyCollection.push(form);
+          });
+          this.allHistoryCollection = this.historyCollection;
+          const moreUrl = this.clientService.nextPaginationUrl;
+          _.isNull(moreUrl) ? this.hasMore = false : this.hasMore = true;
+          // this.hasMore ? this.handleLoadMoreVisibility(this.historyCollection) : null;
+        }
+        else {
+          this.hasData = false;
+          this.loading = false;
+        }
+      },
+      err => {
+        this.hasError = true;
+        this.loading = false;
+      }
+    );
   }
 
   checkIfHasMore() {

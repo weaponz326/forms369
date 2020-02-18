@@ -84,7 +84,7 @@ export class ClientPrintingPageComponent implements OnInit, AfterViewInit {
   }
 
   download() {
-    const doc = new jsPDF();
+    const doc = new jsPDF('p', 'pt', 'letter');
     const filename = 'forms369_' + this.form.form_code + '_data';
     doc.addHTML($('#form-data'), () => {
       doc.save(filename + '.pdf');

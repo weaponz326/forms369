@@ -115,6 +115,11 @@
                             <input type="{{ item.type }}" id="{{ item.name }}" name="{{ item.name }}" class="form-control">
                           </div>
 
+                          <div *ngIf="item.type == 'textarea'">
+                            <label><strong>{{ item.label }}</strong></label>
+                            <textarea id="{{ item.name }}" name="{{ item.name }}" class="form-control"></textarea>
+                          </div>
+
                           <div *ngIf="item.type == 'radio-group'">
                             <label><strong>{{ item.label }}</strong></label>
                             <div style="width: 100%; float: left;" *ngFor="let radio of item.values">
@@ -141,8 +146,12 @@
                             <input multiple type="{{ item.type }}" id="{{ item.name }}" name="{{ item.name }}" class="form-control">
                           </div>
 
+                          <div *ngIf="item.type == 'header'">
+                            <h3>{{ item.label }}</h3>
+                          </div>
+
                           <div *ngIf="item.type == 'paragraph'">
-                            <label>{{ item.label }}</label>
+                            <p>{{ item.label }}</p>
                           </div>
                         </div>
                       </div>
@@ -162,8 +171,8 @@
                           <div class="card mb-4">
                             <div class="card-body">
                               <h5 class="card-title">Form Attachments / Documents</h5>
-                              <h6 class="card-subtitle mb-2 text-muted">Below are attachments you've uploaded for this
-                                form</h6>
+                              <!-- <h6 class="card-subtitle mb-2 text-muted">Below are attachments you've uploaded for this
+                                form</h6> -->
                               <div class="row" *ngFor="let file of existingAttachments; let i = index">
                                 <div class="col-10" style="padding-right: 8px;">
                                   <ol class="files-list">

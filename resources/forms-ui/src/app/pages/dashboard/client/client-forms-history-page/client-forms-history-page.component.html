@@ -79,9 +79,10 @@
         </div>
         
         <div *ngIf="!loading && hasData" class="row">
-          <div class="col-12 text-center mb-3">
+          <div class="col-12 text-center mb-3" style="overflow-y: hidden;">
             <div class="btn-group" role="group" aria-label="Filter By">
               <button type="button" class="btn btn-outline-primary" [ngClass]="{'active': filterState == 'all'}" (click)="showAll()">All</button>
+              <button type="button" class="btn btn-outline-primary" [ngClass]="{'active': filterState == 'submitted'}" (click)="showSubmitted()">Submitted</button>
               <button type="button" class="btn btn-outline-primary" [ngClass]="{'active': filterState == 'processed'}" (click)="showProcessed()">Processed</button>
               <button type="button" class="btn btn-outline-primary" [ngClass]="{'active': filterState == 'processing'}" (click)="showProcessing()">Processing</button>
               <button type="button" class="btn btn-outline-primary" [ngClass]="{'active': filterState == 'rejected'}" (click)="showRejected()">Rejected</button>

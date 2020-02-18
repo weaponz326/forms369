@@ -52,3 +52,12 @@ table .dropdown .dropdown-toggle:after {
 .dropdown-menu.show {
     border: 1px solid #ddd;
 }
+
+.list-group-item {
+    cursor: pointer;
+    font-family: 'OpenSans_SemiBold';
+}
+
+a:not([href]):not([tabindex]).list-group-item:hover {
+    text-decoration: underline;
+}
