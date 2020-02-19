@@ -122,6 +122,7 @@ import { ExecutivePdfPrintingPageComponent } from './pages/dashboard/executive/e
 import { ClientPrintingPageComponent } from './pages/dashboard/client/client-printing-page/client-printing-page.component';
 import { ClientPdfPrintingPageComponent } from './pages/dashboard/client/client-pdf-printing-page/client-pdf-printing-page.component';
 import { InvalidPasswordResetPageComponent } from './pages/invalid-password-reset-page/invalid-password-reset-page.component';
+import { ClientFormNewEntryPageComponent } from './pages/dashboard/client/client-form-new-entry-page/client-form-new-entry-page.component';
 
 @NgModule({
   declarations: [
@@ -228,6 +229,7 @@ import { InvalidPasswordResetPageComponent } from './pages/invalid-password-rese
     ClientPrintingPageComponent,
     ClientPdfPrintingPageComponent,
     InvalidPasswordResetPageComponent,
+    ClientFormNewEntryPageComponent,
   ],
   imports: [
     BrowserModule,

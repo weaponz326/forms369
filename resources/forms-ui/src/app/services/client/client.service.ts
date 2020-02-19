@@ -203,6 +203,7 @@ export class ClientService {
    * @memberof ClientService
    */
   autoFillFormData(form_data: Array<any>, client_data: Array<any>) {
+    console.log('client_data: ' + JSON.stringify(client_data));
     _.forEach(form_data, (form, i) => {
       if (!_.isUndefined(form.name)) {
         const element_names =  document.getElementsByName(form.name);

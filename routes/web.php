@@ -250,6 +250,11 @@ Route::get('client/form_entry', function () {
     return View::make('index');
 });
 
+Route::get('client/fill_form', function () {
+    View::addExtension('html', 'php');
+    return View::make('index');
+});
+
 Route::get('client/form_link', function () {
     View::addExtension('html', 'php');
     return View::make('index');

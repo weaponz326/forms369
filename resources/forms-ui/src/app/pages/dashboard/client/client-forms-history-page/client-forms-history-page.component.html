@@ -20,7 +20,7 @@
           </div>
         </div>
 
-        <div *ngIf="loading" class="row m-5">
+        <!-- <div *ngIf="loading" class="row m-5">
           <div class="col-md-12 p-md-5">
             <div class="d-flex justify-content-center">
               <div class="spinner-border m-5" style="width: 3rem; height: 3rem;" role="status">
@@ -28,7 +28,7 @@
               </div>
             </div>
           </div>
-        </div>
+        </div> -->
 
         <div *ngIf="!hasData && !loading" class="row">
           <div class="col-lg-12 grid-margin stretch-card">
@@ -44,7 +44,7 @@
                   </div>
                   <div class="card-text">
                     <h3>No Available Form History</h3>
-                    <p class="text-muted">You havent filled any forms yet! All the forms you filled will be displayed here to make it easy to re-fill again.</p>
+                    <p class="text-muted">You haven't filled any forms yet! All the forms you filled will be displayed here to make it easy to re-fill again.</p>
                   </div>
                   <div class="card-text mt-5">
                     <button class="btn btn-primary" type="button" (click)="pickForm()">Pick A Form</button>
@@ -78,7 +78,7 @@
           </div>
         </div>
         
-        <div *ngIf="!loading && hasData" class="row">
+        <div class="row">
           <div class="col-12 text-center mb-3" style="overflow-y: hidden;">
             <div class="btn-group" role="group" aria-label="Filter By">
               <button type="button" class="btn btn-outline-primary" [ngClass]="{'active': filterState == 'all'}" (click)="showAll()">All</button>
@@ -98,7 +98,17 @@
               </form>
             </div>
           </div>
+        </div>
 
+        <div *ngIf="loading" class="col-12 p-md-5">
+          <div class="d-flex justify-content-center">
+            <div class="spinner-border m-5" style="width: 3rem; height: 3rem;" role="status">
+              <span class="sr-only">Loading...</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="row" *ngIf="!loading && hasData">
           <div class="col-md-4 grid-margin stretch-card" *ngFor="let form of historyCollection; let i=index">
             <div class="card hover-cursor">
               <div class="align-right">

@@ -1,0 +1,72 @@
+@media only screen 
+and (min-device-width: 320px) 
+and (max-device-width: 825px) {
+    .buttons-list .btn-lg {
+        padding: 1rem 2rem;
+    }
+}
+
+/* .breadcrumb {
+    padding-top: 3px;
+    padding-bottom: 5px;
+} */
+
+li.file-item > i {
+    top: 17px;
+    left: 40px;
+    font-size: 20px;
+    position: absolute;
+}
+
+li.file-item a {
+    position: relative;
+    margin-left: 45px;
+}
+
+h5.file-link-title {
+    font-size: 0.85rem;
+    text-transform: capitalize;
+    margin-left: 45px;
+    margin-top: 9px;
+    margin-bottom: 0px;
+}
+
+ol li {
+    line-height: 1.8;
+    white-space: pre-wrap;
+    word-break: break-word;
+}
+
+ol.files-list {
+    list-style: none;
+    margin-bottom: 0rem;
+}
+
+li.file-item {
+    padding: 5px 10px;
+    margin: 4px 0px;
+    background-color: #eee;
+}
+
+a:not([href]):not([tabindex]),
+a:not([href]):not([tabindex]):hover {
+    cursor: pointer;
+    text-decoration: underline;
+    color: rgb(76, 131, 255);
+}
+
+.pin-control {
+    font-size: 35px;
+    text-align: center;
+    padding: 20px 20px;
+    letter-spacing: 14px;
+}
+
+.pin-form-group {
+    width: 50%;
+    margin: 0 auto;
+}
+
+.pin-control::placeholder {
+    color: #bbb;
+}

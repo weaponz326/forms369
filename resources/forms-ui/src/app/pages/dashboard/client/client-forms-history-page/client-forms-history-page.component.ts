@@ -104,7 +104,7 @@ export class ClientFormsHistoryPageComponent implements OnInit {
           this.hasMore ? this.handleLoadMoreVisibility(this.historyCollection) : null;
         }
         else {
-          this.hasData = false;
+          this.hasData = true;
           this.loading = false;
         }
       },
@@ -136,7 +136,7 @@ export class ClientFormsHistoryPageComponent implements OnInit {
           // this.hasMore ? this.handleLoadMoreVisibility(this.historyCollection) : null;
         }
         else {
-          this.hasData = false;
+          this.hasData = true;
           this.loading = false;
         }
       },
@@ -168,7 +168,7 @@ export class ClientFormsHistoryPageComponent implements OnInit {
           // this.hasMore ? this.handleLoadMoreVisibility(this.historyCollection) : null;
         }
         else {
-          this.hasData = false;
+          this.hasData = true;
           this.loading = false;
         }
       },
@@ -200,7 +200,7 @@ export class ClientFormsHistoryPageComponent implements OnInit {
           // this.hasMore ? this.handleLoadMoreVisibility(this.historyCollection) : null;
         }
         else {
-          this.hasData = false;
+          this.hasData = true;
           this.loading = false;
         }
       },
@@ -392,12 +392,7 @@ export class ClientFormsHistoryPageComponent implements OnInit {
   download(form: any) {
     console.log('can_print: ' + this.user.can_print);
     console.log(form);
-    // this.router.navigateByUrl('client/printing', { state: { form: form }});
     this.router.navigateByUrl('client/pdf_printing', { state: { form: form } });
-    // this.router.navigateByUrl('client/pdf_printing');
-    // this.user.can_print == 0
-    //   ? this.router.navigateByUrl('client/printing')
-    //   : this.router.navigateByUrl('client/pdf_printing');
   }
 
   retry() {

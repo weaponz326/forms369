@@ -35,7 +35,7 @@
                     <div *ngIf="loadingAttachments" class="row m-md-2">
                       <div class="col-md-12 col-sm-12 m-md-2">
                         <div class="d-flex justify-content-center">
-                          <div class="spinner-border m-2" style="width: 3rem; height: 3rem;" role="status">
+                          <div class="spinner-border m-2" style="width: 2rem; height: 2rem;" role="status">
                             <span class="sr-only">Loading...</span>
                           </div>
                         </div>
@@ -45,7 +45,7 @@
                     <div class="attachments-section" *ngIf="!loadingAttachments && showAttachments">
                       <div class="card mb-4">
                         <div class="card-body">
-                        <h5 class="card-title">Form Attachments / Documents</h5>
+                          <h5 class="card-title">Form Attachments / Documents</h5>
                           <div class="row" *ngFor="let file of existingAttachments">
                             <div class="col-11" style="padding-right: 8px;">
                               <ol class="files-list">
@@ -172,7 +172,8 @@
     <div class="modal-body">
       <div class="form-group pin-form-group">
         <input type="text" class="form-control form-control-lg pin-control" formControlName="pin" placeholder="----"
-          [ngClass]="{'input-control-error': submitted && f.pin.errors}" maxlength="4" (keyup)="resolveStrCharacters($event)">
+          [ngClass]="{'input-control-error': submitted && f.pin.errors}" maxlength="4"
+          (keyup)="resolveStrCharacters($event)">
         <div *ngIf="submitted && f.pin.errors">
           <p class="input-error" *ngIf="f.pin.errors.required">PIN is required</p>
           <p class="input-error" *ngIf="f.pin.errors.minlength">PIN must be 4 (four) digits.</p>
@@ -200,7 +201,7 @@
     </div>
     <div class="modal-body">
       <div class="form-group pin-form-group">
-        <input type="text" class="form-control form-control-lg pin-control" name="pinCode" [(ngModel)]="pinCode" 
+        <input type="text" class="form-control form-control-lg pin-control" name="pinCode" [(ngModel)]="pinCode"
           placeholder="----" maxlength="4" (keyup)="resolveStrCharacters($event)" autofocus>
         <div>
           <p class="input-error" *ngIf="pinRequired">PIN is required</p>

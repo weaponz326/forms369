@@ -47,7 +47,7 @@ export class ClientFormMerchantsPageComponent implements OnInit {
   }
 
   openForm(form: any) {
-    this.router.navigateByUrl('/client/form_entry', { state: { form: form }});
+    this.router.navigateByUrl('/client/fill_form', { state: { form: form }});
   }
 
   checkIfHasMore() {

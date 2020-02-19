@@ -97,6 +97,7 @@ import { ExecutivePdfPrintingPageComponent } from './pages/dashboard/executive/e
 import { ClientPrintingPageComponent } from './pages/dashboard/client/client-printing-page/client-printing-page.component';
 import { ClientPdfPrintingPageComponent } from './pages/dashboard/client/client-pdf-printing-page/client-pdf-printing-page.component';
 import { InvalidPasswordResetPageComponent } from './pages/invalid-password-reset-page/invalid-password-reset-page.component';
+import { ClientFormNewEntryPageComponent } from './pages/dashboard/client/client-form-new-entry-page/client-form-new-entry-page.component';
 
 const routes: Routes = [
   {
@@ -319,6 +320,10 @@ const routes: Routes = [
       {
         path: 'form_entry',
         component: ClientFormsEntryPageComponent
+      },
+      {
+        path: 'fill_form',
+        component: ClientFormNewEntryPageComponent
       },
       {
         path: 'form_link',
