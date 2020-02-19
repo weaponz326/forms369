@@ -371,7 +371,7 @@ export class ClientProfilePageComponent implements OnInit, AfterViewInit {
           this.showAttachments = true;
           _.forEach(res, (doc) => {
             console.log('doc: ' + JSON.stringify(doc));
-            this.existingAttachments.push(doc);
+            // this.existingAttachments.push(doc);
           });
         }
         else {

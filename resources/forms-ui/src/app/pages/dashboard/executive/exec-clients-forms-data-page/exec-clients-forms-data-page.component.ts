@@ -119,8 +119,6 @@ export class ExecClientsFormsDataPageComponent implements OnInit {
 
   getDataBody(res: any) {
     let objArr = [];
-    // this.tableContents = [];
-    // this.alltableContents = res[0].client_submitted_details;
     _.forEach(res, data => {
       _.forEach(this.keys, k => {
         objArr.push(data.client_submitted_details[k]);
@@ -141,7 +139,8 @@ export class ExecClientsFormsDataPageComponent implements OnInit {
         console.log('res: ' + JSON.stringify(res));
         if (res.length == 0) {
           this.hasData = false;
-        } else {
+        }
+        else {
           this.hasData = true;
           this.getDataHeaders(res);
           this.getDataBody(res);
@@ -173,8 +172,8 @@ export class ExecClientsFormsDataPageComponent implements OnInit {
         }
         else {
           this.hasData = true;
-          this.getDataHeaders(res);
           this.getDataBody(res);
+          console.log('getBody: ' + JSON.stringify(this.tableContents));
           console.log('submitted_data: ' + JSON.stringify(res));
           _.forEach(res, (data) => {
             this.submittedFormData.push(data);
