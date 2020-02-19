@@ -71,6 +71,11 @@ Route::get('invalid_confirm_link', function () {
     return View::make('index');
 })->name('invalid_confirm_link');
 
+Route::get('invalid_password_link', function () {
+    View::addExtension('html', 'php');
+    return View::make('index');
+})->name('invalid_password_link');
+
 Route::get('git_admin', function () {
     View::addExtension('html', 'php');
     return View::make('index');
@@ -255,7 +260,12 @@ Route::get('client/profile', function () {
     return View::make('index');
 });
 
-Route::get('client/unsent_forms', function () {
+Route::get('client/printing', function () {
+    View::addExtension('html', 'php');
+    return View::make('index');
+});
+
+Route::get('client/pdf_printing', function() {
     View::addExtension('html', 'php');
     return View::make('index');
 });
@@ -388,6 +398,11 @@ Route::get('admin/lists/super_executive', function () {
     return View::make('index');
 });
 
+Route::get('admin/lists/settings', function () {
+    View::addExtension('html', 'php');
+    return View::make('index');
+});
+
 Route::get('admin/details/form', function () {
     View::addExtension('html', 'php');
     return View::make('index');
@@ -472,4 +487,14 @@ Route::get('executive/client_forms', function () {
 Route::get('executive/clients_form_data', function () {
     View::addExtension('html', 'php');
     return View::make('index');
-}); 
+});
+
+Route::get('executive/printing', function () {
+    View::addExtension('html', 'php');
+    return View::make('index');
+});
+
+Route::get('executive/pdf_printing', function () {
+    View::addExtension('html', 'php');
+    return View::make('index');
+});

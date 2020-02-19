@@ -149,7 +149,7 @@ export class ClientProfilePageComponent implements OnInit, AfterViewInit {
     if (isSuccess) {
       Swal.fire({
         title: 'Success!',
-        text: 'You have successfully updated your profile information',
+        text: 'You have successfully updated your personal profile',
         icon: 'success',
         confirmButtonColor: 'Ok',
         onClose: () => {

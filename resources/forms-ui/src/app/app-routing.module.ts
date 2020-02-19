@@ -96,6 +96,7 @@ import { ExecutivePrintingPageComponent } from './pages/dashboard/executive/exec
 import { ExecutivePdfPrintingPageComponent } from './pages/dashboard/executive/executive-pdf-printing-page/executive-pdf-printing-page.component';
 import { ClientPrintingPageComponent } from './pages/dashboard/client/client-printing-page/client-printing-page.component';
 import { ClientPdfPrintingPageComponent } from './pages/dashboard/client/client-pdf-printing-page/client-pdf-printing-page.component';
+import { InvalidPasswordResetPageComponent } from './pages/invalid-password-reset-page/invalid-password-reset-page.component';
 
 const routes: Routes = [
   {
@@ -139,7 +140,7 @@ const routes: Routes = [
     component: ChangePasswordPageComponent
   },
   {
-    path: 'valid_cofnrim_link',
+    path: 'valid_confirm_link',
     component: AccountVerifiedPageComponent
   },
   {
@@ -147,8 +148,8 @@ const routes: Routes = [
     component: InvalidConfirmationPageComponent
   },
   {
-    path: 'valid_email_reset_link',
-    component: EmailResetPasswordPageComponent
+    path: 'invalid_password_link',
+    component: InvalidPasswordResetPageComponent
   },
   {
     path: 'git_admin',
