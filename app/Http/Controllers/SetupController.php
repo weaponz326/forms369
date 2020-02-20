@@ -11,8 +11,6 @@ use Illuminate\Support\Facades\Crypt;
 use DB;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\File;
-
-use Illuminate\Pagination\Paginator;
 use Illuminate\Contracts\Support\Jsonable;
 use Illuminate\Support\Facades\Log;
 use Response;
@@ -942,12 +940,12 @@ class SetupController extends Controller
         ->join('company_admin', 'company_admin.id', '=', 'admin_id')
         ->select('merchants.*','company_admin.name AS admin_name','joint_companies.name AS exec_name')
         ->where('country', $country)
-        ->get();
+        ->paginate(15);
       
         //clean data
         $merchantsdata = [];
 
-        $merchants = $getmerchants->map(function($items){
+        $getmerchants->transform(function($items){
             $merchantsdata['id'] = $items->id;
             $merchantsdata['merchant_name'] = Crypt::decryptString($items->merchant_name);
             $merchantsdata['status'] = $items->status;
@@ -966,9 +964,8 @@ class SetupController extends Controller
             return $merchantsdata;
          });
 
-         $objects = new Paginator($merchants, 15);
          $response = [
-            'merchant' => $objects
+            'merchant' => $getmerchants
         ];
         return response()->json($response, 200);
 
@@ -1196,12 +1193,12 @@ class SetupController extends Controller
         ->leftjoin('branch_admin', 'branch_admin.id', '=', 'branch_admin_id')
         ->select('company_branches.*','merchants.merchant_name AS merchant_name','branch_super_executive.name AS exec_name','branch_admin.name AS admin_name')
        ->where('merchant_id', $id)
-       ->get();
+       ->paginate(15);
 
         //clean data
         $branchessdata = [];
 
-        $branches = $getbranches->map(function($items){
+      $getbranches->map(function($items){
             $branchessdata['id'] = $items->id;
             $branchessdata['branch_name'] = Crypt::decryptString($items->branchname);
             $branchessdata['status'] = $items->status;
@@ -1220,9 +1217,8 @@ class SetupController extends Controller
             return $branchessdata;
          });
 
-         $objects = new Paginator($branches, 15);
          $response = [
-            'branches' => $objects
+            'branches' => $getbranches
         ];
         return response()->json($response, 200);
 
