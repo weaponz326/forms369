@@ -28,4 +28,16 @@ export class DateTimeService {
   getDatePart(date: string) {
     return moment(date).format('YYYY-MM-DD');
   }
+
+  /**
+   * Tranforms a date value into the correct format which enables the angular date pipe
+   * work across all browsers
+   *
+   * @param {string} date
+   * @returns
+   * @memberof DateTimeService
+   */
+  safeDateFormat(date: string) {
+    return date.replace(/-/g, '/');
+  }
 }

@@ -78,7 +78,7 @@ export class ClientSettingsPageComponent implements OnInit {
   showPinChangeSuccess() {
     Swal.fire({
       title: 'PIN Changed',
-      text: 'Form Submission PIN Code has been successfully changed',
+      text: 'Your PIN Code has been successfully changed',
       icon: 'success',
       confirmButtonText: 'Ok'
     });

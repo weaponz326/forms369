@@ -110,6 +110,7 @@ export class FrontDeskProcessingFormsListPageComponent implements OnInit {
           this.hasData = true;
           this.loading = false;
           _.forEach(res, (form) => {
+            form.submitted_at = this.dateTime.safeDateFormat(form.submitted_at);
             this.processingFormsList.push(form);
           });
           this.allProcessingFormsList = this.processingFormsList;
@@ -135,6 +136,7 @@ export class FrontDeskProcessingFormsListPageComponent implements OnInit {
         this.hasMoreError = false;
         this.hasMore = this.checkIfHasMore();
         _.forEach(res, (form) => {
+          form.submitted_at = this.dateTime.safeDateFormat(form.submitted_at);
           this.processingFormsList.push(form);
         });
         this.allProcessingFormsList = this.processingFormsList;

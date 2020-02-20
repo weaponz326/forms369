@@ -21,7 +21,7 @@
         <div *ngIf="loading" class="row p-5">
           <div class="col-md-12">
             <div class="d-flex justify-content-center">
-              <div class="spinner-border m-5" style="width: 4rem; height: 4rem;" role="status">
+              <div class="spinner-border m-5" style="width: 3rem; height: 3rem;" role="status">
                 <span class="sr-only">Loading...</span>
               </div>
             </div>
@@ -52,23 +52,6 @@
           </div>
         </div>
 
-        <!-- <div *ngIf="isConnected" class="row">
-          <div class="col-md-12 grid-margin">
-            <div class="card text-center">
-              <div class="card-body">
-                <p class="card-title">Offline</p>
-                <p class="text-muted"></p>
-                <div class="card-text">
-                  <i class="mdi mdi-wifi-off" style="font-size: 12em;"></i>
-                  <h2>No Internet Connection</h2>
-                  <p class="text-muted">You may not have internet connection or our servers maybe down.</p>
-                  <button class="btn btn-primary" type="button" (click)="retry()">Retry</button>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div> -->
-
         <div *ngIf="hasError" class="row">
           <div class="col-lg-12 grid-margin stretch-card">
             <div class="card text-center pt-5 pb-5">
@@ -93,121 +76,140 @@
         </div>
 
         <div *ngIf="hasData && !loading" class="row">
-          <div class="col-lg-8 offset-lg-2 grid-margin stretch-card">
+          <div *ngIf="noFilledData">
+            <div class="form-group" *ngFor="let item of allUserData | keyvalue">
+              <label><strong class="text-capitalize">{{ transformToRealText(item.key) }}</strong></label>
+              <input type="text" id="{{ item.key }}" class="form-control" [value]="item.value">
+            </div>
+            <div class="form-group mt-3">
+              <button *ngIf="!updating" type="submit" class="btn btn-primary btn-lg mr-2 mt-3" (click)="save()">Save Changes</button>
+              <button *ngIf="updating" class="btn btn-primary btn-lg mr-2" type="button" disabled>
+                <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+                <span class="sr-only">Please wait...</span>
+              </button>
+            </div>
+          </div>
+
+          <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3 col-xl-3 sections-tabs">
+            <div class="card card-body">
+              <h5 class="card-title">categories</h5>
+              <div class="nav flex-column nav-pills" id="v-pills-tab" role="tablist" aria-orientation="vertical">
+                <a *ngFor="let section of allFormSections" class="nav-link" id="v-pills-home-tab" data-toggle="pill"
+                  href="#{{ section.id }}" role="tab" aria-controls="v-pills-home" aria-selected="true"
+                  (click)="renderSection(section.id)">{{ section.heading }}</a>
+                <a class="nav-link" id="v-pills-files-tab" data-toggle="pill" href="#attachments" role="tab"
+                  aria-controls="v-pills-files" aria-selected="true" (click)="renderAttachments()">Form Attachments / Documents</a>
+              </div>
+            </div>
+          </div>
+          <div class="col-xs-9 col-sm-9 col-md-9 col-lg-9 col-xl-9 grid-margin stretch-card">
             <div class="card">
               <div class="card-body">
                 <div class="card-text">
-                  <div *ngIf="!noFilledData">
-                    <div class="mt-3 mb-3" *ngFor="let section of allFormSections">
-                      <h6 class="text-uppercase mb-3">{{ section.heading }}</h6>
-                      <div class="form-group" id="form-fields" *ngFor="let item of section.form_fields">
-                        <!-- Input fields -->
-                        <div *ngIf="item.type == 'text'">
-                          <label><strong>{{ item.label }}</strong></label>
-                          <input type="{{ item.type }}" id="{{ item.name }}" name="{{ item.name }}" class="form-control">
-                        </div>
-
-                        <!-- Radio buttons -->
-                        <div *ngIf="item.type == 'radio-group'">
-                          <label><strong>{{ item.label }}</strong></label>
-                          <div style="width: 100%; float: left;" *ngFor="let radio of item.values">
-                            <input style="width: 6%; float: left; margin-right: 10px;" type="radio" id="{{ item.name }}" name="{{ item.name }}" class="form-control">
-                            <p style="width: 80%; padding-top: 13px;">{{ radio.label }}</p>
+                  <div class="tab-content" id="v-pills-tabContent">
+                    <div class="tab-pane fade show active" role="tabpanel" aria-labelledby="v-pills-home-tab">
+                      <div *ngIf="renderData">
+                        <div class="form-group" id="form-fields" *ngFor="let item of activeSectionFields">
+                          <div *ngIf="item.type == 'text'">
+                            <label><strong>{{ item.label }}</strong></label>
+                            <input type="{{ item.type }}" id="{{ item.name }}" name="{{ item.name }}" class="form-control">
                           </div>
-                        </div>
 
-                        <!-- checkboxes -->
-                        <div *ngIf="item.type == 'checkbox-group'">
-                          <label><strong>{{ item.label }}</strong></label>
-                          <div style="width: 100%; float: left;" *ngFor="let checkbox of item.values">
-                            <input style="width: 6%; float: left; margin-right: 10px;" type="checkbox" id="{{ item.name }}" name="{{ item.name }}" class="form-control">
-                            <p style="width: 80%; padding-top: 13px;">{{ checkbox.label }}</p>
+                          <div *ngIf="item.type == 'textarea'">
+                            <label><strong>{{ item.label }}</strong></label>
+                            <textarea id="{{ item.name }}" name="{{ item.name }}" class="form-control"></textarea>
                           </div>
-                        </div>
 
-                        <!-- date picker -->
-                        <div *ngIf="item.type == 'date'">
-                          <label><strong>{{ item.label }}</strong></label>
-                          <input type="{{ item.type }}" id="{{ item.name }}" name="{{ item.name }}" class="form-control">
-                        </div>
-
-                        <!-- file -->
-                        <div *ngIf="item.type == 'file'">
-                          <label><strong>{{ item.label }}</strong></label>
-                          <input multiple type="{{ item.type }}" id="{{ item.name }}" name="{{ item.name }}" class="form-control">
-                        </div>
-
-                        <!-- paragraphs -->
-                        <div *ngIf="item.type == 'paragraph'">
-                          <label>{{ item.label }}</label>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-
-                  <div *ngIf="noFilledData">
-                    <div class="form-group" *ngFor="let item of allUserData | keyvalue">
-                      <label><strong class="text-capitalize">{{ transformToRealText(item.key) }}</strong></label>
-                      <input type="text" id="{{ item.key }}" class="form-control" [value]="item.value">
-                    </div>
-                    <!-- <button class="form-group mt-3">
-                      <button *ngIf="updating" class="btn btn-primary btn-lg mr-2" type="button" disabled>
-                        <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
-                        <span class="sr-only">Please wait...</span>
-                      </button>
-                      <button *ngIf="!updating" type="submit" class="btn btn-primary btn-lg mr-2" (click)="save()">Save Changes</button>
-                      <button type="button" class="btn btn-light btn-lg" (click)="cancel()">Cancel</button>
-                    </button> -->
-                  </div>
-
-                  <div *ngIf="loadingAttachments" class="row m-md-2">
-                    <div class="col-md-12 col-sm-12 m-md-2">
-                      <div class="d-flex justify-content-center">
-                        <div class="spinner-border m-2" style="width: 2rem; height: 2rem;" role="status">
-                          <span class="sr-only">Loading...</span>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-
-                  <div class="attachments-section" *ngIf="!loadingAttachments && showAttachments">
-                    <div class="card mb-4">
-                      <div class="card-body">
-                        <h5 class="card-title">Form Attachments / Documents</h5>
-                        <h6 class="card-subtitle mb-2 text-muted">Below are attachments you've uploaded for this form</h6>
-                        <div class="row" *ngFor="let file of existingAttachments; let i = index">
-                          <div class="col-10" style="padding-right: 8px;">
-                            <ol class="files-list">
-                              <li class="file-item">
-                                <i class="mdi mdi-paperclip menu-icon"></i>
-                                <h5 class="file-link-title"><strong>{{ transformToRealText(file.key) }}</strong></h5>
-                                <a class="alert-link file-link" (click)="openModal($event, file.url)">{{ file.url }}</a>
-                              </li>
-                            </ol>
+                          <div *ngIf="item.type == 'radio-group'">
+                            <label><strong>{{ item.label }}</strong></label>
+                            <div style="width: 100%; float: left;" *ngFor="let radio of item.values">
+                              <input style="width: 6%; float: left; margin-right: 10px;" type="radio" id="{{ item.name }}" name="{{ item.name }}" class="form-control">
+                              <p style="width: 80%; padding-top: 13px;">{{ radio.label }}</p>
+                            </div>
                           </div>
-                          <div class="col-2" style="padding-right: 3px; padding-left: 4px; margin-top: 13px;">
-                            <button class="btn btn-primary btn-icon mr-1" (click)="download(file.url)">
-                              <i class="mdi mdi-download-outline"></i>
-                            </button>
-                            <button class="btn btn-primary btn-icon" (click)="delete(file.url, file.key, i)">
-                              <i class="mdi mdi-trash-can-outline"></i>
-                            </button>
-                            <!-- <button *ngIf="deleting" class="btn btn-primary" type="button" disabled>
-                              <span class="spinner-grow spinner-grow-sm" role="status" aria-hidden="true"></span>
-                              <span class="sr-only">Loading...</span>
-                            </button>  -->
+
+                          <div *ngIf="item.type == 'checkbox-group'">
+                            <label><strong>{{ item.label }}</strong></label>
+                            <div style="width: 100%; float: left;" *ngFor="let checkbox of item.values">
+                              <input style="width: 6%; float: left; margin-right: 10px;" type="checkbox" id="{{ item.name }}" name="{{ item.name }}" class="form-control">
+                              <p style="width: 80%; padding-top: 13px;">{{ checkbox.label }}</p>
+                            </div>
+                          </div>
+
+                          <div *ngIf="item.type == 'date'">
+                            <label><strong>{{ item.label }}</strong></label>
+                            <input type="{{ item.type }}" id="{{ item.name }}" name="{{ item.name }}" class="form-control">
+                          </div>
+
+                          <div *ngIf="item.type == 'file'">
+                            <label><strong>{{ item.label }}</strong></label>
+                            <input multiple type="{{ item.type }}" id="{{ item.name }}" name="{{ item.name }}" class="form-control">
+                          </div>
+
+                          <div *ngIf="item.type == 'header'">
+                            <h4>{{ item.label }}</h4>
+                          </div>
+
+                          <div *ngIf="item.type == 'paragraph'">
+                            <p>{{ item.label }}</p>
                           </div>
                         </div>
                       </div>
+
+                      <div *ngIf="!renderData">
+                        <div *ngIf="loadingAttachments" class="row m-md-2">
+                          <div class="col-md-12 col-sm-12 m-md-2">
+                            <div class="d-flex justify-content-center">
+                              <div class="spinner-border m-2" style="width: 2rem; height: 2rem;" role="status">
+                                <span class="sr-only">Loading...</span>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+
+                        <div class="attachments-section" *ngIf="!loadingAttachments && showAttachments">
+                          <div class="card mb-4">
+                            <div class="card-body">
+                              <h5 class="card-title">Form Attachments / Documents</h5>
+                              <div class="text-center mt-4 pt-5" *ngIf="existingAttachments.length == 0">
+                                <h3>No Attachments</h3>
+                                <i class="mdi mdi-paperclip" style="font-size: 6em;"></i>
+                              </div>
+                              <div *ngIf="existingAttachments.length > 0">
+                                <div class="row" *ngFor="let file of existingAttachments; let i = index">
+                                  <div class="col-10" style="padding-right: 8px;">
+                                    <ol class="files-list">
+                                      <li class="file-item">
+                                        <i class="mdi mdi-paperclip menu-icon"></i>
+                                        <h5 class="file-link-title"><strong>{{ transformToRealText(file.key) }}</strong>
+                                        </h5>
+                                        <a class="alert-link file-link" (click)="openModal($event, file.url)">{{ file.url }}</a>
+                                      </li>
+                                    </ol>
+                                  </div>
+                                  <div class="col-2" style="padding-right: 3px; padding-left: 4px; margin-top: 13px;">
+                                    <button class="btn btn-primary btn-icon mr-1" (click)="download(file.url)">
+                                      <i class="mdi mdi-download-outline"></i>
+                                    </button>
+                                    <button class="btn btn-primary btn-icon" (click)="delete(file.url, file.key, i)">
+                                      <i class="mdi mdi-trash-can-outline"></i>
+                                    </button>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+
+                      <div class="form-group text-center mt-3">
+                        <button *ngIf="!updating" type="submit" class="btn btn-primary btn-lg mr-2 mt-3" (click)="save()">Save Changes</button>
+                        <button *ngIf="updating" class="btn btn-primary btn-lg mr-2" type="button" disabled>
+                          <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+                          <span class="sr-only">Please wait...</span>
+                        </button>
+                      </div>
                     </div>
-                  </div>
-                  
-                  <div class="form-group text-center mt-3">
-                    <button *ngIf="updating" class="btn btn-primary btn-lg mr-2" type="button" disabled>
-                      <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
-                      <span class="sr-only">Please wait...</span>
-                    </button>
-                    <button *ngIf="!updating" type="submit" class="btn btn-primary btn-lg mr-2" (click)="save()">Save Changes</button>
                   </div>
                 </div>
               </div>
@@ -215,13 +217,13 @@
           </div>
         </div>
       </div>
-
       <!-- footer -->
       <app-footer-bar></app-footer-bar>
       <!-- partial -->
     </div>
   </div>
 </div>
+
 
 <ng-template #confirm let-modal>
   <div class="modal-header">

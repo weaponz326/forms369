@@ -1,10 +1,10 @@
-import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
 declare var $: any;
 import * as _ from 'lodash';
 import { Router } from '@angular/router';
 import { Forms } from 'src/app/models/forms.model';
 import { FormsService } from 'src/app/services/forms/forms.service';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
 import { LocalStorageService } from 'src/app/services/storage/local-storage.service';
 import { FormBuilderService } from 'src/app/services/form-builder/form-builder.service';
 
@@ -60,7 +60,7 @@ export class AdminCreateFormPageComponent implements OnInit {
   handleFormRender() {
     if (_.isUndefined(this.template) || _.isNull(this.template)) {
       this.formCode = this.formBuilderService.generateUniqueFormCode();
-      this.formBuilderService.generateSectionAndDefaultFormFields().then(
+      this.formBuilderService.generateFormFieldsBySections().then(
         form_elements => {
           this.formBuilder = $(document.getElementById('fb-editor')).formBuilder({
             controlPosition: 'left',
@@ -69,7 +69,7 @@ export class AdminCreateFormPageComponent implements OnInit {
             disabledActionButtons: ['data', 'clear', 'save'],
             typeUserAttrs: this.formBuilderService.handleFieldsTypeAttrs(),
             typeUserDisabledAttrs: this.formBuilderService.disableFieldAttrs(),
-            disableFields: this.formBuilderService.disableDefaultFormControls()
+            disableFields: this.formBuilderService.disableSectionFormFields()
           });
 
           this._loading = false;

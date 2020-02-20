@@ -1,0 +1,195 @@
+<div class="container-scroller">
+  <app-navigation-bar></app-navigation-bar>
+  <div class="container-fluid page-body-wrapper">
+    <app-side-bar></app-side-bar>
+    <div class="main-panel">
+      <div class="content-wrapper">
+        <div class="row">
+          <div class="col-md-12 grid-margin">
+            <div class="d-flex justify-content-between flex-wrap">
+              <div class="d-flex align-items-end flex-wrap">
+                <div class="mr-md-3 mr-xl-5">
+                  <h2>Settings</h2>
+                  <p class="mb-md-0">Your administrative dashboard.</p>
+                </div>
+                <div class="d-flex">
+                </div>
+              </div>
+              <div class="d-flex justify-content-between align-items-end flex-wrap">
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-lg-12 grid-margin stretch-card">
+            <div class="card">
+              <div class="card-body">
+                <p class="card-title">Who can download form data</p>
+                <div class="accordion" id="accordionExample">
+                  <div class="card">
+                    <div class="card-header" id="headingOne">
+                      <h2 class="mb-0">
+                        <button class="btn btn-link" type="button" data-toggle="collapse" data-target="#frontDesk" aria-expanded="false" aria-controls="frontDesk">
+                          Select Front Desks
+                        </button>
+                      </h2>
+                    </div>
+
+                    <div id="frontDesk" class="collapse" aria-labelledby="headingOne" data-parent="#accordionExample">
+                      <div class="card">
+                        <div class="card-body">
+                          <div class="table-responsive">
+                            <table class="table table-striped">
+                              <thead>
+                                <tr>
+                                  <th>Select</th>
+                                  <th>Full Name</th>
+                                  <th>Email Address</th>
+                                  <th>Username</th>
+                                  <th>Branch Name</th>
+                                </tr>
+                              </thead>
+                              <tbody>
+                                <tr *ngFor="let user of frontDeskLists; let i=index">
+                                  <td>
+                                    <div class="check">
+                                      <label class="switch">
+                                        <input type="checkbox" [checked]="user.can_download == 1" [value]="user.id" [name]="i" (change)="onCanDownloadFrontDesk($event, user.id)">
+                                        <span class="slider round"></span>
+                                      </label>
+                                    </div>
+                                  </td>
+                                  <td>{{ user.full_name }}</td>
+                                  <td>{{ user.email }}</td>
+                                  <td>{{ user.username }}</td>
+                                  <td>{{ user.branch_name }}</td>
+                                </tr>
+                              </tbody>
+                            </table>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+                  <!-- super exec -->
+                  <div class="card">
+                    <div class="card-header" id="heading2">
+                      <h2 class="mb-0">
+                        <button class="btn btn-link" type="button" data-toggle="collapse" data-target="#superExec"
+                          aria-expanded="true" aria-controls="superExec">
+                          Super Executives
+                        </button>
+                      </h2>
+                    </div>
+
+                    <div id="superExec" class="collapse" aria-labelledby="heading2" data-parent="#accordionExample">
+                      <div class="card">
+                        <div class="card-body">
+                          <div class="table-responsive">
+                            <table class="table table-striped">
+                              <thead>
+                                <tr>
+                                  <th>Select</th>
+                                  <th>Full Name</th>
+                                  <th>Email Address</th>
+                                  <th>Username</th>
+                                  <th>Branch Name</th>
+                                </tr>
+                              </thead>
+                              <tbody>
+                                <tr *ngFor="let user of superExecLists; let i=index">
+                                  <td>
+                                    <div class="check">
+                                      <label class="switch">
+                                        <input type="checkbox" [checked]="user.can_download == 1" [value]="user.id"
+                                          [name]="i" (change)="onCanDownloadSuperExecutive($event, user.id)">
+                                        <span class="slider round"></span>
+                                      </label>
+                                    </div>
+                                  </td>
+                                  <td>{{ user.full_name }}</td>
+                                  <td>{{ user.email }}</td>
+                                  <td>{{ user.username }}</td>
+                                  <td>{{ user.branch_name }}</td>
+                                </tr>
+                              </tbody>
+                            </table>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+                  <!-- branch super exec -->
+                  <div class="card">
+                    <div class="card-header" id="heading3">
+                      <h2 class="mb-0">
+                        <button class="btn btn-link" type="button" data-toggle="collapse" data-target="#branchSuper"
+                          aria-expanded="false" aria-controls="branchSuper">
+                          Select Branch Super Executive
+                        </button>
+                      </h2>
+                    </div>
+
+                    <div id="branchSuper" class="collapse" aria-labelledby="heading3" data-parent="#accordionExample">
+                      <div class="card">
+                        <div class="card-body">
+                          <div class="table-responsive">
+                            <table class="table table-striped">
+                              <thead>
+                                <tr>
+                                  <th>Select</th>
+                                  <th>Full Name</th>
+                                  <th>Email Address</th>
+                                  <th>Username</th>
+                                  <th>Branch Name</th>
+                                </tr>
+                              </thead>
+                              <tbody>
+                                <tr *ngFor="let user of branchSuperExecLists; let i=index">
+                                  <td>
+                                    <div class="check">
+                                      <label class="switch">
+                                        <input type="checkbox" [value]="user.id" [name]="i"
+                                          [checked]="user.can_download == 1" (change)="onCanDownloadBranchSuperExec($event, user.id)">
+                                        <span class="slider round"></span>
+                                      </label>
+                                    </div>
+                                  </td>
+                                  <td>{{ user.full_name }}</td>
+                                  <td>{{ user.email }}</td>
+                                  <td>{{ user.username }}</td>
+                                  <td>{{ user.branch_name }}</td>
+                                </tr>
+                              </tbody>
+                            </table>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="form-group mt-4 ml-5">
+                <button *ngIf="!submitting" class="btn btn-primary btn-lg" (click)="save()">Save Settings</button>
+                <button *ngIf="submitting" class="btn btn-primary" type="button" disabled>
+                  <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+                  Loading...
+                </button>
+              </div>
+
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- content -->
+      <!--footer -->
+      <app-footer-bar></app-footer-bar>
+      <!-- partial -->
+    </div>
+    <!-- main ends -->
+  </div>
+</div>

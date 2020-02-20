@@ -1,8 +1,17 @@
 .dropdown .dropdown-menu .dropdown-item {
-    font-size: .875rem;
-    padding: 0.6rem 1.5rem;
+  font-size: 0.875rem;
+  padding: 0.6rem 1.5rem;
 }
 
 .alert-dismissible .close {
-    top: -5px;
+  top: -5px;
+}
+
+th {
+  font-family: 'OpenSans_Bold';
+}
+
+table td {
+  color: #555;
+  font-family: 'OpenSans_SemiBold';
 }

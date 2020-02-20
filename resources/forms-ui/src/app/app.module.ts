@@ -116,6 +116,13 @@ import { ClientSettingsPageComponent } from './pages/dashboard/client/client-set
 import { AccountVerifiedPageComponent } from './pages/account-verified-page/account-verified-page.component';
 import { EmailResetPasswordPageComponent } from './pages/email-reset-password-page/email-reset-password-page.component';
 import { FrontDeskRejectedFormsListPageComponent } from './pages/dashboard/front-desk/front-desk-rejected-forms-list-page/front-desk-rejected-forms-list-page.component';
+import { AdminSettingsPageComponent } from './pages/dashboard/admin/admin-settings-page/admin-settings-page.component';
+import { ExecutivePrintingPageComponent } from './pages/dashboard/executive/executive-printing-page/executive-printing-page.component';
+import { ExecutivePdfPrintingPageComponent } from './pages/dashboard/executive/executive-pdf-printing-page/executive-pdf-printing-page.component';
+import { ClientPrintingPageComponent } from './pages/dashboard/client/client-printing-page/client-printing-page.component';
+import { ClientPdfPrintingPageComponent } from './pages/dashboard/client/client-pdf-printing-page/client-pdf-printing-page.component';
+import { InvalidPasswordResetPageComponent } from './pages/invalid-password-reset-page/invalid-password-reset-page.component';
+import { ClientFormNewEntryPageComponent } from './pages/dashboard/client/client-form-new-entry-page/client-form-new-entry-page.component';
 
 @NgModule({
   declarations: [
@@ -216,6 +223,13 @@ import { FrontDeskRejectedFormsListPageComponent } from './pages/dashboard/front
     AccountVerifiedPageComponent,
     EmailResetPasswordPageComponent,
     FrontDeskRejectedFormsListPageComponent,
+    AdminSettingsPageComponent,
+    ExecutivePrintingPageComponent,
+    ExecutivePdfPrintingPageComponent,
+    ClientPrintingPageComponent,
+    ClientPdfPrintingPageComponent,
+    InvalidPasswordResetPageComponent,
+    ClientFormNewEntryPageComponent,
   ],
   imports: [
     BrowserModule,

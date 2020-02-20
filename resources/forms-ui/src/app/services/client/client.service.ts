@@ -176,13 +176,15 @@ export class ClientService {
    * @returns {Promise<any>}
    * @memberof ClientService
    */
-  getFormByStatus(id: string, status: string): Promise<any> {
+  getFormByStatus(id: string, status: number): Promise<any> {
     return new Promise((resolve, reject) => {
       const url = this.endpointService.apiHost + 'api/v1/getClientFormsByStatus/' + id + '/' + status;
       this.http.get(url, { headers: this.headers }).subscribe(
         res => {
           const response = res as any;
-          resolve(response.forms);
+          console.log('fbs: ' + JSON.stringify(response));
+          this.nextPaginationUrl = response.forms.next_page_url;
+          resolve(response.forms.data);
         },
         err => {
           reject(err);
@@ -201,6 +203,7 @@ export class ClientService {
    * @memberof ClientService
    */
   autoFillFormData(form_data: Array<any>, client_data: Array<any>) {
+    console.log('client_data: ' + JSON.stringify(client_data));
     _.forEach(form_data, (form, i) => {
       if (!_.isUndefined(form.name)) {
         const element_names =  document.getElementsByName(form.name);
@@ -247,6 +250,7 @@ export class ClientService {
     _.forEach(form_sections, (section) => {
       console.log('**se: ' + section.heading);
       _.forEach(section.form_fields, (form) => {
+        console.log('FormName: ' + form.name);
         if (!_.isUndefined(form.name)) {
           const element_names = document.getElementsByName(form.name);
           const client_keys = _.keys(client_data);

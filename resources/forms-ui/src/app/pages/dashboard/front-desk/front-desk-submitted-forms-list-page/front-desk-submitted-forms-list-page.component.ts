@@ -76,6 +76,7 @@ export class FrontDeskSubmittedFormsListPageComponent implements OnInit {
         if (res.length != 0) {
           _.forEach(res, (form) => {
             if (form.can_view == 1) {
+              form.submitted_at = this.dateTime.safeDateFormat(form.submitted_at);
               this.submittedFormsList.push(form);
             }
           });
@@ -107,6 +108,7 @@ export class FrontDeskSubmittedFormsListPageComponent implements OnInit {
         this.hasMore = this.checkIfHasMore();
         _.forEach(res, (form) => {
           if (form.can_view == 1) {
+            form.submitted_at = this.dateTime.safeDateFormat(form.submitted_at);
             this.submittedFormsList.push(form);
           }
         });

@@ -24,6 +24,7 @@
       "app",
       "kebab-case"
     ],
+    "no-string-literal": false,
     "no-unused-expression": false,
     "import-blacklist": [
       true,

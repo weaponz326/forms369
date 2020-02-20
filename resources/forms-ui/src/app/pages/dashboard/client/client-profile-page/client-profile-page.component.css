@@ -69,3 +69,12 @@ a:not([href]):not([tabindex]):hover {
 .pin-control::placeholder {
     color: #bbb;
 }
+
+.sections-tabs .nav-link {
+    display: block;
+    padding: 1rem 1rem;
+}
+
+.sections-tabs .card .card-title {
+    padding-left: 20px;
+}

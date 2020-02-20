@@ -6,3 +6,33 @@
 .table td {
     line-height: 21px;
 }
+
+.download-title {
+    padding-left: 17px;
+    padding-bottom: 20px;
+    font-weight: 600;
+}
+
+table .dropdown .dropdown-toggle:after {
+    display: none;
+}
+
+.dropdown-menu .dropdown-item {
+    cursor: pointer;
+}
+
+.dropdown .dropdown-menu .dropdown-item {
+    font-size: .875rem;
+    padding: .85rem 1.5rem;
+    font-family: 'OpenSans_Bold';
+}
+
+.dropdown .dropdown-menu .dropdown-item:hover {
+    font-size: .895rem;
+    padding: .85rem 1.5rem;
+    font-family: 'OpenSans_Bold';
+}
+
+.dropdown-menu.show {
+    border: 1px solid #ddd;
+}

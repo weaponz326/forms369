@@ -54,3 +54,8 @@
     13. Bug on search for clients have been fixed that prevents you to see all companies for forms when there is nothing in the search field.
     14. Templates are now created with a category.
     15. Company Admins can now manage users.
+    18. Now users can only create forms using sections
+    19. Client profile view redesigned. Sections are displayed as tabs on the left vertically.
+    20. Company admins can set who downloads data among ffont desk, super execs & branch super execs
+    21. Executives can now print form data.
+

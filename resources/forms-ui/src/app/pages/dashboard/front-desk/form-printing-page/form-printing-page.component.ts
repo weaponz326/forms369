@@ -1,14 +1,14 @@
-import { Component, OnInit, Input } from '@angular/core';
 import * as _ from 'lodash';
 import * as moment from 'moment';
+import { Router } from '@angular/router';
 import { PDFDocumentProxy } from 'ng2-pdf-viewer';
 import { Users } from 'src/app/models/users.model';
+import { Component, OnInit, Input } from '@angular/core';
 import { FormGroup, FormControl, FormBuilder } from '@angular/forms';
 import { EndpointService } from 'src/app/services/endpoint/endpoint.service';
 import { PDFAnnotationData, PDFPageProxy, PDFProgressData } from 'pdfjs-dist';
 import { FrontDeskService } from 'src/app/services/front-desk/front-desk.service';
 import { LocalStorageService } from 'src/app/services/storage/local-storage.service';
-import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-form-printing-page',

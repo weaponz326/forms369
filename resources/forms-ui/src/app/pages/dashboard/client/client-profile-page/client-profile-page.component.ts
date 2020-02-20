@@ -3,12 +3,12 @@ import Swal from 'sweetalert2';
 import { NgbModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { ClientService } from 'src/app/services/client/client.service';
-import { Component, OnInit, ViewChild, TemplateRef, AfterViewInit } from '@angular/core';
 import { SectionsService } from 'src/app/services/sections/sections.service';
 import { EndpointService } from 'src/app/services/endpoint/endpoint.service';
 import { DownloaderService } from 'src/app/services/downloader/downloader.service';
 import { LocalStorageService } from 'src/app/services/storage/local-storage.service';
 import { FormBuilderService } from 'src/app/services/form-builder/form-builder.service';
+import { Component, OnInit, ViewChild, TemplateRef, AfterViewInit } from '@angular/core';
 
 @Component({
   selector: 'app-client-profile-page',
@@ -17,20 +17,21 @@ import { FormBuilderService } from 'src/app/services/form-builder/form-builder.s
 })
 export class ClientProfilePageComponent implements OnInit, AfterViewInit {
   user: any;
+  userData: any;
   imgUrl: string;
   pinCode: string;
-  formFiles: number;
   hasData: boolean;
-  hasFile: boolean;
+  allUserData: any;
   loading: boolean;
   deleting: boolean;
+  formFiles: number;
   updating: boolean;
-  allUserData: any;
   hasError: boolean;
   submitted: boolean;
   isLoading: boolean;
   pinForm: FormGroup;
   pinMinimum: boolean;
+  renderData: boolean;
   documentUrl: string;
   pinRequired: boolean;
   noFilledData: boolean;
@@ -44,9 +45,9 @@ export class ClientProfilePageComponent implements OnInit, AfterViewInit {
   attachmentFiles: Array<File>;
   attachmentKeys: Array<string>;
   existingAttachments: Array<any>;
+  activeSectionFields: Array<any>;
   @ViewChild('pin', { static: false }) pinDialog: TemplateRef<any>;
   @ViewChild('setPin', { static: false }) setPinDialog: TemplateRef<any>;
-  @ViewChild('updated', { static: false }) updatedDialog: TemplateRef<any>;
   @ViewChild('confirm', { static: false }) confirmDialog: TemplateRef<any>;
   @ViewChild('viewImgAttachment', { static: false }) viewImgDialog: TemplateRef<any>;
   @ViewChild('viewDocAttachment', { static: false }) viewDocDialog: TemplateRef<any>;
@@ -67,14 +68,15 @@ export class ClientProfilePageComponent implements OnInit, AfterViewInit {
     this.attachmentKeys = [];
     this.allFormSections = [];
     this.attachmentFiles = [];
-    this.existingAttachments = [];
     this.duplicateFields = [];
+    this.activeSectionFields = [];
+    this.existingAttachments = [];
     this.user = this.localStorage.getUser();
     console.log('user_id: ' + this.user.id);
   }
 
   ngOnInit() {
-    this.getAllFormSections();
+    // this.getAllFormSections();
   }
 
   ngAfterViewInit() {
@@ -83,6 +85,25 @@ export class ClientProfilePageComponent implements OnInit, AfterViewInit {
 
   public get f() {
     return this.pinForm.controls;
+  }
+
+  renderSection(id: string) {
+    console.log('render section: ' + id);
+    this.renderData = true;
+    _.forEach(this.allFormSections, (section) => {
+      if (section.id == id) {
+        console.log('selected section found');
+        this.activeSectionFields = section.form_fields;
+        setTimeout(() => {
+          this.clientService.fillClientProfileData([section], this.userData);
+          this.appendOnChangeEventToFileInput();
+        }, 500);
+      }
+    });
+  }
+
+  renderAttachments() {
+    this.renderData = false;
   }
 
   showPinCreatedSuccess() {
@@ -128,7 +149,7 @@ export class ClientProfilePageComponent implements OnInit, AfterViewInit {
     if (isSuccess) {
       Swal.fire({
         title: 'Success!',
-        text: 'You have successfully updated your account data',
+        text: 'You have successfully updated your personal profile',
         icon: 'success',
         confirmButtonColor: 'Ok',
         onClose: () => {
@@ -297,6 +318,7 @@ export class ClientProfilePageComponent implements OnInit, AfterViewInit {
             this.pinCode = '';
             this.isLoading = false;
             this.pinDialogRef.close();
+            this.getAllFormSections();
           }
           else {
             this.isLoading = false;
@@ -320,6 +342,7 @@ export class ClientProfilePageComponent implements OnInit, AfterViewInit {
           this.hasData = true;
           this.loading = false;
           const userData = res[0].client_details[0];
+          this.userData = res[0].client_details[0];
           console.log('details: ' + userData);
           setTimeout(() => {
             this.clientService.fillClientProfileData(this.allFormSections, userData);
@@ -348,7 +371,7 @@ export class ClientProfilePageComponent implements OnInit, AfterViewInit {
           this.showAttachments = true;
           _.forEach(res, (doc) => {
             console.log('doc: ' + JSON.stringify(doc));
-            this.existingAttachments.push(doc);
+            // this.existingAttachments.push(doc);
           });
         }
         else {
@@ -419,6 +442,7 @@ export class ClientProfilePageComponent implements OnInit, AfterViewInit {
           _.forEach(res, (section) => {
             this.allFormSections.push(section);
           });
+          this.renderSection(this.allFormSections[0].id);
           this.getAllClientData();
         }
         else {
@@ -454,11 +478,29 @@ export class ClientProfilePageComponent implements OnInit, AfterViewInit {
     });
   }
 
+  prepareUpdatedData(updated_data: any) {
+    const keys = Object.keys(updated_data);
+
+    _.forEach(keys, (key) => {
+      delete this.userData[key];
+    });
+
+    _.forEach(keys, (key) => {
+      this.userData[key] = updated_data[key];
+    });
+
+    console.log(';final_data;');
+    console.log(JSON.stringify(this.userData));
+
+    return this.userData;
+  }
+
   updateData() {
     this.updating = true;
     console.log('is submitting');
-    const updatedUserData = this.getAllClientProfileData();
-    this.clientService.editProfile(this.user.id, JSON.parse(updatedUserData)).then(
+    const updated_data = this.getAllClientProfileData();
+    const prepared_data = this.prepareUpdatedData(JSON.parse(updated_data));
+    this.clientService.editProfile(this.user.id, prepared_data).then(
       res => {
         const response = res as any;
         if (_.toLower(response.message) == 'ok') {

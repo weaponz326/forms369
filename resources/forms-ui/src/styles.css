@@ -24,15 +24,23 @@
     src: url('./assets/fonts/ProductSans-Bold_1b2049464dce1ac801cec1357c2e45b8.ttf');
 }
 
-body {
+html, body {
     color: #555;
     font-family: 'OpenSans_Regular';
 }
 
+h1, h2, h3, h4, h5, h6 {
+    font-family: 'OpenSans_Bold' !important;
+}
+
+.btn {
+    font-family: 'OpenSans_Bold' !important;
+}
+
 .align-right {
     top: 10px;
-    position: absolute;
     right: 10px;
+    position: absolute;
 }
 
 .btn {
@@ -205,6 +213,3 @@ select.form-control {
     outline: 0;
     box-shadow: none;
 }
-
-html, body { height: 100%; }
-body { margin: 0; font-family: "Helvetica Neue", sans-serif; }

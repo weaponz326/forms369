@@ -19,12 +19,13 @@
             </div>
           </div>
         </div>
+
         <div [hidden]="created" class="row">
           <div class="col-md-8 offset-md-2 grid-margin stretch-card">
             <div class="card">
               <div class="card-body">
                 <p class="card-title">{{ form.form_name || form.name }}</p>
-                <p class="text-muted">All forms with * are required and shouldn't be left out</p>
+                <p class="text-muted">All forms with <span class="text-danger">*</span> are required and shouldn't be left out</p>
                 <div class="card-text pt-5">
                   <form class="forms-sample">
                     <div class="form-builder-container">
@@ -34,7 +35,7 @@
                     <div *ngIf="loadingAttachments" class="row m-md-2">
                       <div class="col-md-12 col-sm-12 m-md-2">
                         <div class="d-flex justify-content-center">
-                          <div class="spinner-border m-2" style="width: 2rem; height: 2rem;" role="status">
+                          <div class="spinner-border m-2" style="width: 3rem; height: 3rem;" role="status">
                             <span class="sr-only">Loading...</span>
                           </div>
                         </div>
@@ -45,12 +46,12 @@
                       <div class="card mb-4">
                         <div class="card-body">
                         <h5 class="card-title">Form Attachments / Documents</h5>
-                          <h6 class="card-subtitle mb-2 text-muted">Below are attachments you've uploaded for this form</h6>
                           <div class="row" *ngFor="let file of existingAttachments">
                             <div class="col-11" style="padding-right: 8px;">
                               <ol class="files-list">
                                 <li class="file-item">
                                   <i class="mdi mdi-paperclip menu-icon"></i>
+                                  <h5 class="file-link-title"><strong>{{ transformToRealText(file.key) }}</strong></h5>
                                   <a class="alert-link file-link" (click)="openModal($event, file.url)">{{ file.url }}</a>
                                 </li>
                               </ol>

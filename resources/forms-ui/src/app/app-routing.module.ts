@@ -91,6 +91,13 @@ import { ClientSettingsPageComponent } from './pages/dashboard/client/client-set
 import { FrontDeskRejectedFormsListPageComponent } from './pages/dashboard/front-desk/front-desk-rejected-forms-list-page/front-desk-rejected-forms-list-page.component';
 import { AccountVerifiedPageComponent } from './pages/account-verified-page/account-verified-page.component';
 import { EmailResetPasswordPageComponent } from './pages/email-reset-password-page/email-reset-password-page.component';
+import { AdminSettingsPageComponent } from './pages/dashboard/admin/admin-settings-page/admin-settings-page.component';
+import { ExecutivePrintingPageComponent } from './pages/dashboard/executive/executive-printing-page/executive-printing-page.component';
+import { ExecutivePdfPrintingPageComponent } from './pages/dashboard/executive/executive-pdf-printing-page/executive-pdf-printing-page.component';
+import { ClientPrintingPageComponent } from './pages/dashboard/client/client-printing-page/client-printing-page.component';
+import { ClientPdfPrintingPageComponent } from './pages/dashboard/client/client-pdf-printing-page/client-pdf-printing-page.component';
+import { InvalidPasswordResetPageComponent } from './pages/invalid-password-reset-page/invalid-password-reset-page.component';
+import { ClientFormNewEntryPageComponent } from './pages/dashboard/client/client-form-new-entry-page/client-form-new-entry-page.component';
 
 const routes: Routes = [
   {
@@ -134,7 +141,7 @@ const routes: Routes = [
     component: ChangePasswordPageComponent
   },
   {
-    path: 'valid_cofnrim_link',
+    path: 'valid_confirm_link',
     component: AccountVerifiedPageComponent
   },
   {
@@ -142,8 +149,8 @@ const routes: Routes = [
     component: InvalidConfirmationPageComponent
   },
   {
-    path: 'valid_email_reset_link',
-    component: EmailResetPasswordPageComponent
+    path: 'invalid_password_link',
+    component: InvalidPasswordResetPageComponent
   },
   {
     path: 'git_admin',
@@ -315,6 +322,10 @@ const routes: Routes = [
         component: ClientFormsEntryPageComponent
       },
       {
+        path: 'fill_form',
+        component: ClientFormNewEntryPageComponent
+      },
+      {
         path: 'form_link',
         component: ClientFormLinkPageComponent
       },
@@ -322,10 +333,14 @@ const routes: Routes = [
         path: 'profile',
         component: ClientProfilePageComponent
       },
-      // {
-      //   path: 'unsent_forms',
-      //   component: ClientUnsentFormsPageComponent
-      // },
+      {
+        path: 'printing',
+        component: ClientPrintingPageComponent
+      },
+      {
+        path: 'pdf_printing',
+        component: ClientPdfPrintingPageComponent
+      },
       {
         path: 'form_link_redirect',
         component: ClientFormLinkRedirectPageComponent
@@ -433,6 +448,14 @@ const routes: Routes = [
       {
         path: 'clients_form_data',
         component: ExecClientsFormsDataPageComponent
+      },
+      {
+        path: 'printing',
+        component: ExecutivePrintingPageComponent
+      },
+      {
+        path: 'pdf_printing',
+        component: ExecutivePdfPrintingPageComponent
       }
     ]
   },
@@ -451,7 +474,7 @@ const routes: Routes = [
         children: [
           {
             path: 'form',
-            component: AdminCreateFormPageComponent,
+            component: AdminCreateFormPageComponent
           },
           {
             path: 'account',
@@ -504,6 +527,10 @@ const routes: Routes = [
           {
             path: 'super_executive',
             component: AdminViewCompanyExecutivesPageComponent
+          },
+          {
+            path: 'settings',
+            component: AdminSettingsPageComponent
           }
         ]
       },

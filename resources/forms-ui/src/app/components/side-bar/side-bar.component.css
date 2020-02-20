@@ -1,3 +1,7 @@
+* {
+    font-family: 'OpenSans_Bold';
+}
+
 .sidebar {
     position: fixed;
     overflow-x: hidden;

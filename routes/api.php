@@ -136,7 +136,7 @@ Route::group(['middleware' => ['auth:api'], 'prefix' => 'v1'], function(){
 
     //form attachments 
     Route::post('uploadattachments/{client_id}/{form_code}/{sub_code}', 'HomeController@uploadattachments')->name('uploadattachments')->middleware('scope:GIT_Admin,client');
-    Route::get('getAttachments/{sub_code}', 'HomeController@getAttachments')->name('getAttachments')->middleware('scope:GIT_Admin,client,company_admin,branch_admin,frontdesk');
+    Route::get('getAttachments/{sub_code}', 'HomeController@getAttachments')->name('getAttachments')->middleware('scope:GIT_Admin,client,company_admin,branch_admin,frontdesk,super_executive,branch_executive');
     Route::post('deleteAttachment/{client_id}/{key}/{name}/{sub_code}', 'HomeController@deleteAttachment')->name('deleteAttachment')->middleware('scope:GIT_Admin,client,frontdesk');
     
 
@@ -274,7 +274,7 @@ Route::group(['middleware' => ['auth:api'], 'prefix' => 'v1'], function(){
   // Route::get('exportClientFormData/{code}', 'HomeController@exportClientFormData')->name('exportClientFormData')->middleware('scope:GIT_Admin,super_executive,branch_executive,company_admin,branch_admin,frontdesk, client');
 
 });
-Route::get('exportClientFormData/{code}', 'HomeController@exportClientFormData')->name('exportClientFormData');
+
  
 
 

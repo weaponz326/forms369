@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import * as _ from 'lodash';
+import Swal from 'sweetalert2';
 import { Router } from '@angular/router';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { AccountService } from 'src/app/services/account/account.service';
@@ -27,6 +28,24 @@ export class ResetPasswordPageComponent implements OnInit {
 
   public get f() {
     return this.form.controls;
+  }
+
+  showResetFailedAlert() {
+    Swal.fire({
+      title: 'Oops!',
+      icon: 'error',
+      text: 'Sorry!, We couldnt reset your password. Please make sure you have an active internet connection or our serevsr may be down',
+      confirmButtonText: 'Arrrgh!, Ok'
+    });
+  }
+
+  showResetSuccessfulAlert() {
+    Swal.fire({
+      title: 'Success',
+      icon: 'error',
+      text: 'Password reset was successful',
+      confirmButtonText: 'Ok'
+    });
   }
 
   buildForm() {
@@ -69,10 +88,10 @@ export class ResetPasswordPageComponent implements OnInit {
             this.loading = false;
             if (_.toLower(response.message) == 'ok') {
               sessionStorage.clear();
-              this.router.navigateByUrl('login');
+              this.showResetSuccessfulAlert();
             }
             else {
-              this.invalid = true;
+              this.showResetFailedAlert();
             }
           },
           err => {

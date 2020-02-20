@@ -58,7 +58,7 @@ export class ClientListFormsPageComponent implements OnInit {
   }
 
   open(form: any) {
-    this.router.navigateByUrl('/client/form_entry', { state: { form: form }});
+    this.router.navigateByUrl('/client/fill_form', { state: { form: form }});
   }
 
   checkIfHasMore() {
@@ -120,8 +120,8 @@ export class ClientListFormsPageComponent implements OnInit {
       this.hasError = false;
       this.formsList = [];
       if (/\d/.test(this.query)) {
-        if (this.query.length == 6) {
-          // search fby form code, based on the input
+        if (this.query.length == 5) {
+          // search by form code, based on the input
           // the user might be searching by a form code.
           console.log('searching by form code');
           this.searchByFormCode();

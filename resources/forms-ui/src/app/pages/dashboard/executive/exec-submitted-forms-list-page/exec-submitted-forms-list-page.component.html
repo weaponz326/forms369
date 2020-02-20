@@ -9,22 +9,46 @@
             <div class="d-flex justify-content-between flex-wrap">
               <div class="d-flex align-items-end flex-wrap">
                 <div class="mr-md-3 mr-xl-5">
-                  <h2>Submitted For</h2>
+                  <h2>Submitted Forms</h2>
                   <p class="mb-md-0">Your administrative dashboard.</p>
                 </div>
                 <div class="d-flex">
                 </div>
               </div>
               <div class="d-flex justify-content-between align-items-end flex-wrap">
-                <!-- <button type="button" class="btn btn-light bg-white btn-icon mr-3 d-none d-md-block ">
-                  <i class="mdi mdi-download text-muted"></i>
-                </button>
-                <button type="button" class="btn btn-light bg-white btn-icon mr-3 mt-2 mt-xl-0">
-                  <i class="mdi mdi-clock-outline text-muted"></i>
-                </button>
-                <button type="button" class="btn btn-light bg-white btn-icon mr-3 mt-2 mt-xl-0">
-                  <i class="mdi mdi-plus text-muted"></i>
-                </button> -->
+                <form [formGroup]="form" (ngSubmit)="filter()">
+                  <div class="form-group form-inline" style="margin-bottom: -0.1rem;">
+                    <div class="input-group">
+                      <input class="form-control form-control-sm" placeholder="Select Start Date" name="dp"
+                        formControlName="startDate" ngbDatepicker #d="ngbDatepicker" [ngClass]="{'input-control-error':
+                        submitted && f.startDate.errors}">
+                      <div class="input-group-append">
+                        <button class="btn btn-sm btn-outline-secondary" (click)="d.toggle()" type="button">
+                          <i class="mdi mdi-calendar-outline"></i>
+                        </button>
+                      </div>
+                    </div>
+                    <div class="input-group">
+                      <input class="form-control form-control-sm" placeholder="Select End Date" name="dp"
+                        formControlName="endDate" ngbDatepicker #d1="ngbDatepicker" [ngClass]="{'input-control-error':
+                        submitted && f.endDate.errors}">
+                      <div class="input-group-append">
+                        <button class="btn btn-sm btn-outline-secondary" (click)="d1.toggle()" type="button">
+                          <i class="mdi mdi-calendar-outline"></i>
+                        </button>
+                      </div>
+                    </div>
+                    <button type="submit" class="btn btn-outline-primary btn-sm ml-2">Filter</button>
+                  </div>
+                  <div class="form-group form-inline">
+                    <div *ngIf="submitted && f.startDate.errors" style="width: 43%;">
+                      <p class="input-error" *ngIf="f.startDate.errors.required">Start date is required</p>
+                    </div>
+                    <div *ngIf="submitted && f.endDate.errors">
+                      <p class="input-error" *ngIf="f.endDate.errors.required">End date is required</p>
+                    </div>
+                  </div>
+                </form>
               </div>
             </div>
           </div>

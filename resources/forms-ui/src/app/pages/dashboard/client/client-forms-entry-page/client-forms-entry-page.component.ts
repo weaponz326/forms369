@@ -76,7 +76,11 @@ export class ClientFormsEntryPageComponent implements OnInit {
     this.resolveReloadDataLoss();
     this.user = this.localStorage.getUser();
     console.log('form: ' + JSON.stringify(this.form));
-    this.getFormAttachments(this.form.submission_code);
+    console.log('submission_code: ' + this.form.submission_code);
+    // this.getFormAttachments(this.form.submission_code);
+    !_.isUndefined(this.form.submission_code)
+      ? this.getFormAttachments(this.form.submission_code)
+      : this.getAttachmentsForCurrentForm(this.user.id.toString());
     this.checkIfUserHasFormPin();
   }
 
@@ -167,16 +171,8 @@ export class ClientFormsEntryPageComponent implements OnInit {
   }
 
   setFormData(data: any) {
-    this.clientService.getDetails(_.toString(this.user.id)).then(
-      res => {
-        console.log('user_data: ' + JSON.stringify(res));
-        this.clientProfile = res;
-        this.clientService.autoFillFormData(data, res.client_details[0]);
-      },
-      err => {
-        console.log('error: ' + JSON.stringify(err));
-      }
-    );
+    this.clientProfile = this.form.client_submitted_details;
+    this.clientService.autoFillFormData(data, this.clientProfile);
   }
 
   getFormData() {
@@ -239,6 +235,17 @@ export class ClientFormsEntryPageComponent implements OnInit {
     return fields;
   }
 
+  getCurrentFormAttachmentKeys() {
+    const fileInputElements = [];
+    const inputElements = document.querySelectorAll('input');
+    _.forEach(inputElements, (element) => {
+      if (element.type == 'file')
+        fileInputElements.push(element.name);
+    });
+
+    return fileInputElements;
+  }
+
   submitFormAndAttachments(user_data: any, updateProfile: boolean) {
     console.log('is submitting');
     const form_submission_code = this.generateSubmissionCode();
@@ -249,8 +256,8 @@ export class ClientFormsEntryPageComponent implements OnInit {
     else {
       const update = updateProfile ? 1 : 0;
       const filled_data = this.formBuilder.getFormUserData(user_data);
-      const updated_data = this.clientService.getUpdatedClientFormData(JSON.parse(filled_data), this.clientProfile.client_details[0]);
-      this.clientService.submitForm(_.toString(this.user.id), this.form.form_code, this.clientProfile.client_details[0], JSON.parse(updated_data), update, form_submission_code).then(
+      const updated_data = this.clientService.getUpdatedClientFormData(JSON.parse(filled_data), this.clientProfile);
+      this.clientService.submitForm(_.toString(this.user.id), this.form.form_code, this.clientProfile, JSON.parse(updated_data), update, form_submission_code).then(
         ok => {
           if (ok) {
             this.loading = false;
@@ -389,10 +396,7 @@ export class ClientFormsEntryPageComponent implements OnInit {
     if (!_.isUndefined(file) || !_.isNull(file)) {
       this.clientService.uploadFormAttachments(this.user.id.toString(), this.form.form_code, submission_code, key, file).then(
         ok => {
-          if (ok) {
-            // do nothing
-          }
-          else {
+          if (!ok) {
             console.log('file upload failed');
             this.loading = false;
           }
@@ -414,8 +418,8 @@ export class ClientFormsEntryPageComponent implements OnInit {
               console.log('file upload done');
               const update = updateProfile ? 1 : 0;
               const filled_data = this.formBuilder.getFormUserData(user_data);
-              const updated_data = this.clientService.getUpdatedClientFormData(JSON.parse(filled_data), this.clientProfile.client_details[0]);
-              this.clientService.submitForm(_.toString(this.user.id), this.form.form_code, this.clientProfile.client_details[0], JSON.parse(updated_data), update, form_submission_code).then(
+              const updated_data = this.clientService.getUpdatedClientFormData(JSON.parse(filled_data), this.clientProfile);
+              this.clientService.submitForm(_.toString(this.user.id), this.form.form_code, this.clientProfile, JSON.parse(updated_data), update, form_submission_code).then(
                 _ok => {
                   if (_ok) {
                     this.loading = false;
@@ -463,8 +467,8 @@ export class ClientFormsEntryPageComponent implements OnInit {
               console.log('no upload');
               const update = updateProfile ? 1 : 0;
               const filled_data = this.formBuilder.getFormUserData(user_data);
-              const updated_data = this.clientService.getUpdatedClientFormData(JSON.parse(filled_data), this.clientProfile.client_details[0]);
-              this.clientService.submitForm(_.toString(this.user.id), this.form.form_code, this.clientProfile.client_details[0], JSON.parse(updated_data), update, form_submission_code).then(
+              const updated_data = this.clientService.getUpdatedClientFormData(JSON.parse(filled_data), this.clientProfile);
+              this.clientService.submitForm(_.toString(this.user.id), this.form.form_code, this.clientProfile, JSON.parse(updated_data), update, form_submission_code).then(
                 ok => {
                   if (ok) {
                     this.loading = false;
@@ -495,8 +499,8 @@ export class ClientFormsEntryPageComponent implements OnInit {
             console.log('file upload done');
             const update = updateProfile ? 1 : 0;
             const filled_data = this.formBuilder.getFormUserData(user_data);
-            const updated_data = this.clientService.getUpdatedClientFormData(JSON.parse(filled_data), this.clientProfile.client_details[0]);
-            this.clientService.submitForm(_.toString(this.user.id), this.form.form_code, this.clientProfile.client_details[0], JSON.parse(updated_data), update, form_submission_code).then(
+            const updated_data = this.clientService.getUpdatedClientFormData(JSON.parse(filled_data), this.clientProfile);
+            this.clientService.submitForm(_.toString(this.user.id), this.form.form_code, this.clientProfile, JSON.parse(updated_data), update, form_submission_code).then(
               _ok => {
                 if (_ok) {
                   this.loading = false;
@@ -547,8 +551,8 @@ export class ClientFormsEntryPageComponent implements OnInit {
         console.log('no upload');
         const update = updateProfile ? 1 : 0;
         const filled_data = this.formBuilder.getFormUserData(user_data);
-        const updated_data = this.clientService.getUpdatedClientFormData(JSON.parse(filled_data), this.clientProfile.client_details[0]);
-        this.clientService.submitForm(_.toString(this.user.id), this.form.form_code, this.clientProfile.client_details[0], JSON.parse(updated_data), update, submission_code).then(
+        const updated_data = this.clientService.getUpdatedClientFormData(JSON.parse(filled_data), this.clientProfile);
+        this.clientService.submitForm(_.toString(this.user.id), this.form.form_code, this.clientProfile, JSON.parse(updated_data), update, submission_code).then(
           ok => {
             if (ok) {
               this.loading = false;
@@ -592,8 +596,8 @@ export class ClientFormsEntryPageComponent implements OnInit {
         else {
           const update = updateProfile ? 1 : 0;
           const filled_data = this.formBuilder.getFormUserData(user_data);
-          const updated_data = this.clientService.getUpdatedClientFormData(JSON.parse(filled_data), this.clientProfile.client_details[0]);
-          this.clientService.submitForm(_.toString(this.user.id), this.form.form_code, this.clientProfile.client_details[0], JSON.parse(updated_data), update, submission_code).then(
+          const updated_data = this.clientService.getUpdatedClientFormData(JSON.parse(filled_data), this.clientProfile);
+          this.clientService.submitForm(_.toString(this.user.id), this.form.form_code, this.clientProfile, JSON.parse(updated_data), update, submission_code).then(
             ok => {
               if (ok) {
                 this.loading = false;
@@ -641,6 +645,59 @@ export class ClientFormsEntryPageComponent implements OnInit {
         this.loadingAttachments = false;
       }
     );
+  }
+
+  getAttachmentsForCurrentForm(user_id: string) {
+    console.log('getting attchment for currrent fomr');
+    this.loadingAttachments = true;
+    this.clientService.getProfileFormAttachment(user_id).then(
+      res => {
+        console.log('r__sss: ' + JSON.stringify(res));
+        if (res.length > 0) {
+          const attachments = [];
+          _.forEach(res, (doc) => {
+            console.log('doc: ' + JSON.stringify(doc));
+            attachments.push(doc);
+            // this.existingAttachments.push(doc);
+          });
+          this.getCurrentFormAttachmentsOnly(attachments);
+        }
+        else {
+          this.showAttachments =  false;
+        }
+
+        this.loadingAttachments = false;
+      },
+      err => {
+        console.log('get_a_error: ' + JSON.stringify(err));
+        this.loadingAttachments = false;
+      }
+    );
+  }
+
+  getCurrentFormAttachmentsOnly(attachments: Array<any>) {
+    _.forEach(attachments, (attachment) => {
+      _.forEach(this.attachmentKeys, (_attachment) => {
+        console.log('_aaaaa: ' + _attachment);
+        if (attachment.key == _attachment) {
+          this.existingAttachments.push(attachment);
+        }
+      });
+    });
+
+    this.existingAttachments.length > 0 ? this.showAttachments = true : null;
+  }
+
+  transformToRealText(text: string) {
+    if (_.includes(text, '-')) {
+      return text.replace(/-/g, ' ');
+    }
+    else if (_.includes(text, '_')) {
+      return _.replace(text, '_', ' ');
+    }
+    else {
+      return text;
+    }
   }
 
   openModal(e: Event, url: string) {

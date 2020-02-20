@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import * as _ from 'lodash';
 import { FormsService } from 'src/app/services/forms/forms.service';
+import { DateTimeService } from 'src/app/services/date-time/date-time.service';
 import { LocalStorageService } from 'src/app/services/storage/local-storage.service';
 
 @Component({
@@ -20,6 +21,7 @@ export class ExecFormsListPageComponent implements OnInit {
 
   constructor(
     private formService: FormsService,
+    private dateService: DateTimeService,
     private localStorage: LocalStorageService
   ) {
     this.allFormsList = [];
@@ -44,6 +46,7 @@ export class ExecFormsListPageComponent implements OnInit {
           this.hasData = true;
           this.loading = false;
           _.forEach(forms, (form) => {
+            form.created_at = this.dateService.safeDateFormat(form.created_at);
             this.allFormsList.push(form);
           });
         }
@@ -69,8 +72,8 @@ export class ExecFormsListPageComponent implements OnInit {
         const forms = res as any;
         this.hasMore = this.checkIfHasMore();
         _.forEach(forms, (form) => {
+          form.created_at = this.dateService.safeDateFormat(form.created_at);
           this.allFormsList.push(form);
-          this.allFormsList = _.reverse(this.allFormsList);
         });
       },
       err => {

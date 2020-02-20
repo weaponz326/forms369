@@ -2,6 +2,7 @@ import * as _ from 'lodash';
 import { Component, OnInit } from '@angular/core';
 import { BranchService } from 'src/app/services/branch/branch.service';
 import { LocalStorageService } from 'src/app/services/storage/local-storage.service';
+import { DateTimeService } from 'src/app/services/date-time/date-time.service';
 
 @Component({
   selector: 'app-exec-branches-list-page',
@@ -23,6 +24,7 @@ export class ExecBranchesListPageComponent implements OnInit {
 
   constructor(
     private branchService: BranchService,
+    private dateService: DateTimeService,
     private localStorage: LocalStorageService
   ) {
     this.branchesList = [];
@@ -93,8 +95,8 @@ export class ExecBranchesListPageComponent implements OnInit {
         if (branches.length > 0) {
           this.hasData = true;
           _.forEach(branches, (branch) => {
+            branch.created_at = this.dateService.safeDateFormat(branch.created_at);
             this.branchesList.push(branch);
-            this.allBranchesList = _.reverse(this.branchesList);
           });
         }
         else {
@@ -118,6 +120,7 @@ export class ExecBranchesListPageComponent implements OnInit {
         const branches = res as any;
         this.hasMore = this.checkIfHasMore();
         _.forEach(branches, (branch) => {
+          branch.created_at = this.dateService.safeDateFormat(branch.created_at);
           this.branchesList.push(branch);
           this.allBranchesList = this.branchesList;
         });

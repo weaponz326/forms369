@@ -1,0 +1,221 @@
+<div class="container-scroller">
+  <app-navigation-bar></app-navigation-bar>
+  <div class="container-fluid page-body-wrapper">
+    <app-side-bar></app-side-bar>
+    <div class="main-panel">
+      <div class="content-wrapper">
+        <div class="row">
+          <div class="col-md-12 grid-margin">
+            <div class="d-flex justify-content-between flex-wrap">
+              <div class="d-flex align-items-end flex-wrap">
+                <div class="mr-md-3 mr-xl-5">
+                  <h2 style="line-height: 1.3;">{{ form.form_name || form.name }}</h2>
+                </div>
+                <div class="d-flex">
+                </div>
+              </div>
+              <div class="d-flex justify-content-between align-items-end flex-wrap">
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div [hidden]="created" class="row">
+          <div class="col-md-8 offset-md-2 grid-margin stretch-card">
+            <div class="card">
+              <div class="card-body">
+                <p class="card-title">{{ form.form_name || form.name }}</p>
+                <p class="text-muted">All forms with <span class="text-danger">*</span> are required and shouldn't be left out</p>
+                <div class="card-text pt-5">
+                  <form class="forms-sample">
+                    <div class="form-builder-container">
+                      <div id="form-render"></div>
+                    </div>
+
+                    <div *ngIf="loadingAttachments" class="row m-md-2">
+                      <div class="col-md-12 col-sm-12 m-md-2">
+                        <div class="d-flex justify-content-center">
+                          <div class="spinner-border m-2" style="width: 2rem; height: 2rem;" role="status">
+                            <span class="sr-only">Loading...</span>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+
+                    <div class="attachments-section" *ngIf="!loadingAttachments && showAttachments">
+                      <div class="card mb-4">
+                        <div class="card-body">
+                          <h5 class="card-title">Form Attachments / Documents</h5>
+                          <div class="row" *ngFor="let file of existingAttachments">
+                            <div class="col-11" style="padding-right: 8px;">
+                              <ol class="files-list">
+                                <li class="file-item">
+                                  <i class="mdi mdi-paperclip menu-icon"></i>
+                                  <h5 class="file-link-title"><strong>{{ transformToRealText(file.key) }}</strong></h5>
+                                  <a class="alert-link file-link" (click)="openModal($event, file.url)">{{ file.url }}</a>
+                                </li>
+                              </ol>
+                            </div>
+                            <div class="col-1" style="padding-right: 3px; padding-left: 4px; margin-top: 7px;">
+                              <button class="btn btn-primary btn-icon" (click)="download(file.url)">
+                                <i class="mdi mdi-download-outline"></i>
+                              </button>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+
+                    <div class="buttons-list">
+                      <button *ngIf="loading" class="btn btn-primary btn-lg mr-2" type="button" disabled>
+                        <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+                        <span class="sr-only">Please wait...</span>
+                      </button>
+                      <button *ngIf="!loading" type="submit" class="btn btn-primary btn-lg mr-2" (click)="submit()">Submit</button>
+                      <button type="button" class="btn btn-light btn-lg" (click)="cancel()">Cancel</button>
+                    </div>
+                  </form>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div *ngIf="created" class="row">
+          <div class="col-md-12 grid-margin">
+            <div class="card text-center">
+              <div class="card-body">
+                <p class="card-title">Form Completed Successfully</p>
+                <p class="text-muted"></p>
+                <div class="card-text">
+                  <i class="mdi mdi-shield-check-outline" style="font-size: 12em;"></i>
+                  <p class="text-muted">
+                    Below is your generated code.
+                    Send this code to any {{ form.merchant_name }} branch to be processed.
+                  </p>
+                  <div class="code">{{ submissionCode }}</div>
+                  <button class="btn btn-primary mr-2 hover-cursor" type="button" (click)="copy()">
+                    <i class="mdi mdi-content-copy" style="font-size: 20px;"></i>
+                    <span class="sr-only">Please wait...</span>
+                  </button>
+                  <button class="btn btn-primary mr-2 hover-cursor" type="button" (click)="ok()">Ok</button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- content -->
+      <!-- footer -->
+      <app-footer-bar></app-footer-bar>
+      <!-- partial -->
+    </div>
+    <!-- main ends -->
+  </div>
+</div>
+
+<ng-template #confirm let-modal>
+  <div class="modal-header">
+    <h4 class="modal-title" id="modal-title">Confirm Action</h4>
+    <button type="button" class="close" aria-describedby="modal-title" (click)="modal.close()">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <p><strong>Would you like to update your profile with the new details provided ?</strong></p>
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-outline-primary" (click)="modal.close()">No</button>
+    <button type="button" class="btn btn-primary" (click)="modal.close('yes')">Yes</button>
+  </div>
+</ng-template>
+
+<ng-template #viewImgAttachment let-modal>
+  <div class="modal-header">
+    <h5 class="modal-title">Attachment File</h5>
+    <button type="button" class="close" aria-describedby="modal-title" (click)="modal.close()">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body" style="padding: 0px;">
+    <img [src]="imgUrl" style="width: 100%;">
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-primary" (click)="modal.close()">Close</button>
+  </div>
+</ng-template>
+
+<ng-template #viewDocAttachment let-modal>
+  <div class="modal-header">
+    <h5 class="modal-title">Attachment File</h5>
+    <button type="button" class="close" aria-describedby="modal-title" (click)="modal.close()">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <p>This document type cannot be viewed. Please download</p>
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-outline-primary" (click)="modal.close()">Close</button>
+    <button type="button" class="btn btn-primary" (click)="downloadDoc(documentUrl)">Download</button>
+  </div>
+</ng-template>
+
+<ng-template #setPin let-modal>
+  <form [formGroup]="pinForm" (ngSubmit)="createPin()">
+    <div class="modal-header">
+      <h5 class="modal-title text-uppercase">Setup A New PIN</h5>
+      <button type="button" class="close" aria-describedby="modal-title" (click)="modal.close()">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+    <div class="modal-body">
+      <div class="form-group pin-form-group">
+        <input type="text" class="form-control form-control-lg pin-control" formControlName="pin" placeholder="----"
+          [ngClass]="{'input-control-error': submitted && f.pin.errors}" maxlength="4"
+          (keyup)="resolveStrCharacters($event)">
+        <div *ngIf="submitted && f.pin.errors">
+          <p class="input-error" *ngIf="f.pin.errors.required">PIN is required</p>
+          <p class="input-error" *ngIf="f.pin.errors.minlength">PIN must be 4 (four) digits.</p>
+        </div>
+      </div>
+    </div>
+    <div class="modal-footer">
+      <button type="button" class="btn btn-outline-primary" (click)="modal.close()">Close</button>
+      <button *ngIf="!isLoading" type="submit" class="btn btn-primary">Create PIN</button>
+      <button *ngIf="isLoading" type="button" class="btn btn-block btn-primary font-weight-medium" disabled>
+        <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span> &nbsp; &nbsp;
+        Please wait...
+      </button>
+    </div>
+  </form>
+</ng-template>
+
+<ng-template #pin let-modal>
+  <form>
+    <div class="modal-header">
+      <h5 class="modal-title text-uppercase">Enter PIN To Submit Form</h5>
+      <button type="button" class="close" aria-describedby="modal-title" (click)="modal.close()">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+    <div class="modal-body">
+      <div class="form-group pin-form-group">
+        <input type="text" class="form-control form-control-lg pin-control" name="pinCode" [(ngModel)]="pinCode"
+          placeholder="----" maxlength="4" (keyup)="resolveStrCharacters($event)" autofocus>
+        <div>
+          <p class="input-error" *ngIf="pinRequired">PIN is required</p>
+          <p class="input-error" *ngIf="pinMinimum">PIN must be 4 (four) digits.</p>
+        </div>
+      </div>
+    </div>
+    <div class="modal-footer">
+      <button type="button" class="btn btn-outline-primary" (click)="modal.close()">Close</button>
+      <button *ngIf="!isLoading" type="submit" class="btn btn-primary" (click)="verifyPin()">Submit</button>
+      <button *ngIf="isLoading" type="button" class="btn btn-block btn-primary font-weight-medium" disabled>
+        <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span> &nbsp; &nbsp;
+        Please wait...
+      </button>
+    </div>
+  </form>
+</ng-template>

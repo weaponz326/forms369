@@ -16,6 +16,18 @@
                 </div>
               </div>
               <div class="d-flex justify-content-between align-items-end flex-wrap">
+                <div class="dropdown">
+                  <button class="btn btn-primary dropdown-toggle" type="button" id="dropdownMenuButton"
+                    data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    More Options
+                  </button>
+                  <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                    <a class="dropdown-item" (click)="openFilterModal()">Filter</a>
+                    <a class="dropdown-item" (click)="downloadAll('csv')">Download (CSV)</a>
+                    <a class="dropdown-item" (click)="downloadAll('pdf')">Download (PDF)</a>
+                    <a class="dropdown-item" (click)="downloadAll('excel')">Download (Excel)</a>
+                  </div>
+                </div>
               </div>
             </div>
           </div>
@@ -24,7 +36,7 @@
         <div *ngIf="loading" class="row m-5">
           <div class="col-md-12 m-5">
             <div class="d-flex justify-content-center">
-              <div class="spinner-border m-5" style="width: 5rem; height: 5rem;" role="status">
+              <div class="spinner-border m-5" style="width: 3rem; height: 3rem;" role="status">
                 <span class="sr-only">Loading...</span>
               </div>
             </div>
@@ -141,3 +153,34 @@
     </div>
   </div>
 </div>
+
+<ng-template #confirm let-modal>
+  <div class="modal-header">
+    <h4 class="modal-title" id="modal-title">Download Form Data</h4>
+    <button type="button" class="close" aria-describedby="modal-title" (click)="modal.dismiss('close')">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <div class="text-center">
+      <div class="row">
+        <h3 class="download-title">Choose your desired format</h3>
+        <div class="col-6">
+          <button class="btn btn-outline-primary btn-lg btn-icon-text" style="padding: 1rem 2rem;"
+            (click)="downloadNormal()">
+            <i class="mdi mdi-file-document"></i>
+            Normal Format
+          </button>
+        </div>
+        <div class="col-6">
+          <button class="btn btn-outline-primary btn-lg btn-icon-text" (click)="downloadPDF()">
+            <i class="mdi mdi-file-pdf"></i>
+            PDF Format
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="modal-footer">
+  </div>
+</ng-template>
