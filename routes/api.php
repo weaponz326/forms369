@@ -232,7 +232,7 @@ Route::group(['middleware' => ['auth:api'], 'prefix' => 'v1'], function(){
   Route::get('getAllTemplates', 'HomeController@getAllTemplates')->name('getAllTemplates')->middleware('scope:GIT_Admin,company_admin,branch_admin');                                     
   Route::post('deleteTemplate/{id}', 'HomeController@deleteTemplate')->name('deleteTemplate')->middleware('scope:GIT_Admin');                                     
   //search template by name api
-  Route::get('searchTemplateByNameOrCategory/{term}', 'HomeController@searchTemplateByNameOrCategory')->name('searchTemplateByNameOrCategory')->middleware('scope:GIT_Admin,company_admin,branch_admin');
+  Route::get('searchTemplateByName/{term}', 'HomeController@searchTemplateByNameOrCategory')->name('searchTemplateByName')->middleware('scope:GIT_Admin,company_admin,branch_admin');
   Route::get('getAllTemplatesbyCategory/{id}', 'HomeController@getAllTemplatesbyCategory')->name('getAllTemplatesbyCategory')->middleware('scope:GIT_Admin,company_admin,branch_admin');                                     
 
 
@@ -269,7 +269,12 @@ Route::group(['middleware' => ['auth:api'], 'prefix' => 'v1'], function(){
  
   //can print
   Route::post('candownload/{id}/{status}', 'HomeController@candownload')->name('candownload')->middleware('scope:GIT_Admin,company_admin');
+
+  ///Export data APIS
+  // Route::get('exportClientFormData/{code}', 'HomeController@exportClientFormData')->name('exportClientFormData')->middleware('scope:GIT_Admin,super_executive,branch_executive,company_admin,branch_admin,frontdesk, client');
+
 });
+
  
 
 

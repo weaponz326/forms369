@@ -12,6 +12,7 @@ use Auth;
 use Illuminate\Pagination\Paginator;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Log;
+
 class AuthController extends Controller
 {
    
@@ -80,7 +81,7 @@ class AuthController extends Controller
     public function sendTwoWayAuthenticationCode(Request $request, $id, $phone)
     {
         //generate a 4 character code and send to user via sms
-        $access_code = rand(1,10000);
+        $access_code = rand(1000,9999);
         $from = "GiTLog";
         $mobile = $phone;
         $msg = "GiTLog Forms369 Authentication Code: \r\n". $access_code;
@@ -198,6 +199,12 @@ class AuthController extends Controller
 
         $password = bcrypt($request->new_password);
         try {
+
+            if(is_numeric($id)){
+
+            }else{
+                $id = Crypt::decryptString($id);
+            }
             //update user password
             DB::table('users')->where('id', $id)
             ->update(
@@ -759,8 +766,8 @@ class AuthController extends Controller
             // ], 404);
         }
         if (! $request->hasValidSignature()) {
-            return redirect()->route('invalid_confirm_link');
             // abort(401, 'Link expired');
+            return redirect()->route('invalid_confirm_link');
         }
 
         $user->active_token = NULL;
@@ -1616,9 +1623,11 @@ class AuthController extends Controller
         
         if($user){
             Log::channel('mysql')->info('User  with id: ' . $id .' successfully reset their password');
-            return redirect()->route('reset', ['id' => $id]);
+            $encid = Crypt::encryptString($id);
+            return redirect()->route('reset', ['id' => $encid]);
 
         }
     }
+
 
 }

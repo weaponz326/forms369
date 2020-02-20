@@ -93,16 +93,33 @@ class SetupController extends Controller
 
         if($upload){
             try {
-                DB::table('uploads')
-                ->where([
-                    ['form_code', '=', $form_code],
-                    ['merchant_id', '=', $merchant_id]
-                ])->update(
-                [
-                    'url' => $url, 
-                    'updated_at' => $updated_at
-                ]
-                );
+                $attached = DB::table('uploads')
+                ->where('form_code', $form_code)
+                ->where('merchant_id', $merchant_id)
+                ->first();
+
+                // return $attached;
+                if(!empty($attached)){
+                    DB::table('uploads')
+                        ->where([
+                            ['form_code', '=', $form_code],
+                            ['merchant_id', '=', $merchant_id]
+                        ])->update(
+                        [
+                            'url' => $url, 
+                            'updated_at' => $updated_at
+                        ]
+                    );
+                }else{
+                    $id = DB::table('uploads')->insertGetId(
+                        [
+                            'url' => $url, 
+                            'uploaded_at' => $updated_at,
+                            'merchant_id' => $merchant_id,
+                            'form_code' => $form_code
+                        ]
+                    );
+                }
     
                  //get user creating the new merchant
                 $user = $request->user();
