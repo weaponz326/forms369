@@ -19,10 +19,12 @@ import { AccountService } from 'src/app/services/account/account.service';
 export class ViewAccountListsPageComponent implements OnInit {
 
   user: string;
+  query: string;
   loading: boolean;
   hasError: boolean;
   hasNoData: boolean;
   filterState: string;
+  foundNoForm: boolean;
   @Input() userType: any;
   @Input() branchId: any;
   @Input() merchantId: any;
@@ -665,6 +667,49 @@ export class ViewAccountListsPageComponent implements OnInit {
 
   sortByUsername() {
     this.collection = _.sortBy(this.collection, (item) => item.username);
+  }
+
+  searchForUser() {
+    this.loading = true;
+    this.companyService.findUser(this.userType, this.merchantId, this.query).then(
+      forms => {
+        if (forms.length == 0) {
+          this.loading = false;
+          this.foundNoForm = true;
+        }
+        else {
+          this.loading = false;
+          this.foundNoForm = false;
+          _.forEach(forms, (form) => {
+            this.collection.push(form);
+          });
+        }
+      },
+      err => {
+        this.hasError = true;
+        this.loading = false;
+      }
+    );
+  }
+
+  search(e: KeyboardEvent) {
+    if (e.key == 'Enter') {
+      if (this.query.length != 0) {
+        console.log(this.query);
+        this.hasError = false;
+        this.collection = [];
+        this.searchForUser();
+      }
+      else {
+        if ((this.foundNoForm && this.query.length == 0) || this.query.length == 0) {
+          this.hasNoData = false;
+          this.foundNoForm = false;
+          this.collection = [];
+          console.log('hererereererere');
+          this.getAccountDetails();
+        }
+      }
+    }
   }
 
   retry() {
