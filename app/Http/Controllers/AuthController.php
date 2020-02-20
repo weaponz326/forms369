@@ -1672,5 +1672,78 @@ class AuthController extends Controller
 
     }
 
+    /**
+     * Get all users under a user type and merchant matching a search term
+     *
+     * @param  mixed $request
+     * @param  mixed $merchant_id of the merchant
+     * @param  mixed $user_type_id id of user_type_id of search
+     * @param  mixed $term user search term
+     * @return [json] all matching users
+     */
+    public function getUserByTypeAndMerchant(Request $request, $user_type_id, $merchant_id, $term){
+
+        //get all registered companies 
+        $getusers = DB::table('users')
+        ->leftjoin('merchants', 'merchants.id', '=', 'merchant_id')
+        ->select('users.*', 'merchants.merchant_name')
+        ->Where([
+            ['name', 'like', '%'.$term.'%'],
+            ['usertype','=',$user_type_id],
+            ['merchant_id','=',$merchant_id]
+        ])
+        ->orWhere([
+            ['firstname', 'like', '%'.$term.'%'],
+            ['usertype','=',$user_type_id],
+            ['merchant_id','=',$merchant_id]
+        ])
+        ->orWhere([
+            ['lastname', 'like', '%'.$term.'%'],
+            ['usertype','=',$user_type_id],
+            ['merchant_id','=',$merchant_id]
+        ])
+        ->orWhere([
+            ['email', 'like', '%'.$term.'%'],
+            ['usertype','=',$user_type_id],
+            ['merchant_id','=',$merchant_id]
+        ])
+        ->orWhere([
+            ['username', 'like', '%'.$term.'%'],
+            ['usertype','=',$user_type_id],
+            ['merchant_id','=',$merchant_id]
+        ])
+       ->get();
+
+        //clean data
+        $userdata = [];
+
+        $getusers->transform(function($items){
+            $userdata['id'] = $items->id;
+            $userdata['full_name'] =$items->name;
+            $userdata['firstname'] = $items->firstname;
+            $userdata['lastname'] = $items->lastname;
+            $userdata['username'] =$items->username;
+            $userdata['email'] = $items->email;
+            $userdata['can_download'] = $items->can_download;
+            $userdata['merchant_name'] = empty($items->merchant_name) ? '' : Crypt::decryptString($items->merchant_name);
+            $userdata['last_login_at'] = $items->last_login_at;
+            $userdata['last_login_ip'] = $items->last_login_ip;
+            $userdata['status'] = $items->status;
+            $userdata['user_type'] = $items->usertype;
+            $userdata['created_at'] = $items->created_at;
+            $userdata['updated_at'] = $items->updated_at;
+            $userdata['deleted_at'] = $items->deleted_at;
+
+            return $userdata;
+         });
+
+         $response = [
+            'users' => $getusers
+        ];
+        return response()->json($response, 200);
+   
+   }
+
+
 
 }

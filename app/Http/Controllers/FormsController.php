@@ -867,5 +867,105 @@ class FormsController extends Controller
         return redirect()->route('form_link', ['id' => $code]);
     }
 
+    /**
+     * get form for a merchant based on a search term in a particular status category 
+     *
+     * @param  mixed $request
+     * @param  mixed $term search term
+     * @param  mixed $merchant_id id of the merchant that the forms belong to
+     * @param  mixed $status search for a form based on a particular status
+     * @return void\Illuminate\Http\Response all details of a form
+     */
+    public function getFormbyNameStatusAndMerchant(Request $request, $term, $status, $merchant_id){
+
+        //get all registered companies 
+        $getform = DB::table('forms')
+        ->join('merchants', 'merchants.id', '=', 'merchant_id')
+        ->leftjoin('uploads', 'forms.form_code', '=', 'uploads.form_code')
+        ->select('forms.*','merchants.merchant_name AS merchant_name','merchants.can_print', 'uploads.url')
+        ->where([
+            ['forms.temps', 'like', '%'.$term .'%'],
+            ['forms.status','=',$status],
+            ['forms.merchant_id','=',$merchant_id]
+        ])
+        ->get();
+      
+        //clean data
+        $formdata = [];
+
+        $form = $getform->map(function($items){
+            $formdata['form_code'] = $items->form_code;
+            $formdata['name'] = Crypt::decryptString($items->name);
+            $formdata['status'] = $items->status;
+            $formdata['form_fields'] = json_decode(Crypt::decryptString($items->form_fields));
+            $formdata['merchant_id'] = $items->merchant_id;
+            $formdata['merchant_name'] = Crypt::decryptString($items->merchant_name);
+            $formdata['can_print'] = $items->can_print;
+            $formdata['can_view'] = $items->can_view;
+            $formdata['file_url'] = $items->url;
+            $formdata['created_by'] = $items->created_by;
+            $formdata['created_at'] = $items->created_at;
+            $formdata['updated_at'] = $items->updated_at;
+            $formdata['updated_by'] = $items->updated_by;
+
+            return $formdata;
+         });
+
+         $response = [
+            'form' => $form
+        ];
+        return response()->json($response, 200);
+
+    }
+
+    /**
+     * get form for a merchant based on a search term 
+     *
+     * @param  mixed $request
+     * @param  mixed $term search term
+     * @param  mixed $merchant_id id of the merchant that the forms belong to
+     * @return void\Illuminate\Http\Response all details of a form
+     */
+    public function getFormbyNameAndMerchant(Request $request, $term, $merchant_id){
+
+        //get all registered companies 
+        $getform = DB::table('forms')
+        ->join('merchants', 'merchants.id', '=', 'merchant_id')
+        ->leftjoin('uploads', 'forms.form_code', '=', 'uploads.form_code')
+        ->select('forms.*','merchants.merchant_name AS merchant_name','merchants.can_print', 'uploads.url')
+        ->where([
+            ['forms.temps', 'like', '%'.$term .'%'],
+            ['forms.merchant_id','=',$merchant_id]
+        ])
+        ->get();
+      
+        //clean data
+        $formdata = [];
+
+        $form = $getform->map(function($items){
+            $formdata['form_code'] = $items->form_code;
+            $formdata['name'] = Crypt::decryptString($items->name);
+            $formdata['status'] = $items->status;
+            $formdata['form_fields'] = json_decode(Crypt::decryptString($items->form_fields));
+            $formdata['merchant_id'] = $items->merchant_id;
+            $formdata['merchant_name'] = Crypt::decryptString($items->merchant_name);
+            $formdata['can_print'] = $items->can_print;
+            $formdata['can_view'] = $items->can_view;
+            $formdata['file_url'] = $items->url;
+            $formdata['created_by'] = $items->created_by;
+            $formdata['created_at'] = $items->created_at;
+            $formdata['updated_at'] = $items->updated_at;
+            $formdata['updated_by'] = $items->updated_by;
+
+            return $formdata;
+         });
+
+         $response = [
+            'form' => $form
+        ];
+        return response()->json($response, 200);
+
+    }
+
 
 }   
