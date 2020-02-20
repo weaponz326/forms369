@@ -1613,13 +1613,13 @@ class AuthController extends Controller
     {
         $user = User::where('passwordreset_token', $token)->first();
         if (!$user) {
-            return redirect()->route('invalid_confirm_link');
+            return redirect()->route('invalid_password_link');
             // return response()->json([
             //     'message' => 'This activation token is invalid.'
             // ], 404);
         }
         if (! $request->hasValidSignature()) {
-            return redirect()->route('invalid_confirm_link');
+            return redirect()->route('invalid_password_link');
             // abort(401, 'Link expired');
         }
 
