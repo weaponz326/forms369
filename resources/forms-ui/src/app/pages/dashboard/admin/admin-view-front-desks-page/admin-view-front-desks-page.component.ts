@@ -13,6 +13,7 @@ export class AdminViewFrontDesksPageComponent implements OnInit {
   userType: number;
   branchId: number;
   canEdit: boolean;
+  canDelete: boolean;
   merchantId: number;
   hasNoAccount: boolean;
 
@@ -23,9 +24,8 @@ export class AdminViewFrontDesksPageComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.canEdit = this.localStorage.getUser().usertype == UserTypes.BranchAdmin
-      ? false
-      : true;
+    this.canEdit = this.localStorage.getUser().usertype == UserTypes.BranchAdmin ? false : true;
+    this.canDelete = this.localStorage.getUser().usertype == UserTypes.BranchAdmin ? false : true;
   }
 
   edit(id: any) {

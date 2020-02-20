@@ -28,22 +28,10 @@
                 <div class="card-text">
                   <div class="container">
                     <div class="row text-center">
-                      <div class="col-6 col-md-6 offset-3 offset-md-3">
+                      <div class="col-8 col-md-8 offset-2 offset-md-2">
                         <h3><strong>{{ user.merchant_name }}</strong></h3>
                         <h3 class="display-3 mt-3 mb-3">{{ accountType }}</h3>
-                        <!-- <button *ngIf="!_loading" class="btn mr-2"
-                          [ngClass]="{'btn-success': isActive, 'btn-danger': !isActive}" (click)="accountActivation()">
-                          Active
-                        </button>
-                        <button *ngIf="!_loading" class="btn mr-2"
-                          [ngClass]="{'btn-success': isActive, 'btn-danger': !isActive}" (click)="accountActivation()">
-                          Active
-                        </button> -->
-                        <!-- <button *ngIf="_loading" class="btn btn-primary" type="button" disabled>
-                          <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
-                          Loading...
-                        </button> -->
-                        <button *ngIf="user.user_type == 25" class="btn btn-outline-secondary btn-icon-text" (click)="edit(user.id)">
+                        <button class="btn btn-outline-secondary btn-icon-text" (click)="edit(user.id)">
                           <i class="mdi mdi-pencil-outline"></i>
                           Edit
                         </button>
@@ -93,6 +81,11 @@
                                         <td *ngIf="user.status == 0">In Active</td>
                                       </tr>
                                       <tr class="hover-cursor">
+                                        <td><strong>Can Download</strong></td>
+                                        <td *ngIf="user.can_download == 1">Yes</td>
+                                        <td *ngIf="user.can_download == 0">No</td>
+                                      </tr>
+                                      <tr class="hover-cursor">
                                         <td><strong>User Type</strong></td>
                                         <td>{{ accountType }}</td>
                                       </tr>
@@ -124,6 +117,9 @@
           </div>
         </div>
       </div>
+      <!-- footer -->
+      <app-footer-bar></app-footer-bar>
+      <!-- /.footer -->
     </div>
   </div>
 </div>

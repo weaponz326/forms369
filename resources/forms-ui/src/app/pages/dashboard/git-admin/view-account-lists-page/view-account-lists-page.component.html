@@ -99,7 +99,7 @@
               <tr>
                 <th>Username</th>
                 <th>Email Address</th>
-                <th *ngIf="userType != 20">Company Name</th>
+                <th *ngIf="userType == 20">Company Name</th>
                 <th>Status.</th>
                 <th>Actions</th>
               </tr>
@@ -108,7 +108,7 @@
               <tr class="hover-cursor" *ngFor="let user of collection; let i = index">
                 <td>{{ user.username }}</td>
                 <td>{{ user.email }}</td>
-                <td *ngIf="userType != 20">{{ user.merchant_name }}</td>
+                <td *ngIf="userType == 20">{{ user.merchant_name }}</td>
                 <td *ngIf="user.status == 1"><label class="badge badge-success text-center">Active</label></td>
                 <td *ngIf="user.status != 1"><label class="badge badge-danger text-center">In-Active</label></td>
                 <td>

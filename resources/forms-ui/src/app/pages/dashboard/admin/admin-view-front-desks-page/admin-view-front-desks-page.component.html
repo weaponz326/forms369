@@ -25,9 +25,9 @@
             <div class="card">
               <div class="card-body">
                 <app-view-account-lists-page
-                  [canEdit]="canEdit"
                   [canView]="true"
-                  [canDelete]="false"
+                  [canEdit]="canEdit"
+                  [canDelete]="canDelete"
                   [userType]="userType"
                   (edit)="edit($event)"
                   (view)="view($event)"
@@ -42,6 +42,9 @@
           </div>
         </div>
       </div>
+      <!-- footer -->
+      <app-footer-bar></app-footer-bar>
+      <!-- /.footer -->
     </div>
   </div>
 </div>
