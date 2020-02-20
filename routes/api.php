@@ -276,7 +276,9 @@ Route::group(['middleware' => ['auth:api'], 'prefix' => 'v1'], function(){
   //search for a form for a particular merchant based on a search term
   Route::get('getFormbyNameAndMerchant/{term}/{id}', 'HomeController@getFormbyNameAndMerchant')->name('getFormbyNameAndMerchant')->middleware('scope:GIT_Admin,company_admin,branch_admin,super_executive,branch_executive');
 
-  
+  //search users under a user type and merchant matching a search term
+  Route::get('getUserByTypeAndMerchant/{user_type}/{merchant_id}/{term}', 'HomeController@getUserByTypeAndMerchant')->name('getUserByTypeAndMerchant')->middleware('scope:GIT_Admin,company_admin,branch_admin,super_executive,branch_executive');
+
 });
 
  

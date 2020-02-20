@@ -2024,4 +2024,20 @@ class HomeController extends Controller
         $message = (new FormsController)->getFormbyNameAndMerchant($request, $term, $merchant_id);
         return $message;
     }
+
+     /**
+      * Business logics
+     * Get all users under a user type and merchant matching a search term
+     *
+     * @param  mixed $request
+     * @param  mixed $merchant_id of the merchant
+     * @param  mixed $user_type_id id of user_type_id of search
+     * @param  mixed $term user search term
+     * @return [json] all matching users
+     */
+    protected function getUserByTypeAndMerchant(Request $request, $user_type_id, $merchant_id, $term)
+    {
+        $message = (new AuthController)->getUserByTypeAndMerchant($request, $user_type_id, $merchant_id, $term);
+        return $message;
+    }
 }    
