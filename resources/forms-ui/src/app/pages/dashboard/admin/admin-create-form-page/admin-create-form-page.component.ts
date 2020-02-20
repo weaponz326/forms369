@@ -58,51 +58,26 @@ export class AdminCreateFormPageComponent implements OnInit {
   }
 
   handleFormRender() {
-    if (_.isUndefined(this.template) || _.isNull(this.template)) {
-      this.formCode = this.formBuilderService.generateUniqueFormCode();
-      this.formBuilderService.generateFormFieldsBySections().then(
-        form_elements => {
-          this.formBuilder = $(document.getElementById('fb-editor')).formBuilder({
-            controlPosition: 'left',
-            inputSets: form_elements,
-            scrollToFieldOnAdd: false,
-            disabledActionButtons: ['data', 'clear', 'save'],
-            typeUserAttrs: this.formBuilderService.handleFieldsTypeAttrs(),
-            typeUserDisabledAttrs: this.formBuilderService.disableFieldAttrs(),
-            disableFields: this.formBuilderService.disableSectionFormFields()
-          });
+    this.formCode = this.formBuilderService.generateUniqueFormCode();
+    this.formBuilderService.generateFormFieldsBySections().then(
+      form_elements => {
+        this.formBuilder = $(document.getElementById('fb-editor')).formBuilder({
+          controlPosition: 'left',
+          inputSets: form_elements,
+          scrollToFieldOnAdd: false,
+          disabledActionButtons: ['data', 'clear', 'save'],
+          typeUserAttrs: this.formBuilderService.handleFieldsTypeAttrs(),
+          typeUserDisabledAttrs: this.formBuilderService.disableFieldAttrs(),
+          disableFields: this.formBuilderService.disableSectionFormFields()
+        });
 
-          this._loading = false;
-        },
-        error => {
-          this._loading = false;
-          this.hasError = true;
-        }
-      );
-    }
-    else {
-      this.formCode = this.formBuilderService.generateUniqueFormCode();
-      this.formBuilderService.generateSectionAndDefaultFormFields().then(
-        form_elements => {
-          this.formBuilder = $(document.getElementById('fb-editor')).formBuilder({
-            controlPosition: 'left',
-            inputSets: form_elements,
-            scrollToFieldOnAdd: false,
-            defaultFields: this.template.form_fields,
-            disabledActionButtons: ['data', 'clear', 'save'],
-            typeUserAttrs: this.formBuilderService.handleFieldsTypeAttrs(),
-            typeUserDisabledAttrs: this.formBuilderService.disableFieldAttrs(),
-            disableFields: this.formBuilderService.disableDefaultFormControls()
-          });
-
-          this._loading = false;
-        },
-        error => {
-          this._loading = false;
-          this.hasError = true;
-        }
-      );
-    }
+        this._loading = false;
+      },
+      error => {
+        this._loading = false;
+        this.hasError = true;
+      }
+    );
   }
 
   buildForm() {
@@ -195,13 +170,6 @@ export class AdminCreateFormPageComponent implements OnInit {
     this.formBuilder.actions.clearFields();
   }
 
-  // create() {
-  //   this.submitted = true;
-  //   if (this.form.valid) {
-  //     this.save();
-  //   }
-  // }
-
 
   save() {
     this.loading = true;
@@ -247,7 +215,8 @@ export class AdminCreateFormPageComponent implements OnInit {
   }
 
   preview() {
-    this.router.navigateByUrl('/admin/details/form', { state: { form: this.getForm() }});
+    const form_data = { name: this.f.name.value, form_fields: this.getForm() };
+    this.router.navigateByUrl('/admin/details/form', { state: { form: form_data } });
   }
 
   ok() {

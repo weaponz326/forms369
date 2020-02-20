@@ -21,7 +21,25 @@ export class AdminEditUserPageComponent implements OnInit {
   }
 
   goBack() {
-    this.router.navigateByUrl('admin/lists/front_desk');
+    switch (this.userType) {
+      case 'Front Desk':
+        this.router.navigateByUrl('admin/lists/front_desk');
+        break;
+      case 'Branch Admin':
+        this.router.navigateByUrl('admin/lists/branch_admin');
+        break;
+      case 'Company Admin':
+        this.router.navigateByUrl('admin/lists/company_admin');
+        break;
+      case 'Super Executive':
+        this.router.navigateByUrl('admin/lists/super_executive');
+        break;
+      case 'Branch Super Executive':
+        this.router.navigateByUrl('admin/lists/branch_executive');
+        break;
+      default:
+        break;
+    }
   }
 
   editAccount(ev: any) {
