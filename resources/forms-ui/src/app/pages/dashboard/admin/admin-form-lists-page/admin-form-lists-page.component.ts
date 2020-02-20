@@ -212,32 +212,33 @@ export class AdminFormListsPageComponent implements OnInit {
     );
   }
 
-  // searchByFormCode() {
-  //   this.loading = true;
-  //   this.clientService.findFormsByCode(this.query).then(
-  //     forms => {
-  //       if (forms.length == 0) {
-  //         this.loading = false;
-  //         this.foundNoForm = true;
-  //       }
-  //       else {
-  //         this.loading = false;
-  //         this.foundNoForm = false;
-  //         _.forEach(forms, (form) => {
-  //           this.formsList.push(form);
-  //         });
-  //       }
-  //     },
-  //     err => {
-  //       this.hasError = true;
-  //       this.loading = false;
-  //     }
-  //   );
-  // }
-
   searchByFormName() {
     this.loading = true;
     this.companyService.findFormsByName(this.query, this.merchant_id).then(
+      forms => {
+        if (forms.length == 0) {
+          this.loading = false;
+          this.foundNoForm = true;
+        }
+        else {
+          this.loading = false;
+          this.foundNoForm = false;
+          _.forEach(forms, (form) => {
+            this.formsList.push(form);
+          });
+        }
+      },
+      err => {
+        this.hasError = true;
+        this.loading = false;
+      }
+    );
+  }
+
+  searchFilteredFormsByName() {
+    this.loading = true;
+    const status = this.filterState == 'active' ? 1 : 0;
+    this.companyService.findFormsByNameAndStatus(this.query, this.merchant_id, status).then(
       forms => {
         if (forms.length == 0) {
           this.loading = false;
@@ -262,39 +263,27 @@ export class AdminFormListsPageComponent implements OnInit {
     if (e.key == 'Enter') {
       const allForms = this.formsList;
       if (this.query.length != 0) {
-        // we need to know whether the user is searching by a form code
-        // or the user is searching by a form name.
-        // First, check if its a form code.
-        console.log(this.query);
-        this.hasError = false;
-        this.formsList = [];
-        // if (/\d/.test(this.query)) {
-        //   if (this.query.length == 5) {
-        //     // search by form code, based on the input
-        //     // the user might be searching by a form code.
-        //     console.log('searching by form code');
-        //     this.searchByFormCode();
-        //   }
-        //   else {
-        //     // the input contains a number but is more than 5 characters
-        //     // in length, this might be a form name.
-        //     console.log('searching by form name');
-        //     this.searchByFormName();
-        //   }
-        // }
-        // else {
-        //   // since all our form codes includes digits, and this
-        //   // users input doesnt include a digit, search by form name.
-        //   console.log('searching by form name last');
-        this.searchByFormName();
-        // }
+        if (this.filterState == 'all') {
+          console.log(this.query);
+          this.hasError = false;
+          this.formsList = [];
+          console.log('searching ...');
+          this.searchByFormName();
+        }
+        else {
+          console.log(this.query);
+          this.hasError = false;
+          this.formsList = [];
+          console.log('searching on filter');
+          this.searchFilteredFormsByName();
+        }
       }
       else {
         if ((this.foundNoForm && this.query.length == 0) || this.query.length == 0) {
           this.hasNoData = false;
           this.foundNoForm = false;
           this.formsList = [];
-          console.log('hererereererere');
+          this.filterState = 'all';
           this.getAllForms();
         }
       }
