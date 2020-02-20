@@ -322,6 +322,57 @@ export class CompanyService {
     });
   }
 
+  findFormsByName(form_name: string, merchant_id: string): Promise<any> {
+    return new Promise((resolve, reject) => {
+      const url = this.endpointService.apiHost + 'api/v1/getFormbyNameAndMerchant/' + form_name + '/' + merchant_id;
+      this.http.get(url, { headers: this.headers }).subscribe(
+        res => {
+          console.log('forms_by_name: ' + JSON.stringify(res));
+          const response = res as any;
+          resolve(response.form);
+        },
+        err => {
+          console.log('f_by_name_erro: ' + JSON.stringify(err));
+          reject(err);
+        }
+      );
+    });
+  }
+
+  findFormsByNameAndStatus(form_name: string, merchant_id: string, status: number): Promise<any> {
+    return new Promise((resolve, reject) => {
+      const url = this.endpointService.apiHost + `api/v1/getFormbyNameStatusAndMerchant/${form_name}/${status}/${merchant_id}`;
+      this.http.get(url, { headers: this.headers }).subscribe(
+        res => {
+          console.log('forms_by_name: ' + JSON.stringify(res));
+          const response = res as any;
+          resolve(response.form);
+        },
+        err => {
+          console.log('f_by_name_erro: ' + JSON.stringify(err));
+          reject(err);
+        }
+      );
+    });
+  }
+
+  findUser(user_type: number, merchant_id: string, search_query: string): Promise<any> {
+    return new Promise((resolve, reject) => {
+      const url = this.endpointService.apiHost + `api/v1/getUserByTypeAndMerchant/${user_type}/${merchant_id}/${search_query}`;
+      this.http.get(url, { headers: this.headers }).subscribe(
+        res => {
+          console.log('forms_by_name: ' + JSON.stringify(res));
+          const response = res as any;
+          resolve(response.users);
+        },
+        err => {
+          console.log('f_by_name_erro: ' + JSON.stringify(err));
+          reject(err);
+        }
+      );
+    });
+  }
+
   /**
    * Changes a company's status to `active`.
    *

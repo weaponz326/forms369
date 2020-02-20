@@ -15,3 +15,7 @@ table td {
   color: #555;
   font-family: 'OpenSans_SemiBold';
 }
+
+.search-form {
+    border-radius: 30px;
+}

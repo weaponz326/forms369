@@ -58,4 +58,5 @@
     19. Client profile view redesigned. Sections are displayed as tabs on the left vertically.
     20. Company admins can set who downloads data among ffont desk, super execs & branch super execs
     21. Executives can now print form data.
+    22. Company admin can now search for forms and users.
 
