@@ -270,9 +270,13 @@ Route::group(['middleware' => ['auth:api'], 'prefix' => 'v1'], function(){
   //can print
   Route::post('candownload/{id}/{status}', 'HomeController@candownload')->name('candownload')->middleware('scope:GIT_Admin,company_admin');
 
-  ///Export data APIS
-  // Route::get('exportClientFormData/{code}', 'HomeController@exportClientFormData')->name('exportClientFormData')->middleware('scope:GIT_Admin,super_executive,branch_executive,company_admin,branch_admin,frontdesk, client');
+  //search for a form for a particular merchant and status based on a serach term
+  Route::get('getFormbyNameStatusAndMerchant/{term}/{status}/{id}', 'HomeController@getFormbyNameStatusAndMerchant')->name('getFormbyNameStatusAndMerchant')->middleware('scope:GIT_Admin,company_admin,branch_admin,super_executive,branch_executive');
 
+  //search for a form for a particular merchant based on a search term
+  Route::get('getFormbyNameAndMerchant/{term}/{id}', 'HomeController@getFormbyNameAndMerchant')->name('getFormbyNameAndMerchant')->middleware('scope:GIT_Admin,company_admin,branch_admin,super_executive,branch_executive');
+
+  
 });
 
  
