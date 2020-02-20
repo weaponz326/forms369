@@ -2035,7 +2035,7 @@ class HomeController extends Controller
      * @param  mixed $term user search term
      * @return [json] all matching users
      */
-    protected function getUserByTypeAndMerchant(Request $request, $user_type_id, $merchant_id, $term)
+    public function getUserByTypeAndMerchant(Request $request, $user_type_id, $merchant_id, $term)
     {
         $message = (new AuthController)->getUserByTypeAndMerchant($request, $user_type_id, $merchant_id, $term);
         return $message;

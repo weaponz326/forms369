@@ -1002,7 +1002,7 @@ class AuthController extends Controller
          ->select('users.*','merchants.merchant_name AS merchant_name','company_branches.branchname AS branch_name')
         ->where('users.id', $id)
         ->get();
- 
+
          //clean data
          $userdata = [];
  
@@ -1687,7 +1687,7 @@ class AuthController extends Controller
         $getusers = DB::table('users')
         ->leftjoin('merchants', 'merchants.id', '=', 'merchant_id')
         ->select('users.*', 'merchants.merchant_name')
-        ->Where([
+        ->where([
             ['name', 'like', '%'.$term.'%'],
             ['usertype','=',$user_type_id],
             ['merchant_id','=',$merchant_id]

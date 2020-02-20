@@ -888,6 +888,11 @@ class FormsController extends Controller
             ['forms.status','=',$status],
             ['forms.merchant_id','=',$merchant_id]
         ])
+        ->orWhere([
+            ['forms.form_code', 'like', '%'.$term .'%'],
+            ['forms.status','=',$status],
+            ['forms.merchant_id','=',$merchant_id]
+        ])
         ->get();
       
         //clean data
@@ -935,6 +940,10 @@ class FormsController extends Controller
         ->select('forms.*','merchants.merchant_name AS merchant_name','merchants.can_print', 'uploads.url')
         ->where([
             ['forms.temps', 'like', '%'.$term .'%'],
+            ['forms.merchant_id','=',$merchant_id]
+        ])
+        ->orWhere([
+            ['forms.form_code', 'like', '%'.$term .'%'],
             ['forms.merchant_id','=',$merchant_id]
         ])
         ->get();
