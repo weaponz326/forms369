@@ -35,7 +35,6 @@ export class ClientProfilePageComponent implements OnInit, AfterViewInit {
   documentUrl: string;
   pinRequired: boolean;
   noFilledData: boolean;
-  showAttachments: boolean;
   docDialogRef: NgbModalRef;
   pinDialogRef: NgbModalRef;
   loadingAttachments: boolean;
@@ -368,14 +367,15 @@ export class ClientProfilePageComponent implements OnInit, AfterViewInit {
       res => {
         console.log('resssss: ' + JSON.stringify(res));
         if (res.length > 0) {
-          this.showAttachments = true;
+          // this.showAttachments = true;
           _.forEach(res, (doc) => {
             console.log('doc: ' + JSON.stringify(doc));
-            // this.existingAttachments.push(doc);
+            this.existingAttachments.push(doc);
           });
         }
         else {
-          this.showAttachments =  false;
+          // this.existingAttachments.push();
+          // this.showAttachments =  false;
         }
 
         this.loadingAttachments = false;

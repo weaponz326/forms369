@@ -50,15 +50,9 @@ export class ExecutivePrintingPageComponent implements OnInit, AfterViewInit {
     this.form = window.history.state.form;
     console.log('form: ' + JSON.stringify(this.form));
     this.form = this.reloader.resolveReloadDataLoss(this.form);
+    console.log(this.form.form_name);
 
-    if (this.form.print == true) {
-      this.isPrint = true;
-      alert('print is true');
-    }
-    else {
-      this.isPrint = false;
-      alert('print is false');
-    }
+    this.isPrint = this.form.print == true ? true : false;
 
     this.client = this.form.client_data;
     console.log('client: ' + JSON.stringify(this.client));
@@ -91,6 +85,7 @@ export class ExecutivePrintingPageComponent implements OnInit, AfterViewInit {
       merchant => {
         this.loading = false;
         const merchant_logo = merchant[0].logo;
+        console.log(merchant_logo);
         this.logo = this.endpointService.storageHost + merchant_logo;
       },
       error => {
@@ -113,7 +108,7 @@ export class ExecutivePrintingPageComponent implements OnInit, AfterViewInit {
   }
 
   download() {
-    const doc = new jsPDF();
+    const doc = new jsPDF('p', 'pt', 'a4');
     const filename = 'forms369_' + this.form.form_code + '_data';
     doc.addHTML($('#form-data'), () => {
       doc.save(filename + '.pdf');

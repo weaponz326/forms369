@@ -1,5 +1,6 @@
 declare var pdfMake: any;
 declare var html2canvas: any;
+import * as jsPDF from 'jspdf';
 import { saveAs } from 'file-saver';
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
@@ -118,6 +119,14 @@ export class DownloaderService {
         };
         pdfMake.createPdf(doc_definition).download(filename + '.pdf');
       }
+    });
+  }
+
+  pdfExport(element_id: string, filename: string) {
+    const doc = new jsPDF('p', 'pt', 'a4');
+    // const filename = 'forms369_' + this.form.form_code + '_data';
+    doc.fromHTML(document.getElementById(element_id), 0, 0, () => {
+      doc.save(filename + '.pdf');
     });
   }
 }
