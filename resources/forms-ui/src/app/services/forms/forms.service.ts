@@ -277,6 +277,7 @@ export class FormsService {
   editFormPDF(merchant_id: string, form_code: string, pdf: File): Promise<boolean> {
     return new Promise((resolve, reject) => {
       const form = new FormData();
+      console.log('upading editing pdf');
       const fileHeader = this.endpointService.headers(true);
       const url = this.endpointService.apiHost + 'api/v1/editPrintFile/' + merchant_id + '/' + form_code;
 
@@ -286,6 +287,7 @@ export class FormsService {
           console.log('response: ' + JSON.stringify(res));
           const response = res as any;
           if (_.toLower(response.message) == 'ok') {
+            console.log('upload done');
             resolve(true);
           }
           else {

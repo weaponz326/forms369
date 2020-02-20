@@ -49,10 +49,14 @@ export class ExecutivePdfPrintingPageComponent implements OnInit {
     this.clientFormDetails = [];
     this.form = window.history.state.form;
     this.form = this.reloader.resolveReloadDataLoss(this.form);
+    console.log('form: ' + JSON.stringify(this.form));
     this.user = this.localStorage.getUser();
 
+    console.log('form-code' + this.form.form_code);
+    console.log('merch: ' + this.user.merchant_id.toString());
     this.frontDeskService.getPrintPDFFile(this.form.form_code, this.user.merchant_id.toString()).then(
       file => {
+        console.log('file: ' + file);
         if (_.isUndefined(file) || _.isNull(file)) {
           alert('No PDF file is available for this form. Redirecting you to do a default printing');
           this.router.navigateByUrl('executive/printing', { state: { form: this.form }, replaceUrl: true });
@@ -65,7 +69,7 @@ export class ExecutivePdfPrintingPageComponent implements OnInit {
           };
         }
       },
-      err => { }
+      err => {}
     );
   }
 

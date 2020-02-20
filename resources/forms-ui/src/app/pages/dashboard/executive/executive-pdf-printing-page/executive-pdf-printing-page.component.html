@@ -22,14 +22,23 @@
       <div *ngFor="let input of inputList">
 
         <!-- Insert an input accordingly and get the style/position from the component -->
-        <input [type]="input.type" [name]="input.name" [value]="input.value" [checked]="input.checked"
-          [formControlName]="input.name" [ngStyle]="getInputPosition(input)">
+        <input
+          [type]="input.type"
+          [name]="input.name"
+          [value]="input.value"
+          [checked]="input.checked"
+          [formControlName]="input.name"
+          [ngStyle]="getInputPosition(input)">
       </div>
     </form>
   </div>
 
   <!-- Pdf Viewer -->
-  <pdf-viewer id="viewer" [src]="pdfSrc" (error)="onError($event)" (on-progress)="onProgress($event)"
+  <pdf-viewer
+    id="viewer"
+    [src]="pdfSrc"
+    (error)="onError($event)"
+    (on-progress)="onProgress($event)"
     (after-load-complete)="pdfFileLoadComplete($event)">
   </pdf-viewer>
 </div>

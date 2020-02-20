@@ -167,14 +167,16 @@
                           </div>
                         </div>
 
-                        <div class="attachments-section" *ngIf="!loadingAttachments && showAttachments">
+                        <div class="attachments-section" *ngIf="!loadingAttachments">
                           <div class="card mb-4">
                             <div class="card-body">
                               <h5 class="card-title">Form Attachments / Documents</h5>
+
                               <div class="text-center mt-4 pt-5" *ngIf="existingAttachments.length == 0">
                                 <h3>No Attachments</h3>
                                 <i class="mdi mdi-paperclip" style="font-size: 6em;"></i>
                               </div>
+
                               <div *ngIf="existingAttachments.length > 0">
                                 <div class="row" *ngFor="let file of existingAttachments; let i = index">
                                   <div class="col-10" style="padding-right: 8px;">
@@ -197,6 +199,7 @@
                                   </div>
                                 </div>
                               </div>
+
                             </div>
                           </div>
                         </div>

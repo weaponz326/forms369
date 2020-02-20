@@ -6,6 +6,7 @@ import { NgbModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
 import { FormsService } from 'src/app/services/forms/forms.service';
 import { ListViewService } from 'src/app/services/view/list-view.service';
 import { LocalStorageService } from 'src/app/services/storage/local-storage.service';
+import { ClientService } from 'src/app/services/client/client.service';
 
 @Component({
   selector: 'app-admin-form-lists-page',
@@ -13,12 +14,14 @@ import { LocalStorageService } from 'src/app/services/storage/local-storage.serv
   styleUrls: ['./admin-form-lists-page.component.css']
 })
 export class AdminFormListsPageComponent implements OnInit {
+  query: string;
   loading: boolean;
   hasMore: boolean;
   viewMode: string;
   hasError: boolean;
   hasNoData: boolean;
   merchant_id: string;
+  foundNoForm: boolean;
   filterState: string;
   loadingMore: boolean;
   hasMoreError: boolean;
@@ -33,9 +36,11 @@ export class AdminFormListsPageComponent implements OnInit {
     private router: Router,
     private modalService: NgbModal,
     private formService: FormsService,
+    private clientService: ClientService,
     private listViewService: ListViewService,
     private localStorage: LocalStorageService
   ) {
+    this.query = '';
     this.formsList = [];
     this.allFormsList = [];
     this.viewMode = this.listViewService.getDesiredViewMode();
@@ -203,6 +208,95 @@ export class AdminFormListsPageComponent implements OnInit {
         }
       }
     );
+  }
+
+  searchByFormCode() {
+    this.loading = true;
+    this.clientService.findFormsByCode(this.query).then(
+      forms => {
+        if (forms.length == 0) {
+          this.loading = false;
+          this.foundNoForm = true;
+        }
+        else {
+          this.loading = false;
+          this.foundNoForm = false;
+          _.forEach(forms, (form) => {
+            this.formsList.push(form);
+          });
+        }
+      },
+      err => {
+        this.hasError = true;
+        this.loading = false;
+      }
+    );
+  }
+
+  searchByFormName() {
+    this.loading = true;
+    this.clientService.findFormsByName(this.query).then(
+      forms => {
+        if (forms.length == 0) {
+          this.loading = false;
+          this.foundNoForm = true;
+        }
+        else {
+          this.loading = false;
+          this.foundNoForm = false;
+          _.forEach(forms, (form) => {
+            this.formsList.push(form);
+          });
+        }
+      },
+      err => {
+        this.hasError = true;
+        this.loading = false;
+      }
+    );
+  }
+
+  search(e: KeyboardEvent) {
+    if (e.key == 'Enter') {
+      const allForms = this.formsList;
+      if (this.query.length != 0) {
+        // we need to know whether the user is searching by a form code
+        // or the user is searching by a form name.
+        // First, check if its a form code.
+        console.log(this.query);
+        this.hasError = false;
+        this.formsList = [];
+        if (/\d/.test(this.query)) {
+          if (this.query.length == 5) {
+            // search by form code, based on the input
+            // the user might be searching by a form code.
+            console.log('searching by form code');
+            this.searchByFormCode();
+          }
+          else {
+            // the input contains a number but is more than 5 characters
+            // in length, this might be a form name.
+            console.log('searching by form name');
+            this.searchByFormName();
+          }
+        }
+        else {
+          // since all our form codes includes digits, and this
+          // users input doesnt include a digit, search by form name.
+          console.log('searching by form name last');
+          this.searchByFormName();
+        }
+      }
+      else {
+        if ((this.foundNoForm && this.query.length == 0) || this.query.length == 0) {
+          this.hasNoData = false;
+          this.foundNoForm = false;
+          this.formsList = [];
+          console.log('hererereererere');
+          this.getAllForms();
+        }
+      }
+    }
   }
 
   retry() {

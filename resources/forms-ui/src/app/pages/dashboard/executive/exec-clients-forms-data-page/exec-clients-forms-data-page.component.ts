@@ -326,6 +326,8 @@ export class ExecClientsFormsDataPageComponent implements OnInit {
     e.stopPropagation();
     const print_data = {
       print: true,
+      form_name: this.form.name,
+      form_code: this.form.form_code,
       form_data: this.form.form_fields,
       client_data: this.clientFormData[index],
     };
@@ -377,13 +379,15 @@ export class ExecClientsFormsDataPageComponent implements OnInit {
     // Bootstrap date picker returns single digit for months from Jan to Sept
     // In order to allow us to compare against MYSQL which returns double digits
     // for that, we convert the month accordingly.
+    const end_day = _.toNumber(end.day) <= 9 ? '0' + end.day : end.day;
+    const start_day = _.toNumber(start.day) <= 9 ? '0' + start.day : start.day;
     const end_month = _.toNumber(end.month) <= 9 ? '0' + end.month : end.month;
     const start_month = _.toNumber(start.month) <= 9 ? '0' + start.month : start.month;
 
-    const end_date = end.year + '-' + end_month + '-' + end.day;
-    const start_date = start.year + '-' + start_month + '-' + start.day;
+    const end_date = end.year + '-' + end_month + '-' + end_day;
+    const start_date = start.year + '-' + start_month + '-' + start_day;
     console.log(start_date);
-    console.log(end_month);
+    console.log(end_date);
 
     let submitted_forms = this.respondentData;
     submitted_forms = _.filter(submitted_forms,
@@ -404,11 +408,13 @@ export class ExecClientsFormsDataPageComponent implements OnInit {
     // Bootstrap date picker returns single digit for months from Jan to Sept
     // In order to allow us to compare against MYSQL which returns double digits
     // for that, we convert the month accordingly.
+    const end_day = _.toNumber(end.day) <= 9 ? '0' + end.day : end.day;
+    const start_day = _.toNumber(start.day) <= 9 ? '0' + start.day : start.day;
     const end_month = _.toNumber(end.month) <= 9 ? '0' + end.month : end.month;
     const start_month = _.toNumber(start.month) <= 9 ? '0' + start.month : start.month;
 
-    const end_date = end.year + '-' + end_month + '-' + end.day;
-    const start_date = start.year + '-' + start_month + '-' + start.day;
+    const end_date = end.year + '-' + end_month + '-' + end_day;
+    const start_date = start.year + '-' + start_month + '-' + start_day;
     console.log(start_date);
     console.log(end_date);
 

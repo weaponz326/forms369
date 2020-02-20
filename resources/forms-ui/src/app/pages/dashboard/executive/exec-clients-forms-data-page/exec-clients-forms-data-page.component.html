@@ -17,14 +17,13 @@
               </div>
               <div class="d-flex justify-content-between align-items-end flex-wrap">
                 <div class="dropdown">
-                  <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton"
+                  <button class="btn btn-primary dropdown-toggle" type="button" id="dropdownMenuButton"
                     data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                     More Options
                   </button>
                   <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
                     <a class="dropdown-item" (click)="openFilterModal()">Filter</a>
                     <a class="dropdown-item" (click)="downloadAll('csv')">Download (CSV)</a>
-                    <a class="dropdown-item" (click)="downloadAll('pdf')">Download (PDF)</a>
                     <a class="dropdown-item" (click)="downloadAll('excel')">Download (Excel)</a>
                   </div>
                 </div>
