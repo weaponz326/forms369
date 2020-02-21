@@ -671,6 +671,7 @@ export class ViewAccountListsPageComponent implements OnInit {
 
   searchForUser() {
     this.loading = true;
+    console.log('merchantId: ' + this.merchantId);
     this.companyService.findUser(this.userType, this.merchantId, this.query).then(
       forms => {
         if (forms.length == 0) {
@@ -705,7 +706,6 @@ export class ViewAccountListsPageComponent implements OnInit {
           this.hasNoData = false;
           this.foundNoForm = false;
           this.collection = [];
-          console.log('hererereererere');
           this.getAccountDetails();
         }
       }
