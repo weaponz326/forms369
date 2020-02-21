@@ -1683,36 +1683,66 @@ class AuthController extends Controller
      */
     public function getUserByTypeAndMerchant(Request $request, $user_type_id, $merchant_id, $term){
 
-        //get all registered companies 
-        $getusers = DB::table('users')
-        ->leftjoin('merchants', 'merchants.id', '=', 'merchant_id')
-        ->select('users.*', 'merchants.merchant_name')
-        ->where([
-            ['name', 'like', '%'.$term.'%'],
-            ['usertype','=',$user_type_id],
-            ['merchant_id','=',$merchant_id]
-        ])
-        ->orWhere([
-            ['firstname', 'like', '%'.$term.'%'],
-            ['usertype','=',$user_type_id],
-            ['merchant_id','=',$merchant_id]
-        ])
-        ->orWhere([
-            ['lastname', 'like', '%'.$term.'%'],
-            ['usertype','=',$user_type_id],
-            ['merchant_id','=',$merchant_id]
-        ])
-        ->orWhere([
-            ['email', 'like', '%'.$term.'%'],
-            ['usertype','=',$user_type_id],
-            ['merchant_id','=',$merchant_id]
-        ])
-        ->orWhere([
-            ['username', 'like', '%'.$term.'%'],
-            ['usertype','=',$user_type_id],
-            ['merchant_id','=',$merchant_id]
-        ])
-       ->get();
+        if($merchant_id == 0){
+             //get all registered companies 
+            $getusers = DB::table('users')
+            ->leftjoin('merchants', 'merchants.id', '=', 'merchant_id')
+            ->select('users.*', 'merchants.merchant_name')
+            ->where([
+                ['name', 'like', '%'.$term.'%'],
+                ['usertype','=',$user_type_id]
+            ])
+            ->orWhere([
+                ['firstname', 'like', '%'.$term.'%'],
+                ['usertype','=',$user_type_id]
+            ])
+            ->orWhere([
+                ['lastname', 'like', '%'.$term.'%'],
+                ['usertype','=',$user_type_id]
+            ])
+            ->orWhere([
+                ['email', 'like', '%'.$term.'%'],
+                ['usertype','=',$user_type_id]
+            ])
+            ->orWhere([
+                ['username', 'like', '%'.$term.'%'],
+                ['usertype','=',$user_type_id]
+            ])
+            ->get();
+
+        }else{
+             //get all registered companies 
+            $getusers = DB::table('users')
+            ->leftjoin('merchants', 'merchants.id', '=', 'merchant_id')
+            ->select('users.*', 'merchants.merchant_name')
+            ->where([
+                ['name', 'like', '%'.$term.'%'],
+                ['usertype','=',$user_type_id],
+                ['merchant_id','=',$merchant_id]
+            ])
+            ->orWhere([
+                ['firstname', 'like', '%'.$term.'%'],
+                ['usertype','=',$user_type_id],
+                ['merchant_id','=',$merchant_id]
+            ])
+            ->orWhere([
+                ['lastname', 'like', '%'.$term.'%'],
+                ['usertype','=',$user_type_id],
+                ['merchant_id','=',$merchant_id]
+            ])
+            ->orWhere([
+                ['email', 'like', '%'.$term.'%'],
+                ['usertype','=',$user_type_id],
+                ['merchant_id','=',$merchant_id]
+            ])
+            ->orWhere([
+                ['username', 'like', '%'.$term.'%'],
+                ['usertype','=',$user_type_id],
+                ['merchant_id','=',$merchant_id]
+            ])
+             ->get();
+
+        }
 
         //clean data
         $userdata = [];

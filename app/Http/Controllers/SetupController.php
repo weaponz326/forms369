@@ -1198,7 +1198,7 @@ class SetupController extends Controller
         //clean data
         $branchessdata = [];
 
-      $getbranches->map(function($items){
+      $getbranches->transform(function($items){
             $branchessdata['id'] = $items->id;
             $branchessdata['branch_name'] = Crypt::decryptString($items->branchname);
             $branchessdata['status'] = $items->status;
