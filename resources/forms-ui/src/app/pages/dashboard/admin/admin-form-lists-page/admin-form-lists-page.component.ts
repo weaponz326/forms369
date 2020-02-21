@@ -261,12 +261,12 @@ export class AdminFormListsPageComponent implements OnInit {
 
   search(e: KeyboardEvent) {
     if (e.key == 'Enter') {
-      const allForms = this.formsList;
       if (this.query.length != 0) {
         if (this.filterState == 'all') {
           console.log(this.query);
           this.hasError = false;
           this.formsList = [];
+          this.hasMore = false;
           console.log('searching ...');
           this.searchByFormName();
         }

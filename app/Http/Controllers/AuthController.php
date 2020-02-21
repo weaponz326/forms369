@@ -1472,7 +1472,7 @@ class AuthController extends Controller
             $userdata['full_name'] =$items->name;
             $userdata['firstname'] = $items->firstname;
             $userdata['lastname'] = $items->lastname;
-            $userdata['usename'] =$items->username;
+            $userdata['username'] =$items->username;
             $userdata['email'] = $items->email;
             $userdata['can_download'] = $items->can_download;
             $userdata['last_login_at'] = $items->last_login_at;
