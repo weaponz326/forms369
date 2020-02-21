@@ -8,6 +8,7 @@ import { FormsService } from 'src/app/services/forms/forms.service';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { LocalStorageService } from 'src/app/services/storage/local-storage.service';
 import { FormBuilderService } from 'src/app/services/form-builder/form-builder.service';
+import { FrontDeskService } from 'src/app/services/front-desk/front-desk.service';
 
 @Component({
   selector: 'app-admin-form-edit-page',
@@ -17,6 +18,7 @@ import { FormBuilderService } from 'src/app/services/form-builder/form-builder.s
 export class AdminFormEditPageComponent implements OnInit {
   _form: any;
   pdfFile: File;
+  pdfName: string;
   form: FormGroup;
   formBuilder: any;
   created: boolean;
@@ -47,6 +49,7 @@ export class AdminFormEditPageComponent implements OnInit {
     private _formBuilder: FormBuilder,
     private formService: FormsService,
     private localStorage: LocalStorageService,
+    private frontDeskService: FrontDeskService,
     private formBuilderService: FormBuilderService
   ) {
     this._loading = true;
@@ -56,6 +59,7 @@ export class AdminFormEditPageComponent implements OnInit {
     this.isPublished = this._form.status == 1 ? true : false;
     console.log('merchant id: ' + this.merchant_id);
     this.handleUploadFileView();
+    this.getPdfFile();
   }
 
   /**
@@ -102,6 +106,20 @@ export class AdminFormEditPageComponent implements OnInit {
       error => {
         this._loading = false;
         this.hasError = true;
+      }
+    );
+  }
+
+  getPdfFile() {
+    this.frontDeskService.getPrintPDFFile(this._form.form_code, this.merchant_id.toString()).then(
+      file => {
+        console.log(file);
+        if (!_.isNull(file.url)) {
+          this.f.pdf.setValue(file.url);
+        }
+      },
+      err => {
+        console.log(err);
       }
     );
   }
