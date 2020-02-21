@@ -1808,7 +1808,7 @@ class AuthController extends Controller
             ->orWhere([
                 ['email', 'like', '%'.$term.'%'],
                 ['usertype','=',$user_type_id],
-                ['status','=',$status]
+                ['users.status','=',$status]
             ])
             ->orWhere([
                 ['username', 'like', '%'.$term.'%'],
