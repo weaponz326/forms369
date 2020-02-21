@@ -1793,17 +1793,17 @@ class AuthController extends Controller
             ->where([
                 ['name', 'like', '%'.$term.'%'],
                 ['usertype','=',$user_type_id],
-                ['status','=',$status]
+                ['users.status','=',$status]
             ])
             ->orWhere([
                 ['firstname', 'like', '%'.$term.'%'],
                 ['usertype','=',$user_type_id],
-                ['status','=',$status]
+                ['users.status','=',$status]
             ])
             ->orWhere([
                 ['lastname', 'like', '%'.$term.'%'],
                 ['usertype','=',$user_type_id],
-                ['status','=',$status]
+                ['users.status','=',$status]
             ])
             ->orWhere([
                 ['email', 'like', '%'.$term.'%'],
@@ -1813,7 +1813,7 @@ class AuthController extends Controller
             ->orWhere([
                 ['username', 'like', '%'.$term.'%'],
                 ['usertype','=',$user_type_id],
-                ['status','=',$status]
+                ['users.status','=',$status]
             ])
             ->get();
 
@@ -1826,31 +1826,31 @@ class AuthController extends Controller
                 ['name', 'like', '%'.$term.'%'],
                 ['usertype','=',$user_type_id],
                 ['merchant_id','=',$merchant_id],
-                ['status','=',$status]
+                ['users.status','=',$status]
             ])
             ->orWhere([
                 ['firstname', 'like', '%'.$term.'%'],
                 ['usertype','=',$user_type_id],
                 ['merchant_id','=',$merchant_id],
-                ['status','=',$status]
+                ['users.status','=',$status]
             ])
             ->orWhere([
                 ['lastname', 'like', '%'.$term.'%'],
                 ['usertype','=',$user_type_id],
                 ['merchant_id','=',$merchant_id],
-                ['status','=',$status]
+                ['users.status','=',$status]
             ])
             ->orWhere([
                 ['email', 'like', '%'.$term.'%'],
                 ['usertype','=',$user_type_id],
                 ['merchant_id','=',$merchant_id],
-                ['status','=',$status]
+                ['users.status','=',$status]
             ])
             ->orWhere([
                 ['username', 'like', '%'.$term.'%'],
                 ['usertype','=',$user_type_id],
                 ['merchant_id','=',$merchant_id],
-                ['status','=',$status]
+                ['users.status','=',$status]
             ])
              ->get();
 

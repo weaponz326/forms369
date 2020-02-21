@@ -280,7 +280,7 @@ Route::group(['middleware' => ['auth:api'], 'prefix' => 'v1'], function(){
   Route::get('getUserByTypeAndMerchant/{user_type}/{merchant_id}/{term}', 'HomeController@getUserByTypeAndMerchant')->name('getUserByTypeAndMerchant')->middleware('scope:GIT_Admin,company_admin,branch_admin,super_executive,branch_executive');
 
   //search users under a user type and merchant matching a search term
-  Route::get('getUserByTypeStatusAndMerchant/{user_type}/{merchant_id}/{status}{term}', 'HomeController@getUserByTypeStatusAndMerchant')->name('getUserByTypeStatusAndMerchant')->middleware('scope:GIT_Admin,company_admin,branch_admin,super_executive,branch_executive');
+  Route::get('getUserByTypeStatusAndMerchant/{user_type}/{merchant_id}/{status}/{term}', 'HomeController@getUserByTypeStatusAndMerchant')->name('getUserByTypeStatusAndMerchant')->middleware('scope:GIT_Admin,company_admin,branch_admin,super_executive,branch_executive');
 
   
 
