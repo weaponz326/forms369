@@ -3,23 +3,24 @@ import * as moment from 'moment';
 import { Router } from '@angular/router';
 import { PDFDocumentProxy } from 'ng2-pdf-viewer';
 import { Users } from 'src/app/models/users.model';
-import { Component, OnInit, Input } from '@angular/core';
 import { FormGroup, FormControl, FormBuilder } from '@angular/forms';
+import { Component, OnInit, Input, AfterViewInit } from '@angular/core';
 import { EndpointService } from 'src/app/services/endpoint/endpoint.service';
 import { PDFAnnotationData, PDFPageProxy, PDFProgressData } from 'pdfjs-dist';
+import { ReloadingService } from 'src/app/services/reloader/reloading.service';
 import { FrontDeskService } from 'src/app/services/front-desk/front-desk.service';
 import { LocalStorageService } from 'src/app/services/storage/local-storage.service';
-import { ReloadingService } from 'src/app/services/reloader/reloading.service';
 
 @Component({
   selector: 'app-executive-pdf-printing-page',
   templateUrl: './executive-pdf-printing-page.component.html',
   styleUrls: ['./executive-pdf-printing-page.component.css']
 })
-export class ExecutivePdfPrintingPageComponent implements OnInit {
+export class ExecutivePdfPrintingPageComponent implements OnInit, AfterViewInit {
   form: any;
   user: Users;
   pdfSrc: string;
+  isPrint: boolean;
   dpiRatio: any;
   loading: boolean;
   hasError: boolean;
@@ -42,6 +43,10 @@ export class ExecutivePdfPrintingPageComponent implements OnInit {
     this.myForm = this._fb.group({});
   }
 
+  ngAfterViewInit() {
+    !this.isPrint ? this.download() : null;
+  }
+
   initVars() {
     this.loading = true;
     this.inputList = [];
@@ -51,6 +56,7 @@ export class ExecutivePdfPrintingPageComponent implements OnInit {
     this.form = this.reloader.resolveReloadDataLoss(this.form);
     console.log('form: ' + JSON.stringify(this.form));
     this.user = this.localStorage.getUser();
+    this.isPrint = this.form.print == true ? true : false;
 
     console.log('form-code' + this.form.form_code);
     console.log('merch: ' + this.user.merchant_id.toString());
@@ -221,5 +227,8 @@ export class ExecutivePdfPrintingPageComponent implements OnInit {
   print() {
     this.hidePrintButton();
     window.print();
+  }
+
+  download() {
   }
 }

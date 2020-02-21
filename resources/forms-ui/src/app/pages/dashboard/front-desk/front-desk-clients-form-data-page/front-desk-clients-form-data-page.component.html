@@ -24,7 +24,6 @@
                   <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
                     <a class="dropdown-item" (click)="openFilterModal()">Filter</a>
                     <a class="dropdown-item" (click)="downloadAll('csv')">Download (CSV)</a>
-                    <a class="dropdown-item" (click)="downloadAll('pdf')">Download (PDF)</a>
                     <a class="dropdown-item" (click)="downloadAll('excel')">Download (Excel)</a>
                   </div>
                 </div>
@@ -93,20 +92,29 @@
             <div class="card">
               <div class="card-body">
                 <div class="table-responsive">
-                  <table class="table table-hover">
+                  <table id="table-data" class="table table-hover">
                     <thead>
                       <tr>
-                        <th *ngFor="let header of tableHeaders">
-                          <strong class="text-uppercase">{{ header }}</strong>
-                        </th>
-                        <th>
-                          <strong class="text-uppercase">Submitted At</strong>
-                        </th>
+                        <th *ngFor="let header of tableHeaders"><strong class="text-uppercase">{{ header }}</strong></th>
+                        <th><strong class="text-uppercase">Submitted At</strong></th>
+                        <th><strong class="text-uppercase">Actions</strong></th>
                       </tr>
                     </thead>
                     <tbody>
-                      <tr class="hover-cursor" *ngFor="let content of tableContents">
+                      <tr class="hover-cursor" *ngFor="let content of tableContents; let i=index">
                         <td *ngFor="let data of content">{{ data }}</td>
+                        <td>
+                          <div class="dropdown">
+                            <button type="button" class="btn btn-light bg-white btn-icon dropdown-toggle"
+                              id="dropdownMenuButton" data-toggle="dropdown">
+                              <i class="mdi mdi-dots-horizontal text-muted"></i>
+                            </button>
+                            <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                              <a class="dropdown-item" (click)="print($event, i)">Print</a>
+                              <a class="dropdown-item" (click)="openAttachmentModal(i)">View Attachments</a>
+                            </div>
+                          </div>
+                        </td>
                       </tr>
                     </tbody>
                   </table>
@@ -154,33 +162,147 @@
   </div>
 </div>
 
-<ng-template #confirm let-modal>
+<ng-template #attachment let-modal>
   <div class="modal-header">
-    <h4 class="modal-title" id="modal-title">Download Form Data</h4>
+    <h4 class="modal-title" id="modal-title">View Attachments</h4>
     <button type="button" class="close" aria-describedby="modal-title" (click)="modal.dismiss('close')">
       <span aria-hidden="true">&times;</span>
     </button>
   </div>
-  <div class="modal-body">
-    <div class="text-center">
-      <div class="row">
-        <h3 class="download-title">Choose your desired format</h3>
-        <div class="col-6">
-          <button class="btn btn-outline-primary btn-lg btn-icon-text" style="padding: 1rem 2rem;"
-            (click)="downloadNormal()">
-            <i class="mdi mdi-file-document"></i>
-            Normal Format
-          </button>
+  <div class="modal-body" style="padding: 0px;">
+    <div *ngIf="loadingAttachments" class="row m-md-2">
+      <div class="col-md-12 col-sm-12">
+        <div class="d-flex justify-content-center">
+          <div class="spinner-border m-2" style="width: 2rem; height: 2rem;" role="status">
+            <span class="sr-only">Loading...</span>
+          </div>
         </div>
-        <div class="col-6">
-          <button class="btn btn-outline-primary btn-lg btn-icon-text" (click)="downloadPDF()">
-            <i class="mdi mdi-file-pdf"></i>
-            PDF Format
-          </button>
+      </div>
+    </div>
+
+    <div *ngIf="hasNoAttachments" class="row m-md-2 text-center d-block">
+      <div class="text-center">
+        <i class="mdi mdi-image-multiple" style="font-size: 8em;"></i>
+        <h1 class="display-4 pt-2">No Attachments found</h1>
+        <h5>No attachments found for this form.</h5>
+      </div>
+    </div>
+
+    <div *ngIf="!hasNoAttachments" class="row m-md-2">
+      <div *ngIf="!hasDocuments" id="carouselEx" class="carousel slide" data-ride="carousel">
+        <ol class="carousel-indicators">
+          <li *ngFor="let item of attachmentList; let i=index" data-target="#carouselEx" [attr.data-slide-to]="i"
+            [ngClass]="{'active': isFirst(i)}"></li>
+        </ol>
+        <div class="carousel-inner">
+          <div *ngFor="let item of attachmentList" class="carousel-item active">
+            <img [src]="item.url" class="d-block w-100" alt="Attachment Image">
+            <div class="carousel-caption d-none d-md-block">
+              <h5>{{ transformText(item.key) }}</h5>
+            </div>
+          </div>
         </div>
+        <a class="carousel-control-prev" href="#carouselEx" role="button" data-slide="prev">
+          <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+          <span class="sr-only">Previous</span>
+        </a>
+        <a class="carousel-control-next" href="#carouselEx" role="button" data-slide="next">
+          <span class="carousel-control-next-icon" aria-hidden="true"></span>
+          <span class="sr-only">Next</span>
+        </a>
+      </div>
+
+      <div *ngIf="hasDocuments" class="list-group">
+        <a *ngFor="let item of attachmentList" class="list-group-item list-group-item-action"
+          (click)="openModal($event, item.url)">
+          {{ transformText(item.key) | uppercase }} : {{ transformUrl(item.url) }}
+        </a>
       </div>
     </div>
   </div>
   <div class="modal-footer">
+    <button type="button" class="btn btn-outline-primary" (click)="modal.dismiss()">Close</button>
+  </div>
+</ng-template>
+
+<ng-template #filter let-modal>
+  <form [formGroup]="filterForm" (ngSubmit)="onFilter()">
+    <div class="modal-header">
+      <h4 class="modal-title" id="modal-title">Filter Results</h4>
+      <button type="button" class="close" aria-describedby="modal-title" (click)="modal.dismiss('close')">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+    <div class="modal-body">
+      <div class="form-group">
+        <select formControlName="filterBy" class="form-control form-control-lg">
+          <option value="">Filter By</option>
+          <option value="processed_at">Processed Date</option>
+          <option value="submitted_at">Submitted Date</option>
+        </select>
+      </div>
+      <div class="row">
+        <div class="col-6">
+          <div class="form-group" style="margin-bottom: -0.1rem;">
+            <div class="input-group">
+              <input class="form-control form-control-lg" placeholder="Select Start Date" name="dp"
+                formControlName="startDate" ngbDatepicker #d="ngbDatepicker">
+              <div class="input-group-append">
+                <button class="btn btn-sm btn-outline-secondary" (click)="d.toggle()" type="button">
+                  <i class="mdi mdi-calendar-outline"></i>
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-6">
+          <div class="input-group">
+            <input class="form-control form-control-lg" placeholder="Select End Date" name="dp"
+              formControlName="endDate" ngbDatepicker #d1="ngbDatepicker">
+            <div class="input-group-append">
+              <button class="btn btn-sm btn-outline-secondary" (click)="d1.toggle()" type="button">
+                <i class="mdi mdi-calendar-outline"></i>
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="modal-footer">
+      <button type="button" class="btn btn-outline-primary" (click)="modal.dismiss()">Cancel</button>
+      <button type="button" class="btn btn-primary" (click)="resetFilter()">Reset</button>
+      <button type="submit" class="btn btn-primary">Filter</button>
+    </div>
+  </form>
+</ng-template>
+
+<ng-template #viewImgAttachment let-modal>
+  <div class="modal-header">
+    <h5 class="modal-title" id="modal-title">Attachment File</h5>
+    <button type="button" class="close" aria-describedby="modal-title" (click)="modal.close()">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body" style="padding: 0px;">
+    <img [src]="imgUrl" style="width: 100%;">
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-primary-outline" (click)="modal.close()">Close</button>
+  </div>
+</ng-template>
+
+<ng-template #viewDocAttachment let-modal>
+  <div class="modal-header">
+    <h5 class="modal-title" id="modal-title">Attachment File</h5>
+    <button type="button" class="close" aria-describedby="modal-title" (click)="modal.close()">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <p>This document type cannot be viewed. Please download</p>
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-outline-primary" (click)="modal.close()">Close</button>
+    <button type="button" class="btn btn-primary" (click)="downloadDoc(documentUrl)">Download</button>
   </div>
 </ng-template>

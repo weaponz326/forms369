@@ -28,6 +28,7 @@ export class AdminCreateFormPageComponent implements OnInit {
   toPublish: boolean;
   merchant_id: number;
   uploadError: boolean;
+  canPublishForm: boolean;
   showFileUpload: boolean;
   @ViewChild('pdfFile', { static: false }) pdfFileElement: ElementRef;
 
@@ -38,6 +39,7 @@ export class AdminCreateFormPageComponent implements OnInit {
     private localStorage: LocalStorageService,
     private formBuilderService: FormBuilderService
   ) {
+    this.canPublishForm = true;
     this.merchant_id = this.localStorage.getUser().merchant_id;
     console.log('merchant id: ' + this.merchant_id);
     this.template = window.history.state.template;
@@ -98,8 +100,11 @@ export class AdminCreateFormPageComponent implements OnInit {
 
   inputFileChanged(ev: Event) {
     const pdf_file = this.pdfFileElement.nativeElement as HTMLInputElement;
-    this.f.pdf.setValue(pdf_file.files[0].name);
-    this.pdfFile = pdf_file.files[0];
+    if (pdf_file.files[0] != undefined) {
+      this.f.pdf.setValue(pdf_file.files[0].name);
+      this.pdfFile = pdf_file.files[0];
+      this.canPublishForm = false;
+    }
   }
 
   showFilePicker() {

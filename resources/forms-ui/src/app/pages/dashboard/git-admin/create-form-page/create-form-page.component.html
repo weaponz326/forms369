@@ -84,7 +84,8 @@
                           <input type="file" style="overflow: hidden; height: 0px; width: 0px;">
                           <input type="text" formControlName="pdf" class="form-control file-upload-info" placeholder="Upload File" readonly>
                           <span class="input-group-append">
-                            <button class="file-upload-browse btn btn-primary" type="button" (click)="showFilePicker()">Upload PDF</button>
+                            <button class="file-upload-browse btn btn-primary" type="button" (click)="showFilePicker()"
+                              style="padding: 9px 15px;"><i class="mdi mdi-folder"></i></button>
                           </span>
                         </div>
                         <div *ngIf="submitted && f.pdf.errors">
