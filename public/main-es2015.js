@@ -3897,21 +3897,41 @@ let AdminCreateFormPageComponent = class AdminCreateFormPageComponent {
     }
     handleFormRender() {
         this.formCode = this.formBuilderService.generateUniqueFormCode();
-        this.formBuilderService.generateFormFieldsBySections().then(form_elements => {
-            this.formBuilder = $(document.getElementById('fb-editor')).formBuilder({
-                controlPosition: 'left',
-                inputSets: form_elements,
-                scrollToFieldOnAdd: false,
-                disabledActionButtons: ['data', 'clear', 'save'],
-                typeUserAttrs: this.formBuilderService.handleFieldsTypeAttrs(),
-                typeUserDisabledAttrs: this.formBuilderService.disableFieldAttrs(),
-                disableFields: this.formBuilderService.disableSectionFormFields()
+        if (lodash__WEBPACK_IMPORTED_MODULE_1__["isUndefined"](this.template) || lodash__WEBPACK_IMPORTED_MODULE_1__["isNull"](this.template)) {
+            this.formBuilderService.generateFormFieldsBySections().then(form_elements => {
+                this.formBuilder = $(document.getElementById('fb-editor')).formBuilder({
+                    controlPosition: 'left',
+                    inputSets: form_elements,
+                    scrollToFieldOnAdd: false,
+                    disabledActionButtons: ['data', 'clear', 'save'],
+                    typeUserAttrs: this.formBuilderService.handleFieldsTypeAttrs(),
+                    typeUserDisabledAttrs: this.formBuilderService.disableFieldAttrs(),
+                    disableFields: this.formBuilderService.disableSectionFormFields()
+                });
+                this._loading = false;
+            }, error => {
+                this._loading = false;
+                this.hasError = true;
             });
-            this._loading = false;
-        }, error => {
-            this._loading = false;
-            this.hasError = true;
-        });
+        }
+        else {
+            this.formBuilderService.generateFormFieldsBySections().then(form_elements => {
+                this.formBuilder = $(document.getElementById('fb-editor')).formBuilder({
+                    controlPosition: 'left',
+                    inputSets: form_elements,
+                    scrollToFieldOnAdd: false,
+                    defaultFields: this.template.form_fields,
+                    disabledActionButtons: ['data', 'clear', 'save'],
+                    typeUserAttrs: this.formBuilderService.handleFieldsTypeAttrs(),
+                    typeUserDisabledAttrs: this.formBuilderService.disableFieldAttrs(),
+                    disableFields: this.formBuilderService.disableSectionFormFields()
+                });
+                this._loading = false;
+            }, error => {
+                this._loading = false;
+                this.hasError = true;
+            });
+        }
     }
     buildForm() {
         this.form = this._formBuilder.group({
@@ -18532,7 +18552,28 @@ let ViewAccountListsPageComponent = class ViewAccountListsPageComponent {
     searchForUser() {
         this.loading = true;
         console.log('merchantId: ' + this.merchantId);
-        this.companyService.findUser(this.userType, this.merchantId, this.query).then(forms => {
+        this.companyService.findUser(this.userType, this.merchantId || 0, this.query).then(forms => {
+            if (forms.length == 0) {
+                this.loading = false;
+                this.foundNoForm = true;
+            }
+            else {
+                this.loading = false;
+                this.foundNoForm = false;
+                lodash__WEBPACK_IMPORTED_MODULE_2__["forEach"](forms, (form) => {
+                    this.collection.push(form);
+                });
+            }
+        }, err => {
+            this.hasError = true;
+            this.loading = false;
+        });
+    }
+    searchForUserOnFilter() {
+        this.loading = true;
+        const status = this.filterState == 'active' ? 1 : 0;
+        console.log('merchantId: ' + this.merchantId);
+        this.companyService.findUserByStatusAndName(this.userType, this.merchantId || 0, status, this.query).then(forms => {
             if (forms.length == 0) {
                 this.loading = false;
                 this.foundNoForm = true;
@@ -18552,10 +18593,18 @@ let ViewAccountListsPageComponent = class ViewAccountListsPageComponent {
     search(e) {
         if (e.key == 'Enter') {
             if (this.query.length != 0) {
-                console.log(this.query);
-                this.hasError = false;
-                this.collection = [];
-                this.searchForUser();
+                if (this.filterState == 'all') {
+                    console.log(this.query);
+                    this.hasError = false;
+                    this.collection = [];
+                    this.searchForUser();
+                }
+                else {
+                    console.log(this.query);
+                    this.hasError = false;
+                    this.collection = [];
+                    this.searchForUserOnFilter();
+                }
             }
             else {
                 if ((this.foundNoForm && this.query.length == 0) || this.query.length == 0) {
@@ -18568,6 +18617,7 @@ let ViewAccountListsPageComponent = class ViewAccountListsPageComponent {
         }
     }
     retry() {
+        this.hasError = false;
         this.getAccountDetails();
     }
 };
@@ -24093,6 +24143,19 @@ let CompanyService = class CompanyService {
     findUser(user_type, merchant_id, search_query) {
         return new Promise((resolve, reject) => {
             const url = this.endpointService.apiHost + `api/v1/getUserByTypeAndMerchant/${user_type}/${merchant_id}/${search_query}`;
+            this.http.get(url, { headers: this.headers }).subscribe(res => {
+                console.log('forms_by_name: ' + JSON.stringify(res));
+                const response = res;
+                resolve(response.users);
+            }, err => {
+                console.log('f_by_name_erro: ' + JSON.stringify(err));
+                reject(err);
+            });
+        });
+    }
+    findUserByStatusAndName(user_type, merchant_id, status, search_query) {
+        return new Promise((resolve, reject) => {
+            const url = this.endpointService.apiHost + `api/v1/getUserByTypeStatusAndMerchant/${user_type}/${merchant_id}/${status}/${search_query}`;
             this.http.get(url, { headers: this.headers }).subscribe(res => {
                 console.log('forms_by_name: ' + JSON.stringify(res));
                 const response = res;

@@ -672,7 +672,32 @@ export class ViewAccountListsPageComponent implements OnInit {
   searchForUser() {
     this.loading = true;
     console.log('merchantId: ' + this.merchantId);
-    this.companyService.findUser(this.userType, this.merchantId, this.query).then(
+    this.companyService.findUser(this.userType, this.merchantId || 0, this.query).then(
+      forms => {
+        if (forms.length == 0) {
+          this.loading = false;
+          this.foundNoForm = true;
+        }
+        else {
+          this.loading = false;
+          this.foundNoForm = false;
+          _.forEach(forms, (form) => {
+            this.collection.push(form);
+          });
+        }
+      },
+      err => {
+        this.hasError = true;
+        this.loading = false;
+      }
+    );
+  }
+
+  searchForUserOnFilter() {
+    this.loading = true;
+    const status = this.filterState == 'active' ? 1 : 0;
+    console.log('merchantId: ' + this.merchantId);
+    this.companyService.findUserByStatusAndName(this.userType, this.merchantId || 0, status, this.query).then(
       forms => {
         if (forms.length == 0) {
           this.loading = false;
@@ -696,10 +721,18 @@ export class ViewAccountListsPageComponent implements OnInit {
   search(e: KeyboardEvent) {
     if (e.key == 'Enter') {
       if (this.query.length != 0) {
-        console.log(this.query);
-        this.hasError = false;
-        this.collection = [];
-        this.searchForUser();
+        if (this.filterState == 'all') {
+          console.log(this.query);
+          this.hasError = false;
+          this.collection = [];
+          this.searchForUser();
+        }
+        else {
+          console.log(this.query);
+          this.hasError = false;
+          this.collection = [];
+          this.searchForUserOnFilter();
+        }
       }
       else {
         if ((this.foundNoForm && this.query.length == 0) || this.query.length == 0) {
@@ -713,6 +746,7 @@ export class ViewAccountListsPageComponent implements OnInit {
   }
 
   retry() {
+    this.hasError = false;
     this.getAccountDetails();
   }
 

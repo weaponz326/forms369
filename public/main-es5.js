@@ -3957,21 +3957,41 @@ var AdminCreateFormPageComponent = /** @class */ (function () {
     AdminCreateFormPageComponent.prototype.handleFormRender = function () {
         var _this = this;
         this.formCode = this.formBuilderService.generateUniqueFormCode();
-        this.formBuilderService.generateFormFieldsBySections().then(function (form_elements) {
-            _this.formBuilder = $(document.getElementById('fb-editor')).formBuilder({
-                controlPosition: 'left',
-                inputSets: form_elements,
-                scrollToFieldOnAdd: false,
-                disabledActionButtons: ['data', 'clear', 'save'],
-                typeUserAttrs: _this.formBuilderService.handleFieldsTypeAttrs(),
-                typeUserDisabledAttrs: _this.formBuilderService.disableFieldAttrs(),
-                disableFields: _this.formBuilderService.disableSectionFormFields()
+        if (lodash__WEBPACK_IMPORTED_MODULE_1__["isUndefined"](this.template) || lodash__WEBPACK_IMPORTED_MODULE_1__["isNull"](this.template)) {
+            this.formBuilderService.generateFormFieldsBySections().then(function (form_elements) {
+                _this.formBuilder = $(document.getElementById('fb-editor')).formBuilder({
+                    controlPosition: 'left',
+                    inputSets: form_elements,
+                    scrollToFieldOnAdd: false,
+                    disabledActionButtons: ['data', 'clear', 'save'],
+                    typeUserAttrs: _this.formBuilderService.handleFieldsTypeAttrs(),
+                    typeUserDisabledAttrs: _this.formBuilderService.disableFieldAttrs(),
+                    disableFields: _this.formBuilderService.disableSectionFormFields()
+                });
+                _this._loading = false;
+            }, function (error) {
+                _this._loading = false;
+                _this.hasError = true;
             });
-            _this._loading = false;
-        }, function (error) {
-            _this._loading = false;
-            _this.hasError = true;
-        });
+        }
+        else {
+            this.formBuilderService.generateFormFieldsBySections().then(function (form_elements) {
+                _this.formBuilder = $(document.getElementById('fb-editor')).formBuilder({
+                    controlPosition: 'left',
+                    inputSets: form_elements,
+                    scrollToFieldOnAdd: false,
+                    defaultFields: _this.template.form_fields,
+                    disabledActionButtons: ['data', 'clear', 'save'],
+                    typeUserAttrs: _this.formBuilderService.handleFieldsTypeAttrs(),
+                    typeUserDisabledAttrs: _this.formBuilderService.disableFieldAttrs(),
+                    disableFields: _this.formBuilderService.disableSectionFormFields()
+                });
+                _this._loading = false;
+            }, function (error) {
+                _this._loading = false;
+                _this.hasError = true;
+            });
+        }
     };
     AdminCreateFormPageComponent.prototype.buildForm = function () {
         this.form = this._formBuilder.group({
@@ -19073,7 +19093,29 @@ var ViewAccountListsPageComponent = /** @class */ (function () {
         var _this = this;
         this.loading = true;
         console.log('merchantId: ' + this.merchantId);
-        this.companyService.findUser(this.userType, this.merchantId, this.query).then(function (forms) {
+        this.companyService.findUser(this.userType, this.merchantId || 0, this.query).then(function (forms) {
+            if (forms.length == 0) {
+                _this.loading = false;
+                _this.foundNoForm = true;
+            }
+            else {
+                _this.loading = false;
+                _this.foundNoForm = false;
+                lodash__WEBPACK_IMPORTED_MODULE_2__["forEach"](forms, function (form) {
+                    _this.collection.push(form);
+                });
+            }
+        }, function (err) {
+            _this.hasError = true;
+            _this.loading = false;
+        });
+    };
+    ViewAccountListsPageComponent.prototype.searchForUserOnFilter = function () {
+        var _this = this;
+        this.loading = true;
+        var status = this.filterState == 'active' ? 1 : 0;
+        console.log('merchantId: ' + this.merchantId);
+        this.companyService.findUserByStatusAndName(this.userType, this.merchantId || 0, status, this.query).then(function (forms) {
             if (forms.length == 0) {
                 _this.loading = false;
                 _this.foundNoForm = true;
@@ -19093,10 +19135,18 @@ var ViewAccountListsPageComponent = /** @class */ (function () {
     ViewAccountListsPageComponent.prototype.search = function (e) {
         if (e.key == 'Enter') {
             if (this.query.length != 0) {
-                console.log(this.query);
-                this.hasError = false;
-                this.collection = [];
-                this.searchForUser();
+                if (this.filterState == 'all') {
+                    console.log(this.query);
+                    this.hasError = false;
+                    this.collection = [];
+                    this.searchForUser();
+                }
+                else {
+                    console.log(this.query);
+                    this.hasError = false;
+                    this.collection = [];
+                    this.searchForUserOnFilter();
+                }
             }
             else {
                 if ((this.foundNoForm && this.query.length == 0) || this.query.length == 0) {
@@ -19109,6 +19159,7 @@ var ViewAccountListsPageComponent = /** @class */ (function () {
         }
     };
     ViewAccountListsPageComponent.prototype.retry = function () {
+        this.hasError = false;
         this.getAccountDetails();
     };
     ViewAccountListsPageComponent.ctorParameters = function () { return [
@@ -24838,6 +24889,20 @@ var CompanyService = /** @class */ (function () {
         var _this = this;
         return new Promise(function (resolve, reject) {
             var url = _this.endpointService.apiHost + ("api/v1/getUserByTypeAndMerchant/" + user_type + "/" + merchant_id + "/" + search_query);
+            _this.http.get(url, { headers: _this.headers }).subscribe(function (res) {
+                console.log('forms_by_name: ' + JSON.stringify(res));
+                var response = res;
+                resolve(response.users);
+            }, function (err) {
+                console.log('f_by_name_erro: ' + JSON.stringify(err));
+                reject(err);
+            });
+        });
+    };
+    CompanyService.prototype.findUserByStatusAndName = function (user_type, merchant_id, status, search_query) {
+        var _this = this;
+        return new Promise(function (resolve, reject) {
+            var url = _this.endpointService.apiHost + ("api/v1/getUserByTypeStatusAndMerchant/" + user_type + "/" + merchant_id + "/" + status + "/" + search_query);
             _this.http.get(url, { headers: _this.headers }).subscribe(function (res) {
                 console.log('forms_by_name: ' + JSON.stringify(res));
                 var response = res;

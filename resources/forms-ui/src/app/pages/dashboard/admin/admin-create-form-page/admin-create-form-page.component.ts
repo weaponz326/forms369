@@ -61,25 +61,49 @@ export class AdminCreateFormPageComponent implements OnInit {
 
   handleFormRender() {
     this.formCode = this.formBuilderService.generateUniqueFormCode();
-    this.formBuilderService.generateFormFieldsBySections().then(
-      form_elements => {
-        this.formBuilder = $(document.getElementById('fb-editor')).formBuilder({
-          controlPosition: 'left',
-          inputSets: form_elements,
-          scrollToFieldOnAdd: false,
-          disabledActionButtons: ['data', 'clear', 'save'],
-          typeUserAttrs: this.formBuilderService.handleFieldsTypeAttrs(),
-          typeUserDisabledAttrs: this.formBuilderService.disableFieldAttrs(),
-          disableFields: this.formBuilderService.disableSectionFormFields()
-        });
+    if (_.isUndefined(this.template) || _.isNull(this.template)) {
+      this.formBuilderService.generateFormFieldsBySections().then(
+        form_elements => {
+          this.formBuilder = $(document.getElementById('fb-editor')).formBuilder({
+            controlPosition: 'left',
+            inputSets: form_elements,
+            scrollToFieldOnAdd: false,
+            disabledActionButtons: ['data', 'clear', 'save'],
+            typeUserAttrs: this.formBuilderService.handleFieldsTypeAttrs(),
+            typeUserDisabledAttrs: this.formBuilderService.disableFieldAttrs(),
+            disableFields: this.formBuilderService.disableSectionFormFields()
+          });
 
-        this._loading = false;
-      },
-      error => {
-        this._loading = false;
-        this.hasError = true;
-      }
-    );
+          this._loading = false;
+        },
+        error => {
+          this._loading = false;
+          this.hasError = true;
+        }
+      );
+    }
+    else {
+      this.formBuilderService.generateFormFieldsBySections().then(
+        form_elements => {
+          this.formBuilder = $(document.getElementById('fb-editor')).formBuilder({
+            controlPosition: 'left',
+            inputSets: form_elements,
+            scrollToFieldOnAdd: false,
+            defaultFields: this.template.form_fields,
+            disabledActionButtons: ['data', 'clear', 'save'],
+            typeUserAttrs: this.formBuilderService.handleFieldsTypeAttrs(),
+            typeUserDisabledAttrs: this.formBuilderService.disableFieldAttrs(),
+            disableFields: this.formBuilderService.disableSectionFormFields()
+          });
+
+          this._loading = false;
+        },
+        error => {
+          this._loading = false;
+          this.hasError = true;
+        }
+      );
+    }
   }
 
   buildForm() {
