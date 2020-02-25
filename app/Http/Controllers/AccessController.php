@@ -12,10 +12,10 @@ class AccessController extends Controller
 {
  
      /**
-     * getAllCodes get the created access codes 
+     * getAllCodes get all access codes in the database: active or inactive
      *
      * @param  mixed $request
-     * @return [json] all access codes in teh database 
+     * @return [json] all access codes in the database 
      */
     public function getAllCodes(Request $request){
 

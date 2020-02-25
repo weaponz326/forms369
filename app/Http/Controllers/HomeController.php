@@ -960,16 +960,16 @@ class HomeController extends Controller
         return $message;
     }
     /**
-     * getFformDetails get all details of a form that match teh search term : name of the form
+     * getFormbyName get forms whose names match the search term
      *
      * @param  mixed $request
      * @param  mixed search term
      *
      * @return void\Illuminate\Http\Response all details of a form
      */
-    protected function getFormbyName(Request $request, $term)
+    protected function getFormbyName(Request $request, $term, $country)
     {
-        $message = (new FormsController)->getFormbyName($request, $term);
+        $message = (new FormsController)->getFormbyName($request, $term, $country);
         return $message;
 
     }
