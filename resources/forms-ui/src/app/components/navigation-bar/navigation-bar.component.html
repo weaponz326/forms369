@@ -116,15 +116,19 @@
       </li> -->
       <li class="nav-item nav-profile dropdown">
         <a class="nav-link dropdown-toggle" href="#" data-toggle="dropdown" id="profileDropdown">
-          <!-- <img src="../assets/images/faces/face5.jpg" alt="profile"/> -->
           <i class="mdi mdi-account-circle-outline navbar-avatar"></i>
           <span class="nav-profile-name">{{ fullName }}</span>
         </a>
         <div class="dropdown-menu dropdown-menu-right navbar-dropdown" aria-labelledby="profileDropdown">
-          <!-- <a class="dropdown-item">
+          <a class="dropdown-item" routerLink="/client/profile">
+            <i class="mdi mdi-account text-secondary"></i>
+            Profile
+          </a>
+          <a class="dropdown-item" routerLink="/client/privacy">
             <i class="mdi mdi-settings text-secondary"></i>
-            Settings
-          </a> -->
+            Privacy
+          </a>
+          <div class="dropdown-divider"></div>
           <a class="dropdown-item" (click)="logout()">
             <i class="mdi mdi-logout text-secondary"></i>
             Logout

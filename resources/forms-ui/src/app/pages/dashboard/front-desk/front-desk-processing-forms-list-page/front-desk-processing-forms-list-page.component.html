@@ -121,6 +121,7 @@
                         <th><strong>Form Name</strong></th>
                         <th><strong>Submitted By</strong></th>
                         <th><strong>Submitted On</strong></th>
+                        <th><strong>Processed On</strong></th>
                         <th><strong>Actions</strong></th>
                       </tr>
                     </thead>
@@ -130,6 +131,7 @@
                         <td>{{ form.form_name }}</td>
                         <td>{{ form.client_name }}</td>
                         <td>{{ form.submitted_at | date }}</td>
+                        <td>{{ form.last_processed | date }}</td>
                         <td>
                           <div class="d-flex align-items-end flex-wrap">
                             <button type="button" class="btn btn-light bg-white btn-icon mr-1"

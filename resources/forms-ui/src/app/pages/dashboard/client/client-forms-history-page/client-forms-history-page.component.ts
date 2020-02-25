@@ -222,7 +222,7 @@ export class ClientFormsHistoryPageComponent implements OnInit {
     this.clientService.getRejectionReview(submission_code).then(
       res => {
         console.log('ressss: ' + res);
-        this.rejectionNote = res.review.replace(/(?:\r\n|\r|\n)/g, '\n');
+        this.rejectionNote = res.review;
         this.loadingReview = false;
       },
       err => {

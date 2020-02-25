@@ -49,7 +49,7 @@
             <form [formGroup]="form" (ngSubmit)="login()" class="pt-3">
               <div class="form-group">
                 <input type="text" class="form-control form-control-lg" formControlName="username"
-                  placeholder="Username" [ngClass]="{'input-control-error': submitted && f.username.errors}">
+                  placeholder="Username or Email Address" [ngClass]="{'input-control-error': submitted && f.username.errors}">
                 <div *ngIf="submitted && f.username.errors">
                   <p class="input-error" *ngIf="f.username.errors.required">Username is required</p>
                 </div>

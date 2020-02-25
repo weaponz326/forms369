@@ -6,3 +6,44 @@
     padding-top: 19px;
     padding-bottom: 19px;
 }
+
+table .dropdown .dropdown-toggle:after {
+    display: none;
+}
+
+.dropdown-menu .dropdown-item {
+    cursor: pointer;
+}
+
+.dropdown .dropdown-menu .dropdown-item {
+    font-size: .875rem;
+    padding: .85rem 1.5rem;
+    font-family: 'OpenSans_Bold';
+}
+
+.dropdown .dropdown-menu .dropdown-item:hover {
+    font-size: .895rem;
+    padding: .85rem 1.5rem;
+    font-family: 'OpenSans_Bold';
+}
+
+.dropdown-menu.show {
+    border: 1px solid #ddd;
+}
+
+.msg-container {
+    background-color: #f8f8f8;
+    padding: 20px 12px;
+    border: 1px solid #ddd;
+    border-top-right-radius: 26px;
+    border-bottom-left-radius: 26px;
+}
+
+.message-content {
+    padding: 5px;
+}
+
+.message {
+    font-size: 14px;
+    font-weight: 600;
+}

@@ -7,6 +7,7 @@ import { Component, OnInit, ViewChild, TemplateRef } from '@angular/core';
 import { DateTimeService } from 'src/app/services/date-time/date-time.service';
 import { FrontDeskService } from 'src/app/services/front-desk/front-desk.service';
 import { LocalStorageService } from 'src/app/services/storage/local-storage.service';
+import { ClientService } from 'src/app/services/client/client.service';
 
 @Component({
   selector: 'app-front-desk-rejected-forms-list-page',
@@ -27,26 +28,30 @@ export class FrontDeskRejectedFormsListPageComponent implements OnInit {
   noteForm: FormGroup;
   loadingMore: boolean;
   hasMoreError: boolean;
+  rejectionNote: string;
   submissionCode: string;
+  loadingReview: boolean;
   responseMessage: string;
   loadingModalRef: NgbModalRef;
   rejectedFormsList: Array<any>;
   allRejectedFormsList: Array<any>;
   @ViewChild('loader', { static: false }) loadingModal: TemplateRef<any>;
+  @ViewChild('review', { static: false }) reviewDialog: TemplateRef<any>;
   @ViewChild('process', { static: false }) processModal: TemplateRef<any>;
   @ViewChild('confirm', { static: false }) confirmModal: TemplateRef<any>;
   @ViewChild('response', { static: false }) responseModal: TemplateRef<any>;
   @ViewChild('complete', { static: false }) completedModal: TemplateRef<any>;
-  @ViewChild('rejectNote', { static: false }) rejectNoteModal: TemplateRef<any>;
 
   constructor(
     private router: Router,
     private fb: FormBuilder,
     private modalService: NgbModal,
     private dateTime: DateTimeService,
+    private clientService: ClientService,
     private localStorage: LocalStorageService,
     private frontDeskService: FrontDeskService,
   ) {
+    this.rejectionNote = '';
     this.rejectedFormsList = [];
     this.allRejectedFormsList = [];
     this.user = this.localStorage.getUser();
@@ -95,6 +100,23 @@ export class FrontDeskRejectedFormsListPageComponent implements OnInit {
 
   showResponseDialog() {
     this.modalService.open(this.responseModal, { centered: true });
+  }
+
+  showReviewDialog(e: Event, submission_code: string) {
+    e.stopPropagation();
+    this.modalService.open(this.reviewDialog, { centered: true });
+    this.loadingReview = true;
+    this.clientService.getRejectionReview(submission_code).then(
+      res => {
+        console.log('ressss: ' + res);
+        this.loadingReview = false;
+        this.rejectionNote = res.review;
+      },
+      err => {
+        console.log('error: ' + err);
+        this.loadingReview = false;
+      }
+    );
   }
 
   handleLastItemSlice(list: any[]) {
@@ -221,22 +243,22 @@ export class FrontDeskRejectedFormsListPageComponent implements OnInit {
     );
   }
 
-  reject(e: Event, form: any, submission_code: string, index: number) {
-    e.stopPropagation();
-    this.modalService.open(this.confirmModal, { centered: true }).result.then(
-      result => {
-        if (result == 'undo') {
-          this.index = index;
-          this.currentForm = form;
-          this.submissionCode = submission_code;
-          this.modalService.dismissAll();
-          this.handleRejectionNote();
-        }
-      }
-    );
-  }
+  // reject(e: Event, form: any, submission_code: string, index: number) {
+  //   e.stopPropagation();
+  //   this.modalService.open(this.confirmModal, { centered: true }).result.then(
+  //     result => {
+  //       if (result == 'undo') {
+  //         this.index = index;
+  //         this.currentForm = form;
+  //         this.submissionCode = submission_code;
+  //         this.modalService.dismissAll();
+  //         this.handleRejectionNote();
+  //       }
+  //     }
+  //   );
+  // }
 
-  rejectForm() {
+  rejectForm(e: Event, form: any, submission_code: string, index: number) {
     this.modalService.dismissAll();
     this.showLoadingDialog();
     this.frontDeskService.rejectForm(this.submissionCode, this.currentForm.client_submitted_details).then(
@@ -272,9 +294,9 @@ export class FrontDeskRejectedFormsListPageComponent implements OnInit {
     );
   }
 
-  handleRejectionNote() {
-    this.modalService.open(this.rejectNoteModal, { centered: true });
-  }
+  // handleRejectionNote() {
+  //   this.showRejectMessageDialog();
+  // }
 
   filter() {
     this.submitted = true;
