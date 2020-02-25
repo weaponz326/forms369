@@ -125,22 +125,23 @@
                       </tr>
                     </thead>
                     <tbody>
-                      <tr class="hover-cursor" *ngFor="let form of rejectedFormsList; let i =index"
-                        (click)="open($event, form)">
-                        <td>{{ form.submission_code }}</td>
-                        <td>{{ form.form_name }}</td>
-                        <td>{{ form.client_name }}</td>
-                        <td>{{ form.submitted_at | date }}</td>
+                      <tr class="hover-cursor" *ngFor="let form of rejectedFormsList; let i =index">
+                        <td (click)="open($event, form)">{{ form.submission_code }}</td>
+                        <td (click)="open($event, form)">{{ form.form_name }}</td>
+                        <td (click)="open($event, form)">{{ form.client_name }}</td>
+                        <td (click)="open($event, form)">{{ form.submitted_at | date }}</td>
                         <td>
                           <div class="d-flex align-items-end flex-wrap">
                             <div class="dropdown">
-                              <button type="button" class="btn btn-light bg-white btn-icon mr-1">
+                              <button class="btn btn-light dropdown-toggle" type="button" id="dropdownMenuButton"
+                                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                 <i class="mdi mdi-dots-vertical text-muted"></i>
                               </button>
                               <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                                <a class="dropdown-item">Action</a>
-                                <a class="dropdown-item" >Another action</a>
-                                <a class="dropdown-item">Something else here</a>
+                                <a class="dropdown-item" (click)="completeForm($event, form, form.submission_code, i)">Complete</a>
+                                <a class="dropdown-item" (click)="processForm($event, form, form.submission_code, i)">Process</a>
+                                <!-- <a class="dropdown-item" (click)="rejectForm($event, form, form.submission_code, i)">Reject</a> -->
+                                <a class="dropdown-item" (click)="showReviewDialog($event, form.submission_code)">View Rejection Message</a>
                               </div>
                             </div>
                           </div>
@@ -265,30 +266,28 @@
   </div>
 </ng-template>
 
-<ng-template #rejectNote let-modal>
-  <form [formGroup]="noteForm" (ngSubmit)="rejectForm()">
-    <div class="modal-header">
-      <h4 class="modal-title font-weight-bold text-uppercase" id="modal-title" style="font-size: 13px;">Rejection Message</h4>
-      <button type="button" class="close" aria-describedby="modal-title" (click)="modal.dismiss()">
-        <span aria-hidden="true">&times;</span>
-      </button>
-    </div>
-    <div class="modal-body">
-      <div class="form-group">
-        <textarea cols="30" rows="10" class="form-control" formControlName="rejectionNote"
-          [ngClass]="{'input-control-error': _submitted && _f.rejectionNote.errors}"></textarea>
-        <div *ngIf="_submitted && _f.rejectionNote.errors">
-          <p class="input-error" *ngIf="_f.rejectionNote.errors.required">Note cannot be left blank! Please type something.</p>
+<ng-template #review let-modal>
+  <div class="modal-header">
+    <h4 class="modal-title reject-title" id="modal-title">Rejection Note</h4>
+    <button type="button" class="close" aria-describedby="modal-title" (click)="modal.close()">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <div class="text-center" *ngIf="loadingReview">
+      <div class="d-flex justify-content-center">
+        <div class="spinner-border m-5" style="width: 3rem; height: 3rem;" role="status">
+          <span class="sr-only">Loading...</span>
         </div>
       </div>
     </div>
-    <div class="modal-footer">
-      <button *ngIf="!isLoading" type="button" class="btn btn-outline-primary" (click)="modal.dismiss()">Cancel</button>
-      <button *ngIf="!isLoading" type="submit" class="btn btn-primary">Send</button>
-      <button *ngIf="isLoading" class="btn btn-primary btn-lg mr-2" type="button" disabled>
-        <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
-        <span class="sr-only">Please wait...</span>
-      </button>
+    <div class="msg-container" *ngIf="!loadingReview">
+      <div class="message-content">
+        <p class="message">{{ rejectionNote }}</p>
+      </div>
     </div>
-  </form>
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-primary" (click)="modal.close('yes')">Ok, Got It</button>
+  </div>
 </ng-template>

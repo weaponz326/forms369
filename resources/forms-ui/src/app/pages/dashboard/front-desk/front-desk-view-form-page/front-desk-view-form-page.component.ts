@@ -290,32 +290,40 @@ export class FrontDeskViewFormPageComponent implements OnInit {
 
   rejectForm() {
     this._submitted = true;
-    if (this.noteForm.valid) {
-      this.isLoading = true;
-      console.log('subm: ' + this._submitted);
-      this.frontDeskService.rejectForm(this.form.submission_code, this.form.client_submitted_details).then(
-        res => {
-          const response = res as any;
-          console.log('response: ' + response.message);
-          if (_.toLower(response.message) == 'ok') {
-            this.isLoading = false;
-            this.modalService.dismissAll();
-            this.rejected = true;
-          }
-          else {
-            this.isLoading = false;
-            this.modalService.dismissAll();
-            this.rejected = false;
-          }
-        },
-        err => {
+    this.modalService.dismissAll();
+    this.isLoading = true;
+    this.frontDeskService.rejectForm(this.form.submission_code, this.form.client_submitted_details).then(
+      res => {
+        const response = res as any;
+        if (_.toLower(response.message) == 'ok') {
+          console.log('sending out the rejectioon review note');
+          this.frontDeskService.sendFormRejectionNote(this.form.submission_code, this.f.rejectionNote.value).then(
+            ok => {
+              if (ok) {
+                this.isLoading = false;
+                this.modalService.dismissAll();
+                this.rejected = true;
+              }
+              else {
+                this.isLoading = false;
+                this.modalService.dismissAll();
+                this.rejected = false;
+              }
+            }
+          );
+        }
+        else {
           this.isLoading = false;
           this.modalService.dismissAll();
-          this.hasError = true;
           this.rejected = false;
         }
-      );
-    }
+      },
+      err => {
+        this.isLoading = false;
+        this.modalService.dismissAll();
+        this.rejected = false;
+      }
+    );
   }
 
   handleRejectionNote() {
