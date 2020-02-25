@@ -352,14 +352,15 @@ class FormsController extends Controller
     }
 
     /**
-     * getFformDetails get all details of a form that match teh search term : name of the form
+     * getFormbyName search for a form by the name of the form
      *
      * @param  mixed $request
      * @param  mixed search term
+     * @param mixed $country county to search and pick form from
      *
      * @return void\Illuminate\Http\Response all details of a form
      */
-    public function getFormbyName(Request $request, $term){
+    public function getFormbyName(Request $request, $term, $country){
 
         //get all registered companies 
         $getform = DB::table('forms')
@@ -368,7 +369,8 @@ class FormsController extends Controller
         ->select('forms.*','merchants.merchant_name AS merchant_name','merchants.can_print', 'uploads.url')
         ->where([
             ['forms.temps', 'like', '%'.$term .'%'],
-            ['forms.status','=',1]
+            ['forms.status','=',1],
+            ['merchants.country', '=', $country]
         ])
         ->get();
       

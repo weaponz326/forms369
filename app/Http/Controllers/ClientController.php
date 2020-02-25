@@ -93,56 +93,7 @@ class ClientController extends Controller
          //put all queries involved in creating a new user in transaction
          DB::beginTransaction();
          $message = 'Ok';
-
-        //get and validate user details
-        $this->validate($request, [
-            'firstname' => 'required',
-            'lastname' => 'required',
-            'email'=>'required|email',
-            'country' => 'required'
-        ]);
-
-        //get and encrypt user details 
-        $firstname = $request->firstname;
-        $lastname = $request->lastname;
-        $email = $request->email;
-        
-        $updated_at = now();
-        $name = $firstname . ' ' . $lastname;
-        $country = $request->country;
-
-        //get user and check if new email and uniqueness
-        $getclient = DB::table('users')
-        ->where('id', $id)
-        ->first();
-
-        if($getclient->email != $email){
-            $this->validate($request, [
-                'email'=>'required|email|unique:users'
-            ]);
-        }
-
-        try {
-            //edit user in the in the users table
-            DB::table('users')
-            ->where('id', $id)
-            ->update(
-                [
-                    'name' => $name,
-                    'firstname' => $firstname, 
-                    'lastname' => $lastname,
-                    'email' => $email,
-                    'updated_at' => $updated_at,
-                    'country' => $country
-                ]
-            );
-
-            $message = 'Ok';
-            
-         }catch(Exception $e) {
-             $message = "Failed";
-         }   
-
+         $updated_at = now();
 
          //get, encode and encrypt all user details 
          $data = $request->all();
