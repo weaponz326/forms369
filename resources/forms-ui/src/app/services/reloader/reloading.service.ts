@@ -16,7 +16,7 @@ export class ReloadingService {
    * @version 0.0.2
    * @memberof EditFormPageComponent
    */
-  resolveReloadDataLoss(view_data: any) {
+  resolveDataLoss(view_data: any) {
     if (!_.isUndefined(view_data)) {
       sessionStorage.setItem('u_form', JSON.stringify(view_data));
       return JSON.parse(sessionStorage.getItem('u_form'));

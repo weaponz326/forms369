@@ -92,6 +92,14 @@ export class AdminService {
     });
   }
 
+  /**
+   * Grants or denies download permission to an account.
+   *
+   * @param {string} account_id
+   * @param {(1 | 0)} status
+   * @returns {Promise<boolean>}
+   * @memberof AdminService
+   */
   setupCanDownloadPermission(account_id: string, status: 1 | 0): Promise<boolean> {
     return new Promise((resolve, reject) => {
       console.log('acc_id: ' + account_id);

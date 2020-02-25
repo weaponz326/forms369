@@ -49,7 +49,7 @@ export class ExecutivePrintingPageComponent implements OnInit, AfterViewInit {
 
     this.form = window.history.state.form;
     console.log('form: ' + JSON.stringify(this.form));
-    this.form = this.reloader.resolveReloadDataLoss(this.form);
+    this.form = this.reloader.resolveDataLoss(this.form);
     console.log(this.form.form_name);
 
     this.isPrint = this.form.print == true ? true : false;

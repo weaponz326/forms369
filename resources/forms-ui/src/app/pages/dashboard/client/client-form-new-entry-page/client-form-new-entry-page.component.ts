@@ -74,7 +74,7 @@ export class ClientFormNewEntryPageComponent implements OnInit {
     this.attachmentFiles = [];
     this.existingAttachments = [];
     this.form = history.state.form;
-    this.form = this.reloader.resolveReloadDataLoss(this.form);
+    this.form = this.reloader.resolveDataLoss(this.form);
 
     this.user = this.localStorage.getUser();
     console.log('form: ' + JSON.stringify(this.form));

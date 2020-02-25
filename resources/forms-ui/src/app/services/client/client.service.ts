@@ -246,6 +246,13 @@ export class ClientService {
     });
   }
 
+  /**
+   * Auto fills a client's profile with existing data.
+   *
+   * @param {Array<any>} form_sections
+   * @param {Array<any>} client_data
+   * @memberof ClientService
+   */
   fillClientProfileData(form_sections: Array<any>, client_data: Array<any>) {
     _.forEach(form_sections, (section) => {
       console.log('**se: ' + section.heading);
@@ -293,6 +300,14 @@ export class ClientService {
     });
   }
 
+  /**
+   * Gets only the updated/new data added by the client.
+   *
+   * @param {*} new_form_data
+   * @param {*} existing_client_data
+   * @returns
+   * @memberof ClientService
+   */
   getUpdatedClientFormData(new_form_data: any, existing_client_data: any) {
     const obj = _.toPlainObject(new_form_data);
     const keys = _.keys(obj);
@@ -362,6 +377,15 @@ export class ClientService {
     });
   }
 
+  /**
+   * Searches for a form in the clients history based on the form code the user
+   * is searching for.
+   *
+   * @param {string} client_id
+   * @param {string} submission_code
+   * @returns {Promise<any>}
+   * @memberof ClientService
+   */
   findFormsInHistoryByCode(client_id: string, submission_code: string): Promise<any> {
     return new Promise((resolve, reject) => {
       const url = this.endpointService.apiHost + `api/v1/findSubmittedFormByCode/${client_id}/${submission_code}`;
@@ -380,6 +404,15 @@ export class ClientService {
     });
   }
 
+  /**
+   * Searches for a form in the clients history based on the form name the user
+   * is searching for.
+   *
+   * @param {string} client_id
+   * @param {string} form_name
+   * @returns {Promise<any>}
+   * @memberof ClientService
+   */
   findFormsInHistoryByName(client_id: string, form_name: string): Promise<any> {
     return new Promise((resolve, reject) => {
       const url = this.endpointService.apiHost + `api/v1/findSubmittedFormByName/${client_id}/${form_name}`;
@@ -397,6 +430,14 @@ export class ClientService {
     });
   }
 
+  /**
+   * Validates a form to make sure all its requyired
+   * fields have been filled by the client.
+   *
+   * @param {Array<any>} form_data
+   * @returns
+   * @memberof ClientService
+   */
   validateFormFilled(form_data: Array<any>) {
     const toFillFormFields: any[] = [];
     _.forEach(form_data, (data) => {
@@ -535,6 +576,13 @@ export class ClientService {
     });
   }
 
+  /**
+   * Gets a list of all attachments added to a profile.
+   *
+   * @param {string} user_id
+   * @returns {Promise<any>}
+   * @memberof ClientService
+   */
   getProfileFormAttachment(user_id: string): Promise<any> {
     return new Promise((resolve, reject) => {
       const url = this.endpointService.apiHost + 'api/v1/getProfileAttachments/' + user_id;
@@ -551,6 +599,13 @@ export class ClientService {
     });
   }
 
+  /**
+   * Displays the rejection message a front desk ad rejected forms.
+   *
+   * @param {string} submission_code
+   * @returns {Promise<any>}
+   * @memberof ClientService
+   */
   getRejectionReview(submission_code: string): Promise<any> {
     return new Promise((resolve, reject) => {
       const url = this.endpointService.apiHost + 'api/v1/getFormReview/' + submission_code;
@@ -568,6 +623,14 @@ export class ClientService {
     });
   }
 
+  /**
+   * Deletes a clients form history. Just one item in the history.
+   *
+   * @param {string} client_id
+   * @param {string} submission_code
+   * @returns {Promise<boolean>}
+   * @memberof ClientService
+   */
   deleteFormHistory(client_id: string, submission_code: string): Promise<boolean> {
     return new Promise((resolve, reject) => {
       const url = this.endpointService.apiHost + `api/v1/deleteSubmittedForm/${client_id}/${submission_code}`;

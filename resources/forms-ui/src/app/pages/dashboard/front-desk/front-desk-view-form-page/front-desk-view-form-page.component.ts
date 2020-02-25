@@ -10,6 +10,7 @@ import { EndpointService } from 'src/app/services/endpoint/endpoint.service';
 import { FrontDeskService } from 'src/app/services/front-desk/front-desk.service';
 import { DownloaderService } from 'src/app/services/downloader/downloader.service';
 import { LocalStorageService } from 'src/app/services/storage/local-storage.service';
+import { FormBuilderService } from 'src/app/services/form-builder/form-builder.service';
 
 @Component({
   selector: 'app-front-desk-view-form-page',
@@ -53,6 +54,7 @@ export class FrontDeskViewFormPageComponent implements OnInit {
     private fb: FormBuilder,
     private modalService: NgbModal,
     private clientService: ClientService,
+    private formBuilder: FormBuilderService,
     private endpointService: EndpointService,
     private localStorage: LocalStorageService,
     private downloadService: DownloaderService,
@@ -205,7 +207,9 @@ export class FrontDeskViewFormPageComponent implements OnInit {
       result => {
         if (result == 'yes') {
           this.loading = true;
-          this.frontDeskService.completeForm(this.form.submission_code, this.form.client_submitted_details).then(
+          const user_data = this.getFormData();
+          const filled_data = this.formBuilder.getFormUserData(user_data);
+          this.frontDeskService.completeForm(this.form.submission_code, filled_data).then(
             res => {
               const response = res as any;
               if (_.toLower(response.message) == 'ok') {
@@ -240,7 +244,9 @@ export class FrontDeskViewFormPageComponent implements OnInit {
       result => {
         if (result == 'yes') {
           this.loading = true;
-          this.frontDeskService.processForm(this.form.submission_code, this.form.client_submitted_details).then(
+          const user_data = this.getFormData();
+          const filled_data = this.formBuilder.getFormUserData(user_data);
+          this.frontDeskService.processForm(this.form.submission_code, filled_data).then(
             res => {
               const response = res as any;
               console.log('process res');
@@ -290,13 +296,15 @@ export class FrontDeskViewFormPageComponent implements OnInit {
 
   rejectForm() {
     this._submitted = true;
-    this.modalService.dismissAll();
     this.isLoading = true;
-    this.frontDeskService.rejectForm(this.form.submission_code, this.form.client_submitted_details).then(
+    this.modalService.dismissAll();
+    const user_data = this.getFormData();
+    const filled_data = this.formBuilder.getFormUserData(user_data);
+    this.frontDeskService.rejectForm(this.form.submission_code, filled_data).then(
       res => {
         const response = res as any;
         if (_.toLower(response.message) == 'ok') {
-          console.log('sending out the rejectioon review note');
+          console.log('sending out the rejection review note');
           this.frontDeskService.sendFormRejectionNote(this.form.submission_code, this.f.rejectionNote.value).then(
             ok => {
               if (ok) {

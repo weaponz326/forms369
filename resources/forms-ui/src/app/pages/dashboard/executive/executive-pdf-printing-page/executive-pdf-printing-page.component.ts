@@ -53,7 +53,7 @@ export class ExecutivePdfPrintingPageComponent implements OnInit, AfterViewInit 
     this.dpiRatio = 96 / 72;
     this.clientFormDetails = [];
     this.form = window.history.state.form;
-    this.form = this.reloader.resolveReloadDataLoss(this.form);
+    this.form = this.reloader.resolveDataLoss(this.form);
     console.log('form: ' + JSON.stringify(this.form));
     this.user = this.localStorage.getUser();
     this.isPrint = this.form.print == true ? true : false;

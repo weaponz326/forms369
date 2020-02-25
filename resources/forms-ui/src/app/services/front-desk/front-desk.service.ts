@@ -243,6 +243,7 @@ export class FrontDeskService {
 
   completeForm(code: string, clientData: any): Promise<any> {
     return new Promise((resolve, reject) => {
+      console.log('client_dataaaaaaaa: ' + JSON.stringify(clientData));
       const url = this.endpointService.apiHost + 'api/v1/processSubmitForm/' + code + '/' + '2';
       this.http.post(url, clientData, { headers: this.headers }).subscribe(
         res => {

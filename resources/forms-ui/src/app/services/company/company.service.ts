@@ -1,11 +1,10 @@
-import { Injectable } from '@angular/core';
 import * as _ from 'lodash';
+import { Injectable } from '@angular/core';
+import { UserTypes } from 'src/app/enums/user-types.enum';
+import { Merchants } from 'src/app/models/merchants.model';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { EndpointService } from '../endpoint/endpoint.service';
-import { Merchants } from 'src/app/models/merchants.model';
 import { FileUploadsService } from '../file-uploads/file-uploads.service';
-import { UserTypes } from 'src/app/enums/user-types.enum';
-import { timeout } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root'
@@ -322,6 +321,14 @@ export class CompanyService {
     });
   }
 
+  /**
+   * Searches for a form based on the name of the form.
+   *
+   * @param {string} form_name
+   * @param {string} merchant_id
+   * @returns {Promise<any>}
+   * @memberof CompanyService
+   */
   findFormsByName(form_name: string, merchant_id: string): Promise<any> {
     return new Promise((resolve, reject) => {
       const url = this.endpointService.apiHost + 'api/v1/getFormbyNameAndMerchant/' + form_name + '/' + merchant_id;
@@ -339,6 +346,15 @@ export class CompanyService {
     });
   }
 
+  /**
+   * Searches for a form based on the name and status of the form.
+   *
+   * @param {string} form_name
+   * @param {string} merchant_id
+   * @param {number} status
+   * @returns {Promise<any>}
+   * @memberof CompanyService
+   */
   findFormsByNameAndStatus(form_name: string, merchant_id: string, status: number): Promise<any> {
     return new Promise((resolve, reject) => {
       const url = this.endpointService.apiHost + `api/v1/getFormbyNameStatusAndMerchant/${form_name}/${status}/${merchant_id}`;
@@ -356,6 +372,15 @@ export class CompanyService {
     });
   }
 
+  /**
+   * Searches for a user belonging to a company/merchant.
+   *
+   * @param {number} user_type
+   * @param {string} merchant_id
+   * @param {string} search_query
+   * @returns {Promise<any>}
+   * @memberof CompanyService
+   */
   findUser(user_type: number, merchant_id: string, search_query: string): Promise<any> {
     return new Promise((resolve, reject) => {
       const url = this.endpointService.apiHost + `api/v1/getUserByTypeAndMerchant/${user_type}/${merchant_id}/${search_query}`;
@@ -373,6 +398,16 @@ export class CompanyService {
     });
   }
 
+  /**
+   * Searches for a user belonging to a company/merchant based on the user info and status.
+   *
+   * @param {number} user_type
+   * @param {string} merchant_id
+   * @param {number} status
+   * @param {string} search_query
+   * @returns {Promise<any>}
+   * @memberof CompanyService
+   */
   findUserByStatusAndName(user_type: number, merchant_id: string, status: number, search_query: string): Promise<any> {
     return new Promise((resolve, reject) => {
       const url = this.endpointService.apiHost + `api/v1/getUserByTypeStatusAndMerchant/${user_type}/${merchant_id}/${status}/${search_query}`;
