@@ -31,7 +31,7 @@
                       <div class="col-8 col-md-8 offset-2 offset-md-2">
                         <h3><strong>{{ user.merchant_name }}</strong></h3>
                         <h3 class="display-3 mt-3 mb-3">{{ accountType }}</h3>
-                        <button class="btn btn-outline-secondary btn-icon-text" (click)="edit(user.id)">
+                        <button *ngIf="user_type == 23" class="btn btn-outline-secondary btn-icon-text" (click)="edit(user.id)">
                           <i class="mdi mdi-pencil-outline"></i>
                           Edit
                         </button>

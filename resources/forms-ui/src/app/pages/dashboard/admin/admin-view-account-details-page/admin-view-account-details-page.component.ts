@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import * as _ from 'lodash';
 import { Router } from '@angular/router';
 import { AccountService } from 'src/app/services/account/account.service';
+import { LocalStorageService } from 'src/app/services/storage/local-storage.service';
 
 @Component({
   selector: 'app-admin-view-account-details-page',
@@ -17,14 +18,18 @@ export class AdminViewAccountDetailsPageComponent implements OnInit {
   _loading: boolean;
   isActive: boolean;
   accountType: string;
+  user_type: any;
 
   constructor(
     private router: Router,
-    private accountService: AccountService
+    private accountService: AccountService,
+    private localStorage: LocalStorageService,
   ) {
     this.id = window.history.state.id;
     this.resolveReloadDataLoss();
     this.getAccountDetails();
+    this.user_type = this.localStorage.getUser().usertype;
+    console.log('logged in user type: ' + this.user_type);
   }
 
   resolveReloadDataLoss() {

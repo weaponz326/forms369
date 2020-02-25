@@ -133,21 +133,16 @@
                         <td>{{ form.submitted_at | date }}</td>
                         <td>
                           <div class="d-flex align-items-end flex-wrap">
-                            <button type="button" class="btn btn-light bg-white btn-icon mr-1"
-                              (click)="completeForm($event, form, form.submission_code, i)" data-toggle="tooltip"
-                              data-placement="top" title="Process Form">
-                              <i class="mdi mdi-check-outline text-muted"></i>
-                            </button>
-                            <button type="button" class="btn btn-light bg-white btn-icon mr-1"
-                              (click)="processForm($event, form, form.submission_code, i)" data-toggle="tooltip"
-                              data-placement="top" title="Processing">
-                              <i class="mdi mdi-reload text-muted"></i>
-                            </button>
-                            <button type="button" class="btn btn-light bg-white btn-icon mr-1"
-                              (click)="reject($event, form, form.submission_code, i)" data-toggle="tooltip"
-                              data-placement="top" title="Reject Form">
-                              <i class="mdi mdi-undo-variant text-muted"></i>
-                            </button>
+                            <div class="dropdown">
+                              <button type="button" class="btn btn-light bg-white btn-icon mr-1">
+                                <i class="mdi mdi-dots-vertical text-muted"></i>
+                              </button>
+                              <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                                <a class="dropdown-item">Action</a>
+                                <a class="dropdown-item" >Another action</a>
+                                <a class="dropdown-item">Something else here</a>
+                              </div>
+                            </div>
                           </div>
                         </td>
                       </tr>

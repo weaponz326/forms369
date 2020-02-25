@@ -23,8 +23,8 @@
                   </button>
                   <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
                     <a class="dropdown-item" (click)="openFilterModal()">Filter</a>
-                    <a class="dropdown-item" (click)="downloadAll('csv')">Download (CSV)</a>
-                    <a class="dropdown-item" (click)="downloadAll('excel')">Download (Excel)</a>
+                    <a *ngIf="user.can_download == 1" class="dropdown-item" (click)="downloadAll('csv')">Download (CSV)</a>
+                    <a *ngIf="user.can_download == 1" class="dropdown-item" (click)="downloadAll('excel')">Download (Excel)</a>
                   </div>
                 </div>
               </div>
@@ -97,13 +97,13 @@
                       <tr>
                         <th *ngFor="let header of tableHeaders"><strong class="text-uppercase">{{ header }}</strong></th>
                         <th><strong class="text-uppercase">Submitted At</strong></th>
-                        <th><strong class="text-uppercase">Actions</strong></th>
+                        <th *ngIf="user.can_download == 1"><strong class="text-uppercase">Actions</strong></th>
                       </tr>
                     </thead>
                     <tbody>
                       <tr class="hover-cursor" *ngFor="let content of tableContents; let i=index">
                         <td *ngFor="let data of content">{{ data }}</td>
-                        <td>
+                        <td *ngIf="user.can_download == 1">
                           <div class="dropdown">
                             <button type="button" class="btn btn-light bg-white btn-icon dropdown-toggle"
                               id="dropdownMenuButton" data-toggle="dropdown">
@@ -235,22 +235,30 @@
     </div>
     <div class="modal-body">
       <div class="form-group">
-        <select formControlName="filterBy" class="form-control form-control-lg">
+        <select formControlName="filterBy" class="form-control form-control-lg"
+          [ngClass]="{'input-control-error': submitted && f.filterBy.errors}">
           <option value="">Filter By</option>
           <option value="processed_at">Processed Date</option>
           <option value="submitted_at">Submitted Date</option>
         </select>
+        <div *ngIf="submitted && f.filterBy.errors">
+          <p class="input-error" *ngIf="f.filterBy.errors.required">Filter by required</p>
+        </div>
       </div>
       <div class="row">
         <div class="col-6">
           <div class="form-group" style="margin-bottom: -0.1rem;">
             <div class="input-group">
               <input class="form-control form-control-lg" placeholder="Select Start Date" name="dp"
-                formControlName="startDate" ngbDatepicker #d="ngbDatepicker">
+                formControlName="startDate" ngbDatepicker #d="ngbDatepicker" [ngClass]="{'input-control-error':
+                submitted && f.startDate.errors}">
               <div class="input-group-append">
                 <button class="btn btn-sm btn-outline-secondary" (click)="d.toggle()" type="button">
                   <i class="mdi mdi-calendar-outline"></i>
                 </button>
+              </div>
+              <div *ngIf="submitted && f.startDate.errors">
+                <p class="input-error" *ngIf="f.startDate.errors.required">Start date is required</p>
               </div>
             </div>
           </div>
@@ -258,11 +266,15 @@
         <div class="col-6">
           <div class="input-group">
             <input class="form-control form-control-lg" placeholder="Select End Date" name="dp"
-              formControlName="endDate" ngbDatepicker #d1="ngbDatepicker">
+              formControlName="endDate" ngbDatepicker #d1="ngbDatepicker" [ngClass]="{'input-control-error': submitted
+              && f.endDate.errors}">
             <div class="input-group-append">
               <button class="btn btn-sm btn-outline-secondary" (click)="d1.toggle()" type="button">
                 <i class="mdi mdi-calendar-outline"></i>
               </button>
+            </div>
+            <div *ngIf="submitted && f.endDate.errors">
+              <p class="input-error" *ngIf="f.endDate.errors.required">End date is required</p>
             </div>
           </div>
         </div>

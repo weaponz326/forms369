@@ -373,6 +373,23 @@ export class CompanyService {
     });
   }
 
+  findUserByStatusAndName(user_type: number, merchant_id: string, status: number, search_query: string): Promise<any> {
+    return new Promise((resolve, reject) => {
+      const url = this.endpointService.apiHost + `api/v1/getUserByTypeStatusAndMerchant/${user_type}/${merchant_id}/${status}/${search_query}`;
+      this.http.get(url, { headers: this.headers }).subscribe(
+        res => {
+          console.log('forms_by_name: ' + JSON.stringify(res));
+          const response = res as any;
+          resolve(response.users);
+        },
+        err => {
+          console.log('f_by_name_erro: ' + JSON.stringify(err));
+          reject(err);
+        }
+      );
+    });
+  }
+
   /**
    * Changes a company's status to `active`.
    *
