@@ -802,11 +802,17 @@ class AuthController extends Controller
         $credentials['deleted_at'] = null;
         $credentials['status'] = 1;
 
-        if(!Auth::attempt($credentials))
+        $credentials2 = ['email'=>$request->username, 'password'=>$request->password];
+        $credentials2['active_token'] = null;
+        $credentials2['deleted_at'] = null;
+        $credentials2['status'] = 1;
+         
+        if(!Auth::attempt($credentials) && !Auth::attempt($credentials2))
         {
-            if(Auth::attempt(['username'=>$request->username, 'password'=>$request->password, 'status'=>1]))
+            if(Auth::attempt(['username'=>$request->username, 'password'=>$request->password, 'status'=>1]) || 
+            Auth::attempt(['email'=>$request->username, 'password'=>$request->password, 'status'=>1]))
             {     
-                $user = User::where('username',$request->username)->first();
+                $user = User::where('username',$request->username)->orWhere('email',$request->username)->first();
                 //get user and send verification email
             
                 $user->active_token = str_random(60);
@@ -819,7 +825,7 @@ class AuthController extends Controller
                 return response()->json($error_response, 400);
             }
 
-            $attemptuserusername = User::where('username', '=', $request->username)->first();
+            $attemptuserusername = User::where('username', '=', $request->username)->orWhere('email',$request->username)->first();
             if(empty($attemptuserusername)){
                 $error_response = [
                     'message' => 'USER_NOT_FOUND'
