@@ -268,7 +268,7 @@ Route::group(['middleware' => ['auth:api'], 'prefix' => 'v1'], function(){
   Route::post('deleteFormReview/{code}', 'HomeController@deleteFormReview')->name('deleteFormReview')->middleware('scope:GIT_Admin,super_executive,branch_executive,company_admin,branch_admin,frontdesk');
  
   //can print
-  Route::post('candownload/{id}/{status}', 'HomeController@candownload')->name('candownload')->middleware('scope:GIT_Admin,company_admin');
+  Route::post('candownload/{id}/{status}', 'HomeController@candownload')->name('candownload')->middleware('scope:GIT_Admin,company_admin,branch_admin');
 
   //search for a form for a particular merchant and status based on a serach term
   Route::get('getFormbyNameStatusAndMerchant/{term}/{status}/{id}', 'HomeController@getFormbyNameStatusAndMerchant')->name('getFormbyNameStatusAndMerchant')->middleware('scope:GIT_Admin,company_admin,branch_admin,super_executive,branch_executive');
