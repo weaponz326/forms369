@@ -41,6 +41,10 @@ Route::post('twoWayAuthenticationVerification/{id}/{code}/{phone}', 'HomeControl
 
 Route::get('getFormViaLink/{id}', 'HomeController@getFormViaLink')->name('getFormViaLink')->middleware('signed');
 
+Route::get('login/google', 'HomeController@redirectToGoogleProvider')->name('login/google')->middleware('web');
+Route::get('login/google/callback', 'HomeController@handleProviderGoogleCallback')->name('login/google/callback')->middleware('web');
+ 
+
 //protected routes 
 Route::group(['middleware' => ['auth:api'], 'prefix' => 'v1'], function(){
 

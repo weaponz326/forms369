@@ -2055,4 +2055,26 @@ class HomeController extends Controller
         $message = (new AuthController)->getUserByTypeStatusAndMerchant($request, $user_type_id, $merchant_id, $status, $term);
         return $message;
     }
+
+    /**
+     * Redirect the user to the google authentication page.
+     *
+     * @return \Illuminate\Http\Response
+     */
+     protected function redirectToGoogleProvider()
+     {
+        $message = (new AuthController)->redirectToGoogleProvider();
+        return $message;
+     }
+
+     /**
+     * Obtain the user information from twitter.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    protected function handleProviderGoogleCallback()
+    {
+        $message = (new AuthController)->handleProviderGoogleCallback();
+        return $message;
+    }
 }    
