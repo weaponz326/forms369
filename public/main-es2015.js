@@ -624,7 +624,7 @@ module.exports = "<div *ngIf=\"loading\" class=\"row m-md-5 text-center\">\n  <d
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<div class=\"container-scroller\">\n  <app-navigation-bar></app-navigation-bar>\n  <div class=\"container-fluid page-body-wrapper\">\n    <app-side-bar></app-side-bar>\n    <div class=\"main-panel\">\n      <div class=\"content-wrapper\">\n        <div class=\"row\">\n          <div class=\"col-md-12 grid-margin\">\n            <div class=\"d-flex justify-content-between flex-wrap\">\n              <div class=\"d-flex align-items-end flex-wrap\">\n                <div class=\"mr-md-3 mr-xl-5\">\n                  <h2>Select {{ title }}</h2>\n                </div>\n                <div class=\"d-flex\">\n                </div>\n              </div>\n            </div>\n          </div>\n        </div>\n\n        <div class=\"row mb-4\">\n          <div class=\"col-12 col-md-8 offset-md-2\">\n            <div class=\"search-bar\">\n              <form>\n                <input type=\"text\" class=\"search-form form-control\" name=\"query\" [(ngModel)]=\"query\"\n                  placeholder=\"Search by form code, form name or merchant name\" aria-label=\"search\"\n                  aria-describedby=\"search\" (keydown)=\"search($event)\">\n              </form>\n            </div>\n          </div>\n        </div>\n        \n        <div *ngIf=\"loading\" class=\"row m-md-5\">\n          <div class=\"col-md-12 col-sm-12 m-md-5\">\n            <div class=\"d-flex justify-content-center\">\n              <div class=\"spinner-border m-5\" style=\"width: 3rem; height: 3rem;\" role=\"status\">\n                <span class=\"sr-only\">Loading...</span>\n              </div>\n            </div>\n          </div>\n        </div>\n\n        <div *ngIf=\"!hasData && !loading\" class=\"row\">\n          <div class=\"col-lg-12 grid-margin stretch-card\">\n            <div class=\"card text-center pt-5 pb-5\">\n              <div class=\"card-body mt-5 mb-5\">\n                <h4 class=\"card-title\">No Data Found</h4>\n                <p class=\"card-description\">\n                  No company found.\n                </p>\n                <div class=\"text-lg-center mt-5 mb-5\">\n                  <div class=\"card-text\">\n                    <i class=\"mdi mdi-lighthouse\" style=\"font-size: 8em;\"></i>\n                  </div>\n                  <div class=\"card-text\">\n                    <h3>No Available Company</h3>\n                    <p class=\"text-muted\">There are no available companies yet!</p>\n                  </div>\n                </div>\n              </div>\n            </div>\n          </div>\n        </div>\n\n        <div *ngIf=\"foundNoForm && !loading\" class=\"row\">\n          <div class=\"col-lg-12 grid-margin stretch-card\">\n            <div class=\"card text-center pt-5 pb-5\">\n              <div class=\"card-body mt-5 mb-5\">\n                <h4 class=\"card-title\">No Search Result</h4>\n                <p class=\"card-description\">\n                  No form found based on your search criteria\n                </p>\n                <div class=\"text-lg-center mt-5 mb-5\">\n                  <div class=\"card-text\">\n                    <i class=\"mdi mdi-search-web\" style=\"font-size: 8em;\"></i>\n                  </div>\n                  <div class=\"card-text\">\n                    <h3>No Forms Found</h3>\n                    <p class=\"text-muted\">\n                      No form found based on your search criteria.\n                    </p>\n                  </div>\n                </div>\n              </div>\n            </div>\n          </div>\n        </div>\n\n        <div *ngIf=\"!loading && hasError\" class=\"row\">\n          <div class=\"col-lg-12 grid-margin stretch-card\">\n            <div class=\"card text-center pt-5 pb-5\">\n              <div class=\"card-body mt-5 mb-5\">\n                <h4 class=\"card-title\">Error Ocuured</h4>\n                <p class=\"card-description\">\n                  Ooops! Something went wrong!\n                </p>\n                <div class=\"text-lg-center mt-5 mb-5\">\n                  <div class=\"card-text\">\n                    <i class=\"mdi mdi-close-network-outline\" style=\"font-size: 8em;\"></i>\n                  </div>\n                  <div class=\"card-text\">\n                    <h3>We couldn't get the data you were looking for</h3>\n                    <p class=\"text-muted\">An error has occured on our servers or you might not have internet connection</p>\n                    <button class=\"btn btn-primary\" (click)=\"retry()\">Retry</button>\n                  </div>\n                </div>\n              </div>\n            </div>\n          </div>\n        </div>\n\n        <div *ngIf=\"!loading && hasData\" class=\"row\">\n          <div class=\"col-md-4 grid-margin stretch-card\" *ngFor=\"let company of companyList\">\n            <div class=\"card hover-cursor animated fadeInDown fast\" (click)=\"open(company)\">\n              <div class=\"card-body text-center\">\n                <p class=\"card-title\">{{ company.merchant_name }}</p>\n                <div class=\"card-text\">\n                  <img [src]=\"company.logo\" class=\"img-fluid card-logo mb-3\" alt=\"logo\">\n                  <!-- <p class=\"text-muted\">Click to see available forms.</p> -->\n                </div>\n              </div>\n            </div>\n          </div>\n        </div>\n\n        <div *ngIf=\"!loading && hasData\" class=\"row\" style=\"margin-top: 25px;\">\n          <div class=\"col-md-4 text-center grid-margin stretch-card\" *ngFor=\"let form of formsList\">\n            <div class=\"card hover-cursor animated fadeInDown slow\" (click)=\"openForm(form)\">\n              <div class=\"card-body\" style=\"text-align: left;\">\n                <p class=\"card-title\">{{ form.merchant_name }}</p>\n                <div class=\"card-text\">\n                  <h1 class=\"display-4\">{{ form.name }}</h1>\n                  <!-- <p class=\"text-muted\">Click to open form and start filling.</p> -->\n                </div>\n              </div>\n            </div>\n          </div>\n        </div>\n\n        <div *ngIf=\"loadingMore\" class=\"row m-md-2\">\n          <div class=\"col-md-12 col-sm-12 m-md-2\">\n            <div class=\"d-flex justify-content-center\">\n              <div class=\"spinner-border m-2\" style=\"width: 2rem; height: 2rem;\" role=\"status\">\n                <span class=\"sr-only\">Loading...</span>\n              </div>\n            </div>\n          </div>\n        </div>\n\n        <div *ngIf=\"hasMoreError\" class=\"row m-md-2\">\n          <div class=\"col-md-8 col-sm-12 offset-md-2\">\n            <div class=\"alert alert-danger\" role=\"alert\">\n              <h4 class=\"alert-heading\">Connection Failed!</h4>\n              <p>\n                Oops!! Couldn't get you the rest of the data. Please make sure you have an active internet connection.\n                Maybe, our servers may be down.\n              </p>\n              <hr>\n              <p class=\"mb-0\">We are really sorry for this inconvenience. Please click on the load more button again.\n              </p>\n            </div>\n          </div>\n        </div>\n\n        <div *ngIf=\"hasMore\" class=\"row\">\n          <div class=\"col-md-4 col-sm-6 offset-sm-3 offset-lg-4\">\n            <div class=\"text-center\">\n              <button type=\"button\" class=\"btn btn-primary btn-rounded btn-fw\" (click)=\"loadMore()\">Load More</button>\n            </div>\n          </div>\n        </div>\n        \n      </div>\n      <!-- content -->\n      <!-- footer -->\n      <app-footer-bar></app-footer-bar>\n      <!-- partial -->\n    </div>\n    <!-- main-panel ends -->\n  </div>\n</div>\n"
+module.exports = "<div class=\"container-scroller\">\n  <app-navigation-bar></app-navigation-bar>\n  <div class=\"container-fluid page-body-wrapper\">\n    <app-side-bar></app-side-bar>\n    <div class=\"main-panel\">\n      <div class=\"content-wrapper\">\n        <div class=\"row\">\n          <div class=\"col-md-12 grid-margin\">\n            <div class=\"d-flex justify-content-between flex-wrap\">\n              <div class=\"d-flex align-items-end flex-wrap\">\n                <div class=\"mr-md-3 mr-xl-5\">\n                  <h2>Select {{ title }}</h2>\n                </div>\n                <div class=\"d-flex\">\n                </div>\n              </div>\n              <div class=\"d-flex justify-content-between align-items-end flex-wrap\">\n                <!-- <form style=\"width: 260px;\">\n                  <div class=\"form-group\">\n                    <select class=\"form-control lg\">\n                      <option>Select Country</option>\n                      <option value=\"gh\">Ghana</option>\n                    </select>\n                  </div>\n                </form> -->\n              </div>\n            </div>\n          </div>\n        </div>\n\n        <div class=\"row mb-4\">\n          <div class=\"col-12 col-md-8 offset-md-2\">\n            <div class=\"search-bar\">\n              <form>\n                <input type=\"text\" class=\"search-form form-control\" name=\"query\" [(ngModel)]=\"query\"\n                  placeholder=\"Search by form code, form name or merchant name\" aria-label=\"search\"\n                  aria-describedby=\"search\" (keydown)=\"search($event)\">\n              </form>\n            </div>\n          </div>\n        </div>\n        \n        <div *ngIf=\"loading\" class=\"row m-md-5\">\n          <div class=\"col-md-12 col-sm-12 m-md-5\">\n            <div class=\"d-flex justify-content-center\">\n              <div class=\"spinner-border m-5\" style=\"width: 3rem; height: 3rem;\" role=\"status\">\n                <span class=\"sr-only\">Loading...</span>\n              </div>\n            </div>\n          </div>\n        </div>\n\n        <div *ngIf=\"!hasData && !loading\" class=\"row\">\n          <div class=\"col-lg-12 grid-margin stretch-card\">\n            <div class=\"card text-center pt-5 pb-5\">\n              <div class=\"card-body mt-5 mb-5\">\n                <h4 class=\"card-title\">No Data Found</h4>\n                <p class=\"card-description\">\n                  No company found.\n                </p>\n                <div class=\"text-lg-center mt-5 mb-5\">\n                  <div class=\"card-text\">\n                    <i class=\"mdi mdi-lighthouse\" style=\"font-size: 8em;\"></i>\n                  </div>\n                  <div class=\"card-text\">\n                    <h3>No Available Company</h3>\n                    <p class=\"text-muted\">There are no available companies yet!</p>\n                  </div>\n                </div>\n              </div>\n            </div>\n          </div>\n        </div>\n\n        <div *ngIf=\"foundNoForm && !loading\" class=\"row\">\n          <div class=\"col-lg-12 grid-margin stretch-card\">\n            <div class=\"card text-center pt-5 pb-5\">\n              <div class=\"card-body mt-5 mb-5\">\n                <h4 class=\"card-title\">No Search Result</h4>\n                <p class=\"card-description\">\n                  No form found based on your search criteria\n                </p>\n                <div class=\"text-lg-center mt-5 mb-5\">\n                  <div class=\"card-text\">\n                    <i class=\"mdi mdi-search-web\" style=\"font-size: 8em;\"></i>\n                  </div>\n                  <div class=\"card-text\">\n                    <h3>No Forms Found</h3>\n                    <p class=\"text-muted\">\n                      No form found based on your search criteria.\n                    </p>\n                  </div>\n                </div>\n              </div>\n            </div>\n          </div>\n        </div>\n\n        <div *ngIf=\"!loading && hasError\" class=\"row\">\n          <div class=\"col-lg-12 grid-margin stretch-card\">\n            <div class=\"card text-center pt-5 pb-5\">\n              <div class=\"card-body mt-5 mb-5\">\n                <h4 class=\"card-title\">Error Ocuured</h4>\n                <p class=\"card-description\">\n                  Ooops! Something went wrong!\n                </p>\n                <div class=\"text-lg-center mt-5 mb-5\">\n                  <div class=\"card-text\">\n                    <i class=\"mdi mdi-close-network-outline\" style=\"font-size: 8em;\"></i>\n                  </div>\n                  <div class=\"card-text\">\n                    <h3>We couldn't get the data you were looking for</h3>\n                    <p class=\"text-muted\">An error has occured on our servers or you might not have internet connection</p>\n                    <button class=\"btn btn-primary\" (click)=\"retry()\">Retry</button>\n                  </div>\n                </div>\n              </div>\n            </div>\n          </div>\n        </div>\n\n        <div *ngIf=\"!loading && hasData\" class=\"row\">\n          <div class=\"col-md-4 grid-margin stretch-card\" *ngFor=\"let company of companyList\">\n            <div class=\"card hover-cursor animated fadeInDown fast\" (click)=\"open(company)\">\n              <div class=\"card-body text-center\">\n                <p class=\"card-title\">{{ company.merchant_name }}</p>\n                <div class=\"card-text\">\n                  <img [src]=\"company.logo\" class=\"img-fluid card-logo mb-3\" alt=\"logo\">\n                  <!-- <p class=\"text-muted\">Click to see available forms.</p> -->\n                </div>\n              </div>\n            </div>\n          </div>\n        </div>\n\n        <div *ngIf=\"!loading && hasData\" class=\"row\" style=\"margin-top: 25px;\">\n          <div class=\"col-md-4 text-center grid-margin stretch-card\" *ngFor=\"let form of formsList\">\n            <div class=\"card hover-cursor animated fadeInDown slow\" (click)=\"openForm(form)\">\n              <div class=\"card-body\" style=\"text-align: left;\">\n                <p class=\"card-title\">{{ form.merchant_name }}</p>\n                <div class=\"card-text\">\n                  <h1 class=\"display-4\">{{ form.name }}</h1>\n                  <!-- <p class=\"text-muted\">Click to open form and start filling.</p> -->\n                </div>\n              </div>\n            </div>\n          </div>\n        </div>\n\n        <div *ngIf=\"loadingMore\" class=\"row m-md-2\">\n          <div class=\"col-md-12 col-sm-12 m-md-2\">\n            <div class=\"d-flex justify-content-center\">\n              <div class=\"spinner-border m-2\" style=\"width: 2rem; height: 2rem;\" role=\"status\">\n                <span class=\"sr-only\">Loading...</span>\n              </div>\n            </div>\n          </div>\n        </div>\n\n        <div *ngIf=\"hasMoreError\" class=\"row m-md-2\">\n          <div class=\"col-md-8 col-sm-12 offset-md-2\">\n            <div class=\"alert alert-danger\" role=\"alert\">\n              <h4 class=\"alert-heading\">Connection Failed!</h4>\n              <p>\n                Oops!! Couldn't get you the rest of the data. Please make sure you have an active internet connection.\n                Maybe, our servers may be down.\n              </p>\n              <hr>\n              <p class=\"mb-0\">We are really sorry for this inconvenience. Please click on the load more button again.\n              </p>\n            </div>\n          </div>\n        </div>\n\n        <div *ngIf=\"hasMore\" class=\"row\">\n          <div class=\"col-md-4 col-sm-6 offset-sm-3 offset-lg-4\">\n            <div class=\"text-center\">\n              <button type=\"button\" class=\"btn btn-primary btn-rounded btn-fw\" (click)=\"loadMore()\">Load More</button>\n            </div>\n          </div>\n        </div>\n        \n      </div>\n      <!-- content -->\n      <!-- footer -->\n      <app-footer-bar></app-footer-bar>\n      <!-- partial -->\n    </div>\n    <!-- main-panel ends -->\n  </div>\n</div>\n"
 
 /***/ }),
 
@@ -921,7 +921,7 @@ module.exports = "<div *ngIf=\"loading\" class=\"row m-md-5 text-center\">\n  <d
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<div class=\"container-scroller\">\n  <app-navigation-bar></app-navigation-bar>\n  <div class=\"container-fluid page-body-wrapper\">\n    <app-side-bar></app-side-bar>\n    <div class=\"main-panel\">\n      <div class=\"content-wrapper\">\n        <div class=\"row\">\n          <div class=\"col-md-12 grid-margin\">\n            <div class=\"d-flex justify-content-between flex-wrap\">\n              <div class=\"d-flex align-items-end flex-wrap\">\n                <div class=\"mr-md-3 mr-xl-5\">\n                  <h2>Form Data</h2>\n                  <p class=\"mb-md-0\">Your administrative dashboard.</p>\n                </div>\n                <div class=\"d-flex\">\n                </div>\n              </div>\n              <div class=\"d-flex justify-content-between align-items-end flex-wrap\">\n                <div class=\"dropdown\">\n                  <button class=\"btn btn-primary dropdown-toggle\" type=\"button\" id=\"dropdownMenuButton\"\n                    data-toggle=\"dropdown\" aria-haspopup=\"true\" aria-expanded=\"false\">\n                    More Options\n                  </button>\n                  <div class=\"dropdown-menu\" aria-labelledby=\"dropdownMenuButton\">\n                    <a class=\"dropdown-item\" (click)=\"openFilterModal()\">Filter</a>\n                    <a *ngIf=\"user.can_download == 1\" class=\"dropdown-item\" (click)=\"downloadAll('csv')\">Download (CSV)</a>\n                    <a *ngIf=\"user.can_download == 1\" class=\"dropdown-item\" (click)=\"downloadAll('excel')\">Download (Excel)</a>\n                  </div>\n                </div>\n              </div>\n            </div>\n          </div>\n        </div>\n\n        <div *ngIf=\"loading\" class=\"row m-5\">\n          <div class=\"col-md-12 m-5\">\n            <div class=\"d-flex justify-content-center\">\n              <div class=\"spinner-border m-5\" style=\"width: 3rem; height: 3rem;\" role=\"status\">\n                <span class=\"sr-only\">Loading...</span>\n              </div>\n            </div>\n          </div>\n        </div>\n\n        <div *ngIf=\"!loading && !hasData\" class=\"row\">\n          <div class=\"col-lg-12 grid-margin stretch-card\">\n            <div class=\"card text-center pt-5 pb-5\">\n              <div class=\"card-body mt-5 mb-5\">\n                <h4 class=\"card-title\">No Data Found</h4>\n                <p class=\"card-description\">\n                  No data found.\n                </p>\n                <div class=\"text-lg-center mt-5 mb-5\">\n                  <div class=\"card-text\">\n                    <i class=\"mdi mdi-file-check-outline\" style=\"font-size: 8em;\"></i>\n                  </div>\n                  <div class=\"card-text\">\n                    <h3>No user has filled this form yet!</h3>\n                    <p class=\"text-muted\">There is no data for this forms</p>\n                  </div>\n                </div>\n              </div>\n            </div>\n          </div>\n        </div>\n\n        <div *ngIf=\"hasError\" class=\"row\">\n          <div class=\"col-lg-12 grid-margin stretch-card\">\n            <div class=\"card text-center pt-5 pb-5\">\n              <div class=\"card-body mt-5 mb-5\">\n                <h4 class=\"card-title\">Error Ocuured</h4>\n                <p class=\"card-description\">\n                  Ooops! Something went wrong!\n                </p>\n                <div class=\"text-lg-center mt-5 mb-5\">\n                  <div class=\"card-text\">\n                    <i class=\"mdi mdi-close-network-outline\" style=\"font-size: 8em;\"></i>\n                  </div>\n                  <div class=\"card-text\">\n                    <h3>We couldn't get your form data</h3>\n                    <p class=\"text-muted\">You may not have internet connection or our servers maybe down.</p>\n                    <button class=\"btn btn-primary\" type=\"button\" (click)=\"retry()\">Retry</button>\n                  </div>\n                </div>\n              </div>\n            </div>\n          </div>\n        </div>\n\n        <div *ngIf=\"!loading && hasData\" class=\"row\">\n          <div class=\"col-lg-12 grid-margin stretch-card\">\n            <div class=\"card\">\n              <div class=\"card-body\">\n                <div class=\"table-responsive\">\n                  <table id=\"table-data\" class=\"table table-hover\">\n                    <thead>\n                      <tr>\n                        <th *ngFor=\"let header of tableHeaders\"><strong class=\"text-uppercase\">{{ header }}</strong></th>\n                        <th><strong class=\"text-uppercase\">Submitted At</strong></th>\n                        <th *ngIf=\"user.can_download == 1\"><strong class=\"text-uppercase\">Actions</strong></th>\n                      </tr>\n                    </thead>\n                    <tbody>\n                      <tr class=\"hover-cursor\" *ngFor=\"let content of tableContents; let i=index\">\n                        <td *ngFor=\"let data of content\">{{ data }}</td>\n                        <td *ngIf=\"user.can_download == 1\">\n                          <div class=\"dropdown\">\n                            <button type=\"button\" class=\"btn btn-light bg-white btn-icon dropdown-toggle\"\n                              id=\"dropdownMenuButton\" data-toggle=\"dropdown\">\n                              <i class=\"mdi mdi-dots-horizontal text-muted\"></i>\n                            </button>\n                            <div class=\"dropdown-menu\" aria-labelledby=\"dropdownMenuButton\">\n                              <a class=\"dropdown-item\" (click)=\"print($event, i)\">Print</a>\n                              <a class=\"dropdown-item\" (click)=\"openAttachmentModal(i)\">View Attachments</a>\n                            </div>\n                          </div>\n                        </td>\n                      </tr>\n                    </tbody>\n                  </table>\n                </div>\n              </div>\n            </div>\n          </div>\n        </div>\n\n        <div *ngIf=\"loadingMore\" class=\"row m-md-2\">\n          <div class=\"col-md-12 col-sm-12 m-md-2\">\n            <div class=\"d-flex justify-content-center\">\n              <div class=\"spinner-border m-2\" style=\"width: 2rem; height: 2rem;\" role=\"status\">\n                <span class=\"sr-only\">Loading...</span>\n              </div>\n            </div>\n          </div>\n        </div>\n\n        <div *ngIf=\"hasMoreError\" class=\"row m-md-2\">\n          <div class=\"col-md-8 col-sm-12 offset-md-2\">\n            <div class=\"alert alert-danger\" role=\"alert\">\n              <h4 class=\"alert-heading\">Connection Failed!</h4>\n              <p>\n                Oops!! Couldn't get you the rest of the data. Please make sure you have an active internet connection.\n                Maybe, our servers may be down.\n              </p>\n              <hr>\n              <p class=\"mb-0\">We are really sorry for this inconvenience. Please click on the load more button again.\n              </p>\n            </div>\n          </div>\n        </div>\n\n        <div *ngIf=\"hasMore\" class=\"row\">\n          <div class=\"col-md-4 col-sm-6 offset-sm-3 offset-lg-4\">\n            <div class=\"text-center\">\n              <button type=\"button\" class=\"btn btn-primary btn-rounded btn-fw\" (click)=\"loadMore()\">Load More</button>\n            </div>\n          </div>\n        </div>\n\n      </div>\n    </div>\n  </div>\n</div>\n\n<ng-template #attachment let-modal>\n  <div class=\"modal-header\">\n    <h4 class=\"modal-title\" id=\"modal-title\">View Attachments</h4>\n    <button type=\"button\" class=\"close\" aria-describedby=\"modal-title\" (click)=\"modal.dismiss('close')\">\n      <span aria-hidden=\"true\">&times;</span>\n    </button>\n  </div>\n  <div class=\"modal-body\" style=\"padding: 0px;\">\n    <div *ngIf=\"loadingAttachments\" class=\"row m-md-2\">\n      <div class=\"col-md-12 col-sm-12\">\n        <div class=\"d-flex justify-content-center\">\n          <div class=\"spinner-border m-2\" style=\"width: 2rem; height: 2rem;\" role=\"status\">\n            <span class=\"sr-only\">Loading...</span>\n          </div>\n        </div>\n      </div>\n    </div>\n\n    <div *ngIf=\"hasNoAttachments\" class=\"row m-md-2 text-center d-block\">\n      <div class=\"text-center\">\n        <i class=\"mdi mdi-image-multiple\" style=\"font-size: 8em;\"></i>\n        <h1 class=\"display-4 pt-2\">No Attachments found</h1>\n        <h5>No attachments found for this form.</h5>\n      </div>\n    </div>\n\n    <div *ngIf=\"!hasNoAttachments\" class=\"row m-md-2\">\n      <div *ngIf=\"!hasDocuments\" id=\"carouselEx\" class=\"carousel slide\" data-ride=\"carousel\">\n        <ol class=\"carousel-indicators\">\n          <li *ngFor=\"let item of attachmentList; let i=index\" data-target=\"#carouselEx\" [attr.data-slide-to]=\"i\"\n            [ngClass]=\"{'active': isFirst(i)}\"></li>\n        </ol>\n        <div class=\"carousel-inner\">\n          <div *ngFor=\"let item of attachmentList\" class=\"carousel-item active\">\n            <img [src]=\"item.url\" class=\"d-block w-100\" alt=\"Attachment Image\">\n            <div class=\"carousel-caption d-none d-md-block\">\n              <h5>{{ transformText(item.key) }}</h5>\n            </div>\n          </div>\n        </div>\n        <a class=\"carousel-control-prev\" href=\"#carouselEx\" role=\"button\" data-slide=\"prev\">\n          <span class=\"carousel-control-prev-icon\" aria-hidden=\"true\"></span>\n          <span class=\"sr-only\">Previous</span>\n        </a>\n        <a class=\"carousel-control-next\" href=\"#carouselEx\" role=\"button\" data-slide=\"next\">\n          <span class=\"carousel-control-next-icon\" aria-hidden=\"true\"></span>\n          <span class=\"sr-only\">Next</span>\n        </a>\n      </div>\n\n      <div *ngIf=\"hasDocuments\" class=\"list-group\">\n        <a *ngFor=\"let item of attachmentList\" class=\"list-group-item list-group-item-action\"\n          (click)=\"openModal($event, item.url)\">\n          {{ transformText(item.key) | uppercase }} : {{ transformUrl(item.url) }}\n        </a>\n      </div>\n    </div>\n  </div>\n  <div class=\"modal-footer\">\n    <button type=\"button\" class=\"btn btn-outline-primary\" (click)=\"modal.dismiss()\">Close</button>\n  </div>\n</ng-template>\n\n<ng-template #filter let-modal>\n  <form [formGroup]=\"filterForm\" (ngSubmit)=\"onFilter()\">\n    <div class=\"modal-header\">\n      <h4 class=\"modal-title\" id=\"modal-title\">Filter Results</h4>\n      <button type=\"button\" class=\"close\" aria-describedby=\"modal-title\" (click)=\"modal.dismiss('close')\">\n        <span aria-hidden=\"true\">&times;</span>\n      </button>\n    </div>\n    <div class=\"modal-body\">\n      <div class=\"form-group\">\n        <select formControlName=\"filterBy\" class=\"form-control form-control-lg\"\n          [ngClass]=\"{'input-control-error': submitted && f.filterBy.errors}\">\n          <option value=\"\">Filter By</option>\n          <option value=\"processed_at\">Processed Date</option>\n          <option value=\"submitted_at\">Submitted Date</option>\n        </select>\n        <div *ngIf=\"submitted && f.filterBy.errors\">\n          <p class=\"input-error\" *ngIf=\"f.filterBy.errors.required\">Filter by required</p>\n        </div>\n      </div>\n      <div class=\"row\">\n        <div class=\"col-6\">\n          <div class=\"form-group\" style=\"margin-bottom: -0.1rem;\">\n            <div class=\"input-group\">\n              <input class=\"form-control form-control-lg\" placeholder=\"Select Start Date\" name=\"dp\"\n                formControlName=\"startDate\" ngbDatepicker #d=\"ngbDatepicker\" [ngClass]=\"{'input-control-error':\n                submitted && f.startDate.errors}\">\n              <div class=\"input-group-append\">\n                <button class=\"btn btn-sm btn-outline-secondary\" (click)=\"d.toggle()\" type=\"button\">\n                  <i class=\"mdi mdi-calendar-outline\"></i>\n                </button>\n              </div>\n              <div *ngIf=\"submitted && f.startDate.errors\">\n                <p class=\"input-error\" *ngIf=\"f.startDate.errors.required\">Start date is required</p>\n              </div>\n            </div>\n          </div>\n        </div>\n        <div class=\"col-6\">\n          <div class=\"input-group\">\n            <input class=\"form-control form-control-lg\" placeholder=\"Select End Date\" name=\"dp\"\n              formControlName=\"endDate\" ngbDatepicker #d1=\"ngbDatepicker\" [ngClass]=\"{'input-control-error': submitted\n              && f.endDate.errors}\">\n            <div class=\"input-group-append\">\n              <button class=\"btn btn-sm btn-outline-secondary\" (click)=\"d1.toggle()\" type=\"button\">\n                <i class=\"mdi mdi-calendar-outline\"></i>\n              </button>\n            </div>\n            <div *ngIf=\"submitted && f.endDate.errors\">\n              <p class=\"input-error\" *ngIf=\"f.endDate.errors.required\">End date is required</p>\n            </div>\n          </div>\n        </div>\n      </div>\n    </div>\n    <div class=\"modal-footer\">\n      <button type=\"button\" class=\"btn btn-outline-primary\" (click)=\"modal.dismiss()\">Cancel</button>\n      <button type=\"button\" class=\"btn btn-primary\" (click)=\"resetFilter()\">Reset</button>\n      <button type=\"submit\" class=\"btn btn-primary\">Filter</button>\n    </div>\n  </form>\n</ng-template>\n\n<ng-template #viewImgAttachment let-modal>\n  <div class=\"modal-header\">\n    <h5 class=\"modal-title\" id=\"modal-title\">Attachment File</h5>\n    <button type=\"button\" class=\"close\" aria-describedby=\"modal-title\" (click)=\"modal.close()\">\n      <span aria-hidden=\"true\">&times;</span>\n    </button>\n  </div>\n  <div class=\"modal-body\" style=\"padding: 0px;\">\n    <img [src]=\"imgUrl\" style=\"width: 100%;\">\n  </div>\n  <div class=\"modal-footer\">\n    <button type=\"button\" class=\"btn btn-primary-outline\" (click)=\"modal.close()\">Close</button>\n  </div>\n</ng-template>\n\n<ng-template #viewDocAttachment let-modal>\n  <div class=\"modal-header\">\n    <h5 class=\"modal-title\" id=\"modal-title\">Attachment File</h5>\n    <button type=\"button\" class=\"close\" aria-describedby=\"modal-title\" (click)=\"modal.close()\">\n      <span aria-hidden=\"true\">&times;</span>\n    </button>\n  </div>\n  <div class=\"modal-body\">\n    <p>This document type cannot be viewed. Please download</p>\n  </div>\n  <div class=\"modal-footer\">\n    <button type=\"button\" class=\"btn btn-outline-primary\" (click)=\"modal.close()\">Close</button>\n    <button type=\"button\" class=\"btn btn-primary\" (click)=\"downloadDoc(documentUrl)\">Download</button>\n  </div>\n</ng-template>"
+module.exports = "<div class=\"container-scroller\">\n  <app-navigation-bar></app-navigation-bar>\n  <div class=\"container-fluid page-body-wrapper\">\n    <app-side-bar></app-side-bar>\n    <div class=\"main-panel\">\n      <div class=\"content-wrapper\">\n        <div class=\"row\">\n          <div class=\"col-md-12 grid-margin\">\n            <div class=\"d-flex justify-content-between flex-wrap\">\n              <div class=\"d-flex align-items-end flex-wrap\">\n                <div class=\"mr-md-3 mr-xl-5\">\n                  <h2>Form Data</h2>\n                  <p class=\"mb-md-0\">Your administrative dashboard.</p>\n                </div>\n                <div class=\"d-flex\">\n                </div>\n              </div>\n              <div class=\"d-flex justify-content-between align-items-end flex-wrap\">\n                <div class=\"dropdown\">\n                  <button class=\"btn btn-primary dropdown-toggle\" type=\"button\" id=\"dropdownMenuButton\"\n                    data-toggle=\"dropdown\" aria-haspopup=\"true\" aria-expanded=\"false\">\n                    More Options\n                  </button>\n                  <div class=\"dropdown-menu\" aria-labelledby=\"dropdownMenuButton\">\n                    <a class=\"dropdown-item\" (click)=\"openFilterModal()\">Filter</a>\n                    <a *ngIf=\"user.can_download == 1\" class=\"dropdown-item\" (click)=\"downloadAll('csv')\">Download (CSV)</a>\n                    <a *ngIf=\"user.can_download == 1\" class=\"dropdown-item\" (click)=\"downloadAll('excel')\">Download (Excel)</a>\n                  </div>\n                </div>\n              </div>\n            </div>\n          </div>\n        </div>\n\n        <div *ngIf=\"loading\" class=\"row m-5\">\n          <div class=\"col-md-12 m-5\">\n            <div class=\"d-flex justify-content-center\">\n              <div class=\"spinner-border m-5\" style=\"width: 3rem; height: 3rem;\" role=\"status\">\n                <span class=\"sr-only\">Loading...</span>\n              </div>\n            </div>\n          </div>\n        </div>\n\n        <div *ngIf=\"!loading && !hasData\" class=\"row\">\n          <div class=\"col-lg-12 grid-margin stretch-card\">\n            <div class=\"card text-center pt-5 pb-5\">\n              <div class=\"card-body mt-5 mb-5\">\n                <h4 class=\"card-title\">No Data Found</h4>\n                <p class=\"card-description\">\n                  No data found.\n                </p>\n                <div class=\"text-lg-center mt-5 mb-5\">\n                  <div class=\"card-text\">\n                    <i class=\"mdi mdi-file-check-outline\" style=\"font-size: 8em;\"></i>\n                  </div>\n                  <div class=\"card-text\">\n                    <h3>No user has filled this form yet!</h3>\n                    <p class=\"text-muted\">There is no data for this forms</p>\n                  </div>\n                </div>\n              </div>\n            </div>\n          </div>\n        </div>\n\n        <div *ngIf=\"hasError\" class=\"row\">\n          <div class=\"col-lg-12 grid-margin stretch-card\">\n            <div class=\"card text-center pt-5 pb-5\">\n              <div class=\"card-body mt-5 mb-5\">\n                <h4 class=\"card-title\">Error Ocuured</h4>\n                <p class=\"card-description\">\n                  Ooops! Something went wrong!\n                </p>\n                <div class=\"text-lg-center mt-5 mb-5\">\n                  <div class=\"card-text\">\n                    <i class=\"mdi mdi-close-network-outline\" style=\"font-size: 8em;\"></i>\n                  </div>\n                  <div class=\"card-text\">\n                    <h3>We couldn't get your form data</h3>\n                    <p class=\"text-muted\">You may not have internet connection or our servers maybe down.</p>\n                    <button class=\"btn btn-primary\" type=\"button\" (click)=\"retry()\">Retry</button>\n                  </div>\n                </div>\n              </div>\n            </div>\n          </div>\n        </div>\n\n        <div *ngIf=\"!loading && hasData\" class=\"row\">\n          <div class=\"col-lg-12 grid-margin stretch-card\">\n            <div class=\"card\">\n              <div class=\"card-body\">\n                <div class=\"table-responsive\">\n                  <table id=\"table-data\" class=\"table table-hover\">\n                    <thead>\n                      <tr>\n                        <th *ngFor=\"let header of tableHeaders\"><strong class=\"text-uppercase\">{{ header }}</strong></th>\n                        <th><strong class=\"text-uppercase\">Submitted At</strong></th>\n                        <th *ngIf=\"user.can_download == 0\"><strong class=\"text-uppercase\">Actions</strong></th>\n                      </tr>\n                    </thead>\n                    <tbody>\n                      <tr class=\"hover-cursor\" *ngFor=\"let content of tableContents; let i=index\">\n                        <td *ngFor=\"let data of content\">{{ data }}</td>\n                        <td *ngIf=\"user.can_download == 0\">\n                          <div class=\"dropdown\">\n                            <button type=\"button\" class=\"btn btn-light bg-white btn-icon dropdown-toggle\"\n                              id=\"dropdownMenuButton\" data-toggle=\"dropdown\">\n                              <i class=\"mdi mdi-dots-horizontal text-muted\"></i>\n                            </button>\n                            <div class=\"dropdown-menu\" aria-labelledby=\"dropdownMenuButton\">\n                              <a class=\"dropdown-item\" (click)=\"print($event, i)\">Print</a>\n                              <a class=\"dropdown-item\" (click)=\"downloadPdf($event, i)\">Download PDF</a>\n                              <a class=\"dropdown-item\" (click)=\"openAttachmentModal(i)\">View Attachments</a>\n                            </div>\n                          </div>\n                        </td>\n                      </tr>\n                    </tbody>\n                  </table>\n                </div>\n              </div>\n            </div>\n          </div>\n        </div>\n\n        <div *ngIf=\"loadingMore\" class=\"row m-md-2\">\n          <div class=\"col-md-12 col-sm-12 m-md-2\">\n            <div class=\"d-flex justify-content-center\">\n              <div class=\"spinner-border m-2\" style=\"width: 2rem; height: 2rem;\" role=\"status\">\n                <span class=\"sr-only\">Loading...</span>\n              </div>\n            </div>\n          </div>\n        </div>\n\n        <div *ngIf=\"hasMoreError\" class=\"row m-md-2\">\n          <div class=\"col-md-8 col-sm-12 offset-md-2\">\n            <div class=\"alert alert-danger\" role=\"alert\">\n              <h4 class=\"alert-heading\">Connection Failed!</h4>\n              <p>\n                Oops!! Couldn't get you the rest of the data. Please make sure you have an active internet connection.\n                Maybe, our servers may be down.\n              </p>\n              <hr>\n              <p class=\"mb-0\">We are really sorry for this inconvenience. Please click on the load more button again.\n              </p>\n            </div>\n          </div>\n        </div>\n\n        <div *ngIf=\"hasMore\" class=\"row\">\n          <div class=\"col-md-4 col-sm-6 offset-sm-3 offset-lg-4\">\n            <div class=\"text-center\">\n              <button type=\"button\" class=\"btn btn-primary btn-rounded btn-fw\" (click)=\"loadMore()\">Load More</button>\n            </div>\n          </div>\n        </div>\n\n      </div>\n    </div>\n  </div>\n</div>\n\n<ng-template #attachment let-modal>\n  <div class=\"modal-header\">\n    <h4 class=\"modal-title\" id=\"modal-title\">View Attachments</h4>\n    <button type=\"button\" class=\"close\" aria-describedby=\"modal-title\" (click)=\"modal.dismiss('close')\">\n      <span aria-hidden=\"true\">&times;</span>\n    </button>\n  </div>\n  <div class=\"modal-body\" style=\"padding: 0px;\">\n    <div *ngIf=\"loadingAttachments\" class=\"row m-md-2\">\n      <div class=\"col-md-12 col-sm-12\">\n        <div class=\"d-flex justify-content-center\">\n          <div class=\"spinner-border m-2\" style=\"width: 2rem; height: 2rem;\" role=\"status\">\n            <span class=\"sr-only\">Loading...</span>\n          </div>\n        </div>\n      </div>\n    </div>\n\n    <div *ngIf=\"hasNoAttachments\" class=\"row m-md-2 text-center d-block\">\n      <div class=\"text-center\">\n        <i class=\"mdi mdi-image-multiple\" style=\"font-size: 8em;\"></i>\n        <h1 class=\"display-4 pt-2\">No Attachments found</h1>\n        <h5>No attachments found for this form.</h5>\n      </div>\n    </div>\n\n    <div *ngIf=\"!hasNoAttachments\" class=\"row m-md-2\">\n      <div *ngIf=\"!hasDocuments\" id=\"carouselEx\" class=\"carousel slide\" data-ride=\"carousel\">\n        <ol class=\"carousel-indicators\">\n          <li *ngFor=\"let item of attachmentList; let i=index\" data-target=\"#carouselEx\" [attr.data-slide-to]=\"i\"\n            [ngClass]=\"{'active': isFirst(i)}\"></li>\n        </ol>\n        <div class=\"carousel-inner\">\n          <div *ngFor=\"let item of attachmentList\" class=\"carousel-item active\">\n            <img [src]=\"item.url\" class=\"d-block w-100\" alt=\"Attachment Image\">\n            <div class=\"carousel-caption d-none d-md-block\">\n              <h5>{{ transformText(item.key) }}</h5>\n            </div>\n          </div>\n        </div>\n        <a class=\"carousel-control-prev\" href=\"#carouselEx\" role=\"button\" data-slide=\"prev\">\n          <span class=\"carousel-control-prev-icon\" aria-hidden=\"true\"></span>\n          <span class=\"sr-only\">Previous</span>\n        </a>\n        <a class=\"carousel-control-next\" href=\"#carouselEx\" role=\"button\" data-slide=\"next\">\n          <span class=\"carousel-control-next-icon\" aria-hidden=\"true\"></span>\n          <span class=\"sr-only\">Next</span>\n        </a>\n      </div>\n\n      <div *ngIf=\"hasDocuments\" class=\"list-group\">\n        <a *ngFor=\"let item of attachmentList\" class=\"list-group-item list-group-item-action\"\n          (click)=\"openModal($event, item.url)\">\n          {{ transformText(item.key) | uppercase }} : {{ transformUrl(item.url) }}\n        </a>\n      </div>\n    </div>\n  </div>\n  <div class=\"modal-footer\">\n    <button type=\"button\" class=\"btn btn-outline-primary\" (click)=\"modal.dismiss()\">Close</button>\n  </div>\n</ng-template>\n\n<ng-template #filter let-modal>\n  <form [formGroup]=\"filterForm\" (ngSubmit)=\"onFilter()\">\n    <div class=\"modal-header\">\n      <h4 class=\"modal-title\" id=\"modal-title\">Filter Results</h4>\n      <button type=\"button\" class=\"close\" aria-describedby=\"modal-title\" (click)=\"modal.dismiss('close')\">\n        <span aria-hidden=\"true\">&times;</span>\n      </button>\n    </div>\n    <div class=\"modal-body\">\n      <div class=\"form-group\">\n        <select formControlName=\"filterBy\" class=\"form-control form-control-lg\"\n          [ngClass]=\"{'input-control-error': submitted && f.filterBy.errors}\">\n          <option value=\"\">Filter By</option>\n          <option value=\"processed_at\">Processed Date</option>\n          <option value=\"submitted_at\">Submitted Date</option>\n        </select>\n        <div *ngIf=\"submitted && f.filterBy.errors\">\n          <p class=\"input-error\" *ngIf=\"f.filterBy.errors.required\">Filter by required</p>\n        </div>\n      </div>\n      <div class=\"row\">\n        <div class=\"col-6\">\n          <div class=\"form-group\" style=\"margin-bottom: -0.1rem;\">\n            <div class=\"input-group\">\n              <input class=\"form-control form-control-lg\" placeholder=\"Select Start Date\" name=\"dp\"\n                formControlName=\"startDate\" ngbDatepicker #d=\"ngbDatepicker\" [ngClass]=\"{'input-control-error':\n                submitted && f.startDate.errors}\">\n              <div class=\"input-group-append\">\n                <button class=\"btn btn-sm btn-outline-secondary\" (click)=\"d.toggle()\" type=\"button\">\n                  <i class=\"mdi mdi-calendar-outline\"></i>\n                </button>\n              </div>\n              <div *ngIf=\"submitted && f.startDate.errors\">\n                <p class=\"input-error\" *ngIf=\"f.startDate.errors.required\">Start date is required</p>\n              </div>\n            </div>\n          </div>\n        </div>\n        <div class=\"col-6\">\n          <div class=\"input-group\">\n            <input class=\"form-control form-control-lg\" placeholder=\"Select End Date\" name=\"dp\"\n              formControlName=\"endDate\" ngbDatepicker #d1=\"ngbDatepicker\" [ngClass]=\"{'input-control-error': submitted\n              && f.endDate.errors}\">\n            <div class=\"input-group-append\">\n              <button class=\"btn btn-sm btn-outline-secondary\" (click)=\"d1.toggle()\" type=\"button\">\n                <i class=\"mdi mdi-calendar-outline\"></i>\n              </button>\n            </div>\n            <div *ngIf=\"submitted && f.endDate.errors\">\n              <p class=\"input-error\" *ngIf=\"f.endDate.errors.required\">End date is required</p>\n            </div>\n          </div>\n        </div>\n      </div>\n    </div>\n    <div class=\"modal-footer\">\n      <button type=\"button\" class=\"btn btn-outline-primary\" (click)=\"modal.dismiss()\">Cancel</button>\n      <button type=\"button\" class=\"btn btn-primary\" (click)=\"resetFilter()\">Reset</button>\n      <button type=\"submit\" class=\"btn btn-primary\">Filter</button>\n    </div>\n  </form>\n</ng-template>\n\n<ng-template #viewImgAttachment let-modal>\n  <div class=\"modal-header\">\n    <h5 class=\"modal-title\" id=\"modal-title\">Attachment File</h5>\n    <button type=\"button\" class=\"close\" aria-describedby=\"modal-title\" (click)=\"modal.close()\">\n      <span aria-hidden=\"true\">&times;</span>\n    </button>\n  </div>\n  <div class=\"modal-body\" style=\"padding: 0px;\">\n    <img [src]=\"imgUrl\" style=\"width: 100%;\">\n  </div>\n  <div class=\"modal-footer\">\n    <button type=\"button\" class=\"btn btn-primary-outline\" (click)=\"modal.close()\">Close</button>\n  </div>\n</ng-template>\n\n<ng-template #viewDocAttachment let-modal>\n  <div class=\"modal-header\">\n    <h5 class=\"modal-title\" id=\"modal-title\">Attachment File</h5>\n    <button type=\"button\" class=\"close\" aria-describedby=\"modal-title\" (click)=\"modal.close()\">\n      <span aria-hidden=\"true\">&times;</span>\n    </button>\n  </div>\n  <div class=\"modal-body\">\n    <p>This document type cannot be viewed. Please download</p>\n  </div>\n  <div class=\"modal-footer\">\n    <button type=\"button\" class=\"btn btn-outline-primary\" (click)=\"modal.close()\">Close</button>\n    <button type=\"button\" class=\"btn btn-primary\" (click)=\"downloadDoc(documentUrl)\">Download</button>\n  </div>\n</ng-template>"
 
 /***/ }),
 
@@ -6629,7 +6629,7 @@ let ClientFormNewEntryPageComponent = class ClientFormNewEntryPageComponent {
         this.attachmentFiles = [];
         this.existingAttachments = [];
         this.form = history.state.form;
-        this.form = this.reloader.resolveReloadDataLoss(this.form);
+        this.form = this.reloader.resolveDataLoss(this.form);
         this.user = this.localStorage.getUser();
         console.log('form: ' + JSON.stringify(this.form));
         console.log('submission_code: ' + this.form.submission_code);
@@ -7250,6 +7250,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var src_app_services_storage_local_storage_service__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! src/app/services/storage/local-storage.service */ "./src/app/services/storage/local-storage.service.ts");
 /* harmony import */ var src_app_services_form_builder_form_builder_service__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! src/app/services/form-builder/form-builder.service */ "./src/app/services/form-builder/form-builder.service.ts");
 /* harmony import */ var src_app_services_file_uploads_file_uploads_service__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! src/app/services/file-uploads/file-uploads.service */ "./src/app/services/file-uploads/file-uploads.service.ts");
+/* harmony import */ var src_app_services_reloader_reloading_service__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! src/app/services/reloader/reloading.service */ "./src/app/services/reloader/reloading.service.ts");
+
 
 
 
@@ -7265,10 +7267,11 @@ __webpack_require__.r(__webpack_exports__);
 
 
 let ClientFormsEntryPageComponent = class ClientFormsEntryPageComponent {
-    constructor(router, fb, modalService, clipboard, clientService, formBuilder, endpointService, localStorage, downloadService, fileUploadService) {
+    constructor(router, fb, modalService, reloader, clipboard, clientService, formBuilder, endpointService, localStorage, downloadService, fileUploadService) {
         this.router = router;
         this.fb = fb;
         this.modalService = modalService;
+        this.reloader = reloader;
         this.clipboard = clipboard;
         this.clientService = clientService;
         this.formBuilder = formBuilder;
@@ -7283,11 +7286,10 @@ let ClientFormsEntryPageComponent = class ClientFormsEntryPageComponent {
         this.attachmentFiles = [];
         this.existingAttachments = [];
         this.form = history.state.form;
-        this.resolveReloadDataLoss();
+        this.form = this.reloader.resolveDataLoss(this.form);
         this.user = this.localStorage.getUser();
         console.log('form: ' + JSON.stringify(this.form));
         console.log('submission_code: ' + this.form.submission_code);
-        // this.getFormAttachments(this.form.submission_code);
         !lodash__WEBPACK_IMPORTED_MODULE_1__["isUndefined"](this.form.submission_code)
             ? this.getFormAttachments(this.form.submission_code)
             : this.getAttachmentsForCurrentForm(this.user.id.toString());
@@ -7304,23 +7306,6 @@ let ClientFormsEntryPageComponent = class ClientFormsEntryPageComponent {
         this.pinForm = this.fb.group({
             pin: ['', [_angular_forms__WEBPACK_IMPORTED_MODULE_6__["Validators"].minLength(4), _angular_forms__WEBPACK_IMPORTED_MODULE_6__["Validators"].required]]
         });
-    }
-    /**
-     * This is just a little hack to prevent loss of data passed in to window.history.state
-     * whenever the page is reloaded. The purpose is to ensure we still have the data needed
-     * to help build all the elements of this page.
-     *
-     * @version 0.0.2
-     * @memberof EditFormPageComponent
-     */
-    resolveReloadDataLoss() {
-        if (!lodash__WEBPACK_IMPORTED_MODULE_1__["isUndefined"](this.form)) {
-            console.log('is undefined oooooooooooo');
-            sessionStorage.setItem('u_form', JSON.stringify(this.form));
-        }
-        else {
-            this.form = JSON.parse(sessionStorage.getItem('u_form'));
-        }
     }
     generateSubmissionCode() {
         return Math.random().toString(36).substr(2, 5);
@@ -7864,6 +7849,7 @@ ClientFormsEntryPageComponent.ctorParameters = () => [
     { type: _angular_router__WEBPACK_IMPORTED_MODULE_3__["Router"] },
     { type: _angular_forms__WEBPACK_IMPORTED_MODULE_6__["FormBuilder"] },
     { type: _ng_bootstrap_ng_bootstrap__WEBPACK_IMPORTED_MODULE_5__["NgbModal"] },
+    { type: src_app_services_reloader_reloading_service__WEBPACK_IMPORTED_MODULE_14__["ReloadingService"] },
     { type: ngx_clipboard__WEBPACK_IMPORTED_MODULE_4__["ClipboardService"] },
     { type: src_app_services_client_client_service__WEBPACK_IMPORTED_MODULE_7__["ClientService"] },
     { type: src_app_services_form_builder_form_builder_service__WEBPACK_IMPORTED_MODULE_12__["FormBuilderService"] },
@@ -8647,7 +8633,7 @@ let ClientPdfPrintingPageComponent = class ClientPdfPrintingPageComponent {
         this.dpiRatio = 96 / 72;
         this.clientFormDetails = [];
         this.form = window.history.state.form;
-        this.form = this.reloader.resolveReloadDataLoss(this.form);
+        this.form = this.reloader.resolveDataLoss(this.form);
         this.user = this.localStorage.getUser();
         this.frontDeskService.getPrintPDFFile(this.form.form_code, this.user.merchant_id.toString()).then(file => {
             if (lodash__WEBPACK_IMPORTED_MODULE_1__["isUndefined"](file) || lodash__WEBPACK_IMPORTED_MODULE_1__["isNull"](file)) {
@@ -8875,7 +8861,7 @@ let ClientPrintingPageComponent = class ClientPrintingPageComponent {
         const formFieldKeys = [];
         this.form = window.history.state.form;
         console.log('form: ' + JSON.stringify(this.form));
-        this.form = this.reloader.resolveReloadDataLoss(this.form);
+        this.form = this.reloader.resolveDataLoss(this.form);
         this.client = this.form.client_submitted_details;
         console.log('client: ' + JSON.stringify(this.client));
         this.formKeys = lodash__WEBPACK_IMPORTED_MODULE_1__["keys"](this.client);
@@ -10198,7 +10184,7 @@ let ExecClientsFormsDataPageComponent = class ExecClientsFormsDataPageComponent 
         this.form = window.history.state.form;
         this.user = this.localStorage.getUser();
         this.logging.log('form: ' + JSON.stringify(this.form));
-        this.form = this.reloadService.resolveReloadDataLoss(this.form);
+        this.form = this.reloadService.resolveDataLoss(this.form);
     }
     checkIfHasMore() {
         return lodash__WEBPACK_IMPORTED_MODULE_1__["isEmpty"](this.frontDeskService.nextPaginationUrl) ? false : true;
@@ -10380,14 +10366,32 @@ let ExecClientsFormsDataPageComponent = class ExecClientsFormsDataPageComponent 
         this.downloadService.exportToPDF(table_id, filename);
     }
     downloadAsCSV() {
-        const table_id = 'table-data';
+        // const table_id = 'table-data';
+        // const filename = 'forms369_' + this.form.form_code + '_data';
+        // this.downloadService.exportToCsv(table_id, filename);
+        const table_data = [];
+        const tableContentLength = this.tableContents.length;
         const filename = 'forms369_' + this.form.form_code + '_data';
-        this.downloadService.exportToCsv(table_id, filename);
+        for (let i = 0; i < tableContentLength; i++) {
+            table_data.push(this.tableContents[i]);
+        }
+        this.tableHeaders.push('Submitted At');
+        table_data.unshift(this.tableHeaders);
+        this.downloadService.exportToCsv(table_data, filename);
     }
     downloadAsExcel() {
-        const table_id = 'table-data';
+        // const table_id = 'table-data';
+        // const filename = 'forms369_' + this.form.form_code + '_data';
+        // this.downloadService.exportToExcel(table_id, filename);
+        const table_data = [];
+        const tableContentLength = this.tableContents.length;
         const filename = 'forms369_' + this.form.form_code + '_data';
-        this.downloadService.exportToExcel(table_id, filename);
+        for (let i = 0; i < tableContentLength; i++) {
+            table_data.push(this.tableContents[i]);
+        }
+        this.tableHeaders.push('Submitted At');
+        table_data.unshift(this.tableHeaders);
+        this.downloadService.exportToExcel(table_data, filename);
     }
     downloadDataPdf(index) {
         const print_data = {
@@ -11355,7 +11359,7 @@ let ExecutivePdfPrintingPageComponent = class ExecutivePdfPrintingPageComponent 
         this.dpiRatio = 96 / 72;
         this.clientFormDetails = [];
         this.form = window.history.state.form;
-        this.form = this.reloader.resolveReloadDataLoss(this.form);
+        this.form = this.reloader.resolveDataLoss(this.form);
         console.log('form: ' + JSON.stringify(this.form));
         this.user = this.localStorage.getUser();
         this.isPrint = this.form.print == true ? true : false;
@@ -11594,7 +11598,7 @@ let ExecutivePrintingPageComponent = class ExecutivePrintingPageComponent {
         const formFieldKeys = [];
         this.form = window.history.state.form;
         console.log('form: ' + JSON.stringify(this.form));
-        this.form = this.reloader.resolveReloadDataLoss(this.form);
+        this.form = this.reloader.resolveDataLoss(this.form);
         console.log(this.form.form_name);
         this.isPrint = this.form.print == true ? true : false;
         this.client = this.form.client_data;
@@ -12890,7 +12894,7 @@ let FrontDeskClientsFormDataPageComponent = class FrontDeskClientsFormDataPageCo
         this.form = window.history.state.form;
         this.user = this.localStorage.getUser();
         this.logging.log('form: ' + JSON.stringify(this.form));
-        this.form = this.reloadService.resolveReloadDataLoss(this.form);
+        this.form = this.reloadService.resolveDataLoss(this.form);
         this.getClientData();
     }
     ngOnInit() {
@@ -13066,9 +13070,6 @@ let FrontDeskClientsFormDataPageComponent = class FrontDeskClientsFormDataPageCo
     }
     downloadAll(format) {
         switch (format) {
-            case 'pdf':
-                this.downloadAsPDF();
-                break;
             case 'csv':
                 this.downloadAsCSV();
                 break;
@@ -13079,22 +13080,38 @@ let FrontDeskClientsFormDataPageComponent = class FrontDeskClientsFormDataPageCo
                 break;
         }
     }
-    downloadAsPDF() {
-        const table_id = 'table-data';
-        const filename = 'forms369_' + this.form.form_code + '_data';
-        this.downloadService.exportToPDF(table_id, filename);
-    }
+    // downloadAsPDF() {
+    //   const table_id = 'table-data';
+    //   const filename = 'forms369_' + this.form.form_code + '_data';
+    //   this.downloadService.exportToPDF(table_id, filename);
+    // }
     downloadAsCSV() {
-        const table_id = 'table-data';
+        // const table_id = 'table-data';
+        // const filename = 'forms369_' + this.form.form_code + '_data';
+        // this.downloadService.exportToCsv(table_id, filename);
+        const table_data = [];
+        const tableContentLength = this.tableContents.length;
         const filename = 'forms369_' + this.form.form_code + '_data';
-        this.downloadService.exportToCsv(table_id, filename);
+        for (let i = 0; i < tableContentLength; i++) {
+            table_data.push(this.tableContents[i]);
+        }
+        this.tableHeaders.push('Submitted At');
+        table_data.unshift(this.tableHeaders);
+        this.downloadService.exportToCsv(table_data, filename);
     }
     downloadAsExcel() {
-        const table_id = 'table-data';
+        const table_data = [];
+        const tableContentLength = this.tableContents.length;
         const filename = 'forms369_' + this.form.form_code + '_data';
-        this.downloadService.exportToExcel(table_id, filename);
+        for (let i = 0; i < tableContentLength; i++) {
+            table_data.push(this.tableContents[i]);
+        }
+        this.tableHeaders.push('Submitted At');
+        table_data.unshift(this.tableHeaders);
+        this.downloadService.exportToExcel(table_data, filename);
     }
-    downloadDataPdf(index) {
+    downloadPdf(e, index) {
+        e.stopPropagation();
         const print_data = {
             print: false,
             form_data: this.form.form_fields,
@@ -14588,6 +14605,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var src_app_services_front_desk_front_desk_service__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! src/app/services/front-desk/front-desk.service */ "./src/app/services/front-desk/front-desk.service.ts");
 /* harmony import */ var src_app_services_downloader_downloader_service__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! src/app/services/downloader/downloader.service */ "./src/app/services/downloader/downloader.service.ts");
 /* harmony import */ var src_app_services_storage_local_storage_service__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! src/app/services/storage/local-storage.service */ "./src/app/services/storage/local-storage.service.ts");
+/* harmony import */ var src_app_services_form_builder_form_builder_service__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! src/app/services/form-builder/form-builder.service */ "./src/app/services/form-builder/form-builder.service.ts");
+
 
 
 
@@ -14600,11 +14619,12 @@ __webpack_require__.r(__webpack_exports__);
 
 
 let FrontDeskViewFormPageComponent = class FrontDeskViewFormPageComponent {
-    constructor(router, fb, modalService, clientService, endpointService, localStorage, downloadService, frontDeskService) {
+    constructor(router, fb, modalService, clientService, formBuilder, endpointService, localStorage, downloadService, frontDeskService) {
         this.router = router;
         this.fb = fb;
         this.modalService = modalService;
         this.clientService = clientService;
+        this.formBuilder = formBuilder;
         this.endpointService = endpointService;
         this.localStorage = localStorage;
         this.downloadService = downloadService;
@@ -14736,7 +14756,9 @@ let FrontDeskViewFormPageComponent = class FrontDeskViewFormPageComponent {
         this.modalService.open(this.confirmDialog, { centered: true }).result.then(result => {
             if (result == 'yes') {
                 this.loading = true;
-                this.frontDeskService.completeForm(this.form.submission_code, this.form.client_submitted_details).then(res => {
+                const user_data = this.getFormData();
+                const filled_data = this.formBuilder.getFormUserData(user_data);
+                this.frontDeskService.completeForm(this.form.submission_code, filled_data).then(res => {
                     const response = res;
                     if (lodash__WEBPACK_IMPORTED_MODULE_2__["toLower"](response.message) == 'ok') {
                         this.loading = false;
@@ -14765,7 +14787,9 @@ let FrontDeskViewFormPageComponent = class FrontDeskViewFormPageComponent {
         this.modalService.open(this.confirmDialog, { centered: true }).result.then(result => {
             if (result == 'yes') {
                 this.loading = true;
-                this.frontDeskService.processForm(this.form.submission_code, this.form.client_submitted_details).then(res => {
+                const user_data = this.getFormData();
+                const filled_data = this.formBuilder.getFormUserData(user_data);
+                this.frontDeskService.processForm(this.form.submission_code, filled_data).then(res => {
                     const response = res;
                     console.log('process res');
                     if (lodash__WEBPACK_IMPORTED_MODULE_2__["toLower"](response.message) == 'ok') {
@@ -14808,12 +14832,14 @@ let FrontDeskViewFormPageComponent = class FrontDeskViewFormPageComponent {
     }
     rejectForm() {
         this._submitted = true;
-        this.modalService.dismissAll();
         this.isLoading = true;
-        this.frontDeskService.rejectForm(this.form.submission_code, this.form.client_submitted_details).then(res => {
+        this.modalService.dismissAll();
+        const user_data = this.getFormData();
+        const filled_data = this.formBuilder.getFormUserData(user_data);
+        this.frontDeskService.rejectForm(this.form.submission_code, filled_data).then(res => {
             const response = res;
             if (lodash__WEBPACK_IMPORTED_MODULE_2__["toLower"](response.message) == 'ok') {
-                console.log('sending out the rejectioon review note');
+                console.log('sending out the rejection review note');
                 this.frontDeskService.sendFormRejectionNote(this.form.submission_code, this.f.rejectionNote.value).then(ok => {
                     if (ok) {
                         this.isLoading = false;
@@ -14855,6 +14881,7 @@ FrontDeskViewFormPageComponent.ctorParameters = () => [
     { type: _angular_forms__WEBPACK_IMPORTED_MODULE_5__["FormBuilder"] },
     { type: _ng_bootstrap_ng_bootstrap__WEBPACK_IMPORTED_MODULE_4__["NgbModal"] },
     { type: src_app_services_client_client_service__WEBPACK_IMPORTED_MODULE_6__["ClientService"] },
+    { type: src_app_services_form_builder_form_builder_service__WEBPACK_IMPORTED_MODULE_11__["FormBuilderService"] },
     { type: src_app_services_endpoint_endpoint_service__WEBPACK_IMPORTED_MODULE_7__["EndpointService"] },
     { type: src_app_services_storage_local_storage_service__WEBPACK_IMPORTED_MODULE_10__["LocalStorageService"] },
     { type: src_app_services_downloader_downloader_service__WEBPACK_IMPORTED_MODULE_9__["DownloaderService"] },
@@ -21938,9 +21965,9 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm2015/core.js");
 /* harmony import */ var lodash__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! lodash */ "./node_modules/lodash/lodash.js");
 /* harmony import */ var lodash__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(lodash__WEBPACK_IMPORTED_MODULE_2__);
-/* harmony import */ var _angular_common_http__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @angular/common/http */ "./node_modules/@angular/common/fesm2015/http.js");
-/* harmony import */ var _endpoint_endpoint_service__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../endpoint/endpoint.service */ "./src/app/services/endpoint/endpoint.service.ts");
-/* harmony import */ var src_app_enums_user_types_enum__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! src/app/enums/user-types.enum */ "./src/app/enums/user-types.enum.ts");
+/* harmony import */ var src_app_enums_user_types_enum__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! src/app/enums/user-types.enum */ "./src/app/enums/user-types.enum.ts");
+/* harmony import */ var _angular_common_http__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @angular/common/http */ "./node_modules/@angular/common/fesm2015/http.js");
+/* harmony import */ var _endpoint_endpoint_service__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../endpoint/endpoint.service */ "./src/app/services/endpoint/endpoint.service.ts");
 
 
 
@@ -22059,6 +22086,13 @@ let AccountService = class AccountService {
             });
         });
     }
+    /**
+     * Returns a list of all country codes. The country codes
+     * are a JSOn file stored locally in the assets directory.
+     *
+     * @returns {Promise<any>}
+     * @memberof AccountService
+     */
     getCountryDialCodes() {
         return new Promise((resolve, reject) => {
             this.http.get('assets/countries_dial_codes.json').subscribe(res => {
@@ -22197,17 +22231,17 @@ let AccountService = class AccountService {
      */
     getAccountType(user_type_id) {
         switch (Number(user_type_id)) {
-            case src_app_enums_user_types_enum__WEBPACK_IMPORTED_MODULE_5__["UserTypes"].BranchAdmin:
+            case src_app_enums_user_types_enum__WEBPACK_IMPORTED_MODULE_3__["UserTypes"].BranchAdmin:
                 return 'Branch Admin';
-            case src_app_enums_user_types_enum__WEBPACK_IMPORTED_MODULE_5__["UserTypes"].BranchSuperExecutive:
+            case src_app_enums_user_types_enum__WEBPACK_IMPORTED_MODULE_3__["UserTypes"].BranchSuperExecutive:
                 return 'Branch Super Executive';
-            case src_app_enums_user_types_enum__WEBPACK_IMPORTED_MODULE_5__["UserTypes"].CompanyAdmin:
+            case src_app_enums_user_types_enum__WEBPACK_IMPORTED_MODULE_3__["UserTypes"].CompanyAdmin:
                 return 'Company Admin';
-            case src_app_enums_user_types_enum__WEBPACK_IMPORTED_MODULE_5__["UserTypes"].FrontDesk:
+            case src_app_enums_user_types_enum__WEBPACK_IMPORTED_MODULE_3__["UserTypes"].FrontDesk:
                 return 'Front Desk';
-            case src_app_enums_user_types_enum__WEBPACK_IMPORTED_MODULE_5__["UserTypes"].SuperExecutive:
+            case src_app_enums_user_types_enum__WEBPACK_IMPORTED_MODULE_3__["UserTypes"].SuperExecutive:
                 return 'Super Executive';
-            case src_app_enums_user_types_enum__WEBPACK_IMPORTED_MODULE_5__["UserTypes"].GitAdmin:
+            case src_app_enums_user_types_enum__WEBPACK_IMPORTED_MODULE_3__["UserTypes"].GitAdmin:
                 return 'GIt Admin';
             default:
                 break;
@@ -22333,6 +22367,14 @@ let AccountService = class AccountService {
             });
         });
     }
+    /**
+     * Verifies a user's email address to enable the user
+     * reset his/her accounts password.
+     *
+     * @param {string} email
+     * @returns {Promise<boolean>}
+     * @memberof AccountService
+     */
     verifyAccountForResetting(email) {
         return new Promise((resolve, reject) => {
             const body = { email: email };
@@ -22349,21 +22391,6 @@ let AccountService = class AccountService {
             });
         });
     }
-    // resetAccountPassword(email: string, new_password: string): Promise<any> {
-    //   return new Promise((resolve, reject) => {
-    //     const url = 'api/v1/';
-    //     this.http.post(url, {}, { headers: this.authHeaders }).subscribe(
-    //       res => {
-    //         console.log('res_: ' + JSON.stringify(res));
-    //         resolve(res);
-    //       },
-    //       err => {
-    //         console.log('err_:' + JSON.stringify(err));
-    //         reject(err);
-    //       }
-    //     );
-    //   });
-    // }
     /**
      * Logs a user out.
      *
@@ -22405,8 +22432,8 @@ let AccountService = class AccountService {
     }
 };
 AccountService.ctorParameters = () => [
-    { type: _angular_common_http__WEBPACK_IMPORTED_MODULE_3__["HttpClient"] },
-    { type: _endpoint_endpoint_service__WEBPACK_IMPORTED_MODULE_4__["EndpointService"] }
+    { type: _angular_common_http__WEBPACK_IMPORTED_MODULE_4__["HttpClient"] },
+    { type: _endpoint_endpoint_service__WEBPACK_IMPORTED_MODULE_5__["EndpointService"] }
 ];
 AccountService = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
     Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Injectable"])({
@@ -22513,6 +22540,14 @@ let AdminService = class AdminService {
             });
         });
     }
+    /**
+     * Grants or denies download permission to an account.
+     *
+     * @param {string} account_id
+     * @param {(1 | 0)} status
+     * @returns {Promise<boolean>}
+     * @memberof AdminService
+     */
     setupCanDownloadPermission(account_id, status) {
         return new Promise((resolve, reject) => {
             console.log('acc_id: ' + account_id);
@@ -22846,6 +22881,13 @@ let AnalyticsService = class AnalyticsService {
             });
         });
     }
+    /**
+     * Gets the total number of forms rejected by a front desk user.
+     *
+     * @param {string} user_id
+     * @returns {Promise<any>}
+     * @memberof AnalyticsService
+     */
     getRejectedFormsByFrontDeskCount(user_id) {
         return new Promise((resolve, reject) => {
             const url = this.endpointService.apiHost + 'api/v1/getNumAllFormsProcessedByFrontDeskPerson/' + user_id + '/3';
@@ -22858,6 +22900,13 @@ let AnalyticsService = class AnalyticsService {
             });
         });
     }
+    /**
+     * Gets the total number of forms processed by a front desk user.
+     *
+     * @param {string} user_id
+     * @returns {Promise<any>}
+     * @memberof AnalyticsService
+     */
     getProcessedFormsByFrontDeskCount(user_id) {
         return new Promise((resolve, reject) => {
             const url = this.endpointService.apiHost + 'api/v1/getNumAllFormsProcessedByFrontDeskPerson/' + user_id + '/2';
@@ -22870,6 +22919,13 @@ let AnalyticsService = class AnalyticsService {
             });
         });
     }
+    /**
+     * Gets the total number of forms in-processing by a front desk user.
+     *
+     * @param {string} user_id
+     * @returns {Promise<any>}
+     * @memberof AnalyticsService
+     */
     getProcessingFormsByFrontDeskCount(user_id) {
         return new Promise((resolve, reject) => {
             const url = this.endpointService.apiHost + 'api/v1/getNumAllFormsProcessedByFrontDeskPerson/' + user_id + '/1';
@@ -22882,18 +22938,15 @@ let AnalyticsService = class AnalyticsService {
             });
         });
     }
-    getClientSubmittedForms(user_id) {
-        return new Promise((resolve, reject) => {
-            const url = this.endpointService.apiHost + 'api/v1/getNumAllsubmittedForms/' + user_id;
-            this.http.get(url, { headers: this.headers }).subscribe(res => {
-                console.log('forms: ' + JSON.stringify(res));
-                const response = res;
-                resolve(response.num_processed_forms);
-            }, err => {
-                reject(err);
-            });
-        });
-    }
+    /**
+     * Gets the total number of forms submitted, processed or in processing
+     * by a client based on the status passed.
+     *
+     * @param {string} user_id
+     * @param {number} status
+     * @returns {Promise<any>}
+     * @memberof AnalyticsService
+     */
     getClientFormsCount(user_id, status) {
         return new Promise((resolve, reject) => {
             const url = this.endpointService.apiHost + `api/v1/getNumClientFormsByStatus/${user_id}/${status}`;
@@ -23456,6 +23509,13 @@ let ClientService = class ClientService {
             }
         });
     }
+    /**
+     * Auto fills a client's profile with existing data.
+     *
+     * @param {Array<any>} form_sections
+     * @param {Array<any>} client_data
+     * @memberof ClientService
+     */
     fillClientProfileData(form_sections, client_data) {
         lodash__WEBPACK_IMPORTED_MODULE_1__["forEach"](form_sections, (section) => {
             console.log('**se: ' + section.heading);
@@ -23502,6 +23562,14 @@ let ClientService = class ClientService {
             });
         });
     }
+    /**
+     * Gets only the updated/new data added by the client.
+     *
+     * @param {*} new_form_data
+     * @param {*} existing_client_data
+     * @returns
+     * @memberof ClientService
+     */
     getUpdatedClientFormData(new_form_data, existing_client_data) {
         const obj = lodash__WEBPACK_IMPORTED_MODULE_1__["toPlainObject"](new_form_data);
         const keys = lodash__WEBPACK_IMPORTED_MODULE_1__["keys"](obj);
@@ -23561,6 +23629,15 @@ let ClientService = class ClientService {
             });
         });
     }
+    /**
+     * Searches for a form in the clients history based on the form code the user
+     * is searching for.
+     *
+     * @param {string} client_id
+     * @param {string} submission_code
+     * @returns {Promise<any>}
+     * @memberof ClientService
+     */
     findFormsInHistoryByCode(client_id, submission_code) {
         return new Promise((resolve, reject) => {
             const url = this.endpointService.apiHost + `api/v1/findSubmittedFormByCode/${client_id}/${submission_code}`;
@@ -23575,6 +23652,15 @@ let ClientService = class ClientService {
             });
         });
     }
+    /**
+     * Searches for a form in the clients history based on the form name the user
+     * is searching for.
+     *
+     * @param {string} client_id
+     * @param {string} form_name
+     * @returns {Promise<any>}
+     * @memberof ClientService
+     */
     findFormsInHistoryByName(client_id, form_name) {
         return new Promise((resolve, reject) => {
             const url = this.endpointService.apiHost + `api/v1/findSubmittedFormByName/${client_id}/${form_name}`;
@@ -23588,6 +23674,14 @@ let ClientService = class ClientService {
             });
         });
     }
+    /**
+     * Validates a form to make sure all its requyired
+     * fields have been filled by the client.
+     *
+     * @param {Array<any>} form_data
+     * @returns
+     * @memberof ClientService
+     */
     validateFormFilled(form_data) {
         const toFillFormFields = [];
         lodash__WEBPACK_IMPORTED_MODULE_1__["forEach"](form_data, (data) => {
@@ -23708,6 +23802,13 @@ let ClientService = class ClientService {
             });
         });
     }
+    /**
+     * Gets a list of all attachments added to a profile.
+     *
+     * @param {string} user_id
+     * @returns {Promise<any>}
+     * @memberof ClientService
+     */
     getProfileFormAttachment(user_id) {
         return new Promise((resolve, reject) => {
             const url = this.endpointService.apiHost + 'api/v1/getProfileAttachments/' + user_id;
@@ -23720,6 +23821,13 @@ let ClientService = class ClientService {
             });
         });
     }
+    /**
+     * Displays the rejection message a front desk ad rejected forms.
+     *
+     * @param {string} submission_code
+     * @returns {Promise<any>}
+     * @memberof ClientService
+     */
     getRejectionReview(submission_code) {
         return new Promise((resolve, reject) => {
             const url = this.endpointService.apiHost + 'api/v1/getFormReview/' + submission_code;
@@ -23733,6 +23841,14 @@ let ClientService = class ClientService {
             });
         });
     }
+    /**
+     * Deletes a clients form history. Just one item in the history.
+     *
+     * @param {string} client_id
+     * @param {string} submission_code
+     * @returns {Promise<boolean>}
+     * @memberof ClientService
+     */
     deleteFormHistory(client_id, submission_code) {
         return new Promise((resolve, reject) => {
             const url = this.endpointService.apiHost + `api/v1/deleteSubmittedForm/${client_id}/${submission_code}`;
@@ -23889,13 +24005,13 @@ ClientService = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "CompanyService", function() { return CompanyService; });
 /* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
-/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm2015/core.js");
-/* harmony import */ var lodash__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! lodash */ "./node_modules/lodash/lodash.js");
-/* harmony import */ var lodash__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(lodash__WEBPACK_IMPORTED_MODULE_2__);
-/* harmony import */ var _angular_common_http__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @angular/common/http */ "./node_modules/@angular/common/fesm2015/http.js");
-/* harmony import */ var _endpoint_endpoint_service__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../endpoint/endpoint.service */ "./src/app/services/endpoint/endpoint.service.ts");
-/* harmony import */ var _file_uploads_file_uploads_service__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../file-uploads/file-uploads.service */ "./src/app/services/file-uploads/file-uploads.service.ts");
-/* harmony import */ var src_app_enums_user_types_enum__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! src/app/enums/user-types.enum */ "./src/app/enums/user-types.enum.ts");
+/* harmony import */ var lodash__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! lodash */ "./node_modules/lodash/lodash.js");
+/* harmony import */ var lodash__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(lodash__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm2015/core.js");
+/* harmony import */ var src_app_enums_user_types_enum__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! src/app/enums/user-types.enum */ "./src/app/enums/user-types.enum.ts");
+/* harmony import */ var _angular_common_http__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @angular/common/http */ "./node_modules/@angular/common/fesm2015/http.js");
+/* harmony import */ var _endpoint_endpoint_service__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../endpoint/endpoint.service */ "./src/app/services/endpoint/endpoint.service.ts");
+/* harmony import */ var _file_uploads_file_uploads_service__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../file-uploads/file-uploads.service */ "./src/app/services/file-uploads/file-uploads.service.ts");
 
 
 
@@ -23954,7 +24070,7 @@ let CompanyService = class CompanyService {
             this.http.post(url, form, { headers: this.fileHeaders }).subscribe(res => {
                 console.log('response: ' + JSON.stringify(res));
                 const response = res;
-                lodash__WEBPACK_IMPORTED_MODULE_2__["toLower"](response.message) == 'ok'
+                lodash__WEBPACK_IMPORTED_MODULE_1__["toLower"](response.message) == 'ok'
                     ? resolve(true)
                     : resolve(false);
             }, err => {
@@ -23976,7 +24092,7 @@ let CompanyService = class CompanyService {
         return new Promise((resolve, reject) => {
             console.log('merchant: ' + JSON.stringify(merchant));
             const url = this.endpointService.apiHost + 'api/v1/editMerchant/' + id;
-            if (!lodash__WEBPACK_IMPORTED_MODULE_2__["isUndefined"](logo)) {
+            if (!lodash__WEBPACK_IMPORTED_MODULE_1__["isUndefined"](logo)) {
                 this.fileUploader.uploadCompanyLogo(logo).then(filename => {
                     const form = new FormData();
                     form.set('logo', filename);
@@ -24084,7 +24200,7 @@ let CompanyService = class CompanyService {
      */
     getAllCompanies(page_url) {
         return new Promise((resolve, reject) => {
-            const url = !lodash__WEBPACK_IMPORTED_MODULE_2__["isUndefined"](page_url)
+            const url = !lodash__WEBPACK_IMPORTED_MODULE_1__["isUndefined"](page_url)
                 ? page_url
                 : this.endpointService.apiHost + 'api/v1/getAllMerchants';
             console.log('url: ' + url);
@@ -24126,13 +24242,13 @@ let CompanyService = class CompanyService {
      */
     getAllCompanyAdmins(allowPagination) {
         return new Promise((resolve, reject) => {
-            const url = !lodash__WEBPACK_IMPORTED_MODULE_2__["isUndefined"](allowPagination) || allowPagination
-                ? this.endpointService.apiHost + 'api/v1/getAllUsersByType/' + src_app_enums_user_types_enum__WEBPACK_IMPORTED_MODULE_6__["UserTypes"].CompanyAdmin
-                : this.endpointService.apiHost + 'api/v1/getAllUsersByTypeForDropdown/' + src_app_enums_user_types_enum__WEBPACK_IMPORTED_MODULE_6__["UserTypes"].CompanyAdmin;
+            const url = !lodash__WEBPACK_IMPORTED_MODULE_1__["isUndefined"](allowPagination) || allowPagination
+                ? this.endpointService.apiHost + 'api/v1/getAllUsersByType/' + src_app_enums_user_types_enum__WEBPACK_IMPORTED_MODULE_3__["UserTypes"].CompanyAdmin
+                : this.endpointService.apiHost + 'api/v1/getAllUsersByTypeForDropdown/' + src_app_enums_user_types_enum__WEBPACK_IMPORTED_MODULE_3__["UserTypes"].CompanyAdmin;
             this.http.get(url, { headers: this.headers }).subscribe(res => {
                 console.log('response: ' + JSON.stringify(res));
                 const response = res;
-                return !lodash__WEBPACK_IMPORTED_MODULE_2__["isUndefined"](allowPagination) || allowPagination
+                return !lodash__WEBPACK_IMPORTED_MODULE_1__["isUndefined"](allowPagination) || allowPagination
                     ? resolve(response.users.data)
                     : resolve(response.users);
             }, err => {
@@ -24150,7 +24266,7 @@ let CompanyService = class CompanyService {
      */
     getCompanyAdmins(merchant_id) {
         return new Promise((resolve, reject) => {
-            const url = this.endpointService.apiHost + 'api/v1/getMerchantUsersByType/' + merchant_id + '/' + src_app_enums_user_types_enum__WEBPACK_IMPORTED_MODULE_6__["UserTypes"].CompanyAdmin;
+            const url = this.endpointService.apiHost + 'api/v1/getMerchantUsersByType/' + merchant_id + '/' + src_app_enums_user_types_enum__WEBPACK_IMPORTED_MODULE_3__["UserTypes"].CompanyAdmin;
             this.http.get(url, { headers: this.headers }).subscribe(res => {
                 console.log('response: ' + JSON.stringify(res));
                 const response = res;
@@ -24161,6 +24277,14 @@ let CompanyService = class CompanyService {
             });
         });
     }
+    /**
+     * Searches for a form based on the name of the form.
+     *
+     * @param {string} form_name
+     * @param {string} merchant_id
+     * @returns {Promise<any>}
+     * @memberof CompanyService
+     */
     findFormsByName(form_name, merchant_id) {
         return new Promise((resolve, reject) => {
             const url = this.endpointService.apiHost + 'api/v1/getFormbyNameAndMerchant/' + form_name + '/' + merchant_id;
@@ -24174,6 +24298,15 @@ let CompanyService = class CompanyService {
             });
         });
     }
+    /**
+     * Searches for a form based on the name and status of the form.
+     *
+     * @param {string} form_name
+     * @param {string} merchant_id
+     * @param {number} status
+     * @returns {Promise<any>}
+     * @memberof CompanyService
+     */
     findFormsByNameAndStatus(form_name, merchant_id, status) {
         return new Promise((resolve, reject) => {
             const url = this.endpointService.apiHost + `api/v1/getFormbyNameStatusAndMerchant/${form_name}/${status}/${merchant_id}`;
@@ -24187,6 +24320,15 @@ let CompanyService = class CompanyService {
             });
         });
     }
+    /**
+     * Searches for a user belonging to a company/merchant.
+     *
+     * @param {number} user_type
+     * @param {string} merchant_id
+     * @param {string} search_query
+     * @returns {Promise<any>}
+     * @memberof CompanyService
+     */
     findUser(user_type, merchant_id, search_query) {
         return new Promise((resolve, reject) => {
             const url = this.endpointService.apiHost + `api/v1/getUserByTypeAndMerchant/${user_type}/${merchant_id}/${search_query}`;
@@ -24200,6 +24342,16 @@ let CompanyService = class CompanyService {
             });
         });
     }
+    /**
+     * Searches for a user belonging to a company/merchant based on the user info and status.
+     *
+     * @param {number} user_type
+     * @param {string} merchant_id
+     * @param {number} status
+     * @param {string} search_query
+     * @returns {Promise<any>}
+     * @memberof CompanyService
+     */
     findUserByStatusAndName(user_type, merchant_id, status, search_query) {
         return new Promise((resolve, reject) => {
             const url = this.endpointService.apiHost + `api/v1/getUserByTypeStatusAndMerchant/${user_type}/${merchant_id}/${status}/${search_query}`;
@@ -24225,7 +24377,7 @@ let CompanyService = class CompanyService {
             const url = this.endpointService.apiHost + 'api/v1/enableMerchant/' + id;
             this.http.post(url, {}, { headers: this.endpointService.headers() }).subscribe(res => {
                 const response = res;
-                if (lodash__WEBPACK_IMPORTED_MODULE_2__["toLower"](response.message) == 'ok') {
+                if (lodash__WEBPACK_IMPORTED_MODULE_1__["toLower"](response.message) == 'ok') {
                     resolve(true);
                 }
                 else {
@@ -24248,7 +24400,7 @@ let CompanyService = class CompanyService {
             const url = this.endpointService.apiHost + 'api/v1/disableMerchant/' + id;
             this.http.post(url, {}, { headers: this.endpointService.headers() }).subscribe(res => {
                 const response = res;
-                if (lodash__WEBPACK_IMPORTED_MODULE_2__["toLower"](response.message) == 'ok') {
+                if (lodash__WEBPACK_IMPORTED_MODULE_1__["toLower"](response.message) == 'ok') {
                     resolve(true);
                 }
                 else {
@@ -24279,12 +24431,12 @@ let CompanyService = class CompanyService {
     }
 };
 CompanyService.ctorParameters = () => [
-    { type: _angular_common_http__WEBPACK_IMPORTED_MODULE_3__["HttpClient"] },
-    { type: _endpoint_endpoint_service__WEBPACK_IMPORTED_MODULE_4__["EndpointService"] },
-    { type: _file_uploads_file_uploads_service__WEBPACK_IMPORTED_MODULE_5__["FileUploadsService"] }
+    { type: _angular_common_http__WEBPACK_IMPORTED_MODULE_4__["HttpClient"] },
+    { type: _endpoint_endpoint_service__WEBPACK_IMPORTED_MODULE_5__["EndpointService"] },
+    { type: _file_uploads_file_uploads_service__WEBPACK_IMPORTED_MODULE_6__["FileUploadsService"] }
 ];
 CompanyService = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
-    Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Injectable"])({
+    Object(_angular_core__WEBPACK_IMPORTED_MODULE_2__["Injectable"])({
         providedIn: 'root'
     })
 ], CompanyService);
@@ -24304,11 +24456,11 @@ CompanyService = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "DateTimeService", function() { return DateTimeService; });
 /* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
-/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm2015/core.js");
-/* harmony import */ var lodash__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! lodash */ "./node_modules/lodash/lodash.js");
-/* harmony import */ var lodash__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(lodash__WEBPACK_IMPORTED_MODULE_2__);
-/* harmony import */ var moment__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! moment */ "./node_modules/moment/moment.js");
-/* harmony import */ var moment__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(moment__WEBPACK_IMPORTED_MODULE_3__);
+/* harmony import */ var lodash__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! lodash */ "./node_modules/lodash/lodash.js");
+/* harmony import */ var lodash__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(lodash__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var moment__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! moment */ "./node_modules/moment/moment.js");
+/* harmony import */ var moment__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(moment__WEBPACK_IMPORTED_MODULE_2__);
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm2015/core.js");
 
 
 
@@ -24323,15 +24475,15 @@ let DateTimeService = class DateTimeService {
      * @memberof DateTimeService
      */
     getToday(withTime) {
-        if (lodash__WEBPACK_IMPORTED_MODULE_2__["isUndefined"](withTime) || !withTime) {
-            return moment__WEBPACK_IMPORTED_MODULE_3__().format('DD-MM-YYYY');
+        if (lodash__WEBPACK_IMPORTED_MODULE_1__["isUndefined"](withTime) || !withTime) {
+            return moment__WEBPACK_IMPORTED_MODULE_2__().format('DD-MM-YYYY');
         }
         else {
-            return moment__WEBPACK_IMPORTED_MODULE_3__().format('MM-DD-YYYY hh:mm:ss');
+            return moment__WEBPACK_IMPORTED_MODULE_2__().format('MM-DD-YYYY hh:mm:ss');
         }
     }
     getDatePart(date) {
-        return moment__WEBPACK_IMPORTED_MODULE_3__(date).format('YYYY-MM-DD');
+        return moment__WEBPACK_IMPORTED_MODULE_2__(date).format('YYYY-MM-DD');
     }
     /**
      * Tranforms a date value into the correct format which enables the angular date pipe
@@ -24346,7 +24498,7 @@ let DateTimeService = class DateTimeService {
     }
 };
 DateTimeService = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
-    Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Injectable"])({
+    Object(_angular_core__WEBPACK_IMPORTED_MODULE_3__["Injectable"])({
         providedIn: 'root'
     })
 ], DateTimeService);
@@ -24368,10 +24520,13 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
 /* harmony import */ var jspdf__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! jspdf */ "./node_modules/jspdf/dist/jspdf.min.js");
 /* harmony import */ var jspdf__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(jspdf__WEBPACK_IMPORTED_MODULE_1__);
-/* harmony import */ var file_saver__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! file-saver */ "./node_modules/file-saver/dist/FileSaver.min.js");
-/* harmony import */ var file_saver__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(file_saver__WEBPACK_IMPORTED_MODULE_2__);
-/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm2015/core.js");
-/* harmony import */ var _angular_common_http__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @angular/common/http */ "./node_modules/@angular/common/fesm2015/http.js");
+/* harmony import */ var xlsx__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! xlsx */ "./node_modules/xlsx/xlsx.js");
+/* harmony import */ var xlsx__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(xlsx__WEBPACK_IMPORTED_MODULE_2__);
+/* harmony import */ var file_saver__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! file-saver */ "./node_modules/file-saver/dist/FileSaver.min.js");
+/* harmony import */ var file_saver__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(file_saver__WEBPACK_IMPORTED_MODULE_3__);
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm2015/core.js");
+/* harmony import */ var _angular_common_http__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @angular/common/http */ "./node_modules/@angular/common/fesm2015/http.js");
+
 
 
 
@@ -24391,39 +24546,8 @@ let DownloaderService = class DownloaderService {
         const index = url.lastIndexOf('/') + 1;
         const downloaded_file_name = url.substr(index);
         this.http.get(url, { responseType: 'blob' }).subscribe(blob => {
-            Object(file_saver__WEBPACK_IMPORTED_MODULE_2__["saveAs"])(blob, downloaded_file_name);
+            Object(file_saver__WEBPACK_IMPORTED_MODULE_3__["saveAs"])(blob, downloaded_file_name);
         });
-    }
-    /**
-     * Exports table data to Excel format.
-     *
-     * @param {string} table_id
-     * @param {string} filename
-     * @memberof DownloaderService
-     */
-    exportToExcel(table_id, filename) {
-        let download_link = null;
-        const data_type = 'application/vnd.ms-excel';
-        const table_selector = document.getElementById(table_id);
-        const html_table = table_selector.outerHTML.replace(/ /g, '%20');
-        // specify the filename
-        filename = filename + '.xls';
-        // create download link lement
-        download_link = document.createElement('a');
-        document.body.appendChild(download_link);
-        if (navigator.msSaveOrOpenBlob) {
-            const blob = new Blob(['\ufeff', html_table], {
-                type: data_type
-            });
-            navigator.msSaveOrOpenBlob(blob, filename);
-        }
-        else {
-            // create a link to the file
-            download_link.href = 'data:' + data_type + ', ' + html_table;
-            download_link.download = filename;
-            // trigger the download
-            download_link.click();
-        }
     }
     /**
      * Exports table data to CSV format.
@@ -24432,29 +24556,24 @@ let DownloaderService = class DownloaderService {
      * @param {string} filename
      * @memberof DownloaderService
      */
-    exportToCsv(table_id, filename) {
-        let download_link = null;
-        const data_type = 'application/vnd.ms-excel';
-        const table_selector = document.getElementById(table_id);
-        const html_table = table_selector.outerHTML.replace(/ /g, '%20');
-        // specify the filename
-        filename = filename + '.csv';
-        // create download link lement
-        download_link = document.createElement('a');
-        document.body.appendChild(download_link);
-        if (navigator.msSaveOrOpenBlob) {
-            const blob = new Blob(['\ufeff', html_table], {
-                type: data_type
-            });
-            navigator.msSaveOrOpenBlob(blob, filename);
-        }
-        else {
-            // create a link to the file
-            download_link.href = 'data:' + data_type + ', ' + html_table;
-            download_link.download = filename;
-            // trigger the download
-            download_link.click();
-        }
+    exportToCsv(data, filename) {
+        const ws = xlsx__WEBPACK_IMPORTED_MODULE_2__["utils"].aoa_to_sheet(data);
+        const wb = xlsx__WEBPACK_IMPORTED_MODULE_2__["utils"].book_new();
+        xlsx__WEBPACK_IMPORTED_MODULE_2__["utils"].book_append_sheet(wb, ws);
+        xlsx__WEBPACK_IMPORTED_MODULE_2__["writeFile"](wb, filename + '.csv');
+    }
+    /**
+     * Exports table data to Excel format.
+     *
+     * @param {*} data
+     * @param {string} filename
+     * @memberof DownloaderService
+     */
+    exportToExcel(data, filename) {
+        const ws = xlsx__WEBPACK_IMPORTED_MODULE_2__["utils"].aoa_to_sheet(data);
+        const wb = xlsx__WEBPACK_IMPORTED_MODULE_2__["utils"].book_new();
+        xlsx__WEBPACK_IMPORTED_MODULE_2__["utils"].book_append_sheet(wb, ws, 'Sheet1');
+        xlsx__WEBPACK_IMPORTED_MODULE_2__["writeFile"](wb, filename + '.xlsx');
     }
     /**
      * Exports an html element data to PDF format.
@@ -24486,10 +24605,10 @@ let DownloaderService = class DownloaderService {
     }
 };
 DownloaderService.ctorParameters = () => [
-    { type: _angular_common_http__WEBPACK_IMPORTED_MODULE_4__["HttpClient"] }
+    { type: _angular_common_http__WEBPACK_IMPORTED_MODULE_5__["HttpClient"] }
 ];
 DownloaderService = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
-    Object(_angular_core__WEBPACK_IMPORTED_MODULE_3__["Injectable"])({
+    Object(_angular_core__WEBPACK_IMPORTED_MODULE_4__["Injectable"])({
         providedIn: 'root'
     })
 ], DownloaderService);
@@ -24629,6 +24748,13 @@ let ExecutiveService = class ExecutiveService {
             });
         });
     }
+    /**
+     * Gets a list of all super executives belonging to a merchant.
+     *
+     * @param {string} merchant_id
+     * @returns {Promise<any>}
+     * @memberof ExecutiveService
+     */
     getCompanySuperExecutives(merchant_id) {
         return new Promise((resolve, reject) => {
             const url = this.endpointService.apiHost + 'api/v1/getMerchantUsersByType/' + merchant_id + '/' + src_app_enums_user_types_enum__WEBPACK_IMPORTED_MODULE_3__["UserTypes"].SuperExecutive;
@@ -24665,6 +24791,13 @@ let ExecutiveService = class ExecutiveService {
             });
         });
     }
+    /**
+     * Gets a list of branch super executibes belonging to a merchant.
+     *
+     * @param {string} merchant_id
+     * @returns {Promise<any>}
+     * @memberof ExecutiveService
+     */
     getCompanyBranchSuperExecutives(merchant_id) {
         return new Promise((resolve, reject) => {
             const url = this.endpointService.apiHost + 'api/v1/getMerchantUsersByType/' + merchant_id + '/' + src_app_enums_user_types_enum__WEBPACK_IMPORTED_MODULE_3__["UserTypes"].BranchSuperExecutive;
@@ -25387,9 +25520,9 @@ FormBuilderService = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "FormsService", function() { return FormsService; });
 /* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
-/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm2015/core.js");
-/* harmony import */ var lodash__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! lodash */ "./node_modules/lodash/lodash.js");
-/* harmony import */ var lodash__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(lodash__WEBPACK_IMPORTED_MODULE_2__);
+/* harmony import */ var lodash__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! lodash */ "./node_modules/lodash/lodash.js");
+/* harmony import */ var lodash__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(lodash__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm2015/core.js");
 /* harmony import */ var _angular_common_http__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @angular/common/http */ "./node_modules/@angular/common/fesm2015/http.js");
 /* harmony import */ var _endpoint_endpoint_service__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../endpoint/endpoint.service */ "./src/app/services/endpoint/endpoint.service.ts");
 
@@ -25448,7 +25581,7 @@ let FormsService = class FormsService {
      */
     getAllForms(page_url) {
         return new Promise((resolve, reject) => {
-            const url = !lodash__WEBPACK_IMPORTED_MODULE_2__["isUndefined"](page_url)
+            const url = !lodash__WEBPACK_IMPORTED_MODULE_1__["isUndefined"](page_url)
                 ? page_url
                 : this.endpointService.apiHost + 'api/v1/getAllForms';
             console.log('url: ' + url);
@@ -25470,7 +25603,7 @@ let FormsService = class FormsService {
      */
     getAllFormsByStatus(status, page_url) {
         return new Promise((resolve, reject) => {
-            const url = !lodash__WEBPACK_IMPORTED_MODULE_2__["isUndefined"](page_url)
+            const url = !lodash__WEBPACK_IMPORTED_MODULE_1__["isUndefined"](page_url)
                 ? page_url
                 : this.endpointService.apiHost + 'api/v1/getAllFormsByStatus/' + status;
             this.http.get(url, { headers: this.headers }).subscribe(res => {
@@ -25491,7 +25624,7 @@ let FormsService = class FormsService {
      */
     getAllFormsByMerchant(merchant_id, page_url) {
         return new Promise((resolve, reject) => {
-            const url = !lodash__WEBPACK_IMPORTED_MODULE_2__["isUndefined"](page_url)
+            const url = !lodash__WEBPACK_IMPORTED_MODULE_1__["isUndefined"](page_url)
                 ? page_url
                 : this.endpointService.apiHost + 'api/v1/getAllFormsByMerchant/' + merchant_id;
             this.http.get(url, { headers: this.headers }).subscribe(res => {
@@ -25514,7 +25647,7 @@ let FormsService = class FormsService {
      */
     getAllFormsByStatusAndMerchant(merchant_id, status, page_url) {
         return new Promise((resolve, reject) => {
-            const url = !lodash__WEBPACK_IMPORTED_MODULE_2__["isUndefined"](page_url)
+            const url = !lodash__WEBPACK_IMPORTED_MODULE_1__["isUndefined"](page_url)
                 ? page_url
                 : this.endpointService.apiHost + 'api/v1/getAllFormsByStatusAndMerchant/' + status + '/' + merchant_id;
             this.http.get(url, { headers: this.headers }).subscribe(res => {
@@ -25602,7 +25735,7 @@ let FormsService = class FormsService {
             this.http.post(url, form, { headers: fileHeader }).subscribe(res => {
                 console.log('response: ' + JSON.stringify(res));
                 const response = res;
-                if (lodash__WEBPACK_IMPORTED_MODULE_2__["toLower"](response.message) == 'ok') {
+                if (lodash__WEBPACK_IMPORTED_MODULE_1__["toLower"](response.message) == 'ok') {
                     resolve(true);
                 }
                 else {
@@ -25624,7 +25757,7 @@ let FormsService = class FormsService {
             this.http.post(url, form, { headers: fileHeader }).subscribe(res => {
                 console.log('response: ' + JSON.stringify(res));
                 const response = res;
-                if (lodash__WEBPACK_IMPORTED_MODULE_2__["toLower"](response.message) == 'ok') {
+                if (lodash__WEBPACK_IMPORTED_MODULE_1__["toLower"](response.message) == 'ok') {
                     console.log('upload done');
                     resolve(true);
                 }
@@ -25643,7 +25776,7 @@ FormsService.ctorParameters = () => [
     { type: _endpoint_endpoint_service__WEBPACK_IMPORTED_MODULE_4__["EndpointService"] }
 ];
 FormsService = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
-    Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Injectable"])({
+    Object(_angular_core__WEBPACK_IMPORTED_MODULE_2__["Injectable"])({
         providedIn: 'root'
     })
 ], FormsService);
@@ -25867,6 +26000,7 @@ let FrontDeskService = class FrontDeskService {
     }
     completeForm(code, clientData) {
         return new Promise((resolve, reject) => {
+            console.log('client_dataaaaaaaa: ' + JSON.stringify(clientData));
             const url = this.endpointService.apiHost + 'api/v1/processSubmitForm/' + code + '/' + '2';
             this.http.post(url, clientData, { headers: this.headers }).subscribe(res => {
                 console.log('res: ' + JSON.stringify(res));
@@ -25976,7 +26110,7 @@ let ReloadingService = class ReloadingService {
      * @version 0.0.2
      * @memberof EditFormPageComponent
      */
-    resolveReloadDataLoss(view_data) {
+    resolveDataLoss(view_data) {
         if (!lodash__WEBPACK_IMPORTED_MODULE_1__["isUndefined"](view_data)) {
             sessionStorage.setItem('u_form', JSON.stringify(view_data));
             return JSON.parse(sessionStorage.getItem('u_form'));
@@ -26508,6 +26642,39 @@ module.exports = __webpack_require__(/*! /Users/ralph/Desktop/Work/web/forms/res
 /*!***********************!*\
   !*** https (ignored) ***!
   \***********************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+/* (ignored) */
+
+/***/ }),
+
+/***/ 5:
+/*!********************!*\
+  !*** fs (ignored) ***!
+  \********************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+/* (ignored) */
+
+/***/ }),
+
+/***/ 6:
+/*!************************!*\
+  !*** crypto (ignored) ***!
+  \************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+/* (ignored) */
+
+/***/ }),
+
+/***/ 7:
+/*!************************!*\
+  !*** stream (ignored) ***!
+  \************************/
 /*! no static exports found */
 /***/ (function(module, exports) {
 

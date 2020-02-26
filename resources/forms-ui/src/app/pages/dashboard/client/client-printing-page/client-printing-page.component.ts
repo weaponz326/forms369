@@ -47,7 +47,7 @@ export class ClientPrintingPageComponent implements OnInit, AfterViewInit {
 
     this.form = window.history.state.form;
     console.log('form: ' + JSON.stringify(this.form));
-    this.form = this.reloader.resolveReloadDataLoss(this.form);
+    this.form = this.reloader.resolveDataLoss(this.form);
 
     this.client = this.form.client_submitted_details;
     console.log('client: ' + JSON.stringify(this.client));

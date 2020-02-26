@@ -42,6 +42,13 @@ export class ExecutiveService {
     });
   }
 
+  /**
+   * Gets a list of all super executives belonging to a merchant.
+   *
+   * @param {string} merchant_id
+   * @returns {Promise<any>}
+   * @memberof ExecutiveService
+   */
   getCompanySuperExecutives(merchant_id: string): Promise<any> {
     return new Promise((resolve, reject) => {
       const url = this.endpointService.apiHost + 'api/v1/getMerchantUsersByType/' + merchant_id + '/' + UserTypes.SuperExecutive;
@@ -86,6 +93,13 @@ export class ExecutiveService {
     });
   }
 
+  /**
+   * Gets a list of branch super executibes belonging to a merchant.
+   *
+   * @param {string} merchant_id
+   * @returns {Promise<any>}
+   * @memberof ExecutiveService
+   */
   getCompanyBranchSuperExecutives(merchant_id: string): Promise<any> {
     return new Promise((resolve, reject) => {
       const url = this.endpointService.apiHost + 'api/v1/getMerchantUsersByType/' + merchant_id + '/' + UserTypes.BranchSuperExecutive;

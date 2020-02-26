@@ -13,6 +13,7 @@ import { DownloaderService } from 'src/app/services/downloader/downloader.servic
 import { LocalStorageService } from 'src/app/services/storage/local-storage.service';
 import { FormBuilderService } from 'src/app/services/form-builder/form-builder.service';
 import { FileUploadsService } from 'src/app/services/file-uploads/file-uploads.service';
+import { ReloadingService } from 'src/app/services/reloader/reloading.service';
 
 @Component({
   selector: 'app-client-forms-entry-page',
@@ -58,6 +59,7 @@ export class ClientFormsEntryPageComponent implements OnInit {
     private router: Router,
     private fb: FormBuilder,
     private modalService: NgbModal,
+    private reloader: ReloadingService,
     private clipboard: ClipboardService,
     private clientService: ClientService,
     private formBuilder: FormBuilderService,
@@ -73,11 +75,11 @@ export class ClientFormsEntryPageComponent implements OnInit {
     this.attachmentFiles = [];
     this.existingAttachments = [];
     this.form = history.state.form;
-    this.resolveReloadDataLoss();
+    this.form = this.reloader.resolveDataLoss(this.form);
     this.user = this.localStorage.getUser();
     console.log('form: ' + JSON.stringify(this.form));
     console.log('submission_code: ' + this.form.submission_code);
-    // this.getFormAttachments(this.form.submission_code);
+
     !_.isUndefined(this.form.submission_code)
       ? this.getFormAttachments(this.form.submission_code)
       : this.getAttachmentsForCurrentForm(this.user.id.toString());
@@ -97,24 +99,6 @@ export class ClientFormsEntryPageComponent implements OnInit {
     this.pinForm = this.fb.group({
       pin: ['', [Validators.minLength(4), Validators.required]]
     });
-  }
-
-  /**
-   * This is just a little hack to prevent loss of data passed in to window.history.state
-   * whenever the page is reloaded. The purpose is to ensure we still have the data needed
-   * to help build all the elements of this page.
-   *
-   * @version 0.0.2
-   * @memberof EditFormPageComponent
-   */
-  resolveReloadDataLoss() {
-    if (!_.isUndefined(this.form)) {
-      console.log('is undefined oooooooooooo');
-      sessionStorage.setItem('u_form', JSON.stringify(this.form));
-    }
-    else {
-      this.form = JSON.parse(sessionStorage.getItem('u_form'));
-    }
   }
 
   generateSubmissionCode() {

@@ -1,9 +1,9 @@
 import { Injectable } from '@angular/core';
 import * as _ from 'lodash';
 import { Users } from 'src/app/models/users.model';
+import { UserTypes } from 'src/app/enums/user-types.enum';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { EndpointService } from '../endpoint/endpoint.service';
-import { UserTypes } from 'src/app/enums/user-types.enum';
 
 @Injectable({
   providedIn: 'root'
@@ -144,6 +144,13 @@ export class AccountService {
     });
   }
 
+  /**
+   * Returns a list of all country codes. The country codes
+   * are a JSOn file stored locally in the assets directory.
+   *
+   * @returns {Promise<any>}
+   * @memberof AccountService
+   */
   getCountryDialCodes(): Promise<any> {
     return new Promise((resolve, reject) => {
       this.http.get('assets/countries_dial_codes.json').subscribe(
@@ -463,6 +470,14 @@ export class AccountService {
     });
   }
 
+  /**
+   * Verifies a user's email address to enable the user
+   * reset his/her accounts password.
+   *
+   * @param {string} email
+   * @returns {Promise<boolean>}
+   * @memberof AccountService
+   */
   verifyAccountForResetting(email: string): Promise<boolean> {
     return new Promise((resolve, reject) => {
       const body = { email: email };
@@ -482,22 +497,6 @@ export class AccountService {
       );
     });
   }
-
-  // resetAccountPassword(email: string, new_password: string): Promise<any> {
-  //   return new Promise((resolve, reject) => {
-  //     const url = 'api/v1/';
-  //     this.http.post(url, {}, { headers: this.authHeaders }).subscribe(
-  //       res => {
-  //         console.log('res_: ' + JSON.stringify(res));
-  //         resolve(res);
-  //       },
-  //       err => {
-  //         console.log('err_:' + JSON.stringify(err));
-  //         reject(err);
-  //       }
-  //     );
-  //   });
-  // }
 
   /**
    * Logs a user out.

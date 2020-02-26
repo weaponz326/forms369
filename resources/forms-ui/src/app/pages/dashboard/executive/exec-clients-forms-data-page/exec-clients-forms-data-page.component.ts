@@ -92,7 +92,7 @@ export class ExecClientsFormsDataPageComponent implements OnInit {
     this.form = window.history.state.form;
     this.user = this.localStorage.getUser();
     this.logging.log('form: ' + JSON.stringify(this.form));
-    this.form = this.reloadService.resolveReloadDataLoss(this.form);
+    this.form = this.reloadService.resolveDataLoss(this.form);
   }
 
   checkIfHasMore() {
@@ -302,15 +302,38 @@ export class ExecClientsFormsDataPageComponent implements OnInit {
   }
 
   downloadAsCSV() {
-    const table_id = 'table-data';
+    // const table_id = 'table-data';
+    // const filename = 'forms369_' + this.form.form_code + '_data';
+    // this.downloadService.exportToCsv(table_id, filename);
+    const table_data = [];
+    const tableContentLength = this.tableContents.length;
     const filename = 'forms369_' + this.form.form_code + '_data';
-    this.downloadService.exportToCsv(table_id, filename);
+
+    for (let i = 0; i < tableContentLength; i++) {
+      table_data.push(this.tableContents[i]);
+    }
+
+    this.tableHeaders.push('Submitted At');
+    table_data.unshift(this.tableHeaders);
+    this.downloadService.exportToCsv(table_data, filename);
   }
 
   downloadAsExcel() {
-    const table_id = 'table-data';
+    // const table_id = 'table-data';
+    // const filename = 'forms369_' + this.form.form_code + '_data';
+    // this.downloadService.exportToExcel(table_id, filename);
+
+    const table_data = [];
+    const tableContentLength = this.tableContents.length;
     const filename = 'forms369_' + this.form.form_code + '_data';
-    this.downloadService.exportToExcel(table_id, filename);
+
+    for (let i = 0; i < tableContentLength; i++) {
+      table_data.push(this.tableContents[i]);
+    }
+
+    this.tableHeaders.push('Submitted At');
+    table_data.unshift(this.tableHeaders);
+    this.downloadService.exportToExcel(table_data, filename);
   }
 
   downloadDataPdf(index: number) {

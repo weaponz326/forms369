@@ -48,7 +48,7 @@ export class ClientPdfPrintingPageComponent implements OnInit {
     this.dpiRatio = 96 / 72;
     this.clientFormDetails = [];
     this.form = window.history.state.form;
-    this.form = this.reloader.resolveReloadDataLoss(this.form);
+    this.form = this.reloader.resolveDataLoss(this.form);
     this.user = this.localStorage.getUser();
 
     this.frontDeskService.getPrintPDFFile(this.form.form_code, this.user.merchant_id.toString()).then(

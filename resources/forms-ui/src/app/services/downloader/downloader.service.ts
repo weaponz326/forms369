@@ -1,9 +1,10 @@
 declare var pdfMake: any;
 declare var html2canvas: any;
 import * as jsPDF from 'jspdf';
+import * as XLSX from 'xlsx';
 import { saveAs } from 'file-saver';
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
 
 @Injectable({
   providedIn: 'root'
@@ -29,75 +30,31 @@ export class DownloaderService {
   }
 
   /**
-   * Exports table data to Excel format.
-   *
-   * @param {string} table_id
-   * @param {string} filename
-   * @memberof DownloaderService
-   */
-  exportToExcel(table_id: string, filename: string) {
-    let download_link = null;
-    const data_type = 'application/vnd.ms-excel';
-    const table_selector = document.getElementById(table_id);
-    const html_table = table_selector.outerHTML.replace(/ /g, '%20');
-
-    // specify the filename
-    filename = filename + '.xls';
-
-    // create download link lement
-    download_link = document.createElement('a');
-    document.body.appendChild(download_link);
-
-    if (navigator.msSaveOrOpenBlob) {
-      const blob = new Blob(['\ufeff', html_table], {
-        type: data_type
-      });
-      navigator.msSaveOrOpenBlob(blob, filename);
-    }
-    else {
-      // create a link to the file
-      download_link.href = 'data:' + data_type + ', ' + html_table;
-      download_link.download = filename;
-
-      // trigger the download
-      download_link.click();
-    }
-  }
-
-  /**
    * Exports table data to CSV format.
    *
    * @param {string} table_id
    * @param {string} filename
    * @memberof DownloaderService
    */
-  exportToCsv(table_id: string, filename: string) {
-    let download_link = null;
-    const data_type = 'application/vnd.ms-excel';
-    const table_selector = document.getElementById(table_id);
-    const html_table = table_selector.outerHTML.replace(/ /g, '%20');
+  exportToCsv(data: any, filename: string) {
+    const ws: XLSX.WorkSheet = XLSX.utils.aoa_to_sheet(data);
+    const wb: XLSX.WorkBook = XLSX.utils.book_new();
+    XLSX.utils.book_append_sheet(wb, ws);
+    XLSX.writeFile(wb, filename + '.csv');
+  }
 
-    // specify the filename
-    filename = filename + '.csv';
-
-    // create download link lement
-    download_link = document.createElement('a');
-    document.body.appendChild(download_link);
-
-    if (navigator.msSaveOrOpenBlob) {
-      const blob = new Blob(['\ufeff', html_table], {
-        type: data_type
-      });
-      navigator.msSaveOrOpenBlob(blob, filename);
-    }
-    else {
-      // create a link to the file
-      download_link.href = 'data:' + data_type + ', ' + html_table;
-      download_link.download = filename;
-
-      // trigger the download
-      download_link.click();
-    }
+  /**
+   * Exports table data to Excel format.
+   *
+   * @param {*} data
+   * @param {string} filename
+   * @memberof DownloaderService
+   */
+  exportToExcel(data: any, filename: string) {
+    const ws: XLSX.WorkSheet = XLSX.utils.aoa_to_sheet(data);
+    const wb: XLSX.WorkBook = XLSX.utils.book_new();
+    XLSX.utils.book_append_sheet(wb, ws, 'Sheet1');
+    XLSX.writeFile(wb, filename + '.xlsx');
   }
 
   /**

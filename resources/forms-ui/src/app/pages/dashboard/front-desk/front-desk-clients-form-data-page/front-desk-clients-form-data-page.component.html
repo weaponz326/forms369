@@ -97,13 +97,13 @@
                       <tr>
                         <th *ngFor="let header of tableHeaders"><strong class="text-uppercase">{{ header }}</strong></th>
                         <th><strong class="text-uppercase">Submitted At</strong></th>
-                        <th *ngIf="user.can_download == 1"><strong class="text-uppercase">Actions</strong></th>
+                        <th *ngIf="user.can_download == 0"><strong class="text-uppercase">Actions</strong></th>
                       </tr>
                     </thead>
                     <tbody>
                       <tr class="hover-cursor" *ngFor="let content of tableContents; let i=index">
                         <td *ngFor="let data of content">{{ data }}</td>
-                        <td *ngIf="user.can_download == 1">
+                        <td *ngIf="user.can_download == 0">
                           <div class="dropdown">
                             <button type="button" class="btn btn-light bg-white btn-icon dropdown-toggle"
                               id="dropdownMenuButton" data-toggle="dropdown">
@@ -111,6 +111,7 @@
                             </button>
                             <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
                               <a class="dropdown-item" (click)="print($event, i)">Print</a>
+                              <a class="dropdown-item" (click)="downloadPdf($event, i)">Download PDF</a>
                               <a class="dropdown-item" (click)="openAttachmentModal(i)">View Attachments</a>
                             </div>
                           </div>
