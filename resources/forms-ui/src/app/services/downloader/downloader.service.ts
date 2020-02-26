@@ -1,4 +1,5 @@
 declare var pdfMake: any;
+declare var html2pdf: any;
 declare var html2canvas: any;
 import * as jsPDF from 'jspdf';
 import * as XLSX from 'xlsx';
@@ -65,25 +66,10 @@ export class DownloaderService {
    * @memberof DownloaderService
    */
   exportToPDF(element_id: string, filename: string) {
-    html2canvas(document.getElementById(element_id), {
-      onrendered: (canvas) => {
-        const data = canvas.toDataURL();
-        const doc_definition = {
-          content: [{
-            image: data,
-            width: 900
-          }]
-        };
-        pdfMake.createPdf(doc_definition).download(filename + '.pdf');
-      }
-    });
-  }
-
-  pdfExport(element_id: string, filename: string) {
-    const doc = new jsPDF('p', 'pt', 'a4');
-    // const filename = 'forms369_' + this.form.form_code + '_data';
-    doc.fromHTML(document.getElementById(element_id), 0, 0, () => {
-      doc.save(filename + '.pdf');
+    const pdf = new jsPDF('p', 'mm', 'a4');
+    pdf.setFontSize(20);
+    pdf.addHTML(document.getElementById(element_id), () => {
+      pdf.save(filename + '.pdf');
     });
   }
 }
