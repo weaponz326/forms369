@@ -330,10 +330,12 @@ export class FrontDeskClientsFormDataPageComponent implements OnInit {
     e.stopPropagation();
     const print_data = {
       print: false,
-      form_data: this.form.form_fields,
-      client_data: this.clientFormData[index],
+      form_name: this.form.name,
+      form_code: this.form.form_code,
+      form_fields: this.form.form_fields,
+      client_submitted_details: this.clientFormData[index],
     };
-    this.router.navigateByUrl('executive/pdf_printing', { state: { form: print_data } });
+    this.router.navigateByUrl('front_desk/print_form_default', { state: { form: print_data } });
   }
 
   print(e: Event, index: number) {

@@ -1,20 +1,23 @@
 import * as _ from 'lodash';
 import { Printd } from 'printd';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, AfterViewInit } from '@angular/core';
 import { CompanyService } from 'src/app/services/company/company.service';
 import { EndpointService } from 'src/app/services/endpoint/endpoint.service';
+import { DownloaderService } from 'src/app/services/downloader/downloader.service';
 import { LocalStorageService } from 'src/app/services/storage/local-storage.service';
+import { ReloadingService } from 'src/app/services/reloader/reloading.service';
 
 @Component({
   selector: 'app-form-printing-default-page',
   templateUrl: './form-printing-default-page.component.html',
   styleUrls: ['./form-printing-default-page.component.css']
 })
-export class FormPrintingDefaultPageComponent implements OnInit {
+export class FormPrintingDefaultPageComponent implements OnInit, AfterViewInit {
 
   form: any;
   client: any;
   logo: string;
+  isPrint: boolean;
   loading: boolean;
   hasError: boolean;
   formKeys: Array<string>;
@@ -22,33 +25,21 @@ export class FormPrintingDefaultPageComponent implements OnInit {
   clientFormData: Array<any>;
 
   constructor(
+    private reloader: ReloadingService,
     private companyService: CompanyService,
     private endpointService: EndpointService,
-    private localService: LocalStorageService
+    private localService: LocalStorageService,
+    private downloaderService: DownloaderService,
   ) {
     this.initVars();
     this.getMerchant();
   }
 
-  /**
-   * This is just a little hack to prevent loss of data passed in to window.history.state
-   * whenever the page is reloaded. The purpose is to ensure we still have the data needed
-   * to help build all the elements of this page.
-   *
-   * @version 0.0.2
-   * @memberof EditFormPageComponent
-   */
-  resolveReloadDataLoss() {
-    if (!_.isUndefined(this.form)) {
-      console.log('is undefined oooooooooooo');
-      sessionStorage.setItem('u_form', JSON.stringify(this.form));
-    }
-    else {
-      this.form = JSON.parse(sessionStorage.getItem('u_form'));
-    }
+  ngOnInit() {
   }
 
-  ngOnInit() {
+  ngAfterViewInit() {
+    !this.isPrint ? this.download() : null;
   }
 
   initVars() {
@@ -59,8 +50,9 @@ export class FormPrintingDefaultPageComponent implements OnInit {
 
     this.form = window.history.state.form;
     console.log('form: ' + JSON.stringify(this.form));
-    this.resolveReloadDataLoss();
+    this.form = this.reloader.resolveDataLoss(this.form);
 
+    this.isPrint = this.form.print == true ? true : false;
     this.client = this.form.client_submitted_details;
     console.log('client: ' + JSON.stringify(this.client));
 
@@ -161,6 +153,16 @@ export class FormPrintingDefaultPageComponent implements OnInit {
     const el = document.getElementById('print-view');
     const d = new Printd();
     d.print(el, styles, scripts);
+  }
+
+  download() {
+    setTimeout(() => {
+      const elem_id = 'pdf-data';
+      const filename = 'forms369_' + this.form.form_code + '_data';
+      this.downloaderService.exportToPDF(elem_id, filename);
+      // navigate back
+      window.history.back();
+    }, 1000);
   }
 
 }
