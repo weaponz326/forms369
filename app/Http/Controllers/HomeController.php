@@ -2077,4 +2077,17 @@ class HomeController extends Controller
         $message = (new AuthController)->handleProviderGoogleCallback();
         return $message;
     }
+
+    /**
+     * changePassword change user password
+    * @param  mixed $request
+    * @param  mixed $id user id
+    *
+    * @return \Illuminate\Http\Response success or error message
+    */
+    protected function changePassword(Request $request, $id)
+    {
+        $message = (new AuthController)->changePassword($request, $id);
+        return $message;
+    }
 }    

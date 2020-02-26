@@ -1872,10 +1872,11 @@ class AuthController extends Controller
     /**
      * changePassword change user password
     * @param  mixed $request
+    * @param  mixed $id user id
     *
     * @return \Illuminate\Http\Response success or error message
     */
-    public function changePassword(Request $request)
+    public function changePassword(Request $request, $id)
     {
 
 
@@ -1889,6 +1890,27 @@ class AuthController extends Controller
         //get and encrypt user details 
         $current_password = $request->current_password;
         $new_password = $request->new_password;
+
+
+        //check if password
+        $user = User::find($id);
+
+        if(Hash::check($current_password, $user->password)){
+            if($current_password == $new_password){
+                return "New password can not be the same as the current password.";
+            }else{
+
+                //change user password
+                $user->password = bcrypt($new_password);
+                $user->save();
+
+                return "OK";
+
+            }
+            
+        }else{
+            return "Current password does not match the provided password.";
+        }
        
     }  
 
