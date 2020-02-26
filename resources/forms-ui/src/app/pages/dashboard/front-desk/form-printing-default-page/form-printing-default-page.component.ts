@@ -156,10 +156,13 @@ export class FormPrintingDefaultPageComponent implements OnInit, AfterViewInit {
   }
 
   download() {
-    const elem_id = 'pdf-data';
-    this.downloaderService.exportToPDF(elem_id, 'name');
-    // navigate back
-    window.history.back();
+    setTimeout(() => {
+      const elem_id = 'pdf-data';
+      const filename = 'forms369_' + this.form.form_code + '_data';
+      this.downloaderService.exportToPDF(elem_id, filename);
+      // navigate back
+      window.history.back();
+    }, 1000);
   }
 
 }
