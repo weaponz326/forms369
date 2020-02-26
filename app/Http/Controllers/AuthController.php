@@ -1880,7 +1880,7 @@ class AuthController extends Controller
     {
 
 
-        $message = 'Ok';
+        $message = 'OK';
         //get and validate user details
         $this->validate($request, [
             'current_password' => 'required',
@@ -1897,23 +1897,29 @@ class AuthController extends Controller
 
         if(Hash::check($current_password, $user->password)){
             if($current_password == $new_password){
-                return "New password can not be the same as the current password.";
+                $message = "THE_SAME_PASSWORD";
             }else{
 
                 //change user password
                 $user->password = bcrypt($new_password);
                 $user->save();
 
-                return "OK";
+                $message = "OK";
 
             }
             
         }else{
-            return "Current password does not match the provided password.";
+            $message = "MISMATCH";
         }
        
+        $response = [
+            'message' => $message
+        ];
+       return $response; 
+
     }  
 
+    
      /**
      * Redirect the user to the google authentication page.
      *
