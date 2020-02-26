@@ -13,3 +13,7 @@
 .pin-control::placeholder {
     color: #bbb;
 }
+
+.input-error {
+    font-family: 'OpenSans_SemiBold';
+}

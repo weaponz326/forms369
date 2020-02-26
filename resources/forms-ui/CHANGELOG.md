@@ -60,3 +60,12 @@
     21. Executives can now print form data.
     22. Company admin can now search for forms and users.
 
+# version 0.0.6
+    1. PDF issues for front-desk, super executives fixed and stable now.
+    2. New library for excel and CSV export used, all previous issues fixed.
+    3. Client navbar now contains privacy and profile.
+    4. Client can now log in with email address or username
+    5. Country picker in register is now hidden.
+    6. New logo introduced.
+    7. 
+

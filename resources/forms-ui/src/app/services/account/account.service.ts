@@ -119,6 +119,42 @@ export class AccountService {
   }
 
   /**
+   * Updates a user's password.
+   *
+   * @param {string} user_id
+   * @param {string} old_password
+   * @param {string} new_password
+   * @param {string} confirmation_password
+   * @returns {Promise<boolean>}
+   * @memberof AccountService
+   */
+  updateAccountPassword(user_id: string, old_password: string, new_password: string, confirmation_password: string): Promise<boolean> {
+    return new Promise((resolve, reject) => {
+      const url = this.endpointService + 'api/v1/changePassword/' + user_id;
+      const body = {
+        current_password: old_password,
+        new_password: new_password,
+        new_password_confirmation: confirmation_password
+      };
+
+      this.http.post(url, body, { headers: this.headers }).subscribe(
+        res => {
+          const response = res as any;
+          if (_.toLower(response.message) == 'ok') {
+            resolve(true);
+          }
+          else {
+            resolve(false);
+          }
+        },
+        err => {
+          reject(err);
+        }
+      );
+    });
+  }
+
+  /**
    * Creates a new access code for all users other than `clients`.
    *
    * @param {*} access_code_data

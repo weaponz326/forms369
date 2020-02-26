@@ -32,7 +32,7 @@ export class RegisterPageComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.countryPickerService.getCountries().subscribe(countries => { this.countriesList = countries; });
+    // this.countryPickerService.getCountries().subscribe(countries => { this.countriesList = countries; });
     // this.accountService.getCountryDialCodes().then(country_dial_codes => { this.countryDialCodes = country_dial_codes; });
     this.buildForm();
   }
@@ -49,7 +49,7 @@ export class RegisterPageComponent implements OnInit {
     this.form = this.formBuilder.group({
       firstName: ['', Validators.required],
       lastName: ['', Validators.required],
-      country: ['', Validators.required],
+      country: ['GH', Validators.required],
       username: ['', Validators.required],
       dialCode: ['233', Validators.required],
       password: ['', [Validators.minLength(8), Validators.required]],

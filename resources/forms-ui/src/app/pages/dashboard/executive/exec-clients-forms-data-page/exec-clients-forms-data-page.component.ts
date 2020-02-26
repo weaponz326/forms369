@@ -281,9 +281,6 @@ export class ExecClientsFormsDataPageComponent implements OnInit {
 
   downloadAll(format: string) {
     switch (format) {
-      case 'pdf':
-        this.downloadAsPDF();
-        break;
       case 'csv':
         this.downloadAsCSV();
         break;
@@ -302,9 +299,6 @@ export class ExecClientsFormsDataPageComponent implements OnInit {
   }
 
   downloadAsCSV() {
-    // const table_id = 'table-data';
-    // const filename = 'forms369_' + this.form.form_code + '_data';
-    // this.downloadService.exportToCsv(table_id, filename);
     const table_data = [];
     const tableContentLength = this.tableContents.length;
     const filename = 'forms369_' + this.form.form_code + '_data';
@@ -319,10 +313,6 @@ export class ExecClientsFormsDataPageComponent implements OnInit {
   }
 
   downloadAsExcel() {
-    // const table_id = 'table-data';
-    // const filename = 'forms369_' + this.form.form_code + '_data';
-    // this.downloadService.exportToExcel(table_id, filename);
-
     const table_data = [];
     const tableContentLength = this.tableContents.length;
     const filename = 'forms369_' + this.form.form_code + '_data';
@@ -339,6 +329,8 @@ export class ExecClientsFormsDataPageComponent implements OnInit {
   downloadDataPdf(index: number) {
     const print_data = {
       print: false,
+      form_name: this.form.name,
+      form_code: this.form.form_code,
       form_data: this.form.form_fields,
       client_data: this.clientFormData[index],
     };

@@ -9,7 +9,7 @@
             <div class="d-flex justify-content-between flex-wrap">
               <div class="d-flex align-items-end flex-wrap">
                 <div class="mr-md-3 mr-xl-5">
-                  <h2>Form Data - {{ form.name }}</h2>
+                  <h3>Form Data - {{ form.name }}</h3>
                   <p class="mb-md-0">Your administrative dashboard.</p>
                 </div>
                 <div class="d-flex">
@@ -23,8 +23,8 @@
                   </button>
                   <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
                     <a class="dropdown-item" (click)="openFilterModal()">Filter</a>
-                    <a *ngIf="user.can_download == 1" class="dropdown-item" (click)="downloadAll('csv')">Download (CSV)</a>
-                    <a *ngIf="user.can_download == 1" class="dropdown-item" (click)="downloadAll('excel')">Download (Excel)</a>
+                    <a *ngIf="user.can_download == 0" class="dropdown-item" (click)="downloadAll('csv')">Download (CSV)</a>
+                    <a *ngIf="user.can_download == 0" class="dropdown-item" (click)="downloadAll('excel')">Download (Excel)</a>
                   </div>
                 </div>
               </div>
@@ -99,13 +99,13 @@
                        <tr>
                          <th *ngFor="let header of tableHeaders"><strong class="text-uppercase">{{ header }}</strong></th>
                          <th><strong class="text-uppercase">Submitted At</strong></th>
-                         <th *ngIf="user.can_download == 1"><strong class="text-uppercase">Actions</strong></th>
+                         <th *ngIf="user.can_download == 0"><strong class="text-uppercase">Actions</strong></th>
                        </tr>
                      </thead>
                      <tbody>
                        <tr class="hover-cursor" *ngFor="let content of tableContents; let i=index">
                          <td *ngFor="let data of content">{{ data }}</td>
-                         <td *ngIf="user.can_download == 1">
+                         <td *ngIf="user.can_download == 0">
                            <div class="dropdown">
                              <button type="button" class="btn btn-light bg-white btn-icon dropdown-toggle"
                                id="dropdownMenuButton" data-toggle="dropdown">

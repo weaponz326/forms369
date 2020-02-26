@@ -4,6 +4,7 @@ import { Component, OnInit } from '@angular/core';
 import { Users } from 'src/app/models/users.model';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { ClientService } from 'src/app/services/client/client.service';
+import { AccountService } from 'src/app/services/account/account.service';
 import { LocalStorageService } from 'src/app/services/storage/local-storage.service';
 
 @Component({
@@ -14,16 +15,19 @@ import { LocalStorageService } from 'src/app/services/storage/local-storage.serv
 export class ClientSettingsPageComponent implements OnInit {
   user: Users;
   form: FormGroup;
-  pinForm: FormGroup;
   loading: boolean;
   _loading: boolean;
+  pinForm: FormGroup;
   submitted: boolean;
+  submitted1: boolean;
   showSetPin: boolean;
+  passwordForm: FormGroup;
 
   constructor(
     private fb: FormBuilder,
     private clientService: ClientService,
-    private localStorage: LocalStorageService
+    private accountService: AccountService,
+    private localStorage: LocalStorageService,
   ) {
     this.user = this.localStorage.getUser();
     const has_pin = window.localStorage.getItem('has_pin');
@@ -33,7 +37,6 @@ export class ClientSettingsPageComponent implements OnInit {
       this.checkIfUserHasFormPin();
     }
     else {
-      // this.showSetPin = true;
       this.showSetPin = false;
     }
   }
@@ -41,6 +44,7 @@ export class ClientSettingsPageComponent implements OnInit {
   ngOnInit() {
     this.initForm();
     this.initPinForm();
+    this.initPasswordForm();
   }
 
    public get f() {
@@ -49,6 +53,10 @@ export class ClientSettingsPageComponent implements OnInit {
 
   public get _f() {
     return this.pinForm.controls;
+  }
+
+  public get pwdF() {
+    return this.passwordForm.controls;
   }
 
   resolveStrCharacters(e: KeyboardEvent) {
@@ -112,6 +120,14 @@ export class ClientSettingsPageComponent implements OnInit {
     this.form = this.fb.group({
       oldPin: ['', [Validators.minLength(4), Validators.required]],
       newPin: ['', [Validators.minLength(4), Validators.required]]
+    });
+  }
+
+  initPasswordForm() {
+    this.passwordForm = this.fb.group({
+      oldPassword: ['', [Validators.minLength(8), Validators.required]],
+      newPassword: ['', [Validators.minLength(8), Validators.required]],
+      confirmPassword: ['', [Validators.minLength(8), Validators.required]],
     });
   }
 
@@ -181,6 +197,22 @@ export class ClientSettingsPageComponent implements OnInit {
           this.submitted = false;
           this.loading = false;
         }
+      );
+    }
+  }
+
+  changePassword() {
+    this.submitted1 = true;
+    const user_id = this.user.id.toString();
+    const current_pwd = this.pwdF.oldPassword.value;
+    const new_password = this.pwdF.newPassword.value;
+    const new_pwd_confirm = this.pwdF.confirmPassword.value;
+
+    if (this.passwordForm.valid) {
+      this.loading = true;
+      this.accountService.updateAccountPassword(user_id, current_pwd, new_password, new_pwd_confirm).then(
+        ok => {},
+        err => {}
       );
     }
   }
