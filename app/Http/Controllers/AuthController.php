@@ -13,6 +13,9 @@ use Illuminate\Pagination\Paginator;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Log;
 
+use Illuminate\Support\Facades\Hash;
+use Socialite;
+
 class AuthController extends Controller
 {
    
@@ -252,7 +255,7 @@ class AuthController extends Controller
             'firstname' => 'required',
             'lastname' => 'required',
             'email'=>'required|email|unique:users',
-            'password'=>'required|confirmed|min:6',
+            'password'=>'required|confirmed|min:8',
             'username'=>'required|unique:users',
             'user_type' => 'required',
             'country' => 'required',
@@ -388,35 +391,9 @@ class AuthController extends Controller
      * @return \Illuminate\Http\Response success or error message
      */
     protected function createClient(Request $request, $id){
-
-        //get, encode and encrypt all user details 
-        //get and encrypt user details 
-        $firstname = $request->firstname;
-        $lastname = $request->lastname;
-        $email = $request->email;
-        $country = $request->country;
-        $phone = $request->phone;
-
-        $data = array(
-            'firstname' => $firstname, 
-            'lastname' => $lastname, 
-            'email' => $email, 
-            'country' => $country, 
-            'phone' => $phone
-        );
-        $encodeddata = json_encode($data);
-        $encrypteddata = Crypt::encryptString($encodeddata);
-        $created_at = now();
     
         //save new client in the database
         try {
-            DB::table('client')->insert(
-                [
-                    'id' => $id,
-                    'details' => $encrypteddata, 
-                    'created_at' => $created_at
-                ]
-            );
 
             //get user and send verification email
             $user = User::find($id);
@@ -1892,6 +1869,60 @@ class AuthController extends Controller
    
    }
 
+    /**
+     * changePassword change user password
+    * @param  mixed $request
+    *
+    * @return \Illuminate\Http\Response success or error message
+    */
+    public function changePassword(Request $request)
+    {
+
+
+        $message = 'Ok';
+        //get and validate user details
+        $this->validate($request, [
+            'current_password' => 'required',
+            'new_password'=>'required|confirmed|min:8'
+        ]);
+
+        //get and encrypt user details 
+        $current_password = $request->current_password;
+        $new_password = $request->new_password;
+       
+    }  
+
+     /**
+     * Redirect the user to the google authentication page.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function redirectToGoogleProvider()
+    {
+
+        return Socialite::driver('google')->redirect();
+    }
+
+    /**
+     * Obtain the user information from twitter.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function handleProviderGoogleCallback()
+    {
+        try{
+            $user = Socialite::driver('google')->user();
+            $response = [
+                'users' => $user
+            ];
+           return $response; 
+
+        }catch(Exception $e){
+            return redirect('login/google');
+
+        }
+        
+    }
 
 
 }
