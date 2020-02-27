@@ -7,6 +7,10 @@
     padding-bottom: 19px;
 }
 
+.search-form {
+    border-radius: 30px;
+}
+
 table .dropdown .dropdown-toggle:after {
     display: none;
 }

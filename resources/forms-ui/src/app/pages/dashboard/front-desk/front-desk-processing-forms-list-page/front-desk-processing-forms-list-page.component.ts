@@ -16,6 +16,7 @@ import { LocalStorageService } from 'src/app/services/storage/local-storage.serv
 export class FrontDeskProcessingFormsListPageComponent implements OnInit {
   user: Users;
   index: number;
+  query: string;
   form: FormGroup;
   currentForm: any;
   hasMore: boolean;
@@ -24,6 +25,7 @@ export class FrontDeskProcessingFormsListPageComponent implements OnInit {
   hasError: boolean;
   submitted: boolean;
   noteForm: FormGroup;
+  foundNoForm: boolean;
   loadingMore: boolean;
   hasMoreError: boolean;
   submissionCode: string;
@@ -45,6 +47,7 @@ export class FrontDeskProcessingFormsListPageComponent implements OnInit {
     private localStorage: LocalStorageService,
     private frontDeskService: FrontDeskService,
   ) {
+    this.query = '';
     this.processingFormsList = [];
     this.allProcessingFormsList = [];
     this.user = this.localStorage.getUser();
@@ -237,6 +240,89 @@ export class FrontDeskProcessingFormsListPageComponent implements OnInit {
 
   handleRejectionNote() {
     this.modalService.open(this.rejectNoteModal, { centered: true });
+  }
+
+  searchBySubmissionCode() {
+    this.loading = true;
+    this.processingFormsList = [];
+    this.allProcessingFormsList = [];
+    this.frontDeskService.getForm(this.query, this.user.merchant_id.toString()).then(
+      form => {
+        if (_.isNull(form) || _.isUndefined(form)) {
+          this.loading = false;
+          this.hasData = false;
+          this.foundNoForm = true;
+        }
+        else {
+          this.loading = false;
+          this.foundNoForm = false;
+          this.processingFormsList.push(form);
+        }
+      },
+      err => {
+        this.hasError = true;
+        this.loading = false;
+      }
+    );
+  }
+
+  searchByFormName() {
+    this.loading = true;
+    this.processingFormsList = [];
+    this.allProcessingFormsList = [];
+    this.frontDeskService.findFormByNameAndStatus(this.query, this.user.merchant_id.toString(), 1).then(
+      forms => {
+        if (forms.length == 0) {
+          this.loading = false;
+          this.hasData = false;
+          this.foundNoForm = true;
+        }
+        else {
+          this.hasData = true;
+          this.loading = false;
+          this.foundNoForm = false;
+          _.forEach(forms, (form) => {
+            this.processingFormsList.push(form);
+          });
+        }
+      },
+      err => {
+        this.hasError = true;
+        this.loading = false;
+      }
+    );
+  }
+
+  search(e: KeyboardEvent) {
+    if (e.key == 'Enter') {
+      if (this.query.length != 0) {
+        // we need to know whether the user is searching by a submission
+        // code or by a form name. So first, check if its a submission code.
+        console.log(this.query);
+        this.hasError = false;
+        // this.processedFormsList = [];
+        // this.allProcessedFormsList = [];
+        if (this.query.length == 5) {
+          // search by submission code.
+          console.log('searching by submission code');
+          this.searchBySubmissionCode();
+        }
+        else {
+          // search by form name.
+          console.log('searching by form name');
+          this.searchByFormName();
+        }
+      }
+      else {
+        console.log('resetting ...');
+        if ((this.foundNoForm && this.query.length == 0) || this.query.length == 0) {
+          this.hasData = true;
+          this.foundNoForm = false;
+          console.log('hererereererere');
+          this.getAllFormsInProcessing();
+        }
+      }
+    }
   }
 
   filter() {

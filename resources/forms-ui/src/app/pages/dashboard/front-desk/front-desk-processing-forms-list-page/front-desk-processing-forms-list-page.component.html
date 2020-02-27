@@ -54,6 +54,18 @@
           </div>
         </div>
 
+        <div class="row">
+          <div class="col-12 col-md-8 offset-md-2 mb-3">
+            <div class="search-bar">
+              <form>
+                <input type="text" class="search-form form-control" name="query" [(ngModel)]="query"
+                  placeholder="Search by submission code or by form name" aria-label="search" aria-describedby="search"
+                  (keypress)="search($event)">
+              </form>
+            </div>
+          </div>
+        </div>
+
         <div *ngIf="loading" class="row m-5">
           <div class="col-md-12 m-5">
             <div class="d-flex justify-content-center">
@@ -64,7 +76,7 @@
           </div>
         </div>
 
-        <div *ngIf="!loading && !hasData" class="row">
+        <div *ngIf="!loading && !hasData && !foundNoForm" class="row">
           <div class="col-lg-12 grid-margin stretch-card">
             <div class="card text-center pt-5 pb-5">
               <div class="card-body mt-5 mb-5">
@@ -79,6 +91,27 @@
                   <div class="card-text">
                     <h3>No Forms Currently In Processing</h3>
                     <p class="text-muted">There are no forms in processing currently!</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div *ngIf="foundNoForm && !loading" class="row">
+          <div class="col-lg-12 grid-margin stretch-card">
+            <div class="card text-center pt-5 pb-5">
+              <div class="card-body mt-5 mb-5">
+                <h4 class="card-title">No Search Result</h4>
+                <div class="text-lg-center mt-5 mb-5">
+                  <div class="card-text">
+                    <i class="mdi mdi-search-web" style="font-size: 8em;"></i>
+                  </div>
+                  <div class="card-text">
+                    <h3>No Forms Found</h3>
+                    <p class="text-muted">
+                      No form found based on your search criteria.
+                    </p>
                   </div>
                 </div>
               </div>

@@ -18,6 +18,7 @@ export class FrontDeskRejectedFormsListPageComponent implements OnInit {
 
   user: Users;
   index: number;
+  query: string;
   form: FormGroup;
   hasMore: boolean;
   hasData: boolean;
@@ -26,6 +27,7 @@ export class FrontDeskRejectedFormsListPageComponent implements OnInit {
   hasError: boolean;
   submitted: boolean;
   noteForm: FormGroup;
+  foundNoForm: boolean;
   loadingMore: boolean;
   hasMoreError: boolean;
   rejectionNote: string;
@@ -51,6 +53,7 @@ export class FrontDeskRejectedFormsListPageComponent implements OnInit {
     private localStorage: LocalStorageService,
     private frontDeskService: FrontDeskService,
   ) {
+    this.query = '';
     this.rejectionNote = '';
     this.rejectedFormsList = [];
     this.allRejectedFormsList = [];
@@ -243,21 +246,6 @@ export class FrontDeskRejectedFormsListPageComponent implements OnInit {
     );
   }
 
-  // reject(e: Event, form: any, submission_code: string, index: number) {
-  //   e.stopPropagation();
-  //   this.modalService.open(this.confirmModal, { centered: true }).result.then(
-  //     result => {
-  //       if (result == 'undo') {
-  //         this.index = index;
-  //         this.currentForm = form;
-  //         this.submissionCode = submission_code;
-  //         this.modalService.dismissAll();
-  //         this.handleRejectionNote();
-  //       }
-  //     }
-  //   );
-  // }
-
   rejectForm(e: Event, form: any, submission_code: string, index: number) {
     this.modalService.dismissAll();
     this.showLoadingDialog();
@@ -294,9 +282,88 @@ export class FrontDeskRejectedFormsListPageComponent implements OnInit {
     );
   }
 
-  // handleRejectionNote() {
-  //   this.showRejectMessageDialog();
-  // }
+  searchBySubmissionCode() {
+    this.loading = true;
+    this.rejectedFormsList = [];
+    this.allRejectedFormsList = [];
+    this.frontDeskService.getForm(this.query, this.user.merchant_id.toString()).then(
+      form => {
+        if (_.isNull(form) || _.isUndefined(form)) {
+          this.loading = false;
+          this.hasData = false;
+          this.foundNoForm = true;
+        }
+        else {
+          this.loading = false;
+          this.foundNoForm = false;
+          this.rejectedFormsList.push(form);
+        }
+      },
+      err => {
+        this.hasError = true;
+        this.loading = false;
+      }
+    );
+  }
+
+  searchByFormName() {
+    this.loading = true;
+    this.rejectedFormsList = [];
+    this.allRejectedFormsList = [];
+    this.frontDeskService.findFormByNameAndStatus(this.query, this.user.merchant_id.toString(), 3).then(
+      forms => {
+        if (forms.length == 0) {
+          this.loading = false;
+          this.hasData = false;
+          this.foundNoForm = true;
+        }
+        else {
+          this.hasData = true;
+          this.loading = false;
+          this.foundNoForm = false;
+          _.forEach(forms, (form) => {
+            this.rejectedFormsList.push(form);
+          });
+        }
+      },
+      err => {
+        this.hasError = true;
+        this.loading = false;
+      }
+    );
+  }
+
+  search(e: KeyboardEvent) {
+    if (e.key == 'Enter') {
+      if (this.query.length != 0) {
+        // we need to know whether the user is searching by a submission
+        // code or by a form name. So first, check if its a submission code.
+        console.log(this.query);
+        this.hasError = false;
+        // this.processedFormsList = [];
+        // this.allProcessedFormsList = [];
+        if (this.query.length == 5) {
+          // search by submission code.
+          console.log('searching by submission code');
+          this.searchBySubmissionCode();
+        }
+        else {
+          // search by form name.
+          console.log('searching by form name');
+          this.searchByFormName();
+        }
+      }
+      else {
+        console.log('resetting ...');
+        if ((this.foundNoForm && this.query.length == 0) || this.query.length == 0) {
+          this.hasData = true;
+          this.foundNoForm = false;
+          console.log('hererereererere');
+          this.getAllFormsRejected();
+        }
+      }
+    }
+  }
 
   filter() {
     this.submitted = true;

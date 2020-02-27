@@ -37,6 +37,7 @@ export class FrontDeskProcessedFormsListPageComponent implements OnInit {
     private localStorage: LocalStorageService,
     private frontDeskService: FrontDeskService,
   ) {
+    this.query = '';
     this.processedFormsList = [];
     this.allProcessedFormsList = [];
     this.user = this.localStorage.getUser();
@@ -132,6 +133,7 @@ export class FrontDeskProcessedFormsListPageComponent implements OnInit {
       form => {
         if (_.isNull(form) || _.isUndefined(form)) {
           this.loading = false;
+          this.hasData = false;
           this.foundNoForm = true;
         }
         else {
@@ -149,16 +151,22 @@ export class FrontDeskProcessedFormsListPageComponent implements OnInit {
 
   searchByFormName() {
     this.loading = true;
+    this.processedFormsList = [];
+    this.allProcessedFormsList = [];
     this.frontDeskService.findFormByNameAndStatus(this.query, this.user.merchant_id.toString(), 2).then(
-      form => {
-        if (_.isNull(form) || _.isUndefined(form)) {
+      forms => {
+        if (forms.length == 0) {
           this.loading = false;
+          this.hasData = false;
           this.foundNoForm = true;
         }
         else {
+          this.hasData = true;
           this.loading = false;
           this.foundNoForm = false;
-          this.processedFormsList.push(form);
+          _.forEach(forms, (form) => {
+            this.processedFormsList.push(form);
+          });
         }
       },
       err => {
@@ -166,10 +174,6 @@ export class FrontDeskProcessedFormsListPageComponent implements OnInit {
         this.loading = false;
       }
     );
-    // this.processedFormsList = this.allProcessedFormsList;
-    // console.log('ddddddD: ' + this.processedFormsList.length);
-    // this.processedFormsList = _.filter(this.processedFormsList, (f) => f.form_name.includes(this.query));
-    // console.log('xsxxxsxD: ' + this.processedFormsList.length);
   }
 
   search(e: KeyboardEvent) {

@@ -186,12 +186,12 @@ export class FrontDeskService {
    */
   findFormByNameAndStatus(form_name: string, merchant_id: string, status: number): Promise<any> {
     return new Promise((resolve, reject) => {
-      const url = this.endpointService.apiHost + `api/v1/getFormbyNameStatusAndMerchant/${form_name}/${status}/${merchant_id}`;
+      const url = this.endpointService.apiHost + `api/v1/getClientFormsByStatusAndMerchant/${form_name}/${status}/${merchant_id}`;
       this.http.get(url, { headers: this.headers }).subscribe(
         res => {
           console.log('res: ' + JSON.stringify(res));
           const response = res as any;
-          resolve(response);
+          resolve(response.forms);
         },
         err => {
           console.log('err: ' + JSON.stringify(err));

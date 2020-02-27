@@ -71,5 +71,6 @@
     8. Minor UI changes across the client user's ui
     9. Clients can now update their account password.
     10. Clients can no longer update their primary information.
+    11. Search added to front desk, processed forms, processing and rejected forms ui.
 
 
