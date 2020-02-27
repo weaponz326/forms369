@@ -93,7 +93,7 @@
                   <p class="input-error" *ngIf="f.phone.errors.maxlength">Phone number cannot exceed 9 digits. Don't start with 0</p>
                 </div>
               </div>
-              <div class="form-group">
+              <!-- <div class="form-group">
                 <select class="form-control" formControlName="country"
                   [ngClass]="{'input-control-error': submitted && f.country.errors}" (change)="onCountrySelect($event)">
                   <option value="" disabled>Country</option>
@@ -105,7 +105,7 @@
                 <div *ngIf="submitted && f.country.errors">
                   <p class="input-error" *ngIf="f.country.errors.required">Country is required</p>
                 </div>
-              </div>
+              </div> -->
               <div class="form-group">
                 <input type="password" class="form-control" formControlName="password"
                   placeholder="Password" [ngClass]="{'input-control-error': submitted && f.password.errors}">

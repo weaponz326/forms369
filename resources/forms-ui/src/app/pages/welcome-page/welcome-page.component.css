@@ -4,6 +4,11 @@
     height: 100%;
 }
 
+.logo > img {
+    width: 150px;
+    margin: 50px 0px;
+}
+
 .top-level {
     width: 30%;
     display: block;
@@ -55,12 +60,11 @@ section.section-two {
 
 section.section-two .jumbotron {
     font-weight: 100;
-    /* font-family: 'ProductSans_Regular'; */
 }
 
 section.section-three {
     padding: 80px 0px;
-    background: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.7)), url('http://www.desktopwallpaperhd.net/wallpapers/0/7/desktop-background-vector-apple-wallpaper-71.jpg');
+    background: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.7)), url(./../../../assets/images/night-skies.jpg);
 }
 
 section.section-three .jumbotron {

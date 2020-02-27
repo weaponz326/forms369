@@ -7,6 +7,7 @@ import { CompanyService } from 'src/app/services/company/company.service';
 import { EndpointService } from 'src/app/services/endpoint/endpoint.service';
 import { ReloadingService } from 'src/app/services/reloader/reloading.service';
 import { LocalStorageService } from 'src/app/services/storage/local-storage.service';
+import { DownloaderService } from 'src/app/services/downloader/downloader.service';
 
 @Component({
   selector: 'app-executive-printing-page',
@@ -28,7 +29,8 @@ export class ExecutivePrintingPageComponent implements OnInit, AfterViewInit {
     private reloader: ReloadingService,
     private companyService: CompanyService,
     private endpointService: EndpointService,
-    private localService: LocalStorageService
+    private localService: LocalStorageService,
+    private downloaderService: DownloaderService,
   ) {
     this.initVars();
     this.getMerchant();
@@ -108,13 +110,12 @@ export class ExecutivePrintingPageComponent implements OnInit, AfterViewInit {
   }
 
   download() {
-    const doc = new jsPDF('p', 'pt', 'a4');
-    const filename = 'forms369_' + this.form.form_code + '_data';
-    doc.addHTML($('#form-data'), () => {
-      doc.save(filename + '.pdf');
-    });
-
-    window.history.back();
+    setTimeout(() => {
+      const elem_id = 'form-data';
+      const filename = 'forms369_' + this.form.form_code + '_data';
+      this.downloaderService.exportToPDF(elem_id, filename);
+      window.history.back();
+    }, 1000);
   }
 
   printViewCss() {
