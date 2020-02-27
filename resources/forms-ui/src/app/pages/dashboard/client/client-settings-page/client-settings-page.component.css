@@ -17,3 +17,11 @@
 .input-error {
     font-family: 'OpenSans_SemiBold';
 }
+
+label {
+    font-family: 'OpenSans_SemiBold';
+}
+
+.card-title {
+    font-family: 'OpenSans_Bold';
+}

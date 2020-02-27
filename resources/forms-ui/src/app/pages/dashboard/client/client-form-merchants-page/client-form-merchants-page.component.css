@@ -9,3 +9,7 @@
     border-radius: 30px;
     background: #fff;
 }
+
+.card-title {
+    font-family: 'OpenSans_Bold';
+}

@@ -2,6 +2,10 @@
     font-family: 'OpenSans_Regular';
 }
 
+.btn i {
+    color: #4c83ff;
+}
+
 @media only screen 
 and (min-device-width: 320px) 
 and (max-device-width: 825px) {

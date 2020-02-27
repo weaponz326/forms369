@@ -21,7 +21,6 @@ export class ClientProfilePageComponent implements OnInit, AfterViewInit {
   imgUrl: string;
   pinCode: string;
   hasData: boolean;
-  allUserData: any;
   loading: boolean;
   deleting: boolean;
   formFiles: number;
@@ -34,7 +33,7 @@ export class ClientProfilePageComponent implements OnInit, AfterViewInit {
   renderData: boolean;
   documentUrl: string;
   pinRequired: boolean;
-  noFilledData: boolean;
+  primaryUserData: any;
   docDialogRef: NgbModalRef;
   pinDialogRef: NgbModalRef;
   loadingAttachments: boolean;
@@ -44,7 +43,6 @@ export class ClientProfilePageComponent implements OnInit, AfterViewInit {
   attachmentFiles: Array<File>;
   attachmentKeys: Array<string>;
   existingAttachments: Array<any>;
-  activeSectionFields: Array<any>;
   @ViewChild('pin', { static: false }) pinDialog: TemplateRef<any>;
   @ViewChild('setPin', { static: false }) setPinDialog: TemplateRef<any>;
   @ViewChild('confirm', { static: false }) confirmDialog: TemplateRef<any>;
@@ -68,14 +66,12 @@ export class ClientProfilePageComponent implements OnInit, AfterViewInit {
     this.allFormSections = [];
     this.attachmentFiles = [];
     this.duplicateFields = [];
-    this.activeSectionFields = [];
     this.existingAttachments = [];
     this.user = this.localStorage.getUser();
     console.log('user_id: ' + this.user.id);
   }
 
   ngOnInit() {
-    // this.getAllFormSections();
   }
 
   ngAfterViewInit() {
@@ -84,25 +80,6 @@ export class ClientProfilePageComponent implements OnInit, AfterViewInit {
 
   public get f() {
     return this.pinForm.controls;
-  }
-
-  renderSection(id: string) {
-    console.log('render section: ' + id);
-    this.renderData = true;
-    _.forEach(this.allFormSections, (section) => {
-      if (section.id == id) {
-        console.log('selected section found');
-        this.activeSectionFields = section.form_fields;
-        setTimeout(() => {
-          this.clientService.fillClientProfileData([section], this.userData);
-          this.appendOnChangeEventToFileInput();
-        }, 500);
-      }
-    });
-  }
-
-  renderAttachments() {
-    this.renderData = false;
   }
 
   showPinCreatedSuccess() {
@@ -188,29 +165,13 @@ export class ClientProfilePageComponent implements OnInit, AfterViewInit {
     }
   }
 
-  getAllClientDataNew() {
-    this.loading = true;
-    this.formBuilder.getUserFilledData(_.toString(this.user.id)).then(
-      res => {
-        console.log('user_data: ' + JSON.stringify(res));
-        if (res.length > 0) {
-          this.hasData = true;
-          this.loading = false;
-          this.allUserData = res[0].client_details[0];
-          console.log('details: ' + this.allUserData);
-          this.appendOnChangeEventToFileInput();
-        }
-        else {
-          this.hasData = false;
-          this.loading = false;
-        }
-      },
-      err => {
-        console.log('error: ' + JSON.stringify(err));
-        this.loading = false;
-        this.hasError = true;
-      }
-    );
+  setPrimaryInformation() {
+    this.primaryUserData = {
+      firstname: this.userData['firstname'],
+      lastname: this.userData['lastname'],
+      email: this.userData['email'],
+      country: this.userData['country'],
+    };
   }
 
   appendOnChangeEventToFileInput() {
@@ -334,17 +295,17 @@ export class ClientProfilePageComponent implements OnInit, AfterViewInit {
 
   getAllClientData() {
     this.loading = true;
-    this.formBuilder.getUserFilledData(_.toString(this.user.id)).then(
+    this.formBuilder.getClientProvidedData(_.toString(this.user.id)).then(
       res => {
         console.log('user_data: ' + JSON.stringify(res));
         if (res.length > 0) {
           this.hasData = true;
           this.loading = false;
-          const userData = res[0].client_details[0];
           this.userData = res[0].client_details[0];
-          console.log('details: ' + userData);
+          this.setPrimaryInformation();
+          console.log('details: ' + this.userData);
           setTimeout(() => {
-            this.clientService.fillClientProfileData(this.allFormSections, userData);
+            this.clientService.fillClientProfileData(this.allFormSections, this.userData);
             this.appendOnChangeEventToFileInput();
           }, 500);
         }
@@ -367,15 +328,10 @@ export class ClientProfilePageComponent implements OnInit, AfterViewInit {
       res => {
         console.log('resssss: ' + JSON.stringify(res));
         if (res.length > 0) {
-          // this.showAttachments = true;
           _.forEach(res, (doc) => {
             console.log('doc: ' + JSON.stringify(doc));
             this.existingAttachments.push(doc);
           });
-        }
-        else {
-          // this.existingAttachments.push();
-          // this.showAttachments =  false;
         }
 
         this.loadingAttachments = false;
@@ -442,14 +398,15 @@ export class ClientProfilePageComponent implements OnInit, AfterViewInit {
           _.forEach(res, (section) => {
             this.allFormSections.push(section);
           });
-          this.renderSection(this.allFormSections[0].id);
+          // this.renderSection(this.allFormSections[0].id);
           this.getAllClientData();
+          // this.getAllClientDataNew();
         }
         else {
-          console.log('no filled data');
-          this.getFormAttachments(this.user.id);
-          this.noFilledData = true;
-          this.getAllClientDataNew();
+          // console.log('no filled data');
+          // this.getFormAttachments(this.user.id);
+          // this.noFilledData = true;
+          // this.getAllClientDataNew();
         }
       },
       err => {
