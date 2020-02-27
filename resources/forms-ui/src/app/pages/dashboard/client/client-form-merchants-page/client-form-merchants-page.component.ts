@@ -1,10 +1,12 @@
 import * as _ from 'lodash';
 import { Router } from '@angular/router';
 import { Component, OnInit } from '@angular/core';
+import { Users } from 'src/app/models/users.model';
 import { Merchants } from 'src/app/models/merchants.model';
 import { ClientService } from 'src/app/services/client/client.service';
 import { CompanyService } from 'src/app/services/company/company.service';
 import { EndpointService } from 'src/app/services/endpoint/endpoint.service';
+import { LocalStorageService } from 'src/app/services/storage/local-storage.service';
 
 @Component({
   selector: 'app-client-form-merchant-page',
@@ -12,6 +14,7 @@ import { EndpointService } from 'src/app/services/endpoint/endpoint.service';
   styleUrls: ['./client-form-merchants-page.component.css']
 })
 export class ClientFormMerchantsPageComponent implements OnInit {
+  user: Users;
   query: string;
   title: string;
   loading: boolean;
@@ -29,13 +32,15 @@ export class ClientFormMerchantsPageComponent implements OnInit {
     private router: Router,
     private clientService: ClientService,
     private companyService: CompanyService,
-    private endpointService: EndpointService
+    private endpointService: EndpointService,
+    private localStorage: LocalStorageService
   ) {
     this.query = '';
     this.formsList = [];
     this.companyList = [];
     this.getCompanies();
     this.title = 'Company';
+    this.user = this.localStorage.getUser();
   }
 
   ngOnInit() {
@@ -105,7 +110,7 @@ export class ClientFormMerchantsPageComponent implements OnInit {
 
   searchByMerchantName() {
     this.loading = true;
-    this.companyService.getCompanyByName(this.query).then(
+    this.companyService.getCompanyByName(this.query, this.user.country).then(
       merchants => {
         if (merchants.length == 0) {
           this.loading = false;
@@ -150,7 +155,7 @@ export class ClientFormMerchantsPageComponent implements OnInit {
   searchByFormName(): Promise<boolean> {
     return new Promise((resolve, reject) => {
       this.loading = true;
-      this.clientService.findFormsByName(this.query).then(
+      this.clientService.findFormsByName(this.query, this.user.country).then(
         forms => {
           if (forms.length == 0) {
             this.loading = false;

@@ -169,7 +169,7 @@ Route::group(['middleware' => ['auth:api'], 'prefix' => 'v1'], function(){
     //forms endpoints 
     Route::post('createForm', 'HomeController@storeForm')->name('createForm')->middleware('scope:GIT_Admin,company_admin');
     Route::get('getFormDetails/{id}', 'HomeController@getFormDetails')->name('getFormDetails')->middleware('scope:GIT_Admin,company_admin,branch_admin,branch_executive,super_executive,client');
-    Route::get('getFormbyName/{term}/{country}', 'HomeController@getFormbyName')->name('getFormbyName')->middleware('scope:GIT_Admin,company_admin,branch_admin,branch_executive,super_executive,client');
+    Route::get('getFormbyName/{term}/{country}', 'HomeController@getFormbyName')->name('getFormbyName')->middleware('scope:GIT_Admin,company_admin,branch_admin,branch_executive,super_executive,client,frontdesk');
     Route::post('editForm/{code}', 'HomeController@editForm')->name('editForm')->middleware('scope:GIT_Admin,company_admin,branch_admin');
     Route::post('changeFormStatus/{code}/{status}', 'HomeController@changeFormStatus')->name('changeFormStatus')->middleware('scope:GIT_Admin,company_admin,branch_admin');
     Route::get('getAllForms', 'HomeController@getAllForms')->name('getAllForms')->middleware('scope:GIT_Admin,client');
@@ -278,7 +278,7 @@ Route::group(['middleware' => ['auth:api'], 'prefix' => 'v1'], function(){
   Route::post('candownload/{id}/{status}', 'HomeController@candownload')->name('candownload')->middleware('scope:GIT_Admin,company_admin,branch_admin');
 
   //search for a form for a particular merchant and status based on a serach term
-  Route::get('getFormbyNameStatusAndMerchant/{term}/{status}/{id}', 'HomeController@getFormbyNameStatusAndMerchant')->name('getFormbyNameStatusAndMerchant')->middleware('scope:GIT_Admin,company_admin,branch_admin,super_executive,branch_executive');
+  Route::get('getFormbyNameStatusAndMerchant/{term}/{status}/{id}', 'HomeController@getFormbyNameStatusAndMerchant')->name('getFormbyNameStatusAndMerchant')->middleware('scope:GIT_Admin,company_admin,branch_admin,super_executive,branch_executive,frontdesk');
 
   //search for a form for a particular merchant based on a search term
   Route::get('getFormbyNameAndMerchant/{term}/{id}', 'HomeController@getFormbyNameAndMerchant')->name('getFormbyNameAndMerchant')->middleware('scope:GIT_Admin,company_admin,branch_admin,super_executive,branch_executive');

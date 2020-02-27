@@ -4,6 +4,8 @@ import { Router } from '@angular/router';
 import { FormBuilderService } from 'src/app/services/form-builder/form-builder.service';
 import { FormsService } from 'src/app/services/forms/forms.service';
 import { ClientService } from 'src/app/services/client/client.service';
+import { Users } from 'src/app/models/users.model';
+import { LocalStorageService } from 'src/app/services/storage/local-storage.service';
 
 @Component({
   selector: 'app-client-list-forms-page',
@@ -11,6 +13,7 @@ import { ClientService } from 'src/app/services/client/client.service';
   styleUrls: ['./client-list-forms-page.component.css']
 })
 export class ClientListFormsPageComponent implements OnInit {
+  user: Users;
   company: any;
   query: string;
   hasData: boolean;
@@ -26,12 +29,14 @@ export class ClientListFormsPageComponent implements OnInit {
   constructor(
     private router: Router,
     private formService: FormsService,
-    private clientService: ClientService
+    private clientService: ClientService,
+    private localStorage: LocalStorageService
   ) {
     this.query = '';
     this.formsList = [];
     this.company = history.state.company;
     this.resolveReloadDataLoss();
+    this.user = this.localStorage.getUser();
     this.isConnected = window.navigator.onLine ? true : false;
     this.getAllForms();
   }
@@ -90,7 +95,7 @@ export class ClientListFormsPageComponent implements OnInit {
 
   searchByFormName() {
     this.loading = true;
-    this.clientService.findFormsByName(this.query).then(
+    this.clientService.findFormsByName(this.query, this.user.country).then(
       forms => {
         if (forms.length == 0) {
           this.loading = false;
