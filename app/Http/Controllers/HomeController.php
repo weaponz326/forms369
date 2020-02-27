@@ -2090,4 +2090,21 @@ class HomeController extends Controller
         $message = (new AuthController)->changePassword($request, $id);
         return $message;
     }
+
+    /**
+     * Business logics 
+     * getClientFormsByStatusAndMerchant get all forms by status: processed, in_process, submitted for a merchant
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @param $id of the merchant
+     * @param $status search status
+     * @param $term search term
+     * @return void\Illuminate\Http\Response all details of form
+     * 
+     */
+     public function getClientFormsByStatusAndMerchant(Request $request, $term, $status, $id)
+     {
+        $message = (new ClientController)->getClientFormsByStatusAndMerchant($request, $term, $status, $id);
+        return $message;
+     }
 }    

@@ -114,7 +114,7 @@ Route::group(['middleware' => ['auth:api'], 'prefix' => 'v1'], function(){
     Route::get('getNumActiveMerchants', 'HomeController@getNumActiveMerchants')->name('getNumActiveMerchants')->middleware('scope:GIT_Admin');
     Route::get('getNumInactiveMerchants', 'HomeController@getNumInactiveMerchants')->name('getNumInactiveMerchants')->middleware('scope:GIT_Admin');
     //get all merchants matching a search term
-    Route::get('getMerchantbyName/{term}', 'HomeController@getMerchantbyName')->name('getMerchantbyName')->middleware('scope:GIT_Admin,client');
+    Route::get('getMerchantbyName/{term}', 'HomeController@getMerchantbyName')->name('getMerchantbyName')->middleware('scope:GIT_Admin,client');  
     
    
     //enabling and disabling merchants and branches apis
@@ -278,7 +278,7 @@ Route::group(['middleware' => ['auth:api'], 'prefix' => 'v1'], function(){
   Route::post('candownload/{id}/{status}', 'HomeController@candownload')->name('candownload')->middleware('scope:GIT_Admin,company_admin,branch_admin');
 
   //search for a form for a particular merchant and status based on a serach term
-  Route::get('getFormbyNameStatusAndMerchant/{term}/{status}/{id}', 'HomeController@getFormbyNameStatusAndMerchant')->name('getFormbyNameStatusAndMerchant')->middleware('scope:GIT_Admin,company_admin,branch_admin,super_executive,branch_executive');
+  Route::get('getFormbyNameStatusAndMerchant/{term}/{status}/{id}', 'HomeController@getFormbyNameStatusAndMerchant')->name('getFormbyNameStatusAndMerchant')->middleware('scope:GIT_Admin,company_admin,branch_admin,super_executive,branch_executive,client,frontdesk');
 
   //search for a form for a particular merchant based on a search term
   Route::get('getFormbyNameAndMerchant/{term}/{id}', 'HomeController@getFormbyNameAndMerchant')->name('getFormbyNameAndMerchant')->middleware('scope:GIT_Admin,company_admin,branch_admin,super_executive,branch_executive');
@@ -289,7 +289,8 @@ Route::group(['middleware' => ['auth:api'], 'prefix' => 'v1'], function(){
   //search users under a user type and merchant matching a search term
   Route::get('getUserByTypeStatusAndMerchant/{user_type}/{merchant_id}/{status}/{term}', 'HomeController@getUserByTypeStatusAndMerchant')->name('getUserByTypeStatusAndMerchant')->middleware('scope:GIT_Admin,company_admin,branch_admin,super_executive,branch_executive');
 
-  
+  //get submitted forms by status, name and merchant
+  Route::get('getClientFormsByStatusAndMerchant/{term}/{status}/{id}', 'HomeController@getClientFormsByStatusAndMerchant')->name('getClientFormsByStatusAndMerchant')->middleware('scope:GIT_Admin,company_admin,branch_admin,super_executive,branch_executive,client,frontdesk');
 
 });
 
