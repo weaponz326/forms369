@@ -118,39 +118,41 @@ export class ClientListFormsPageComponent implements OnInit {
 
   search(e: KeyboardEvent) {
     if (e.key == 'Enter') {
-      // we need to know whether the user is searching by a form code
-      // or the user is searching by a form name.
-      // First, check if its a form code.
-      console.log(this.query);
-      this.hasError = false;
-      this.formsList = [];
-      if (/\d/.test(this.query)) {
-        if (this.query.length == 5) {
-          // search by form code, based on the input
-          // the user might be searching by a form code.
-          console.log('searching by form code');
-          this.searchByFormCode();
+      if (this.query.length > 0) {
+        // we need to know whether the user is searching by a form code
+        // or the user is searching by a form name.
+        // First, check if its a form code.
+        console.log(this.query);
+        this.hasError = false;
+        this.formsList = [];
+        if (/\d/.test(this.query)) {
+          if (this.query.length == 5) {
+            // search by form code, based on the input
+            // the user might be searching by a form code.
+            console.log('searching by form code');
+            this.searchByFormCode();
+          }
+          else {
+            // the input contains a number but is more than 6 characters
+            // in lenght, this might be a form name.
+            console.log('searching by form name');
+            this.searchByFormName();
+          }
         }
         else {
-          // the input contains a number but is more than 6 characters
-          // in lenght, this might be a form name.
-          console.log('searching by form name');
+          // since all our form codes includes digits, and this
+          // users input doesnt include a digit, search by form name.
+          console.log('searching by form name last');
           this.searchByFormName();
         }
       }
       else {
-        // since all our form codes includes digits, and this
-        // users input doesnt include a digit, search by form name.
-        console.log('searching by form name last');
-        this.searchByFormName();
-      }
-    }
-    else {
-      if ((this.foundNoForm && this.query.length == 0) || this.query.length == 0) {
-        this.hasData = true;
-        this.foundNoForm = false;
-        console.log('hererereererere');
-        this.getAllForms();
+        if ((this.foundNoForm && this.query.length == 0) || this.query.length == 0) {
+          this.hasData = true;
+          this.foundNoForm = false;
+          console.log('hererereererere');
+          this.getAllForms();
+        }
       }
     }
   }
