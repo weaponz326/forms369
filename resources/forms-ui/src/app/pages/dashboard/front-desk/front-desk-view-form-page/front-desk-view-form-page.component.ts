@@ -11,6 +11,7 @@ import { FrontDeskService } from 'src/app/services/front-desk/front-desk.service
 import { DownloaderService } from 'src/app/services/downloader/downloader.service';
 import { LocalStorageService } from 'src/app/services/storage/local-storage.service';
 import { FormBuilderService } from 'src/app/services/form-builder/form-builder.service';
+import { ReloadingService } from 'src/app/services/reloader/reloading.service';
 
 @Component({
   selector: 'app-front-desk-view-form-page',
@@ -53,6 +54,7 @@ export class FrontDeskViewFormPageComponent implements OnInit {
     private router: Router,
     private fb: FormBuilder,
     private modalService: NgbModal,
+    private reloader: ReloadingService,
     private clientService: ClientService,
     private formBuilder: FormBuilderService,
     private endpointService: EndpointService,
@@ -64,26 +66,12 @@ export class FrontDeskViewFormPageComponent implements OnInit {
     this.attachmentFiles = [];
     this.existingAttachments = [];
     this.form = window.history.state.form;
-    this.resolveReloadDataLoss();
+    this.form = this.reloader.resolveDataLoss(this.form);
+
     this.formName = this.form.form_name;
     this.user = this.localStorage.getUser();
     console.log('form: ' + JSON.stringify(this.form));
     this.getFormAttachments(this.form.submission_code);
-  }
-
-  /**
-   * This is just a little hack to prevent loss of data passed in to window.history.state
-   * whenever the page is reloaded. The purpose is to ensure we still have the data needed
-   * to help build all the elements of this page.
-   *
-   * @version 0.0.2
-   * @memberof EditFormPageComponent
-   */
-  resolveReloadDataLoss() {
-    if (!_.isUndefined(this.form))
-      sessionStorage.setItem('u_form', JSON.stringify(this.form));
-    else
-      this.form = JSON.parse(sessionStorage.getItem('u_form'));
   }
 
   ngOnInit() {

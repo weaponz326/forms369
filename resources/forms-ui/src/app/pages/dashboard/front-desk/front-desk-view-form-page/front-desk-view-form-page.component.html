@@ -53,8 +53,7 @@
                               <ol class="files-list">
                                 <li class="file-item">
                                   <i class="mdi mdi-paperclip menu-icon"></i>
-                                  <a class="alert-link file-link"
-                                    (click)="openModal($event, file.url)">{{ file.url }}</a>
+                                  <a class="alert-link file-link" (click)="openModal($event, file.url)">{{ file.url }}</a>
                                 </li>
                               </ol>
                             </div>
@@ -74,7 +73,10 @@
                     </button>
                     <button *ngIf="!loading && !isProcessed" type="submit" class="btn btn-primary btn-lg mr-2" (click)="complete()">Complete</button>
                     <button *ngIf="!loading && !isProcessed && !isProcessing" type="submit" class="btn btn-light btn-lg mr-2" (click)="process()">Processing</button>
-                    <button *ngIf="!loading && !isProcessed" type="submit" class="btn btn-danger btn-lg" (click)="reject()">Reject</button>
+                    <div style="display: contents;"
+                      *ngIf="form.form_status == 0 || form.form_status == 1  || form.form_status == 3">
+                      <button *ngIf="!loading && !isProcessed" type="submit" class="btn btn-danger btn-lg" (click)="reject()">Reject</button>
+                    </div>
                   </form>
                 </div>
               </div>

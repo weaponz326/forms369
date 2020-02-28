@@ -98,6 +98,7 @@ export class ExecBranchesListPageComponent implements OnInit {
             branch.created_at = this.dateService.safeDateFormat(branch.created_at);
             this.branchesList.push(branch);
           });
+          this.allBranchesList = this.branchesList;
         }
         else {
           this.hasData = false;

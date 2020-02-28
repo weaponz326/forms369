@@ -63,7 +63,7 @@ export class FrontDeskProcessedFormsListPageComponent implements OnInit {
 
   open(e: Event, form: any) {
     e.stopPropagation();
-    this.router.navigateByUrl('/front_desk/preview', { state: { form: form }});
+    this.router.navigateByUrl('/front_desk/view_form', { state: { form: form }});
   }
 
   print(ev: Event, form: any) {

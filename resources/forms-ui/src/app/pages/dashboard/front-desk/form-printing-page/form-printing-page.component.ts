@@ -9,6 +9,7 @@ import { EndpointService } from 'src/app/services/endpoint/endpoint.service';
 import { PDFAnnotationData, PDFPageProxy, PDFProgressData } from 'pdfjs-dist';
 import { FrontDeskService } from 'src/app/services/front-desk/front-desk.service';
 import { LocalStorageService } from 'src/app/services/storage/local-storage.service';
+import { ReloadingService } from 'src/app/services/reloader/reloading.service';
 
 @Component({
   selector: 'app-form-printing-page',
@@ -29,6 +30,7 @@ export class FormPrintingPageComponent implements OnInit {
   constructor(
     private router: Router,
     private _fb: FormBuilder,
+    private reloader: ReloadingService,
     private endpointService: EndpointService,
     private localStorage: LocalStorageService,
     private frontDeskService: FrontDeskService,
@@ -38,7 +40,7 @@ export class FormPrintingPageComponent implements OnInit {
     this.dpiRatio = 96 / 72;
     this.clientFormDetails = [];
     this.form = window.history.state.form;
-    this.resolveReloadDataLoss();
+    this.form = this.reloader.resolveDataLoss(this.form);
     this.user = this.localStorage.getUser();
 
     this.frontDeskService.getPrintPDFFile(this.form.form_code, this.user.merchant_id.toString()).then(
@@ -57,24 +59,6 @@ export class FormPrintingPageComponent implements OnInit {
       },
       err => {}
     );
-  }
-
-  /**
-   * This is just a little hack to prevent loss of data passed in to window.history.state
-   * whenever the page is reloaded. The purpose is to ensure we still have the data needed
-   * to help build all the elements of this page.
-   *
-   * @version 0.0.2
-   * @memberof EditFormPageComponent
-   */
-  resolveReloadDataLoss() {
-    if (!_.isUndefined(this.form)) {
-      console.log('is undefined oooooooooooo');
-      sessionStorage.setItem('u_form', JSON.stringify(this.form));
-    }
-    else {
-      this.form = JSON.parse(sessionStorage.getItem('u_form'));
-    }
   }
 
   ngOnInit() {
