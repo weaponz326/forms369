@@ -940,6 +940,7 @@ class SetupController extends Controller
         ->join('company_admin', 'company_admin.id', '=', 'admin_id')
         ->select('merchants.*','company_admin.name AS admin_name','joint_companies.name AS exec_name')
         ->where('country', $country)
+        ->where('merchants.status', 1)
         ->paginate(15);
       
         //clean data
