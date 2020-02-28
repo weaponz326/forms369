@@ -932,16 +932,29 @@ class SetupController extends Controller
      *
      * @return void\Illuminate\Http\Response all merchants data
      */
-    public function getAllMerchantsByCountry(Request $request, $country){
+    public function getAllMerchantsByCountry(Request $request, $country, $sector){
 
-        //get all registered companies 
-        $getmerchants = DB::table('merchants')
-        ->leftjoin('joint_companies', 'joint_companies.id', '=', 'super_id')
-        ->join('company_admin', 'company_admin.id', '=', 'admin_id')
-        ->select('merchants.*','company_admin.name AS admin_name','joint_companies.name AS exec_name')
-        ->where('country', $country)
-        ->where('merchants.status', 1)
-        ->paginate(15);
+        if($sector == 0){
+            //get all registered companies 
+            $getmerchants = DB::table('merchants')
+            ->leftjoin('joint_companies', 'joint_companies.id', '=', 'super_id')
+            ->join('company_admin', 'company_admin.id', '=', 'admin_id')
+            ->select('merchants.*','company_admin.name AS admin_name','joint_companies.name AS exec_name')
+            ->where('country', $country)
+            ->where('merchants.status', 1)
+            ->paginate(15);
+        }else{
+             //get all registered companies 
+             $getmerchants = DB::table('merchants')
+             ->leftjoin('joint_companies', 'joint_companies.id', '=', 'super_id')
+             ->join('company_admin', 'company_admin.id', '=', 'admin_id')
+             ->select('merchants.*','company_admin.name AS admin_name','joint_companies.name AS exec_name')
+             ->where('country', $country)
+             ->where('merchants.status', 1)
+             ->where('sector_id', $sector)
+             ->paginate(15);
+        }
+        
       
         //clean data
         $merchantsdata = [];
