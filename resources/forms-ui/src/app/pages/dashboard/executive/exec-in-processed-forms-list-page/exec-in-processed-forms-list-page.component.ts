@@ -5,6 +5,7 @@ import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { DateTimeService } from 'src/app/services/date-time/date-time.service';
 import { FrontDeskService } from 'src/app/services/front-desk/front-desk.service';
 import { LocalStorageService } from 'src/app/services/storage/local-storage.service';
+import { ClientService } from 'src/app/services/client/client.service';
 
 @Component({
   selector: 'app-exec-in-processed-forms-list-page',
@@ -13,6 +14,7 @@ import { LocalStorageService } from 'src/app/services/storage/local-storage.serv
 })
 export class ExecInProcessedFormsListPageComponent implements OnInit {
   user: Users;
+  query: string;
   form: FormGroup;
   hasData: boolean;
   hasMore: boolean;
@@ -20,6 +22,7 @@ export class ExecInProcessedFormsListPageComponent implements OnInit {
   hasError: boolean;
   submitted: boolean;
   loadingMore: boolean;
+  foundNoForm: boolean;
   hasMoreError: boolean;
   processingFormsList: Array<any>;
   allProcessingFormsList: Array<any>;
@@ -27,9 +30,11 @@ export class ExecInProcessedFormsListPageComponent implements OnInit {
   constructor(
     private fb: FormBuilder,
     private dateService: DateTimeService,
+    private clientService: ClientService,
     private localStorage: LocalStorageService,
     private frontDeskService: FrontDeskService,
   ) {
+    this.query = '';
     this.processingFormsList = [];
     this.allProcessingFormsList = [];
     this.user = this.localStorage.getUser();
@@ -106,6 +111,86 @@ export class ExecInProcessedFormsListPageComponent implements OnInit {
     );
   }
 
+  searchByFormCode() {
+    this.loading = true;
+    this.clientService.findFormsByCode(this.query).then(
+      form => {
+        if (_.isNull(form) || _.isUndefined(form)) {
+          this.loading = false;
+          this.hasData = false;
+          this.foundNoForm = true;
+        }
+        else {
+          this.loading = false;
+          this.foundNoForm = false;
+          console.log('forrrrrm: ' + JSON.stringify(form));
+          this.processingFormsList.push(form);
+        }
+      },
+      err => {
+        this.hasError = true;
+        this.loading = false;
+      }
+    );
+  }
+
+  searchByFormName() {
+    this.loading = true;
+    this.frontDeskService.findFormByNameAndStatus(this.query, this.user.merchant_id.toString(), 2).then(
+      forms => {
+        if (forms.length == 0) {
+          this.loading = false;
+          this.hasData = false;
+          this.foundNoForm = true;
+        }
+        else {
+          this.hasData = true;
+          this.loading = false;
+          this.foundNoForm = false;
+          _.forEach(forms, (form) => {
+            this.processingFormsList.push(form);
+          });
+        }
+      },
+      err => {
+        this.hasError = true;
+        this.loading = false;
+      }
+    );
+  }
+
+  search(e: KeyboardEvent) {
+    if (e.key == 'Enter') {
+      if (this.query.length != 0) {
+        // we need to know whether the user is searching by a submission
+        // code or by a form name. So first, check if its a submission code.
+        console.log(this.query);
+        this.hasError = false;
+        this.processingFormsList = [];
+        this.allProcessingFormsList = [];
+        if (this.query.length == 6) {
+          // search by submission code.
+          console.log('searching by submission code');
+          this.searchByFormCode();
+        }
+        else {
+          // search by form name.
+          console.log('searching by form name');
+          this.searchByFormName();
+        }
+      }
+      else {
+        console.log('resetting ...');
+        if ((this.foundNoForm && this.query.length == 0) || this.query.length == 0) {
+          this.hasData = true;
+          this.foundNoForm = false;
+          console.log('hererereererere');
+          this.getAllFormsInProcessing();
+        }
+      }
+    }
+  }
+
   filter() {
     this.submitted = true;
     this.processingFormsList = this.allProcessingFormsList;
@@ -120,11 +205,13 @@ export class ExecInProcessedFormsListPageComponent implements OnInit {
       // Bootstrap date picker returns single digit for months from Jan to Sept
       // In order to allow us to compare against MYSQL which returns double digits
       // for that, we convert the month accordingly.
+      const end_day = _.toNumber(end.day) <= 9 ? '0' + end.day : end.day;
       const end_month = _.toNumber(end.month) <= 9 ? '0' + end.month : end.month;
+      const start_day = _.toNumber(start.day) <= 9 ? '0' + start.day : start.day;
       const start_month = _.toNumber(start.month) <= 9 ? '0' + start.month : start.month;
 
-      const end_date = end.year + '-' + end_month + '-' + end.day;
-      const start_date = start.year + '-' + start_month + '-' + start.day;
+      const end_date = end.year + '-' + end_month + '-' + end_day;
+      const start_date = start.year + '-' + start_month + '-' + start_day;
       console.log(start_date);
       console.log(end_date);
 
