@@ -9,11 +9,11 @@ import { FrontDeskService } from 'src/app/services/front-desk/front-desk.service
 import { LocalStorageService } from 'src/app/services/storage/local-storage.service';
 
 @Component({
-  selector: 'app-exec-processed-forms-list-page',
-  templateUrl: './exec-processed-forms-list-page.component.html',
-  styleUrls: ['./exec-processed-forms-list-page.component.css']
+  selector: 'app-exec-rejected-forms-list-page',
+  templateUrl: './exec-rejected-forms-list-page.component.html',
+  styleUrls: ['./exec-rejected-forms-list-page.component.css']
 })
-export class ExecProcessedFormsListPageComponent implements OnInit {
+export class ExecRejectedFormsListPageComponent implements OnInit {
   user: Users;
   query: string;
   form: FormGroup;
@@ -25,8 +25,8 @@ export class ExecProcessedFormsListPageComponent implements OnInit {
   loadingMore: boolean;
   foundNoForm: boolean;
   hasMoreError: boolean;
-  processedFormsList: Array<any>;
-  allProcessedFormsList: Array<any>;
+  rejectedFormsList: Array<any>;
+  allRejectedFormsList: Array<any>;
 
   constructor(
     private router: Router,
@@ -37,11 +37,11 @@ export class ExecProcessedFormsListPageComponent implements OnInit {
     private frontDeskService: FrontDeskService,
   ) {
     this.query = '';
-    this.processedFormsList = [];
-    this.allProcessedFormsList = [];
+    this.rejectedFormsList = [];
+    this.allRejectedFormsList = [];
     this.user = this.localStorage.getUser();
 
-    this.getAllProcessedForms();
+    this.getAllRejectedForms();
   }
 
   ngOnInit() {
@@ -61,17 +61,17 @@ export class ExecProcessedFormsListPageComponent implements OnInit {
 
   print(ev: Event, form: any) {
     ev.stopPropagation();
-    this.router.navigateByUrl('front_desk/print_form', { state: { form: form }});
+    this.router.navigateByUrl('front_desk/print_form', { state: { form: form } });
   }
 
   checkIfHasMore() {
     return _.isEmpty(this.frontDeskService.nextPaginationUrl) ? false : true;
   }
 
-  getAllProcessedForms() {
+  getAllRejectedForms() {
     this.loading = true;
     const merchant_id = this.user.merchant_id.toString();
-    this.frontDeskService.getSubmittedFormByStatusAndMerchant(2, merchant_id).then(
+    this.frontDeskService.getSubmittedFormByStatusAndMerchant(3, merchant_id).then(
       res => {
         this.hasMore = this.checkIfHasMore();
         if (res.length != 0) {
@@ -79,9 +79,9 @@ export class ExecProcessedFormsListPageComponent implements OnInit {
           _.forEach(res, (form) => {
             form.submitted_at = this.dateService.safeDateFormat(form.submitted_at);
             form.last_processed = this.dateService.safeDateFormat(form.last_processed);
-            this.processedFormsList.push(form);
+            this.rejectedFormsList.push(form);
           });
-          this.allProcessedFormsList = this.processedFormsList;
+          this.allRejectedFormsList = this.rejectedFormsList;
           this.loading = false;
         }
         else {
@@ -100,7 +100,7 @@ export class ExecProcessedFormsListPageComponent implements OnInit {
     this.loadingMore = true;
     const merchant_id = this.user.merchant_id.toString();
     const moreUrl = this.frontDeskService.nextPaginationUrl;
-    this.frontDeskService.getSubmittedFormByStatusAndMerchant(2, merchant_id, moreUrl).then(
+    this.frontDeskService.getSubmittedFormByStatusAndMerchant(3, merchant_id, moreUrl).then(
       res => {
         this.loadingMore = false;
         this.hasMoreError = false;
@@ -108,9 +108,9 @@ export class ExecProcessedFormsListPageComponent implements OnInit {
         _.forEach(res, (form) => {
           form.submitted_at = this.dateService.safeDateFormat(form.submitted_at);
           form.last_processed = this.dateService.safeDateFormat(form.last_processed);
-          this.processedFormsList.push(form);
+          this.rejectedFormsList.push(form);
         });
-        this.allProcessedFormsList = this.processedFormsList;
+        this.allRejectedFormsList = this.rejectedFormsList;
         this.loading = false;
       },
       err => {
@@ -133,7 +133,7 @@ export class ExecProcessedFormsListPageComponent implements OnInit {
           this.loading = false;
           this.foundNoForm = false;
           console.log('forrrrrm: ' + JSON.stringify(form));
-          this.processedFormsList.push(form);
+          this.rejectedFormsList.push(form);
         }
       },
       err => {
@@ -145,7 +145,7 @@ export class ExecProcessedFormsListPageComponent implements OnInit {
 
   searchByFormName() {
     this.loading = true;
-    this.frontDeskService.findFormByNameAndStatus(this.query, this.user.merchant_id.toString(), 2).then(
+    this.frontDeskService.findFormByNameAndStatus(this.query, this.user.merchant_id.toString(), 3).then(
       forms => {
         if (forms.length == 0) {
           this.loading = false;
@@ -157,7 +157,7 @@ export class ExecProcessedFormsListPageComponent implements OnInit {
           this.loading = false;
           this.foundNoForm = false;
           _.forEach(forms, (form) => {
-            this.processedFormsList.push(form);
+            this.rejectedFormsList.push(form);
           });
         }
       },
@@ -175,8 +175,8 @@ export class ExecProcessedFormsListPageComponent implements OnInit {
         // code or by a form name. So first, check if its a submission code.
         console.log(this.query);
         this.hasError = false;
-        this.processedFormsList = [];
-        this.allProcessedFormsList = [];
+        this.rejectedFormsList = [];
+        this.allRejectedFormsList = [];
         if (this.query.length == 6) {
           // search by submission code.
           console.log('searching by submission code');
@@ -194,7 +194,7 @@ export class ExecProcessedFormsListPageComponent implements OnInit {
           this.hasData = true;
           this.foundNoForm = false;
           console.log('hererereererere');
-          this.getAllProcessedForms();
+          this.getAllRejectedForms();
         }
       }
     }
@@ -202,8 +202,8 @@ export class ExecProcessedFormsListPageComponent implements OnInit {
 
   filter() {
     this.submitted = true;
-    this.processedFormsList = this.allProcessedFormsList;
-    console.log('processlist length: ' + this.processedFormsList.length);
+    this.rejectedFormsList = this.allRejectedFormsList;
+    console.log('processlist length: ' + this.rejectedFormsList.length);
     if (this.form.invalid) {
       console.log('filter form error: ' + this.form.errors);
     }
@@ -225,7 +225,7 @@ export class ExecProcessedFormsListPageComponent implements OnInit {
       console.log(end_date);
 
       // Filter forms list.
-      this.processedFormsList = _.filter(this.processedFormsList,
+      this.rejectedFormsList = _.filter(this.rejectedFormsList,
         (form) =>
           this.dateService.getDatePart(form.last_processed) >= start_date &&
           this.dateService.getDatePart(form.last_processed) <= end_date
@@ -235,7 +235,7 @@ export class ExecProcessedFormsListPageComponent implements OnInit {
 
   retry() {
     this.hasError = false;
-    this.getAllProcessedForms();
+    this.getAllRejectedForms();
   }
 
 }

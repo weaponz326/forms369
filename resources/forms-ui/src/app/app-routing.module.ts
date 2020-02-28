@@ -98,6 +98,7 @@ import { ClientPrintingPageComponent } from './pages/dashboard/client/client-pri
 import { ClientPdfPrintingPageComponent } from './pages/dashboard/client/client-pdf-printing-page/client-pdf-printing-page.component';
 import { InvalidPasswordResetPageComponent } from './pages/invalid-password-reset-page/invalid-password-reset-page.component';
 import { ClientFormNewEntryPageComponent } from './pages/dashboard/client/client-form-new-entry-page/client-form-new-entry-page.component';
+import { ExecRejectedFormsListPageComponent } from './pages/dashboard/executive/exec-rejected-forms-list-page/exec-rejected-forms-list-page.component';
 
 const routes: Routes = [
   {
@@ -428,6 +429,10 @@ const routes: Routes = [
       {
         path: 'processing',
         component: ExecInProcessedFormsListPageComponent
+      },
+      {
+        path: 'rejected',
+        component: ExecRejectedFormsListPageComponent
       },
       {
         path: 'forms',

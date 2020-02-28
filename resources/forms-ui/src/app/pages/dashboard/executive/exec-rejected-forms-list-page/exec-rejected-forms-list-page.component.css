@@ -1,0 +1,12 @@
+.d-flex .btn i {
+    font-size: 1rem;
+}
+
+.form-control-sm {
+    padding-top: 19px;
+    padding-bottom: 19px;
+}
+
+.search-form {
+    border-radius: 30px;
+}
