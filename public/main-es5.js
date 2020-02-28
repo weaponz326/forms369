@@ -9292,6 +9292,7 @@ var ClientProfilePageComponent = /** @class */ (function () {
             email: this.userData['email'],
             country: this.userData['country'],
         };
+        // alert(this.userData['firstname']);
     };
     ClientProfilePageComponent.prototype.appendOnChangeEventToFileInput = function () {
         var _this = this;
@@ -15442,6 +15443,16 @@ var FrontDeskViewFormPageComponent = /** @class */ (function () {
             var client_data = this.form.client_submitted_details;
             this.frontDeskService.setFormWithClientData(data, client_data);
         }
+        this.disableFileInputField();
+    };
+    FrontDeskViewFormPageComponent.prototype.disableFileInputField = function () {
+        // console.log('form_data: ' + JSON.stringify(this.form));
+        var allInputFields = document.querySelectorAll('input');
+        lodash__WEBPACK_IMPORTED_MODULE_2__["forEach"](allInputFields, function (field) {
+            if (field.type == 'file') {
+                field.disabled = true;
+            }
+        });
     };
     FrontDeskViewFormPageComponent.prototype.getFormData = function () {
         return this.formInstance.userData;

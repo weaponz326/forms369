@@ -9089,6 +9089,7 @@ let ClientProfilePageComponent = class ClientProfilePageComponent {
             email: this.userData['email'],
             country: this.userData['country'],
         };
+        // alert(this.userData['firstname']);
     }
     appendOnChangeEventToFileInput() {
         console.log('called appendOnChangeEventToFileInput');
@@ -15048,6 +15049,16 @@ let FrontDeskViewFormPageComponent = class FrontDeskViewFormPageComponent {
             const client_data = this.form.client_submitted_details;
             this.frontDeskService.setFormWithClientData(data, client_data);
         }
+        this.disableFileInputField();
+    }
+    disableFileInputField() {
+        // console.log('form_data: ' + JSON.stringify(this.form));
+        const allInputFields = document.querySelectorAll('input');
+        lodash__WEBPACK_IMPORTED_MODULE_2__["forEach"](allInputFields, (field) => {
+            if (field.type == 'file') {
+                field.disabled = true;
+            }
+        });
     }
     getFormData() {
         return this.formInstance.userData;

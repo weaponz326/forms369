@@ -132,6 +132,18 @@ export class FrontDeskViewFormPageComponent implements OnInit {
       const client_data = this.form.client_submitted_details;
       this.frontDeskService.setFormWithClientData(data, client_data);
     }
+
+    this.disableFileInputField();
+  }
+
+  disableFileInputField() {
+    // console.log('form_data: ' + JSON.stringify(this.form));
+    const allInputFields = document.querySelectorAll('input');
+    _.forEach(allInputFields, (field) => {
+      if (field.type == 'file') {
+        field.disabled = true;
+      }
+    });
   }
 
   getFormData() {
