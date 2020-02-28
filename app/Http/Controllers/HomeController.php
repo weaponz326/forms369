@@ -2107,4 +2107,30 @@ class HomeController extends Controller
         $message = (new ClientController)->getClientFormsByStatusAndMerchant($request, $term, $status, $id);
         return $message;
      }
+
+     /**
+     * createBusinessSector create a new business sector
+     *
+     * @param  mixed $request
+     *
+     * @return \Illuminate\Http\Response success or error message
+     */
+     public function createBusinessSector(Request $request)
+     {
+        $message = (new SetupController)->createBusinessSector($request);
+        return $message;
+     }
+
+     /**
+     * getAllBusinessSectors get all business sectors in the db
+     *
+     * @param  mixed $request
+     *
+     * @return void\Illuminate\Http\Response all template categories data
+     */
+     public function getAllBusinessSectors(Request $request)
+     {
+        $message = (new SetupController)->getAllBusinessSectors($request);
+        return $message;
+     }
 }    

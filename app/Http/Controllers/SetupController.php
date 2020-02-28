@@ -1540,5 +1540,67 @@ class SetupController extends Controller
 
     }
 
+     /**
+     * createBusinessSector create a new business sector
+     *
+     * @param  mixed $request
+     *
+     * @return \Illuminate\Http\Response success or error message
+     */
+     public function createBusinessSector(Request $request){
+
+        $this->validate($request, [
+            'name' => 'required'
+        ]);
+
+        $name = $request->name;
+
+        $created_at = now();
+
+        //get user creating the new merchant
+        $user = $request->user();
+        $userid = $user['id'];
+
+        try {
+            DB::table('business_sectors')->insertGetId(
+                [
+                    'name' => $name, 
+                    'created_by' => $userid, 
+                    'created_at' => $created_at
+                ]
+            );
+
+            $message = 'Ok';
+            Log::channel('mysql')->info('User with id: ' . $userid .' successsfully created a new business sector');
+
+        }catch(Exception $e) {
+            Log::channel('mysql')->error('User with id: ' . $userid .' unsuccesssfully created a new business sector');
+            $message = "Failed";
+        } 
+            
+        return response()->json([
+            'message' => $message
+        ]);
+
+    }
+
+     /**
+     * getAllBusinessSectors get all business sectors in the db
+     *
+     * @param  mixed $request
+     *
+     * @return void\Illuminate\Http\Response all template categories data
+     */
+     public function getAllBusinessSectors(Request $request){
+
+        //get all template categories 
+        $getbusinesssectors = DB::table('business_sectors')->get();
+
+         $response = [
+            'business_sectors' => $getbusinesssectors
+        ];
+        return response()->json($response, 200);
+
+    }
 
 }
