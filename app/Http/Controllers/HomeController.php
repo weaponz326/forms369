@@ -586,10 +586,10 @@ class HomeController extends Controller
      *
      * @return void\Illuminate\Http\Response all merchants data
      */
-    protected function getAllMerchantsByCountry(Request $request, $country)
+    protected function getAllMerchantsByCountry(Request $request, $country, $sector)
     {
 
-        $message = (new SetupController)->getAllMerchantsByCountry($request, $country);
+        $message = (new SetupController)->getAllMerchantsByCountry($request, $country, $sector);
         return $message;
 
     }
