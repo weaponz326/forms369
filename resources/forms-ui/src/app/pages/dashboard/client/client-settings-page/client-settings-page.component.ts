@@ -16,6 +16,7 @@ export class ClientSettingsPageComponent implements OnInit {
   user: Users;
   form: FormGroup;
   loading: boolean;
+  loading1: boolean;
   _loading: boolean;
   pinForm: FormGroup;
   submitted: boolean;
@@ -110,6 +111,42 @@ export class ClientSettingsPageComponent implements OnInit {
     });
   }
 
+  showUpdatePasswordSuccess() {
+    Swal.fire({
+      title: 'Successful',
+      text: 'Your password has been successfully changed',
+      icon: 'success',
+      confirmButtonText: 'Ok'
+    });
+  }
+
+  showUpdatePasswordFailed() {
+    Swal.fire({
+      title: 'Oops!',
+      text: 'Sorry!. Password update failed. Please check your internet connection or our servers may be down.',
+      icon: 'error',
+      confirmButtonText: 'Hmm, Ok'
+    });
+  }
+
+  showSamePasswordAlert() {
+    Swal.fire({
+      title: 'Oops!',
+      text: 'Sorry!. Your new password cannot be the same as your current password',
+      icon: 'warning',
+      confirmButtonText: 'Hmm, Ok'
+    });
+  }
+
+  showPasswordMismatchAlert() {
+    Swal.fire({
+      title: 'Oops!',
+      text: 'Sorry!. Your current password provided is incorrect',
+      icon: 'warning',
+      confirmButtonText: 'Hmm, Ok'
+    });
+  }
+
   initPinForm() {
     this.pinForm = this.fb.group({
       pin: ['', [Validators.minLength(4), Validators.required]]
@@ -146,6 +183,15 @@ export class ClientSettingsPageComponent implements OnInit {
         console.log('error: ' + JSON.stringify(err));
       }
     );
+  }
+
+  passwordsMatch() {
+    if (this.pwdF.newPassword.value != this.pwdF.confirmPassword.value) {
+      return false;
+    }
+    else {
+      return true;
+    }
   }
 
   changePin() {
@@ -209,11 +255,35 @@ export class ClientSettingsPageComponent implements OnInit {
     const new_pwd_confirm = this.pwdF.confirmPassword.value;
 
     if (this.passwordForm.valid) {
-      this.loading = true;
-      this.accountService.updateAccountPassword(user_id, current_pwd, new_password, new_pwd_confirm).then(
-        ok => {},
-        err => {}
-      );
+      if (this.passwordsMatch()) {
+        this.loading1 = true;
+        this.accountService.updateAccountPassword(user_id, current_pwd, new_password, new_pwd_confirm).then(
+          ok => {
+            if (ok == true) {
+              this.loading1 = false;
+              this.submitted1 = false;
+              this.passwordForm.reset();
+              this.showUpdatePasswordSuccess();
+            }
+            else if (ok == 'MISMATCH') {
+              this.loading1 = false;
+              this.showPasswordMismatchAlert();
+            }
+            else {
+              // the response was THE_SAME_PASSWORD
+              this.loading1 = false;
+              this.showSamePasswordAlert();
+            }
+          },
+          err => {
+            this.loading1 = false;
+            this.showUpdatePasswordFailed();
+          }
+        );
+      }
+      else {
+        this.pwdF.confirmPassword.setErrors({ unmatched: true });
+      }
     }
   }
 

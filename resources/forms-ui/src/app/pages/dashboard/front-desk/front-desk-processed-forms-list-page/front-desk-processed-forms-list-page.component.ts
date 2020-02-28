@@ -6,6 +6,7 @@ import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { DateTimeService } from 'src/app/services/date-time/date-time.service';
 import { FrontDeskService } from 'src/app/services/front-desk/front-desk.service';
 import { LocalStorageService } from 'src/app/services/storage/local-storage.service';
+import { ClientService } from 'src/app/services/client/client.service';
 
 @Component({
   selector: 'app-front-desk-processed-forms-list-page',
@@ -14,6 +15,7 @@ import { LocalStorageService } from 'src/app/services/storage/local-storage.serv
 })
 export class FrontDeskProcessedFormsListPageComponent implements OnInit {
   user: Users;
+  query: string;
   form: FormGroup;
   hasMore: boolean;
   hasData: boolean;
@@ -21,6 +23,7 @@ export class FrontDeskProcessedFormsListPageComponent implements OnInit {
   hasError: boolean;
   submitted: boolean;
   can_print: boolean;
+  foundNoForm: boolean;
   loadingMore: boolean;
   hasMoreError: boolean;
   processedFormsList: Array<any>;
@@ -30,9 +33,11 @@ export class FrontDeskProcessedFormsListPageComponent implements OnInit {
     private router: Router,
     private fb: FormBuilder,
     private dateTime: DateTimeService,
+    private clientService: ClientService,
     private localStorage: LocalStorageService,
     private frontDeskService: FrontDeskService,
   ) {
+    this.query = '';
     this.processedFormsList = [];
     this.allProcessedFormsList = [];
     this.user = this.localStorage.getUser();
@@ -120,6 +125,89 @@ export class FrontDeskProcessedFormsListPageComponent implements OnInit {
     );
   }
 
+  searchBySubmissionCode() {
+    this.loading = true;
+    this.processedFormsList = [];
+    this.allProcessedFormsList = [];
+    this.frontDeskService.getForm(this.query, this.user.merchant_id.toString()).then(
+      form => {
+        if (_.isNull(form) || _.isUndefined(form)) {
+          this.loading = false;
+          this.hasData = false;
+          this.foundNoForm = true;
+        }
+        else {
+          this.loading = false;
+          this.foundNoForm = false;
+          this.processedFormsList.push(form);
+        }
+      },
+      err => {
+        this.hasError = true;
+        this.loading = false;
+      }
+    );
+  }
+
+  searchByFormName() {
+    this.loading = true;
+    this.processedFormsList = [];
+    this.allProcessedFormsList = [];
+    this.frontDeskService.findFormByNameAndStatus(this.query, this.user.merchant_id.toString(), 2).then(
+      forms => {
+        if (forms.length == 0) {
+          this.loading = false;
+          this.hasData = false;
+          this.foundNoForm = true;
+        }
+        else {
+          this.hasData = true;
+          this.loading = false;
+          this.foundNoForm = false;
+          _.forEach(forms, (form) => {
+            this.processedFormsList.push(form);
+          });
+        }
+      },
+      err => {
+        this.hasError = true;
+        this.loading = false;
+      }
+    );
+  }
+
+  search(e: KeyboardEvent) {
+    if (e.key == 'Enter') {
+      if (this.query.length != 0) {
+        // we need to know whether the user is searching by a submission
+        // code or by a form name. So first, check if its a submission code.
+        console.log(this.query);
+        this.hasError = false;
+        // this.processedFormsList = [];
+        // this.allProcessedFormsList = [];
+        if (this.query.length == 5) {
+          // search by submission code.
+          console.log('searching by submission code');
+          this.searchBySubmissionCode();
+        }
+        else {
+          // search by form name.
+          console.log('searching by form name');
+          this.searchByFormName();
+        }
+      }
+      else {
+        console.log('resetting ...');
+        if ((this.foundNoForm && this.query.length == 0) || this.query.length == 0) {
+          this.hasData = true;
+          this.foundNoForm = false;
+          console.log('hererereererere');
+          this.getAllProcessedForms();
+        }
+      }
+    }
+  }
+
   filter() {
     this.submitted = true;
     this.processedFormsList = this.allProcessedFormsList;
@@ -152,6 +240,7 @@ export class FrontDeskProcessedFormsListPageComponent implements OnInit {
   }
 
   retry() {
+    this.hasError = false;
     this.getAllProcessedForms();
   }
 

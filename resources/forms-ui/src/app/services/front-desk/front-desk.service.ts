@@ -175,6 +175,40 @@ export class FrontDeskService {
     });
   }
 
+  /**
+   * Finds a form by name and status.
+   *
+   * @param {string} form_name
+   * @param {string} merchant_id
+   * @param {number} status
+   * @returns {Promise<any>}
+   * @memberof FrontDeskService
+   */
+  findFormByNameAndStatus(form_name: string, merchant_id: string, status: number): Promise<any> {
+    return new Promise((resolve, reject) => {
+      const url = this.endpointService.apiHost + `api/v1/getClientFormsByStatusAndMerchant/${form_name}/${status}/${merchant_id}`;
+      this.http.get(url, { headers: this.headers }).subscribe(
+        res => {
+          console.log('res: ' + JSON.stringify(res));
+          const response = res as any;
+          resolve(response.forms);
+        },
+        err => {
+          console.log('err: ' + JSON.stringify(err));
+          reject(err);
+        }
+      );
+    });
+  }
+
+  /**
+   * Returns client data for all processed forms.
+   *
+   * @param {string} form_code
+   * @param {string} [page_url]
+   * @returns {Promise<any>}
+   * @memberof FrontDeskService
+   */
   getRespondantData(form_code: string, page_url?: string): Promise<any> {
     return new Promise((resolve, reject) => {
       const url = !_.isUndefined(page_url)
@@ -224,6 +258,14 @@ export class FrontDeskService {
     });
   }
 
+  /**
+   * Returns the PDF file for a form.
+   *
+   * @param {string} form_code
+   * @param {string} merchant_id
+   * @returns {Promise<any>}
+   * @memberof FrontDeskService
+   */
   getPrintPDFFile(form_code: string, merchant_id: string): Promise<any> {
     return new Promise((resolve, reject) => {
       const url = this.endpointService.apiHost + 'api/v1/getPrintFile/' + merchant_id + '/' + form_code;
@@ -241,6 +283,15 @@ export class FrontDeskService {
     });
   }
 
+  /**
+   * Processes a form by changing its status to `2`
+   * which means its processed.
+   *
+   * @param {string} code
+   * @param {*} clientData
+   * @returns {Promise<any>}
+   * @memberof FrontDeskService
+   */
   completeForm(code: string, clientData: any): Promise<any> {
     return new Promise((resolve, reject) => {
       console.log('client_dataaaaaaaa: ' + JSON.stringify(clientData));
@@ -258,6 +309,15 @@ export class FrontDeskService {
     });
   }
 
+  /**
+   * Processes a form by changing its status to `1`
+   * which means its in process.
+   *
+   * @param {string} code
+   * @param {*} clientData
+   * @returns {Promise<any>}
+   * @memberof FrontDeskService
+   */
   processForm(code: string, clientData: any): Promise<any> {
     return new Promise((resolve, reject) => {
       const url = this.endpointService.apiHost + 'api/v1/processSubmitForm/' + code + '/' + '1';
@@ -275,6 +335,14 @@ export class FrontDeskService {
     });
   }
 
+  /**
+   * Rejects a form by chnaging its status to `3`.
+   *
+   * @param {string} code
+   * @param {*} clientData
+   * @returns {Promise<any>}
+   * @memberof FrontDeskService
+   */
   rejectForm(code: string, clientData: any): Promise<any> {
     return new Promise((resolve, reject) => {
       const url = this.endpointService.apiHost + 'api/v1/processSubmitForm/' + code + '/' + '3';

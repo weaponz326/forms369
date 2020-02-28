@@ -128,23 +128,24 @@ export class AccountService {
    * @returns {Promise<boolean>}
    * @memberof AccountService
    */
-  updateAccountPassword(user_id: string, old_password: string, new_password: string, confirmation_password: string): Promise<boolean> {
+  updateAccountPassword(user_id: string, old_password: string, new_password: string, confirmation_password: string): Promise<any> {
     return new Promise((resolve, reject) => {
-      const url = this.endpointService + 'api/v1/changePassword/' + user_id;
+      const url = this.endpointService.apiHost + 'api/v1/changePassword/' + user_id;
       const body = {
         current_password: old_password,
         new_password: new_password,
         new_password_confirmation: confirmation_password
       };
 
-      this.http.post(url, body, { headers: this.headers }).subscribe(
+      this.http.post(url, body, { headers: this.authHeaders }).subscribe(
         res => {
           const response = res as any;
+          console.log('updated_password: ' + JSON.stringify(response));
           if (_.toLower(response.message) == 'ok') {
             resolve(true);
           }
           else {
-            resolve(false);
+            resolve(response.message);
           }
         },
         err => {

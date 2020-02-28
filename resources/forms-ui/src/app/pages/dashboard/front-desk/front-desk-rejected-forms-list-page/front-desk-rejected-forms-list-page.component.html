@@ -54,6 +54,18 @@
           </div>
         </div>
 
+        <div class="row">
+          <div class="col-12 col-md-8 offset-md-2 mb-3">
+            <div class="search-bar">
+              <form>
+                <input type="text" class="search-form form-control" name="query" [(ngModel)]="query"
+                  placeholder="Search by submission code or by form name" aria-label="search" aria-describedby="search"
+                  (keypress)="search($event)">
+              </form>
+            </div>
+          </div>
+        </div>
+
         <div *ngIf="loading" class="row m-5">
           <div class="col-md-12 m-5">
             <div class="d-flex justify-content-center">
@@ -64,14 +76,11 @@
           </div>
         </div>
 
-        <div *ngIf="!loading && !hasData" class="row">
+        <div *ngIf="!loading && !hasData && !foundNoForm" class="row">
           <div class="col-lg-12 grid-margin stretch-card">
             <div class="card text-center pt-5 pb-5">
               <div class="card-body mt-5 mb-5">
                 <h4 class="card-title">No Data Found</h4>
-                <p class="card-description">
-                  No forms found.
-                </p>
                 <div class="text-lg-center mt-5 mb-5">
                   <div class="card-text">
                     <i class="mdi mdi-timer" style="font-size: 8em;"></i>
@@ -79,6 +88,27 @@
                   <div class="card-text">
                     <h3>No Rejected Forms</h3>
                     <p class="text-muted">There are no rejected forms yet!</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div *ngIf="foundNoForm && !loading" class="row">
+          <div class="col-lg-12 grid-margin stretch-card">
+            <div class="card text-center pt-5 pb-5">
+              <div class="card-body mt-5 mb-5">
+                <h4 class="card-title">No Search Result</h4>
+                <div class="text-lg-center mt-5 mb-5">
+                  <div class="card-text">
+                    <i class="mdi mdi-search-web" style="font-size: 8em;"></i>
+                  </div>
+                  <div class="card-text">
+                    <h3>No Forms Found</h3>
+                    <p class="text-muted">
+                      No form found based on your search criteria.
+                    </p>
                   </div>
                 </div>
               </div>
@@ -132,18 +162,21 @@
                         <td (click)="open($event, form)">{{ form.submitted_at | date }}</td>
                         <td>
                           <div class="d-flex align-items-end flex-wrap">
-                            <div class="dropdown">
-                              <button class="btn btn-light dropdown-toggle" type="button" id="dropdownMenuButton"
-                                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                <i class="mdi mdi-dots-vertical text-muted"></i>
-                              </button>
-                              <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                                <a class="dropdown-item" (click)="completeForm($event, form, form.submission_code, i)">Complete</a>
-                                <a class="dropdown-item" (click)="processForm($event, form, form.submission_code, i)">Process</a>
-                                <!-- <a class="dropdown-item" (click)="rejectForm($event, form, form.submission_code, i)">Reject</a> -->
-                                <a class="dropdown-item" (click)="showReviewDialog($event, form.submission_code)">View Rejection Message</a>
-                              </div>
-                            </div>
+                            <button type="button" class="btn btn-light bg-white btn-icon mr-1"
+                              (click)="completeForm($event, form, form.submission_code, i)" placement="top"
+                              ngbTooltip="Complete Form">
+                              <i class="mdi mdi-check-outline text-muted"></i>
+                            </button>
+                            <button type="button" class="btn btn-light bg-white btn-icon mr-1"
+                              (click)="processForm($event, form, form.submission_code, i)" placement="top"
+                              ngbTooltip="Processing Form">
+                              <i class="mdi mdi-undo-variant text-muted"></i>
+                            </button>
+                            <button type="button" class="btn btn-light bg-white btn-icon mr-2"
+                              (click)="showReviewDialog($event, form.submission_code)" placement="top" 
+                              ngbTooltip="View Rejection Message">
+                              <i class="mdi mdi-message-alert-outline text-muted"></i>
+                            </button>
                           </div>
                         </td>
                       </tr>

@@ -200,9 +200,9 @@ export class CompanyService {
    * @returns {Promise<any>}
    * @memberof CompanyService
    */
-  getCompanyByName(company_name: string): Promise<any> {
+  getCompanyByName(company_name: string, country: string): Promise<any> {
     return new Promise((resolve, reject) => {
-      const url = this.endpointService.apiHost + 'api/v1/getMerchantbyName/' + company_name;
+      const url = this.endpointService.apiHost + 'api/v1/getMerchantbyName/' + company_name + '/' + country;
       this.http.get(url, { headers: this.headers }).subscribe(
         res => {
           console.log('response_c_names: ' + JSON.stringify(res));

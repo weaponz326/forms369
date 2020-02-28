@@ -4,6 +4,8 @@ import { Router } from '@angular/router';
 import { FormBuilderService } from 'src/app/services/form-builder/form-builder.service';
 import { FormsService } from 'src/app/services/forms/forms.service';
 import { ClientService } from 'src/app/services/client/client.service';
+import { Users } from 'src/app/models/users.model';
+import { LocalStorageService } from 'src/app/services/storage/local-storage.service';
 
 @Component({
   selector: 'app-client-list-forms-page',
@@ -11,6 +13,7 @@ import { ClientService } from 'src/app/services/client/client.service';
   styleUrls: ['./client-list-forms-page.component.css']
 })
 export class ClientListFormsPageComponent implements OnInit {
+  user: Users;
   company: any;
   query: string;
   hasData: boolean;
@@ -26,12 +29,14 @@ export class ClientListFormsPageComponent implements OnInit {
   constructor(
     private router: Router,
     private formService: FormsService,
-    private clientService: ClientService
+    private clientService: ClientService,
+    private localStorage: LocalStorageService
   ) {
     this.query = '';
     this.formsList = [];
     this.company = history.state.company;
     this.resolveReloadDataLoss();
+    this.user = this.localStorage.getUser();
     this.isConnected = window.navigator.onLine ? true : false;
     this.getAllForms();
   }
@@ -90,7 +95,7 @@ export class ClientListFormsPageComponent implements OnInit {
 
   searchByFormName() {
     this.loading = true;
-    this.clientService.findFormsByName(this.query).then(
+    this.clientService.findFormsByName(this.query, this.user.country).then(
       forms => {
         if (forms.length == 0) {
           this.loading = false;
@@ -113,39 +118,41 @@ export class ClientListFormsPageComponent implements OnInit {
 
   search(e: KeyboardEvent) {
     if (e.key == 'Enter') {
-      // we need to know whether the user is searching by a form code
-      // or the user is searching by a form name.
-      // First, check if its a form code.
-      console.log(this.query);
-      this.hasError = false;
-      this.formsList = [];
-      if (/\d/.test(this.query)) {
-        if (this.query.length == 5) {
-          // search by form code, based on the input
-          // the user might be searching by a form code.
-          console.log('searching by form code');
-          this.searchByFormCode();
+      if (this.query.length > 0) {
+        // we need to know whether the user is searching by a form code
+        // or the user is searching by a form name.
+        // First, check if its a form code.
+        console.log(this.query);
+        this.hasError = false;
+        this.formsList = [];
+        if (/\d/.test(this.query)) {
+          if (this.query.length == 5) {
+            // search by form code, based on the input
+            // the user might be searching by a form code.
+            console.log('searching by form code');
+            this.searchByFormCode();
+          }
+          else {
+            // the input contains a number but is more than 6 characters
+            // in lenght, this might be a form name.
+            console.log('searching by form name');
+            this.searchByFormName();
+          }
         }
         else {
-          // the input contains a number but is more than 6 characters
-          // in lenght, this might be a form name.
-          console.log('searching by form name');
+          // since all our form codes includes digits, and this
+          // users input doesnt include a digit, search by form name.
+          console.log('searching by form name last');
           this.searchByFormName();
         }
       }
       else {
-        // since all our form codes includes digits, and this
-        // users input doesnt include a digit, search by form name.
-        console.log('searching by form name last');
-        this.searchByFormName();
-      }
-    }
-    else {
-      if ((this.foundNoForm && this.query.length == 0) || this.query.length == 0) {
-        this.hasData = true;
-        this.foundNoForm = false;
-        console.log('hererereererere');
-        this.getAllForms();
+        if ((this.foundNoForm && this.query.length == 0) || this.query.length == 0) {
+          this.hasData = true;
+          this.foundNoForm = false;
+          console.log('hererereererere');
+          this.getAllForms();
+        }
       }
     }
   }

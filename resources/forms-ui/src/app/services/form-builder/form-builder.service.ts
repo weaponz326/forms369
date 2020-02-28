@@ -531,13 +531,13 @@ export class FormBuilderService {
     });
   }
 
-  getUserFilledData(client_id: string): Promise<any> {
+  getClientProvidedData(client_id: string): Promise<any> {
     return new Promise((resolve, reject) => {
       const url = this.endpointService.apiHost + 'api/v1/getClientsDetails/' + client_id;
       console.log(url);
       this.http.get(url, { headers: this.headers }).subscribe(
         (res: any) => {
-          console.log('client_data: ' + res.client);
+          console.log('client_data: ' + JSON.stringify(res));
           const client = res.client;
           resolve(client);
         },

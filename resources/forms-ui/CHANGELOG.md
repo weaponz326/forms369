@@ -67,5 +67,10 @@
     4. Client can now log in with email address or username
     5. Country picker in register is now hidden.
     6. New logo introduced.
-    7. 
+    7. Profile UI updated to a collapsible.
+    8. Minor UI changes across the client user's ui
+    9. Clients can now update their account password.
+    10. Clients can no longer update their primary information.
+    11. Search added to front desk, processed forms, processing and rejected forms ui.
+
 
