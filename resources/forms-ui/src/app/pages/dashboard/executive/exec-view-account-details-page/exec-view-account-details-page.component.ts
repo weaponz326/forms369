@@ -2,34 +2,30 @@ import * as _ from 'lodash';
 import { Router } from '@angular/router';
 import { Component, OnInit } from '@angular/core';
 import { AccountService } from 'src/app/services/account/account.service';
-import { LocalStorageService } from 'src/app/services/storage/local-storage.service';
 
 @Component({
-  selector: 'app-admin-view-account-details-page',
-  templateUrl: './admin-view-account-details-page.component.html',
-  styleUrls: ['./admin-view-account-details-page.component.css'],
-  providers: [AccountService]
+  selector: 'app-exec-view-account-details-page',
+  templateUrl: './exec-view-account-details-page.component.html',
+  styleUrls: ['./exec-view-account-details-page.component.css']
 })
-export class AdminViewAccountDetailsPageComponent implements OnInit {
-
+export class ExecViewAccountDetailsPageComponent implements OnInit {
   user: any;
   id: string;
   loading: boolean;
   _loading: boolean;
   isActive: boolean;
   accountType: string;
-  user_type: any;
 
   constructor(
     private router: Router,
-    private accountService: AccountService,
-    private localStorage: LocalStorageService,
+    private accountService: AccountService
   ) {
     this.id = window.history.state.id;
     this.resolveReloadDataLoss();
     this.getAccountDetails();
-    this.user_type = this.localStorage.getUser().usertype;
-    console.log('logged in user type: ' + this.user_type);
+  }
+
+  ngOnInit() {
   }
 
   resolveReloadDataLoss() {
@@ -43,11 +39,8 @@ export class AdminViewAccountDetailsPageComponent implements OnInit {
     }
   }
 
-  ngOnInit() {
-  }
-
   edit(id: string) {
-    this.router.navigateByUrl('admin/edit/account', { state: { id: id }});
+    this.router.navigateByUrl('admin/edit/account', { state: { id: id } });
   }
 
   accountActivation() {

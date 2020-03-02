@@ -1,9 +1,10 @@
 import * as _ from 'lodash';
 import { Router } from '@angular/router';
-import { Component, OnInit } from '@angular/core';
 import { Users } from 'src/app/models/users.model';
+import { NgbModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { ClientService } from 'src/app/services/client/client.service';
+import { Component, OnInit, ViewChild, TemplateRef } from '@angular/core';
 import { DateTimeService } from 'src/app/services/date-time/date-time.service';
 import { FrontDeskService } from 'src/app/services/front-desk/front-desk.service';
 import { LocalStorageService } from 'src/app/services/storage/local-storage.service';
@@ -24,13 +25,17 @@ export class ExecRejectedFormsListPageComponent implements OnInit {
   submitted: boolean;
   loadingMore: boolean;
   foundNoForm: boolean;
+  loadingReview: boolean;
   hasMoreError: boolean;
+  rejectionNote: string;
   rejectedFormsList: Array<any>;
   allRejectedFormsList: Array<any>;
+  @ViewChild('review', { static: false }) reviewDialog: TemplateRef<any>;
 
   constructor(
     private router: Router,
     private fb: FormBuilder,
+    private modalService: NgbModal,
     private dateService: DateTimeService,
     private clientService: ClientService,
     private localStorage: LocalStorageService,
@@ -66,6 +71,23 @@ export class ExecRejectedFormsListPageComponent implements OnInit {
 
   checkIfHasMore() {
     return _.isEmpty(this.frontDeskService.nextPaginationUrl) ? false : true;
+  }
+
+  viewMessage(e: Event, submission_code: string) {
+    e.stopPropagation();
+    this.modalService.open(this.reviewDialog, { centered: true });
+    this.loadingReview = true;
+    this.clientService.getRejectionReview(submission_code).then(
+      res => {
+        console.log('ressss: ' + res);
+        this.loadingReview = false;
+        this.rejectionNote = res.review;
+      },
+      err => {
+        console.log('error: ' + err);
+        this.loadingReview = false;
+      }
+    );
   }
 
   getAllRejectedForms() {
@@ -123,8 +145,8 @@ export class ExecRejectedFormsListPageComponent implements OnInit {
   searchByFormCode() {
     this.loading = true;
     this.clientService.findFormsByCode(this.query).then(
-      form => {
-        if (_.isNull(form) || _.isUndefined(form)) {
+      forms => {
+        if (forms.length == 0) {
           this.loading = false;
           this.hasData = false;
           this.foundNoForm = true;
@@ -132,8 +154,10 @@ export class ExecRejectedFormsListPageComponent implements OnInit {
         else {
           this.loading = false;
           this.foundNoForm = false;
-          console.log('forrrrrm: ' + JSON.stringify(form));
-          this.rejectedFormsList.push(form);
+          console.log('forrrrrm: ' + JSON.stringify(forms));
+          _.forEach(forms, (form) => {
+            this.rejectedFormsList.push(form);
+          });
         }
       },
       err => {
@@ -178,8 +202,8 @@ export class ExecRejectedFormsListPageComponent implements OnInit {
         this.rejectedFormsList = [];
         this.allRejectedFormsList = [];
         if (this.query.length == 6) {
-          // search by submission code.
-          console.log('searching by submission code');
+          // search by form code.
+          console.log('searching by form code');
           this.searchByFormCode();
         }
         else {

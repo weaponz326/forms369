@@ -78,7 +78,7 @@ Route::group(['middleware' => ['auth:api'], 'prefix' => 'v1'], function(){
     Route::get('getNumAllUsersByBranch/{id}', 'HomeController@getNumAllUsersByBranch')->name('getNumAllUsersByBranch')->middleware('scope:GIT_Admin,company_admin,branch_admin,branch_executive');
     
     //get all users under a user type for a merchant, param:merchant_id
-    Route::get('getMerchantUsersByType/{id}/{type}', 'HomeController@getMerchantUsersByType')->name('getMerchantUsersByType')->middleware('scope:GIT_Admin,company_admin,branch_admin');
+    Route::get('getMerchantUsersByType/{id}/{type}', 'HomeController@getMerchantUsersByType')->name('getMerchantUsersByType')->middleware('scope:GIT_Admin,company_admin,branch_admin,super_executive,branch_executive');
     
     //get number of all users under a user type for a merchant, param:merchant_id
     Route::get('getNumMerchantUsersByType/{id}/{type}', 'HomeController@getNumMerchantUsersByType')->name('getNumMerchantUsersByType')->middleware('scope:GIT_Admin,company_admin,branch_admin,super_executive');

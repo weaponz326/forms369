@@ -15,6 +15,7 @@
                 <div class="d-flex">
                 </div>
               </div>
+              <!-- filter -->
               <div class="d-flex justify-content-between align-items-end flex-wrap">
                 <form [formGroup]="form" (ngSubmit)="filter()">
                   <div class="form-group form-inline" style="margin-bottom: -0.1rem;">
@@ -50,22 +51,26 @@
                   </div>
                 </form>
               </div>
+              <!-- /.end filter -->
             </div>
           </div>
         </div>
 
+        <!-- search -->
         <div class="row">
           <div class="col-12 col-md-8 offset-md-2 mb-3">
             <div class="search-bar">
               <form>
                 <input type="text" class="search-form form-control" name="query" [(ngModel)]="query"
-                  placeholder="Search by submission code or by form name" aria-label="search" aria-describedby="search"
+                  placeholder="Search by form name or by form code" aria-label="search" aria-describedby="search"
                   (keypress)="search($event)">
               </form>
             </div>
           </div>
         </div>
+        <!-- /.end search -->
 
+        <!-- loading -->
         <div *ngIf="loading" class="row m-5">
           <div class="col-md-12 m-5">
             <div class="d-flex justify-content-center">
@@ -75,6 +80,7 @@
             </div>
           </div>
         </div>
+        <!-- /.end loading -->
 
         <div *ngIf="!loading && !hasData && !foundNoForm" class="row">
           <div class="col-lg-12 grid-margin stretch-card">
@@ -151,22 +157,29 @@
                         <th><strong>Form Name.</strong></th>
                         <th><strong>Submitted By</strong></th>
                         <th><strong>Submitted On</strong></th>
-                        <th><strong>Processed On</strong></th>
+                        <th><strong>Rejected On</strong></th>
                         <th><strong>Action</strong></th>
                       </tr>
                     </thead>
                     <tbody>
                       <tr class="hover-cursor" *ngFor="let form of rejectedFormsList">
                         <td>{{ form.form_code }}</td>
-                        <td>{{ form.form_name }}</td>
+                        <td>{{ form.form_name || form.name }}</td>
                         <td>{{ form.client_name }}</td>
                         <td>{{ form.submitted_at | date:'medium' }}</td>
                         <td>{{ form.last_processed | date:'medium' }}</td>
                         <td>
-                          <button type="button" class="btn btn-light bg-white btn-icon" data-toggle="tooltip"
-                            data-placement="top" title="Print" (click)="print($event, form)">
-                            <i class="mdi mdi-printer text-muted"></i>
-                          </button>
+                          <div class="d-flex align-items-end flex-wrap">
+                            <button type="button" class="btn btn-light bg-white btn-icon" data-toggle="tooltip"
+                              data-placement="top" title="Print" (click)="print($event, form)">
+                              <i class="mdi mdi-printer text-muted"></i>
+                            </button>
+                            <button type="button" class="btn btn-light bg-white btn-icon" data-toggle="tooltip"
+                              data-placement="top" title="View Rejection Message"
+                              (click)="viewMessage($event, form.submission_code)">
+                              <i class="mdi mdi-message-alert-outline text-muted"></i>
+                            </button>
+                          </div>
                         </td>
                       </tr>
                     </tbody>
@@ -214,3 +227,29 @@
     </div>
   </div>
 </div>
+
+<ng-template #review let-modal>
+  <div class="modal-header">
+    <h4 class="modal-title reject-title" id="modal-title">Rejection Note</h4>
+    <button type="button" class="close" aria-describedby="modal-title" (click)="modal.close()">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <div class="text-center" *ngIf="loadingReview">
+      <div class="d-flex justify-content-center">
+        <div class="spinner-border m-5" style="width: 3rem; height: 3rem;" role="status">
+          <span class="sr-only">Loading...</span>
+        </div>
+      </div>
+    </div>
+    <div class="msg-container" *ngIf="!loadingReview">
+      <div class="message-content">
+        <p class="message">{{ rejectionNote }}</p>
+      </div>
+    </div>
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-primary" (click)="modal.close('yes')">Ok, Got It</button>
+  </div>
+</ng-template>

@@ -124,6 +124,12 @@ import { ClientPdfPrintingPageComponent } from './pages/dashboard/client/client-
 import { InvalidPasswordResetPageComponent } from './pages/invalid-password-reset-page/invalid-password-reset-page.component';
 import { ClientFormNewEntryPageComponent } from './pages/dashboard/client/client-form-new-entry-page/client-form-new-entry-page.component';
 import { ExecRejectedFormsListPageComponent } from './pages/dashboard/executive/exec-rejected-forms-list-page/exec-rejected-forms-list-page.component';
+import { ExecViewAccountDetailsPageComponent } from './pages/dashboard/executive/exec-view-account-details-page/exec-view-account-details-page.component';
+import { ExecViewBranchAdminsPageComponent } from './pages/dashboard/executive/exec-view-branch-admins-page/exec-view-branch-admins-page.component';
+import { ExecViewCompanyAdminsPageComponent } from './pages/dashboard/executive/exec-view-company-admins-page/exec-view-company-admins-page.component';
+import { ExecViewSuperExectivesPageComponent } from './pages/dashboard/executive/exec-view-super-exectives-page/exec-view-super-exectives-page.component';
+import { ExecViewBranchExectivesPageComponent } from './pages/dashboard/executive/exec-view-branch-exectives-page/exec-view-branch-exectives-page.component';
+import { ExecViewFrontDesksPageComponent } from './pages/dashboard/executive/exec-view-front-desks-page/exec-view-front-desks-page.component';
 
 @NgModule({
   declarations: [
@@ -232,6 +238,12 @@ import { ExecRejectedFormsListPageComponent } from './pages/dashboard/executive/
     InvalidPasswordResetPageComponent,
     ClientFormNewEntryPageComponent,
     ExecRejectedFormsListPageComponent,
+    ExecViewAccountDetailsPageComponent,
+    ExecViewBranchAdminsPageComponent,
+    ExecViewCompanyAdminsPageComponent,
+    ExecViewSuperExectivesPageComponent,
+    ExecViewBranchExectivesPageComponent,
+    ExecViewFrontDesksPageComponent,
   ],
   imports: [
     BrowserModule,

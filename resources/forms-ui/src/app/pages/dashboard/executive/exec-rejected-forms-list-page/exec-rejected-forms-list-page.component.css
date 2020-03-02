@@ -10,3 +10,20 @@
 .search-form {
     border-radius: 30px;
 }
+
+.msg-container {
+    background-color: #f8f8f8;
+    padding: 20px 12px;
+    border: 1px solid #ddd;
+    border-top-right-radius: 26px;
+    border-bottom-left-radius: 26px;
+}
+
+.message-content {
+    padding: 5px;
+}
+
+.message {
+    font-size: 14px;
+    font-weight: 600;
+}
