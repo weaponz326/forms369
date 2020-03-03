@@ -175,7 +175,8 @@ class SetupController extends Controller
             'admin_id'=>'required',
             'logo' => 'required|mimes:jpeg,jpg,png,gif,psd,tiff',
             'small_logo' => 'nullable|mimes:jpeg,jpg,png,gif,psd,tiff',
-            'can_print' => 'required'
+            'can_print' => 'required',
+            'sector_id' => 'required'
         ]);
 
         $logo = NULL;
@@ -229,6 +230,7 @@ class SetupController extends Controller
         $status = 1;
         $created_at = now();
         $can_print = $request->can_print;
+        $sector_id = $request->sector_id;
 
         //get user creating the new merchant
         $user = $request->user();
@@ -252,7 +254,8 @@ class SetupController extends Controller
                     'created_at' => $created_at,
                     'created_by' => $userid,
                     'can_print' => $can_print,
-                    'temp' => $temp
+                    'temp' => $temp,
+                    'sector_id'=> $sector_id
                 ]
             );
 
@@ -307,7 +310,8 @@ class SetupController extends Controller
             'admin_id'=>'required',
             'logo' => 'required',
             'can_print' => 'required',
-            'status' => 'required'
+            'status' => 'required',
+            'sector_id' => 'required'
         ]); 
 
         $name = Crypt::encryptString($request->merchant_name);
@@ -320,6 +324,7 @@ class SetupController extends Controller
         $small_logo = $request->small_logo;
         $can_print = $request->can_print;
         $temp = $request->merchant_name;
+        $sector_id = $request->sector_id;
 
         //get user creating the new merchant
         $user = $request->user();
@@ -346,7 +351,8 @@ class SetupController extends Controller
                     'updated_at' => $updated_at,
                     'updated_by' => $userid,
                     'can_print' => $can_print,
-                    'temp' => $temp
+                    'temp' => $temp,
+                    'sector_id' => $sector_id
                 ]
             );
 
