@@ -26,6 +26,7 @@ export class ViewAccountListsPageComponent implements OnInit {
   filterState: string;
   foundNoForm: boolean;
   @Input() userType: any;
+  collection: Array<any>;
   @Input() branchId: any;
   @Input() merchantId: any;
   @Input() canEdit: boolean;
@@ -33,7 +34,6 @@ export class ViewAccountListsPageComponent implements OnInit {
   @Input() canDelete: boolean;
   isDeleteSuccess: boolean;
   showDeleteMessage: boolean;
-  collection: Array<any>;
   allCollection: Array<any>;
   loadingModalRef: NgbModalRef;
   @Output() edit = new EventEmitter();
@@ -56,13 +56,12 @@ export class ViewAccountListsPageComponent implements OnInit {
   ) {
     this.collection = [];
     this.allCollection = [];
-
-    this.handleActionButtonsVisibility();
   }
 
   ngOnInit() {
     this.filterState = 'all';
     this.getAccountDetails();
+    this.handleActionButtonsVisibility();
   }
 
   handleActionButtonsVisibility() {
@@ -735,12 +734,10 @@ export class ViewAccountListsPageComponent implements OnInit {
         }
       }
       else {
-        if ((this.foundNoForm && this.query.length == 0) || this.query.length == 0) {
-          this.hasNoData = false;
-          this.foundNoForm = false;
-          this.collection = [];
-          this.getAccountDetails();
-        }
+        this.hasNoData = false;
+        this.foundNoForm = false;
+        this.collection = [];
+        this.getAccountDetails();
       }
     }
   }
