@@ -6,15 +6,15 @@
           <div class="auth-form-light py-5 px-4 px-sm-5">
             <div class="text-center">
               <a routerLink="/" class="brand-logo">
-                <img src="../assets/images/logo1.png" alt="logo">
+                <img src="../assets/images/logo-dark.png" alt="logo">
               </a>
             </div>
             <div *ngIf="created" class="mt-2 mb-5">
               <div class="alert alert-success" role="alert">
-                <h3 class="alert-heading">Welcome to GiT Forms!</h3>
-                <p class="lead">Hi {{ f.firstName.value }}, your account has been sucessfully created. An activation email has been sent to your email address.</p>
+                <h3 class="alert-heading">Welcome to Forms 369</h3>
+                <p class="lead">Hi {{ f.firstName.value }}, your account has been sucessfully created. </p>
                 <hr>
-                <p class="mb-0 lead">Please check your email and click the activation link in the email. Thank You!</p>
+                <p class="mb-0 lead">An activation link has been sent to your mail. please follow link to activate account.</p>
               </div>
               <a role="button" routerLink="/login" class="btn btn-block btn-primary btn-lg font-weight-medium auth-form-btn">Log In</a>
             </div>

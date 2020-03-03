@@ -162,8 +162,8 @@
                           <td>{{ form.client_name }}</td>
                           <td>{{ form.submitted_at | date }}</td>
                           <td>
-                            <button type="button" class="btn btn-light bg-white btn-icon" data-toggle="tooltip"
-                              data-placement="top" title="Print" (click)="print($event, form)">
+                            <button type="button" class="btn btn-light bg-white btn-icon" placement="top"
+                              ngbTooltip="Print Form" (click)="print($event, form)">
                               <i class="mdi mdi-printer text-muted"></i>
                             </button>
                           </td>

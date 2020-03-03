@@ -170,6 +170,7 @@ export class ClientProfilePageComponent implements OnInit, AfterViewInit {
       firstname: this.userData['firstname'],
       lastname: this.userData['lastname'],
       email: this.userData['email'],
+      phone: this.userData['phone-number'],
       country: this.userData['country'],
     };
 
