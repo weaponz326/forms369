@@ -1,11 +1,11 @@
-import { Component, OnInit } from '@angular/core';
 import * as _ from 'lodash';
+import { Router } from '@angular/router';
+import { Component, OnInit } from '@angular/core';
 import { Users } from 'src/app/models/users.model';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { DateTimeService } from 'src/app/services/date-time/date-time.service';
 import { FrontDeskService } from 'src/app/services/front-desk/front-desk.service';
 import { LocalStorageService } from 'src/app/services/storage/local-storage.service';
-import { ClientService } from 'src/app/services/client/client.service';
 
 @Component({
   selector: 'app-exec-in-processed-forms-list-page',
@@ -28,9 +28,9 @@ export class ExecInProcessedFormsListPageComponent implements OnInit {
   allProcessingFormsList: Array<any>;
 
   constructor(
+    private router: Router,
     private fb: FormBuilder,
     private dateService: DateTimeService,
-    private clientService: ClientService,
     private localStorage: LocalStorageService,
     private frontDeskService: FrontDeskService,
   ) {
@@ -55,6 +55,11 @@ export class ExecInProcessedFormsListPageComponent implements OnInit {
       endDate: ['', Validators.required],
       startDate: ['', Validators.required]
     });
+  }
+
+  print(ev: Event, form: any) {
+    ev.stopPropagation();
+    this.router.navigateByUrl('front_desk/print_form', { state: { form: form } });
   }
 
   checkIfHasMore() {
