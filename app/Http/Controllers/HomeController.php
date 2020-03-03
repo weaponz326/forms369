@@ -2133,4 +2133,19 @@ class HomeController extends Controller
         $message = (new SetupController)->getAllBusinessSectors($request);
         return $message;
      }
+
+      /**
+     * getSubmittedFormByCode get all submitted forms by merchant, status and form code 
+     *
+     * @param  mixed $request
+     * @param  mixed $status stautus of submitted forms to sort by
+     * @param  mixed $id id of merchant for the submitted forms
+     * @param  mixed $code form code
+     * @return void\Illuminate\Http\Response all details of submitted form
+     */
+     public function getSubmittedFormByFormCode(Request $request, $status, $id, $code)
+     {
+        $message = (new ExecutiveController)->getSubmittedFormByFormCode($request, $status, $id, $code);
+        return $message;  
+     }
 }    

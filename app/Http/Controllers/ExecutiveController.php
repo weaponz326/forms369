@@ -113,6 +113,55 @@ class ExecutiveController extends Controller
 
     }
 
+    /**
+     * getSubmittedFormByCode get all submitted forms by merchant, status and form code 
+     *
+     * @param  mixed $request
+     * @param  mixed $status stautus of submitted forms to sort by
+     * @param  mixed $id id of merchant for the submitted forms
+     * @param  mixed $code form code
+     * @return void\Illuminate\Http\Response all details of submitted form
+     */
+     public function getSubmittedFormByFormCode(Request $request, $status, $id, $code){
 
+        $getsubmittedforms = DB::table('submitted_forms')
+        ->join('users', 'users.id', '=', 'client_id')
+        ->join('forms', 'forms.form_code', '=', 'form_id')
+        ->join('merchants', 'merchants.id', '=', 'forms.merchant_id')
+        ->select('submitted_forms.*','merchants.merchant_name AS merchant_name',
+        'users.name', 'users.email', 'forms.name AS form_name', 'forms.form_fields', 'forms.can_view')
+        ->where('submitted_forms.status', $status)
+        ->where('merchants.id', $id)
+        ->where('submitted_forms.form_id', $code)
+        ->get();
+      
+        //clean data
+        $submittedformdata = [];
+
+        $getsubmittedforms->transform(function($items){
+            $submittedformdata['submission_code'] = $items->submission_code;
+            $submittedformdata['form_code'] = $items->form_id;
+            $submittedformdata['form_name'] = Crypt::decryptString($items->form_name);
+            $submittedformdata['form_fields'] = json_decode(Crypt::decryptString($items->form_fields));
+            $submittedformdata['merchant_name'] = Crypt::decryptString($items->merchant_name);
+            $submittedformdata['client_id'] = $items->client_id;
+            $submittedformdata['client_name'] = $items->name;
+            $submittedformdata['email'] = $items->email;
+            $submittedformdata['can_view'] = $items->can_view;
+            $submittedformdata['client_submitted_details'] = json_decode(Crypt::decryptString($items->client_details));
+            $submittedformdata['form_status'] = $items->status;
+            $submittedformdata['submitted_at'] = $items->submitted_at;
+            $submittedformdata['last_processed'] = $items->last_processed;
+            $submittedformdata['processed_by'] = $items->processed_by;
+
+            return $submittedformdata;
+         });
+        
+         $response = [
+            'submitted_forms' => $getsubmittedforms
+        ];
+        return response()->json($response, 200);
+
+    }
 
 }
