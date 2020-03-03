@@ -131,9 +131,9 @@ export class ExecSubmittedFormsListPageComponent implements OnInit {
 
   searchByFormCode() {
     this.loading = true;
-    this.clientService.findFormsByCode(this.query).then(
-      form => {
-        if (_.isNull(form) || _.isUndefined(form)) {
+    this.frontDeskService.findFormsByCodeAndStatus(this.query, this.user.merchant_id.toString(), 0).then(
+      forms => {
+        if (forms.length == 0) {
           this.loading = false;
           this.hasData = false;
           this.foundNoForm = true;
@@ -141,8 +141,10 @@ export class ExecSubmittedFormsListPageComponent implements OnInit {
         else {
           this.loading = false;
           this.foundNoForm = false;
-          console.log('forrrrrm: ' + JSON.stringify(form));
-          this.submittedFormsList.push(form);
+          console.log('forrrrrm: ' + JSON.stringify(forms));
+          _.forEach(forms, (form) => {
+            this.submittedFormsList.push(form);
+          });
         }
       },
       err => {
@@ -154,7 +156,7 @@ export class ExecSubmittedFormsListPageComponent implements OnInit {
 
   searchByFormName() {
     this.loading = true;
-    this.frontDeskService.findFormByNameAndStatus(this.query, this.user.merchant_id.toString(), 2).then(
+    this.frontDeskService.findFormByNameAndStatus(this.query, this.user.merchant_id.toString(), 0).then(
       forms => {
         if (forms.length == 0) {
           this.loading = false;
@@ -186,7 +188,7 @@ export class ExecSubmittedFormsListPageComponent implements OnInit {
         this.hasError = false;
         this.submittedFormsList = [];
         this.allSubmittedFormsList = [];
-        if (this.query.length == 6) {
+        if (this.query.length == 5 || this.query.length == 6) {
           // search by submission code.
           console.log('searching by submission code');
           this.searchByFormCode();
@@ -199,12 +201,9 @@ export class ExecSubmittedFormsListPageComponent implements OnInit {
       }
       else {
         console.log('resetting ...');
-        if ((this.foundNoForm && this.query.length == 0) || this.query.length == 0) {
-          this.hasData = true;
-          this.foundNoForm = false;
-          console.log('hererereererere');
-          this.getAllSubmittedForms();
-        }
+        this.hasData = true;
+        this.foundNoForm = false;
+        this.getAllSubmittedForms();
       }
     }
   }

@@ -113,9 +113,9 @@ export class ExecInProcessedFormsListPageComponent implements OnInit {
 
   searchByFormCode() {
     this.loading = true;
-    this.clientService.findFormsByCode(this.query).then(
-      form => {
-        if (_.isNull(form) || _.isUndefined(form)) {
+    this.frontDeskService.findFormsByCodeAndStatus(this.query, this.user.merchant_id.toString(), 1).then(
+      forms => {
+        if (forms.length == 0) {
           this.loading = false;
           this.hasData = false;
           this.foundNoForm = true;
@@ -123,8 +123,10 @@ export class ExecInProcessedFormsListPageComponent implements OnInit {
         else {
           this.loading = false;
           this.foundNoForm = false;
-          console.log('forrrrrm: ' + JSON.stringify(form));
-          this.processingFormsList.push(form);
+          console.log('forrrrrm: ' + JSON.stringify(forms));
+          _.forEach(forms, (form) => {
+            this.processingFormsList.push(form);
+          });
         }
       },
       err => {
@@ -136,7 +138,7 @@ export class ExecInProcessedFormsListPageComponent implements OnInit {
 
   searchByFormName() {
     this.loading = true;
-    this.frontDeskService.findFormByNameAndStatus(this.query, this.user.merchant_id.toString(), 2).then(
+    this.frontDeskService.findFormByNameAndStatus(this.query, this.user.merchant_id.toString(), 1).then(
       forms => {
         if (forms.length == 0) {
           this.loading = false;
@@ -181,12 +183,10 @@ export class ExecInProcessedFormsListPageComponent implements OnInit {
       }
       else {
         console.log('resetting ...');
-        if ((this.foundNoForm && this.query.length == 0) || this.query.length == 0) {
-          this.hasData = true;
-          this.foundNoForm = false;
-          console.log('hererereererere');
-          this.getAllFormsInProcessing();
-        }
+        this.hasData = true;
+        this.foundNoForm = false;
+        console.log('hererereererere');
+        this.getAllFormsInProcessing();
       }
     }
   }

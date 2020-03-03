@@ -33,7 +33,6 @@ export class FrontDeskProcessedFormsListPageComponent implements OnInit {
     private router: Router,
     private fb: FormBuilder,
     private dateTime: DateTimeService,
-    private clientService: ClientService,
     private localStorage: LocalStorageService,
     private frontDeskService: FrontDeskService,
   ) {

@@ -202,6 +202,32 @@ export class FrontDeskService {
   }
 
   /**
+   * Finds a form by code and status.
+   *
+   * @param {string} form_code
+   * @param {string} merchant_id
+   * @param {number} status
+   * @returns {Promise<any>}
+   * @memberof FrontDeskService
+   */
+  findFormsByCodeAndStatus(form_code: string, merchant_id: string, status: number): Promise<any> {
+    return new Promise((resolve, reject) => {
+      const url = this.endpointService.apiHost + `api/v1/getSubmittedFormByFormCode/${status}/${merchant_id}/${form_code}`;
+      this.http.get(url, { headers: this.headers }).subscribe(
+        res => {
+          console.log('res: ' + JSON.stringify(res));
+          const response = res as any;
+          resolve(response.submitted_forms);
+        },
+        err => {
+          console.log('err: ' + JSON.stringify(err));
+          reject(err);
+        }
+      );
+    });
+  }
+
+  /**
    * Returns client data for all processed forms.
    *
    * @param {string} form_code

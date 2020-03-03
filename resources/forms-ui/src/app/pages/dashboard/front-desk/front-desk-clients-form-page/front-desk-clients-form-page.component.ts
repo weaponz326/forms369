@@ -4,6 +4,7 @@ import { Component, OnInit } from '@angular/core';
 import { Users } from 'src/app/models/users.model';
 import { FormsService } from 'src/app/services/forms/forms.service';
 import { ClientService } from 'src/app/services/client/client.service';
+import { LoggingService } from 'src/app/services/logging/logging.service';
 import { LocalStorageService } from 'src/app/services/storage/local-storage.service';
 
 @Component({
@@ -26,6 +27,7 @@ export class FrontDeskClientsFormPageComponent implements OnInit {
 
   constructor(
     private router: Router,
+    private logging: LoggingService,
     private formsService: FormsService,
     private clientService: ClientService,
     private localStorage: LocalStorageService,
@@ -144,21 +146,21 @@ export class FrontDeskClientsFormPageComponent implements OnInit {
         // we need to know whether the user is searching by a form code
         // or the user is searching by a form name.
         // First, check if its a form code.
-        console.log(this.query);
+        this.logging.log(this.query);
         this.hasError = false;
         this.allFormsList = [];
         if (/\d/.test(this.query)) {
-          if (this.query.length == 5 || this.query.length == 5) {
+          if (this.query.length == 5 || this.query.length == 6) {
             // search by form code, based on the input
             // the user might be searching by a form code.
-            console.log('searching by form code');
+            this.logging.log('searching by form code');
             this.searchByFormCode();
           }
         }
         else {
           // the input contains a number but is more than 6 characters
           // in length, this might be a form name.
-          console.log('searching by form name');
+          this.logging.log('searching by form name');
           this.searchByFormName();
         }
       }
@@ -166,7 +168,7 @@ export class FrontDeskClientsFormPageComponent implements OnInit {
         this.hasData = true;
         this.foundNoForm = false;
         this.allFormsList = [];
-        console.log('hererereererere');
+        this.logging.log('hererereererere');
         this.getAllMerchantForms();
       }
     }

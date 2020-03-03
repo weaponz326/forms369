@@ -5,8 +5,9 @@
 }
 
 .logo > img {
-    width: 150px;
-    margin: 50px 0px;
+    width: 120px;
+    margin-top: 50px;
+    margin-bottom: 50px;
 }
 
 .top-level {

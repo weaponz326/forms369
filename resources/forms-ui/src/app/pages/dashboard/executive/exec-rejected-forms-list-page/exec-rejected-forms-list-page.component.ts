@@ -144,7 +144,7 @@ export class ExecRejectedFormsListPageComponent implements OnInit {
 
   searchByFormCode() {
     this.loading = true;
-    this.clientService.findFormsByCode(this.query).then(
+    this.frontDeskService.findFormsByCodeAndStatus(this.query, this.user.merchant_id.toString(), 3).then(
       forms => {
         if (forms.length == 0) {
           this.loading = false;
