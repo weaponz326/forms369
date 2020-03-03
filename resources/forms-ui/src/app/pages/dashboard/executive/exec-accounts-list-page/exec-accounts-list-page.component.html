@@ -89,8 +89,9 @@
                       <button type="button" class="btn btn-outline-secondary dropdown-toggle" id="sortMenuButton"
                         data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Sort By</button>
                       <div class="dropdown-menu" aria-labelledby="sortMenuButton">
+                        <button type="button" class="dropdown-item" (click)="sort('name')">Full Name</button>
                         <button type="button" class="dropdown-item" (click)="sort('branch')">Branch Name</button>
-                        <button type="button" class="dropdown-item" (click)="sort('merchant')">Company Name</button>
+                        <button type="button" class="dropdown-item" (click)="sort('email')">Email Address</button>
                         <button type="button" class="dropdown-item" (click)="sort('created')">Date Created</button>
                       </div>
                     </div>
@@ -104,7 +105,7 @@
                         <th><strong>Email Address</strong></th>
                         <th><strong>Branch Name</strong></th>
                         <th><strong>Status</strong></th>
-                        <th><strong>Last Login</strong></th>
+                        <th><strong>User Type</strong></th>
                       </tr>
                     </thead>
                     <tbody>
@@ -116,7 +117,7 @@
                           <label *ngIf="user.status == 1" class="badge badge-success text-center">Active</label>
                           <label *ngIf="user.status == 0" class="badge badge-danger text-center">In-Active</label>
                         </td>
-                        <td>{{ user.last_login_at | date:'medium' }}</td>
+                        <td>{{ getUserType(user.user_type) }}</td>
                       </tr>
                     </tbody>
                   </table>

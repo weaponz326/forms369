@@ -3,8 +3,8 @@ import { Router } from '@angular/router';
 import { Component, OnInit } from '@angular/core';
 import { Users } from 'src/app/models/users.model';
 import { FormsService } from 'src/app/services/forms/forms.service';
-import { LocalStorageService } from 'src/app/services/storage/local-storage.service';
 import { ClientService } from 'src/app/services/client/client.service';
+import { LocalStorageService } from 'src/app/services/storage/local-storage.service';
 
 @Component({
   selector: 'app-front-desk-clients-form-page',

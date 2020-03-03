@@ -382,6 +382,59 @@
         <span class="menu-title">Branches</span>
       </a>
     </li>
+    <!-- <li class="nav-item">
+      <a class="nav-link" routerLink="/executive/accounts">
+        <i class="mdi mdi-account-multiple menu-icon"></i>
+        <span class="menu-title">User Accounts</span>
+      </a>
+    </li> -->
+    <li class="nav-item">
+      <a class="nav-link" data-toggle="collapse" href="#account" aria-expanded="false" aria-controls="account">
+        <i class="mdi mdi-account-group-outline menu-icon"></i>
+        <span class="menu-title">Accounts</span>
+        <i class="menu-arrow"></i>
+      </a>
+      <div class="collapse" id="account">
+        <ul class="nav flex-column sub-menu">
+          <li class="nav-item">
+            <a class="nav-link" routerLink="/executive/lists/front_desk">
+              <i class="mdi mdi-desktop-mac menu-icon"></i>
+              <span class="menu-title">Front Desks</span>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" routerLink="/executive/lists/branch_admin">
+              <i class="mdi mdi-leaf-maple menu-icon"></i>
+              <span class="menu-title">Branch Admins</span>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" routerLink="/executive/lists/company_admin">
+              <i class="mdi mdi-lighthouse menu-icon"></i>
+              <span class="menu-title">Company Admins</span>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" routerLink="/executive/lists/super_executive">
+              <i class="mdi mdi-view-dashboard-outline menu-icon"></i>
+              <span class="menu-title">Super Executives</span>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" routerLink="/executive/lists/branch_executive">
+              <i class="mdi mdi-script-outline menu-icon"></i>
+              <span class="menu-title">Branch Super-Executives</span>
+            </a>
+          </li>
+        </ul>
+      </div>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link" routerLink="/executive/client_forms">
+        <i class="mdi mdi-database-check menu-icon"></i>
+        <span class="menu-title">Form Data</span>
+      </a>
+    </li>
     <li class="nav-item">
       <a class="nav-link" routerLink="/executive/processed">
         <i class="mdi mdi-check-all menu-icon"></i>
@@ -401,9 +454,9 @@
       </a>
     </li>
     <li class="nav-item">
-      <a class="nav-link" routerLink="/executive/client_forms">
-        <i class="mdi mdi-database-check menu-icon"></i>
-        <span class="menu-title">Form Data</span>
+      <a class="nav-link" routerLink="/executive/rejected">
+        <i class="mdi mdi-file-alert-outline menu-icon"></i>
+        <span class="menu-title">Forms Rejected</span>
       </a>
     </li>
   </ul>

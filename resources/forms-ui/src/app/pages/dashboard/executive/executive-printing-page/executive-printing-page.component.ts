@@ -54,7 +54,7 @@ export class ExecutivePrintingPageComponent implements OnInit, AfterViewInit {
     this.form = this.reloader.resolveDataLoss(this.form);
     console.log(this.form.form_name);
 
-    this.isPrint = this.form.print == true ? true : false;
+    this.isPrint = this.form.print == true || _.isUndefined(this.form.print) ? true : false;
 
     this.client = this.form.client_data;
     console.log('client: ' + JSON.stringify(this.client));

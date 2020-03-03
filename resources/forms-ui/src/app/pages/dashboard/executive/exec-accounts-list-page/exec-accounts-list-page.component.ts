@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import * as _ from 'lodash';
 import { AccountService } from 'src/app/services/account/account.service';
 import { LocalStorageService } from 'src/app/services/storage/local-storage.service';
+import { UserTypes } from 'src/app/enums/user-types.enum';
 
 @Component({
   selector: 'app-exec-accounts-list-page',
@@ -49,6 +50,23 @@ export class ExecAccountsListPageComponent implements OnInit {
     this.userAccounts = _.filter(this.allUserAccounts, (company) => company.status == 0);
   }
 
+  getUserType(id: UserTypes) {
+    switch (id) {
+      case UserTypes.FrontDesk:
+        return 'Front Desk';
+      case UserTypes.BranchAdmin:
+        return 'Branch Admin';
+      case UserTypes.CompanyAdmin:
+        return 'Company Admin';
+      case UserTypes.SuperExecutive:
+        return 'Super Executive';
+      case UserTypes.BranchSuperExecutive:
+        return 'Branch Super Executive';
+      default:
+        break;
+    }
+  }
+
   getUserAccounts() {
     this.loading = true;
     this.accountService.getAllUsersByMerchant(this.merchantId).then(
@@ -81,17 +99,14 @@ export class ExecAccountsListPageComponent implements OnInit {
       case 'email':
         this.sortByEmail();
         break;
-      case 'status':
-        this.sortByStatus();
+      case 'name':
+        this.sortByFullName();
         break;
       case 'created':
         this.sortByCreated();
         break;
-      case 'merchant':
-        this.sortByCompany();
-        break;
-      case 'username':
-        this.sortByUsername();
+      case 'branch':
+        this.sortByBranch();
         break;
       default:
         break;
@@ -102,20 +117,16 @@ export class ExecAccountsListPageComponent implements OnInit {
     this.userAccounts = _.sortBy(this.userAccounts, (item) => item.email);
   }
 
-  sortByStatus() {
-    this.userAccounts = _.sortBy(this.userAccounts, (item) => item.status);
+  sortByFullName() {
+    this.userAccounts = _.sortBy(this.userAccounts, (item) => item.full_name);
   }
 
   sortByCreated() {
     this.userAccounts = _.sortBy(this.userAccounts, (item) => item.created_at);
   }
 
-  sortByCompany() {
-    this.userAccounts = _.sortBy(this.userAccounts, (item) => item.merchant_name);
-  }
-
-  sortByUsername() {
-    this.userAccounts = _.sortBy(this.userAccounts, (item) => item.username);
+  sortByBranch() {
+    this.userAccounts = _.sortBy(this.userAccounts, (item) => item.branch_name);
   }
 
   retry() {

@@ -52,7 +52,7 @@ export class FormPrintingDefaultPageComponent implements OnInit, AfterViewInit {
     console.log('form: ' + JSON.stringify(this.form));
     this.form = this.reloader.resolveDataLoss(this.form);
 
-    this.isPrint = this.form.print == true ? true : false;
+    this.isPrint = this.form.print == true || _.isUndefined(this.form.print) ? true : false;
     this.client = this.form.client_submitted_details;
     console.log('client: ' + JSON.stringify(this.client));
 

@@ -172,6 +172,8 @@ export class ClientProfilePageComponent implements OnInit, AfterViewInit {
       email: this.userData['email'],
       country: this.userData['country'],
     };
+
+    // alert(this.userData['firstname']);
   }
 
   appendOnChangeEventToFileInput() {

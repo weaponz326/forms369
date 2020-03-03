@@ -1,6 +1,6 @@
-import { Component, OnInit } from '@angular/core';
 import { toString } from 'lodash';
 import { Router } from '@angular/router';
+import { Component, OnInit } from '@angular/core';
 import { UserTypes } from 'src/app/enums/user-types.enum';
 import { AccountService } from 'src/app/services/account/account.service';
 import { AnalyticsService } from 'src/app/services/analytics/analytics.service';

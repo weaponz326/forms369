@@ -72,5 +72,7 @@
     9. Clients can now update their account password.
     10. Clients can no longer update their primary information.
     11. Search added to front desk, processed forms, processing and rejected forms ui.
+    12. Filter added to super/branch exec processed and submitted forms.
+    13. Major bug fixes across all users 
 
 

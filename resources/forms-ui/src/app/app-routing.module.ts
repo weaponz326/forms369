@@ -98,6 +98,12 @@ import { ClientPrintingPageComponent } from './pages/dashboard/client/client-pri
 import { ClientPdfPrintingPageComponent } from './pages/dashboard/client/client-pdf-printing-page/client-pdf-printing-page.component';
 import { InvalidPasswordResetPageComponent } from './pages/invalid-password-reset-page/invalid-password-reset-page.component';
 import { ClientFormNewEntryPageComponent } from './pages/dashboard/client/client-form-new-entry-page/client-form-new-entry-page.component';
+import { ExecRejectedFormsListPageComponent } from './pages/dashboard/executive/exec-rejected-forms-list-page/exec-rejected-forms-list-page.component';
+import { ExecViewFrontDesksPageComponent } from './pages/dashboard/executive/exec-view-front-desks-page/exec-view-front-desks-page.component';
+import { ExecViewBranchAdminsPageComponent } from './pages/dashboard/executive/exec-view-branch-admins-page/exec-view-branch-admins-page.component';
+import { ExecViewCompanyAdminsPageComponent } from './pages/dashboard/executive/exec-view-company-admins-page/exec-view-company-admins-page.component';
+import { ExecViewSuperExectivesPageComponent } from './pages/dashboard/executive/exec-view-super-exectives-page/exec-view-super-exectives-page.component';
+import { ExecViewBranchExectivesPageComponent } from './pages/dashboard/executive/exec-view-branch-exectives-page/exec-view-branch-exectives-page.component';
 
 const routes: Routes = [
   {
@@ -430,6 +436,10 @@ const routes: Routes = [
         component: ExecInProcessedFormsListPageComponent
       },
       {
+        path: 'rejected',
+        component: ExecRejectedFormsListPageComponent
+      },
+      {
         path: 'forms',
         component: ExecFormsListPageComponent
       },
@@ -456,6 +466,31 @@ const routes: Routes = [
       {
         path: 'pdf_printing',
         component: ExecutivePdfPrintingPageComponent
+      },
+      {
+        path: 'lists',
+        children: [
+          {
+            path: 'front_desk',
+            component: ExecViewFrontDesksPageComponent
+          },
+          {
+            path: 'branch_admin',
+            component: ExecViewBranchAdminsPageComponent
+          },
+          {
+            path: 'company_admin',
+            component: ExecViewCompanyAdminsPageComponent
+          },
+          {
+            path: 'super_executive',
+            component: ExecViewSuperExectivesPageComponent
+          },
+          {
+            path: 'branch_executive',
+            component: ExecViewBranchExectivesPageComponent
+          }
+        ]
       }
     ]
   },

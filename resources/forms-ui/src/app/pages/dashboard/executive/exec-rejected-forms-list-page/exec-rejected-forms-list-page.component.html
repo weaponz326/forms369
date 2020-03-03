@@ -1,0 +1,255 @@
+<div class="container-scroller">
+  <app-navigation-bar></app-navigation-bar>
+  <div class="container-fluid page-body-wrapper">
+    <app-side-bar></app-side-bar>
+    <div class="main-panel">
+      <div class="content-wrapper">
+        <div class="row">
+          <div class="col-md-12 grid-margin">
+            <div class="d-flex justify-content-between flex-wrap">
+              <div class="d-flex align-items-end flex-wrap">
+                <div class="mr-md-3 mr-xl-5">
+                  <h2>Rejected Forms</h2>
+                  <p class="mb-md-0">Your administrative dashboard.</p>
+                </div>
+                <div class="d-flex">
+                </div>
+              </div>
+              <!-- filter -->
+              <div class="d-flex justify-content-between align-items-end flex-wrap">
+                <form [formGroup]="form" (ngSubmit)="filter()">
+                  <div class="form-group form-inline" style="margin-bottom: -0.1rem;">
+                    <div class="input-group">
+                      <input class="form-control form-control-sm" placeholder="Select Start Date" name="dp"
+                        formControlName="startDate" ngbDatepicker #d="ngbDatepicker" [ngClass]="{'input-control-error':
+                        submitted && f.startDate.errors}">
+                      <div class="input-group-append">
+                        <button class="btn btn-sm btn-outline-secondary" (click)="d.toggle()" type="button">
+                          <i class="mdi mdi-calendar-outline"></i>
+                        </button>
+                      </div>
+                    </div>
+                    <div class="input-group">
+                      <input class="form-control form-control-sm" placeholder="Select End Date" name="dp"
+                        formControlName="endDate" ngbDatepicker #d1="ngbDatepicker" [ngClass]="{'input-control-error':
+                        submitted && f.endDate.errors}">
+                      <div class="input-group-append">
+                        <button class="btn btn-sm btn-outline-secondary" (click)="d1.toggle()" type="button">
+                          <i class="mdi mdi-calendar-outline"></i>
+                        </button>
+                      </div>
+                    </div>
+                    <button type="submit" class="btn btn-outline-primary btn-sm ml-2">Filter</button>
+                  </div>
+                  <div class="form-group form-inline">
+                    <div *ngIf="submitted && f.startDate.errors" style="width: 43%;">
+                      <p class="input-error" *ngIf="f.startDate.errors.required">Start date is required</p>
+                    </div>
+                    <div *ngIf="submitted && f.endDate.errors">
+                      <p class="input-error" *ngIf="f.endDate.errors.required">End date is required</p>
+                    </div>
+                  </div>
+                </form>
+              </div>
+              <!-- /.end filter -->
+            </div>
+          </div>
+        </div>
+
+        <!-- search -->
+        <div class="row">
+          <div class="col-12 col-md-8 offset-md-2 mb-3">
+            <div class="search-bar">
+              <form>
+                <input type="text" class="search-form form-control" name="query" [(ngModel)]="query"
+                  placeholder="Search by form name or by form code" aria-label="search" aria-describedby="search"
+                  (keypress)="search($event)">
+              </form>
+            </div>
+          </div>
+        </div>
+        <!-- /.end search -->
+
+        <!-- loading -->
+        <div *ngIf="loading" class="row m-5">
+          <div class="col-md-12 m-5">
+            <div class="d-flex justify-content-center">
+              <div class="spinner-border m-5" style="width: 3rem; height: 3rem;" role="status">
+                <span class="sr-only">Loading...</span>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- /.end loading -->
+
+        <div *ngIf="!loading && !hasData && !foundNoForm" class="row">
+          <div class="col-lg-12 grid-margin stretch-card">
+            <div class="card text-center pt-5 pb-5">
+              <div class="card-body mt-5 mb-5">
+                <h4 class="card-title">No Data Found</h4>
+                <div class="text-lg-center mt-5 mb-5">
+                  <div class="card-text">
+                    <i class="mdi mdi-file-check-outline" style="font-size: 8em;"></i>
+                  </div>
+                  <div class="card-text">
+                    <h3>No Available Processed Forms</h3>
+                    <p class="text-muted">There are no processed forms yet!</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div *ngIf="foundNoForm && !loading" class="row">
+          <div class="col-lg-12 grid-margin stretch-card">
+            <div class="card text-center pt-5 pb-5">
+              <div class="card-body mt-5 mb-5">
+                <h4 class="card-title">No Search Result</h4>
+                <div class="text-lg-center mt-5 mb-5">
+                  <div class="card-text">
+                    <i class="mdi mdi-search-web" style="font-size: 8em;"></i>
+                  </div>
+                  <div class="card-text">
+                    <h3>No Forms Found</h3>
+                    <p class="text-muted">
+                      No form found based on your search criteria.
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div *ngIf="hasError" class="row">
+          <div class="col-lg-12 grid-margin stretch-card">
+            <div class="card text-center pt-5 pb-5">
+              <div class="card-body mt-5 mb-5">
+                <h4 class="card-title">Error Ocuured</h4>
+                <p class="card-description">
+                  Ooops! Something went wrong!
+                </p>
+                <div class="text-lg-center mt-5 mb-5">
+                  <div class="card-text">
+                    <i class="mdi mdi-close-network-outline" style="font-size: 8em;"></i>
+                  </div>
+                  <div class="card-text">
+                    <h3>We couldn't get your processed forms</h3>
+                    <p class="text-muted">You may not have internet connection or our servers maybe down.</p>
+                    <button class="btn btn-primary" type="button" (click)="retry()">Retry</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div *ngIf="!loading && hasData" class="row">
+          <div class="col-lg-12 grid-margin stretch-card">
+            <div class="card">
+              <div class="card-body">
+                <div class="table-responsive">
+                  <table class="table table-hover">
+                    <thead>
+                      <tr>
+                        <th><strong>Form Identifier</strong></th>
+                        <th><strong>Form Name.</strong></th>
+                        <th><strong>Submitted By</strong></th>
+                        <th><strong>Submitted On</strong></th>
+                        <th><strong>Rejected On</strong></th>
+                        <th><strong>Action</strong></th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr class="hover-cursor" *ngFor="let form of rejectedFormsList">
+                        <td>{{ form.form_code }}</td>
+                        <td>{{ form.form_name || form.name }}</td>
+                        <td>{{ form.client_name }}</td>
+                        <td>{{ form.submitted_at | date:'medium' }}</td>
+                        <td>{{ form.last_processed | date:'medium' }}</td>
+                        <td>
+                          <div class="d-flex align-items-end flex-wrap">
+                            <button type="button" class="btn btn-light bg-white btn-icon" data-toggle="tooltip"
+                              data-placement="top" title="Print" (click)="print($event, form)">
+                              <i class="mdi mdi-printer text-muted"></i>
+                            </button>
+                            <button type="button" class="btn btn-light bg-white btn-icon" data-toggle="tooltip"
+                              data-placement="top" title="View Rejection Message"
+                              (click)="viewMessage($event, form.submission_code)">
+                              <i class="mdi mdi-message-alert-outline text-muted"></i>
+                            </button>
+                          </div>
+                        </td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div *ngIf="loadingMore" class="row m-md-2">
+          <div class="col-md-12 col-sm-12 m-md-2">
+            <div class="d-flex justify-content-center">
+              <div class="spinner-border m-2" style="width: 2rem; height: 2rem;" role="status">
+                <span class="sr-only">Loading...</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div *ngIf="hasMoreError" class="row m-md-2">
+          <div class="col-md-8 col-sm-12 offset-md-2">
+            <div class="alert alert-danger" role="alert">
+              <h4 class="alert-heading">Connection Failed!</h4>
+              <p>
+                Oops!! Couldn't get you the rest of the data. Please make sure you have an active internet connection.
+                Maybe, our servers may be down.
+              </p>
+              <hr>
+              <p class="mb-0">We are really sorry for this inconvenience. Please click on the load more button again.
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <div *ngIf="hasMore" class="row">
+          <div class="col-md-4 col-sm-6 offset-sm-3 offset-lg-4">
+            <div class="text-center">
+              <button type="button" class="btn btn-primary btn-rounded btn-fw" (click)="loadMore()">Load More</button>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</div>
+
+<ng-template #review let-modal>
+  <div class="modal-header">
+    <h4 class="modal-title reject-title" id="modal-title">Rejection Note</h4>
+    <button type="button" class="close" aria-describedby="modal-title" (click)="modal.close()">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <div class="text-center" *ngIf="loadingReview">
+      <div class="d-flex justify-content-center">
+        <div class="spinner-border m-5" style="width: 3rem; height: 3rem;" role="status">
+          <span class="sr-only">Loading...</span>
+        </div>
+      </div>
+    </div>
+    <div class="msg-container" *ngIf="!loadingReview">
+      <div class="message-content">
+        <p class="message">{{ rejectionNote }}</p>
+      </div>
+    </div>
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-primary" (click)="modal.close('yes')">Ok, Got It</button>
+  </div>
+</ng-template>

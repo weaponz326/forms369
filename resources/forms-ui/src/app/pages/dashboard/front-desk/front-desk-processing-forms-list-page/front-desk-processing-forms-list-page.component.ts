@@ -24,6 +24,7 @@ export class FrontDeskProcessingFormsListPageComponent implements OnInit {
   loading: boolean;
   hasError: boolean;
   submitted: boolean;
+  can_print: boolean;
   noteForm: FormGroup;
   foundNoForm: boolean;
   loadingMore: boolean;
@@ -51,6 +52,7 @@ export class FrontDeskProcessingFormsListPageComponent implements OnInit {
     this.processingFormsList = [];
     this.allProcessingFormsList = [];
     this.user = this.localStorage.getUser();
+    this.can_print = this.user.can_print == 1 ? true : false;
 
     this.getAllFormsInProcessing();
   }
@@ -84,6 +86,13 @@ export class FrontDeskProcessingFormsListPageComponent implements OnInit {
   open(e: Event, form: any) {
     e.stopPropagation();
     this.router.navigateByUrl('/front_desk/view_form', { state: { form: form }});
+  }
+
+  print(ev: Event, form: any) {
+    ev.stopPropagation();
+    this.can_print
+      ? this.router.navigateByUrl('front_desk/print_form', { state: { form: form } })
+      : this.router.navigateByUrl('front_desk/print_form_default', { state: { form: form } });
   }
 
   checkIfHasMore() {
