@@ -384,7 +384,7 @@ class FormsController extends Controller
                 ['forms.temps', 'like', '%'.$term .'%'],
                 ['forms.status','=',1],
                 ['merchants.country', '=', $country],
-                ['sector_id', $sector)]
+                ['sector_id', $sector]
             ])
             ->get();
         }

@@ -154,7 +154,7 @@ export class ClientFormMerchantsPageComponent implements OnInit {
 
   searchByMerchantName() {
     this.loading = true;
-    this.companyService.getCompanyByName(this.query, this.user.country).then(
+    this.companyService.getCompanyByName(this.query, this.user.country, _.toNumber(this.selectedSector)).then(
       merchants => {
         if (merchants.length == 0) {
           this.loading = false;
@@ -199,7 +199,7 @@ export class ClientFormMerchantsPageComponent implements OnInit {
   searchByFormName(): Promise<boolean> {
     return new Promise((resolve, reject) => {
       this.loading = true;
-      this.clientService.findFormsByName(this.query, this.user.country).then(
+      this.clientService.findFormsByName(this.query, this.user.country, _.toNumber(this.selectedSector)).then(
         forms => {
           if (forms.length == 0) {
             this.loading = false;
@@ -269,8 +269,8 @@ export class ClientFormMerchantsPageComponent implements OnInit {
             found => {
               if (!found) {
                 // maybe user is searching for a company
+                console.log('find nothing so searching merchants');
                 this.title = 'Company';
-                console.log('find nothing');
                 this.searchByMerchantName();
               }
             }

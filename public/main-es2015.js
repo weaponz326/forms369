@@ -6676,7 +6676,7 @@ let ClientFormMerchantsPageComponent = class ClientFormMerchantsPageComponent {
     }
     searchByMerchantName() {
         this.loading = true;
-        this.companyService.getCompanyByName(this.query, this.user.country).then(merchants => {
+        this.companyService.getCompanyByName(this.query, this.user.country, lodash__WEBPACK_IMPORTED_MODULE_1__["toNumber"](this.selectedSector)).then(merchants => {
             if (merchants.length == 0) {
                 this.loading = false;
                 this.foundNoForm = true;
@@ -6713,7 +6713,7 @@ let ClientFormMerchantsPageComponent = class ClientFormMerchantsPageComponent {
     searchByFormName() {
         return new Promise((resolve, reject) => {
             this.loading = true;
-            this.clientService.findFormsByName(this.query, this.user.country).then(forms => {
+            this.clientService.findFormsByName(this.query, this.user.country, lodash__WEBPACK_IMPORTED_MODULE_1__["toNumber"](this.selectedSector)).then(forms => {
                 if (forms.length == 0) {
                     this.loading = false;
                     this.foundNoForm = true;
@@ -6776,8 +6776,8 @@ let ClientFormMerchantsPageComponent = class ClientFormMerchantsPageComponent {
                     this.searchByFormName().then(found => {
                         if (!found) {
                             // maybe user is searching for a company
+                            console.log('find nothing so searching merchants');
                             this.title = 'Company';
-                            console.log('find nothing');
                             this.searchByMerchantName();
                         }
                     });
@@ -8721,7 +8721,7 @@ let ClientListFormsPageComponent = class ClientListFormsPageComponent {
     }
     searchByFormName() {
         this.loading = true;
-        this.clientService.findFormsByName(this.query, this.user.country).then(forms => {
+        this.clientService.findFormsByName(this.query, this.user.country, 0).then(forms => {
             if (forms.length == 0) {
                 this.loading = false;
                 this.foundNoForm = true;
@@ -10432,7 +10432,7 @@ let ExecClientFormsPageComponent = class ExecClientFormsPageComponent {
     }
     searchByFormName() {
         this.loading = true;
-        this.clientService.findFormsByName(this.query, this.user.country).then(forms => {
+        this.clientService.findFormsByName(this.query, this.user.country, 0).then(forms => {
             if (forms.length == 0) {
                 this.loading = false;
                 this.foundNoForm = true;
@@ -14856,7 +14856,7 @@ let FrontDeskClientsFormPageComponent = class FrontDeskClientsFormPageComponent 
     }
     searchByFormName() {
         this.loading = true;
-        this.clientService.findFormsByName(this.query, this.user.country).then(forms => {
+        this.clientService.findFormsByName(this.query, this.user.country, 0).then(forms => {
             if (forms.length == 0) {
                 this.loading = false;
                 this.foundNoForm = true;
@@ -25523,9 +25523,9 @@ let ClientService = class ClientService {
      * @returns {Promise<any>}
      * @memberof ClientService
      */
-    findFormsByName(form_name, country) {
+    findFormsByName(form_name, country, sector_id) {
         return new Promise((resolve, reject) => {
-            const url = this.endpointService.apiHost + 'api/v1/getFormbyName/' + form_name + '/' + country;
+            const url = this.endpointService.apiHost + 'api/v1/getFormbyName/' + form_name + '/' + country + '/' + sector_id;
             this.http.get(url, { headers: this.headers }).subscribe(res => {
                 console.log('forms_by_name: ' + JSON.stringify(res));
                 const response = res;
@@ -26087,9 +26087,9 @@ let CompanyService = class CompanyService {
      * @returns {Promise<any>}
      * @memberof CompanyService
      */
-    getCompanyByName(company_name, country) {
+    getCompanyByName(company_name, country, sector_id) {
         return new Promise((resolve, reject) => {
-            const url = this.endpointService.apiHost + 'api/v1/getMerchantbyName/' + company_name + '/' + country;
+            const url = this.endpointService.apiHost + 'api/v1/getMerchantbyName/' + company_name + '/' + country + '/' + sector_id;
             this.http.get(url, { headers: this.headers }).subscribe(res => {
                 console.log('response_c_names: ' + JSON.stringify(res));
                 const response = res;

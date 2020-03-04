@@ -6799,7 +6799,7 @@ var ClientFormMerchantsPageComponent = /** @class */ (function () {
     ClientFormMerchantsPageComponent.prototype.searchByMerchantName = function () {
         var _this = this;
         this.loading = true;
-        this.companyService.getCompanyByName(this.query, this.user.country).then(function (merchants) {
+        this.companyService.getCompanyByName(this.query, this.user.country, lodash__WEBPACK_IMPORTED_MODULE_1__["toNumber"](this.selectedSector)).then(function (merchants) {
             if (merchants.length == 0) {
                 _this.loading = false;
                 _this.foundNoForm = true;
@@ -6838,7 +6838,7 @@ var ClientFormMerchantsPageComponent = /** @class */ (function () {
         var _this = this;
         return new Promise(function (resolve, reject) {
             _this.loading = true;
-            _this.clientService.findFormsByName(_this.query, _this.user.country).then(function (forms) {
+            _this.clientService.findFormsByName(_this.query, _this.user.country, lodash__WEBPACK_IMPORTED_MODULE_1__["toNumber"](_this.selectedSector)).then(function (forms) {
                 if (forms.length == 0) {
                     _this.loading = false;
                     _this.foundNoForm = true;
@@ -6902,8 +6902,8 @@ var ClientFormMerchantsPageComponent = /** @class */ (function () {
                     this.searchByFormName().then(function (found) {
                         if (!found) {
                             // maybe user is searching for a company
+                            console.log('find nothing so searching merchants');
                             _this.title = 'Company';
-                            console.log('find nothing');
                             _this.searchByMerchantName();
                         }
                     });
@@ -8907,7 +8907,7 @@ var ClientListFormsPageComponent = /** @class */ (function () {
     ClientListFormsPageComponent.prototype.searchByFormName = function () {
         var _this = this;
         this.loading = true;
-        this.clientService.findFormsByName(this.query, this.user.country).then(function (forms) {
+        this.clientService.findFormsByName(this.query, this.user.country, 0).then(function (forms) {
             if (forms.length == 0) {
                 _this.loading = false;
                 _this.foundNoForm = true;
@@ -10677,7 +10677,7 @@ var ExecClientFormsPageComponent = /** @class */ (function () {
     ExecClientFormsPageComponent.prototype.searchByFormName = function () {
         var _this = this;
         this.loading = true;
-        this.clientService.findFormsByName(this.query, this.user.country).then(function (forms) {
+        this.clientService.findFormsByName(this.query, this.user.country, 0).then(function (forms) {
             if (forms.length == 0) {
                 _this.loading = false;
                 _this.foundNoForm = true;
@@ -15206,7 +15206,7 @@ var FrontDeskClientsFormPageComponent = /** @class */ (function () {
     FrontDeskClientsFormPageComponent.prototype.searchByFormName = function () {
         var _this = this;
         this.loading = true;
-        this.clientService.findFormsByName(this.query, this.user.country).then(function (forms) {
+        this.clientService.findFormsByName(this.query, this.user.country, 0).then(function (forms) {
             if (forms.length == 0) {
                 _this.loading = false;
                 _this.foundNoForm = true;
@@ -26291,10 +26291,10 @@ var ClientService = /** @class */ (function () {
      * @returns {Promise<any>}
      * @memberof ClientService
      */
-    ClientService.prototype.findFormsByName = function (form_name, country) {
+    ClientService.prototype.findFormsByName = function (form_name, country, sector_id) {
         var _this = this;
         return new Promise(function (resolve, reject) {
-            var url = _this.endpointService.apiHost + 'api/v1/getFormbyName/' + form_name + '/' + country;
+            var url = _this.endpointService.apiHost + 'api/v1/getFormbyName/' + form_name + '/' + country + '/' + sector_id;
             _this.http.get(url, { headers: _this.headers }).subscribe(function (res) {
                 console.log('forms_by_name: ' + JSON.stringify(res));
                 var response = res;
@@ -26875,10 +26875,10 @@ var CompanyService = /** @class */ (function () {
      * @returns {Promise<any>}
      * @memberof CompanyService
      */
-    CompanyService.prototype.getCompanyByName = function (company_name, country) {
+    CompanyService.prototype.getCompanyByName = function (company_name, country, sector_id) {
         var _this = this;
         return new Promise(function (resolve, reject) {
-            var url = _this.endpointService.apiHost + 'api/v1/getMerchantbyName/' + company_name + '/' + country;
+            var url = _this.endpointService.apiHost + 'api/v1/getMerchantbyName/' + company_name + '/' + country + '/' + sector_id;
             _this.http.get(url, { headers: _this.headers }).subscribe(function (res) {
                 console.log('response_c_names: ' + JSON.stringify(res));
                 var response = res;

@@ -1544,7 +1544,7 @@ class SetupController extends Controller
                 ['merchants.temp', 'like', '%'.$term .'%'],
                 ['merchants.status','=',1],
                 ['merchants.country', '=', $country],
-                ['sector_id', $sector)]
+                ['sector_id', $sector]
             ])
             ->get();
       
