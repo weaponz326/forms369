@@ -74,7 +74,7 @@
                     <button *ngIf="!loading && !isProcessed" type="submit" class="btn btn-primary btn-lg mr-2" (click)="complete()">Complete</button>
                     <button *ngIf="!loading && !isProcessed && !isProcessing" type="submit" class="btn btn-light btn-lg mr-2" (click)="process()">Processing</button>
                     <div style="display: contents;"
-                      *ngIf="form.form_status == 0 || form.form_status == 1  || form.form_status == 3">
+                      *ngIf="form.form_status == 0 || form.form_status == 1  || form.form_status == 2">
                       <button *ngIf="!loading && !isProcessed" type="submit" class="btn btn-danger btn-lg" (click)="reject()">Reject</button>
                     </div>
                   </form>

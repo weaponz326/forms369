@@ -21,7 +21,7 @@
     19. Form fields required added to create form page.
     20. Form fields required added to create template page.
     21. Form fields required added to create section page.
-    22. Several bug fixes.
+    22. Several minor bug fixes.
 
 # version 0.0.3
     1. Clients can now upload attachments.
@@ -73,6 +73,12 @@
     10. Clients can no longer update their primary information.
     11. Search added to front desk, processed forms, processing and rejected forms ui.
     12. Filter added to super/branch exec processed and submitted forms.
-    13. Major bug fixes across all users 
+    13. Major bug fixes across all users
+    14. Search added to all list views now.
+    15. Executives can now view all user' accounts.
+    16. Downloading excel files: Headers are now well capitalized
+    17. Sharing form link bug fixed.
+    18. NEW* - Forms are now categorized.
+    19. Now forms are loading based on user's country
 
 

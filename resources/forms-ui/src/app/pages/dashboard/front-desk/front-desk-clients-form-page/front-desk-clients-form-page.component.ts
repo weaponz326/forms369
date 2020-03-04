@@ -142,6 +142,7 @@ export class FrontDeskClientsFormPageComponent implements OnInit {
 
   search(e: KeyboardEvent) {
     if (e.key == 'Enter') {
+      this.hasMore = false;
       if (this.query.length > 0) {
         // we need to know whether the user is searching by a form code
         // or the user is searching by a form name.

@@ -335,6 +335,7 @@ export class FrontDeskRejectedFormsListPageComponent implements OnInit {
 
   search(e: KeyboardEvent) {
     if (e.key == 'Enter') {
+      this.hasMore = false;
       if (this.query.length != 0) {
         // we need to know whether the user is searching by a submission
         // code or by a form name. So first, check if its a submission code.

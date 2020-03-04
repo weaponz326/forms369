@@ -474,7 +474,7 @@ Route::get('executive/forms', function () {
     return View::make('index');
 });
 
-Route::get('executive/accounts', function () {
+Route::get('executive/account_details', function () {
     View::addExtension('html', 'php');
     return View::make('index');
 });
@@ -500,6 +500,31 @@ Route::get('executive/printing', function () {
 });
 
 Route::get('executive/pdf_printing', function () {
+    View::addExtension('html', 'php');
+    return View::make('index');
+});
+
+Route::get('executive/lists/front_desk', function () {
+    View::addExtension('html', 'php');
+    return View::make('index');
+});
+
+Route::get('executive/lists/branch_admin', function () {
+    View::addExtension('html', 'php');
+    return View::make('index');
+});
+
+Route::get('executive/lists/company_admin', function () {
+    View::addExtension('html', 'php');
+    return View::make('index');
+});
+
+Route::get('executive/lists/super_executive', function () {
+    View::addExtension('html', 'php');
+    return View::make('index');
+});
+
+Route::get('executive/lists/branch_executive', function () {
     View::addExtension('html', 'php');
     return View::make('index');
 });

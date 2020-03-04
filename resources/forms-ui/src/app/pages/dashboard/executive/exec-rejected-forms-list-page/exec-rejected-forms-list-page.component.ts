@@ -1,7 +1,7 @@
 import * as _ from 'lodash';
 import { Router } from '@angular/router';
 import { Users } from 'src/app/models/users.model';
-import { NgbModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { ClientService } from 'src/app/services/client/client.service';
 import { Component, OnInit, ViewChild, TemplateRef } from '@angular/core';
@@ -194,6 +194,7 @@ export class ExecRejectedFormsListPageComponent implements OnInit {
 
   search(e: KeyboardEvent) {
     if (e.key == 'Enter') {
+      this.hasMore = false;
       if (this.query.length != 0) {
         // we need to know whether the user is searching by a submission
         // code or by a form name. So first, check if its a submission code.

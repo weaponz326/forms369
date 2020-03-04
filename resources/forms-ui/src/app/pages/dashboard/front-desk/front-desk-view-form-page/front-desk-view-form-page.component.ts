@@ -296,42 +296,44 @@ export class FrontDeskViewFormPageComponent implements OnInit {
 
   rejectForm() {
     this._submitted = true;
-    this.isLoading = true;
-    this.modalService.dismissAll();
-    const user_data = this.getFormData();
-    const filled_data = this.formBuilder.getFormUserData(user_data);
-    this.frontDeskService.rejectForm(this.form.submission_code, filled_data).then(
-      res => {
-        const response = res as any;
-        if (_.toLower(response.message) == 'ok') {
-          console.log('sending out the rejection review note');
-          this.frontDeskService.sendFormRejectionNote(this.form.submission_code, this.f.rejectionNote.value).then(
-            ok => {
-              if (ok) {
-                this.isLoading = false;
-                this.modalService.dismissAll();
-                this.rejected = true;
+    if (this.noteForm.valid) {
+      this.isLoading = true;
+      this.modalService.dismissAll();
+      const user_data = this.getFormData();
+      const filled_data = this.formBuilder.getFormUserData(user_data);
+      this.frontDeskService.rejectForm(this.form.submission_code, filled_data).then(
+        res => {
+          const response = res as any;
+          if (_.toLower(response.message) == 'ok') {
+            console.log('sending out the rejection review note');
+            this.frontDeskService.sendFormRejectionNote(this.form.submission_code, this.f.rejectionNote.value).then(
+              ok => {
+                if (ok) {
+                  this.isLoading = false;
+                  this.modalService.dismissAll();
+                  this.rejected = true;
+                }
+                else {
+                  this.isLoading = false;
+                  this.modalService.dismissAll();
+                  this.rejected = false;
+                }
               }
-              else {
-                this.isLoading = false;
-                this.modalService.dismissAll();
-                this.rejected = false;
-              }
-            }
-          );
-        }
-        else {
+            );
+          }
+          else {
+            this.isLoading = false;
+            this.modalService.dismissAll();
+            this.rejected = false;
+          }
+        },
+        err => {
           this.isLoading = false;
           this.modalService.dismissAll();
           this.rejected = false;
         }
-      },
-      err => {
-        this.isLoading = false;
-        this.modalService.dismissAll();
-        this.rejected = false;
-      }
-    );
+      );
+    }
   }
 
   handleRejectionNote() {

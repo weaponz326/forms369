@@ -5,6 +5,7 @@ import { DateTimeService } from 'src/app/services/date-time/date-time.service';
 import { LocalStorageService } from 'src/app/services/storage/local-storage.service';
 import { ClientService } from 'src/app/services/client/client.service';
 import { Users } from 'src/app/models/users.model';
+import { CompanyService } from 'src/app/services/company/company.service';
 
 @Component({
   selector: 'app-exec-forms-list-page',
@@ -28,6 +29,7 @@ export class ExecFormsListPageComponent implements OnInit {
     private formService: FormsService,
     private dateService: DateTimeService,
     private clientService: ClientService,
+    private companyService: CompanyService,
     private localStorage: LocalStorageService
   ) {
     this.allFormsList = [];
@@ -115,7 +117,7 @@ export class ExecFormsListPageComponent implements OnInit {
 
   searchByFormName() {
     this.loading = true;
-    this.clientService.findFormsByName(this.query, this.user.country).then(
+    this.companyService.findFormsByName(this.query, this.merchantId).then(
       forms => {
         if (forms.length == 0) {
           this.loading = false;
@@ -139,6 +141,7 @@ export class ExecFormsListPageComponent implements OnInit {
 
   search(e: KeyboardEvent) {
     if (e.key == 'Enter') {
+      this.hasMore = false;
       if (this.query.length > 0) {
         // we need to know whether the user is searching by a form code
         // or the user is searching by a form name.
