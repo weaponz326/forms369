@@ -1524,18 +1524,32 @@ class SetupController extends Controller
      *
      * @return void\Illuminate\Http\Response all merchants matching the search term
      */
-    public function getMerchantbyName(Request $request, $term){
+    public function getMerchantbyName(Request $request, $term, $country, $sector){
 
-        //get all registered companies 
-         //get all registered companies
-         $getmerchants = DB::table('merchants')
-         ->select('merchants.*')
-        ->where([
-            ['merchants.temp', 'like', '%'.$term .'%'],
-            ['merchants.status','=',1]
-        ])
-        ->get();
+        if($sector == 0){
+            //get all registered companies
+            $getmerchants = DB::table('merchants')
+            ->select('merchants.*')
+            ->where([
+                ['merchants.temp', 'like', '%'.$term .'%'],
+                ['merchants.status','=',1],
+                ['merchants.country', '=', $country]
+            ])
+            ->get();
+        }else{ 
+            //get all registered companies
+            $getmerchants = DB::table('merchants')
+            ->select('merchants.*')
+            ->where([
+                ['merchants.temp', 'like', '%'.$term .'%'],
+                ['merchants.status','=',1],
+                ['merchants.country', '=', $country],
+                ['sector_id', $sector)]
+            ])
+            ->get();
       
+        }
+        
         //clean data
         $merchantsdata = [];
         $getmerchants->transform(function($items, $key){
