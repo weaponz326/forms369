@@ -15,21 +15,14 @@
                 </div>
               </div>
               <div class="d-flex justify-content-between align-items-end flex-wrap">
-                <!-- <form style="width: 260px;">
-                  <div class="form-group">
-                    <select class="form-control lg">
-                      <option>Select Country</option>
-                      <option value="gh">Ghana</option>
-                    </select>
-                  </div>
-                </form> -->
+                <!-- <app-forms-country-picker (selectedCountry)="getSelectedCountry($event)"></app-forms-country-picker> -->
               </div>
             </div>
           </div>
         </div>
 
         <div class="row mb-4">
-          <div class="col-12 col-md-8 offset-md-2">
+          <div class="col-xs-8 col-sm-8 col-md-8 col-lg-8">
             <div class="search-bar">
               <form>
                 <input type="text" class="search-form form-control" name="query" [(ngModel)]="query"
@@ -37,6 +30,14 @@
                   aria-describedby="search" (keydown)="search($event)">
               </form>
             </div>
+          </div>
+          <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4">
+              <div class="form-group">
+                <select class="form-control" [(ngModel)]="selectedSector" (change)="onSectorSelect($event)">
+                  <option value="0">Select Sector / Category</option>
+                  <option *ngFor="let sector of sectorList" [value]="sector.id">{{ sector.name }}</option>
+                </select>
+              </div>
           </div>
         </div>
         

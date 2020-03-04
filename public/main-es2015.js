@@ -331,6 +331,17 @@ module.exports = "<footer class=\"footer\">\n  <div class=\"d-sm-flex justify-co
 
 /***/ }),
 
+/***/ "./node_modules/raw-loader/index.js!./src/app/components/forms-country-picker/forms-country-picker.component.html":
+/*!***************************************************************************************************************!*\
+  !*** ./node_modules/raw-loader!./src/app/components/forms-country-picker/forms-country-picker.component.html ***!
+  \***************************************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = "<form>\n    <div class=\"dropdown\">\n      <button class=\"btn btn-light dropdown-toggle\" type=\"button\" id=\"dropdownMenuButton\" data-toggle=\"dropdown\"\n        aria-haspopup=\"true\" aria-expanded=\"false\">\n        {{ flag }} {{ title }}\n      </button>\n      <div class=\"dropdown-menu\" aria-labelledby=\"dropdownMenuButton\">\n        <a class=\"dropdown-item\" *ngFor=\"let country of countriesList\" (click)=\"selectCountry(country)\">\n            {{ country.flag }} &nbsp; &nbsp; {{ country.name.common }}\n        </a>\n      </div>\n    </div>\n</form>"
+
+/***/ }),
+
 /***/ "./node_modules/raw-loader/index.js!./src/app/components/navigation-bar/navigation-bar.component.html":
 /*!***************************************************************************************************!*\
   !*** ./node_modules/raw-loader!./src/app/components/navigation-bar/navigation-bar.component.html ***!
@@ -338,7 +349,7 @@ module.exports = "<footer class=\"footer\">\n  <div class=\"d-sm-flex justify-co
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<!-- partial:partials/_navbar.html -->\n<nav class=\"navbar col-lg-12 col-12 p-0 fixed-top d-flex flex-row\">\n  <div class=\"navbar-brand-wrapper d-flex justify-content-center\">\n    <div class=\"navbar-brand-inner-wrapper d-flex justify-content-between align-items-center w-100\">  \n      <a class=\"navbar-brand brand-logo\" routerLink=\"/\"><img src=\"../assets/images/logo1.png\" alt=\"logo\"/></a>\n      <a class=\"navbar-brand brand-logo-mini\" routerLink=\"/\"><img src=\"../assets/images/logo1.png\" alt=\"logo\"/></a>\n      <button class=\"navbar-toggler navbar-toggler align-self-center\" type=\"button\" data-toggle=\"minimize\">\n        <span class=\"mdi mdi-sort-variant\"></span>\n      </button>\n    </div>  \n  </div>\n  <div class=\"navbar-menu-wrapper d-flex align-items-center justify-content-end\">\n    <ul class=\"navbar-nav mr-lg-4 w-100\">\n      <!-- <li class=\"nav-item nav-search d-none d-lg-block w-100\">\n        <div class=\"input-group\">\n          <div class=\"input-group-prepend\">\n            <span class=\"input-group-text\" id=\"search\">\n              <i class=\"mdi mdi-magnify\"></i>\n            </span>\n          </div>\n          <input type=\"text\" class=\"form-control\" placeholder=\"Search now\" aria-label=\"search\" aria-describedby=\"search\">\n        </div>\n      </li> -->\n    </ul>\n    <ul class=\"navbar-nav navbar-nav-right\">\n      <!-- <li class=\"nav-item dropdown mr-1\">\n        <a class=\"nav-link count-indicator dropdown-toggle d-flex justify-content-center align-items-center\" id=\"messageDropdown\" href=\"#\" data-toggle=\"dropdown\">\n          <i class=\"mdi mdi-message-text mx-0\"></i>\n        </a>\n        <div class=\"dropdown-menu dropdown-menu-right navbar-dropdown\" aria-labelledby=\"messageDropdown\">\n          <p class=\"mb-0 font-weight-normal float-left dropdown-header\">Messages</p>\n          <a class=\"dropdown-item\">\n            <div class=\"item-thumbnail\">\n                <img src=\"../assets/images/faces/face4.jpg\" alt=\"image\" class=\"profile-pic\">\n            </div>\n            <div class=\"item-content flex-grow\">\n              <h6 class=\"ellipsis font-weight-normal\">David Grey\n              </h6>\n              <p class=\"font-weight-light small-text text-muted mb-0\">\n                The meeting is cancelled\n              </p>\n            </div>\n          </a>\n          <a class=\"dropdown-item\">\n            <div class=\"item-thumbnail\">\n                <img src=\"../assets/images/faces/face2.jpg\" alt=\"image\" class=\"profile-pic\">\n            </div>\n            <div class=\"item-content flex-grow\">\n              <h6 class=\"ellipsis font-weight-normal\">Tim Cook\n              </h6>\n              <p class=\"font-weight-light small-text text-muted mb-0\">\n                New product launch\n              </p>\n            </div>\n          </a>\n          <a class=\"dropdown-item\">\n            <div class=\"item-thumbnail\">\n                <img src=\"../assets/images/faces/face3.jpg\" alt=\"image\" class=\"profile-pic\">\n            </div>\n            <div class=\"item-content flex-grow\">\n              <h6 class=\"ellipsis font-weight-normal\"> Johnson\n              </h6>\n              <p class=\"font-weight-light small-text text-muted mb-0\">\n                Upcoming board meeting\n              </p>\n            </div>\n          </a>\n        </div>\n      </li> -->\n      <!-- <li class=\"nav-item dropdown mr-4\">\n        <a class=\"nav-link count-indicator dropdown-toggle d-flex align-items-center justify-content-center notification-dropdown\" id=\"notificationDropdown\" href=\"#\" data-toggle=\"dropdown\">\n          <i class=\"mdi mdi-bell mx-0\"></i>\n        </a>\n        <div class=\"dropdown-menu dropdown-menu-right navbar-dropdown\" aria-labelledby=\"notificationDropdown\">\n          <p class=\"mb-0 font-weight-normal float-left dropdown-header\">Notifications</p>\n          <a class=\"dropdown-item\">\n            <div class=\"item-thumbnail\">\n              <div class=\"item-icon bg-success\">\n                <i class=\"mdi mdi-information mx-0\"></i>\n              </div>\n            </div>\n            <div class=\"item-content\">\n              <h6 class=\"font-weight-normal\">Application Error</h6>\n              <p class=\"font-weight-light small-text mb-0 text-muted\">\n                Just now\n              </p>\n            </div>\n          </a>\n          <a class=\"dropdown-item\">\n            <div class=\"item-thumbnail\">\n              <div class=\"item-icon bg-warning\">\n                <i class=\"mdi mdi-settings mx-0\"></i>\n              </div>\n            </div>\n            <div class=\"item-content\">\n              <h6 class=\"font-weight-normal\">Settings</h6>\n              <p class=\"font-weight-light small-text mb-0 text-muted\">\n                Private message\n              </p>\n            </div>\n          </a>\n          <a class=\"dropdown-item\">\n            <div class=\"item-thumbnail\">\n              <div class=\"item-icon bg-info\">\n                <i class=\"mdi mdi-account-box mx-0\"></i>\n              </div>\n            </div>\n            <div class=\"item-content\">\n              <h6 class=\"font-weight-normal\">New user registration</h6>\n              <p class=\"font-weight-light small-text mb-0 text-muted\">\n                2 days ago\n              </p>\n            </div>\n          </a>\n        </div>\n      </li> -->\n      <li class=\"nav-item nav-profile dropdown\">\n        <a class=\"nav-link dropdown-toggle\" href=\"#\" data-toggle=\"dropdown\" id=\"profileDropdown\">\n          <i class=\"mdi mdi-account-circle-outline navbar-avatar\"></i>\n          <span class=\"nav-profile-name\">{{ fullName }}</span>\n        </a>\n        <div class=\"dropdown-menu dropdown-menu-right navbar-dropdown\" aria-labelledby=\"profileDropdown\">\n          <a *ngIf=\"userType == 26\" class=\"dropdown-item\" routerLink=\"/client/profile\">\n            <i class=\"mdi mdi-account text-secondary\"></i>\n            Profile\n          </a>\n          <a *ngIf=\"userType == 26\" class=\"dropdown-item\" routerLink=\"/client/settings\">\n            <i class=\"mdi mdi-settings text-secondary\"></i>\n            Settings\n          </a>\n          <div class=\"dropdown-divider\"></div>\n          <a class=\"dropdown-item\" (click)=\"logout()\">\n            <i class=\"mdi mdi-logout text-secondary\"></i>\n            Logout\n          </a>\n        </div>\n      </li>\n    </ul>\n    <button class=\"navbar-toggler navbar-toggler-right d-lg-none align-self-center\" type=\"button\" data-toggle=\"offcanvas\">\n      <span class=\"mdi mdi-menu\"></span>\n    </button>\n  </div>\n</nav>\n<!-- partial -->"
+module.exports = "<!-- partial:partials/_navbar.html -->\n<nav class=\"navbar col-lg-12 col-12 p-0 fixed-top d-flex flex-row\">\n  <div class=\"navbar-brand-wrapper d-flex justify-content-center\">\n    <div class=\"navbar-brand-inner-wrapper d-flex justify-content-between align-items-center w-100\">  \n      <a class=\"navbar-brand brand-logo\" routerLink=\"/\"><img src=\"../assets/images/logo1.png\" alt=\"logo\"/></a>\n      <a class=\"navbar-brand brand-logo-mini\" routerLink=\"/\"><img src=\"../assets/images/logo1.png\" alt=\"logo\"/></a>\n      <button class=\"navbar-toggler navbar-toggler align-self-center\" type=\"button\" data-toggle=\"minimize\">\n        <span class=\"mdi mdi-sort-variant\"></span>\n      </button>\n    </div>  \n  </div>\n  <div class=\"navbar-menu-wrapper d-flex align-items-center justify-content-end\">\n    <ul class=\"navbar-nav mr-lg-4 w-100\">\n      <!-- <li class=\"nav-item nav-search d-none d-lg-block w-100\">\n        <div class=\"input-group\">\n          <div class=\"input-group-prepend\">\n            <span class=\"input-group-text\" id=\"search\">\n              <i class=\"mdi mdi-magnify\"></i>\n            </span>\n          </div>\n          <input type=\"text\" class=\"form-control\" placeholder=\"Search now\" aria-label=\"search\" aria-describedby=\"search\">\n        </div>\n      </li> -->\n    </ul>\n    <ul class=\"navbar-nav navbar-nav-right\">\n      <!-- <li class=\"nav-item dropdown mr-1\">\n        <a class=\"nav-link count-indicator dropdown-toggle d-flex justify-content-center align-items-center\" id=\"messageDropdown\" href=\"#\" data-toggle=\"dropdown\">\n          <i class=\"mdi mdi-message-text mx-0\"></i>\n        </a>\n        <div class=\"dropdown-menu dropdown-menu-right navbar-dropdown\" aria-labelledby=\"messageDropdown\">\n          <p class=\"mb-0 font-weight-normal float-left dropdown-header\">Messages</p>\n          <a class=\"dropdown-item\">\n            <div class=\"item-thumbnail\">\n                <img src=\"../assets/images/faces/face4.jpg\" alt=\"image\" class=\"profile-pic\">\n            </div>\n            <div class=\"item-content flex-grow\">\n              <h6 class=\"ellipsis font-weight-normal\">David Grey\n              </h6>\n              <p class=\"font-weight-light small-text text-muted mb-0\">\n                The meeting is cancelled\n              </p>\n            </div>\n          </a>\n          <a class=\"dropdown-item\">\n            <div class=\"item-thumbnail\">\n                <img src=\"../assets/images/faces/face2.jpg\" alt=\"image\" class=\"profile-pic\">\n            </div>\n            <div class=\"item-content flex-grow\">\n              <h6 class=\"ellipsis font-weight-normal\">Tim Cook\n              </h6>\n              <p class=\"font-weight-light small-text text-muted mb-0\">\n                New product launch\n              </p>\n            </div>\n          </a>\n          <a class=\"dropdown-item\">\n            <div class=\"item-thumbnail\">\n                <img src=\"../assets/images/faces/face3.jpg\" alt=\"image\" class=\"profile-pic\">\n            </div>\n            <div class=\"item-content flex-grow\">\n              <h6 class=\"ellipsis font-weight-normal\"> Johnson\n              </h6>\n              <p class=\"font-weight-light small-text text-muted mb-0\">\n                Upcoming board meeting\n              </p>\n            </div>\n          </a>\n        </div>\n      </li> -->\n      <!-- <li class=\"nav-item dropdown mr-4\">\n        <a class=\"nav-link count-indicator dropdown-toggle d-flex align-items-center justify-content-center notification-dropdown\" id=\"notificationDropdown\" href=\"#\" data-toggle=\"dropdown\">\n          <i class=\"mdi mdi-flag-outline mx-0\"></i>\n        </a>\n        <app-forms-country-picker></app-forms-country-picker>\n      </li> -->\n      <li class=\"nav-item nav-profile dropdown\">\n        <a class=\"nav-link dropdown-toggle\" href=\"#\" data-toggle=\"dropdown\" id=\"profileDropdown\">\n          <i class=\"mdi mdi-account-circle-outline navbar-avatar\"></i>\n          <span class=\"nav-profile-name\">{{ fullName }}</span>\n        </a>\n        <div class=\"dropdown-menu dropdown-menu-right navbar-dropdown\" aria-labelledby=\"profileDropdown\">\n          <a *ngIf=\"userType == 26\" class=\"dropdown-item\" routerLink=\"/client/profile\">\n            <i class=\"mdi mdi-account text-secondary\"></i>\n            Profile\n          </a>\n          <a *ngIf=\"userType == 26\" class=\"dropdown-item\" routerLink=\"/client/settings\">\n            <i class=\"mdi mdi-settings text-secondary\"></i>\n            Settings\n          </a>\n          <div class=\"dropdown-divider\"></div>\n          <a class=\"dropdown-item\" (click)=\"logout()\">\n            <i class=\"mdi mdi-logout text-secondary\"></i>\n            Logout\n          </a>\n        </div>\n      </li>\n    </ul>\n    <button class=\"navbar-toggler navbar-toggler-right d-lg-none align-self-center\" type=\"button\" data-toggle=\"offcanvas\">\n      <span class=\"mdi mdi-menu\"></span>\n    </button>\n  </div>\n</nav>\n<!-- partial -->"
 
 /***/ }),
 
@@ -624,7 +635,7 @@ module.exports = "<div *ngIf=\"loading\" class=\"row m-md-5 text-center\">\n  <d
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<div class=\"container-scroller\">\n  <app-navigation-bar></app-navigation-bar>\n  <div class=\"container-fluid page-body-wrapper\">\n    <app-side-bar></app-side-bar>\n    <div class=\"main-panel\">\n      <div class=\"content-wrapper\">\n        <div class=\"row\">\n          <div class=\"col-md-12 grid-margin\">\n            <div class=\"d-flex justify-content-between flex-wrap\">\n              <div class=\"d-flex align-items-end flex-wrap\">\n                <div class=\"mr-md-3 mr-xl-5\">\n                  <h2>Select {{ title }}</h2>\n                </div>\n                <div class=\"d-flex\">\n                </div>\n              </div>\n              <div class=\"d-flex justify-content-between align-items-end flex-wrap\">\n                <!-- <form style=\"width: 260px;\">\n                  <div class=\"form-group\">\n                    <select class=\"form-control lg\">\n                      <option>Select Country</option>\n                      <option value=\"gh\">Ghana</option>\n                    </select>\n                  </div>\n                </form> -->\n              </div>\n            </div>\n          </div>\n        </div>\n\n        <div class=\"row mb-4\">\n          <div class=\"col-12 col-md-8 offset-md-2\">\n            <div class=\"search-bar\">\n              <form>\n                <input type=\"text\" class=\"search-form form-control\" name=\"query\" [(ngModel)]=\"query\"\n                  placeholder=\"Search by form code, form name or merchant name\" aria-label=\"search\"\n                  aria-describedby=\"search\" (keydown)=\"search($event)\">\n              </form>\n            </div>\n          </div>\n        </div>\n        \n        <div *ngIf=\"loading\" class=\"row m-md-5\">\n          <div class=\"col-md-12 col-sm-12 m-md-5\">\n            <div class=\"d-flex justify-content-center\">\n              <div class=\"spinner-border m-5\" style=\"width: 3rem; height: 3rem;\" role=\"status\">\n                <span class=\"sr-only\">Loading...</span>\n              </div>\n            </div>\n          </div>\n        </div>\n\n        <div *ngIf=\"!hasData && !loading\" class=\"row\">\n          <div class=\"col-lg-12 grid-margin stretch-card\">\n            <div class=\"card text-center pt-5 pb-5\">\n              <div class=\"card-body mt-5 mb-5\">\n                <h4 class=\"card-title\">No Data Found</h4>\n                <p class=\"card-description\">\n                  No company found.\n                </p>\n                <div class=\"text-lg-center mt-5 mb-5\">\n                  <div class=\"card-text\">\n                    <i class=\"mdi mdi-lighthouse\" style=\"font-size: 8em;\"></i>\n                  </div>\n                  <div class=\"card-text\">\n                    <h3>No Available Company</h3>\n                    <p class=\"text-muted\">There are no available companies yet!</p>\n                  </div>\n                </div>\n              </div>\n            </div>\n          </div>\n        </div>\n\n        <div *ngIf=\"foundNoForm && !loading\" class=\"row\">\n          <div class=\"col-lg-12 grid-margin stretch-card\">\n            <div class=\"card text-center pt-5 pb-5\">\n              <div class=\"card-body mt-5 mb-5\">\n                <h4 class=\"card-title\">No Search Result</h4>\n                <p class=\"card-description\">\n                  No form found based on your search criteria\n                </p>\n                <div class=\"text-lg-center mt-5 mb-5\">\n                  <div class=\"card-text\">\n                    <i class=\"mdi mdi-search-web\" style=\"font-size: 8em;\"></i>\n                  </div>\n                  <div class=\"card-text\">\n                    <h3>No Forms Found</h3>\n                    <p class=\"text-muted\">\n                      No form found based on your search criteria.\n                    </p>\n                  </div>\n                </div>\n              </div>\n            </div>\n          </div>\n        </div>\n\n        <div *ngIf=\"!loading && hasError\" class=\"row\">\n          <div class=\"col-lg-12 grid-margin stretch-card\">\n            <div class=\"card text-center pt-5 pb-5\">\n              <div class=\"card-body mt-5 mb-5\">\n                <h4 class=\"card-title\">Error Ocuured</h4>\n                <p class=\"card-description\">\n                  Ooops! Something went wrong!\n                </p>\n                <div class=\"text-lg-center mt-5 mb-5\">\n                  <div class=\"card-text\">\n                    <i class=\"mdi mdi-close-network-outline\" style=\"font-size: 8em;\"></i>\n                  </div>\n                  <div class=\"card-text\">\n                    <h3>We couldn't get the data you were looking for</h3>\n                    <p class=\"text-muted\">An error has occured on our servers or you might not have internet connection</p>\n                    <button class=\"btn btn-primary\" (click)=\"retry()\">Retry</button>\n                  </div>\n                </div>\n              </div>\n            </div>\n          </div>\n        </div>\n\n        <div *ngIf=\"!loading && hasData\" class=\"row\">\n          <div class=\"col-md-4 grid-margin stretch-card\" *ngFor=\"let company of companyList\">\n            <div class=\"card hover-cursor animated fadeInDown fast\" (click)=\"open(company)\">\n              <div class=\"card-body text-center\">\n                <p class=\"card-title\">{{ company.merchant_name }}</p>\n                <div class=\"card-text\">\n                  <img [src]=\"company.logo\" class=\"img-fluid card-logo mb-3\" alt=\"logo\">\n                  <!-- <p class=\"text-muted\">Click to see available forms.</p> -->\n                </div>\n              </div>\n            </div>\n          </div>\n        </div>\n\n        <div *ngIf=\"!loading && hasData\" class=\"row\" style=\"margin-top: 25px;\">\n          <div class=\"col-md-4 text-center grid-margin stretch-card\" *ngFor=\"let form of formsList\">\n            <div class=\"card hover-cursor animated fadeInDown slow\" (click)=\"openForm(form)\">\n              <div class=\"card-body\" style=\"text-align: left;\">\n                <p class=\"card-title\">{{ form.merchant_name }}</p>\n                <div class=\"card-text\">\n                  <h1 class=\"display-4\">{{ form.name }}</h1>\n                  <!-- <p class=\"text-muted\">Click to open form and start filling.</p> -->\n                </div>\n              </div>\n            </div>\n          </div>\n        </div>\n\n        <div *ngIf=\"loadingMore\" class=\"row m-md-2\">\n          <div class=\"col-md-12 col-sm-12 m-md-2\">\n            <div class=\"d-flex justify-content-center\">\n              <div class=\"spinner-border m-2\" style=\"width: 2rem; height: 2rem;\" role=\"status\">\n                <span class=\"sr-only\">Loading...</span>\n              </div>\n            </div>\n          </div>\n        </div>\n\n        <div *ngIf=\"hasMoreError\" class=\"row m-md-2\">\n          <div class=\"col-md-8 col-sm-12 offset-md-2\">\n            <div class=\"alert alert-danger\" role=\"alert\">\n              <h4 class=\"alert-heading\">Connection Failed!</h4>\n              <p>\n                Oops!! Couldn't get you the rest of the data. Please make sure you have an active internet connection.\n                Maybe, our servers may be down.\n              </p>\n              <hr>\n              <p class=\"mb-0\">We are really sorry for this inconvenience. Please click on the load more button again.\n              </p>\n            </div>\n          </div>\n        </div>\n\n        <div *ngIf=\"hasMore\" class=\"row\">\n          <div class=\"col-md-4 col-sm-6 offset-sm-3 offset-lg-4\">\n            <div class=\"text-center\">\n              <button type=\"button\" class=\"btn btn-primary btn-rounded btn-fw\" (click)=\"loadMore()\">Load More</button>\n            </div>\n          </div>\n        </div>\n        \n      </div>\n      <!-- content -->\n      <!-- footer -->\n      <app-footer-bar></app-footer-bar>\n      <!-- partial -->\n    </div>\n    <!-- main-panel ends -->\n  </div>\n</div>\n"
+module.exports = "<div class=\"container-scroller\">\n  <app-navigation-bar></app-navigation-bar>\n  <div class=\"container-fluid page-body-wrapper\">\n    <app-side-bar></app-side-bar>\n    <div class=\"main-panel\">\n      <div class=\"content-wrapper\">\n        <div class=\"row\">\n          <div class=\"col-md-12 grid-margin\">\n            <div class=\"d-flex justify-content-between flex-wrap\">\n              <div class=\"d-flex align-items-end flex-wrap\">\n                <div class=\"mr-md-3 mr-xl-5\">\n                  <h2>Select {{ title }}</h2>\n                </div>\n                <div class=\"d-flex\">\n                </div>\n              </div>\n              <div class=\"d-flex justify-content-between align-items-end flex-wrap\">\n                <!-- <app-forms-country-picker (selectedCountry)=\"getSelectedCountry($event)\"></app-forms-country-picker> -->\n              </div>\n            </div>\n          </div>\n        </div>\n\n        <div class=\"row mb-4\">\n          <div class=\"col-xs-8 col-sm-8 col-md-8 col-lg-8\">\n            <div class=\"search-bar\">\n              <form>\n                <input type=\"text\" class=\"search-form form-control\" name=\"query\" [(ngModel)]=\"query\"\n                  placeholder=\"Search by form code, form name or merchant name\" aria-label=\"search\"\n                  aria-describedby=\"search\" (keydown)=\"search($event)\">\n              </form>\n            </div>\n          </div>\n          <div class=\"col-xs-4 col-sm-4 col-md-4 col-lg-4\">\n              <div class=\"form-group\">\n                <select class=\"form-control\" [(ngModel)]=\"selectedSector\" (change)=\"onSectorSelect($event)\">\n                  <option value=\"0\">Select Sector / Category</option>\n                  <option *ngFor=\"let sector of sectorList\" [value]=\"sector.id\">{{ sector.name }}</option>\n                </select>\n              </div>\n          </div>\n        </div>\n        \n        <div *ngIf=\"loading\" class=\"row m-md-5\">\n          <div class=\"col-md-12 col-sm-12 m-md-5\">\n            <div class=\"d-flex justify-content-center\">\n              <div class=\"spinner-border m-5\" style=\"width: 3rem; height: 3rem;\" role=\"status\">\n                <span class=\"sr-only\">Loading...</span>\n              </div>\n            </div>\n          </div>\n        </div>\n\n        <div *ngIf=\"!hasData && !loading\" class=\"row\">\n          <div class=\"col-lg-12 grid-margin stretch-card\">\n            <div class=\"card text-center pt-5 pb-5\">\n              <div class=\"card-body mt-5 mb-5\">\n                <h4 class=\"card-title\">No Data Found</h4>\n                <p class=\"card-description\">\n                  No company found.\n                </p>\n                <div class=\"text-lg-center mt-5 mb-5\">\n                  <div class=\"card-text\">\n                    <i class=\"mdi mdi-lighthouse\" style=\"font-size: 8em;\"></i>\n                  </div>\n                  <div class=\"card-text\">\n                    <h3>No Available Company</h3>\n                    <p class=\"text-muted\">There are no available companies yet!</p>\n                  </div>\n                </div>\n              </div>\n            </div>\n          </div>\n        </div>\n\n        <div *ngIf=\"foundNoForm && !loading\" class=\"row\">\n          <div class=\"col-lg-12 grid-margin stretch-card\">\n            <div class=\"card text-center pt-5 pb-5\">\n              <div class=\"card-body mt-5 mb-5\">\n                <h4 class=\"card-title\">No Search Result</h4>\n                <p class=\"card-description\">\n                  No form found based on your search criteria\n                </p>\n                <div class=\"text-lg-center mt-5 mb-5\">\n                  <div class=\"card-text\">\n                    <i class=\"mdi mdi-search-web\" style=\"font-size: 8em;\"></i>\n                  </div>\n                  <div class=\"card-text\">\n                    <h3>No Forms Found</h3>\n                    <p class=\"text-muted\">\n                      No form found based on your search criteria.\n                    </p>\n                  </div>\n                </div>\n              </div>\n            </div>\n          </div>\n        </div>\n\n        <div *ngIf=\"!loading && hasError\" class=\"row\">\n          <div class=\"col-lg-12 grid-margin stretch-card\">\n            <div class=\"card text-center pt-5 pb-5\">\n              <div class=\"card-body mt-5 mb-5\">\n                <h4 class=\"card-title\">Error Ocuured</h4>\n                <p class=\"card-description\">\n                  Ooops! Something went wrong!\n                </p>\n                <div class=\"text-lg-center mt-5 mb-5\">\n                  <div class=\"card-text\">\n                    <i class=\"mdi mdi-close-network-outline\" style=\"font-size: 8em;\"></i>\n                  </div>\n                  <div class=\"card-text\">\n                    <h3>We couldn't get the data you were looking for</h3>\n                    <p class=\"text-muted\">An error has occured on our servers or you might not have internet connection</p>\n                    <button class=\"btn btn-primary\" (click)=\"retry()\">Retry</button>\n                  </div>\n                </div>\n              </div>\n            </div>\n          </div>\n        </div>\n\n        <div *ngIf=\"!loading && hasData\" class=\"row\">\n          <div class=\"col-md-4 grid-margin stretch-card\" *ngFor=\"let company of companyList\">\n            <div class=\"card hover-cursor animated fadeInDown fast\" (click)=\"open(company)\">\n              <div class=\"card-body text-center\">\n                <p class=\"card-title\">{{ company.merchant_name }}</p>\n                <div class=\"card-text\">\n                  <img [src]=\"company.logo\" class=\"img-fluid card-logo mb-3\" alt=\"logo\">\n                  <!-- <p class=\"text-muted\">Click to see available forms.</p> -->\n                </div>\n              </div>\n            </div>\n          </div>\n        </div>\n\n        <div *ngIf=\"!loading && hasData\" class=\"row\" style=\"margin-top: 25px;\">\n          <div class=\"col-md-4 text-center grid-margin stretch-card\" *ngFor=\"let form of formsList\">\n            <div class=\"card hover-cursor animated fadeInDown slow\" (click)=\"openForm(form)\">\n              <div class=\"card-body\" style=\"text-align: left;\">\n                <p class=\"card-title\">{{ form.merchant_name }}</p>\n                <div class=\"card-text\">\n                  <h1 class=\"display-4\">{{ form.name }}</h1>\n                  <!-- <p class=\"text-muted\">Click to open form and start filling.</p> -->\n                </div>\n              </div>\n            </div>\n          </div>\n        </div>\n\n        <div *ngIf=\"loadingMore\" class=\"row m-md-2\">\n          <div class=\"col-md-12 col-sm-12 m-md-2\">\n            <div class=\"d-flex justify-content-center\">\n              <div class=\"spinner-border m-2\" style=\"width: 2rem; height: 2rem;\" role=\"status\">\n                <span class=\"sr-only\">Loading...</span>\n              </div>\n            </div>\n          </div>\n        </div>\n\n        <div *ngIf=\"hasMoreError\" class=\"row m-md-2\">\n          <div class=\"col-md-8 col-sm-12 offset-md-2\">\n            <div class=\"alert alert-danger\" role=\"alert\">\n              <h4 class=\"alert-heading\">Connection Failed!</h4>\n              <p>\n                Oops!! Couldn't get you the rest of the data. Please make sure you have an active internet connection.\n                Maybe, our servers may be down.\n              </p>\n              <hr>\n              <p class=\"mb-0\">We are really sorry for this inconvenience. Please click on the load more button again.\n              </p>\n            </div>\n          </div>\n        </div>\n\n        <div *ngIf=\"hasMore\" class=\"row\">\n          <div class=\"col-md-4 col-sm-6 offset-sm-3 offset-lg-4\">\n            <div class=\"text-center\">\n              <button type=\"button\" class=\"btn btn-primary btn-rounded btn-fw\" (click)=\"loadMore()\">Load More</button>\n            </div>\n          </div>\n        </div>\n        \n      </div>\n      <!-- content -->\n      <!-- footer -->\n      <app-footer-bar></app-footer-bar>\n      <!-- partial -->\n    </div>\n    <!-- main-panel ends -->\n  </div>\n</div>\n"
 
 /***/ }),
 
@@ -2471,6 +2482,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _pages_dashboard_executive_exec_view_super_exectives_page_exec_view_super_exectives_page_component__WEBPACK_IMPORTED_MODULE_126__ = __webpack_require__(/*! ./pages/dashboard/executive/exec-view-super-exectives-page/exec-view-super-exectives-page.component */ "./src/app/pages/dashboard/executive/exec-view-super-exectives-page/exec-view-super-exectives-page.component.ts");
 /* harmony import */ var _pages_dashboard_executive_exec_view_branch_exectives_page_exec_view_branch_exectives_page_component__WEBPACK_IMPORTED_MODULE_127__ = __webpack_require__(/*! ./pages/dashboard/executive/exec-view-branch-exectives-page/exec-view-branch-exectives-page.component */ "./src/app/pages/dashboard/executive/exec-view-branch-exectives-page/exec-view-branch-exectives-page.component.ts");
 /* harmony import */ var _pages_dashboard_executive_exec_view_front_desks_page_exec_view_front_desks_page_component__WEBPACK_IMPORTED_MODULE_128__ = __webpack_require__(/*! ./pages/dashboard/executive/exec-view-front-desks-page/exec-view-front-desks-page.component */ "./src/app/pages/dashboard/executive/exec-view-front-desks-page/exec-view-front-desks-page.component.ts");
+/* harmony import */ var _components_forms_country_picker_forms_country_picker_component__WEBPACK_IMPORTED_MODULE_129__ = __webpack_require__(/*! ./components/forms-country-picker/forms-country-picker.component */ "./src/app/components/forms-country-picker/forms-country-picker.component.ts");
+
 
 
 
@@ -2717,6 +2730,7 @@ AppModule = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
             _pages_dashboard_executive_exec_view_super_exectives_page_exec_view_super_exectives_page_component__WEBPACK_IMPORTED_MODULE_126__["ExecViewSuperExectivesPageComponent"],
             _pages_dashboard_executive_exec_view_branch_exectives_page_exec_view_branch_exectives_page_component__WEBPACK_IMPORTED_MODULE_127__["ExecViewBranchExectivesPageComponent"],
             _pages_dashboard_executive_exec_view_front_desks_page_exec_view_front_desks_page_component__WEBPACK_IMPORTED_MODULE_128__["ExecViewFrontDesksPageComponent"],
+            _components_forms_country_picker_forms_country_picker_component__WEBPACK_IMPORTED_MODULE_129__["FormsCountryPickerComponent"],
         ],
         imports: [
             _angular_platform_browser__WEBPACK_IMPORTED_MODULE_1__["BrowserModule"],
@@ -2791,6 +2805,67 @@ FooterBarComponent = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
         styles: [__webpack_require__(/*! ./footer-bar.component.css */ "./src/app/components/footer-bar/footer-bar.component.css")]
     })
 ], FooterBarComponent);
+
+
+
+/***/ }),
+
+/***/ "./src/app/components/forms-country-picker/forms-country-picker.component.css":
+/*!************************************************************************************!*\
+  !*** ./src/app/components/forms-country-picker/forms-country-picker.component.css ***!
+  \************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = ".dropdown > button {\n    text-transform: inherit;\n    font-size: 13px;\n}\n\n.dropdown-menu {         \n  max-height: 650px;\n  overflow-y: auto;\n}\n\n.dropdown-menu .dropdown-item {\n    font-size: 12px;\n    cursor: pointer;\n    padding: .65rem 1rem;\n}\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInNyYy9hcHAvY29tcG9uZW50cy9mb3Jtcy1jb3VudHJ5LXBpY2tlci9mb3Jtcy1jb3VudHJ5LXBpY2tlci5jb21wb25lbnQuY3NzIl0sIm5hbWVzIjpbXSwibWFwcGluZ3MiOiJBQUFBO0lBQ0ksdUJBQXVCO0lBQ3ZCLGVBQWU7QUFDbkI7O0FBRUE7RUFDRSxpQkFBaUI7RUFDakIsZ0JBQWdCO0FBQ2xCOztBQUVBO0lBQ0ksZUFBZTtJQUNmLGVBQWU7SUFDZixvQkFBb0I7QUFDeEIiLCJmaWxlIjoic3JjL2FwcC9jb21wb25lbnRzL2Zvcm1zLWNvdW50cnktcGlja2VyL2Zvcm1zLWNvdW50cnktcGlja2VyLmNvbXBvbmVudC5jc3MiLCJzb3VyY2VzQ29udGVudCI6WyIuZHJvcGRvd24gPiBidXR0b24ge1xuICAgIHRleHQtdHJhbnNmb3JtOiBpbmhlcml0O1xuICAgIGZvbnQtc2l6ZTogMTNweDtcbn1cblxuLmRyb3Bkb3duLW1lbnUgeyAgICAgICAgIFxuICBtYXgtaGVpZ2h0OiA2NTBweDtcbiAgb3ZlcmZsb3cteTogYXV0bztcbn1cblxuLmRyb3Bkb3duLW1lbnUgLmRyb3Bkb3duLWl0ZW0ge1xuICAgIGZvbnQtc2l6ZTogMTJweDtcbiAgICBjdXJzb3I6IHBvaW50ZXI7XG4gICAgcGFkZGluZzogLjY1cmVtIDFyZW07XG59Il19 */"
+
+/***/ }),
+
+/***/ "./src/app/components/forms-country-picker/forms-country-picker.component.ts":
+/*!***********************************************************************************!*\
+  !*** ./src/app/components/forms-country-picker/forms-country-picker.component.ts ***!
+  \***********************************************************************************/
+/*! exports provided: FormsCountryPickerComponent */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "FormsCountryPickerComponent", function() { return FormsCountryPickerComponent; });
+/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
+/* harmony import */ var ngx_country_picker__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ngx-country-picker */ "./node_modules/ngx-country-picker/index.js");
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm2015/core.js");
+
+
+
+let FormsCountryPickerComponent = class FormsCountryPickerComponent {
+    constructor(countryPickerService) {
+        this.countryPickerService = countryPickerService;
+        this.flag = '';
+        this.title = 'Select Country';
+        this.selectedCountry = new _angular_core__WEBPACK_IMPORTED_MODULE_2__["EventEmitter"]();
+    }
+    ngOnInit() {
+        this.countryPickerService.getCountries().subscribe(countries => { this.countriesList = countries; });
+    }
+    selectCountry(country) {
+        this.flag = country.flag;
+        this.title = country.name.common;
+        this.selectedCountry.emit(country);
+    }
+};
+FormsCountryPickerComponent.ctorParameters = () => [
+    { type: ngx_country_picker__WEBPACK_IMPORTED_MODULE_1__["CountryPickerService"] }
+];
+tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
+    Object(_angular_core__WEBPACK_IMPORTED_MODULE_2__["Output"])()
+], FormsCountryPickerComponent.prototype, "selectedCountry", void 0);
+FormsCountryPickerComponent = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
+    Object(_angular_core__WEBPACK_IMPORTED_MODULE_2__["Component"])({
+        selector: 'app-forms-country-picker',
+        template: __webpack_require__(/*! raw-loader!./forms-country-picker.component.html */ "./node_modules/raw-loader/index.js!./src/app/components/forms-country-picker/forms-country-picker.component.html"),
+        styles: [__webpack_require__(/*! ./forms-country-picker.component.css */ "./src/app/components/forms-country-picker/forms-country-picker.component.css")]
+    })
+], FormsCountryPickerComponent);
 
 
 
@@ -6508,10 +6583,14 @@ let ClientFormMerchantsPageComponent = class ClientFormMerchantsPageComponent {
         this.localStorage = localStorage;
         this.query = '';
         this.formsList = [];
+        this.sectorList = [];
         this.companyList = [];
-        this.getCompanies();
         this.title = 'Company';
+        this.selectedCountry = '';
+        this.selectedSector = '0';
         this.user = this.localStorage.getUser();
+        this.getSectors();
+        this.getCompanies(this.user.country, 0);
     }
     ngOnInit() {
         this.isConnected = window.navigator.onLine ? true : false;
@@ -6525,9 +6604,19 @@ let ClientFormMerchantsPageComponent = class ClientFormMerchantsPageComponent {
     checkIfHasMore() {
         return lodash__WEBPACK_IMPORTED_MODULE_1__["isNull"](this.companyService.nextPaginationUrl) ? false : true;
     }
-    getCompanies() {
+    getSectors() {
+        this.companyService.getMerchantSectors().then(sectors => {
+            if (sectors.length > 0) {
+                lodash__WEBPACK_IMPORTED_MODULE_1__["forEach"](sectors, (sector) => {
+                    this.sectorList.push(sector);
+                });
+            }
+        }, error => { });
+    }
+    getCompanies(country, sector_id) {
         this.loading = true;
-        this.companyService.getAllCompanies().then(res => {
+        this.companyList = [];
+        this.companyService.getCompanyByCountry(country, sector_id).then(res => {
             this.loading = false;
             this.hasError = false;
             const merchants = res;
@@ -6548,7 +6637,22 @@ let ClientFormMerchantsPageComponent = class ClientFormMerchantsPageComponent {
             this.hasError = true;
         });
     }
+    getSelectedCountry(data) {
+        console.log('selected country: ' + JSON.stringify(data));
+        const country = data.name.common;
+        this.selectedCountry = country;
+        this.selectedSector == ''
+            ? this.getCompanies(this.selectedCountry, 0)
+            : this.getCompanies(this.selectedCountry, lodash__WEBPACK_IMPORTED_MODULE_1__["toNumber"](this.selectedSector));
+    }
+    getCompaniesBySector(sector_id) {
+        this.loading = true;
+        this.selectedCountry == ''
+            ? this.getCompanies(this.user.country, sector_id)
+            : this.getCompanies(this.selectedCountry, sector_id);
+    }
     loadMore() {
+        this.companyList = [];
         this.loadingMore = true;
         this.hasMoreError = false;
         const moreUrl = this.companyService.nextPaginationUrl;
@@ -6565,6 +6669,10 @@ let ClientFormMerchantsPageComponent = class ClientFormMerchantsPageComponent {
             this.loadingMore = false;
             this.hasMoreError = true;
         });
+    }
+    onSectorSelect(e) {
+        console.log('selected sector id: ' + this.selectedSector);
+        this.getCompaniesBySector(lodash__WEBPACK_IMPORTED_MODULE_1__["toNumber"](this.selectedSector));
     }
     searchByMerchantName() {
         this.loading = true;
@@ -6676,18 +6784,18 @@ let ClientFormMerchantsPageComponent = class ClientFormMerchantsPageComponent {
                 }
             }
             else {
-                if ((this.foundNoForm && this.query.length == 0) || this.query.length == 0) {
-                    this.companyList = [];
-                    this.hasData = true;
-                    this.foundNoForm = false;
-                    console.log('hererer');
-                    this.getCompanies();
-                }
+                this.companyList = [];
+                this.hasData = true;
+                this.foundNoForm = false;
+                console.log('hererer');
+                this.selectedCountry == ''
+                    ? this.getCompanies(this.user.country, lodash__WEBPACK_IMPORTED_MODULE_1__["toNumber"](this.selectedSector))
+                    : this.getCompanies(this.selectedCountry, lodash__WEBPACK_IMPORTED_MODULE_1__["toNumber"](this.selectedSector));
             }
         }
     }
     retry() {
-        this.getCompanies();
+        this.getCompanies(this.user.country, lodash__WEBPACK_IMPORTED_MODULE_1__["toNumber"](this.selectedSector));
     }
 };
 ClientFormMerchantsPageComponent.ctorParameters = () => [
@@ -25956,12 +26064,15 @@ let CompanyService = class CompanyService {
      * @returns {Promise<any>}
      * @memberof CompanyService
      */
-    getCompanyByCountry(country) {
+    getCompanyByCountry(country, sector_id, page_url) {
         return new Promise((resolve, reject) => {
-            const url = this.endpointService.apiHost + 'api/v1/getAllMerchantsByCountry/' + country;
+            const url = !lodash__WEBPACK_IMPORTED_MODULE_1__["isUndefined"](page_url)
+                ? page_url
+                : this.endpointService.apiHost + 'api/v1/getAllMerchantsByCountry/' + country + '/' + sector_id;
             this.http.get(url, { headers: this.headers }).subscribe(res => {
                 console.log('response_merchant: ' + JSON.stringify(res));
                 const response = res;
+                this.nextPaginationUrl = response.merchant.next_page_url;
                 resolve(response.merchant.data);
             }, err => {
                 console.log('error_merchants: ' + JSON.stringify(err));
@@ -26070,6 +26181,19 @@ let CompanyService = class CompanyService {
                 console.log('response: ' + JSON.stringify(res));
                 const response = res;
                 resolve(response.users.data);
+            }, err => {
+                console.log('error: ' + JSON.stringify(err));
+                reject(err);
+            });
+        });
+    }
+    getMerchantSectors() {
+        return new Promise((resolve, reject) => {
+            const url = this.endpointService.apiHost + 'api/v1/getAllBusinessSectors';
+            this.http.get(url, { headers: this.headers }).subscribe(res => {
+                console.log('response: ' + JSON.stringify(res));
+                const response = res;
+                resolve(response.business_sectors);
             }, err => {
                 console.log('error: ' + JSON.stringify(err));
                 reject(err);

@@ -26,6 +26,9 @@ export class ClientFormMerchantsPageComponent implements OnInit {
   formsList: Array<any>;
   loadingMore: boolean;
   hasMoreError: boolean;
+  selectedSector: string;
+  sectorList: Array<any>;
+  selectedCountry: string;
   companyList: Array<Merchants>;
 
   constructor(
@@ -37,10 +40,15 @@ export class ClientFormMerchantsPageComponent implements OnInit {
   ) {
     this.query = '';
     this.formsList = [];
+    this.sectorList = [];
     this.companyList = [];
-    this.getCompanies();
     this.title = 'Company';
+    this.selectedCountry = '';
+    this.selectedSector = '0';
     this.user = this.localStorage.getUser();
+
+    this.getSectors();
+    this.getCompanies(this.user.country, 0);
   }
 
   ngOnInit() {
@@ -59,9 +67,23 @@ export class ClientFormMerchantsPageComponent implements OnInit {
     return _.isNull(this.companyService.nextPaginationUrl) ? false : true;
   }
 
-  getCompanies() {
+  getSectors() {
+    this.companyService.getMerchantSectors().then(
+      sectors => {
+        if (sectors.length > 0) {
+          _.forEach(sectors, (sector) => {
+            this.sectorList.push(sector);
+          });
+        }
+      },
+      error => {}
+    );
+  }
+
+  getCompanies(country: string, sector_id: number) {
     this.loading = true;
-    this.companyService.getAllCompanies().then(
+    this.companyList = [];
+    this.companyService.getCompanyByCountry(country, sector_id).then(
       res => {
         this.loading = false;
         this.hasError = false;
@@ -86,7 +108,24 @@ export class ClientFormMerchantsPageComponent implements OnInit {
     );
   }
 
+  getSelectedCountry(data: any) {
+    console.log('selected country: ' + JSON.stringify(data));
+    const country = data.name.common;
+    this.selectedCountry = country;
+    this.selectedSector == ''
+      ? this.getCompanies(this.selectedCountry, 0)
+      : this.getCompanies(this.selectedCountry, _.toNumber(this.selectedSector));
+  }
+
+  getCompaniesBySector(sector_id: number) {
+    this.loading = true;
+    this.selectedCountry == ''
+      ? this.getCompanies(this.user.country, sector_id)
+      : this.getCompanies(this.selectedCountry, sector_id);
+  }
+
   loadMore() {
+    this.companyList = [];
     this.loadingMore = true;
     this.hasMoreError = false;
     const moreUrl = this.companyService.nextPaginationUrl;
@@ -106,6 +145,11 @@ export class ClientFormMerchantsPageComponent implements OnInit {
         this.hasMoreError = true;
       }
     );
+  }
+
+  onSectorSelect(e: Event) {
+    console.log('selected sector id: ' + this.selectedSector);
+    this.getCompaniesBySector(_.toNumber(this.selectedSector));
   }
 
   searchByMerchantName() {
@@ -234,19 +278,19 @@ export class ClientFormMerchantsPageComponent implements OnInit {
         }
       }
       else {
-        if ((this.foundNoForm && this.query.length == 0) || this.query.length == 0) {
-          this.companyList = [];
-          this.hasData = true;
-          this.foundNoForm = false;
-          console.log('hererer');
-          this.getCompanies();
-        }
+        this.companyList = [];
+        this.hasData = true;
+        this.foundNoForm = false;
+        console.log('hererer');
+        this.selectedCountry == ''
+          ? this.getCompanies(this.user.country, _.toNumber(this.selectedSector))
+          : this.getCompanies(this.selectedCountry, _.toNumber(this.selectedSector));
       }
     }
   }
 
   retry() {
-    this.getCompanies();
+    this.getCompanies(this.user.country, _.toNumber(this.selectedSector));
   }
 
 }
