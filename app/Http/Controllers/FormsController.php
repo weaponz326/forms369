@@ -360,19 +360,35 @@ class FormsController extends Controller
      *
      * @return void\Illuminate\Http\Response all details of a form
      */
-    public function getFormbyName(Request $request, $term, $country){
+    public function getFormbyName(Request $request, $term, $country, $sector){
 
-        //get all registered companies 
-        $getform = DB::table('forms')
-        ->join('merchants', 'merchants.id', '=', 'merchant_id')
-        ->leftjoin('uploads', 'forms.form_code', '=', 'uploads.form_code')
-        ->select('forms.*','merchants.merchant_name AS merchant_name','merchants.can_print', 'uploads.url')
-        ->where([
-            ['forms.temps', 'like', '%'.$term .'%'],
-            ['forms.status','=',1],
-            ['merchants.country', '=', $country]
-        ])
-        ->get();
+        if ($sector == 0) {
+            //get all registered companies 
+            $getform = DB::table('forms')
+            ->join('merchants', 'merchants.id', '=', 'merchant_id')
+            ->leftjoin('uploads', 'forms.form_code', '=', 'uploads.form_code')
+            ->select('forms.*','merchants.merchant_name AS merchant_name','merchants.can_print', 'uploads.url')
+            ->where([
+                ['forms.temps', 'like', '%'.$term .'%'],
+                ['forms.status','=',1],
+                ['merchants.country', '=', $country]
+            ])
+            ->get();
+        }else{
+            //get all registered companies 
+            $getform = DB::table('forms')
+            ->join('merchants', 'merchants.id', '=', 'merchant_id')
+            ->leftjoin('uploads', 'forms.form_code', '=', 'uploads.form_code')
+            ->select('forms.*','merchants.merchant_name AS merchant_name','merchants.can_print', 'uploads.url')
+            ->where([
+                ['forms.temps', 'like', '%'.$term .'%'],
+                ['forms.status','=',1],
+                ['merchants.country', '=', $country],
+                ['sector_id', $sector)]
+            ])
+            ->get();
+        }
+        
       
         //clean data
         $formdata = [];

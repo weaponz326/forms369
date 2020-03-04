@@ -452,9 +452,9 @@ class HomeController extends Controller
     *
     * @return void\Illuminate\Http\Response all merchants matching the search term
     **/
-    protected function getMerchantbyName(Request $request, $term)
+    protected function getMerchantbyName(Request $request, $term, $country, $sector)
     {
-        $message = (new SetupController)->getMerchantbyName($request, $term);
+        $message = (new SetupController)->getMerchantbyName($request, $term, $country, $sector);
         return $message;
     }
 
@@ -967,9 +967,9 @@ class HomeController extends Controller
      *
      * @return void\Illuminate\Http\Response all details of a form
      */
-    protected function getFormbyName(Request $request, $term, $country)
+    protected function getFormbyName(Request $request, $term, $country, $sector)
     {
-        $message = (new FormsController)->getFormbyName($request, $term, $country);
+        $message = (new FormsController)->getFormbyName($request, $term, $country, $sector);
         return $message;
 
     }
