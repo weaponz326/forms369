@@ -1949,31 +1949,36 @@ var routes = [
     },
     {
         path: 'client',
-        canActivate: [_services_auth_guard__WEBPACK_IMPORTED_MODULE_2__["AuthGuard"]],
         children: [
             {
                 path: '',
                 pathMatch: 'full',
-                component: _pages_dashboard_client_client_home_page_client_home_page_component__WEBPACK_IMPORTED_MODULE_9__["ClientHomePageComponent"]
+                canActivate: [_services_auth_guard__WEBPACK_IMPORTED_MODULE_2__["AuthGuard"]],
+                component: _pages_dashboard_client_client_home_page_client_home_page_component__WEBPACK_IMPORTED_MODULE_9__["ClientHomePageComponent"],
             },
             {
                 path: 'form_merchant',
+                canActivate: [_services_auth_guard__WEBPACK_IMPORTED_MODULE_2__["AuthGuard"]],
                 component: _pages_dashboard_client_client_form_merchants_page_client_form_merchants_page_component__WEBPACK_IMPORTED_MODULE_10__["ClientFormMerchantsPageComponent"]
             },
             {
                 path: 'forms',
+                canActivate: [_services_auth_guard__WEBPACK_IMPORTED_MODULE_2__["AuthGuard"]],
                 component: _pages_dashboard_client_client_list_forms_page_client_list_forms_page_component__WEBPACK_IMPORTED_MODULE_11__["ClientListFormsPageComponent"]
             },
             {
                 path: 'forms_filled',
+                canActivate: [_services_auth_guard__WEBPACK_IMPORTED_MODULE_2__["AuthGuard"]],
                 component: _pages_dashboard_client_client_forms_history_page_client_forms_history_page_component__WEBPACK_IMPORTED_MODULE_20__["ClientFormsHistoryPageComponent"]
             },
             {
                 path: 'form_entry',
+                canActivate: [_services_auth_guard__WEBPACK_IMPORTED_MODULE_2__["AuthGuard"]],
                 component: _pages_dashboard_client_client_forms_entry_page_client_forms_entry_page_component__WEBPACK_IMPORTED_MODULE_21__["ClientFormsEntryPageComponent"]
             },
             {
                 path: 'fill_form',
+                canActivate: [_services_auth_guard__WEBPACK_IMPORTED_MODULE_2__["AuthGuard"]],
                 component: _pages_dashboard_client_client_form_new_entry_page_client_form_new_entry_page_component__WEBPACK_IMPORTED_MODULE_98__["ClientFormNewEntryPageComponent"]
             },
             {
@@ -1982,14 +1987,17 @@ var routes = [
             },
             {
                 path: 'profile',
+                canActivate: [_services_auth_guard__WEBPACK_IMPORTED_MODULE_2__["AuthGuard"]],
                 component: _pages_dashboard_client_client_profile_page_client_profile_page_component__WEBPACK_IMPORTED_MODULE_48__["ClientProfilePageComponent"]
             },
             {
                 path: 'printing',
+                canActivate: [_services_auth_guard__WEBPACK_IMPORTED_MODULE_2__["AuthGuard"]],
                 component: _pages_dashboard_client_client_printing_page_client_printing_page_component__WEBPACK_IMPORTED_MODULE_95__["ClientPrintingPageComponent"]
             },
             {
                 path: 'pdf_printing',
+                canActivate: [_services_auth_guard__WEBPACK_IMPORTED_MODULE_2__["AuthGuard"]],
                 component: _pages_dashboard_client_client_pdf_printing_page_client_pdf_printing_page_component__WEBPACK_IMPORTED_MODULE_96__["ClientPdfPrintingPageComponent"]
             },
             {
@@ -1998,6 +2006,7 @@ var routes = [
             },
             {
                 path: 'settings',
+                canActivate: [_services_auth_guard__WEBPACK_IMPORTED_MODULE_2__["AuthGuard"]],
                 component: _pages_dashboard_client_client_settings_page_client_settings_page_component__WEBPACK_IMPORTED_MODULE_89__["ClientSettingsPageComponent"]
             }
         ]
@@ -6478,7 +6487,7 @@ var ClientFormLinkPageComponent = /** @class */ (function () {
         var form_code = url.substring(index);
         console.log('form_code: ' + form_code);
         sessionStorage.setItem('shared_link', form_code);
-        this.router.navigateByUrl('login');
+        this.router.navigateByUrl('/login');
     };
     ClientFormLinkPageComponent.ctorParameters = function () { return [
         { type: _angular_router__WEBPACK_IMPORTED_MODULE_1__["Router"] }
@@ -6545,7 +6554,7 @@ var ClientFormLinkRedirectPageComponent = /** @class */ (function () {
             // every login will redirect user to this form entry which
             // isnt the desired functionality.
             sessionStorage.removeItem('shared_link');
-            _this.router.navigateByUrl('/client/form_entry', { state: { form: form[0] } });
+            _this.router.navigateByUrl('/client/fill_form', { state: { form: form[0] } });
         }, function (err) {
             _this.loading = false;
             _this.hasError = true;
@@ -6636,7 +6645,7 @@ var ClientFormMerchantsPageComponent = /** @class */ (function () {
     ClientFormMerchantsPageComponent.prototype.getCompanies = function () {
         var _this = this;
         this.loading = true;
-        this.companyService.getCompanyByCountry('gh').then(function (res) {
+        this.companyService.getAllCompanies().then(function (res) {
             _this.loading = false;
             _this.hasError = false;
             var merchants = res;
@@ -23912,8 +23921,7 @@ var LoginPageComponent = /** @class */ (function () {
             return true;
         }
         else {
-            // user didn't log out, check if token has expired.
-            var expire_at = this.localStorage.tokenExpiration;
+            // user didn't log out
             return false;
         }
     };
@@ -23955,7 +23963,10 @@ var LoginPageComponent = /** @class */ (function () {
             }
         }
         else {
-            this.router.navigateByUrl('client');
+            var shared_link_code = sessionStorage.getItem('shared_link');
+            lodash__WEBPACK_IMPORTED_MODULE_2__["isNull"](shared_link_code) || lodash__WEBPACK_IMPORTED_MODULE_2__["isUndefined"](shared_link_code)
+                ? this.router.navigateByUrl('client')
+                : window.location.assign('/client/form_link_redirect');
         }
     };
     LoginPageComponent.ctorParameters = function () { return [

@@ -21,7 +21,7 @@ export class ClientFormLinkPageComponent implements OnInit {
     const form_code = url.substring(index);
     console.log('form_code: ' + form_code);
     sessionStorage.setItem('shared_link', form_code);
-    this.router.navigateByUrl('login');
+    this.router.navigateByUrl('/login');
   }
 
 }

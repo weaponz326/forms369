@@ -76,5 +76,9 @@
     13. Major bug fixes across all users
     14. Search added to all list views now.
     15. Executives can now view all user' accounts.
+    16. Downloading excel files: Headers are now well capitalized
+    17. Sharing form link bug fixed.
+    18. NEW* - Forms are now categorized.
+    19. Now forms are loading based on user's country
 
 

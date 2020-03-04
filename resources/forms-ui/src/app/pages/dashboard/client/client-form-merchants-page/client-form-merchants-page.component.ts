@@ -61,7 +61,7 @@ export class ClientFormMerchantsPageComponent implements OnInit {
 
   getCompanies() {
     this.loading = true;
-    this.companyService.getCompanyByCountry('gh').then(
+    this.companyService.getAllCompanies().then(
       res => {
         this.loading = false;
         this.hasError = false;

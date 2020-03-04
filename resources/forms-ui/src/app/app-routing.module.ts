@@ -304,31 +304,36 @@ const routes: Routes = [
   },
   {
     path: 'client',
-    canActivate: [AuthGuard],
     children: [
       {
         path: '',
         pathMatch: 'full',
-        component: ClientHomePageComponent
+        canActivate: [AuthGuard],
+        component: ClientHomePageComponent,
       },
       {
         path: 'form_merchant',
+        canActivate: [AuthGuard],
         component: ClientFormMerchantsPageComponent
       },
       {
         path: 'forms',
+        canActivate: [AuthGuard],
         component: ClientListFormsPageComponent
       },
       {
         path: 'forms_filled',
+        canActivate: [AuthGuard],
         component: ClientFormsHistoryPageComponent
       },
       {
         path: 'form_entry',
+        canActivate: [AuthGuard],
         component: ClientFormsEntryPageComponent
       },
       {
         path: 'fill_form',
+        canActivate: [AuthGuard],
         component: ClientFormNewEntryPageComponent
       },
       {
@@ -337,14 +342,17 @@ const routes: Routes = [
       },
       {
         path: 'profile',
+        canActivate: [AuthGuard],
         component: ClientProfilePageComponent
       },
       {
         path: 'printing',
+        canActivate: [AuthGuard],
         component: ClientPrintingPageComponent
       },
       {
         path: 'pdf_printing',
+        canActivate: [AuthGuard],
         component: ClientPdfPrintingPageComponent
       },
       {
@@ -353,6 +361,7 @@ const routes: Routes = [
       },
       {
         path: 'settings',
+        canActivate: [AuthGuard],
         component: ClientSettingsPageComponent
       }
     ]

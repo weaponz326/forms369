@@ -79,8 +79,7 @@ export class LoginPageComponent implements OnInit {
       return true;
     }
     else {
-      // user didn't log out, check if token has expired.
-      const expire_at = this.localStorage.tokenExpiration;
+      // user didn't log out
       return false;
     }
   }
@@ -125,7 +124,10 @@ export class LoginPageComponent implements OnInit {
       }
     }
     else {
-      this.router.navigateByUrl('client');
+      const shared_link_code = sessionStorage.getItem('shared_link');
+      _.isNull(shared_link_code) || _.isUndefined(shared_link_code)
+        ? this.router.navigateByUrl('client')
+        : window.location.assign('/client/form_link_redirect');
     }
   }
 
