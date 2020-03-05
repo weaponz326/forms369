@@ -24,7 +24,7 @@
                   <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
                     <a class="dropdown-item" (click)="openFilterModal()">Filter</a>
                     <a *ngIf="user.can_download == 1" class="dropdown-item" (click)="downloadAll('csv')">Download (CSV)</a>
-                    <a *ngIf="user.can_download == 1" class="dropdown-item" (click)="downloadAll('excel')">Download (Excel)</a>
+                    <a *ngIf="user.can_download == 0" class="dropdown-item" (click)="downloadAll('excel')">Download (Excel)</a>
                   </div>
                 </div>
               </div>

@@ -4,12 +4,24 @@ and (max-device-width: 825px) {
     .buttons-list .btn-lg {
         padding: 1rem 2rem;
     }
-}
 
-/* .breadcrumb {
-    padding-top: 3px;
-    padding-bottom: 5px;
-} */
+    .pin-control {
+        font-size: 20px !important;
+        font-family: 'OpenSans_Bold';
+        text-align: center !important;
+        padding: 10px 10px !important;
+        letter-spacing: 22px !important;
+    }
+
+    .pin-form-group {
+        width: 65% !important;
+    }
+
+    .created-section .card-text i {
+        font-size: 8em;
+        color: #4c83ff;
+    }
+}
 
 li.file-item > i {
     top: 17px;
@@ -70,3 +82,15 @@ a:not([href]):not([tabindex]):hover {
 .pin-control::placeholder {
     color: #bbb;
 }
+
+/* @media only screen 
+and (min-device-width: 320px) 
+and (max-device-width: 825px) {
+    .pin-control {
+        font-size: 20px;
+        text-align: center;
+        padding: 10px 10px;
+        letter-spacing: 22px;
+        font-family: 'OpenSans_Bold';
+    }
+} */

@@ -9,7 +9,7 @@
             <div class="d-flex justify-content-between flex-wrap">
               <div class="d-flex align-items-end flex-wrap">
                 <div class="mr-md-3 mr-xl-5">
-                  <h2>My Profile</h2>
+                  <h2 class="page-title">My Profile</h2>
                 </div>
                 <div class="d-flex">
                 </div>
@@ -118,7 +118,7 @@
 
                       <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo"
                         data-parent="#accordionExample">
-                        <div class="card-body">
+                        <div class="card-body attachments-card">
                           <div class="text-center mt-4 pt-5" *ngIf="existingAttachments.length == 0">
                             <h3>No Attachments</h3>
                             <i class="mdi mdi-paperclip" style="font-size: 6em;"></i>
@@ -328,7 +328,7 @@
       </div>
     </div>
     <div class="modal-footer text-center" style="display: block;">
-      <button *ngIf="!isLoading" type="button" class="btn btn-primary" (click)="exit()">Close</button>
+      <button *ngIf="!isLoading" type="button" class="btn btn-light" (click)="exit()">Close</button>
       <button *ngIf="!isLoading" type="submit" class="btn btn-primary">Create PIN</button>
       <button *ngIf="isLoading" type="button" class="btn btn-block btn-primary font-weight-medium" disabled>
         <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span> &nbsp; &nbsp;
@@ -354,7 +354,7 @@
       </div>
     </div>
     <div class="modal-footer text-center" style="display: block;">
-      <button *ngIf="!isLoading" type="button" class="btn btn-primary" (click)="exit()">Close</button>
+      <button *ngIf="!isLoading" type="button" class="btn btn-light" (click)="exit()">Close</button>
       <button *ngIf="!isLoading" type="submit" class="btn btn-primary" (click)="verifyPin()">Submit</button>
       <button *ngIf="isLoading" type="button" class="btn btn-block btn-primary font-weight-medium" disabled>
         <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span> &nbsp; &nbsp;

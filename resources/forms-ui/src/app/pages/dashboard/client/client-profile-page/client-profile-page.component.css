@@ -8,6 +8,19 @@ and (max-device-width: 825px) {
     .btn-lg {
         padding: 1rem 1rem;
     }
+
+    .pin-control {
+        font-size: 22px !important;
+        padding: 8px 10px !important;
+        font-family: 'OpenSans_Bold';
+        text-align: center !important;
+        letter-spacing: 15px !important;
+    }
+
+    .card-body.attachments-card {
+        padding-left: 2px;
+        padding-right: 2px;
+    }
 }
 
 li.file-item > i {

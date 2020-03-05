@@ -79,6 +79,24 @@ h1, h2, h3, h4, h5, h6 {
     }
 }
 
+@media only screen 
+and (min-device-width: 320px) 
+and (max-device-width: 825px) {
+    .page-title {
+        font-size: 1.3rem;
+        line-height: 1.3;
+    }
+
+    .btn-group > .btn, .btn-group-vertical > .btn {
+        padding: 7px 15px;
+        font-size: 11px;
+    }
+
+    .modal .btn {
+        padding: 10px 20px;
+    }
+}
+
 .form-wrap.form-builder .cb-wrap {
     width: 25%;;
 }

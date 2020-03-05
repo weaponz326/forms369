@@ -6,6 +6,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ClientService } from 'src/app/services/client/client.service';
 import { Component, OnInit, ViewChild, TemplateRef } from '@angular/core';
 import { LoggingService } from 'src/app/services/logging/logging.service';
+import { UtilsService } from 'src/app/services/excel-utils/utils.service';
 import { EndpointService } from 'src/app/services/endpoint/endpoint.service';
 import { DateTimeService } from 'src/app/services/date-time/date-time.service';
 import { ReloadingService } from 'src/app/services/reloader/reloading.service';
@@ -54,6 +55,7 @@ export class ExecClientsFormsDataPageComponent implements OnInit {
   constructor(
     private router: Router,
     private fb: FormBuilder,
+    private utils: UtilsService,
     private modalService: NgbModal,
     private logging: LoggingService,
     private dateTime: DateTimeService,
@@ -307,8 +309,8 @@ export class ExecClientsFormsDataPageComponent implements OnInit {
       table_data.push(this.tableContents[i]);
     }
 
-    this.tableHeaders.push('Submitted At');
-    table_data.unshift(this.tableHeaders);
+    this.tableHeaders.push('submitted at');
+    table_data.unshift(this.utils.transformHeaders(this.tableHeaders));
     this.downloadService.exportToCsv(table_data, filename);
   }
 
@@ -321,8 +323,8 @@ export class ExecClientsFormsDataPageComponent implements OnInit {
       table_data.push(this.tableContents[i]);
     }
 
-    this.tableHeaders.push('Submitted At');
-    table_data.unshift(this.tableHeaders);
+    this.tableHeaders.push('submitted at');
+    table_data.unshift(this.utils.transformHeaders(this.tableHeaders));
     this.downloadService.exportToExcel(table_data, filename);
   }
 
