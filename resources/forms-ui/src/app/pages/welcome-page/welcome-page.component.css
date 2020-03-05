@@ -1,168 +1,169 @@
 .banner {
-    background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url(./../../../assets/images/circle-pattern.jpg);
-    background-size: cover;
-    height: 100%;
+  background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)),
+    url(./../../../assets/images/circle-pattern.jpg);
+  background-size: cover;
+  height: 100%;
 }
 
 .logo > img {
-    width: 120px;
-    margin-top: 50px;
-    margin-bottom: 50px;
+  width: 120px;
+  margin-top: 50px;
+  margin-bottom: 50px;
 }
 
 .top-level {
-    width: 30%;
-    display: block;
-    margin: 0 auto;
-    padding-top: 18px;
-    text-align: center;
+  width: 30%;
+  display: block;
+  margin: 0 auto;
+  padding-top: 18px;
+  text-align: center;
 }
 
 .top-level .navigation {
-    text-align: center;
-    margin-top: 12px;
+  text-align: center;
+  margin-top: 12px;
 }
 
 p.lead {
-    font-weight: normal;
+  font-weight: normal;
 }
 
 section.section-one {
-    margin-bottom: 10px;
+  margin-bottom: 10px;
 }
 
 section.section-one .main-icon {
-    font-size: 12em;
+  font-size: 12em;
 }
 
 section.section-one .jumbotron {
-    background: inherit;
-    color: white;
+  background: inherit;
+  color: white;
 }
 
 section.section-one .jumbotron h1 {
-    font-size: 80px;
-    font-weight: 100;
-    margin: 10px;
-    font-family: 'ProductSans_Regular';
+  font-size: 80px;
+  font-weight: 100;
+  margin: 10px;
+  font-family: "ProductSans_Regular";
 }
 
 section.section-one .jumbotron .lead {
-    line-height: 1.8rem;
-    font-weight: 400;
-    font-size: 1rem;
+  line-height: 1.8rem;
+  font-weight: 400;
+  font-size: 1rem;
 }
 
 section.section-two {
-    margin: 20px 0px;
-    padding: 80px 0px;
-    background: #fafafa;
+  margin: 20px 0px;
+  padding: 80px 0px;
+  background: #fafafa;
 }
 
 section.section-two .jumbotron {
-    font-weight: 100;
+  font-weight: 100;
 }
 
 section.section-three {
-    padding: 80px 0px;
-    background: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.7)), url(./../../../assets/images/night-skies.jpg);
+  padding: 80px 0px;
+  background: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.7)),
+    url(./../../../assets/images/night-skies.jpg);
 }
 
 section.section-three .jumbotron {
-    background: inherit;
-    color: white;
+  background: inherit;
+  color: white;
 }
 
 section.section-three .list-group-horizontal-lg .list-group-item:first-child {
-    border-top-left-radius: 3.25rem !important;
+  border-top-left-radius: 3.25rem !important;
 }
 
 section.section-three .list-group-horizontal-lg .list-group-item:last-child {
-    border-bottom-right-radius: 3.25rem !important;
+  border-bottom-right-radius: 3.25rem !important;
 }
 
 section.section-four {
-    padding: 110px 0px;
-    background-color: #3F51B5;
+  padding: 110px 0px;
+  background-color: #3f51b5;
 }
 
 section.section-four .jumbotron i:first-child {
-    color: #3f50b5;
+  color: #3f50b5;
 }
 
 section.section-five {
-    color: #fff;
-    padding: 110px 0px;
-    background-color: #4d83ff;
+  color: #fff;
+  padding: 110px 0px;
+  background-color: #11498e;
 }
 
 section.section-six {
-    padding: 60px 0px;
+  padding: 60px 0px;
 }
 
 section.section-four .jumbotron {
-    text-align: center;
-    background: white;
+  text-align: center;
+  background: white;
 }
 
 section.section-four .jumbotron p.lead {
-    line-height: 1.8rem;
+  line-height: 1.8rem;
 }
 
 section.section-five h3 {
-    font-family: 'ProductSans_Regular';
+  font-family: "ProductSans_Regular";
 }
 
 section.section-five .col-md-6 p.lead,
 section.section-six .col-md-6 p.lead {
-    line-height: 30px;
+  line-height: 30px;
 }
 
 section.section-five .col-md-6,
 section.section-six .col-md-6 {
-    text-align: center;
+  text-align: center;
 }
 
 section.section-four .row:nth-child(2),
 section.section-four .row:nth-child(2) {
-    padding: 120px 0px;
+  padding: 120px 0px;
 }
 
 section.section-seven {
-    margin: 20px 0px 0px 0px;
-    padding: 80px 0px;
-    background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('https://images2.alphacoders.com/813/thumb-1920-813690.png');
+  margin: 20px 0px 0px 0px;
+  padding: 80px 0px;
+  background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)),
+    url("https://images2.alphacoders.com/813/thumb-1920-813690.png");
 }
 
 section.section-seven .container > .headings h1,
 section.section-seven .container > .headings p {
-    color: white;
+  color: white;
 }
 
 footer.footer {
-    color: #fff;
-    background: #333;
-    padding: 35px 0px;
-    text-align: center;
+  color: #fff;
+  background: #333;
+  padding: 35px 0px;
+  text-align: center;
 }
 
 .card-highlight {
-    color: #fff;
-    background-color: #4d83ff;
+  color: #fff;
+  background-color: #11498e;
 }
 
 .card-highlight .card-title {
-    color: #fff;
+  color: #fff;
 }
 
-@media only screen 
-and (min-device-width: 320px) 
-and (max-device-width: 825px) {
+@media only screen and (min-device-width: 320px) and (max-device-width: 825px) {
   section.section-one .jumbotron h1 {
     font-size: 50px;
     font-weight: 100;
     margin: 10px;
-    font-family: 'ProductSans_Regular';
+    font-family: "ProductSans_Regular";
   }
 
   section.section-one .main-icon {

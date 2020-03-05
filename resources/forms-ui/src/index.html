@@ -25,7 +25,7 @@
       display: flex;
       justify-content: center;
     }
-    
+
     .position-ref {
       position: relative;
     }
@@ -33,23 +33,35 @@
     .loader {
       border: 6px solid #f3f3f3;
       border-radius: 50%;
-      border-top: 6px solid #4d83ff;
+      border-top: 6px solid #11498e;
       width: 65px;
       height: 65px;
-      -webkit-animation: spin 2s linear infinite; /* Safari */
+      -webkit-animation: spin 2s linear infinite;
+      /* Safari */
       animation: spin 2s linear infinite;
     }
 
     /* Safari */
     @-webkit-keyframes spin {
-      0% { -webkit-transform: rotate(0deg); }
-      100% { -webkit-transform: rotate(360deg); }
+      0% {
+        -webkit-transform: rotate(0deg);
+      }
+
+      100% {
+        -webkit-transform: rotate(360deg);
+      }
     }
 
     @keyframes spin {
-      0% { transform: rotate(0deg); }
-      100% { transform: rotate(360deg); }
+      0% {
+        transform: rotate(0deg);
+      }
+
+      100% {
+        transform: rotate(360deg);
+      }
     }
+
   </style>
   <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500&display=swap" rel="stylesheet">
   <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
