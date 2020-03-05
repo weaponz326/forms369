@@ -41,6 +41,7 @@ export class CompanyService {
       form.set('merchant_name', merchant.merchant_name);
       form.set('super_id', merchant.super_id.toString());
       form.set('admin_id', merchant.admin_id.toString());
+      form.set('sector_id', merchant.sector_id.toString());
 
       this.http.post(url, form, { headers: this.fileHeaders }).subscribe(
         res => {

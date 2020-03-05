@@ -8,6 +8,7 @@ export class Merchants {
         public created_at: string,
         public admin_id?: number,
         public can_print?: string,
+        public sector_id?: number,
         public updated_at?: string,
         public status?: number,
         public logo?: string,

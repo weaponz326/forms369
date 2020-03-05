@@ -134,7 +134,7 @@
                           </div>
                         </div>
                       </div>
-                      <div class="col-md-12 text-center">
+                      <div class="col-md-6 text-center">
                         <div class="form-group">
                           <select class="form-control form-control-lg" formControlName="allowPrint"
                             (change)="onPrintSelect($event)">
@@ -144,6 +144,18 @@
                           </select>
                           <div *ngIf="submitted && f.allowPrint.errors">
                             <p class="input-error" *ngIf="f.allowPrint.errors.required">Print Status is required</p>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="col-md-6 text-center">
+                        <div class="form-group">
+                          <select class="form-control form-control-lg" formControlName="sector"
+                            (change)="onSectorSelect($event)">
+                            <option value="" disabled>Select Sectors</option>
+                            <option *ngFor="let sector of sectorList" [value]="sector.id">{{ sector.name }}</option>
+                          </select>
+                          <div *ngIf="submitted && f.sector.errors">
+                            <p class="input-error" *ngIf="f.sector.errors.required">Sector is required</p>
                           </div>
                         </div>
                       </div>
