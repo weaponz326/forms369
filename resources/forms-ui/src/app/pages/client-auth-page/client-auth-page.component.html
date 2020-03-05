@@ -31,7 +31,7 @@
             <h6 class="text-center font-weight-normal">Provide your access code to continue.</h6>
             <form [formGroup]="form" (ngSubmit)="submit()" class="pt-3">
               <div class="form-group">
-                <input type="text" class="form-control form-control-lg" formControlName="code" autofocus
+                <input type="tel" class="form-control form-control-lg" formControlName="code" autofocus
                   placeholder="Enter Authentication Code" [ngClass]="{'input-control-error': submitted && f.code.errors}">
                 <div *ngIf="submitted && f.code.errors">
                   <p class="input-error" *ngIf="f.code.errors.required">Please enter the code from the SMS you recieve</p>

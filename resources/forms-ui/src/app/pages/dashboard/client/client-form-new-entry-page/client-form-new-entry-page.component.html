@@ -171,7 +171,7 @@
     </div>
     <div class="modal-body">
       <div class="form-group pin-form-group">
-        <input type="text" class="form-control form-control-lg pin-control" formControlName="pin" placeholder="----"
+        <input type="tel" class="form-control form-control-lg pin-control" formControlName="pin" placeholder="----"
           [ngClass]="{'input-control-error': submitted && f.pin.errors}" maxlength="4"
           (keyup)="resolveStrCharacters($event)">
         <div *ngIf="submitted && f.pin.errors">
@@ -201,7 +201,7 @@
     </div>
     <div class="modal-body">
       <div class="form-group pin-form-group">
-        <input type="text" class="form-control form-control-lg pin-control" name="pinCode" [(ngModel)]="pinCode"
+        <input type="tel" class="form-control form-control-lg pin-control" name="pinCode" [(ngModel)]="pinCode"
           placeholder="----" maxlength="4" (keyup)="resolveStrCharacters($event)" autofocus>
         <div>
           <p class="input-error" *ngIf="pinRequired">PIN is required</p>

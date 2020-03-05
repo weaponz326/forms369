@@ -27,7 +27,7 @@
                 <div class="card-text pt-2">
                   <form [formGroup]="pinForm" (ngSubmit)="createPin()">
                     <div class="form-group">
-                      <input type="text" class="form-control form-control-lg pin-control" formControlName="pin"
+                      <input type="tel" class="form-control form-control-lg pin-control" formControlName="pin"
                         placeholder="----" [ngClass]="{'input-control-error': submitted && _f.pin.errors}"
                         maxlength="4" (keyup)="_resolveStrCharacters($event)">
                       <div *ngIf="submitted && _f.pin.errors">
@@ -57,7 +57,7 @@
                   <form [formGroup]="form" (ngSubmit)="changePin()">
                     <div class="form-group">
                       <label>Old PIN</label>
-                      <input type="text" class="form-control form-control-lg pin-control" formControlName="oldPin"
+                      <input type="tel" class="form-control form-control-lg pin-control" formControlName="oldPin"
                         placeholder="----" [ngClass]="{'input-control-error': submitted && f.oldPin.errors}"
                         maxlength="4" (keyup)="resolveStrCharacters($event)">
                       <div *ngIf="submitted && f.oldPin.errors">
@@ -67,7 +67,7 @@
                     </div>
                     <div class="form-group">
                       <label>New PIN</label>
-                      <input type="text" class="form-control form-control-lg pin-control" formControlName="newPin"
+                      <input type="tel" class="form-control form-control-lg pin-control" formControlName="newPin"
                         placeholder="----" [ngClass]="{'input-control-error': submitted && f.newPin.errors}"
                         maxlength="4" (keyup)="resolveStrCharacters_1($event)">
                       <div *ngIf="submitted && f.newPin.errors">
