@@ -171,7 +171,8 @@ class AccessController extends Controller
 
         // $merchant_id = $request->merchant_id;
         // $branch_id = $request->branch_id;
-        $access_code = rand();
+        //generate 6 digit access code
+        $access_code = rand(100000, 999999);
         $active = 0;
         $created_at = now();
 

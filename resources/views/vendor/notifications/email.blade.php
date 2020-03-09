@@ -47,7 +47,7 @@
 {{ $salutation }}
 @else
 @lang('Regards'),<br>
-<h1>GIT</h1>
+<h1>theGiTLab</h1>
 @endif
 
 {{-- Subcopy --}}
