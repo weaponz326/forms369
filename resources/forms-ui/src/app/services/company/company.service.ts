@@ -41,6 +41,7 @@ export class CompanyService {
       form.set('merchant_name', merchant.merchant_name);
       form.set('super_id', merchant.super_id.toString());
       form.set('admin_id', merchant.admin_id.toString());
+      form.set('sector_id', merchant.sector_id.toString());
 
       this.http.post(url, form, { headers: this.fileHeaders }).subscribe(
         res => {
@@ -176,13 +177,16 @@ export class CompanyService {
    * @returns {Promise<any>}
    * @memberof CompanyService
    */
-  getCompanyByCountry(country: string): Promise<any> {
+  getCompanyByCountry(country: string, sector_id: number, page_url?: string): Promise<any> {
     return new Promise((resolve, reject) => {
-      const url = this.endpointService.apiHost + 'api/v1/getAllMerchantsByCountry/' + country;
+      const url = !_.isUndefined(page_url)
+        ? page_url
+        : this.endpointService.apiHost + 'api/v1/getAllMerchantsByCountry/' + country + '/' + sector_id;
       this.http.get(url, { headers: this.headers }).subscribe(
         res => {
           console.log('response_merchant: ' + JSON.stringify(res));
           const response = res as any;
+          this.nextPaginationUrl = response.merchant.next_page_url;
           resolve(response.merchant.data);
         },
         err => {
@@ -200,9 +204,9 @@ export class CompanyService {
    * @returns {Promise<any>}
    * @memberof CompanyService
    */
-  getCompanyByName(company_name: string, country: string): Promise<any> {
+  getCompanyByName(company_name: string, country: string, sector_id: number): Promise<any> {
     return new Promise((resolve, reject) => {
-      const url = this.endpointService.apiHost + 'api/v1/getMerchantbyName/' + company_name + '/' + country;
+      const url = this.endpointService.apiHost + 'api/v1/getMerchantbyName/' + company_name + '/' + country + '/' + sector_id;
       this.http.get(url, { headers: this.headers }).subscribe(
         res => {
           console.log('response_c_names: ' + JSON.stringify(res));
@@ -312,6 +316,23 @@ export class CompanyService {
           console.log('response: ' + JSON.stringify(res));
           const response = res as any;
           resolve(response.users.data);
+        },
+        err => {
+          console.log('error: ' + JSON.stringify(err));
+          reject(err);
+        }
+      );
+    });
+  }
+
+  getMerchantSectors(): Promise<any[]> {
+    return new Promise((resolve, reject) => {
+      const url = this.endpointService.apiHost + 'api/v1/getAllBusinessSectors';
+      this.http.get(url, { headers: this.headers }).subscribe(
+        res => {
+          console.log('response: ' + JSON.stringify(res));
+          const response = res as any;
+          resolve(response.business_sectors);
         },
         err => {
           console.log('error: ' + JSON.stringify(err));

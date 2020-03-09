@@ -1,3 +1,15 @@
 .search-form {
     border-radius: 30px;
 }
+
+@media only screen 
+and (min-device-width: 320px) 
+and (max-device-width: 825px) {
+    .grid-margin {
+        margin-bottom: .475rem;
+    }
+
+    .forms-list h3 {
+        font-size: 1.2rem;
+    }
+}

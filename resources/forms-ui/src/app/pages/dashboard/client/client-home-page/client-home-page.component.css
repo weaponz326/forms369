@@ -1,0 +1,11 @@
+@media only screen 
+and (min-device-width: 320px) 
+and (max-device-width: 825px) {
+    .card.hover-cursor .card-text > i {
+        color: #11498e;
+    }
+
+    .card .card-text > h1 {
+        color: #11498e;
+    }
+}

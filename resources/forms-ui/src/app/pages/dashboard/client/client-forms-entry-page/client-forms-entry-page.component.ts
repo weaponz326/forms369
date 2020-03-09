@@ -9,11 +9,11 @@ import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { ClientService } from 'src/app/services/client/client.service';
 import { Component, OnInit, ViewChild, TemplateRef } from '@angular/core';
 import { EndpointService } from 'src/app/services/endpoint/endpoint.service';
+import { ReloadingService } from 'src/app/services/reloader/reloading.service';
 import { DownloaderService } from 'src/app/services/downloader/downloader.service';
 import { LocalStorageService } from 'src/app/services/storage/local-storage.service';
 import { FormBuilderService } from 'src/app/services/form-builder/form-builder.service';
 import { FileUploadsService } from 'src/app/services/file-uploads/file-uploads.service';
-import { ReloadingService } from 'src/app/services/reloader/reloading.service';
 
 @Component({
   selector: 'app-client-forms-entry-page',
@@ -468,8 +468,6 @@ export class ClientFormsEntryPageComponent implements OnInit {
                   console.log('form submission error 3');
                 }
               );
-              // this.created = true;
-              // this.loading = false;
             }
           });
         }

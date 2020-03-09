@@ -195,13 +195,14 @@ export class ClientProfilePageComponent implements OnInit, AfterViewInit {
   }
 
   checkIfUserHasFormPin() {
+    console.log('check iof has pin');
     const hasPin = localStorage.getItem('has_pin');
     if (_.isNull(hasPin) || _.isUndefined(hasPin)) {
       this.clientService.checkFormSubmitPin(this.user.id.toString()).then(
         ok => {
           console.log('res: ' + JSON.stringify(ok));
           if (ok) {
-            localStorage.setItem('has_pin', '1');
+            // localStorage.setItem('has_pin', '1');
             this.handlePinCode();
           }
           else {
@@ -220,6 +221,7 @@ export class ClientProfilePageComponent implements OnInit, AfterViewInit {
   }
 
   handlePinCode() {
+    console.log('handle pin');
     const hasPin = localStorage.getItem('has_pin');
     if (_.isNull(hasPin) || _.isUndefined(hasPin)) {
       this.setPinDialogRef = this.modalService.open(this.setPinDialog, { centered: true, keyboard: false, backdrop: 'static' });

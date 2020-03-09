@@ -1,215 +1,239 @@
 /* You can add global styles to this file, and also import other style files */
-@import url('assets/vendors/mdi/css/materialdesignicons.min.css');
-@import url('assets/vendors/base/vendor.bundle.base.css');
-@import url('assets/vendors/datatables.net-bs4/dataTables.bootstrap4.css');
-@import url('assets/css/style.css');
+@import url("assets/vendors/mdi/css/materialdesignicons.min.css");
+@import url("assets/vendors/base/vendor.bundle.base.css");
+@import url("assets/vendors/datatables.net-bs4/dataTables.bootstrap4.css");
+@import url("assets/css/style.css");
 
 @font-face {
-    font-family: 'OpenSans_Regular';
-    src: url('./assets/fonts/open-sans/OpenSans-Regular.ttf');
-}
-
-@font-face {
-    font-family: 'OpenSans_Bold';
-    src: url('./assets/fonts/open-sans/OpenSans-Bold.ttf');
+  font-family: "OpenSans_Regular";
+  src: url("./assets/fonts/open-sans/OpenSans-Regular.ttf");
 }
 
 @font-face {
-    font-family: 'OpenSans_SemiBold';
-    src: url('./assets/fonts/open-sans/OpenSans-Semibold.ttf');
+  font-family: "OpenSans_Bold";
+  src: url("./assets/fonts/open-sans/OpenSans-Bold.ttf");
 }
 
 @font-face {
-    font-family: 'ProductSans_Regular';
-    src: url('./assets/fonts/ProductSans-Bold_1b2049464dce1ac801cec1357c2e45b8.ttf');
+  font-family: "OpenSans_SemiBold";
+  src: url("./assets/fonts/open-sans/OpenSans-Semibold.ttf");
 }
 
-html, body {
-    color: #555;
-    font-family: 'OpenSans_Regular';
+@font-face {
+  font-family: "ProductSans_Regular";
+  src: url("./assets/fonts/ProductSans-Bold_1b2049464dce1ac801cec1357c2e45b8.ttf");
 }
 
-h1, h2, h3, h4, h5, h6 {
-    font-family: 'OpenSans_Bold' !important;
+html,
+body {
+  color: #555;
+  font-family: "OpenSans_Regular";
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-family: "OpenSans_Bold" !important;
 }
 
 .btn {
-    font-family: 'OpenSans_Bold' !important;
+  font-family: "OpenSans_Bold" !important;
 }
 
 .align-right {
-    top: 10px;
-    right: 10px;
-    position: absolute;
+  top: 10px;
+  right: 10px;
+  position: absolute;
 }
 
 .btn {
-    line-height: 20px;
-    font-weight: 700;
-    text-transform: uppercase;
+  line-height: 20px;
+  font-weight: 700;
+  text-transform: uppercase;
 }
 
 .main-panel {
-    margin-left: 257px;
+  margin-left: 257px;
 }
 
 .sidebar-icon-only .main-panel {
-    width: calc(100% - 70px);
-    margin-left: 70px;
+  width: calc(100% - 70px);
+  margin-left: 70px;
 }
 
 @media (max-width: 991px) {
-    .main-panel {
-        margin-left: 0;
-        width: 100%;
-    }
+  .main-panel {
+    margin-left: 0;
+    width: 100%;
+  }
 }
 
 @media (max-width: 767px) {
-    .content-wrapper {
-        padding: 1rem 0.5rem;
-    }
+  .content-wrapper {
+    padding: 1rem 0.5rem;
+  }
 
-    .code {
-        width: 90% !important;
-    }
+  .code {
+    width: 90% !important;
+  }
 
-    .top-level {
-        width: 90% !important;
-    }
+  .top-level {
+    width: 90% !important;
+  }
+}
+
+@media only screen and (min-device-width: 320px) and (max-device-width: 825px) {
+  .page-title {
+    font-size: 1.3rem;
+    line-height: 1.3;
+  }
+
+  .btn-group > .btn,
+  .btn-group-vertical > .btn {
+    padding: 7px 15px;
+    font-size: 11px;
+  }
+
+  .modal .btn {
+    padding: 10px 20px;
+  }
 }
 
 .form-wrap.form-builder .cb-wrap {
-    width: 25%;;
+  width: 25%;
 }
 
 .form-list .card {
-    cursor: pointer;
+  cursor: pointer;
 }
 
-.form-control, select.form-control {
-    border: 1px solid #acacac;
+.form-control,
+select.form-control {
+  border: 1px solid #acacac;
 }
 
 input.form-control::placeholder,
 select.form-control {
-    color: rgb(42, 43, 44) !important;
+  color: rgb(42, 43, 44) !important;
 }
 
 .form-control {
-    /* color: #333; */
-    color: rgb(42, 43, 44);
-    border-color: rgb(185, 194, 211);
+  /* color: #333; */
+  color: rgb(42, 43, 44);
+  border-color: rgb(185, 194, 211);
 }
 
 .form-control:focus {
-    border-color: #4c83ff;
+  border-color: #11498e;
 }
 
 select.form-control {
-    padding-left: 22px;
+  padding-left: 22px;
 }
 
 .main-panel > .content-wrapper > .row > .col-md-12 {
-    padding: 0px 30px;
+  padding: 0px 30px;
 }
 
 .hover-primary {
-    transition: background-color 0.4s ease-in;
+  transition: background-color 0.4s ease-in;
 }
 
 .hover-transparent {
-    transition: background-color 0.4s ease-in;
+  transition: background-color 0.4s ease-in;
 }
 
 .hover-transparent:hover {
-    background: #fff;
-    color: #000;
-    animation: pulse 10s;
+  background: #fff;
+  color: #000;
+  animation: pulse 10s;
 }
 
 .hover-transparent:hover p,
 .hover-transparent:hover p.text-muted,
 .hover-transparent:hover p.card-title {
-    color: #000 !important;
+  color: #000 !important;
 }
 
 .hover-primary-inverse {
-    transition: background-color 0.4s ease-out !important;
+  transition: background-color 0.4s ease-out !important;
 }
 
 .hover-primary-inverse:hover {
-    background-color: #fff !important;
-    color: #4d83ff !important;
-    animation: pulse 10s !important;
+  background-color: #fff !important;
+  color: #11498e !important;
+  animation: pulse 10s !important;
 }
 
 .hover-primary:hover {
-    background-color: #4d83ff;
-    color: #fff;
-    animation: pulse 10s;
+  background-color: #11498e;
+  color: #fff;
+  animation: pulse 10s;
 }
 
 .hover-primary-inverse:hover p,
 .hover-primary-inverse p.text-muted {
-    color: #555 !important;
+  color: #555 !important;
 }
 
 .hover-primary:hover p,
 .hover-primary:hover p.text-muted {
-    color: #fff !important;
+  color: #fff !important;
 }
 
 .hover-primary:hover .btn-light {
-    color: #4d83ff;
+  color: #11498e;
 }
 
 .code {
-    padding: 12px;
-    width: 30%;
-    background-color: #f3f3f3;
-    display: block;
-    margin: 20px auto;
-    font-weight: bold;
-    font-size: 30px;
+  padding: 12px;
+  width: 30%;
+  background-color: #f3f3f3;
+  display: block;
+  margin: 20px auto;
+  font-weight: bold;
+  font-size: 30px;
 }
 
 .status-dot {
-    border: 5px solid;
-    width: 5px;
-    border-radius: 20px;
-    margin: 0 auto;
+  border: 5px solid;
+  width: 5px;
+  border-radius: 20px;
+  margin: 0 auto;
 }
 
 .img-circle {
-    height: 250px;
-    width: 250px;
-    border-radius: 50%;
-    border: 1px solid #ccc;
+  height: 250px;
+  width: 250px;
+  border-radius: 50%;
+  border: 1px solid #ccc;
 }
 
 .nav-tabs .nav-item .nav-link.active {
-    border: 0;
-    border-bottom: 3px solid #578afe;
+  border: 0;
+  border-bottom: 3px solid #578afe;
 }
 
 .input-error {
-    font-size: 13px;
-    color: #F44336;
-    padding-top: 5px;
+  font-size: 13px;
+  color: #f44336;
+  padding-top: 5px;
 }
 
 .input-control-error {
-    border-color: #F44336 !important;
+  border-color: #f44336 !important;
 }
 
 .form-group .fb-required {
-    color: #da656b;
-    margin-left: 5px;
+  color: #da656b;
+  margin-left: 5px;
 }
 
 .rendered-form .form-control {
-    height: 45px;
-    outline: 0;
-    box-shadow: none;
+  height: 45px;
+  outline: 0;
+  box-shadow: none;
 }

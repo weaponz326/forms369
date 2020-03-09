@@ -26,6 +26,7 @@ export class CreateCompanyPageComponent implements OnInit {
   _loading: boolean;
   logoImage: string;
   submitted: boolean;
+  sectorList: Array<any>;
   companyAdminsList: Array<any>;
   countriesList: Array<ICountry>;
   superExecutivesList: Array<any>;
@@ -46,6 +47,7 @@ export class CreateCompanyPageComponent implements OnInit {
     private localStorageService: LocalStorageService,
     private countryPickerService: CountryPickerService
   ) {
+    this.sectorList = [];
     this.countriesList = [];
     this.companyAdminsList = [];
     this.superExecutivesList = [];
@@ -62,12 +64,17 @@ export class CreateCompanyPageComponent implements OnInit {
 
   initializeView() {
     this._loading = true;
+    this.getSectors();
     this.getSuperExecutive();
     this.getCompanyAdmins();
   }
 
   public get f() {
     return this.form.controls;
+  }
+
+  public get sector() {
+    return this.form.get('sector');
   }
 
   public get country() {
@@ -97,6 +104,7 @@ export class CreateCompanyPageComponent implements OnInit {
       smallLogoFile: [''],
       name: ['', Validators.required],
       logo: ['', Validators.required],
+      sector: ['', Validators.required],
       country: ['', Validators.required],
       allowPrint: ['', Validators.required],
       companyAdmin: ['', Validators.required],
@@ -112,6 +120,12 @@ export class CreateCompanyPageComponent implements OnInit {
 
   onPrintSelect(e: any) {
     this.print_status.setValue(e.target.value, {
+      onlySelf: true
+    });
+  }
+
+  onSectorSelect(e: any) {
+    this.sector.setValue(e.target.value, {
       onlySelf: true
     });
   }
@@ -141,6 +155,19 @@ export class CreateCompanyPageComponent implements OnInit {
     this.f.smallLogoName.setValue(smallLogoFile.files[0].name);
   }
 
+  getSectors() {
+    this.companyService.getMerchantSectors().then(
+      sectors => {
+        if (sectors.length > 0) {
+          _.forEach(sectors, (sector) => {
+            this.sectorList.push(sector);
+          });
+        }
+      },
+      error => { }
+    );
+  }
+
   getFormData() {
     let company_admin_id = 0;
     let super_executive_id = 0;
@@ -168,7 +195,8 @@ export class CreateCompanyPageComponent implements OnInit {
       user_id,
       created_at,
       company_admin_id,
-      this.f.allowPrint.value
+      this.f.allowPrint.value,
+      _.toNumber(this.f.sector.value)
     );
 
     return merchant;
@@ -238,6 +266,7 @@ export class CreateCompanyPageComponent implements OnInit {
     this.loading = true;
     this.submitted = true;
     if (this.form.invalid) {
+      console.log('form was invalid');
       this.form.enable();
       this.loading = false;
       return;

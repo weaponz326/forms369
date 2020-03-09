@@ -9,7 +9,7 @@
             <div class="d-flex justify-content-between flex-wrap">
               <div class="d-flex align-items-end flex-wrap">
                 <div class="mr-md-3 mr-xl-5">
-                  <h2 style="line-height: 1.3;">{{ form.form_name || form.name }}</h2>
+                  <h2 class="page-title">{{ form.form_name || form.name }}</h2>
                 </div>
                 <div class="d-flex">
                 </div>
@@ -81,7 +81,7 @@
           </div>
         </div>
 
-        <div *ngIf="created" class="row">
+        <div *ngIf="created" class="row created-section">
           <div class="col-md-12 grid-margin">
             <div class="card text-center">
               <div class="card-body">
@@ -171,7 +171,7 @@
     </div>
     <div class="modal-body">
       <div class="form-group pin-form-group">
-        <input type="text" class="form-control form-control-lg pin-control" formControlName="pin" placeholder="----"
+        <input type="tel" class="form-control form-control-lg pin-control" formControlName="pin" placeholder="----"
           [ngClass]="{'input-control-error': submitted && f.pin.errors}" maxlength="4" (keyup)="resolveStrCharacters($event)">
         <div *ngIf="submitted && f.pin.errors">
           <p class="input-error" *ngIf="f.pin.errors.required">PIN is required</p>
@@ -200,7 +200,7 @@
     </div>
     <div class="modal-body">
       <div class="form-group pin-form-group">
-        <input type="text" class="form-control form-control-lg pin-control" name="pinCode" [(ngModel)]="pinCode" 
+        <input type="tel" class="form-control form-control-lg pin-control" name="pinCode" [(ngModel)]="pinCode" 
           placeholder="----" maxlength="4" (keyup)="resolveStrCharacters($event)" autofocus>
         <div>
           <p class="input-error" *ngIf="pinRequired">PIN is required</p>

@@ -360,9 +360,9 @@ export class ClientService {
    * @returns {Promise<any>}
    * @memberof ClientService
    */
-  findFormsByName(form_name: string, country: string): Promise<any> {
+  findFormsByName(form_name: string, country: string, sector_id: number): Promise<any> {
     return new Promise((resolve, reject) => {
-      const url = this.endpointService.apiHost + 'api/v1/getFormbyName/' + form_name + '/' + country;
+      const url = this.endpointService.apiHost + 'api/v1/getFormbyName/' + form_name + '/' + country + '/' + sector_id;
       this.http.get(url, { headers: this.headers }).subscribe(
         res => {
           console.log('forms_by_name: ' + JSON.stringify(res));

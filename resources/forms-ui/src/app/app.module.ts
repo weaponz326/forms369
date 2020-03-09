@@ -130,6 +130,7 @@ import { ExecViewCompanyAdminsPageComponent } from './pages/dashboard/executive/
 import { ExecViewSuperExectivesPageComponent } from './pages/dashboard/executive/exec-view-super-exectives-page/exec-view-super-exectives-page.component';
 import { ExecViewBranchExectivesPageComponent } from './pages/dashboard/executive/exec-view-branch-exectives-page/exec-view-branch-exectives-page.component';
 import { ExecViewFrontDesksPageComponent } from './pages/dashboard/executive/exec-view-front-desks-page/exec-view-front-desks-page.component';
+import { FormsCountryPickerComponent } from './components/forms-country-picker/forms-country-picker.component';
 
 @NgModule({
   declarations: [
@@ -244,6 +245,7 @@ import { ExecViewFrontDesksPageComponent } from './pages/dashboard/executive/exe
     ExecViewSuperExectivesPageComponent,
     ExecViewBranchExectivesPageComponent,
     ExecViewFrontDesksPageComponent,
+    FormsCountryPickerComponent,
   ],
   imports: [
     BrowserModule,

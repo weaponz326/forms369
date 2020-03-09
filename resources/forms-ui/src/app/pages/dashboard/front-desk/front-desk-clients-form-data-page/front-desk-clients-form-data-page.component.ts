@@ -12,6 +12,7 @@ import { ReloadingService } from 'src/app/services/reloader/reloading.service';
 import { FrontDeskService } from 'src/app/services/front-desk/front-desk.service';
 import { DownloaderService } from 'src/app/services/downloader/downloader.service';
 import { LocalStorageService } from 'src/app/services/storage/local-storage.service';
+import { UtilsService } from 'src/app/services/excel-utils/utils.service';
 
 @Component({
   selector: 'app-front-desk-clients-form-data-page',
@@ -53,6 +54,7 @@ export class FrontDeskClientsFormDataPageComponent implements OnInit {
   constructor(
     private router: Router,
     private fb: FormBuilder,
+    private utils: UtilsService,
     private modalService: NgbModal,
     private logging: LoggingService,
     private dateTime: DateTimeService,
@@ -289,16 +291,7 @@ export class FrontDeskClientsFormDataPageComponent implements OnInit {
     }
   }
 
-  // downloadAsPDF() {
-  //   const table_id = 'table-data';
-  //   const filename = 'forms369_' + this.form.form_code + '_data';
-  //   this.downloadService.exportToPDF(table_id, filename);
-  // }
-
   downloadAsCSV() {
-    // const table_id = 'table-data';
-    // const filename = 'forms369_' + this.form.form_code + '_data';
-    // this.downloadService.exportToCsv(table_id, filename);
     const table_data = [];
     const tableContentLength = this.tableContents.length;
     const filename = 'forms369_' + this.form.form_code + '_data';
@@ -307,8 +300,8 @@ export class FrontDeskClientsFormDataPageComponent implements OnInit {
       table_data.push(this.tableContents[i]);
     }
 
-    this.tableHeaders.push('Submitted At');
-    table_data.unshift(this.tableHeaders);
+    this.tableHeaders.push('submitted at');
+    table_data.unshift(this.utils.transformHeaders(this.tableHeaders));
     this.downloadService.exportToCsv(table_data, filename);
   }
 
@@ -321,8 +314,8 @@ export class FrontDeskClientsFormDataPageComponent implements OnInit {
       table_data.push(this.tableContents[i]);
     }
 
-    this.tableHeaders.push('Submitted At');
-    table_data.unshift(this.tableHeaders);
+    this.tableHeaders.push('submitted at');
+    table_data.unshift(this.utils.transformHeaders(this.tableHeaders));
     this.downloadService.exportToExcel(table_data, filename);
   }
 

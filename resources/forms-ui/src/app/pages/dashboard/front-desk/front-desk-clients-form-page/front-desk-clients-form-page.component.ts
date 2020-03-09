@@ -119,7 +119,7 @@ export class FrontDeskClientsFormPageComponent implements OnInit {
 
   searchByFormName() {
     this.loading = true;
-    this.clientService.findFormsByName(this.query, this.user.country).then(
+    this.clientService.findFormsByName(this.query, this.user.country, 0).then(
       forms => {
         if (forms.length == 0) {
           this.loading = false;

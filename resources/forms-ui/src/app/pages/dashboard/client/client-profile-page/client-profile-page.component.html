@@ -9,7 +9,7 @@
             <div class="d-flex justify-content-between flex-wrap">
               <div class="d-flex align-items-end flex-wrap">
                 <div class="mr-md-3 mr-xl-5">
-                  <h2>My Profile</h2>
+                  <h2 class="page-title">My Profile</h2>
                 </div>
                 <div class="d-flex">
                 </div>
@@ -118,7 +118,7 @@
 
                       <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo"
                         data-parent="#accordionExample">
-                        <div class="card-body">
+                        <div class="card-body attachments-card">
                           <div class="text-center mt-4 pt-5" *ngIf="existingAttachments.length == 0">
                             <h3>No Attachments</h3>
                             <i class="mdi mdi-paperclip" style="font-size: 6em;"></i>
@@ -164,7 +164,8 @@
                         <h2 class="mb-0">
                           <button class="btn btn-link collapsed" type="button" data-toggle="collapse"
                             [attr.data-target]="'#section_' + section.id" aria-expanded="false"
-                            [attr.aria-controls]="'section_' + section.id" style="text-align: left; padding-left: 1rem; padding-right: 1rem;">
+                            [attr.aria-controls]="'section_' + section.id" style="text-align: left; padding-left: 1rem;
+                            padding-right: 1rem; font-size: 0.775rem;">
                             {{ section.heading }}
                           </button>
                         </h2>
@@ -318,7 +319,7 @@
     </div>
     <div class="modal-body">
       <div class="form-group pin-form-group">
-        <input type="text" class="form-control form-control-lg pin-control" formControlName="pin" placeholder="----"
+        <input type="tel" class="form-control form-control-lg pin-control" formControlName="pin" placeholder="----"
           [ngClass]="{'input-control-error': submitted && f.pin.errors}" maxlength="4"
           (keyup)="resolveStrCharacters($event)">
         <div *ngIf="submitted && f.pin.errors">
@@ -328,7 +329,7 @@
       </div>
     </div>
     <div class="modal-footer text-center" style="display: block;">
-      <button *ngIf="!isLoading" type="button" class="btn btn-primary" (click)="exit()">Close</button>
+      <button *ngIf="!isLoading" type="button" class="btn btn-light" (click)="exit()">Close</button>
       <button *ngIf="!isLoading" type="submit" class="btn btn-primary">Create PIN</button>
       <button *ngIf="isLoading" type="button" class="btn btn-block btn-primary font-weight-medium" disabled>
         <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span> &nbsp; &nbsp;
@@ -345,7 +346,7 @@
     </div>
     <div class="modal-body">
       <div class="form-group pin-form-group">
-        <input type="text" class="form-control form-control-lg pin-control" name="pinCode" [(ngModel)]="pinCode"
+        <input type="tel" class="form-control form-control-lg pin-control" name="pinCode" [(ngModel)]="pinCode"
           placeholder="----" maxlength="4" (keyup)="resolveStrCharacters_1($event)" autofocus>
         <div>
           <p class="input-error" *ngIf="pinRequired">PIN is required</p>
@@ -354,7 +355,7 @@
       </div>
     </div>
     <div class="modal-footer text-center" style="display: block;">
-      <button *ngIf="!isLoading" type="button" class="btn btn-primary" (click)="exit()">Close</button>
+      <button *ngIf="!isLoading" type="button" class="btn btn-light" (click)="exit()">Close</button>
       <button *ngIf="!isLoading" type="submit" class="btn btn-primary" (click)="verifyPin()">Submit</button>
       <button *ngIf="isLoading" type="button" class="btn btn-block btn-primary font-weight-medium" disabled>
         <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span> &nbsp; &nbsp;

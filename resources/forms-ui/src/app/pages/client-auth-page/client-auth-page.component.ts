@@ -51,6 +51,7 @@ export class ClientAuthPageComponent implements OnInit {
   }
 
   handleLoginErrorResponses(response: any) {
+    this.form.enable();
     switch (response.message) {
       case 'CODE_EXPIRED':
         this.codeExpired = true;
@@ -68,11 +69,9 @@ export class ClientAuthPageComponent implements OnInit {
     console.log('is running handleDashboardNavigation');
     const shared_form_code = sessionStorage.getItem('shared_link');
     if (_.isUndefined(shared_form_code) || _.isNull(shared_form_code)) {
-      this.loading = false;
       window.location.assign('/client');
     }
     else {
-      // this.router.navigateByUrl('/client/form_link_redirect');
       window.location.assign('/client/form_link_redirect');
     }
   }
@@ -91,7 +90,6 @@ export class ClientAuthPageComponent implements OnInit {
       const phone = sessionStorage.getItem('client_phone');
       this.clientService.verifyAuthCode(id, authCode, phone).then(
         res => {
-          this.form.enable();
           const response = res as any;
           if (_.isUndefined(response.message)) {
             // save user data locally.
@@ -105,7 +103,6 @@ export class ClientAuthPageComponent implements OnInit {
             sessionStorage.removeItem('client_phone');
 
             this.handleDashboardNavigation();
-            // this.router.navigateByUrl('/client');
           }
           else {
             this.handleLoginErrorResponses(response);

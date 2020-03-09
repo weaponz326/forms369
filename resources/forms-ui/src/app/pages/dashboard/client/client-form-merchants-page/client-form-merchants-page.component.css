@@ -13,3 +13,22 @@
 .card-title {
     font-family: 'OpenSans_Bold';
 }
+
+@media only screen 
+and (min-device-width: 320px) 
+and (max-device-width: 825px) {
+    #sector-section {
+        padding-top: 1rem;
+        padding-left: 50px;
+        padding-right: 50px;
+    }
+
+    #sector-section .form-group {
+        margin-bottom: 0px;
+    }
+
+    #sector-section select.form-control {
+        padding-left: 22px;
+        border-radius: 20px;
+    }
+}

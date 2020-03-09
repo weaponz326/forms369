@@ -1,0 +1,15 @@
+.dropdown > button {
+    text-transform: inherit;
+    font-size: 13px;
+}
+
+.dropdown-menu {         
+  max-height: 650px;
+  overflow-y: auto;
+}
+
+.dropdown-menu .dropdown-item {
+    font-size: 12px;
+    cursor: pointer;
+    padding: .65rem 1rem;
+}

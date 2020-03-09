@@ -1,81 +1,79 @@
 * {
-    font-family: 'OpenSans_Regular';
+  font-family: "OpenSans_Regular";
 }
 
 .btn i {
-    color: #4c83ff;
+  color: #11498e;
 }
 
-@media only screen 
-and (min-device-width: 320px) 
-and (max-device-width: 825px) {
-    .grid-margin {
-        margin-bottom: .45rem;
-    }
+@media only screen and (min-device-width: 320px) and (max-device-width: 825px) {
+  .grid-margin {
+    margin-bottom: 0.45rem;
+  }
 }
 
 .small-text {
-    font-size: 0.775rem;
-    font-weight: bold;
+  font-size: 0.775rem;
+  font-weight: bold;
 }
 
 .search-form {
-    border-radius: 30px;
-    background: #fff;
+  border-radius: 30px;
+  background: #fff;
 }
 
 .card-icon {
-    left: 78%;
-    right: 6%;
-    bottom: 33px;
-    padding: 7px 10px;
-    text-align: center;
-    border-radius: 7px;
-    position: absolute;
-    /* border: 1px solid #ccc; */
+  left: 78%;
+  right: 6%;
+  bottom: 33px;
+  padding: 7px 10px;
+  text-align: center;
+  border-radius: 7px;
+  position: absolute;
+  /* border: 1px solid #ccc; */
 }
 
 .card-icon > i {
-    font-size: 30px;
+  font-size: 30px;
 }
 
 .msg-container {
-    background-color: #f8f8f8;
-    padding: 20px 12px;
-    border: 1px solid #ddd;
-    border-top-right-radius: 26px;
-    border-bottom-left-radius: 26px;
+  background-color: #f8f8f8;
+  padding: 20px 12px;
+  border: 1px solid #ddd;
+  border-top-right-radius: 26px;
+  border-bottom-left-radius: 26px;
 }
 
 .message-content {
-    padding: 5px;
+  padding: 5px;
 }
 
 .message {
-    font-size: 14px;
-    font-weight: 600;
+  font-size: 14px;
+  font-weight: 600;
 }
 
 .dropdown .dropdown-toggle:after {
-    display: none;
+  display: none;
 }
 
 .dropdown-menu .dropdown-item {
-    cursor: pointer;
+  cursor: pointer;
 }
 
 .dropdown .dropdown-menu .dropdown-item {
-    font-size: .875rem;
-    padding: .85rem 1.5rem;
-    font-family: 'OpenSans_Bold';
+  font-size: 0.875rem;
+  padding: 0.85rem 1.5rem;
+  font-family: "OpenSans_Bold";
 }
 
 .dropdown .dropdown-menu .dropdown-item:hover {
-    font-size: .895rem;
-    padding: .85rem 1.5rem;
-    font-family: 'OpenSans_Bold';
+  font-size: 0.895rem;
+  padding: 0.85rem 1.5rem;
+  font-family: "OpenSans_Bold";
 }
 
 .dropdown-menu.show {
-    border: 1px solid #ddd;
+  border: 1px solid #ddd;
 }
