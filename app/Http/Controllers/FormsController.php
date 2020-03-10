@@ -217,51 +217,7 @@ class FormsController extends Controller
             ]);
     }
 
-     /**
-     * recoverForm recover a form that was initially deleted
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \Illuminate\Http\Request  $code code of the form to be recovered 
-     *
-     * @return void\Illuminate\Http\Response success or error message
-     */
-    public function recoverForm(Request $request, $code)
-    {
-
-        $updated_at = now();
-
-        //get user creating the new merchant
-        $user = $request->user();
-        $userid = $user['id'];
-
-        //save new merchant in the database
-        try {
-            DB::table('forms')
-            ->where('form_code', $code)
-            ->update(
-                [
-                    'status' => 1, 
-                    'updated_by' => $userid, 
-                    'updated_at' => $updated_at,
-                    'deleted_at' => null,
-                    'deleted_by' => 0
-                ]
-            );
-
-            Log::channel('mysql')->info('User with id: ' . $userid .' successsfully recovered a form with code: '. $code);
-            $message = 'Ok';
-
-        }catch(Exception $e) {
-            Log::channel('mysql')->error('User with id: ' . $userid .' unsuccesssfully recovered a form with code: '. $code);
-            $message = "Failed";
-        } 
-            
-        return response()->json([
-            'message' => $message
-        ]);
-    }
-
-
+    
     /**
      * deleteForm deleted or archive a form
      *
@@ -272,24 +228,23 @@ class FormsController extends Controller
      */
     public function deleteForm(Request $request, $code)
     {
-
-        $deleted_at = now();
-
         //get user creating the new merchant
         $user = $request->user();
         $userid = $user['id'];
 
-        //save new merchant in the database
         try {
-            DB::table('forms')
-            ->where('form_code', $code)
-            ->update(
-                [
-                    'status' => 3, 
-                    'deleted_by' => $userid, 
-                    'deleted_at' => $deleted_at
-                ]
-            );
+
+            //get form to be deleted
+            $form = DB::table('forms')->where('form_code', '=', $code)->first();
+            $data= json_decode( json_encode($form), true);
+
+            //insert deleted form in the forms_deleted table
+            $deletedform = DB::table('forms_deleted')->insert($data);
+
+            DB::table('forms')->where('form_code', '=', $code)->delete();
+            $response = [
+                'message' => 'Ok'
+            ];
 
             $message = 'Ok';
             Log::channel('mysql')->info('User with id: ' . $userid .' successsfully deleted a form with code: '. $code);
@@ -304,9 +259,98 @@ class FormsController extends Controller
         ]);
     }
 
+     /**
+     * recoverForm recover a form that was initially deleted
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @param  \Illuminate\Http\Request  $code code of the form to be recovered 
+     *
+     * @return void\Illuminate\Http\Response success or error message
+     */
+     public function recoverForm(Request $request, $code)
+     {
+ 
+         //get user creating the new merchant
+        $user = $request->user();
+        $userid = $user['id'];
+
+        try {
+
+            //get form to be deleted
+            $form = DB::table('forms_deleted')->where('form_code', '=', $code)->first();
+            $data= json_decode( json_encode($form), true);
+
+            //insert deleted form in the forms_deleted table
+            $deletedform = DB::table('forms')->insert($data);
+
+            DB::table('forms_deleted')->where('form_code', '=', $code)->delete();
+            $response = [
+                'message' => 'Ok'
+            ];
+
+            $message = 'Ok';
+            Log::channel('mysql')->info('User with id: ' . $userid .' successsfully recovered a form with code: '. $code);
+
+        }catch(Exception $e) {
+            Log::channel('mysql')->error('User with id: ' . $userid .' unsuccesssfully recovered a form with code: '. $code);
+            $message = "Failed";
+        } 
+            
+        return response()->json([
+            'message' => $message
+        ]);
+     }
+  
+     /**
+     * getAllDeletedFormsByMerchant get all deleted forms for a particular merchant
+     *
+     * @param  mixed $request
+     * @param  mixed $id id of the merchant
+     *
+     * @return void\Illuminate\Http\Response all details of a form
+     */
+    public function getAllDeletedFormsByMerchant(Request $request, $id){
+
+        //get all registered companies 
+        $getforms = DB::table('forms_deleted')
+        ->join('merchants', 'merchants.id', '=', 'merchant_id')
+        ->leftjoin('uploads', 'forms_deleted.form_code', '=', 'uploads.form_code')
+        ->select('forms_deleted.*','merchants.merchant_name AS merchant_name','merchants.can_print', 'uploads.url')
+        ->where('forms_deleted.merchant_id', $id)
+        ->where('forms_deleted.deleted_at', null)
+        ->paginate(15);
+      
+        //clean data
+        $formdata = [];
+
+        $getforms->transform(function($items){
+            $formdata['form_code'] = $items->form_code;
+            $formdata['name'] = Crypt::decryptString($items->name);
+            $formdata['status'] = $items->status;
+            $formdata['form_fields'] = json_decode(Crypt::decryptString($items->form_fields));
+            $formdata['merchant_id'] = $items->merchant_id;
+            $formdata['merchant_name'] = Crypt::decryptString($items->merchant_name);
+            $formdata['can_print'] = $items->can_print;
+            $formdata['can_view'] = $items->can_view;
+            $formdata['file_url'] = $items->url;
+            $formdata['created_by'] = $items->created_by;
+            $formdata['created_at'] = $items->created_at;
+            $formdata['updated_at'] = $items->updated_at;
+            $formdata['updated_by'] = $items->updated_by;
+
+            return $formdata;
+         });
+         
+         $response = [
+            'forms' => $getforms
+        ];
+        return response()->json($response, 200);
+
+    }
+
 
      /**
-     * getFformDetails get all details of a form
+     * getFormDetails get all details of a form
      *
      * @param  mixed $request
      * @param  mixed $code form code 
@@ -420,11 +464,11 @@ class FormsController extends Controller
 
 
     /**
-     * getFformDetails get all details of a form
+     * getAllForms get all forms in the database
      *
      * @param  mixed $request
      *
-     * @return void\Illuminate\Http\Response all details of a form
+     * @return void\Illuminate\Http\Response all forms
      */
     public function getAllForms(Request $request){
 
@@ -471,7 +515,7 @@ class FormsController extends Controller
      *
      * @param  mixed $request
      *
-     * @return void\Illuminate\Http\Response all details of a form
+     * @return void\Illuminate\Http\Response count of all forms
      */
     public function getNumAllForms(Request $request){
 
@@ -496,7 +540,7 @@ class FormsController extends Controller
      * @param  mixed $request
      * @param  mixed $status form status 
      *
-     * @return void\Illuminate\Http\Response all details of forms
+     * @return void\Illuminate\Http\Response all forms under a particular status
      */
     public function getAllFormsByStatus(Request $request, $status){
 
@@ -539,7 +583,7 @@ class FormsController extends Controller
     }
 
     /**
-     * getAllFormsByMerchant get all dforms for a particular merchant
+     * getAllFormsByMerchant get all forms for a particular merchant
      *
      * @param  mixed $request
      * @param  mixed $id id of the merchant
@@ -586,7 +630,7 @@ class FormsController extends Controller
     }
 
     /**
-     * getAllFormsByStatus get all details of all forms by status
+     * getAllFormsByStatusAndMerchant get all details of all forms by status and merchant
      *
      * @param  mixed $request
      * @param  mixed $status form status 
@@ -886,7 +930,7 @@ class FormsController extends Controller
     }
 
     /**
-     * get form for a merchant based on a search term in a particular status category 
+     * getFormbyNameStatusAndMerchant get form for a merchant based on a search term in a particular status category 
      *
      * @param  mixed $request
      * @param  mixed $term search term
@@ -942,7 +986,7 @@ class FormsController extends Controller
     }
 
     /**
-     * get form for a merchant based on a search term 
+     * getFormbyNameAndMerchant get form for a merchant based on a search term 
      *
      * @param  mixed $request
      * @param  mixed $term search term

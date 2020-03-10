@@ -76,6 +76,34 @@ class HomeController extends Controller
         return $message;
     }
 
+
+     /**
+     * recoverDeletedUser recover a deleted user in the database
+     * @return void\Illuminate\Http\Response success or error message
+     * @param  mixed $request
+     * @param  mixed $id of the user to be recovered
+     */
+     protected function recoverDeletedUser(Request $request, $id)
+     {
+        $message = (new AuthController)->recoverDeletedUser($request, $id);
+        return $message;
+     }
+
+     /**
+     * getAllDeletedUsers get the details of all deleted users in a merchant
+     *
+     * @param  mixed $request
+     * @param  mixed $id of the merchant
+     *
+     * @return [json] all deleted users in the database
+     */
+     protected function getAllDeletedUsers(Request $request)
+     {
+        $message = (new AuthController)->getAllDeletedUsers($request);
+        return $message; 
+     }
+
+
     /**
     * Reset user password at first login
     * @param  mixed $request
@@ -1078,6 +1106,20 @@ class HomeController extends Controller
         return $message;
     }
 
+    /**
+     * getAllDeletedFormsByMerchant get all deleted forms for a particular merchant
+     *
+     * @param  mixed $request
+     * @param  mixed $id id of the merchant
+     *
+     * @return void\Illuminate\Http\Response all details of a form
+     */
+     public function getAllDeletedFormsByMerchant(Request $request, $id)
+     {
+        $message = (new FormsController)->getAllDeletedFormsByMerchant($request, $id);
+        return $message; 
+     }
+
      /**
       * Business logics to get all registered clients
      * getAllClients get all clients in the database 
@@ -1514,6 +1556,34 @@ class HomeController extends Controller
     {
         $message = (new ClientController)->deleteSubmittedForm($request, $client_id, $submission_code);
         return $message;
+    }
+
+    /**
+     * recoverDeletedSubmittedForm recover deleted submitted form
+     * @param mixed $client_id client id
+     * @param  mixed $request
+     * @param mixed $submission_code form submission code to be deleted
+     * @return \Illuminate\Http\Response error or success message 
+     */
+     protected function recoverDeletedSubmittedForm(Request $request, $client_id, $submission_code)
+     {
+        $message = (new ClientController)->recoverDeletedSubmittedForm($request, $client_id, $submission_code);
+        return $message;
+     }
+
+
+       /**
+     * getAllDeletedSubmittedForms get all deleted submitted forms
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @param $id of the client  who submitted the forms
+     * @return void\Illuminate\Http\Response all details of deleted forms for a client
+     * 
+     */
+    protected function getAllDeletedSubmittedForms(Request $request, $id)
+    {
+        $message = (new ClientController)->getAllDeletedSubmittedForms($request, $id);
+        return $message; 
     }
 
     /**

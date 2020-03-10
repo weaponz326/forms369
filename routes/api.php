@@ -43,7 +43,6 @@ Route::get('getFormViaLink/{id}', 'HomeController@getFormViaLink')->name('getFor
 
 Route::get('login/google', 'HomeController@redirectToGoogleProvider')->name('login/google')->middleware('web');
 Route::get('login/google/callback', 'HomeController@handleProviderGoogleCallback')->name('login/google/callback')->middleware('web');
- 
 
 //protected routes 
 Route::group(['middleware' => ['auth:api'], 'prefix' => 'v1'], function(){
@@ -99,10 +98,11 @@ Route::group(['middleware' => ['auth:api'], 'prefix' => 'v1'], function(){
     //logout user
     Route::get('logoutUser', 'HomeController@logout')->name('logoutUser');
     
-    //delete user
-    Route::post('deleteUser/{id}', 'HomeController@deleteUser')->name('deleteUser')->middleware('scope:GIT_Admin,company_admin');
+    //delete and recover deletd user apis
+    Route::post('deleteUser/{id}', 'HomeController@deleteUser')->name('deleteUser')->middleware('scope:GIT_Admin');
+    Route::post('recoverDeletedUser/{id}', 'HomeController@recoverDeletedUser')->name('recoverDeletedUser')->middleware('scope:GIT_Admin,company_admin');
+    Route::get('getAllDeletedUsers', 'HomeController@getAllDeletedUsers')->name('getAllDeletedUsers')->middleware('scope:GIT_Admin');
     
-
     //merchant setup, view and update apis
     Route::post('uploadImage', 'HomeController@imageUpload')->name('uploadImage')->middleware('scope:GIT_Admin,company_admin,branch_admin');
     Route::post('createMerchant', 'HomeController@createMerchant')->name('createMerchant')->middleware('scope:GIT_Admin');
@@ -116,7 +116,13 @@ Route::group(['middleware' => ['auth:api'], 'prefix' => 'v1'], function(){
     //get all merchants matching a search term
     Route::get('getMerchantbyName/{term}/{country}/{sector}', 'HomeController@getMerchantbyName')->name('getMerchantbyName')->middleware('scope:GIT_Admin,client');  
     
+   //delete and recover forms apis 
+   Route::post('deleteForm/{id}', 'HomeController@deleteForm')->name('deleteForm')->middleware('scope:GIT_Admin,company_admin,branch_admin');
+   Route::post('recoverForm/{id}', 'HomeController@recoverForm')->name('recoverForm')->middleware('scope:GIT_Admin,company_admin,branch_admin');
+   Route::get('getAllDeletedFormsByMerchant/{id}', 'HomeController@getAllDeletedFormsByMerchant')->name('getAllDeletedFormsByMerchant')->middleware('scope:GIT_Admin,company_admin,branch_admin');
+
    
+
     //enabling and disabling merchants and branches apis
     Route::post('disableMerchant/{id}', 'HomeController@disableMerchant')->name('disableMerchant')->middleware('scope:GIT_Admin');
     Route::post('enableMerchant/{id}', 'HomeController@enableMerchant')->name('enableMerchant')->middleware('scope:GIT_Admin');
@@ -177,8 +183,7 @@ Route::group(['middleware' => ['auth:api'], 'prefix' => 'v1'], function(){
     Route::get('getAllFormsByStatus/{status}', 'HomeController@getAllFormsByStatus')->name('getAllFormsByStatus');
     Route::get('getAllFormsByMerchant/{id}', 'HomeController@getAllFormsByMerchant')->name('getAllFormsByMerchant')->middleware('scope:GIT_Admin,company_admin,branch_admin,client,super_executive,branch_executive,frontdesk');
     Route::get('getAllFormsByStatusAndMerchant/{status}/{id}', 'HomeController@getAllFormsByStatusAndMerchant')->name('getAllFormsByStatusAndMerchant');
-    Route::post('deleteForm/{id}', 'HomeController@deleteForm')->name('deleteForm')->middleware('scope:GIT_Admin,company_admin,branch_admin');
-    Route::post('recoverForm/{id}', 'HomeController@recoverForm')->name('recoverForm')->middleware('scope:GIT_Admin,company_admin,branch_admin');
+    
     
   //client, get and edit endpoints
   Route::get('getAllClients', 'HomeController@getAllClients')->name('getAllClients')->middleware('scope:GIT_Admin');
@@ -203,9 +208,12 @@ Route::group(['middleware' => ['auth:api'], 'prefix' => 'v1'], function(){
   Route::get('findSubmittedFormByName/{id}/{form_name}', 'HomeController@findSubmittedFormByName')->name('findSubmittedFormByName')->middleware('scope:client');
   Route::get('findSubmittedFormByCode/{id}/{code}', 'HomeController@findSubmittedFormByCode')->name('findSubmittedFormByCode')->middleware('scope:client');
 
-  // delete submitted form
-  Route::post('deleteSubmittedForm/{id}/{code}', 'HomeController@deleteSubmittedForm')->name('deleteSubmittedForm')->middleware('scope:client');
-
+  // delete and recover submitted form
+  Route::post('deleteSubmittedForm/{id}/{code}', 'HomeController@deleteSubmittedForm')->name('deleteSubmittedForm')->middleware('scope:GIT_Admin,client');
+  Route::post('recoverDeletedSubmittedForm/{id}/{code}', 'HomeController@recoverDeletedSubmittedForm')->name('recoverDeletedSubmittedForm')->middleware('scope:GIT_Admin,client');
+  Route::get('getAllDeletedSubmittedForms/{id}', 'HomeController@getAllDeletedSubmittedForms')->name('getAllDeletedSubmittedForms')->middleware('scope:GIT_Admin,client');
+  
+  
   //get forms processed by a front desk person within a particular datetime range. NB: end date exclusive
   Route::get('FormsProcessedByFrontDeskPerson/{id}/{startdate}/{enddate}/{status}', 'HomeController@FormsProcessedByFrontDeskPerson')->name('FormsProcessedByFrontDeskPerson')->middleware('scope:GIT_Admin,company_admin,branch_admin,frontdesk');
   Route::get('numFormsProcessedByFrontDeskPerson/{id}/{startdate}/{enddate}/{status}', 'HomeController@numFormsProcessedByFrontDeskPerson')->name('numFormsProcessedByFrontDeskPerson')->middleware('scope:GIT_Admin,company_admin,branch_admin,frontdesk,branch_executive,super_executive');

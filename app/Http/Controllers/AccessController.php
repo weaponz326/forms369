@@ -53,10 +53,10 @@ class AccessController extends Controller
    }
 
  /**
-     * getAllCodes get the created access codes by active status
+     * getAccessCodesByStatus get access codes by status
      *
      * @param  mixed $request
-     * @return [json] all access codes matching active status in the database 
+     * @return [json] all access codes matching status in the database 
      */
     public function getAccessCodesByStatus(Request $request, $active){
 
@@ -212,7 +212,7 @@ class AccessController extends Controller
     }
 
     /**
-     * Reactive access code for use
+     * activateAccessCode Reactive an access code for use
      * @param  \Illuminate\Http\Request  $request
      * @param  \Illuminate\Http\Request  $code access code to be reactivated 
      * @return void\Illuminate\Http\Response  error or success message 
@@ -254,7 +254,7 @@ class AccessController extends Controller
     }
 
     /**
-     * Deactivate an access code
+     * deactivateAccessCode Deactivate an access code
      * @param  \Illuminate\Http\Request  $request
      * @param  \Illuminate\Http\Request  $code access code to be deactivated 
      * @return void\Illuminate\Http\Response error or success message
@@ -295,7 +295,7 @@ class AccessController extends Controller
     }
 
    /**
-     * Check if access code is valid and active 
+     * ValidateAccessCode  Check if access code is valid and active 
      * @param  \Illuminate\Http\Request  $request
      * @param  \Illuminate\Http\Request  $code access code provided by user
      * @return void\Illuminate\Http\Response error or success message

@@ -278,10 +278,10 @@ class FrontDeskController extends Controller
 
         }
 
-         //get, encode and encrypt all user details in teh form
-         $data = $request->all();
-         $encodeddata = json_encode($data);
-         $encrypteddata = Crypt::encryptString($encodeddata);
+        //  //get, encode and encrypt all user details in teh form
+        //  $data = $request->all();
+        //  $encodeddata = json_encode($data);
+        //  $encrypteddata = Crypt::encryptString($encodeddata);
 
          $last_processed = now();
          $user = $request->user();
@@ -293,7 +293,6 @@ class FrontDeskController extends Controller
              ->where('submission_code',$code)
              ->update(
                  [
-                     'client_details' => $encrypteddata,
                      'last_processed' => $last_processed, 
                      'processed_by' => $userid,
                      'status' => $status

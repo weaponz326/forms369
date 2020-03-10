@@ -20,7 +20,7 @@ class AuthController extends Controller
 {
    
      /**
-    * Validate user provided two way authentication code
+    * twoWayAuthenticationVerification Validate user provided two way authentication code
     * @param  mixed $request
     * @param  mixed $id user id
     * @param  mixed $code user phone code
@@ -74,7 +74,7 @@ class AuthController extends Controller
 
 
     /**
-    * send a two way authentication code to client users
+    * sendTwoWayAuthenticationCode send a two way authentication code to client user
     * @param  mixed $request
     * @param  mixed $id user id
     * @param  mixed $phone user phone number
@@ -121,7 +121,7 @@ class AuthController extends Controller
 
     //https://isms.wigalsolutions.com/ismsweb/sendmsg/?username=fregye&password=aw0tw3ba&from=GiTLog&to=233501879144&message=hello
     /**
-    * send two way authentication code sms
+    * send two way authentication code to user sms
     * @param  mixed $from the sender
     * @param mixed $mobile the reciepients phone number
     * @param $message the message to be sent
@@ -154,7 +154,7 @@ class AuthController extends Controller
 
 
     /**
-    * Check if user has access 
+    * checkAccess Check if user has access 
     * used for private portal
     * @param  mixed $request
     *
@@ -186,7 +186,7 @@ class AuthController extends Controller
     
 
   /**
-    * Reset user password at first login
+    * resetPassword Reset user password on first login 
     * for GIT admin, company and branch admin and executives
     * @param  mixed $request
     * @param mixed $id of the user reseting their password
@@ -685,7 +685,7 @@ class AuthController extends Controller
 
     
     /**
-     * createBranchAdmin create new branch admin
+     * editOtherUser edit other users other than client users 
      *
      * @param  mixed $request
      * @param  mixed $id the id in the client table is a foreign and primary key
@@ -728,7 +728,7 @@ class AuthController extends Controller
     
 
     /**
-     * send activation email to new user
+     * signupActivate send activation email to new user
      *
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
@@ -1104,7 +1104,7 @@ class AuthController extends Controller
 
 
     /**
-     * getAllUsersByMerchant get the details of users
+     * getAllUsersByMerchant get the details of all users in a merchant
      *
      * @param  mixed $request
      * @param  mixed $id of the merchant
@@ -1307,10 +1307,8 @@ class AuthController extends Controller
    }
 
    /**
-     * getMerchantUsersByType get the details of users under a particular user type for a merchant
-     *
+     * getAllUsersByType get the details of users under a user type 
      * @param  mixed $request
-     * @param  mixed $id of the merchant
      * @param  mixed $user_type_id id of user_type_id of search
      * @return [json] all matching users
      */
@@ -1355,7 +1353,7 @@ class AuthController extends Controller
    }
 
    /**
-     * getAllUsersByTypeForDropdown get the details of users under a particular user type for a merchant
+     * getAllUsersByTypeForDropdown get the details of users under a particular user type 
      * without pagination for dropdown
      *
      * @param  mixed $request
@@ -1405,7 +1403,7 @@ class AuthController extends Controller
 
 
    /**
-     * getMerchantUsersByType get the number of users under a particular user type for a merchant
+     * getNumMerchantUsersByType get the number of users under a particular user type for a merchant
      *
      * @param  mixed $request
      * @param  mixed $id of the merchant
@@ -1481,7 +1479,7 @@ class AuthController extends Controller
    }
 
    /**
-     * getNumBranchUsersByType get the details of users under a particular user type for a branch
+     * getNumBranchUsersByType get the number of users under a particular user type for a branch
      *
      * @param  mixed $request
      * @param  mixed $id of the merchant
@@ -1530,21 +1528,120 @@ class AuthController extends Controller
      * @param  mixed $id of the user to be deleted
      */
     public function deleteUser(Request $request, $id){
+        //get user creating the new merchant
+        $user = $request->user();
+        $userid = $user['id'];
+
         try {
+            //get user to be deleted
+            $user = DB::table('users')->where('id', '=', $id)->first();
+            $data= json_decode( json_encode($user), true);
+
+            //insert deleted user in the users_deleted table
+            $deleteduser = DB::table('users_deleted')->insert($data);
+
             DB::table('users')->where('id', '=', $id)->delete();
             $response = [
                 'message' => 'Ok'
             ];
+            Log::channel('mysql')->info('User with id: ' . $userid .' successsfully deleted a user with id: '. $id);
             return response()->json($response, 200);
         }catch(Exception $e) {
             $response = [
                 'message' => 'Failed'
             ];
+            Log::channel('mysql')->info('User with id: ' . $userid .' unsuccesssfully deleted a user with id: '. $id);
             return response()->json($response, 400);
 
         }    
 
     }
+
+    /**
+     * recoverDeletedUser recover a deleted user in the database
+     * @return void\Illuminate\Http\Response success or error message
+     * @param  mixed $request
+     * @param  mixed $id of the user to be recovered
+     */
+     public function recoverDeletedUser(Request $request, $id){
+         //get user creating the new merchant
+        $user = $request->user();
+        $userid = $user['id'];
+
+        try {
+            //get user to be deleted
+            $user = DB::table('users_deleted')->where('id', '=', $id)->first();
+            $data= json_decode( json_encode($user), true);
+
+            //insert deleted user in the users_deleted table
+            $deleteduser = DB::table('users')->insert($data);
+
+            DB::table('users_deleted')->where('id', '=', $id)->delete();
+            $response = [
+                'message' => 'Ok'
+            ];
+            Log::channel('mysql')->info('User with id: ' . $userid .' successsfully recovered a user with id: '. $id);
+            return response()->json($response, 200);
+        }catch(Exception $e) {
+            $response = [
+                'message' => 'Failed'
+            ];
+            Log::channel('mysql')->info('User with id: ' . $userid .' unsuccesssfully recovered a user with id: '. $id);
+            return response()->json($response, 400);
+
+        }    
+
+    }
+
+     /**
+     * getAllDeletedUsers get the details of all deleted users in a merchant
+     *
+     * @param  mixed $request
+     * @param  mixed $id of the merchant
+     *
+     * @return [json] all deleted users in the database
+     */
+     public function getAllDeletedUsers(Request $request){
+
+        //get all registered companies 
+        $getusers = DB::table('users_deleted')
+        ->join('merchants', 'merchants.id', '=', 'merchant_id')
+        ->leftjoin('company_branches', 'company_branches.id', '=', 'branch_id')
+        ->select('users_deleted.*','merchants.merchant_name AS merchant_name','company_branches.branchname AS branch_name')
+       ->paginate(15);
+
+        //clean data
+        $userdata = [];
+        
+        $getusers->transform(function($items){
+            $userdata['id'] = $items->id;
+            $userdata['full_name'] =$items->name;
+            $userdata['firstname'] = $items->firstname;
+            $userdata['lastname'] = $items->lastname;
+            $userdata['usename'] =$items->username;
+            $userdata['email'] = $items->email;
+            $userdata['can_download'] = $items->can_download;
+            $userdata['last_login_at'] = $items->last_login_at;
+            $userdata['last_login_ip'] = $items->last_login_ip;
+            $userdata['status'] = $items->status;
+            $userdata['merchant_id'] = $items->merchant_id;
+            $userdata['merchant_name'] = empty($items->merchant_name) ? '' : Crypt::decryptString($items->merchant_name);
+            $userdata['branch_id'] = $items->branch_id;
+            $userdata['branch_name'] = empty($items->branch_name) ? '' : Crypt::decryptString($items->branch_name);
+            $userdata['user_type'] = $items->usertype;
+            $userdata['created_at'] = $items->created_at;
+            $userdata['updated_at'] = $items->updated_at;
+            $userdata['deleted_at'] = $items->deleted_at;
+
+            return $userdata;
+         });
+         
+         $response = [
+            'users' => $getusers
+        ];
+        return response()->json($response, 200);
+   
+   }
 
     /**
      * forgotPassword reset user password
@@ -1587,9 +1684,10 @@ class AuthController extends Controller
     }
 
      /**
-     * resetForgottenPassword reset user forgotten password
+     * confirmForgottenPassword verify confirm email password reset link
      *
      * @param  \Illuminate\Http\Request  $request
+     * @param  \Illuminate\Http\Request  $token signed route token
      * @return \Illuminate\Http\Response
      */
     public function confirmForgottenPassword(Request $request, $token)
@@ -1621,7 +1719,7 @@ class AuthController extends Controller
     }
     
     /**
-     * candownload indicate wheather a user can print a document or not
+     * candownload indicate wheather a user can download a document or not
      * 1 for yes, 0 for no
      *
      * @param  mixed $request
@@ -1656,7 +1754,7 @@ class AuthController extends Controller
     }
 
     /**
-     * Get all users under a user type and merchant matching a search term
+     * getUserByTypeAndMerchant Get all users under a user type and merchant matching a search term
      *
      * @param  mixed $request
      * @param  mixed $merchant_id of the merchant
@@ -1758,7 +1856,7 @@ class AuthController extends Controller
    }
 
     /**
-     * Get all users under a user type and merchant matching a search term under a status categor (active or inactive)
+     * getUserByTypeStatusAndMerchant Get all users under a user type and merchant matching a search term under a status category (active or inactive)
      *
      * @param  mixed $request
      * @param  mixed $merchant_id of the merchant
@@ -1921,7 +2019,7 @@ class AuthController extends Controller
 
     
      /**
-     * Redirect the user to the google authentication page.
+     * redirectToGoogleProvider Redirect the user to the google authentication page.
      *
      * @return \Illuminate\Http\Response
      */
@@ -1932,7 +2030,7 @@ class AuthController extends Controller
     }
 
     /**
-     * Obtain the user information from twitter.
+     * handleProviderGoogleCallback Obtain the user information from google.
      *
      * @return \Illuminate\Http\Response
      */

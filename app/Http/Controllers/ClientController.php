@@ -274,6 +274,14 @@ class ClientController extends Controller
         return response()->json($response, 200);
     }
 
+    /**
+     * findSubmittedFormByName search for a submitted form by name
+     * @param  \Illuminate\Http\Request  $request
+     * @param $id of the client  who submitted the forms
+      * @param $form_name search term 
+     * @return void\Illuminate\Http\Response all details of the submitted form
+     * 
+     */
     public function findSubmittedFormByName(Request $request, $id, $form_name)
     {
         $getforms = DB::table('submitted_forms')
@@ -315,6 +323,15 @@ class ClientController extends Controller
         return response()->json($response, 200);
     }
 
+
+    /**
+     * findSubmittedFormByCode search for a submitted form by the submission code
+     * @param  \Illuminate\Http\Request  $request
+     * @param $id of the client  who submitted the forms
+      * @param $code search term / submission code
+     * @return void\Illuminate\Http\Response all details of the submitted form
+     * 
+     */
     public function findSubmittedFormByCode(Request $request, $id, $code)
     {
         $getforms = DB::table('submitted_forms')
@@ -429,7 +446,7 @@ class ClientController extends Controller
 
  
      /**
-     * getClientFormsByStatus get number of all forms by status: processed, in_process, submitted 
+     * getNumClientFormsByStatus get number of all forms by status: processed, in_process, submitted 
      *
      * @param  \Illuminate\Http\Request  $request
      * @param $id of the client 
@@ -451,12 +468,13 @@ class ClientController extends Controller
         return response()->json($response, 200);
     }
 
-  /**
-     * uploadattachments Upload form attachments
-     *
-     * @param  mixed $request
-     *
-     * @return \Illuminate\Http\Response success or error message
+    /**
+        * uploadattachments Upload form attachments
+        * @param mixed $client_id client id
+        * @param  mixed $request
+        * @param mixed $form_code form code 
+        * @param mixed $submission code form submission code
+        * @return \Illuminate\Http\Response success or error message
      */
     public function uploadattachments(Request $request, $client_id, $form_code, $submission_code){
 
@@ -610,7 +628,7 @@ class ClientController extends Controller
         
     }
 
-/**
+    /**
      * uploadProfileAttachments Upload attachments for user profile
      *
      * @param  mixed $request
@@ -762,9 +780,27 @@ class ClientController extends Controller
         
     }
 
+     /**
+     * deleteSubmittedForm delete submitted form
+     * @param mixed $client_id client id
+     * @param  mixed $request
+     * @param mixed $submission_code form submission code to be deleted
+     * @return \Illuminate\Http\Response error or success message 
+     */
     public function deleteSubmittedForm(Request $request, $client_id, $submission_code)
     {
         $message = 'failed';
+        //get form to be deleted
+        $form = DB::table('submitted_forms')->where([
+            ['client_id', $client_id],
+            ['submission_code', $submission_code]
+         ])->first();
+
+        $data= json_decode( json_encode($form), true);
+
+        //insert deleted form in the submitted_forms_deleted table
+        $deletedform = DB::table('submitted_forms_deleted')->insert($data);
+
         $deleteSubmittedForm = DB::table( 'submitted_forms' )
             ->where([
                 ['client_id', $client_id],
@@ -791,6 +827,103 @@ class ClientController extends Controller
         }
     }
 
+
+    /**
+     * recoverDeletedSubmittedForm recover deleted submitted form
+     * @param mixed $client_id client id
+     * @param  mixed $request
+     * @param mixed $submission_code form submission code to be deleted
+     * @return \Illuminate\Http\Response error or success message 
+     */
+     public function recoverDeletedSubmittedForm(Request $request, $client_id, $submission_code)
+     {
+         $message = 'failed';
+         //get form to be deleted
+         $form = DB::table('submitted_forms_deleted')->where([
+             ['client_id', $client_id],
+             ['submission_code', $submission_code]
+          ])->first();
+          
+         $data= json_decode( json_encode($form), true);
+ 
+         //insert deleted form in the submitted_forms_deleted table
+         $deletedform = DB::table('submitted_forms')->insert($data);
+ 
+         $deleteSubmittedForm = DB::table( 'submitted_forms_deleted' )
+             ->where([
+                 ['client_id', $client_id],
+                 ['submission_code', $submission_code]
+             ])
+             ->delete();
+ 
+         if ( $deleteSubmittedForm )
+         {
+             $message = 'ok';
+         }
+ 
+         $response = [
+             'message' => $message
+         ];
+ 
+         if ( $message == 'ok' )
+         {
+             return response()->json( $response, 200 );
+         }
+         else
+         {
+             return response()->json( $response, 400 );
+         }
+     }
+
+
+      /**
+     * getAllDeletedSubmittedForms get all deleted submitted forms
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @param $id of the client  who submitted the forms
+     * @return void\Illuminate\Http\Response all details of deleted forms for a client
+     * 
+     */
+    public function getAllDeletedSubmittedForms(Request $request, $id)
+    {
+        $getforms = DB::table('submitted_forms_deleted')
+        ->join('users', 'users.id', '=', 'client_id')
+        ->join('forms', 'forms.form_code', '=', 'form_id')
+        ->join('merchants', 'merchants.id', '=', 'forms.merchant_id')
+        // ->join('attachments','attachments.submission_code', '=', 'submitted_forms.submission_code')
+        ->select('submitted_forms_deleted.*','merchants.merchant_name AS merchant_name',
+        'users.name', 'users.email', 'forms.name AS form_name', 'forms.form_fields')
+        ->where('submitted_forms_deleted.client_id', $id)
+        ->paginate(15);
+      
+        // return $getforms;a
+        //clean data
+        $submittedformdata = [];
+
+        $getforms->transform(function($items){
+            $submittedformdata['submission_code'] = $items->submission_code;
+            $submittedformdata['form_code'] = $items->form_id;
+            $submittedformdata['form_name'] = Crypt::decryptString($items->form_name);
+            $submittedformdata['form_fields'] = json_decode(Crypt::decryptString($items->form_fields));
+            $submittedformdata['merchant_name'] = Crypt::decryptString($items->merchant_name);
+            $submittedformdata['client_name'] = $items->name;
+            $submittedformdata['email'] = $items->email;
+            $submittedformdata['client_submitted_details'] = json_decode(Crypt::decryptString($items->client_details));
+            $submittedformdata['form_status'] = $items->status;
+            $submittedformdata['submitted_at'] = $items->submitted_at;
+            $submittedformdata['last_processed'] = $items->last_processed;
+            $submittedformdata['processed_by'] = $items->processed_by;
+
+            return $submittedformdata;
+         });
+     
+         $response = [
+            'forms' => $getforms
+        ];
+        return response()->json($response, 200);
+    }
+
+     
      /**
      * hasPin check if user has pin
      *
@@ -818,10 +951,10 @@ class ClientController extends Controller
     }
 
      /**
-     * hasPin check if user has pin
+     * setPin set pin for a user if user does not have a pin
      *
      * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response Yes or no
+     * @return \Illuminate\Http\Response error or success message
      */
     public function setPin(Request $request, $id, $pin)
     {
@@ -853,10 +986,10 @@ class ClientController extends Controller
     }
 
     /**
-     * hasPin check if user has pin
+     * changePin change user pin
      *
      * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response Yes or no
+     * @return \Illuminate\Http\Response error or success message
      */
     public function changePin(Request $request, $id)
     {
