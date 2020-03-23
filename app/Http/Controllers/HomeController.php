@@ -2218,4 +2218,14 @@ class HomeController extends Controller
         $message = (new ExecutiveController)->getSubmittedFormByFormCode($request, $status, $id, $code);
         return $message;  
      }
+
+    /**
+     * getRecentForms get the top 10 recently submitted forms 
+     * @return void\Illuminate\Http\Response all details of a form
+     */
+     protected function getRecentForms(Request $request){
+        $message = (new FormsController)->getRecentForms($request);
+        return $message;
+    }
+     
 }    

@@ -604,6 +604,7 @@ class FormsController extends Controller
         ->select('forms.*','merchants.merchant_name AS merchant_name', 'merchants.nickname','merchants.can_print', 'uploads.url')
         ->where('forms.merchant_id', $id)
         ->where('forms.deleted_at', null)
+        ->where('forms.staus', 1)
         ->paginate(15);
       
         //clean data
@@ -1046,6 +1047,57 @@ class FormsController extends Controller
         return response()->json($response, 200);
 
     }
+
+    /**
+     * getRecentForms get the top 10 recently submitted forms 
+     * @return void\Illuminate\Http\Response all details of a form
+     */
+     public function getRecentForms(Request $request){
+
+        //get all registered companies 
+        $getform = DB::table('forms')
+        ->join('merchants', 'merchants.id', '=', 'merchant_id')
+        ->leftjoin('uploads', 'forms.form_code', '=', 'uploads.form_code')
+        ->join('submitted_forms', 'submitted_forms.form_id', '=', 'forms.form_code')
+        ->select('forms.*','merchants.merchant_name AS merchant_name', 'merchants.nickname',
+        'merchants.can_print', 'uploads.url', 'submitted_forms.submitted_at')
+        ->where('forms.status','=',1)
+        ->where('submitted_forms.status','!=',4)
+        ->latest('submitted_at')
+        ->take(10)
+        ->get();
+      
+        $getform = $getform->unique('form_code');
+        // return $getform;
+        //clean data
+        $formdata = [];
+
+        $form = $getform->map(function($items){
+            $formdata['form_code'] = $items->form_code;
+            $formdata['name'] = Crypt::decryptString($items->name);
+            $formdata['status'] = $items->status;
+            $formdata['form_fields'] = json_decode(Crypt::decryptString($items->form_fields));
+            $formdata['merchant_id'] = $items->merchant_id;
+            $formdata['merchant_name'] = Crypt::decryptString($items->merchant_name);
+            $formdata['nickname'] = $items->nickname;
+            $formdata['can_print'] = $items->can_print;
+            $formdata['can_view'] = $items->can_view;
+            $formdata['file_url'] = $items->url;
+            $formdata['created_by'] = $items->created_by;
+            $formdata['created_at'] = $items->created_at;
+            $formdata['updated_at'] = $items->updated_at;
+            $formdata['updated_by'] = $items->updated_by;
+
+            return $formdata;
+         });
+
+         $response = [
+            'form' => $form
+        ];
+        return response()->json($response, 200);
+
+    }
+
 
 
 }   

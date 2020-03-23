@@ -305,6 +305,9 @@ Route::group(['middleware' => ['auth:api'], 'prefix' => 'v1'], function(){
   //get submitted forms by status, name and merchant
   Route::get('getClientFormsByStatusAndMerchant/{term}/{status}/{id}', 'HomeController@getClientFormsByStatusAndMerchant')->name('getClientFormsByStatusAndMerchant')->middleware('scope:GIT_Admin,company_admin,branch_admin,super_executive,branch_executive,client,frontdesk');
 
+  //recent and most submitted forms apis
+  Route::get('getRecentForms', 'HomeController@getRecentForms')->name('getRecentForms')->middleware('scope:GIT_Admin,client');
+
 });
 
  
