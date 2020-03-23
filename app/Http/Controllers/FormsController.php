@@ -1067,7 +1067,7 @@ class FormsController extends Controller
         ->take(10)
         ->get();
       
-        $getform = $getform->unique('form_code');
+        $getform = $getform->unique('form_code')->values();
         // return $getform;
         //clean data
         $formdata = [];
