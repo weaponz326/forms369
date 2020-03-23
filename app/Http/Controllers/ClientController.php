@@ -136,13 +136,14 @@ class ClientController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @param $id of the client submitting the form
      * @param $code form code that is being filled 
+     * @param $status submitted form status, 0 if subnitted and 4 if form is saved to draft
      * @return void\Illuminate\Http\Response submission code
      */
-    public function submitForm(Request $request, $id, $code, $edit, $sub_code)
+    public function submitForm(Request $request, $id, $code, $edit, $sub_code, $status)
     {
          $message = 'Ok';
 
-         //get, encode and encrypt all user details in teh form
+         //get, encode and encrypt all user details in the form
          $data = $request->all();
 
          $client_profile = $data['client_profile'];
@@ -155,15 +156,14 @@ class ClientController extends Controller
          $encrypteduserdata = Crypt::encryptString($encodeduserdata);
 
          $submitted_at = now();
-         $status = 0;
-        //  $submission_code = str_random(5);
-     
+         
          //save new client in the database
          try {
              DB::table('submitted_forms')
-             ->insert(
+                ->updateOrInsert(
+                 [ 'submission_code' => $sub_code],
+
                  [
-                    'submission_code' => $sub_code,
                     'form_id' => $code, 
                     'client_id' => $id,
                     'status' => $status,
@@ -183,36 +183,37 @@ class ClientController extends Controller
                 );
              }
 
-             
-            //get logged in user
-            $user = $request->user();
-            $phone = $user['phone'];
+            if($status == 0){
 
-            //get merchant name and form name
-            $getdetails = DB::table('forms')
-            ->join('merchants', 'forms.merchant_id', '=', 'merchants.id')
-            ->select('merchants.merchant_name AS merchant_name','forms.name AS form_name')
-            ->where('forms.form_code', $code)
-            ->first();;
+                //get logged in user
+                $user = $request->user();
+                $phone = $user['phone'];
 
-            $merchant = Crypt::decryptString($getdetails->merchant_name);
-            $form_name = Crypt::decryptString($getdetails->form_name);
+                //get merchant name and form name
+                $getdetails = DB::table('forms')
+                ->join('merchants', 'forms.merchant_id', '=', 'merchants.id')
+                ->select('merchants.merchant_name AS merchant_name','forms.name AS form_name')
+                ->where('forms.form_code', $code)
+                ->first();;
+
+                $merchant = Crypt::decryptString($getdetails->merchant_name);
+                $form_name = Crypt::decryptString($getdetails->form_name);
             
-            //send submission code to users SMS
-            $from = "GiTLog";
-            $mobile = $phone;
-            $msg = $form_name ." successfully submitted to ". $merchant .".\r\n". "Submission Code: " .$sub_code;
-            $status = (new AuthController)->sendsms($from,$mobile,$msg);
-            if($status){
-                Log::channel('mysql')->info('Client  with id: ' . $id .' successsfully submitted form with code: '. $code);
-                $message = 'Ok';
+                //send submission code to users SMS
+                $from = "GiTLog";
+                $mobile = $phone;
+                $msg = $form_name ." successfully submitted to ". $merchant .".\r\n". "Submission Code: " .$sub_code;
+                $status = (new AuthController)->sendsms($from,$mobile,$msg);
+                if($status){
+                    Log::channel('mysql')->info('Client  with id: ' . $id .' successsfully submitted form with code: '. $code);
+                    $message = 'Ok';
+                }    
             }    
- 
-         }catch(Exception $e) {
+        }catch(Exception $e) {
             Log::channel('mysql')->error('Client  with id: ' . $id .' unsuccesssfully submitted form with code: '. $code);
-             $message = "Failed";
-         }   
- 
+            $message = "Failed";
+        }   
+        
         if($message != "Ok"){
             return response()->json([
                 'message' => $message
@@ -229,7 +230,7 @@ class ClientController extends Controller
     /**
      * getAllsubmittedForms forms submitted by a client of any status: 
      * submitted, in_process,or processed
-     *
+     * return with recently submitted first
      * @param  \Illuminate\Http\Request  $request
      * @param $id of the client  who submitted the forms
      * @return void\Illuminate\Http\Response all details of form
@@ -245,6 +246,8 @@ class ClientController extends Controller
         ->select('submitted_forms.*','merchants.merchant_name AS merchant_name', 'merchants.nickname',
         'users.name', 'users.email', 'forms.name AS form_name', 'forms.form_fields')
         ->where('submitted_forms.client_id', $id)
+        ->where('submitted_forms.status', '!=', 4)
+        ->orderBy('submitted_at', 'desc')
         ->paginate(15);
       
         // return $getforms;a
@@ -293,7 +296,8 @@ class ClientController extends Controller
         'users.name', 'users.email', 'forms.name AS form_name', 'forms.form_fields')
         ->where([
             ['submitted_forms.client_id', $id],
-            ['forms.temps', 'like', '%'.$form_name.'%']
+            ['forms.temps', 'like', '%'.$form_name.'%'],
+            ['submitted_forms.status', '!=', 4]
         ])
         ->get();
       
@@ -344,7 +348,8 @@ class ClientController extends Controller
         'users.name', 'users.email', 'forms.name AS form_name', 'forms.form_fields')
         ->where([
             ['submitted_forms.client_id', $id],
-            ['submitted_forms.submission_code', 'like', '%'.$code.'%']
+            ['submitted_forms.submission_code', 'like', '%'.$code.'%'],
+            ['submitted_forms.status', '!=', 4]
         ])
         ->get();
     
@@ -390,6 +395,7 @@ class ClientController extends Controller
         
         $getnumforms = DB::table('submitted_forms')
         ->where('submitted_forms.client_id', $id)
+        ->where('status', '!=', 4)
         ->count();
     
 
@@ -419,6 +425,7 @@ class ClientController extends Controller
         'users.name', 'users.email', 'forms.name AS form_name', 'forms.form_fields')
         ->where('submitted_forms.client_id', $id)
         ->where('submitted_forms.status', $status)
+        ->orderBy('submitted_at', 'desc')
         ->paginate(15);
       
         //clean data

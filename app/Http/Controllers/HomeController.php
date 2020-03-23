@@ -1300,9 +1300,9 @@ class HomeController extends Controller
      * @param $code form code that is being filled 
      * @return void\Illuminate\Http\Response submission code
      */
-    protected function submitForm(Request $request, $id, $code, $edit, $sub_code)
+    protected function submitForm(Request $request, $id, $code, $edit, $sub_code, $status)
     {
-        $message = (new ClientController)->submitForm($request, $id, $code, $edit, $sub_code);
+        $message = (new ClientController)->submitForm($request, $id, $code, $edit, $sub_code, $status);
         return $message;
 
     }

@@ -25,6 +25,8 @@ class FrontDeskController extends Controller
         ->join('merchants', 'merchants.id', '=', 'forms.merchant_id')
         ->select('submitted_forms.*','merchants.merchant_name AS merchant_name', 'merchants.nickname',
         'users.name', 'users.email', 'forms.name AS form_name', 'forms.form_fields', 'forms.can_view')
+        ->where('submitted_forms.status', '!=' , 4)
+        ->orderBy('submitted_at', 'desc')
         ->paginate(15);
       
         //clean data
@@ -74,6 +76,8 @@ class FrontDeskController extends Controller
         ->select('submitted_forms.*','merchants.merchant_name AS merchant_name', 'merchants.nickname',
         'users.name', 'users.email', 'forms.name AS form_name', 'forms.form_fields', 'forms.can_view')
         ->where('merchants.id', $id)
+        ->where('submitted_forms.status', '!=' , 4)
+        ->orderBy('submitted_at', 'desc')
         ->paginate(15);
       
         //clean data
@@ -122,6 +126,7 @@ class FrontDeskController extends Controller
         ->select('submitted_forms.*','merchants.merchant_name AS merchant_name', 'merchants.nickname',
         'users.name', 'users.email', 'forms.name AS form_name', 'forms.form_fields', 'forms.can_view')
         ->where('submission_code', $code)
+        ->where('submitted_forms.status', '!=' , 4)
         ->get();
       
         //clean data
@@ -173,6 +178,7 @@ class FrontDeskController extends Controller
         'users.name', 'users.email', 'forms.name AS form_name', 'forms.form_fields', 'forms.can_view')
         ->where('submission_code', $code)
         ->where('forms.merchant_id', $id)
+        ->where('submitted_forms.status', '!=' , 4)
         ->get();
       
         //clean data
