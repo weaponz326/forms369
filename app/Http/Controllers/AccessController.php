@@ -23,7 +23,7 @@ class AccessController extends Controller
         $getaccesscodes = DB::table('access')
         ->leftjoin('merchants', 'merchants.id', '=', 'merchant_id')
         ->leftjoin('company_branches', 'company_branches.id', '=', 'branch_id')
-        ->select('access.*','merchants.merchant_name AS merchant_name','company_branches.branchname AS branch_name')
+        ->select('access.*','merchants.merchant_name AS merchant_name', 'merchants.nickname','company_branches.branchname AS branch_name')
        ->paginate(15);
 
         //clean data
@@ -35,6 +35,7 @@ class AccessController extends Controller
             $accesscodesdata['sourceusage'] = $items->sourceusage;
             $accesscodesdata['merchant_id'] = $items->merchant_id;
             $accesscodesdata['merchant_name'] = empty($items->merchant_name) ? '' : Crypt::decryptString($items->merchant_name);
+            $accesscodesdata['nickname'] = $items->nickname;
             $accesscodesdata['branch_id'] = $items->branch_id;
             $accesscodesdata['branch_name'] = empty($items->branch_name) ? '' : Crypt::decryptString($items->branch_name); 
             $accesscodesdata['accesscode'] = $items->accesscode;
@@ -64,7 +65,7 @@ class AccessController extends Controller
         $getaccesscodes = DB::table('access')
         ->leftjoin('merchants', 'merchants.id', '=', 'merchant_id')
         ->leftjoin('company_branches', 'company_branches.id', '=', 'branch_id')
-        ->select('access.*','merchants.merchant_name AS merchant_name','company_branches.branchname AS branch_name')
+        ->select('access.*','merchants.merchant_name AS merchant_name', 'merchants.nickname', 'company_branches.branchname AS branch_name')
         ->where('active', $active)
        ->paginate(15);
 
@@ -77,6 +78,7 @@ class AccessController extends Controller
             $accesscodesdata['sourceusage'] = $items->sourceusage;
             $accesscodesdata['merchant_id'] = $items->merchant_id;
             $accesscodesdata['merchant_name'] = empty($items->merchant_name) ? '' : Crypt::decryptString($items->merchant_name);
+            $accesscodesdata['nickname'] = $items->nickname;
             $accesscodesdata['branch_id'] = $items->branch_id;
             $accesscodesdata['branch_name'] = empty($items->branch_name) ? '' : Crypt::decryptString($items->branch_name); 
             $accesscodesdata['accesscode'] = $items->accesscode;
@@ -107,7 +109,7 @@ class AccessController extends Controller
         $getaccesscode = DB::table('access')
         ->leftjoin('merchants', 'merchants.id', '=', 'merchant_id')
         ->leftjoin('company_branches', 'company_branches.id', '=', 'branch_id')
-        ->select('access.*','merchants.merchant_name AS merchant_name','company_branches.branchname AS branch_name')
+        ->select('access.*','merchants.merchant_name AS merchant_name','merchants.nickname','company_branches.branchname AS branch_name')
         ->where('accesscode', $code)
        ->get();
 
@@ -120,6 +122,7 @@ class AccessController extends Controller
             $accesscodesdata['sourceusage'] = $items->sourceusage;
             $accesscodesdata['merchant_id'] = $items->merchant_id;
             $accesscodesdata['merchant_name'] = empty($items->merchant_name) ? '' : Crypt::decryptString($items->merchant_name);
+            $accesscodesdata['nickname'] = $items->nickname;
             $accesscodesdata['branch_id'] = $items->branch_id;
             $accesscodesdata['branch_name'] = empty($items->branch_name) ? '' : Crypt::decryptString($items->branch_name); 
             $accesscodesdata['accesscode'] = $items->accesscode;

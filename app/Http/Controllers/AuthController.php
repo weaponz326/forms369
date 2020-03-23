@@ -982,7 +982,7 @@ class AuthController extends Controller
          $getuser = DB::table('users')
          ->leftjoin('merchants', 'merchants.id', '=', 'merchant_id')
          ->leftjoin('company_branches', 'company_branches.id', '=', 'branch_id')
-         ->select('users.*','merchants.merchant_name AS merchant_name','company_branches.branchname AS branch_name')
+         ->select('users.*','merchants.merchant_name AS merchant_name','merchants.nickname','company_branches.branchname AS branch_name')
         ->where('users.id', $id)
         ->get();
 
@@ -1004,6 +1004,7 @@ class AuthController extends Controller
              $userdata['phone'] = $items->phone;
              $userdata['merchant_id'] = $items->merchant_id;
              $userdata['merchant_name'] = empty($items->merchant_name) ? '' : Crypt::decryptString($items->merchant_name);
+             $userdata['nickname'] = $items->nickname;
              $userdata['branch_id'] = $items->branch_id;
              $userdata['branch_name'] = empty($items->branch_name) ? '' : Crypt::decryptString($items->branch_name); 
              $userdata['user_type'] = $items->usertype;
@@ -1117,7 +1118,7 @@ class AuthController extends Controller
         $getusers = DB::table('users')
         ->join('merchants', 'merchants.id', '=', 'merchant_id')
         ->leftjoin('company_branches', 'company_branches.id', '=', 'branch_id')
-        ->select('users.*','merchants.merchant_name AS merchant_name','company_branches.branchname AS branch_name')
+        ->select('users.*','merchants.merchant_name AS merchant_name', 'merchants.nickname','company_branches.branchname AS branch_name')
        ->where('users.merchant_id', $id)
        ->paginate(15);
 
@@ -1137,6 +1138,7 @@ class AuthController extends Controller
             $userdata['status'] = $items->status;
             $userdata['merchant_id'] = $items->merchant_id;
             $userdata['merchant_name'] = empty($items->merchant_name) ? '' : Crypt::decryptString($items->merchant_name);
+            $userdata['nickname'] = $items->nickname;
             $userdata['branch_id'] = $items->branch_id;
             $userdata['branch_name'] = empty($items->branch_name) ? '' : Crypt::decryptString($items->branch_name);
             $userdata['user_type'] = $items->usertype;
@@ -1193,7 +1195,7 @@ class AuthController extends Controller
         $getusers = DB::table('users')
         ->join('merchants', 'merchants.id', '=', 'users.merchant_id')
         ->join('company_branches', 'company_branches.id', '=', 'users.branch_id')
-        ->select('users.*','merchants.merchant_name AS merchant_name','company_branches.branchname AS branch_name')
+        ->select('users.*','merchants.merchant_name AS merchant_name', 'merchants.nickname','company_branches.branchname AS branch_name')
        ->where('users.branch_id', $id)
        ->paginate(15);
        
@@ -1214,6 +1216,7 @@ class AuthController extends Controller
             $userdata['status'] = $items->status;
             $userdata['merchant_id'] = $items->merchant_id;
             $userdata['merchant_name'] = Crypt::decryptString($items->merchant_name);
+            $userdata['nickname'] = $items->nickname;
             $userdata['branch_id'] = $items->branch_id;
             $userdata['branch_name'] = Crypt::decryptString($items->branch_name);
             $userdata['user_type'] = $items->usertype;
@@ -1268,7 +1271,7 @@ class AuthController extends Controller
         $getusers = DB::table('users')
         ->join('merchants', 'merchants.id', '=', 'merchant_id')
         ->leftjoin('company_branches', 'company_branches.id', '=', 'branch_id')
-        ->select('users.*','merchants.merchant_name AS merchant_name','company_branches.branchname AS branch_name')
+        ->select('users.*','merchants.merchant_name AS merchant_name', 'merchants.nickname','company_branches.branchname AS branch_name')
        ->where('users.merchant_id', $id)
        ->where('users.usertype', $user_type_id)
        ->paginate(15);
@@ -1289,6 +1292,7 @@ class AuthController extends Controller
             $userdata['status'] = $items->status;
             $userdata['merchant_id'] = $items->merchant_id;
             $userdata['merchant_name'] = empty($items->merchant_name) ? '' : Crypt::decryptString($items->merchant_name);
+            $userdata['nickname'] = $items->nickname;
             $userdata['branch_id'] = $items->branch_id;
             $userdata['branch_name'] = empty($items->branch_name) ? '' : Crypt::decryptString($items->branch_name);
             $userdata['user_type'] = $items->usertype;
@@ -1317,7 +1321,7 @@ class AuthController extends Controller
         //get all registered companies 
         $getusers = DB::table('users')
         ->leftjoin('merchants', 'merchants.id', '=', 'merchant_id')
-        ->select('users.*', 'merchants.merchant_name')
+        ->select('users.*', 'merchants.merchant_name', 'merchants.nickname')
        ->where('users.usertype', $user_type_id)
        ->paginate(15);
 
@@ -1334,6 +1338,7 @@ class AuthController extends Controller
             $userdata['can_download'] = $items->can_download;
             $userdata['can_download'] = $items->can_download;
             $userdata['merchant_name'] = empty($items->merchant_name) ? '' : Crypt::decryptString($items->merchant_name);
+            $userdata['nickname'] = $items->nickname;
             $userdata['last_login_at'] = $items->last_login_at;
             $userdata['last_login_ip'] = $items->last_login_ip;
             $userdata['status'] = $items->status;
@@ -1366,7 +1371,7 @@ class AuthController extends Controller
         //get all registered companies 
         $getusers = DB::table('users')
         ->leftjoin('merchants', 'merchants.id', '=', 'merchant_id')
-        ->select('users.*', 'merchants.merchant_name')
+        ->select('users.*', 'merchants.merchant_name', 'merchants.nickname')
        ->where('users.usertype', $user_type_id)
        ->get();
 
@@ -1382,6 +1387,7 @@ class AuthController extends Controller
             $userdata['email'] = $items->email;
             $userdata['can_download'] = $items->can_download;
             $userdata['merchant_name'] = empty($items->merchant_name) ? '' : Crypt::decryptString($items->merchant_name);
+            $userdata['nickname'] = $items->nickname;
             $userdata['last_login_at'] = $items->last_login_at;
             $userdata['last_login_ip'] = $items->last_login_ip;
             $userdata['status'] = $items->status;
@@ -1440,7 +1446,7 @@ class AuthController extends Controller
         $getusers = DB::table('users')
         ->join('merchants', 'merchants.id', '=', 'merchant_id')
         ->join('company_branches', 'company_branches.id', '=', 'branch_id')
-        ->select('users.*','merchants.merchant_name AS merchant_name','company_branches.branchname AS branch_name')
+        ->select('users.*','merchants.merchant_name AS merchant_name', 'merchants.nickname','company_branches.branchname AS branch_name')
        ->where('users.branch_id', $id)
        ->where('users.usertype', $user_type_id)
        ->paginate(15);
@@ -1461,6 +1467,7 @@ class AuthController extends Controller
             $userdata['status'] = $items->status;
             $userdata['merchant_id'] = $items->merchant_id;
             $userdata['merchant_name'] = Crypt::decryptString($items->merchant_name);
+            $userdata['nickname'] = $items->nickname;
             $userdata['branch_id'] = $items->branch_id;
             $userdata['branch_name'] = Crypt::decryptString($items->branch_name);
             $userdata['user_type'] = $items->usertype;
@@ -1607,7 +1614,7 @@ class AuthController extends Controller
         $getusers = DB::table('users_deleted')
         ->join('merchants', 'merchants.id', '=', 'merchant_id')
         ->leftjoin('company_branches', 'company_branches.id', '=', 'branch_id')
-        ->select('users_deleted.*','merchants.merchant_name AS merchant_name','company_branches.branchname AS branch_name')
+        ->select('users_deleted.*','merchants.merchant_name AS merchant_name', 'merchants.nickname','company_branches.branchname AS branch_name')
        ->paginate(15);
 
         //clean data
@@ -1626,6 +1633,7 @@ class AuthController extends Controller
             $userdata['status'] = $items->status;
             $userdata['merchant_id'] = $items->merchant_id;
             $userdata['merchant_name'] = empty($items->merchant_name) ? '' : Crypt::decryptString($items->merchant_name);
+            $userdata['nickname'] = $items->nickname;
             $userdata['branch_id'] = $items->branch_id;
             $userdata['branch_name'] = empty($items->branch_name) ? '' : Crypt::decryptString($items->branch_name);
             $userdata['user_type'] = $items->usertype;
@@ -1837,6 +1845,7 @@ class AuthController extends Controller
             $userdata['email'] = $items->email;
             $userdata['can_download'] = $items->can_download;
             $userdata['merchant_name'] = empty($items->merchant_name) ? '' : Crypt::decryptString($items->merchant_name);
+            $userdata['nickname'] = $items->nickname;
             $userdata['last_login_at'] = $items->last_login_at;
             $userdata['last_login_ip'] = $items->last_login_ip;
             $userdata['status'] = $items->status;
@@ -1870,7 +1879,7 @@ class AuthController extends Controller
              //get all registered companies 
             $getusers = DB::table('users')
             ->leftjoin('merchants', 'merchants.id', '=', 'merchant_id')
-            ->select('users.*', 'merchants.merchant_name')
+            ->select('users.*', 'merchants.merchant_name', 'merchants.nickname')
             ->where([
                 ['name', 'like', '%'.$term.'%'],
                 ['usertype','=',$user_type_id],
@@ -1902,7 +1911,7 @@ class AuthController extends Controller
              //get all registered companies 
             $getusers = DB::table('users')
             ->leftjoin('merchants', 'merchants.id', '=', 'merchant_id')
-            ->select('users.*', 'merchants.merchant_name')
+            ->select('users.*', 'merchants.merchant_name', 'merchants.nickname')
             ->where([
                 ['name', 'like', '%'.$term.'%'],
                 ['usertype','=',$user_type_id],
@@ -1949,6 +1958,7 @@ class AuthController extends Controller
             $userdata['email'] = $items->email;
             $userdata['can_download'] = $items->can_download;
             $userdata['merchant_name'] = empty($items->merchant_name) ? '' : Crypt::decryptString($items->merchant_name);
+            $userdata['nickname'] = $items->nickname;
             $userdata['last_login_at'] = $items->last_login_at;
             $userdata['last_login_ip'] = $items->last_login_ip;
             $userdata['status'] = $items->status;

@@ -71,7 +71,7 @@ class ExecutiveController extends Controller
         $getnumforms = DB::table('submitted_forms')
         ->join('forms', 'forms.form_code', '=', 'form_id')
         ->join('merchants', 'merchants.id', '=', 'forms.merchant_id')
-        ->select('submitted_forms.*','merchants.merchant_name AS merchant_name',
+        ->select('submitted_forms.*','merchants.merchant_name AS merchant_name', 
         'users.name', 'users.email', 'forms.name AS form_name', 'forms.form_fields')
         ->where('submitted_forms.status', $status)
         ->where('merchants.id', $id)
@@ -128,7 +128,7 @@ class ExecutiveController extends Controller
         ->join('users', 'users.id', '=', 'client_id')
         ->join('forms', 'forms.form_code', '=', 'form_id')
         ->join('merchants', 'merchants.id', '=', 'forms.merchant_id')
-        ->select('submitted_forms.*','merchants.merchant_name AS merchant_name',
+        ->select('submitted_forms.*','merchants.merchant_name AS merchant_name', 'merchants.nickname',
         'users.name', 'users.email', 'forms.name AS form_name', 'forms.form_fields', 'forms.can_view')
         ->where('submitted_forms.status', $status)
         ->where('merchants.id', $id)
@@ -144,6 +144,7 @@ class ExecutiveController extends Controller
             $submittedformdata['form_name'] = Crypt::decryptString($items->form_name);
             $submittedformdata['form_fields'] = json_decode(Crypt::decryptString($items->form_fields));
             $submittedformdata['merchant_name'] = Crypt::decryptString($items->merchant_name);
+            $submittedformdata['nickname'] = $items->nickname;
             $submittedformdata['client_id'] = $items->client_id;
             $submittedformdata['client_name'] = $items->name;
             $submittedformdata['email'] = $items->email;

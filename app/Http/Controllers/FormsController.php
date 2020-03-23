@@ -315,7 +315,7 @@ class FormsController extends Controller
         $getforms = DB::table('forms_deleted')
         ->join('merchants', 'merchants.id', '=', 'merchant_id')
         ->leftjoin('uploads', 'forms_deleted.form_code', '=', 'uploads.form_code')
-        ->select('forms_deleted.*','merchants.merchant_name AS merchant_name','merchants.can_print', 'uploads.url')
+        ->select('forms_deleted.*','merchants.merchant_name AS merchant_name', 'merchants.nickname','merchants.can_print', 'uploads.url')
         ->where('forms_deleted.merchant_id', $id)
         ->where('forms_deleted.deleted_at', null)
         ->paginate(15);
@@ -330,6 +330,7 @@ class FormsController extends Controller
             $formdata['form_fields'] = json_decode(Crypt::decryptString($items->form_fields));
             $formdata['merchant_id'] = $items->merchant_id;
             $formdata['merchant_name'] = Crypt::decryptString($items->merchant_name);
+            $formdata['nickname'] = $items->nickname;
             $formdata['can_print'] = $items->can_print;
             $formdata['can_view'] = $items->can_view;
             $formdata['file_url'] = $items->url;
@@ -363,7 +364,7 @@ class FormsController extends Controller
         $getform = DB::table('forms')
         ->join('merchants', 'merchants.id', '=', 'merchant_id')
         ->leftjoin('uploads', 'forms.form_code', '=', 'uploads.form_code')
-        ->select('forms.*','merchants.merchant_name AS merchant_name', 'merchants.can_print', 'uploads.url')
+        ->select('forms.*','merchants.merchant_name AS merchant_name', 'merchants.nickname','merchants.can_print', 'uploads.url')
         ->where('forms.form_code', $code)
         ->get();
       
@@ -377,6 +378,7 @@ class FormsController extends Controller
             $formdata['form_fields'] = json_decode(Crypt::decryptString($items->form_fields));
             $formdata['merchant_id'] = $items->merchant_id;
             $formdata['merchant_name'] = Crypt::decryptString($items->merchant_name);
+            $formdata['nickname'] = $items->nickname;
             $formdata['can_print'] = $items->can_print;
             $formdata['can_view'] = $items->can_view;
             $formdata['file_url'] = $items->url;
@@ -411,7 +413,7 @@ class FormsController extends Controller
             $getform = DB::table('forms')
             ->join('merchants', 'merchants.id', '=', 'merchant_id')
             ->leftjoin('uploads', 'forms.form_code', '=', 'uploads.form_code')
-            ->select('forms.*','merchants.merchant_name AS merchant_name','merchants.can_print', 'uploads.url')
+            ->select('forms.*','merchants.merchant_name AS merchant_name', 'merchants.nickname','merchants.can_print', 'uploads.url')
             ->where([
                 ['forms.temps', 'like', '%'.$term .'%'],
                 ['forms.status','=',1],
@@ -423,7 +425,7 @@ class FormsController extends Controller
             $getform = DB::table('forms')
             ->join('merchants', 'merchants.id', '=', 'merchant_id')
             ->leftjoin('uploads', 'forms.form_code', '=', 'uploads.form_code')
-            ->select('forms.*','merchants.merchant_name AS merchant_name','merchants.can_print', 'uploads.url')
+            ->select('forms.*','merchants.merchant_name AS merchant_name','merchants.nickname','merchants.can_print', 'uploads.url')
             ->where([
                 ['forms.temps', 'like', '%'.$term .'%'],
                 ['forms.status','=',1],
@@ -444,6 +446,7 @@ class FormsController extends Controller
             $formdata['form_fields'] = json_decode(Crypt::decryptString($items->form_fields));
             $formdata['merchant_id'] = $items->merchant_id;
             $formdata['merchant_name'] = Crypt::decryptString($items->merchant_name);
+            $formdata['nickname'] = $items->nickname;
             $formdata['can_print'] = $items->can_print;
             $formdata['can_view'] = $items->can_view;
             $formdata['file_url'] = $items->url;
@@ -476,7 +479,7 @@ class FormsController extends Controller
         $getforms = DB::table('forms')
         ->join('merchants', 'merchants.id', '=', 'merchant_id')
         ->leftjoin('uploads', 'forms.form_code', '=', 'uploads.form_code')
-        ->select('forms.*','merchants.merchant_name AS merchant_name','merchants.can_print', 'uploads.url')
+        ->select('forms.*','merchants.merchant_name AS merchant_name','merchants.nickname','merchants.can_print', 'uploads.url')
         ->where('merchants.status', 1)
         ->where('forms.deleted_at', null)
         ->paginate(15);
@@ -491,6 +494,7 @@ class FormsController extends Controller
             $formdata['form_fields'] = json_decode(Crypt::decryptString($items->form_fields));
             $formdata['merchant_id'] = $items->merchant_id;
             $formdata['merchant_name'] = Crypt::decryptString($items->merchant_name);
+            $formdata['nickname'] = $items->nickname;
             $formdata['can_print'] = $items->can_print;
             $formdata['can_view'] = $items->can_view;
             $formdata['file_url'] = $items->url;
@@ -548,7 +552,7 @@ class FormsController extends Controller
         $getforms = DB::table('forms')
         ->join('merchants', 'merchants.id', '=', 'merchant_id')
         ->leftjoin('uploads', 'forms.form_code', '=', 'uploads.form_code')
-        ->select('forms.*','merchants.merchant_name AS merchant_name','merchants.can_print', 'uploads.url')
+        ->select('forms.*','merchants.merchant_name AS merchant_name', 'merchants.nickname','merchants.can_print', 'uploads.url')
         ->where('forms.status', $status)
         ->where('merchants.status', 1)
         ->where('forms.deleted_at', null)
@@ -564,6 +568,7 @@ class FormsController extends Controller
             $formdata['form_fields'] = json_decode(Crypt::decryptString($items->form_fields));
             $formdata['merchant_id'] = $items->merchant_id;
             $formdata['merchant_name'] = Crypt::decryptString($items->merchant_name);
+            $formdata['nickname'] = $items->nickname;
             $formdata['can_print'] = $items->can_print;
             $formdata['can_view'] = $items->can_view;
             $formdata['file_url'] = $items->url;
@@ -596,7 +601,7 @@ class FormsController extends Controller
         $getforms = DB::table('forms')
         ->join('merchants', 'merchants.id', '=', 'merchant_id')
         ->leftjoin('uploads', 'forms.form_code', '=', 'uploads.form_code')
-        ->select('forms.*','merchants.merchant_name AS merchant_name','merchants.can_print', 'uploads.url')
+        ->select('forms.*','merchants.merchant_name AS merchant_name', 'merchants.nickname','merchants.can_print', 'uploads.url')
         ->where('forms.merchant_id', $id)
         ->where('forms.deleted_at', null)
         ->paginate(15);
@@ -611,6 +616,7 @@ class FormsController extends Controller
             $formdata['form_fields'] = json_decode(Crypt::decryptString($items->form_fields));
             $formdata['merchant_id'] = $items->merchant_id;
             $formdata['merchant_name'] = Crypt::decryptString($items->merchant_name);
+            $formdata['nickname'] = $items->nickname;
             $formdata['can_print'] = $items->can_print;
             $formdata['can_view'] = $items->can_view;
             $formdata['file_url'] = $items->url;
@@ -643,7 +649,7 @@ class FormsController extends Controller
         $getforms = DB::table('forms')
         ->join('merchants', 'merchants.id', '=', 'merchant_id')
         ->leftjoin('uploads', 'forms.form_code', '=', 'uploads.form_code')
-        ->select('forms.*','merchants.merchant_name AS merchant_name','merchants.can_print', 'uploads.url')
+        ->select('forms.*','merchants.merchant_name AS merchant_name', 'merchants.nickname','merchants.can_print', 'uploads.url')
         ->where('forms.status', $status)
         ->where('forms.merchant_id', $id)
         ->where('forms.deleted_at', null)
@@ -659,6 +665,7 @@ class FormsController extends Controller
             $formdata['form_fields'] = json_decode(Crypt::decryptString($items->form_fields));
             $formdata['merchant_id'] = $items->merchant_id;
             $formdata['merchant_name'] = Crypt::decryptString($items->merchant_name);
+            $formdata['nickname'] = $items->nickname;
             $formdata['can_print'] = $items->can_print;
             $formdata['can_view'] = $items->can_view;
             $formdata['file_url'] = $items->url;
@@ -944,7 +951,7 @@ class FormsController extends Controller
         $getform = DB::table('forms')
         ->join('merchants', 'merchants.id', '=', 'merchant_id')
         ->leftjoin('uploads', 'forms.form_code', '=', 'uploads.form_code')
-        ->select('forms.*','merchants.merchant_name AS merchant_name','merchants.can_print', 'uploads.url')
+        ->select('forms.*','merchants.merchant_name AS merchant_name', 'merchants.nickname','merchants.can_print', 'uploads.url')
         ->where([
             ['forms.temps', 'like', '%'.$term .'%'],
             ['forms.status','=',$status],
@@ -967,6 +974,7 @@ class FormsController extends Controller
             $formdata['form_fields'] = json_decode(Crypt::decryptString($items->form_fields));
             $formdata['merchant_id'] = $items->merchant_id;
             $formdata['merchant_name'] = Crypt::decryptString($items->merchant_name);
+            $formdata['nickname'] = $items->nickname;
             $formdata['can_print'] = $items->can_print;
             $formdata['can_view'] = $items->can_view;
             $formdata['file_url'] = $items->url;
@@ -999,7 +1007,7 @@ class FormsController extends Controller
         $getform = DB::table('forms')
         ->join('merchants', 'merchants.id', '=', 'merchant_id')
         ->leftjoin('uploads', 'forms.form_code', '=', 'uploads.form_code')
-        ->select('forms.*','merchants.merchant_name AS merchant_name','merchants.can_print', 'uploads.url')
+        ->select('forms.*','merchants.merchant_name AS merchant_name','merchants.nickname','merchants.can_print', 'uploads.url')
         ->where([
             ['forms.temps', 'like', '%'.$term .'%'],
             ['forms.merchant_id','=',$merchant_id]
@@ -1020,6 +1028,7 @@ class FormsController extends Controller
             $formdata['form_fields'] = json_decode(Crypt::decryptString($items->form_fields));
             $formdata['merchant_id'] = $items->merchant_id;
             $formdata['merchant_name'] = Crypt::decryptString($items->merchant_name);
+            $formdata['nickname'] = $items->nickname;
             $formdata['can_print'] = $items->can_print;
             $formdata['can_view'] = $items->can_view;
             $formdata['file_url'] = $items->url;

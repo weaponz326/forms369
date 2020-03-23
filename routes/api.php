@@ -205,8 +205,8 @@ Route::group(['middleware' => ['auth:api'], 'prefix' => 'v1'], function(){
   Route::get('numFormsProcessedByFrontDeskPersonDaily/{id}/{status}', 'HomeController@numFormsProcessedByFrontDeskPersonDaily')->name('numFormsProcessedByFrontDeskPersonDaily')->middleware('scope:GIT_Admin,frontdesk,super_executive,branch_executive,company_admin,branch_admin');
   
   // searching for client submitted forms
-  Route::get('findSubmittedFormByName/{id}/{form_name}', 'HomeController@findSubmittedFormByName')->name('findSubmittedFormByName')->middleware('scope:client');
-  Route::get('findSubmittedFormByCode/{id}/{code}', 'HomeController@findSubmittedFormByCode')->name('findSubmittedFormByCode')->middleware('scope:client');
+  Route::get('findSubmittedFormByName/{id}/{form_name}', 'HomeController@findSubmittedFormByName')->name('findSubmittedFormByName')->middleware('scope:client,GIT_Admin');
+  Route::get('findSubmittedFormByCode/{id}/{code}', 'HomeController@findSubmittedFormByCode')->name('findSubmittedFormByCode')->middleware('scope:client,GIT_Admin');
 
   // delete and recover submitted form
   Route::post('deleteSubmittedForm/{id}/{code}', 'HomeController@deleteSubmittedForm')->name('deleteSubmittedForm')->middleware('scope:GIT_Admin,client');

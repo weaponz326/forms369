@@ -176,7 +176,8 @@ class SetupController extends Controller
             'logo' => 'required|mimes:jpeg,jpg,png,gif,psd,tiff',
             'small_logo' => 'nullable|mimes:jpeg,jpg,png,gif,psd,tiff',
             'can_print' => 'required',
-            'sector_id' => 'required'
+            'sector_id' => 'required',
+            'nickname' => 'required'
         ]);
 
         $logo = NULL;
@@ -231,6 +232,7 @@ class SetupController extends Controller
         $created_at = now();
         $can_print = $request->can_print;
         $sector_id = $request->sector_id;
+        $nickname = $request->nickname;
 
         //get user creating the new merchant
         $user = $request->user();
@@ -255,7 +257,8 @@ class SetupController extends Controller
                     'created_by' => $userid,
                     'can_print' => $can_print,
                     'temp' => $temp,
-                    'sector_id'=> $sector_id
+                    'sector_id'=> $sector_id,
+                    'nickname' => $nickname
                 ]
             );
 
@@ -311,7 +314,8 @@ class SetupController extends Controller
             'logo' => 'required',
             'can_print' => 'required',
             'status' => 'required',
-            'sector_id' => 'required'
+            'sector_id' => 'required',
+            'nickname' => 'required'
         ]); 
 
         $name = Crypt::encryptString($request->merchant_name);
@@ -325,6 +329,7 @@ class SetupController extends Controller
         $can_print = $request->can_print;
         $temp = $request->merchant_name;
         $sector_id = $request->sector_id;
+        $nickname = $request->nickname;
 
         //get user creating the new merchant
         $user = $request->user();
@@ -352,7 +357,8 @@ class SetupController extends Controller
                     'updated_by' => $userid,
                     'can_print' => $can_print,
                     'temp' => $temp,
-                    'sector_id' => $sector_id
+                    'sector_id' => $sector_id,
+                    'nickname' => $nickname
                 ]
             );
 
@@ -804,6 +810,7 @@ class SetupController extends Controller
         $getmerchants->transform(function($items, $key){
             $merchantsdata['id'] = $items->id;
             $merchantsdata['merchant_name'] = Crypt::decryptString($items->merchant_name);
+            $merchantsdata['nickname'] = $items->nickname;
             $merchantsdata['status'] = $items->status;
             $merchantsdata['country'] = $items->country;
             $merchantsdata['logo'] = $items->logo;
@@ -845,6 +852,7 @@ class SetupController extends Controller
         $getmerchants->transform(function($items, $key){
             $merchantsdata['id'] = $items->id;
             $merchantsdata['merchant_name'] = Crypt::decryptString($items->merchant_name);
+            $merchantsdata['nickname'] = $items->nickname;
             $merchantsdata['status'] = $items->status;
             $merchantsdata['country'] = $items->country;
             $merchantsdata['logo'] = $items->logo;
@@ -968,6 +976,7 @@ class SetupController extends Controller
         $getmerchants->transform(function($items){
             $merchantsdata['id'] = $items->id;
             $merchantsdata['merchant_name'] = Crypt::decryptString($items->merchant_name);
+            $merchantsdata['nickname'] = $items->nickname;
             $merchantsdata['status'] = $items->status;
             $merchantsdata['country'] = $items->country;
             $merchantsdata['logo'] = $items->logo;
@@ -1016,6 +1025,7 @@ class SetupController extends Controller
         $merchant = $getmerchant->map(function($items){
             $merchantsdata['id'] = $items->id;
             $merchantsdata['merchant_name'] = Crypt::decryptString($items->merchant_name);
+            $merchantsdata['nickname'] = $items->nickname;
             $merchantsdata['status'] = $items->status;
             $merchantsdata['country'] = $items->country;
             $merchantsdata['logo'] = $items->logo;
@@ -1054,7 +1064,8 @@ class SetupController extends Controller
         ->join('merchants', 'merchants.id', '=', 'merchant_id')
         ->leftjoin('branch_super_executive', 'branch_super_executive.id', '=', 'branch_super_id')
         ->join('branch_admin', 'branch_admin.id', '=', 'branch_admin_id')
-        ->select('company_branches.*','merchants.merchant_name AS merchant_name','branch_super_executive.name AS exec_name','branch_admin.name AS admin_name')
+        ->select('company_branches.*','merchants.merchant_name AS merchant_name', 'merchants.nickname',
+        'branch_super_executive.name AS exec_name','branch_admin.name AS admin_name')
         ->paginate(15);
 
         //clean data
@@ -1067,6 +1078,7 @@ class SetupController extends Controller
             $branchessdata['status'] = $items->status;
             $branchessdata['merchant_id'] = $items->merchant_id;
             $branchessdata['merchant_name'] = Crypt::decryptString($items->merchant_name);
+            $branchessdata['nickname'] = $items->nickname;
             $branchessdata['branch_super_executive_id'] = $items->branch_super_id;
             $branchessdata['branch_super_executive_name'] = empty($items->exec_name) ? '' : Crypt::decryptString($items->exec_name);
             $branchessdata['branch_admin_id'] = $items->branch_admin_id;
@@ -1100,7 +1112,8 @@ class SetupController extends Controller
         ->join('merchants', 'merchants.id', '=', 'merchant_id')
         ->leftjoin('branch_super_executive', 'branch_super_executive.id', '=', 'branch_super_id')
         ->join('branch_admin', 'branch_admin.id', '=', 'branch_admin_id')
-        ->select('company_branches.*','merchants.merchant_name AS merchant_name','branch_super_executive.name AS exec_name','branch_admin.name AS admin_name')
+        ->select('company_branches.*','merchants.merchant_name AS merchant_name', 'merchants.nickname',
+        'branch_super_executive.name AS exec_name','branch_admin.name AS admin_name')
         ->get();
 
         //clean data
@@ -1113,6 +1126,7 @@ class SetupController extends Controller
             $branchessdata['status'] = $items->status;
             $branchessdata['merchant_id'] = $items->merchant_id;
             $branchessdata['merchant_name'] = Crypt::decryptString($items->merchant_name);
+            $branchessdata['nickname'] = $items->nickname;
             $branchessdata['branch_super_executive_id'] = $items->branch_super_id;
             $branchessdata['branch_super_executive_name'] = empty($items->exec_name) ? '' : Crypt::decryptString($items->exec_name);
             $branchessdata['branch_admin_id'] = $items->branch_admin_id;
@@ -1211,7 +1225,8 @@ class SetupController extends Controller
         ->join('merchants', 'merchants.id', '=', 'merchant_id')
         ->leftjoin('branch_super_executive', 'branch_super_executive.id', '=', 'branch_super_id')
         ->leftjoin('branch_admin', 'branch_admin.id', '=', 'branch_admin_id')
-        ->select('company_branches.*','merchants.merchant_name AS merchant_name','branch_super_executive.name AS exec_name','branch_admin.name AS admin_name')
+        ->select('company_branches.*','merchants.merchant_name AS merchant_name', 'merchants.nickname',
+        'branch_super_executive.name AS exec_name','branch_admin.name AS admin_name')
        ->where('merchant_id', $id)
        ->paginate(15);
 
@@ -1225,6 +1240,7 @@ class SetupController extends Controller
             $branchessdata['status'] = $items->status;
             $branchessdata['merchant_id'] = $items->merchant_id;
             $branchessdata['merchant_name'] = Crypt::decryptString($items->merchant_name);
+            $branchessdata['nickname'] = $items->nickname;
             $branchessdata['branch_super_executive_id'] = $items->branch_super_id;
             $branchessdata['branch_super_executive_name'] = empty($items->exec_name) ? '' : Crypt::decryptString($items->exec_name);
             $branchessdata['branch_admin_id'] = $items->branch_admin_id;
@@ -1282,7 +1298,8 @@ class SetupController extends Controller
         ->join('merchants', 'merchants.id', '=', 'merchant_id')
         ->leftjoin('branch_super_executive', 'branch_super_executive.id', '=', 'branch_super_id')
         ->leftjoin('branch_admin', 'branch_admin.id', '=', 'branch_admin_id')
-        ->select('company_branches.*','merchants.merchant_name AS merchant_name','branch_super_executive.name AS exec_name','branch_admin.name AS admin_name')
+        ->select('company_branches.*','merchants.merchant_name AS merchant_name', 'merchants.nickname',
+        'branch_super_executive.name AS exec_name','branch_admin.name AS admin_name')
        ->where('company_branches.id', $id)
        ->get();
 
@@ -1296,6 +1313,7 @@ class SetupController extends Controller
             $branchessdata['status'] = $items->status;
             $branchessdata['merchant_id'] = $items->merchant_id;
             $branchessdata['merchant_name'] = Crypt::decryptString($items->merchant_name);
+            $branchessdata['nickname'] = $items->nickname;
             $branchessdata['branch_super_executive_id'] = $items->branch_super_id;
             $branchessdata['branch_super_executive_name'] = empty($items->exec_name) ? '' : Crypt::decryptString($items->exec_name);
             $branchessdata['branch_admin_id'] = $items->branch_admin_id;
@@ -1518,7 +1536,7 @@ class SetupController extends Controller
     
     /**
      * getMerchantbyName search for a merchant based on a search term
-     *
+     * Search term must much company name or nickname
      * @param  mixed $request
      * @param  mixed search term
      *
@@ -1535,6 +1553,11 @@ class SetupController extends Controller
                 ['merchants.status','=',1],
                 ['merchants.country', '=', $country]
             ])
+            ->orWhere([
+                ['merchants.nickname', 'like', '%'.$term .'%'],
+                ['merchants.status','=',1],
+                ['merchants.country', '=', $country]
+            ])
             ->get();
         }else{ 
             //get all registered companies
@@ -1542,6 +1565,12 @@ class SetupController extends Controller
             ->select('merchants.*')
             ->where([
                 ['merchants.temp', 'like', '%'.$term .'%'],
+                ['merchants.status','=',1],
+                ['merchants.country', '=', $country],
+                ['sector_id', $sector]
+            ])
+            ->orWhere([
+                ['merchants.nickname', 'like', '%'.$term .'%'],
                 ['merchants.status','=',1],
                 ['merchants.country', '=', $country],
                 ['sector_id', $sector]
@@ -1555,6 +1584,7 @@ class SetupController extends Controller
         $getmerchants->transform(function($items, $key){
             $merchantsdata['id'] = $items->id;
             $merchantsdata['merchant_name'] = Crypt::decryptString($items->merchant_name);
+            $merchantsdata['nickname'] = $items->nickname;
             $merchantsdata['status'] = $items->status;
             $merchantsdata['country'] = $items->country;
             $merchantsdata['logo'] = $items->logo;
