@@ -141,6 +141,12 @@ class ClientController extends Controller
      */
     public function submitForm(Request $request, $id, $code, $edit, $sub_code, $status)
     {
+
+    	if($status == null){
+    		$status = 0;
+    	}
+        
+
          $message = 'Ok';
 
          //get, encode and encrypt all user details in the form
@@ -277,6 +283,60 @@ class ClientController extends Controller
         ];
         return response()->json($response, 200);
     }
+
+
+	/**
+	 * non paginated
+     * getAllsubmittedForms forms submitted by a client of any status: 
+     * submitted, in_process,or processed
+     * return with recently submitted first
+     * @param  \Illuminate\Http\Request  $request
+     * @param $id of the client  who submitted the forms
+     * @return void\Illuminate\Http\Response all details of form
+     * 
+     */
+    public function getAllsubmittedFormsApp(Request $request, $id)
+    {
+        $getforms = DB::table('submitted_forms')
+        ->join('users', 'users.id', '=', 'client_id')
+        ->join('forms', 'forms.form_code', '=', 'form_id')
+        ->join('merchants', 'merchants.id', '=', 'forms.merchant_id')
+        // ->join('attachments','attachments.submission_code', '=', 'submitted_forms.submission_code')
+        ->select('submitted_forms.*','merchants.merchant_name AS merchant_name', 'merchants.nickname',
+        'users.name', 'users.email', 'forms.name AS form_name', 'forms.form_fields')
+        ->where('submitted_forms.client_id', $id)
+        ->where('submitted_forms.status', '!=', 4)
+        ->orderBy('submitted_at', 'desc')
+        ->get();
+      
+        // return $getforms;a
+        //clean data
+        $submittedformdata = [];
+
+        $getforms->transform(function($items){
+            $submittedformdata['submission_code'] = $items->submission_code;
+            $submittedformdata['form_code'] = $items->form_id;
+            $submittedformdata['form_name'] = Crypt::decryptString($items->form_name);
+            $submittedformdata['form_fields'] = json_decode(Crypt::decryptString($items->form_fields));
+            $submittedformdata['merchant_name'] = Crypt::decryptString($items->merchant_name);
+            $submittedformdata['nickname'] = $items->nickname;
+            $submittedformdata['client_name'] = $items->name;
+            $submittedformdata['email'] = $items->email;
+            $submittedformdata['client_submitted_details'] = json_decode(Crypt::decryptString($items->client_details));
+            $submittedformdata['form_status'] = $items->status;
+            $submittedformdata['submitted_at'] = $items->submitted_at;
+            $submittedformdata['last_processed'] = $items->last_processed;
+            $submittedformdata['processed_by'] = $items->processed_by;
+
+            return $submittedformdata;
+         });
+     
+         $response = [
+            'forms' => $getforms
+        ];
+        return response()->json($response, 200);
+    }
+
 
     /**
      * findSubmittedFormByName search for a submitted form by name
@@ -454,6 +514,58 @@ class ClientController extends Controller
         ];
         return response()->json($response, 200);
     }
+
+
+	/**
+	* non paginated
+     * getClientFormsByStatus get all forms by status: processed, in_process, submitted 
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @param $id of the client 
+     * @param $status search status
+     * @return void\Illuminate\Http\Response all details of form
+     * 
+     */
+    public function getClientFormsByStatusApp(Request $request, $id, $status)
+    {
+        $getforms = DB::table('submitted_forms')
+        ->join('users', 'users.id', '=', 'client_id')
+        ->join('forms', 'forms.form_code', '=', 'form_id')
+        ->join('merchants', 'merchants.id', '=', 'forms.merchant_id')
+        ->select('submitted_forms.*','merchants.merchant_name AS merchant_name', 'merchants.nickname',
+        'users.name', 'users.email', 'forms.name AS form_name', 'forms.form_fields')
+        ->where('submitted_forms.client_id', $id)
+        ->where('submitted_forms.status', $status)
+        ->orderBy('submitted_at', 'desc')
+        ->get();
+      
+        //clean data
+        $submittedformdata = [];
+
+        $getforms->transform(function($items){
+            $submittedformdata['submission_code'] = $items->submission_code;
+            $submittedformdata['form_code'] = $items->form_id;
+            $submittedformdata['form_name'] = Crypt::decryptString($items->form_name);
+            $submittedformdata['form_fields'] = json_decode(Crypt::decryptString($items->form_fields));
+            $submittedformdata['merchant_name'] = Crypt::decryptString($items->merchant_name);
+            $submittedformdata['nickname'] = $items->nickname;
+            $submittedformdata['client_name'] = $items->name;
+            $submittedformdata['email'] = $items->email;
+            $submittedformdata['client_submitted_details'] = json_decode(Crypt::decryptString($items->client_details));
+            $submittedformdata['form_status'] = $items->status;
+            $submittedformdata['submitted_at'] = $items->submitted_at;
+            $submittedformdata['last_processed'] = $items->last_processed;
+            $submittedformdata['processed_by'] = $items->processed_by;
+
+            return $submittedformdata;
+         });
+         
+         $response = [
+            'forms' => $getforms
+        ];
+        return response()->json($response, 200);
+    }
+
 
  
      /**
@@ -1097,7 +1209,6 @@ class ClientController extends Controller
                 ];
                 return response()->json( $response, 200 );
             }else{
-                return "empty";
                 $message = "Failed";
                 $response = [
                     'message' => $message

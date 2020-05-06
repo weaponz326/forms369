@@ -623,6 +623,25 @@ class HomeController extends Controller
     }
 
     /**
+     * Non paginated api
+     * Business logics to get all merchants in a particular country
+     * getAllMerchantsByCountry get all registered companies by country 
+     *
+     * @param  mixed $request
+     *  @param  mixed $country merchants country of location
+     *
+     * @return void\Illuminate\Http\Response all merchants data
+     */
+    protected function getAllMerchantsByCountryApp(Request $request, $country, $sector)
+    {
+
+        $message = (new SetupController)->getAllMerchantsByCountryApp($request, $country, $sector);
+        return $message;
+
+    }
+
+
+    /**
      * Business logics to get the numbe rof registered firms in the system
      * getNumMerchants get number of all registered companies 
      *
@@ -1062,6 +1081,22 @@ class HomeController extends Controller
     }
 
     /**
+     * non paginated
+     * Business logics to get all forms for a merchant
+     * getAllFormsByMerchant get all dforms for a particular merchant
+     *
+     * @param  mixed $request
+     * @param  mixed $id id of the merchant
+     *
+     * @return void\Illuminate\Http\Response all details of a form
+     */
+    protected function getAllFormsByMerchantApp(Request $request, $id)
+    {
+        $message = (new FormsController)->getAllFormsByMerchantApp($request, $id);
+        return $message;
+    }
+
+    /**
      * Business logics to get all forms for a merchnat by status
      * getAllFormsByStatus get all details of all forms by status
      *
@@ -1300,7 +1335,7 @@ class HomeController extends Controller
      * @param $code form code that is being filled 
      * @return void\Illuminate\Http\Response submission code
      */
-    protected function submitForm(Request $request, $id, $code, $edit, $sub_code, $status)
+    protected function submitForm(Request $request, $id, $code, $edit, $sub_code, $status=null)
     {
         $message = (new ClientController)->submitForm($request, $id, $code, $edit, $sub_code, $status);
         return $message;
@@ -1540,6 +1575,24 @@ class HomeController extends Controller
         return $message;
     }
 
+    /**
+     *non paginated
+      * Business logics 
+     * getClientSubmittedForms forms submitted by a client of any status: 
+     * submitted, in_process,or processed
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @param $id of the client 
+     * @return void\Illuminate\Http\Response all details of form
+     * 
+     */
+    protected function getClientSubmittedFormsApp(Request $request, $id)
+    {
+        $message = (new ClientController)->getAllsubmittedFormsApp($request, $id);
+        return $message;
+    }
+
+
     protected function findSubmittedFormByName(Request $request, $id, $form_name)
     {
         $message = (new ClientController)->findSubmittedFormByName($request, $id, $form_name);
@@ -1615,6 +1668,23 @@ class HomeController extends Controller
     protected function getClientFormsByStatus(Request $request, $id, $status)
     {
         $message = (new ClientController)->getClientFormsByStatus($request, $id, $status);
+        return $message;
+    }
+
+    /**
+     * non paginated
+     * Business logics 
+     * getClientFormsByStatus get all forms by status: processed, in_process, submitted 
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @param $id of the client 
+     * @param $status search status
+     * @return void\Illuminate\Http\Response all details of form
+     * 
+     */
+    protected function getClientFormsByStatusApp(Request $request, $id, $status)
+    {
+        $message = (new ClientController)->getClientFormsByStatusApp($request, $id, $status);
         return $message;
     }
 

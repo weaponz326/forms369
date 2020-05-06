@@ -981,6 +981,71 @@ class SetupController extends Controller
             $merchantsdata['country'] = $items->country;
             $merchantsdata['logo'] = $items->logo;
             $merchantsdata['small_logo'] = $items->small_logo;
+            $merchantsdata['sector_id'] = $items->sector_id;
+            $merchantsdata['temp'] = $items->temp;
+            $merchantsdata['super_executive_id'] = $items->super_id;
+            $merchantsdata['super_executive_name'] = empty($items->exec_name) ? '' : Crypt::decryptString($items->exec_name);
+            $merchantsdata['company_admin_id'] = $items->admin_id;
+            $merchantsdata['company_admin_name'] = Crypt::decryptString($items->admin_name);
+            $merchantsdata['can_print'] = $items->can_print;
+            $merchantsdata['created_by'] = $items->created_by;
+            $merchantsdata['created_at'] = $items->created_at;
+            $merchantsdata['updated_at'] = $items->updated_at;
+
+            return $merchantsdata;
+         });
+
+         $response = [
+            'merchant' => $getmerchants
+        ];
+        return response()->json($response, 200);
+
+    }
+
+    /**
+     * getAllMerchantsByCountry get all registered companies by country 
+     *
+     * @param  mixed $request
+     *
+     * @return void\Illuminate\Http\Response all merchants data
+     */
+    public function getAllMerchantsByCountryApp(Request $request, $country, $sector){
+
+        if($sector == 0){
+            //get all registered companies 
+            $getmerchants = DB::table('merchants')
+            ->leftjoin('joint_companies', 'joint_companies.id', '=', 'super_id')
+            ->join('company_admin', 'company_admin.id', '=', 'admin_id')
+            ->select('merchants.*','company_admin.name AS admin_name','joint_companies.name AS exec_name')
+            ->where('country', $country)
+            ->where('merchants.status', 1)
+            ->get();
+        }else{
+             //get all registered companies 
+             $getmerchants = DB::table('merchants')
+             ->leftjoin('joint_companies', 'joint_companies.id', '=', 'super_id')
+             ->join('company_admin', 'company_admin.id', '=', 'admin_id')
+             ->select('merchants.*','company_admin.name AS admin_name','joint_companies.name AS exec_name')
+             ->where('country', $country)
+             ->where('merchants.status', 1)
+             ->where('sector_id', $sector)
+             ->get();
+        }
+        
+      
+        //clean data
+        $merchantsdata = [];
+
+        $getmerchants->transform(function($items){
+            $merchantsdata['id'] = $items->id;
+            $merchantsdata['merchant_name'] = Crypt::decryptString($items->merchant_name);
+            $merchantsdata['nickname'] = $items->nickname;
+            $merchantsdata['status'] = $items->status;
+            $merchantsdata['country'] = $items->country;
+            $merchantsdata['logo'] = $items->logo;
+            $merchantsdata['small_logo'] = $items->small_logo;
+            $merchantsdata['sector_id'] = $items->sector_id;
+            $merchantsdata['temp'] = $items->temp;
             $merchantsdata['super_executive_id'] = $items->super_id;
             $merchantsdata['super_executive_name'] = empty($items->exec_name) ? '' : Crypt::decryptString($items->exec_name);
             $merchantsdata['company_admin_id'] = $items->admin_id;

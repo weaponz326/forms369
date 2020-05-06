@@ -110,6 +110,7 @@ Route::group(['middleware' => ['auth:api'], 'prefix' => 'v1'], function(){
     Route::get('getAllMerchants', 'HomeController@getMerchants')->name('getAllMerchants')->middleware('scope:GIT_Admin,client');
     Route::get('getMerchantDetails/{id}', 'HomeController@getMerchantDetails')->name('getMerchantDetails')->middleware('scope:GIT_Admin,super_executive,company_admin,branch_executive,branch_admin,frontdesk');
     Route::get('getAllMerchantsByCountry/{country}/{sector}', 'HomeController@getAllMerchantsByCountry')->name('getAllMerchantsByCountry');
+    Route::get('getAllMerchantsByCountryApp/{country}/{sector}', 'HomeController@getAllMerchantsByCountryApp')->name('getAllMerchantsByCountryApp');
     Route::get('getNumMerchants', 'HomeController@getNumMerchants')->name('getNumMerchants')->middleware('scope:GIT_Admin');
     Route::get('getNumActiveMerchants', 'HomeController@getNumActiveMerchants')->name('getNumActiveMerchants')->middleware('scope:GIT_Admin');
     Route::get('getNumInactiveMerchants', 'HomeController@getNumInactiveMerchants')->name('getNumInactiveMerchants')->middleware('scope:GIT_Admin');
@@ -182,6 +183,7 @@ Route::group(['middleware' => ['auth:api'], 'prefix' => 'v1'], function(){
     Route::get('getNumAllForms', 'HomeController@getNumAllForms')->name('getNumAllForms')->middleware('scope:GIT_Admin');
     Route::get('getAllFormsByStatus/{status}', 'HomeController@getAllFormsByStatus')->name('getAllFormsByStatus');
     Route::get('getAllFormsByMerchant/{id}', 'HomeController@getAllFormsByMerchant')->name('getAllFormsByMerchant')->middleware('scope:GIT_Admin,company_admin,branch_admin,client,super_executive,branch_executive,frontdesk');
+    Route::get('getAllFormsByMerchantApp/{id}', 'HomeController@getAllFormsByMerchantApp')->name('getAllFormsByMerchantApp')->middleware('scope:GIT_Admin,company_admin,branch_admin,client,super_executive,branch_executive,frontdesk');
     Route::get('getAllFormsByStatusAndMerchant/{status}/{id}', 'HomeController@getAllFormsByStatusAndMerchant')->name('getAllFormsByStatusAndMerchant');
     
     
@@ -189,8 +191,9 @@ Route::group(['middleware' => ['auth:api'], 'prefix' => 'v1'], function(){
   Route::get('getAllClients', 'HomeController@getAllClients')->name('getAllClients')->middleware('scope:GIT_Admin');
   Route::get('getClientsDetails/{id}', 'HomeController@getClientsDetails')->name('getClientsDetails')->middleware('scope:GIT_Admin,client');
   Route::post('editClientProfile/{id}', 'HomeController@editClientProfile')->name('editClientProfile')->middleware('scope:client,frontdesk');
-  Route::post('submitForm/{id}/{code}/{edit}/{sub_code}/{status}', 'HomeController@submitForm')->name('submitForm')->middleware('scope:GIT_Admin,client');
+  Route::post('submitForm/{id}/{code}/{edit}/{sub_code}/{status?}', 'HomeController@submitForm')->name('submitForm')->middleware('scope:GIT_Admin,client');
   Route::get('getClientSubmittedForms/{id}', 'HomeController@getClientSubmittedForms')->name('getClientSubmittedForms')->middleware('scope:GIT_Admin,client');
+  Route::get('getClientSubmittedFormsApp/{id}', 'HomeController@getClientSubmittedFormsApp')->name('getClientSubmittedFormsApp')->middleware('scope:GIT_Admin,client');
   
 
   //submitted forms endpoints 
@@ -227,6 +230,7 @@ Route::group(['middleware' => ['auth:api'], 'prefix' => 'v1'], function(){
   Route::get('getAllsubmittedForms/{id}', 'HomeController@getAllsubmittedForms')->name('getAllsubmittedForms')->middleware('scope:GIT_Admin,client');
   Route::get('getNumAllsubmittedForms/{id}', 'HomeController@getNumAllsubmittedForms')->name('getNumAllsubmittedForms')->middleware('scope:GIT_Admin,client');
   Route::get('getClientFormsByStatus/{id}/{status}', 'HomeController@getClientFormsByStatus')->name('getClientFormsByStatus')->middleware('scope:GIT_Admin,client');
+  Route::get('getClientFormsByStatusApp/{id}/{status}', 'HomeController@getClientFormsByStatusApp')->name('getClientFormsByStatusApp')->middleware('scope:GIT_Admin,client');
   Route::get('getNumClientFormsByStatus/{id}/{status}', 'HomeController@getNumClientFormsByStatus')->name('getNumClientFormsByStatus')->middleware('scope:GIT_Admin,client');                                     
   
 
