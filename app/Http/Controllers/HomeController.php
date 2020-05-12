@@ -7,6 +7,11 @@ use Illuminate\Support\Facades\Log;
 class HomeController extends Controller
 {
     
+    // public function __construct()
+    // {
+    //     $this->middleware('client');
+    // }
+    
     //AUTHCONTROLLER LOGICS 
     /**
      * business logics for creating a new user

@@ -18,7 +18,7 @@ use Socialite;
 
 class AuthController extends Controller
 {
-   
+    
      /**
     * twoWayAuthenticationVerification Validate user provided two way authentication code
     * @param  mixed $request
@@ -36,7 +36,7 @@ class AuthController extends Controller
         if($exist->two_way == $code && $exist->code_expire_at >= now()){
             //create user token
             
-            $tokenResult = $exist->createToken('authToken', ['client']);
+            $tokenResult = $exist->createToken('authToken', ['forms_client']);
             $token=$tokenResult->accessToken;
             $expires_at = Carbon::parse($tokenResult->token->expires_at)->toDateTimeString();
 
@@ -897,6 +897,11 @@ class AuthController extends Controller
         {
 
             $tokenResult = $user->createToken('authToken', ['frontdesk']);
+
+        }elseif($user_type == 27)
+        {
+
+            $tokenResult = $user->createToken('authToken', ['institutional_client']);
 
         }elseif($user_type == 26)
         {
