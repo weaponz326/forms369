@@ -1660,6 +1660,22 @@ class HomeController extends Controller
         return $message;
     }
 
+    /**
+     * findSubmittedFormByDate search for a submitted form by a date submitted range
+     * @param  \Illuminate\Http\Request  $request
+     * @param $id of the client  who submitted the forms
+     * @param $sdate start date
+     * @param $edate end date
+     * @param $status status of submitted forms to be searched, ie. on the processed forms window, search should be on only processed forms and not all submitted forms
+     * @return void\Illuminate\Http\Response all details of the submitted form
+     * 
+     */
+     public function findSubmittedFormByDate(Request $request, $id, $status, $sdate, $edate)
+     {
+        $message = (new ClientController)->findSubmittedFormByDate($request, $id, $status, $sdate, $edate);
+        return $message;
+     }
+
     protected function deleteSubmittedForm(Request $request, $client_id, $submission_code)
     {
         $message = (new ClientController)->deleteSubmittedForm($request, $client_id, $submission_code);

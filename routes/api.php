@@ -219,6 +219,7 @@ Route::group(['middleware' => ['auth:api'], 'prefix' => 'v1'], function(){
   // searching for client submitted forms
   Route::get('findSubmittedFormByName/{id}/{form_name}/{status}', 'HomeController@findSubmittedFormByName')->name('findSubmittedFormByName')->middleware('scope:forms_client,GIT_Admin');
   Route::get('findSubmittedFormByCode/{id}/{code}/{staus}', 'HomeController@findSubmittedFormByCode')->name('findSubmittedFormByCode')->middleware('scope:forms_client,GIT_Admin');
+  Route::get('findSubmittedFormByDate/{id}/{status}/{sdate}/{edate}', 'HomeController@findSubmittedFormByDate')->name('findSubmittedFormByDate')->middleware('scope:forms_client,GIT_Admin');
 
   // delete and recover submitted form
   Route::post('deleteSubmittedForm/{id}/{code}', 'HomeController@deleteSubmittedForm')->name('deleteSubmittedForm')->middleware('scope:GIT_Admin,forms_client');

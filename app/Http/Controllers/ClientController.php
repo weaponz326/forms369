@@ -479,6 +479,82 @@ class ClientController extends Controller
     }
 
     /**
+     * findSubmittedFormByDate search for a submitted form by a date submitted range
+     * @param  \Illuminate\Http\Request  $request
+     * @param $id of the client  who submitted the forms
+     * @param $sdate start date
+     * @param $edate end date
+     * @param $status status of submitted forms to be searched, ie. on the processed forms window, search should be on only processed forms and not all submitted forms
+     * @return void\Illuminate\Http\Response all details of the submitted form
+     * 
+     */
+     public function findSubmittedFormByDate(Request $request, $id, $status, $sdate, $edate)
+     {
+        $startdate = date($sdate);
+        $enddate = date($edate);
+ 
+         //search all submitted forms if user is on the all tab
+         if($status == 0){
+             $getforms = DB::table('submitted_forms')
+             ->join('users', 'users.id', '=', 'client_id')
+             ->join('forms', 'forms.form_code', '=', 'form_id')
+             ->join('merchants', 'merchants.id', '=', 'forms.merchant_id')
+             ->select('submitted_forms.*','merchants.merchant_name AS merchant_name', 'merchants.nickname',
+             'merchants.colors', 'users.name', 'users.email', 'forms.name AS form_name', 'forms.form_fields')
+             ->where([
+                 ['submitted_forms.client_id', $id],
+                 ['submitted_forms.status', '!=', 4]
+             ])
+             ->whereBetween('submitted_at', [$startdate, $enddate])
+             ->get();
+           
+         }else{
+             $getforms = DB::table('submitted_forms')
+                 ->join('users', 'users.id', '=', 'client_id')
+                 ->join('forms', 'forms.form_code', '=', 'form_id')
+                 ->join('merchants', 'merchants.id', '=', 'forms.merchant_id')
+                 ->select('submitted_forms.*','merchants.merchant_name AS merchant_name', 'merchants.nickname',
+                 'merchants.colors', 'users.name', 'users.email', 'forms.name AS form_name', 'forms.form_fields')
+                 ->where([
+                     ['submitted_forms.client_id', $id],
+                     ['submitted_forms.status', '==', $status]
+                 ])
+                 ->whereBetween('submitted_at', [$startdate, $enddate])
+                 ->get();
+       
+         }
+         
+        
+         //clean data
+         $submittedformdata = [];
+ 
+         $getforms->transform(function($items){
+             $submittedformdata['submission_code'] = $items->submission_code;
+             $submittedformdata['form_code'] = $items->form_id;
+             $submittedformdata['form_name'] = Crypt::decryptString($items->form_name);
+             $submittedformdata['form_fields'] = json_decode(Crypt::decryptString($items->form_fields));
+             $submittedformdata['merchant_name'] = Crypt::decryptString($items->merchant_name);
+             $submittedformdata['nickname'] = $items->nickname;
+             $submittedformdata['client_name'] = $items->name;
+             $submittedformdata['email'] = $items->email;
+             $submittedformdata['colors'] = $items->colors;
+             $submittedformdata['client_submitted_details'] = json_decode(Crypt::decryptString($items->client_details));
+             $submittedformdata['form_status'] = $items->status;
+             $submittedformdata['submitted_at'] = $items->submitted_at;
+             $submittedformdata['last_processed'] = $items->last_processed;
+             $submittedformdata['processed_by'] = $items->processed_by;
+ 
+             return $submittedformdata;
+         });
+      
+          $response = [
+             'forms' => $getforms
+         ];
+         return response()->json($response, 200);
+     }
+
+     
+    /**
      * getNumAllsubmittedForms number of forms submitted by a client of any status: 
      * submitted, in_process,or processed
      *
