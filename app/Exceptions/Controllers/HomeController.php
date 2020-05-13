@@ -489,7 +489,7 @@ class HomeController extends Controller
         $message = (new SetupController)->getCompanyColors($request, $id);
         return $message;
      }
-
+     
 
     /**
     * getMerchantbyName search for a merchant based on a search term
@@ -1612,15 +1612,15 @@ class HomeController extends Controller
     }
 
 
-    protected function findSubmittedFormByName(Request $request, $id, $form_name, $status)
+    protected function findSubmittedFormByName(Request $request, $id, $form_name)
     {
-        $message = (new ClientController)->findSubmittedFormByName($request, $id, $form_name, $status);
+        $message = (new ClientController)->findSubmittedFormByName($request, $id, $form_name);
         return $message;
     }
 
-    protected function findSubmittedFormByCode(Request $request, $id, $form_code, $status)
+    protected function findSubmittedFormByCode(Request $request, $id, $form_code)
     {
-        $message = (new ClientController)->findSubmittedFormByCode($request, $id, $form_code, $status);
+        $message = (new ClientController)->findSubmittedFormByCode($request, $id, $form_code);
         return $message;
     }
 
@@ -2264,23 +2264,6 @@ class HomeController extends Controller
      public function getClientFormsByStatusAndMerchant(Request $request, $term, $status, $id)
      {
         $message = (new ClientController)->getClientFormsByStatusAndMerchant($request, $term, $status, $id);
-        return $message;
-     }
-
-     /**
-     * findClientFormsByMerchantName get all forms by status: processed, in_process, submitted for a client based on a merchant 
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param $id of the client
-     * @param $status search status
-     * @param $term search term
-       * @param $status status of submitted forms to be searched, ie. on the processed forms window, search should be on only processed forms and not all submitted forms
-     * @return void\Illuminate\Http\Response all details of form
-     * 
-     */
-     public function findClientFormsByMerchantName(Request $request, $term, $status, $id)
-     {
-        $message = (new ClientController)->findClientFormsByMerchantName($request, $term, $status, $id);
         return $message;
      }
 
