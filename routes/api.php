@@ -44,6 +44,11 @@ Route::get('getFormViaLink/{id}', 'HomeController@getFormViaLink')->name('getFor
 Route::get('login/google', 'HomeController@redirectToGoogleProvider')->name('login/google')->middleware('web');
 Route::get('login/google/callback', 'HomeController@handleProviderGoogleCallback')->name('login/google/callback')->middleware('web');
 
+//reset pin
+Route::get('forgotpinlink/{token}', 'HomeController@confirmForgottenPin')->name('forgotpinlink');
+Route::post('resetPin/{id}', 'HomeController@resetPin')->name('resetPin');
+
+
 //protected routes 
 Route::group(['middleware' => ['auth:api'], 'prefix' => 'v1'], function(){
 
@@ -53,6 +58,9 @@ Route::group(['middleware' => ['auth:api'], 'prefix' => 'v1'], function(){
     Route::post('changePin/{id}', 'HomeController@changePin')->name('changePin')->middleware('scope:GIT_Admin,forms_client');
     Route::post('checkPin/{id}/{pin}', 'HomeController@checkPin')->name('checkPin')->middleware('scope:GIT_Admin,forms_client');
 
+    //reset user pin routes
+    Route::post('forgotPin', 'HomeController@forgotPin')->name('forgotPin')->middleware('scope:GIT_Admin,forms_client');
+    
     //change user password
     Route::post('changePassword/{id}', 'HomeController@changePassword')->name('changePassword')->middleware('scope:GIT_Admin,forms_client');
 

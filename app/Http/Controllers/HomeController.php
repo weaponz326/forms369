@@ -69,6 +69,42 @@ class HomeController extends Controller
         return $message;
     }
 
+    /**
+     * forgotPin reset user pin
+     * 
+     * @return void\Illuminate\Http\Response success or error message
+     * @param  mixed $request
+     */
+     public function forgotPin(Request $request){
+        $message = (new AuthController)->forgotPin($request);
+        return $message;
+     }
+       
+     /**
+     * confirmForgottenPin verify confirm email pin reset link
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @param  \Illuminate\Http\Request  $token signed route token
+     * @return \Illuminate\Http\Response
+     */
+     public function confirmForgottenPin(Request $request, $token)
+     {
+        $message = (new AuthController)->confirmForgottenPin($request, $token);
+        return $message; 
+     }
+
+     /**
+    * resetPin Reset user pin
+    * @param  mixed $request
+    * @param mixed $id of the user reseting their password
+    * @return \Illuminate\Http\Response success or error message
+    */
+    public function resetPin(Request $request, $id)
+    {
+        $message = (new AuthController)->resetPin($request, $id);
+        return $message;
+    }
+
      /**
       * Business logics
      * deleteUser delete a user from the database
