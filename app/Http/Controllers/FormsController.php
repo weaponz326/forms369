@@ -364,7 +364,7 @@ class FormsController extends Controller
         $getform = DB::table('forms')
         ->join('merchants', 'merchants.id', '=', 'merchant_id')
         ->leftjoin('uploads', 'forms.form_code', '=', 'uploads.form_code')
-        ->select('forms.*','merchants.merchant_name AS merchant_name', 'merchants.nickname','merchants.can_print', 'uploads.url')
+        ->select('forms.*','merchants.merchant_name AS merchant_name', 'merchants.nickname','merchants.can_print', 'uploads.url', 'logo')
         ->where('forms.form_code', $code)
         ->get();
       
@@ -382,6 +382,7 @@ class FormsController extends Controller
             $formdata['can_print'] = $items->can_print;
             $formdata['can_view'] = $items->can_view;
             $formdata['file_url'] = $items->url;
+            $formdata['logo'] = $items->logo;
             $formdata['created_by'] = $items->created_by;
             $formdata['created_at'] = $items->created_at;
             $formdata['updated_at'] = $items->updated_at;
@@ -413,7 +414,7 @@ class FormsController extends Controller
             $getform = DB::table('forms')
             ->join('merchants', 'merchants.id', '=', 'merchant_id')
             ->leftjoin('uploads', 'forms.form_code', '=', 'uploads.form_code')
-            ->select('forms.*','merchants.merchant_name AS merchant_name', 'merchants.nickname','merchants.can_print', 'uploads.url')
+            ->select('forms.*','merchants.merchant_name AS merchant_name', 'merchants.nickname','merchants.can_print', 'uploads.url', 'logo')
             ->where([
                 ['forms.temps', 'like', '%'.$term .'%'],
                 ['forms.status','=',1],
@@ -450,6 +451,7 @@ class FormsController extends Controller
             $formdata['can_print'] = $items->can_print;
             $formdata['can_view'] = $items->can_view;
             $formdata['file_url'] = $items->url;
+            $formdata['logo'] = $items->logo;
             $formdata['created_by'] = $items->created_by;
             $formdata['created_at'] = $items->created_at;
             $formdata['updated_at'] = $items->updated_at;
@@ -603,7 +605,7 @@ class FormsController extends Controller
         $getforms = DB::table('forms')
         ->join('merchants', 'merchants.id', '=', 'merchant_id')
         ->leftjoin('uploads', 'forms.form_code', '=', 'uploads.form_code')
-        ->select('forms.*','merchants.merchant_name AS merchant_name', 'merchants.nickname','merchants.can_print', 'merchants.colors', 'uploads.url')
+        ->select('forms.*','merchants.merchant_name AS merchant_name', 'merchants.nickname','merchants.can_print', 'merchants.colors', 'logo', 'uploads.url')
         ->where('forms.merchant_id', $id)
         ->where('forms.deleted_at', null)
         ->where('forms.status', 1)
@@ -624,6 +626,7 @@ class FormsController extends Controller
             $formdata['can_view'] = $items->can_view;
             $formdata['file_url'] = $items->url;
             $formdata['colors'] = $items->colors;
+            $formdata['logo'] = $items->logo;
             $formdata['created_by'] = $items->created_by;
             $formdata['created_at'] = $items->created_at;
             $formdata['updated_at'] = $items->updated_at;
@@ -654,7 +657,7 @@ class FormsController extends Controller
         $getforms = DB::table('forms')
         ->join('merchants', 'merchants.id', '=', 'merchant_id')
         ->leftjoin('uploads', 'forms.form_code', '=', 'uploads.form_code')
-        ->select('forms.*','merchants.merchant_name AS merchant_name', 'merchants.nickname','merchants.can_print', 'merchants.colors', 'uploads.url')
+        ->select('forms.*','merchants.merchant_name AS merchant_name', 'merchants.nickname','merchants.can_print', 'merchants.colors', 'logo', 'uploads.url')
         ->where('forms.merchant_id', $id)
         ->where('forms.deleted_at', null)
         ->where('forms.status', 1)
@@ -675,6 +678,7 @@ class FormsController extends Controller
             $formdata['can_view'] = $items->can_view;
             $formdata['file_url'] = $items->url;
             $formdata['colors'] = $items->colors;
+            $formdata['logo'] = $items->logo;
             $formdata['created_by'] = $items->created_by;
             $formdata['created_at'] = $items->created_at;
             $formdata['updated_at'] = $items->updated_at;
@@ -1117,7 +1121,7 @@ class FormsController extends Controller
         ->leftjoin('uploads', 'forms.form_code', '=', 'uploads.form_code')
         ->join('submitted_forms', 'submitted_forms.form_id', '=', 'forms.form_code')
         ->select('forms.*','merchants.merchant_name AS merchant_name', 'merchants.nickname',
-        'merchants.can_print', 'merchants.colors', 'uploads.url', 'submitted_forms.submitted_at')
+        'merchants.can_print', 'merchants.colors', 'uploads.url', 'submitted_forms.submitted_at', 'logo')
         ->where('forms.status','=',1)
         ->where('submitted_forms.status','!=',4)
         ->latest('submitted_at')
@@ -1141,6 +1145,7 @@ class FormsController extends Controller
             $formdata['can_view'] = $items->can_view;
             $formdata['file_url'] = $items->url;
             $formdata['colors'] = $items->colors;
+            $formdata['logo'] = $items->logo;
             $formdata['created_by'] = $items->created_by;
             $formdata['created_at'] = $items->created_at;
             $formdata['updated_at'] = $items->updated_at;
