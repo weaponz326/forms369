@@ -250,7 +250,7 @@ class ClientController extends Controller
         ->join('merchants', 'merchants.id', '=', 'forms.merchant_id')
         // ->join('attachments','attachments.submission_code', '=', 'submitted_forms.submission_code')
         ->select('submitted_forms.*','merchants.merchant_name AS merchant_name', 'merchants.nickname',
-        'users.name', 'users.email', 'forms.name AS form_name', 'forms.form_fields')
+        'users.name', 'users.email', 'forms.name AS form_name', 'forms.form_fields', 'logo')
         ->where('submitted_forms.client_id', $id)
         ->where('submitted_forms.status', '!=', 4)
         ->orderBy('submitted_at', 'desc')
@@ -269,6 +269,7 @@ class ClientController extends Controller
             $submittedformdata['nickname'] = $items->nickname;
             $submittedformdata['client_name'] = $items->name;
             $submittedformdata['email'] = $items->email;
+            $submittedformdata['logo'] = $items->logo;
             $submittedformdata['client_submitted_details'] = json_decode(Crypt::decryptString($items->client_details));
             $submittedformdata['form_status'] = $items->status;
             $submittedformdata['submitted_at'] = $items->submitted_at;
@@ -303,7 +304,7 @@ class ClientController extends Controller
         ->join('merchants', 'merchants.id', '=', 'forms.merchant_id')
         // ->join('attachments','attachments.submission_code', '=', 'submitted_forms.submission_code')
         ->select('submitted_forms.*','merchants.merchant_name AS merchant_name', 'merchants.nickname',
-        'users.name', 'users.email', 'forms.name AS form_name', 'forms.form_fields')
+        'users.name', 'users.email', 'forms.name AS form_name', 'forms.form_fields', 'logo')
         ->where('submitted_forms.client_id', $id)
         ->where('submitted_forms.status', '!=', 4)
         ->orderBy('submitted_at', 'desc')
@@ -322,6 +323,7 @@ class ClientController extends Controller
             $submittedformdata['nickname'] = $items->nickname;
             $submittedformdata['client_name'] = $items->name;
             $submittedformdata['email'] = $items->email;
+            $submittedformdata['logo'] = $items->logo;
             $submittedformdata['client_submitted_details'] = json_decode(Crypt::decryptString($items->client_details));
             $submittedformdata['form_status'] = $items->status;
             $submittedformdata['submitted_at'] = $items->submitted_at;
@@ -357,7 +359,7 @@ class ClientController extends Controller
             ->join('forms', 'forms.form_code', '=', 'form_id')
             ->join('merchants', 'merchants.id', '=', 'forms.merchant_id')
             ->select('submitted_forms.*','merchants.merchant_name AS merchant_name', 'merchants.nickname',
-            'users.name', 'users.email', 'forms.name AS form_name', 'forms.form_fields')
+            'users.name', 'users.email', 'forms.name AS form_name', 'forms.form_fields', 'logo')
             ->where([
                 ['submitted_forms.client_id', $id],
                 ['forms.temps', 'like', '%'.$form_name.'%'],
@@ -371,7 +373,7 @@ class ClientController extends Controller
                 ->join('forms', 'forms.form_code', '=', 'form_id')
                 ->join('merchants', 'merchants.id', '=', 'forms.merchant_id')
                 ->select('submitted_forms.*','merchants.merchant_name AS merchant_name', 'merchants.nickname',
-                'users.name', 'users.email', 'forms.name AS form_name', 'forms.form_fields')
+                'users.name', 'users.email', 'forms.name AS form_name', 'forms.form_fields', 'logo')
                 ->where([
                     ['submitted_forms.client_id', $id],
                     ['forms.temps', 'like', '%'.$form_name.'%'],
@@ -394,6 +396,7 @@ class ClientController extends Controller
             $submittedformdata['nickname'] = $items->nickname;
             $submittedformdata['client_name'] = $items->name;
             $submittedformdata['email'] = $items->email;
+            $submittedformdata['logo'] = $items->logo;
             $submittedformdata['client_submitted_details'] = json_decode(Crypt::decryptString($items->client_details));
             $submittedformdata['form_status'] = $items->status;
             $submittedformdata['submitted_at'] = $items->submitted_at;
@@ -427,7 +430,7 @@ class ClientController extends Controller
             ->join('forms', 'forms.form_code', '=', 'form_id')
             ->join('merchants', 'merchants.id', '=', 'forms.merchant_id')
             ->select('submitted_forms.*','merchants.merchant_name AS merchant_name', 'merchants.nickname',
-            'users.name', 'users.email', 'forms.name AS form_name', 'forms.form_fields')
+            'users.name', 'users.email', 'forms.name AS form_name', 'forms.form_fields', 'logo')
             ->where([
                 ['submitted_forms.client_id', $id],
                 ['submitted_forms.submission_code', 'like', '%'.$code.'%'],
@@ -440,7 +443,7 @@ class ClientController extends Controller
             ->join('forms', 'forms.form_code', '=', 'form_id')
             ->join('merchants', 'merchants.id', '=', 'forms.merchant_id')
             ->select('submitted_forms.*','merchants.merchant_name AS merchant_name', 'merchants.nickname',
-            'users.name', 'users.email', 'forms.name AS form_name', 'forms.form_fields')
+            'users.name', 'users.email', 'forms.name AS form_name', 'forms.form_fields', 'logo')
             ->where([
                 ['submitted_forms.client_id', $id],
                 ['submitted_forms.submission_code', 'like', '%'.$code.'%'],
@@ -463,6 +466,7 @@ class ClientController extends Controller
             $submittedformdata['nickname'] = $items->nickname;
             $submittedformdata['client_name'] = $items->name;
             $submittedformdata['email'] = $items->email;
+            $submittedformdata['logo'] = $items->logo;
             $submittedformdata['client_submitted_details'] = json_decode(Crypt::decryptString($items->client_details));
             $submittedformdata['form_status'] = $items->status;
             $submittedformdata['submitted_at'] = $items->submitted_at;
@@ -500,7 +504,7 @@ class ClientController extends Controller
              ->join('forms', 'forms.form_code', '=', 'form_id')
              ->join('merchants', 'merchants.id', '=', 'forms.merchant_id')
              ->select('submitted_forms.*','merchants.merchant_name AS merchant_name', 'merchants.nickname',
-             'merchants.colors', 'users.name', 'users.email', 'forms.name AS form_name', 'forms.form_fields')
+             'merchants.colors', 'users.name', 'users.email', 'forms.name AS form_name', 'forms.form_fields', 'logo')
              ->where([
                  ['submitted_forms.client_id', $id],
                  ['submitted_forms.status', '!=', 4]
@@ -514,7 +518,7 @@ class ClientController extends Controller
                  ->join('forms', 'forms.form_code', '=', 'form_id')
                  ->join('merchants', 'merchants.id', '=', 'forms.merchant_id')
                  ->select('submitted_forms.*','merchants.merchant_name AS merchant_name', 'merchants.nickname',
-                 'merchants.colors', 'users.name', 'users.email', 'forms.name AS form_name', 'forms.form_fields')
+                 'merchants.colors', 'users.name', 'users.email', 'forms.name AS form_name', 'forms.form_fields', 'logo')
                  ->where([
                      ['submitted_forms.client_id', $id],
                      ['submitted_forms.status', '==', $status]
@@ -537,6 +541,7 @@ class ClientController extends Controller
              $submittedformdata['nickname'] = $items->nickname;
              $submittedformdata['client_name'] = $items->name;
              $submittedformdata['email'] = $items->email;
+             $submittedformdata['logo'] = $items->logo;
              $submittedformdata['colors'] = $items->colors;
              $submittedformdata['client_submitted_details'] = json_decode(Crypt::decryptString($items->client_details));
              $submittedformdata['form_status'] = $items->status;
@@ -595,7 +600,7 @@ class ClientController extends Controller
         ->join('forms', 'forms.form_code', '=', 'form_id')
         ->join('merchants', 'merchants.id', '=', 'forms.merchant_id')
         ->select('submitted_forms.*','merchants.merchant_name AS merchant_name', 'merchants.nickname',
-        'users.name', 'users.email', 'forms.name AS form_name', 'forms.form_fields')
+        'users.name', 'users.email', 'forms.name AS form_name', 'forms.form_fields', 'logo')
         ->where('submitted_forms.client_id', $id)
         ->where('submitted_forms.status', $status)
         ->orderBy('submitted_at', 'desc')
@@ -613,6 +618,7 @@ class ClientController extends Controller
             $submittedformdata['nickname'] = $items->nickname;
             $submittedformdata['client_name'] = $items->name;
             $submittedformdata['email'] = $items->email;
+            $submittedformdata['logo'] = $items->logo;
             $submittedformdata['client_submitted_details'] = json_decode(Crypt::decryptString($items->client_details));
             $submittedformdata['form_status'] = $items->status;
             $submittedformdata['submitted_at'] = $items->submitted_at;
@@ -646,7 +652,7 @@ class ClientController extends Controller
         ->join('forms', 'forms.form_code', '=', 'form_id')
         ->join('merchants', 'merchants.id', '=', 'forms.merchant_id')
         ->select('submitted_forms.*','merchants.merchant_name AS merchant_name', 'merchants.nickname',
-        'users.name', 'users.email', 'forms.name AS form_name', 'forms.form_fields')
+        'users.name', 'users.email', 'forms.name AS form_name', 'forms.form_fields', 'logo')
         ->where('submitted_forms.client_id', $id)
         ->where('submitted_forms.status', $status)
         ->orderBy('submitted_at', 'desc')
@@ -664,6 +670,7 @@ class ClientController extends Controller
             $submittedformdata['nickname'] = $items->nickname;
             $submittedformdata['client_name'] = $items->name;
             $submittedformdata['email'] = $items->email;
+            $submittedformdata['logo'] = $items->logo;
             $submittedformdata['client_submitted_details'] = json_decode(Crypt::decryptString($items->client_details));
             $submittedformdata['form_status'] = $items->status;
             $submittedformdata['submitted_at'] = $items->submitted_at;
@@ -1147,7 +1154,7 @@ class ClientController extends Controller
         ->join('merchants', 'merchants.id', '=', 'forms.merchant_id')
         // ->join('attachments','attachments.submission_code', '=', 'submitted_forms.submission_code')
         ->select('submitted_forms_deleted.*','merchants.merchant_name AS merchant_name', 'merchants.nickname',
-        'users.name', 'users.email', 'forms.name AS form_name', 'forms.form_fields')
+        'users.name', 'users.email', 'forms.name AS form_name', 'forms.form_fields', 'logo')
         ->where('submitted_forms_deleted.client_id', $id)
         ->paginate(15);
       
@@ -1164,6 +1171,7 @@ class ClientController extends Controller
             $submittedformdata['nickname'] = $items->nickname;
             $submittedformdata['client_name'] = $items->name;
             $submittedformdata['email'] = $items->email;
+            $submittedformdata['logo'] = $items->logo;
             $submittedformdata['client_submitted_details'] = json_decode(Crypt::decryptString($items->client_details));
             $submittedformdata['form_status'] = $items->status;
             $submittedformdata['submitted_at'] = $items->submitted_at;
@@ -1453,7 +1461,7 @@ class ClientController extends Controller
          ->join('forms', 'forms.form_code', '=', 'form_id')
          ->join('merchants', 'merchants.id', '=', 'forms.merchant_id')
          ->select('submitted_forms.*','merchants.merchant_name AS merchant_name', 'merchants.nickname',
-         'users.name', 'users.email', 'forms.name AS form_name', 'forms.form_fields')
+         'users.name', 'users.email', 'forms.name AS form_name', 'forms.form_fields', 'logo')
          ->where('merchants.id', $id)
          ->where('submitted_forms.status', $status)
          ->where('forms.temps', 'like', '%'.$term .'%')
@@ -1471,6 +1479,7 @@ class ClientController extends Controller
              $submittedformdata['nickname'] = $items->nickname;
              $submittedformdata['client_name'] = $items->name;
              $submittedformdata['email'] = $items->email;
+             $submittedformdata['logo'] = $items->logo;
              $submittedformdata['client_submitted_details'] = json_decode(Crypt::decryptString($items->client_details));
              $submittedformdata['form_status'] = $items->status;
              $submittedformdata['submitted_at'] = $items->submitted_at;
@@ -1505,7 +1514,7 @@ class ClientController extends Controller
             ->join('forms', 'forms.form_code', '=', 'form_id')
             ->join('merchants', 'merchants.id', '=', 'forms.merchant_id')
             ->select('submitted_forms.*','merchants.merchant_name AS merchant_name', 'merchants.nickname',
-            'merchants.colors','users.name', 'users.email', 'forms.name AS form_name', 'forms.form_fields')
+            'merchants.colors','users.name', 'users.email', 'forms.name AS form_name', 'forms.form_fields', 'logo')
             ->where('submitted_forms.client_id', $id)
             ->where('submitted_forms.status', '!=', 4)
             ->where('merchants.temp', 'like', '%'.$term .'%')
@@ -1516,7 +1525,7 @@ class ClientController extends Controller
             ->join('forms', 'forms.form_code', '=', 'form_id')
             ->join('merchants', 'merchants.id', '=', 'forms.merchant_id')
             ->select('submitted_forms.*','merchants.merchant_name AS merchant_name', 'merchants.nickname', 
-             'merchants.colors', 'users.name', 'users.email', 'forms.name AS form_name', 'forms.form_fields')
+             'merchants.colors', 'users.name', 'users.email', 'forms.name AS form_name', 'forms.form_fields', 'logo')
             ->where('submitted_forms.client_id', $id)
             ->where('submitted_forms.status', $status)
             ->where('merchants.temp', 'like', '%'.$term .'%')
@@ -1535,6 +1544,7 @@ class ClientController extends Controller
              $submittedformdata['nickname'] = $items->nickname;
              $submittedformdata['client_name'] = $items->name;
              $submittedformdata['email'] = $items->email;
+             $submittedformdata['logo'] = $items->logo;
              $submittedformdata['colors'] = $items->colors;
              $submittedformdata['client_submitted_details'] = json_decode(Crypt::decryptString($items->client_details));
              $submittedformdata['form_status'] = $items->status;
