@@ -299,6 +299,73 @@ class SetupController extends Controller
 
     }
 
+     /**
+     * suggestMerchant create a suggested merchant by a client
+     *
+     * @param  mixed $request
+     *
+     * @return \Illuminate\Http\Response success or error message
+     */
+     public function suggestMerchant(Request $request){
+        
+        $this->validate($request, [
+            'merchant_name' => 'required|unique:merchants',
+            'country' => 'required'
+        ]);
+
+    
+        $name = $request->merchant_name;
+        $country = $request->country;
+
+        //get user creating the new merchant
+        $user = $request->user();
+        $userid = $user['id'];
+
+        if($userid == NULL)
+            $userid = 0;
+
+        
+        //save new merchant in the database
+         try {
+            $id = DB::table('suggested_merchants')->insertGetId(
+                [
+                    'merchant_name' => $name, 
+                    'country' => $country,
+                ]
+            );
+
+            Log::channel('mysql')->info('User with id: ' . $userid .' successsfully suggested ' . $name . ' as a new merchant.');
+            $message = 'Ok';
+
+        }catch(Exception $e) {
+            Log::channel('mysql')->error('User with id: ' . $userid .' unsuccesssfully suggested ' . $name . ' as a new merchant.');
+            $message = "Failed";
+        } 
+            
+        return response()->json([
+            'message' => $message
+        ]);
+
+    }
+
+    /**
+     * getAllBusinessSectors get all business sectors in the db
+     *
+     * @param  mixed $request
+     *
+     * @return void\Illuminate\Http\Response all template categories data
+     */
+     public function getAllSuggestedMerchants(Request $request){
+
+        //get all template categories 
+        $getsuggestedmerchants = DB::table('suggested_merchants')->get();
+
+         $response = [
+            'suggested_merchants' => $getsuggestedmerchants
+        ];
+        return response()->json($response, 200);
+
+    }
 
     /**
      * editMerchant edit a merchant 

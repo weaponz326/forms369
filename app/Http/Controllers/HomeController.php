@@ -514,6 +514,30 @@ class HomeController extends Controller
     }
 
     /**
+     * suggestMerchant create a suggested merchant by a client
+     *
+     * @param  mixed $request
+     *
+     * @return \Illuminate\Http\Response success or error message
+     */
+     public function suggestMerchant(Request $request){
+        $message = (new SetupController)->suggestMerchant($request);
+        return $message;
+     }
+
+     /**
+     * getAllBusinessSectors get all business sectors in the db
+     *
+     * @param  mixed $request
+     *
+     * @return void\Illuminate\Http\Response all template categories data
+     */
+     public function getAllSuggestedMerchants(Request $request){
+        $message = (new SetupController)->getAllSuggestedMerchants($request);
+        return $message;
+    }
+
+    /**
      * getCompanyColors get company colors
      *
      * @param  mixed $request

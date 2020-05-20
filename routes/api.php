@@ -114,10 +114,12 @@ Route::group(['middleware' => ['auth:api'], 'prefix' => 'v1'], function(){
     //merchant setup, view and update apis
     Route::post('uploadImage', 'HomeController@imageUpload')->name('uploadImage')->middleware('scope:GIT_Admin,company_admin,branch_admin');
     Route::post('createMerchant', 'HomeController@createMerchant')->name('createMerchant')->middleware('scope:GIT_Admin');
+    Route::post('suggestMerchant', 'HomeController@suggestMerchant')->name('suggestMerchant')->middleware('scope:GIT_Admin,super_executive,company_admin,branch_executive,branch_admin,frontdesk,forms_client');
     Route::post('editMerchant/{id}', 'HomeController@editMerchant')->name('editMerchant')->middleware('scope:GIT_Admin,company_admin');
     Route::get('getAllMerchants', 'HomeController@getMerchants')->name('getAllMerchants')->middleware('scope:GIT_Admin,forms_client');
+    Route::get('getAllSuggestedMerchants', 'HomeController@getAllSuggestedMerchants')->name('getAllSuggestedMerchants')->middleware('scope:GIT_Admin,forms_client');
     Route::get('getMerchantDetails/{id}', 'HomeController@getMerchantDetails')->name('getMerchantDetails')->middleware('scope:GIT_Admin,super_executive,company_admin,branch_executive,branch_admin,frontdesk');
-    Route::get('getCompanyColors/{id}', 'HomeController@getCompanyColors')->name('getCompanyColors')->middleware('scope:GIT_Admin,super_executive,company_admin,branch_executive,branch_admin,frontdesk,client');
+    Route::get('getCompanyColors/{id}', 'HomeController@getCompanyColors')->name('getCompanyColors')->middleware('scope:GIT_Admin,super_executive,company_admin,branch_executive,branch_admin,frontdesk,front_client');
     Route::get('getAllMerchantsByCountry/{country}/{sector}', 'HomeController@getAllMerchantsByCountry')->name('getAllMerchantsByCountry');
     Route::get('getAllMerchantsByCountryApp/{country}/{sector}', 'HomeController@getAllMerchantsByCountryApp')->name('getAllMerchantsByCountryApp');
     Route::get('getNumMerchants', 'HomeController@getNumMerchants')->name('getNumMerchants')->middleware('scope:GIT_Admin');
