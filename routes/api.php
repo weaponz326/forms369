@@ -27,6 +27,7 @@ Route::get('forgotpasswordlink/{token}', 'HomeController@confirmForgottenPasswor
 
 //login user 
 Route::post('login', 'HomeController@login')->name('login');
+
 Route::post('checkAccess', 'HomeController@checkAccess')->name('checkAccess');
 
 Route::post('login', 'HomeController@login')->name('login');
@@ -51,6 +52,9 @@ Route::post('resetPin/{id}', 'HomeController@resetPin')->name('resetPin');
 
 //protected routes 
 Route::group(['middleware' => ['auth:api'], 'prefix' => 'v1'], function(){
+
+    //generate unique code for user submitted form
+    Route::get('generateSubCode', 'HomeController@generateSubCode')->name('generateSubCode')->middleware('scope:GIT_Admin,forms_client');
 
     //form submission pin apis 
     Route::post('hasPin/{id}', 'HomeController@hasPin')->name('hasPin')->middleware('scope:GIT_Admin,forms_client');

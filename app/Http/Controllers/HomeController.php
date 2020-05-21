@@ -2409,5 +2409,17 @@ class HomeController extends Controller
         $message = (new FormsController)->getRecentForms($request);
         return $message;
     }
+
+    /**
+     * generateSubCode generate unique submission code for a submitted form
+     * @return void\Illuminate\Http\Response submission code
+     * 
+     */
+     public function generateSubCode()
+     {
+        $message = (new ClientController)->generateSubCode();
+        return $message;
+     }
+
      
 }    

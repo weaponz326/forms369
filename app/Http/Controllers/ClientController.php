@@ -1568,5 +1568,17 @@ class ClientController extends Controller
          return response()->json($response, 200);
      }
  
- 
+    /**
+     * generateSubCode generate unique submission code for a submitted form
+     * @return void\Illuminate\Http\Response submission code
+     * 
+     */
+     public function generateSubCode()
+     {
+         $submission_code = uniqid();
+        $response = [
+            'code' => $submission_code
+        ];
+        return response()->json($response, 200);
+     }
 }
