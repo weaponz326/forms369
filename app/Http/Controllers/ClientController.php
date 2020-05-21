@@ -1280,6 +1280,13 @@ class ClientController extends Controller
                     'message' => $message
                 ];
                 return response()->json( $response, 400 );
+            }elseif($old_pin == $new_pin){
+                $message = "THE_SAME_PIN";
+                $response = [
+                    'message' => $message
+                ];
+                return response()->json($response, 201);
+
             }else{
                 //set user pin
                 DB::table('users')
@@ -1291,7 +1298,7 @@ class ClientController extends Controller
                     ]
                 );
 
-                $message = 'Ok';
+                $message = 'OK';
                 $response = [
                     'message' => $message
                 ];

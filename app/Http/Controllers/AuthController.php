@@ -2140,6 +2140,11 @@ class AuthController extends Controller
         if(Hash::check($current_password, $user->password)){
             if($current_password == $new_password){
                 $message = "THE_SAME_PASSWORD";
+
+                $response = [
+                    'message' => $message
+                ];
+                return response()->json($response, 201);
             }else{
 
                 //change user password
@@ -2147,18 +2152,20 @@ class AuthController extends Controller
                 $user->save();
 
                 $message = "OK";
-
+                $response = [
+                    'message' => $message
+                ];
+                return response()->json($response, 200);
             }
             
         }else{
             $message = "MISMATCH";
+            $response = [
+                'message' => $message
+            ];
+            return response()->json($response, 202);
         }
        
-        $response = [
-            'message' => $message
-        ];
-       return $response; 
-
     }  
 
     
