@@ -309,6 +309,22 @@ class FrontDeskController extends Controller
                      'status' => $status
                  ]
              );
+
+             if($status == 3){
+                 //get user phone
+                $user = DB::table('submitted_forms')
+                ->join('users', 'users.id', '=', 'client_id')
+                ->where('submission_code', $code)
+                ->select('phone')
+                ->first();
+
+                //send sms to user if form is rejected by processor
+                $from = "GiTLog";
+                $mobile = $user->phone;
+                $msg = "Your submitted form with submission code ". $code ." has been rejected.";
+                $status = (new AuthController)->sendsms($from,$mobile,$msg);
+             }
+
              Log::channel('mysql')->info('User with id: ' . $userid .' successsfully processed a form with code: '. $code . 'new status: '. $status);
              $message = 'Ok';
  
