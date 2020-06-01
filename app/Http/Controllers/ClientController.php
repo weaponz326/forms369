@@ -154,6 +154,7 @@ class ClientController extends Controller
 
          $client_profile = $data['client_profile'];
          $form_data = $data['form_data'];
+         $branch_id = $data['branch_id'];
 
          $encodedformdata = json_encode($form_data);
          $encodeduserdata = json_encode($client_profile);
@@ -174,6 +175,7 @@ class ClientController extends Controller
                     'client_id' => $id,
                     'status' => $status,
                     'client_details' => $encryptedformdata,
+                    'branch_submitted_to' => $branch_id,
                     'submitted_at' => $submitted_at
                  ]
              );
@@ -231,6 +233,48 @@ class ClientController extends Controller
         }
            
     }
+
+    /**
+     * checkFormSubmission check if form to be submitted has already been submitted but not yet processed
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @param $id of the client submitting the form
+     * @param $code form code that is being filled 
+     * @return void\Illuminate\Http\Response 0 if form is not already submitted or 1 if submission exist
+     * status; status of the form that was already submitted (in-process or submitted)
+     * submitted; 1 if similar submission exists and 0 if no similar submission exists
+     * code; submission code (submission code of the old submission or null if no old submission exists) 
+     */
+     public function checkFormSubmission(Request $request, $id, $code)
+     {
+        //declare variables to use
+        $status = null;
+        $submitted = 0;
+        $submission_code = null;
+
+        $form = DB::table('submitted_forms')
+        ->where('form_id', $code)
+        ->where('client_id', $id)
+        ->whereIn('status', [0, 1])
+        ->select('submission_code','status')
+        ->first();
+        
+        // return $form->status;
+        if(empty($form)){
+            $submitted = 0;
+        }else{
+            $status = $form->status;
+            $submitted = 1;
+            $submission_code = $form->submission_code;
+        }
+
+        $response = [
+            'status' => $status,
+            'submitted' => $submitted,
+            'code' => $submission_code
+        ];
+        return response()->json( $response, 200 );
+     }
 
 
     /**

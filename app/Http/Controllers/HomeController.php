@@ -878,6 +878,21 @@ class HomeController extends Controller
     }
 
     /**
+     * getActiveCompanyBranches get all registered active company branches for forms submission
+     *
+     * @param  mixed $request
+     * @param  mixed $id merchant id
+     *
+     * @return void\Illuminate\Http\Response all active company branches data
+     */
+     protected function getActiveCompanyBranches(Request $request, $id)
+     {
+        $message = (new SetupController)->getActiveCompanyBranches($request, $id);
+        return $message;
+     }
+
+
+    /**
      * Business logics to get the number of registered barnches under a merchant 
      * getNumCompanyBranches get num of all registered company branches 
      *
@@ -1420,6 +1435,23 @@ class HomeController extends Controller
         return $message;
 
     }
+
+    /**
+     * checkFormSubmission check if form to be submitted has already been submitted but not yet processed
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @param $id of the client submitting the form
+     * @param $code form code that is being filled 
+     * @return void\Illuminate\Http\Response 0 if form is not already submitted or 1 if submission exist
+     * status; status of the form that was already submitted (in-process or submitted)
+     * submitted; 1 if similar submission exists and 0 if no similar submission exists
+     * code; submission code (submission code of the old submission or null if no old submission exists) 
+     */
+     protected function checkFormSubmission(Request $request, $id, $code)
+     {
+        $message = (new ClientController)->checkFormSubmission($request, $id, $code);
+        return $message;
+     }
 
     /**
      * Business logics 
@@ -2422,4 +2454,72 @@ class HomeController extends Controller
      }
 
      
+     /**
+     * reportAbuse merchant report client abuse
+     *
+     * @param  mixed $request
+     *
+     * @return \Illuminate\Http\Response success or error message
+     */
+     public function reportAbuse(Request $request)
+     {
+        $message = (new SetupController)->reportAbuse($request);
+        return $message;
+     }
+
+     /**
+     * getAllAbuseReports get all abuse reports in the db
+     *
+     * @param  mixed $request
+     *
+     * @return void\Illuminate\Http\Response all abuse reports 
+     */
+     public function getAllAbuseReports(Request $request)
+     {
+        $message = (new SetupController)->getAllAbuseReports($request);
+        return $message;
+     }
+
+
+     /**
+     * getAbuseReportsByStatus get all abuse reports in the db by status
+     * 0 id report is not addressed and 1 if report is addressed
+     *
+     * @param  mixed $request
+     *
+     * @return void\Illuminate\Http\Response all abuse reports matching the selected status
+     */
+     public function getAbuseReportsByStatus(Request $request, $status)
+     {
+        $message = (new SetupController)->getAbuseReportsByStatus($request, $status);
+        return $message;
+     }
+
+       /**
+     * addressAbuseReport address an abuse report
+     * change abuse report status from 0 to 1
+     * @param  mixed $request
+     *
+     * @return \Illuminate\Http\Response success or error message
+     */
+     public function addressAbuseReport(Request $request, $id)
+     {
+        $message = (new SetupController)->addressAbuseReport($request, $id);
+        return $message;
+     }
+
+     /**
+     * getAbuseReportDetails get details of an abuse report
+     * @param  mixed $request
+     * @param  mixed $id id of the abuse report being viewed
+     *
+     * @return void\Illuminate\Http\Response all abuse reports matching the selected status
+     */
+     public function getAbuseReportDetails(Request $request, $id)
+     {
+        $message = (new SetupController)->getAbuseReportDetails($request, $id);
+        return $message; 
+     }
+
+
 }    

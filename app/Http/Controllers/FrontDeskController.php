@@ -178,7 +178,7 @@ class FrontDeskController extends Controller
         'users.name', 'users.email', 'forms.name AS form_name', 'forms.form_fields', 'forms.can_view')
         ->where('submission_code', $code)
         ->where('forms.merchant_id', $id)
-        ->where('submitted_forms.status', '!=' , 4)
+        ->whereNotIn('submitted_forms.status', [4, 5])
         ->get();
       
         //clean data
