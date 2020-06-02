@@ -1,5 +1,5 @@
-import { Component } from '@angular/core';
 import { Router, NavigationStart } from '@angular/router';
+import { Component } from '@angular/core';
 import { filter } from 'rxjs/operators';
 declare var $: any;
 
