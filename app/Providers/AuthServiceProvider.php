@@ -36,7 +36,8 @@ class AuthServiceProvider extends ServiceProvider
             'company_admin' => 'Manage company and its users',
             'branch_admin' => 'Manage branch and its users',
             'frontdesk' => 'View and manage clients submitted forms',
-            'client' => 'Submit forms',
+            'forms_client' => 'Submit forms',
+            'institutional_client' => 'Manage institutional forms',
         ]);
 
     }

@@ -7,7 +7,6 @@ use Illuminate\Support\Facades\Crypt;
 use App\User;
 use App\Notifications\SignupActivate;
 use App\Notifications\ForgotPassword;
-use App\Notifications\ForgotPin;
 use Session;
 use Auth;
 use Illuminate\Pagination\Paginator;
@@ -1662,6 +1661,7 @@ class AuthController extends Controller
      * 
      * @return void\Illuminate\Http\Response success or error message
      * @param  mixed $request
+     * @param  mixed $id of the user to be deleted
      */
     public function forgotPassword(Request $request){
        
@@ -1724,142 +1724,13 @@ class AuthController extends Controller
         $id = $user->id;
         
         if($user){
+            Log::channel('mysql')->info('User  with id: ' . $id .' successfully reset their password');
             $encid = Crypt::encryptString($id);
             return redirect()->route('reset', ['id' => $encid]);
 
         }
     }
     
-
-    /**
-     * forgotPin reset user pin
-     * 
-     * @return void\Illuminate\Http\Response success or error message
-     * @param  mixed $request
-     */
-     public function forgotPin(Request $request){
-       
-        $this->validate($request, [
-            'email' => 'required|email'
-        ]);
-
-        //get user
-        $user = User::where('email',$request->email)->first();
-
-        //check if user exists
-        if ($user === null) {
-
-            $response = [
-                'message' => 'USER_NOT_FOUND'
-            ];
-
-            return response()->json($response, 400);
-       
-        }else{
-            $user->pinreset_token = str_random(60);
-            $user->save();
-            //send password resetlink
-            $user->notify(new ForgotPin($user));
-
-            $response = [
-                'message' => 'OK'
-            ];
-
-            return response()->json($response, 200);
-        }
-
-    }
-
-    /**
-     * confirmForgottenPin verify confirm email pin reset link
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \Illuminate\Http\Request  $token signed route token
-     * @return \Illuminate\Http\Response
-     */
-     public function confirmForgottenPin(Request $request, $token)
-     {
-         $user = User::where('pinreset_token', $token)->first();
-         if (!$user) {
-            //  return redirect()->route('invalid_password_link');
-             return response()->json([
-                 'message' => 'This activation token is invalid.'
-             ], 404);
-         }
-         if (! $request->hasValidSignature()) {
-            //  return redirect()->route('invalid_password_link');
-            //  abort(401, 'Link expired');
-             return response()->json([
-                'message' => 'This activation link is expired.'
-            ], 404);
-         }
- 
-         $user->pinreset_token = NULL;
-         $current_date_time = Carbon::now()->toDateTimeString();
-         $user->pin_reset_at=$current_date_time;
-         $user->save();
-         $id = $user->id;
-         
-         if($user){
-             $encid = Crypt::encryptString($id);
-            //  return redirect()->route('reset', ['id' => $encid]);
-            return response()->json([
-                'id' => $id
-            ], 200);
- 
-         }
-         
-     }
-     
- /**
-    * resetPin Reset user pin
-    * @param  mixed $request
-    * @param mixed $id of the user reseting their password
-    * @return \Illuminate\Http\Response success or error message
-    */
-    public function resetPin(Request $request, $id)
-    {
-       
-        //get and validate user details
-        $this->validate($request, [
-            'new_pin' => 'required|confirmed|min:4'
-        ]);
-
-        $pin = $request->new_pin;
-        try {
-
-            if(is_numeric($id)){
-
-            }else{
-                $id = Crypt::decryptString($id);
-            }
-            //update user pin
-            DB::table('users')->where('id', $id)
-            ->update(
-            [
-                'pin' => $pin
-                
-            ]);
-            
-            Log::channel('mysql')->info('User  with id: ' . $id . ' pin reset successful');
-            Auth::logout();
-
-            return response()->json([
-                'message' => 'Ok'
-            ], 200);
-
-        }catch(Exception $e) {
-            Log::channel('mysql')->error('User  with id: ' . $id . ' pin reset unsuccessful');
-            return response()->json([
-                'message' => 'Failed'
-            ], 400);
-
-        }
-       
-       
-    }
-
-
     /**
      * candownload indicate wheather a user can download a document or not
      * 1 for yes, 0 for no
@@ -2140,11 +2011,6 @@ class AuthController extends Controller
         if(Hash::check($current_password, $user->password)){
             if($current_password == $new_password){
                 $message = "THE_SAME_PASSWORD";
-
-                $response = [
-                    'message' => $message
-                ];
-                return response()->json($response, 201);
             }else{
 
                 //change user password
@@ -2152,20 +2018,18 @@ class AuthController extends Controller
                 $user->save();
 
                 $message = "OK";
-                $response = [
-                    'message' => $message
-                ];
-                return response()->json($response, 200);
+
             }
             
         }else{
             $message = "MISMATCH";
-            $response = [
-                'message' => $message
-            ];
-            return response()->json($response, 202);
         }
        
+        $response = [
+            'message' => $message
+        ];
+       return $response; 
+
     }  
 
     

@@ -69,42 +69,6 @@ class HomeController extends Controller
         return $message;
     }
 
-    /**
-     * forgotPin reset user pin
-     * 
-     * @return void\Illuminate\Http\Response success or error message
-     * @param  mixed $request
-     */
-     public function forgotPin(Request $request){
-        $message = (new AuthController)->forgotPin($request);
-        return $message;
-     }
-       
-     /**
-     * confirmForgottenPin verify confirm email pin reset link
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \Illuminate\Http\Request  $token signed route token
-     * @return \Illuminate\Http\Response
-     */
-     public function confirmForgottenPin(Request $request, $token)
-     {
-        $message = (new AuthController)->confirmForgottenPin($request, $token);
-        return $message; 
-     }
-
-     /**
-    * resetPin Reset user pin
-    * @param  mixed $request
-    * @param mixed $id of the user reseting their password
-    * @return \Illuminate\Http\Response success or error message
-    */
-    public function resetPin(Request $request, $id)
-    {
-        $message = (new AuthController)->resetPin($request, $id);
-        return $message;
-    }
-
      /**
       * Business logics
      * deleteUser delete a user from the database
@@ -514,30 +478,6 @@ class HomeController extends Controller
     }
 
     /**
-     * suggestMerchant create a suggested merchant by a client
-     *
-     * @param  mixed $request
-     *
-     * @return \Illuminate\Http\Response success or error message
-     */
-     public function suggestMerchant(Request $request){
-        $message = (new SetupController)->suggestMerchant($request);
-        return $message;
-     }
-
-     /**
-     * getAllBusinessSectors get all business sectors in the db
-     *
-     * @param  mixed $request
-     *
-     * @return void\Illuminate\Http\Response all template categories data
-     */
-     public function getAllSuggestedMerchants(Request $request){
-        $message = (new SetupController)->getAllSuggestedMerchants($request);
-        return $message;
-    }
-
-    /**
      * getCompanyColors get company colors
      *
      * @param  mixed $request
@@ -549,7 +489,7 @@ class HomeController extends Controller
         $message = (new SetupController)->getCompanyColors($request, $id);
         return $message;
      }
-
+     
 
     /**
     * getMerchantbyName search for a merchant based on a search term
@@ -876,21 +816,6 @@ class HomeController extends Controller
         return $message;
 
     }
-
-    /**
-     * getActiveCompanyBranches get all registered active company branches for forms submission
-     *
-     * @param  mixed $request
-     * @param  mixed $id merchant id
-     *
-     * @return void\Illuminate\Http\Response all active company branches data
-     */
-     protected function getActiveCompanyBranches(Request $request, $id)
-     {
-        $message = (new SetupController)->getActiveCompanyBranches($request, $id);
-        return $message;
-     }
-
 
     /**
      * Business logics to get the number of registered barnches under a merchant 
@@ -1437,23 +1362,6 @@ class HomeController extends Controller
     }
 
     /**
-     * checkFormSubmission check if form to be submitted has already been submitted but not yet processed
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param $id of the client submitting the form
-     * @param $code form code that is being filled 
-     * @return void\Illuminate\Http\Response 0 if form is not already submitted or 1 if submission exist
-     * status; status of the form that was already submitted (in-process or submitted)
-     * submitted; 1 if similar submission exists and 0 if no similar submission exists
-     * code; submission code (submission code of the old submission or null if no old submission exists) 
-     */
-     protected function checkFormSubmission(Request $request, $id, $code)
-     {
-        $message = (new ClientController)->checkFormSubmission($request, $id, $code);
-        return $message;
-     }
-
-    /**
      * Business logics 
      * hasPin check if user has pin
      *
@@ -1704,33 +1612,17 @@ class HomeController extends Controller
     }
 
 
-    protected function findSubmittedFormByName(Request $request, $id, $form_name, $status)
+    protected function findSubmittedFormByName(Request $request, $id, $form_name)
     {
-        $message = (new ClientController)->findSubmittedFormByName($request, $id, $form_name, $status);
+        $message = (new ClientController)->findSubmittedFormByName($request, $id, $form_name);
         return $message;
     }
 
-    protected function findSubmittedFormByCode(Request $request, $id, $form_code, $status)
+    protected function findSubmittedFormByCode(Request $request, $id, $form_code)
     {
-        $message = (new ClientController)->findSubmittedFormByCode($request, $id, $form_code, $status);
+        $message = (new ClientController)->findSubmittedFormByCode($request, $id, $form_code);
         return $message;
     }
-
-    /**
-     * findSubmittedFormByDate search for a submitted form by a date submitted range
-     * @param  \Illuminate\Http\Request  $request
-     * @param $id of the client  who submitted the forms
-     * @param $sdate start date
-     * @param $edate end date
-     * @param $status status of submitted forms to be searched, ie. on the processed forms window, search should be on only processed forms and not all submitted forms
-     * @return void\Illuminate\Http\Response all details of the submitted form
-     * 
-     */
-     public function findSubmittedFormByDate(Request $request, $id, $status, $sdate, $edate)
-     {
-        $message = (new ClientController)->findSubmittedFormByDate($request, $id, $status, $sdate, $edate);
-        return $message;
-     }
 
     protected function deleteSubmittedForm(Request $request, $client_id, $submission_code)
     {
@@ -2376,23 +2268,6 @@ class HomeController extends Controller
      }
 
      /**
-     * findClientFormsByMerchantName get all forms by status: processed, in_process, submitted for a client based on a merchant 
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param $id of the client
-     * @param $status search status
-     * @param $term search term
-       * @param $status status of submitted forms to be searched, ie. on the processed forms window, search should be on only processed forms and not all submitted forms
-     * @return void\Illuminate\Http\Response all details of form
-     * 
-     */
-     public function findClientFormsByMerchantName(Request $request, $term, $status, $id)
-     {
-        $message = (new ClientController)->findClientFormsByMerchantName($request, $term, $status, $id);
-        return $message;
-     }
-
-     /**
      * createBusinessSector create a new business sector
      *
      * @param  mixed $request
@@ -2441,85 +2316,5 @@ class HomeController extends Controller
         $message = (new FormsController)->getRecentForms($request);
         return $message;
     }
-
-    /**
-     * generateSubCode generate unique submission code for a submitted form
-     * @return void\Illuminate\Http\Response submission code
-     * 
-     */
-     public function generateSubCode()
-     {
-        $message = (new ClientController)->generateSubCode();
-        return $message;
-     }
-
      
-     /**
-     * reportAbuse merchant report client abuse
-     *
-     * @param  mixed $request
-     *
-     * @return \Illuminate\Http\Response success or error message
-     */
-     public function reportAbuse(Request $request)
-     {
-        $message = (new SetupController)->reportAbuse($request);
-        return $message;
-     }
-
-     /**
-     * getAllAbuseReports get all abuse reports in the db
-     *
-     * @param  mixed $request
-     *
-     * @return void\Illuminate\Http\Response all abuse reports 
-     */
-     public function getAllAbuseReports(Request $request)
-     {
-        $message = (new SetupController)->getAllAbuseReports($request);
-        return $message;
-     }
-
-
-     /**
-     * getAbuseReportsByStatus get all abuse reports in the db by status
-     * 0 id report is not addressed and 1 if report is addressed
-     *
-     * @param  mixed $request
-     *
-     * @return void\Illuminate\Http\Response all abuse reports matching the selected status
-     */
-     public function getAbuseReportsByStatus(Request $request, $status)
-     {
-        $message = (new SetupController)->getAbuseReportsByStatus($request, $status);
-        return $message;
-     }
-
-       /**
-     * addressAbuseReport address an abuse report
-     * change abuse report status from 0 to 1
-     * @param  mixed $request
-     *
-     * @return \Illuminate\Http\Response success or error message
-     */
-     public function addressAbuseReport(Request $request, $id)
-     {
-        $message = (new SetupController)->addressAbuseReport($request, $id);
-        return $message;
-     }
-
-     /**
-     * getAbuseReportDetails get details of an abuse report
-     * @param  mixed $request
-     * @param  mixed $id id of the abuse report being viewed
-     *
-     * @return void\Illuminate\Http\Response all abuse reports matching the selected status
-     */
-     public function getAbuseReportDetails(Request $request, $id)
-     {
-        $message = (new SetupController)->getAbuseReportDetails($request, $id);
-        return $message; 
-     }
-
-
 }    
