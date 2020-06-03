@@ -9,6 +9,7 @@ import { DownloaderService } from 'src/app/services/downloader/downloader.servic
 import { LocalStorageService } from 'src/app/services/storage/local-storage.service';
 import { FormBuilderService } from 'src/app/services/form-builder/form-builder.service';
 import { Component, OnInit, ViewChild, TemplateRef, AfterViewInit } from '@angular/core';
+import { Users } from 'src/app/models/users.model';
 
 @Component({
   selector: 'app-client-profile-page',
@@ -39,6 +40,7 @@ export class ClientProfilePageComponent implements OnInit, AfterViewInit {
   loadingAttachments: boolean;
   allFormSections: Array<any>;
   duplicateFields: Array<any>;
+  showOnlyPrimaryInfo: boolean;
   setPinDialogRef: NgbModalRef;
   attachmentFiles: Array<File>;
   attachmentKeys: Array<string>;
@@ -72,6 +74,7 @@ export class ClientProfilePageComponent implements OnInit, AfterViewInit {
   }
 
   ngOnInit() {
+    this.initPinForm();
   }
 
   ngAfterViewInit() {
@@ -173,14 +176,22 @@ export class ClientProfilePageComponent implements OnInit, AfterViewInit {
       phone: this.userData['phone-number'],
       country: this.userData['country'],
     };
+  }
 
-    // alert(this.userData['firstname']);
+  setNewPrimaryInformation(user: Users) {
+    this.showOnlyPrimaryInfo = true;
+    this.primaryUserData = {
+      firstname: user.firstname,
+      lastname: user.lastname,
+      email: user.email,
+      phone: user.phone,
+      country: user.country,
+    };
   }
 
   appendOnChangeEventToFileInput() {
     console.log('called appendOnChangeEventToFileInput');
     const all_inputs = document.querySelectorAll('input');
-    console.log('appendOnChangeLength: ' + all_inputs.length);
     _.forEach(all_inputs, (input) => {
       if (input.type == 'file') {
         input.onchange = (e: any) => {
@@ -196,13 +207,13 @@ export class ClientProfilePageComponent implements OnInit, AfterViewInit {
 
   checkIfUserHasFormPin() {
     console.log('check iof has pin');
-    const hasPin = localStorage.getItem('has_pin');
+    const hasPin = sessionStorage.getItem('has_pin');
     if (_.isNull(hasPin) || _.isUndefined(hasPin)) {
       this.clientService.checkFormSubmitPin(this.user.id.toString()).then(
         ok => {
           console.log('res: ' + JSON.stringify(ok));
           if (ok) {
-            // localStorage.setItem('has_pin', '1');
+            // sessionStorage.setItem('has_pin', '1');
             this.handlePinCode();
           }
           else {
@@ -222,7 +233,7 @@ export class ClientProfilePageComponent implements OnInit, AfterViewInit {
 
   handlePinCode() {
     console.log('handle pin');
-    const hasPin = localStorage.getItem('has_pin');
+    const hasPin = sessionStorage.getItem('has_pin');
     if (_.isNull(hasPin) || _.isUndefined(hasPin)) {
       this.setPinDialogRef = this.modalService.open(this.setPinDialog, { centered: true, keyboard: false, backdrop: 'static' });
     }
@@ -244,7 +255,7 @@ export class ClientProfilePageComponent implements OnInit, AfterViewInit {
             this.submitted = false;
             this.setPinDialogRef.close();
             this.showPinCreatedSuccess();
-            localStorage.setItem('has_pin', '1');
+            sessionStorage.setItem('has_pin', '1');
           }
           else {
             this.submitted = false;
@@ -327,6 +338,13 @@ export class ClientProfilePageComponent implements OnInit, AfterViewInit {
     );
   }
 
+  getNewClientData() {
+    this.loading = true;
+    const user = this.localStorage.getUser();
+    this.setNewPrimaryInformation(user);
+    this.loading = false;
+  }
+
   getFormAttachments(user_id: string) {
     this.loadingAttachments = true;
     this.clientService.getProfileFormAttachment(user_id).then(
@@ -403,15 +421,13 @@ export class ClientProfilePageComponent implements OnInit, AfterViewInit {
           _.forEach(res, (section) => {
             this.allFormSections.push(section);
           });
-          // this.renderSection(this.allFormSections[0].id);
           this.getAllClientData();
-          // this.getAllClientDataNew();
         }
         else {
-          // console.log('no filled data');
-          // this.getFormAttachments(this.user.id);
-          // this.noFilledData = true;
-          // this.getAllClientDataNew();
+          console.log('get new client data');
+          this.hasData = true;
+          this.getNewClientData();
+          console.log('loading: ' + this.loading);
         }
       },
       err => {

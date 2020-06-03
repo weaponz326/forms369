@@ -186,6 +186,7 @@ export class EditCompanyPageComponent implements OnInit {
       user_id,
       super_admin_id,
       this.f.allowPrint.value,
+      0,
       created_at,
       this.f.status.value,
       logo

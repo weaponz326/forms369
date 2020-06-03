@@ -59,6 +59,7 @@ export class CreateBranchPageComponent implements OnInit {
 
   buildForm() {
     this.form = this.formBuilder.group({
+      address: [''],
       merchant: ['', Validators.required],
       branchName: ['', Validators.required],
       branchAdmin: ['', Validators.required],
@@ -91,7 +92,8 @@ export class CreateBranchPageComponent implements OnInit {
       merchant_id,
       this.f.branchName.value,
       branch_super_id,
-      brandh_admin_id
+      brandh_admin_id,
+      this.f.address.value
     );
     return branch;
   }

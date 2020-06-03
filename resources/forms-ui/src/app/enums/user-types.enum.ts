@@ -5,5 +5,6 @@ export enum UserTypes {
     CompanyAdmin = 23,
     BranchAdmin = 24,
     FrontDesk = 25,
-    Client = 26
+    Client = 26,
+    Institutional = 27
 }

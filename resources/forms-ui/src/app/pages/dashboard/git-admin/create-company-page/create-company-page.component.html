@@ -111,7 +111,7 @@
                             (change)="onCountrySelect($event)">
                             <option value="" disabled>Select Country</option>
                             <option *ngFor="let country of countriesList | orderBy: 'country.name.common'"
-                              [value]="country.name.common">
+                              [value]="country.cca2">
                               {{ country.name.common }}
                             </option>
                           </select>
@@ -134,7 +134,7 @@
                           </div>
                         </div>
                       </div>
-                      <div class="col-md-6 text-center">
+                      <div class="col-md-6">
                         <div class="form-group">
                           <select class="form-control form-control-lg" formControlName="allowPrint"
                             (change)="onPrintSelect($event)">
@@ -147,7 +147,7 @@
                           </div>
                         </div>
                       </div>
-                      <div class="col-md-6 text-center">
+                      <div class="col-md-6">
                         <div class="form-group">
                           <select class="form-control form-control-lg" formControlName="sector"
                             (change)="onSectorSelect($event)">
@@ -159,11 +159,34 @@
                           </div>
                         </div>
                       </div>
+                      <div class="col-md-6">
+                        <div class="form-group">
+                          <input type="text" class="form-control form-control-lg" formControlName="colorCode"
+                            placeholder="Enter Color Code">
+                          <div *ngIf="submitted && f.colorCode.errors">
+                            <p class="input-error" *ngIf="f.colorCode.errors.required">Color code is required</p>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="col-md-6">
+                        <div class="form-group">
+                          <input type="text" class="form-control form-control-lg" formControlName="address"
+                            placeholder="Enter Address">
+                        </div>
+                      </div>
+                      <div class="col-md-12">
+                        <div class="form-group">
+                          <input type="text" class="form-control form-control-lg" formControlName="nickname"
+                            placeholder="Enter Company Nickname">
+                          <div *ngIf="submitted && f.nickname.errors">
+                            <p class="input-error" *ngIf="f.nickname.errors.required">Company nickname is required</p>
+                          </div>
+                        </div>
+                      </div>
                       <div class="col-md-12 text-center">
                         <div class="form-group">
                           <button *ngIf="loading" class="btn btn-primary btn-lg mr-2" type="button" disabled>
-                            <span class="spinner-border spinner-border-sm" role="status"
-                              aria-hidden="true"></span>&nbsp; &nbsp;
+                            <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>&nbsp; &nbsp;
                             Please wait...
                           </button>
                           <button *ngIf="!loading" type="submit" class="btn btn-primary btn-lg mr-2">SUBMIT</button>

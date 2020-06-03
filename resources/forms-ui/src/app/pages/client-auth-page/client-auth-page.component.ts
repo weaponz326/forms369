@@ -102,7 +102,16 @@ export class ClientAuthPageComponent implements OnInit {
             sessionStorage.removeItem('client_id');
             sessionStorage.removeItem('client_phone');
 
-            this.handleDashboardNavigation();
+            this.clientService.checkFormSubmitPin(user.id.toString()).then(
+              ok => {
+                ok ? sessionStorage.setItem('has_pin', '1') : sessionStorage.setItem('has_pin', '0');
+                this.handleDashboardNavigation();
+              },
+              err => {
+                sessionStorage.setItem('has_pin', '0');
+                this.handleDashboardNavigation();
+              }
+            );
           }
           else {
             this.handleLoginErrorResponses(response);
