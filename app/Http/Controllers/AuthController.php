@@ -397,7 +397,7 @@ class AuthController extends Controller
         try {
 
             //save new user in the database and get id
-            DB::table('clients')->insert(
+            DB::table('client')->insert(
             [
                 'id' => $id
             ]

@@ -8,7 +8,10 @@
 @else
 @php 
     $user = request()->user();
-    $open = 'Hello '. $user['firstname'] . '!';
+    if($user)
+        $open = 'Hello '. $user['firstname'] . '!'; 
+    $open = 'Hello!';//. $user['firstname'] . '!';
+       
 @endphp
 @endif
 @endif

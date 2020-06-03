@@ -163,6 +163,7 @@ class ClientController extends Controller
          $encrypteduserdata = Crypt::encryptString($encodeduserdata);
 
          $submitted_at = now();
+         $reverse_at = (now()->addMinutes(5));
          
          //save new client in the database
          try {
@@ -176,7 +177,8 @@ class ClientController extends Controller
                     'status' => $status,
                     'client_details' => $encryptedformdata,
                     'branch_submitted_to' => $branch_id,
-                    'submitted_at' => $submitted_at
+                    'submitted_at' => $submitted_at,
+                    'reverse_at' => $reverse_at
                  ]
              );
 
@@ -293,7 +295,7 @@ class ClientController extends Controller
         ->join('forms', 'forms.form_code', '=', 'form_id')
         ->join('merchants', 'merchants.id', '=', 'forms.merchant_id')
         // ->join('attachments','attachments.submission_code', '=', 'submitted_forms.submission_code')
-        ->select('submitted_forms.*','merchants.merchant_name AS merchant_name', 'merchants.nickname',
+        ->select('submitted_forms.*','merchants.merchant_name AS merchant_name', 'merchants.nickname','merchants.id AS merchant_id',
         'users.name', 'users.email', 'forms.name AS form_name', 'forms.form_fields', 'logo')
         ->where('submitted_forms.client_id', $id)
         ->where('submitted_forms.status', '!=', 4)
@@ -310,6 +312,7 @@ class ClientController extends Controller
             $submittedformdata['form_name'] = Crypt::decryptString($items->form_name);
             $submittedformdata['form_fields'] = json_decode(Crypt::decryptString($items->form_fields));
             $submittedformdata['merchant_name'] = Crypt::decryptString($items->merchant_name);
+            $submittedformdata['merchant_id'] = $items->merchant_id;
             $submittedformdata['nickname'] = $items->nickname;
             $submittedformdata['client_name'] = $items->name;
             $submittedformdata['email'] = $items->email;
@@ -347,7 +350,7 @@ class ClientController extends Controller
         ->join('forms', 'forms.form_code', '=', 'form_id')
         ->join('merchants', 'merchants.id', '=', 'forms.merchant_id')
         // ->join('attachments','attachments.submission_code', '=', 'submitted_forms.submission_code')
-        ->select('submitted_forms.*','merchants.merchant_name AS merchant_name', 'merchants.nickname',
+        ->select('submitted_forms.*','merchants.merchant_name AS merchant_name', 'merchants.nickname','merchants.id AS merchant_id',
         'users.name', 'users.email', 'forms.name AS form_name', 'forms.form_fields', 'logo')
         ->where('submitted_forms.client_id', $id)
         ->where('submitted_forms.status', '!=', 4)
@@ -364,6 +367,7 @@ class ClientController extends Controller
             $submittedformdata['form_name'] = Crypt::decryptString($items->form_name);
             $submittedformdata['form_fields'] = json_decode(Crypt::decryptString($items->form_fields));
             $submittedformdata['merchant_name'] = Crypt::decryptString($items->merchant_name);
+            $submittedformdata['merchant_id'] = $items->merchant_id;
             $submittedformdata['nickname'] = $items->nickname;
             $submittedformdata['client_name'] = $items->name;
             $submittedformdata['email'] = $items->email;
