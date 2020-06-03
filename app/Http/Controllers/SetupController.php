@@ -177,7 +177,8 @@ class SetupController extends Controller
             'small_logo' => 'nullable|mimes:jpeg,jpg,png,gif,psd,tiff',
             'can_print' => 'required',
             'sector_id' => 'required',
-            'nickname' => 'required'
+            'nickname' => 'required',
+            'colors' => 'required'
         ]);
 
         $logo = NULL;
@@ -386,7 +387,8 @@ class SetupController extends Controller
             'can_print' => 'required',
             'status' => 'required',
             'sector_id' => 'required',
-            'nickname' => 'required'
+            'nickname' => 'required',
+            'colors' => 'required'
         ]); 
 
         $name = Crypt::encryptString($request->merchant_name);
