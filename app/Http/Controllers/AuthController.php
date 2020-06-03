@@ -396,6 +396,13 @@ class AuthController extends Controller
         //save new client in the database
         try {
 
+            //save new user in the database and get id
+            DB::table('clients')->insert(
+            [
+                'id' => $id
+            ]
+        );
+
             //get user and send verification email
             $user = User::find($id);
 
