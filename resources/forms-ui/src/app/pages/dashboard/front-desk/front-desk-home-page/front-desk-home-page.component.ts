@@ -79,7 +79,7 @@ export class FrontDesktopHomePageComponent implements OnInit {
 
   setupForm() {
     this.form = this.formBuilder.group({
-      code: ['', [Validators.minLength(5), Validators.maxLength(5), Validators.required]]
+      code: ['', [Validators.minLength(13), Validators.maxLength(13), Validators.required]]
     });
   }
 

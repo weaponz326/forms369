@@ -120,7 +120,7 @@
                   <p class="text-muted small-text">{{ form.submitted_at | date }}</p>
                 </div>
                 <div class="card-icon" *ngIf="form.form_status == 3" (click)="openReview($event, form.submission_code)">
-                  <i class="mdi mdi-message-alert-outline text-danger"></i>
+                  <i class="mdi mdi-message-alert-outline text-danger" placement="top" ngbTooltip="Read Review"></i>
                 </div>
               </div>
             </div>

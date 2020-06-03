@@ -104,7 +104,6 @@ import { ExecViewBranchAdminsPageComponent } from './pages/dashboard/executive/e
 import { ExecViewCompanyAdminsPageComponent } from './pages/dashboard/executive/exec-view-company-admins-page/exec-view-company-admins-page.component';
 import { ExecViewSuperExectivesPageComponent } from './pages/dashboard/executive/exec-view-super-exectives-page/exec-view-super-exectives-page.component';
 import { ExecViewBranchExectivesPageComponent } from './pages/dashboard/executive/exec-view-branch-exectives-page/exec-view-branch-exectives-page.component';
-import { ClientFormsDraftsPageComponent } from './pages/dashboard/client/client-forms-drafts-page/client-forms-drafts-page.component';
 
 const routes: Routes = [
   {
@@ -326,11 +325,6 @@ const routes: Routes = [
         path: 'forms_filled',
         canActivate: [AuthGuard],
         component: ClientFormsHistoryPageComponent
-      },
-      {
-        path: 'forms_drafts',
-        canActivate: [AuthGuard],
-        component: ClientFormsDraftsPageComponent
       },
       {
         path: 'form_entry',
