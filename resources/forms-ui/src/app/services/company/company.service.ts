@@ -35,13 +35,16 @@ export class CompanyService {
 
       const form = new FormData();
       form.set('logo', logo);
+      form.set('colors', merchant.colors);
       form.set('country', merchant.country);
-      form.set('small_logo', merchant.small_logo);
+      form.set('nickname', merchant.nickname);
       form.set('can_print', merchant.can_print);
+      form.set('small_logo', merchant.small_logo);
       form.set('merchant_name', merchant.merchant_name);
       form.set('super_id', merchant.super_id.toString());
       form.set('admin_id', merchant.admin_id.toString());
       form.set('sector_id', merchant.sector_id.toString());
+      form.set('physical_address', merchant.physical_address);
 
       this.http.post(url, form, { headers: this.fileHeaders }).subscribe(
         res => {

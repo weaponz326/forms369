@@ -52,7 +52,7 @@
           <div class="col-md-3 grid-margin stretch-card">
             <div class="card hover-cursor hover-primary">
               <div class="card-body">
-                <p class="card-title">Total No. Submitted</p>
+                <p class="card-title">Total No. Submitted Forms</p>
                 <p class="text-muted">Total number of forms submitted</p>
                 <div class="card-text">
                   <h1 style="font-size: 4em;">{{ totalNoSubmitted }}</h1>
@@ -63,7 +63,7 @@
           <div class="col-md-3 grid-margin stretch-card">
             <div class="card hover-cursor hover-primary">
               <div class="card-body">
-                <p class="card-title">Total No. Processed</p>
+                <p class="card-title">Total No. Processed Forms</p>
                 <p class="text-muted">Total number of forms processed</p>
                 <div class="card-text">
                   <h1 style="font-size: 4em;">{{ totalNoProcessed }}</h1>
@@ -74,7 +74,7 @@
           <div class="col-md-3 grid-margin stretch-card">
             <div class="card hover-cursor hover-primary">
               <div class="card-body">
-                <p class="card-title">Total No. In-Process</p>
+                <p class="card-title">Total No. In-Process Forms</p>
                 <p class="text-muted">Total number of forms in-process</p>
                 <div class="card-text">
                   <h1 style="font-size: 4em;">{{ totalNoProcessing }}</h1>
@@ -85,7 +85,7 @@
           <div class="col-md-3 grid-margin stretch-card">
             <div class="card hover-cursor hover-primary">
               <div class="card-body">
-                <p class="card-title">Total No. Rejected</p>
+                <p class="card-title">Total No. Rejected Forms</p>
                 <p class="text-muted">Total number of forms rejected</p>
                 <div class="card-text">
                   <h1 style="font-size: 4em;">{{ totalNoRejected }}</h1>
@@ -104,3 +104,30 @@
     <!-- main-panel ends -->
   </div>
 </div>
+
+
+<ng-template #setPin let-modal="pinForm">
+  <form [formGroup]="pinForm" (ngSubmit)="createPin()">
+    <div class="modal-header">
+      <h5 class="modal-title text-uppercase font-weight-bold">Setup A New PIN</h5>
+    </div>
+    <div class="modal-body">
+      <div class="form-group pin-form-group">
+        <input type="tel" class="form-control form-control-lg pin-control" formControlName="pin" placeholder="----"
+          [ngClass]="{'input-control-error': submitted && f.pin.errors}" maxlength="4"
+          (keyup)="resolveStrCharacters($event)">
+        <div *ngIf="submitted && f.pin.errors">
+          <p class="input-error" *ngIf="f.pin.errors.required">PIN is required</p>
+          <p class="input-error" *ngIf="f.pin.errors.minlength">PIN must be 4 (four) digits.</p>
+        </div>
+      </div>
+    </div>
+    <div class="modal-footer text-center" style="display: block;">
+      <button *ngIf="!isLoading" type="submit" class="btn btn-primary">Create PIN</button>
+      <button *ngIf="isLoading" type="button" class="btn btn-block btn-primary font-weight-medium" disabled>
+        <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span> &nbsp; &nbsp;
+        Please wait...
+      </button>
+    </div>
+  </form>
+</ng-template>

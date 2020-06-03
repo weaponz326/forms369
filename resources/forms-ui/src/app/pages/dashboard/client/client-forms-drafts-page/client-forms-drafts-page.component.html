@@ -9,7 +9,7 @@
             <div class="d-flex justify-content-between flex-wrap">
               <div class="d-flex align-items-end flex-wrap">
                 <div class="mr-md-3 mr-xl-5">
-                  <h2 class="page-title">My History</h2>
+                  <h2 class="page-title">My Drafts</h2>
                 </div>
                 <div class="d-flex">
                 </div>
@@ -33,8 +33,11 @@
                     <i class="mdi mdi-rocket" style="font-size: 8em;"></i>
                   </div>
                   <div class="card-text">
-                    <h3>No Available Form History</h3>
-                    <p class="text-muted">You haven't filled any forms yet! All the forms you filled will be displayed here to make it easy to re-fill again.</p>
+                    <h3>No Drafts</h3>
+                    <p class="text-muted">
+                        You haven't saved any forms in your drafts yet! All forms you saved as drafts
+                        wiil be displayed here.
+                    </p>
                   </div>
                   <div class="card-text mt-5">
                     <button class="btn btn-primary" type="button" (click)="pickForm()">Pick A Form</button>
@@ -67,16 +70,20 @@
             </div>
           </div>
         </div>
-        
+
         <div class="row">
           <div class="col-12 text-center mb-3" style="overflow-y: hidden;">
             <div class="btn-group" role="group" aria-label="Filter By">
-              <button type="button" class="btn btn-outline-primary" [ngClass]="{'active': filterState == 'all'}" (click)="showAll()">All</button>
-              <button type="button" class="btn btn-outline-primary" [ngClass]="{'active': filterState == 'submitted'}" (click)="showSubmitted()">Submitted</button>
-              <button type="button" class="btn btn-outline-primary" [ngClass]="{'active': filterState == 'processed'}" (click)="showProcessed()">Processed</button>
-              <button type="button" class="btn btn-outline-primary" [ngClass]="{'active': filterState == 'processing'}" (click)="showProcessing()">Processing</button>
-              <button type="button" class="btn btn-outline-primary" [ngClass]="{'active': filterState == 'drafts'}" (click)="showDrafts()">Drafts</button>
-              <button type="button" class="btn btn-outline-primary" [ngClass]="{'active': filterState == 'rejected'}" (click)="showRejected()">Rejected</button>
+              <button type="button" class="btn btn-outline-primary" [ngClass]="{'active': filterState == 'all'}"
+                (click)="showAll()">All</button>
+              <button type="button" class="btn btn-outline-primary" [ngClass]="{'active': filterState == 'submitted'}"
+                (click)="showSubmitted()">Submitted</button>
+              <button type="button" class="btn btn-outline-primary" [ngClass]="{'active': filterState == 'processed'}"
+                (click)="showProcessed()">Processed</button>
+              <button type="button" class="btn btn-outline-primary" [ngClass]="{'active': filterState == 'processing'}"
+                (click)="showProcessing()">Processing</button>
+              <button type="button" class="btn btn-outline-primary" [ngClass]="{'active': filterState == 'rejected'}"
+                (click)="showRejected()">Rejected</button>
             </div>
           </div>
 
@@ -84,8 +91,8 @@
             <div class="search-bar">
               <form>
                 <input type="text" class="search-form form-control" name="query" [(ngModel)]="query"
-                  placeholder="Search by form code or form name" aria-label="search"
-                  aria-describedby="search" (keydown)="search($event)">
+                  placeholder="Search by form code or form name" aria-label="search" aria-describedby="search"
+                  (keydown)="search($event)">
               </form>
             </div>
           </div>
@@ -173,7 +180,8 @@
                 Maybe, our servers may be down.
               </p>
               <hr>
-              <p class="mb-0">We are really sorry for this inconvenience. Please click on the load more button again.</p>
+              <p class="mb-0">We are really sorry for this inconvenience. Please click on the load more button again.
+              </p>
             </div>
           </div>
         </div>

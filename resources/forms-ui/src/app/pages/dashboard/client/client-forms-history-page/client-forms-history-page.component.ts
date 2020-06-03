@@ -133,7 +133,37 @@ export class ClientFormsHistoryPageComponent implements OnInit {
           this.allHistoryCollection = this.historyCollection;
           const moreUrl = this.clientService.nextPaginationUrl;
           _.isNull(moreUrl) ? this.hasMore = false : this.hasMore = true;
-          // this.hasMore ? this.handleLoadMoreVisibility(this.historyCollection) : null;
+        }
+        else {
+          this.hasData = true;
+          this.loading = false;
+        }
+      },
+      err => {
+        this.hasError = true;
+        this.loading = false;
+      }
+    );
+  }
+
+  showDrafts() {
+    this.filterState = 'drafts';
+    this.loading = true;
+    this.historyCollection = [];
+    this.allHistoryCollection = [];
+    this.clientService.getFormByStatus(_.toString(this.user.id), 4).then(
+      forms => {
+        this.hasMore = this.checkIfHasMore();
+        if (forms.length > 0) {
+          this.hasData = true;
+          this.loading = false;
+          _.forEach(forms, (form) => {
+            form.submitted_at = this.dateService.safeDateFormat(form.submitted_at);
+            this.historyCollection.push(form);
+          });
+          this.allHistoryCollection = this.historyCollection;
+          const moreUrl = this.clientService.nextPaginationUrl;
+          _.isNull(moreUrl) ? this.hasMore = false : this.hasMore = true;
         }
         else {
           this.hasData = true;

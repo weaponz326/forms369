@@ -1,26 +1,38 @@
 import { Router } from '@angular/router';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild, TemplateRef, AfterViewInit } from '@angular/core';
 import { LocalStorageService } from 'src/app/services/storage/local-storage.service';
 import { Users } from 'src/app/models/users.model';
 import { AnalyticsService } from 'src/app/services/analytics/analytics.service';
+import { ClientService } from 'src/app/services/client/client.service';
+import { NgbModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-client-home-page',
   templateUrl: './client-home-page.component.html',
   styleUrls: ['./client-home-page.component.css']
 })
-export class ClientHomePageComponent implements OnInit {
+export class ClientHomePageComponent implements OnInit, AfterViewInit {
 
   user: Users;
   firstname: string;
+  isLoading: boolean;
+  submitted: boolean;
+  pinForm: FormGroup;
   totalNoRejected: string;
   totalNoSubmitted: string;
   totalNoProcessed: string;
   totalNoProcessing: string;
+  setPinDialogRef: NgbModalRef;
+  @ViewChild('setPin', { static: false }) setPinDialog: TemplateRef<any>;
 
   constructor(
     private router: Router,
+    private fb: FormBuilder,
+    private modalService: NgbModal,
     private analytics: AnalyticsService,
+    private clientService: ClientService,
     private localStorage: LocalStorageService
   ) {
     this.setDefaultCount();
@@ -29,7 +41,22 @@ export class ClientHomePageComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.initForm();
     this.getClientAnalytics();
+  }
+
+  ngAfterViewInit() {
+    this.checkIfUserHasFormPin();
+  }
+
+  public get f() {
+    return this.pinForm.controls;
+  }
+
+  initForm() {
+    this.pinForm = this.fb.group({
+      pin: ['', [Validators.minLength(4), Validators.required]]
+    });
   }
 
   setDefaultCount() {
@@ -85,6 +112,72 @@ export class ClientHomePageComponent implements OnInit {
         this.totalNoSubmitted = count;
       }
     );
+  }
+
+  showPinCreatedSuccess() {
+    Swal.fire({
+      title: 'Pin Created',
+      text: 'Your PIN has been successfully created',
+      icon: 'success',
+      confirmButtonText: 'Ok, Got It',
+    });
+  }
+
+  showPinCreationFailed() {
+    Swal.fire({
+      title: 'Oops!',
+      text: 'Sorry! Failed to create your pin. Something went wrong. Please check your internet connection and try again or our servers may be down.',
+      icon: 'error',
+      confirmButtonColor: 'Hmm, Ok'
+    });
+  }
+
+  resolveStrCharacters(e: KeyboardEvent) {
+    const regExp = new RegExp(/^\d*\.?\d*$/);
+    if (!regExp.test(this.f.pin.value)) {
+      const value = this.f.pin.value.substring(0, this.f.pin.value.length - 1);
+      this.f.pin.setValue(value);
+    }
+  }
+
+  checkIfUserHasFormPin() {
+    const hasPin = sessionStorage.getItem('has_pin');
+    console.log('has_pin: ' + hasPin);
+    if (hasPin == '0' || hasPin == null) {
+      this.setPinDialogRef = this.modalService.open(this.setPinDialog, { centered: true, keyboard: false, backdrop: 'static' });
+    }
+  }
+
+  createPin() {
+    this.submitted = true;
+    const pin = this.f.pin.value;
+    if (this.pinForm.valid) {
+      this.isLoading = true;
+      this.clientService.setFormSubmitPin(this.user.id.toString(), pin).then(
+        ok => {
+          if (ok) {
+            this.f.pin.setValue('');
+            this.submitted = false;
+            this.isLoading = false;
+            this.setPinDialogRef.close();
+            this.showPinCreatedSuccess();
+            sessionStorage.setItem('has_pin', '1');
+          }
+          else {
+            this.submitted = false;
+            this.isLoading = false;
+            this.setPinDialogRef.close();
+            this.showPinCreationFailed();
+          }
+        },
+        err => {
+          this.submitted = false;
+          this.isLoading = false;
+          this.setPinDialogRef.close();
+          this.showPinCreationFailed();
+        }
+      );
+    }
   }
 
 }

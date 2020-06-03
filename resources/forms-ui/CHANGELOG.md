@@ -82,3 +82,6 @@
     19. Now forms are loading based on user's country
 
 
+# version 0.0.7
+    1. Added physical address, colors and compoany nickname to create company in GIT Admin.
+    2. Added physical address to create branch in GIT Admin.

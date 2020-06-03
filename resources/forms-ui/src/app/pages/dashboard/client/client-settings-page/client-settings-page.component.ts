@@ -48,7 +48,7 @@ export class ClientSettingsPageComponent implements OnInit {
     this.initPasswordForm();
   }
 
-   public get f() {
+  public get f() {
     return this.form.controls;
   }
 

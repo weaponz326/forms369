@@ -100,12 +100,15 @@ export class CreateCompanyPageComponent implements OnInit {
 
   buildForm() {
     this.form = this.formBuilder.group({
+      address: [''],
       smallLogoName: [''],
       smallLogoFile: [''],
       name: ['', Validators.required],
       logo: ['', Validators.required],
       sector: ['', Validators.required],
       country: ['', Validators.required],
+      colorCode: ['', Validators.required],
+      nickname: ['', Validators.required],
       allowPrint: ['', Validators.required],
       companyAdmin: ['', Validators.required],
       superExecutive: ['', Validators.required]
@@ -196,7 +199,10 @@ export class CreateCompanyPageComponent implements OnInit {
       created_at,
       company_admin_id,
       this.f.allowPrint.value,
-      _.toNumber(this.f.sector.value)
+      _.toNumber(this.f.sector.value),
+      this.f.colorCode.value,
+      this.f.address.value,
+      this.f.nickname.value,
     );
 
     return merchant;
