@@ -20,7 +20,7 @@
           </div>
         </div>
 
-        <div [hidden]="created" class="row">
+        <div [hidden]="created || saved" class="row">
           <div class="col-md-8 offset-md-2 grid-margin stretch-card">
             <div class="card">
               <div class="card-body">
@@ -99,6 +99,22 @@
                     <i class="mdi mdi-content-copy" style="font-size: 20px;"></i>
                     <span class="sr-only">Please wait...</span>
                   </button>
+                  <button class="btn btn-primary mr-2 hover-cursor" type="button" (click)="ok()">Ok</button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div *ngIf="saved" class="row created-section">
+          <div class="col-md-12 grid-margin">
+            <div class="card text-center">
+              <div class="card-body">
+                <p class="card-title">Form Saved Successfully</p>
+                <p class="text-muted"></p>
+                <div class="card-text">
+                  <i class="mdi mdi-shield-check-outline" style="font-size: 12em;"></i>
+                  <p class="text-muted">Your form has been saved to drafts.</p>
                   <button class="btn btn-primary mr-2 hover-cursor" type="button" (click)="ok()">Ok</button>
                 </div>
               </div>

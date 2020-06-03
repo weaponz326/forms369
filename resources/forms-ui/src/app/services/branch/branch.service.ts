@@ -71,7 +71,7 @@ export class BranchService {
    * @returns {Promise<CompanyBranches>}
    * @memberof BranchService
    */
-  getBranch(id: string, page_url?: string): Promise<CompanyBranches> {
+  getCompanyBranches(id: string, page_url?: string): Promise<CompanyBranches[]> {
     return new Promise((resolve, reject) => {
       const url = !_.isUndefined(page_url)
         ? page_url

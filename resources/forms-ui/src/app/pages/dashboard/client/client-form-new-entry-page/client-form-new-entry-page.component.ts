@@ -29,6 +29,7 @@ export class ClientFormNewEntryPageComponent implements OnInit {
   pinCode: string;
   status: number;
   loading: boolean;
+  saved: boolean;
   created: boolean;
   branch_id: number;
   hasFile: boolean;
@@ -81,7 +82,7 @@ export class ClientFormNewEntryPageComponent implements OnInit {
     this.formFiles = 0;
     this.branch_id = null;
     this.branchesList = [];
-    this.submissionCode = '';
+    // this.submissionCode = '';
     this.attachmentKeys = [];
     this.attachmentFiles = [];
     this.existingAttachments = [];
@@ -93,6 +94,7 @@ export class ClientFormNewEntryPageComponent implements OnInit {
     console.log('submission_code: ' + this.form.submission_code);
     this.getFormAttachments(this.user.id.toString());
     this.checkIfUserHasFormPin();
+    this.generateSubmissionCode();
   }
 
   ngOnInit() {
@@ -111,7 +113,11 @@ export class ClientFormNewEntryPageComponent implements OnInit {
   }
 
   generateSubmissionCode() {
-    return Math.random().toString(36).substr(2, 5);
+    this.clientService.generateFormSubmissionCode().then(
+      code => {
+        this.submissionCode = code;
+      }
+    );
   }
 
   resolveStrCharacters(e: KeyboardEvent) {
@@ -187,7 +193,7 @@ export class ClientFormNewEntryPageComponent implements OnInit {
 
   getBranches() {
     this.loadingBranches = true;
-    this.branchesService.getAllBranches().then(
+    this.branchesService.getCompanyBranches(this.form.merchant_id).then(
       branches => {
         this.branchesList = branches;
         this.loadingBranches = false;
@@ -274,8 +280,8 @@ export class ClientFormNewEntryPageComponent implements OnInit {
 
   submitFormAndAttachments(user_data: any, updateProfile: boolean) {
     console.log('is submitting');
-    const form_submission_code = this.generateSubmissionCode();
-    this.submissionCode = form_submission_code;
+    const form_submission_code = this.submissionCode;
+    // this.submissionCode = form_submission_code;
     if (this.hasFile) {
       this.uploadFormAttachments(user_data, updateProfile, form_submission_code);
     }
@@ -288,7 +294,7 @@ export class ClientFormNewEntryPageComponent implements OnInit {
         ok => {
           if (ok) {
             this.loading = false;
-            this.created = true;
+            this.status == 0 ? this.created = true : this.saved = true;
           }
           else {
             this.loading = false;
@@ -482,7 +488,7 @@ export class ClientFormNewEntryPageComponent implements OnInit {
           ok => {
             if (ok) {
               this.loading = false;
-              this.created = true;
+              this.status == 0 ? this.created = true : this.saved = true;
             }
             else {
               this.loading = false;
@@ -510,7 +516,7 @@ export class ClientFormNewEntryPageComponent implements OnInit {
             _ok => {
               if (_ok) {
                 this.loading = false;
-                this.created = true;
+                this.status == 0 ? this.created = true : this.saved = true;
               }
               else {
                 this.loading = false;
@@ -560,7 +566,7 @@ export class ClientFormNewEntryPageComponent implements OnInit {
             ok => {
               if (ok) {
                 this.loading = false;
-                this.created = true;
+                this.status == 0 ? this.created = true : this.saved = true;
               }
               else {
                 this.loading = false;
@@ -589,7 +595,7 @@ export class ClientFormNewEntryPageComponent implements OnInit {
             _ok => {
               if (_ok) {
                 this.loading = false;
-                this.created = true;
+                this.status == 0 ? this.created = true : this.saved = true;
               }
               else {
                 this.loading = false;
@@ -656,7 +662,7 @@ export class ClientFormNewEntryPageComponent implements OnInit {
             ok => {
               if (ok) {
                 this.loading = false;
-                this.created = true;
+                this.status == 0 ? this.created = true : this.saved = true;
               }
               else {
                 this.loading = false;

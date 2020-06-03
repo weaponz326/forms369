@@ -6,7 +6,9 @@ import { ClipboardService } from 'ngx-clipboard';
 import { Users } from 'src/app/models/users.model';
 import { NgbModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { BranchService } from 'src/app/services/branch/branch.service';
 import { ClientService } from 'src/app/services/client/client.service';
+import { CompanyBranches } from 'src/app/models/company-branches.model';
 import { Component, OnInit, ViewChild, TemplateRef } from '@angular/core';
 import { EndpointService } from 'src/app/services/endpoint/endpoint.service';
 import { ReloadingService } from 'src/app/services/reloader/reloading.service';
@@ -14,6 +16,7 @@ import { DownloaderService } from 'src/app/services/downloader/downloader.servic
 import { LocalStorageService } from 'src/app/services/storage/local-storage.service';
 import { FormBuilderService } from 'src/app/services/form-builder/form-builder.service';
 import { FileUploadsService } from 'src/app/services/file-uploads/file-uploads.service';
+import { CompanyService } from 'src/app/services/company/company.service';
 
 @Component({
   selector: 'app-client-forms-entry-page',
@@ -28,6 +31,7 @@ export class ClientFormsEntryPageComponent implements OnInit {
   status: number;
   pinCode: string;
   loading: boolean;
+  saved: boolean;
   created: boolean;
   hasFile: boolean;
   formFiles: number;
@@ -43,6 +47,7 @@ export class ClientFormsEntryPageComponent implements OnInit {
   pinRequired: boolean;
   updateProfile: boolean;
   submissionCode: string;
+  loadingBranches: boolean;
   showAttachments: boolean;
   docDialogRef: NgbModalRef;
   pinDialogRef: NgbModalRef;
@@ -51,9 +56,12 @@ export class ClientFormsEntryPageComponent implements OnInit {
   attachmentFiles: Array<File>;
   attachmentKeys: Array<string>;
   existingAttachments: Array<any>;
+  selectBranchDialogRef: NgbModalRef;
+  branchesList: Array<CompanyBranches>;
   @ViewChild('pin', { static: false }) pinDialog: TemplateRef<any>;
   @ViewChild('setPin', { static: false }) setPinDialog: TemplateRef<any>;
   @ViewChild('confirm', { static: false }) confirmDialog: TemplateRef<any>;
+  @ViewChild('selectBranch', { static: false }) selectBranchDialog: TemplateRef<any>;
   @ViewChild('viewImgAttachment', { static: false }) viewImgDialog: TemplateRef<any>;
   @ViewChild('viewDocAttachment', { static: false }) viewDocDialog: TemplateRef<any>;
 
@@ -64,14 +72,19 @@ export class ClientFormsEntryPageComponent implements OnInit {
     private reloader: ReloadingService,
     private clipboard: ClipboardService,
     private clientService: ClientService,
+    private branchesService: BranchService,
+    private companyService: CompanyService,
     private formBuilder: FormBuilderService,
     private endpointService: EndpointService,
     private localStorage: LocalStorageService,
     private downloadService: DownloaderService,
     private fileUploadService: FileUploadsService
   ) {
+    this.status = 0;
     this.pinCode = '';
     this.formFiles = 0;
+    this.branchId = null;
+    this.branchesList = [];
     this.submissionCode = '';
     this.attachmentKeys = [];
     this.attachmentFiles = [];
@@ -170,6 +183,25 @@ export class ClientFormsEntryPageComponent implements OnInit {
     return this.formInstance.userData;
   }
 
+  getBranches() {
+    this.loadingBranches = true;
+    this.branchesService.getCompanyBranches(this.form.merchant_id).then(
+      branches => {
+        this.branchesList = branches;
+        this.loadingBranches = false;
+      },
+      error => {
+        this.loadingBranches = false;
+        console.log('error loading branches');
+      }
+    );
+  }
+
+  chooseBranch(branch_id: number) {
+    this.branchId = branch_id;
+    this.selectBranchDialogRef.close();
+  }
+
   appendOnChangeEventToFileInput() {
     const all_inputs = document.querySelectorAll('input');
     _.forEach(all_inputs, (input) => {
@@ -240,7 +272,7 @@ export class ClientFormsEntryPageComponent implements OnInit {
   submitFormAndAttachments(user_data: any, updateProfile: boolean) {
     console.log('is submitting');
     const form_submission_code = this.submissionCode;
-    // this.submissionCode = form_submission_code;
+    alert('code: ' + form_submission_code);
     if (this.hasFile) {
       this.uploadFormAttachments(user_data, updateProfile, form_submission_code);
     }
@@ -252,7 +284,7 @@ export class ClientFormsEntryPageComponent implements OnInit {
         ok => {
           if (ok) {
             this.loading = false;
-            this.created = true;
+            this.status == 0 ? this.created = true : this.saved = true;
           }
           else {
             this.loading = false;
@@ -263,6 +295,18 @@ export class ClientFormsEntryPageComponent implements OnInit {
         }
       );
     }
+  }
+
+  showMerchantBranchesDialog(update: boolean) {
+    this.getBranches();
+    this.selectBranchDialogRef = this.modalService.open(this.selectBranchDialog, { centered: true });
+    this.selectBranchDialogRef.result.then(
+      result => {
+        if (!_.isNull(result) || !_.isUndefined(result)) {
+          this.handlePinCode(update);
+        }
+      }
+    );
   }
 
   handlePinCode(update: boolean) {
@@ -303,10 +347,20 @@ export class ClientFormsEntryPageComponent implements OnInit {
     this.modalService.open(this.confirmDialog, { centered: true }).result.then(
       result => {
         if (result == 'yes') {
-          this.handlePinCode(true);
+          if (this.form.can_view == 0) {
+            this.showMerchantBranchesDialog(true);
+          }
+          else {
+            this.handlePinCode(true);
+          }
         }
         else {
-          this.handlePinCode(false);
+          if (this.form.can_view == 0) {
+            this.showMerchantBranchesDialog(false);
+          }
+          else {
+            this.handlePinCode(false);
+          }
         }
       }
     );
@@ -414,7 +468,7 @@ export class ClientFormsEntryPageComponent implements OnInit {
                 _ok => {
                   if (_ok) {
                     this.loading = false;
-                    this.created = true;
+                    this.status == 0 ? this.created = true : this.saved = true;
                   }
                   else {
                     this.loading = false;
@@ -463,7 +517,7 @@ export class ClientFormsEntryPageComponent implements OnInit {
                 ok => {
                   if (ok) {
                     this.loading = false;
-                    this.created = true;
+                    this.status == 0 ? this.created = true : this.saved = true;
                   }
                   else {
                     this.loading = false;
@@ -493,7 +547,7 @@ export class ClientFormsEntryPageComponent implements OnInit {
               _ok => {
                 if (_ok) {
                   this.loading = false;
-                  this.created = true;
+                  this.status == 0 ? this.created = true : this.saved = true;
                 }
                 else {
                   this.loading = false;
@@ -505,8 +559,6 @@ export class ClientFormsEntryPageComponent implements OnInit {
                 console.log('form submission error 4');
               }
             );
-            // this.created = true;
-            // this.loading = false;
           }
           else {
             console.log('file upload failed');
@@ -545,7 +597,7 @@ export class ClientFormsEntryPageComponent implements OnInit {
           ok => {
             if (ok) {
               this.loading = false;
-              this.created = true;
+              this.status == 0 ? this.created = true : this.saved = true;
             }
             else {
               this.loading = false;
@@ -557,8 +609,6 @@ export class ClientFormsEntryPageComponent implements OnInit {
             console.log('form submission error 5');
           }
         );
-        // this.created = true;
-        // this.loading = false;
       }
     });
   }
@@ -590,7 +640,7 @@ export class ClientFormsEntryPageComponent implements OnInit {
             ok => {
               if (ok) {
                 this.loading = false;
-                this.created = true;
+                this.status == 0 ? this.created = true : this.saved = true;
               }
               else {
                 this.loading = false;
@@ -711,6 +761,11 @@ export class ClientFormsEntryPageComponent implements OnInit {
     e.stopPropagation();
     this.documentUrl = this.endpointService.apiHost + 'storage/attachments/' + url;
     this.docDialogRef = this.modalService.open(this.viewDocDialog, { centered: true });
+  }
+
+  saveAsDraft() {
+    this.status = 4;
+    this.handlePinCode(false);
   }
 
   copy() {

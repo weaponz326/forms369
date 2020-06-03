@@ -21,10 +21,13 @@ export class ClientService {
       const url = this.endpointService.apiHost + 'api/v1/generateSubCode';
       this.http.get( url, { headers: header }).subscribe(
         res => {
-          console.log('res___: ' + JSON.stringify(res));
+          console.log('code_res___: ' + JSON.stringify(res));
+          const response = res as any;
+          resolve(response.code);
         },
         err => {
           console.log('error_____: ' + JSON.stringify(err));
+          reject(err);
         }
       );
     });
@@ -70,7 +73,7 @@ export class ClientService {
     return new Promise((resolve, reject) => {
       const body = { client_profile: client_data, form_data: form_data, branch_id: branch_id };
       console.log('Body: ' + JSON.stringify(body));
-      const url = `${this.endpointService.apiHost}/api/v1/submitForm/${id}/${code}/${updateProfile}/${submission_code}/${status}`;
+      const url = `${this.endpointService.apiHost}api/v1/submitForm/${id}/${code}/${updateProfile}/${submission_code}/${status}`;
       this.http.post(url, JSON.stringify(body), { headers: this.headers }).subscribe(
         res => {
           console.log('form_submitted: ' + JSON.stringify(res));

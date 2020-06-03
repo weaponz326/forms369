@@ -85,3 +85,6 @@
 # version 0.0.7
     1. Added physical address, colors and compoany nickname to create company in GIT Admin.
     2. Added physical address to create branch in GIT Admin.
+    3. Can now save a form as draft.
+    4. See all forms saved as drafts.
+    

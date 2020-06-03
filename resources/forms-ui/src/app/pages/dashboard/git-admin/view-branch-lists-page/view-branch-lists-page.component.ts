@@ -144,7 +144,7 @@ export class ViewBranchListsPageComponent implements OnInit {
 
   getCompanyBranches() {
     this.loading = true;
-    this.branchService.getBranch(this.company.id).then(
+    this.branchService.getCompanyBranches(this.company.id).then(
       res => {
         const branches = res as any;
         this.hasMore = this.checkIfHasMore();
@@ -226,7 +226,7 @@ export class ViewBranchListsPageComponent implements OnInit {
   loadMoreCompanyBranches() {
     this.loadingMore = true;
     const moreUrl = this.branchService.nextPaginationUrl;
-    this.branchService.getBranch(this.company.id, moreUrl).then(
+    this.branchService.getCompanyBranches(this.company.id, moreUrl).then(
       res => {
         this.loadingMore = false;
         this.hasMoreError = false;

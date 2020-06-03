@@ -154,7 +154,7 @@ Route::group(['middleware' => ['auth:api'], 'prefix' => 'v1'], function(){
     Route::get('getNumInactiveBranches', 'HomeController@getNumInactiveBranches')->name('getNumInactiveBranches')->middleware('scope:GIT_Admin');
     Route::get('getNumBranches', 'HomeController@getNumBranches')->name('getNumBranches')->middleware('scope:GIT_Admin');
 
-    Route::get('getCompanyBranches/{id}', 'HomeController@getCompanyBranches')->name('getCompanyBranches')->middleware('scope:GIT_Admin,company_admin,branch_admin,super_executive,branch_executive');
+    Route::get('getCompanyBranches/{id}', 'HomeController@getCompanyBranches')->name('getCompanyBranches')->middleware('scope:GIT_Admin,company_admin,branch_admin,super_executive,branch_executive,forms_client');
     //use this for branch dropdown selection during form submission
     Route::get('getActiveCompanyBranches/{id}', 'HomeController@getActiveCompanyBranches')->name('getActiveCompanyBranches')->middleware('scope:GIT_Admin,company_admin,branch_admin,super_executive,branch_executive,forms_client');
     Route::get('getNumCompanyBranches/{id}', 'HomeController@getNumCompanyBranches')->name('getNumCompanyBranches')->middleware('scope:GIT_Admin,company_admin,branch_admin,super_executive,branch_executive');
