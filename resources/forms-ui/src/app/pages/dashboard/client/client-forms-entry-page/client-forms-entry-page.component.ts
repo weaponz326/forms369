@@ -25,11 +25,13 @@ export class ClientFormsEntryPageComponent implements OnInit {
   form: any;
   user: Users;
   imgUrl: string;
+  status: number;
   pinCode: string;
   loading: boolean;
   created: boolean;
   hasFile: boolean;
   formFiles: number;
+  branchId: number;
   formInstance: any;
   formRenderer: any;
   clientProfile: any;
@@ -84,6 +86,7 @@ export class ClientFormsEntryPageComponent implements OnInit {
       ? this.getFormAttachments(this.form.submission_code)
       : this.getAttachmentsForCurrentForm(this.user.id.toString());
     this.checkIfUserHasFormPin();
+    this.generateSubmissionCode();
   }
 
   ngOnInit() {
@@ -102,7 +105,11 @@ export class ClientFormsEntryPageComponent implements OnInit {
   }
 
   generateSubmissionCode() {
-    return Math.random().toString(36).substr(2, 5);
+    this.clientService.generateFormSubmissionCode().then(
+      code => {
+        this.submissionCode = code;
+      }
+    );
   }
 
   resolveStrCharacters(e: KeyboardEvent) {
@@ -232,8 +239,8 @@ export class ClientFormsEntryPageComponent implements OnInit {
 
   submitFormAndAttachments(user_data: any, updateProfile: boolean) {
     console.log('is submitting');
-    const form_submission_code = this.generateSubmissionCode();
-    this.submissionCode = form_submission_code;
+    const form_submission_code = this.submissionCode;
+    // this.submissionCode = form_submission_code;
     if (this.hasFile) {
       this.uploadFormAttachments(user_data, updateProfile, form_submission_code);
     }
@@ -241,7 +248,7 @@ export class ClientFormsEntryPageComponent implements OnInit {
       const update = updateProfile ? 1 : 0;
       const filled_data = this.formBuilder.getFormUserData(user_data);
       const updated_data = this.clientService.getUpdatedClientFormData(JSON.parse(filled_data), this.clientProfile);
-      this.clientService.submitForm(_.toString(this.user.id), this.form.form_code, this.clientProfile, JSON.parse(updated_data), update, form_submission_code).then(
+      this.clientService.submitForm(_.toString(this.user.id), this.form.form_code, this.clientProfile, JSON.parse(updated_data), update, form_submission_code, this.status, this.branchId).then(
         ok => {
           if (ok) {
             this.loading = false;
@@ -403,7 +410,7 @@ export class ClientFormsEntryPageComponent implements OnInit {
               const update = updateProfile ? 1 : 0;
               const filled_data = this.formBuilder.getFormUserData(user_data);
               const updated_data = this.clientService.getUpdatedClientFormData(JSON.parse(filled_data), this.clientProfile);
-              this.clientService.submitForm(_.toString(this.user.id), this.form.form_code, this.clientProfile, JSON.parse(updated_data), update, form_submission_code).then(
+              this.clientService.submitForm(_.toString(this.user.id), this.form.form_code, this.clientProfile, JSON.parse(updated_data), update, form_submission_code, this.status, this.branchId).then(
                 _ok => {
                   if (_ok) {
                     this.loading = false;
@@ -452,7 +459,7 @@ export class ClientFormsEntryPageComponent implements OnInit {
               const update = updateProfile ? 1 : 0;
               const filled_data = this.formBuilder.getFormUserData(user_data);
               const updated_data = this.clientService.getUpdatedClientFormData(JSON.parse(filled_data), this.clientProfile);
-              this.clientService.submitForm(_.toString(this.user.id), this.form.form_code, this.clientProfile, JSON.parse(updated_data), update, form_submission_code).then(
+              this.clientService.submitForm(_.toString(this.user.id), this.form.form_code, this.clientProfile, JSON.parse(updated_data), update, form_submission_code, this.status, this.branchId).then(
                 ok => {
                   if (ok) {
                     this.loading = false;
@@ -482,7 +489,7 @@ export class ClientFormsEntryPageComponent implements OnInit {
             const update = updateProfile ? 1 : 0;
             const filled_data = this.formBuilder.getFormUserData(user_data);
             const updated_data = this.clientService.getUpdatedClientFormData(JSON.parse(filled_data), this.clientProfile);
-            this.clientService.submitForm(_.toString(this.user.id), this.form.form_code, this.clientProfile, JSON.parse(updated_data), update, form_submission_code).then(
+            this.clientService.submitForm(_.toString(this.user.id), this.form.form_code, this.clientProfile, JSON.parse(updated_data), update, form_submission_code, this.status, this.branchId).then(
               _ok => {
                 if (_ok) {
                   this.loading = false;
@@ -534,7 +541,7 @@ export class ClientFormsEntryPageComponent implements OnInit {
         const update = updateProfile ? 1 : 0;
         const filled_data = this.formBuilder.getFormUserData(user_data);
         const updated_data = this.clientService.getUpdatedClientFormData(JSON.parse(filled_data), this.clientProfile);
-        this.clientService.submitForm(_.toString(this.user.id), this.form.form_code, this.clientProfile, JSON.parse(updated_data), update, submission_code).then(
+        this.clientService.submitForm(_.toString(this.user.id), this.form.form_code, this.clientProfile, JSON.parse(updated_data), update, submission_code, this.status, this.branchId).then(
           ok => {
             if (ok) {
               this.loading = false;
@@ -579,7 +586,7 @@ export class ClientFormsEntryPageComponent implements OnInit {
           const update = updateProfile ? 1 : 0;
           const filled_data = this.formBuilder.getFormUserData(user_data);
           const updated_data = this.clientService.getUpdatedClientFormData(JSON.parse(filled_data), this.clientProfile);
-          this.clientService.submitForm(_.toString(this.user.id), this.form.form_code, this.clientProfile, JSON.parse(updated_data), update, submission_code).then(
+          this.clientService.submitForm(_.toString(this.user.id), this.form.form_code, this.clientProfile, JSON.parse(updated_data), update, submission_code, this.status, this.branchId).then(
             ok => {
               if (ok) {
                 this.loading = false;

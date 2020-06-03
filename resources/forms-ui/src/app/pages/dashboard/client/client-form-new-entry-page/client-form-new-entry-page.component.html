@@ -72,6 +72,7 @@
                         <span class="sr-only">Please wait...</span>
                       </button>
                       <button *ngIf="!loading" type="submit" class="btn btn-primary btn-lg mr-2" (click)="submit()">Submit</button>
+                      <button *ngIf="!loading" type="submit" class="btn btn-primary btn-lg mr-2" (click)="saveAsDraft()">Save as Draft</button>
                       <button type="button" class="btn btn-light btn-lg" (click)="cancel()">Cancel</button>
                     </div>
                   </form>
@@ -218,4 +219,34 @@
       </button>
     </div>
   </form>
+</ng-template>
+
+<ng-template #selectBranch let-modal>
+  <div class="modal-header">
+    <h5 class="modal-title text-uppercase">Select A Branch</h5>
+    <button type="button" class="close" aria-describedby="modal-title" (click)="modal.close()">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <div *ngIf="loadingBranches">
+      <div class="col-md-12 col-sm-12 m-md-2">
+        <div class="d-flex justify-content-center">
+          <div class="spinner-border m-2" style="width: 2rem; height: 2rem;" role="status">
+            <span class="sr-only">Loading...</span>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div *ngIf="!loadingBranches">
+      <div class="list-group">
+        <div *ngFor="let branch of branchesList" class="list-group-item list-group-item-action" (click)="chooseBranch(branch.id)">
+          {{ branch.branch_name }}
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-outline-primary" (click)="modal.close()">Close</button>
+  </div>
 </ng-template>

@@ -6,6 +6,7 @@ import { ClipboardService } from 'ngx-clipboard';
 import { Users } from 'src/app/models/users.model';
 import { NgbModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { BranchService } from 'src/app/services/branch/branch.service';
 import { ClientService } from 'src/app/services/client/client.service';
 import { Component, OnInit, ViewChild, TemplateRef } from '@angular/core';
 import { EndpointService } from 'src/app/services/endpoint/endpoint.service';
@@ -14,6 +15,7 @@ import { DownloaderService } from 'src/app/services/downloader/downloader.servic
 import { LocalStorageService } from 'src/app/services/storage/local-storage.service';
 import { FormBuilderService } from 'src/app/services/form-builder/form-builder.service';
 import { FileUploadsService } from 'src/app/services/file-uploads/file-uploads.service';
+import { CompanyBranches } from 'src/app/models/company-branches.model';
 
 @Component({
   selector: 'app-client-form-new-entry-page',
@@ -25,8 +27,10 @@ export class ClientFormNewEntryPageComponent implements OnInit {
   user: Users;
   imgUrl: string;
   pinCode: string;
+  status: number;
   loading: boolean;
   created: boolean;
+  branch_id: number;
   hasFile: boolean;
   formFiles: number;
   formInstance: any;
@@ -40,6 +44,7 @@ export class ClientFormNewEntryPageComponent implements OnInit {
   pinRequired: boolean;
   updateProfile: boolean;
   submissionCode: string;
+  loadingBranches: boolean;
   showAttachments: boolean;
   docDialogRef: NgbModalRef;
   pinDialogRef: NgbModalRef;
@@ -48,9 +53,12 @@ export class ClientFormNewEntryPageComponent implements OnInit {
   attachmentFiles: Array<File>;
   attachmentKeys: Array<string>;
   existingAttachments: Array<any>;
+  selectBranchDialogRef: NgbModalRef;
+  branchesList: Array<CompanyBranches>;
   @ViewChild('pin', { static: false }) pinDialog: TemplateRef<any>;
   @ViewChild('setPin', { static: false }) setPinDialog: TemplateRef<any>;
   @ViewChild('confirm', { static: false }) confirmDialog: TemplateRef<any>;
+  @ViewChild('selectBranch', { static: false }) selectBranchDialog: TemplateRef<any>;
   @ViewChild('viewImgAttachment', { static: false }) viewImgDialog: TemplateRef<any>;
   @ViewChild('viewDocAttachment', { static: false }) viewDocDialog: TemplateRef<any>;
 
@@ -61,14 +69,18 @@ export class ClientFormNewEntryPageComponent implements OnInit {
     private reloader: ReloadingService,
     private clipboard: ClipboardService,
     private clientService: ClientService,
+    private branchesService: BranchService,
     private formBuilder: FormBuilderService,
     private endpointService: EndpointService,
     private localStorage: LocalStorageService,
     private downloadService: DownloaderService,
     private fileUploadService: FileUploadsService
   ) {
+    this.status = 0;
     this.pinCode = '';
     this.formFiles = 0;
+    this.branch_id = null;
+    this.branchesList = [];
     this.submissionCode = '';
     this.attachmentKeys = [];
     this.attachmentFiles = [];
@@ -154,8 +166,14 @@ export class ClientFormNewEntryPageComponent implements OnInit {
   setFormData(data: any) {
     this.clientService.getDetails(this.user.id.toString()).then(
       client => {
-        this.clientProfile = client.client_details[0];
-        this.clientService.autoFillFormData(data, this.clientProfile);
+        if (client.length != 0) {
+          this.clientProfile = client.client_details[0];
+          this.clientService.autoFillFormData(data, this.clientProfile);
+        }
+        else {
+          this.clientProfile = this.localStorage.getUser();
+          console.log('_____clientProfile: ' + JSON.stringify(this.clientProfile));
+        }
       },
       error => {
         console.log('error: ' + JSON.stringify(error));
@@ -165,6 +183,26 @@ export class ClientFormNewEntryPageComponent implements OnInit {
 
   getFormData() {
     return this.formInstance.userData;
+  }
+
+  getBranches() {
+    this.loadingBranches = true;
+    this.branchesService.getAllBranches().then(
+      branches => {
+        this.branchesList = branches;
+        this.loadingBranches = false;
+      },
+      error => {
+        this.loadingBranches = false;
+        console.log('error loading branches');
+      }
+    );
+  }
+
+  chooseBranch(branch_id: number) {
+    this.branch_id = branch_id;
+    console.log('am closing');
+    this.selectBranchDialogRef.close();
   }
 
   appendOnChangeEventToFileInput() {
@@ -245,7 +283,8 @@ export class ClientFormNewEntryPageComponent implements OnInit {
       const update = updateProfile ? 1 : 0;
       const filled_data = this.formBuilder.getFormUserData(user_data);
       const updated_data = this.clientService.getUpdatedClientFormData(JSON.parse(filled_data), this.clientProfile);
-      this.clientService.submitForm(_.toString(this.user.id), this.form.form_code, this.clientProfile, JSON.parse(updated_data), update, form_submission_code).then(
+      console.log('_____updated_data: ' + JSON.stringify(updated_data));
+      this.clientService.submitForm(_.toString(this.user.id), this.form.form_code, this.clientProfile, JSON.parse(updated_data), update, form_submission_code, this.status, this.branch_id).then(
         ok => {
           if (ok) {
             this.loading = false;
@@ -289,10 +328,32 @@ export class ClientFormNewEntryPageComponent implements OnInit {
     this.modalService.open(this.confirmDialog, { centered: true }).result.then(
       result => {
         if (result == 'yes') {
-          this.handlePinCode(true);
+          if (this.form.can_view == 0) {
+            this.showMerchantBranchesDialog(true);
+          }
+          else {
+            this.handlePinCode(true);
+          }
         }
         else {
-          this.handlePinCode(false);
+          if (this.form.can_view == 0) {
+            this.showMerchantBranchesDialog(false);
+          }
+          else {
+            this.handlePinCode(false);
+          }
+        }
+      }
+    );
+  }
+
+  showMerchantBranchesDialog(update: boolean) {
+    this.getBranches();
+    this.selectBranchDialogRef = this.modalService.open(this.selectBranchDialog, { centered: true });
+    this.selectBranchDialogRef.result.then(
+      result => {
+        if (!_.isNull(result) || !_.isUndefined(result)) {
+          this.handlePinCode(update);
         }
       }
     );
@@ -417,7 +478,7 @@ export class ClientFormNewEntryPageComponent implements OnInit {
         const update = updateProfile ? 1 : 0;
         const filled_data = this.formBuilder.getFormUserData(user_data);
         const updated_data = this.clientService.getUpdatedClientFormData(JSON.parse(filled_data), this.clientProfile);
-        this.clientService.submitForm(_.toString(this.user.id), this.form.form_code, this.clientProfile, JSON.parse(updated_data), update, submission_code).then(
+        this.clientService.submitForm(_.toString(this.user.id), this.form.form_code, this.clientProfile, JSON.parse(updated_data), update, submission_code, this.status, this.branch_id).then(
           ok => {
             if (ok) {
               this.loading = false;
@@ -445,7 +506,7 @@ export class ClientFormNewEntryPageComponent implements OnInit {
           const update = updateProfile ? 1 : 0;
           const filled_data = this.formBuilder.getFormUserData(user_data);
           const updated_data = this.clientService.getUpdatedClientFormData(JSON.parse(filled_data), this.clientProfile);
-          this.clientService.submitForm(_.toString(this.user.id), this.form.form_code, this.clientProfile, JSON.parse(updated_data), update, form_submission_code).then(
+          this.clientService.submitForm(_.toString(this.user.id), this.form.form_code, this.clientProfile, JSON.parse(updated_data), update, form_submission_code, this.status, this.branch_id).then(
             _ok => {
               if (_ok) {
                 this.loading = false;
@@ -495,7 +556,7 @@ export class ClientFormNewEntryPageComponent implements OnInit {
           const update = updateProfile ? 1 : 0;
           const filled_data = this.formBuilder.getFormUserData(user_data);
           const updated_data = this.clientService.getUpdatedClientFormData(JSON.parse(filled_data), this.clientProfile);
-          this.clientService.submitForm(_.toString(this.user.id), this.form.form_code, this.clientProfile, JSON.parse(updated_data), update, form_submission_code).then(
+          this.clientService.submitForm(_.toString(this.user.id), this.form.form_code, this.clientProfile, JSON.parse(updated_data), update, form_submission_code, this.status, this.branch_id).then(
             ok => {
               if (ok) {
                 this.loading = false;
@@ -524,7 +585,7 @@ export class ClientFormNewEntryPageComponent implements OnInit {
           const update = updateProfile ? 1 : 0;
           const filled_data = this.formBuilder.getFormUserData(user_data);
           const updated_data = this.clientService.getUpdatedClientFormData(JSON.parse(filled_data), this.clientProfile);
-          this.clientService.submitForm(_.toString(this.user.id), this.form.form_code, this.clientProfile, JSON.parse(updated_data), update, form_submission_code).then(
+          this.clientService.submitForm(_.toString(this.user.id), this.form.form_code, this.clientProfile, JSON.parse(updated_data), update, form_submission_code, this.status, this.branch_id).then(
             _ok => {
               if (_ok) {
                 this.loading = false;
@@ -591,7 +652,7 @@ export class ClientFormNewEntryPageComponent implements OnInit {
           const update = updateProfile ? 1 : 0;
           const filled_data = this.formBuilder.getFormUserData(user_data);
           const updated_data = this.clientService.getUpdatedClientFormData(JSON.parse(filled_data), this.clientProfile);
-          this.clientService.submitForm(_.toString(this.user.id), this.form.form_code, this.clientProfile, JSON.parse(updated_data), update, submission_code).then(
+          this.clientService.submitForm(_.toString(this.user.id), this.form.form_code, this.clientProfile, JSON.parse(updated_data), update, submission_code, this.status, this.branch_id).then(
             ok => {
               if (ok) {
                 this.loading = false;
@@ -691,6 +752,11 @@ export class ClientFormNewEntryPageComponent implements OnInit {
     e.stopPropagation();
     this.documentUrl = this.endpointService.apiHost + 'storage/attachments/' + url;
     this.docDialogRef = this.modalService.open(this.viewDocDialog, { centered: true });
+  }
+
+  saveAsDraft() {
+    this.status = 4;
+    this.handlePinCode(false);
   }
 
   copy() {

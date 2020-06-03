@@ -149,7 +149,7 @@ Route::group(['middleware' => ['auth:api'], 'prefix' => 'v1'], function(){
     //company branch setup and update apis
     Route::post('createCompanyBranch', 'HomeController@createCompanyBranches')->name('createCompanyBranch')->middleware('scope:GIT_Admin');
     Route::post('editCompanyBranch/{id}', 'HomeController@editCompanyBranches')->name('editCompanyBranch')->middleware('scope:GIT_Admin');
-    Route::get('getAllBranches', 'HomeController@getAllBranches')->name('getAllBranches')->middleware('scope:GIT_Admin');
+    Route::get('getAllBranches', 'HomeController@getAllBranches')->name('getAllBranches')->middleware('scope:GIT_Admin,forms_client');
     Route::get('getNumActiveBranches', 'HomeController@getNumActiveBranches')->name('getNumActiveBranches')->middleware('scope:GIT_Admin');
     Route::get('getNumInactiveBranches', 'HomeController@getNumInactiveBranches')->name('getNumInactiveBranches')->middleware('scope:GIT_Admin');
     Route::get('getNumBranches', 'HomeController@getNumBranches')->name('getNumBranches')->middleware('scope:GIT_Admin');

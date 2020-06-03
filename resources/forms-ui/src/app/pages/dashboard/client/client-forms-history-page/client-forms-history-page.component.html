@@ -25,9 +25,6 @@
             <div class="card text-center pt-5 pb-5">
               <div class="card-body mt-5 mb-5">
                 <h4 class="card-title">No Data Found</h4>
-                <p class="card-description">
-                  No data has been found.
-                </p>
                 <div class="text-lg-center mt-5 mb-5">
                   <div class="card-text">
                     <i class="mdi mdi-rocket" style="font-size: 8em;"></i>
@@ -68,7 +65,7 @@
           </div>
         </div>
         
-        <div class="row">
+        <div class="row" *ngIf="!loading && hasData">
           <div class="col-12 text-center mb-3" style="overflow-y: hidden;">
             <div class="btn-group" role="group" aria-label="Filter By">
               <button type="button" class="btn btn-outline-primary" [ngClass]="{'active': filterState == 'all'}" (click)="showAll()">All</button>
