@@ -1,11 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import * as _ from 'lodash';
-import * as moment from 'moment';
+import Swal from 'sweetalert2';
 import { Router } from '@angular/router';
 import { Users } from 'src/app/models/users.model';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { ClientService } from 'src/app/services/client/client.service';
 import { LocalStorageService } from 'src/app/services/storage/local-storage.service';
+import { AccountService } from 'src/app/services/account/account.service';
 
 @Component({
   selector: 'app-client-auth-page',
@@ -16,8 +17,8 @@ export class ClientAuthPageComponent implements OnInit {
 
   form: FormGroup;
   loading: boolean;
-  countDown: string;
   submitted: boolean;
+  resending: boolean;
   codeExpired: boolean;
   invalidCode: boolean;
 
@@ -25,10 +26,9 @@ export class ClientAuthPageComponent implements OnInit {
     private router: Router,
     private formBuilder: FormBuilder,
     private clientService: ClientService,
+    private accountService: AccountService,
     private localStorage: LocalStorageService,
-  ) {
-    this.setupCountDown();
-  }
+  ) {}
 
   ngOnInit() {
      this.buildForm();
@@ -42,12 +42,6 @@ export class ClientAuthPageComponent implements OnInit {
     this.form = this.formBuilder.group({
       code: ['', Validators.required]
     });
-  }
-
-  setupCountDown() {
-    for (let i = 30; i > 30; i--) {
-      this.countDown = i.toString();
-    }
   }
 
   handleLoginErrorResponses(response: any) {
@@ -76,6 +70,51 @@ export class ClientAuthPageComponent implements OnInit {
     }
   }
 
+  showAuthCodeResendAlert() {
+    Swal.fire({
+      title: 'Auth Code Sent',
+      text: 'Authentication code has been sent to your phone.',
+      icon: 'success',
+      confirmButtonText: 'Ok',
+    });
+  }
+
+  showAuthCodeResendFailedAlert() {
+    Swal.fire({
+      title: 'Oops!',
+      text: 'Failed to resend authentication code.',
+      icon: 'error',
+      confirmButtonText: 'Ok',
+    });
+  }
+
+  reAuthenticateUser() {
+    this.resending = true;
+    const username = sessionStorage.getItem('username');
+    const password = sessionStorage.getItem('password');
+    this.accountService.authenticate(username, password).then(
+      res => {
+        const response = res as any;
+        this.form.enable();
+        this.resending = false;
+        if (_.isUndefined(response.message)) {
+          console.log('res: ' + response);
+          sessionStorage.setItem('client_id', response.id);
+          sessionStorage.setItem('client_phone', response.phone);
+          this.showAuthCodeResendAlert();
+        }
+        else {
+          this.showAuthCodeResendFailedAlert();
+        }
+      },
+      err => {
+        this.form.enable();
+        this.resending = false;
+        this.showAuthCodeResendFailedAlert();
+      }
+    );
+  }
+
   submit() {
     this.loading = true;
     this.submitted = true;
@@ -99,8 +138,10 @@ export class ClientAuthPageComponent implements OnInit {
             this.localStorage.saveUserInformation(user);
 
             // clear client data used to help with authentication.
-            window.sessionStorage.removeItem('client_id');
-            window.sessionStorage.removeItem('client_phone');
+            sessionStorage.removeItem('username');
+            sessionStorage.removeItem('password');
+            sessionStorage.removeItem('client_id');
+            sessionStorage.removeItem('client_phone');
 
             this.clientService.checkFormSubmitPin(user.id.toString()).then(
               ok => {
@@ -126,6 +167,10 @@ export class ClientAuthPageComponent implements OnInit {
         }
       );
     }
+  }
+
+  resendCode() {
+    this.reAuthenticateUser();
   }
 
 }

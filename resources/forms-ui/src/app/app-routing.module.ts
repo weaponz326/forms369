@@ -104,6 +104,9 @@ import { ExecViewBranchAdminsPageComponent } from './pages/dashboard/executive/e
 import { ExecViewCompanyAdminsPageComponent } from './pages/dashboard/executive/exec-view-company-admins-page/exec-view-company-admins-page.component';
 import { ExecViewSuperExectivesPageComponent } from './pages/dashboard/executive/exec-view-super-exectives-page/exec-view-super-exectives-page.component';
 import { ExecViewBranchExectivesPageComponent } from './pages/dashboard/executive/exec-view-branch-exectives-page/exec-view-branch-exectives-page.component';
+import { ClientDraftFormsPageComponent } from './pages/dashboard/client/client-draft-forms-page/client-draft-forms-page.component';
+import { ClientFavoriteFormsPageComponent } from './pages/dashboard/client/client-favorite-forms-page/client-favorite-forms-page.component';
+import { ClientSuggestMerchantPageComponent } from './pages/dashboard/client/client-suggest-merchant-page/client-suggest-merchant-page.component';
 
 const routes: Routes = [
   {
@@ -346,9 +349,24 @@ const routes: Routes = [
         component: ClientProfilePageComponent
       },
       {
+        path: 'drafts',
+        canActivate: [AuthGuard],
+        component: ClientDraftFormsPageComponent
+      },
+      {
+        path: 'favorites',
+        canActivate: [AuthGuard],
+        component: ClientFavoriteFormsPageComponent
+      },
+      {
         path: 'printing',
         canActivate: [AuthGuard],
         component: ClientPrintingPageComponent
+      },
+      {
+        path: 'suggest_merchant',
+        canActivate: [AuthGuard],
+        component: ClientSuggestMerchantPageComponent
       },
       {
         path: 'pdf_printing',

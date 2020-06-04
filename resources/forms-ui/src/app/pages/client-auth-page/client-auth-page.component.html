@@ -45,12 +45,16 @@
                 </button>
               </div>
             </form>
-            <!-- <div class="resend mt-2">
-              <p style="text-align: center;">Resend code in 00:{{ countDown }}</p>
-              <button type="submit" *ngIf="!loading" class="btn btn-block btn-primary btn-sm font-weight-medium auth-form-btn">
+            <div class="resend mt-5">
+              <button type="submit" *ngIf="!resending" class="btn btn-block btn-light btn-sm font-weight-medium auth-form-btn"
+                (click)="resendCode()">
                 Resend Code
               </button>
-            </div> -->
+              <button type="button" *ngIf="resending" class="btn btn-block btn-light btn-sm font-weight-medium auth-form-btn" disabled>
+                <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span> &nbsp; &nbsp;
+                Please wait...
+              </button>
+            </div>
           </div>
         </div>
       </div>

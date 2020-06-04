@@ -89,5 +89,5 @@
     4. See all forms saved as drafts.
 
 # version 0.1.0
-    
-    
+    1. Resend code added for login two way authenticiation for clients.
+    2. Suggest merchant added to clients.

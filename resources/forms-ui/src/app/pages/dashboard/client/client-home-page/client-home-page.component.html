@@ -21,7 +21,7 @@
           </div>
         </div>
         <div class="row">
-          <div class="col-md-6 grid-margin stretch-card">
+          <div class="col-md-3 grid-margin stretch-card">
             <div class="card hover-cursor hover-primary" (click)="openFormsFilled()">
               <div class="card-body">
                 <p class="card-title">My History</p>
@@ -33,7 +33,31 @@
               </div>
             </div>
           </div>
-          <div class="col-md-6 grid-margin stretch-card">
+          <div class="col-md-3 grid-margin stretch-card">
+            <div class="card hover-cursor hover-primary" (click)="openFavoriteForms()">
+              <div class="card-body">
+                <p class="card-title">Favorites</p>
+                <p class="text-muted">Most submitted forms</p>
+                <div class="card-text">
+                  <i class="mdi mdi-star-outline" style="font-size: 8em;"></i>
+                  <p class="text-muted">A list of all the most submiited forms.</p>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-3 grid-margin stretch-card">
+            <div class="card hover-cursor hover-primary" (click)="openDraftForms()">
+              <div class="card-body">
+                <p class="card-title">Drafts</p>
+                <p class="text-muted">Saved forms</p>
+                <div class="card-text">
+                  <i class="mdi mdi-file-outline" style="font-size: 8em;"></i>
+                  <p class="text-muted">A list of all your saved forms.</p>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-3 grid-margin stretch-card">
             <div class="card hover-cursor hover-primary" (click)="openFormsData()">
               <div class="card-body">
                 <p class="card-title">My Profile</p>

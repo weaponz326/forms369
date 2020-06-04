@@ -107,6 +107,9 @@ export class LoginPageComponent implements OnInit {
             this.loading = false;
             if (_.isUndefined(response.message)) {
               console.log('res: ' + response);
+              sessionStorage.setItem('username', login.username);
+              sessionStorage.setItem('password', login.password);
+
               sessionStorage.setItem('client_id', response.id);
               sessionStorage.setItem('client_phone', response.phone);
               this.router.navigateByUrl('client_auth');

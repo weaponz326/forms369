@@ -74,6 +74,14 @@ export class ClientHomePageComponent implements OnInit, AfterViewInit {
     this.router.navigateByUrl('/client/forms_filled');
   }
 
+  openFavoriteForms() {
+    this.router.navigateByUrl('/client/favorites');
+  }
+
+  openDraftForms() {
+    this.router.navigateByUrl('/client/drafts');
+  }
+
   getClientAnalytics() {
     const user_id = this.user.id.toString();
     this.getRejectedFormsAnalytics(user_id);

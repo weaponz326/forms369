@@ -810,4 +810,25 @@ export class ClientService {
       );
     });
   }
+
+  suggestMerchant(country: string, merchant_name: string): Promise<any> {
+    return new Promise((resolve, reject) => {
+      const body = {
+        merchant_name: merchant_name,
+        country: country
+      };
+      const url = this.endpointService.apiHost + 'api/v1/suggestMerchant';
+      this.http.post( url, JSON.stringify(body), { headers: this.headers }).subscribe(
+        res => {
+          console.log('___ress: ' + JSON.stringify(res));
+          const response = res as any;
+          resolve(response);
+        },
+        err => {
+          console.log('____error: ' + JSON.stringify(err));
+          reject(err);
+        }
+      );
+    });
+  }
 }
