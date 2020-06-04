@@ -8,6 +8,7 @@ import { NgbModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { BranchService } from 'src/app/services/branch/branch.service';
 import { ClientService } from 'src/app/services/client/client.service';
+import { CompanyBranches } from 'src/app/models/company-branches.model';
 import { Component, OnInit, ViewChild, TemplateRef } from '@angular/core';
 import { EndpointService } from 'src/app/services/endpoint/endpoint.service';
 import { ReloadingService } from 'src/app/services/reloader/reloading.service';
@@ -15,7 +16,6 @@ import { DownloaderService } from 'src/app/services/downloader/downloader.servic
 import { LocalStorageService } from 'src/app/services/storage/local-storage.service';
 import { FormBuilderService } from 'src/app/services/form-builder/form-builder.service';
 import { FileUploadsService } from 'src/app/services/file-uploads/file-uploads.service';
-import { CompanyBranches } from 'src/app/models/company-branches.model';
 
 @Component({
   selector: 'app-client-form-new-entry-page',
@@ -49,6 +49,7 @@ export class ClientFormNewEntryPageComponent implements OnInit {
   showAttachments: boolean;
   docDialogRef: NgbModalRef;
   pinDialogRef: NgbModalRef;
+  disableValidation: boolean;
   loadingAttachments: boolean;
   setPinDialogRef: NgbModalRef;
   attachmentFiles: Array<File>;
@@ -82,10 +83,11 @@ export class ClientFormNewEntryPageComponent implements OnInit {
     this.formFiles = 0;
     this.branch_id = null;
     this.branchesList = [];
-    // this.submissionCode = '';
+    this.submissionCode = '';
     this.attachmentKeys = [];
     this.attachmentFiles = [];
     this.existingAttachments = [];
+    this.disableValidation = false;
     this.form = history.state.form;
     this.form = this.reloader.resolveDataLoss(this.form);
 
@@ -308,10 +310,35 @@ export class ClientFormNewEntryPageComponent implements OnInit {
   }
 
   submitForm() {
-    this.loading = true;
+    // this.loading = true;
+    // const user_data = this.getFormData();
+    // console.log(JSON.stringify(user_data));
+    // console.log('this form: ' + this.formBuilder.getFormUserData(user_data));
+    // const unfilled = this.clientService.validateFormFilled(user_data);
+    // console.log('unfilled: ' + JSON.stringify(unfilled));
+    // if (unfilled.length != 0) {
+    //   const fileFields = this.getExistingAttachments(unfilled);
+    //   console.log('fileFields: ' + JSON.stringify(fileFields));
+    //   if (fileFields.length == 0) {
+    //     this.loading = false;
+    //     this.clientService.highlightUnFilledFormFields(unfilled);
+    //   }
+    //   else {
+    //     this.submitFormAndAttachments(user_data, this.updateProfile);
+    //   }
+    // }
+    // else {
+    //   this.submitFormAndAttachments(user_data, this.updateProfile);
+    // }
     const user_data = this.getFormData();
     console.log(JSON.stringify(user_data));
     console.log('this form: ' + this.formBuilder.getFormUserData(user_data));
+    !this.disableValidation
+      ? this.submitFormWithValidation(user_data)
+      : this.submitFormWithoutValidation(user_data);
+  }
+
+  submitFormWithValidation(user_data: any) {
     const unfilled = this.clientService.validateFormFilled(user_data);
     console.log('unfilled: ' + JSON.stringify(unfilled));
     if (unfilled.length != 0) {
@@ -328,6 +355,10 @@ export class ClientFormNewEntryPageComponent implements OnInit {
     else {
       this.submitFormAndAttachments(user_data, this.updateProfile);
     }
+  }
+
+  submitFormWithoutValidation(user_data: any) {
+    this.submitFormAndAttachments(user_data, this.updateProfile);
   }
 
   submit() {
@@ -762,6 +793,7 @@ export class ClientFormNewEntryPageComponent implements OnInit {
 
   saveAsDraft() {
     this.status = 4;
+    this.disableValidation = true;
     this.handlePinCode(false);
   }
 

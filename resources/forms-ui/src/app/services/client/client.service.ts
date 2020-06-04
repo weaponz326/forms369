@@ -710,8 +710,9 @@ export class ClientService {
    */
   checkFormSubmitPin(client_id: string): Promise<boolean> {
     return new Promise((resolve, reject) => {
-      const url = this.endpointService.apiHost + 'api/v1/hasPin/' + client_id;
-      this.http.post(url, {}, { headers: this.headers }).subscribe(
+      const headers = this.endpointService._headers();
+      const url = this.endpointService.apiHost + 'api/hasPin/' + client_id;
+      this.http.post(url, {}, { headers: headers }).subscribe(
         res => {
           console.log('res: ' + JSON.stringify(res));
           const response = res as any;

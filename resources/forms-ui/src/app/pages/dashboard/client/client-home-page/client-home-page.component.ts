@@ -1,12 +1,12 @@
+import Swal from 'sweetalert2';
 import { Router } from '@angular/router';
-import { Component, OnInit, ViewChild, TemplateRef, AfterViewInit } from '@angular/core';
-import { LocalStorageService } from 'src/app/services/storage/local-storage.service';
 import { Users } from 'src/app/models/users.model';
-import { AnalyticsService } from 'src/app/services/analytics/analytics.service';
-import { ClientService } from 'src/app/services/client/client.service';
 import { NgbModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import Swal from 'sweetalert2';
+import { ClientService } from 'src/app/services/client/client.service';
+import { AnalyticsService } from 'src/app/services/analytics/analytics.service';
+import { LocalStorageService } from 'src/app/services/storage/local-storage.service';
+import { Component, OnInit, ViewChild, TemplateRef, AfterViewInit } from '@angular/core';
 
 @Component({
   selector: 'app-client-home-page',
@@ -141,8 +141,8 @@ export class ClientHomePageComponent implements OnInit, AfterViewInit {
   }
 
   checkIfUserHasFormPin() {
-    const hasPin = sessionStorage.getItem('has_pin');
-    console.log('has_pin: ' + hasPin);
+    const hasPin = window.sessionStorage.getItem('has_pin');
+    console.log('______has_pin: ' + hasPin);
     if (hasPin == '0' || hasPin == null) {
       this.setPinDialogRef = this.modalService.open(this.setPinDialog, { centered: true, keyboard: false, backdrop: 'static' });
     }

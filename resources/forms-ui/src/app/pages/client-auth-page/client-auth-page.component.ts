@@ -99,16 +99,18 @@ export class ClientAuthPageComponent implements OnInit {
             this.localStorage.saveUserInformation(user);
 
             // clear client data used to help with authentication.
-            sessionStorage.removeItem('client_id');
-            sessionStorage.removeItem('client_phone');
+            window.sessionStorage.removeItem('client_id');
+            window.sessionStorage.removeItem('client_phone');
 
             this.clientService.checkFormSubmitPin(user.id.toString()).then(
               ok => {
-                ok ? sessionStorage.setItem('has_pin', '1') : sessionStorage.setItem('has_pin', '0');
+                ok
+                  ? window.sessionStorage.setItem('has_pin', '1')
+                  : window.sessionStorage.setItem('has_pin', '0');
                 this.handleDashboardNavigation();
               },
               err => {
-                sessionStorage.setItem('has_pin', '0');
+                window.sessionStorage.setItem('has_pin', '0');
                 this.handleDashboardNavigation();
               }
             );

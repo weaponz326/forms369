@@ -4090,13 +4090,15 @@ var ClientAuthPageComponent = /** @class */ (function () {
                     _this.localStorage.tokenExpiration = response.expires_at;
                     _this.localStorage.saveUserInformation(user);
                     // clear client data used to help with authentication.
-                    sessionStorage.removeItem('client_id');
-                    sessionStorage.removeItem('client_phone');
+                    window.sessionStorage.removeItem('client_id');
+                    window.sessionStorage.removeItem('client_phone');
                     _this.clientService.checkFormSubmitPin(user.id.toString()).then(function (ok) {
-                        ok ? sessionStorage.setItem('has_pin', '1') : sessionStorage.setItem('has_pin', '0');
+                        ok
+                            ? window.sessionStorage.setItem('has_pin', '1')
+                            : window.sessionStorage.setItem('has_pin', '0');
                         _this.handleDashboardNavigation();
                     }, function (err) {
-                        sessionStorage.setItem('has_pin', '0');
+                        window.sessionStorage.setItem('has_pin', '0');
                         _this.handleDashboardNavigation();
                     });
                 }
@@ -7032,10 +7034,11 @@ var ClientFormNewEntryPageComponent = /** @class */ (function () {
         this.formFiles = 0;
         this.branch_id = null;
         this.branchesList = [];
-        // this.submissionCode = '';
+        this.submissionCode = '';
         this.attachmentKeys = [];
         this.attachmentFiles = [];
         this.existingAttachments = [];
+        this.disableValidation = false;
         this.form = history.state.form;
         this.form = this.reloader.resolveDataLoss(this.form);
         this.user = this.localStorage.getUser();
@@ -7231,10 +7234,34 @@ var ClientFormNewEntryPageComponent = /** @class */ (function () {
         }
     };
     ClientFormNewEntryPageComponent.prototype.submitForm = function () {
-        this.loading = true;
+        // this.loading = true;
+        // const user_data = this.getFormData();
+        // console.log(JSON.stringify(user_data));
+        // console.log('this form: ' + this.formBuilder.getFormUserData(user_data));
+        // const unfilled = this.clientService.validateFormFilled(user_data);
+        // console.log('unfilled: ' + JSON.stringify(unfilled));
+        // if (unfilled.length != 0) {
+        //   const fileFields = this.getExistingAttachments(unfilled);
+        //   console.log('fileFields: ' + JSON.stringify(fileFields));
+        //   if (fileFields.length == 0) {
+        //     this.loading = false;
+        //     this.clientService.highlightUnFilledFormFields(unfilled);
+        //   }
+        //   else {
+        //     this.submitFormAndAttachments(user_data, this.updateProfile);
+        //   }
+        // }
+        // else {
+        //   this.submitFormAndAttachments(user_data, this.updateProfile);
+        // }
         var user_data = this.getFormData();
         console.log(JSON.stringify(user_data));
         console.log('this form: ' + this.formBuilder.getFormUserData(user_data));
+        !this.disableValidation
+            ? this.submitFormWithValidation(user_data)
+            : this.submitFormWithoutValidation(user_data);
+    };
+    ClientFormNewEntryPageComponent.prototype.submitFormWithValidation = function (user_data) {
         var unfilled = this.clientService.validateFormFilled(user_data);
         console.log('unfilled: ' + JSON.stringify(unfilled));
         if (unfilled.length != 0) {
@@ -7251,6 +7278,9 @@ var ClientFormNewEntryPageComponent = /** @class */ (function () {
         else {
             this.submitFormAndAttachments(user_data, this.updateProfile);
         }
+    };
+    ClientFormNewEntryPageComponent.prototype.submitFormWithoutValidation = function (user_data) {
+        this.submitFormAndAttachments(user_data, this.updateProfile);
     };
     ClientFormNewEntryPageComponent.prototype.submit = function () {
         var _this = this;
@@ -7632,6 +7662,7 @@ var ClientFormNewEntryPageComponent = /** @class */ (function () {
     };
     ClientFormNewEntryPageComponent.prototype.saveAsDraft = function () {
         this.status = 4;
+        this.disableValidation = true;
         this.handlePinCode(false);
     };
     ClientFormNewEntryPageComponent.prototype.copy = function () {
@@ -8879,15 +8910,15 @@ module.exports = "@media only screen \nand (min-device-width: 320px) \nand (max-
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "ClientHomePageComponent", function() { return ClientHomePageComponent; });
 /* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
-/* harmony import */ var _angular_router__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/router */ "./node_modules/@angular/router/fesm5/router.js");
-/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
-/* harmony import */ var src_app_services_storage_local_storage_service__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! src/app/services/storage/local-storage.service */ "./src/app/services/storage/local-storage.service.ts");
-/* harmony import */ var src_app_services_analytics_analytics_service__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! src/app/services/analytics/analytics.service */ "./src/app/services/analytics/analytics.service.ts");
+/* harmony import */ var sweetalert2__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! sweetalert2 */ "./node_modules/sweetalert2/dist/sweetalert2.all.js");
+/* harmony import */ var sweetalert2__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(sweetalert2__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var _angular_router__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @angular/router */ "./node_modules/@angular/router/fesm5/router.js");
+/* harmony import */ var _ng_bootstrap_ng_bootstrap__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @ng-bootstrap/ng-bootstrap */ "./node_modules/@ng-bootstrap/ng-bootstrap/fesm5/ng-bootstrap.js");
+/* harmony import */ var _angular_forms__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @angular/forms */ "./node_modules/@angular/forms/fesm5/forms.js");
 /* harmony import */ var src_app_services_client_client_service__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! src/app/services/client/client.service */ "./src/app/services/client/client.service.ts");
-/* harmony import */ var _ng_bootstrap_ng_bootstrap__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! @ng-bootstrap/ng-bootstrap */ "./node_modules/@ng-bootstrap/ng-bootstrap/fesm5/ng-bootstrap.js");
-/* harmony import */ var _angular_forms__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! @angular/forms */ "./node_modules/@angular/forms/fesm5/forms.js");
-/* harmony import */ var sweetalert2__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! sweetalert2 */ "./node_modules/sweetalert2/dist/sweetalert2.all.js");
-/* harmony import */ var sweetalert2__WEBPACK_IMPORTED_MODULE_8___default = /*#__PURE__*/__webpack_require__.n(sweetalert2__WEBPACK_IMPORTED_MODULE_8__);
+/* harmony import */ var src_app_services_analytics_analytics_service__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! src/app/services/analytics/analytics.service */ "./src/app/services/analytics/analytics.service.ts");
+/* harmony import */ var src_app_services_storage_local_storage_service__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! src/app/services/storage/local-storage.service */ "./src/app/services/storage/local-storage.service.ts");
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
 
 
 
@@ -8925,7 +8956,7 @@ var ClientHomePageComponent = /** @class */ (function () {
     });
     ClientHomePageComponent.prototype.initForm = function () {
         this.pinForm = this.fb.group({
-            pin: ['', [_angular_forms__WEBPACK_IMPORTED_MODULE_7__["Validators"].minLength(4), _angular_forms__WEBPACK_IMPORTED_MODULE_7__["Validators"].required]]
+            pin: ['', [_angular_forms__WEBPACK_IMPORTED_MODULE_4__["Validators"].minLength(4), _angular_forms__WEBPACK_IMPORTED_MODULE_4__["Validators"].required]]
         });
     };
     ClientHomePageComponent.prototype.setDefaultCount = function () {
@@ -8972,7 +9003,7 @@ var ClientHomePageComponent = /** @class */ (function () {
         });
     };
     ClientHomePageComponent.prototype.showPinCreatedSuccess = function () {
-        sweetalert2__WEBPACK_IMPORTED_MODULE_8___default.a.fire({
+        sweetalert2__WEBPACK_IMPORTED_MODULE_1___default.a.fire({
             title: 'Pin Created',
             text: 'Your PIN has been successfully created',
             icon: 'success',
@@ -8980,7 +9011,7 @@ var ClientHomePageComponent = /** @class */ (function () {
         });
     };
     ClientHomePageComponent.prototype.showPinCreationFailed = function () {
-        sweetalert2__WEBPACK_IMPORTED_MODULE_8___default.a.fire({
+        sweetalert2__WEBPACK_IMPORTED_MODULE_1___default.a.fire({
             title: 'Oops!',
             text: 'Sorry! Failed to create your pin. Something went wrong. Please check your internet connection and try again or our servers may be down.',
             icon: 'error',
@@ -8995,8 +9026,8 @@ var ClientHomePageComponent = /** @class */ (function () {
         }
     };
     ClientHomePageComponent.prototype.checkIfUserHasFormPin = function () {
-        var hasPin = sessionStorage.getItem('has_pin');
-        console.log('has_pin: ' + hasPin);
+        var hasPin = window.sessionStorage.getItem('has_pin');
+        console.log('______has_pin: ' + hasPin);
         if (hasPin == '0' || hasPin == null) {
             this.setPinDialogRef = this.modalService.open(this.setPinDialog, { centered: true, keyboard: false, backdrop: 'static' });
         }
@@ -9031,18 +9062,18 @@ var ClientHomePageComponent = /** @class */ (function () {
         }
     };
     ClientHomePageComponent.ctorParameters = function () { return [
-        { type: _angular_router__WEBPACK_IMPORTED_MODULE_1__["Router"] },
-        { type: _angular_forms__WEBPACK_IMPORTED_MODULE_7__["FormBuilder"] },
-        { type: _ng_bootstrap_ng_bootstrap__WEBPACK_IMPORTED_MODULE_6__["NgbModal"] },
-        { type: src_app_services_analytics_analytics_service__WEBPACK_IMPORTED_MODULE_4__["AnalyticsService"] },
+        { type: _angular_router__WEBPACK_IMPORTED_MODULE_2__["Router"] },
+        { type: _angular_forms__WEBPACK_IMPORTED_MODULE_4__["FormBuilder"] },
+        { type: _ng_bootstrap_ng_bootstrap__WEBPACK_IMPORTED_MODULE_3__["NgbModal"] },
+        { type: src_app_services_analytics_analytics_service__WEBPACK_IMPORTED_MODULE_6__["AnalyticsService"] },
         { type: src_app_services_client_client_service__WEBPACK_IMPORTED_MODULE_5__["ClientService"] },
-        { type: src_app_services_storage_local_storage_service__WEBPACK_IMPORTED_MODULE_3__["LocalStorageService"] }
+        { type: src_app_services_storage_local_storage_service__WEBPACK_IMPORTED_MODULE_7__["LocalStorageService"] }
     ]; };
     tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
-        Object(_angular_core__WEBPACK_IMPORTED_MODULE_2__["ViewChild"])('setPin', { static: false })
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_8__["ViewChild"])('setPin', { static: false })
     ], ClientHomePageComponent.prototype, "setPinDialog", void 0);
     ClientHomePageComponent = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
-        Object(_angular_core__WEBPACK_IMPORTED_MODULE_2__["Component"])({
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_8__["Component"])({
             selector: 'app-client-home-page',
             template: __webpack_require__(/*! raw-loader!./client-home-page.component.html */ "./node_modules/raw-loader/index.js!./src/app/pages/dashboard/client/client-home-page/client-home-page.component.html"),
             styles: [__webpack_require__(/*! ./client-home-page.component.css */ "./src/app/pages/dashboard/client/client-home-page/client-home-page.component.css")]
@@ -10271,7 +10302,7 @@ var ClientSettingsPageComponent = /** @class */ (function () {
         this.accountService = accountService;
         this.localStorage = localStorage;
         this.user = this.localStorage.getUser();
-        var has_pin = window.localStorage.getItem('has_pin');
+        var has_pin = window.sessionStorage.getItem('has_pin');
         console.log('has_pin: ' + has_pin);
         if (lodash__WEBPACK_IMPORTED_MODULE_1__["isUndefined"](has_pin) || lodash__WEBPACK_IMPORTED_MODULE_1__["isNull"](has_pin)) {
             this.showSetPin = true;
@@ -10409,7 +10440,7 @@ var ClientSettingsPageComponent = /** @class */ (function () {
             _this._loading = false;
             console.log('res: ' + JSON.stringify(ok));
             if (ok) {
-                localStorage.setItem('has_pin', '1');
+                sessionStorage.setItem('has_pin', '1');
             }
         }, function (err) {
             _this._loading = false;
@@ -10459,7 +10490,7 @@ var ClientSettingsPageComponent = /** @class */ (function () {
                 if (ok) {
                     _this.loading = false;
                     _this.submitted = false;
-                    localStorage.setItem('has_pin', '1');
+                    sessionStorage.setItem('has_pin', '1');
                 }
                 else {
                     _this.submitted = false;
@@ -26898,8 +26929,9 @@ var ClientService = /** @class */ (function () {
     ClientService.prototype.checkFormSubmitPin = function (client_id) {
         var _this = this;
         return new Promise(function (resolve, reject) {
-            var url = _this.endpointService.apiHost + 'api/v1/hasPin/' + client_id;
-            _this.http.post(url, {}, { headers: _this.headers }).subscribe(function (res) {
+            var headers = _this.endpointService._headers();
+            var url = _this.endpointService.apiHost + 'api/hasPin/' + client_id;
+            _this.http.post(url, {}, { headers: headers }).subscribe(function (res) {
                 console.log('res: ' + JSON.stringify(res));
                 var response = res;
                 lodash__WEBPACK_IMPORTED_MODULE_1__["toLower"](response.message) == 'yes'
