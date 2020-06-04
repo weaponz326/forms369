@@ -310,26 +310,6 @@ export class ClientFormNewEntryPageComponent implements OnInit {
   }
 
   submitForm() {
-    // this.loading = true;
-    // const user_data = this.getFormData();
-    // console.log(JSON.stringify(user_data));
-    // console.log('this form: ' + this.formBuilder.getFormUserData(user_data));
-    // const unfilled = this.clientService.validateFormFilled(user_data);
-    // console.log('unfilled: ' + JSON.stringify(unfilled));
-    // if (unfilled.length != 0) {
-    //   const fileFields = this.getExistingAttachments(unfilled);
-    //   console.log('fileFields: ' + JSON.stringify(fileFields));
-    //   if (fileFields.length == 0) {
-    //     this.loading = false;
-    //     this.clientService.highlightUnFilledFormFields(unfilled);
-    //   }
-    //   else {
-    //     this.submitFormAndAttachments(user_data, this.updateProfile);
-    //   }
-    // }
-    // else {
-    //   this.submitFormAndAttachments(user_data, this.updateProfile);
-    // }
     const user_data = this.getFormData();
     console.log(JSON.stringify(user_data));
     console.log('this form: ' + this.formBuilder.getFormUserData(user_data));
