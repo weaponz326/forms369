@@ -187,6 +187,23 @@ export class ClientService {
     });
   }
 
+  getAllFavoritesForms(): Promise<any[]> {
+    return new Promise((resolve, reject) => {
+      const url = this.endpointService.apiHost + 'api/v1/getRecentForms';
+      this.http.get(url, { headers: this.headers }).subscribe(
+        res => {
+          const response = res as any;
+          console.log('favorite forms: ' + JSON.stringify(response.form));
+          resolve(response.form);
+        },
+        err => {
+          console.log('error: ' + JSON.stringify(err));
+          reject(err);
+        }
+      );
+    });
+  }
+
   /**
    * Returns a the status of a form.
    *
@@ -449,6 +466,42 @@ export class ClientService {
         },
         err => {
           console.log('history_by_name err: ' + JSON.stringify(err));
+          reject(err);
+        }
+      );
+    });
+  }
+
+  findFormsInHistoryByMerchantName(client_id: string, merchant_name: string): Promise<any> {
+    return new Promise((resolve, reject) => {
+      const url = this.endpointService.apiHost + `api/v1/findClientFormsByMerchantName/${merchant_name}/0/${client_id}`;
+      this.http.get(url, { headers: this.headers }).subscribe(
+        res => {
+          console.log('form_history_by_merchant: ' + JSON.stringify(res));
+          const response = res as any;
+          resolve(response.forms);
+        },
+        err => {
+          console.log('history_by_merchant err: ' + JSON.stringify(err));
+          reject(err);
+        }
+      );
+    });
+  }
+
+  findFormsInHistoryBySubmissionDate(client_id: string, start_date: string, end_date: string): Promise<any> {
+    return new Promise((resolve, reject) => {
+      console.log('start: ' + start_date);
+      console.log('end: ' + end_date);
+      const url = this.endpointService.apiHost + `api/v1/findSubmittedFormByDate/${client_id}/0/${start_date}/${end_date}`;
+      this.http.get(url, { headers: this.headers }).subscribe(
+        res => {
+          console.log('form_history_by_date: ' + JSON.stringify(res));
+          const response = res as any;
+          resolve(response.forms);
+        },
+        err => {
+          console.log('history_by_date err: ' + JSON.stringify(err));
           reject(err);
         }
       );

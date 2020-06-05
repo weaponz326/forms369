@@ -255,11 +255,6 @@ Route::get('client/fill_form', function () {
     return View::make('index');
 });
 
-Route::get('client/drafts', function () {
-    View::addExtension('html', 'php');
-    return View::make('index');
-});
-
 Route::get('client/favorites', function () {
     View::addExtension('html', 'php');
     return View::make('index');

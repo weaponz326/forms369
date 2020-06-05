@@ -131,7 +131,6 @@ import { ExecViewSuperExectivesPageComponent } from './pages/dashboard/executive
 import { ExecViewBranchExectivesPageComponent } from './pages/dashboard/executive/exec-view-branch-exectives-page/exec-view-branch-exectives-page.component';
 import { ExecViewFrontDesksPageComponent } from './pages/dashboard/executive/exec-view-front-desks-page/exec-view-front-desks-page.component';
 import { FormsCountryPickerComponent } from './components/forms-country-picker/forms-country-picker.component';
-import { ClientDraftFormsPageComponent } from './pages/dashboard/client/client-draft-forms-page/client-draft-forms-page.component';
 import { ClientFavoriteFormsPageComponent } from './pages/dashboard/client/client-favorite-forms-page/client-favorite-forms-page.component';
 import { ClientSuggestMerchantPageComponent } from './pages/dashboard/client/client-suggest-merchant-page/client-suggest-merchant-page.component';
 
@@ -249,7 +248,6 @@ import { ClientSuggestMerchantPageComponent } from './pages/dashboard/client/cli
     ExecViewBranchExectivesPageComponent,
     ExecViewFrontDesksPageComponent,
     FormsCountryPickerComponent,
-    ClientDraftFormsPageComponent,
     ClientFavoriteFormsPageComponent,
     ClientSuggestMerchantPageComponent,
   ],

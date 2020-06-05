@@ -79,7 +79,7 @@ export class ClientHomePageComponent implements OnInit, AfterViewInit {
   }
 
   openDraftForms() {
-    this.router.navigateByUrl('/client/drafts');
+    this.router.navigateByUrl('/client/forms_filled', { state: { form: 'data' } });
   }
 
   getClientAnalytics() {

@@ -91,3 +91,8 @@
 # version 0.1.0
     1. Resend code added for login two way authenticiation for clients.
     2. Suggest merchant added to clients.
+    3. Introduced reversed forms.
+    4. Added search by merchant name in history.
+    5. Added search by submission date in history.
+    6. Added drafts to main dashboard.
+    

@@ -1,1 +1,135 @@
-<p>client-favorite-forms-page works!</p>
+<div class="container-scroller">
+  <app-navigation-bar></app-navigation-bar>
+  <div class="container-fluid page-body-wrapper">
+    <app-side-bar></app-side-bar>
+    <div class="main-panel">
+      <div class="content-wrapper">
+        <div class="row">
+          <div class="col-md-12 grid-margin">
+            <div class="d-flex justify-content-between flex-wrap">
+              <div class="d-flex align-items-end flex-wrap">
+                <div class="mr-md-3 mr-xl-5">
+                  <h2 class="page-title">Favorites</h2>
+                </div>
+                <div class="d-flex">
+                </div>
+              </div>
+              <div class="d-flex justify-content-between align-items-end flex-wrap">
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div *ngIf="!hasData && !loading" class="row">
+          <div class="col-lg-12 grid-margin stretch-card">
+            <div class="card text-center pt-5 pb-5">
+              <div class="card-body mt-5 mb-5">
+                <h4 class="card-title">No Data Found</h4>
+                <div class="text-lg-center mt-5 mb-5">
+                  <div class="card-text">
+                    <i class="mdi mdi-rocket" style="font-size: 8em;"></i>
+                  </div>
+                  <div class="card-text">
+                    <h3>No Available Favorite Form</h3>
+                    <p class="text-muted">
+                      You haven't filled any forms yet! All most submitted forms will be displayed here.
+                    </p>
+                  </div>
+                  <div class="card-text mt-5">
+                    <button class="btn btn-primary" type="button" (click)="pickForm()">Pick A Form</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div *ngIf="hasError && !hasData" class="row">
+          <div class="col-lg-12 grid-margin stretch-card">
+            <div class="card text-center pt-5 pb-5">
+              <div class="card-body mt-5 mb-5">
+                <h4 class="card-title">Error Ocuured</h4>
+                <p class="card-description">
+                  Ooops! Something went wrong!
+                </p>
+                <div class="text-lg-center mt-5 mb-5">
+                  <div class="card-text">
+                    <i class="mdi mdi-close-network-outline" style="font-size: 8em;"></i>
+                  </div>
+                  <div class="card-text">
+                    <h3>We couldn't find any forms</h3>
+                    <p class="text-muted">You may not have internet connection or our servers maybe down.</p>
+                    <button class="btn btn-primary" type="button" (click)="retry()">Retry</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div *ngIf="loading" class="col-12 p-md-5">
+          <div class="d-flex justify-content-center">
+            <div class="spinner-border m-5" style="width: 3rem; height: 3rem;" role="status">
+              <span class="sr-only">Loading...</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="row" *ngIf="!loading && hasData">
+          <div class="col-md-4 grid-margin stretch-card" *ngFor="let form of favoritesCollection; let i=index">
+            <div class="card hover-cursor">
+              <div class="align-right">
+                <div class="dropdown">
+                  <button class="btn btn-sm" type="button">
+                    <i class="mdi mdi-star-outline"></i>
+                  </button>
+                </div>
+              </div>
+              <div class="card-body" (click)="openFormEntry($event, form)">
+                <p class="card-title mr-3">{{ form.name }}</p>
+                <img class="merchant-logo" [src]="form.logo" alt="Logo">
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div *ngIf="loadingMore" class="row m-md-2">
+          <div class="col-md-12 col-sm-12 m-md-2">
+            <div class="d-flex justify-content-center">
+              <div class="spinner-border m-2" style="width: 2rem; height: 2rem;" role="status">
+                <span class="sr-only">Loading...</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div *ngIf="hasMoreError" class="row m-md-2">
+          <div class="col-md-8 col-sm-12 offset-md-2">
+            <div class="alert alert-danger" role="alert">
+              <h4 class="alert-heading">Connection Failed!</h4>
+              <p>
+                Oops!! Couldn't get you the rest of the data. Please make sure you have an active internet connection.
+                Maybe, our servers may be down.
+              </p>
+              <hr>
+              <p class="mb-0">We are really sorry for this inconvenience. Please click on the load more button again.</p>
+            </div>
+          </div>
+        </div>
+
+        <div *ngIf="hasMore && !loading" class="row">
+          <div class="col-md-4 col-sm-6 offset-sm-3 offset-lg-4">
+            <div class="text-center">
+              <button type="button" class="btn btn-primary btn-rounded btn-fw" (click)="loadMore()">Load More</button>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- content -->
+      <!-- footer -->
+      <app-footer-bar></app-footer-bar>
+      <!-- partial -->
+    </div>
+    <!-- main-panel -->
+  </div>
+</div>

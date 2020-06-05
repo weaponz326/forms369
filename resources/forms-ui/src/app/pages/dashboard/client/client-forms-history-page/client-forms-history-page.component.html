@@ -9,7 +9,7 @@
             <div class="d-flex justify-content-between flex-wrap">
               <div class="d-flex align-items-end flex-wrap">
                 <div class="mr-md-3 mr-xl-5">
-                  <h2 class="page-title">My History</h2>
+                  <h2 class="page-title">History</h2>
                 </div>
                 <div class="d-flex">
                 </div>
@@ -74,15 +74,47 @@
               <button type="button" class="btn btn-outline-primary" [ngClass]="{'active': filterState == 'processing'}" (click)="showProcessing()">Processing</button>
               <button type="button" class="btn btn-outline-primary" [ngClass]="{'active': filterState == 'drafts'}" (click)="showDrafts()">Drafts</button>
               <button type="button" class="btn btn-outline-primary" [ngClass]="{'active': filterState == 'rejected'}" (click)="showRejected()">Rejected</button>
+              <button type="button" class="btn btn-outline-primary" [ngClass]="{'active': filterState == 'reversed'}" (click)="showReversed()">Reversed</button>
             </div>
           </div>
 
-          <div class="col-12 col-md-8 offset-md-2 mb-3">
+          <div class="col-md-3 mb-3 offset-md-1">
+            <select class="form-control" name="searchOption" [(ngModel)]="searchOption" (change)="selectSearchOption()">
+              <option value="">Search By</option>
+              <option value="form_name">Form Name</option>
+              <option value="form_code">Form Code</option>
+              <option value="merchant_name">Merchant Name</option>
+              <option value="submission_date">Submission Date</option>
+            </select>
+          </div>
+          <div class="col-md-7 mb-2">
             <div class="search-bar">
-              <form>
+              <form *ngIf="!isDateSearch">
                 <input type="text" class="search-form form-control" name="query" [(ngModel)]="query"
-                  placeholder="Search by form code or form name" aria-label="search"
+                  placeholder="Search {{ searchTerm }}" aria-label="search"
                   aria-describedby="search" (keydown)="search($event)">
+              </form>
+              <form *ngIf="isDateSearch">
+                <div class="form-group form-inline">
+                  <div class="input-group">
+                    <input class="form-control date-search" [(ngModel)]="startDate" placeholder="Select Start Date" name="dp" ngbDatepicker #d="ngbDatepicker">
+                    <div class="input-group-append">
+                      <button class="btn btn-sm btn-outline-primary" (click)="d.toggle()" type="button">
+                        <i class="mdi mdi-calendar-outline"></i>
+                      </button>
+                    </div>
+                  </div>
+                  <div style="width: 2px;"></div>
+                  <div class="input-group">
+                    <input class="form-control date-search" [(ngModel)]="endDate" placeholder="Select Start Date" name="dp" ngbDatepicker #d1="ngbDatepicker">
+                    <div class="input-group-append">
+                      <button class="btn btn-sm btn-outline-primary" (click)="d1.toggle()" type="button">
+                        <i class="mdi mdi-calendar-outline"></i>
+                      </button>
+                    </div>
+                  </div>
+                  <button type="button" class="btn btn-outline-primary ml-2" (click)="searchBySubmissionDate()">Search</button>
+                </div>
               </form>
             </div>
           </div>
@@ -115,6 +147,7 @@
               </div>
               <div class="card-body" (click)="openFormEntry($event, form)">
                 <p class="card-title mr-3">{{ form.form_name }}</p>
+                <img class="merchant-logo" [src]="form.logo" alt="Logo">
                 <h1 class="display-4">{{ form.submission_code }}</h1>
                 <div class="card-text">
                   <p class="text-muted small-text">{{ form.submitted_at | date }}</p>

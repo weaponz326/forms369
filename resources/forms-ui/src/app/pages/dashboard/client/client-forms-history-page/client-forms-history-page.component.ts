@@ -2,11 +2,13 @@ import * as _ from 'lodash';
 import Swal from 'sweetalert2';
 import { Router } from '@angular/router';
 import { Users } from 'src/app/models/users.model';
-import { NgbModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { ClientService } from 'src/app/services/client/client.service';
-import { Component, OnInit, ViewChild, TemplateRef } from '@angular/core';
+import { EndpointService } from 'src/app/services/endpoint/endpoint.service';
 import { DateTimeService } from 'src/app/services/date-time/date-time.service';
+import { ReloadingService } from 'src/app/services/reloader/reloading.service';
 import { DownloaderService } from 'src/app/services/downloader/downloader.service';
+import { Component, OnInit, ViewChild, TemplateRef, OnDestroy } from '@angular/core';
 import { LocalStorageService } from 'src/app/services/storage/local-storage.service';
 
 @Component({
@@ -14,19 +16,24 @@ import { LocalStorageService } from 'src/app/services/storage/local-storage.serv
   templateUrl: './client-forms-history-page.component.html',
   styleUrls: ['./client-forms-history-page.component.css']
 })
-export class ClientFormsHistoryPageComponent implements OnInit {
-
+export class ClientFormsHistoryPageComponent implements OnInit, OnDestroy {
+  form: any;
   user: Users;
   query: string;
+  endDate: string;
   hasMore: boolean;
   hasData: boolean;
   loading: boolean;
+  startDate: string;
   hasError: boolean;
+  searchTerm: string;
   filterState: string;
   foundNoForm: boolean;
+  searchOption: string;
   loadingMore: boolean;
   hasMoreError: boolean;
   rejectionNote: string;
+  isDateSearch: boolean;
   loadingReview: boolean;
   historyCollection: Array<any>;
   allHistoryCollection: Array<any>;
@@ -38,22 +45,37 @@ export class ClientFormsHistoryPageComponent implements OnInit {
   constructor(
     private router: Router,
     private modalService: NgbModal,
+    private reloader: ReloadingService,
     private clientService: ClientService,
     private dateService: DateTimeService,
+    private endpointService: EndpointService,
     private downloadService: DownloaderService,
     private localStorageService: LocalStorageService
   ) {
+    this.searchOption = '';
     this.rejectionNote = '';
     this.historyCollection = [];
     this.allHistoryCollection = [];
+    this.form = history.state.form;
     this.processedHistoryCollection = [];
     this.processingHistoryCollection = [];
+    this.form = this.reloader.resolveDataLoss(this.form);
     this.user = this.localStorageService.getUser();
-    this.getAllHistory();
   }
 
   ngOnInit() {
+    if (_.isNull(this.form) || _.isUndefined(this.form)) {
+      this.filterState = 'all';
+      this.getAllHistory();
+    }
+    else {
+      this.showDrafts();
+    }
+  }
+
+  ngOnDestroy(): void {
     this.filterState = 'all';
+    sessionStorage.removeItem('u_form');
   }
 
   showDeleteFailedAlert() {
@@ -80,9 +102,31 @@ export class ClientFormsHistoryPageComponent implements OnInit {
   showAll() {
     this.filterState = 'all';
     this.getAllHistory();
-    // this.historyCollection =  this.allHistoryCollection;
-    // const moreUrl = this.clientService.nextPaginationUrl;
-    // _.isNull(moreUrl) ? this.hasMore = false : this.hasMore = true;
+  }
+
+  selectSearchOption() {
+    console.log('selected option: ' + this.searchOption);
+    this.resetData();
+    switch (this.searchOption) {
+      case 'form_name':
+        this.isDateSearch = false;
+        this.searchTerm = 'by form name';
+        break;
+      case 'form_code':
+        this.isDateSearch = false;
+        this.searchTerm = 'by form code';
+        break;
+      case 'merchant_name':
+        this.isDateSearch = false;
+        this.searchTerm = 'by merchant name';
+        break;
+      case 'submission_date':
+        this.isDateSearch = true;
+        this.searchTerm = 'by submission date';
+        break;
+      default:
+        break;
+    }
   }
 
   showProcessed() {
@@ -97,6 +141,7 @@ export class ClientFormsHistoryPageComponent implements OnInit {
           this.hasData = true;
           this.loading = false;
           _.forEach(forms, (form) => {
+            form.logo = this.endpointService.storageHost + form.logo;
             form.submitted_at = this.dateService.safeDateFormat(form.submitted_at);
             this.historyCollection.push(form);
           });
@@ -127,6 +172,7 @@ export class ClientFormsHistoryPageComponent implements OnInit {
           this.hasData = true;
           this.loading = false;
           _.forEach(forms, (form) => {
+            form.logo = this.endpointService.storageHost + form.logo;
             form.submitted_at = this.dateService.safeDateFormat(form.submitted_at);
             this.historyCollection.push(form);
           });
@@ -157,7 +203,9 @@ export class ClientFormsHistoryPageComponent implements OnInit {
         if (forms.length > 0) {
           this.hasData = true;
           this.loading = false;
+          console.log('drafts: ' + forms.length);
           _.forEach(forms, (form) => {
+            form.logo = this.endpointService.storageHost + form.logo;
             form.submitted_at = this.dateService.safeDateFormat(form.submitted_at);
             this.historyCollection.push(form);
           });
@@ -189,6 +237,7 @@ export class ClientFormsHistoryPageComponent implements OnInit {
           this.hasData = true;
           this.loading = false;
           _.forEach(forms, (form) => {
+            form.logo = this.endpointService.storageHost + form.logo;
             form.submitted_at = this.dateService.safeDateFormat(form.submitted_at);
             this.historyCollection.push(form);
           });
@@ -221,13 +270,45 @@ export class ClientFormsHistoryPageComponent implements OnInit {
           this.hasData = true;
           this.loading = false;
           _.forEach(forms, (form) => {
+            form.logo = this.endpointService.storageHost + form.logo;
             form.submitted_at = this.dateService.safeDateFormat(form.submitted_at);
             this.historyCollection.push(form);
           });
           this.allHistoryCollection = this.historyCollection;
           const moreUrl = this.clientService.nextPaginationUrl;
           _.isNull(moreUrl) ? this.hasMore = false : this.hasMore = true;
-          // this.hasMore ? this.handleLoadMoreVisibility(this.historyCollection) : null;
+        }
+        else {
+          this.hasData = true;
+          this.loading = false;
+        }
+      },
+      err => {
+        this.hasError = true;
+        this.loading = false;
+      }
+    );
+  }
+
+  showReversed() {
+    this.filterState = 'reversed';
+    this.loading = true;
+    this.historyCollection = [];
+    this.allHistoryCollection = [];
+    this.clientService.getFormByStatus(_.toString(this.user.id), 5).then(
+      forms => {
+        this.hasMore = this.checkIfHasMore();
+        if (forms.length > 0) {
+          this.hasData = true;
+          this.loading = false;
+          _.forEach(forms, (form) => {
+            form.logo = this.endpointService.storageHost + form.logo;
+            form.submitted_at = this.dateService.safeDateFormat(form.submitted_at);
+            this.historyCollection.push(form);
+          });
+          this.allHistoryCollection = this.historyCollection;
+          const moreUrl = this.clientService.nextPaginationUrl;
+          _.isNull(moreUrl) ? this.hasMore = false : this.hasMore = true;
         }
         else {
           this.hasData = true;
@@ -310,26 +391,84 @@ export class ClientFormsHistoryPageComponent implements OnInit {
     );
   }
 
+  searchByMerchantName() {
+    console.log('merchant name searching is running ...');
+    this.loading = true;
+    this.clientService.findFormsInHistoryByMerchantName(this.user.id.toString(), this.query).then(
+      forms => {
+        if (forms.length == 0) {
+          this.loading = false;
+          this.foundNoForm = true;
+        }
+        else {
+          this.loading = false;
+          this.foundNoForm = false;
+          _.forEach(forms, (form) => {
+            this.historyCollection.push(form);
+          });
+        }
+      },
+      err => {
+        this.hasError = true;
+        this.loading = false;
+      }
+    );
+  }
+
+  searchBySubmissionDate() {
+    console.log('date search is running ...');
+    this.loading = true;
+    this.hasMore = false;
+    this.hasError = false;
+    this.historyCollection = [];
+
+    const end_date = this.dateService.bootstrapDateFormat(this.endDate);
+    const start_date = this.dateService.bootstrapDateFormat(this.startDate);
+
+    this.clientService.findFormsInHistoryBySubmissionDate(this.user.id.toString(), start_date, end_date).then(
+      forms => {
+        if (forms.length == 0) {
+          this.loading = false;
+          this.foundNoForm = true;
+        }
+        else {
+          this.loading = false;
+          this.foundNoForm = false;
+          _.forEach(forms, (form) => {
+            this.historyCollection.push(form);
+          });
+        }
+      },
+      err => {
+        this.hasError = true;
+        this.loading = false;
+      }
+    );
+  }
+
   search(e: KeyboardEvent) {
     if (e.key == 'Enter') {
       if (this.query.length != 0) {
-        // we need to know whether the user is searching by a form code
-        // or the user is searching by a form name.
-        // First, check if its a form code.
         console.log(this.query);
         this.hasMore = false;
         this.hasError = false;
         this.historyCollection = [];
 
-        if (/\d/.test(this.query) || this.query.length == 5) {
-          console.log('searching by form code');
-          this.searchByFormCode();
-        }
-        else {
-          // since all our form codes includes digits, and this
-          // users input doesnt include a digit, search by form name.
-          console.log('searching by form name last');
-          this.searchByFormName();
+        switch (this.searchOption) {
+          case 'form_name':
+            this.searchByFormName();
+            break;
+          case 'form_code':
+            this.searchByFormCode();
+            break;
+          case 'merchant_name':
+            this.searchByMerchantName();
+            break;
+          case 'submission_date':
+            this.searchBySubmissionDate();
+            break;
+          default:
+            break;
         }
       }
       else {
@@ -344,6 +483,16 @@ export class ClientFormsHistoryPageComponent implements OnInit {
     }
   }
 
+  resetData() {
+    this.historyCollection = this.allHistoryCollection;
+    this.hasMore = this.checkIfHasMore();
+    if (this.foundNoForm && this.query.length == 0) {
+      this.hasData = true;
+      this.foundNoForm = false;
+      this.historyCollection = this.allHistoryCollection;
+    }
+  }
+
   getAllHistory() {
     this.loading = true;
     this.clientService.getAllSubmittedForms(_.toString(this.user.id)).then(
@@ -353,6 +502,7 @@ export class ClientFormsHistoryPageComponent implements OnInit {
           this.hasData = true;
           this.loading = false;
           _.forEach(forms, (form) => {
+            form.logo = this.endpointService.storageHost + form.logo;
             form.submitted_at = this.dateService.safeDateFormat(form.submitted_at);
             this.historyCollection.push(form);
           });
