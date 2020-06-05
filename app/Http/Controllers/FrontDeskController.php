@@ -321,7 +321,7 @@ class FrontDeskController extends Controller
                 //send sms to user if form is rejected by processor
                 $from = "GiTLog";
                 $mobile = $user->phone;
-                $msg = "Your submitted form with submission code ". $code ." has been rejected.";
+                $msg = "Submitted form rejected." .".\r\n". "Form Submission Code: " .$code;
                 $status = (new AuthController)->sendsms($from,$mobile,$msg);
              }
 

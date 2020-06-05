@@ -2521,5 +2521,16 @@ class HomeController extends Controller
         return $message; 
      }
 
+     /**
+     * reverseSubmittedForm reverse a submitted form
+     * @return void\Illuminate\Http\Response error or success message
+     * 
+     */
+    public function reverseSubmittedForm()
+    {
+        $message = (new ClientController)->reverseSubmittedForm();
+        return $message;
+    }
+
 
 }    

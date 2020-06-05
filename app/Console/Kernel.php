@@ -32,7 +32,7 @@ class Kernel extends ConsoleKernel
             $users = DB::table('submitted_forms')
             ->join('users', 'users.id', '=', 'client_id')
             ->join('forms', 'forms.form_code', '=', 'form_id')
-            ->where('reverse_at', '=', Carbon::now())
+            ->where('reverse_at', '=', Carbon::now()->toDateTimeString())
            //->where('submitted_at', '<', Carbon::now()->subHours(72)->toDateTimeString())
             ->where('can_view', '=', 0)
             ->where('submitted_forms.status', '=', 0)
@@ -52,8 +52,9 @@ class Kernel extends ConsoleKernel
                     //send sms to user if form is reversed after 72 hours
                     $from = "GiTLog";
                     $mobile = $user->phone;
-                    $msg = "Your submitted form with submission code ". $user->submission_code ." has been reversed due to no show up for processing.";
-                    $status = (new AuthController)->sendsms($from,$mobile,$msg);
+                    $code = $user->submission_code;
+                    $msg = "Submitted form reversed due to no show up for processing" .".\r\n". "Form Submission Code: " .$code; 
+                    return (new AuthController)->sendsms($from,$mobile,$msg);
 
                 }
                

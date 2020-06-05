@@ -1629,4 +1629,51 @@ class ClientController extends Controller
         ];
         return response()->json($response, 200);
      }
+
+     /**
+     * reverseSubmittedForm reverse a submitted form
+     * @return void\Illuminate\Http\Response error or success message
+     * 
+     */
+    public function reverseSubmittedForm()
+    {
+        $users = DB::table('submitted_forms')
+        ->join('users', 'users.id', '=', 'client_id')
+        ->join('forms', 'forms.form_code', '=', 'form_id')
+        // ->where('reverse_at', '=', Carbon::now()->toDateTimeString())
+       //->where('submitted_at', '<', Carbon::now()->subHours(72)->toDateTimeString())
+        ->where('can_view', '=', 0)
+        ->where('submitted_forms.status', '=', 0)
+        ->select('phone', 'submission_code')
+        ->get();
+        
+        if(!empty($users) || count($users) > 0){
+            
+            foreach ($users as $user) {
+
+                DB::table('submitted_forms')
+                ->where('submission_code',$user->submission_code)
+                ->update(
+                    [
+                        'status' => 5
+                    ]
+                );
+
+                //send sms to user if form is reversed after 72 hours
+                $from = "GiTLog";
+                $mobile = $user->phone;
+                $code = $user->submission_code;
+                $msg = "Submitted form reversed due to no show up for processing" .".\r\n". "Form Submission Code: " .$code; 
+                return (new AuthController)->sendsms($from,$mobile,$msg);
+                // return (new AuthController)->sendsms("GiTLog", "233501879144", "new message");
+
+            }
+           
+            $response = [
+                'message' => "ok"
+            ];
+            return response()->json($response, 200);
+        
+        } 
+    }    
 }
