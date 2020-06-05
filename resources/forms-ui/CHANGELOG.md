@@ -95,4 +95,6 @@
     4. Added search by merchant name in history.
     5. Added search by submission date in history.
     6. Added drafts to main dashboard.
+    7. Forms list re-design, now based on company colors provided during setup.
+    8. Pick a form now has countries dropdown.
     

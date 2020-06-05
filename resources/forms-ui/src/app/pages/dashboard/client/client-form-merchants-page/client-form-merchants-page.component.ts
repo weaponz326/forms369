@@ -47,8 +47,8 @@ export class ClientFormMerchantsPageComponent implements OnInit {
     this.selectedSector = '0';
     this.user = this.localStorage.getUser();
 
+    this.loading = true;
     this.getSectors();
-    this.getCompanies(this.user.country, 0);
   }
 
   ngOnInit() {
@@ -110,7 +110,7 @@ export class ClientFormMerchantsPageComponent implements OnInit {
 
   getSelectedCountry(data: any) {
     console.log('selected country: ' + JSON.stringify(data));
-    const country = data.name.common;
+    const country = data.cca2;
     this.selectedCountry = country;
     this.selectedSector == ''
       ? this.getCompanies(this.selectedCountry, 0)
