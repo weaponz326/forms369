@@ -123,7 +123,7 @@ export class AdminViewBranchesPageComponent implements OnInit {
 
   getCompanyBranches() {
     this.loading = true;
-    this.branchService.getBranch(_.toString(this.merchant_id)).then(
+    this.branchService.getCompanyBranches(_.toString(this.merchant_id)).then(
       res => {
         const branches = res as any;
         this.hasMore = this.checkIfHasMore();
@@ -149,7 +149,7 @@ export class AdminViewBranchesPageComponent implements OnInit {
   loadMore() {
     this.loadingMore = true;
     const moreUrl = this.branchService.nextPaginationUrl;
-    this.branchService.getBranch(_.toString(this.merchant_id), moreUrl).then(
+    this.branchService.getCompanyBranches(_.toString(this.merchant_id), moreUrl).then(
       res => {
         this.loadingMore = false;
         this.hasMoreError = false;

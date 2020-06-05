@@ -18,7 +18,7 @@
 }
 
 .search-form {
-  border-radius: 30px;
+  border-radius: 6px;
   background: #fff;
 }
 
@@ -76,4 +76,18 @@
 
 .dropdown-menu.show {
   border: 1px solid #ddd;
+}
+
+select.form-control {
+  border-radius: 7px;
+}
+
+.date-search {
+  width: 180px;
+}
+
+.merchant-logo {
+  width: 47px;
+  border-radius: 6px;
+  margin-bottom: 10px;
 }

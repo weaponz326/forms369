@@ -15,6 +15,24 @@ export class ClientService {
     this.headers = this.endpointService.headers();
   }
 
+  generateFormSubmissionCode(): Promise<string> {
+    return new Promise((resolve, reject) => {
+      const header = this.endpointService.headers();
+      const url = this.endpointService.apiHost + 'api/v1/generateSubCode';
+      this.http.get( url, { headers: header }).subscribe(
+        res => {
+          console.log('code_res___: ' + JSON.stringify(res));
+          const response = res as any;
+          resolve(response.code);
+        },
+        err => {
+          console.log('error_____: ' + JSON.stringify(err));
+          reject(err);
+        }
+      );
+    });
+  }
+
   /**
    * Verifies a two-way auth code.
    *
@@ -51,11 +69,11 @@ export class ClientService {
    * @returns {Promise<any>}
    * @memberof ClientService
    */
-  submitForm(id: string, code: string, client_data: any, form_data: any, updateProfile: number, submission_code: string): Promise<boolean> {
+  submitForm(id: string, code: string, client_data: any, form_data: any, updateProfile: number, submission_code: string, status: number, branch_id: number): Promise<boolean> {
     return new Promise((resolve, reject) => {
-      const body = { client_profile: client_data, form_data: form_data };
+      const body = { client_profile: client_data, form_data: form_data, branch_id: branch_id };
       console.log('Body: ' + JSON.stringify(body));
-      const url = this.endpointService.apiHost + 'api/v1/submitForm/' + id + '/' + code + '/' + updateProfile + '/' + submission_code;
+      const url = `${this.endpointService.apiHost}api/v1/submitForm/${id}/${code}/${updateProfile}/${submission_code}/${status}`;
       this.http.post(url, JSON.stringify(body), { headers: this.headers }).subscribe(
         res => {
           console.log('form_submitted: ' + JSON.stringify(res));
@@ -110,7 +128,8 @@ export class ClientService {
       this.http.get(url, { headers: this.headers }).subscribe(
         res => {
           const response = res as any;
-          resolve(response.client[0]);
+          console.log('___res: ' + JSON.stringify(res));
+          response.client.length == 0 ? resolve(response.client) : resolve(response.client[0]);
         },
         err => {
           reject(err);
@@ -159,6 +178,23 @@ export class ClientService {
           console.log('submitted forms: ' + JSON.stringify(response.forms.data));
           this.nextPaginationUrl = response.forms.next_page_url;
           resolve(response.forms.data);
+        },
+        err => {
+          console.log('error: ' + JSON.stringify(err));
+          reject(err);
+        }
+      );
+    });
+  }
+
+  getAllFavoritesForms(): Promise<any[]> {
+    return new Promise((resolve, reject) => {
+      const url = this.endpointService.apiHost + 'api/v1/getRecentForms';
+      this.http.get(url, { headers: this.headers }).subscribe(
+        res => {
+          const response = res as any;
+          console.log('favorite forms: ' + JSON.stringify(response.form));
+          resolve(response.form);
         },
         err => {
           console.log('error: ' + JSON.stringify(err));
@@ -309,20 +345,26 @@ export class ClientService {
    * @memberof ClientService
    */
   getUpdatedClientFormData(new_form_data: any, existing_client_data: any) {
-    const obj = _.toPlainObject(new_form_data);
-    const keys = _.keys(obj);
-    console.log('existing: ' + existing_client_data);
-    if (_.isArray(existing_client_data)) {
-      console.log('client_k: ' + _.keys(existing_client_data)[0]);
-      _.forEach(keys, (key, i) => {
-        existing_client_data[key] = obj[key];
-      });
+    if (_.isUndefined(existing_client_data) || _.isNull(existing_client_data)) {
+      const emptyObj = {};
+      return JSON.stringify(emptyObj);
     }
     else {
-      console.log('client_kkk: ' + _.keys(existing_client_data));
-      _.forEach(keys, (key, i) => {
-        existing_client_data[key] = obj[key];
-      });
+      const obj = _.toPlainObject(new_form_data);
+      const keys = _.keys(obj);
+      console.log('existing: ' + existing_client_data);
+      if (_.isArray(existing_client_data)) {
+        console.log('client_k: ' + _.keys(existing_client_data)[0]);
+        _.forEach(keys, (key, i) => {
+          existing_client_data[key] = obj[key];
+        });
+      }
+      else {
+        console.log('client_kkk: ' + _.keys(existing_client_data));
+        _.forEach(keys, (key, i) => {
+          existing_client_data[key] = obj[key];
+        });
+      }
     }
 
     return JSON.stringify(existing_client_data);
@@ -424,6 +466,42 @@ export class ClientService {
         },
         err => {
           console.log('history_by_name err: ' + JSON.stringify(err));
+          reject(err);
+        }
+      );
+    });
+  }
+
+  findFormsInHistoryByMerchantName(client_id: string, merchant_name: string): Promise<any> {
+    return new Promise((resolve, reject) => {
+      const url = this.endpointService.apiHost + `api/v1/findClientFormsByMerchantName/${merchant_name}/0/${client_id}`;
+      this.http.get(url, { headers: this.headers }).subscribe(
+        res => {
+          console.log('form_history_by_merchant: ' + JSON.stringify(res));
+          const response = res as any;
+          resolve(response.forms);
+        },
+        err => {
+          console.log('history_by_merchant err: ' + JSON.stringify(err));
+          reject(err);
+        }
+      );
+    });
+  }
+
+  findFormsInHistoryBySubmissionDate(client_id: string, start_date: string, end_date: string): Promise<any> {
+    return new Promise((resolve, reject) => {
+      console.log('start: ' + start_date);
+      console.log('end: ' + end_date);
+      const url = this.endpointService.apiHost + `api/v1/findSubmittedFormByDate/${client_id}/0/${start_date}/${end_date}`;
+      this.http.get(url, { headers: this.headers }).subscribe(
+        res => {
+          console.log('form_history_by_date: ' + JSON.stringify(res));
+          const response = res as any;
+          resolve(response.forms);
+        },
+        err => {
+          console.log('history_by_date err: ' + JSON.stringify(err));
           reject(err);
         }
       );
@@ -685,8 +763,9 @@ export class ClientService {
    */
   checkFormSubmitPin(client_id: string): Promise<boolean> {
     return new Promise((resolve, reject) => {
-      const url = this.endpointService.apiHost + 'api/v1/hasPin/' + client_id;
-      this.http.post(url, {}, { headers: this.headers }).subscribe(
+      const headers = this.endpointService._headers();
+      const url = this.endpointService.apiHost + 'api/hasPin/' + client_id;
+      this.http.post(url, {}, { headers: headers }).subscribe(
         res => {
           console.log('res: ' + JSON.stringify(res));
           const response = res as any;
@@ -779,6 +858,27 @@ export class ClientService {
         },
         err => {
           console.log('verify_pin_err: ' + JSON.stringify(err));
+          reject(err);
+        }
+      );
+    });
+  }
+
+  suggestMerchant(country: string, merchant_name: string): Promise<any> {
+    return new Promise((resolve, reject) => {
+      const body = {
+        merchant_name: merchant_name,
+        country: country
+      };
+      const url = this.endpointService.apiHost + 'api/v1/suggestMerchant';
+      this.http.post( url, JSON.stringify(body), { headers: this.headers }).subscribe(
+        res => {
+          console.log('___ress: ' + JSON.stringify(res));
+          const response = res as any;
+          resolve(response);
+        },
+        err => {
+          console.log('____error: ' + JSON.stringify(err));
           reject(err);
         }
       );

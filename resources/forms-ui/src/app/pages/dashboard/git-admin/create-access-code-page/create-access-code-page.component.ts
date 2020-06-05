@@ -144,7 +144,7 @@ export class CreateAccessCodePageComponent implements OnInit {
     this.branchNamesList = [];
     const id = this.getSelectedMerchantIdentifier();
     console.log('selected company_id: ' + id);
-    this.branchService.getBranch(id.toString()).then(
+    this.branchService.getCompanyBranches(id.toString()).then(
       res => {
         const branches = res as any;
         console.log('res_length: ' + branches.length);

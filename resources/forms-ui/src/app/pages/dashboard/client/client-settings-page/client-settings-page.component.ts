@@ -31,7 +31,7 @@ export class ClientSettingsPageComponent implements OnInit {
     private localStorage: LocalStorageService,
   ) {
     this.user = this.localStorage.getUser();
-    const has_pin = window.localStorage.getItem('has_pin');
+    const has_pin = window.sessionStorage.getItem('has_pin');
     console.log('has_pin: ' + has_pin);
     if (_.isUndefined(has_pin) || _.isNull(has_pin)) {
       this.showSetPin = true;
@@ -175,7 +175,7 @@ export class ClientSettingsPageComponent implements OnInit {
         this._loading = false;
         console.log('res: ' + JSON.stringify(ok));
         if (ok) {
-          localStorage.setItem('has_pin', '1');
+          sessionStorage.setItem('has_pin', '1');
         }
       },
       err => {
@@ -232,7 +232,7 @@ export class ClientSettingsPageComponent implements OnInit {
           if (ok) {
             this.loading = false;
             this.submitted = false;
-            localStorage.setItem('has_pin', '1');
+            sessionStorage.setItem('has_pin', '1');
           }
           else {
             this.submitted = false;

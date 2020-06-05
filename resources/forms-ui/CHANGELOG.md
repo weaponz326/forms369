@@ -85,3 +85,14 @@
 # version 0.0.7
     1. Added physical address, colors and compoany nickname to create company in GIT Admin.
     2. Added physical address to create branch in GIT Admin.
+    3. Can now save a form as draft.
+    4. See all forms saved as drafts.
+
+# version 0.1.0
+    1. Resend code added for login two way authenticiation for clients.
+    2. Suggest merchant added to clients.
+    3. Introduced reversed forms.
+    4. Added search by merchant name in history.
+    5. Added search by submission date in history.
+    6. Added drafts to main dashboard.
+    

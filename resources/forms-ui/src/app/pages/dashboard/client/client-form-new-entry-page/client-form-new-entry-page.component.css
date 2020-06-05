@@ -76,3 +76,15 @@ a:not([href]):not([tabindex]):hover {
 .pin-control::placeholder {
   color: #bbb;
 }
+
+.list-group > a {
+  text-decoration: none;
+  color: #555 !important;
+  padding: 15px 28px;
+}
+
+.list-group > a:hover {
+  text-decoration: none;
+  /* color: #555 !important;
+  padding: 15px 28px; */
+}

@@ -49,6 +49,8 @@ Route::get('login/google/callback', 'HomeController@handleProviderGoogleCallback
 Route::get('forgotpinlink/{token}', 'HomeController@confirmForgottenPin')->name('forgotpinlink');
 Route::post('resetPin/{id}', 'HomeController@resetPin')->name('resetPin');
 
+Route::post('hasPin/{id}', 'HomeController@hasPin')->name('hasPin');
+
 
 //protected routes 
 Route::group(['middleware' => ['auth:api'], 'prefix' => 'v1'], function(){
@@ -58,7 +60,7 @@ Route::group(['middleware' => ['auth:api'], 'prefix' => 'v1'], function(){
     Route::post('reverseSubmittedForm', 'HomeController@reverseSubmittedForm')->name('reverseSubmittedForm')->middleware('scope:GIT_Admin,forms_client');
 
     //form submission pin apis 
-    Route::post('hasPin/{id}', 'HomeController@hasPin')->name('hasPin')->middleware('scope:GIT_Admin,forms_client');
+    // Route::post('hasPin/{id}', 'HomeController@hasPin')->name('hasPin')->middleware('scope:GIT_Admin,forms_client');
     Route::post('setPin/{id}/{pin}', 'HomeController@setPin')->name('setPin')->middleware('scope:GIT_Admin,forms_client');
     Route::post('changePin/{id}', 'HomeController@changePin')->name('changePin')->middleware('scope:GIT_Admin,forms_client');
     Route::post('checkPin/{id}/{pin}', 'HomeController@checkPin')->name('checkPin')->middleware('scope:GIT_Admin,forms_client');
@@ -150,12 +152,12 @@ Route::group(['middleware' => ['auth:api'], 'prefix' => 'v1'], function(){
     //company branch setup and update apis
     Route::post('createCompanyBranch', 'HomeController@createCompanyBranches')->name('createCompanyBranch')->middleware('scope:GIT_Admin');
     Route::post('editCompanyBranch/{id}', 'HomeController@editCompanyBranches')->name('editCompanyBranch')->middleware('scope:GIT_Admin');
-    Route::get('getAllBranches', 'HomeController@getAllBranches')->name('getAllBranches')->middleware('scope:GIT_Admin');
+    Route::get('getAllBranches', 'HomeController@getAllBranches')->name('getAllBranches')->middleware('scope:GIT_Admin,forms_client');
     Route::get('getNumActiveBranches', 'HomeController@getNumActiveBranches')->name('getNumActiveBranches')->middleware('scope:GIT_Admin');
     Route::get('getNumInactiveBranches', 'HomeController@getNumInactiveBranches')->name('getNumInactiveBranches')->middleware('scope:GIT_Admin');
     Route::get('getNumBranches', 'HomeController@getNumBranches')->name('getNumBranches')->middleware('scope:GIT_Admin');
 
-    Route::get('getCompanyBranches/{id}', 'HomeController@getCompanyBranches')->name('getCompanyBranches')->middleware('scope:GIT_Admin,company_admin,branch_admin,super_executive,branch_executive');
+    Route::get('getCompanyBranches/{id}', 'HomeController@getCompanyBranches')->name('getCompanyBranches')->middleware('scope:GIT_Admin,company_admin,branch_admin,super_executive,branch_executive,forms_client');
     //use this for branch dropdown selection during form submission
     Route::get('getActiveCompanyBranches/{id}', 'HomeController@getActiveCompanyBranches')->name('getActiveCompanyBranches')->middleware('scope:GIT_Admin,company_admin,branch_admin,super_executive,branch_executive,forms_client');
     Route::get('getNumCompanyBranches/{id}', 'HomeController@getNumCompanyBranches')->name('getNumCompanyBranches')->middleware('scope:GIT_Admin,company_admin,branch_admin,super_executive,branch_executive');

@@ -213,7 +213,6 @@ export class ClientProfilePageComponent implements OnInit, AfterViewInit {
         ok => {
           console.log('res: ' + JSON.stringify(ok));
           if (ok) {
-            // sessionStorage.setItem('has_pin', '1');
             this.handlePinCode();
           }
           else {
@@ -275,6 +274,7 @@ export class ClientProfilePageComponent implements OnInit, AfterViewInit {
   }
 
   verifyPin() {
+    console.log('running ....');
     this.pinMinimum = false;
     this.pinRequired = false;
 
@@ -291,12 +291,14 @@ export class ClientProfilePageComponent implements OnInit, AfterViewInit {
       this.clientService.verifyFormSubmitPin(this.user.id.toString(), this.pinCode).then(
         ok => {
           if (ok) {
+            console.log('success');
             this.pinCode = '';
             this.isLoading = false;
             this.pinDialogRef.close();
             this.getAllFormSections();
           }
           else {
+            console.log('failed');
             this.isLoading = false;
             this.showPinVerificationFailed();
           }
@@ -311,6 +313,7 @@ export class ClientProfilePageComponent implements OnInit, AfterViewInit {
 
   getAllClientData() {
     this.loading = true;
+    console.log('__________________getAllClient');
     this.formBuilder.getClientProvidedData(_.toString(this.user.id)).then(
       res => {
         console.log('user_data: ' + JSON.stringify(res));
@@ -326,8 +329,8 @@ export class ClientProfilePageComponent implements OnInit, AfterViewInit {
           }, 500);
         }
         else {
-          this.hasData = false;
-          this.loading = false;
+          this.hasData = true;
+          this.getNewClientData();
         }
       },
       err => {
@@ -341,6 +344,7 @@ export class ClientProfilePageComponent implements OnInit, AfterViewInit {
   getNewClientData() {
     this.loading = true;
     const user = this.localStorage.getUser();
+    console.log('getting primary user data');
     this.setNewPrimaryInformation(user);
     this.loading = false;
   }

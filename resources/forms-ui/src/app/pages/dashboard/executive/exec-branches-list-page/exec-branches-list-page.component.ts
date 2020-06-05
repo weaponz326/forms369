@@ -87,7 +87,7 @@ export class ExecBranchesListPageComponent implements OnInit {
 
   getCompanyBranches() {
     this.loading = true;
-    this.branchService.getBranch(this.merchantId).then(
+    this.branchService.getCompanyBranches(this.merchantId).then(
       res => {
         const branches = res as any;
         this.loading = false;
@@ -114,7 +114,7 @@ export class ExecBranchesListPageComponent implements OnInit {
   loadMore() {
     this.loadingMore = true;
     const moreUrl = this.branchService.nextPaginationUrl;
-    this.branchService.getBranch(this.merchantId, moreUrl).then(
+    this.branchService.getCompanyBranches(this.merchantId, moreUrl).then(
       res => {
         this.loadingMore = false;
         this.hasMoreError = false;
