@@ -125,9 +125,9 @@ export class ClientHomePageComponent implements OnInit, AfterViewInit {
   showPinCreatedSuccess() {
     Swal.fire({
       title: 'Pin Created',
-      text: 'Your PIN has been successfully created',
+      text: 'Your PIN has been successfully created.',
       icon: 'success',
-      confirmButtonText: 'Ok, Got It',
+      confirmButtonText: 'Ok',
     });
   }
 

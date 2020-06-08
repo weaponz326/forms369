@@ -88,9 +88,9 @@ export class ClientProfilePageComponent implements OnInit, AfterViewInit {
   showPinCreatedSuccess() {
     Swal.fire({
       title: 'Pin Created',
-      text: 'Your PIN has been successfully created',
+      text: 'Your PIN has been successfully created.',
       icon: 'success',
-      confirmButtonText: 'Ok, Got It',
+      confirmButtonText: 'Ok',
       onClose: () => {
         this.pinDialogRef = this.modalService.open(this.pinDialog, { centered: true });
       }
@@ -109,7 +109,7 @@ export class ClientProfilePageComponent implements OnInit, AfterViewInit {
   showPinVerificationFailed() {
     Swal.fire({
       title: 'Oops!',
-      text: 'Sorry! Wrong PIN entered. Please check and try again',
+      text: 'Sorry! Wrong PIN entered. Please check and try again.',
       icon: 'error',
       confirmButtonColor: 'Arrrgh, Ok'
     });
