@@ -5,6 +5,7 @@ import { Users } from 'src/app/models/users.model';
 import { FormsService } from 'src/app/services/forms/forms.service';
 import { ClientService } from 'src/app/services/client/client.service';
 import { LocalStorageService } from 'src/app/services/storage/local-storage.service';
+import { EndpointService } from 'src/app/services/endpoint/endpoint.service';
 
 @Component({
   selector: 'app-client-list-forms-page',
@@ -29,6 +30,7 @@ export class ClientListFormsPageComponent implements OnInit {
     private router: Router,
     private formService: FormsService,
     private clientService: ClientService,
+    private endpointService: EndpointService,
     private localStorage: LocalStorageService
   ) {
     this.query = '';
@@ -133,7 +135,7 @@ export class ClientListFormsPageComponent implements OnInit {
           }
           else {
             // the input contains a number but is more than 6 characters
-            // in lenght, this might be a form name.
+            // in length, this might be a form name.
             console.log('searching by form name');
             this.searchByFormName();
           }
@@ -167,6 +169,7 @@ export class ClientListFormsPageComponent implements OnInit {
           this.hasData = true;
           this.loading = false;
           _.forEach(forms, (form) => {
+            form.logo = this.endpointService.storageHost + form.logo;
             form.company_name = this.company.merchant_name;
             this.formsList.push(form);
           });

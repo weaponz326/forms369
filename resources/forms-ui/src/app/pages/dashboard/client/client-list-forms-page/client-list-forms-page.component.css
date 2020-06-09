@@ -13,3 +13,27 @@ and (max-device-width: 825px) {
         font-size: 1.2rem;
     }
 }
+
+.form-container {
+    border-left: 11px solid #000;
+    padding-top: 20px;
+    border-radius: 5px;
+}
+
+.form-title {
+    color: #fff;
+    padding: 10px 20px;
+    border-top-right-radius: 40px;
+    border-bottom-right-radius: 40px;
+}
+
+.form-title > h4 {
+    font-size: 1rem;
+    text-transform: uppercase;
+}
+
+.form-logo > img {
+    width: 50px;
+    margin-top: 25px;
+    border-radius: 10px;
+}

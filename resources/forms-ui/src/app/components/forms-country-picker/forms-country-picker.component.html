@@ -1,13 +1,13 @@
 <form>
-    <div class="dropdown">
-      <button class="btn btn-light dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown"
-        aria-haspopup="true" aria-expanded="false">
-        {{ flag }} {{ title }}
-      </button>
-      <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-        <a class="dropdown-item" *ngFor="let country of countriesList" (click)="selectCountry(country)">
-            {{ country.flag }} &nbsp; &nbsp; {{ country.name.common }}
-        </a>
-      </div>
+  <div class="dropdown">
+    <button class="btn btn-light dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown"
+      aria-haspopup="true" aria-expanded="false">
+      {{ flag }} &nbsp; &nbsp; {{ title }}
+    </button>
+    <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+      <a class="dropdown-item" *ngFor="let country of countriesList" (click)="selectCountry(country)">
+        {{ country.flag }} &nbsp; &nbsp; {{ country.name.common }}
+      </a>
     </div>
+  </div>
 </form>

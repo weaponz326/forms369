@@ -6,7 +6,7 @@
 }
 
 .search-form {
-    border-radius: 30px;
+    border-radius: 7px;
     background: #fff;
 }
 
@@ -29,6 +29,10 @@ and (max-device-width: 825px) {
 
     #sector-section select.form-control {
         padding-left: 22px;
-        border-radius: 20px;
+        border-radius: 7px;
     }
+}
+
+.select.form-control {
+    border-radius: 7px;
 }

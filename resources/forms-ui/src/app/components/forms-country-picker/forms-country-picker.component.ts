@@ -1,5 +1,7 @@
+import * as _ from 'lodash';
 import { CountryPickerService, ICountry } from 'ngx-country-picker';
-import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
+import { Component, OnInit, Output, EventEmitter } from '@angular/core';
+import { LocalStorageService } from 'src/app/services/storage/local-storage.service';
 
 @Component({
   selector: 'app-forms-country-picker',
@@ -13,6 +15,7 @@ export class FormsCountryPickerComponent implements OnInit {
   @Output() selectedCountry: EventEmitter<any>;
 
   constructor(
+    private localStorage: LocalStorageService,
     private countryPickerService: CountryPickerService
   ) {
     this.flag = '';
@@ -21,7 +24,19 @@ export class FormsCountryPickerComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.countryPickerService.getCountries().subscribe(countries => { this.countriesList = countries; });
+    this.countryPickerService.getCountries().subscribe(countries => {
+      this.countriesList = countries;
+      this.autoSelectCountry();
+    });
+  }
+
+  autoSelectCountry() {
+    const user = this.localStorage.getUser();
+    _.forEach(this.countriesList, (country) => {
+      if (country.cca2 == user.country) {
+        this.selectCountry(country);
+      }
+    });
   }
 
   selectCountry(country: any) {

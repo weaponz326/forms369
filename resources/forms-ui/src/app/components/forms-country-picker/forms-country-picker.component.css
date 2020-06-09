@@ -1,6 +1,11 @@
+.dropdown {
+  border: 1px solid #aaa;
+  border-radius: 5px;
+}
+
 .dropdown > button {
-    text-transform: inherit;
-    font-size: 13px;
+  text-transform: inherit;
+  font-size: 13px;
 }
 
 .dropdown-menu {         
@@ -9,7 +14,7 @@
 }
 
 .dropdown-menu .dropdown-item {
-    font-size: 12px;
-    cursor: pointer;
-    padding: .65rem 1rem;
+  font-size: 12px;
+  cursor: pointer;
+  padding: .65rem 1rem;
 }
