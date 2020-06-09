@@ -10293,7 +10293,7 @@ var ClientProfilePageComponent = /** @class */ (function () {
         console.log('__________________getAllClient');
         this.formBuilder.getClientProvidedData(lodash__WEBPACK_IMPORTED_MODULE_1__["toString"](this.user.id)).then(function (res) {
             console.log('user_data: ' + JSON.stringify(res));
-            if (!lodash__WEBPACK_IMPORTED_MODULE_1__["isEmpty"](res.client_details)) {
+            if (!lodash__WEBPACK_IMPORTED_MODULE_1__["isEmpty"](res[0].client_details)) {
                 _this.hasData = true;
                 _this.loading = false;
                 _this.userData = res[0].client_details[0];
