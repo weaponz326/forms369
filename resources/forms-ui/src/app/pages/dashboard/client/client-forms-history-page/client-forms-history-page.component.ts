@@ -20,6 +20,7 @@ export class ClientFormsHistoryPageComponent implements OnInit, OnDestroy {
   form: any;
   user: Users;
   query: string;
+  status: number;
   endDate: string;
   hasMore: boolean;
   hasData: boolean;
@@ -52,6 +53,7 @@ export class ClientFormsHistoryPageComponent implements OnInit, OnDestroy {
     private downloadService: DownloaderService,
     private localStorageService: LocalStorageService
   ) {
+    this.status = 0;
     this.searchOption = '';
     this.rejectionNote = '';
     this.historyCollection = [];
@@ -66,6 +68,7 @@ export class ClientFormsHistoryPageComponent implements OnInit, OnDestroy {
   ngOnInit() {
     if (_.isNull(this.form) || _.isUndefined(this.form)) {
       this.filterState = 'all';
+      this.showDrafts();
       this.getAllHistory();
     }
     else {
@@ -100,7 +103,10 @@ export class ClientFormsHistoryPageComponent implements OnInit, OnDestroy {
   }
 
   showAll() {
+    this.status = 0;
     this.filterState = 'all';
+    this.historyCollection = [];
+    this.allHistoryCollection = [];
     this.getAllHistory();
   }
 
@@ -130,10 +136,11 @@ export class ClientFormsHistoryPageComponent implements OnInit, OnDestroy {
   }
 
   showProcessed() {
-    this.filterState = 'processed';
+    this.status = 2;
     this.loading = true;
     this.historyCollection = [];
     this.allHistoryCollection = [];
+    this.filterState = 'processed';
     this.clientService.getFormByStatus(_.toString(this.user.id), 2).then(
       forms => {
         this.hasMore = this.checkIfHasMore();
@@ -161,10 +168,11 @@ export class ClientFormsHistoryPageComponent implements OnInit, OnDestroy {
   }
 
   showProcessing() {
-    this.filterState = 'processing';
+    this.status = 1;
     this.loading = true;
     this.historyCollection = [];
     this.allHistoryCollection = [];
+    this.filterState = 'processing';
     this.clientService.getFormByStatus(_.toString(this.user.id), 1).then(
       forms => {
         this.hasMore = this.checkIfHasMore();
@@ -193,8 +201,9 @@ export class ClientFormsHistoryPageComponent implements OnInit, OnDestroy {
   }
 
   showDrafts() {
-    this.filterState = 'drafts';
+    this.status = 4;
     this.loading = true;
+    this.filterState = 'drafts';
     this.historyCollection = [];
     this.allHistoryCollection = [];
     this.clientService.getFormByStatus(_.toString(this.user.id), 4).then(
@@ -226,9 +235,10 @@ export class ClientFormsHistoryPageComponent implements OnInit, OnDestroy {
   }
 
   showSubmitted() {
-    this.filterState = 'submitted';
+    this.status = 0;
     this.loading = true;
     this.historyCollection = [];
+    this.filterState = 'submitted';
     this.allHistoryCollection = [];
     this.clientService.getFormByStatus(_.toString(this.user.id), 0).then(
       forms => {
@@ -259,8 +269,9 @@ export class ClientFormsHistoryPageComponent implements OnInit, OnDestroy {
   }
 
   showRejected() {
-    this.filterState = 'rejected';
+    this.status = 3;
     this.loading = true;
+    this.filterState = 'rejected';
     this.historyCollection = [];
     this.allHistoryCollection = [];
     this.clientService.getFormByStatus(_.toString(this.user.id), 3).then(
@@ -291,8 +302,9 @@ export class ClientFormsHistoryPageComponent implements OnInit, OnDestroy {
   }
 
   showReversed() {
-    this.filterState = 'reversed';
+    this.status = 5;
     this.loading = true;
+    this.filterState = 'reversed';
     this.historyCollection = [];
     this.allHistoryCollection = [];
     this.clientService.getFormByStatus(_.toString(this.user.id), 5).then(
@@ -346,7 +358,7 @@ export class ClientFormsHistoryPageComponent implements OnInit, OnDestroy {
   searchByFormCode() {
     this.loading = true;
     console.log('form code searching is running...');
-    this.clientService.findFormsInHistoryByCode(this.user.id.toString(), this.query).then(
+    this.clientService.findFormsInHistoryByCode(this.user.id.toString(), this.query, this.status).then(
       forms => {
         if (forms.length == 0) {
           this.loading = false;
@@ -356,6 +368,7 @@ export class ClientFormsHistoryPageComponent implements OnInit, OnDestroy {
           this.loading = false;
           this.foundNoForm = false;
           _.forEach(forms, (form) => {
+            form.logo = this.endpointService.storageHost + form.logo;
             this.historyCollection.push(form);
           });
         }
@@ -370,16 +383,18 @@ export class ClientFormsHistoryPageComponent implements OnInit, OnDestroy {
   searchByFormName() {
     console.log('form name searching is running ...');
     this.loading = true;
-    this.clientService.findFormsInHistoryByName(this.user.id.toString(), this.query).then(
+    this.clientService.findFormsInHistoryByName(this.user.id.toString(), this.query, this.status).then(
       forms => {
         if (forms.length == 0) {
           this.loading = false;
+          this.hasData = false;
           this.foundNoForm = true;
         }
         else {
           this.loading = false;
           this.foundNoForm = false;
           _.forEach(forms, (form) => {
+            form.logo = this.endpointService.storageHost + form.logo;
             this.historyCollection.push(form);
           });
         }
@@ -404,6 +419,7 @@ export class ClientFormsHistoryPageComponent implements OnInit, OnDestroy {
           this.loading = false;
           this.foundNoForm = false;
           _.forEach(forms, (form) => {
+            form.logo = this.endpointService.storageHost + form.logo;
             this.historyCollection.push(form);
           });
         }
@@ -435,6 +451,7 @@ export class ClientFormsHistoryPageComponent implements OnInit, OnDestroy {
           this.loading = false;
           this.foundNoForm = false;
           _.forEach(forms, (form) => {
+            form.logo = this.endpointService.storageHost + form.logo;
             this.historyCollection.push(form);
           });
         }

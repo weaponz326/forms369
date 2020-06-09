@@ -1,4 +1,3 @@
-import { Component, OnInit, ViewChild, TemplateRef } from '@angular/core';
 import * as _ from 'lodash';
 import { Observable } from 'rxjs';
 import { Router } from '@angular/router';
@@ -8,6 +7,7 @@ import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { BranchService } from 'src/app/services/branch/branch.service';
 import { CompanyService } from 'src/app/services/company/company.service';
+import { Component, OnInit, ViewChild, TemplateRef } from '@angular/core';
 import { AccountService } from 'src/app/services/account/account.service';
 import { LocalStorageService } from 'src/app/services/storage/local-storage.service';
 
@@ -171,11 +171,6 @@ export class CreateAccessCodePageComponent implements OnInit {
       return true;
     }
 
-    // if (form_data.branch_id == 0) {
-    //   this.f.branch.setErrors({ null: true });
-    //   return true;
-    // }
-
     if (this.f.branch.value == '') {
       this.f.branch.clearValidators();
       this.f.branch.updateValueAndValidity();
@@ -252,13 +247,6 @@ export class CreateAccessCodePageComponent implements OnInit {
 
   cancel() {
     this.ok();
-    // if (!this.isFormEmpty()) {
-    //   this.modalService.open(this.modalTemplateRef, { centered: true }).result.then(result => {
-    //     if (result == 'yes') {
-    //       this.clearData();
-    //     }
-    //   });
-    // }
   }
 
   clearData() {

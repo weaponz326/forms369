@@ -97,4 +97,8 @@
     6. Added drafts to main dashboard.
     7. Forms list re-design, now based on company colors provided during setup.
     8. Pick a form now has countries dropdown.
+
+# version 0.1.1
+    1. Bug fixes across all users.
+    2. Introduced trash: contains all deleted forms.
     

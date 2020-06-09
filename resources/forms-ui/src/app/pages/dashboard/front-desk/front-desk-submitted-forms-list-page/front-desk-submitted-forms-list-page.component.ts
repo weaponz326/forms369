@@ -223,11 +223,8 @@ export class FrontDeskSubmittedFormsListPageComponent implements OnInit {
       // Bootstrap date picker returns single digit for months from Jan to Sept
       // In order to allow us to compare against MYSQL which returns double digits
       // for that, we convert the month accordingly.
-      const end_month = _.toNumber(end.month) <= 9 ? '0' + end.month : end.month;
-      const start_month = _.toNumber(start.month) <= 9 ? '0' + start.month : start.month;
-
-      const end_date = end.year + '-' + end_month + '-' + end.day;
-      const start_date = start.year + '-' + start_month + '-' + start.day;
+      const end_date = this.dateTime.bootstrapDateFormat(end);
+      const start_date = this.dateTime.bootstrapDateFormat(start);
       console.log(start_date);
       console.log(end_date);
 

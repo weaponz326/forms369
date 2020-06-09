@@ -102,7 +102,6 @@
           <div class="dropdown-menu" aria-labelledby="sortMenuButton">
             <button type="button" class="dropdown-item" (click)="sort('username')">Username</button>
             <button type="button" class="dropdown-item" (click)="sort('email')">Email Address</button>
-            <button type="button" class="dropdown-item" (click)="sort('merchant')">Company Name</button>
             <button type="button" class="dropdown-item" (click)="sort('status')">Status</button>
             <button type="button" class="dropdown-item" (click)="sort('created')">Date Created</button>
           </div>
@@ -158,9 +157,6 @@
                       data-toggle="tooltip" data-placement="top" title="Delete" (click)="_delete(user.id, i)">
                       <i class="mdi mdi-delete-outline text-muted"></i>
                     </button>
-                    <!-- <button type="button" class="btn btn-light bg-white btn-icon mr-3 d-sm-block">
-                      <i class="mdi mdi-dots-vertical text-muted"></i>
-                    </button> -->
                   </div>
                 </td>
               </tr>

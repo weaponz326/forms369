@@ -298,7 +298,6 @@ class ClientController extends Controller
         ->select('submitted_forms.*','merchants.merchant_name AS merchant_name', 'merchants.nickname','merchants.id AS merchant_id',
         'users.name', 'users.email', 'forms.name AS form_name', 'forms.form_fields', 'logo')
         ->where('submitted_forms.client_id', $id)
-        ->where('submitted_forms.status', '!=', 4)
         ->orderBy('submitted_at', 'desc')
         ->paginate(15);
       

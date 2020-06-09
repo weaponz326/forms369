@@ -106,6 +106,7 @@ import { ExecViewSuperExectivesPageComponent } from './pages/dashboard/executive
 import { ExecViewBranchExectivesPageComponent } from './pages/dashboard/executive/exec-view-branch-exectives-page/exec-view-branch-exectives-page.component';
 import { ClientFavoriteFormsPageComponent } from './pages/dashboard/client/client-favorite-forms-page/client-favorite-forms-page.component';
 import { ClientSuggestMerchantPageComponent } from './pages/dashboard/client/client-suggest-merchant-page/client-suggest-merchant-page.component';
+import { ClientDeletedFormsPageComponent } from './pages/dashboard/client/client-deleted-forms-page/client-deleted-forms-page.component';
 
 const routes: Routes = [
   {
@@ -351,6 +352,11 @@ const routes: Routes = [
         path: 'favorites',
         canActivate: [AuthGuard],
         component: ClientFavoriteFormsPageComponent
+      },
+      {
+        path: 'deleted',
+        canActivate: [AuthGuard],
+        component: ClientDeletedFormsPageComponent
       },
       {
         path: 'printing',

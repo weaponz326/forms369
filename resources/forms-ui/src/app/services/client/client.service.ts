@@ -204,6 +204,25 @@ export class ClientService {
     });
   }
 
+  getDeletedForms(client_id: string, page_url?: string): Promise<any[]> {
+    return new Promise((resolve, reject) => {
+      const url = !_.isUndefined(page_url)
+        ? page_url
+        : this.endpointService.apiHost + 'api/v1/getAllDeletedSubmittedForms/' + client_id;
+      this.http.get<any>(url, { headers: this.headers }).subscribe(
+        res => {
+          console.log('deleted forms: ' + JSON.stringify(res.forms.data));
+          this.nextPaginationUrl = res.forms.next_page_url;
+          resolve(res.forms.data);
+        },
+        err => {
+          console.log('error: ' + JSON.stringify(err));
+          reject(err);
+        }
+      );
+    });
+  }
+
   /**
    * Returns a the status of a form.
    *
@@ -428,9 +447,9 @@ export class ClientService {
    * @returns {Promise<any>}
    * @memberof ClientService
    */
-  findFormsInHistoryByCode(client_id: string, submission_code: string): Promise<any> {
+  findFormsInHistoryByCode(client_id: string, submission_code: string, status: number): Promise<any> {
     return new Promise((resolve, reject) => {
-      const url = this.endpointService.apiHost + `api/v1/findSubmittedFormByCode/${client_id}/${submission_code}`;
+      const url = this.endpointService.apiHost + `api/v1/findSubmittedFormByCode/${client_id}/${submission_code}/${status}`;
       console.log('this is url: ' + url);
       this.http.get(url, { headers: this.headers }).subscribe(
         res => {
@@ -455,9 +474,9 @@ export class ClientService {
    * @returns {Promise<any>}
    * @memberof ClientService
    */
-  findFormsInHistoryByName(client_id: string, form_name: string): Promise<any> {
+  findFormsInHistoryByName(client_id: string, form_name: string, status: number): Promise<any> {
     return new Promise((resolve, reject) => {
-      const url = this.endpointService.apiHost + `api/v1/findSubmittedFormByName/${client_id}/${form_name}`;
+      const url = this.endpointService.apiHost + `api/v1/findSubmittedFormByName/${client_id}/${form_name}/${status}`;
       this.http.get(url, { headers: this.headers }).subscribe(
         res => {
           console.log('form_history_by_name: ' + JSON.stringify(res));
@@ -502,6 +521,22 @@ export class ClientService {
         },
         err => {
           console.log('history_by_date err: ' + JSON.stringify(err));
+          reject(err);
+        }
+      );
+    });
+  }
+
+  restoreDeletedForm(client_id: string, submission_code: string): Promise<any> {
+    return new Promise((resolve, reject) => {
+      const url = this.endpointService.apiHost + `api/v1/recoverDeletedSubmittedForm/${client_id}/${submission_code}`;
+      this.http.post<any>(url, {}, { headers: this.headers }).subscribe(
+        res => {
+          console.log('restore_deleted: ' + JSON.stringify(res));
+          resolve(res);
+        },
+        err => {
+          console.log('restore_deleted_err: ' + JSON.stringify(err));
           reject(err);
         }
       );

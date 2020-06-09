@@ -275,6 +275,11 @@ Route::get('client/profile', function () {
     return View::make('index');
 });
 
+Route::get('client/deleted', function () {
+    View::addExtension('html', 'php');
+    return View::make('index');
+});
+
 Route::get('client/printing', function () {
     View::addExtension('html', 'php');
     return View::make('index');

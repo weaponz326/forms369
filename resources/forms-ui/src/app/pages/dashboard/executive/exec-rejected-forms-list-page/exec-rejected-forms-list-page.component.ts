@@ -239,13 +239,8 @@ export class ExecRejectedFormsListPageComponent implements OnInit {
       // Bootstrap date picker returns single digit for months from Jan to Sept
       // In order to allow us to compare against MYSQL which returns double digits
       // for that, we convert the month accordingly.
-      const end_day = _.toNumber(end.day) <= 9 ? '0' + end.day : end.day;
-      const end_month = _.toNumber(end.month) <= 9 ? '0' + end.month : end.month;
-      const start_day = _.toNumber(start.day) <= 9 ? '0' + start.day : start.day;
-      const start_month = _.toNumber(start.month) <= 9 ? '0' + start.month : start.month;
-
-      const end_date = end.year + '-' + end_month + '-' + end_day;
-      const start_date = start.year + '-' + start_month + '-' + start_day;
+      const end_date = this.dateService.bootstrapDateFormat(end);
+      const start_date = this.dateService.bootstrapDateFormat(start);
       console.log(start_date);
       console.log(end_date);
 

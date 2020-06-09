@@ -148,7 +148,10 @@
               <div class="card-body" (click)="openFormEntry($event, form)">
                 <p class="card-title mr-3">{{ form.form_name }}</p>
                 <img class="merchant-logo" [src]="form.logo" alt="Logo">
-                <h1 class="display-4">{{ form.submission_code }}</h1>
+                <h1 class="display-4" *ngIf="form.form_status != 4">{{ form.submission_code }}</h1>
+                <div *ngIf="form.form_status == 4">
+                  <i class="mdi mdi-star-outline" style="font-size: 30px;"></i>
+                </div>
                 <div class="card-text">
                   <p class="text-muted small-text">{{ form.submitted_at | date }}</p>
                 </div>
@@ -160,7 +163,7 @@
           </div>
         </div>
 
-        <div *ngIf="foundNoForm && !loading" class="row">
+        <div *ngIf="foundNoForm && !loading && !hasData" class="row">
           <div class="col-lg-12 grid-margin stretch-card">
             <div class="card text-center pt-5 pb-5">
               <div class="card-body mt-5 mb-5">
@@ -233,9 +236,9 @@
     </button>
   </div>
   <div class="modal-body">
-    <p><strong>Are you sure you want to delete <span class="text-primary">this item</span> ?</strong></p>
-    <p>All information associated with this item will be permanently deleted.
-      <span class="text-danger">This operation can not be undone.</span>
+    <p><strong>Are you sure you want to delete <span class="text-primary">this form</span> ?</strong></p>
+    <p>All information associated with this form will be permanently deleted
+      <span class="text-danger">and can not be undone.</span>
     </p>
   </div>
   <div class="modal-footer">
