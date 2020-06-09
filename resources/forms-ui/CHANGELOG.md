@@ -88,7 +88,7 @@
     3. Can now save a form as draft.
     4. See all forms saved as drafts.
 
-# version 0.1.0
+# version 0.0.8
     1. Resend code added for login two way authenticiation for clients.
     2. Suggest merchant added to clients.
     3. Introduced reversed forms.
@@ -98,7 +98,7 @@
     7. Forms list re-design, now based on company colors provided during setup.
     8. Pick a form now has countries dropdown.
 
-# version 0.1.1
+# version 0.0.9
     1. Bug fixes across all users.
     2. Introduced trash: contains all deleted forms.
     
