@@ -318,7 +318,7 @@ export class ClientProfilePageComponent implements OnInit, AfterViewInit {
     this.formBuilder.getClientProvidedData(_.toString(this.user.id)).then(
       res => {
         console.log('user_data: ' + JSON.stringify(res));
-        if (!_.isEmpty(res.client_details)) {
+        if (!_.isEmpty(res[0].client_details)) {
           this.hasData = true;
           this.loading = false;
           this.userData = res[0].client_details[0];
