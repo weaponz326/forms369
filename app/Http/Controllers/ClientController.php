@@ -65,7 +65,7 @@ class ClientController extends Controller
 
         $client = $getclient->map(function($items){
             $clientdata['id'] = $items->id;
-            $clientdata['client_details'] = [json_decode(Crypt::decryptString($items->details))];
+            $clientdata['client_details'] = empty($items->details) ? '' : [json_decode(Crypt::decryptString($items->details))];
             $clientdata['created_at'] = $items->created_at;
             $clientdata['updated_at'] = $items->updated_at;
     

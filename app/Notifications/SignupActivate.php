@@ -46,7 +46,7 @@ class SignupActivate extends Notification
         $url = URL::temporarySignedRoute('signup/activate', now()->addMinute(10), ['token' => $notifiable->active_token]);
         return (new MailMessage)
             ->subject('Activate Your Account')
-            ->line('Thanks for signing up to use GIT Forms369!. You are one step away from completing registration and having access to numerous forms to fill and submit online.')
+            ->line('Thank you for signing up to use Forms369!. You are one step away from completing registration and having access to numerous forms to fill and submit online.')
             ->action('ACTIVATE YOUR ACCOUNT', url($url));
     }
 
