@@ -163,7 +163,7 @@ class ClientController extends Controller
          $encrypteduserdata = Crypt::encryptString($encodeduserdata);
 
          $submitted_at = now();
-         $reverse_at = (now()->addMinutes(5));
+         $reverse_at = (now()->addHours(72))->startOfMinute()->toDateTimeString();
          
          //save new client in the database
          try {

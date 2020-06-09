@@ -32,7 +32,7 @@ class Kernel extends ConsoleKernel
             $users = DB::table('submitted_forms')
             ->join('users', 'users.id', '=', 'client_id')
             ->join('forms', 'forms.form_code', '=', 'form_id')
-            ->where('reverse_at', '=', Carbon::now()->toDateTimeString())
+            ->where('reverse_at', '=', Carbon::now()->startOfMinute()->toDateTimeString())
            //->where('submitted_at', '<', Carbon::now()->subHours(72)->toDateTimeString())
             ->where('can_view', '=', 0)
             ->where('submitted_forms.status', '=', 0)
@@ -59,7 +59,7 @@ class Kernel extends ConsoleKernel
                 }
                
             }
-        })->everyMinute();;
+        })->everyMinute();
     }
 
     /**
