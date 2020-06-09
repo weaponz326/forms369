@@ -15,7 +15,8 @@ and (max-device-width: 825px) {
 }
 
 .form-container {
-    border-left: 11px solid #000;
+    border-left-width: 11px;
+    border-left-style: solid;
     padding-top: 20px;
     border-radius: 5px;
 }
