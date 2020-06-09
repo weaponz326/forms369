@@ -170,23 +170,26 @@ export class ClientProfilePageComponent implements OnInit, AfterViewInit {
 
   setPrimaryInformation() {
     this.primaryUserData = {
-      firstname: this.userData['firstname'],
-      lastname: this.userData['lastname'],
       email: this.userData['email'],
-      phone: this.userData['phone-number'],
       country: this.userData['country'],
+      lastname: this.userData['lastname'],
+      phone: this.userData['phone-number'],
+      firstname: this.userData['firstname'],
     };
   }
 
   setNewPrimaryInformation(user: Users) {
     this.showOnlyPrimaryInfo = true;
     this.primaryUserData = {
-      firstname: user.firstname,
-      lastname: user.lastname,
       email: user.email,
       phone: user.phone,
       country: user.country,
+      lastname: user.lastname,
+      firstname: user.firstname,
     };
+
+    // since its a new user, our userData is empty
+    this.userData = this.primaryUserData;
   }
 
   appendOnChangeEventToFileInput() {
@@ -231,7 +234,6 @@ export class ClientProfilePageComponent implements OnInit, AfterViewInit {
   }
 
   handlePinCode() {
-    console.log('handle pin');
     const hasPin = sessionStorage.getItem('has_pin');
     if (_.isNull(hasPin) || _.isUndefined(hasPin)) {
       this.setPinDialogRef = this.modalService.open(this.setPinDialog, { centered: true, keyboard: false, backdrop: 'static' });
@@ -274,7 +276,6 @@ export class ClientProfilePageComponent implements OnInit, AfterViewInit {
   }
 
   verifyPin() {
-    console.log('running ....');
     this.pinMinimum = false;
     this.pinRequired = false;
 
@@ -317,7 +318,7 @@ export class ClientProfilePageComponent implements OnInit, AfterViewInit {
     this.formBuilder.getClientProvidedData(_.toString(this.user.id)).then(
       res => {
         console.log('user_data: ' + JSON.stringify(res));
-        if (res.length > 0) {
+        if (!_.isEmpty(res.client_details)) {
           this.hasData = true;
           this.loading = false;
           this.userData = res[0].client_details[0];
@@ -461,6 +462,8 @@ export class ClientProfilePageComponent implements OnInit, AfterViewInit {
   }
 
   prepareUpdatedData(updated_data: any) {
+    console.log('updated_data: ' + updated_data);
+    console.log('user_data: ' + this.userData);
     const keys = Object.keys(updated_data);
 
     _.forEach(keys, (key) => {
@@ -471,7 +474,7 @@ export class ClientProfilePageComponent implements OnInit, AfterViewInit {
       this.userData[key] = updated_data[key];
     });
 
-    console.log(';final_data;');
+    console.log(';;final_data;;');
     console.log(JSON.stringify(this.userData));
 
     return this.userData;
