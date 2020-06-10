@@ -328,23 +328,6 @@ export class CompanyService {
     });
   }
 
-  getMerchantSectors(): Promise<any[]> {
-    return new Promise((resolve, reject) => {
-      const url = this.endpointService.apiHost + 'api/v1/getAllBusinessSectors';
-      this.http.get(url, { headers: this.headers }).subscribe(
-        res => {
-          console.log('response: ' + JSON.stringify(res));
-          const response = res as any;
-          resolve(response.business_sectors);
-        },
-        err => {
-          console.log('error: ' + JSON.stringify(err));
-          reject(err);
-        }
-      );
-    });
-  }
-
   /**
    * Searches for a form based on the name of the form.
    *

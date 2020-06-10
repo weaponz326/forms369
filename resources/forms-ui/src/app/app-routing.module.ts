@@ -107,6 +107,10 @@ import { ExecViewBranchExectivesPageComponent } from './pages/dashboard/executiv
 import { ClientFavoriteFormsPageComponent } from './pages/dashboard/client/client-favorite-forms-page/client-favorite-forms-page.component';
 import { ClientSuggestMerchantPageComponent } from './pages/dashboard/client/client-suggest-merchant-page/client-suggest-merchant-page.component';
 import { ClientDeletedFormsPageComponent } from './pages/dashboard/client/client-deleted-forms-page/client-deleted-forms-page.component';
+import { ExecViewAccountDetailsPageComponent } from './pages/dashboard/executive/exec-view-account-details-page/exec-view-account-details-page.component';
+import { CreateSectorPageComponent } from './pages/dashboard/git-admin/create-sector-page/create-sector-page.component';
+import { EditSectorPageComponent } from './pages/dashboard/git-admin/edit-sector-page/edit-sector-page.component';
+import { ViewSectorListPageComponent } from './pages/dashboard/git-admin/view-sector-list-page/view-sector-list-page.component';
 
 const routes: Routes = [
   {
@@ -198,6 +202,10 @@ const routes: Routes = [
           {
             path: 'section',
             component: CreateSectionPageComponent
+          },
+          {
+            path: 'sector',
+            component: CreateSectorPageComponent
           }
         ]
       },
@@ -224,6 +232,10 @@ const routes: Routes = [
           {
             path: 'section',
             component: EditSectionPageComponent
+          },
+          {
+            path: 'sector',
+            component: EditSectorPageComponent
           },
           {
             path: 'access_code',
@@ -266,6 +278,10 @@ const routes: Routes = [
           {
             path: 'branch',
             component: ViewBranchListsPageComponent
+          },
+          {
+            path: 'sector',
+            component: ViewSectorListPageComponent
           },
           {
             path: 'front_desk',
@@ -473,6 +489,10 @@ const routes: Routes = [
       {
         path: 'accounts',
         component: ExecAccountsListPageComponent
+      },
+      {
+        path: 'account_details',
+        component: ExecViewAccountDetailsPageComponent
       },
       {
         path: 'branches',

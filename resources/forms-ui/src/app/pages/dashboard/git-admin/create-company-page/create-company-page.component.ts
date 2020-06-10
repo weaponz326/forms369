@@ -10,6 +10,7 @@ import { CompanyService } from 'src/app/services/company/company.service';
 import { DateTimeService } from 'src/app/services/date-time/date-time.service';
 import { ExecutiveService } from 'src/app/services/executive/executive.service';
 import { LocalStorageService } from 'src/app/services/storage/local-storage.service';
+import { SectorsService } from 'src/app/services/sectors/sectors.service';
 
 @Component({
   selector: 'app-create-company-page',
@@ -41,6 +42,7 @@ export class CreateCompanyPageComponent implements OnInit {
   constructor(
     private router: Router,
     private formBuilder: FormBuilder,
+    private sectorService: SectorsService,
     private companyService: CompanyService,
     private dateTimeService: DateTimeService,
     private executiveService: ExecutiveService,
@@ -159,7 +161,7 @@ export class CreateCompanyPageComponent implements OnInit {
   }
 
   getSectors() {
-    this.companyService.getMerchantSectors().then(
+    this.sectorService.getSectors().then(
       sectors => {
         if (sectors.length > 0) {
           _.forEach(sectors, (sector) => {
