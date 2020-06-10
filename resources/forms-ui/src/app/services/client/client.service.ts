@@ -852,7 +852,7 @@ export class ClientService {
    * @returns {Promise<boolean>}
    * @memberof ClientService
    */
-  changeFormSubmitPin(user_id: string, old_pin: string, new_pin: string): Promise<boolean> {
+  changeFormSubmitPin(user_id: string, old_pin: string, new_pin: string): Promise<any> {
     return new Promise((resolve, reject) => {
       const body = { old_pin: old_pin, new_pin: new_pin };
       const url = this.endpointService.apiHost + 'api/v1/changePin/' + user_id;
@@ -862,7 +862,7 @@ export class ClientService {
           const response = res as any;
           _.toLower(response.message) == 'ok'
             ? resolve(true)
-            : resolve(false);
+            : resolve(response.message);
         },
         err => {
           console.log('err: ' + JSON.stringify(err));

@@ -7,7 +7,6 @@ import { ClientService } from 'src/app/services/client/client.service';
 import { EndpointService } from 'src/app/services/endpoint/endpoint.service';
 import { DateTimeService } from 'src/app/services/date-time/date-time.service';
 import { ReloadingService } from 'src/app/services/reloader/reloading.service';
-import { DownloaderService } from 'src/app/services/downloader/downloader.service';
 import { Component, OnInit, ViewChild, TemplateRef, OnDestroy } from '@angular/core';
 import { LocalStorageService } from 'src/app/services/storage/local-storage.service';
 
@@ -50,7 +49,6 @@ export class ClientFormsHistoryPageComponent implements OnInit, OnDestroy {
     private clientService: ClientService,
     private dateService: DateTimeService,
     private endpointService: EndpointService,
-    private downloadService: DownloaderService,
     private localStorageService: LocalStorageService
   ) {
     this.status = 0;
@@ -68,7 +66,6 @@ export class ClientFormsHistoryPageComponent implements OnInit, OnDestroy {
   ngOnInit() {
     if (_.isNull(this.form) || _.isUndefined(this.form)) {
       this.filterState = 'all';
-      this.showDrafts();
       this.getAllHistory();
     }
     else {
@@ -387,7 +384,6 @@ export class ClientFormsHistoryPageComponent implements OnInit, OnDestroy {
       forms => {
         if (forms.length == 0) {
           this.loading = false;
-          this.hasData = false;
           this.foundNoForm = true;
         }
         else {

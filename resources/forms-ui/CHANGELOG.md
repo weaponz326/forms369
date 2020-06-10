@@ -8,7 +8,7 @@
     6. Removed delete button from branch list page.
     7. Changed placeholder in create template page from 'Whats the name of your form' to 'Enter Template Name'
     8. Fix issue with form creation. (Wasn't working).
-    9. Allow printing on create merchant chnaged to a dropdown.
+    9. Allow printing on create merchant changed to a dropdown.
     10. Active button on view merchant page fixed.
     11. Edit button on view merchant page fixed.
     12. GIT Admin can now edit password for user's account.
@@ -101,4 +101,5 @@
 # version 0.0.9
     1. Bug fixes across all users.
     2. Introduced trash: contains all deleted forms.
+    3. After a successfull password change, user is logged out.
     

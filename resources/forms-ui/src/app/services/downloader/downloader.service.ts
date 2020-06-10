@@ -1,11 +1,8 @@
-declare var pdfMake: any;
-declare var html2pdf: any;
-declare var html2canvas: any;
-import * as jsPDF from 'jspdf';
 import * as XLSX from 'xlsx';
+import * as jsPDF from 'jspdf';
 import { saveAs } from 'file-saver';
-import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
+import { Injectable, ElementRef } from '@angular/core';
 
 @Injectable({
   providedIn: 'root'
@@ -65,11 +62,20 @@ export class DownloaderService {
    * @param {string} filename
    * @memberof DownloaderService
    */
-  exportToPDF(element_id: string, filename: string) {
-    const pdf = new jsPDF('p', 'mm', 'a4');
-    pdf.setFontSize(20);
-    pdf.addHTML(document.getElementById(element_id), () => {
-      pdf.save(filename + '.pdf');
+  exportToPDF(content: ElementRef, filename: string) {
+    const doc = new jsPDF();
+    const specialElementHandlers = {
+      '#editor': (element, renderer) => {
+        return true;
+      }
+    };
+
+    const _content = content.nativeElement;
+    doc.fromHTML(_content.innerHTML, 15, 15, {
+      'width': 198,
+      'elementHandlers': specialElementHandlers
     });
+
+    doc.save(filename);
   }
 }

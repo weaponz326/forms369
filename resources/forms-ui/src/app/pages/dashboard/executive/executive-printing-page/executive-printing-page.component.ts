@@ -110,12 +110,12 @@ export class ExecutivePrintingPageComponent implements OnInit, AfterViewInit {
   }
 
   download() {
-    setTimeout(() => {
-      const elem_id = 'form-data';
-      const filename = 'forms369_' + this.form.form_code + '_data';
-      this.downloaderService.exportToPDF(elem_id, filename);
-      window.history.back();
-    }, 1000);
+    // setTimeout(() => {
+    //   const elem_id = 'form-data';
+    //   const filename = 'forms369_' + this.form.form_code + '_data';
+    //   this.downloaderService.exportToPDF(elem_id, filename);
+    //   window.history.back();
+    // }, 1000);
   }
 
   printViewCss() {

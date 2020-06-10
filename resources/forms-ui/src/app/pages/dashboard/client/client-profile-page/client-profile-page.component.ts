@@ -1,5 +1,6 @@
 import * as _ from 'lodash';
 import Swal from 'sweetalert2';
+import { Users } from 'src/app/models/users.model';
 import { NgbModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { ClientService } from 'src/app/services/client/client.service';
@@ -9,7 +10,6 @@ import { DownloaderService } from 'src/app/services/downloader/downloader.servic
 import { LocalStorageService } from 'src/app/services/storage/local-storage.service';
 import { FormBuilderService } from 'src/app/services/form-builder/form-builder.service';
 import { Component, OnInit, ViewChild, TemplateRef, AfterViewInit } from '@angular/core';
-import { Users } from 'src/app/models/users.model';
 
 @Component({
   selector: 'app-client-profile-page',
@@ -102,7 +102,7 @@ export class ClientProfilePageComponent implements OnInit, AfterViewInit {
       title: 'Oops!',
       text: 'Sorry! Failed to create your pin. Something went wrong. Please check your internet connection and try again or our servers may be down.',
       icon: 'error',
-      confirmButtonColor: 'Hmm, Ok'
+      confirmButtonColor: 'Ok'
     });
   }
 
@@ -111,7 +111,7 @@ export class ClientProfilePageComponent implements OnInit, AfterViewInit {
       title: 'Oops!',
       text: 'Sorry! Wrong PIN entered. Please check and try again.',
       icon: 'error',
-      confirmButtonColor: 'Arrrgh, Ok'
+      confirmButtonColor: 'Ok'
     });
   }
 
@@ -120,7 +120,7 @@ export class ClientProfilePageComponent implements OnInit, AfterViewInit {
       title: 'Oops!',
       text: 'An error occured. Please make sure you have an active internet connection or our servers maybe down.',
       icon: 'error',
-      confirmButtonColor: 'Arrrgh, Ok'
+      confirmButtonColor: 'Ok'
     });
   }
 
@@ -128,7 +128,7 @@ export class ClientProfilePageComponent implements OnInit, AfterViewInit {
     if (isSuccess) {
       Swal.fire({
         title: 'Success!',
-        text: 'You have successfully updated your personal profile',
+        text: 'You have successfully updated your personal profile.',
         icon: 'success',
         confirmButtonColor: 'Ok',
         onClose: () => {

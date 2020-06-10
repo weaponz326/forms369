@@ -297,7 +297,7 @@ export class ExecClientsFormsDataPageComponent implements OnInit {
   downloadAsPDF() {
     const table_id = 'table-data';
     const filename = 'forms369_' + this.form.form_code + '_data';
-    this.downloadService.exportToPDF(table_id, filename);
+    // this.downloadService.exportToPDF(table_id, filename);
   }
 
   downloadAsCSV() {
