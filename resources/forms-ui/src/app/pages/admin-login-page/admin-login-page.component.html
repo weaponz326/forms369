@@ -22,7 +22,7 @@
             <div *ngIf="notConfirmed" class="mt-2 mb-5">
               <div class="alert alert-warning" role="alert">
                 <h3 class="alert-heading">Hey there!</h3>
-                <p class="lead"><strong>Your email address has not been confirmed</strong></p>
+                <p class="lead"><strong>Your email address has not been confirmed.</strong></p>
                 <hr>
                 <p class="lead">A confirmation email has been sent to your email address.</p>
                 <p class="mb-0 lead">Please check your email and click the activation link in the email. Thank You!</p>
@@ -32,13 +32,13 @@
             <div *ngIf="deactivated" class="mt-2 mb-5">
               <div class="alert alert-danger" role="alert">
                 <h3 class="alert-heading">Hey there!</h3>
-                <p class="lead"><strong>Your account has been deactivated</strong></p>
+                <p class="lead"><strong>Your account has been deactivated.</strong></p>
                 <hr>
-                <p class="mb-0 lead">Please contact your admin</p>
+                <p class="mb-0 lead">Please contact your admi.n</p>
               </div>
             </div>
 
-            <h4 class="text-center">Hello! let's get started</h4>
+            <h4 class="text-center">Hello! let's get started.</h4>
             <h6 class="font-weight-light text-center">Sign in to continue.</h6>
             <form [formGroup]="form" (ngSubmit)="login()" class="pt-3">
               <div *ngIf="userNotFound" class="mt-2">

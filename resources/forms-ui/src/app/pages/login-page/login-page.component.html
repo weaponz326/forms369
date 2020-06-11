@@ -15,8 +15,7 @@
                 <p class="lead"><strong>Your email address has not been confirmed.</strong></p>
                 <hr>
                 <p class="lead">A confirmation email has been sent to your email address.</p>
-                <p class="mb-0 lead">Please check your email and click on the activation link to continue. Thank You!
-                </p>
+                <p class="mb-0 lead">Please check your email and click on the activation link to continue. Thank You!</p>
               </div>
             </div>
 
@@ -32,20 +31,20 @@
             <div *ngIf="notClient" class="mt-2 mb-5">
               <div class="alert alert-danger" role="alert">
                 <h3 class="alert-heading">Hey there!</h3>
-                <p class="lead text-left"><strong>Please login in as another user. Click the link below</strong></p>
+                <p class="lead text-left"><strong>Please login in as another user. Click the link below.</strong></p>
               </div>
             </div>
 
             <div *ngIf="deactivated" class="mt-2 mb-5">
               <div class="alert alert-danger" role="alert">
                 <h3 class="alert-heading">Hey there!</h3>
-                <p class="lead"><strong>Your account has been deactivated</strong></p>
+                <p class="lead"><strong>Your account has been deactivated.</strong></p>
                 <hr>
-                <p class="mb-0 lead">Please contact your admin</p>
+                <p class="mb-0 lead">Please contact your admin.</p>
               </div>
             </div>
 
-            <h4 class="text-center">Hello! let's get started</h4>
+            <h4 class="text-center">Hello! let's get started.</h4>
             <h6 class="font-weight-nromal text-center">Sign in to continue.</h6>
             <form [formGroup]="form" (ngSubmit)="login()" class="pt-3">
               <div class="form-group">

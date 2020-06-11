@@ -155,7 +155,7 @@ export class ClientSettingsPageComponent implements OnInit {
   showPasswordMismatchAlert() {
     Swal.fire({
       title: 'Oops!',
-      text: 'New password cannot be the same as your old password.',
+      text: 'Old password password is incorrect',
       icon: 'warning',
       confirmButtonText: 'Ok'
     });

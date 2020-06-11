@@ -12,20 +12,20 @@
             <div *ngIf="invalid" class="mt-2 mb-5">
               <div class="alert alert-danger" role="alert">
                 <h3 class="alert-heading">Hey there!</h3>
-                <p class="lead"><strong>This access code has already been used</strong></p>
+                <p class="lead"><strong>This access code has already been used.</strong></p>
                 <hr>
-                <p class="mb-0 lead">Please contact your admin</p>
+                <p class="mb-0 lead">Please contact your admin.</p>
               </div>
             </div>
 
-            <h4 class="text-center">Hello! let's get started</h4>
+            <h4 class="text-center">Hello! let's get started.</h4>
             <h6 class="text-center font-weight-normal">Provide your access code to continue.</h6>
             <form [formGroup]="form" (ngSubmit)="login()" class="pt-3">
               <div class="form-group">
                 <input type="text" class="form-control form-control-lg" formControlName="code"
                   placeholder="Enter Access Code" [ngClass]="{'input-control-error': submitted && f.code.errors}">
                 <div *ngIf="submitted && f.code.errors">
-                  <p class="input-error" *ngIf="f.code.errors.required">Access Code is required</p>
+                  <p class="input-error" *ngIf="f.code.errors.required">Access Code is required.</p>
                 </div>
               </div>
               <div class="mt-3">
