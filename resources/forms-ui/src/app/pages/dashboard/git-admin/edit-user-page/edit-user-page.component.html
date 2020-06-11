@@ -24,7 +24,6 @@
             <div class="card">
               <div class="card-body">
                 <p class="card-title">Edit User Account</p>
-                <p class="text-muted">Quickly update a user account</p>
                 <div class="card-text">
                   <div *ngIf="emailInUse" class="mt-2">
                     <div class="alert alert-warning alert-dismissible fade show" role="alert">
@@ -60,10 +59,7 @@
                   <p class="text-muted">You have succesfully updated a {{ userType }} account</p>
                 </div>
                 <div class="card-text mt-4">
-                  <button type="button" class="btn btn-primary btn-lg mr-2" style="width: 350px;" (click)="ok()">
-                    <!-- <i class="mdi mdi-check-outline"></i> -->
-                    Ok
-                  </button>
+                  <button type="button" class="btn btn-primary btn-lg mr-2" style="width: 350px;" (click)="ok()"> Ok</button>
                 </div>
               </div>
             </div>

@@ -1,5 +1,6 @@
 import * as _ from 'lodash';
 import Swal from 'sweetalert2';
+import { Router } from '@angular/router';
 import { Component, OnInit } from '@angular/core';
 import { Users } from 'src/app/models/users.model';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
@@ -25,6 +26,7 @@ export class ClientSettingsPageComponent implements OnInit {
   passwordForm: FormGroup;
 
   constructor(
+    private router: Router,
     private fb: FormBuilder,
     private clientService: ClientService,
     private accountService: AccountService,
@@ -87,7 +89,7 @@ export class ClientSettingsPageComponent implements OnInit {
   showPinChangeSuccess() {
     Swal.fire({
       title: 'PIN Changed',
-      text: 'Your PIN Code has been successfully changed',
+      text: 'PIN successfully changed.',
       icon: 'success',
       confirmButtonText: 'Ok'
     });
@@ -96,9 +98,9 @@ export class ClientSettingsPageComponent implements OnInit {
   showIncorrectPin() {
     Swal.fire({
       title: 'Oops!',
-      text: 'Your old PIN is incorrect. Please check and try again!',
+      text: 'Sorry!. Incorrect current pin.',
       icon: 'warning',
-      confirmButtonText: 'Oh, Ok'
+      confirmButtonText: 'Ok'
     });
   }
 
@@ -107,16 +109,28 @@ export class ClientSettingsPageComponent implements OnInit {
       title: 'Oops!',
       text: 'Sorry!. Something went wrong, we couldn\'t change your PIN. Please check your internet connection or our servers may be down.',
       icon: 'error',
-      confirmButtonText: 'Hmm, Ok'
+      confirmButtonText: 'Ok'
+    });
+  }
+
+  showPinMismatchAlert() {
+    Swal.fire({
+      title: 'Oops!',
+      text: 'New pin cannot be the same as your old pin.',
+      icon: 'warning',
+      confirmButtonText: 'Ok'
     });
   }
 
   showUpdatePasswordSuccess() {
     Swal.fire({
       title: 'Successful',
-      text: 'Your password has been successfully changed',
+      text: 'Your password has been successfully changed.',
       icon: 'success',
-      confirmButtonText: 'Ok'
+      confirmButtonText: 'Ok',
+      onClose: () => {
+        this.logout();
+      }
     });
   }
 
@@ -125,25 +139,25 @@ export class ClientSettingsPageComponent implements OnInit {
       title: 'Oops!',
       text: 'Sorry!. Password update failed. Please check your internet connection or our servers may be down.',
       icon: 'error',
-      confirmButtonText: 'Hmm, Ok'
+      confirmButtonText: 'Ok'
     });
   }
 
   showSamePasswordAlert() {
     Swal.fire({
       title: 'Oops!',
-      text: 'Sorry!. Your new password cannot be the same as your current password',
+      text: 'Sorry!. Your new password cannot be the same as your current password.',
       icon: 'warning',
-      confirmButtonText: 'Hmm, Ok'
+      confirmButtonText: 'Ok'
     });
   }
 
   showPasswordMismatchAlert() {
     Swal.fire({
       title: 'Oops!',
-      text: 'Sorry!. Your current password provided is incorrect',
+      text: 'New password cannot be the same as your old password.',
       icon: 'warning',
-      confirmButtonText: 'Hmm, Ok'
+      confirmButtonText: 'Ok'
     });
   }
 
@@ -195,7 +209,6 @@ export class ClientSettingsPageComponent implements OnInit {
   }
 
   changePin() {
-    console.log('clicked');
     this.submitted = true;
     if (this.form.valid) {
       this.loading = true;
@@ -206,10 +219,17 @@ export class ClientSettingsPageComponent implements OnInit {
         ok => {
           this.loading = false;
           this.submitted = false;
-          this.form.reset();
-          ok
-            ? this.showPinChangeSuccess()
-            : this.showPinChangeFailed();
+          if (ok == true) {
+            this.form.reset();
+            this.showPinChangeSuccess();
+          }
+          else if (ok == 'THE_SAME_PIN') {
+            this.loading = false;
+            this.showPinMismatchAlert();
+          }
+          else {
+            this.showPinChangeFailed();
+          }
         },
         err => {
           this.loading = false;
@@ -229,7 +249,7 @@ export class ClientSettingsPageComponent implements OnInit {
       this.loading = true;
       this.clientService.setFormSubmitPin(this.user.id.toString(), pin).then(
         ok => {
-          if (ok) {
+          if (ok == true) {
             this.loading = false;
             this.submitted = false;
             sessionStorage.setItem('has_pin', '1');
@@ -285,6 +305,18 @@ export class ClientSettingsPageComponent implements OnInit {
         this.pwdF.confirmPassword.setErrors({ unmatched: true });
       }
     }
+  }
+
+  logout() {
+    this.accountService.logOut().then(
+      res => {
+        console.log('logged out');
+        this.router.navigateByUrl('login');
+      },
+      err => {
+        this.router.navigateByUrl('login');
+      }
+    );
   }
 
 }

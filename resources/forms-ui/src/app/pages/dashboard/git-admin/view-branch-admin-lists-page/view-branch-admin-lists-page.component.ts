@@ -1,7 +1,7 @@
-import { Component, OnInit } from '@angular/core';
 import * as _ from 'lodash';
-import { UserTypes } from 'src/app/enums/user-types.enum';
 import { Router } from '@angular/router';
+import { Component, OnInit } from '@angular/core';
+import { UserTypes } from 'src/app/enums/user-types.enum';
 
 @Component({
   selector: 'app-view-branch-admin-lists-page',

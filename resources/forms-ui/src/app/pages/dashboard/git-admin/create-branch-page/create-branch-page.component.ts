@@ -1,8 +1,8 @@
-import { Component, OnInit } from '@angular/core';
 import * as _ from 'lodash';
 import { Observable } from 'rxjs';
 import { Router } from '@angular/router';
 import { startWith, map } from 'rxjs/operators';
+import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { CompanyBranches } from 'src/app/models/company-branches.model';
 import { BranchService } from 'src/app/services/branch/branch.service';
@@ -253,10 +253,6 @@ export class CreateBranchPageComponent implements OnInit {
   }
 
   cancel() {
-    // this.f.merchant.setValue('');
-    // this.f.branchName.setValue('');
-    // this.f.branchAdmin.setValue('');
-    // this.f.branchSupervisor.setValue('');
     this.router.navigateByUrl('/git_admin/lists/branch');
   }
 

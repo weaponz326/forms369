@@ -5,6 +5,7 @@ import { Users } from 'src/app/models/users.model';
 import { Merchants } from 'src/app/models/merchants.model';
 import { ClientService } from 'src/app/services/client/client.service';
 import { CompanyService } from 'src/app/services/company/company.service';
+import { SectorsService } from 'src/app/services/sectors/sectors.service';
 import { EndpointService } from 'src/app/services/endpoint/endpoint.service';
 import { LocalStorageService } from 'src/app/services/storage/local-storage.service';
 
@@ -34,6 +35,7 @@ export class ClientFormMerchantsPageComponent implements OnInit {
   constructor(
     private router: Router,
     private clientService: ClientService,
+    private sectorService: SectorsService,
     private companyService: CompanyService,
     private endpointService: EndpointService,
     private localStorage: LocalStorageService
@@ -68,7 +70,7 @@ export class ClientFormMerchantsPageComponent implements OnInit {
   }
 
   getSectors() {
-    this.companyService.getMerchantSectors().then(
+    this.sectorService.getSectors().then(
       sectors => {
         if (sectors.length > 0) {
           _.forEach(sectors, (sector) => {

@@ -34,15 +34,13 @@
             <div class="card">
               <div class="card-body">
                 <p class="card-title">Create New Company</p>
-                <p class="text-muted">Quickly setup a new company</p>
                 <div class="card-text">
                   <form [formGroup]="form" (ngSubmit)="create()" class="forms-sample">
                     <div class="row">
                       <div class="col-md-12 col-sm-12 text-center">
                         <img *ngIf="hasLogo" #selectedLogo [src]="logoImage" alt="" class="img-circle">
                         <br>
-                        <i *ngIf="!hasLogo" class="mdi mdi-image-outline"
-                          style="font-size: 10em; color: #666;"></i>
+                        <i *ngIf="!hasLogo" class="mdi mdi-image-outline" style="font-size: 10em; color: #666;"></i>
                         <br>
                         <input #logoFile type="file" accept="image/*" formControlName="logo" (change)="inputFileChanged($event)"
                           style="overflow: hidden; height: 0px; width: 0px;">
@@ -110,8 +108,7 @@
                           <select class="form-control form-control-lg" formControlName="country"
                             (change)="onCountrySelect($event)">
                             <option value="" disabled>Select Country</option>
-                            <option *ngFor="let country of countriesList | orderBy: 'country.name.common'"
-                              [value]="country.cca2">
+                            <option *ngFor="let country of countriesList | orderBy: 'country.name.common'" [value]="country.cca2">
                               {{ country.name.common }}
                             </option>
                           </select>
@@ -231,23 +228,3 @@
     </div>
   </div>
 </div>
-
-<ng-template #confirm let-modal>
-  <div class="modal-header">
-    <h4 class="modal-title" id="modal-title">Cancel ?</h4>
-    <button type="button" class="close" aria-describedby="modal-title" (click)="modal.dismiss('closed')">
-      <span aria-hidden="true">&times;</span>
-    </button>
-  </div>
-  <div class="modal-body">
-    <p><strong>Are you sure you want to cancel <span class="text-primary">the creation of this company</span> ?</strong>
-    </p>
-    <p>All information provided will be permanently lost.
-      <span class="text-danger">This operation can not be undone.</span>
-    </p>
-  </div>
-  <div class="modal-footer">
-    <button type="button" class="btn btn-outline-secondary" (click)="modal.dismiss('no')">No</button>
-    <button type="button" class="btn btn-danger" (click)="modal.close('yes')">Yes</button>
-  </div>
-</ng-template>

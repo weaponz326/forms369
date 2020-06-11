@@ -187,6 +187,29 @@
         </ul>
       </div>
     </li>
+    <li class="nav-item">
+      <a class="nav-link" data-toggle="collapse" href="#sectors" aria-expanded="false" aria-controls="sectors">
+        <i class="mdi mdi-view-headline menu-icon"></i>
+        <span class="menu-title">Business Sectors</span>
+        <i class="menu-arrow"></i>
+      </a>
+      <div class="collapse" id="sectors">
+        <ul class="nav flex-column sub-menu">
+          <li class="nav-item">
+            <a class="nav-link" routerLink="/git_admin/create/sector">
+              <i class="mdi mdi-plus-circle-multiple-outline menu-icon"></i>
+              <span class="menu-title">Create New</span>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" routerLink="/git_admin/lists/sector">
+              <i class="mdi mdi-format-list-numbered menu-icon"></i>
+              <span class="menu-title">View Sectors</span>
+            </a>
+          </li>
+        </ul>
+      </div>
+    </li>
   </ul>
 </nav>
 <!-- git-admin -->
@@ -306,6 +329,12 @@
       <a class="nav-link" routerLink="/client/favorites">
         <i class="mdi mdi-star-outline menu-icon"></i>
         <span class="menu-title">Favorites</span>
+      </a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link" routerLink="/client/deleted">
+        <i class="mdi mdi-trash-can-outline menu-icon"></i>
+        <span class="menu-title">Trash</span>
       </a>
     </li>
     <li class="nav-item">

@@ -110,6 +110,10 @@ h6 {
   cursor: pointer;
 }
 
+.card .card-title {
+  font-family: 'OpenSans_Bold';
+}
+
 .form-control,
 select.form-control {
   border: 1px solid #acacac;

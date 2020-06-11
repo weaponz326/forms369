@@ -34,7 +34,7 @@ export class ResetPasswordPageComponent implements OnInit {
     Swal.fire({
       title: 'Oops!',
       icon: 'error',
-      text: 'Sorry!, We couldnt reset your password. Please make sure you have an active internet connection or our serevsr may be down',
+      text: 'Sorry!, We couldnt reset your password. Please make sure you have an active internet connection or our serevsr may be down.',
       confirmButtonText: 'Arrrgh!, Ok'
     });
   }
@@ -42,8 +42,8 @@ export class ResetPasswordPageComponent implements OnInit {
   showResetSuccessfulAlert() {
     Swal.fire({
       title: 'Success',
-      icon: 'error',
-      text: 'Password reset was successful',
+      icon: 'success',
+      text: 'Password reset was successful.',
       confirmButtonText: 'Ok'
     });
   }

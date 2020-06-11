@@ -1,4 +1,3 @@
-import { Component, OnInit, ElementRef, ViewChild } from '@angular/core';
 import * as _ from 'lodash';
 import { Observable } from 'rxjs';
 import { Router } from '@angular/router';
@@ -6,10 +5,11 @@ import { startWith, map } from 'rxjs/operators';
 import { Merchants } from 'src/app/models/merchants.model';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { CountryPickerService, ICountry } from 'ngx-country-picker';
+import { Component, OnInit, ElementRef, ViewChild } from '@angular/core';
 import { CompanyService } from 'src/app/services/company/company.service';
+import { DateTimeService } from 'src/app/services/date-time/date-time.service';
 import { ExecutiveService } from 'src/app/services/executive/executive.service';
 import { LocalStorageService } from 'src/app/services/storage/local-storage.service';
-import { DateTimeService } from 'src/app/services/date-time/date-time.service';
 
 @Component({
   selector: 'app-edit-company-page',

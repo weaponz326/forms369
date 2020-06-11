@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild, TemplateRef } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import * as _ from 'lodash';
 import { Observable } from 'rxjs';
 import { Router } from '@angular/router';
@@ -8,6 +8,7 @@ import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { BranchService } from 'src/app/services/branch/branch.service';
 import { CompanyService } from 'src/app/services/company/company.service';
 import { LocalStorageService } from 'src/app/services/storage/local-storage.service';
+import { AccountService } from 'src/app/services/account/account.service';
 
 @Component({
   selector: 'app-edit-access-code-page',
@@ -27,7 +28,6 @@ export class EditAccessCodePageComponent implements OnInit {
   merchantNamesList: Array<any>;
   filteredBranches: Observable<string[]>;
   filteredMerchants: Observable<string[]>;
-  @ViewChild('confirm', { static: false }) modalTemplateRef: TemplateRef<any>;
 
   constructor(
     private router: Router,
@@ -35,6 +35,7 @@ export class EditAccessCodePageComponent implements OnInit {
     private clipboard: ClipboardService,
     private branchService: BranchService,
     private companyService: CompanyService,
+    // private accountService: AccountService,
     private localStorage: LocalStorageService
   ) {
     this.branchesList = [];
@@ -181,7 +182,8 @@ export class EditAccessCodePageComponent implements OnInit {
       this.form.enable();
       this.loading = false;
       return;
-    } else {
+    }
+    else {
       this.form.disable();
       const access_code = this.getFormData();
       console.log('body: ' + JSON.stringify(access_code));

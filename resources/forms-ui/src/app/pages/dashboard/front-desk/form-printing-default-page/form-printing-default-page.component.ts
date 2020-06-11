@@ -159,7 +159,7 @@ export class FormPrintingDefaultPageComponent implements OnInit, AfterViewInit {
     setTimeout(() => {
       const elem_id = 'pdf-data';
       const filename = 'forms369_' + this.form.form_code + '_data';
-      this.downloaderService.exportToPDF(elem_id, filename);
+      // this.downloaderService.exportToPDF(elem_id, filename);
       // navigate back
       window.history.back();
     }, 1000);

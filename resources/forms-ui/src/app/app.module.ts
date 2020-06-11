@@ -133,6 +133,10 @@ import { ExecViewFrontDesksPageComponent } from './pages/dashboard/executive/exe
 import { FormsCountryPickerComponent } from './components/forms-country-picker/forms-country-picker.component';
 import { ClientFavoriteFormsPageComponent } from './pages/dashboard/client/client-favorite-forms-page/client-favorite-forms-page.component';
 import { ClientSuggestMerchantPageComponent } from './pages/dashboard/client/client-suggest-merchant-page/client-suggest-merchant-page.component';
+import { ClientDeletedFormsPageComponent } from './pages/dashboard/client/client-deleted-forms-page/client-deleted-forms-page.component';
+import { CreateSectorPageComponent } from './pages/dashboard/git-admin/create-sector-page/create-sector-page.component';
+import { ViewSectorListPageComponent } from './pages/dashboard/git-admin/view-sector-list-page/view-sector-list-page.component';
+import { EditSectorPageComponent } from './pages/dashboard/git-admin/edit-sector-page/edit-sector-page.component';
 
 @NgModule({
   declarations: [
@@ -250,6 +254,10 @@ import { ClientSuggestMerchantPageComponent } from './pages/dashboard/client/cli
     FormsCountryPickerComponent,
     ClientFavoriteFormsPageComponent,
     ClientSuggestMerchantPageComponent,
+    ClientDeletedFormsPageComponent,
+    CreateSectorPageComponent,
+    ViewSectorListPageComponent,
+    EditSectorPageComponent,
   ],
   imports: [
     BrowserModule,

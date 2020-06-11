@@ -1,14 +1,14 @@
-import { Component, OnInit, Input, Output, EventEmitter, ViewChild, TemplateRef } from '@angular/core';
 import * as _ from 'lodash';
 import { Router } from '@angular/router';
 import { UserTypes } from 'src/app/enums/user-types.enum';
+import { NgbModalRef, NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { AdminService } from 'src/app/services/admin/admin.service';
 import { BranchService } from 'src/app/services/branch/branch.service';
 import { CompanyService } from 'src/app/services/company/company.service';
+import { AccountService } from 'src/app/services/account/account.service';
 import { ExecutiveService } from 'src/app/services/executive/executive.service';
 import { FrontDeskService } from 'src/app/services/front-desk/front-desk.service';
-import { NgbModalRef, NgbModal } from '@ng-bootstrap/ng-bootstrap';
-import { AccountService } from 'src/app/services/account/account.service';
+import { Component, OnInit, Input, Output, EventEmitter, ViewChild, TemplateRef } from '@angular/core';
 
 @Component({
   selector: 'app-view-account-lists-page',
@@ -25,22 +25,25 @@ export class ViewAccountListsPageComponent implements OnInit {
   hasNoData: boolean;
   filterState: string;
   foundNoForm: boolean;
-  @Input() userType: any;
   collection: Array<any>;
+  isDeleteSuccess: boolean;
+  showDeleteMessage: boolean;
+  allCollection: Array<any>;
+  loadingModalRef: NgbModalRef;
+
+  @Input() userType: any;
   @Input() branchId: any;
   @Input() merchantId: any;
   @Input() canEdit: boolean;
   @Input() canView: boolean;
   @Input() canDelete: boolean;
-  isDeleteSuccess: boolean;
-  showDeleteMessage: boolean;
-  allCollection: Array<any>;
-  loadingModalRef: NgbModalRef;
+
   @Output() edit = new EventEmitter();
   @Output() view = new EventEmitter();
   @Output() delete = new EventEmitter();
   @Output() dataLoaded = new EventEmitter();
   @Output() dataLoadedError = new EventEmitter();
+  
   @ViewChild('loader', { static: false }) loadingModal: TemplateRef<any>;
   @ViewChild('confirm', { static: false }) confirmModal: TemplateRef<any>;
 

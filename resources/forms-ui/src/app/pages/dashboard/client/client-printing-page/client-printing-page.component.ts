@@ -1,13 +1,8 @@
 declare var $: any;
 import * as _ from 'lodash';
-import * as jsPDF from 'jspdf';
-import { Component, OnInit, AfterViewInit } from '@angular/core';
-// import { CompanyService } from 'src/app/services/company/company.service';
-// import { EndpointService } from 'src/app/services/endpoint/endpoint.service';
 import { ReloadingService } from 'src/app/services/reloader/reloading.service';
 import { DownloaderService } from 'src/app/services/downloader/downloader.service';
-// import { DownloaderService } from 'src/app/services/downloader/downloader.service';
-// import { LocalStorageService } from 'src/app/services/storage/local-storage.service';
+import { Component, OnInit, ViewChild, ElementRef, AfterViewInit } from '@angular/core';
 
 @Component({
   selector: 'app-client-printing-page',
@@ -23,11 +18,11 @@ export class ClientPrintingPageComponent implements OnInit, AfterViewInit {
   formKeys: Array<string>;
   formValues: Array<string>;
   clientFormData: Array<any>;
+  @ViewChild('content', { static: false }) content: ElementRef;
 
   constructor(
     private reloader: ReloadingService,
     private downloadService: DownloaderService,
-    // private companyService: CompanyService,
   ) {
     this.initVars();
   }
@@ -86,12 +81,8 @@ export class ClientPrintingPageComponent implements OnInit, AfterViewInit {
   }
 
   download() {
-    // this.downloadService.exportToPDF('form-data', filename);
-    const doc = new jsPDF('p', 'pt', 'a4');
     const filename = 'forms369_' + this.form.form_code + '_data';
-    doc.addHTML($('#form-data'), () => {
-      doc.save(filename + '.pdf');
-    });
+    this.downloadService.exportToPDF(this.content, filename);
     window.history.back();
   }
 }

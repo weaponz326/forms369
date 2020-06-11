@@ -1,4 +1,3 @@
-import { Component, OnInit, ViewChild, ElementRef, TemplateRef } from '@angular/core';
 declare var $: any;
 import * as _ from 'lodash';
 import { Router } from '@angular/router';
@@ -7,6 +6,7 @@ import { NgbModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
 import { FormsService } from 'src/app/services/forms/forms.service';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { CompanyService } from 'src/app/services/company/company.service';
+import { Component, OnInit, ViewChild, ElementRef, TemplateRef } from '@angular/core';
 import { FormBuilderService } from 'src/app/services/form-builder/form-builder.service';
 
 @Component({

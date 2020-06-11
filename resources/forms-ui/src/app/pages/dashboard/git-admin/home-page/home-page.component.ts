@@ -1,8 +1,8 @@
-import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { Component, OnInit } from '@angular/core';
+import { AccountService } from 'src/app/services/account/account.service';
 import { AnalyticsService } from 'src/app/services/analytics/analytics.service';
 import { LocalStorageService } from 'src/app/services/storage/local-storage.service';
-import { AccountService } from 'src/app/services/account/account.service';
 
 @Component({
   selector: 'app-home-page',
