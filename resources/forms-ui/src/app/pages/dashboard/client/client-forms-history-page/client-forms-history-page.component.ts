@@ -51,7 +51,7 @@ export class ClientFormsHistoryPageComponent implements OnInit, OnDestroy {
     private endpointService: EndpointService,
     private localStorageService: LocalStorageService
   ) {
-    this.status = 0;
+    this.status = -1;
     this.searchOption = '';
     this.rejectionNote = '';
     this.historyCollection = [];
@@ -100,7 +100,7 @@ export class ClientFormsHistoryPageComponent implements OnInit, OnDestroy {
   }
 
   showAll() {
-    this.status = 0;
+    this.status = -1;
     this.filterState = 'all';
     this.historyCollection = [];
     this.allHistoryCollection = [];
@@ -378,7 +378,7 @@ export class ClientFormsHistoryPageComponent implements OnInit, OnDestroy {
   }
 
   searchByFormName() {
-    console.log('form name searching is running ...');
+    console.log('form name searc is running ... status: ' + this.status);
     this.loading = true;
     this.clientService.findFormsInHistoryByName(this.user.id.toString(), this.query, this.status).then(
       forms => {

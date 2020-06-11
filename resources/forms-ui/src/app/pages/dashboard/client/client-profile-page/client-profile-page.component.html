@@ -188,7 +188,7 @@
                             <div *ngIf="item.type == 'radio-group'">
                               <label><strong>{{ item.label }}</strong></label>
                               <div style="width: 100%; float: left;" *ngFor="let radio of item.values">
-                                <input style="width: 6%; float: left; margin-right: 10px;" type="radio" id="{{ item.name }}" name="{{ item.name }}" class="form-control">
+                                <input style="width: 3%; float: left; margin-right: 10px;" type="radio" id="{{ item.name }}" name="{{ item.name }}" class="form-control">
                                 <p style="width: 80%; padding-top: 13px;">{{ radio.label }}</p>
                               </div>
                             </div>
@@ -196,7 +196,7 @@
                             <div *ngIf="item.type == 'checkbox-group'">
                               <label><strong>{{ item.label }}</strong></label>
                               <div style="width: 100%; float: left;" *ngFor="let checkbox of item.values">
-                                <input style="width: 6%; float: left; margin-right: 10px;" type="checkbox" id="{{ item.name }}" name="{{ item.name }}" class="form-control">
+                                <input style="width: 3%; float: left; margin-right: 10px;" type="checkbox" id="{{ item.name }}" name="{{ item.name }}" class="form-control">
                                 <p style="width: 80%; padding-top: 13px;">{{ checkbox.label }}</p>
                               </div>
                             </div>
