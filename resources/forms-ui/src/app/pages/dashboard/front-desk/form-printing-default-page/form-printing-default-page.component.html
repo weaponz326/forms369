@@ -15,7 +15,7 @@
   </div>
 
   <div *ngIf="!loading" class="container" id="print-view">
-    <div class="row" id="pdf-data" style="background-color: #fff;">
+    <div class="row" #content id="pdf-data" style="background-color: #fff;">
       <div class="col-8 offset-2">
         <div class="img-view" *ngIf="isPrint">
           <img [src]="logo" alt="logo" class="img-fluid">

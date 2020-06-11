@@ -129,7 +129,7 @@ export class ClientService {
         res => {
           const response = res as any;
           console.log('___res: ' + JSON.stringify(res));
-          response.client.length == 0 ? resolve(response.client) : resolve(response.client[0]);
+          resolve(response.client);
         },
         err => {
           reject(err);

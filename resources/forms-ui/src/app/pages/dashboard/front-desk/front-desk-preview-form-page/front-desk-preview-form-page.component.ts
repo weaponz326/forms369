@@ -2,8 +2,8 @@ declare var $: any;
 import * as _ from 'lodash';
 import { Router } from '@angular/router';
 import { Component, OnInit } from '@angular/core';
-import { FormBuilderService } from 'src/app/services/form-builder/form-builder.service';
 import { FrontDeskService } from 'src/app/services/front-desk/front-desk.service';
+import { FormBuilderService } from 'src/app/services/form-builder/form-builder.service';
 
 @Component({
   selector: 'app-front-desk-preview-form-page',
