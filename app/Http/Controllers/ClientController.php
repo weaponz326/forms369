@@ -352,7 +352,7 @@ class ClientController extends Controller
         ->select('submitted_forms.*','merchants.merchant_name AS merchant_name', 'merchants.nickname','merchants.id AS merchant_id',
         'users.name', 'users.email', 'forms.name AS form_name', 'forms.form_fields', 'logo')
         ->where('submitted_forms.client_id', $id)
-        ->where('submitted_forms.status', '!=', 4)
+        // ->where('submitted_forms.status', '!=', 4)
         ->orderBy('submitted_at', 'desc')
         ->get();
       
@@ -400,7 +400,7 @@ class ClientController extends Controller
     {
 
         //search all submitted forms if user is on the all tab
-        if($status == 0){
+        if($status == -1){
             $getforms = DB::table('submitted_forms')
             ->join('users', 'users.id', '=', 'client_id')
             ->join('forms', 'forms.form_code', '=', 'form_id')
@@ -409,8 +409,8 @@ class ClientController extends Controller
             'users.name', 'users.email', 'forms.name AS form_name', 'forms.form_fields', 'logo')
             ->where([
                 ['submitted_forms.client_id', $id],
-                ['forms.temps', 'like', '%'.$form_name.'%'],
-                ['submitted_forms.status', '!=', 4]
+                ['forms.temps', 'like', '%'.$form_name.'%']
+                // ['submitted_forms.status', '!=', 4]
             ])
             ->get();
           
@@ -471,7 +471,7 @@ class ClientController extends Controller
      */
     public function findSubmittedFormByCode(Request $request, $id, $code, $status)
     {
-        if($status == 0){
+        if($status == -1){
             $getforms = DB::table('submitted_forms')
             ->join('users', 'users.id', '=', 'client_id')
             ->join('forms', 'forms.form_code', '=', 'form_id')
@@ -480,8 +480,8 @@ class ClientController extends Controller
             'users.name', 'users.email', 'forms.name AS form_name', 'forms.form_fields', 'logo')
             ->where([
                 ['submitted_forms.client_id', $id],
-                ['submitted_forms.submission_code', 'like', '%'.$code.'%'],
-                ['submitted_forms.status', '!=', 4]
+                ['submitted_forms.submission_code', 'like', '%'.$code.'%']
+                // ['submitted_forms.status', '!=', 4]
             ])
             ->get();
         }else{
@@ -545,7 +545,7 @@ class ClientController extends Controller
         $enddate = date($edate);
  
          //search all submitted forms if user is on the all tab
-         if($status == 0){
+         if($status == -1){
              $getforms = DB::table('submitted_forms')
              ->join('users', 'users.id', '=', 'client_id')
              ->join('forms', 'forms.form_code', '=', 'form_id')
@@ -553,8 +553,8 @@ class ClientController extends Controller
              ->select('submitted_forms.*','merchants.merchant_name AS merchant_name', 'merchants.nickname',
              'merchants.colors', 'users.name', 'users.email', 'forms.name AS form_name', 'forms.form_fields', 'logo')
              ->where([
-                 ['submitted_forms.client_id', $id],
-                 ['submitted_forms.status', '!=', 4]
+                 ['submitted_forms.client_id', $id]
+                //  ['submitted_forms.status', '!=', 4]
              ])
              ->whereBetween('submitted_at', [$startdate, $enddate])
              ->get();
@@ -1562,7 +1562,7 @@ class ClientController extends Controller
      */
      public function findClientFormsByMerchantName(Request $request, $term, $status, $id)
      {
-         if($status == 0){ 
+         if($status == -1){ 
             $getforms = DB::table('submitted_forms')
             ->join('users', 'users.id', '=', 'client_id')
             ->join('forms', 'forms.form_code', '=', 'form_id')
@@ -1570,7 +1570,7 @@ class ClientController extends Controller
             ->select('submitted_forms.*','merchants.merchant_name AS merchant_name', 'merchants.nickname',
             'merchants.colors','users.name', 'users.email', 'forms.name AS form_name', 'forms.form_fields', 'logo')
             ->where('submitted_forms.client_id', $id)
-            ->where('submitted_forms.status', '!=', 4)
+            // ->where('submitted_forms.status', '!=', 4)
             ->where('merchants.temp', 'like', '%'.$term .'%')
             ->get();
          }else{
