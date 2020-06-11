@@ -25,7 +25,6 @@
             <div class="card">
               <div class="card-body">
                 <p class="card-title">Edit Access Code</p>
-                <p class="text-muted">Update or make changes to an access code.</p>
                 <div class="card-text">
                   <form [formGroup]="form" (ngSubmit)="create()">
                     <div class="form-group">
@@ -114,22 +113,3 @@
     <!-- main-panel ends -->
   </div>
 </div>
-
-<!-- <ng-template #confirm let-modal>
-  <div class="modal-header">
-    <h4 class="modal-title" id="modal-title">Cancel ?</h4>
-    <button type="button" class="close" aria-describedby="modal-title" (click)="modal.dismiss('closed')">
-      <span aria-hidden="true">&times;</span>
-    </button>
-  </div>
-  <div class="modal-body">
-    <p><strong>Are you sure you want to cancel ?</strong></p>
-    <p>All the changes made will be permanently lost.
-      <span class="text-danger">This operation can not be undone.</span>
-    </p>
-  </div>
-  <div class="modal-footer">
-    <button type="button" class="btn btn-outline-secondary" (click)="modal.dismiss('no')">No</button>
-    <button type="button" class="btn btn-danger" (click)="modal.close('yes')">Yes</button>
-  </div>
-</ng-template> -->

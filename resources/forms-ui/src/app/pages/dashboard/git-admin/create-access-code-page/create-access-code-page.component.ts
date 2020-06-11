@@ -3,11 +3,10 @@ import { Observable } from 'rxjs';
 import { Router } from '@angular/router';
 import { startWith, map } from 'rxjs/operators';
 import { ClipboardService } from 'ngx-clipboard';
-import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { BranchService } from 'src/app/services/branch/branch.service';
 import { CompanyService } from 'src/app/services/company/company.service';
-import { Component, OnInit, ViewChild, TemplateRef } from '@angular/core';
 import { AccountService } from 'src/app/services/account/account.service';
 import { LocalStorageService } from 'src/app/services/storage/local-storage.service';
 
@@ -29,11 +28,9 @@ export class CreateAccessCodePageComponent implements OnInit {
   merchantNamesList: Array<any>;
   filteredBranches: Observable<string[]>;
   filteredMerchants: Observable<string[]>;
-  @ViewChild('confirm', { static: false }) modalTemplateRef: TemplateRef<any>;
 
   constructor(
     private router: Router,
-    private modalService: NgbModal,
     private formBuilder: FormBuilder,
     private clipboard: ClipboardService,
     private branchService: BranchService,
@@ -192,7 +189,8 @@ export class CreateAccessCodePageComponent implements OnInit {
       this.form.enable();
       this.loading = false;
       return;
-    } else {
+    }
+    else {
       const access_code = this.getFormData();
       if (!this.containsErrors(access_code)) {
         this.form.disable();
@@ -233,26 +231,7 @@ export class CreateAccessCodePageComponent implements OnInit {
     this.router.navigateByUrl('git_admin/lists/access_code');
   }
 
-  isFormEmpty() {
-    if (
-      _.isEmpty(this.f.branch.value) && _.isEmpty(this.f.merchant.value)
-      && _.isEmpty(this.f.deviceName.value) && _.isEmpty(this.f.sourceName.value)
-    ) {
-      return true;
-    }
-    else {
-      return false;
-    }
-  }
-
   cancel() {
     this.ok();
-  }
-
-  clearData() {
-    this.f.branch.setValue('');
-    this.f.merchant.setValue('');
-    this.f.deviceName.setValue('');
-    this.f.sourceName.setValue('');
   }
 }

@@ -13,21 +13,12 @@
                   <p class="mb-md-0">Your administrative dashboard.</p>
                 </div>
                 <div class="d-flex">
-                  <!-- <i class="mdi mdi-home text-muted hover-cursor">
-                  <p class="text-muted mb-0 hover-cursor">&nbsp;/&nbsp;Home&nbsp;/&nbsp;</p>
-                  <p class="text-primary mb-0 hover-cursor">In-Processing</p> -->
                 </div>
               </div>
               <div class="d-flex justify-content-between align-items-end flex-wrap">
-                <!-- <button type="button" class="btn btn-light bg-white btn-icon mr-3 d-none d-md-block ">
-                  <i class="mdi mdi-download text-muted"></i>
-                </button>
-                <button type="button" class="btn btn-light bg-white btn-icon mr-3 mt-2 mt-xl-0">
-                  <i class="mdi mdi-clock-outline text-muted"></i>
-                </button>
-                <button type="button" class="btn btn-light bg-white btn-icon mr-3 mt-2 mt-xl-0">
+                <button type="button" class="btn btn-light bg-white btn-icon mr-3 d-none d-md-block ">
                   <i class="mdi mdi-plus text-muted"></i>
-                </button> -->
+                </button>
               </div>
             </div>
           </div>
@@ -36,7 +27,7 @@
         <div *ngIf="loading" class="row m-md-5">
           <div class="col-md-12 col-sm-12 m-md-5">
             <div class="d-flex justify-content-center">
-              <div class="spinner-border m-5" style="width: 5rem; height: 5rem;" role="status">
+              <div class="spinner-border m-5" style="width: 3rem; height: 3rem;" role="status">
                 <span class="sr-only">Loading...</span>
               </div>
             </div>
@@ -48,15 +39,12 @@
             <div class="card text-center pt-5 pb-5">
               <div class="card-body mt-5 mb-5">
                 <h4 class="card-title">No Data Found</h4>
-                <p class="card-description">
-                  No access codes found.
-                </p>
                 <div class="text-lg-center mt-5 mb-5">
                   <div class="card-text">
                     <i class="mdi mdi-lock-pattern" style="font-size: 8em;"></i>
                   </div>
                   <div class="card-text">
-                    <h3>No Access Codes</h3>
+                    <h3>No Access Codes.</h3>
                     <p class="text-muted">There are no access codes created yet!</p>
                   </div>
                 </div>
@@ -78,9 +66,8 @@
                     <i class="mdi mdi-close-network-outline" style="font-size: 8em;"></i>
                   </div>
                   <div class="card-text">
-                    <h3>We couldn't get your branches</h3>
-                    <p class="text-muted">An error has occured on our servers or you might not have internet connection
-                    </p>
+                    <h3>We couldn't get access codes.</h3>
+                    <p class="text-muted">An error has occured on our servers or you might not have internet connection.</p>
                   </div>
                 </div>
               </div>
@@ -92,9 +79,9 @@
           <div class="col-lg-12 grid-margin stretch-card">
             <div class="card">
               <div class="card-body">
-                <h4 class="card-title">List Access Codes</h4>
+                <h4 class="card-title">Access Codes</h4>
                 <p class="card-description">
-                  List of all new access codes that have been created.
+                  List of all access codes that have been created.
                 </p>
                 <div class="table-responsive">
                   <table class="table table-hover">
@@ -160,8 +147,7 @@
                 Maybe, our servers may be down.
               </p>
               <hr>
-              <p class="mb-0">We are really sorry for this inconvenience. Please click on the load more button again.
-              </p>
+              <p class="mb-0">We are really sorry for this inconvenience. Please click on the load more button again.</p>
             </div>
           </div>
         </div>
@@ -199,7 +185,7 @@
   </div>
   <div class="modal-body">
     <p><strong>Are you sure you want to activate <span class="text-primary">this access code</span> ?</strong></p>
-    <p>Activating an access code makes it possible for users to access private parts of Form369.com
+    <p>Activating an access code makes it possible for users to access private parts of Form369.com.
       <span class="text-danger">Please be sure before you continue.</span>
     </p>
   </div>
@@ -218,7 +204,7 @@
   </div>
   <div class="modal-body">
     <p><strong>Are you sure you want to deactivate <span class="text-primary">this access code</span> ?</strong></p>
-    <p>De-Activating an access code makes it impossible for users to access private parts of Form369.com
+    <p>De-Activating an access code makes it impossible for users to access private parts of Form369.com.
       <span class="text-danger">Please be sure before you continue.</span>
     </p>
   </div>

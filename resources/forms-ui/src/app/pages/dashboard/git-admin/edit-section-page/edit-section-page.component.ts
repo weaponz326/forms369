@@ -1,7 +1,7 @@
-import { Component, OnInit } from '@angular/core';
 declare var $: any;
 import * as _ from 'lodash';
 import { Router } from '@angular/router';
+import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { SectionsService } from 'src/app/services/sections/sections.service';
 import { FormBuilderService } from 'src/app/services/form-builder/form-builder.service';

@@ -11,7 +11,7 @@
               <div class="d-flex align-items-end flex-wrap">
                 <div class="mr-md-3 mr-xl-5">
                   <h2>Setup a new form</h2>
-                  <p class="mb-md-0">Design a new form here, just drag  and drop the sections or click to add.</p>
+                  <p class="mb-md-0">Design a new form here, just drag and drop the sections or click to add.</p>
                 </div>
                 <div class="d-flex">
                 </div>
@@ -95,9 +95,11 @@
                     </div>
                   </div>
 
+                  <!-- form builder -->
                   <div class="form-builder-container">
                     <div id="fb-editor"></div>
                   </div>
+                  <!-- /.end form builder -->
 
                   <button type="submit" *ngIf="!loading" class="btn btn-primary mt-2 mr-1" (click)="create()">Create</button>
                   <button type="submit" *ngIf="!loading && !showFileUpload" class="btn btn-primary mt-2 mr-1" (click)="publish()">Create & Publish</button>
@@ -176,19 +178,3 @@
     </div>
   </div>
 </div>
-
-<ng-template #badtype let-modal>
-  <div class="modal-header">
-    <h4 class="modal-title" id="modal-title">Bad File Format ?</h4>
-    <button type="button" class="close" aria-describedby="modal-title" (click)="modal.dismiss()">
-      <span aria-hidden="true">&times;</span>
-    </button>
-  </div>
-  <div class="modal-body">
-    <p><strong>Wrong file type selected!.</strong></p>
-    <p>Please make sure the file you selected has a file extension of .pdf or the file is a valid PDF file.</p>
-  </div>
-  <div class="modal-footer">
-    <button type="button" class="btn btn-danger" (click)="modal.close()">Ok, Got It</button>
-  </div>
-</ng-template>

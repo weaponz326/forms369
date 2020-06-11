@@ -46,47 +46,10 @@ export class CreateFormPageComponent implements OnInit {
 
   renderForm() {
     if (_.isUndefined(this.template) || _.isNull(this.template)) {
-      this.formBuilderService.generateFormFieldsBySections().then(
-        form_elements => {
-          this.formBuilder = $(document.getElementById('fb-editor')).formBuilder({
-            controlPosition: 'left',
-            inputSets: form_elements,
-            scrollToFieldOnAdd: false,
-            disabledActionButtons: ['data', 'clear', 'save'],
-            typeUserAttrs: this.formBuilderService.handleFieldsTypeAttrs(),
-            typeUserDisabledAttrs: this.formBuilderService.disableFieldAttrs(),
-            disableFields: this.formBuilderService.disableSectionFormFields()
-          });
-          this._loading = false;
-        },
-        error => {
-          this._loading = false;
-          this.hasError = true;
-        }
-      );
+      this.templateFormBuilderOptions();
     }
     else {
-      this.formCode = this.formBuilderService.generateUniqueFormCode();
-      this.formBuilderService.generateSectionAndDefaultFormFields().then(
-        form_elements => {
-          this.formBuilder = $(document.getElementById('fb-editor')).formBuilder({
-            controlPosition: 'left',
-            inputSets: form_elements,
-            scrollToFieldOnAdd: false,
-            defaultFields: this.template.form_fields,
-            disabledActionButtons: ['data', 'clear', 'save'],
-            typeUserAttrs: this.formBuilderService.handleFieldsTypeAttrs(),
-            typeUserDisabledAttrs: this.formBuilderService.disableFieldAttrs(),
-            disableFields: this.formBuilderService.disableDefaultFormControls()
-          });
-
-          this._loading = false;
-        },
-        error => {
-          this._loading = false;
-          this.hasError = true;
-        }
-      );
+      this.actualFormBuilderOptions();
     }
   }
 
@@ -95,6 +58,51 @@ export class CreateFormPageComponent implements OnInit {
     this._loading = true;
     this.buildForm();
     this.renderForm();
+  }
+
+  actualFormBuilderOptions() {
+    this.formCode = this.formBuilderService.generateUniqueFormCode();
+    this.formBuilderService.generateSectionAndDefaultFormFields().then(
+      form_elements => {
+        this.formBuilder = $(document.getElementById('fb-editor')).formBuilder({
+          controlPosition: 'left',
+          inputSets: form_elements,
+          scrollToFieldOnAdd: false,
+          defaultFields: this.template.form_fields,
+          disabledActionButtons: ['data', 'clear', 'save'],
+          typeUserAttrs: this.formBuilderService.handleFieldsTypeAttrs(),
+          typeUserDisabledAttrs: this.formBuilderService.disableFieldAttrs(),
+          disableFields: this.formBuilderService.disableDefaultFormControls()
+        });
+
+        this._loading = false;
+      },
+      error => {
+        this._loading = false;
+        this.hasError = true;
+      }
+    );
+  }
+
+  templateFormBuilderOptions() {
+    this.formBuilderService.generateFormFieldsBySections().then(
+      form_elements => {
+        this.formBuilder = $(document.getElementById('fb-editor')).formBuilder({
+          controlPosition: 'left',
+          inputSets: form_elements,
+          scrollToFieldOnAdd: false,
+          disabledActionButtons: ['data', 'clear', 'save'],
+          typeUserAttrs: this.formBuilderService.handleFieldsTypeAttrs(),
+          typeUserDisabledAttrs: this.formBuilderService.disableFieldAttrs(),
+          disableFields: this.formBuilderService.disableSectionFormFields()
+        });
+        this._loading = false;
+      },
+      error => {
+        this._loading = false;
+        this.hasError = true;
+      }
+    );
   }
 
   buildForm() {
@@ -136,7 +144,6 @@ export class CreateFormPageComponent implements OnInit {
     console.log('handling can upload view');
     _.forEach(this.allMerchantsList, (merchant, i) => {
       if (merchant_id == merchant.id) {
-        console.log('gotIT: ' + merchant.can_print);
         this.showFileUpload = merchant.can_print == 1 ? true : false;
         return;
       }

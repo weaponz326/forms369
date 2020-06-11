@@ -1,6 +1,6 @@
+import { Router } from '@angular/router';
 import { Component, OnInit } from '@angular/core';
 import { UserTypes } from 'src/app/enums/user-types.enum';
-import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-create-user-page',

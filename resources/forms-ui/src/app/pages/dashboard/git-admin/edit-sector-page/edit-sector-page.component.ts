@@ -11,6 +11,7 @@ import { SectorsService } from 'src/app/services/sectors/sectors.service';
 })
 export class EditSectorPageComponent implements OnInit {
 
+  sector: any;
   form: FormGroup;
   loading: boolean;
   created: boolean;
@@ -20,7 +21,9 @@ export class EditSectorPageComponent implements OnInit {
     private router: Router,
     private fb: FormBuilder,
     private sectorService: SectorsService
-  ) { }
+  ) {
+    this.sector = window.history.state.sector;
+  }
 
   ngOnInit() {
     this.buildForm();
@@ -32,7 +35,7 @@ export class EditSectorPageComponent implements OnInit {
 
   buildForm() {
     this.form = this.fb.group({
-      name: ['', Validators.required],
+      name: [this.sector.name, Validators.required],
     });
   }
 

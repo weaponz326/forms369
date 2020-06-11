@@ -1,5 +1,5 @@
-import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { Component, OnInit } from '@angular/core';
 import { UserTypes } from 'src/app/enums/user-types.enum';
 
 @Component({

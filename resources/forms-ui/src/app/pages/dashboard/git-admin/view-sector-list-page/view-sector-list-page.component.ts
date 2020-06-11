@@ -3,8 +3,8 @@ import { Router } from '@angular/router';
 import { NgbModalRef, NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { Component, OnInit, ViewChild, TemplateRef } from '@angular/core';
 import { SectorsService } from 'src/app/services/sectors/sectors.service';
-import { DateTimeService } from 'src/app/services/date-time/date-time.service';
 import { ListViewService } from 'src/app/services/view/list-view.service';
+import { DateTimeService } from 'src/app/services/date-time/date-time.service';
 
 @Component({
   selector: 'app-view-sector-list-page',
