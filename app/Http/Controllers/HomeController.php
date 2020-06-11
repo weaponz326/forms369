@@ -2405,6 +2405,33 @@ class HomeController extends Controller
         return $message;
      }
 
+      /**
+     * editBusinessSector edit business sector in the db
+     *
+     * @param  mixed $request
+     *
+     * @return \Illuminate\Http\Response success or error message
+     */
+     public function editBusinessSector(Request $request, $id)
+     {
+        $message = (new SetupController)->editBusinessSector($request, $id);
+        return $message;
+     }
+
+     /**
+     * deleteBusinessSector delete a business sector in the db
+     *
+     * @param  mixed $request
+     *
+     * @return \Illuminate\Http\Response success or error message
+     */
+     public function deleteBusinessSector(Request $request, $id)
+     {
+        $message = (new SetupController)->deleteBusinessSector($request, $id);
+        return $message;
+     }
+
+
      /**
      * getAllBusinessSectors get all business sectors in the db
      *

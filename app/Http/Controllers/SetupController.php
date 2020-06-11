@@ -350,7 +350,7 @@ class SetupController extends Controller
     }
 
     /**
-     * getAllBusinessSectors get all business sectors in the db
+     * getAllSuggestedMerchants get all suggested merchants in the db
      *
      * @param  mixed $request
      *
@@ -1851,6 +1851,86 @@ class SetupController extends Controller
             'business_sectors' => $getbusinesssectors
         ];
         return response()->json($response, 200);
+
+    }
+
+     /**
+     * editBusinessSector edit business sector in the db
+     *
+     * @param  mixed $request
+     *
+     * @return \Illuminate\Http\Response success or error message
+     */
+     public function editBusinessSector(Request $request, $id){
+
+        $this->validate($request, [
+            'name' => 'required'
+        ]);
+
+        $name = $request->name;
+
+        $updated_at = now();
+
+        //get user creating the new merchant
+        $user = $request->user();
+        $userid = $user['id'];
+
+        try {
+
+            DB::table('business_sectors')
+            ->where('id', $id)
+            ->update(
+                [
+                    'name' => $name, 
+                    'updated_by' => $userid, 
+                    'updated_at' => $updated_at
+                ]
+            );
+
+            $message = 'Ok';
+            Log::channel('mysql')->info('User with id: ' . $userid .' successsfully updated a business sector with id '. $id);
+
+        }catch(Exception $e) {
+            Log::channel('mysql')->error('User with id: ' . $userid .' unsuccesssfully updated a business sector with id '. $id);
+            $message = "Failed";
+        } 
+            
+        return response()->json([
+            'message' => $message
+        ]);
+
+    }
+
+    /**
+     * deleteBusinessSector delete a business sector in the db
+     *
+     * @param  mixed $request
+     *
+     * @return \Illuminate\Http\Response success or error message
+     */
+     public function deleteBusinessSector(Request $request, $id){
+
+        //get user creating the new merchant
+        $user = $request->user();
+        $userid = $user['id'];
+
+        try {
+
+            DB::table('business_sectors')
+            ->where('id', $id)
+            ->delete();
+
+            $message = 'Ok';
+            Log::channel('mysql')->info('User with id: ' . $userid .' successsfully deleted a business sector with id '. $id);
+
+        }catch(Exception $e) {
+            Log::channel('mysql')->error('User with id: ' . $userid .' unsuccesssfully deleted a business sector with id '. $id);
+            $message = "Failed";
+        } 
+            
+        return response()->json([
+            'message' => $message
+        ]);
 
     }
 

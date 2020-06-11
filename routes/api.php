@@ -307,6 +307,8 @@ Route::group(['middleware' => ['auth:api'], 'prefix' => 'v1'], function(){
   //business/ merchant sector
   Route::post('createBusinessSector', 'HomeController@createBusinessSector')->name('createBusinessSector')->middleware('scope:GIT_Admin');
   Route::get('getAllBusinessSectors', 'HomeController@getAllBusinessSectors')->name('getAllBusinessSectors')->middleware('scope:GIT_Admin,company_admin,branch_admin,forms_client');
+  Route::post('editBusinessSector/{id}', 'HomeController@editBusinessSector')->name('editBusinessSector')->middleware('scope:GIT_Admin');
+  Route::post('deleteBusinessSector/{id}', 'HomeController@deleteBusinessSector')->name('deleteBusinessSector')->middleware('scope:GIT_Admin');
 
   
   //reject forms reviews apis 
