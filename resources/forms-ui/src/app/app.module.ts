@@ -137,6 +137,8 @@ import { ClientDeletedFormsPageComponent } from './pages/dashboard/client/client
 import { CreateSectorPageComponent } from './pages/dashboard/git-admin/create-sector-page/create-sector-page.component';
 import { ViewSectorListPageComponent } from './pages/dashboard/git-admin/view-sector-list-page/view-sector-list-page.component';
 import { EditSectorPageComponent } from './pages/dashboard/git-admin/edit-sector-page/edit-sector-page.component';
+import { ResetPinPageComponent } from './pages/reset-pin-page/reset-pin-page.component';
+import { InvalidResetPinPageComponent } from './pages/invalid-reset-pin-page/invalid-reset-pin-page.component';
 
 @NgModule({
   declarations: [
@@ -258,6 +260,8 @@ import { EditSectorPageComponent } from './pages/dashboard/git-admin/edit-sector
     CreateSectorPageComponent,
     ViewSectorListPageComponent,
     EditSectorPageComponent,
+    ResetPinPageComponent,
+    InvalidResetPinPageComponent,
   ],
   imports: [
     BrowserModule,

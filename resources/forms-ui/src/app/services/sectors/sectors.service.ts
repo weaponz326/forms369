@@ -16,8 +16,8 @@ export class SectorsService {
 
   createSector(sector_name: string): Promise<boolean> {
     return new Promise((resolve, reject) => {
-      const url = this.endpointService.apiHost + 'api/v1/createBusinessSector';
       const body = { name: sector_name };
+      const url = this.endpointService.apiHost + 'api/v1/createBusinessSector';
       this.http.post(url, JSON.stringify(body), { headers: this.headers }).subscribe(
         res => {
           console.log('sector_created: ' + JSON.stringify(res));
@@ -35,7 +35,23 @@ export class SectorsService {
   }
 
   editSector(id: string, name: string): Promise<boolean> {
-    return new Promise((resolve, reject) => {});
+    return new Promise((resolve, reject) => {
+      const body = { name: name };
+      const url = this.endpointService.apiHost + 'api/v1/editBusinessSector/' + id;
+      this.http.post(url, JSON.stringify(body), { headers: this.headers }).subscribe(
+        res => {
+          console.log('sector edited: ' + JSON.stringify(res));
+          const response = res as any;
+          _.toLower(response.message) == 'ok'
+            ? resolve(true)
+            : resolve(false);
+        },
+        err => {
+          console.log('edit sector error: ' + JSON.stringify(err));
+          reject(err);
+        }
+      );
+    });
   }
 
   getSectors(): Promise<any[]> {
@@ -56,6 +72,21 @@ export class SectorsService {
   }
 
   deleteSector(id: string): Promise<boolean> {
-    return new Promise((resolve, reject) => {});
+    return new Promise((resolve, reject) => {
+      const url = this.endpointService.apiHost + 'api/v1/deleteBusinessSector/' + id;
+      this.http.post(url, {}, { headers: this.headers }).subscribe(
+        res => {
+          console.log('sector delete: ' + JSON.stringify(res));
+          const response = res as any;
+          _.toLower(response.message) == 'ok'
+            ? resolve(true)
+            : resolve(false);
+        },
+        err => {
+          console.log('sector del error: ' + JSON.stringify(err));
+          reject(err);
+        }
+      );
+    });
   }
 }

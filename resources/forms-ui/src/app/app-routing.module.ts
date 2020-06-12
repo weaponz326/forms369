@@ -111,6 +111,8 @@ import { ExecViewAccountDetailsPageComponent } from './pages/dashboard/executive
 import { CreateSectorPageComponent } from './pages/dashboard/git-admin/create-sector-page/create-sector-page.component';
 import { EditSectorPageComponent } from './pages/dashboard/git-admin/edit-sector-page/edit-sector-page.component';
 import { ViewSectorListPageComponent } from './pages/dashboard/git-admin/view-sector-list-page/view-sector-list-page.component';
+import { ResetPinPageComponent } from './pages/reset-pin-page/reset-pin-page.component';
+import { InvalidResetPinPageComponent } from './pages/invalid-reset-pin-page/invalid-reset-pin-page.component';
 
 const routes: Routes = [
   {
@@ -146,6 +148,11 @@ const routes: Routes = [
     component: ResetPasswordPageComponent
   },
   {
+    path: 'reset_pin',
+    component: ResetPinPageComponent
+  },
+
+  {
     path: 'master_register',
     component: AdminRegisterPageComponent
   },
@@ -164,6 +171,10 @@ const routes: Routes = [
   {
     path: 'invalid_password_link',
     component: InvalidPasswordResetPageComponent
+  },
+  {
+    path: 'invalid_reset_pin',
+    component: InvalidResetPinPageComponent
   },
   {
     path: 'git_admin',

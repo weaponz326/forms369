@@ -22,8 +22,11 @@ export class ClientSettingsPageComponent implements OnInit {
   pinForm: FormGroup;
   submitted: boolean;
   submitted1: boolean;
+  submitted2: boolean;
   showSetPin: boolean;
   passwordForm: FormGroup;
+  forgotPinForm: FormGroup;
+  loadingForgotPin: boolean;
 
   constructor(
     private router: Router,
@@ -34,7 +37,7 @@ export class ClientSettingsPageComponent implements OnInit {
   ) {
     this.user = this.localStorage.getUser();
     const has_pin = window.sessionStorage.getItem('has_pin');
-    console.log('has_pin: ' + has_pin);
+
     if (_.isUndefined(has_pin) || _.isNull(has_pin)) {
       this.showSetPin = true;
       this.checkIfUserHasFormPin();
@@ -48,6 +51,7 @@ export class ClientSettingsPageComponent implements OnInit {
     this.initForm();
     this.initPinForm();
     this.initPasswordForm();
+    this.initForgotPinForm();
   }
 
   public get f() {
@@ -60,6 +64,10 @@ export class ClientSettingsPageComponent implements OnInit {
 
   public get pwdF() {
     return this.passwordForm.controls;
+  }
+
+  public get fpin() {
+    return this.forgotPinForm.controls;
   }
 
   resolveStrCharacters(e: KeyboardEvent) {
@@ -161,6 +169,24 @@ export class ClientSettingsPageComponent implements OnInit {
     });
   }
 
+  showForgotPinSuccessAlert() {
+    Swal.fire({
+      title: 'Success',
+      text: 'Check your email and kindly follow the link shared ro reset your pin.',
+      icon: 'success',
+      confirmButtonText: 'Ok'
+    });
+  }
+
+  showForgotPinFailedAlert() {
+    Swal.fire({
+      title: 'Oops!',
+      text: 'Failed to verify your email address. Please check your internet connection and try again.',
+      icon: 'error',
+      confirmButtonText: 'Ok'
+    });
+  }
+
   initPinForm() {
     this.pinForm = this.fb.group({
       pin: ['', [Validators.minLength(4), Validators.required]]
@@ -179,6 +205,12 @@ export class ClientSettingsPageComponent implements OnInit {
       oldPassword: ['', [Validators.minLength(8), Validators.required]],
       newPassword: ['', [Validators.minLength(8), Validators.required]],
       confirmPassword: ['', [Validators.minLength(8), Validators.required]],
+    });
+  }
+
+  initForgotPinForm() {
+    this.forgotPinForm = this.fb.group({
+      email: ['', [Validators.email, Validators.required]]
     });
   }
 
@@ -304,6 +336,29 @@ export class ClientSettingsPageComponent implements OnInit {
       else {
         this.pwdF.confirmPassword.setErrors({ unmatched: true });
       }
+    }
+  }
+
+  forgotPin() {
+    this.submitted2 = true;
+    const email = this.fpin.email.value;
+
+    if (this.forgotPinForm.valid) {
+      this.loadingForgotPin = true;
+      this.accountService.verifyAccountForPinReset(email).then(
+        ok => {
+          if (ok) {
+            this.loadingForgotPin = false;
+            this.submitted2 = false;
+            this.forgotPinForm.reset();
+            this.showForgotPinSuccessAlert();
+          }
+          else {
+            this.loadingForgotPin = false;
+            this.showForgotPinFailedAlert();
+          }
+        }
+      );
     }
   }
 

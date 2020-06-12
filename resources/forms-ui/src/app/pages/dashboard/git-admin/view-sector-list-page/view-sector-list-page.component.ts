@@ -56,21 +56,20 @@ export class ViewSectorListPageComponent implements OnInit {
       result => {
         if (result == 'delete') {
           this.showLoadingModal();
-          // this.formService.deleteForm(id).then(
-          //   ok => {
-          //     const res = ok as any;
-          //     if (_.toLower(res.message) == 'ok') {
-          //       this.allFormsList.splice(index, 1);
-          //       this.hideLoadingModal();
-          //     }
-          //     else {
-          //       this.hideLoadingModal();
-          //     }
-          //   },
-          //   err => {
-          //     this.hideLoadingModal();
-          //   }
-          // );
+          this.sectorService.deleteSector(id).then(
+            ok => {
+              if (ok) {
+                this.sectorsList.splice(index, 1);
+                this.hideLoadingModal();
+              }
+              else {
+                this.hideLoadingModal();
+              }
+            },
+            err => {
+              this.hideLoadingModal();
+            }
+          );
         }
       }
     );
