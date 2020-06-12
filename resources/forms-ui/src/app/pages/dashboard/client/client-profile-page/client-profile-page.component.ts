@@ -168,17 +168,7 @@ export class ClientProfilePageComponent implements OnInit, AfterViewInit {
     }
   }
 
-  setPrimaryInformation() {
-    this.primaryUserData = {
-      email: this.userData['email'],
-      country: this.userData['country'],
-      lastname: this.userData['lastname'],
-      phone: this.userData['phone-number'],
-      firstname: this.userData['firstname'],
-    };
-  }
-
-  setNewPrimaryInformation(user: Users) {
+  setPrimaryInformation(user: Users) {
     this.showOnlyPrimaryInfo = true;
     this.primaryUserData = {
       email: user.email,
@@ -322,7 +312,8 @@ export class ClientProfilePageComponent implements OnInit, AfterViewInit {
           this.hasData = true;
           this.loading = false;
           this.userData = res[0].client_details[0];
-          this.setPrimaryInformation();
+          const user = this.localStorage.getUser();
+          this.setPrimaryInformation(user);
           console.log('details: ' + this.userData);
           setTimeout(() => {
             this.clientService.fillClientProfileData(this.allFormSections, this.userData);
@@ -346,7 +337,7 @@ export class ClientProfilePageComponent implements OnInit, AfterViewInit {
     this.loading = true;
     const user = this.localStorage.getUser();
     console.log('getting primary user data');
-    this.setNewPrimaryInformation(user);
+    this.setPrimaryInformation(user);
     this.loading = false;
   }
 

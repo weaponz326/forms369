@@ -125,13 +125,9 @@
           <div class="col-md-4 grid-margin stretch-card" *ngFor="let form of formsList">
             <div class="card hover-cursor animated fadeInDown slow" (click)="open(form)">
               <div class="card-body">
-                <!-- <p class="card-title">{{ form.company_name }}</p>
-                <div class="card-text">
-                  <h3 style="line-height: 30px;">{{ form.name }}</h3>
-                </div> -->
                 <div class="form-container" [style.border-left-color]="form.colors">
                   <div class="form-title" [style.background-color]="form.colors">
-                    <h4 style="line-height: 30px;">{{ form.name }}</h4>
+                    <h4 style="line-height: 30px; margin-bottom: 0px;">{{ form.name }}</h4>
                   </div>
                   <div class="form-logo" style="text-align: center;">
                     <img [src]="form.logo" alt="Logo">

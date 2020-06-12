@@ -129,7 +129,7 @@ export class ClientService {
         res => {
           const response = res as any;
           console.log('___res: ' + JSON.stringify(res));
-          response.client.length == 0 ? resolve(response.client) : resolve(response.client[0]);
+          resolve(response.client);
         },
         err => {
           reject(err);
@@ -477,6 +477,7 @@ export class ClientService {
   findFormsInHistoryByName(client_id: string, form_name: string, status: number): Promise<any> {
     return new Promise((resolve, reject) => {
       const url = this.endpointService.apiHost + `api/v1/findSubmittedFormByName/${client_id}/${form_name}/${status}`;
+      console.log('ddddddd: ' + url);
       this.http.get(url, { headers: this.headers }).subscribe(
         res => {
           console.log('form_history_by_name: ' + JSON.stringify(res));

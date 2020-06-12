@@ -46,8 +46,7 @@
                       <div class="card mb-4">
                         <div class="card-body">
                           <h5 class="card-title">Form Attachments / Documents</h5>
-                          <h6 class="card-subtitle mb-2 text-muted">Below are attachments you've uploaded for this form
-                          </h6>
+                          <h6 class="card-subtitle mb-2 text-muted">Below are attachments you've uploaded for this form.</h6>
                           <div class="row" *ngFor="let file of existingAttachments">
                             <div class="col-11" style="padding-right: 8px;">
                               <ol class="files-list">
@@ -92,7 +91,7 @@
                 <p class="text-muted"></p>
                 <div class="card-text">
                   <i class="mdi mdi-shield-check-outline text-primary" style="font-size: 12em;"></i>
-                  <h2>Form has been submitted for processing</h2>
+                  <h2>Form has been submitted for processing.</h2>
                   <p class="text-muted">You have succesfully submitted this form for processing.</p>
                 </div>
                 <div class="card-text mt-4">
@@ -114,7 +113,7 @@
                 <p class="text-muted"></p>
                 <div class="card-text">
                   <i class="mdi mdi-shield-check-outline text-primary" style="font-size: 12em;"></i>
-                  <h2>Form Has Been Completed</h2>
+                  <h2>Form Has Been Completed.</h2>
                   <p class="text-muted">You have succesfully completed processing this form.</p>
                 </div>
                 <div class="card-text mt-4">
@@ -136,7 +135,7 @@
                 <p class="text-muted"></p>
                 <div class="card-text">
                   <i class="mdi mdi-shield-check-outline text-primary" style="font-size: 12em;"></i>
-                  <h2>Form Has Been <strong class="text-danger">Rejected</strong></h2>
+                  <h2>Form Has Been <strong class="text-danger">Rejected.</strong></h2>
                   <p class="text-muted">This form has been succesfully rejected.</p>
                 </div>
                 <div class="card-text mt-4">
@@ -198,7 +197,7 @@
     </button>
   </div>
   <div class="modal-body">
-    <p>This is a document and cannot be viewed. Please download</p>
+    <p>This is a document and cannot be viewed. Please download.</p>
   </div>
   <div class="modal-footer">
     <button type="button" class="btn btn-outline-primary" (click)="modal.close('no')">Close</button>
@@ -220,7 +219,7 @@
           [ngClass]="{'input-control-error': _submitted && f.rejectionNote.errors}"></textarea>
         <div *ngIf="_submitted && f.rejectionNote.errors">
           <p class="input-error" *ngIf="f.rejectionNote.errors.required">
-            Kindly provide a reason for rejecting this form
+            Kindly provide a reason for rejecting this form.
           </p>
         </div>
       </div>

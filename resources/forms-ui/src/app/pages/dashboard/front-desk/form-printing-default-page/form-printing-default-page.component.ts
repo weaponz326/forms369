@@ -1,11 +1,11 @@
 import * as _ from 'lodash';
 import { Printd } from 'printd';
-import { Component, OnInit, AfterViewInit } from '@angular/core';
 import { CompanyService } from 'src/app/services/company/company.service';
 import { EndpointService } from 'src/app/services/endpoint/endpoint.service';
+import { ReloadingService } from 'src/app/services/reloader/reloading.service';
 import { DownloaderService } from 'src/app/services/downloader/downloader.service';
 import { LocalStorageService } from 'src/app/services/storage/local-storage.service';
-import { ReloadingService } from 'src/app/services/reloader/reloading.service';
+import { Component, OnInit, ViewChild, ElementRef, AfterViewInit } from '@angular/core';
 
 @Component({
   selector: 'app-form-printing-default-page',
@@ -23,6 +23,7 @@ export class FormPrintingDefaultPageComponent implements OnInit, AfterViewInit {
   formKeys: Array<string>;
   formValues: Array<string>;
   clientFormData: Array<any>;
+  @ViewChild('content', {static: false}) content: ElementRef;
 
   constructor(
     private reloader: ReloadingService,
@@ -159,7 +160,7 @@ export class FormPrintingDefaultPageComponent implements OnInit, AfterViewInit {
     setTimeout(() => {
       const elem_id = 'pdf-data';
       const filename = 'forms369_' + this.form.form_code + '_data';
-      // this.downloaderService.exportToPDF(elem_id, filename);
+      this.downloaderService.exportToPDF(this.content, filename);
       // navigate back
       window.history.back();
     }, 1000);

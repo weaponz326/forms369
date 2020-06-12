@@ -174,14 +174,16 @@ export class ClientFormNewEntryPageComponent implements OnInit {
   setFormData(data: any) {
     this.clientService.getDetails(this.user.id.toString()).then(
       client => {
-        if (client.length != 0) {
-          this.clientProfile = client.client_details[0];
-          this.clientService.autoFillFormData(data, this.clientProfile);
-        }
-        else {
-          this.clientProfile = this.localStorage.getUser();
-          console.log('_____clientProfile: ' + JSON.stringify(this.clientProfile));
-        }
+        client.forEach((details: any) => {
+          if (details.client_details == '') {
+            this.clientProfile = this.localStorage.getUser();
+            console.log('_____clientProfile: ' + JSON.stringify(this.clientProfile));
+          }
+          else {
+            this.clientProfile = details.client_details[0];
+            this.clientService.autoFillFormData(data, this.clientProfile);
+          }
+        });
       },
       error => {
         console.log('error: ' + JSON.stringify(error));
@@ -290,6 +292,7 @@ export class ClientFormNewEntryPageComponent implements OnInit {
     else {
       const update = updateProfile ? 1 : 0;
       const filled_data = this.formBuilder.getFormUserData(user_data);
+      alert('clientProfile: ' + this.clientProfile);
       const updated_data = this.clientService.getUpdatedClientFormData(JSON.parse(filled_data), this.clientProfile);
       console.log('_____updated_data: ' + JSON.stringify(updated_data));
       this.clientService.submitForm(_.toString(this.user.id), this.form.form_code, this.clientProfile, JSON.parse(updated_data), update, form_submission_code, this.status, this.branch_id).then(
