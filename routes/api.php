@@ -228,6 +228,9 @@ Route::group(['middleware' => ['auth:api'], 'prefix' => 'v1'], function(){
   Route::post('processSubmitForm/{code}/{status}', 'HomeController@processSubmitForm')->name('processSubmitForm')->middleware('scope:GIT_Admin,frontdesk');
   Route::get('FormsProcessedByFrontDeskPersonDaily/{id}/{status}', 'HomeController@FormsProcessedByFrontDeskPersonDaily')->name('FormsProcessedByFrontDeskPersonDaily')->middleware('scope:GIT_Admin,frontdesk,super_executive,branch_executive,company_admin,branch_admin');
   Route::get('numFormsProcessedByFrontDeskPersonDaily/{id}/{status}', 'HomeController@numFormsProcessedByFrontDeskPersonDaily')->name('numFormsProcessedByFrontDeskPersonDaily')->middleware('scope:GIT_Admin,frontdesk,super_executive,branch_executive,company_admin,branch_admin');
+
+  //check if form was submitted to the logged in frontdesk user's branch
+  Route::get('checkBranchSubmittedTo/{code}', 'HomeController@checkBranchSubmittedTo')->name('checkBranchSubmittedTo')->middleware('scope:GIT_Admin,frontdesk,super_executive,branch_executive,company_admin,branch_admin');
   
   // searching for client submitted forms
   Route::get('findSubmittedFormByName/{id}/{form_name}/{status}', 'HomeController@findSubmittedFormByName')->name('findSubmittedFormByName')->middleware('scope:forms_client,GIT_Admin');

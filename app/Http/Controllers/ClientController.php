@@ -424,7 +424,7 @@ class ClientController extends Controller
                 ->where([
                     ['submitted_forms.client_id', $id],
                     ['forms.temps', 'like', '%'.$form_name.'%'],
-                    ['submitted_forms.status', '==', $status]
+                    ['submitted_forms.status', $status]
                 ])
                 ->get();
       
@@ -494,7 +494,7 @@ class ClientController extends Controller
             ->where([
                 ['submitted_forms.client_id', $id],
                 ['submitted_forms.submission_code', 'like', '%'.$code.'%'],
-                ['submitted_forms.status', '==', $status]
+                ['submitted_forms.status', $status]
             ])
             ->get();
         }
@@ -568,7 +568,7 @@ class ClientController extends Controller
                  'merchants.colors', 'users.name', 'users.email', 'forms.name AS form_name', 'forms.form_fields', 'logo')
                  ->where([
                      ['submitted_forms.client_id', $id],
-                     ['submitted_forms.status', '==', $status]
+                     ['submitted_forms.status', $status]
                  ])
                  ->whereBetween('submitted_at', [$startdate, $enddate])
                  ->get();

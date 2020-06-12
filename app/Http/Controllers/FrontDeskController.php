@@ -212,6 +212,70 @@ class FrontDeskController extends Controller
     }
 
 
+    /**
+     * checkBranchSubmittedTo frontdesk check if form was submitted to his/her branch
+     * This avoid front desk people from viewing forms submitted to other branches
+     *
+     * @param  mixed $request
+     *  @param  mixed $id of frontdesk user
+     *
+     * @return void\Illuminate\Http\Response all details of submitted form
+     */
+     public function checkBranchSubmittedTo(Request $request, $code)
+     {
+
+        //get logged in user
+        $user = $request->user();
+        $id = $user['id'];
+
+        $getsubmittedform = DB::table('submitted_forms')
+        ->join('forms', 'forms.form_code', '=', 'form_id')
+        ->select('forms.merchant_id', 'submitted_forms.status', 'branch_submitted_to')
+        ->where('submission_code', $code)
+        ->first();
+
+        $getuser = DB::table('users')
+        ->where('id', $id)
+        ->select('merchant_id', 'branch_id')
+        ->first();
+
+        if(!empty($getsubmittedform) && $getsubmittedform != null){
+            if($getsubmittedform->merchant_id == $getuser->merchant_id){
+               if($getsubmittedform->status !=5){
+                    if($getsubmittedform->branch_submitted_to == $getuser->branch_id)
+                    {
+                        return response()->json([
+                            'message' => 'OK'
+                        ], 200);
+                     
+                   }
+                   else{
+                    return response()->json([
+                        'message' => 'WRONG_BRANCH'
+                    ], 400);
+                   }
+                
+               }
+               else{
+                return response()->json([
+                    'message' => 'REVERSED'
+                ], 350);
+               }
+            }
+            else{
+                return response()->json([
+                    'message' => 'WRONG_MERCHANT'
+                ], 300);
+            }
+        }
+        else{
+            return response()->json([
+                'message' => 'INCORRECT_CODE'
+            ], 250);
+        }
+        
+     }
+
 
     /**
      * getSubmittedFormByStatusAndMerchant get all submitted forms by merchant and status 
