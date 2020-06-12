@@ -1794,7 +1794,7 @@ class AuthController extends Controller
              ], 404);
          }
          if (! $request->hasValidSignature()) {
-            //  return redirect()->route('invalid_password_link');
+             return redirect()->route('reset_pin_expired');
             //  abort(401, 'Link expired');
              return response()->json([
                 'message' => 'This activation link is expired.'
@@ -1809,10 +1809,10 @@ class AuthController extends Controller
          
          if($user){
              $encid = Crypt::encryptString($id);
-            //  return redirect()->route('reset', ['id' => $encid]);
-            return response()->json([
-                'id' => $id
-            ], 200);
+             return redirect()->route('reset_pin', ['id' => $encid]);
+            // return response()->json([
+            //     'id' => $id
+            // ], 200);
  
          }
          

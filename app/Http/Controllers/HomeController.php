@@ -1531,6 +1531,21 @@ class HomeController extends Controller
     }
 
     /**
+     * checkBranchSubmittedTo frontdesk check if form was submitted to his/her branch
+     * This avoid front desk people from viewing forms submitted to other branches
+     *
+     * @param  mixed $request
+     *  @param  mixed $id of frontdesk user
+     *
+     * @return void\Illuminate\Http\Response all details of submitted form
+     */
+     public function checkBranchSubmittedTo(Request $request, $code)
+     {
+        $message = (new FrontDeskController)->checkBranchSubmittedTo($request, $code);
+        return $message;
+     }
+
+    /**
      * Business logics to get a submitted form by submitted code
      * getSubmittedFormByCode get form by code
      *
