@@ -295,12 +295,24 @@ class FrontDeskController extends Controller
         'users.name', 'users.email', 'forms.name AS form_name', 'forms.form_fields', 'forms.can_view')
         ->where('submitted_forms.status', $status)
         ->where('merchants.id', $id)
-        ->paginate(15);
+        ->get();
+        // ->paginate(15);
+
+        $getdeletedsubmittedforms = DB::table('submitted_forms_deleted')
+            ->join('users', 'users.id', '=', 'client_id')
+            ->join('forms', 'forms.form_code', '=', 'form_id')
+            ->join('merchants', 'merchants.id', '=', 'forms.merchant_id')
+            ->select('submitted_forms_deleted.*','merchants.merchant_name AS merchant_name', 'merchants.nickname',
+            'users.name', 'users.email', 'forms.name AS form_name', 'forms.form_fields', 'forms.can_view')
+            ->where('submitted_forms_deleted.status', $status)
+            ->where('merchants.id', $id)
+            ->get();
       
-        //clean data
+        $merged = $getsubmittedforms->merge($getdeletedsubmittedforms);
+
         $submittedformdata = [];
 
-        $getsubmittedforms->transform(function($items){
+        $merged->transform(function($items){
             $submittedformdata['submission_code'] = $items->submission_code;
             $submittedformdata['form_code'] = $items->form_id;
             $submittedformdata['form_name'] = Crypt::decryptString($items->form_name);
@@ -320,8 +332,9 @@ class FrontDeskController extends Controller
             return $submittedformdata;
          });
         
-         $response = [
-            'submitted_forms' => $getsubmittedforms
+        $results = $merged->forPage($_GET['page'], 15);
+        $response = [
+            'submitted_forms' => $results
         ];
         return response()->json($response, 200);
 
