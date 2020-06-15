@@ -331,10 +331,93 @@ class FrontDeskController extends Controller
 
             return $submittedformdata;
          });
+
+        if(isset($_GET['page'])){
+            $results = $merged->forPage($_GET['page'], 15);
+        }else{
+            $results = $merged->forPage(1, 15);
+        }
         
-        $results = $merged->forPage($_GET['page'], 15);
         $response = [
             'submitted_forms' => $results
+        ];
+        return response()->json($response, 200);
+
+    }
+
+    /**
+     * search for a form by name or form code under submitted, inprocess, processed or rejected.
+     * getSubmittedFormByStatusAndMerchant get all submitted forms by merchant and status matching a search term
+     * @param mixed $term search term
+     * @param  mixed $request
+     * @param  mixed $status stautus of submitted forms to sort by
+     * @param  mixed $id id of merchant for the submitted forms
+     * @return void\Illuminate\Http\Response all details of submitted form
+     */
+     public function searchSubmittedFormByCodeorName(Request $request, $status, $id, $term){
+
+        $getsubmittedforms = DB::table('submitted_forms')
+        ->join('users', 'users.id', '=', 'client_id')
+        ->join('forms', 'forms.form_code', '=', 'form_id')
+        ->join('merchants', 'merchants.id', '=', 'forms.merchant_id')
+        ->select('submitted_forms.*','merchants.merchant_name AS merchant_name', 'merchants.nickname',
+        'users.name', 'users.email', 'forms.name AS form_name', 'forms.form_fields', 'forms.can_view')
+        ->where([
+            ['submitted_forms.status', $status],
+            ['merchants.id', $id],
+            ['forms.temps', 'like', '%'.$term.'%']
+        ])    
+        ->orWhere([
+            ['submitted_forms.status', $status],
+            ['merchants.id', $id],
+            ['submitted_forms.submission_code', 'like', '%'.$term.'%']
+        ])    
+        ->get();
+
+        $getdeletedsubmittedforms = DB::table('submitted_forms_deleted')
+            ->join('users', 'users.id', '=', 'client_id')
+            ->join('forms', 'forms.form_code', '=', 'form_id')
+            ->join('merchants', 'merchants.id', '=', 'forms.merchant_id')
+            ->select('submitted_forms_deleted.*','merchants.merchant_name AS merchant_name', 'merchants.nickname',
+            'users.name', 'users.email', 'forms.name AS form_name', 'forms.form_fields', 'forms.can_view')
+            ->where([
+                ['submitted_forms_deleted.status', $status],
+                ['merchants.id', $id],
+                ['forms.temps', 'like', '%'.$term.'%']
+            ])    
+            ->orWhere([
+                ['submitted_forms_deleted.status', $status],
+                ['merchants.id', $id],
+                ['submitted_forms_deleted.submission_code', 'like', '%'.$term.'%']
+            ])    
+            ->get();
+      
+        $merged = $getsubmittedforms->merge($getdeletedsubmittedforms);
+
+        $submittedformdata = [];
+
+        $merged->transform(function($items){
+            $submittedformdata['submission_code'] = $items->submission_code;
+            $submittedformdata['form_code'] = $items->form_id;
+            $submittedformdata['form_name'] = Crypt::decryptString($items->form_name);
+            $submittedformdata['form_fields'] = json_decode(Crypt::decryptString($items->form_fields));
+            $submittedformdata['merchant_name'] = Crypt::decryptString($items->merchant_name);
+            $submittedformdata['nickname'] = $items->nickname;
+            $submittedformdata['client_id'] = $items->client_id;
+            $submittedformdata['client_name'] = $items->name;
+            $submittedformdata['email'] = $items->email;
+            $submittedformdata['can_view'] = $items->can_view;
+            $submittedformdata['client_submitted_details'] = json_decode(Crypt::decryptString($items->client_details));
+            $submittedformdata['form_status'] = $items->status;
+            $submittedformdata['submitted_at'] = $items->submitted_at;
+            $submittedformdata['last_processed'] = $items->last_processed;
+            $submittedformdata['processed_by'] = $items->processed_by;
+
+            return $submittedformdata;
+         });
+        
+        $response = [
+            'submitted_forms' => $merged
         ];
         return response()->json($response, 200);
 

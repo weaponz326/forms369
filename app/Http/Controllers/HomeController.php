@@ -1590,6 +1590,21 @@ class HomeController extends Controller
         return $message;
     }
 
+     /**
+     * search for a form by name or form code under submitted, inprocess, processed or rejected.
+     * getSubmittedFormByStatusAndMerchant get all submitted forms by merchant and status matching a search term
+     * @param mixed $term search term
+     * @param  mixed $request
+     * @param  mixed $status stautus of submitted forms to sort by
+     * @param  mixed $id id of merchant for the submitted forms
+     * @return void\Illuminate\Http\Response all details of submitted form
+     */
+     public function searchSubmittedFormByCodeorName(Request $request, $status, $id, $term)
+     {
+        $message = (new FrontDeskController)->searchSubmittedFormByCodeorName($request, $status, $id, $term);
+        return $message;
+     }
+
     /**
      * Business logics to process a form; Forms that have already been proceeded can not be processed again
      * processSubmitForm process a submitted form that has not been fully processed
