@@ -1271,6 +1271,11 @@ class ClientController extends Controller
     {
         $updated_at = now();
         try {
+            if(is_numeric($id)){
+
+            }else{
+                $id = Crypt::decryptString($id);
+            }
             //set user pin
             DB::table('users')
             ->where('id', $id)
