@@ -145,7 +145,9 @@ export class FrontDeskService {
           console.log('res: ' + JSON.stringify(res));
           const response = res as any;
           this.nextPaginationUrl = response.submitted_forms.next_page_url;
-          resolve(response.submitted_forms.data);
+          response.submitted_forms.length == 0
+            ? resolve(response.submitted_forms)
+            : resolve(response.submitted_forms.data);
         },
         err => {
           console.log('err: ' + JSON.stringify(err));
@@ -186,12 +188,12 @@ export class FrontDeskService {
    */
   findFormByNameAndStatus(form_name: string, merchant_id: string, status: number): Promise<any> {
     return new Promise((resolve, reject) => {
-      const url = this.endpointService.apiHost + `api/v1/getClientFormsByStatusAndMerchant/${form_name}/${status}/${merchant_id}`;
+      const url = this.endpointService.apiHost + `api/v1/searchSubmittedFormByCodeorName/${status}/${merchant_id}/${form_name}`;
       this.http.get(url, { headers: this.headers }).subscribe(
         res => {
           console.log('res: ' + JSON.stringify(res));
           const response = res as any;
-          resolve(response.forms);
+          resolve(response.submitted_forms);
         },
         err => {
           console.log('err: ' + JSON.stringify(err));

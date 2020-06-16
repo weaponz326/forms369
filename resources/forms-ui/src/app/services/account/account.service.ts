@@ -535,7 +535,7 @@ export class AccountService {
     });
   }
 
-  verifyAccountForPinReset(email: string): Promise<boolean> {
+  verifyAccountForPinReset(email: string): Promise<any> {
     return new Promise((resolve, reject) => {
       const body = { email: email };
       const url = this.endpointService.apiHost + 'api/v1/forgotPin';
@@ -545,7 +545,7 @@ export class AccountService {
           const response = res as any;
           _.toLower(response.message) == 'ok'
             ? resolve(true)
-            : resolve(false);
+            : resolve(response.message);
         },
         err => {
           console.log('err_: ' + JSON.stringify(err));

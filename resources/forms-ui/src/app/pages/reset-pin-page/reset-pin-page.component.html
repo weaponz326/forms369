@@ -29,7 +29,7 @@
                   maxlength="4" (keyup)="resolveStrCharacters_1($event)">
                 <div *ngIf="submitted && f.cPin.errors">
                   <p class="input-error" *ngIf="f.cPin.errors.unmatched">Pin doesn't match.</p>
-                  <p class="input-error" *ngIf="f.cPin.errors.required">Pin is required.</p>
+                  <p class="input-error" *ngIf="f.cPin.errors.required">Confirmation pin is required.</p>
                   <p class="input-error" *ngIf="f.cPin.errors.minlength">Pin must be 4 (four) digits.</p>
                 </div>
               </div>

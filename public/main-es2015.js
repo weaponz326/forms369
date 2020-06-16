@@ -756,7 +756,7 @@ module.exports = "<div class=\"container-scroller\">\r\n  <app-navigation-bar></
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<div class=\"container-scroller\">\r\n  <app-navigation-bar></app-navigation-bar>\r\n  <div class=\"container-fluid page-body-wrapper\">\r\n    <app-side-bar></app-side-bar>\r\n    <div class=\"main-panel\">\r\n      <div class=\"content-wrapper\">\r\n        <div class=\"row\">\r\n          <div class=\"col-md-12 grid-margin\">\r\n            <div class=\"d-flex justify-content-between flex-wrap\">\r\n              <div class=\"d-flex align-items-end flex-wrap\">\r\n                <div class=\"mr-md-3 mr-xl-5\">\r\n                  <h2 class=\"page-title\">Settings</h2>\r\n                </div>\r\n                <div class=\"d-flex\">\r\n                </div>\r\n              </div>\r\n            </div>\r\n          </div>\r\n        </div>\r\n\r\n        <div class=\"row\">\r\n          <div class=\"col-md-6 col-sm-12 grid-margin stretch-card\" *ngIf=\"showSetPin\">\r\n            <div class=\"card\">\r\n              <div class=\"card-body\">\r\n                <p class=\"card-title\">Setup New PIN</p>\r\n                <p class=\"text-muted\">Create a new form submission pin.</p>\r\n                <div class=\"card-text pt-2\">\r\n                  <form [formGroup]=\"pinForm\" (ngSubmit)=\"createPin()\">\r\n                    <div class=\"form-group\">\r\n                      <input type=\"tel\" class=\"form-control form-control-lg pin-control\" formControlName=\"pin\"\r\n                        placeholder=\"----\" [ngClass]=\"{'input-control-error': submitted && _f.pin.errors}\"\r\n                        maxlength=\"4\" (keyup)=\"_resolveStrCharacters($event)\">\r\n                      <div *ngIf=\"submitted && _f.pin.errors\">\r\n                        <p class=\"input-error\" *ngIf=\"_f.pin.errors.required\">PIN is required</p>\r\n                        <p class=\"input-error\" *ngIf=\"_f.pin.errors.minlength\">PIN must be 4 (four) digits.</p>\r\n                      </div>\r\n                    </div>\r\n                    <div class=\"mt-3\">\r\n                      <button *ngIf=\"!loading\" type=\"submit\" class=\"btn btn-primary\">Setup PIN</button>\r\n                      <button *ngIf=\"loading\" type=\"button\" class=\"btn btn-block btn-primary font-weight-medium\" disabled>\r\n                        <span class=\"spinner-border spinner-border-sm\" role=\"status\" aria-hidden=\"true\"></span>\r\n                        Please wait...\r\n                      </button>\r\n                    </div>\r\n                  </form>\r\n                </div>\r\n              </div>\r\n            </div>\r\n          </div>\r\n\r\n          <div class=\"col-md-6 col-sm-12 grid-margin stretch-card\" *ngIf=\"!showSetPin\">\r\n            <div class=\"card\">\r\n              <div class=\"card-body\">\r\n                <p class=\"card-title\">Change PIN</p>\r\n                <p class=\"text-muted\">Update your form submission pin</p>\r\n                <div class=\"card-text pt-2\">\r\n                  <form [formGroup]=\"form\" (ngSubmit)=\"changePin()\">\r\n                    <div class=\"form-group\">\r\n                      <label>Old PIN</label>\r\n                      <input type=\"tel\" class=\"form-control form-control-lg pin-control\" formControlName=\"oldPin\"\r\n                        placeholder=\"----\" [ngClass]=\"{'input-control-error': submitted && f.oldPin.errors}\"\r\n                        maxlength=\"4\" (keyup)=\"resolveStrCharacters($event)\">\r\n                      <div *ngIf=\"submitted && f.oldPin.errors\">\r\n                        <p class=\"input-error\" *ngIf=\"f.oldPin.errors.required\">PIN is required</p>\r\n                        <p class=\"input-error\" *ngIf=\"f.oldPin.errors.minlength\">PIN must be 4 (four) digits.</p>\r\n                      </div>\r\n                    </div>\r\n                    <div class=\"form-group\">\r\n                      <label>New PIN</label>\r\n                      <input type=\"tel\" class=\"form-control form-control-lg pin-control\" formControlName=\"newPin\"\r\n                        placeholder=\"----\" [ngClass]=\"{'input-control-error': submitted && f.newPin.errors}\"\r\n                        maxlength=\"4\" (keyup)=\"resolveStrCharacters_1($event)\">\r\n                      <div *ngIf=\"submitted && f.newPin.errors\">\r\n                        <p class=\"input-error\" *ngIf=\"f.newPin.errors.required\">PIN is required</p>\r\n                        <p class=\"input-error\" *ngIf=\"f.newPin.errors.minlength\">PIN must be 4 (four) digits.</p>\r\n                      </div>\r\n                    </div>\r\n                    <div class=\"mt-3\">\r\n                      <button *ngIf=\"!loading\" type=\"submit\" class=\"btn btn-primary\">Change PIN</button>\r\n                      <button *ngIf=\"loading\" type=\"button\" class=\"btn btn-block btn-primary font-weight-medium\"\r\n                        disabled>\r\n                        <span class=\"spinner-border spinner-border-sm\" role=\"status\" aria-hidden=\"true\"></span>\r\n                        Please wait...\r\n                      </button>\r\n                    </div>\r\n                  </form>\r\n                </div>\r\n              </div>\r\n            </div>\r\n          </div>\r\n\r\n          <div class=\"col-md-6 col-sm-12 grid-margin stretch-card\">\r\n            <div class=\"card\">\r\n              <div class=\"card-body\">\r\n                <p class=\"card-title\">Change Password</p>\r\n                <p class=\"text-muted\">Update your account password.</p>\r\n                <div class=\"card-text pt-2\">\r\n                  <form [formGroup]=\"passwordForm\" (ngSubmit)=\"changePassword()\">\r\n                    <div class=\"form-group\">\r\n                      <label>Old Password</label>\r\n                      <input type=\"password\" class=\"form-control form-control-lg\" formControlName=\"oldPassword\"\r\n                        placeholder=\"Enter Your Old Password\" [ngClass]=\"{'input-control-error': submitted1 &&\r\n                        pwdF.oldPassword.errors}\" minlength=\"8\" >\r\n                      <div *ngIf=\"submitted1 && pwdF.oldPassword.errors\">\r\n                        <p class=\"input-error\" *ngIf=\"pwdF.oldPassword.errors.required\">Current Password is required</p>\r\n                        <p class=\"input-error\" *ngIf=\"pwdF.oldPassword.errors.minlength\">Password must be at least 8 characters</p>\r\n                      </div>\r\n                    </div>\r\n                    <div class=\"form-group\">\r\n                      <label>New Password</label>\r\n                      <input type=\"password\" class=\"form-control form-control-lg\" formControlName=\"newPassword\"\r\n                        placeholder=\"Choose A New Password\" [ngClass]=\"{'input-control-error': submitted1 &&\r\n                        pwdF.newPassword.errors}\" minlength=\"8\">\r\n                      <div *ngIf=\"submitted1 && pwdF.newPassword.errors\">\r\n                        <p class=\"input-error\" *ngIf=\"pwdF.newPassword.errors.required\">New Password is required</p>\r\n                        <p class=\"input-error\" *ngIf=\"pwdF.newPassword.errors.minlength\">New Password must be at least 8 characters</p>\r\n                      </div>\r\n                    </div>\r\n                    <div class=\"form-group\">\r\n                      <label>Re-enter New Password</label>\r\n                      <input type=\"password\" class=\"form-control form-control-lg\" formControlName=\"confirmPassword\"\r\n                        placeholder=\"Confirm Your New Password\" [ngClass]=\"{'input-control-error': submitted1 &&\r\n                        pwdF.confirmPassword.errors}\" minlength=\"8\">\r\n                      <div *ngIf=\"submitted1 && pwdF.confirmPassword.errors\">\r\n                        <p class=\"input-error\" *ngIf=\"pwdF.confirmPassword.errors.required\">Password Confirmation is required</p>\r\n                        <p class=\"input-error\" *ngIf=\"pwdF.confirmPassword.errors.unmatched\">Password doesnt match</p>\r\n                        <p class=\"input-error\" *ngIf=\"pwdF.confirmPassword.errors.minlength\">Password must be at least 8 characters.</p>\r\n                      </div>\r\n                    </div>\r\n                    <div class=\"mt-3\">\r\n                      <button *ngIf=\"!loading1\" type=\"submit\" class=\"btn btn-primary\">Change Password</button>\r\n                      <button *ngIf=\"loading1\" type=\"button\" class=\"btn btn-block btn-primary font-weight-medium\" disabled>\r\n                        <span class=\"spinner-border spinner-border-sm\" role=\"status\" aria-hidden=\"true\"></span>\r\n                        Please wait...\r\n                      </button>\r\n                    </div>\r\n                  </form>\r\n                </div>\r\n              </div>\r\n            </div>\r\n          </div>\r\n        </div>\r\n\r\n        <div class=\"row\">\r\n          <div class=\"col-md-6 col-sm-12 grid-margin stretch-card\">\r\n            <div class=\"card\">\r\n              <div class=\"card-body\">\r\n                <p class=\"card-title\">Forgot PIN</p>\r\n                <p class=\"text-muted\">Reset your pin if you forgot it.</p>\r\n                <div class=\"card-text pt-2\">\r\n                  <form [formGroup]=\"forgotPinForm\" (ngSubmit)=\"forgotPin()\">\r\n                    <div class=\"form-group\">\r\n                      <label>Old PIN</label>\r\n                      <input type=\"tel\" class=\"form-control form-control-lg\" formControlName=\"email\"\r\n                        placeholder=\"Enter Email Address\" [ngClass]=\"{'input-control-error': submitted2 && fpin.email.errors}\">\r\n                      <div *ngIf=\"submitted2 && fpin.email.errors\">\r\n                        <p class=\"input-error\" *ngIf=\"fpin.email.errors.required\">Email address is required</p>\r\n                      </div>\r\n                    </div>\r\n                    <div class=\"mt-3\">\r\n                      <button *ngIf=\"!loadingForgotPin\" type=\"submit\" class=\"btn btn-primary\">Reset PIN</button>\r\n                      <button *ngIf=\"loadingForgotPin\" type=\"button\" class=\"btn btn-block btn-primary font-weight-medium\" disabled>\r\n                        <span class=\"spinner-border spinner-border-sm\" role=\"status\" aria-hidden=\"true\"></span>\r\n                        Please wait...\r\n                      </button>\r\n                    </div>\r\n                  </form>\r\n                </div>\r\n              </div>\r\n            </div>\r\n          </div>\r\n        </div>\r\n      </div>\r\n\r\n      <!-- footer -->\r\n      <app-footer-bar></app-footer-bar>\r\n      <!-- partial -->\r\n    </div>\r\n  </div>\r\n</div>\r\n"
+module.exports = "<div class=\"container-scroller\">\r\n  <app-navigation-bar></app-navigation-bar>\r\n  <div class=\"container-fluid page-body-wrapper\">\r\n    <app-side-bar></app-side-bar>\r\n    <div class=\"main-panel\">\r\n      <div class=\"content-wrapper\">\r\n        <div class=\"row\">\r\n          <div class=\"col-md-12 grid-margin\">\r\n            <div class=\"d-flex justify-content-between flex-wrap\">\r\n              <div class=\"d-flex align-items-end flex-wrap\">\r\n                <div class=\"mr-md-3 mr-xl-5\">\r\n                  <h2 class=\"page-title\">Settings</h2>\r\n                </div>\r\n                <div class=\"d-flex\">\r\n                </div>\r\n              </div>\r\n            </div>\r\n          </div>\r\n        </div>\r\n\r\n        <div class=\"row\">\r\n          <div class=\"col-md-6 col-sm-12 grid-margin stretch-card\" *ngIf=\"showSetPin\">\r\n            <div class=\"card\">\r\n              <div class=\"card-body\">\r\n                <p class=\"card-title\">Setup New PIN</p>\r\n                <p class=\"text-muted\">Create a new form submission pin.</p>\r\n                <div class=\"card-text pt-2\">\r\n                  <form [formGroup]=\"pinForm\" (ngSubmit)=\"createPin()\">\r\n                    <div class=\"form-group\">\r\n                      <input type=\"tel\" class=\"form-control form-control-lg pin-control\" formControlName=\"pin\"\r\n                        placeholder=\"----\" [ngClass]=\"{'input-control-error': submitted && _f.pin.errors}\"\r\n                        maxlength=\"4\" (keyup)=\"_resolveStrCharacters($event)\">\r\n                      <div *ngIf=\"submitted && _f.pin.errors\">\r\n                        <p class=\"input-error\" *ngIf=\"_f.pin.errors.required\">PIN is required</p>\r\n                        <p class=\"input-error\" *ngIf=\"_f.pin.errors.minlength\">PIN must be 4 (four) digits.</p>\r\n                      </div>\r\n                    </div>\r\n                    <div class=\"mt-3\">\r\n                      <button *ngIf=\"!loading\" type=\"submit\" class=\"btn btn-primary\">Setup PIN</button>\r\n                      <button *ngIf=\"loading\" type=\"button\" class=\"btn btn-block btn-primary font-weight-medium\" disabled>\r\n                        <span class=\"spinner-border spinner-border-sm\" role=\"status\" aria-hidden=\"true\"></span>\r\n                        Please wait...\r\n                      </button>\r\n                    </div>\r\n                  </form>\r\n                </div>\r\n              </div>\r\n            </div>\r\n          </div>\r\n\r\n          <div class=\"col-md-6 col-sm-12 grid-margin stretch-card\" *ngIf=\"!showSetPin\">\r\n            <div class=\"card\">\r\n              <div class=\"card-body\">\r\n                <p class=\"card-title\">Change PIN</p>\r\n                <p class=\"text-muted\">Update your form submission pin</p>\r\n                <div class=\"card-text pt-2\">\r\n                  <form [formGroup]=\"form\" (ngSubmit)=\"changePin()\">\r\n                    <div class=\"form-group\">\r\n                      <label>Old PIN</label>\r\n                      <input type=\"tel\" class=\"form-control form-control-lg pin-control\" formControlName=\"oldPin\"\r\n                        placeholder=\"----\" [ngClass]=\"{'input-control-error': submitted && f.oldPin.errors}\"\r\n                        maxlength=\"4\" (keyup)=\"resolveStrCharacters($event)\">\r\n                      <div *ngIf=\"submitted && f.oldPin.errors\">\r\n                        <p class=\"input-error\" *ngIf=\"f.oldPin.errors.required\">PIN is required</p>\r\n                        <p class=\"input-error\" *ngIf=\"f.oldPin.errors.minlength\">PIN must be 4 (four) digits.</p>\r\n                      </div>\r\n                    </div>\r\n                    <div class=\"form-group\">\r\n                      <label>New PIN</label>\r\n                      <input type=\"tel\" class=\"form-control form-control-lg pin-control\" formControlName=\"newPin\"\r\n                        placeholder=\"----\" [ngClass]=\"{'input-control-error': submitted && f.newPin.errors}\"\r\n                        maxlength=\"4\" (keyup)=\"resolveStrCharacters_1($event)\">\r\n                      <div *ngIf=\"submitted && f.newPin.errors\">\r\n                        <p class=\"input-error\" *ngIf=\"f.newPin.errors.required\">PIN is required</p>\r\n                        <p class=\"input-error\" *ngIf=\"f.newPin.errors.minlength\">PIN must be 4 (four) digits.</p>\r\n                      </div>\r\n                    </div>\r\n                    <div class=\"mt-3\">\r\n                      <button *ngIf=\"!loading\" type=\"submit\" class=\"btn btn-primary\">Change PIN</button>\r\n                      <button *ngIf=\"loading\" type=\"button\" class=\"btn btn-block btn-primary font-weight-medium\"\r\n                        disabled>\r\n                        <span class=\"spinner-border spinner-border-sm\" role=\"status\" aria-hidden=\"true\"></span>\r\n                        Please wait...\r\n                      </button>\r\n                    </div>\r\n                  </form>\r\n                </div>\r\n              </div>\r\n            </div>\r\n          </div>\r\n\r\n          <div class=\"col-md-6 col-sm-12 grid-margin stretch-card\">\r\n            <div class=\"card\">\r\n              <div class=\"card-body\">\r\n                <p class=\"card-title\">Change Password</p>\r\n                <p class=\"text-muted\">Update your account password.</p>\r\n                <div class=\"card-text pt-2\">\r\n                  <form [formGroup]=\"passwordForm\" (ngSubmit)=\"changePassword()\">\r\n                    <div class=\"form-group\">\r\n                      <label>Old Password</label>\r\n                      <input type=\"password\" class=\"form-control form-control-lg\" formControlName=\"oldPassword\"\r\n                        placeholder=\"Enter Your Old Password\" [ngClass]=\"{'input-control-error': submitted1 &&\r\n                        pwdF.oldPassword.errors}\" minlength=\"8\" >\r\n                      <div *ngIf=\"submitted1 && pwdF.oldPassword.errors\">\r\n                        <p class=\"input-error\" *ngIf=\"pwdF.oldPassword.errors.required\">Current Password is required</p>\r\n                        <p class=\"input-error\" *ngIf=\"pwdF.oldPassword.errors.minlength\">Password must be at least 8 characters</p>\r\n                      </div>\r\n                    </div>\r\n                    <div class=\"form-group\">\r\n                      <label>New Password</label>\r\n                      <input type=\"password\" class=\"form-control form-control-lg\" formControlName=\"newPassword\"\r\n                        placeholder=\"Choose A New Password\" [ngClass]=\"{'input-control-error': submitted1 &&\r\n                        pwdF.newPassword.errors}\" minlength=\"8\">\r\n                      <div *ngIf=\"submitted1 && pwdF.newPassword.errors\">\r\n                        <p class=\"input-error\" *ngIf=\"pwdF.newPassword.errors.required\">New Password is required</p>\r\n                        <p class=\"input-error\" *ngIf=\"pwdF.newPassword.errors.minlength\">New Password must be at least 8 characters</p>\r\n                      </div>\r\n                    </div>\r\n                    <div class=\"form-group\">\r\n                      <label>Re-enter New Password</label>\r\n                      <input type=\"password\" class=\"form-control form-control-lg\" formControlName=\"confirmPassword\"\r\n                        placeholder=\"Confirm Your New Password\" [ngClass]=\"{'input-control-error': submitted1 &&\r\n                        pwdF.confirmPassword.errors}\" minlength=\"8\">\r\n                      <div *ngIf=\"submitted1 && pwdF.confirmPassword.errors\">\r\n                        <p class=\"input-error\" *ngIf=\"pwdF.confirmPassword.errors.required\">Password Confirmation is required</p>\r\n                        <p class=\"input-error\" *ngIf=\"pwdF.confirmPassword.errors.unmatched\">Password doesnt match</p>\r\n                        <p class=\"input-error\" *ngIf=\"pwdF.confirmPassword.errors.minlength\">Password must be at least 8 characters.</p>\r\n                      </div>\r\n                    </div>\r\n                    <div class=\"mt-3\">\r\n                      <button *ngIf=\"!loading1\" type=\"submit\" class=\"btn btn-primary\">Change Password</button>\r\n                      <button *ngIf=\"loading1\" type=\"button\" class=\"btn btn-block btn-primary font-weight-medium\" disabled>\r\n                        <span class=\"spinner-border spinner-border-sm\" role=\"status\" aria-hidden=\"true\"></span>\r\n                        Please wait...\r\n                      </button>\r\n                    </div>\r\n                  </form>\r\n                </div>\r\n              </div>\r\n            </div>\r\n          </div>\r\n        </div>\r\n\r\n        <div class=\"row\">\r\n          <div class=\"col-md-6 col-sm-12 grid-margin stretch-card\">\r\n            <div class=\"card\">\r\n              <div class=\"card-body\">\r\n                <p class=\"card-title\">Forgot PIN</p>\r\n                <p class=\"text-muted\">Reset forgotten pin here.</p>\r\n                <div class=\"card-text pt-2\">\r\n                  <form [formGroup]=\"forgotPinForm\" (ngSubmit)=\"forgotPin()\">\r\n                    <div class=\"form-group\">\r\n                      <label>Old PIN</label>\r\n                      <input type=\"tel\" class=\"form-control form-control-lg\" formControlName=\"email\"\r\n                        placeholder=\"Enter Email Address\" [ngClass]=\"{'input-control-error': submitted2 && fpin.email.errors}\">\r\n                      <div *ngIf=\"submitted2 && fpin.email.errors\">\r\n                        <p class=\"input-error\" *ngIf=\"fpin.email.errors.required\">Email address is required</p>\r\n                      </div>\r\n                    </div>\r\n                    <div class=\"mt-3\">\r\n                      <button *ngIf=\"!loadingForgotPin\" type=\"submit\" class=\"btn btn-primary\">Reset PIN</button>\r\n                      <button *ngIf=\"loadingForgotPin\" type=\"button\" class=\"btn btn-block btn-primary font-weight-medium\" disabled>\r\n                        <span class=\"spinner-border spinner-border-sm\" role=\"status\" aria-hidden=\"true\"></span>\r\n                        Please wait...\r\n                      </button>\r\n                    </div>\r\n                  </form>\r\n                </div>\r\n              </div>\r\n            </div>\r\n          </div>\r\n        </div>\r\n      </div>\r\n\r\n      <!-- footer -->\r\n      <app-footer-bar></app-footer-bar>\r\n      <!-- partial -->\r\n    </div>\r\n  </div>\r\n</div>\r\n"
 
 /***/ }),
 
@@ -1064,7 +1064,7 @@ module.exports = "<div class=\"container-scroller\">\r\n  <app-navigation-bar></
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<div class=\"container-scroller\">\r\n  <app-navigation-bar></app-navigation-bar>\r\n  <div class=\"container-fluid page-body-wrapper\">\r\n    <app-side-bar></app-side-bar>\r\n    <div class=\"main-panel\">\r\n      <div class=\"content-wrapper\">\r\n        <div class=\"row\">\r\n          <div class=\"col-md-12 grid-margin\">\r\n            <div class=\"d-flex justify-content-between flex-wrap\">\r\n              <div class=\"d-flex align-items-end flex-wrap\">\r\n                <div class=\"mr-md-3 mr-xl-5\">\r\n                  <h2>Welcome back, {{ firstname }}</h2>\r\n                  <p class=\"mb-md-0\">Your administrative dashboard.</p>\r\n                </div>\r\n                <div class=\"d-flex\">\r\n                </div>\r\n              </div>\r\n              <div class=\"d-flex justify-content-between align-items-end flex-wrap\">\r\n              </div>\r\n            </div>\r\n          </div>\r\n        </div>\r\n\r\n        <div class=\"row text-center\">\r\n          <div class=\"col-md-12 grid-margin stretch-card\">\r\n            <div class=\"card\">\r\n              <div class=\"card-body\">\r\n                <div class=\"card-text\">\r\n                  <div class=\"row\">\r\n                    <div class=\"col-10 col-md-8 col-sm-10 offset-1 offset-md-2 offset-sm-1\">\r\n                      <div *ngIf=\"notValidCode\" class=\"mt-2 mb-2\">\r\n                        <div class=\"alert alert-danger alert-dismissible fade show\" role=\"alert\">\r\n                          <button type=\"button\" class=\"close\" data-dismiss=\"alert\" aria-label=\"Close\">\r\n                            <span aria-hidden=\"true\">&times;</span>\r\n                          </button>\r\n                          <h3 class=\"alert-heading\">Oops!</h3>\r\n                          <p class=\"lead\"><strong>Wrong Form Code</strong></p>\r\n                          <hr>\r\n                          <p class=\"mb-0 text-left\">\r\n                            There is no corresponding form with the provided code. The code entered is wrong, please\r\n                            check and try again.\r\n                          </p>\r\n                        </div>\r\n                      </div>\r\n\r\n                      <form [formGroup]=\"form\" (ngSubmit)=\"submit()\" class=\"submit-form\">\r\n                        <div class=\"form-group\">\r\n                          <input matInput type=\"text\" autofocus formControlName=\"code\" class=\"form-control large-form\"\r\n                            placeholder=\"Enter Code\" [ngClass]=\"{'input-control-error': submitted && f.code.errors}\">\r\n                          <div *ngIf=\"submitted && f.code.errors\">\r\n                            <p class=\"input-error\" *ngIf=\"f.code.errors.required\">Please enter the submission code</p>\r\n                            <p class=\"input-error\" *ngIf=\"f.code.errors.minlength\">The entered code is not a valid submission code.</p>\r\n                            <p class=\"input-error\" *ngIf=\"f.code.errors.maxlength\">The entered code is not a valid submission code.</p>\r\n                          </div>\r\n                        </div>\r\n\r\n                        <div class=\"mt-3\">\r\n                          <button *ngIf=\"loading\" class=\"btn btn-primary btn-lg mr-2\" type=\"button\" disabled>\r\n                            <span class=\"spinner-border spinner-border-sm\" role=\"status\" aria-hidden=\"true\"></span>\r\n                            <span class=\"sr-only\">Please wait...</span>\r\n                          </button>\r\n                          <button *ngIf=\"!loading\" type=\"submit\" class=\"btn btn-primary btn-lg mr-2\">Submit</button>\r\n                          <button type=\"button\" class=\"btn btn-light btn-lg\" (click)=\"cancel()\">Cancel</button>\r\n                        </div>\r\n                      </form>\r\n                    </div>\r\n                  </div>\r\n                </div>\r\n              </div>\r\n            </div>\r\n          </div>\r\n        </div>\r\n\r\n        <div class=\"row\">\r\n          <div class=\"col-md-3 grid-margin stretch-card\">\r\n            <div class=\"card hover-cursor hover-primary\" (click)=\"open('submitted')\">\r\n              <div class=\"card-body\">\r\n                <p class=\"card-title\">Total Forms Submitted</p>\r\n                <div class=\"card-text\">\r\n                  <h1 style=\"font-size: 4em;\">{{ totalNoSubmitted }}</h1>\r\n                </div>\r\n              </div>\r\n            </div>\r\n          </div>\r\n          <div class=\"col-md-3 grid-margin stretch-card\">\r\n            <div class=\"card hover-cursor hover-primary\" (click)=\"open('processed')\">\r\n              <div class=\"card-body\">\r\n                <p class=\"card-title\">Total Processed Forms</p>\r\n                <div class=\"card-text\">\r\n                  <h1 style=\"font-size: 4em;\">{{ totalNoProcessed }}</h1>\r\n                </div>\r\n              </div>\r\n            </div>\r\n          </div>\r\n          <div class=\"col-md-3 grid-margin stretch-card\">\r\n            <div class=\"card hover-cursor hover-primary\" (click)=\"open('processing')\">\r\n              <div class=\"card-body\">\r\n                <p class=\"card-title\">Total Forms In Process</p>\r\n                <div class=\"card-text\">\r\n                  <h1 style=\"font-size: 4em;\">{{ totalNoProcessing }}</h1>\r\n                </div>\r\n              </div>\r\n            </div>\r\n          </div>\r\n          <div class=\"col-md-3 grid-margin stretch-card\">\r\n            <div class=\"card hover-cursor hover-primary\" (click)=\"open('rejected')\">\r\n              <div class=\"card-body\">\r\n                <p class=\"card-title\">Total Forms Rejected</p>\r\n                <div class=\"card-text\">\r\n                  <h1 style=\"font-size: 4em;\">{{ totalNoRejected }}</h1>\r\n                </div>\r\n              </div>\r\n            </div>\r\n          </div>\r\n        </div>\r\n\r\n      </div>\r\n      <!-- content -->\r\n      <!-- partial -->\r\n      <app-footer-bar></app-footer-bar>\r\n      <!-- partial -->\r\n    </div>\r\n    <!-- main ends -->\r\n  </div>\r\n</div>\r\n"
+module.exports = "<div class=\"container-scroller\">\r\n  <app-navigation-bar></app-navigation-bar>\r\n  <div class=\"container-fluid page-body-wrapper\">\r\n    <app-side-bar></app-side-bar>\r\n    <div class=\"main-panel\">\r\n      <div class=\"content-wrapper\">\r\n        <div class=\"row\">\r\n          <div class=\"col-md-12 grid-margin\">\r\n            <div class=\"d-flex justify-content-between flex-wrap\">\r\n              <div class=\"d-flex align-items-end flex-wrap\">\r\n                <div class=\"mr-md-3 mr-xl-5\">\r\n                  <h2>Welcome back, {{ firstname }}</h2>\r\n                  <p class=\"mb-md-0\">Your administrative dashboard.</p>\r\n                </div>\r\n                <div class=\"d-flex\">\r\n                </div>\r\n              </div>\r\n              <div class=\"d-flex justify-content-between align-items-end flex-wrap\">\r\n              </div>\r\n            </div>\r\n          </div>\r\n        </div>\r\n\r\n        <div class=\"row text-center\">\r\n          <div class=\"col-md-12 grid-margin stretch-card\">\r\n            <div class=\"card\">\r\n              <div class=\"card-body\">\r\n                <div class=\"card-text\">\r\n                  <div class=\"row\">\r\n                    <div class=\"col-10 col-md-8 col-sm-10 offset-1 offset-md-2 offset-sm-1\">\r\n                      <div *ngIf=\"notValidCode\" class=\"mt-2 mb-2\">\r\n                        <div class=\"alert alert-danger alert-dismissible fade show\" role=\"alert\">\r\n                          <button type=\"button\" class=\"close\" data-dismiss=\"alert\" aria-label=\"Close\">\r\n                            <span aria-hidden=\"true\">&times;</span>\r\n                          </button>\r\n                          <h3 class=\"alert-heading\">Oops!</h3>\r\n                          <p class=\"lead\"><strong>Wrong Form Code</strong></p>\r\n                          <hr>\r\n                          <p class=\"mb-0 text-left\">\r\n                            There is no corresponding form with the provided code. The code entered is wrong, please\r\n                            check and try again.\r\n                          </p>\r\n                        </div>\r\n                      </div>\r\n\r\n                      <form [formGroup]=\"form\" (ngSubmit)=\"submit()\" class=\"submit-form\">\r\n                        <div class=\"form-group\">\r\n                          <input matInput type=\"text\" autofocus formControlName=\"code\" class=\"form-control large-form\"\r\n                            placeholder=\"Enter Code\" [ngClass]=\"{'input-control-error': submitted && f.code.errors}\">\r\n                          <div *ngIf=\"submitted && f.code.errors\">\r\n                            <p class=\"input-error\" *ngIf=\"f.code.errors.required\">Please enter the submission code</p>\r\n                            <p class=\"input-error\" *ngIf=\"f.code.errors.minlength\">The entered code is not a valid submission code.</p>\r\n                            <p class=\"input-error\" *ngIf=\"f.code.errors.maxlength\">The entered code is not a valid submission code.</p>\r\n                          </div>\r\n                        </div>\r\n\r\n                        <div class=\"mt-3\">\r\n                          <button *ngIf=\"loading\" class=\"btn btn-primary btn-lg mr-2\" type=\"button\" disabled>\r\n                            <span class=\"spinner-border spinner-border-sm\" role=\"status\" aria-hidden=\"true\"></span>\r\n                            <span class=\"sr-only\">Please wait...</span>\r\n                          </button>\r\n                          <button *ngIf=\"!loading\" type=\"submit\" class=\"btn btn-primary btn-lg mr-2\">Submit</button>\r\n                          <button type=\"button\" class=\"btn btn-light btn-lg\" (click)=\"cancel()\">Cancel</button>\r\n                        </div>\r\n                      </form>\r\n                    </div>\r\n                  </div>\r\n                </div>\r\n              </div>\r\n            </div>\r\n          </div>\r\n        </div>\r\n\r\n        <div class=\"row\">\r\n          <div class=\"col-md-3 grid-margin stretch-card\">\r\n            <div class=\"card hover-cursor hover-primary\" (click)=\"open('submitted')\">\r\n              <div class=\"card-body\">\r\n                <p class=\"card-title\">Total Forms Submitted</p>\r\n                <div class=\"card-text\">\r\n                  <h1 style=\"font-size: 4em;\">{{ totalNoSubmitted }}</h1>\r\n                </div>\r\n              </div>\r\n            </div>\r\n          </div>\r\n          <div class=\"col-md-3 grid-margin stretch-card\">\r\n            <div class=\"card hover-cursor hover-primary\" (click)=\"open('processed')\">\r\n              <div class=\"card-body\">\r\n                <p class=\"card-title\">Total Processed Forms</p>\r\n                <div class=\"card-text\">\r\n                  <h1 style=\"font-size: 4em;\">{{ totalNoProcessed }}</h1>\r\n                </div>\r\n              </div>\r\n            </div>\r\n          </div>\r\n          <div class=\"col-md-3 grid-margin stretch-card\">\r\n            <div class=\"card hover-cursor hover-primary\" (click)=\"open('processing')\">\r\n              <div class=\"card-body\">\r\n                <p class=\"card-title\">Total Forms In Process</p>\r\n                <div class=\"card-text\">\r\n                  <h1 style=\"font-size: 4em;\">{{ totalNoProcessing }}</h1>\r\n                </div>\r\n              </div>\r\n            </div>\r\n          </div>\r\n          <div class=\"col-md-3 grid-margin stretch-card\">\r\n            <div class=\"card hover-cursor hover-primary\" (click)=\"open('rejected')\">\r\n              <div class=\"card-body\">\r\n                <p class=\"card-title\">Total Forms Rejected</p>\r\n                <div class=\"card-text\">\r\n                  <h1 style=\"font-size: 4em;\">{{ totalNoRejected }}</h1>\r\n                </div>\r\n              </div>\r\n            </div>\r\n          </div>\r\n        </div>\r\n\r\n        <div class=\"row\">\r\n          <div class=\"col-md-3 grid-margin stretch-card\">\r\n            <div class=\"card hover-cursor hover-primary\" (click)=\"open('rejected')\">\r\n              <div class=\"card-body\">\r\n                <p class=\"card-title\">Total Forms Reversed</p>\r\n                <div class=\"card-text\">\r\n                  <h1 style=\"font-size: 4em;\">{{ totalNoReversed }}</h1>\r\n                </div>\r\n              </div>\r\n            </div>\r\n          </div>\r\n        </div>\r\n\r\n      </div>\r\n      <!-- content -->\r\n      <!-- partial -->\r\n      <app-footer-bar></app-footer-bar>\r\n      <!-- partial -->\r\n    </div>\r\n    <!-- main ends -->\r\n  </div>\r\n</div>\r\n"
 
 /***/ }),
 
@@ -1541,6 +1541,17 @@ module.exports = "<div class=\"container mt-5 pt-5\">\r\n  <div class=\"row\">\r
 
 /***/ }),
 
+/***/ "./node_modules/raw-loader/index.js!./src/app/pages/invalid-link-page/invalid-link-page.component.html":
+/*!****************************************************************************************************!*\
+  !*** ./node_modules/raw-loader!./src/app/pages/invalid-link-page/invalid-link-page.component.html ***!
+  \****************************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = "<div class=\"container mt-5 pt-5\">\n  <div class=\"row\">\n    <div class=\"col-12 col-md-6 col-lg-6 offset-md-3 offset-lg-3\">\n      <div class=\"mt-2 mb-2\">\n        <div class=\"alert alert-danger\" role=\"alert\">\n          <h3 class=\"alert-heading text-center\">Hey there!</h3>\n          <hr>\n          <p class=\"lead text-center\">Sorry! This link has expired.</p>\n        </div>\n      </div>\n    </div>\n  </div>\n</div>\n"
+
+/***/ }),
+
 /***/ "./node_modules/raw-loader/index.js!./src/app/pages/invalid-password-reset-page/invalid-password-reset-page.component.html":
 /*!************************************************************************************************************************!*\
   !*** ./node_modules/raw-loader!./src/app/pages/invalid-password-reset-page/invalid-password-reset-page.component.html ***!
@@ -1614,7 +1625,7 @@ module.exports = "<div class=\"container-scroller\">\r\n  <div class=\"container
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<div class=\"container-scroller\">\n  <div class=\"container-fluid page-body-wrapper full-page-wrapper\">\n    <div class=\"content-wrapper d-flex align-items-center auth px-0\">\n      <div class=\"row w-100 mx-0\">\n        <div class=\"col-lg-4 mx-auto\">\n          <div class=\"auth-form-light py-5 px-4 px-sm-5\">\n            <div class=\"text-center\">\n              <a routerLink=\"/\" class=\"brand-logo\">\n                <img src=\"./assets/images/logo1.png\" alt=\"logo\">\n              </a>\n            </div>\n            <div *ngIf=\"invalid\" class=\"mt-2 mb-5\">\n              <div class=\"alert alert-danger\" role=\"alert\">\n                <h3 class=\"alert-heading\">Hey there!</h3>\n                <p class=\"lead\"><strong>Your account has been deactivated.</strong></p>\n                <hr>\n                <p class=\"mb-0 lead\">Please contact your admin.</p>\n              </div>\n            </div>\n\n            <!-- setup new password view -->\n            <h4 class=\"text-center\">Hello! Reset pin.</h4>\n            <h6 class=\"font-weight-normal text-center\">Please setup a new pin.</h6>\n            <form [formGroup]=\"form\" (ngSubmit)=\"create()\" class=\"pt-3\">\n              <div class=\"form-group\">\n                <input type=\"password\" class=\"form-control form-control-lg\" formControlName=\"pin\"\n                  placeholder=\"Enter Pin\" [ngClass]=\"{'input-control-error': submitted && f.pin.errors}\"\n                  maxlength=\"4\" (keyup)=\"resolveStrCharacters($event)\">\n                <div *ngIf=\"submitted && f.pin.errors\">\n                  <p class=\"input-error\" *ngIf=\"f.pin.errors.required\">Pin is required.</p>\n                  <p class=\"input-error\" *ngIf=\"f.pin.errors.minlength\">Pin must be 4 (four) digits.</p>\n                </div>\n              </div>\n              <div class=\"form-group\">\n                <input type=\"password\" class=\"form-control form-control-lg\" formControlName=\"cPin\"\n                  placeholder=\"Confirm Pin\" [ngClass]=\"{'input-control-error': submitted && f.cPin.errors}\"\n                  maxlength=\"4\" (keyup)=\"resolveStrCharacters_1($event)\">\n                <div *ngIf=\"submitted && f.cPin.errors\">\n                  <p class=\"input-error\" *ngIf=\"f.cPin.errors.unmatched\">Pin doesn't match.</p>\n                  <p class=\"input-error\" *ngIf=\"f.cPin.errors.required\">Pin is required.</p>\n                  <p class=\"input-error\" *ngIf=\"f.cPin.errors.minlength\">Pin must be 4 (four) digits.</p>\n                </div>\n              </div>\n              <div class=\"mt-3\">\n                <button type=\"submit\" *ngIf=\"!loading\" class=\"btn btn-block btn-primary btn-lg font-weight-medium auth-form-btn\">Change Password</button>\n                <button type=\"button\" *ngIf=\"loading\" class=\"btn btn-block btn-primary btn-lg font-weight-medium auth-form-btn\" disabled>\n                  <span class=\"spinner-border spinner-border-sm\" role=\"status\" aria-hidden=\"true\"></span> &nbsp; &nbsp;\n                  Please wait...\n                </button>\n              </div>\n            </form>\n            <!-- /.end setup new password view -->\n          </div>\n        </div>\n      </div>\n    </div>\n    <!-- content ends -->\n  </div>\n  <!-- page-body ends -->\n</div>\n"
+module.exports = "<div class=\"container-scroller\">\n  <div class=\"container-fluid page-body-wrapper full-page-wrapper\">\n    <div class=\"content-wrapper d-flex align-items-center auth px-0\">\n      <div class=\"row w-100 mx-0\">\n        <div class=\"col-lg-4 mx-auto\">\n          <div class=\"auth-form-light py-5 px-4 px-sm-5\">\n            <div class=\"text-center\">\n              <a routerLink=\"/\" class=\"brand-logo\">\n                <img src=\"./assets/images/logo1.png\" alt=\"logo\">\n              </a>\n            </div>\n\n            <!-- setup new password view -->\n            <h4 class=\"text-center\">Hello! Reset pin.</h4>\n            <h6 class=\"font-weight-normal text-center\">Please setup a new pin.</h6>\n            <form [formGroup]=\"form\" (ngSubmit)=\"create()\" class=\"pt-3\">\n              <div class=\"form-group\">\n                <input type=\"password\" class=\"form-control form-control-lg\" formControlName=\"pin\"\n                  placeholder=\"Enter Pin\" [ngClass]=\"{'input-control-error': submitted && f.pin.errors}\"\n                  maxlength=\"4\" (keyup)=\"resolveStrCharacters($event)\">\n                <div *ngIf=\"submitted && f.pin.errors\">\n                  <p class=\"input-error\" *ngIf=\"f.pin.errors.required\">Pin is required.</p>\n                  <p class=\"input-error\" *ngIf=\"f.pin.errors.minlength\">Pin must be 4 (four) digits.</p>\n                </div>\n              </div>\n              <div class=\"form-group\">\n                <input type=\"password\" class=\"form-control form-control-lg\" formControlName=\"cPin\"\n                  placeholder=\"Confirm Pin\" [ngClass]=\"{'input-control-error': submitted && f.cPin.errors}\"\n                  maxlength=\"4\" (keyup)=\"resolveStrCharacters_1($event)\">\n                <div *ngIf=\"submitted && f.cPin.errors\">\n                  <p class=\"input-error\" *ngIf=\"f.cPin.errors.unmatched\">Pin doesn't match.</p>\n                  <p class=\"input-error\" *ngIf=\"f.cPin.errors.required\">Confirmation pin is required.</p>\n                  <p class=\"input-error\" *ngIf=\"f.cPin.errors.minlength\">Pin must be 4 (four) digits.</p>\n                </div>\n              </div>\n              <div class=\"mt-3\">\n                <button type=\"submit\" *ngIf=\"!loading\" class=\"btn btn-block btn-primary btn-lg font-weight-medium auth-form-btn\">Change Password</button>\n                <button type=\"button\" *ngIf=\"loading\" class=\"btn btn-block btn-primary btn-lg font-weight-medium auth-form-btn\" disabled>\n                  <span class=\"spinner-border spinner-border-sm\" role=\"status\" aria-hidden=\"true\"></span> &nbsp; &nbsp;\n                  Please wait...\n                </button>\n              </div>\n            </form>\n            <!-- /.end setup new password view -->\n          </div>\n        </div>\n      </div>\n    </div>\n    <!-- content ends -->\n  </div>\n  <!-- page-body ends -->\n</div>\n"
 
 /***/ }),
 
@@ -1753,6 +1764,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _pages_dashboard_git_admin_view_sector_list_page_view_sector_list_page_component__WEBPACK_IMPORTED_MODULE_111__ = __webpack_require__(/*! ./pages/dashboard/git-admin/view-sector-list-page/view-sector-list-page.component */ "./src/app/pages/dashboard/git-admin/view-sector-list-page/view-sector-list-page.component.ts");
 /* harmony import */ var _pages_reset_pin_page_reset_pin_page_component__WEBPACK_IMPORTED_MODULE_112__ = __webpack_require__(/*! ./pages/reset-pin-page/reset-pin-page.component */ "./src/app/pages/reset-pin-page/reset-pin-page.component.ts");
 /* harmony import */ var _pages_invalid_reset_pin_page_invalid_reset_pin_page_component__WEBPACK_IMPORTED_MODULE_113__ = __webpack_require__(/*! ./pages/invalid-reset-pin-page/invalid-reset-pin-page.component */ "./src/app/pages/invalid-reset-pin-page/invalid-reset-pin-page.component.ts");
+/* harmony import */ var _pages_invalid_link_page_invalid_link_page_component__WEBPACK_IMPORTED_MODULE_114__ = __webpack_require__(/*! ./pages/invalid-link-page/invalid-link-page.component */ "./src/app/pages/invalid-link-page/invalid-link-page.component.ts");
+
 
 
 
@@ -1927,6 +1940,10 @@ const routes = [
     {
         path: 'invalid_reset_pin',
         component: _pages_invalid_reset_pin_page_invalid_reset_pin_page_component__WEBPACK_IMPORTED_MODULE_113__["InvalidResetPinPageComponent"]
+    },
+    {
+        path: 'invalid_link',
+        component: _pages_invalid_link_page_invalid_link_page_component__WEBPACK_IMPORTED_MODULE_114__["InvalidLinkPageComponent"]
     },
     {
         path: 'git_admin',
@@ -2636,6 +2653,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _pages_dashboard_git_admin_edit_sector_page_edit_sector_page_component__WEBPACK_IMPORTED_MODULE_135__ = __webpack_require__(/*! ./pages/dashboard/git-admin/edit-sector-page/edit-sector-page.component */ "./src/app/pages/dashboard/git-admin/edit-sector-page/edit-sector-page.component.ts");
 /* harmony import */ var _pages_reset_pin_page_reset_pin_page_component__WEBPACK_IMPORTED_MODULE_136__ = __webpack_require__(/*! ./pages/reset-pin-page/reset-pin-page.component */ "./src/app/pages/reset-pin-page/reset-pin-page.component.ts");
 /* harmony import */ var _pages_invalid_reset_pin_page_invalid_reset_pin_page_component__WEBPACK_IMPORTED_MODULE_137__ = __webpack_require__(/*! ./pages/invalid-reset-pin-page/invalid-reset-pin-page.component */ "./src/app/pages/invalid-reset-pin-page/invalid-reset-pin-page.component.ts");
+/* harmony import */ var _pages_invalid_link_page_invalid_link_page_component__WEBPACK_IMPORTED_MODULE_138__ = __webpack_require__(/*! ./pages/invalid-link-page/invalid-link-page.component */ "./src/app/pages/invalid-link-page/invalid-link-page.component.ts");
+
 
 
 
@@ -2900,6 +2919,7 @@ AppModule = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
             _pages_dashboard_git_admin_edit_sector_page_edit_sector_page_component__WEBPACK_IMPORTED_MODULE_135__["EditSectorPageComponent"],
             _pages_reset_pin_page_reset_pin_page_component__WEBPACK_IMPORTED_MODULE_136__["ResetPinPageComponent"],
             _pages_invalid_reset_pin_page_invalid_reset_pin_page_component__WEBPACK_IMPORTED_MODULE_137__["InvalidResetPinPageComponent"],
+            _pages_invalid_link_page_invalid_link_page_component__WEBPACK_IMPORTED_MODULE_138__["InvalidLinkPageComponent"],
         ],
         imports: [
             _angular_platform_browser__WEBPACK_IMPORTED_MODULE_1__["BrowserModule"],
@@ -10813,7 +10833,7 @@ let ClientSettingsPageComponent = class ClientSettingsPageComponent {
     showForgotPinSuccessAlert() {
         sweetalert2__WEBPACK_IMPORTED_MODULE_2___default.a.fire({
             title: 'Success',
-            text: 'Check your email and kindly follow the link shared ro reset your pin.',
+            text: 'Check your email and kindly follow the link shared to reset your pin.',
             icon: 'success',
             confirmButtonText: 'Ok'
         });
@@ -10823,6 +10843,14 @@ let ClientSettingsPageComponent = class ClientSettingsPageComponent {
             title: 'Oops!',
             text: 'Failed to verify your email address. Please check your internet connection and try again.',
             icon: 'error',
+            confirmButtonText: 'Ok'
+        });
+    }
+    showUserNotFoundAlert() {
+        sweetalert2__WEBPACK_IMPORTED_MODULE_2___default.a.fire({
+            title: 'Oops!',
+            text: 'There is no account associated with this email address.',
+            icon: 'warning',
             confirmButtonText: 'Ok'
         });
     }
@@ -10962,15 +10990,21 @@ let ClientSettingsPageComponent = class ClientSettingsPageComponent {
         if (this.forgotPinForm.valid) {
             this.loadingForgotPin = true;
             this.accountService.verifyAccountForPinReset(email).then(ok => {
-                if (ok) {
+                if (ok == true) {
                     this.loadingForgotPin = false;
                     this.submitted2 = false;
                     this.forgotPinForm.reset();
                     this.showForgotPinSuccessAlert();
                 }
                 else {
-                    this.loadingForgotPin = false;
-                    this.showForgotPinFailedAlert();
+                    if (ok == 'USER_NOT_FOUND') {
+                        this.loadingForgotPin = false;
+                        this.showUserNotFoundAlert();
+                    }
+                    else {
+                        this.loadingForgotPin = false;
+                        this.showForgotPinFailedAlert();
+                    }
                 }
             });
         }
@@ -16086,6 +16120,7 @@ let FrontDesktopHomePageComponent = class FrontDesktopHomePageComponent {
     }
     setDefaultCounts() {
         this.totalNoRejected = '0';
+        this.totalNoReversed = '0';
         this.totalNoSubmitted = '0';
         this.totalNoProcessed = '0';
         this.totalNoProcessing = '0';
@@ -16139,6 +16174,7 @@ let FrontDesktopHomePageComponent = class FrontDesktopHomePageComponent {
     }
     getFrontDeskAnalytics() {
         this.getRejectedFormsAnalytics(this.user_id);
+        this.getReversedFormsAnalytics(this.user_id);
         this.getProcessedFormsAnalytics(this.user_id);
         this.getProcessingFormsAnalytics(this.user_id);
         this.getSubmittedFormsAnalytics(this.merchant_id);
@@ -16147,6 +16183,9 @@ let FrontDesktopHomePageComponent = class FrontDesktopHomePageComponent {
         this.analyticService.getRejectedFormsByFrontDeskCount(id).then(count => {
             this.totalNoRejected = count;
         });
+    }
+    getReversedFormsAnalytics(id) {
+        this.analyticService.getReversedFormsCount(id);
     }
     getSubmittedFormsAnalytics(id) {
         this.analyticService.getFrontDeskSubmittedFormsCount(id).then(count => {
@@ -16429,27 +16468,7 @@ let FrontDeskProcessedFormsListPageComponent = class FrontDeskProcessedFormsList
             this.hasMoreError = true;
         });
     }
-    searchBySubmissionCode() {
-        this.loading = true;
-        this.processedFormsList = [];
-        this.allProcessedFormsList = [];
-        this.frontDeskService.getForm(this.query, this.user.merchant_id.toString()).then(form => {
-            if (lodash__WEBPACK_IMPORTED_MODULE_2__["isNull"](form) || lodash__WEBPACK_IMPORTED_MODULE_2__["isUndefined"](form)) {
-                this.loading = false;
-                this.hasData = false;
-                this.foundNoForm = true;
-            }
-            else {
-                this.loading = false;
-                this.foundNoForm = false;
-                this.processedFormsList.push(form);
-            }
-        }, err => {
-            this.hasError = true;
-            this.loading = false;
-        });
-    }
-    searchByFormName() {
+    searchByFormNameOrCode() {
         this.loading = true;
         this.processedFormsList = [];
         this.allProcessedFormsList = [];
@@ -16475,22 +16494,8 @@ let FrontDeskProcessedFormsListPageComponent = class FrontDeskProcessedFormsList
     search(e) {
         if (e.key == 'Enter') {
             if (this.query.length != 0) {
-                // we need to know whether the user is searching by a submission
-                // code or by a form name. So first, check if its a submission code.
-                console.log(this.query);
-                this.hasError = false;
-                // this.processedFormsList = [];
-                // this.allProcessedFormsList = [];
-                if (this.query.length == 5) {
-                    // search by submission code.
-                    console.log('searching by submission code');
-                    this.searchBySubmissionCode();
-                }
-                else {
-                    // search by form name.
-                    console.log('searching by form name');
-                    this.searchByFormName();
-                }
+                console.log('searching by form name or submission code');
+                this.searchByFormNameOrCode();
             }
             else {
                 console.log('resetting ...');
@@ -16763,27 +16768,7 @@ let FrontDeskProcessingFormsListPageComponent = class FrontDeskProcessingFormsLi
     handleRejectionNote() {
         this.modalService.open(this.rejectNoteModal, { centered: true });
     }
-    searchBySubmissionCode() {
-        this.loading = true;
-        this.processingFormsList = [];
-        this.allProcessingFormsList = [];
-        this.frontDeskService.getForm(this.query, this.user.merchant_id.toString()).then(form => {
-            if (lodash__WEBPACK_IMPORTED_MODULE_2__["isNull"](form) || lodash__WEBPACK_IMPORTED_MODULE_2__["isUndefined"](form)) {
-                this.loading = false;
-                this.hasData = false;
-                this.foundNoForm = true;
-            }
-            else {
-                this.loading = false;
-                this.foundNoForm = false;
-                this.processingFormsList.push(form);
-            }
-        }, err => {
-            this.hasError = true;
-            this.loading = false;
-        });
-    }
-    searchByFormName() {
+    searchByFormNameOrCode() {
         this.loading = true;
         this.processingFormsList = [];
         this.allProcessingFormsList = [];
@@ -16810,22 +16795,8 @@ let FrontDeskProcessingFormsListPageComponent = class FrontDeskProcessingFormsLi
         if (e.key == 'Enter') {
             this.hasMore = false;
             if (this.query.length != 0) {
-                // we need to know whether the user is searching by a submission
-                // code or by a form name. So first, check if its a submission code.
-                console.log(this.query);
-                this.hasError = false;
-                // this.processedFormsList = [];
-                // this.allProcessedFormsList = [];
-                if (this.query.length == 5) {
-                    // search by submission code.
-                    console.log('searching by submission code');
-                    this.searchBySubmissionCode();
-                }
-                else {
-                    // search by form name.
-                    console.log('searching by form name');
-                    this.searchByFormName();
-                }
+                console.log('searching by form name or code');
+                this.searchByFormNameOrCode();
             }
             else {
                 console.log('resetting ...');
@@ -17137,27 +17108,7 @@ let FrontDeskRejectedFormsListPageComponent = class FrontDeskRejectedFormsListPa
             this.showResponseDialog();
         });
     }
-    searchBySubmissionCode() {
-        this.loading = true;
-        this.rejectedFormsList = [];
-        this.allRejectedFormsList = [];
-        this.frontDeskService.getForm(this.query, this.user.merchant_id.toString()).then(form => {
-            if (lodash__WEBPACK_IMPORTED_MODULE_1__["isNull"](form) || lodash__WEBPACK_IMPORTED_MODULE_1__["isUndefined"](form)) {
-                this.loading = false;
-                this.hasData = false;
-                this.foundNoForm = true;
-            }
-            else {
-                this.loading = false;
-                this.foundNoForm = false;
-                this.rejectedFormsList.push(form);
-            }
-        }, err => {
-            this.hasError = true;
-            this.loading = false;
-        });
-    }
-    searchByFormName() {
+    searchByFormNameOrCode() {
         this.loading = true;
         this.rejectedFormsList = [];
         this.allRejectedFormsList = [];
@@ -17184,22 +17135,8 @@ let FrontDeskRejectedFormsListPageComponent = class FrontDeskRejectedFormsListPa
         if (e.key == 'Enter') {
             this.hasMore = false;
             if (this.query.length != 0) {
-                // we need to know whether the user is searching by a submission
-                // code or by a form name. So first, check if its a submission code.
-                console.log(this.query);
-                this.hasError = false;
-                // this.processedFormsList = [];
-                // this.allProcessedFormsList = [];
-                if (this.query.length == 5) {
-                    // search by submission code.
-                    console.log('searching by submission code');
-                    this.searchBySubmissionCode();
-                }
-                else {
-                    // search by form name.
-                    console.log('searching by form name');
-                    this.searchByFormName();
-                }
+                console.log('searching by form name or submission code');
+                this.searchByFormNameOrCode();
             }
             else {
                 console.log('resetting ...');
@@ -17299,10 +17236,10 @@ module.exports = ".d-flex .btn i {\r\n    font-size: 1rem;\r\n}\r\n\r\n.form-con
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "FrontDeskSubmittedFormsListPageComponent", function() { return FrontDeskSubmittedFormsListPageComponent; });
 /* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
-/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm2015/core.js");
-/* harmony import */ var lodash__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! lodash */ "./node_modules/lodash/lodash.js");
-/* harmony import */ var lodash__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(lodash__WEBPACK_IMPORTED_MODULE_2__);
-/* harmony import */ var _angular_router__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @angular/router */ "./node_modules/@angular/router/fesm2015/router.js");
+/* harmony import */ var lodash__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! lodash */ "./node_modules/lodash/lodash.js");
+/* harmony import */ var lodash__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(lodash__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var _angular_router__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @angular/router */ "./node_modules/@angular/router/fesm2015/router.js");
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm2015/core.js");
 /* harmony import */ var _angular_forms__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @angular/forms */ "./node_modules/@angular/forms/fesm2015/forms.js");
 /* harmony import */ var src_app_services_date_time_date_time_service__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! src/app/services/date-time/date-time.service */ "./src/app/services/date-time/date-time.service.ts");
 /* harmony import */ var src_app_services_front_desk_front_desk_service__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! src/app/services/front-desk/front-desk.service */ "./src/app/services/front-desk/front-desk.service.ts");
@@ -17349,14 +17286,15 @@ let FrontDeskSubmittedFormsListPageComponent = class FrontDeskSubmittedFormsList
         this.router.navigateByUrl('front_desk/print_form', { state: { form: form } });
     }
     checkIfHasMore() {
-        return lodash__WEBPACK_IMPORTED_MODULE_2__["isEmpty"](this.frontDeskService.nextPaginationUrl) ? false : true;
+        return lodash__WEBPACK_IMPORTED_MODULE_1__["isEmpty"](this.frontDeskService.nextPaginationUrl) ? false : true;
     }
     getAllSubmittedForms() {
         this.loading = true;
         const merchant_id = this.user.merchant_id.toString();
         this.frontDeskService.getSubmittedFormByStatusAndMerchant(0, merchant_id).then(res => {
+            console.log('______res: ' + res);
             if (res.length != 0) {
-                lodash__WEBPACK_IMPORTED_MODULE_2__["forEach"](res, (form) => {
+                lodash__WEBPACK_IMPORTED_MODULE_1__["forEach"](res, (form) => {
                     if (form.can_view == 1) {
                         form.submitted_at = this.dateTime.safeDateFormat(form.submitted_at);
                         this.submittedFormsList.push(form);
@@ -17384,7 +17322,7 @@ let FrontDeskSubmittedFormsListPageComponent = class FrontDeskSubmittedFormsList
             this.loadingMore = false;
             this.hasMoreError = false;
             this.hasMore = this.checkIfHasMore();
-            lodash__WEBPACK_IMPORTED_MODULE_2__["forEach"](res, (form) => {
+            lodash__WEBPACK_IMPORTED_MODULE_1__["forEach"](res, (form) => {
                 if (form.can_view == 1) {
                     form.submitted_at = this.dateTime.safeDateFormat(form.submitted_at);
                     this.submittedFormsList.push(form);
@@ -17397,27 +17335,7 @@ let FrontDeskSubmittedFormsListPageComponent = class FrontDeskSubmittedFormsList
             this.hasMoreError = true;
         });
     }
-    searchBySubmissionCode() {
-        this.loading = true;
-        this.submittedFormsList = [];
-        this.allSubmittedFormsList = [];
-        this.frontDeskService.getForm(this.query, this.user.merchant_id.toString()).then(form => {
-            if (lodash__WEBPACK_IMPORTED_MODULE_2__["isNull"](form) || lodash__WEBPACK_IMPORTED_MODULE_2__["isUndefined"](form)) {
-                this.loading = false;
-                this.hasData = false;
-                this.foundNoForm = true;
-            }
-            else {
-                this.loading = false;
-                this.foundNoForm = false;
-                this.submittedFormsList.push(form);
-            }
-        }, err => {
-            this.hasError = true;
-            this.loading = false;
-        });
-    }
-    searchByFormName() {
+    searchByFormNameOrCode() {
         this.loading = true;
         this.submittedFormsList = [];
         this.allSubmittedFormsList = [];
@@ -17431,7 +17349,7 @@ let FrontDeskSubmittedFormsListPageComponent = class FrontDeskSubmittedFormsList
                 this.hasData = true;
                 this.loading = false;
                 this.foundNoForm = false;
-                lodash__WEBPACK_IMPORTED_MODULE_2__["forEach"](forms, (form) => {
+                lodash__WEBPACK_IMPORTED_MODULE_1__["forEach"](forms, (form) => {
                     this.submittedFormsList.push(form);
                 });
             }
@@ -17444,22 +17362,8 @@ let FrontDeskSubmittedFormsListPageComponent = class FrontDeskSubmittedFormsList
         if (e.key == 'Enter') {
             this.hasMore = false;
             if (this.query.length != 0) {
-                // we need to know whether the user is searching by a submission
-                // code or by a form name. So first, check if its a submission code.
-                console.log(this.query);
-                this.hasError = false;
-                // this.processedFormsList = [];
-                // this.allProcessedFormsList = [];
-                if (this.query.length == 5) {
-                    // search by submission code.
-                    console.log('searching by submission code');
-                    this.searchBySubmissionCode();
-                }
-                else {
-                    // search by form name.
-                    console.log('searching by form name');
-                    this.searchByFormName();
-                }
+                console.log('searching by form name or submission code');
+                this.searchByFormNameOrCode();
             }
             else {
                 console.log('resetting ...');
@@ -17490,7 +17394,7 @@ let FrontDeskSubmittedFormsListPageComponent = class FrontDeskSubmittedFormsList
             console.log(start_date);
             console.log(end_date);
             // Filter forms list.
-            this.submittedFormsList = lodash__WEBPACK_IMPORTED_MODULE_2__["filter"](this.submittedFormsList, (form) => this.dateTime.getDatePart(form.submitted_at) >= start_date &&
+            this.submittedFormsList = lodash__WEBPACK_IMPORTED_MODULE_1__["filter"](this.submittedFormsList, (form) => this.dateTime.getDatePart(form.submitted_at) >= start_date &&
                 this.dateTime.getDatePart(form.submitted_at) <= end_date);
         }
     }
@@ -17499,14 +17403,14 @@ let FrontDeskSubmittedFormsListPageComponent = class FrontDeskSubmittedFormsList
     }
 };
 FrontDeskSubmittedFormsListPageComponent.ctorParameters = () => [
-    { type: _angular_router__WEBPACK_IMPORTED_MODULE_3__["Router"] },
+    { type: _angular_router__WEBPACK_IMPORTED_MODULE_2__["Router"] },
     { type: _angular_forms__WEBPACK_IMPORTED_MODULE_4__["FormBuilder"] },
     { type: src_app_services_date_time_date_time_service__WEBPACK_IMPORTED_MODULE_5__["DateTimeService"] },
     { type: src_app_services_storage_local_storage_service__WEBPACK_IMPORTED_MODULE_7__["LocalStorageService"] },
     { type: src_app_services_front_desk_front_desk_service__WEBPACK_IMPORTED_MODULE_6__["FrontDeskService"] }
 ];
 FrontDeskSubmittedFormsListPageComponent = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
-    Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Component"])({
+    Object(_angular_core__WEBPACK_IMPORTED_MODULE_3__["Component"])({
         selector: 'app-front-desk-submitted-forms-list-page',
         template: __webpack_require__(/*! raw-loader!./front-desk-submitted-forms-list-page.component.html */ "./node_modules/raw-loader/index.js!./src/app/pages/dashboard/front-desk/front-desk-submitted-forms-list-page/front-desk-submitted-forms-list-page.component.html"),
         styles: [__webpack_require__(/*! ./front-desk-submitted-forms-list-page.component.css */ "./src/app/pages/dashboard/front-desk/front-desk-submitted-forms-list-page/front-desk-submitted-forms-list-page.component.css")]
@@ -24620,6 +24524,48 @@ InvalidConfirmationPageComponent = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorat
 
 /***/ }),
 
+/***/ "./src/app/pages/invalid-link-page/invalid-link-page.component.css":
+/*!*************************************************************************!*\
+  !*** ./src/app/pages/invalid-link-page/invalid-link-page.component.css ***!
+  \*************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = "p.lead {\r\n  line-height: 1.8rem;\r\n  font-size: 1.18rem;\r\n}\r\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInNyYy9hcHAvcGFnZXMvaW52YWxpZC1saW5rLXBhZ2UvaW52YWxpZC1saW5rLXBhZ2UuY29tcG9uZW50LmNzcyJdLCJuYW1lcyI6W10sIm1hcHBpbmdzIjoiQUFBQTtFQUNFLG1CQUFtQjtFQUNuQixrQkFBa0I7QUFDcEIiLCJmaWxlIjoic3JjL2FwcC9wYWdlcy9pbnZhbGlkLWxpbmstcGFnZS9pbnZhbGlkLWxpbmstcGFnZS5jb21wb25lbnQuY3NzIiwic291cmNlc0NvbnRlbnQiOlsicC5sZWFkIHtcclxuICBsaW5lLWhlaWdodDogMS44cmVtO1xyXG4gIGZvbnQtc2l6ZTogMS4xOHJlbTtcclxufSJdfQ== */"
+
+/***/ }),
+
+/***/ "./src/app/pages/invalid-link-page/invalid-link-page.component.ts":
+/*!************************************************************************!*\
+  !*** ./src/app/pages/invalid-link-page/invalid-link-page.component.ts ***!
+  \************************************************************************/
+/*! exports provided: InvalidLinkPageComponent */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "InvalidLinkPageComponent", function() { return InvalidLinkPageComponent; });
+/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm2015/core.js");
+
+
+let InvalidLinkPageComponent = class InvalidLinkPageComponent {
+    constructor() { }
+    ngOnInit() {
+    }
+};
+InvalidLinkPageComponent = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
+    Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Component"])({
+        selector: 'app-invalid-link-page',
+        template: __webpack_require__(/*! raw-loader!./invalid-link-page.component.html */ "./node_modules/raw-loader/index.js!./src/app/pages/invalid-link-page/invalid-link-page.component.html"),
+        styles: [__webpack_require__(/*! ./invalid-link-page.component.css */ "./src/app/pages/invalid-link-page/invalid-link-page.component.css")]
+    })
+], InvalidLinkPageComponent);
+
+
+
+/***/ }),
+
 /***/ "./src/app/pages/invalid-password-reset-page/invalid-password-reset-page.component.css":
 /*!*********************************************************************************************!*\
   !*** ./src/app/pages/invalid-password-reset-page/invalid-password-reset-page.component.css ***!
@@ -25245,14 +25191,11 @@ module.exports = ".auth .brand-logo img {\r\n  width: 60px;\r\n}\r\n\r\np.lead {
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "ResetPinPageComponent", function() { return ResetPinPageComponent; });
 /* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
-/* harmony import */ var lodash__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! lodash */ "./node_modules/lodash/lodash.js");
-/* harmony import */ var lodash__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(lodash__WEBPACK_IMPORTED_MODULE_1__);
-/* harmony import */ var sweetalert2__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! sweetalert2 */ "./node_modules/sweetalert2/dist/sweetalert2.all.js");
-/* harmony import */ var sweetalert2__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(sweetalert2__WEBPACK_IMPORTED_MODULE_2__);
-/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm2015/core.js");
-/* harmony import */ var _angular_forms__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @angular/forms */ "./node_modules/@angular/forms/fesm2015/forms.js");
-/* harmony import */ var src_app_services_client_client_service__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! src/app/services/client/client.service */ "./src/app/services/client/client.service.ts");
-
+/* harmony import */ var sweetalert2__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! sweetalert2 */ "./node_modules/sweetalert2/dist/sweetalert2.all.js");
+/* harmony import */ var sweetalert2__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(sweetalert2__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm2015/core.js");
+/* harmony import */ var _angular_forms__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @angular/forms */ "./node_modules/@angular/forms/fesm2015/forms.js");
+/* harmony import */ var src_app_services_client_client_service__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! src/app/services/client/client.service */ "./src/app/services/client/client.service.ts");
 
 
 
@@ -25270,7 +25213,7 @@ let ResetPinPageComponent = class ResetPinPageComponent {
         return this.form.controls;
     }
     showResetFailedAlert() {
-        sweetalert2__WEBPACK_IMPORTED_MODULE_2___default.a.fire({
+        sweetalert2__WEBPACK_IMPORTED_MODULE_1___default.a.fire({
             title: 'Oops!',
             icon: 'error',
             text: 'Sorry!, We couldnt reset your pin. Please make sure you have an active internet connection or our serevsr may be down.',
@@ -25278,7 +25221,7 @@ let ResetPinPageComponent = class ResetPinPageComponent {
         });
     }
     showResetSuccessfulAlert() {
-        sweetalert2__WEBPACK_IMPORTED_MODULE_2___default.a.fire({
+        sweetalert2__WEBPACK_IMPORTED_MODULE_1___default.a.fire({
             title: 'Success',
             icon: 'success',
             text: 'Pin reset was successful.',
@@ -25287,8 +25230,8 @@ let ResetPinPageComponent = class ResetPinPageComponent {
     }
     buildForm() {
         this.form = this.formBuilder.group({
-            pin: ['', [_angular_forms__WEBPACK_IMPORTED_MODULE_4__["Validators"].required, _angular_forms__WEBPACK_IMPORTED_MODULE_4__["Validators"].minLength(4), _angular_forms__WEBPACK_IMPORTED_MODULE_4__["Validators"].maxLength(4)]],
-            cPin: ['', [_angular_forms__WEBPACK_IMPORTED_MODULE_4__["Validators"].required, _angular_forms__WEBPACK_IMPORTED_MODULE_4__["Validators"].minLength(4), _angular_forms__WEBPACK_IMPORTED_MODULE_4__["Validators"].maxLength(4)]],
+            pin: ['', [_angular_forms__WEBPACK_IMPORTED_MODULE_3__["Validators"].required, _angular_forms__WEBPACK_IMPORTED_MODULE_3__["Validators"].minLength(4), _angular_forms__WEBPACK_IMPORTED_MODULE_3__["Validators"].maxLength(4)]],
+            cPin: ['', [_angular_forms__WEBPACK_IMPORTED_MODULE_3__["Validators"].required, _angular_forms__WEBPACK_IMPORTED_MODULE_3__["Validators"].minLength(4), _angular_forms__WEBPACK_IMPORTED_MODULE_3__["Validators"].maxLength(4)]],
         });
     }
     pinsMatch() {
@@ -25325,10 +25268,9 @@ let ResetPinPageComponent = class ResetPinPageComponent {
                 this.loading = true;
                 const client_id = this.getClientId();
                 this.clientService.setFormSubmitPin(client_id, this.f.pin.value).then(res => {
-                    const response = res;
                     this.form.enable();
                     this.loading = false;
-                    if (lodash__WEBPACK_IMPORTED_MODULE_1__["toLower"](response.message) == 'ok') {
+                    if (res) {
                         sessionStorage.clear();
                         this.showResetSuccessfulAlert();
                     }
@@ -25350,11 +25292,11 @@ let ResetPinPageComponent = class ResetPinPageComponent {
     }
 };
 ResetPinPageComponent.ctorParameters = () => [
-    { type: _angular_forms__WEBPACK_IMPORTED_MODULE_4__["FormBuilder"] },
-    { type: src_app_services_client_client_service__WEBPACK_IMPORTED_MODULE_5__["ClientService"] }
+    { type: _angular_forms__WEBPACK_IMPORTED_MODULE_3__["FormBuilder"] },
+    { type: src_app_services_client_client_service__WEBPACK_IMPORTED_MODULE_4__["ClientService"] }
 ];
 ResetPinPageComponent = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
-    Object(_angular_core__WEBPACK_IMPORTED_MODULE_3__["Component"])({
+    Object(_angular_core__WEBPACK_IMPORTED_MODULE_2__["Component"])({
         selector: 'app-reset-pin-page',
         template: __webpack_require__(/*! raw-loader!./reset-pin-page.component.html */ "./node_modules/raw-loader/index.js!./src/app/pages/reset-pin-page/reset-pin-page.component.html"),
         styles: [__webpack_require__(/*! ./reset-pin-page.component.css */ "./src/app/pages/reset-pin-page/reset-pin-page.component.css")]
@@ -25890,7 +25832,7 @@ let AccountService = class AccountService {
                 const response = res;
                 lodash__WEBPACK_IMPORTED_MODULE_2__["toLower"](response.message) == 'ok'
                     ? resolve(true)
-                    : resolve(false);
+                    : resolve(response.message);
             }, err => {
                 console.log('err_: ' + JSON.stringify(err));
                 reject(err);
@@ -26397,6 +26339,18 @@ let AnalyticsService = class AnalyticsService {
     getRejectedFormsByFrontDeskCount(user_id) {
         return new Promise((resolve, reject) => {
             const url = this.endpointService.apiHost + 'api/v1/getNumAllFormsProcessedByFrontDeskPerson/' + user_id + '/3';
+            this.http.get(url, { headers: this.headers }).subscribe(res => {
+                const response = res;
+                console.log('res: ' + JSON.stringify(response));
+                resolve(response.num_processed_forms);
+            }, err => {
+                reject(err);
+            });
+        });
+    }
+    getReversedFormsCount(user_id) {
+        return new Promise((resolve, reject) => {
+            const url = this.endpointService.apiHost + 'api/v1/getNumAllFormsProcessedByFrontDeskPerson/' + user_id + '/5';
             this.http.get(url, { headers: this.headers }).subscribe(res => {
                 const response = res;
                 console.log('res: ' + JSON.stringify(response));
@@ -27515,7 +27469,7 @@ let ClientService = class ClientService {
      */
     setFormSubmitPin(user_id, pin) {
         return new Promise((resolve, reject) => {
-            const url = this.endpointService.apiHost + 'api/v1/setPin/' + user_id + '/' + pin;
+            const url = this.endpointService.apiHost + 'api/setPin/' + user_id + '/' + pin;
             this.http.post(url, {}, { headers: this.headers }).subscribe(res => {
                 console.log('res___: ' + JSON.stringify(res));
                 const response = res;
@@ -29579,7 +29533,9 @@ let FrontDeskService = class FrontDeskService {
                 console.log('res: ' + JSON.stringify(res));
                 const response = res;
                 this.nextPaginationUrl = response.submitted_forms.next_page_url;
-                resolve(response.submitted_forms.data);
+                response.submitted_forms.length == 0
+                    ? resolve(response.submitted_forms)
+                    : resolve(response.submitted_forms.data);
             }, err => {
                 console.log('err: ' + JSON.stringify(err));
                 reject(err);
@@ -29613,11 +29569,11 @@ let FrontDeskService = class FrontDeskService {
      */
     findFormByNameAndStatus(form_name, merchant_id, status) {
         return new Promise((resolve, reject) => {
-            const url = this.endpointService.apiHost + `api/v1/getClientFormsByStatusAndMerchant/${form_name}/${status}/${merchant_id}`;
+            const url = this.endpointService.apiHost + `api/v1/searchSubmittedFormByCodeorName/${status}/${merchant_id}/${form_name}`;
             this.http.get(url, { headers: this.headers }).subscribe(res => {
                 console.log('res: ' + JSON.stringify(res));
                 const response = res;
-                resolve(response.forms);
+                resolve(response.submitted_forms);
             }, err => {
                 console.log('err: ' + JSON.stringify(err));
                 reject(err);

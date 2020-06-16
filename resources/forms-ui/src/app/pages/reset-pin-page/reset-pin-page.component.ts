@@ -91,10 +91,9 @@ export class ResetPinPageComponent implements OnInit {
         const client_id = this.getClientId();
         this.clientService.setFormSubmitPin(client_id, this.f.pin.value).then(
           res => {
-            const response = res as any;
             this.form.enable();
             this.loading = false;
-            if (_.toLower(response.message) == 'ok') {
+            if (res) {
               sessionStorage.clear();
               this.showResetSuccessfulAlert();
             }
