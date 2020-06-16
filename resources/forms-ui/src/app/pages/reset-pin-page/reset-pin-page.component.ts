@@ -1,6 +1,5 @@
 import * as _ from 'lodash';
 import Swal from 'sweetalert2';
-import { Router } from '@angular/router';
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { ClientService } from 'src/app/services/client/client.service';
@@ -13,7 +12,6 @@ import { ClientService } from 'src/app/services/client/client.service';
 export class ResetPinPageComponent implements OnInit {
   form: FormGroup;
   loading: boolean;
-  invalid: boolean;
   submitted: boolean;
 
   constructor(
