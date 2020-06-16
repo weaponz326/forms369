@@ -1788,17 +1788,18 @@ class AuthController extends Controller
      {
          $user = User::where('pinreset_token', $token)->first();
          if (!$user) {
+            return redirect()->route('reset_pin_expired');
             //  return redirect()->route('invalid_password_link');
-             return response()->json([
-                 'message' => 'This activation token is invalid.'
-             ], 404);
+            //  return response()->json([
+            //      'message' => 'This activation token is invalid.'
+            //  ], 404);
          }
          if (! $request->hasValidSignature()) {
              return redirect()->route('reset_pin_expired');
             //  abort(401, 'Link expired');
-             return response()->json([
-                'message' => 'This activation link is expired.'
-            ], 404);
+            //  return response()->json([
+            //     'message' => 'This activation link is expired.'
+            // ], 404);
          }
  
          $user->pinreset_token = NULL;

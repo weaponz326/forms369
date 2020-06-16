@@ -50,7 +50,7 @@ Route::get('forgotpinlink/{token}', 'HomeController@confirmForgottenPin')->name(
 Route::post('resetPin/{id}', 'HomeController@resetPin')->name('resetPin');
 
 Route::post('hasPin/{id}', 'HomeController@hasPin')->name('hasPin');
-
+Route::post('setPin/{id}/{pin}', 'HomeController@setPin')->name('setPin');
 
 //protected routes 
 Route::group(['middleware' => ['auth:api'], 'prefix' => 'v1'], function(){
@@ -61,7 +61,6 @@ Route::group(['middleware' => ['auth:api'], 'prefix' => 'v1'], function(){
 
     //form submission pin apis 
     Route::post('hasPin/{id}', 'HomeController@hasPin')->name('hasPin')->middleware('scope:GIT_Admin,forms_client');
-    Route::post('setPin/{id}/{pin}', 'HomeController@setPin')->name('setPin')->middleware('scope:GIT_Admin,forms_client');
     Route::post('changePin/{id}', 'HomeController@changePin')->name('changePin')->middleware('scope:GIT_Admin,forms_client');
     Route::post('checkPin/{id}/{pin}', 'HomeController@checkPin')->name('checkPin')->middleware('scope:GIT_Admin,forms_client');
 
