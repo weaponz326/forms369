@@ -11271,6 +11271,9 @@ var ClientSettingsPageComponent = /** @class */ (function () {
                         _this.showForgotPinFailedAlert();
                     }
                 }
+            }, function (err) {
+                _this.loadingForgotPin = false;
+                _this.showUserNotFoundAlert();
             });
         }
     };

@@ -11006,6 +11006,9 @@ let ClientSettingsPageComponent = class ClientSettingsPageComponent {
                         this.showForgotPinFailedAlert();
                     }
                 }
+            }, err => {
+                this.loadingForgotPin = false;
+                this.showUserNotFoundAlert();
             });
         }
     }

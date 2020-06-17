@@ -163,7 +163,7 @@ export class ClientSettingsPageComponent implements OnInit {
   showPasswordMismatchAlert() {
     Swal.fire({
       title: 'Oops!',
-      text: 'Old password password is incorrect',
+      text: 'Old password is incorrect.',
       icon: 'warning',
       confirmButtonText: 'Ok'
     });
@@ -372,6 +372,10 @@ export class ClientSettingsPageComponent implements OnInit {
               this.showForgotPinFailedAlert();
             }
           }
+        },
+        err => {
+          this.loadingForgotPin = false;
+          this.showUserNotFoundAlert();
         }
       );
     }
