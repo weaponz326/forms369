@@ -1,13 +1,13 @@
 import * as _ from 'lodash';
 import Swal from 'sweetalert2';
-import { Router } from '@angular/router';
 import { Users } from 'src/app/models/users.model';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { Router, NavigationEnd } from '@angular/router';
 import { ClientService } from 'src/app/services/client/client.service';
+import { Component, OnInit, ViewChild, TemplateRef } from '@angular/core';
 import { EndpointService } from 'src/app/services/endpoint/endpoint.service';
 import { DateTimeService } from 'src/app/services/date-time/date-time.service';
 import { ReloadingService } from 'src/app/services/reloader/reloading.service';
-import { Component, OnInit, ViewChild, TemplateRef, OnDestroy } from '@angular/core';
 import { LocalStorageService } from 'src/app/services/storage/local-storage.service';
 
 @Component({
@@ -15,7 +15,7 @@ import { LocalStorageService } from 'src/app/services/storage/local-storage.serv
   templateUrl: './client-forms-history-page.component.html',
   styleUrls: ['./client-forms-history-page.component.css']
 })
-export class ClientFormsHistoryPageComponent implements OnInit, OnDestroy {
+export class ClientFormsHistoryPageComponent implements OnInit {
   form: any;
   user: Users;
   query: string;
@@ -61,6 +61,8 @@ export class ClientFormsHistoryPageComponent implements OnInit, OnDestroy {
     this.processingHistoryCollection = [];
     this.form = this.reloader.resolveDataLoss(this.form);
     this.user = this.localStorageService.getUser();
+
+    this.listenOnRouteChange(this.router);
   }
 
   ngOnInit() {
@@ -73,9 +75,13 @@ export class ClientFormsHistoryPageComponent implements OnInit, OnDestroy {
     }
   }
 
-  ngOnDestroy(): void {
-    this.filterState = 'all';
-    sessionStorage.removeItem('u_form');
+  listenOnRouteChange(router: Router) {
+    router.events.forEach((event) => {
+      if (event instanceof NavigationEnd) {
+        this.filterState = 'all';
+        sessionStorage.removeItem('u_form');
+      }
+    });
   }
 
   showDeleteFailedAlert() {
