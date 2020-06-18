@@ -211,8 +211,6 @@ export class ClientFormNewEntryPageComponent implements OnInit {
 
   chooseBranch(branch_id: number) {
     this.branch_id = branch_id;
-    console.log('am closing');
-    // this.selectBranchDialogRef.close();
   }
 
   closeBranchDialog() {
@@ -374,7 +372,10 @@ export class ClientFormNewEntryPageComponent implements OnInit {
     this.selectBranchDialogRef = this.modalService.open(this.selectBranchDialog, { centered: true });
     this.selectBranchDialogRef.result.then(
       result => {
-        if (!_.isNull(result) || !_.isUndefined(result)) {
+        if (result == 'no') {
+          this.selectBranchDialogRef.close();
+        }
+        else  {
           this.handlePinCode(update);
         }
       }
@@ -780,10 +781,25 @@ export class ClientFormNewEntryPageComponent implements OnInit {
     this.status = 4;
     this.loading = true;
     this.disableValidation = true;
-    const user_data = this.getFormData();
-    console.log(JSON.stringify(user_data));
-    console.log('this form: ' + this.formBuilder.getFormUserData(user_data));
-    this.submitFormAndAttachments(user_data, this.updateProfile);
+
+    this.modalService.open(this.confirmDialog, { centered: true }).result.then(
+      result => {
+        if (result == 'yes') {
+          this.updateProfile = true;
+          const user_data = this.getFormData();
+          console.log(JSON.stringify(user_data));
+          console.log('this form: ' + this.formBuilder.getFormUserData(user_data));
+          this.submitFormAndAttachments(user_data, this.updateProfile);
+        }
+        else {
+          this.updateProfile = false;
+          const user_data = this.getFormData();
+          console.log(JSON.stringify(user_data));
+          console.log('this form: ' + this.formBuilder.getFormUserData(user_data));
+          this.submitFormAndAttachments(user_data, this.updateProfile);
+        }
+      }
+    );
   }
 
   copy() {

@@ -16,7 +16,6 @@ import { DownloaderService } from 'src/app/services/downloader/downloader.servic
 import { LocalStorageService } from 'src/app/services/storage/local-storage.service';
 import { FormBuilderService } from 'src/app/services/form-builder/form-builder.service';
 import { FileUploadsService } from 'src/app/services/file-uploads/file-uploads.service';
-import { CompanyService } from 'src/app/services/company/company.service';
 
 @Component({
   selector: 'app-client-forms-entry-page',
@@ -73,7 +72,6 @@ export class ClientFormsEntryPageComponent implements OnInit {
     private clipboard: ClipboardService,
     private clientService: ClientService,
     private branchesService: BranchService,
-    private companyService: CompanyService,
     private formBuilder: FormBuilderService,
     private endpointService: EndpointService,
     private localStorage: LocalStorageService,
@@ -199,6 +197,9 @@ export class ClientFormsEntryPageComponent implements OnInit {
 
   chooseBranch(branch_id: number) {
     this.branchId = branch_id;
+  }
+
+  closeBranchDialog() {
     this.selectBranchDialogRef.close();
   }
 
@@ -301,7 +302,10 @@ export class ClientFormsEntryPageComponent implements OnInit {
     this.selectBranchDialogRef = this.modalService.open(this.selectBranchDialog, { centered: true });
     this.selectBranchDialogRef.result.then(
       result => {
-        if (!_.isNull(result) || !_.isUndefined(result)) {
+        if (result == 'no') {
+          this.selectBranchDialogRef.close();
+        }
+        else {
           this.handlePinCode(update);
         }
       }
@@ -765,10 +769,25 @@ export class ClientFormsEntryPageComponent implements OnInit {
   saveAsDraft() {
     this.status = 4;
     this.loading = true;
-    const user_data = this.getFormData();
-    console.log(JSON.stringify(user_data));
-    console.log('this form: ' + this.formBuilder.getFormUserData(user_data));
-    this.submitFormAndAttachments(user_data, this.updateProfile);
+
+    this.modalService.open(this.confirmDialog, { centered: true }).result.then(
+      result => {
+        if (result == 'yes') {
+          this.updateProfile = true;
+          const user_data = this.getFormData();
+          console.log(JSON.stringify(user_data));
+          console.log('this form: ' + this.formBuilder.getFormUserData(user_data));
+          this.submitFormAndAttachments(user_data, this.updateProfile);
+        }
+        else {
+          this.updateProfile = false;
+          const user_data = this.getFormData();
+          console.log(JSON.stringify(user_data));
+          console.log('this form: ' + this.formBuilder.getFormUserData(user_data));
+          this.submitFormAndAttachments(user_data, this.updateProfile);
+        }
+      }
+    );
   }
 
   copy() {
