@@ -1,6 +1,5 @@
 import * as _ from 'lodash';
 import Swal from 'sweetalert2';
-import { Router } from '@angular/router';
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { ClientService } from 'src/app/services/client/client.service';
@@ -13,7 +12,6 @@ import { ClientService } from 'src/app/services/client/client.service';
 export class ResetPinPageComponent implements OnInit {
   form: FormGroup;
   loading: boolean;
-  invalid: boolean;
   submitted: boolean;
 
   constructor(
@@ -93,10 +91,9 @@ export class ResetPinPageComponent implements OnInit {
         const client_id = this.getClientId();
         this.clientService.setFormSubmitPin(client_id, this.f.pin.value).then(
           res => {
-            const response = res as any;
             this.form.enable();
             this.loading = false;
-            if (_.toLower(response.message) == 'ok') {
+            if (res) {
               sessionStorage.clear();
               this.showResetSuccessfulAlert();
             }

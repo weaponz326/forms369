@@ -212,6 +212,10 @@ export class ClientFormNewEntryPageComponent implements OnInit {
   chooseBranch(branch_id: number) {
     this.branch_id = branch_id;
     console.log('am closing');
+    // this.selectBranchDialogRef.close();
+  }
+
+  closeBranchDialog() {
     this.selectBranchDialogRef.close();
   }
 
@@ -285,14 +289,12 @@ export class ClientFormNewEntryPageComponent implements OnInit {
   submitFormAndAttachments(user_data: any, updateProfile: boolean) {
     console.log('is submitting');
     const form_submission_code = this.submissionCode;
-    // this.submissionCode = form_submission_code;
     if (this.hasFile) {
       this.uploadFormAttachments(user_data, updateProfile, form_submission_code);
     }
     else {
       const update = updateProfile ? 1 : 0;
       const filled_data = this.formBuilder.getFormUserData(user_data);
-      alert('clientProfile: ' + this.clientProfile);
       const updated_data = this.clientService.getUpdatedClientFormData(JSON.parse(filled_data), this.clientProfile);
       console.log('_____updated_data: ' + JSON.stringify(updated_data));
       this.clientService.submitForm(_.toString(this.user.id), this.form.form_code, this.clientProfile, JSON.parse(updated_data), update, form_submission_code, this.status, this.branch_id).then(
@@ -406,8 +408,8 @@ export class ClientFormNewEntryPageComponent implements OnInit {
             localStorage.setItem('has_pin', '1');
           }
           else {
-            this.submitted = false;
             this.isLoading = false;
+            this.submitted = false;
             this.setPinDialogRef.close();
             this.showPinCreationFailed();
           }
@@ -776,8 +778,12 @@ export class ClientFormNewEntryPageComponent implements OnInit {
 
   saveAsDraft() {
     this.status = 4;
+    this.loading = true;
     this.disableValidation = true;
-    this.handlePinCode(false);
+    const user_data = this.getFormData();
+    console.log(JSON.stringify(user_data));
+    console.log('this form: ' + this.formBuilder.getFormUserData(user_data));
+    this.submitFormAndAttachments(user_data, this.updateProfile);
   }
 
   copy() {

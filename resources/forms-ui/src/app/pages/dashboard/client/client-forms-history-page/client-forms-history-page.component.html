@@ -149,7 +149,7 @@
                 <img class="merchant-logo" [src]="form.logo" alt="Logo">
                 <h1 class="display-4" *ngIf="form.form_status != 4">{{ form.submission_code }}</h1>
                 <div *ngIf="form.form_status == 4">
-                  <i class="mdi mdi-star-outline" style="font-size: 30px;"></i>
+                  <i class="mdi mdi-file-outline" style="font-size: 30px;"></i>
                 </div>
                 <div class="card-text">
                   <p class="text-muted small-text">{{ form.submitted_at | date }}</p>

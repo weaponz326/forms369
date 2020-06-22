@@ -825,9 +825,9 @@ export class ClientService {
    * @returns {Promise<any>}
    * @memberof ClientService
    */
-  setFormSubmitPin(user_id: string, pin: string): Promise<any> {
+  setFormSubmitPin(user_id: string, pin: string): Promise<boolean> {
     return new Promise((resolve, reject) => {
-      const url = this.endpointService.apiHost + 'api/v1/setPin/' + user_id + '/' + pin;
+      const url = this.endpointService.apiHost + 'api/setPin/' + user_id + '/' + pin;
       this.http.post(url, {}, { headers: this.headers }).subscribe(
         res => {
           console.log('res___: ' + JSON.stringify(res));

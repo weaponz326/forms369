@@ -272,7 +272,6 @@ export class ClientFormsEntryPageComponent implements OnInit {
   submitFormAndAttachments(user_data: any, updateProfile: boolean) {
     console.log('is submitting');
     const form_submission_code = this.submissionCode;
-    alert('code: ' + form_submission_code);
     if (this.hasFile) {
       this.uploadFormAttachments(user_data, updateProfile, form_submission_code);
     }
@@ -765,7 +764,11 @@ export class ClientFormsEntryPageComponent implements OnInit {
 
   saveAsDraft() {
     this.status = 4;
-    this.handlePinCode(false);
+    this.loading = true;
+    const user_data = this.getFormData();
+    console.log(JSON.stringify(user_data));
+    console.log('this form: ' + this.formBuilder.getFormUserData(user_data));
+    this.submitFormAndAttachments(user_data, this.updateProfile);
   }
 
   copy() {

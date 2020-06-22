@@ -374,6 +374,22 @@ export class AnalyticsService {
     });
   }
 
+  getReversedFormsCount(user_id: string): Promise<any> {
+    return new Promise((resolve, reject) => {
+      const url = this.endpointService.apiHost + 'api/v1/getNumAllFormsProcessedByFrontDeskPerson/' + user_id + '/5';
+      this.http.get(url, { headers: this.headers }).subscribe(
+        res => {
+          const response = res as any;
+          console.log('res: ' + JSON.stringify(response));
+          resolve(response.num_processed_forms);
+        },
+        err => {
+          reject(err);
+        }
+      );
+    });
+  }
+
   /**
    * Gets the total number of forms processed by a front desk user.
    *

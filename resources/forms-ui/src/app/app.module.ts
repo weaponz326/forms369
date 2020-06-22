@@ -139,6 +139,7 @@ import { ViewSectorListPageComponent } from './pages/dashboard/git-admin/view-se
 import { EditSectorPageComponent } from './pages/dashboard/git-admin/edit-sector-page/edit-sector-page.component';
 import { ResetPinPageComponent } from './pages/reset-pin-page/reset-pin-page.component';
 import { InvalidResetPinPageComponent } from './pages/invalid-reset-pin-page/invalid-reset-pin-page.component';
+import { InvalidLinkPageComponent } from './pages/invalid-link-page/invalid-link-page.component';
 
 @NgModule({
   declarations: [
@@ -262,6 +263,7 @@ import { InvalidResetPinPageComponent } from './pages/invalid-reset-pin-page/inv
     EditSectorPageComponent,
     ResetPinPageComponent,
     InvalidResetPinPageComponent,
+    InvalidLinkPageComponent,
   ],
   imports: [
     BrowserModule,

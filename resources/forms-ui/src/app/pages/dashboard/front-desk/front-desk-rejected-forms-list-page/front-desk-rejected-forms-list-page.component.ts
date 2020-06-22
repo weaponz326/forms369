@@ -282,31 +282,7 @@ export class FrontDeskRejectedFormsListPageComponent implements OnInit {
     );
   }
 
-  searchBySubmissionCode() {
-    this.loading = true;
-    this.rejectedFormsList = [];
-    this.allRejectedFormsList = [];
-    this.frontDeskService.getForm(this.query, this.user.merchant_id.toString()).then(
-      form => {
-        if (_.isNull(form) || _.isUndefined(form)) {
-          this.loading = false;
-          this.hasData = false;
-          this.foundNoForm = true;
-        }
-        else {
-          this.loading = false;
-          this.foundNoForm = false;
-          this.rejectedFormsList.push(form);
-        }
-      },
-      err => {
-        this.hasError = true;
-        this.loading = false;
-      }
-    );
-  }
-
-  searchByFormName() {
+  searchByFormNameOrCode() {
     this.loading = true;
     this.rejectedFormsList = [];
     this.allRejectedFormsList = [];
@@ -337,22 +313,8 @@ export class FrontDeskRejectedFormsListPageComponent implements OnInit {
     if (e.key == 'Enter') {
       this.hasMore = false;
       if (this.query.length != 0) {
-        // we need to know whether the user is searching by a submission
-        // code or by a form name. So first, check if its a submission code.
-        console.log(this.query);
-        this.hasError = false;
-        // this.processedFormsList = [];
-        // this.allProcessedFormsList = [];
-        if (this.query.length == 5) {
-          // search by submission code.
-          console.log('searching by submission code');
-          this.searchBySubmissionCode();
-        }
-        else {
-          // search by form name.
-          console.log('searching by form name');
-          this.searchByFormName();
-        }
+        console.log('searching by form name or submission code');
+        this.searchByFormNameOrCode();
       }
       else {
         console.log('resetting ...');

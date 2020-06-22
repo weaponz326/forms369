@@ -168,6 +168,16 @@ export class ClientProfilePageComponent implements OnInit, AfterViewInit {
     }
   }
 
+  setProfileInformation() {
+    this.primaryUserData = {
+      email: this.userData['email'],
+      phone: this.userData['phone'],
+      country: this.userData['country'],
+      lastname: this.userData['lastname'],
+      firstname: this.userData['firstname'],
+    };
+  }
+
   setPrimaryInformation(user: Users) {
     this.showOnlyPrimaryInfo = true;
     this.primaryUserData = {
@@ -312,8 +322,7 @@ export class ClientProfilePageComponent implements OnInit, AfterViewInit {
           this.hasData = true;
           this.loading = false;
           this.userData = res[0].client_details[0];
-          const user = this.localStorage.getUser();
-          this.setPrimaryInformation(user);
+          this.setProfileInformation();
           console.log('details: ' + this.userData);
           setTimeout(() => {
             this.clientService.fillClientProfileData(this.allFormSections, this.userData);
@@ -391,7 +400,7 @@ export class ClientProfilePageComponent implements OnInit, AfterViewInit {
         console.log('checkbox_label: ' + checkbox_label);
         if (element.checked) {
           user_form_data[element.id] = checkbox_label;
-       }
+        }
       }
 
       if (element.type == 'date' || element.type == 'text') {
@@ -417,6 +426,7 @@ export class ClientProfilePageComponent implements OnInit, AfterViewInit {
           _.forEach(res, (section) => {
             this.allFormSections.push(section);
           });
+          console.log('getting old client data');
           this.getAllClientData();
         }
         else {

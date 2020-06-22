@@ -163,7 +163,7 @@ export class ClientSettingsPageComponent implements OnInit {
   showPasswordMismatchAlert() {
     Swal.fire({
       title: 'Oops!',
-      text: 'Old password password is incorrect',
+      text: 'Old password is incorrect.',
       icon: 'warning',
       confirmButtonText: 'Ok'
     });
@@ -172,7 +172,7 @@ export class ClientSettingsPageComponent implements OnInit {
   showForgotPinSuccessAlert() {
     Swal.fire({
       title: 'Success',
-      text: 'Check your email and kindly follow the link shared ro reset your pin.',
+      text: 'Check your email and kindly follow the link shared to reset your pin.',
       icon: 'success',
       confirmButtonText: 'Ok'
     });
@@ -183,6 +183,15 @@ export class ClientSettingsPageComponent implements OnInit {
       title: 'Oops!',
       text: 'Failed to verify your email address. Please check your internet connection and try again.',
       icon: 'error',
+      confirmButtonText: 'Ok'
+    });
+  }
+
+  showUserNotFoundAlert() {
+    Swal.fire({
+      title: 'Oops!',
+      text: 'There is no account associated with this email address.',
+      icon: 'warning',
       confirmButtonText: 'Ok'
     });
   }
@@ -347,16 +356,26 @@ export class ClientSettingsPageComponent implements OnInit {
       this.loadingForgotPin = true;
       this.accountService.verifyAccountForPinReset(email).then(
         ok => {
-          if (ok) {
+          if (ok == true) {
             this.loadingForgotPin = false;
             this.submitted2 = false;
             this.forgotPinForm.reset();
             this.showForgotPinSuccessAlert();
           }
           else {
-            this.loadingForgotPin = false;
-            this.showForgotPinFailedAlert();
+            if (ok == 'USER_NOT_FOUND') {
+              this.loadingForgotPin = false;
+              this.showUserNotFoundAlert();
+            }
+            else {
+              this.loadingForgotPin = false;
+              this.showForgotPinFailedAlert();
+            }
           }
+        },
+        err => {
+          this.loadingForgotPin = false;
+          this.showUserNotFoundAlert();
         }
       );
     }

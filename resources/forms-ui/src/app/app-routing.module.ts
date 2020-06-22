@@ -113,6 +113,7 @@ import { EditSectorPageComponent } from './pages/dashboard/git-admin/edit-sector
 import { ViewSectorListPageComponent } from './pages/dashboard/git-admin/view-sector-list-page/view-sector-list-page.component';
 import { ResetPinPageComponent } from './pages/reset-pin-page/reset-pin-page.component';
 import { InvalidResetPinPageComponent } from './pages/invalid-reset-pin-page/invalid-reset-pin-page.component';
+import { InvalidLinkPageComponent } from './pages/invalid-link-page/invalid-link-page.component';
 
 const routes: Routes = [
   {
@@ -175,6 +176,10 @@ const routes: Routes = [
   {
     path: 'invalid_reset_pin',
     component: InvalidResetPinPageComponent
+  },
+  {
+    path: 'invalid_link',
+    component: InvalidLinkPageComponent
   },
   {
     path: 'git_admin',
