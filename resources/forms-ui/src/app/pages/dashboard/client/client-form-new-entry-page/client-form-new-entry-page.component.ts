@@ -214,7 +214,9 @@ export class ClientFormNewEntryPageComponent implements OnInit {
   }
 
   closeBranchDialog() {
-    this.selectBranchDialogRef.close();
+    this.branch_id == 0 || this.branch_id == null
+      ? alert('Select a branch to continue')
+      : this.selectBranchDialogRef.close();
   }
 
   appendOnChangeEventToFileInput() {

@@ -553,6 +553,7 @@ export class FormBuilderService {
     _.forEach(form_data, (data) => {
       if (!_.isEmpty(data.userData)) {
         user_form_data[data.name] = data.userData[0];
+        console.log('___userData__', data.userData[0]);
       }
     });
 

@@ -385,6 +385,9 @@ export class ClientProfilePageComponent implements OnInit, AfterViewInit {
 
   getAllClientProfileData() {
     const user_form_data = {};
+    let current_checkbox = [];
+    let current_checkbox_values = [];
+    
     const allElements = document.querySelectorAll('input');
     _.forEach(allElements, (element) => {
       if (element.type == 'radio') {
@@ -395,12 +398,32 @@ export class ClientProfilePageComponent implements OnInit, AfterViewInit {
         }
       }
 
+      // For checkboxes, everything is inserted into an array.
       if (element.type == 'checkbox') {
         const checkbox_label = element.nextSibling.textContent;
         console.log('checkbox_label: ' + checkbox_label);
-        if (element.checked) {
-          user_form_data[element.id] = checkbox_label;
+        if (_.includes(current_checkbox, element.id)) {
+          if (element.checked) {
+            current_checkbox_values.push(checkbox_label);
+          }
         }
+        else {
+          if (current_checkbox.length != 0) {
+            current_checkbox = [];
+            current_checkbox_values = [];
+            current_checkbox.push(element.id);
+            if (element.checked) {
+              current_checkbox_values.push(checkbox_label);
+            }
+          }
+          else {
+            current_checkbox.push(element.id);
+            if (element.checked) {
+              current_checkbox_values.push(checkbox_label);
+            }
+          }
+        }
+        user_form_data[element.id] = current_checkbox_values;
       }
 
       if (element.type == 'date' || element.type == 'text') {

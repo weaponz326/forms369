@@ -333,12 +333,15 @@ export class ClientService {
                 }
                 else if (form_field.type == 'checkbox') {
                   // this is a checkbox.
+                  // NOTE: Value is an array of data.
                   const checkbox_label = form_field.nextSibling.textContent;
                   console.log('check_lbl: ' + checkbox_label);
                   console.log('value: ' + client_data[client]);
-                  _.forEach(form.values, (value) => {
-                    if (_.toLower(checkbox_label) == _.toLower(client_data[client])) {
-                      form_field.value = client_data[client];
+                  // convert to array
+                  const values = _.split(client_data[client], ',');
+                  _.forEach(values, (val) => {
+                    if (_.toLower(checkbox_label) == _.toLower(val)) { 
+                      form_field.value = val;
                       form_field.checked = true;
                     }
                   });
