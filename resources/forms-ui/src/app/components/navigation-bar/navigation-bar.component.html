@@ -88,7 +88,7 @@
             Settings
           </a>
           <div class="dropdown-divider"></div>
-          <a class="dropdown-item" (click)="logout()">
+          <a class="dropdown-item" (click)="confirmLogout()">
             <i class="mdi mdi-logout text-secondary"></i>
             Logout
           </a>
@@ -101,3 +101,19 @@
   </div>
 </nav>
 <!-- partial -->
+
+<ng-template #confirm let-modal>
+  <div class="modal-header">
+    <h4 class="modal-title" id="modal-title">Log out</h4>
+    <button type="button" class="close" aria-describedby="modal-title" (click)="modal.close()">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <p><strong>Are you sure you want to log out?</strong></p>
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-outline-primary" (click)="modal.close()">No</button>
+    <button type="button" class="btn btn-primary" (click)="modal.close('yes')">Yes</button>
+  </div>
+</ng-template>

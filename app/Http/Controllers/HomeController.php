@@ -1531,6 +1531,21 @@ class HomeController extends Controller
     }
 
     /**
+     * checkBranchSubmittedTo frontdesk check if form was submitted to his/her branch
+     * This avoid front desk people from viewing forms submitted to other branches
+     *
+     * @param  mixed $request
+     *  @param  mixed $id of frontdesk user
+     *
+     * @return void\Illuminate\Http\Response all details of submitted form
+     */
+     public function checkBranchSubmittedTo(Request $request, $code)
+     {
+        $message = (new FrontDeskController)->checkBranchSubmittedTo($request, $code);
+        return $message;
+     }
+
+    /**
      * Business logics to get a submitted form by submitted code
      * getSubmittedFormByCode get form by code
      *
@@ -1574,6 +1589,21 @@ class HomeController extends Controller
         $message = (new FrontDeskController)->getSubmittedFormByStatusAndMerchant($request, $status, $id);
         return $message;
     }
+
+     /**
+     * search for a form by name or form code under submitted, inprocess, processed or rejected.
+     * getSubmittedFormByStatusAndMerchant get all submitted forms by merchant and status matching a search term
+     * @param mixed $term search term
+     * @param  mixed $request
+     * @param  mixed $status stautus of submitted forms to sort by
+     * @param  mixed $id id of merchant for the submitted forms
+     * @return void\Illuminate\Http\Response all details of submitted form
+     */
+     public function searchSubmittedFormByCodeorName(Request $request, $status, $id, $term)
+     {
+        $message = (new FrontDeskController)->searchSubmittedFormByCodeorName($request, $status, $id, $term);
+        return $message;
+     }
 
     /**
      * Business logics to process a form; Forms that have already been proceeded can not be processed again

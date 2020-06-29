@@ -51,6 +51,21 @@ Route::get('reset', function () {
     return View::make('index');
 })->name('reset');
 
+Route::get('reset_pin', function () {
+    View::addExtension('html', 'php');
+    return View::make('index');
+})->name('reset_pin');
+
+Route::get('invalid_reset_pin', function () {
+    View::addExtension('html', 'php');
+    return View::make('index');
+})->name('reset_pin_expired');
+
+Route::get('invalid_link', function () {
+    View::addExtension('html', 'php');
+    return View::make('index');
+})->name('reset_pin_expired');
+
 Route::get('master_register', function () {
     View::addExtension('html', 'php');
     return View::make('index');

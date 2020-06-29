@@ -50,7 +50,7 @@ Route::get('forgotpinlink/{token}', 'HomeController@confirmForgottenPin')->name(
 Route::post('resetPin/{id}', 'HomeController@resetPin')->name('resetPin');
 
 Route::post('hasPin/{id}', 'HomeController@hasPin')->name('hasPin');
-
+Route::post('setPin/{id}/{pin}', 'HomeController@setPin')->name('setPin');
 
 //protected routes 
 Route::group(['middleware' => ['auth:api'], 'prefix' => 'v1'], function(){
@@ -61,7 +61,6 @@ Route::group(['middleware' => ['auth:api'], 'prefix' => 'v1'], function(){
 
     //form submission pin apis 
     Route::post('hasPin/{id}', 'HomeController@hasPin')->name('hasPin')->middleware('scope:GIT_Admin,forms_client');
-    Route::post('setPin/{id}/{pin}', 'HomeController@setPin')->name('setPin')->middleware('scope:GIT_Admin,forms_client');
     Route::post('changePin/{id}', 'HomeController@changePin')->name('changePin')->middleware('scope:GIT_Admin,forms_client');
     Route::post('checkPin/{id}/{pin}', 'HomeController@checkPin')->name('checkPin')->middleware('scope:GIT_Admin,forms_client');
 
@@ -224,10 +223,14 @@ Route::group(['middleware' => ['auth:api'], 'prefix' => 'v1'], function(){
   Route::get('getSubmittedFormByCode/{code}', 'HomeController@getSubmittedFormByCode')->name('getSubmittedFormByCode')->middleware('scope:GIT_Admin,frontdesk,super_executive,branch_executive');
   Route::get('FrontDeskGetSubmittedFormByCode/{code}/{id}', 'HomeController@FrontDeskGetSubmittedFormByCode')->name('FrontDeskGetSubmittedFormByCode')->middleware('scope:GIT_Admin,frontdesk,super_executive');
   Route::get('getSubmittedFormByStatusAndMerchant/{status}/{id}', 'HomeController@getSubmittedFormByStatusAndMerchant')->name('getSubmittedFormByStatusAndMerchant')->middleware('scope:GIT_Admin,frontdesk,super_executive,branch_executive');
+  Route::get('searchSubmittedFormByCodeorName/{status}/{id}/{term}', 'HomeController@searchSubmittedFormByCodeorName')->name('searchSubmittedFormByCodeorName')->middleware('scope:GIT_Admin,frontdesk,super_executive,branch_executive');
   Route::get('getSubmittedFormByFormCode/{status}/{id}/{code}', 'HomeController@getSubmittedFormByFormCode')->name('getSubmittedFormByFormCode')->middleware('scope:GIT_Admin,frontdesk,super_executive,branch_executive,forms_client');
   Route::post('processSubmitForm/{code}/{status}', 'HomeController@processSubmitForm')->name('processSubmitForm')->middleware('scope:GIT_Admin,frontdesk');
   Route::get('FormsProcessedByFrontDeskPersonDaily/{id}/{status}', 'HomeController@FormsProcessedByFrontDeskPersonDaily')->name('FormsProcessedByFrontDeskPersonDaily')->middleware('scope:GIT_Admin,frontdesk,super_executive,branch_executive,company_admin,branch_admin');
   Route::get('numFormsProcessedByFrontDeskPersonDaily/{id}/{status}', 'HomeController@numFormsProcessedByFrontDeskPersonDaily')->name('numFormsProcessedByFrontDeskPersonDaily')->middleware('scope:GIT_Admin,frontdesk,super_executive,branch_executive,company_admin,branch_admin');
+
+  //check if form was submitted to the logged in frontdesk user's branch
+  Route::get('checkBranchSubmittedTo/{code}', 'HomeController@checkBranchSubmittedTo')->name('checkBranchSubmittedTo')->middleware('scope:GIT_Admin,frontdesk,super_executive,branch_executive,company_admin,branch_admin');
   
   // searching for client submitted forms
   Route::get('findSubmittedFormByName/{id}/{form_name}/{status}', 'HomeController@findSubmittedFormByName')->name('findSubmittedFormByName')->middleware('scope:forms_client,GIT_Admin');

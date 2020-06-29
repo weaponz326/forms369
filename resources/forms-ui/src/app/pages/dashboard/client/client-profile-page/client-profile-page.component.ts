@@ -168,6 +168,16 @@ export class ClientProfilePageComponent implements OnInit, AfterViewInit {
     }
   }
 
+  setProfileInformation() {
+    this.primaryUserData = {
+      email: this.userData['email'],
+      phone: this.userData['phone'],
+      country: this.userData['country'],
+      lastname: this.userData['lastname'],
+      firstname: this.userData['firstname'],
+    };
+  }
+
   setPrimaryInformation(user: Users) {
     this.showOnlyPrimaryInfo = true;
     this.primaryUserData = {
@@ -312,8 +322,7 @@ export class ClientProfilePageComponent implements OnInit, AfterViewInit {
           this.hasData = true;
           this.loading = false;
           this.userData = res[0].client_details[0];
-          const user = this.localStorage.getUser();
-          this.setPrimaryInformation(user);
+          this.setProfileInformation();
           console.log('details: ' + this.userData);
           setTimeout(() => {
             this.clientService.fillClientProfileData(this.allFormSections, this.userData);
@@ -376,6 +385,9 @@ export class ClientProfilePageComponent implements OnInit, AfterViewInit {
 
   getAllClientProfileData() {
     const user_form_data = {};
+    let current_checkbox = [];
+    let current_checkbox_values = [];
+    
     const allElements = document.querySelectorAll('input');
     _.forEach(allElements, (element) => {
       if (element.type == 'radio') {
@@ -386,12 +398,32 @@ export class ClientProfilePageComponent implements OnInit, AfterViewInit {
         }
       }
 
+      // For checkboxes, everything is inserted into an array.
       if (element.type == 'checkbox') {
         const checkbox_label = element.nextSibling.textContent;
         console.log('checkbox_label: ' + checkbox_label);
-        if (element.checked) {
-          user_form_data[element.id] = checkbox_label;
-       }
+        if (_.includes(current_checkbox, element.id)) {
+          if (element.checked) {
+            current_checkbox_values.push(checkbox_label);
+          }
+        }
+        else {
+          if (current_checkbox.length != 0) {
+            current_checkbox = [];
+            current_checkbox_values = [];
+            current_checkbox.push(element.id);
+            if (element.checked) {
+              current_checkbox_values.push(checkbox_label);
+            }
+          }
+          else {
+            current_checkbox.push(element.id);
+            if (element.checked) {
+              current_checkbox_values.push(checkbox_label);
+            }
+          }
+        }
+        user_form_data[element.id] = current_checkbox_values;
       }
 
       if (element.type == 'date' || element.type == 'text') {
@@ -417,6 +449,7 @@ export class ClientProfilePageComponent implements OnInit, AfterViewInit {
           _.forEach(res, (section) => {
             this.allFormSections.push(section);
           });
+          console.log('getting old client data');
           this.getAllClientData();
         }
         else {

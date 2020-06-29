@@ -24,6 +24,7 @@ export class FrontDesktopHomePageComponent implements OnInit {
   merchant_id: string;
   notValidCode: boolean;
   totalNoRejected: string;
+  totalNoReversed: string;
   totalNoSubmitted: string;
   totalNoProcessed: string;
   totalNoProcessing: string;
@@ -68,6 +69,7 @@ export class FrontDesktopHomePageComponent implements OnInit {
 
   setDefaultCounts() {
     this.totalNoRejected = '0';
+    this.totalNoReversed = '0';
     this.totalNoSubmitted = '0';
     this.totalNoProcessed = '0';
     this.totalNoProcessing = '0';
@@ -129,6 +131,7 @@ export class FrontDesktopHomePageComponent implements OnInit {
 
   getFrontDeskAnalytics() {
     this.getRejectedFormsAnalytics(this.user_id);
+    this.getReversedFormsAnalytics(this.user_id);
     this.getProcessedFormsAnalytics(this.user_id);
     this.getProcessingFormsAnalytics(this.user_id);
     this.getSubmittedFormsAnalytics(this.merchant_id);
@@ -140,6 +143,10 @@ export class FrontDesktopHomePageComponent implements OnInit {
         this.totalNoRejected = count;
       }
     );
+  }
+
+  getReversedFormsAnalytics(id: string) {
+    this.analyticService.getReversedFormsCount(id);
   }
 
   getSubmittedFormsAnalytics(id: string) {

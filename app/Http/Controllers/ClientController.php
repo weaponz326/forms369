@@ -424,7 +424,7 @@ class ClientController extends Controller
                 ->where([
                     ['submitted_forms.client_id', $id],
                     ['forms.temps', 'like', '%'.$form_name.'%'],
-                    ['submitted_forms.status', '==', $status]
+                    ['submitted_forms.status', $status]
                 ])
                 ->get();
       
@@ -494,7 +494,7 @@ class ClientController extends Controller
             ->where([
                 ['submitted_forms.client_id', $id],
                 ['submitted_forms.submission_code', 'like', '%'.$code.'%'],
-                ['submitted_forms.status', '==', $status]
+                ['submitted_forms.status', $status]
             ])
             ->get();
         }
@@ -568,7 +568,7 @@ class ClientController extends Controller
                  'merchants.colors', 'users.name', 'users.email', 'forms.name AS form_name', 'forms.form_fields', 'logo')
                  ->where([
                      ['submitted_forms.client_id', $id],
-                     ['submitted_forms.status', '==', $status]
+                     ['submitted_forms.status', $status]
                  ])
                  ->whereBetween('submitted_at', [$startdate, $enddate])
                  ->get();
@@ -699,7 +699,7 @@ class ClientController extends Controller
         ->join('forms', 'forms.form_code', '=', 'form_id')
         ->join('merchants', 'merchants.id', '=', 'forms.merchant_id')
         ->select('submitted_forms.*','merchants.merchant_name AS merchant_name', 'merchants.nickname',
-        'users.name', 'users.email', 'forms.name AS form_name', 'forms.form_fields', 'logo')
+        'users.name', 'users.email', 'forms.name AS form_name', 'forms.form_fields', 'forms.can_view','logo')
         ->where('submitted_forms.client_id', $id)
         ->where('submitted_forms.status', $status)
         ->orderBy('submitted_at', 'desc')
@@ -713,6 +713,7 @@ class ClientController extends Controller
             $submittedformdata['form_code'] = $items->form_id;
             $submittedformdata['form_name'] = Crypt::decryptString($items->form_name);
             $submittedformdata['form_fields'] = json_decode(Crypt::decryptString($items->form_fields));
+            $submittedformdata['can_view'] = $items->can_view;
             $submittedformdata['merchant_name'] = Crypt::decryptString($items->merchant_name);
             $submittedformdata['nickname'] = $items->nickname;
             $submittedformdata['client_name'] = $items->name;
@@ -1271,6 +1272,11 @@ class ClientController extends Controller
     {
         $updated_at = now();
         try {
+            if(is_numeric($id)){
+
+            }else{
+                $id = Crypt::decryptString($id);
+            }
             //set user pin
             DB::table('users')
             ->where('id', $id)

@@ -174,14 +174,16 @@ export class ClientFormNewEntryPageComponent implements OnInit {
   setFormData(data: any) {
     this.clientService.getDetails(this.user.id.toString()).then(
       client => {
-        if (client.length != 0) {
-          this.clientProfile = client.client_details[0];
-          this.clientService.autoFillFormData(data, this.clientProfile);
-        }
-        else {
-          this.clientProfile = this.localStorage.getUser();
-          console.log('_____clientProfile: ' + JSON.stringify(this.clientProfile));
-        }
+        client.forEach((details: any) => {
+          if (details.client_details == '') {
+            this.clientProfile = this.localStorage.getUser();
+            console.log('_____clientProfile: ' + JSON.stringify(this.clientProfile));
+          }
+          else {
+            this.clientProfile = details.client_details[0];
+            this.clientService.autoFillFormData(data, this.clientProfile);
+          }
+        });
       },
       error => {
         console.log('error: ' + JSON.stringify(error));
@@ -209,8 +211,12 @@ export class ClientFormNewEntryPageComponent implements OnInit {
 
   chooseBranch(branch_id: number) {
     this.branch_id = branch_id;
-    console.log('am closing');
-    this.selectBranchDialogRef.close();
+  }
+
+  closeBranchDialog() {
+    this.branch_id == 0 || this.branch_id == null
+      ? alert('Select a branch to continue')
+      : this.selectBranchDialogRef.close();
   }
 
   appendOnChangeEventToFileInput() {
@@ -283,7 +289,6 @@ export class ClientFormNewEntryPageComponent implements OnInit {
   submitFormAndAttachments(user_data: any, updateProfile: boolean) {
     console.log('is submitting');
     const form_submission_code = this.submissionCode;
-    // this.submissionCode = form_submission_code;
     if (this.hasFile) {
       this.uploadFormAttachments(user_data, updateProfile, form_submission_code);
     }
@@ -369,7 +374,10 @@ export class ClientFormNewEntryPageComponent implements OnInit {
     this.selectBranchDialogRef = this.modalService.open(this.selectBranchDialog, { centered: true });
     this.selectBranchDialogRef.result.then(
       result => {
-        if (!_.isNull(result) || !_.isUndefined(result)) {
+        if (result == 'no') {
+          this.selectBranchDialogRef.close();
+        }
+        else  {
           this.handlePinCode(update);
         }
       }
@@ -403,8 +411,8 @@ export class ClientFormNewEntryPageComponent implements OnInit {
             localStorage.setItem('has_pin', '1');
           }
           else {
-            this.submitted = false;
             this.isLoading = false;
+            this.submitted = false;
             this.setPinDialogRef.close();
             this.showPinCreationFailed();
           }
@@ -773,8 +781,27 @@ export class ClientFormNewEntryPageComponent implements OnInit {
 
   saveAsDraft() {
     this.status = 4;
+    this.loading = true;
     this.disableValidation = true;
-    this.handlePinCode(false);
+
+    this.modalService.open(this.confirmDialog, { centered: true }).result.then(
+      result => {
+        if (result == 'yes') {
+          this.updateProfile = true;
+          const user_data = this.getFormData();
+          console.log(JSON.stringify(user_data));
+          console.log('this form: ' + this.formBuilder.getFormUserData(user_data));
+          this.submitFormAndAttachments(user_data, this.updateProfile);
+        }
+        else {
+          this.updateProfile = false;
+          const user_data = this.getFormData();
+          console.log(JSON.stringify(user_data));
+          console.log('this form: ' + this.formBuilder.getFormUserData(user_data));
+          this.submitFormAndAttachments(user_data, this.updateProfile);
+        }
+      }
+    );
   }
 
   copy() {

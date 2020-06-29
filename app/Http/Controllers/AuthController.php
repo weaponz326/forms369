@@ -952,7 +952,7 @@ class AuthController extends Controller
      */
     public function user(Request $request)
     {
-        return response()->json($request->user());
+        return response()->json($request->user(),200);
     }
 
 
@@ -1788,17 +1788,18 @@ class AuthController extends Controller
      {
          $user = User::where('pinreset_token', $token)->first();
          if (!$user) {
+            return redirect()->route('reset_pin_expired');
             //  return redirect()->route('invalid_password_link');
-             return response()->json([
-                 'message' => 'This activation token is invalid.'
-             ], 404);
+            //  return response()->json([
+            //      'message' => 'This activation token is invalid.'
+            //  ], 404);
          }
          if (! $request->hasValidSignature()) {
-            //  return redirect()->route('invalid_password_link');
+             return redirect()->route('reset_pin_expired');
             //  abort(401, 'Link expired');
-             return response()->json([
-                'message' => 'This activation link is expired.'
-            ], 404);
+            //  return response()->json([
+            //     'message' => 'This activation link is expired.'
+            // ], 404);
          }
  
          $user->pinreset_token = NULL;
@@ -1809,10 +1810,10 @@ class AuthController extends Controller
          
          if($user){
              $encid = Crypt::encryptString($id);
-            //  return redirect()->route('reset', ['id' => $encid]);
-            return response()->json([
-                'id' => $id
-            ], 200);
+             return redirect()->route('reset_pin', ['id' => $encid]);
+            // return response()->json([
+            //     'id' => $id
+            // ], 200);
  
          }
          

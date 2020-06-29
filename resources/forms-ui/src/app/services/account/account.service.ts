@@ -535,6 +535,26 @@ export class AccountService {
     });
   }
 
+  verifyAccountForPinReset(email: string): Promise<any> {
+    return new Promise((resolve, reject) => {
+      const body = { email: email };
+      const url = this.endpointService.apiHost + 'api/v1/forgotPin';
+      this.http.post(url, JSON.stringify(body), { headers: this.endpointService.headers() }).subscribe(
+        res => {
+          console.log('res_: ' + JSON.stringify(res));
+          const response = res as any;
+          _.toLower(response.message) == 'ok'
+            ? resolve(true)
+            : resolve(response.message);
+        },
+        err => {
+          console.log('err_: ' + JSON.stringify(err));
+          reject(err);
+        }
+      )
+    });
+  }
+
   /**
    * Logs a user out.
    *

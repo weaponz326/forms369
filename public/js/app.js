@@ -49239,7 +49239,7 @@ window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-throw new Error("Module build failed (from ./node_modules/vue-loader/lib/index.js):\nTypeError: Cannot read property 'parseComponent' of undefined\n    at parse (/Users/ralph/Desktop/Work/web/forms/node_modules/@vue/component-compiler-utils/dist/parse.js:14:23)\n    at Object.module.exports (/Users/ralph/Desktop/Work/web/forms/node_modules/vue-loader/lib/index.js:67:22)");
+throw new Error("Module build failed (from ./node_modules/vue-loader/lib/index.js):\nTypeError: Cannot read property 'parseComponent' of undefined\n    at parse (C:\\Users\\RALPH MARVIN\\Desktop\\Work\\Professional\\Web\\forms\\node_modules\\@vue\\component-compiler-utils\\dist\\parse.js:14:23)\n    at Object.module.exports (C:\\Users\\RALPH MARVIN\\Desktop\\Work\\Professional\\Web\\forms\\node_modules\\vue-loader\\lib\\index.js:67:22)");
 
 /***/ }),
 
@@ -49261,8 +49261,8 @@ throw new Error("Module build failed (from ./node_modules/vue-loader/lib/index.j
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(/*! /Users/ralph/Desktop/Work/web/forms/resources/js/app.js */"./resources/js/app.js");
-module.exports = __webpack_require__(/*! /Users/ralph/Desktop/Work/web/forms/resources/sass/app.scss */"./resources/sass/app.scss");
+__webpack_require__(/*! C:\Users\RALPH MARVIN\Desktop\Work\Professional\Web\forms\resources\js\app.js */"./resources/js/app.js");
+module.exports = __webpack_require__(/*! C:\Users\RALPH MARVIN\Desktop\Work\Professional\Web\forms\resources\sass\app.scss */"./resources/sass/app.scss");
 
 
 /***/ })

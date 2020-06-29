@@ -44,7 +44,7 @@ export class EditSectorPageComponent implements OnInit {
     if (this.form.valid) {
       this.form.disable();
       this.loading = true;
-      this.sectorService.createSector(this.f.name.value).then(
+      this.sectorService.editSector(this.sector.id, this.f.name.value).then(
         ok => {
           if (ok) {
             this.form.enable();

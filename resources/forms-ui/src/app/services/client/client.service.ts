@@ -129,7 +129,7 @@ export class ClientService {
         res => {
           const response = res as any;
           console.log('___res: ' + JSON.stringify(res));
-          response.client.length == 0 ? resolve(response.client) : resolve(response.client[0]);
+          resolve(response.client);
         },
         err => {
           reject(err);
@@ -333,12 +333,15 @@ export class ClientService {
                 }
                 else if (form_field.type == 'checkbox') {
                   // this is a checkbox.
+                  // NOTE: Value is an array of data.
                   const checkbox_label = form_field.nextSibling.textContent;
                   console.log('check_lbl: ' + checkbox_label);
                   console.log('value: ' + client_data[client]);
-                  _.forEach(form.values, (value) => {
-                    if (_.toLower(checkbox_label) == _.toLower(client_data[client])) {
-                      form_field.value = client_data[client];
+                  // convert to array
+                  const values = _.split(client_data[client], ',');
+                  _.forEach(values, (val) => {
+                    if (_.toLower(checkbox_label) == _.toLower(val)) { 
+                      form_field.value = val;
                       form_field.checked = true;
                     }
                   });
@@ -825,9 +828,9 @@ export class ClientService {
    * @returns {Promise<any>}
    * @memberof ClientService
    */
-  setFormSubmitPin(user_id: string, pin: string): Promise<any> {
+  setFormSubmitPin(user_id: string, pin: string): Promise<boolean> {
     return new Promise((resolve, reject) => {
-      const url = this.endpointService.apiHost + 'api/v1/setPin/' + user_id + '/' + pin;
+      const url = this.endpointService.apiHost + 'api/setPin/' + user_id + '/' + pin;
       this.http.post(url, {}, { headers: this.headers }).subscribe(
         res => {
           console.log('res___: ' + JSON.stringify(res));
