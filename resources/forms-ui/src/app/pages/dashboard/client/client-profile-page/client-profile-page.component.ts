@@ -387,7 +387,7 @@ export class ClientProfilePageComponent implements OnInit, AfterViewInit {
     const user_form_data = {};
     let current_checkbox = [];
     let current_checkbox_values = [];
-    
+
     const allElements = document.querySelectorAll('input');
     _.forEach(allElements, (element) => {
       if (element.type == 'radio') {

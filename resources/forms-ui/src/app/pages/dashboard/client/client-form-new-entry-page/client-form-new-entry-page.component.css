@@ -85,6 +85,15 @@ a:not([href]):not([tabindex]):hover {
 
 .list-group > a:hover {
   text-decoration: none;
-  /* color: #555 !important;
-  padding: 15px 28px; */
+}
+
+.list-group-item-action {
+  cursor: pointer;
+}
+
+.list-group-item.active {
+  z-index: 2;
+  color: #fff;
+  background-color: #21518c;
+  border-color: #11498e;
 }

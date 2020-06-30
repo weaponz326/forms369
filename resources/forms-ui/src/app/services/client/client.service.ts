@@ -248,6 +248,22 @@ export class ClientService {
     });
   }
 
+  checkSubmittedFormStatus(id: string, code: string): Promise<any> {
+    return new Promise((resolve, reject) => {
+      const url = this.endpointService.apiHost + `api/v1/checkFormSubmission/${id}/${code}`;
+      this.http.get<any>(url, { headers: this.headers }).subscribe(
+        res => {
+          console.log('chk_sub_form: ' + JSON.stringify(res));
+          resolve(res);
+        },
+        err => {
+          console.log('error: ' + JSON.stringify(err));
+          reject(err);
+        }
+      );
+    });
+  }
+
   /**
    * Auto fills any form with the users already existing data.
    * NOTE: This is the most critical method of the application and should
@@ -259,9 +275,11 @@ export class ClientService {
    */
   autoFillFormData(form_data: Array<any>, client_data: Array<any>) {
     console.log('client_data: ' + JSON.stringify(client_data));
+    console.log('form_data: ' + JSON.stringify(form_data));
     _.forEach(form_data, (form, i) => {
       if (!_.isUndefined(form.name)) {
-        const element_names =  document.getElementsByName(form.name);
+        const element_names = document.getElementsByName(form.name);
+        const _element_names = document.getElementsByName(form.name + '[]');
         const client_keys = _.keys(client_data);
         _.forEach(client_keys, (client) => {
           if (form.name == client) {
@@ -277,14 +295,6 @@ export class ClientService {
                   form_field.checked = true;
                 }
               }
-              else if (form_field.getAttribute('type') == 'checkbox') {
-                // this is a checkbox.
-                const checkbox_label = form_field.nextElementSibling.textContent;
-                if (_.toLower(checkbox_label) == _.toLower(client_data[client])) {
-                  form_field.value = client_data[client];
-                  form_field.checked = true;
-                }
-              }
               else {
                 // this is an input, check if a file input or a text input
                 if (form_field.type == 'file') {
@@ -295,6 +305,26 @@ export class ClientService {
                 }
               }
             });
+
+            // For some reason, checkboxes have [] appended to their html name
+            // so we get it seperately before we process it.
+            _.forEach(_element_names, (element) => {
+              const form_field = element as HTMLInputElement;
+              if (form_field.getAttribute('type') == 'checkbox') {
+                const checkbox_label = form_field.nextElementSibling.textContent;
+                console.log('check_lbl: ' + checkbox_label);
+                console.log('value: ' + client_data[client]);
+                // convert to array
+                const values = _.split(client_data[client], ',');
+                _.forEach(values, (val) => {
+                  if (_.toLower(checkbox_label) == _.toLower(val)) {
+                    form_field.value = val;
+                    form_field.checked = true;
+                  }
+                });
+              }
+            });
+
           }
         });
       }
@@ -340,7 +370,7 @@ export class ClientService {
                   // convert to array
                   const values = _.split(client_data[client], ',');
                   _.forEach(values, (val) => {
-                    if (_.toLower(checkbox_label) == _.toLower(val)) { 
+                    if (_.toLower(checkbox_label) == _.toLower(val)) {
                       form_field.value = val;
                       form_field.checked = true;
                     }

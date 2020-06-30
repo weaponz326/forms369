@@ -9,20 +9,20 @@ import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { BranchService } from 'src/app/services/branch/branch.service';
 import { ClientService } from 'src/app/services/client/client.service';
 import { CompanyBranches } from 'src/app/models/company-branches.model';
-import { Component, OnInit, ViewChild, TemplateRef } from '@angular/core';
 import { EndpointService } from 'src/app/services/endpoint/endpoint.service';
 import { ReloadingService } from 'src/app/services/reloader/reloading.service';
 import { DownloaderService } from 'src/app/services/downloader/downloader.service';
 import { LocalStorageService } from 'src/app/services/storage/local-storage.service';
 import { FormBuilderService } from 'src/app/services/form-builder/form-builder.service';
 import { FileUploadsService } from 'src/app/services/file-uploads/file-uploads.service';
+import { Component, OnInit, ViewChild, TemplateRef, AfterViewInit } from '@angular/core';
 
 @Component({
   selector: 'app-client-form-new-entry-page',
   templateUrl: './client-form-new-entry-page.component.html',
   styleUrls: ['./client-form-new-entry-page.component.css']
 })
-export class ClientFormNewEntryPageComponent implements OnInit {
+export class ClientFormNewEntryPageComponent implements OnInit, AfterViewInit {
   form: any;
   user: Users;
   imgUrl: string;
@@ -33,6 +33,7 @@ export class ClientFormNewEntryPageComponent implements OnInit {
   created: boolean;
   branch_id: number;
   hasFile: boolean;
+  isActive: number;
   formFiles: number;
   formInstance: any;
   formRenderer: any;
@@ -55,6 +56,7 @@ export class ClientFormNewEntryPageComponent implements OnInit {
   attachmentFiles: Array<File>;
   attachmentKeys: Array<string>;
   existingAttachments: Array<any>;
+  submissionCodeReplacement: string;
   selectBranchDialogRef: NgbModalRef;
   branchesList: Array<CompanyBranches>;
   @ViewChild('pin', { static: false }) pinDialog: TemplateRef<any>;
@@ -63,6 +65,8 @@ export class ClientFormNewEntryPageComponent implements OnInit {
   @ViewChild('selectBranch', { static: false }) selectBranchDialog: TemplateRef<any>;
   @ViewChild('viewImgAttachment', { static: false }) viewImgDialog: TemplateRef<any>;
   @ViewChild('viewDocAttachment', { static: false }) viewDocDialog: TemplateRef<any>;
+  @ViewChild('newSubmission', { static: false }) newSubmissionDialog: TemplateRef<any>;
+  @ViewChild('submissionOptions', { static: false }) submissionOptions: TemplateRef<any>;
 
   constructor(
     private router: Router,
@@ -97,11 +101,16 @@ export class ClientFormNewEntryPageComponent implements OnInit {
     this.getFormAttachments(this.user.id.toString());
     this.checkIfUserHasFormPin();
     this.generateSubmissionCode();
+    // this.showMerchantBranchesDialog();
   }
 
   ngOnInit() {
     this.initPinForm();
     this.renderForm();
+  }
+
+  ngAfterViewInit() {
+    this.showMerchantBranchesDialog();
   }
 
   public get f() {
@@ -209,8 +218,9 @@ export class ClientFormNewEntryPageComponent implements OnInit {
     );
   }
 
-  chooseBranch(branch_id: number) {
+  chooseBranch(branch_id: number, index: number) {
     this.branch_id = branch_id;
+    this.isActive = index;
   }
 
   closeBranchDialog() {
@@ -288,7 +298,10 @@ export class ClientFormNewEntryPageComponent implements OnInit {
 
   submitFormAndAttachments(user_data: any, updateProfile: boolean) {
     console.log('is submitting');
-    const form_submission_code = this.submissionCode;
+    const form_submission_code =
+      this.submissionCodeReplacement == null ||
+      this.submissionCodeReplacement.length == 0 ||
+      this.submissionCodeReplacement == undefined ? this.submissionCode : this.submissionCodeReplacement;
     if (this.hasFile) {
       this.uploadFormAttachments(user_data, updateProfile, form_submission_code);
     }
@@ -346,39 +359,139 @@ export class ClientFormNewEntryPageComponent implements OnInit {
     this.submitFormAndAttachments(user_data, this.updateProfile);
   }
 
-  submit() {
-    this.modalService.open(this.confirmDialog, { centered: true }).result.then(
+  showMakeNewSubmissionDialog() {
+    this.modalService.open(this.newSubmissionDialog, { centered: true }).result.then(
       result => {
         if (result == 'yes') {
-          if (this.form.can_view == 0) {
-            this.showMerchantBranchesDialog(true);
-          }
-          else {
-            this.handlePinCode(true);
-          }
+          this.modalService.open(this.confirmDialog, { centered: true }).result.then(
+            res => {
+              if (res == 'yes') {
+                this.handlePinCode(true);
+              }
+              else if (res == 'no') {
+                this.handlePinCode(false);
+              }
+              else {
+                this.modalService.dismissAll();
+                this.loading = false;
+              }
+            }
+          );
         }
         else {
-          if (this.form.can_view == 0) {
-            this.showMerchantBranchesDialog(false);
-          }
-          else {
-            this.handlePinCode(false);
-          }
+          this.loading = false;
+          this.modalService.dismissAll();
         }
       }
     );
   }
 
-  showMerchantBranchesDialog(update: boolean) {
+  showSubmissionOptionsDialog(code: string) {
+    this.modalService.open(this.submissionOptions, { centered: true }).result.then(
+      result => {
+        if (result == 'replace') {
+          this.submissionCodeReplacement = code;
+          this.modalService.open(this.confirmDialog, { centered: true }).result.then(
+            res => {
+              if (res == 'yes') {
+                this.handlePinCode(true);
+              }
+              else if (res == 'no') {
+                this.handlePinCode(false);
+              }
+              else {
+                this.modalService.dismissAll();
+                this.loading = false;
+              }
+            }
+          );
+        }
+        else if (result == 'new') {
+          this.modalService.open(this.confirmDialog, { centered: true }).result.then(
+            res => {
+              if (res == 'yes') {
+                this.handlePinCode(true);
+              }
+              else if (res == 'no') {
+                this.handlePinCode(false);
+              }
+              else {
+                this.modalService.dismissAll();
+                this.loading = false;
+              }
+            }
+          );
+        }
+        else {
+          this.modalService.dismissAll();
+        }
+      }
+    );
+  }
+
+  submit() {
+    this.loading = true;
+    const user_id = this.user.id.toString();
+    this.clientService.checkSubmittedFormStatus(user_id, this.submissionCode).then(
+      res => {
+        console.log('success');
+        if (res.submitted == 0) {
+          this.modalService.open(this.confirmDialog, { centered: true }).result.then(
+            result => {
+              if (result == 'yes') {
+                this.handlePinCode(true);
+              }
+              else if (result == 'no') {
+                this.handlePinCode(false);
+              }
+              else {
+                this.modalService.dismissAll();
+                this.loading = false;
+              }
+            }
+          );
+        }
+        else {
+          if (res.status == 0) {
+            this.showSubmissionOptionsDialog(res.code);
+          }
+          else if (res.status == 1) {
+            this.showMakeNewSubmissionDialog();
+          }
+          else {
+            this.modalService.open(this.confirmDialog, { centered: true }).result.then(
+              result => {
+                if (result == 'yes') {
+                  this.handlePinCode(true);
+                }
+                else if (result == 'no') {
+                  this.handlePinCode(false);
+                }
+                else {
+                  this.modalService.dismissAll();
+                  this.loading = false;
+                }
+              }
+            );
+          }
+        }
+      },
+      err => {
+        console.log('something went wrong');
+      }
+    );
+  }
+
+  showMerchantBranchesDialog() {
     this.getBranches();
-    this.selectBranchDialogRef = this.modalService.open(this.selectBranchDialog, { centered: true });
+    this.selectBranchDialogRef = this.modalService.open(this.selectBranchDialog, { centered: true, keyboard: false, backdrop: 'static' });
     this.selectBranchDialogRef.result.then(
       result => {
         if (result == 'no') {
           this.selectBranchDialogRef.close();
+          window.history.back();
         }
-        else  {
-          this.handlePinCode(update);
+        else {
         }
       }
     );
@@ -793,12 +906,15 @@ export class ClientFormNewEntryPageComponent implements OnInit {
           console.log('this form: ' + this.formBuilder.getFormUserData(user_data));
           this.submitFormAndAttachments(user_data, this.updateProfile);
         }
-        else {
+        else if (result == 'no') {
           this.updateProfile = false;
           const user_data = this.getFormData();
           console.log(JSON.stringify(user_data));
           console.log('this form: ' + this.formBuilder.getFormUserData(user_data));
           this.submitFormAndAttachments(user_data, this.updateProfile);
+        }
+        else {
+          this.loading = false;
         }
       }
     );

@@ -81,6 +81,17 @@ a:not([href]):not([tabindex]):hover {
   color: #bbb;
 }
 
+.list-group-item-action {
+  cursor: pointer;
+}
+
+.list-group-item.active {
+  z-index: 2;
+  color: #fff;
+  background-color: #21518c;
+  border-color: #11498e;
+}
+
 /* @media only screen 
 and (min-device-width: 320px) 
 and (max-device-width: 825px) {
