@@ -20,6 +20,8 @@ export class ClientHomePageComponent implements OnInit, AfterViewInit {
   isLoading: boolean;
   submitted: boolean;
   pinForm: FormGroup;
+  totalNoDrafts: string;
+  totalNoReversed: string;
   totalNoRejected: string;
   totalNoSubmitted: string;
   totalNoProcessed: string;
@@ -60,6 +62,8 @@ export class ClientHomePageComponent implements OnInit, AfterViewInit {
   }
 
   setDefaultCount() {
+    this.totalNoDrafts = '0';
+    this.totalNoReversed = '0';
     this.totalNoRejected = '0';
     this.totalNoProcessed = '0';
     this.totalNoSubmitted = '0';
@@ -84,10 +88,28 @@ export class ClientHomePageComponent implements OnInit, AfterViewInit {
 
   getClientAnalytics() {
     const user_id = this.user.id.toString();
+    this.getDraftFormsAnalytics(user_id);
+    this.getReversedFormsAnalytics(user_id);
     this.getRejectedFormsAnalytics(user_id);
     this.getProcessedFormsAnalytics(user_id);
     this.getSubmittedFormsAnalytics(user_id);
     this.getProcessingFormsAnalytics(user_id);
+  }
+
+  getDraftFormsAnalytics(id: string) {
+    this.analytics.getClientFormsCount(id, 4).then(
+      count => {
+        this.totalNoDrafts = count;
+      }
+    );
+  }
+
+  getReversedFormsAnalytics(id: string) {
+    this.analytics.getClientFormsCount(id, 5).then(
+      count => {
+        this.totalNoReversed = count;
+      }
+    );
   }
 
   getRejectedFormsAnalytics(id: string) {

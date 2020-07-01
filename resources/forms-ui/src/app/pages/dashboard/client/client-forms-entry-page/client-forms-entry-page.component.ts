@@ -9,21 +9,20 @@ import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { BranchService } from 'src/app/services/branch/branch.service';
 import { ClientService } from 'src/app/services/client/client.service';
 import { CompanyBranches } from 'src/app/models/company-branches.model';
-import { Component, OnInit, ViewChild, TemplateRef } from '@angular/core';
 import { EndpointService } from 'src/app/services/endpoint/endpoint.service';
 import { ReloadingService } from 'src/app/services/reloader/reloading.service';
 import { DownloaderService } from 'src/app/services/downloader/downloader.service';
 import { LocalStorageService } from 'src/app/services/storage/local-storage.service';
 import { FormBuilderService } from 'src/app/services/form-builder/form-builder.service';
 import { FileUploadsService } from 'src/app/services/file-uploads/file-uploads.service';
-import { CompanyService } from 'src/app/services/company/company.service';
+import { Component, OnInit, ViewChild, TemplateRef, AfterViewInit } from '@angular/core';
 
 @Component({
   selector: 'app-client-forms-entry-page',
   templateUrl: './client-forms-entry-page.component.html',
   styleUrls: ['./client-forms-entry-page.component.css']
 })
-export class ClientFormsEntryPageComponent implements OnInit {
+export class ClientFormsEntryPageComponent implements OnInit, AfterViewInit {
 
   form: any;
   user: Users;
@@ -36,6 +35,7 @@ export class ClientFormsEntryPageComponent implements OnInit {
   hasFile: boolean;
   formFiles: number;
   branchId: number;
+  isActive: number;
   formInstance: any;
   formRenderer: any;
   clientProfile: any;
@@ -56,6 +56,7 @@ export class ClientFormsEntryPageComponent implements OnInit {
   attachmentFiles: Array<File>;
   attachmentKeys: Array<string>;
   existingAttachments: Array<any>;
+  submissionCodeReplacement: string;
   selectBranchDialogRef: NgbModalRef;
   branchesList: Array<CompanyBranches>;
   @ViewChild('pin', { static: false }) pinDialog: TemplateRef<any>;
@@ -64,6 +65,8 @@ export class ClientFormsEntryPageComponent implements OnInit {
   @ViewChild('selectBranch', { static: false }) selectBranchDialog: TemplateRef<any>;
   @ViewChild('viewImgAttachment', { static: false }) viewImgDialog: TemplateRef<any>;
   @ViewChild('viewDocAttachment', { static: false }) viewDocDialog: TemplateRef<any>;
+  @ViewChild('newSubmission', { static: false }) newSubmissionDialog: TemplateRef<any>;
+  @ViewChild('submissionOptions', { static: false }) submissionOptions: TemplateRef<any>;
 
   constructor(
     private router: Router,
@@ -73,7 +76,6 @@ export class ClientFormsEntryPageComponent implements OnInit {
     private clipboard: ClipboardService,
     private clientService: ClientService,
     private branchesService: BranchService,
-    private companyService: CompanyService,
     private formBuilder: FormBuilderService,
     private endpointService: EndpointService,
     private localStorage: LocalStorageService,
@@ -105,6 +107,10 @@ export class ClientFormsEntryPageComponent implements OnInit {
   ngOnInit() {
     this.initPinForm();
     this.renderForm();
+  }
+
+  ngAfterViewInit() {
+    this.showMerchantBranchesDialog();
   }
 
   public get f() {
@@ -197,9 +203,15 @@ export class ClientFormsEntryPageComponent implements OnInit {
     );
   }
 
-  chooseBranch(branch_id: number) {
+  chooseBranch(branch_id: number, index: number) {
     this.branchId = branch_id;
-    this.selectBranchDialogRef.close();
+    this.isActive = index;
+  }
+
+  closeBranchDialog() {
+    this.branchId == 0 || this.branchId == null
+      ? alert('Select a branch to continue')
+      : this.selectBranchDialogRef.close();
   }
 
   appendOnChangeEventToFileInput() {
@@ -234,7 +246,7 @@ export class ClientFormsEntryPageComponent implements OnInit {
         }
       },
       err => {
-        console.log(';error: ' + JSON.stringify(err));
+        console.log('error: ' + JSON.stringify(err));
       }
     );
   }
@@ -271,7 +283,10 @@ export class ClientFormsEntryPageComponent implements OnInit {
 
   submitFormAndAttachments(user_data: any, updateProfile: boolean) {
     console.log('is submitting');
-    const form_submission_code = this.submissionCode;
+    const form_submission_code =
+      this.submissionCodeReplacement == null ||
+      this.submissionCodeReplacement.length == 0 ||
+      this.submissionCodeReplacement == undefined ? this.submissionCode : this.submissionCodeReplacement;
     if (this.hasFile) {
       this.uploadFormAttachments(user_data, updateProfile, form_submission_code);
     }
@@ -296,13 +311,86 @@ export class ClientFormsEntryPageComponent implements OnInit {
     }
   }
 
-  showMerchantBranchesDialog(update: boolean) {
+  showMerchantBranchesDialog() {
     this.getBranches();
-    this.selectBranchDialogRef = this.modalService.open(this.selectBranchDialog, { centered: true });
+    this.selectBranchDialogRef = this.modalService.open(this.selectBranchDialog, { centered: true, keyboard: false, backdrop: 'static' });
     this.selectBranchDialogRef.result.then(
       result => {
-        if (!_.isNull(result) || !_.isUndefined(result)) {
-          this.handlePinCode(update);
+        if (result == 'no') {
+          this.selectBranchDialogRef.close();
+          window.history.back();
+        }
+        else {
+        }
+      }
+    );
+  }
+
+  showMakeNewSubmissionDialog() {
+    this.modalService.open(this.newSubmissionDialog, { centered: true }).result.then(
+      result => {
+        if (result == 'yes') {
+          this.modalService.open(this.confirmDialog, { centered: true }).result.then(
+            res => {
+              if (res == 'yes') {
+                this.handlePinCode(true);
+              }
+              else if (res == 'no') {
+                this.handlePinCode(false);
+              }
+              else {
+                this.modalService.dismissAll();
+                this.loading = false;
+              }
+            }
+          );
+        }
+        else {
+          this.loading = false;
+          this.modalService.dismissAll();
+        }
+      }
+    );
+  }
+
+  showSubmissionOptionsDialog(code: string) {
+    this.modalService.open(this.submissionOptions, { centered: true }).result.then(
+      result => {
+        if (result == 'replace') {
+          this.submissionCodeReplacement = code;
+          this.modalService.open(this.confirmDialog, { centered: true }).result.then(
+            res => {
+              if (res == 'yes') {
+                this.handlePinCode(true);
+              }
+              else if (res == 'no') {
+                this.handlePinCode(false);
+              }
+              else {
+                this.modalService.dismissAll();
+                this.loading = false;
+              }
+            }
+          );
+        }
+        else if (result == 'new') {
+          this.modalService.open(this.confirmDialog, { centered: true }).result.then(
+            res => {
+              if (res == 'yes') {
+                this.handlePinCode(true);
+              }
+              else if (res == 'no') {
+                this.handlePinCode(false);
+              }
+              else {
+                this.modalService.dismissAll();
+                this.loading = false;
+              }
+            }
+          );
+        }
+        else {
+          this.modalService.dismissAll();
         }
       }
     );
@@ -343,24 +431,54 @@ export class ClientFormsEntryPageComponent implements OnInit {
   }
 
   submit() {
-    this.modalService.open(this.confirmDialog, { centered: true }).result.then(
-      result => {
-        if (result == 'yes') {
-          if (this.form.can_view == 0) {
-            this.showMerchantBranchesDialog(true);
-          }
-          else {
-            this.handlePinCode(true);
-          }
+    this.loading = true;
+    const user_id = this.user.id.toString();
+    this.clientService.checkSubmittedFormStatus(user_id, this.submissionCode).then(
+      res => {
+        console.log('success');
+        if (res.submitted == 0) {
+          this.modalService.open(this.confirmDialog, { centered: true }).result.then(
+            result => {
+              if (result == 'yes') {
+                this.handlePinCode(true);
+              }
+              else if (result == 'no') {
+                this.handlePinCode(false);
+              }
+              else {
+                this.modalService.dismissAll();
+                this.loading = false;
+              }
+            }
+          );
         }
         else {
-          if (this.form.can_view == 0) {
-            this.showMerchantBranchesDialog(false);
+          if (res.status == 0) {
+            this.showSubmissionOptionsDialog(res.code);
+          }
+          else if (res.status == 1) {
+            this.showMakeNewSubmissionDialog();
           }
           else {
-            this.handlePinCode(false);
+            this.modalService.open(this.confirmDialog, { centered: true }).result.then(
+              result => {
+                if (result == 'yes') {
+                  this.handlePinCode(true);
+                }
+                else if (result == 'no') {
+                  this.handlePinCode(false);
+                }
+                else {
+                  this.modalService.dismissAll();
+                  this.loading = false;
+                }
+              }
+            );
           }
         }
+      },
+      err => {
+        console.log('something went wrong');
       }
     );
   }
@@ -696,7 +814,6 @@ export class ClientFormsEntryPageComponent implements OnInit {
           _.forEach(res, (doc) => {
             console.log('doc: ' + JSON.stringify(doc));
             attachments.push(doc);
-            // this.existingAttachments.push(doc);
           });
           this.getCurrentFormAttachmentsOnly(attachments);
         }
@@ -765,10 +882,28 @@ export class ClientFormsEntryPageComponent implements OnInit {
   saveAsDraft() {
     this.status = 4;
     this.loading = true;
-    const user_data = this.getFormData();
-    console.log(JSON.stringify(user_data));
-    console.log('this form: ' + this.formBuilder.getFormUserData(user_data));
-    this.submitFormAndAttachments(user_data, this.updateProfile);
+
+    this.modalService.open(this.confirmDialog, { centered: true }).result.then(
+      result => {
+        if (result == 'yes') {
+          this.updateProfile = true;
+          const user_data = this.getFormData();
+          console.log(JSON.stringify(user_data));
+          console.log('this form: ' + this.formBuilder.getFormUserData(user_data));
+          this.submitFormAndAttachments(user_data, this.updateProfile);
+        }
+        else if (result == 'no') {
+          this.updateProfile = false;
+          const user_data = this.getFormData();
+          console.log(JSON.stringify(user_data));
+          console.log('this form: ' + this.formBuilder.getFormUserData(user_data));
+          this.submitFormAndAttachments(user_data, this.updateProfile);
+        }
+        else {
+          this.loading = false;
+        }
+      }
+    );
   }
 
   copy() {

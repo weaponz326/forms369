@@ -151,6 +151,7 @@
                         <th><strong>Form Name</strong></th>
                         <th><strong>Submitted By</strong></th>
                         <th><strong>Submitted On</strong></th>
+                        <th><strong>Rejected On</strong></th>
                         <th><strong>Actions</strong></th>
                       </tr>
                     </thead>
@@ -160,6 +161,7 @@
                         <td (click)="open($event, form)">{{ form.form_name }}</td>
                         <td (click)="open($event, form)">{{ form.client_name }}</td>
                         <td (click)="open($event, form)">{{ form.submitted_at | date }}</td>
+                        <td (click)="open($event, form)">{{ form.last_processed | date }}</td>
                         <td>
                           <div class="d-flex align-items-end flex-wrap">
                             <button type="button" class="btn btn-light bg-white btn-icon mr-1"

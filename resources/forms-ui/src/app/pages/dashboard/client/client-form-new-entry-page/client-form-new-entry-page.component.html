@@ -134,7 +134,7 @@
 <ng-template #confirm let-modal>
   <div class="modal-header">
     <h4 class="modal-title" id="modal-title">Confirm Action</h4>
-    <button type="button" class="close" aria-describedby="modal-title" (click)="modal.close()">
+    <button type="button" class="close" aria-describedby="modal-title" (click)="modal.close('close')">
       <span aria-hidden="true">&times;</span>
     </button>
   </div>
@@ -142,7 +142,7 @@
     <p><strong>Would you like to update your profile with the new details provided ?</strong></p>
   </div>
   <div class="modal-footer">
-    <button type="button" class="btn btn-outline-primary" (click)="modal.close()">No</button>
+    <button type="button" class="btn btn-outline-primary" (click)="modal.close('no')">No</button>
     <button type="button" class="btn btn-primary" (click)="modal.close('yes')">Yes</button>
   </div>
 </ng-template>
@@ -240,7 +240,7 @@
 <ng-template #selectBranch let-modal>
   <div class="modal-header">
     <h5 class="modal-title text-uppercase">Select A Branch</h5>
-    <button type="button" class="close" aria-describedby="modal-title" (click)="modal.close()">
+    <button type="button" class="close" aria-describedby="modal-title" (click)="modal.close('no')">
       <span aria-hidden="true">&times;</span>
     </button>
   </div>
@@ -256,14 +256,47 @@
     </div>
     <div *ngIf="!loadingBranches">
       <div class="list-group">
-        <div *ngFor="let branch of branchesList" class="list-group-item list-group-item-action" (click)="chooseBranch(branch.id)">
+        <div *ngFor="let branch of branchesList; let i=index;" class="list-group-item list-group-item-action"
+          (click)="chooseBranch(branch.id, i)" [class.active]="isActive === i">
           {{ branch.branch_name }}
         </div>
       </div>
     </div>
   </div>
   <div class="modal-footer">
-    <button type="button" class="btn btn-outline-primary" (click)="modal.close()">Close</button>
+    <button type="button" class="btn btn-outline-primary" (click)="modal.close('no')">Close</button>
     <button type="button" class="btn btn-primary" (click)="closeBranchDialog()">Next</button>
+  </div>
+</ng-template>
+
+<ng-template #submissionOptions let-modal>
+  <div class="modal-header">
+    <h4 class="modal-title" id="modal-title">Confirm Action</h4>
+    <button type="button" class="close" aria-describedby="modal-title" (click)="modal.close()">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <p><strong>Similar form submission exists.</strong></p>
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-outline-primary" (click)="modal.close('replace')">Replace</button>
+    <button type="button" class="btn btn-outline-primary" (click)="modal.close('new')">New Submission</button>
+  </div>
+</ng-template>
+
+<ng-template #newSubmission let-modal>
+  <div class="modal-header">
+    <h4 class="modal-title" id="modal-title">Confirm Action</h4>
+    <button type="button" class="close" aria-describedby="modal-title" (click)="modal.close()">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <p><strong>There is a similar form sumission in-process. Would you like to make a new submission ?</strong></p>
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-outline-primary" (click)="modal.close('no')">No</button>
+    <button type="button" class="btn btn-primary" (click)="modal.close('yes')">Yes</button>
   </div>
 </ng-template>
