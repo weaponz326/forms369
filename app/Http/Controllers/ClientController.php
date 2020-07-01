@@ -1629,8 +1629,14 @@ class ClientController extends Controller
      public function generateSubCode()
      {
          $submission_code = uniqid();
+         $sub_code = substr($submission_code, 5);
+
+        $insertion = "-";
+        $index = 4;
+        $result = substr_replace($sub_code, $insertion, $index, 0);
+
         $response = [
-            'code' => $submission_code
+            'code' => $result
         ];
         return response()->json($response, 200);
      }
