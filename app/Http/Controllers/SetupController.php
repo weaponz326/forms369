@@ -504,6 +504,7 @@ class SetupController extends Controller
         $status = 1;
         $created_at = now();
         $physical_address = $request->physical_address;
+        $branch_ext = $request->branch_ext;
 
         //get user creating the new merchant
         $user = $request->user();
@@ -520,7 +521,8 @@ class SetupController extends Controller
                     'created_by' => $userid, 
                     'created_at' => $created_at,
                     'branch_admin_id' => $branch_admin_id,
-                    'physical_address' => $physical_address
+                    'physical_address' => $physical_address,
+                    'branch_ext' => $branch_ext
                 ]
             );
 
@@ -586,6 +588,7 @@ class SetupController extends Controller
         $status = $request->status;
         $updated_at = now();
         $physical_address = $request->physical_address;
+        $branch_ext = $request->branch_ext;
 
         //get user creating the new merchant
         $user = $request->user();
@@ -605,7 +608,8 @@ class SetupController extends Controller
                     'updated_at' => $updated_at,
                     'branch_admin_id' => $branch_admin_id,
                     'status' => $status,
-                    'physical_address' => $physical_address
+                    'physical_address' => $physical_address,
+                    'branch_ext' => $branch_ext
                 ]
             );
 
@@ -1244,6 +1248,7 @@ class SetupController extends Controller
             $branchessdata['branch_super_executive_name'] = empty($items->exec_name) ? '' : Crypt::decryptString($items->exec_name);
             $branchessdata['branch_admin_id'] = $items->branch_admin_id;
             $branchessdata['branch_admin_name'] = Crypt::decryptString($items->admin_name);
+            $branchessdata['branch_ext'] = $items->branch_ext;
             $branchessdata['created_by'] = $items->created_by;
             $branchessdata['updated_by'] = $items->updated_by;
             $branchessdata['created_at'] = $items->created_at;
@@ -1292,6 +1297,7 @@ class SetupController extends Controller
             $branchessdata['branch_super_executive_name'] = empty($items->exec_name) ? '' : Crypt::decryptString($items->exec_name);
             $branchessdata['branch_admin_id'] = $items->branch_admin_id;
             $branchessdata['branch_admin_name'] = Crypt::decryptString($items->admin_name);
+            $branchessdata['branch_ext'] = $items->branch_ext;
             $branchessdata['created_by'] = $items->created_by;
             $branchessdata['updated_by'] = $items->updated_by;
             $branchessdata['created_at'] = $items->created_at;
@@ -1405,6 +1411,7 @@ class SetupController extends Controller
             $branchessdata['branch_super_executive_name'] = empty($items->exec_name) ? '' : Crypt::decryptString($items->exec_name);
             $branchessdata['branch_admin_id'] = $items->branch_admin_id;
             $branchessdata['branch_admin_name'] = empty($items->admin_name) ? '' : Crypt::decryptString($items->admin_name);
+            $branchessdata['branch_ext'] = $items->branch_ext;
             $branchessdata['created_by'] = $items->created_by;
             $branchessdata['updated_by'] = $items->updated_by;
             $branchessdata['created_at'] = $items->created_at;
@@ -1444,6 +1451,7 @@ class SetupController extends Controller
        $getbranches->transform(function($items){
              $branchessdata['id'] = $items->id;
              $branchessdata['branch_name'] = Crypt::decryptString($items->branchname);
+             $branchessdata['branch_ext'] = $items->branch_ext;
  
              return $branchessdata;
           });
@@ -1513,6 +1521,7 @@ class SetupController extends Controller
             $branchessdata['branch_super_executive_name'] = empty($items->exec_name) ? '' : Crypt::decryptString($items->exec_name);
             $branchessdata['branch_admin_id'] = $items->branch_admin_id;
             $branchessdata['branch_admin_name'] = empty($items->admin_name) ? '' : Crypt::decryptString($items->admin_name);
+            $branchessdata['branch_ext'] = $items->branch_ext;
             $branchessdata['created_by'] = $items->created_by;
             $branchessdata['updated_by'] = $items->updated_by;
             $branchessdata['created_at'] = $items->created_at;
@@ -1790,6 +1799,7 @@ class SetupController extends Controller
             $merchantsdata['updated_at'] = $items->updated_at;
             $merchantsdata['colors'] = $items->colors;
             $merchantsdata['sector_id'] = $items->sector_id;
+            $merchantsdata['enabled_qms'] = $items->enabled_qms;
             return $merchantsdata;
          });
 
