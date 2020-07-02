@@ -39,6 +39,7 @@ class FormsController extends Controller
         $merchant_id = $request->merchant_id;
         $form_code = $request->form_code;
         $status = $request->status;
+        $join_queue = $request->$join_queue;
 
         if($request->has('can_view'))
         {
@@ -68,7 +69,8 @@ class FormsController extends Controller
                     'created_by' => $userid, 
                     'created_at' => $created_at,
                     'temps' => $request->name,
-                    'can_view' => $can_view
+                    'can_view' => $can_view,
+                    'join_queue' => $join_queue
                 ]
             );
             $title = $request->name;
@@ -130,6 +132,7 @@ class FormsController extends Controller
         $merchant_id = $request->merchant_id;
         $form_code = $request->form_code;
         $status = $request->status;
+        $join_queue = $request->join_queue;
         if($request->has('can_view'))
         {
             $can_view = $request->can_view;
@@ -159,7 +162,8 @@ class FormsController extends Controller
                     'updated_by' => $userid, 
                     'updated_at' => $updated_at,
                     'temps' => $request->name,
-                    'can_view' => $can_view
+                    'can_view' => $can_view,
+                    'join_queue' => $join_queue
                 ]
             );
 
@@ -333,6 +337,7 @@ class FormsController extends Controller
             $formdata['nickname'] = $items->nickname;
             $formdata['can_print'] = $items->can_print;
             $formdata['can_view'] = $items->can_view;
+            $formdata['join_queue'] = $items->join_queue;
             $formdata['file_url'] = $items->url;
             $formdata['created_by'] = $items->created_by;
             $formdata['created_at'] = $items->created_at;
@@ -381,6 +386,7 @@ class FormsController extends Controller
             $formdata['nickname'] = $items->nickname;
             $formdata['can_print'] = $items->can_print;
             $formdata['can_view'] = $items->can_view;
+            $formdata['join_queue'] = $items->join_queue;
             $formdata['file_url'] = $items->url;
             $formdata['logo'] = $items->logo;
             $formdata['created_by'] = $items->created_by;
@@ -450,6 +456,7 @@ class FormsController extends Controller
             $formdata['nickname'] = $items->nickname;
             $formdata['can_print'] = $items->can_print;
             $formdata['can_view'] = $items->can_view;
+            $formdata['join_queue'] = $items->join_queue;
             $formdata['file_url'] = $items->url;
             $formdata['logo'] = $items->logo;
             $formdata['created_by'] = $items->created_by;
@@ -499,6 +506,7 @@ class FormsController extends Controller
             $formdata['nickname'] = $items->nickname;
             $formdata['can_print'] = $items->can_print;
             $formdata['can_view'] = $items->can_view;
+            $formdata['join_queue'] = $items->join_queue;
             $formdata['colors'] = $items->colors;
             $formdata['file_url'] = $items->url;
             $formdata['created_by'] = $items->created_by;
@@ -574,6 +582,7 @@ class FormsController extends Controller
             $formdata['nickname'] = $items->nickname;
             $formdata['can_print'] = $items->can_print;
             $formdata['can_view'] = $items->can_view;
+            $formdata['join_queue'] = $items->join_queue;
             $formdata['file_url'] = $items->url;
             $formdata['colors'] = $items->colors;
             $formdata['created_by'] = $items->created_by;
@@ -624,6 +633,7 @@ class FormsController extends Controller
             $formdata['nickname'] = $items->nickname;
             $formdata['can_print'] = $items->can_print;
             $formdata['can_view'] = $items->can_view;
+            $formdata['join_queue'] = $items->join_queue;
             $formdata['file_url'] = $items->url;
             $formdata['colors'] = $items->colors;
             $formdata['logo'] = $items->logo;
@@ -676,6 +686,7 @@ class FormsController extends Controller
             $formdata['nickname'] = $items->nickname;
             $formdata['can_print'] = $items->can_print;
             $formdata['can_view'] = $items->can_view;
+            $formdata['join_queue'] = $items->join_queue;
             $formdata['file_url'] = $items->url;
             $formdata['colors'] = $items->colors;
             $formdata['logo'] = $items->logo;
@@ -727,6 +738,7 @@ class FormsController extends Controller
             $formdata['nickname'] = $items->nickname;
             $formdata['can_print'] = $items->can_print;
             $formdata['can_view'] = $items->can_view;
+            $formdata['join_queue'] = $items->join_queue;
             $formdata['file_url'] = $items->url;
             $formdata['colors'] = $items->colors;
             $formdata['logo'] = $items->logo;
@@ -1038,6 +1050,7 @@ class FormsController extends Controller
             $formdata['nickname'] = $items->nickname;
             $formdata['can_print'] = $items->can_print;
             $formdata['can_view'] = $items->can_view;
+            $formdata['join_queue'] = $items->join_queue;
             $formdata['file_url'] = $items->url;
             $formdata['colors'] = $items->colors;
             $formdata['created_by'] = $items->created_by;
@@ -1093,6 +1106,7 @@ class FormsController extends Controller
             $formdata['nickname'] = $items->nickname;
             $formdata['can_print'] = $items->can_print;
             $formdata['can_view'] = $items->can_view;
+            $formdata['join_queue'] = $items->join_queue;
             $formdata['file_url'] = $items->url;
             $formdata['colors'] = $items->colors;
             $formdata['created_by'] = $items->created_by;
@@ -1144,6 +1158,7 @@ class FormsController extends Controller
             $formdata['nickname'] = $items->nickname;
             $formdata['can_print'] = $items->can_print;
             $formdata['can_view'] = $items->can_view;
+            $formdata['join_queue'] = $items->join_queue;
             $formdata['file_url'] = $items->url;
             $formdata['colors'] = $items->colors;
             $formdata['logo'] = $items->logo;

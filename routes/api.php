@@ -161,7 +161,9 @@ Route::group(['middleware' => ['auth:api'], 'prefix' => 'v1'], function(){
     Route::get('getActiveCompanyBranches/{id}', 'HomeController@getActiveCompanyBranches')->name('getActiveCompanyBranches')->middleware('scope:GIT_Admin,company_admin,branch_admin,super_executive,branch_executive,forms_client');
     Route::get('getNumCompanyBranches/{id}', 'HomeController@getNumCompanyBranches')->name('getNumCompanyBranches')->middleware('scope:GIT_Admin,company_admin,branch_admin,super_executive,branch_executive');
     Route::get('getCompanyBranchDetails/{id}', 'HomeController@getCompanyBranchDetails')->name('getCompanyBranchDetails')->middleware('scope:GIT_Admin,super_executive,company_admin,branch_executive,branch_admin');
+    Route::get('QMSEnabled/{id}', 'HomeController@QMSEnabled')->name('QMSEnabled')->middleware('scope:GIT_Admin,super_executive,company_admin,branch_executive,branch_admin');
     
+
     //upload and edit form print document for a form apis
     Route::post('uploadPrintFile/{merchant_id}/{code}', 'HomeController@uploadPrintFile')->name('uploadPrintFile')->middleware('scope:GIT_Admin,company_admin');
     Route::post('editPrintFile/{merchant_id}/{code}', 'HomeController@editPrintFile')->name('editPrintFile')->middleware('scope:GIT_Admin,company_admin');

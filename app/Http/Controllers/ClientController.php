@@ -301,7 +301,7 @@ class ClientController extends Controller
         ->orderBy('submitted_at', 'desc')
         ->paginate(15);
       
-        // return $getforms;a
+        // return $getforms
         //clean data
         $submittedformdata = [];
 

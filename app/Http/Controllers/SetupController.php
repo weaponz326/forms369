@@ -2138,4 +2138,32 @@ class SetupController extends Controller
 
     }
 
+     /**
+     * QMSEnabled get if compnay has QMS servises enabled
+     * needed when setting up a branch to decide on wheather to take branch extension
+     * and when creating forms
+     * @param  mixed $request
+     * @param  mixed $id id of the merchant
+     *
+     * @return void\Illuminate\Http\Response Yes or no
+     */
+     public function QMSEnabled(Request $request, $id){
+        $message = "NO";
+        //get all abuse reports
+        $qmsenabled = DB::table('merchants')
+        // ->select('enabled_qms')
+        ->where('id', $id)
+        ->first();
+
+        if($qmsenabled->enabled_qms == 1){
+            $message = "YES"; 
+        }
+
+         $response = [
+            'message' => $message
+        ];
+        return response()->json($response, 200);
+
+    }
+
 }

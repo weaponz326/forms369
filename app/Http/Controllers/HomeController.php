@@ -2589,5 +2589,18 @@ class HomeController extends Controller
         return $message;
     }
 
+    /**
+     * QMSEnabled get if compnay has QMS servises enabled
+     * needed when setting up a brnach to decide on wheather to take branch extension
+     * @param  mixed $request
+     * @param  mixed $id id of the merchant
+     *
+     * @return void\Illuminate\Http\Response Yes or no
+     */
+     public function QMSEnabled(Request $request, $id)
+     {
+        $message = (new SetupController)->QMSEnabled($request, $id);
+        return $message;
+     }
 
 }    
