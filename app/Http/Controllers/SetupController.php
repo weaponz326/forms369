@@ -236,6 +236,7 @@ class SetupController extends Controller
         $nickname = $request->nickname;
         $physical_address = $request->physical_address;
         $colors = $request->colors;
+        $enabled_qms = $request->enabled_qms;
 
         //get user creating the new merchant
         $user = $request->user();
@@ -263,7 +264,8 @@ class SetupController extends Controller
                     'sector_id'=> $sector_id,
                     'nickname' => $nickname,
                     'physical_address' => $physical_address,
-                    'colors' => $colors
+                    'colors' => $colors,
+                    'enabled_qms' => $enabled_qms
                 ]
             );
 
@@ -277,7 +279,7 @@ class SetupController extends Controller
                 ]
             );
 
-            //update super executivr merchant_id column in the users table
+            //update super executive merchant_id column in the users table
             DB::table('users')
             ->where('id', $super_id)
             ->update(
@@ -405,6 +407,7 @@ class SetupController extends Controller
         $nickname = $request->nickname;
         $physical_address = $request->physical_address;
         $colors = $request->colors;
+        $enabled_qms = $request->enabled_qms;
 
 
         //get user creating the new merchant
@@ -436,7 +439,8 @@ class SetupController extends Controller
                     'sector_id' => $sector_id,
                     'nickname' => $nickname,
                     'physical_address' => $physical_address,
-                    'colors' => $colors
+                    'colors' => $colors,
+                    'enabled_qms' => $enabled_qms
                 ]
             );
 
@@ -906,6 +910,7 @@ class SetupController extends Controller
             $merchantsdata['created_at'] = $items->created_at;
             $merchantsdata['updated_at'] = $items->updated_at;
             $merchantsdata['colors'] = $items->colors;
+            $merchantsdata['enabled_qms'] = $items->enabled_qms;
             return $merchantsdata;
          });
 
@@ -948,6 +953,7 @@ class SetupController extends Controller
             $merchantsdata['created_by'] = $items->created_by;
             $merchantsdata['created_at'] = $items->created_at;
             $merchantsdata['updated_at'] = $items->updated_at;
+            $merchantsdata['enabled_qms'] = $items->enabled_qms;
             return $merchantsdata;
          });
 
@@ -1075,6 +1081,7 @@ class SetupController extends Controller
             $merchantsdata['created_at'] = $items->created_at;
             $merchantsdata['updated_at'] = $items->updated_at;
             $merchantsdata['colors'] = $items->colors;
+            $merchantsdata['enabled_qms'] = $items->enabled_qms;
 
             return $merchantsdata;
          });
@@ -1139,6 +1146,7 @@ class SetupController extends Controller
             $merchantsdata['created_at'] = $items->created_at;
             $merchantsdata['updated_at'] = $items->updated_at;
             $merchantsdata['colors'] = $items->colors;
+            $merchantsdata['enabled_qms'] = $items->enabled_qms;
 
             return $merchantsdata;
          });
@@ -1190,6 +1198,7 @@ class SetupController extends Controller
             $merchantsdata['updated_at'] = $items->updated_at;
             $merchantsdata['colors'] = $items->colors;
             $merchantsdata['sector_id'] = $items->sector_id;
+            $merchantsdata['enabled_qms'] = $items->enabled_qms;
 
             return $merchantsdata;
          });
