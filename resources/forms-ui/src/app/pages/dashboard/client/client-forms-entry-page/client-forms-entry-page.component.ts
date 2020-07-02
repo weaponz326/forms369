@@ -312,18 +312,20 @@ export class ClientFormsEntryPageComponent implements OnInit, AfterViewInit {
   }
 
   showMerchantBranchesDialog() {
-    this.getBranches();
-    this.selectBranchDialogRef = this.modalService.open(this.selectBranchDialog, { centered: true, keyboard: false, backdrop: 'static' });
-    this.selectBranchDialogRef.result.then(
-      result => {
-        if (result == 'no') {
-          this.selectBranchDialogRef.close();
-          window.history.back();
+    if (this.form.can_view == 0) {
+      this.getBranches();
+      this.selectBranchDialogRef = this.modalService.open(this.selectBranchDialog, { centered: true, keyboard: false, backdrop: 'static' });
+      this.selectBranchDialogRef.result.then(
+        result => {
+          if (result == 'no') {
+            this.selectBranchDialogRef.close();
+            window.history.back();
+          }
+          else {
+          }
         }
-        else {
-        }
-      }
-    );
+      );
+    }
   }
 
   showMakeNewSubmissionDialog() {
@@ -357,6 +359,7 @@ export class ClientFormsEntryPageComponent implements OnInit, AfterViewInit {
     this.modalService.open(this.submissionOptions, { centered: true }).result.then(
       result => {
         if (result == 'replace') {
+          this.submissionCode = code;
           this.submissionCodeReplacement = code;
           this.modalService.open(this.confirmDialog, { centered: true }).result.then(
             res => {
@@ -433,7 +436,7 @@ export class ClientFormsEntryPageComponent implements OnInit, AfterViewInit {
   submit() {
     this.loading = true;
     const user_id = this.user.id.toString();
-    this.clientService.checkSubmittedFormStatus(user_id, this.submissionCode).then(
+    this.clientService.checkSubmittedFormStatus(user_id, this.form.form_code).then(
       res => {
         console.log('success');
         if (res.submitted == 0) {
