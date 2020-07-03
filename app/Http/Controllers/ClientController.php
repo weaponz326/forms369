@@ -296,7 +296,7 @@ class ClientController extends Controller
         ->join('merchants', 'merchants.id', '=', 'forms.merchant_id')
         // ->join('attachments','attachments.submission_code', '=', 'submitted_forms.submission_code')
         ->select('submitted_forms.*','merchants.merchant_name AS merchant_name', 'merchants.nickname','merchants.id AS merchant_id',
-        'users.name', 'users.email', 'forms.name AS form_name', 'forms.form_fields', 'forms.join_queue', 'logo')
+        'users.name', 'users.email', 'forms.name AS form_name', 'forms.form_fields', 'forms.join_queue', 'forms.can_view', 'logo')
         ->where('submitted_forms.client_id', $id)
         ->orderBy('submitted_at', 'desc')
         ->paginate(15);
@@ -311,6 +311,7 @@ class ClientController extends Controller
             $submittedformdata['form_name'] = Crypt::decryptString($items->form_name);
             $submittedformdata['form_fields'] = json_decode(Crypt::decryptString($items->form_fields));
             $submittedformdata['join_queue'] = $items->join_queue;
+            $submittedformdata['can_view'] = $items->can_view;
             $submittedformdata['merchant_name'] = Crypt::decryptString($items->merchant_name);
             $submittedformdata['merchant_id'] = $items->merchant_id;
             $submittedformdata['nickname'] = $items->nickname;
@@ -351,7 +352,7 @@ class ClientController extends Controller
         ->join('merchants', 'merchants.id', '=', 'forms.merchant_id')
         // ->join('attachments','attachments.submission_code', '=', 'submitted_forms.submission_code')
         ->select('submitted_forms.*','merchants.merchant_name AS merchant_name', 'merchants.nickname','merchants.id AS merchant_id',
-        'users.name', 'users.email', 'forms.name AS form_name', 'forms.form_fields', 'forms.join_queue', 'logo')
+        'users.name', 'users.email', 'forms.name AS form_name', 'forms.form_fields', 'forms.join_queue', 'forms.can_view', 'logo')
         ->where('submitted_forms.client_id', $id)
         // ->where('submitted_forms.status', '!=', 4)
         ->orderBy('submitted_at', 'desc')
@@ -367,6 +368,7 @@ class ClientController extends Controller
             $submittedformdata['form_name'] = Crypt::decryptString($items->form_name);
             $submittedformdata['form_fields'] = json_decode(Crypt::decryptString($items->form_fields));
             $submittedformdata['join_queue'] = $items->join_queue;
+            $submittedformdata['can_view'] = $items->can_view;
             $submittedformdata['merchant_name'] = Crypt::decryptString($items->merchant_name);
             $submittedformdata['merchant_id'] = $items->merchant_id;
             $submittedformdata['nickname'] = $items->nickname;
@@ -408,7 +410,7 @@ class ClientController extends Controller
             ->join('forms', 'forms.form_code', '=', 'form_id')
             ->join('merchants', 'merchants.id', '=', 'forms.merchant_id')
             ->select('submitted_forms.*','merchants.merchant_name AS merchant_name', 'merchants.nickname',
-            'users.name', 'users.email', 'forms.name AS form_name', 'forms.form_fields', 'forms.join_queue', 'logo')
+            'users.name', 'users.email', 'forms.name AS form_name', 'forms.form_fields', 'forms.join_queue', 'forms.can_view', 'logo')
             ->where([
                 ['submitted_forms.client_id', $id],
                 ['forms.temps', 'like', '%'.$form_name.'%']
@@ -422,7 +424,7 @@ class ClientController extends Controller
                 ->join('forms', 'forms.form_code', '=', 'form_id')
                 ->join('merchants', 'merchants.id', '=', 'forms.merchant_id')
                 ->select('submitted_forms.*','merchants.merchant_name AS merchant_name', 'merchants.nickname',
-                'users.name', 'users.email', 'forms.name AS form_name', 'forms.form_fields', 'forms.join_queue', 'logo')
+                'users.name', 'users.email', 'forms.name AS form_name', 'forms.form_fields', 'forms.join_queue', 'forms.can_view', 'logo')
                 ->where([
                     ['submitted_forms.client_id', $id],
                     ['forms.temps', 'like', '%'.$form_name.'%'],
@@ -442,6 +444,7 @@ class ClientController extends Controller
             $submittedformdata['form_name'] = Crypt::decryptString($items->form_name);
             $submittedformdata['form_fields'] = json_decode(Crypt::decryptString($items->form_fields));
             $submittedformdata['join_queue'] = $items->join_queue;
+            $submittedformdata['can_view'] = $items->can_view;
             $submittedformdata['merchant_name'] = Crypt::decryptString($items->merchant_name);
             $submittedformdata['nickname'] = $items->nickname;
             $submittedformdata['client_name'] = $items->name;
@@ -480,7 +483,7 @@ class ClientController extends Controller
             ->join('forms', 'forms.form_code', '=', 'form_id')
             ->join('merchants', 'merchants.id', '=', 'forms.merchant_id')
             ->select('submitted_forms.*','merchants.merchant_name AS merchant_name', 'merchants.nickname',
-            'users.name', 'users.email', 'forms.name AS form_name', 'forms.form_fields', 'forms.join_queue', 'logo')
+            'users.name', 'users.email', 'forms.name AS form_name', 'forms.form_fields', 'forms.join_queue', 'forms.can_view', 'logo')
             ->where([
                 ['submitted_forms.client_id', $id],
                 ['submitted_forms.submission_code', 'like', '%'.$code.'%']
@@ -493,7 +496,7 @@ class ClientController extends Controller
             ->join('forms', 'forms.form_code', '=', 'form_id')
             ->join('merchants', 'merchants.id', '=', 'forms.merchant_id')
             ->select('submitted_forms.*','merchants.merchant_name AS merchant_name', 'merchants.nickname',
-            'users.name', 'users.email', 'forms.name AS form_name', 'forms.form_fields', 'forms.join_queue', 'logo')
+            'users.name', 'users.email', 'forms.name AS form_name', 'forms.form_fields', 'forms.join_queue', 'forms.can_view', 'logo')
             ->where([
                 ['submitted_forms.client_id', $id],
                 ['submitted_forms.submission_code', 'like', '%'.$code.'%'],
@@ -513,6 +516,7 @@ class ClientController extends Controller
             $submittedformdata['form_name'] = Crypt::decryptString($items->form_name);
             $submittedformdata['form_fields'] = json_decode(Crypt::decryptString($items->form_fields));
             $submittedformdata['join_queue'] = $items->join_queue;
+            $submittedformdata['can_view'] = $items->can_view;
             $submittedformdata['merchant_name'] = Crypt::decryptString($items->merchant_name);
             $submittedformdata['nickname'] = $items->nickname;
             $submittedformdata['client_name'] = $items->name;
@@ -554,7 +558,7 @@ class ClientController extends Controller
              ->join('users', 'users.id', '=', 'client_id')
              ->join('forms', 'forms.form_code', '=', 'form_id')
              ->join('merchants', 'merchants.id', '=', 'forms.merchant_id')
-             ->select('submitted_forms.*','merchants.merchant_name AS merchant_name', 'merchants.nickname',
+             ->select('submitted_forms.*','merchants.merchant_name AS merchant_name', 'merchants.nickname', 'forms.can_view',
              'merchants.colors', 'users.name', 'users.email', 'forms.name AS form_name', 'forms.form_fields', 'forms.join_queue', 'logo')
              ->where([
                  ['submitted_forms.client_id', $id]
@@ -568,7 +572,7 @@ class ClientController extends Controller
                  ->join('users', 'users.id', '=', 'client_id')
                  ->join('forms', 'forms.form_code', '=', 'form_id')
                  ->join('merchants', 'merchants.id', '=', 'forms.merchant_id')
-                 ->select('submitted_forms.*','merchants.merchant_name AS merchant_name', 'merchants.nickname',
+                 ->select('submitted_forms.*','merchants.merchant_name AS merchant_name', 'merchants.nickname', 'forms.can_view',
                  'merchants.colors', 'users.name', 'users.email', 'forms.name AS form_name', 'forms.form_fields', 'forms.join_queue', 'logo')
                  ->where([
                      ['submitted_forms.client_id', $id],
@@ -589,6 +593,7 @@ class ClientController extends Controller
              $submittedformdata['form_name'] = Crypt::decryptString($items->form_name);
              $submittedformdata['form_fields'] = json_decode(Crypt::decryptString($items->form_fields));
              $submittedformdata['join_queue'] = $items->join_queue;
+             $submittedformdata['can_view'] = $items->can_view;
              $submittedformdata['merchant_name'] = Crypt::decryptString($items->merchant_name);
              $submittedformdata['nickname'] = $items->nickname;
              $submittedformdata['client_name'] = $items->name;
@@ -652,7 +657,7 @@ class ClientController extends Controller
         ->join('forms', 'forms.form_code', '=', 'form_id')
         ->join('merchants', 'merchants.id', '=', 'forms.merchant_id')
         ->select('submitted_forms.*','merchants.merchant_name AS merchant_name', 'merchants.nickname',
-        'users.name', 'users.email', 'forms.name AS form_name', 'forms.form_fields', 'forms.join_queue', 'logo')
+        'users.name', 'users.email', 'forms.name AS form_name', 'forms.form_fields', 'forms.join_queue', 'forms.can_view', 'logo')
         ->where('submitted_forms.client_id', $id)
         ->where('submitted_forms.status', $status)
         ->orderBy('submitted_at', 'desc')
@@ -667,6 +672,7 @@ class ClientController extends Controller
             $submittedformdata['form_name'] = Crypt::decryptString($items->form_name);
             $submittedformdata['form_fields'] = json_decode(Crypt::decryptString($items->form_fields));
             $submittedformdata['join_queue'] = $items->join_queue;
+            $submittedformdata['can_view'] = $items->can_view;
             $submittedformdata['merchant_name'] = Crypt::decryptString($items->merchant_name);
             $submittedformdata['nickname'] = $items->nickname;
             $submittedformdata['client_name'] = $items->name;
@@ -704,7 +710,7 @@ class ClientController extends Controller
         ->join('users', 'users.id', '=', 'client_id')
         ->join('forms', 'forms.form_code', '=', 'form_id')
         ->join('merchants', 'merchants.id', '=', 'forms.merchant_id')
-        ->select('submitted_forms.*','merchants.merchant_name AS merchant_name', 'merchants.nickname',
+        ->select('submitted_forms.*','merchants.merchant_name AS merchant_name', 'merchants.nickname', 
         'users.name', 'users.email', 'forms.name AS form_name', 'forms.form_fields', 'forms.join_queue', 'forms.can_view','logo')
         ->where('submitted_forms.client_id', $id)
         ->where('submitted_forms.status', $status)
@@ -1209,7 +1215,7 @@ class ClientController extends Controller
         ->join('merchants', 'merchants.id', '=', 'forms.merchant_id')
         // ->join('attachments','attachments.submission_code', '=', 'submitted_forms.submission_code')
         ->select('submitted_forms_deleted.*','merchants.merchant_name AS merchant_name', 'merchants.nickname',
-        'users.name', 'users.email', 'forms.name AS form_name', 'forms.form_fields', 'forms.join_queue', 'logo')
+        'users.name', 'users.email', 'forms.name AS form_name', 'forms.form_fields', 'forms.join_queue', 'forms.can_view','logo')
         ->where('submitted_forms_deleted.client_id', $id)
         ->paginate(15);
       
@@ -1222,6 +1228,7 @@ class ClientController extends Controller
             $submittedformdata['form_code'] = $items->form_id;
             $submittedformdata['form_name'] = Crypt::decryptString($items->form_name);
             $submittedformdata['form_fields'] = json_decode(Crypt::decryptString($items->form_fields));
+            $submittedformdata['can_view'] = $items->can_view;
             $submittedformdata['join_queue'] = $items->join_queue;
             $submittedformdata['merchant_name'] = Crypt::decryptString($items->merchant_name);
             $submittedformdata['nickname'] = $items->nickname;
@@ -1529,7 +1536,7 @@ class ClientController extends Controller
          ->join('forms', 'forms.form_code', '=', 'form_id')
          ->join('merchants', 'merchants.id', '=', 'forms.merchant_id')
          ->select('submitted_forms.*','merchants.merchant_name AS merchant_name', 'merchants.nickname',
-         'users.name', 'users.email', 'forms.name AS form_name', 'forms.form_fields', 'forms.join_queue', 'logo')
+         'users.name', 'users.email', 'forms.name AS form_name', 'forms.form_fields', 'forms.join_queue', 'forms.can_view', 'logo')
          ->where('merchants.id', $id)
          ->where('submitted_forms.status', $status)
          ->where('forms.temps', 'like', '%'.$term .'%')
@@ -1543,6 +1550,7 @@ class ClientController extends Controller
              $submittedformdata['form_code'] = $items->form_id;
              $submittedformdata['form_name'] = Crypt::decryptString($items->form_name);
              $submittedformdata['form_fields'] = json_decode(Crypt::decryptString($items->form_fields));
+             $submittedformdata['can_view'] = $items->can_view;
              $submittedformdata['join_queue'] = $items->join_queue;
              $submittedformdata['merchant_name'] = Crypt::decryptString($items->merchant_name);
              $submittedformdata['nickname'] = $items->nickname;
@@ -1582,7 +1590,7 @@ class ClientController extends Controller
             ->join('users', 'users.id', '=', 'client_id')
             ->join('forms', 'forms.form_code', '=', 'form_id')
             ->join('merchants', 'merchants.id', '=', 'forms.merchant_id')
-            ->select('submitted_forms.*','merchants.merchant_name AS merchant_name', 'merchants.nickname',
+            ->select('submitted_forms.*','merchants.merchant_name AS merchant_name', 'merchants.nickname', 'forms.can_view',
             'merchants.colors','users.name', 'users.email', 'forms.name AS form_name', 'forms.form_fields', 'forms.join_queue', 'logo')
             ->where('submitted_forms.client_id', $id)
             // ->where('submitted_forms.status', '!=', 4)
@@ -1593,8 +1601,8 @@ class ClientController extends Controller
             ->join('users', 'users.id', '=', 'client_id')
             ->join('forms', 'forms.form_code', '=', 'form_id')
             ->join('merchants', 'merchants.id', '=', 'forms.merchant_id')
-            ->select('submitted_forms.*','merchants.merchant_name AS merchant_name', 'merchants.nickname', 
-             'merchants.colors', 'users.name', 'users.email', 'forms.name AS form_name', 'forms.form_fields', 'forms.join_queue', 'logo')
+            ->select('submitted_forms.*','merchants.merchant_name AS merchant_name', 'merchants.nickname', 'forms.can_view',
+            'merchants.colors', 'users.name', 'users.email', 'forms.name AS form_name', 'forms.form_fields', 'forms.join_queue', 'logo')
             ->where('submitted_forms.client_id', $id)
             ->where('submitted_forms.status', $status)
             ->where('merchants.temp', 'like', '%'.$term .'%')
@@ -1609,6 +1617,7 @@ class ClientController extends Controller
              $submittedformdata['form_code'] = $items->form_id;
              $submittedformdata['form_name'] = Crypt::decryptString($items->form_name);
              $submittedformdata['form_fields'] = json_decode(Crypt::decryptString($items->form_fields));
+             $submittedformdata['can_view'] = $items->can_view;
              $submittedformdata['join_queue'] = $items->join_queue;
              $submittedformdata['merchant_name'] = Crypt::decryptString($items->merchant_name);
              $submittedformdata['nickname'] = $items->nickname;
