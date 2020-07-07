@@ -903,6 +903,8 @@ class SetupController extends Controller
             $merchantsdata['nickname'] = $items->nickname;
             $merchantsdata['status'] = $items->status;
             $merchantsdata['country'] = $items->country;
+            $merchantsdata['sector_id'] = $items->sector_id;
+            $merchantsdata['physical_address'] = $items->physical_address;
             $merchantsdata['logo'] = $items->logo;
             $merchantsdata['small_logo'] = $items->small_logo;
             $merchantsdata['super_executive_id'] = $items->super_id;
@@ -947,6 +949,8 @@ class SetupController extends Controller
             $merchantsdata['nickname'] = $items->nickname;
             $merchantsdata['status'] = $items->status;
             $merchantsdata['country'] = $items->country;
+            $merchantsdata['sector_id'] = $items->sector_id;
+            $merchantsdata['physical_address'] = $items->physical_address;
             $merchantsdata['logo'] = $items->logo;
             $merchantsdata['small_logo'] = $items->small_logo;
             $merchantsdata['super_executive_id'] = $items->super_id;
@@ -1072,9 +1076,10 @@ class SetupController extends Controller
             $merchantsdata['nickname'] = $items->nickname;
             $merchantsdata['status'] = $items->status;
             $merchantsdata['country'] = $items->country;
+            $merchantsdata['sector_id'] = $items->sector_id;
+            $merchantsdata['physical_address'] = $items->physical_address;
             $merchantsdata['logo'] = $items->logo;
             $merchantsdata['small_logo'] = $items->small_logo;
-            $merchantsdata['sector_id'] = $items->sector_id;
             $merchantsdata['temp'] = $items->temp;
             $merchantsdata['super_executive_id'] = $items->super_id;
             $merchantsdata['super_executive_name'] = empty($items->exec_name) ? '' : Crypt::decryptString($items->exec_name);
@@ -1137,9 +1142,10 @@ class SetupController extends Controller
             $merchantsdata['nickname'] = $items->nickname;
             $merchantsdata['status'] = $items->status;
             $merchantsdata['country'] = $items->country;
+            $merchantsdata['sector_id'] = $items->sector_id;
+            $merchantsdata['physical_address'] = $items->physical_address;
             $merchantsdata['logo'] = $items->logo;
             $merchantsdata['small_logo'] = $items->small_logo;
-            $merchantsdata['sector_id'] = $items->sector_id;
             $merchantsdata['temp'] = $items->temp;
             $merchantsdata['super_executive_id'] = $items->super_id;
             $merchantsdata['super_executive_name'] = empty($items->exec_name) ? '' : Crypt::decryptString($items->exec_name);
@@ -1190,6 +1196,8 @@ class SetupController extends Controller
             $merchantsdata['nickname'] = $items->nickname;
             $merchantsdata['status'] = $items->status;
             $merchantsdata['country'] = $items->country;
+            $merchantsdata['sector_id'] = $items->sector_id;
+            $merchantsdata['physical_address'] = $items->physical_address;
             $merchantsdata['logo'] = $items->logo;
             $merchantsdata['small_logo'] = $items->small_logo;
             $merchantsdata['super_executive_id'] = $items->super_id;
@@ -1201,7 +1209,6 @@ class SetupController extends Controller
             $merchantsdata['created_at'] = $items->created_at;
             $merchantsdata['updated_at'] = $items->updated_at;
             $merchantsdata['colors'] = $items->colors;
-            $merchantsdata['sector_id'] = $items->sector_id;
             $merchantsdata['enabled_qms'] = $items->enabled_qms;
 
             return $merchantsdata;
@@ -1241,6 +1248,7 @@ class SetupController extends Controller
             $branchessdata['branch_name'] = Crypt::decryptString($items->branchname);
             $branchessdata['status'] = $items->status;
             $branchessdata['status'] = $items->status;
+            $branchessdata['physical_address'] = $items->physical_address;
             $branchessdata['merchant_id'] = $items->merchant_id;
             $branchessdata['merchant_name'] = Crypt::decryptString($items->merchant_name);
             $branchessdata['nickname'] = $items->nickname;
@@ -1297,6 +1305,7 @@ class SetupController extends Controller
             $branchessdata['branch_super_executive_name'] = empty($items->exec_name) ? '' : Crypt::decryptString($items->exec_name);
             $branchessdata['branch_admin_id'] = $items->branch_admin_id;
             $branchessdata['branch_admin_name'] = Crypt::decryptString($items->admin_name);
+            $branchessdata['physical_address'] = $items->physical_address;
             $branchessdata['branch_ext'] = $items->branch_ext;
             $branchessdata['created_by'] = $items->created_by;
             $branchessdata['updated_by'] = $items->updated_by;
@@ -1406,6 +1415,7 @@ class SetupController extends Controller
             $branchessdata['status'] = $items->status;
             $branchessdata['merchant_id'] = $items->merchant_id;
             $branchessdata['merchant_name'] = Crypt::decryptString($items->merchant_name);
+            $branchessdata['physical_address'] = $items->physical_address;
             $branchessdata['nickname'] = $items->nickname;
             $branchessdata['branch_super_executive_id'] = $items->branch_super_id;
             $branchessdata['branch_super_executive_name'] = empty($items->exec_name) ? '' : Crypt::decryptString($items->exec_name);
@@ -1516,6 +1526,7 @@ class SetupController extends Controller
             $branchessdata['status'] = $items->status;
             $branchessdata['merchant_id'] = $items->merchant_id;
             $branchessdata['merchant_name'] = Crypt::decryptString($items->merchant_name);
+            $branchessdata['physical_address'] = $items->physical_address;
             $branchessdata['nickname'] = $items->nickname;
             $branchessdata['branch_super_executive_id'] = $items->branch_super_id;
             $branchessdata['branch_super_executive_name'] = empty($items->exec_name) ? '' : Crypt::decryptString($items->exec_name);
@@ -1791,6 +1802,8 @@ class SetupController extends Controller
             $merchantsdata['nickname'] = $items->nickname;
             $merchantsdata['status'] = $items->status;
             $merchantsdata['country'] = $items->country;
+            $merchantsdata['sector_id'] = $items->sector_id;
+            $merchantsdata['physical_address'] = $items->physical_address;
             $merchantsdata['logo'] = $items->logo;
             $merchantsdata['small_logo'] = $items->small_logo;
             $merchantsdata['can_print'] = $items->can_print;
