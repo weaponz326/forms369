@@ -7538,7 +7538,7 @@ let ClientFormNewEntryPageComponent = class ClientFormNewEntryPageComponent {
     }
     getBranches() {
         this.loadingBranches = true;
-        this.branchesService.getCompanyBranches(this.form.merchant_id).then(branches => {
+        this.branchesService.getAllActiveBranches(this.form.merchant_id).then(branches => {
             this.branchesList = branches;
             this.loadingBranches = false;
         }, error => {
@@ -8375,7 +8375,7 @@ let ClientFormsEntryPageComponent = class ClientFormsEntryPageComponent {
     }
     getBranches() {
         this.loadingBranches = true;
-        this.branchesService.getCompanyBranches(this.form.merchant_id).then(branches => {
+        this.branchesService.getAllActiveBranches(this.form.merchant_id).then(branches => {
             this.branchesList = branches;
             this.loadingBranches = false;
         }, error => {
@@ -9539,6 +9539,7 @@ let ClientFormsHistoryPageComponent = class ClientFormsHistoryPageComponent {
             this.hasMoreError = false;
             this.hasMore = this.checkIfHasMore();
             lodash__WEBPACK_IMPORTED_MODULE_1__["forEach"](forms, (form) => {
+                form.logo = this.endpointService.storageHost + form.logo;
                 form.submitted_at = this.dateService.safeDateFormat(form.submitted_at);
                 this.historyCollection.push(form);
             });
@@ -9549,12 +9550,7 @@ let ClientFormsHistoryPageComponent = class ClientFormsHistoryPageComponent {
     }
     deleteFormHistory(submission_code, index) {
         this.clientService.deleteFormHistory(this.user.id.toString(), submission_code).then(ok => {
-            if (ok) {
-                this.historyCollection.splice(index, 1);
-            }
-            else {
-                this.showDeleteFailedAlert();
-            }
+            ok ? this.historyCollection.splice(index, 1) : this.showDeleteFailedAlert();
         }, err => {
             console.log('error deleting form history');
             this.showDeleteFailedAlert();
@@ -21028,12 +21024,9 @@ let HomePageComponent = class HomePageComponent {
     initVars() {
         if (window.location.origin != 'http://localhost:4200') {
             this.checkAccessToLogin().then(res => {
-                if (res == 'ok') {
-                    this.firstName = this.localStorageService.getUser().firstname;
-                }
-                else {
-                    this.router.navigateByUrl('auth');
-                }
+                res == 'ok'
+                    ? this.firstName = this.localStorageService.getUser().firstname
+                    : this.router.navigateByUrl('auth');
             });
         }
         else {
@@ -26909,6 +26902,18 @@ let BranchService = class BranchService {
             });
         });
     }
+    getAllActiveBranches(merchant_id) {
+        return new Promise((resolve, reject) => {
+            const url = this.endpointService.apiHost + 'api/v1/getActiveCompanyBranches/' + merchant_id;
+            this.http.get(url, { headers: this.headers }).subscribe(res => {
+                console.log('response: ' + JSON.stringify(res));
+                resolve(res.branches);
+            }, err => {
+                console.log('error: ' + JSON.stringify(err));
+                reject(err);
+            });
+        });
+    }
     /**
      * Returns a collection of all branches without paginatioon.
      *
@@ -26920,8 +26925,7 @@ let BranchService = class BranchService {
             const url = this.endpointService.apiHost + 'api/v1/getAllBranchesForDropdown';
             this.http.get(url, { headers: this.headers }).subscribe(res => {
                 console.log('response: ' + JSON.stringify(res));
-                const response = res;
-                resolve(response.branches);
+                resolve(res.branches);
             }, err => {
                 console.log('error: ' + JSON.stringify(err));
                 reject(err);

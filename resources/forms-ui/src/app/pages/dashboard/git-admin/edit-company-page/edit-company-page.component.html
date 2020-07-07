@@ -93,11 +93,9 @@
                     <div class="row">
                       <div class="col-md-6">
                         <div class="form-group">
-                          <select class="form-control form-control-lg" formControlName="country"
-                            (change)="onCountrySelect($event)">
+                          <select class="form-control form-control-lg" formControlName="country" (change)="onCountrySelect($event)">
                             <option value="" disabled>Select Country</option>
-                            <option *ngFor="let country of countriesList | orderBy: 'country.name.common'"
-                              [value]="country.name.common">
+                            <option *ngFor="let country of countriesList | orderBy: 'country.name.common'" [value]="country.cca2">
                               {{ country.name.common }}
                             </option>
                           </select>
@@ -138,6 +136,58 @@
                             <option value="" disabled>Company Status</option>
                             <option value="1">Active </option>
                             <option value="0">In-Active </option>
+                          </select>
+                        </div>
+                      </div>
+                      <div class="col-md-6">
+                        <div class="form-group">
+                          <select class="form-control form-control-lg" formControlName="sector"
+                            (change)="onSectorSelect($event)">
+                            <option value="" disabled>Select Sectors</option>
+                            <option *ngFor="let sector of sectorList" [value]="sector.id">{{ sector.name }}</option>
+                          </select>
+                          <div *ngIf="submitted && f.sector.errors">
+                            <p class="input-error" *ngIf="f.sector.errors.required">Sector is required</p>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="col-md-6">
+                        <div class="form-group">
+                          <input type="text" class="form-control form-control-lg" formControlName="colorCode"
+                            placeholder="Enter Color Code">
+                          <div *ngIf="submitted && f.colorCode.errors">
+                            <p class="input-error" *ngIf="f.colorCode.errors.required">Color code is required</p>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+
+                    <div class="row">
+                      <div class="col-md-12">
+                        <div class="form-group">
+                          <input type="text" class="form-control form-control-lg" formControlName="nickname"
+                            placeholder="Enter Company Nickname">
+                          <div *ngIf="submitted && f.nickname.errors">
+                            <p class="input-error" *ngIf="f.nickname.errors.required">Company nickname is required</p>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+
+                    <div class="row">
+                      <div class="col-md-6">
+                        <div class="form-group">
+                          <input type="text" class="form-control form-control-lg" formControlName="address"
+                            placeholder="Enter Address">
+                        </div>
+                      </div>
+                      <div class="col-md-6">
+                        <div class="form-group">
+                          <select class="form-control form-control-lg" formControlName="enableQms"
+                            (change)="onQmsSelect($event)">
+                            <option value="" disabled>Enable QMS</option>
+                            <option value="0">No</option>
+                            <option value="1">Yes</option>
                           </select>
                         </div>
                       </div>

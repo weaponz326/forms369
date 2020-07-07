@@ -171,13 +171,22 @@
                             placeholder="Enter Address">
                         </div>
                       </div>
-                      <div class="col-md-12">
+                      <div class="col-md-6">
                         <div class="form-group">
                           <input type="text" class="form-control form-control-lg" formControlName="nickname"
                             placeholder="Enter Company Nickname">
                           <div *ngIf="submitted && f.nickname.errors">
                             <p class="input-error" *ngIf="f.nickname.errors.required">Company nickname is required</p>
                           </div>
+                        </div>
+                      </div>
+                      <div class="col-md-6">
+                        <div class="form-group">
+                          <select class="form-control form-control-lg" formControlName="enableQms" (change)="onQmsSelect($event)">
+                            <option value="" disabled>Enable QMS</option>
+                            <option value="0">No</option>
+                            <option value="1">Yes</option>
+                          </select>
                         </div>
                       </div>
                       <div class="col-md-12 text-center">

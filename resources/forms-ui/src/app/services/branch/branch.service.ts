@@ -144,6 +144,22 @@ export class BranchService {
     });
   }
 
+  getAllActiveBranches(merchant_id: string): Promise<any> {
+    return new Promise((resolve, reject) => {
+      const url = this.endpointService.apiHost + 'api/v1/getActiveCompanyBranches/' + merchant_id;
+      this.http.get<any>(url, { headers: this.headers }).subscribe(
+        res => {
+          console.log('response: ' + JSON.stringify(res));
+          resolve(res.branches);
+        },
+        err => {
+          console.log('error: ' + JSON.stringify(err));
+          reject(err);
+        }
+      );
+    });
+  }
+
   /**
    * Returns a collection of all branches without paginatioon.
    *
@@ -153,11 +169,10 @@ export class BranchService {
   getAllBranchCollection(): Promise<any> {
     return new Promise((resolve, reject) => {
       const url = this.endpointService.apiHost + 'api/v1/getAllBranchesForDropdown';
-      this.http.get(url, { headers: this.headers }).subscribe(
+      this.http.get<any>(url, { headers: this.headers }).subscribe(
         res => {
           console.log('response: ' + JSON.stringify(res));
-          const response = res as any;
-          resolve(response.branches);
+          resolve(res.branches);
         },
         err => {
           console.log('error: ' + JSON.stringify(err));

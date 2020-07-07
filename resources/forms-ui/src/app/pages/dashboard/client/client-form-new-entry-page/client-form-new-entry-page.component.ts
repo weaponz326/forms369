@@ -205,7 +205,7 @@ export class ClientFormNewEntryPageComponent implements OnInit, AfterViewInit {
 
   getBranches() {
     this.loadingBranches = true;
-    this.branchesService.getCompanyBranches(this.form.merchant_id).then(
+    this.branchesService.getAllActiveBranches(this.form.merchant_id).then(
       branches => {
         this.branchesList = branches;
         this.loadingBranches = false;

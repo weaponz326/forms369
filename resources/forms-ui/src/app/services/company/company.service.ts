@@ -40,6 +40,7 @@ export class CompanyService {
       form.set('nickname', merchant.nickname);
       form.set('can_print', merchant.can_print);
       form.set('small_logo', merchant.small_logo);
+      form.set('enabled_qms', merchant.enabled_qms);
       form.set('merchant_name', merchant.merchant_name);
       form.set('super_id', merchant.super_id.toString());
       form.set('admin_id', merchant.admin_id.toString());

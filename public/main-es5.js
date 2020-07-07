@@ -7683,7 +7683,7 @@ var ClientFormNewEntryPageComponent = /** @class */ (function () {
     ClientFormNewEntryPageComponent.prototype.getBranches = function () {
         var _this = this;
         this.loadingBranches = true;
-        this.branchesService.getCompanyBranches(this.form.merchant_id).then(function (branches) {
+        this.branchesService.getAllActiveBranches(this.form.merchant_id).then(function (branches) {
             _this.branchesList = branches;
             _this.loadingBranches = false;
         }, function (error) {
@@ -8546,7 +8546,7 @@ var ClientFormsEntryPageComponent = /** @class */ (function () {
     ClientFormsEntryPageComponent.prototype.getBranches = function () {
         var _this = this;
         this.loadingBranches = true;
-        this.branchesService.getCompanyBranches(this.form.merchant_id).then(function (branches) {
+        this.branchesService.getAllActiveBranches(this.form.merchant_id).then(function (branches) {
             _this.branchesList = branches;
             _this.loadingBranches = false;
         }, function (error) {
@@ -9742,6 +9742,7 @@ var ClientFormsHistoryPageComponent = /** @class */ (function () {
             _this.hasMoreError = false;
             _this.hasMore = _this.checkIfHasMore();
             lodash__WEBPACK_IMPORTED_MODULE_1__["forEach"](forms, function (form) {
+                form.logo = _this.endpointService.storageHost + form.logo;
                 form.submitted_at = _this.dateService.safeDateFormat(form.submitted_at);
                 _this.historyCollection.push(form);
             });
@@ -9753,12 +9754,7 @@ var ClientFormsHistoryPageComponent = /** @class */ (function () {
     ClientFormsHistoryPageComponent.prototype.deleteFormHistory = function (submission_code, index) {
         var _this = this;
         this.clientService.deleteFormHistory(this.user.id.toString(), submission_code).then(function (ok) {
-            if (ok) {
-                _this.historyCollection.splice(index, 1);
-            }
-            else {
-                _this.showDeleteFailedAlert();
-            }
+            ok ? _this.historyCollection.splice(index, 1) : _this.showDeleteFailedAlert();
         }, function (err) {
             console.log('error deleting form history');
             _this.showDeleteFailedAlert();
@@ -21651,12 +21647,9 @@ var HomePageComponent = /** @class */ (function () {
         var _this = this;
         if (window.location.origin != 'http://localhost:4200') {
             this.checkAccessToLogin().then(function (res) {
-                if (res == 'ok') {
-                    _this.firstName = _this.localStorageService.getUser().firstname;
-                }
-                else {
-                    _this.router.navigateByUrl('auth');
-                }
+                res == 'ok'
+                    ? _this.firstName = _this.localStorageService.getUser().firstname
+                    : _this.router.navigateByUrl('auth');
             });
         }
         else {
@@ -27743,6 +27736,19 @@ var BranchService = /** @class */ (function () {
             });
         });
     };
+    BranchService.prototype.getAllActiveBranches = function (merchant_id) {
+        var _this = this;
+        return new Promise(function (resolve, reject) {
+            var url = _this.endpointService.apiHost + 'api/v1/getActiveCompanyBranches/' + merchant_id;
+            _this.http.get(url, { headers: _this.headers }).subscribe(function (res) {
+                console.log('response: ' + JSON.stringify(res));
+                resolve(res.branches);
+            }, function (err) {
+                console.log('error: ' + JSON.stringify(err));
+                reject(err);
+            });
+        });
+    };
     /**
      * Returns a collection of all branches without paginatioon.
      *
@@ -27755,8 +27761,7 @@ var BranchService = /** @class */ (function () {
             var url = _this.endpointService.apiHost + 'api/v1/getAllBranchesForDropdown';
             _this.http.get(url, { headers: _this.headers }).subscribe(function (res) {
                 console.log('response: ' + JSON.stringify(res));
-                var response = res;
-                resolve(response.branches);
+                resolve(res.branches);
             }, function (err) {
                 console.log('error: ' + JSON.stringify(err));
                 reject(err);

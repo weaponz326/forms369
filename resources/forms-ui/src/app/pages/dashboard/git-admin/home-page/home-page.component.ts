@@ -39,12 +39,9 @@ export class HomePageComponent implements OnInit {
     if (window.location.origin != 'http://localhost:4200') {
       this.checkAccessToLogin().then(
         res => {
-          if (res == 'ok') {
-            this.firstName = this.localStorageService.getUser().firstname;
-          }
-          else {
-            this.router.navigateByUrl('auth');
-          }
+          res == 'ok'
+            ? this.firstName = this.localStorageService.getUser().firstname
+            : this.router.navigateByUrl('auth');
         }
       );
     }

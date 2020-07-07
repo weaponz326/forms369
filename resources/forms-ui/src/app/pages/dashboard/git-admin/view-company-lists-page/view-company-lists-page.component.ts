@@ -114,6 +114,7 @@ export class ViewCompanyListsPageComponent implements OnInit {
 
   edit(ev: any, company: any) {
     ev.stopPropagation();
+    console.log('company:___:____' + JSON.stringify(company));
     this.router.navigateByUrl('/git_admin/edit/company', { state: { company: company }});
   }
 
