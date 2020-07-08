@@ -1657,12 +1657,13 @@ class ClientController extends Controller
      */
      public function generateSubCode()
      {
-         $submission_code = uniqid();
-         $sub_code = substr($submission_code, 5);
+         $submission_code = mt_rand(10000000, 99999999);
+        //  $submission_code = uniqid();
+        //  $sub_code = substr($submission_code, 5);
 
         $insertion = "-";
         $index = 4;
-        $result = substr_replace($sub_code, $insertion, $index, 0);
+        $result = substr_replace($submission_code, $insertion, $index, 0);
 
         $response = [
             'code' => $result
