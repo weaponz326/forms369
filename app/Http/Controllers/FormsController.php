@@ -39,7 +39,7 @@ class FormsController extends Controller
         $merchant_id = $request->merchant_id;
         $form_code = $request->form_code;
         $status = $request->status;
-        $join_queue = $request->$join_queue;
+        $join_queue = $request->join_queue;
         $require_signature = $request->require_signature;
 
         if($request->has('can_view'))
@@ -72,7 +72,7 @@ class FormsController extends Controller
                     'temps' => $request->name,
                     'can_view' => $can_view,
                     'join_queue' => $join_queue,
-                    'require_siganature' => $require_signature
+                    'require_signature' => $require_signature
                 ]
             );
             $title = $request->name;
