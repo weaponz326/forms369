@@ -5,6 +5,7 @@ export class CompanyBranches {
         public branch_super_id: number,
         public branch_admin_id: number,
         public physical_address?: string,
+        public branch_ext?: string,
         public status?: number,
         public created_by?: string,
         public created_at?: string,

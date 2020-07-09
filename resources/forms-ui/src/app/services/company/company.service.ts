@@ -106,12 +106,17 @@ export class CompanyService {
           filename => {
             const form = new FormData();
             form.set('logo', filename);
+            form.set('colors', merchant.colors);
             form.set('country', merchant.country);
+            form.set('nickname', merchant.nickname);
             form.set('can_print', merchant.can_print);
+            form.set('enabled_qms', merchant.enabled_qms);
             form.set('status', merchant.status.toString());
             form.set('merchant_name', merchant.merchant_name);
             form.set('super_id', merchant.super_id.toString());
             form.set('admin_id', merchant.admin_id.toString());
+            form.set('sector_id', merchant.sector_id.toString());
+            form.set('physical_address', merchant.physical_address);
 
             this.updateCompany(url, form).then(
               ok => {
@@ -129,12 +134,17 @@ export class CompanyService {
       else {
         const form = new FormData();
         form.set('logo', merchant.logo);
+        form.set('colors', merchant.colors);
         form.set('country', merchant.country);
+        form.set('nickname', merchant.nickname);
         form.set('can_print', merchant.can_print);
+        form.set('enabled_qms', merchant.enabled_qms);
         form.set('status', merchant.status.toString());
         form.set('merchant_name', merchant.merchant_name);
         form.set('super_id', merchant.super_id.toString());
         form.set('admin_id', merchant.admin_id.toString());
+        form.set('sector_id', merchant.sector_id.toString());
+        form.set('physical_address', merchant.physical_address);
 
         this.updateCompany(url, form).then(
           ok => {
@@ -320,6 +330,24 @@ export class CompanyService {
           console.log('response: ' + JSON.stringify(res));
           const response = res as any;
           resolve(response.users.data);
+        },
+        err => {
+          console.log('error: ' + JSON.stringify(err));
+          reject(err);
+        }
+      );
+    });
+  }
+
+  isQMSEnabled(merchant_id: string): Promise<boolean> {
+    return new Promise((resolve, reject) => {
+      const url = this.endpointService.apiHost + 'api/v1/QMSEnabled/' + merchant_id;
+      this.http.get<any>(url, { headers: this.headers }).subscribe(
+        res => {
+          console.log('response: ' + JSON.stringify(res));
+          _.toLower(res.message) == 'yes'
+            ? resolve(true)
+            : resolve(false);
         },
         err => {
           console.log('error: ' + JSON.stringify(err));

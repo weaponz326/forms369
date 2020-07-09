@@ -11,6 +11,7 @@ import { DateTimeService } from 'src/app/services/date-time/date-time.service';
 import { ExecutiveService } from 'src/app/services/executive/executive.service';
 import { LocalStorageService } from 'src/app/services/storage/local-storage.service';
 import { SectorsService } from 'src/app/services/sectors/sectors.service';
+import { ReloadingService } from 'src/app/services/reloader/reloading.service';
 
 @Component({
   selector: 'app-edit-company-page',
@@ -48,12 +49,13 @@ export class EditCompanyPageComponent implements OnInit {
     private sectorService: SectorsService,
     private companyService: CompanyService,
     private dateTimeService: DateTimeService,
+    private reloaderService: ReloadingService,
     private localService: LocalStorageService,
     private executiveService: ExecutiveService,
     private countryPickerService: CountryPickerService
   ) {
     this.navigatedData = window.history.state.company;
-    this.resolveReloadDataLoss();
+    this.initNavData();
     console.log(this.navigatedData);
     this.sectorList = [];
     this.countriesList = [];
@@ -68,27 +70,13 @@ export class EditCompanyPageComponent implements OnInit {
     this.initializeView();
   }
 
-  /**
-   * This is just a little hack to prevent loss of data passed in to window.history.state
-   * whenever the page is reloaded. The purpose is to ensure we still have the data needed
-   * to help build all the elements of this page.
-   *
-   * @version 0.0.2
-   * @memberof EditFormPageComponent
-   */
-  resolveReloadDataLoss() {
-    if (!_.isUndefined(this.navigatedData)) {
-      console.log('is undefined oooooooooooo');
-      sessionStorage.setItem('u_data', JSON.stringify(this.navigatedData));
-    }
-    else {
-      this.navigatedData = JSON.parse(sessionStorage.getItem('u_data'));
-    }
-  }
-
   ngOnInit() {
     this.countryPickerService.getCountries().subscribe(countries => { this.countriesList = countries; });
     this.buildForm();
+  }
+
+  initNavData() {
+    this.navigatedData = this.reloaderService.resolveDataLoss(this.navigatedData);
   }
 
   initializeView() {
@@ -137,13 +125,13 @@ export class EditCompanyPageComponent implements OnInit {
       logo: [''],
       smallLogoFile: [''],
       status: [merchant.status],
-      address: [merchant.address],
       enableQms: [merchant.enabled_qms],
       smallLogoName: [merchant.small_logo],
+      address: [merchant.physical_address],
       companyAdmin: ['', Validators.required],
       superExecutive: ['', Validators.required],
-      sector: [merchant.sector, Validators.required],
       country: [merchant.country, Validators.required],
+      sector: [merchant.sector_id, Validators.required],
       colorCode: [merchant.colors, Validators.required],
       nickname: [merchant.nickname, Validators.required],
       name: [merchant.merchant_name, Validators.required],
@@ -236,8 +224,8 @@ export class EditCompanyPageComponent implements OnInit {
       this.f.country.value,
       '',
       super_executive_id,
-      '',
       user_id,
+      '',
       super_admin_id,
       this.f.allowPrint.value,
       this.f.sector.value,

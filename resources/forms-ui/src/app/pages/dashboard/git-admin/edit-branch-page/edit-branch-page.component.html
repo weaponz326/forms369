@@ -93,13 +93,28 @@
                           </div>
                         </div>
                       </div>
-                      <div class="col-md-12">
+                      <div class="col-md-6">
                         <div class="form-group">
                           <select class="form-control form-control-lg" formControlName="status">
                             <option value="" disabled>Branch Status</option>
                             <option value="1">Active </option>
                             <option value="0">In-Active </option>
                           </select>
+                        </div>
+                      </div>
+                     <div class="col-md-6">
+                       <div class="form-group">
+                         <input type="text" class="form-control form-control-lg" formControlName="address"
+                           placeholder="Enter Address">
+                       </div>
+                     </div>
+                    </div>
+
+                    <div class="row">
+                      <div *ngIf="showBranchExtension" class="col-md-12">
+                        <div class="form-group">
+                          <input type="text" class="form-control form-control-lg" formControlName="branchExt"
+                            placeholder="Branch Extension">
                         </div>
                       </div>
                     </div>

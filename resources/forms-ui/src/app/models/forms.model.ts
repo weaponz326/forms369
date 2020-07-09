@@ -8,6 +8,7 @@ export class Forms {
         public updated_by?: number,
         public status?: number,
         public can_view?: number,
+        public join_queue?: number,
         public created_at?: string,
         public updated_at?: string,
         public deleted_at?: string,

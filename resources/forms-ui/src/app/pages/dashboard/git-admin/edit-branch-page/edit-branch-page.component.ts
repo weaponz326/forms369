@@ -8,6 +8,7 @@ import { CompanyBranches } from 'src/app/models/company-branches.model';
 import { BranchService } from 'src/app/services/branch/branch.service';
 import { CompanyService } from 'src/app/services/company/company.service';
 import { ExecutiveService } from 'src/app/services/executive/executive.service';
+import { ReloadingService } from 'src/app/services/reloader/reloading.service';
 
 @Component({
   selector: 'app-edit-branch-page',
@@ -25,6 +26,7 @@ export class EditBranchPageComponent implements OnInit {
   navigatedData: any;
   companiesList: Array<any>;
   branchAdminsList: Array<any>;
+  showBranchExtension: boolean;
   branchExecutivesList: Array<any>;
   companyNamesList: Array<string>;
   branchAdminEmailList: Array<string>;
@@ -38,10 +40,11 @@ export class EditBranchPageComponent implements OnInit {
     private formBuilder: FormBuilder,
     private branchService: BranchService,
     private companyService: CompanyService,
+    private reloaderService: ReloadingService,
     private executiveService: ExecutiveService
   ) {
     this.navigatedData = window.history.state.branch;
-    this.resolveReloadDataLoss();
+    this.initNavData();
     console.log(this.navigatedData);
     this.companiesList = [];
     this.companyNamesList = [];
@@ -53,26 +56,12 @@ export class EditBranchPageComponent implements OnInit {
     this.initializeView();
   }
 
-  /**
-   * This is just a little hack to prevent loss of data passed in to window.history.state
-   * whenever the page is reloaded. The purpose is to ensure we still have the data needed
-   * to help build all the elements of this page.
-   *
-   * @version 0.0.2
-   * @memberof EditFormPageComponent
-   */
-  resolveReloadDataLoss() {
-    if (!_.isUndefined(this.navigatedData)) {
-      console.log('is undefined oooooooooooo');
-      sessionStorage.setItem('u_data', JSON.stringify(this.navigatedData));
-    }
-    else {
-      this.navigatedData = JSON.parse(sessionStorage.getItem('u_data'));
-    }
-  }
-
   ngOnInit() {
     this.buildForm();
+  }
+
+  initNavData() {
+    this.navigatedData = this.reloaderService.resolveDataLoss(this.navigatedData);
   }
 
   public get f() {
@@ -80,19 +69,35 @@ export class EditBranchPageComponent implements OnInit {
   }
 
   buildForm() {
-    this.form = this.formBuilder.group({
-      status: [this.navigatedData.status],
-      branchAdmin: ['', Validators.required],
-      branchSupervisor: ['', Validators.required],
-      merchant: [this.navigatedData.merchant_name, Validators.required],
-      branchName: [this.navigatedData.branch_name, Validators.required]
-    });
+    if (this.navigatedData.branch_ext != null) {
+      this.showBranchExtension = true;
+      this.form = this.formBuilder.group({
+        status: [this.navigatedData.status],
+        branchAdmin: ['', Validators.required],
+        branchExt: [this.navigatedData.branch_ext],
+        branchSupervisor: ['', Validators.required],
+        address: [this.navigatedData.physical_address],
+        merchant: [this.navigatedData.merchant_name, Validators.required],
+        branchName: [this.navigatedData.branch_name, Validators.required]
+      });
+    }
+    else {
+      this.form = this.formBuilder.group({
+        status: [this.navigatedData.status],
+        branchAdmin: ['', Validators.required],
+        branchSupervisor: ['', Validators.required],
+        address: [this.navigatedData.physical_address],
+        merchant: [this.navigatedData.merchant_name, Validators.required],
+        branchName: [this.navigatedData.branch_name, Validators.required]
+      });
+    }
   }
 
   getFormData() {
     let merchant_id = 0;
     let branch_super_id = 0;
     let brandh_admin_id = 0;
+    const branch_extension = !this.showBranchExtension ? null : this.f.branchExt.value;
     _.forEach(this.companiesList, (company) => {
       if (company.merchant_name == this.f.merchant.value) {
         console.log('cccccccccc: ' + company.id);
@@ -115,7 +120,8 @@ export class EditBranchPageComponent implements OnInit {
       this.f.branchName.value,
       branch_super_id,
       brandh_admin_id,
-      this.f.status.value
+      this.f.status.value,
+      branch_extension
     );
     return branch;
   }
