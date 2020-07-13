@@ -299,3 +299,12 @@
     <button type="button" class="btn btn-primary" (click)="modal.close('yes')">Yes</button>
   </div>
 </ng-template>
+
+<ng-template #joinQueue let-modal>
+  <app-join-queue-dialog [branchExtension]="branchExtension"></app-join-queue-dialog>
+</ng-template>
+
+<ng-template #alreadyJoinQueue let-modal>
+  <app-already-joined-queue-dialog></app-already-joined-queue-dialog>
+</ng-template>
+

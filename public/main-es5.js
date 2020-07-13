@@ -320,6 +320,17 @@ module.exports = "\n<router-outlet></router-outlet>\n"
 
 /***/ }),
 
+/***/ "./node_modules/raw-loader/index.js!./src/app/components/already-joined-queue-dialog/already-joined-queue-dialog.component.html":
+/*!*****************************************************************************************************************************!*\
+  !*** ./node_modules/raw-loader!./src/app/components/already-joined-queue-dialog/already-joined-queue-dialog.component.html ***!
+  \*****************************************************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = "<p>already-joined-queue-dialog works!</p>\n"
+
+/***/ }),
+
 /***/ "./node_modules/raw-loader/index.js!./src/app/components/footer-bar/footer-bar.component.html":
 /*!*******************************************************************************************!*\
   !*** ./node_modules/raw-loader!./src/app/components/footer-bar/footer-bar.component.html ***!
@@ -339,6 +350,17 @@ module.exports = "<footer class=\"footer\">\n  <div class=\"d-sm-flex justify-co
 /***/ (function(module, exports) {
 
 module.exports = "<form>\n  <div class=\"dropdown\">\n    <button class=\"btn btn-light dropdown-toggle\" type=\"button\" id=\"dropdownMenuButton\" data-toggle=\"dropdown\"\n      aria-haspopup=\"true\" aria-expanded=\"false\">\n      {{ flag }} &nbsp; &nbsp; {{ title }}\n    </button>\n    <div class=\"dropdown-menu\" aria-labelledby=\"dropdownMenuButton\">\n      <a class=\"dropdown-item\" *ngFor=\"let country of countriesList\" (click)=\"selectCountry(country)\">\n        {{ country.flag }} &nbsp; &nbsp; {{ country.name.common }}\n      </a>\n    </div>\n  </div>\n</form>"
+
+/***/ }),
+
+/***/ "./node_modules/raw-loader/index.js!./src/app/components/join-queue-dialog/join-queue-dialog.component.html":
+/*!*********************************************************************************************************!*\
+  !*** ./node_modules/raw-loader!./src/app/components/join-queue-dialog/join-queue-dialog.component.html ***!
+  \*********************************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = "<div class=\"modal-header\">\n  <h4 class=\"modal-title\" id=\"modal-basic-title\">Join Queue</h4>\n  <button type=\"button\" class=\"close\" aria-label=\"Close\" (click)=\"close()\">\n    <span aria-hidden=\"true\">&times;</span>\n  </button>\n</div>\n\n<div class=\"modal-body\">\n  <form [formGroup]=\"form\">\n    <div class=\"form-group\">\n      <select class=\"form-control form-control-lg\" formControlName=\"joinType\" (change)=\"onTimeSelect($event)\">\n        <option value=\"\" disabled>Choose Join Time</option>\n        <option value=\"now\">Join Now</option>\n        <option value=\"later\">Join Later</option>\n      </select>\n    </div>\n\n    <div class=\"form-group\" *ngIf=\"showTimer\">\n      <ngb-timepicker [meridian]=\"true\" formControlName=\"joinTime\"></ngb-timepicker>\n    </div>\n\n    <div class=\"form-group\">\n      <select class=\"form-control form-control-lg\" formControlName=\"queueService\" (change)=\"onServiceSelect($event)\">\n        <option value=\"\" disabled>Choose QMS Service</option>\n        <option value=\"now\">Join Now</option>\n        <option value=\"later\">Join Later</option>\n      </select>\n    </div>\n  </form>\n</div>\n\n<div class=\"modal-footer\">\n  <button type=\"button\" class=\"btn btn-primary\" (click)=\"submit()\">Save</button>\n  <button type=\"button\" class=\"btn btn-outline-primary\" (click)=\"close()\">Cancel</button>\n</div>"
 
 /***/ }),
 
@@ -668,7 +690,7 @@ module.exports = "<div class=\"container-scroller\">\n  <app-navigation-bar></ap
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<div class=\"container-scroller\">\n  <app-navigation-bar></app-navigation-bar>\n  <div class=\"container-fluid page-body-wrapper\">\n    <app-side-bar></app-side-bar>\n    <div class=\"main-panel\">\n      <div class=\"content-wrapper\">\n        <div class=\"row\">\n          <div class=\"col-md-12 grid-margin\">\n            <div class=\"d-flex justify-content-between flex-wrap\">\n              <div class=\"d-flex align-items-end flex-wrap\">\n                <div class=\"mr-md-3 mr-xl-5\">\n                  <h2 class=\"page-title\">{{ form.form_name || form.name }}</h2>\n                </div>\n                <div class=\"d-flex\">\n                </div>\n              </div>\n              <div class=\"d-flex justify-content-between align-items-end flex-wrap\">\n              </div>\n            </div>\n          </div>\n        </div>\n\n        <div [hidden]=\"created || saved\" class=\"row\">\n          <div class=\"col-md-8 offset-md-2 grid-margin stretch-card\">\n            <div class=\"card\">\n              <div class=\"card-body\">\n                <p class=\"card-title\">{{ form.form_name || form.name }}</p>\n                <p class=\"text-muted\">All forms with <span class=\"text-danger\">*</span> are required and should be filled.</p>\n                <div class=\"card-text pt-5\">\n                  <form class=\"forms-sample\">\n                    <div class=\"form-builder-container\">\n                      <div id=\"form-render\"></div>\n                    </div>\n\n                    <div *ngIf=\"loadingAttachments\" class=\"row m-md-2\">\n                      <div class=\"col-md-12 col-sm-12 m-md-2\">\n                        <div class=\"d-flex justify-content-center\">\n                          <div class=\"spinner-border m-2\" style=\"width: 2rem; height: 2rem;\" role=\"status\">\n                            <span class=\"sr-only\">Loading...</span>\n                          </div>\n                        </div>\n                      </div>\n                    </div>\n\n                    <div class=\"attachments-section\" *ngIf=\"!loadingAttachments && showAttachments\">\n                      <div class=\"card mb-4\">\n                        <div class=\"card-body\">\n                          <h5 class=\"card-title\">Form Attachments / Documents</h5>\n                          <div class=\"row\" *ngFor=\"let file of existingAttachments\">\n                            <div class=\"col-11\" style=\"padding-right: 8px;\">\n                              <ol class=\"files-list\">\n                                <li class=\"file-item\">\n                                  <i class=\"mdi mdi-paperclip menu-icon\"></i>\n                                  <h5 class=\"file-link-title\"><strong>{{ transformToRealText(file.key) }}</strong></h5>\n                                  <a class=\"alert-link file-link\" (click)=\"openModal($event, file.url)\">{{ file.url }}</a>\n                                </li>\n                              </ol>\n                            </div>\n                            <div class=\"col-1\" style=\"padding-right: 3px; padding-left: 4px; margin-top: 7px;\">\n                              <button class=\"btn btn-primary btn-icon\" (click)=\"download(file.url)\">\n                                <i class=\"mdi mdi-download-outline\"></i>\n                              </button>\n                            </div>\n                          </div>\n                        </div>\n                      </div>\n                    </div>\n\n                    <div class=\"buttons-list\">\n                      <button *ngIf=\"loading\" class=\"btn btn-primary btn-lg mr-2\" type=\"button\" disabled>\n                        <span class=\"spinner-border spinner-border-sm\" role=\"status\" aria-hidden=\"true\"></span>\n                        <span class=\"sr-only\">Please wait...</span>\n                      </button>\n                      <button *ngIf=\"!loading\" type=\"submit\" class=\"btn btn-primary btn-lg mr-2\" (click)=\"submit()\">Submit</button>\n                      <button *ngIf=\"!loading\" type=\"submit\" class=\"btn btn-primary btn-lg mr-2\" (click)=\"saveAsDraft()\">Save as Draft</button>\n                      <button type=\"button\" class=\"btn btn-light btn-lg\" (click)=\"cancel()\">Cancel</button>\n                    </div>\n                  </form>\n                </div>\n              </div>\n            </div>\n          </div>\n        </div>\n\n        <div *ngIf=\"created\" class=\"row created-section\">\n          <div class=\"col-md-12 grid-margin\">\n            <div class=\"card text-center\">\n              <div class=\"card-body\">\n                <p class=\"card-title\">Form Completed Successfully</p>\n                <p class=\"text-muted\"></p>\n                <div class=\"card-text\">\n                  <i class=\"mdi mdi-shield-check-outline\" style=\"font-size: 12em;\"></i>\n                  <p class=\"text-muted\">\n                    Below is your generated code for processing.\n                  </p>\n                  <div class=\"code\">{{ submissionCode }}</div>\n                  <button class=\"btn btn-primary mr-2 hover-cursor\" type=\"button\" (click)=\"copy()\">\n                    <i class=\"mdi mdi-content-copy\" style=\"font-size: 20px;\"></i>\n                    <span class=\"sr-only\">Please wait...</span>\n                  </button>\n                  <button class=\"btn btn-primary mr-2 hover-cursor\" type=\"button\" (click)=\"ok()\">Ok</button>\n                </div>\n              </div>\n            </div>\n          </div>\n        </div>\n\n        <div *ngIf=\"saved\" class=\"row created-section\">\n          <div class=\"col-md-12 grid-margin\">\n            <div class=\"card text-center\">\n              <div class=\"card-body\">\n                <p class=\"card-title\">Form Saved Successfully</p>\n                <p class=\"text-muted\"></p>\n                <div class=\"card-text\">\n                  <i class=\"mdi mdi-shield-check-outline\" style=\"font-size: 12em;\"></i>\n                  <p class=\"text-muted\">Your form has been saved to drafts.</p>\n                  <button class=\"btn btn-primary mr-2 hover-cursor\" type=\"button\" (click)=\"ok()\">Ok</button>\n                </div>\n              </div>\n            </div>\n          </div>\n        </div>\n      </div>\n      <!-- content -->\n      <!-- footer -->\n      <app-footer-bar></app-footer-bar>\n      <!-- partial -->\n    </div>\n    <!-- main ends -->\n  </div>\n</div>\n\n<ng-template #confirm let-modal>\n  <div class=\"modal-header\">\n    <h4 class=\"modal-title\" id=\"modal-title\">Confirm Action</h4>\n    <button type=\"button\" class=\"close\" aria-describedby=\"modal-title\" (click)=\"modal.close('close')\">\n      <span aria-hidden=\"true\">&times;</span>\n    </button>\n  </div>\n  <div class=\"modal-body\">\n    <p><strong>Would you like to update your profile with the new details provided ?</strong></p>\n  </div>\n  <div class=\"modal-footer\">\n    <button type=\"button\" class=\"btn btn-outline-primary\" (click)=\"modal.close('no')\">No</button>\n    <button type=\"button\" class=\"btn btn-primary\" (click)=\"modal.close('yes')\">Yes</button>\n  </div>\n</ng-template>\n\n<ng-template #viewImgAttachment let-modal>\n  <div class=\"modal-header\">\n    <h5 class=\"modal-title\">Attachment File</h5>\n    <button type=\"button\" class=\"close\" aria-describedby=\"modal-title\" (click)=\"modal.close()\">\n      <span aria-hidden=\"true\">&times;</span>\n    </button>\n  </div>\n  <div class=\"modal-body\" style=\"padding: 0px;\">\n    <img [src]=\"imgUrl\" style=\"width: 100%;\">\n  </div>\n  <div class=\"modal-footer\">\n    <button type=\"button\" class=\"btn btn-primary\" (click)=\"modal.close()\">Close</button>\n  </div>\n</ng-template>\n\n<ng-template #viewDocAttachment let-modal>\n  <div class=\"modal-header\">\n    <h5 class=\"modal-title\">Attachment File</h5>\n    <button type=\"button\" class=\"close\" aria-describedby=\"modal-title\" (click)=\"modal.close()\">\n      <span aria-hidden=\"true\">&times;</span>\n    </button>\n  </div>\n  <div class=\"modal-body\">\n    <p>This document type cannot be viewed. Please download</p>\n  </div>\n  <div class=\"modal-footer\">\n    <button type=\"button\" class=\"btn btn-outline-primary\" (click)=\"modal.close()\">Close</button>\n    <button type=\"button\" class=\"btn btn-primary\" (click)=\"downloadDoc(documentUrl)\">Download</button>\n  </div>\n</ng-template>\n\n<ng-template #setPin let-modal>\n  <form [formGroup]=\"pinForm\" (ngSubmit)=\"createPin()\">\n    <div class=\"modal-header\">\n      <h5 class=\"modal-title text-uppercase\">Setup A New PIN</h5>\n      <button type=\"button\" class=\"close\" aria-describedby=\"modal-title\" (click)=\"modal.close()\">\n        <span aria-hidden=\"true\">&times;</span>\n      </button>\n    </div>\n    <div class=\"modal-body\">\n      <div class=\"form-group pin-form-group\">\n        <input type=\"tel\" class=\"form-control form-control-lg pin-control\" formControlName=\"pin\" placeholder=\"----\"\n          [ngClass]=\"{'input-control-error': submitted && f.pin.errors}\" maxlength=\"4\"\n          (keyup)=\"resolveStrCharacters($event)\">\n        <div *ngIf=\"submitted && f.pin.errors\">\n          <p class=\"input-error\" *ngIf=\"f.pin.errors.required\">PIN is required</p>\n          <p class=\"input-error\" *ngIf=\"f.pin.errors.minlength\">PIN must be 4 (four) digits.</p>\n        </div>\n      </div>\n    </div>\n    <div class=\"modal-footer\">\n      <button type=\"button\" class=\"btn btn-outline-primary\" (click)=\"modal.close()\">Close</button>\n      <button *ngIf=\"!isLoading\" type=\"submit\" class=\"btn btn-primary\">Create PIN</button>\n      <button *ngIf=\"isLoading\" type=\"button\" class=\"btn btn-block btn-primary font-weight-medium\" disabled>\n        <span class=\"spinner-border spinner-border-sm\" role=\"status\" aria-hidden=\"true\"></span> &nbsp; &nbsp;\n        Please wait...\n      </button>\n    </div>\n  </form>\n</ng-template>\n\n<ng-template #pin let-modal>\n  <form>\n    <div class=\"modal-header\">\n      <h5 class=\"modal-title text-uppercase\">Enter PIN To Submit Form</h5>\n      <button type=\"button\" class=\"close\" aria-describedby=\"modal-title\" (click)=\"modal.close()\">\n        <span aria-hidden=\"true\">&times;</span>\n      </button>\n    </div>\n    <div class=\"modal-body\">\n      <div class=\"form-group pin-form-group\">\n        <input type=\"tel\" class=\"form-control form-control-lg pin-control\" name=\"pinCode\" [(ngModel)]=\"pinCode\"\n          placeholder=\"----\" maxlength=\"4\" (keyup)=\"resolveStrCharacters($event)\" autofocus>\n        <div>\n          <p class=\"input-error\" *ngIf=\"pinRequired\">PIN is required</p>\n          <p class=\"input-error\" *ngIf=\"pinMinimum\">PIN must be 4 (four) digits.</p>\n        </div>\n      </div>\n    </div>\n    <div class=\"modal-footer\">\n      <button type=\"button\" class=\"btn btn-outline-primary\" (click)=\"modal.close()\">Close</button>\n      <button *ngIf=\"!isLoading\" type=\"submit\" class=\"btn btn-primary\" (click)=\"verifyPin()\">Submit</button>\n      <button *ngIf=\"isLoading\" type=\"button\" class=\"btn btn-block btn-primary font-weight-medium\" disabled>\n        <span class=\"spinner-border spinner-border-sm\" role=\"status\" aria-hidden=\"true\"></span> &nbsp; &nbsp;\n        Please wait...\n      </button>\n    </div>\n  </form>\n</ng-template>\n\n<ng-template #selectBranch let-modal>\n  <div class=\"modal-header\">\n    <h5 class=\"modal-title text-uppercase\">Select A Branch</h5>\n    <button type=\"button\" class=\"close\" aria-describedby=\"modal-title\" (click)=\"modal.close('no')\">\n      <span aria-hidden=\"true\">&times;</span>\n    </button>\n  </div>\n  <div class=\"modal-body\">\n    <div *ngIf=\"loadingBranches\">\n      <div class=\"col-md-12 col-sm-12 m-md-2\">\n        <div class=\"d-flex justify-content-center\">\n          <div class=\"spinner-border m-2\" style=\"width: 2rem; height: 2rem;\" role=\"status\">\n            <span class=\"sr-only\">Loading...</span>\n          </div>\n        </div>\n      </div>\n    </div>\n    <div *ngIf=\"!loadingBranches\">\n      <div class=\"list-group\">\n        <div *ngFor=\"let branch of branchesList; let i=index;\" class=\"list-group-item list-group-item-action\"\n          (click)=\"chooseBranch(branch.id, i)\" [class.active]=\"isActive === i\">\n          {{ branch.branch_name }}\n        </div>\n      </div>\n    </div>\n  </div>\n  <div class=\"modal-footer\">\n    <button type=\"button\" class=\"btn btn-outline-primary\" (click)=\"modal.close('no')\">Close</button>\n    <button type=\"button\" class=\"btn btn-primary\" (click)=\"closeBranchDialog()\">Next</button>\n  </div>\n</ng-template>\n\n<ng-template #submissionOptions let-modal>\n  <div class=\"modal-header\">\n    <h4 class=\"modal-title\" id=\"modal-title\">Confirm Action</h4>\n    <button type=\"button\" class=\"close\" aria-describedby=\"modal-title\" (click)=\"modal.close()\">\n      <span aria-hidden=\"true\">&times;</span>\n    </button>\n  </div>\n  <div class=\"modal-body\">\n    <p><strong>Similar form submission exists.</strong></p>\n  </div>\n  <div class=\"modal-footer\">\n    <button type=\"button\" class=\"btn btn-outline-primary\" (click)=\"modal.close('replace')\">Replace</button>\n    <button type=\"button\" class=\"btn btn-outline-primary\" (click)=\"modal.close('new')\">New Submission</button>\n  </div>\n</ng-template>\n\n<ng-template #newSubmission let-modal>\n  <div class=\"modal-header\">\n    <h4 class=\"modal-title\" id=\"modal-title\">Confirm Action</h4>\n    <button type=\"button\" class=\"close\" aria-describedby=\"modal-title\" (click)=\"modal.close()\">\n      <span aria-hidden=\"true\">&times;</span>\n    </button>\n  </div>\n  <div class=\"modal-body\">\n    <p><strong>There is a similar form sumission in-process. Would you like to make a new submission ?</strong></p>\n  </div>\n  <div class=\"modal-footer\">\n    <button type=\"button\" class=\"btn btn-outline-primary\" (click)=\"modal.close('no')\">No</button>\n    <button type=\"button\" class=\"btn btn-primary\" (click)=\"modal.close('yes')\">Yes</button>\n  </div>\n</ng-template>"
+module.exports = "<div class=\"container-scroller\">\n  <app-navigation-bar></app-navigation-bar>\n  <div class=\"container-fluid page-body-wrapper\">\n    <app-side-bar></app-side-bar>\n    <div class=\"main-panel\">\n      <div class=\"content-wrapper\">\n        <div class=\"row\">\n          <div class=\"col-md-12 grid-margin\">\n            <div class=\"d-flex justify-content-between flex-wrap\">\n              <div class=\"d-flex align-items-end flex-wrap\">\n                <div class=\"mr-md-3 mr-xl-5\">\n                  <h2 class=\"page-title\">{{ form.form_name || form.name }}</h2>\n                </div>\n                <div class=\"d-flex\">\n                </div>\n              </div>\n              <div class=\"d-flex justify-content-between align-items-end flex-wrap\">\n              </div>\n            </div>\n          </div>\n        </div>\n\n        <div [hidden]=\"created || saved\" class=\"row\">\n          <div class=\"col-md-8 offset-md-2 grid-margin stretch-card\">\n            <div class=\"card\">\n              <div class=\"card-body\">\n                <p class=\"card-title\">{{ form.form_name || form.name }}</p>\n                <p class=\"text-muted\">All forms with <span class=\"text-danger\">*</span> are required and should be filled.</p>\n                <div class=\"card-text pt-5\">\n                  <form class=\"forms-sample\">\n                    <div class=\"form-builder-container\">\n                      <div id=\"form-render\"></div>\n                    </div>\n\n                    <div *ngIf=\"loadingAttachments\" class=\"row m-md-2\">\n                      <div class=\"col-md-12 col-sm-12 m-md-2\">\n                        <div class=\"d-flex justify-content-center\">\n                          <div class=\"spinner-border m-2\" style=\"width: 2rem; height: 2rem;\" role=\"status\">\n                            <span class=\"sr-only\">Loading...</span>\n                          </div>\n                        </div>\n                      </div>\n                    </div>\n\n                    <div class=\"attachments-section\" *ngIf=\"!loadingAttachments && showAttachments\">\n                      <div class=\"card mb-4\">\n                        <div class=\"card-body\">\n                          <h5 class=\"card-title\">Form Attachments / Documents</h5>\n                          <div class=\"row\" *ngFor=\"let file of existingAttachments\">\n                            <div class=\"col-11\" style=\"padding-right: 8px;\">\n                              <ol class=\"files-list\">\n                                <li class=\"file-item\">\n                                  <i class=\"mdi mdi-paperclip menu-icon\"></i>\n                                  <h5 class=\"file-link-title\"><strong>{{ transformToRealText(file.key) }}</strong></h5>\n                                  <a class=\"alert-link file-link\" (click)=\"openModal($event, file.url)\">{{ file.url }}</a>\n                                </li>\n                              </ol>\n                            </div>\n                            <div class=\"col-1\" style=\"padding-right: 3px; padding-left: 4px; margin-top: 7px;\">\n                              <button class=\"btn btn-primary btn-icon\" (click)=\"download(file.url)\">\n                                <i class=\"mdi mdi-download-outline\"></i>\n                              </button>\n                            </div>\n                          </div>\n                        </div>\n                      </div>\n                    </div>\n\n                    <div class=\"buttons-list\">\n                      <button *ngIf=\"loading\" class=\"btn btn-primary btn-lg mr-2\" type=\"button\" disabled>\n                        <span class=\"spinner-border spinner-border-sm\" role=\"status\" aria-hidden=\"true\"></span>\n                        <span class=\"sr-only\">Please wait...</span>\n                      </button>\n                      <button *ngIf=\"!loading\" type=\"submit\" class=\"btn btn-primary btn-lg mr-2\" (click)=\"submit()\">Submit</button>\n                      <button *ngIf=\"!loading\" type=\"submit\" class=\"btn btn-primary btn-lg mr-2\" (click)=\"saveAsDraft()\">Save as Draft</button>\n                      <button type=\"button\" class=\"btn btn-light btn-lg\" (click)=\"cancel()\">Cancel</button>\n                    </div>\n                  </form>\n                </div>\n              </div>\n            </div>\n          </div>\n        </div>\n\n        <div *ngIf=\"created\" class=\"row created-section\">\n          <div class=\"col-md-12 grid-margin\">\n            <div class=\"card text-center\">\n              <div class=\"card-body\">\n                <p class=\"card-title\">Form Completed Successfully</p>\n                <p class=\"text-muted\"></p>\n                <div class=\"card-text\">\n                  <i class=\"mdi mdi-shield-check-outline\" style=\"font-size: 12em;\"></i>\n                  <p class=\"text-muted\">\n                    Below is your generated code for processing.\n                  </p>\n                  <div class=\"code\">{{ submissionCode }}</div>\n                  <button class=\"btn btn-primary mr-2 hover-cursor\" type=\"button\" (click)=\"copy()\">\n                    <i class=\"mdi mdi-content-copy\" style=\"font-size: 20px;\"></i>\n                    <span class=\"sr-only\">Please wait...</span>\n                  </button>\n                  <button class=\"btn btn-primary mr-2 hover-cursor\" type=\"button\" (click)=\"ok()\">Ok</button>\n                </div>\n              </div>\n            </div>\n          </div>\n        </div>\n\n        <div *ngIf=\"saved\" class=\"row created-section\">\n          <div class=\"col-md-12 grid-margin\">\n            <div class=\"card text-center\">\n              <div class=\"card-body\">\n                <p class=\"card-title\">Form Saved Successfully</p>\n                <p class=\"text-muted\"></p>\n                <div class=\"card-text\">\n                  <i class=\"mdi mdi-shield-check-outline\" style=\"font-size: 12em;\"></i>\n                  <p class=\"text-muted\">Your form has been saved to drafts.</p>\n                  <button class=\"btn btn-primary mr-2 hover-cursor\" type=\"button\" (click)=\"ok()\">Ok</button>\n                </div>\n              </div>\n            </div>\n          </div>\n        </div>\n      </div>\n      <!-- content -->\n      <!-- footer -->\n      <app-footer-bar></app-footer-bar>\n      <!-- partial -->\n    </div>\n    <!-- main ends -->\n  </div>\n</div>\n\n<ng-template #confirm let-modal>\n  <div class=\"modal-header\">\n    <h4 class=\"modal-title\" id=\"modal-title\">Confirm Action</h4>\n    <button type=\"button\" class=\"close\" aria-describedby=\"modal-title\" (click)=\"modal.close('close')\">\n      <span aria-hidden=\"true\">&times;</span>\n    </button>\n  </div>\n  <div class=\"modal-body\">\n    <p><strong>Would you like to update your profile with the new details provided ?</strong></p>\n  </div>\n  <div class=\"modal-footer\">\n    <button type=\"button\" class=\"btn btn-outline-primary\" (click)=\"modal.close('no')\">No</button>\n    <button type=\"button\" class=\"btn btn-primary\" (click)=\"modal.close('yes')\">Yes</button>\n  </div>\n</ng-template>\n\n<ng-template #viewImgAttachment let-modal>\n  <div class=\"modal-header\">\n    <h5 class=\"modal-title\">Attachment File</h5>\n    <button type=\"button\" class=\"close\" aria-describedby=\"modal-title\" (click)=\"modal.close()\">\n      <span aria-hidden=\"true\">&times;</span>\n    </button>\n  </div>\n  <div class=\"modal-body\" style=\"padding: 0px;\">\n    <img [src]=\"imgUrl\" style=\"width: 100%;\">\n  </div>\n  <div class=\"modal-footer\">\n    <button type=\"button\" class=\"btn btn-primary\" (click)=\"modal.close()\">Close</button>\n  </div>\n</ng-template>\n\n<ng-template #viewDocAttachment let-modal>\n  <div class=\"modal-header\">\n    <h5 class=\"modal-title\">Attachment File</h5>\n    <button type=\"button\" class=\"close\" aria-describedby=\"modal-title\" (click)=\"modal.close()\">\n      <span aria-hidden=\"true\">&times;</span>\n    </button>\n  </div>\n  <div class=\"modal-body\">\n    <p>This document type cannot be viewed. Please download</p>\n  </div>\n  <div class=\"modal-footer\">\n    <button type=\"button\" class=\"btn btn-outline-primary\" (click)=\"modal.close()\">Close</button>\n    <button type=\"button\" class=\"btn btn-primary\" (click)=\"downloadDoc(documentUrl)\">Download</button>\n  </div>\n</ng-template>\n\n<ng-template #setPin let-modal>\n  <form [formGroup]=\"pinForm\" (ngSubmit)=\"createPin()\">\n    <div class=\"modal-header\">\n      <h5 class=\"modal-title text-uppercase\">Setup A New PIN</h5>\n      <button type=\"button\" class=\"close\" aria-describedby=\"modal-title\" (click)=\"modal.close()\">\n        <span aria-hidden=\"true\">&times;</span>\n      </button>\n    </div>\n    <div class=\"modal-body\">\n      <div class=\"form-group pin-form-group\">\n        <input type=\"tel\" class=\"form-control form-control-lg pin-control\" formControlName=\"pin\" placeholder=\"----\"\n          [ngClass]=\"{'input-control-error': submitted && f.pin.errors}\" maxlength=\"4\"\n          (keyup)=\"resolveStrCharacters($event)\">\n        <div *ngIf=\"submitted && f.pin.errors\">\n          <p class=\"input-error\" *ngIf=\"f.pin.errors.required\">PIN is required</p>\n          <p class=\"input-error\" *ngIf=\"f.pin.errors.minlength\">PIN must be 4 (four) digits.</p>\n        </div>\n      </div>\n    </div>\n    <div class=\"modal-footer\">\n      <button type=\"button\" class=\"btn btn-outline-primary\" (click)=\"modal.close()\">Close</button>\n      <button *ngIf=\"!isLoading\" type=\"submit\" class=\"btn btn-primary\">Create PIN</button>\n      <button *ngIf=\"isLoading\" type=\"button\" class=\"btn btn-block btn-primary font-weight-medium\" disabled>\n        <span class=\"spinner-border spinner-border-sm\" role=\"status\" aria-hidden=\"true\"></span> &nbsp; &nbsp;\n        Please wait...\n      </button>\n    </div>\n  </form>\n</ng-template>\n\n<ng-template #pin let-modal>\n  <form>\n    <div class=\"modal-header\">\n      <h5 class=\"modal-title text-uppercase\">Enter PIN To Submit Form</h5>\n      <button type=\"button\" class=\"close\" aria-describedby=\"modal-title\" (click)=\"modal.close()\">\n        <span aria-hidden=\"true\">&times;</span>\n      </button>\n    </div>\n    <div class=\"modal-body\">\n      <div class=\"form-group pin-form-group\">\n        <input type=\"tel\" class=\"form-control form-control-lg pin-control\" name=\"pinCode\" [(ngModel)]=\"pinCode\"\n          placeholder=\"----\" maxlength=\"4\" (keyup)=\"resolveStrCharacters($event)\" autofocus>\n        <div>\n          <p class=\"input-error\" *ngIf=\"pinRequired\">PIN is required</p>\n          <p class=\"input-error\" *ngIf=\"pinMinimum\">PIN must be 4 (four) digits.</p>\n        </div>\n      </div>\n    </div>\n    <div class=\"modal-footer\">\n      <button type=\"button\" class=\"btn btn-outline-primary\" (click)=\"modal.close()\">Close</button>\n      <button *ngIf=\"!isLoading\" type=\"submit\" class=\"btn btn-primary\" (click)=\"verifyPin()\">Submit</button>\n      <button *ngIf=\"isLoading\" type=\"button\" class=\"btn btn-block btn-primary font-weight-medium\" disabled>\n        <span class=\"spinner-border spinner-border-sm\" role=\"status\" aria-hidden=\"true\"></span> &nbsp; &nbsp;\n        Please wait...\n      </button>\n    </div>\n  </form>\n</ng-template>\n\n<ng-template #selectBranch let-modal>\n  <div class=\"modal-header\">\n    <h5 class=\"modal-title text-uppercase\">Select A Branch</h5>\n    <button type=\"button\" class=\"close\" aria-describedby=\"modal-title\" (click)=\"modal.close('no')\">\n      <span aria-hidden=\"true\">&times;</span>\n    </button>\n  </div>\n  <div class=\"modal-body\">\n    <div *ngIf=\"loadingBranches\">\n      <div class=\"col-md-12 col-sm-12 m-md-2\">\n        <div class=\"d-flex justify-content-center\">\n          <div class=\"spinner-border m-2\" style=\"width: 2rem; height: 2rem;\" role=\"status\">\n            <span class=\"sr-only\">Loading...</span>\n          </div>\n        </div>\n      </div>\n    </div>\n    <div *ngIf=\"!loadingBranches\">\n      <div class=\"list-group\">\n        <div *ngFor=\"let branch of branchesList; let i=index;\" class=\"list-group-item list-group-item-action\"\n          (click)=\"chooseBranch(branch.id, i)\" [class.active]=\"isActive === i\">\n          {{ branch.branch_name }}\n        </div>\n      </div>\n    </div>\n  </div>\n  <div class=\"modal-footer\">\n    <button type=\"button\" class=\"btn btn-outline-primary\" (click)=\"modal.close('no')\">Close</button>\n    <button type=\"button\" class=\"btn btn-primary\" (click)=\"closeBranchDialog()\">Next</button>\n  </div>\n</ng-template>\n\n<ng-template #submissionOptions let-modal>\n  <div class=\"modal-header\">\n    <h4 class=\"modal-title\" id=\"modal-title\">Confirm Action</h4>\n    <button type=\"button\" class=\"close\" aria-describedby=\"modal-title\" (click)=\"modal.close()\">\n      <span aria-hidden=\"true\">&times;</span>\n    </button>\n  </div>\n  <div class=\"modal-body\">\n    <p><strong>Similar form submission exists.</strong></p>\n  </div>\n  <div class=\"modal-footer\">\n    <button type=\"button\" class=\"btn btn-outline-primary\" (click)=\"modal.close('replace')\">Replace</button>\n    <button type=\"button\" class=\"btn btn-outline-primary\" (click)=\"modal.close('new')\">New Submission</button>\n  </div>\n</ng-template>\n\n<ng-template #newSubmission let-modal>\n  <div class=\"modal-header\">\n    <h4 class=\"modal-title\" id=\"modal-title\">Confirm Action</h4>\n    <button type=\"button\" class=\"close\" aria-describedby=\"modal-title\" (click)=\"modal.close()\">\n      <span aria-hidden=\"true\">&times;</span>\n    </button>\n  </div>\n  <div class=\"modal-body\">\n    <p><strong>There is a similar form sumission in-process. Would you like to make a new submission ?</strong></p>\n  </div>\n  <div class=\"modal-footer\">\n    <button type=\"button\" class=\"btn btn-outline-primary\" (click)=\"modal.close('no')\">No</button>\n    <button type=\"button\" class=\"btn btn-primary\" (click)=\"modal.close('yes')\">Yes</button>\n  </div>\n</ng-template>\n\n<ng-template #joinQueue let-modal>\n  <app-join-queue-dialog [branchExtension]=\"branchExtension\"></app-join-queue-dialog>\n</ng-template>\n\n<ng-template #alreadyJoinQueue let-modal>\n  <app-already-joined-queue-dialog></app-already-joined-queue-dialog>\n</ng-template>\n\n"
 
 /***/ }),
 
@@ -2659,6 +2681,10 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _pages_reset_pin_page_reset_pin_page_component__WEBPACK_IMPORTED_MODULE_136__ = __webpack_require__(/*! ./pages/reset-pin-page/reset-pin-page.component */ "./src/app/pages/reset-pin-page/reset-pin-page.component.ts");
 /* harmony import */ var _pages_invalid_reset_pin_page_invalid_reset_pin_page_component__WEBPACK_IMPORTED_MODULE_137__ = __webpack_require__(/*! ./pages/invalid-reset-pin-page/invalid-reset-pin-page.component */ "./src/app/pages/invalid-reset-pin-page/invalid-reset-pin-page.component.ts");
 /* harmony import */ var _pages_invalid_link_page_invalid_link_page_component__WEBPACK_IMPORTED_MODULE_138__ = __webpack_require__(/*! ./pages/invalid-link-page/invalid-link-page.component */ "./src/app/pages/invalid-link-page/invalid-link-page.component.ts");
+/* harmony import */ var _components_join_queue_dialog_join_queue_dialog_component__WEBPACK_IMPORTED_MODULE_139__ = __webpack_require__(/*! ./components/join-queue-dialog/join-queue-dialog.component */ "./src/app/components/join-queue-dialog/join-queue-dialog.component.ts");
+/* harmony import */ var _components_already_joined_queue_dialog_already_joined_queue_dialog_component__WEBPACK_IMPORTED_MODULE_140__ = __webpack_require__(/*! ./components/already-joined-queue-dialog/already-joined-queue-dialog.component */ "./src/app/components/already-joined-queue-dialog/already-joined-queue-dialog.component.ts");
+
+
 
 
 
@@ -2926,6 +2952,8 @@ var AppModule = /** @class */ (function () {
                 _pages_reset_pin_page_reset_pin_page_component__WEBPACK_IMPORTED_MODULE_136__["ResetPinPageComponent"],
                 _pages_invalid_reset_pin_page_invalid_reset_pin_page_component__WEBPACK_IMPORTED_MODULE_137__["InvalidResetPinPageComponent"],
                 _pages_invalid_link_page_invalid_link_page_component__WEBPACK_IMPORTED_MODULE_138__["InvalidLinkPageComponent"],
+                _components_join_queue_dialog_join_queue_dialog_component__WEBPACK_IMPORTED_MODULE_139__["JoinQueueDialogComponent"],
+                _components_already_joined_queue_dialog_already_joined_queue_dialog_component__WEBPACK_IMPORTED_MODULE_140__["AlreadyJoinedQueueDialogComponent"],
             ],
             imports: [
                 _angular_platform_browser__WEBPACK_IMPORTED_MODULE_1__["BrowserModule"],
@@ -2957,6 +2985,50 @@ var AppModule = /** @class */ (function () {
         })
     ], AppModule);
     return AppModule;
+}());
+
+
+
+/***/ }),
+
+/***/ "./src/app/components/already-joined-queue-dialog/already-joined-queue-dialog.component.css":
+/*!**************************************************************************************************!*\
+  !*** ./src/app/components/already-joined-queue-dialog/already-joined-queue-dialog.component.css ***!
+  \**************************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = "\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IiIsImZpbGUiOiJzcmMvYXBwL2NvbXBvbmVudHMvYWxyZWFkeS1qb2luZWQtcXVldWUtZGlhbG9nL2FscmVhZHktam9pbmVkLXF1ZXVlLWRpYWxvZy5jb21wb25lbnQuY3NzIn0= */"
+
+/***/ }),
+
+/***/ "./src/app/components/already-joined-queue-dialog/already-joined-queue-dialog.component.ts":
+/*!*************************************************************************************************!*\
+  !*** ./src/app/components/already-joined-queue-dialog/already-joined-queue-dialog.component.ts ***!
+  \*************************************************************************************************/
+/*! exports provided: AlreadyJoinedQueueDialogComponent */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "AlreadyJoinedQueueDialogComponent", function() { return AlreadyJoinedQueueDialogComponent; });
+/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
+
+
+var AlreadyJoinedQueueDialogComponent = /** @class */ (function () {
+    function AlreadyJoinedQueueDialogComponent() {
+    }
+    AlreadyJoinedQueueDialogComponent.prototype.ngOnInit = function () {
+    };
+    AlreadyJoinedQueueDialogComponent = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Component"])({
+            selector: 'app-already-joined-queue-dialog',
+            template: __webpack_require__(/*! raw-loader!./already-joined-queue-dialog.component.html */ "./node_modules/raw-loader/index.js!./src/app/components/already-joined-queue-dialog/already-joined-queue-dialog.component.html"),
+            styles: [__webpack_require__(/*! ./already-joined-queue-dialog.component.css */ "./src/app/components/already-joined-queue-dialog/already-joined-queue-dialog.component.css")]
+        })
+    ], AlreadyJoinedQueueDialogComponent);
+    return AlreadyJoinedQueueDialogComponent;
 }());
 
 
@@ -3084,6 +3156,136 @@ var FormsCountryPickerComponent = /** @class */ (function () {
         })
     ], FormsCountryPickerComponent);
     return FormsCountryPickerComponent;
+}());
+
+
+
+/***/ }),
+
+/***/ "./src/app/components/join-queue-dialog/join-queue-dialog.component.css":
+/*!******************************************************************************!*\
+  !*** ./src/app/components/join-queue-dialog/join-queue-dialog.component.css ***!
+  \******************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = "\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IiIsImZpbGUiOiJzcmMvYXBwL2NvbXBvbmVudHMvam9pbi1xdWV1ZS1kaWFsb2cvam9pbi1xdWV1ZS1kaWFsb2cuY29tcG9uZW50LmNzcyJ9 */"
+
+/***/ }),
+
+/***/ "./src/app/components/join-queue-dialog/join-queue-dialog.component.ts":
+/*!*****************************************************************************!*\
+  !*** ./src/app/components/join-queue-dialog/join-queue-dialog.component.ts ***!
+  \*****************************************************************************/
+/*! exports provided: JoinQueueDialogComponent */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "JoinQueueDialogComponent", function() { return JoinQueueDialogComponent; });
+/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
+/* harmony import */ var _ng_bootstrap_ng_bootstrap__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @ng-bootstrap/ng-bootstrap */ "./node_modules/@ng-bootstrap/ng-bootstrap/fesm5/ng-bootstrap.js");
+/* harmony import */ var _angular_forms__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @angular/forms */ "./node_modules/@angular/forms/fesm5/forms.js");
+
+
+
+
+
+var JoinQueueDialogComponent = /** @class */ (function () {
+    function JoinQueueDialogComponent(modalService, formBuilder) {
+        this.modalService = modalService;
+        this.formBuilder = formBuilder;
+        this.time = { hour: 13, minute: 30, second: 0 };
+        this.getBranchServices();
+    }
+    JoinQueueDialogComponent.prototype.ngOnInit = function () {
+        this.initForm();
+    };
+    Object.defineProperty(JoinQueueDialogComponent.prototype, "f", {
+        get: function () {
+            return this.form.controls;
+        },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(JoinQueueDialogComponent.prototype, "joinTime", {
+        get: function () {
+            return this.form.get('joinTime');
+        },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(JoinQueueDialogComponent.prototype, "services", {
+        get: function () {
+            return this.form.get('queueService');
+        },
+        enumerable: true,
+        configurable: true
+    });
+    JoinQueueDialogComponent.prototype.onTimeSelect = function (e) {
+        this.joinTime.setValue(e.target.value, {
+            onlySelf: true
+        });
+        this.showTimer = e.target.value == 'later' ? true : false;
+        this.getCurrentTime();
+    };
+    JoinQueueDialogComponent.prototype.onServiceSelect = function (e) {
+        this.services.setValue(e.target.value, {
+            onlySelf: true
+        });
+    };
+    JoinQueueDialogComponent.prototype.initForm = function () {
+        if (this.showTimer) {
+            this.form = this.formBuilder.group({
+                joinType: ['', _angular_forms__WEBPACK_IMPORTED_MODULE_3__["Validators"].required],
+                queueService: ['', _angular_forms__WEBPACK_IMPORTED_MODULE_3__["Validators"].required],
+                joinTime: [this.time, _angular_forms__WEBPACK_IMPORTED_MODULE_3__["Validators"].required],
+            });
+        }
+        else {
+            this.form = this.formBuilder.group({
+                joinTime: [this.time],
+                joinType: ['', _angular_forms__WEBPACK_IMPORTED_MODULE_3__["Validators"].required],
+                queueService: ['', _angular_forms__WEBPACK_IMPORTED_MODULE_3__["Validators"].required],
+            });
+        }
+    };
+    JoinQueueDialogComponent.prototype.getBranchServices = function () { };
+    JoinQueueDialogComponent.prototype.getCurrentTime = function () {
+        var now = new Date();
+        var hour = now.getHours();
+        var minute = now.getMinutes();
+        this.time = { hour: hour, minute: minute, second: 0 };
+        console.log('current time: ' + JSON.stringify(this.time));
+    };
+    JoinQueueDialogComponent.prototype.submit = function () {
+        if (this.form.valid) {
+            console.log('ok, continue ...');
+        }
+        else {
+            console.log('ooops, invalid');
+        }
+    };
+    JoinQueueDialogComponent.prototype.close = function () {
+        this.modalService.dismissAll();
+    };
+    JoinQueueDialogComponent.ctorParameters = function () { return [
+        { type: _ng_bootstrap_ng_bootstrap__WEBPACK_IMPORTED_MODULE_2__["NgbModal"] },
+        { type: _angular_forms__WEBPACK_IMPORTED_MODULE_3__["FormBuilder"] }
+    ]; };
+    tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Input"])()
+    ], JoinQueueDialogComponent.prototype, "branchExtension", void 0);
+    JoinQueueDialogComponent = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Component"])({
+            selector: 'app-join-queue-dialog',
+            template: __webpack_require__(/*! raw-loader!./join-queue-dialog.component.html */ "./node_modules/raw-loader/index.js!./src/app/components/join-queue-dialog/join-queue-dialog.component.html"),
+            providers: [_ng_bootstrap_ng_bootstrap__WEBPACK_IMPORTED_MODULE_2__["NgbTimepickerConfig"]],
+            styles: [__webpack_require__(/*! ./join-queue-dialog.component.css */ "./src/app/components/join-queue-dialog/join-queue-dialog.component.css")]
+        })
+    ], JoinQueueDialogComponent);
+    return JoinQueueDialogComponent;
 }());
 
 
@@ -8291,29 +8493,37 @@ var ClientFormNewEntryPageComponent = /** @class */ (function () {
         this.docDialogRef = this.modalService.open(this.viewDocDialog, { centered: true });
     };
     ClientFormNewEntryPageComponent.prototype.saveAsDraft = function () {
-        var _this = this;
-        this.status = 4;
-        this.loading = true;
-        this.disableValidation = true;
-        this.modalService.open(this.confirmDialog, { centered: true }).result.then(function (result) {
-            if (result == 'yes') {
-                _this.updateProfile = true;
-                var user_data = _this.getFormData();
-                console.log(JSON.stringify(user_data));
-                console.log('this form: ' + _this.formBuilder.getFormUserData(user_data));
-                _this.submitFormAndAttachments(user_data, _this.updateProfile);
-            }
-            else if (result == 'no') {
-                _this.updateProfile = false;
-                var user_data = _this.getFormData();
-                console.log(JSON.stringify(user_data));
-                console.log('this form: ' + _this.formBuilder.getFormUserData(user_data));
-                _this.submitFormAndAttachments(user_data, _this.updateProfile);
-            }
-            else {
-                _this.loading = false;
-            }
-        });
+        this.showJoinQueueDialog();
+        // this.status = 4;
+        // this.loading = true;
+        // this.disableValidation = true;
+        // this.modalService.open(this.confirmDialog, { centered: true }).result.then(
+        //   result => {
+        //     if (result == 'yes') {
+        //       this.updateProfile = true;
+        //       const user_data = this.getFormData();
+        //       console.log(JSON.stringify(user_data));
+        //       console.log('this form: ' + this.formBuilder.getFormUserData(user_data));
+        //       this.submitFormAndAttachments(user_data, this.updateProfile);
+        //     }
+        //     else if (result == 'no') {
+        //       this.updateProfile = false;
+        //       const user_data = this.getFormData();
+        //       console.log(JSON.stringify(user_data));
+        //       console.log('this form: ' + this.formBuilder.getFormUserData(user_data));
+        //       this.submitFormAndAttachments(user_data, this.updateProfile);
+        //     }
+        //     else {
+        //       this.loading = false;
+        //     }
+        //   }
+        // );
+    };
+    ClientFormNewEntryPageComponent.prototype.showJoinQueueDialog = function () {
+        this.modalService.open(this.joinQueueDialog, { centered: true, backdrop: 'static', keyboard: false });
+    };
+    ClientFormNewEntryPageComponent.prototype.showAlreadyInQueueDialog = function () {
+        this.modalService.open(this.alreadyJoinQueueDialog, { centered: true, backdrop: 'static', keyboard: false });
     };
     ClientFormNewEntryPageComponent.prototype.copy = function () {
         this.clipboard.copyFromContent(this.submissionCode);
@@ -8356,6 +8566,9 @@ var ClientFormNewEntryPageComponent = /** @class */ (function () {
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_15__["ViewChild"])('confirm', { static: false })
     ], ClientFormNewEntryPageComponent.prototype, "confirmDialog", void 0);
     tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_15__["ViewChild"])('joinQueue', { static: false })
+    ], ClientFormNewEntryPageComponent.prototype, "joinQueueDialog", void 0);
+    tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_15__["ViewChild"])('selectBranch', { static: false })
     ], ClientFormNewEntryPageComponent.prototype, "selectBranchDialog", void 0);
     tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
@@ -8370,6 +8583,9 @@ var ClientFormNewEntryPageComponent = /** @class */ (function () {
     tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_15__["ViewChild"])('submissionOptions', { static: false })
     ], ClientFormNewEntryPageComponent.prototype, "submissionOptions", void 0);
+    tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_15__["ViewChild"])('alreadyJoinQueue', { static: false })
+    ], ClientFormNewEntryPageComponent.prototype, "alreadyJoinQueueDialog", void 0);
     ClientFormNewEntryPageComponent = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_15__["Component"])({
             selector: 'app-client-form-new-entry-page',
@@ -19441,12 +19657,12 @@ module.exports = ".form-builder-container {\n    padding-top: 1px;\n}\n\n.dropdo
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "CreateFormPageComponent", function() { return CreateFormPageComponent; });
 /* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
-/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
-/* harmony import */ var lodash__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! lodash */ "./node_modules/lodash/lodash.js");
-/* harmony import */ var lodash__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(lodash__WEBPACK_IMPORTED_MODULE_2__);
-/* harmony import */ var _angular_router__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @angular/router */ "./node_modules/@angular/router/fesm5/router.js");
-/* harmony import */ var src_app_models_forms_model__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! src/app/models/forms.model */ "./src/app/models/forms.model.ts");
-/* harmony import */ var src_app_services_forms_forms_service__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! src/app/services/forms/forms.service */ "./src/app/services/forms/forms.service.ts");
+/* harmony import */ var lodash__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! lodash */ "./node_modules/lodash/lodash.js");
+/* harmony import */ var lodash__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(lodash__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var _angular_router__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @angular/router */ "./node_modules/@angular/router/fesm5/router.js");
+/* harmony import */ var src_app_models_forms_model__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! src/app/models/forms.model */ "./src/app/models/forms.model.ts");
+/* harmony import */ var src_app_services_forms_forms_service__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! src/app/services/forms/forms.service */ "./src/app/services/forms/forms.service.ts");
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
 /* harmony import */ var _angular_forms__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! @angular/forms */ "./node_modules/@angular/forms/fesm5/forms.js");
 /* harmony import */ var src_app_services_company_company_service__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! src/app/services/company/company.service */ "./src/app/services/company/company.service.ts");
 /* harmony import */ var src_app_services_form_builder_form_builder_service__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! src/app/services/form-builder/form-builder.service */ "./src/app/services/form-builder/form-builder.service.ts");
@@ -19471,7 +19687,7 @@ var CreateFormPageComponent = /** @class */ (function () {
         this.getCompanies();
     }
     CreateFormPageComponent.prototype.renderForm = function () {
-        if (lodash__WEBPACK_IMPORTED_MODULE_2__["isUndefined"](this.template) || lodash__WEBPACK_IMPORTED_MODULE_2__["isNull"](this.template)) {
+        if (lodash__WEBPACK_IMPORTED_MODULE_1__["isUndefined"](this.template) || lodash__WEBPACK_IMPORTED_MODULE_1__["isNull"](this.template)) {
             this.templateFormBuilderOptions();
         }
         else {
@@ -19570,7 +19786,7 @@ var CreateFormPageComponent = /** @class */ (function () {
     CreateFormPageComponent.prototype.handleUploadFileView = function (merchant_id) {
         var _this = this;
         console.log('handling can upload view');
-        lodash__WEBPACK_IMPORTED_MODULE_2__["forEach"](this.allMerchantsList, function (merchant, i) {
+        lodash__WEBPACK_IMPORTED_MODULE_1__["forEach"](this.allMerchantsList, function (merchant, i) {
             if (merchant_id == merchant.id) {
                 _this.showFileUpload = merchant.can_print == 1 ? true : false;
                 return;
@@ -19598,7 +19814,7 @@ var CreateFormPageComponent = /** @class */ (function () {
     CreateFormPageComponent.prototype.createForm = function () {
         var _this = this;
         var form = this.getForm();
-        var formData = new src_app_models_forms_model__WEBPACK_IMPORTED_MODULE_4__["Forms"]();
+        var formData = new src_app_models_forms_model__WEBPACK_IMPORTED_MODULE_3__["Forms"]();
         console.log('json: ' + JSON.stringify(form));
         if (form.length == 0) {
             alert('Form fields cannot be empty');
@@ -19615,7 +19831,7 @@ var CreateFormPageComponent = /** @class */ (function () {
             this.formService.createForm(formData).then(function (res) {
                 _this.loading = false;
                 _this.toPublish = false;
-                if (lodash__WEBPACK_IMPORTED_MODULE_2__["toLower"](res.message) == 'ok') {
+                if (lodash__WEBPACK_IMPORTED_MODULE_1__["toLower"](res.message) == 'ok') {
                     _this.created = true;
                     _this.formName = formData.name;
                 }
@@ -19647,7 +19863,6 @@ var CreateFormPageComponent = /** @class */ (function () {
         }
     };
     CreateFormPageComponent.prototype.save = function () {
-        alert('herere');
         this.loading = true;
         this.pdfFile == null ? this.createForm() : this.createFormWithPDF();
     };
@@ -19714,17 +19929,17 @@ var CreateFormPageComponent = /** @class */ (function () {
         this.save();
     };
     CreateFormPageComponent.ctorParameters = function () { return [
-        { type: _angular_router__WEBPACK_IMPORTED_MODULE_3__["Router"] },
+        { type: _angular_router__WEBPACK_IMPORTED_MODULE_2__["Router"] },
         { type: _angular_forms__WEBPACK_IMPORTED_MODULE_6__["FormBuilder"] },
-        { type: src_app_services_forms_forms_service__WEBPACK_IMPORTED_MODULE_5__["FormsService"] },
+        { type: src_app_services_forms_forms_service__WEBPACK_IMPORTED_MODULE_4__["FormsService"] },
         { type: src_app_services_company_company_service__WEBPACK_IMPORTED_MODULE_7__["CompanyService"] },
         { type: src_app_services_form_builder_form_builder_service__WEBPACK_IMPORTED_MODULE_8__["FormBuilderService"] }
     ]; };
     tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
-        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["ViewChild"])('pdfFile', { static: false })
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_5__["ViewChild"])('pdfFile', { static: false })
     ], CreateFormPageComponent.prototype, "pdfFileElement", void 0);
     CreateFormPageComponent = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
-        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Component"])({
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_5__["Component"])({
             selector: 'app-create-form-page',
             template: __webpack_require__(/*! raw-loader!./create-form-page.component.html */ "./node_modules/raw-loader/index.js!./src/app/pages/dashboard/git-admin/create-form-page/create-form-page.component.html"),
             styles: [__webpack_require__(/*! ./create-form-page.component.css */ "./src/app/pages/dashboard/git-admin/create-form-page/create-form-page.component.css")]

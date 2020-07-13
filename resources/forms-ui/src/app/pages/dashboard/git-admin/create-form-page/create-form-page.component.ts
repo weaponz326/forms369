@@ -1,9 +1,9 @@
-import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
 declare var $: any;
 import * as _ from 'lodash';
 import { Router } from '@angular/router';
 import { Forms } from 'src/app/models/forms.model';
 import { FormsService } from 'src/app/services/forms/forms.service';
+import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { CompanyService } from 'src/app/services/company/company.service';
 import { FormBuilderService } from 'src/app/services/form-builder/form-builder.service';
@@ -243,7 +243,6 @@ export class CreateFormPageComponent implements OnInit {
   }
 
   save() {
-    alert('herere');
     this.loading = true;
     this.pdfFile == null ? this.createForm() : this.createFormWithPDF();
   }
