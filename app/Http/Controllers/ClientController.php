@@ -164,7 +164,20 @@ class ClientController extends Controller
 
          $submitted_at = now();
          $reverse_at = (now()->addHours(72))->startOfMinute()->toDateTimeString();
-         
+
+         //new submission or replacement
+         $isnewsubmission = 0;
+
+        //check if form is newly submitted or updated
+        //get merchant name and form name
+        $formexists = DB::table('submitted_forms')
+        ->select('submission_code')
+        ->where('submission_code', $sub_code)
+        ->first();
+
+        if(empty($formexists) || ($formexists == null))
+            $isnewsubmission = 1;
+       
          //save new client in the database
          try {
              DB::table('submitted_forms')
@@ -193,6 +206,10 @@ class ClientController extends Controller
                 );
              }
 
+            if($request->has('draft_code')){
+                return "draft replacement";
+            }
+            
             if($status == 0){
 
                 //get logged in user
@@ -204,7 +221,7 @@ class ClientController extends Controller
                 ->join('merchants', 'forms.merchant_id', '=', 'merchants.id')
                 ->select('merchants.merchant_name AS merchant_name','forms.name AS form_name')
                 ->where('forms.form_code', $code)
-                ->first();;
+                ->first();
 
                 $merchant = Crypt::decryptString($getdetails->merchant_name);
                 $form_name = Crypt::decryptString($getdetails->form_name);
@@ -212,7 +229,14 @@ class ClientController extends Controller
                 //send submission code to users SMS
                 $from = "GiTLog";
                 $mobile = $phone;
-                $msg = $form_name ." successfully submitted to ". $merchant .".\r\n". "Submission Code: " .$sub_code;
+                $msg = "";
+
+                if($isnewsubmission == 1){
+                    $msg = $form_name ." successfully submitted to ". $merchant .".\r\n". "Submission Code: " .$sub_code;
+                }else{
+                    $msg = $form_name ." successfully updated.\r\n". "Submission Code: " .$sub_code;
+                }
+
                 $status = (new AuthController)->sendsms($from,$mobile,$msg);
                 if($status){
                     Log::channel('mysql')->info('Client  with id: ' . $id .' successsfully submitted form with code: '. $code);
