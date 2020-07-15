@@ -254,12 +254,12 @@
       </div>
     </div>
     <div *ngIf="!loadingBranches">
-      <div class="list-group">
-        <div *ngFor="let branch of branchesList; let i=index;" class="list-group-item list-group-item-action"
-          (click)="chooseBranch(branch.id, i)" [class.active]="isActive === i">
+      <select class="form-control" [(ngModel)]="branch_id">
+        <option value="" disabled>Select Branch</option>
+        <option *ngFor="let branch of branchesList" [value]="branch.id">
           {{ branch.branch_name }}
-        </div>
-      </div>
+        </option>
+      </select>
     </div>
   </div>
   <div class="modal-footer">

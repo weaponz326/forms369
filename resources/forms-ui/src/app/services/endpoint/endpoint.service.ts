@@ -8,12 +8,14 @@ import { HttpHeaders } from '@angular/common/http';
 export class EndpointService {
 
   apiHost: string;
+  qmsApiHost: string;
   storageHost: string;
   private localApiHost: string;
   private productionApiHost: string;
 
   constructor() {
     this.productionApiHost = '';
+    this.qmsApiHost = 'https://qms.gitlog.biz/';
     this.localApiHost = 'http://127.0.0.1:8000/';
     this.apiHost = window.origin == 'http://localhost:4200' ? this.localApiHost : this.productionApiHost;
     this.storageHost = window.origin == 'http://localhost:4200' ? this.apiHost + 'storage/' : this.productionApiHost + 'storage/';
@@ -62,6 +64,14 @@ export class EndpointService {
     return new HttpHeaders({
       'Accept': 'application/json',
       'Content-Type': 'application/json'
+    });
+  }
+
+  qmsHeaders(token: string) {
+    return new HttpHeaders({
+      'Accept': 'application/json',
+      'Content-Type': 'application/json',
+      'Authorization': 'Bearer ' + token,
     });
   }
 }

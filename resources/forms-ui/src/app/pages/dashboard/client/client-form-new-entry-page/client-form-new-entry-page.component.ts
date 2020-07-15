@@ -220,12 +220,12 @@ export class ClientFormNewEntryPageComponent implements OnInit, AfterViewInit {
     );
   }
 
-  chooseBranch(branch_id: number, index: number) {
-    this.branch_id = branch_id;
-    this.isActive = index;
-  }
-
   closeBranchDialog() {
+    _.forEach(this.branchesList, (branch) => {
+      if (branch.id == this.branch_id) {
+        this.branchExtension = branch.branch_ext;
+      }
+    });
     this.branch_id == 0 || this.branch_id == null
       ? alert('Select a branch to continue')
       : this.selectBranchDialogRef.close();
