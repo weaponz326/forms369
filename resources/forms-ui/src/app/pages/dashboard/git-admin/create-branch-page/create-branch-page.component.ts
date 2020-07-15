@@ -23,6 +23,7 @@ export class CreateBranchPageComponent implements OnInit {
   created: boolean;
   submitted: boolean;
   companiesList: Array<any>;
+  showBranchExtension: boolean;
   branchAdminsList: Array<any>;
   branchExecutivesList: Array<any>;
   companyNamesList: Array<string>;
@@ -60,6 +61,7 @@ export class CreateBranchPageComponent implements OnInit {
   buildForm() {
     this.form = this.formBuilder.group({
       address: [''],
+      branchExt: [''],
       merchant: ['', Validators.required],
       branchName: ['', Validators.required],
       branchAdmin: ['', Validators.required],
@@ -70,7 +72,8 @@ export class CreateBranchPageComponent implements OnInit {
   getFormData() {
     let merchant_id = 0;
     let branch_super_id = 0;
-    let brandh_admin_id = 0;
+    let branch_admin_id = 0;
+    const branchExtension = this.f.branchExt.value.length == 0 ? null : this.f.branchExt.value;
     _.forEach(this.companiesList, (company) => {
       if (company.merchant_name == this.f.merchant.value) {
         console.log('cccccccccc: ' + company.id);
@@ -85,15 +88,16 @@ export class CreateBranchPageComponent implements OnInit {
     _.forEach(this.branchAdminsList, (admin) => {
       if (admin.email == this.f.branchAdmin.value) {
         console.log('dddddd: ' + admin.id);
-        brandh_admin_id = admin.id;
+        branch_admin_id = admin.id;
       }
     });
     const branch = new CompanyBranches(
       merchant_id,
       this.f.branchName.value,
       branch_super_id,
-      brandh_admin_id,
-      this.f.address.value
+      branch_admin_id,
+      this.f.address.value,
+      branchExtension
     );
     return branch;
   }
@@ -135,6 +139,14 @@ export class CreateBranchPageComponent implements OnInit {
     return collection.filter(item => item.toLowerCase().includes(filterValue));
   }
 
+  checkIfQMSEnabled(merchant_id: string) {
+    this.companyService.isQMSEnabled(merchant_id).then(
+      res => {
+        this.showBranchExtension = res ? true : false;
+      }
+    );
+  }
+
   getCompany() {
     this.companyService.getAllCompanyCollection().then(
       res => {
@@ -159,6 +171,15 @@ export class CreateBranchPageComponent implements OnInit {
         console.log('companies_error: ' + JSON.stringify(err));
       }
     );
+  }
+
+  detectSelectedMerchant(merchant_name: any) {
+    console.log('selected merchant: ' + JSON.stringify(merchant_name));
+    _.forEach(this.companiesList, (company) => {
+      if (company.merchant_name == merchant_name) {
+        this.checkIfQMSEnabled(company.id);
+      }
+    });
   }
 
   getBranchExecutive() {

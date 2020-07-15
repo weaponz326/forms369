@@ -10,6 +10,8 @@ import { CompanyService } from 'src/app/services/company/company.service';
 import { DateTimeService } from 'src/app/services/date-time/date-time.service';
 import { ExecutiveService } from 'src/app/services/executive/executive.service';
 import { LocalStorageService } from 'src/app/services/storage/local-storage.service';
+import { SectorsService } from 'src/app/services/sectors/sectors.service';
+import { ReloadingService } from 'src/app/services/reloader/reloading.service';
 
 @Component({
   selector: 'app-edit-company-page',
@@ -28,6 +30,7 @@ export class EditCompanyPageComponent implements OnInit {
   logoImage: string;
   submitted: boolean;
   navigatedData: any;
+  sectorList: Array<any>;
   companyAdminsList: Array<any>;
   superExecutivesList: Array<any>;
   countriesList: Array<ICountry>;
@@ -43,15 +46,18 @@ export class EditCompanyPageComponent implements OnInit {
   constructor(
     private router: Router,
     private formBuilder: FormBuilder,
+    private sectorService: SectorsService,
     private companyService: CompanyService,
     private dateTimeService: DateTimeService,
-    private executiveService: ExecutiveService,
+    private reloaderService: ReloadingService,
     private localService: LocalStorageService,
+    private executiveService: ExecutiveService,
     private countryPickerService: CountryPickerService
   ) {
     this.navigatedData = window.history.state.company;
-    this.resolveReloadDataLoss();
+    this.initNavData();
     console.log(this.navigatedData);
+    this.sectorList = [];
     this.countriesList = [];
     this.companyAdminsList = [];
     this.superExecutivesList = [];
@@ -64,31 +70,18 @@ export class EditCompanyPageComponent implements OnInit {
     this.initializeView();
   }
 
-  /**
-   * This is just a little hack to prevent loss of data passed in to window.history.state
-   * whenever the page is reloaded. The purpose is to ensure we still have the data needed
-   * to help build all the elements of this page.
-   *
-   * @version 0.0.2
-   * @memberof EditFormPageComponent
-   */
-  resolveReloadDataLoss() {
-    if (!_.isUndefined(this.navigatedData)) {
-      console.log('is undefined oooooooooooo');
-      sessionStorage.setItem('u_data', JSON.stringify(this.navigatedData));
-    }
-    else {
-      this.navigatedData = JSON.parse(sessionStorage.getItem('u_data'));
-    }
-  }
-
   ngOnInit() {
     this.countryPickerService.getCountries().subscribe(countries => { this.countriesList = countries; });
     this.buildForm();
   }
 
+  initNavData() {
+    this.navigatedData = this.reloaderService.resolveDataLoss(this.navigatedData);
+  }
+
   initializeView() {
     this._loading = true;
+    this.getSectors();
     this.getSuperExecutive();
     this.getCompanyAdmins();
   }
@@ -97,8 +90,20 @@ export class EditCompanyPageComponent implements OnInit {
     return this.form.controls;
   }
 
+  public get sector() {
+    return this.form.get('sector');
+  }
+
   public get country() {
     return this.form.get('country');
+  }
+
+  public get print_status() {
+    return this.form.get('allowPrint');
+  }
+
+  public get enable_qms() {
+    return this.form.get('enableQms');
   }
 
   togglePrint() {
@@ -114,17 +119,23 @@ export class EditCompanyPageComponent implements OnInit {
   }
 
   buildForm() {
+    const merchant = this.navigatedData;
     this.logoImage = this.navigatedData.logo;
     this.form = this.formBuilder.group({
       logo: [''],
       smallLogoFile: [''],
-      status: [this.navigatedData.status],
+      status: [merchant.status],
+      enableQms: [merchant.enabled_qms],
+      smallLogoName: [merchant.small_logo],
+      address: [merchant.physical_address],
       companyAdmin: ['', Validators.required],
       superExecutive: ['', Validators.required],
-      smallLogoName: [this.navigatedData.small_logo],
-      country: [this.navigatedData.country, Validators.required],
-      name: [this.navigatedData.merchant_name, Validators.required],
-      allowPrint: [this.navigatedData.can_print, Validators.required],
+      country: [merchant.country, Validators.required],
+      sector: [merchant.sector_id, Validators.required],
+      colorCode: [merchant.colors, Validators.required],
+      nickname: [merchant.nickname, Validators.required],
+      name: [merchant.merchant_name, Validators.required],
+      allowPrint: [merchant.can_print, Validators.required],
     });
   }
 
@@ -134,14 +145,32 @@ export class EditCompanyPageComponent implements OnInit {
     });
   }
 
+  showFilePicker_1() {
+    const element = this.smallLogo.nativeElement as HTMLInputElement;
+    element.click();
+  }
+
   showFilePicker() {
     const element = this.logoFile.nativeElement as HTMLInputElement;
     element.click();
   }
 
-  showFilePicker_1() {
-    const element = this.smallLogo.nativeElement as HTMLInputElement;
-    element.click();
+  onPrintSelect(e: any) {
+    this.print_status.setValue(e.target.value, {
+      onlySelf: true
+    });
+  }
+
+  onSectorSelect(e: any) {
+    this.sector.setValue(e.target.value, {
+      onlySelf: true
+    });
+  }
+
+  onQmsSelect(e: any) {
+    this.enable_qms.setValue(e.target.value, {
+      onlySelf: true
+    });
   }
 
   inputFileChanged(ev: Event) {
@@ -157,6 +186,19 @@ export class EditCompanyPageComponent implements OnInit {
   inputFileChanged_1(ev: Event) {
     const smallLogoFile = this.smallLogo.nativeElement as HTMLInputElement;
     this.f.smallLogoName.setValue(smallLogoFile.files[0].name);
+  }
+
+  getSectors() {
+    this.sectorService.getSectors().then(
+      sectors => {
+        if (sectors.length > 0) {
+          _.forEach(sectors, (sector) => {
+            this.sectorList.push(sector);
+          });
+        }
+      },
+      error => { }
+    );
   }
 
   getFormData() {
@@ -182,11 +224,15 @@ export class EditCompanyPageComponent implements OnInit {
       this.f.country.value,
       '',
       super_executive_id,
-      '',
       user_id,
+      '',
       super_admin_id,
       this.f.allowPrint.value,
-      0,
+      this.f.sector.value,
+      this.f.colorCode.value,
+      this.f.address.value,
+      this.f.nickname.value,
+      this.f.enableQms.value,
       created_at,
       this.f.status.value,
       logo

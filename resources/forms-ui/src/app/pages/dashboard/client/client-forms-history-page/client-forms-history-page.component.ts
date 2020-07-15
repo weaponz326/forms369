@@ -549,6 +549,7 @@ export class ClientFormsHistoryPageComponent implements OnInit {
         this.hasMoreError = false;
         this.hasMore = this.checkIfHasMore();
         _.forEach(forms, (form) => {
+          form.logo = this.endpointService.storageHost + form.logo;
           form.submitted_at = this.dateService.safeDateFormat(form.submitted_at);
           this.historyCollection.push(form);
         });
@@ -563,12 +564,7 @@ export class ClientFormsHistoryPageComponent implements OnInit {
   deleteFormHistory(submission_code: string, index: number) {
     this.clientService.deleteFormHistory(this.user.id.toString(), submission_code).then(
       ok => {
-        if (ok) {
-          this.historyCollection.splice(index, 1);
-        }
-        else {
-          this.showDeleteFailedAlert();
-        }
+        ok ? this.historyCollection.splice(index, 1) : this.showDeleteFailedAlert();
       },
       err => {
         console.log('error deleting form history');

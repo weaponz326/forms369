@@ -12,6 +12,7 @@ export class Merchants {
         public colors?: string,
         public physical_address?: string,
         public nickname?: string,
+        public enabled_qms?: string,
         public updated_at?: string,
         public status?: number,
         public logo?: string,

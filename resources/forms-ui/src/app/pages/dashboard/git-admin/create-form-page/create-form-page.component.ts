@@ -1,9 +1,9 @@
-import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
 declare var $: any;
 import * as _ from 'lodash';
 import { Router } from '@angular/router';
 import { Forms } from 'src/app/models/forms.model';
 import { FormsService } from 'src/app/services/forms/forms.service';
+import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { CompanyService } from 'src/app/services/company/company.service';
 import { FormBuilderService } from 'src/app/services/form-builder/form-builder.service';
@@ -28,6 +28,7 @@ export class CreateFormPageComponent implements OnInit {
   submitted: boolean;
   toPublish: boolean;
   uploadError: boolean;
+  showJoinQueue: boolean;
   showFileUpload: boolean;
   allMerchantsList: Array<any>;
   @ViewChild('pdfFile', { static: false }) pdfFileElement: ElementRef;
@@ -110,8 +111,17 @@ export class CreateFormPageComponent implements OnInit {
       pdf: [''],
       canView: [''],
       name: ['', Validators.required],
+      canJoin: ['', Validators.required],
       merchant: ['', Validators.required]
     });
+  }
+
+  checkIfQMSEnabled(merchant_id: string) {
+    this.companyService.isQMSEnabled(merchant_id).then(
+      res => {
+        this.showJoinQueue = res ? true : false;
+      }
+    );
   }
 
   public get f() {
@@ -127,6 +137,7 @@ export class CreateFormPageComponent implements OnInit {
       onlySelf: true
     });
     this.handleUploadFileView(this.f.merchant.value);
+    this.checkIfQMSEnabled(this.f.merchant.value);
   }
 
   inputFileChanged(ev: Event) {
@@ -186,6 +197,7 @@ export class CreateFormPageComponent implements OnInit {
       formData.name = this.f.name.value;
       formData.form_code = this.formCode;
       formData.status = this.toPublish ? 1 : 0;
+      formData.join_queue = this.f.canJoin ? 1 : 0;
       formData.merchant_id = parseInt(this.f.merchant.value);
       formData.can_view = this.f.canView.value == '' ? 0 : this.f.canView.value;
 
@@ -244,9 +256,7 @@ export class CreateFormPageComponent implements OnInit {
     this.toPublish = false;
     this.formCode = this.formBuilderService.generateUniqueFormCode();
     if (this.showFileUpload) {
-      if (this.form.valid) {
-        this.save();
-      }
+      this.save();
     }
     else {
       // remove pdf validations

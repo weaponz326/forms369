@@ -7,10 +7,10 @@ import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { CountryPickerService, ICountry } from 'ngx-country-picker';
 import { Component, OnInit, ElementRef, ViewChild } from '@angular/core';
 import { CompanyService } from 'src/app/services/company/company.service';
+import { SectorsService } from 'src/app/services/sectors/sectors.service';
 import { DateTimeService } from 'src/app/services/date-time/date-time.service';
 import { ExecutiveService } from 'src/app/services/executive/executive.service';
 import { LocalStorageService } from 'src/app/services/storage/local-storage.service';
-import { SectorsService } from 'src/app/services/sectors/sectors.service';
 
 @Component({
   selector: 'app-create-company-page',
@@ -87,6 +87,10 @@ export class CreateCompanyPageComponent implements OnInit {
     return this.form.get('allowPrint');
   }
 
+  public get enable_qms() {
+    return this.form.get('enableQms');
+  }
+
   togglePrint() {
     this.f.allowPrint.value == '1'
       ? this.f.allowPrint.setValue('0')
@@ -103,6 +107,7 @@ export class CreateCompanyPageComponent implements OnInit {
   buildForm() {
     this.form = this.formBuilder.group({
       address: [''],
+      enableQms: [''],
       smallLogoName: [''],
       smallLogoFile: [''],
       name: ['', Validators.required],
@@ -131,6 +136,12 @@ export class CreateCompanyPageComponent implements OnInit {
 
   onSectorSelect(e: any) {
     this.sector.setValue(e.target.value, {
+      onlySelf: true
+    });
+  }
+
+  onQmsSelect(e: any) {
+    this.enable_qms.setValue(e.target.value, {
       onlySelf: true
     });
   }
@@ -205,6 +216,7 @@ export class CreateCompanyPageComponent implements OnInit {
       this.f.colorCode.value,
       this.f.address.value,
       this.f.nickname.value,
+      this.f.enableQms.value
     );
 
     return merchant;

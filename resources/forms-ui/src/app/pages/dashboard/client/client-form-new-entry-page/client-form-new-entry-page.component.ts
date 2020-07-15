@@ -46,6 +46,7 @@ export class ClientFormNewEntryPageComponent implements OnInit, AfterViewInit {
   pinRequired: boolean;
   updateProfile: boolean;
   submissionCode: string;
+  branchExtension: string;
   loadingBranches: boolean;
   showAttachments: boolean;
   docDialogRef: NgbModalRef;
@@ -62,11 +63,13 @@ export class ClientFormNewEntryPageComponent implements OnInit, AfterViewInit {
   @ViewChild('pin', { static: false }) pinDialog: TemplateRef<any>;
   @ViewChild('setPin', { static: false }) setPinDialog: TemplateRef<any>;
   @ViewChild('confirm', { static: false }) confirmDialog: TemplateRef<any>;
+  @ViewChild('joinQueue', { static: false }) joinQueueDialog: TemplateRef<any>;
   @ViewChild('selectBranch', { static: false }) selectBranchDialog: TemplateRef<any>;
   @ViewChild('viewImgAttachment', { static: false }) viewImgDialog: TemplateRef<any>;
   @ViewChild('viewDocAttachment', { static: false }) viewDocDialog: TemplateRef<any>;
   @ViewChild('newSubmission', { static: false }) newSubmissionDialog: TemplateRef<any>;
   @ViewChild('submissionOptions', { static: false }) submissionOptions: TemplateRef<any>;
+  @ViewChild('alreadyJoinQueue', { static: false }) alreadyJoinQueueDialog: TemplateRef<any>;
 
   constructor(
     private router: Router,
@@ -205,7 +208,7 @@ export class ClientFormNewEntryPageComponent implements OnInit, AfterViewInit {
 
   getBranches() {
     this.loadingBranches = true;
-    this.branchesService.getCompanyBranches(this.form.merchant_id).then(
+    this.branchesService.getAllActiveBranches(this.form.merchant_id).then(
       branches => {
         this.branchesList = branches;
         this.loadingBranches = false;
@@ -895,31 +898,40 @@ export class ClientFormNewEntryPageComponent implements OnInit, AfterViewInit {
   }
 
   saveAsDraft() {
-    this.status = 4;
-    this.loading = true;
-    this.disableValidation = true;
+    this.showJoinQueueDialog();
+    // this.status = 4;
+    // this.loading = true;
+    // this.disableValidation = true;
 
-    this.modalService.open(this.confirmDialog, { centered: true }).result.then(
-      result => {
-        if (result == 'yes') {
-          this.updateProfile = true;
-          const user_data = this.getFormData();
-          console.log(JSON.stringify(user_data));
-          console.log('this form: ' + this.formBuilder.getFormUserData(user_data));
-          this.submitFormAndAttachments(user_data, this.updateProfile);
-        }
-        else if (result == 'no') {
-          this.updateProfile = false;
-          const user_data = this.getFormData();
-          console.log(JSON.stringify(user_data));
-          console.log('this form: ' + this.formBuilder.getFormUserData(user_data));
-          this.submitFormAndAttachments(user_data, this.updateProfile);
-        }
-        else {
-          this.loading = false;
-        }
-      }
-    );
+    // this.modalService.open(this.confirmDialog, { centered: true }).result.then(
+    //   result => {
+    //     if (result == 'yes') {
+    //       this.updateProfile = true;
+    //       const user_data = this.getFormData();
+    //       console.log(JSON.stringify(user_data));
+    //       console.log('this form: ' + this.formBuilder.getFormUserData(user_data));
+    //       this.submitFormAndAttachments(user_data, this.updateProfile);
+    //     }
+    //     else if (result == 'no') {
+    //       this.updateProfile = false;
+    //       const user_data = this.getFormData();
+    //       console.log(JSON.stringify(user_data));
+    //       console.log('this form: ' + this.formBuilder.getFormUserData(user_data));
+    //       this.submitFormAndAttachments(user_data, this.updateProfile);
+    //     }
+    //     else {
+    //       this.loading = false;
+    //     }
+    //   }
+    // );
+  }
+
+  showJoinQueueDialog() {
+    this.modalService.open(this.joinQueueDialog, { centered: true, backdrop: 'static', keyboard: false  });
+  }
+
+  showAlreadyInQueueDialog() {
+    this.modalService.open(this.alreadyJoinQueueDialog, { centered: true, backdrop: 'static', keyboard: false });
   }
 
   copy() {

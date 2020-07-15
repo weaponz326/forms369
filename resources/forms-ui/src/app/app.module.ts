@@ -140,6 +140,8 @@ import { EditSectorPageComponent } from './pages/dashboard/git-admin/edit-sector
 import { ResetPinPageComponent } from './pages/reset-pin-page/reset-pin-page.component';
 import { InvalidResetPinPageComponent } from './pages/invalid-reset-pin-page/invalid-reset-pin-page.component';
 import { InvalidLinkPageComponent } from './pages/invalid-link-page/invalid-link-page.component';
+import { JoinQueueDialogComponent } from './components/join-queue-dialog/join-queue-dialog.component';
+import { AlreadyJoinedQueueDialogComponent } from './components/already-joined-queue-dialog/already-joined-queue-dialog.component';
 
 @NgModule({
   declarations: [
@@ -264,6 +266,8 @@ import { InvalidLinkPageComponent } from './pages/invalid-link-page/invalid-link
     ResetPinPageComponent,
     InvalidResetPinPageComponent,
     InvalidLinkPageComponent,
+    JoinQueueDialogComponent,
+    AlreadyJoinedQueueDialogComponent,
   ],
   imports: [
     BrowserModule,
