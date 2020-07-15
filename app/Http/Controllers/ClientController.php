@@ -177,6 +177,11 @@ class ClientController extends Controller
 
         if(empty($formexists) || ($formexists == null))
             $isnewsubmission = 1;
+
+        if($request->has('draft_code')){
+            $draftcode = $request->draft_code;
+            $draftdelete = DB::table('submitted_forms')->where('submission_code', $draftcode)->delete();
+        }    
        
          //save new client in the database
          try {
@@ -206,10 +211,6 @@ class ClientController extends Controller
                 );
              }
 
-            if($request->has('draft_code')){
-                return "draft replacement";
-            }
-            
             if($status == 0){
 
                 //get logged in user
