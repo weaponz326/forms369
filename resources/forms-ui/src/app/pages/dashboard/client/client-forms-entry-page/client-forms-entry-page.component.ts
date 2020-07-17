@@ -27,6 +27,7 @@ export class ClientFormsEntryPageComponent implements OnInit, AfterViewInit {
   form: any;
   user: Users;
   imgUrl: string;
+  branchId: any;
   status: number;
   pinCode: string;
   loading: boolean;
@@ -34,7 +35,6 @@ export class ClientFormsEntryPageComponent implements OnInit, AfterViewInit {
   created: boolean;
   hasFile: boolean;
   formFiles: number;
-  branchId: number;
   isActive: number;
   formInstance: any;
   formRenderer: any;
@@ -47,6 +47,7 @@ export class ClientFormsEntryPageComponent implements OnInit, AfterViewInit {
   pinRequired: boolean;
   updateProfile: boolean;
   submissionCode: string;
+  branchExtension: string;
   loadingBranches: boolean;
   showAttachments: boolean;
   docDialogRef: NgbModalRef;
@@ -62,6 +63,7 @@ export class ClientFormsEntryPageComponent implements OnInit, AfterViewInit {
   @ViewChild('pin', { static: false }) pinDialog: TemplateRef<any>;
   @ViewChild('setPin', { static: false }) setPinDialog: TemplateRef<any>;
   @ViewChild('confirm', { static: false }) confirmDialog: TemplateRef<any>;
+  @ViewChild('joinQueue', { static: false }) joinQueueDialog: TemplateRef<any>;
   @ViewChild('selectBranch', { static: false }) selectBranchDialog: TemplateRef<any>;
   @ViewChild('viewImgAttachment', { static: false }) viewImgDialog: TemplateRef<any>;
   @ViewChild('viewDocAttachment', { static: false }) viewDocDialog: TemplateRef<any>;
@@ -85,7 +87,7 @@ export class ClientFormsEntryPageComponent implements OnInit, AfterViewInit {
     this.status = 0;
     this.pinCode = '';
     this.formFiles = 0;
-    this.branchId = null;
+    this.branchId = '';
     this.branchesList = [];
     this.submissionCode = '';
     this.attachmentKeys = [];
@@ -209,9 +211,17 @@ export class ClientFormsEntryPageComponent implements OnInit, AfterViewInit {
   }
 
   closeBranchDialog() {
+    _.forEach(this.branchesList, (branch) => {
+      if (branch.id == this.branchId) {
+        this.branchExtension = branch.branch_ext;
+      }
+    });
     this.branchId == 0 || this.branchId == null
       ? alert('Select a branch to continue')
       : this.selectBranchDialogRef.close();
+    // this.branchId == 0 || this.branchId == null
+    //   ? alert('Select a branch to continue')
+    //   : this.selectBranchDialogRef.close();
   }
 
   appendOnChangeEventToFileInput() {
@@ -298,7 +308,12 @@ export class ClientFormsEntryPageComponent implements OnInit, AfterViewInit {
         ok => {
           if (ok) {
             this.loading = false;
-            this.status == 0 ? this.created = true : this.saved = true;
+            if (this.status == 0) {
+              this.showJoinQueueDialog();
+            }
+            else {
+              this.saved = true;
+            }
           }
           else {
             this.loading = false;
@@ -326,6 +341,19 @@ export class ClientFormsEntryPageComponent implements OnInit, AfterViewInit {
         }
       );
     }
+  }
+
+  showJoinQueueDialog() {
+    this.modalService.open(this.joinQueueDialog, { centered: true, backdrop: 'static', keyboard: false });
+  }
+
+  queueJoined(data: any) {
+    data == true ? this.created = true : this.created = false;
+  }
+
+  skipQueue(e: any) {
+    console.log('am here');
+    this.created = true;
   }
 
   showMakeNewSubmissionDialog() {

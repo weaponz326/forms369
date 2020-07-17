@@ -94,7 +94,7 @@ export class JoinQueueDialogComponent implements OnInit {
   }
 
   showAlreadyJoinQueueDialog() {
-    // this.modalService.dismissAll();
+    this.modalService.dismissAll();
     this.modalService.open(this.alreadyJoinQueueDialog, { centered: true, backdrop: 'static', keyboard: false });
   }
 
