@@ -301,5 +301,9 @@
 </ng-template>
 
 <ng-template #joinQueue let-modal>
-  <app-join-queue-dialog [branchExtension]="branchExtension"></app-join-queue-dialog>
+  <app-join-queue-dialog
+    [branchExtension]="branchExtension"
+    (queueSkipped)="skipQueue($event)"
+    (processCompleted)="queueJoined($event)">
+  </app-join-queue-dialog>
 </ng-template>

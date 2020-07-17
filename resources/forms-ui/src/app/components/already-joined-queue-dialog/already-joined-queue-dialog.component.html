@@ -6,5 +6,9 @@
 </div>
 <div class="modal-footer">
   <button type="button" class="btn btn-primary" (click)="maintain()">Maintain</button>
-  <button type="button" class="btn btn-outline-primary" (click)="rejoin()">Rejoin</button>
+  <button type="button" *ngIf="!loading" class="btn btn-outline-primary" (click)="rejoin()">Rejoin</button>
+  <button type="button" *ngIf="loading" class="btn btn-primary btn-lg font-weight-medium auth-form-btn" disabled>
+    <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span> &nbsp; &nbsp;
+    Please wait...
+  </button>
 </div>

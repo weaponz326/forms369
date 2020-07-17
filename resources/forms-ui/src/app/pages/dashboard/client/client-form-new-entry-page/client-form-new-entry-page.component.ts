@@ -27,11 +27,11 @@ export class ClientFormNewEntryPageComponent implements OnInit, AfterViewInit {
   user: Users;
   imgUrl: string;
   pinCode: string;
+  branch_id: any;
   status: number;
   loading: boolean;
   saved: boolean;
   created: boolean;
-  branch_id: number;
   hasFile: boolean;
   isActive: number;
   formFiles: number;
@@ -87,7 +87,7 @@ export class ClientFormNewEntryPageComponent implements OnInit, AfterViewInit {
     this.status = 0;
     this.pinCode = '';
     this.formFiles = 0;
-    this.branch_id = null;
+    this.branch_id = '';
     this.branchesList = [];
     this.submissionCode = '';
     this.attachmentKeys = [];
@@ -316,11 +316,11 @@ export class ClientFormNewEntryPageComponent implements OnInit, AfterViewInit {
           if (ok) {
             this.loading = false;
             if (this.status == 0) {
-              this.created = true;
               this.showJoinQueueDialog();
             }
-            else
+            else {
               this.saved = true;
+            }
           }
           else {
             this.loading = false;
@@ -363,6 +363,15 @@ export class ClientFormNewEntryPageComponent implements OnInit, AfterViewInit {
 
   submitFormWithoutValidation(user_data: any) {
     this.submitFormAndAttachments(user_data, this.updateProfile);
+  }
+
+  queueJoined(data: any) {
+    data == true ? this.created = true : this.created = false;
+  }
+
+  skipQueue(e: any) {
+    console.log('am here');
+    this.created = true;
   }
 
   showMakeNewSubmissionDialog() {
