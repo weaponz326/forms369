@@ -206,7 +206,9 @@ Route::group(['middleware' => ['auth:api'], 'prefix' => 'v1'], function(){
     Route::get('getAllFormsByMerchant/{id}', 'HomeController@getAllFormsByMerchant')->name('getAllFormsByMerchant')->middleware('scope:GIT_Admin,company_admin,branch_admin,forms_client,super_executive,branch_executive,frontdesk');
     Route::get('getAllFormsByMerchantApp/{id}', 'HomeController@getAllFormsByMerchantApp')->name('getAllFormsByMerchantApp')->middleware('scope:GIT_Admin,company_admin,branch_admin,forms_client,super_executive,branch_executive,frontdesk');
     Route::get('getAllFormsByStatusAndMerchant/{status}/{id}', 'HomeController@getAllFormsByStatusAndMerchant')->name('getAllFormsByStatusAndMerchant');
-    
+    //forms tnc attachment  
+    Route::post('uploadtnc/{form_code}', 'HomeController@uploadtnc')->name('uploadtnc')->middleware('scope:GIT_Admin,company_admin');
+    Route::get('gettncContent/{form_code}', 'HomeController@gettncContent')->name('gettncContent')->middleware('scope:GIT_Admin,company_admin,forms_client,branch_admin,super_executive,branch_executive');
     
   //client, get and edit endpoints
   Route::get('getAllClients', 'HomeController@getAllClients')->name('getAllClients')->middleware('scope:GIT_Admin');

@@ -2603,4 +2603,27 @@ class HomeController extends Controller
         return $message;
      }
 
+     /**
+        * Business logic for uploading tnc
+        * uploadattachments Upload form attachments
+        * @param mixed $form_code form code 
+        * @return \Illuminate\Http\Response success or error message
+     */
+    public function uploadtnc(Request $request, $form_code)
+    {
+        $message = (new FormsController)->uploadtnc($request, $form_code);
+        return $message;
+    }
+
+    /**
+        * gettncContent get the content of a forms tnc
+        * @param mixed $form_code form code 
+        * @return \Illuminate\Http\Response success or error message
+     */
+     public function gettncContent(Request $request, $form_code)
+     {
+        $message = (new FormsController)->gettncContent($request, $form_code);
+        return $message;
+     }
+
 }    

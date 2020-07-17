@@ -12,6 +12,8 @@ use URL;
 use Illuminate\Pagination\Paginator;
 use App\Notifications\FormUrl;
 use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\File;
 class FormsController extends Controller
 {
     
@@ -1192,8 +1194,86 @@ class FormsController extends Controller
 
     }
 
-    
 
+
+    /**
+        * uploadattachments Upload form attachments
+        * @param mixed $form_code form code 
+        * @return \Illuminate\Http\Response success or error message
+     */
+    public function uploadtnc(Request $request, $form_code){
+
+        //file to storage and save name in database
+        if($request->hasFile('tnc'))
+        {
+            $this->validate($request, [
+                'tnc' => 'required'
+            ]);
+            
+            $attachment = $request->file('tnc');
+            $extension = $attachment->getClientOriginalExtension();
+
+            if($extension != "txt"){
+                $message = "Invalid_Attachment";
+                $response = [
+                    'message' => $message
+                ];
+                return response()->json( $response, 400);
+            }else{
+                $file = $form_code.".txt";
+                $upload =  File::move($_FILES['tnc']['tmp_name'], public_path('storage/tnc/'.$file));
+                // $upload=Storage::disk('local')->put('attachments/'.$url,  File::get($attachment));
+                if($upload)
+                {
+                    $message = 'Attachment uploaded successful';
+                    $response = [
+                        'message' => $message
+                    ];
+                    return response()->json( $response, 200);
+                        
+                }else{
+                    $message = 'Attachment upload unsuccessful';
+                    $response = [
+                        'message' => $message
+                    ];
+                    return response()->json( $response, 400);
+                }
+            }
+                
+        }else{
+            $message = 'No Attachment';
+            $response = [
+                'message' => $message
+            ];
+            return response()->json( $response, 400);
+        }
+    }
+
+   /**
+        * gettncContent get the content of a forms tnc
+        * @param mixed $form_code form code 
+        * @return \Illuminate\Http\Response success or error message
+     */
+     public function gettncContent(Request $request, $form_code)
+     {
+        $file_name = $form_code . ".txt";
+        if(!Storage::disk('public')->exists('tnc/'.$file_name))
+        {
+            $message = 'No Attachment';
+            $response = [
+                'message' => $message
+            ];
+            return response()->json( $response, 400);
+        }else{
+            $contents = Storage::get('tnc/'.$file_name);
+            return $contents;
+            // $response = [
+            //     'message' => $contents
+            // ];
+            // return response()->json( $response, 200);
+        } 
+        
+     } 
 
 
 }   
