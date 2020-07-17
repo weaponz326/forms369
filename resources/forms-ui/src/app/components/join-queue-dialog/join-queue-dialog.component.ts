@@ -1,10 +1,11 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Users } from 'src/app/models/users.model';
+import { AddToQueue } from 'src/app/models/add-to-queue.model';
 import { NgbTimepickerConfig } from '@ng-bootstrap/ng-bootstrap';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { NgbTimeStruct, NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { QMSQueueingService } from 'src/app/services/qms/qmsqueueing.service';
-import { AddToQueue } from 'src/app/models/add-to-queue.model';
-import { Users } from 'src/app/models/users.model';
+import { DateTimeService } from 'src/app/services/date-time/date-time.service';
+import { Component, OnInit, Input, ViewChild, TemplateRef } from '@angular/core';
 import { LocalStorageService } from 'src/app/services/storage/local-storage.service';
 
 @Component({
@@ -16,20 +17,23 @@ import { LocalStorageService } from 'src/app/services/storage/local-storage.serv
 export class JoinQueueDialogComponent implements OnInit {
 
   user: Users;
+  token: string;
+  queueData: any;
   form: FormGroup;
   loading: boolean;
   submitted: boolean;
   showTimer: boolean;
   time: NgbTimeStruct;
-  private token: string;
   servicesList: Array<any>;
   @Input() branchExtension: any;
+  @ViewChild('alreadyJoinQueue', { static: false }) alreadyJoinQueueDialog: TemplateRef<any>;
 
   constructor(
     private modalService: NgbModal,
     private formBuilder: FormBuilder,
+    private dateTimeService: DateTimeService,
     private localStorage: LocalStorageService,
-    private qmsQueueService: QMSQueueingService
+    private qmsQueueService: QMSQueueingService,
   ) {
     this.servicesList = [];
     this.user = this.localStorage.getUser();
@@ -85,19 +89,44 @@ export class JoinQueueDialogComponent implements OnInit {
     }
   }
 
+  showAlreadyJoinQueueDialog() {
+    this.modalService.dismissAll();
+    this.modalService.open(this.alreadyJoinQueueDialog, { centered: true, backdrop: 'static', keyboard: false });
+  }
+
+  resolveDate() {
+    const now = new Date();
+    const month = now.getMonth() + 1;
+    const date = now.getFullYear().toString() + '-' + month.toString() + '-' + now.getDate().toString();
+    const formatted_date = this.dateTimeService.getDatePart(date);
+    console.log('formttated_:: ' + formatted_date);
+    const fullDateTime = formatted_date + ' ' + this.joinTime.value.hour +
+      ':' + this.joinTime.value.minute + ':' + now.getSeconds();
+    console.log('submitted_join_at: ' + fullDateTime);
+    return fullDateTime;
+  }
+
   getFormData() {
+    const join_at = this.resolveDate();
+    const joinTime = this.f.joinTime.value == 'now' ? 0 : 1;
     const queue = new AddToQueue(
       this.user.phone,
       this.branchExtension,
       this.f.queueService.value,
       this.f.queueService.value,
       '0',
-      null,
-      this.f.joinTime.value,
-      this.f.joinTime.value,
+      'null',
+      joinTime,
+      join_at,
       'FORMS369'
     );
 
+    this.queueData = {
+      serviceId: this.f.queueService.value,
+      phone: this.user.phone,
+      joinNow: joinTime,
+      joinAtTime: join_at
+    };
     return queue;
   }
 
@@ -129,6 +158,12 @@ export class JoinQueueDialogComponent implements OnInit {
     this.qmsQueueService.addCustomerToBranchQeueu(this.token, queue_data).then(
       res => {
         this.loading = false;
+        if (res.error == 0) {
+          //
+        }
+        else {
+          this.showAlreadyJoinQueueDialog();
+        }
       },
       err => {
         this.loading = false;
@@ -153,6 +188,10 @@ export class JoinQueueDialogComponent implements OnInit {
     else {
       console.log('ooops, invalid');
     }
+  }
+
+  skip() {
+    this.close();
   }
 
   close() {
