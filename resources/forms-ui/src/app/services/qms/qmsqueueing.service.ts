@@ -108,10 +108,10 @@ export class QMSQueueingService {
     return new Promise((resolve, reject) => {
       const body = {
         'branch_ext': branch_ext,
-        'client_mobile': client_mobile,
+        'client_mobile': client_mobile
       };
       this.headers = this.endpointService.qmsHeaders(token);
-      const url = this.endpointService.apiHost + 'api/sandbox/cancel_request';
+      const url = this.endpointService.qmsApiHost + 'api/sandbox/cancel_request';
       this.http.post<any>(url, JSON.stringify(body), { headers: this.headers }).subscribe(
         res => {
           this.logger.log('qms_add_queue ' + JSON.stringify(res));

@@ -1,10 +1,12 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Users } from 'src/app/models/users.model';
+import { AddToQueue } from 'src/app/models/add-to-queue.model';
 import { NgbTimepickerConfig } from '@ng-bootstrap/ng-bootstrap';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { NgbTimeStruct, NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { LoggingService } from 'src/app/services/logging/logging.service';
 import { QMSQueueingService } from 'src/app/services/qms/qmsqueueing.service';
-import { AddToQueue } from 'src/app/models/add-to-queue.model';
-import { Users } from 'src/app/models/users.model';
+import { DateTimeService } from 'src/app/services/date-time/date-time.service';
+import { Component, OnInit, Input, ViewChild, TemplateRef, Output, EventEmitter } from '@angular/core';
 import { LocalStorageService } from 'src/app/services/storage/local-storage.service';
 
 @Component({
@@ -16,20 +18,26 @@ import { LocalStorageService } from 'src/app/services/storage/local-storage.serv
 export class JoinQueueDialogComponent implements OnInit {
 
   user: Users;
+  token: string;
+  queueData: any;
   form: FormGroup;
   loading: boolean;
   submitted: boolean;
   showTimer: boolean;
   time: NgbTimeStruct;
-  private token: string;
   servicesList: Array<any>;
   @Input() branchExtension: any;
+  @Output() queueSkipped = new EventEmitter();
+  @Output() processCompleted = new EventEmitter();
+  @ViewChild('alreadyJoinQueue', { static: false }) alreadyJoinQueueDialog: TemplateRef<any>;
 
   constructor(
     private modalService: NgbModal,
+    private logger: LoggingService,
     private formBuilder: FormBuilder,
+    private dateTimeService: DateTimeService,
     private localStorage: LocalStorageService,
-    private qmsQueueService: QMSQueueingService
+    private qmsQueueService: QMSQueueingService,
   ) {
     this.servicesList = [];
     this.user = this.localStorage.getUser();
@@ -85,19 +93,44 @@ export class JoinQueueDialogComponent implements OnInit {
     }
   }
 
+  showAlreadyJoinQueueDialog() {
+    this.modalService.dismissAll();
+    this.modalService.open(this.alreadyJoinQueueDialog, { centered: true, backdrop: 'static', keyboard: false });
+  }
+
+  resolveDate() {
+    const now = new Date();
+    const month = now.getMonth() + 1;
+    const date = now.getFullYear().toString() + '-' + month.toString() + '-' + now.getDate().toString();
+    const formatted_date = this.dateTimeService.getDatePart(date);
+    this.logger.log('formttated_:: ' + formatted_date);
+    const fullDateTime = formatted_date + ' ' + this.joinTime.value.hour +
+      ':' + this.joinTime.value.minute + ':' + now.getSeconds();
+    this.logger.log('submitted_join_at: ' + fullDateTime);
+    return fullDateTime;
+  }
+
   getFormData() {
+    const join_at = this.resolveDate();
+    const joinTime = this.f.joinTime.value == 'now' ? 0 : 1;
     const queue = new AddToQueue(
       this.user.phone,
       this.branchExtension,
       this.f.queueService.value,
       this.f.queueService.value,
       '0',
-      null,
-      this.f.joinTime.value,
-      this.f.joinTime.value,
+      'null',
+      joinTime,
+      join_at,
       'FORMS369'
     );
 
+    this.queueData = {
+      serviceId: this.f.queueService.value,
+      phone: this.user.phone,
+      joinNow: joinTime,
+      joinAtTime: join_at
+    };
     return queue;
   }
 
@@ -118,7 +151,7 @@ export class JoinQueueDialogComponent implements OnInit {
         );
       },
       err => {
-        console.log('errrrrrrror: ' + err);
+        this.logger.log('errrrrrrror: ' + err);
       }
     );
   }
@@ -129,9 +162,17 @@ export class JoinQueueDialogComponent implements OnInit {
     this.qmsQueueService.addCustomerToBranchQeueu(this.token, queue_data).then(
       res => {
         this.loading = false;
+        if (res.error == 0) {
+          this.modalService.dismissAll();
+          this.processCompleted.emit(true);
+        }
+        else {
+          this.showAlreadyJoinQueueDialog();
+        }
       },
       err => {
         this.loading = false;
+        this.processCompleted.emit(false);
       }
     );
   }
@@ -141,18 +182,28 @@ export class JoinQueueDialogComponent implements OnInit {
     const hour = now.getHours();
     const minute = now.getMinutes();
     this.time = { hour: hour, minute: minute, second: 0 };
-    console.log('current time: ' + JSON.stringify(this.time));
+    this.logger.log('current time: ' + JSON.stringify(this.time));
   }
 
   submit() {
     this.submitted = true;
     if (this.form.valid) {
-      console.log('ok, continue ...');
+      this.logger.log('ok, continue ...');
       this.joinQueue();
     }
     else {
-      console.log('ooops, invalid');
+      this.logger.log('ooops, invalid');
     }
+  }
+
+  doneProcessing(data: any) {
+    this.processCompleted.emit(data);
+  }
+
+  skip() {
+    this.queueSkipped.emit(true);
+    console.log('emitted event');
+    this.close();
   }
 
   close() {

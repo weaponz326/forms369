@@ -27,11 +27,11 @@ export class ClientFormNewEntryPageComponent implements OnInit, AfterViewInit {
   user: Users;
   imgUrl: string;
   pinCode: string;
+  branch_id: any;
   status: number;
   loading: boolean;
   saved: boolean;
   created: boolean;
-  branch_id: number;
   hasFile: boolean;
   isActive: number;
   formFiles: number;
@@ -69,7 +69,6 @@ export class ClientFormNewEntryPageComponent implements OnInit, AfterViewInit {
   @ViewChild('viewDocAttachment', { static: false }) viewDocDialog: TemplateRef<any>;
   @ViewChild('newSubmission', { static: false }) newSubmissionDialog: TemplateRef<any>;
   @ViewChild('submissionOptions', { static: false }) submissionOptions: TemplateRef<any>;
-  @ViewChild('alreadyJoinQueue', { static: false }) alreadyJoinQueueDialog: TemplateRef<any>;
 
   constructor(
     private router: Router,
@@ -88,7 +87,7 @@ export class ClientFormNewEntryPageComponent implements OnInit, AfterViewInit {
     this.status = 0;
     this.pinCode = '';
     this.formFiles = 0;
-    this.branch_id = null;
+    this.branch_id = '';
     this.branchesList = [];
     this.submissionCode = '';
     this.attachmentKeys = [];
@@ -316,7 +315,12 @@ export class ClientFormNewEntryPageComponent implements OnInit, AfterViewInit {
         ok => {
           if (ok) {
             this.loading = false;
-            this.status == 0 ? this.created = true : this.saved = true;
+            if (this.status == 0) {
+              this.showJoinQueueDialog();
+            }
+            else {
+              this.saved = true;
+            }
           }
           else {
             this.loading = false;
@@ -359,6 +363,15 @@ export class ClientFormNewEntryPageComponent implements OnInit, AfterViewInit {
 
   submitFormWithoutValidation(user_data: any) {
     this.submitFormAndAttachments(user_data, this.updateProfile);
+  }
+
+  queueJoined(data: any) {
+    data == true ? this.created = true : this.created = false;
+  }
+
+  skipQueue(e: any) {
+    console.log('am here');
+    this.created = true;
   }
 
   showMakeNewSubmissionDialog() {
@@ -898,40 +911,35 @@ export class ClientFormNewEntryPageComponent implements OnInit, AfterViewInit {
   }
 
   saveAsDraft() {
-    this.showJoinQueueDialog();
-    // this.status = 4;
-    // this.loading = true;
-    // this.disableValidation = true;
+    this.status = 4;
+    this.loading = true;
+    this.disableValidation = true;
 
-    // this.modalService.open(this.confirmDialog, { centered: true }).result.then(
-    //   result => {
-    //     if (result == 'yes') {
-    //       this.updateProfile = true;
-    //       const user_data = this.getFormData();
-    //       console.log(JSON.stringify(user_data));
-    //       console.log('this form: ' + this.formBuilder.getFormUserData(user_data));
-    //       this.submitFormAndAttachments(user_data, this.updateProfile);
-    //     }
-    //     else if (result == 'no') {
-    //       this.updateProfile = false;
-    //       const user_data = this.getFormData();
-    //       console.log(JSON.stringify(user_data));
-    //       console.log('this form: ' + this.formBuilder.getFormUserData(user_data));
-    //       this.submitFormAndAttachments(user_data, this.updateProfile);
-    //     }
-    //     else {
-    //       this.loading = false;
-    //     }
-    //   }
-    // );
+    this.modalService.open(this.confirmDialog, { centered: true }).result.then(
+      result => {
+        if (result == 'yes') {
+          this.updateProfile = true;
+          const user_data = this.getFormData();
+          console.log(JSON.stringify(user_data));
+          console.log('this form: ' + this.formBuilder.getFormUserData(user_data));
+          this.submitFormAndAttachments(user_data, this.updateProfile);
+        }
+        else if (result == 'no') {
+          this.updateProfile = false;
+          const user_data = this.getFormData();
+          console.log(JSON.stringify(user_data));
+          console.log('this form: ' + this.formBuilder.getFormUserData(user_data));
+          this.submitFormAndAttachments(user_data, this.updateProfile);
+        }
+        else {
+          this.loading = false;
+        }
+      }
+    );
   }
 
   showJoinQueueDialog() {
     this.modalService.open(this.joinQueueDialog, { centered: true, backdrop: 'static', keyboard: false  });
-  }
-
-  showAlreadyInQueueDialog() {
-    this.modalService.open(this.alreadyJoinQueueDialog, { centered: true, backdrop: 'static', keyboard: false });
   }
 
   copy() {

@@ -6,7 +6,7 @@ export class AddToQueue {
     public single_service_id: string,
     public is_multi_services: string,
     public multiple_services: string,
-    public join_now: string,
+    public join_now: number,
     public join_at_time: string,
     public entry_src: string
   ) {}
