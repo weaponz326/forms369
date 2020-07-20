@@ -128,7 +128,7 @@ class ExecutiveController extends Controller
         ->join('users', 'users.id', '=', 'client_id')
         ->join('forms', 'forms.form_code', '=', 'form_id')
         ->join('merchants', 'merchants.id', '=', 'forms.merchant_id')
-        ->select('submitted_forms.*','merchants.merchant_name AS merchant_name', 'merchants.nickname',
+        ->select('submitted_forms.*','merchants.merchant_name AS merchant_name', 'merchants.nickname', 'forms.tnc',
         'users.name', 'users.email', 'forms.name AS form_name', 'forms.form_fields', 'forms.join_queue', 'forms.can_view', 'require_signature')
         ->where('submitted_forms.status', $status)
         ->where('merchants.id', $id)
@@ -145,6 +145,7 @@ class ExecutiveController extends Controller
             $submittedformdata['form_fields'] = json_decode(Crypt::decryptString($items->form_fields));
             $submittedformdata['join_queue'] = $items->join_queue;
             $submittedformdata['can_view'] = $items->can_view;
+            $submittedformdata['tnc'] = $items->tnc;
             $submittedformdata['require_signature'] = $items->require_signature;
             $submittedformdata['merchant_name'] = Crypt::decryptString($items->merchant_name);
             $submittedformdata['nickname'] = $items->nickname;

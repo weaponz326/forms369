@@ -31,7 +31,8 @@ class FormsController extends Controller
             'name' => 'required',
             'merchant_id' => 'required',
             'form_code' => 'required|unique:forms',
-            'status' => 'required'
+            'status' => 'required',
+            'tnc' => 'required'
         ]); 
        
 
@@ -43,6 +44,7 @@ class FormsController extends Controller
         $status = $request->status;
         $join_queue = $request->join_queue;
         $require_signature = $request->require_signature;
+        $tnc = $request->tnc;
 
         if($request->has('can_view'))
         {
@@ -74,7 +76,8 @@ class FormsController extends Controller
                     'temps' => $request->name,
                     'can_view' => $can_view,
                     'join_queue' => $join_queue,
-                    'require_signature' => $require_signature
+                    'require_signature' => $require_signature,
+                    'tnc' => $tnc
                 ]
             );
             $title = $request->name;
@@ -126,7 +129,8 @@ class FormsController extends Controller
             'name' => 'required',
             'merchant_id' => 'required',
             'form_code' => 'required',
-            'status' => 'required'
+            'status' => 'required',
+            'tnc' => 'required'
         ]); 
        
 
@@ -138,6 +142,7 @@ class FormsController extends Controller
         $status = $request->status;
         $join_queue = $request->join_queue;
         $require_signature = $request->require_signature;
+        $tnc = $request->tnc;
         if($request->has('can_view'))
         {
             $can_view = $request->can_view;
@@ -169,7 +174,8 @@ class FormsController extends Controller
                     'temps' => $request->name,
                     'can_view' => $can_view,
                     'join_queue' => $join_queue,
-                    'require_signature' => $require_signature
+                    'require_signature' => $require_signature,
+                    'tnc' => $tnc
                 ]
             );
 
@@ -343,6 +349,7 @@ class FormsController extends Controller
             $formdata['nickname'] = $items->nickname;
             $formdata['can_print'] = $items->can_print;
             $formdata['can_view'] = $items->can_view;
+            $formdata['tnc'] = $items->tnc;
             $formdata['join_queue'] = $items->join_queue;
             $formdata['require_signature'] = $items->require_signature;
             $formdata['file_url'] = $items->url;
@@ -393,6 +400,7 @@ class FormsController extends Controller
             $formdata['nickname'] = $items->nickname;
             $formdata['can_print'] = $items->can_print;
             $formdata['can_view'] = $items->can_view;
+            $formdata['tnc'] = $items->tnc;
             $formdata['join_queue'] = $items->join_queue;
             $formdata['require_signature'] = $items->require_signature;
             $formdata['file_url'] = $items->url;
@@ -464,6 +472,7 @@ class FormsController extends Controller
             $formdata['nickname'] = $items->nickname;
             $formdata['can_print'] = $items->can_print;
             $formdata['can_view'] = $items->can_view;
+            $formdata['tnc'] = $items->tnc;
             $formdata['join_queue'] = $items->join_queue;
             $formdata['require_signature'] = $items->require_signature;
             $formdata['file_url'] = $items->url;
@@ -515,6 +524,7 @@ class FormsController extends Controller
             $formdata['nickname'] = $items->nickname;
             $formdata['can_print'] = $items->can_print;
             $formdata['can_view'] = $items->can_view;
+            $formdata['tnc'] = $items->tnc;
             $formdata['join_queue'] = $items->join_queue;
             $formdata['require_signature'] = $items->require_signature;
             $formdata['colors'] = $items->colors;
@@ -592,6 +602,7 @@ class FormsController extends Controller
             $formdata['nickname'] = $items->nickname;
             $formdata['can_print'] = $items->can_print;
             $formdata['can_view'] = $items->can_view;
+            $formdata['tnc'] = $items->tnc;
             $formdata['join_queue'] = $items->join_queue;
             $formdata['require_signature'] = $items->require_signature;
             $formdata['file_url'] = $items->url;
@@ -644,6 +655,7 @@ class FormsController extends Controller
             $formdata['nickname'] = $items->nickname;
             $formdata['can_print'] = $items->can_print;
             $formdata['can_view'] = $items->can_view;
+            $formdata['tnc'] = $items->tnc;
             $formdata['join_queue'] = $items->join_queue;
             $formdata['require_signature'] = $items->require_signature;
             $formdata['file_url'] = $items->url;
@@ -698,6 +710,7 @@ class FormsController extends Controller
             $formdata['nickname'] = $items->nickname;
             $formdata['can_print'] = $items->can_print;
             $formdata['can_view'] = $items->can_view;
+            $formdata['tnc'] = $items->tnc;
             $formdata['join_queue'] = $items->join_queue;
             $formdata['require_signature'] = $items->require_signature;
             $formdata['file_url'] = $items->url;
@@ -751,6 +764,7 @@ class FormsController extends Controller
             $formdata['nickname'] = $items->nickname;
             $formdata['can_print'] = $items->can_print;
             $formdata['can_view'] = $items->can_view;
+            $formdata['tnc'] = $items->tnc;
             $formdata['join_queue'] = $items->join_queue;
             $formdata['require_signature'] = $items->require_signature;
             $formdata['file_url'] = $items->url;
@@ -1064,6 +1078,7 @@ class FormsController extends Controller
             $formdata['nickname'] = $items->nickname;
             $formdata['can_print'] = $items->can_print;
             $formdata['can_view'] = $items->can_view;
+            $formdata['tnc'] = $items->tnc;
             $formdata['join_queue'] = $items->join_queue;
             $formdata['require_signature'] = $items->require_signature;
             $formdata['file_url'] = $items->url;
@@ -1121,6 +1136,7 @@ class FormsController extends Controller
             $formdata['nickname'] = $items->nickname;
             $formdata['can_print'] = $items->can_print;
             $formdata['can_view'] = $items->can_view;
+            $formdata['tnc'] = $items->tnc;
             $formdata['join_queue'] = $items->join_queue;
             $formdata['require_signature'] = $items->require_signature;
             $formdata['file_url'] = $items->url;
@@ -1174,6 +1190,7 @@ class FormsController extends Controller
             $formdata['nickname'] = $items->nickname;
             $formdata['can_print'] = $items->can_print;
             $formdata['can_view'] = $items->can_view;
+            $formdata['tnc'] = $items->tnc;
             $formdata['join_queue'] = $items->join_queue;
             $formdata['require_signature'] = $items->require_signature;
             $formdata['file_url'] = $items->url;
