@@ -17,6 +17,7 @@
 
     <div class="form-group" *ngIf="showTimer">
       <ngb-timepicker [meridian]="true" [(ngModel)]="time" formControlName="joinTime"></ngb-timepicker>
+      <p class="input-error" *ngIf="showInvalidTimeError">The selected time is less than the current time.</p>
     </div>
 
     <div class="form-group">

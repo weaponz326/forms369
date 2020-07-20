@@ -360,7 +360,7 @@ module.exports = "<form>\n  <div class=\"dropdown\">\n    <button class=\"btn bt
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<div class=\"modal-header\">\n  <h4 class=\"modal-title\" id=\"modal-basic-title\">Join Queue</h4>\n</div>\n\n<div class=\"modal-body\">\n  <form [formGroup]=\"form\">\n    <div class=\"form-group\">\n      <select class=\"form-control form-control-lg\" formControlName=\"joinType\" (change)=\"onTimeSelect($event)\">\n        <option value=\"\" disabled>Choose Join Time</option>\n        <option value=\"now\">Join Now</option>\n        <option value=\"later\">Join Later</option>\n      </select>\n      <div *ngIf=\"submitted && f.joinType.errors\">\n        <p class=\"input-error\" *ngIf=\"f.joinType.errors.required\">Join time is required.</p>\n      </div>\n    </div>\n\n    <div class=\"form-group\" *ngIf=\"showTimer\">\n      <ngb-timepicker [meridian]=\"true\" [(ngModel)]=\"time\" formControlName=\"joinTime\"></ngb-timepicker>\n    </div>\n\n    <div class=\"form-group\">\n      <select class=\"form-control form-control-lg\" formControlName=\"queueService\" (change)=\"onServiceSelect($event)\">\n        <option value=\"\" disabled>Choose QMS Service</option>\n        <option *ngFor=\"let service of servicesList\" [value]=\"service.service_id\">\n          {{ service.name }}\n        </option>\n      </select>\n      <div *ngIf=\"submitted && f.queueService.errors\">\n        <p class=\"input-error\" *ngIf=\"f.queueService.errors.required\">QMS Service is required.</p>\n      </div>\n    </div>\n  </form>\n</div>\n\n<div class=\"modal-footer\">\n  <button type=\"button\" class=\"btn btn-primary\" (click)=\"skip()\">Skip</button>\n  <button type=\"button\" *ngIf=\"!loading\" class=\"btn btn-primary\" (click)=\"submit()\">Join</button>\n  <button type=\"button\" *ngIf=\"loading\" class=\"btn btn-block btn-primary btn-lg font-weight-medium auth-form-btn\" disabled>\n    <span class=\"spinner-border spinner-border-sm\" role=\"status\" aria-hidden=\"true\"></span> &nbsp; &nbsp;\n    Please wait...\n  </button>\n  <button type=\"button\" class=\"btn btn-outline-primary\" (click)=\"close()\">Cancel</button>\n</div>\n\n<ng-template #alreadyJoinQueue>\n  <app-already-joined-queue-dialog\n    [token]=\"token\"\n    [phone]=\"queueData.phone\"\n    [joinNow]=\"queueData.joinNow\"\n    [serviceId]=\"queueData.serviceId\"\n    [joinAtTime]=\"queueData.joinAtTime\"\n    [branchExtension]=\"branchExtension\"\n    (processCompleted)=\"doneProcessing($event)\">\n  </app-already-joined-queue-dialog>\n</ng-template>\n"
+module.exports = "<div class=\"modal-header\">\n  <h4 class=\"modal-title\" id=\"modal-basic-title\">Join Queue</h4>\n</div>\n\n<div class=\"modal-body\">\n  <form [formGroup]=\"form\">\n    <div class=\"form-group\">\n      <select class=\"form-control form-control-lg\" formControlName=\"joinType\" (change)=\"onTimeSelect($event)\">\n        <option value=\"\" disabled>Choose Join Time</option>\n        <option value=\"now\">Join Now</option>\n        <option value=\"later\">Join Later</option>\n      </select>\n      <div *ngIf=\"submitted && f.joinType.errors\">\n        <p class=\"input-error\" *ngIf=\"f.joinType.errors.required\">Join time is required.</p>\n      </div>\n    </div>\n\n    <div class=\"form-group\" *ngIf=\"showTimer\">\n      <ngb-timepicker [meridian]=\"true\" [(ngModel)]=\"time\" formControlName=\"joinTime\"></ngb-timepicker>\n      <p class=\"input-error\" *ngIf=\"showInvalidTimeError\">The selected time is less than the current time.</p>\n    </div>\n\n    <div class=\"form-group\">\n      <select class=\"form-control form-control-lg\" formControlName=\"queueService\" (change)=\"onServiceSelect($event)\">\n        <option value=\"\" disabled>Choose QMS Service</option>\n        <option *ngFor=\"let service of servicesList\" [value]=\"service.service_id\">\n          {{ service.name }}\n        </option>\n      </select>\n      <div *ngIf=\"submitted && f.queueService.errors\">\n        <p class=\"input-error\" *ngIf=\"f.queueService.errors.required\">QMS Service is required.</p>\n      </div>\n    </div>\n  </form>\n</div>\n\n<div class=\"modal-footer\">\n  <button type=\"button\" class=\"btn btn-primary\" (click)=\"skip()\">Skip</button>\n  <button type=\"button\" *ngIf=\"!loading\" class=\"btn btn-primary\" (click)=\"submit()\">Join</button>\n  <button type=\"button\" *ngIf=\"loading\" class=\"btn btn-block btn-primary btn-lg font-weight-medium auth-form-btn\" disabled>\n    <span class=\"spinner-border spinner-border-sm\" role=\"status\" aria-hidden=\"true\"></span> &nbsp; &nbsp;\n    Please wait...\n  </button>\n  <button type=\"button\" class=\"btn btn-outline-primary\" (click)=\"close()\">Cancel</button>\n</div>\n\n<ng-template #alreadyJoinQueue>\n  <app-already-joined-queue-dialog\n    [token]=\"token\"\n    [phone]=\"queueData.phone\"\n    [joinNow]=\"queueData.joinNow\"\n    [serviceId]=\"queueData.serviceId\"\n    [joinAtTime]=\"queueData.joinAtTime\"\n    [branchExtension]=\"branchExtension\"\n    (processCompleted)=\"doneProcessing($event)\">\n  </app-already-joined-queue-dialog>\n</ng-template>\n"
 
 /***/ }),
 
@@ -3264,8 +3264,11 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var src_app_services_logging_logging_service__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! src/app/services/logging/logging.service */ "./src/app/services/logging/logging.service.ts");
 /* harmony import */ var src_app_services_qms_qmsqueueing_service__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! src/app/services/qms/qmsqueueing.service */ "./src/app/services/qms/qmsqueueing.service.ts");
 /* harmony import */ var src_app_services_date_time_date_time_service__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! src/app/services/date-time/date-time.service */ "./src/app/services/date-time/date-time.service.ts");
-/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
-/* harmony import */ var src_app_services_storage_local_storage_service__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! src/app/services/storage/local-storage.service */ "./src/app/services/storage/local-storage.service.ts");
+/* harmony import */ var src_app_services_storage_local_storage_service__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! src/app/services/storage/local-storage.service */ "./src/app/services/storage/local-storage.service.ts");
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
+/* harmony import */ var moment__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! moment */ "./node_modules/moment/moment.js");
+/* harmony import */ var moment__WEBPACK_IMPORTED_MODULE_9___default = /*#__PURE__*/__webpack_require__.n(moment__WEBPACK_IMPORTED_MODULE_9__);
+
 
 
 
@@ -3284,8 +3287,8 @@ var JoinQueueDialogComponent = /** @class */ (function () {
         this.dateTimeService = dateTimeService;
         this.localStorage = localStorage;
         this.qmsQueueService = qmsQueueService;
-        this.queueSkipped = new _angular_core__WEBPACK_IMPORTED_MODULE_7__["EventEmitter"]();
-        this.processCompleted = new _angular_core__WEBPACK_IMPORTED_MODULE_7__["EventEmitter"]();
+        this.queueSkipped = new _angular_core__WEBPACK_IMPORTED_MODULE_8__["EventEmitter"]();
+        this.processCompleted = new _angular_core__WEBPACK_IMPORTED_MODULE_8__["EventEmitter"]();
         this.servicesList = [];
         this.user = this.localStorage.getUser();
         this.getBranchServices();
@@ -3348,15 +3351,31 @@ var JoinQueueDialogComponent = /** @class */ (function () {
         this.modalService.dismissAll();
         this.modalService.open(this.alreadyJoinQueueDialog, { centered: true, backdrop: 'static', keyboard: false });
     };
+    JoinQueueDialogComponent.prototype.validateTime = function (time) {
+        var now = new Date();
+        if (time.getHours() >= now.getHours()) {
+            if (time.getMinutes() >= now.getMinutes()) {
+                this.showInvalidTimeError = false;
+                return true;
+            }
+            else {
+                this.showInvalidTimeError = true;
+                return false;
+            }
+        }
+        else {
+            this.showInvalidTimeError = true;
+            return false;
+        }
+    };
     JoinQueueDialogComponent.prototype.resolveDate = function () {
         var now = new Date();
         var month = now.getMonth() + 1;
         var date = now.getFullYear().toString() + '-' + month.toString() + '-' + now.getDate().toString();
         var formatted_date = this.dateTimeService.getDatePart(date);
-        this.logger.log('formttated_:: ' + formatted_date);
         var fullDateTime = formatted_date + ' ' + this.joinTime.value.hour +
             ':' + this.joinTime.value.minute + ':' + now.getSeconds();
-        this.logger.log('submitted_join_at: ' + fullDateTime);
+        this.logger.log('submitted_join_at: ' + moment__WEBPACK_IMPORTED_MODULE_9__(fullDateTime).format('YYYY-MM-DD hh:mm:ss'));
         return fullDateTime;
     };
     JoinQueueDialogComponent.prototype.getFormData = function () {
@@ -3409,14 +3428,41 @@ var JoinQueueDialogComponent = /** @class */ (function () {
         this.time = { hour: hour, minute: minute, second: 0 };
         this.logger.log('current time: ' + JSON.stringify(this.time));
     };
+    JoinQueueDialogComponent.prototype.getSelectedDateTime = function () {
+        var now = new Date();
+        var date = now.getDate();
+        var year = now.getFullYear();
+        var month = now.getMonth() + 1;
+        var time = this.f.joinTime.value == 0 ? now : new Date(year, month, date, this.time.hour, this.time.minute, this.time.second);
+        this.logger.log('now: ::' + now.getTime());
+        this.logger.log('selected: ::' + time.getTime());
+        return time;
+    };
     JoinQueueDialogComponent.prototype.submit = function () {
         this.submitted = true;
-        if (this.form.valid) {
-            this.logger.log('ok, continue ...');
-            this.joinQueue();
+        if (this.f.joinTime.value == 'now') {
+            if (this.form.valid) {
+                this.logger.log('ok, continue ...');
+                this.joinQueue();
+            }
+            else {
+                this.logger.log('ooops, invalid');
+            }
         }
         else {
-            this.logger.log('ooops, invalid');
+            var selectedTime = this.getSelectedDateTime();
+            if (this.validateTime(selectedTime)) {
+                if (this.form.valid) {
+                    this.logger.log('ok, continue ...');
+                    this.joinQueue();
+                }
+                else {
+                    this.logger.log('ooops, invalid');
+                }
+            }
+            else {
+                this.logger.log('am ___here');
+            }
         }
     };
     JoinQueueDialogComponent.prototype.doneProcessing = function (data) {
@@ -3435,23 +3481,23 @@ var JoinQueueDialogComponent = /** @class */ (function () {
         { type: src_app_services_logging_logging_service__WEBPACK_IMPORTED_MODULE_4__["LoggingService"] },
         { type: _angular_forms__WEBPACK_IMPORTED_MODULE_3__["FormBuilder"] },
         { type: src_app_services_date_time_date_time_service__WEBPACK_IMPORTED_MODULE_6__["DateTimeService"] },
-        { type: src_app_services_storage_local_storage_service__WEBPACK_IMPORTED_MODULE_8__["LocalStorageService"] },
+        { type: src_app_services_storage_local_storage_service__WEBPACK_IMPORTED_MODULE_7__["LocalStorageService"] },
         { type: src_app_services_qms_qmsqueueing_service__WEBPACK_IMPORTED_MODULE_5__["QMSQueueingService"] }
     ]; };
     tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
-        Object(_angular_core__WEBPACK_IMPORTED_MODULE_7__["Input"])()
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_8__["Input"])()
     ], JoinQueueDialogComponent.prototype, "branchExtension", void 0);
     tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
-        Object(_angular_core__WEBPACK_IMPORTED_MODULE_7__["Output"])()
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_8__["Output"])()
     ], JoinQueueDialogComponent.prototype, "queueSkipped", void 0);
     tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
-        Object(_angular_core__WEBPACK_IMPORTED_MODULE_7__["Output"])()
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_8__["Output"])()
     ], JoinQueueDialogComponent.prototype, "processCompleted", void 0);
     tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
-        Object(_angular_core__WEBPACK_IMPORTED_MODULE_7__["ViewChild"])('alreadyJoinQueue', { static: false })
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_8__["ViewChild"])('alreadyJoinQueue', { static: false })
     ], JoinQueueDialogComponent.prototype, "alreadyJoinQueueDialog", void 0);
     JoinQueueDialogComponent = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
-        Object(_angular_core__WEBPACK_IMPORTED_MODULE_7__["Component"])({
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_8__["Component"])({
             selector: 'app-join-queue-dialog',
             template: __webpack_require__(/*! raw-loader!./join-queue-dialog.component.html */ "./node_modules/raw-loader/index.js!./src/app/components/join-queue-dialog/join-queue-dialog.component.html"),
             providers: [_ng_bootstrap_ng_bootstrap__WEBPACK_IMPORTED_MODULE_2__["NgbTimepickerConfig"], src_app_services_qms_qmsqueueing_service__WEBPACK_IMPORTED_MODULE_5__["QMSQueueingService"]],
@@ -8199,6 +8245,7 @@ var ClientFormNewEntryPageComponent = /** @class */ (function () {
             this.clientService.submitForm(lodash__WEBPACK_IMPORTED_MODULE_1__["toString"](this.user.id), this.form.form_code, this.clientProfile, JSON.parse(updated_data), update, form_submission_code, this.status, this.branch_id).then(function (ok) {
                 if (ok) {
                     _this.loading = false;
+                    _this.created = true;
                     if (_this.status == 0) {
                         _this.showJoinQueueDialog();
                     }
@@ -8244,7 +8291,9 @@ var ClientFormNewEntryPageComponent = /** @class */ (function () {
         this.submitFormAndAttachments(user_data, this.updateProfile);
     };
     ClientFormNewEntryPageComponent.prototype.queueJoined = function (data) {
-        data == true ? this.created = true : this.created = false;
+        this.loading = false;
+        alert(data);
+        this.created = data == true ? true : false;
     };
     ClientFormNewEntryPageComponent.prototype.skipQueue = function (e) {
         console.log('am here');

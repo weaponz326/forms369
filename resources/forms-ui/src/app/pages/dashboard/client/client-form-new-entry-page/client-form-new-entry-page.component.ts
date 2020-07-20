@@ -315,6 +315,7 @@ export class ClientFormNewEntryPageComponent implements OnInit, AfterViewInit {
         ok => {
           if (ok) {
             this.loading = false;
+            this.created = true;
             if (this.status == 0) {
               this.showJoinQueueDialog();
             }
@@ -366,7 +367,9 @@ export class ClientFormNewEntryPageComponent implements OnInit, AfterViewInit {
   }
 
   queueJoined(data: any) {
-    data == true ? this.created = true : this.created = false;
+    this.loading = false;
+    alert(data);
+    this.created = data == true ? true : false;
   }
 
   skipQueue(e: any) {
