@@ -66,6 +66,21 @@
                       </div>
                     </div>
 
+                    <div *ngIf="requireSignature" class="signature-section">
+                      <div class="card" style="margin-bottom: 15px;">
+                        <div class="card-body">
+                          <div class="card-title">Signature</div>
+                          <div *ngIf="!hasSignature">
+                            <signature-pad #signaturePad [options]="signaturePadOptions"
+                              (onEndEvent)="signatureDrawComplete()"></signature-pad>
+                          </div>
+                          <div *ngIf="hasSignature">
+                            <img [src]="signatureImageUrl" alt="signature">
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+
                     <div class="buttons-list">
                       <button *ngIf="loading" class="btn btn-primary btn-lg mr-2" type="button" disabled>
                         <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>

@@ -4,6 +4,7 @@ import Swal from 'sweetalert2';
 import { Router } from '@angular/router';
 import { ClipboardService } from 'ngx-clipboard';
 import { Users } from 'src/app/models/users.model';
+import { SignaturePad } from 'ngx-signaturepad/signature-pad';
 import { NgbModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { BranchService } from 'src/app/services/branch/branch.service';
@@ -44,11 +45,16 @@ export class ClientFormNewEntryPageComponent implements OnInit, AfterViewInit {
   documentUrl: string;
   pinMinimum: boolean;
   pinRequired: boolean;
+  hasSignature: boolean;
   updateProfile: boolean;
   submissionCode: string;
   branchExtension: string;
   loadingBranches: boolean;
   showAttachments: boolean;
+  signaturePadOptions: any;
+  signatureDataURL: string;
+  requireSignature: boolean;
+  signatureImageUrl: string;
   docDialogRef: NgbModalRef;
   pinDialogRef: NgbModalRef;
   disableValidation: boolean;
@@ -63,6 +69,7 @@ export class ClientFormNewEntryPageComponent implements OnInit, AfterViewInit {
   @ViewChild('pin', { static: false }) pinDialog: TemplateRef<any>;
   @ViewChild('setPin', { static: false }) setPinDialog: TemplateRef<any>;
   @ViewChild('confirm', { static: false }) confirmDialog: TemplateRef<any>;
+  @ViewChild('signaturePad', { static: false }) signaturePad: SignaturePad;
   @ViewChild('joinQueue', { static: false }) joinQueueDialog: TemplateRef<any>;
   @ViewChild('selectBranch', { static: false }) selectBranchDialog: TemplateRef<any>;
   @ViewChild('viewImgAttachment', { static: false }) viewImgDialog: TemplateRef<any>;
@@ -92,6 +99,7 @@ export class ClientFormNewEntryPageComponent implements OnInit, AfterViewInit {
     this.submissionCode = '';
     this.attachmentKeys = [];
     this.attachmentFiles = [];
+    this.signatureImageUrl = '';
     this.existingAttachments = [];
     this.disableValidation = false;
     this.form = history.state.form;
@@ -100,6 +108,7 @@ export class ClientFormNewEntryPageComponent implements OnInit, AfterViewInit {
     this.user = this.localStorage.getUser();
     console.log('form: ' + JSON.stringify(this.form));
     console.log('submission_code: ' + this.form.submission_code);
+    this.requireSignature = this.form.require_signature == 1 ? true : false; 
     this.getFormAttachments(this.user.id.toString());
     this.checkIfUserHasFormPin();
     this.generateSubmissionCode();
@@ -108,6 +117,7 @@ export class ClientFormNewEntryPageComponent implements OnInit, AfterViewInit {
   ngOnInit() {
     this.initPinForm();
     this.renderForm();
+    this.initSignatureOptions();
   }
 
   ngAfterViewInit() {
@@ -130,6 +140,28 @@ export class ClientFormNewEntryPageComponent implements OnInit, AfterViewInit {
         this.submissionCode = code;
       }
     );
+  }
+
+  initSignatureOptions() {
+    this.signaturePadOptions = {
+      'minWidth': 3,
+      'canvasWidth': 800,
+      'canvasHeight': 300
+    };
+  }
+
+  signatureClear() {
+    this.signaturePad.clear();
+  }
+
+  signatureDrawComplete() {
+    console.log(this.signaturePad.toDataURL());
+    this.signatureDataURL = this.signaturePad.toDataURL();
+  }
+
+  editSignature() {
+    this.hasSignature = false;
+    this.signatureClear();
   }
 
   resolveStrCharacters(e: KeyboardEvent) {
@@ -846,6 +878,10 @@ export class ClientFormNewEntryPageComponent implements OnInit, AfterViewInit {
           const attachments = [];
           _.forEach(res, (doc) => {
             console.log('doc: ' + JSON.stringify(doc));
+            if (doc.key == 'signature') {
+              this.hasSignature = true;
+              this.signatureImageUrl = this.endpointService.storageHost + '/attachments/' + doc.url;
+            }
             attachments.push(doc);
           });
           this.setFormAttachments(attachments);

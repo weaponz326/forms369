@@ -4,6 +4,7 @@ import Swal from 'sweetalert2';
 import { Router } from '@angular/router';
 import { ClipboardService } from 'ngx-clipboard';
 import { Users } from 'src/app/models/users.model';
+import { SignaturePad } from 'ngx-signaturepad/signature-pad';
 import { NgbModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { BranchService } from 'src/app/services/branch/branch.service';
@@ -46,16 +47,21 @@ export class ClientFormsEntryPageComponent implements OnInit, AfterViewInit {
   pinMinimum: boolean;
   pinRequired: boolean;
   updateProfile: boolean;
+  hasSignature: boolean;
+  signaturePadOptions: any;
   submissionCode: string;
   branchExtension: string;
   loadingBranches: boolean;
+  signatureDataURL: string;
   showAttachments: boolean;
+  requireSignature: boolean;
   docDialogRef: NgbModalRef;
   pinDialogRef: NgbModalRef;
   loadingAttachments: boolean;
   setPinDialogRef: NgbModalRef;
   attachmentFiles: Array<File>;
   attachmentKeys: Array<string>;
+  signatureImageUrl: string;
   existingAttachments: Array<any>;
   submissionCodeReplacement: string;
   selectBranchDialogRef: NgbModalRef;
@@ -63,6 +69,7 @@ export class ClientFormsEntryPageComponent implements OnInit, AfterViewInit {
   @ViewChild('pin', { static: false }) pinDialog: TemplateRef<any>;
   @ViewChild('setPin', { static: false }) setPinDialog: TemplateRef<any>;
   @ViewChild('confirm', { static: false }) confirmDialog: TemplateRef<any>;
+  @ViewChild('signaturePad', { static: false }) signaturePad: SignaturePad;
   @ViewChild('joinQueue', { static: false }) joinQueueDialog: TemplateRef<any>;
   @ViewChild('selectBranch', { static: false }) selectBranchDialog: TemplateRef<any>;
   @ViewChild('viewImgAttachment', { static: false }) viewImgDialog: TemplateRef<any>;
@@ -92,12 +99,14 @@ export class ClientFormsEntryPageComponent implements OnInit, AfterViewInit {
     this.submissionCode = '';
     this.attachmentKeys = [];
     this.attachmentFiles = [];
+    this.signatureImageUrl = '';
     this.existingAttachments = [];
     this.form = history.state.form;
     this.form = this.reloader.resolveDataLoss(this.form);
     this.user = this.localStorage.getUser();
     console.log('form: ' + JSON.stringify(this.form));
     console.log('submission_code: ' + this.form.submission_code);
+    this.requireSignature = this.form.require_signature == 1 ? true : false;
 
     !_.isUndefined(this.form.submission_code)
       ? this.getFormAttachments(this.form.submission_code)
@@ -109,6 +118,7 @@ export class ClientFormsEntryPageComponent implements OnInit, AfterViewInit {
   ngOnInit() {
     this.initPinForm();
     this.renderForm();
+    this.initSignatureOptions();
   }
 
   ngAfterViewInit() {
@@ -123,6 +133,28 @@ export class ClientFormsEntryPageComponent implements OnInit, AfterViewInit {
     this.pinForm = this.fb.group({
       pin: ['', [Validators.minLength(4), Validators.required]]
     });
+  }
+
+  initSignatureOptions() {
+    this.signaturePadOptions = {
+      'minWidth': 3,
+      'canvasWidth': 800,
+      'canvasHeight': 300
+    };
+  }
+
+  signatureClear() {
+    this.signaturePad.clear();
+  }
+
+  signatureDrawComplete() {
+    console.log(this.signaturePad.toDataURL());
+    this.signatureDataURL = this.signaturePad.toDataURL();
+  }
+
+  editSignature() {
+    this.hasSignature = false;
+    this.signatureClear();
   }
 
   generateSubmissionCode() {
@@ -818,6 +850,10 @@ export class ClientFormsEntryPageComponent implements OnInit, AfterViewInit {
           this.showAttachments = true;
           _.forEach(res, (doc) => {
             console.log('doc: ' + JSON.stringify(doc));
+            if (doc.key == 'signature') {
+              this.hasSignature = true;
+              this.signatureImageUrl = this.endpointService.apiHost + '/attachments/' + doc.url;
+            }
             this.existingAttachments.push(doc);
           });
         }
@@ -844,6 +880,10 @@ export class ClientFormsEntryPageComponent implements OnInit, AfterViewInit {
           const attachments = [];
           _.forEach(res, (doc) => {
             console.log('doc: ' + JSON.stringify(doc));
+            if (doc.key == 'signature') {
+              this.hasSignature = true;
+              this.signatureImageUrl = this.endpointService.apiHost + '/attachments/' + doc.url;
+            }
             attachments.push(doc);
           });
           this.getCurrentFormAttachmentsOnly(attachments);
