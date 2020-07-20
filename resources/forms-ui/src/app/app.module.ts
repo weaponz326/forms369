@@ -9,6 +9,8 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { HttpClientModule } from '@angular/common/http';
 import { AppRoutingModule } from './app-routing.module';
 import { CountryPickerModule } from 'ngx-country-picker';
+// import { SignaturePadModule, SignaturePadComponent } from '@ng-plus/signature-pad';
+import { SignaturePadModule } from 'ngx-signaturepad';
 import { NgxPageScrollCoreModule } from 'ngx-page-scroll-core';
 
 import { MatIconModule } from '@angular/material/icon';
@@ -277,6 +279,7 @@ import { AlreadyJoinedQueueDialogComponent } from './components/already-joined-q
     OrderModule,
     ClipboardModule,
     PdfViewerModule,
+    SignaturePadModule,
     NgbModule,
     NgbAlertModule,
     NgbModalModule,

@@ -1,6 +1,7 @@
 import * as _ from 'lodash';
 import Swal from 'sweetalert2';
 import { Users } from 'src/app/models/users.model';
+import { SignaturePad } from 'ngx-signaturepad/signature-pad';
 import { NgbModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { ClientService } from 'src/app/services/client/client.service';
@@ -10,6 +11,7 @@ import { DownloaderService } from 'src/app/services/downloader/downloader.servic
 import { LocalStorageService } from 'src/app/services/storage/local-storage.service';
 import { FormBuilderService } from 'src/app/services/form-builder/form-builder.service';
 import { Component, OnInit, ViewChild, TemplateRef, AfterViewInit } from '@angular/core';
+import { FileUploadsService } from 'src/app/services/file-uploads/file-uploads.service';
 
 @Component({
   selector: 'app-client-profile-page',
@@ -34,7 +36,11 @@ export class ClientProfilePageComponent implements OnInit, AfterViewInit {
   renderData: boolean;
   documentUrl: string;
   pinRequired: boolean;
+  hasSignature: boolean;
   primaryUserData: any;
+  signaturePadOptions: any;
+  signatureImageUrl: string;
+  signatureDataURL: string;
   docDialogRef: NgbModalRef;
   pinDialogRef: NgbModalRef;
   loadingAttachments: boolean;
@@ -47,6 +53,7 @@ export class ClientProfilePageComponent implements OnInit, AfterViewInit {
   existingAttachments: Array<any>;
   @ViewChild('pin', { static: false }) pinDialog: TemplateRef<any>;
   @ViewChild('setPin', { static: false }) setPinDialog: TemplateRef<any>;
+  @ViewChild('signaturePad', {static: false}) signaturePad: SignaturePad;
   @ViewChild('confirm', { static: false }) confirmDialog: TemplateRef<any>;
   @ViewChild('viewImgAttachment', { static: false }) viewImgDialog: TemplateRef<any>;
   @ViewChild('viewDocAttachment', { static: false }) viewDocDialog: TemplateRef<any>;
@@ -60,7 +67,8 @@ export class ClientProfilePageComponent implements OnInit, AfterViewInit {
     private formBuilder: FormBuilderService,
     private endpointService: EndpointService,
     private localStorage: LocalStorageService,
-    private downloadService: DownloaderService
+    private downloadService: DownloaderService,
+    private fileUploadService: FileUploadsService
   ) {
     this.pinCode = '';
     this.formFiles = 0;
@@ -69,12 +77,14 @@ export class ClientProfilePageComponent implements OnInit, AfterViewInit {
     this.attachmentFiles = [];
     this.duplicateFields = [];
     this.existingAttachments = [];
+    this.signatureImageUrl = '';
     this.user = this.localStorage.getUser();
     console.log('user_id: ' + this.user.id);
   }
 
   ngOnInit() {
     this.initPinForm();
+    this.initSignatureOptions();
   }
 
   ngAfterViewInit() {
@@ -150,6 +160,28 @@ export class ClientProfilePageComponent implements OnInit, AfterViewInit {
     this.pinForm = this.fb.group({
       pin: ['', [Validators.minLength(4), Validators.required]]
     });
+  }
+
+  initSignatureOptions() {
+    this.signaturePadOptions = {
+      'minWidth': 3,
+      'canvasWidth': 800,
+      'canvasHeight': 300
+    };
+  }
+
+  signatureClear() {
+    this.signaturePad.clear();
+  }
+
+  signatureDrawComplete() {
+    console.log(this.signaturePad.toDataURL());
+    this.signatureDataURL = this.signaturePad.toDataURL();
+  }
+
+  editSignature() {
+    this.hasSignature = false;
+    this.signatureClear();
   }
 
   resolveStrCharacters(e: KeyboardEvent) {
@@ -241,6 +273,11 @@ export class ClientProfilePageComponent implements OnInit, AfterViewInit {
     else {
       this.pinDialogRef = this.modalService.open(this.pinDialog, { centered: true, keyboard: false, backdrop: 'static' });
     }
+  }
+
+  saveImage(blob: Blob) {
+    // Do something with the blob.
+    console.log('hdhdhdgdgd');
   }
 
   createPin() {
@@ -358,6 +395,10 @@ export class ClientProfilePageComponent implements OnInit, AfterViewInit {
         if (res.length > 0) {
           _.forEach(res, (doc) => {
             console.log('doc: ' + JSON.stringify(doc));
+            if (doc.key == 'signature') {
+              this.hasSignature = true;
+              this.signatureImageUrl = this.endpointService.storageHost + '/attachments/' + doc.url;
+            }
             this.existingAttachments.push(doc);
           });
         }
@@ -465,6 +506,28 @@ export class ClientProfilePageComponent implements OnInit, AfterViewInit {
     );
   }
 
+  updateSignature(): Promise<boolean> {
+    return new Promise((resolve, reject) => {
+      if (_.isEmpty(this.signatureDataURL)) {
+        console.log('no signature was signed');
+        resolve(true);
+      }
+      else {
+        console.log('now uploading a new signature that was signed');
+        const key = 'signature';
+        const signatureImageFile = this.fileUploadService.convertBase64ToFile(this.signatureDataURL, 'signature.png');
+        this.clientService.uploadProfileAttachment(this.user.id, key, signatureImageFile).then(
+          ok => {
+            ok ? resolve(true) : resolve(false);
+          },
+          err => {
+            reject(err);
+          }
+        );
+      }
+    });
+  }
+
   updateAttachments(): Promise<boolean> {
     return new Promise((resolve, reject) => {
       if (this.attachmentFiles.length != 0) {
@@ -517,8 +580,25 @@ export class ClientProfilePageComponent implements OnInit, AfterViewInit {
           this.updateAttachments().then(
             ok => {
               if (ok) {
-                this.updating = false;
-                this.showUpdatedDialog(true);
+                // now we uploasd the signature
+                if (_.isEmpty(this.signatureDataURL)) {
+                  this.updating = false;
+                  this.showUpdatedDialog(true);
+                }
+                else {
+                  this.updateSignature().then(
+                    done => {
+                      if (done) {
+                        this.updating = false;
+                        this.showUpdatedDialog(true);
+                      }
+                      else {
+                        this.updating = false;
+                        this.showUpdatedDialog(false);
+                      }
+                    }
+                  );
+                }
               }
               else {
                 this.updating = false;
