@@ -70,6 +70,14 @@
                       <div class="card" style="margin-bottom: 15px;">
                         <div class="card-body">
                           <div class="card-title">Signature</div>
+                          <div class="align-right">
+                            <button type="button" class="btn btn-sm" (click)="editSignature()">
+                              <i class="mdi mdi-pencil-outline"></i>
+                            </button>
+                            <button *ngIf="!hasSignature" type="button" class="btn btn-sm" (click)="restoreSignature()">
+                              <i class="mdi mdi-restore-clock"></i>
+                            </button>
+                          </div>
                           <div *ngIf="!hasSignature">
                             <signature-pad #signaturePad [options]="signaturePadOptions"
                               (onEndEvent)="signatureDrawComplete()"></signature-pad>

@@ -25,6 +25,10 @@
           </div>
         </div>
       </div>
+
+      <div *ngIf="hasSignature" class="signature">
+        <img [src]="signatureImageUrl" alt="signature">
+      </div>
     </div>
   </div>
 </div>

@@ -5,6 +5,7 @@ import { PDFDocumentProxy } from 'ng2-pdf-viewer';
 import { Users } from 'src/app/models/users.model';
 import { Component, OnInit, Input } from '@angular/core';
 import { FormGroup, FormControl, FormBuilder } from '@angular/forms';
+import { ClientService } from 'src/app/services/client/client.service';
 import { EndpointService } from 'src/app/services/endpoint/endpoint.service';
 import { PDFAnnotationData, PDFPageProxy, PDFProgressData } from 'pdfjs-dist';
 import { ReloadingService } from 'src/app/services/reloader/reloading.service';
@@ -25,17 +26,21 @@ export class ClientPdfPrintingPageComponent implements OnInit {
   hasError: boolean;
   myForm: FormGroup;
   inputList: Input[];
+  hasSignature: boolean;
   clientFormDetails: any[];
+  signatureImageUrl: string;
 
   constructor(
     private router: Router,
     private _fb: FormBuilder,
     private reloader: ReloadingService,
+    private clientService: ClientService,
     private endpointService: EndpointService,
     private localStorage: LocalStorageService,
     private frontDeskService: FrontDeskService,
   ) {
     this.initVars();
+    this.getSignature();
   }
 
   ngOnInit() {
@@ -213,6 +218,30 @@ export class ClientPdfPrintingPageComponent implements OnInit {
       height: `${input.height}px`,
       width: `${input.width}px`,
     };
+  }
+
+  getSignature() {
+    const user_id = this.localStorage.getUser().id.toString();
+    this.clientService.getProfileFormAttachment(user_id).then(
+      res => {
+        console.log('r__sss: ' + JSON.stringify(res));
+        if (res.length > 0) {
+          _.forEach(res, (doc) => {
+            console.log('doc: ' + JSON.stringify(doc));
+            if (doc.key == 'signature') {
+              this.hasSignature = true;
+              this.signatureImageUrl = this.endpointService.storageHost + 'attachments/' + doc.url;
+            }
+          });
+        }
+        else {
+          this.hasSignature = false;
+        }
+      },
+      err => {
+        console.log('get_a_error: ' + JSON.stringify(err));
+      }
+    );
   }
 
   private hidePrintButton() {

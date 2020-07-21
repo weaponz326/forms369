@@ -1,7 +1,10 @@
 declare var $: any;
 import * as _ from 'lodash';
+import { ClientService } from 'src/app/services/client/client.service';
+import { EndpointService } from 'src/app/services/endpoint/endpoint.service';
 import { ReloadingService } from 'src/app/services/reloader/reloading.service';
 import { DownloaderService } from 'src/app/services/downloader/downloader.service';
+import { LocalStorageService } from 'src/app/services/storage/local-storage.service';
 import { Component, OnInit, ViewChild, ElementRef, AfterViewInit } from '@angular/core';
 
 @Component({
@@ -15,23 +18,29 @@ export class ClientPrintingPageComponent implements OnInit, AfterViewInit {
   logo: string;
   loading: boolean;
   hasError: boolean;
+  hasSignature: boolean;
   formKeys: Array<string>;
   formValues: Array<string>;
+  signatureImageUrl: string;
   clientFormData: Array<any>;
   @ViewChild('content', { static: false }) content: ElementRef;
 
   constructor(
     private reloader: ReloadingService,
+    private clientService: ClientService,
+    private endpointService: EndpointService,
+    private localStorage: LocalStorageService,
     private downloadService: DownloaderService,
   ) {
     this.initVars();
+    this.getSignature();
   }
 
   ngOnInit() {
   }
 
   ngAfterViewInit() {
-    !this.form.print ? this.download() : null;
+    // !this.form.print ? this.download() : null;
   }
 
   initVars() {
@@ -78,6 +87,30 @@ export class ClientPrintingPageComponent implements OnInit, AfterViewInit {
     else {
       return text;
     }
+  }
+
+  getSignature() {
+    const user_id = this.localStorage.getUser().id.toString();
+    this.clientService.getProfileFormAttachment(user_id).then(
+      res => {
+        console.log('r__sss: ' + JSON.stringify(res));
+        if (res.length > 0) {
+          _.forEach(res, (doc) => {
+            console.log('doc: ' + JSON.stringify(doc));
+            if (doc.key == 'signature') {
+              this.hasSignature = true;
+              this.signatureImageUrl = this.endpointService.storageHost + 'attachments/' + doc.url;
+            }
+          });
+        }
+        else {
+          this.hasSignature = false;
+        }
+      },
+      err => {
+        console.log('get_a_error: ' + JSON.stringify(err));
+      }
+    );
   }
 
   download() {

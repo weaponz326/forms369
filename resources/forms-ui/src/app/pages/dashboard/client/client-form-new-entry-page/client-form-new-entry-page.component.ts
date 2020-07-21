@@ -164,6 +164,10 @@ export class ClientFormNewEntryPageComponent implements OnInit, AfterViewInit {
     this.signatureClear();
   }
 
+  restoreSignature() {
+    this.hasSignature = !this.hasSignature;
+  }
+
   resolveStrCharacters(e: KeyboardEvent) {
     const regExp = new RegExp(/^\d*\.?\d*$/);
     if (!regExp.test(this.f.pin.value)) {
@@ -347,7 +351,7 @@ export class ClientFormNewEntryPageComponent implements OnInit, AfterViewInit {
         ok => {
           if (ok) {
             this.loading = false;
-            this.created = true;
+            // this.created = true;
             if (this.status == 0) {
               this.showJoinQueueDialog();
             }
@@ -370,9 +374,41 @@ export class ClientFormNewEntryPageComponent implements OnInit, AfterViewInit {
     const user_data = this.getFormData();
     console.log(JSON.stringify(user_data));
     console.log('this form: ' + this.formBuilder.getFormUserData(user_data));
-    !this.disableValidation
-      ? this.submitFormWithValidation(user_data)
-      : this.submitFormWithoutValidation(user_data);
+    // !this.disableValidation
+    //   ? this.submitFormWithValidation(user_data)
+    //   : this.submitFormWithoutValidation(user_data);
+
+    // this.loading = true;
+    // handle signature first
+    if (_.isEmpty(this.signatureDataURL)) {
+      // signature wasn't changed, still using the same signature.
+      !this.disableValidation
+        ? this.submitFormWithValidation(user_data)
+        : this.submitFormWithoutValidation(user_data);
+    }
+    else {
+      // signature was changed, we need to handle it.
+      const key = 'signature';
+      const sigImgFile = this.fileUploadService.convertBase64ToFile(this.signatureDataURL, 'signature.png');
+      if (this.updateProfile) {
+        this.clientService.uploadProfileAttachment(this.user.id.toString(), key, sigImgFile).then(
+          ok => {
+            !this.disableValidation
+              ? this.submitFormWithValidation(user_data)
+              : this.submitFormWithoutValidation(user_data);
+          },
+          err => {
+            console.log('error uploading signature:update*');
+          }
+        );
+      }
+      else {
+        // don't update the profile with the new signature
+        !this.disableValidation
+          ? this.submitFormWithValidation(user_data)
+          : this.submitFormWithoutValidation(user_data);
+      }
+    }
   }
 
   submitFormWithValidation(user_data: any) {
@@ -825,47 +861,61 @@ export class ClientFormNewEntryPageComponent implements OnInit, AfterViewInit {
     // checking the formFiles variable's value.
     console.log('doing upload');
     const num_of_attachments = this.formFiles;
-    if (num_of_attachments > 1) {
-      console.log('will do multiple uploads');
-      for (let i = 0; i < num_of_attachments; i++) {
-        this.uploadFormFile(this.attachmentKeys[i], user_data, updateProfile, submission_code, i);
-      }
-    }
-    else {
-      console.log('will do single upload');
-      console.log('attachments length: ' + this.attachmentFiles.length);
-      if (this.attachmentFiles.length == 0) {
-        console.log('no attachment');
-        if (this.existingAttachments.length > 0) {
-          this.existingUpload(user_data, updateProfile, submission_code);
-        }
-        else {
-          const update = updateProfile ? 1 : 0;
-          const filled_data = this.formBuilder.getFormUserData(user_data);
-          const updated_data = this.clientService.getUpdatedClientFormData(JSON.parse(filled_data), this.clientProfile);
-          this.clientService.submitForm(_.toString(this.user.id), this.form.form_code, this.clientProfile, JSON.parse(updated_data), update, submission_code, this.status, this.branch_id).then(
-            ok => {
-              if (ok) {
-                this.loading = false;
-                this.status == 0 ? this.created = true : this.saved = true;
+
+    const key = 'signature';
+    const sigImgFile = this.fileUploadService.convertBase64ToFile(this.signatureDataURL, 'signature.png');
+    this.clientService.uploadFormAttachments(this.user.id.toString(), this.form.form_code, submission_code, key, sigImgFile).then(
+      done => {
+        if (done) {
+          if (num_of_attachments > 1) {
+            console.log('will do multiple uploads');
+            for (let i = 0; i < num_of_attachments; i++) {
+              this.uploadFormFile(this.attachmentKeys[i], user_data, updateProfile, submission_code, i);
+            }
+          }
+          else {
+            console.log('will do single upload');
+            console.log('attachments length: ' + this.attachmentFiles.length);
+            if (this.attachmentFiles.length == 0) {
+              console.log('no attachment');
+              if (this.existingAttachments.length > 0) {
+                this.existingUpload(user_data, updateProfile, submission_code);
               }
               else {
-                this.loading = false;
-                console.log('form submission failed');
+                const update = updateProfile ? 1 : 0;
+                const filled_data = this.formBuilder.getFormUserData(user_data);
+                const updated_data = this.clientService.getUpdatedClientFormData(JSON.parse(filled_data), this.clientProfile);
+                this.clientService.submitForm(_.toString(this.user.id), this.form.form_code, this.clientProfile, JSON.parse(updated_data), update, submission_code, this.status, this.branch_id).then(
+                  ok => {
+                    if (ok) {
+                      this.loading = false;
+                      if (this.status == 0) {
+                        this.showJoinQueueDialog();
+                      }
+                      else {
+                        this.saved = true;
+                      }
+                    }
+                    else {
+                      this.loading = false;
+                      console.log('form submission failed');
+                    }
+                  },
+                  err => {
+                    this.loading = false;
+                    console.log('form submission error 6');
+                  }
+                );
               }
-            },
-            err => {
-              this.loading = false;
-              console.log('form submission error 6');
             }
-          );
+            else {
+              console.log('has attachment');
+              this.uploadFormFile(this.attachmentKeys[0], user_data, updateProfile, submission_code);
+            }
+          }
         }
       }
-      else {
-        console.log('has attachment');
-        this.uploadFormFile(this.attachmentKeys[0], user_data, updateProfile, submission_code);
-      }
-    }
+    );
   }
 
   getFormAttachments(user_id: string) {

@@ -1,16 +1,15 @@
-import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
+import { BrowserModule } from '@angular/platform-browser';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 import { OrderModule } from 'ngx-order-pipe';
 import { ClipboardModule } from 'ngx-clipboard';
 import { PdfViewerModule } from 'ng2-pdf-viewer';
+import { SignaturePadModule } from 'ngx-signaturepad';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { HttpClientModule } from '@angular/common/http';
 import { AppRoutingModule } from './app-routing.module';
 import { CountryPickerModule } from 'ngx-country-picker';
-// import { SignaturePadModule, SignaturePadComponent } from '@ng-plus/signature-pad';
-import { SignaturePadModule } from 'ngx-signaturepad';
 import { NgxPageScrollCoreModule } from 'ngx-page-scroll-core';
 
 import { MatIconModule } from '@angular/material/icon';
@@ -23,10 +22,10 @@ import { NgbModalModule, NgbAlertModule } from '@ng-bootstrap/ng-bootstrap';
 import { AppComponent } from './app.component';
 import { SideBarComponent } from './components/side-bar/side-bar.component';
 import { FooterBarComponent } from './components/footer-bar/footer-bar.component';
-import { NavigationBarComponent } from './components/navigation-bar/navigation-bar.component';
 import { LoginPageComponent } from './pages/login-page/login-page.component';
 import { WelcomePageComponent } from './pages/welcome-page/welcome-page.component';
 import { RegisterPageComponent } from './pages/register-page/register-page.component';
+import { NavigationBarComponent } from './components/navigation-bar/navigation-bar.component';
 import { HomePageComponent } from './pages/dashboard/git-admin/home-page/home-page.component';
 import { ClientHomePageComponent } from './pages/dashboard/client/client-home-page/client-home-page.component';
 import { CreateFormPageComponent } from './pages/dashboard/git-admin/create-form-page/create-form-page.component';

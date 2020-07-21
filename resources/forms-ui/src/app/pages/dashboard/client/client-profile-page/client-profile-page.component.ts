@@ -10,8 +10,8 @@ import { EndpointService } from 'src/app/services/endpoint/endpoint.service';
 import { DownloaderService } from 'src/app/services/downloader/downloader.service';
 import { LocalStorageService } from 'src/app/services/storage/local-storage.service';
 import { FormBuilderService } from 'src/app/services/form-builder/form-builder.service';
-import { Component, OnInit, ViewChild, TemplateRef, AfterViewInit } from '@angular/core';
 import { FileUploadsService } from 'src/app/services/file-uploads/file-uploads.service';
+import { Component, OnInit, ViewChild, TemplateRef, AfterViewInit } from '@angular/core';
 
 @Component({
   selector: 'app-client-profile-page',
@@ -273,11 +273,6 @@ export class ClientProfilePageComponent implements OnInit, AfterViewInit {
     else {
       this.pinDialogRef = this.modalService.open(this.pinDialog, { centered: true, keyboard: false, backdrop: 'static' });
     }
-  }
-
-  saveImage(blob: Blob) {
-    // Do something with the blob.
-    console.log('hdhdhdgdgd');
   }
 
   createPin() {

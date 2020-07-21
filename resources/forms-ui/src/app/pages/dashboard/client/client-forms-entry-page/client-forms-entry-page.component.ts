@@ -48,12 +48,12 @@ export class ClientFormsEntryPageComponent implements OnInit, AfterViewInit {
   pinRequired: boolean;
   updateProfile: boolean;
   hasSignature: boolean;
-  signaturePadOptions: any;
   submissionCode: string;
   branchExtension: string;
   loadingBranches: boolean;
   signatureDataURL: string;
   showAttachments: boolean;
+  signaturePadOptions: any;
   requireSignature: boolean;
   docDialogRef: NgbModalRef;
   pinDialogRef: NgbModalRef;
@@ -108,9 +108,7 @@ export class ClientFormsEntryPageComponent implements OnInit, AfterViewInit {
     console.log('submission_code: ' + this.form.submission_code);
     this.requireSignature = this.form.require_signature == 1 ? true : false;
 
-    !_.isUndefined(this.form.submission_code)
-      ? this.getFormAttachments(this.form.submission_code)
-      : this.getAttachmentsForCurrentForm(this.user.id.toString());
+    this.getAttachmentsForCurrentForm(this.user.id.toString());
     this.checkIfUserHasFormPin();
     this.generateSubmissionCode();
   }
@@ -155,6 +153,10 @@ export class ClientFormsEntryPageComponent implements OnInit, AfterViewInit {
   editSignature() {
     this.hasSignature = false;
     this.signatureClear();
+  }
+
+  restoreSignature() {
+    this.hasSignature = !this.hasSignature;
   }
 
   generateSubmissionCode() {
@@ -251,9 +253,6 @@ export class ClientFormsEntryPageComponent implements OnInit, AfterViewInit {
     this.branchId == 0 || this.branchId == null
       ? alert('Select a branch to continue')
       : this.selectBranchDialogRef.close();
-    // this.branchId == 0 || this.branchId == null
-    //   ? alert('Select a branch to continue')
-    //   : this.selectBranchDialogRef.close();
   }
 
   appendOnChangeEventToFileInput() {
@@ -275,6 +274,11 @@ export class ClientFormsEntryPageComponent implements OnInit, AfterViewInit {
         this.hasFile = true;
         this.formFiles += 1;
         this.attachmentKeys.push(fields.name);
+      }
+      else {
+        if (this.hasSignature) {
+          this.hasFile = true;
+        }
       }
     });
   }
@@ -330,9 +334,11 @@ export class ClientFormsEntryPageComponent implements OnInit, AfterViewInit {
       this.submissionCodeReplacement.length == 0 ||
       this.submissionCodeReplacement == undefined ? this.submissionCode : this.submissionCodeReplacement;
     if (this.hasFile) {
+      console.log('__________it has file ....');
       this.uploadFormAttachments(user_data, updateProfile, form_submission_code);
     }
     else {
+      console.log('___________it doesnt have file');
       const update = updateProfile ? 1 : 0;
       const filled_data = this.formBuilder.getFormUserData(user_data);
       const updated_data = this.clientService.getUpdatedClientFormData(JSON.parse(filled_data), this.clientProfile);
@@ -472,6 +478,33 @@ export class ClientFormsEntryPageComponent implements OnInit, AfterViewInit {
 
   submitForm() {
     this.loading = true;
+    // handle signature first
+    if (_.isEmpty(this.signatureDataURL)) {
+      // signature wasn't changed, still using the same signature.
+      this.handleFormSubmission();
+    }
+    else {
+      // signature was changed, we need to handle it.
+      const key = 'signature';
+      const sigImgFile = this.fileUploadService.convertBase64ToFile(this.signatureDataURL, 'signature.png');
+      if (this.updateProfile) {
+        this.clientService.uploadProfileAttachment(this.user.id.toString(), key, sigImgFile).then(
+          ok => {
+            this.handleFormSubmission();
+          },
+          err => {
+            console.log('error uploading signature:update*');
+          }
+        );
+      }
+      else {
+        // don't update the profile with the new signature
+        this.handleFormSubmission();
+      }
+    }
+  }
+
+  handleFormSubmission() {
     const user_data = this.getFormData();
     console.log(JSON.stringify(user_data));
     console.log('this form: ' + this.formBuilder.getFormUserData(user_data));
@@ -753,6 +786,28 @@ export class ClientFormsEntryPageComponent implements OnInit, AfterViewInit {
     }
   }
 
+  updateSignature(updateProfile: boolean): Promise<boolean> {
+    return new Promise((resolve, reject) => {
+      if (_.isEmpty(this.signatureDataURL)) {
+        console.log('no signature was signed');
+        resolve(true);
+      }
+      else {
+        console.log('now uploading a new signature that was signed');
+        const key = 'signature';
+        const signatureImageFile = this.fileUploadService.convertBase64ToFile(this.signatureDataURL, 'signature.png');
+        this.clientService.uploadProfileAttachment(this.user.id.toString(), key, signatureImageFile).then(
+          ok => {
+            ok ? resolve(true) : resolve(false);
+          },
+          err => {
+            reject(err);
+          }
+        );
+      }
+    });
+  }
+
   existingUpload(user_data: any, updateProfile: boolean, submission_code: string) {
     _.forEach(this.existingAttachments, (attachment, i) => {
       const idx = attachment.url.lastIndexOf('.');
@@ -766,6 +821,10 @@ export class ClientFormsEntryPageComponent implements OnInit, AfterViewInit {
           this.uploadConvertedFormAttachment(attachment.key, fileObj, user_data, updateProfile, submission_code);
         }
       );
+
+      const sigImgFile = this.fileUploadService.convertBase64ToFile(this.signatureDataURL, 'signature.png');
+      this.uploadConvertedFormAttachment('signature', sigImgFile, user_data, updateProfile, submission_code);
+      alert('______________uploading_________: ');
 
       if (i == this.existingAttachments.length - 1) {
         console.log('we done uploading');
@@ -798,77 +857,94 @@ export class ClientFormsEntryPageComponent implements OnInit, AfterViewInit {
     // checking the formFiles variable's value.
     console.log('doing upload');
     const num_of_attachments = this.formFiles;
-    if (num_of_attachments > 1) {
-      console.log('will do multiple uploads');
-      for (let i = 0; i < num_of_attachments; i++) {
-        this.uploadFormFile(this.attachmentKeys[i], user_data, updateProfile, submission_code, i);
-      }
-    }
-    else {
-      console.log('will do single upload');
-      console.log('attachments length: ' + this.attachmentFiles.length);
-      if (this.attachmentFiles.length == 0) {
-        console.log('no attachment');
-        if (this.existingAttachments.length > 0) {
-          this.existingUpload(user_data, updateProfile, submission_code);
-        }
-        else {
-          const update = updateProfile ? 1 : 0;
-          const filled_data = this.formBuilder.getFormUserData(user_data);
-          const updated_data = this.clientService.getUpdatedClientFormData(JSON.parse(filled_data), this.clientProfile);
-          this.clientService.submitForm(_.toString(this.user.id), this.form.form_code, this.clientProfile, JSON.parse(updated_data), update, submission_code, this.status, this.branchId).then(
-            ok => {
-              if (ok) {
-                this.loading = false;
-                this.status == 0 ? this.created = true : this.saved = true;
+
+    // upload signature
+    const key = 'signature';
+    const sigImgFile = this.fileUploadService.convertBase64ToFile(this.signatureDataURL, 'signature.png');
+    this.clientService.uploadFormAttachments(this.user.id.toString(), this.form.form_code, submission_code, key, sigImgFile).then(
+      done => {
+        if (done) {
+          if (num_of_attachments > 1) {
+            console.log('will do multiple uploads');
+            for (let i = 0; i < num_of_attachments; i++) {
+              this.uploadFormFile(this.attachmentKeys[i], user_data, updateProfile, submission_code, i);
+            }
+          }
+          else {
+            console.log('will do single upload');
+            console.log('attachments length: ' + this.attachmentFiles.length);
+            if (this.attachmentFiles.length == 0) {
+              console.log('no attachment');
+              if (this.existingAttachments.length > 0) {
+                this.existingUpload(user_data, updateProfile, submission_code);
               }
               else {
-                this.loading = false;
-                console.log('form submission failed');
+                const update = updateProfile ? 1 : 0;
+                const filled_data = this.formBuilder.getFormUserData(user_data);
+                const updated_data = this.clientService.getUpdatedClientFormData(JSON.parse(filled_data), this.clientProfile);
+                this.clientService.submitForm(_.toString(this.user.id), this.form.form_code, this.clientProfile, JSON.parse(updated_data), update, submission_code, this.status, this.branchId).then(
+                  ok => {
+                    if (ok) {
+                      this.loading = false;
+                      if (this.status == 0) {
+                        this.showJoinQueueDialog();
+                      }
+                      else {
+                        this.saved = true;
+                      }
+                    }
+                    else {
+                      this.loading = false;
+                      console.log('form submission failed');
+                    }
+                  },
+                  err => {
+                    this.loading = false;
+                    console.log('form submission error 6');
+                  }
+                );
               }
-            },
-            err => {
-              this.loading = false;
-              console.log('form submission error 6');
             }
-          );
-        }
-      }
-      else {
-        console.log('has attachment');
-        this.uploadFormFile(this.attachmentKeys[0], user_data, updateProfile, submission_code);
-      }
-    }
-  }
-
-  getFormAttachments(form_code: string) {
-    this.loadingAttachments = true;
-    this.clientService.getFormAttachment(form_code).then(
-      res => {
-        console.log('resssss: ' + JSON.stringify(res));
-        if (res.length > 0) {
-          this.showAttachments = true;
-          _.forEach(res, (doc) => {
-            console.log('doc: ' + JSON.stringify(doc));
-            if (doc.key == 'signature') {
-              this.hasSignature = true;
-              this.signatureImageUrl = this.endpointService.apiHost + '/attachments/' + doc.url;
+            else {
+              console.log('has attachment');
+              this.uploadFormFile(this.attachmentKeys[0], user_data, updateProfile, submission_code);
             }
-            this.existingAttachments.push(doc);
-          });
+          }
         }
-        else {
-          this.showAttachments =  false;
-        }
-
-        this.loadingAttachments = false;
       },
-      err => {
-        console.log('get_a_error: ' + JSON.stringify(err));
-        this.loadingAttachments = false;
-      }
+      err => {}
     );
   }
+
+  // getFormAttachments(form_code: string) {
+  //   this.loadingAttachments = true;
+  //   console.log('getting form attachments');
+  //   this.clientService.getFormAttachment(form_code).then(
+  //     res => {
+  //       alert('resssss: ' + JSON.stringify(res));
+  //       if (res.length > 0) {
+  //         this.showAttachments = true;
+  //         _.forEach(res, (doc) => {
+  //           console.log('doc: ' + JSON.stringify(doc));
+  //           if (doc.key == 'signature') {
+  //             this.hasSignature = true;
+  //             this.signatureImageUrl = this.endpointService.apiHost + '/attachments/' + doc.url;
+  //           }
+  //           this.existingAttachments.push(doc);
+  //         });
+  //       }
+  //       else {
+  //         this.showAttachments =  false;
+  //       }
+
+  //       this.loadingAttachments = false;
+  //     },
+  //     err => {
+  //       console.log('get_a_error: ' + JSON.stringify(err));
+  //       this.loadingAttachments = false;
+  //     }
+  //   );
+  // }
 
   getAttachmentsForCurrentForm(user_id: string) {
     console.log('getting attchment for currrent fomr');
@@ -882,7 +958,7 @@ export class ClientFormsEntryPageComponent implements OnInit, AfterViewInit {
             console.log('doc: ' + JSON.stringify(doc));
             if (doc.key == 'signature') {
               this.hasSignature = true;
-              this.signatureImageUrl = this.endpointService.apiHost + '/attachments/' + doc.url;
+              this.signatureImageUrl = this.endpointService.storageHost + 'attachments/' + doc.url;
             }
             attachments.push(doc);
           });
