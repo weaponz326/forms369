@@ -3,8 +3,8 @@ import * as _ from 'lodash';
 import { Router } from '@angular/router';
 import { Forms } from 'src/app/models/forms.model';
 import { FormsService } from 'src/app/services/forms/forms.service';
-import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
 import { CompanyService } from 'src/app/services/company/company.service';
 import { FormBuilderService } from 'src/app/services/form-builder/form-builder.service';
 
@@ -16,6 +16,7 @@ import { FormBuilderService } from 'src/app/services/form-builder/form-builder.s
 export class CreateFormPageComponent implements OnInit {
 
   pdfFile: File;
+  tncFile: File;
   template: any;
   form: FormGroup;
   formBuilder: any;
@@ -30,7 +31,9 @@ export class CreateFormPageComponent implements OnInit {
   uploadError: boolean;
   showJoinQueue: boolean;
   showFileUpload: boolean;
+  showTncFileUpload: boolean;
   allMerchantsList: Array<any>;
+  @ViewChild('tncFile', { static: false }) tncFileElement: ElementRef;
   @ViewChild('pdfFile', { static: false }) pdfFileElement: ElementRef;
 
   constructor(
@@ -109,8 +112,10 @@ export class CreateFormPageComponent implements OnInit {
   buildForm() {
     this.form = this._formBuilder.group({
       pdf: [''],
+      tnc: [''],
       canView: [''],
       name: ['', Validators.required],
+      hasTnc: ['', Validators.required],
       canJoin: ['', Validators.required],
       merchant: ['', Validators.required]
     });
@@ -140,14 +145,35 @@ export class CreateFormPageComponent implements OnInit {
     this.checkIfQMSEnabled(this.f.merchant.value);
   }
 
+  tncSelected(e: any) {
+    const selectedValue = this.f.hasTnc.value;
+    if (selectedValue == '1') {
+      this.showTncFileUpload = true;
+    }
+    else {
+      this.showTncFileUpload = false;
+    }
+  }
+
   inputFileChanged(ev: Event) {
     const pdf_file = this.pdfFileElement.nativeElement as HTMLInputElement;
     this.f.pdf.setValue(pdf_file.files[0].name);
     this.pdfFile = pdf_file.files[0];
   }
 
+  inputFileChanged_1(ev: Event) {
+    const tnc_file = this.tncFileElement.nativeElement as HTMLInputElement;
+    this.f.tnc.setValue(tnc_file.files[0].name);
+    this.tncFile = tnc_file.files[0];
+  }
+
   showFilePicker() {
     const element = this.pdfFileElement.nativeElement as HTMLInputElement;
+    element.click();
+  }
+
+  showFilePicker_1() {
+    const element = this.tncFileElement.nativeElement as HTMLInputElement;
     element.click();
   }
 
@@ -184,6 +210,25 @@ export class CreateFormPageComponent implements OnInit {
   }
 
   createForm() {
+    if (this.tncFile != null) {
+      alert('uploading');
+      this.formService.uploadFormTNC(this.formCode, this.tncFile).then(
+        ok => {
+          this.createFormOnly();
+        },
+        err => {
+          this.loading = false;
+          this.created = false;
+          this.uploadError = true;
+        }
+      );
+    }
+    else {
+      this.createFormOnly();
+    }
+  }
+
+  createFormOnly() {
     const form = this.getForm();
     const formData = new Forms();
     console.log('json: ' + JSON.stringify(form));
@@ -199,6 +244,7 @@ export class CreateFormPageComponent implements OnInit {
       formData.status = this.toPublish ? 1 : 0;
       formData.join_queue = this.f.canJoin ? 1 : 0;
       formData.merchant_id = parseInt(this.f.merchant.value);
+      formData.tnc = this.f.hasTnc.value == '' ? 0 : this.f.hasTnc.value;
       formData.can_view = this.f.canView.value == '' ? 0 : this.f.canView.value;
 
       this.formService.createForm(formData).then(

@@ -89,13 +89,25 @@
                       </div>
                     </div>
 
-                    <div class="buttons-list">
+                    <div class="terms-conditions" *ngIf="hasTnc">
+                      <div class="card">
+                        <div class="card-body">
+                          <div class="card-title">Terms & Condtions</div>
+                          <div class="card-text">
+                            <p>By submitting this form, please be aware that the terms & conditions apply. Please accept or decline below.</p>
+                            <button class="btn btn-outline-primary" (click)="openTncDialog()">Read & Accept in order to submit form</button>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+
+                    <div class="buttons-list mt-4">
                       <button *ngIf="loading" class="btn btn-primary btn-lg mr-2" type="button" disabled>
                         <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
                         <span class="sr-only">Please wait...</span>
                       </button>
                       <button *ngIf="!loading" type="submit" class="btn btn-primary btn-lg mr-2" (click)="submit()">Submit</button>
-                      <button *ngIf="!loading" type="submit" class="btn btn-primary btn-lg mr-2" (click)="saveAsDraft()">Save as Draft</button>
+                      <button *ngIf="!loading" type="submit" class="btn btn-outline-primary btn-lg mr-2" (click)="saveAsDraft()">Save as Draft</button>
                       <button type="button" class="btn btn-light btn-lg" (click)="cancel()">Cancel</button>
                     </div>
                   </form>
@@ -320,6 +332,19 @@
   <div class="modal-footer">
     <button type="button" class="btn btn-outline-primary" (click)="modal.close('no')">No</button>
     <button type="button" class="btn btn-primary" (click)="modal.close('yes')">Yes</button>
+  </div>
+</ng-template>
+
+<ng-template #tncDialog let-modal>
+  <div class="modal-header">
+    <h4 class="modal-title" id="modal-title">Terms & Condition</h4>
+  </div>
+  <div class="modal-body" style="max-height: calc(70vh - 143px); overflow-y: auto;">
+    <p>{{ tncContent }}</p>
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-outline-danger" (click)="modal.close('no')">Decline</button>
+    <button type="button" class="btn btn-primary" (click)="modal.close('yes')">Accept</button>
   </div>
 </ng-template>
 

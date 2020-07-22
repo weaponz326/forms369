@@ -953,4 +953,21 @@ export class ClientService {
       );
     });
   }
+
+  getFormTNC(form_code: string): Promise<string> {
+    return new Promise((resolve, reject) => {
+      const headers = new HttpHeaders().set('Content-Type', 'text/plain; charset=utf-8');
+      const url = this.endpointService.apiHost + 'api/v1/gettncContent/' + form_code;
+      this.http.get<any>(url, { headers: this.headers, responseType: 'text' as 'json' }).subscribe(
+        res => {
+          // console.log('___ress: ' + JSON.stringify(res));
+          resolve(res);
+        },
+        err => {
+          console.log('____error: ' + JSON.stringify(err));
+          reject(err);
+        }
+      );
+    });
+  }
 }

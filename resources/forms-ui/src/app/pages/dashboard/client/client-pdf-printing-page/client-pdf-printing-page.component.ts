@@ -72,7 +72,7 @@ export class ClientPdfPrintingPageComponent implements OnInit {
           };
         }
       },
-      err => { }
+      err => {}
     );
   }
 

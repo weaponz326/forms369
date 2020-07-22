@@ -102,4 +102,10 @@
     1. Bug fixes across all users.
     2. Introduced trash: contains all deleted forms.
     3. After a successfull password change, user is logged out.
+
+# version 0.1.1
+    1. Bug fixes
+    2. Terms & conditions added for forms.
+    3. Signature introduced.
+    4. 
     

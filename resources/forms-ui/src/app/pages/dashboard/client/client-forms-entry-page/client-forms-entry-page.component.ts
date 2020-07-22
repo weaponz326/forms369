@@ -33,6 +33,7 @@ export class ClientFormsEntryPageComponent implements OnInit, AfterViewInit {
   pinCode: string;
   loading: boolean;
   saved: boolean;
+  hasTnc: boolean;
   created: boolean;
   hasFile: boolean;
   formFiles: number;
@@ -43,6 +44,7 @@ export class ClientFormsEntryPageComponent implements OnInit, AfterViewInit {
   submitted: boolean;
   isLoading: boolean;
   pinForm: FormGroup;
+  tncContent: string;
   documentUrl: string;
   pinMinimum: boolean;
   pinRequired: boolean;
@@ -68,6 +70,7 @@ export class ClientFormsEntryPageComponent implements OnInit, AfterViewInit {
   branchesList: Array<CompanyBranches>;
   @ViewChild('pin', { static: false }) pinDialog: TemplateRef<any>;
   @ViewChild('setPin', { static: false }) setPinDialog: TemplateRef<any>;
+  @ViewChild('tncDialog', { static: false }) tncDialog: TemplateRef<any>;
   @ViewChild('confirm', { static: false }) confirmDialog: TemplateRef<any>;
   @ViewChild('signaturePad', { static: false }) signaturePad: SignaturePad;
   @ViewChild('joinQueue', { static: false }) joinQueueDialog: TemplateRef<any>;
@@ -95,6 +98,7 @@ export class ClientFormsEntryPageComponent implements OnInit, AfterViewInit {
     this.pinCode = '';
     this.formFiles = 0;
     this.branchId = '';
+    this.tncContent = '';
     this.branchesList = [];
     this.submissionCode = '';
     this.attachmentKeys = [];
@@ -106,11 +110,13 @@ export class ClientFormsEntryPageComponent implements OnInit, AfterViewInit {
     this.user = this.localStorage.getUser();
     console.log('form: ' + JSON.stringify(this.form));
     console.log('submission_code: ' + this.form.submission_code);
+    this.hasTnc = this.form.tnc == 1 ? true : false;
     this.requireSignature = this.form.require_signature == 1 ? true : false;
 
     this.getAttachmentsForCurrentForm(this.user.id.toString());
     this.checkIfUserHasFormPin();
     this.generateSubmissionCode();
+    this.getFormTncContent();
   }
 
   ngOnInit() {
@@ -255,6 +261,10 @@ export class ClientFormsEntryPageComponent implements OnInit, AfterViewInit {
       : this.selectBranchDialogRef.close();
   }
 
+  openTncDialog() {
+    this.modalService.open(this.tncDialog, { centered: true, backdrop: 'static', keyboard: false, size: 'lg' });
+  }
+
   appendOnChangeEventToFileInput() {
     const all_inputs = document.querySelectorAll('input');
     _.forEach(all_inputs, (input) => {
@@ -325,6 +335,20 @@ export class ClientFormsEntryPageComponent implements OnInit, AfterViewInit {
     });
 
     return fileInputElements;
+  }
+
+  getFormTncContent() {
+    if (this.hasTnc) {
+      console.log('reading tnc content ...');
+      this.clientService.getFormTNC(this.form.form_code).then(
+        content => {
+          this.tncContent = content;
+        },
+        error => {
+          console.log('tnc content getting error');
+        }
+      );
+    }
   }
 
   submitFormAndAttachments(user_data: any, updateProfile: boolean) {
