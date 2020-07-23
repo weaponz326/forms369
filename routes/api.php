@@ -209,6 +209,7 @@ Route::group(['middleware' => ['auth:api'], 'prefix' => 'v1'], function(){
     //forms tnc attachment  
     Route::post('uploadtnc/{form_code}', 'HomeController@uploadtnc')->name('uploadtnc')->middleware('scope:GIT_Admin,company_admin');
     Route::get('gettncContent/{form_code}', 'HomeController@gettncContent')->name('gettncContent')->middleware('scope:GIT_Admin,company_admin,forms_client,branch_admin,super_executive,branch_executive');
+    Route::post('deleteTrash/{code}', 'HomeController@deleteTrash')->name('deleteTrash')->middleware('scope:GIT_Admin,company_admin,forms_client,branch_admin,super_executive,branch_executive');
     
   //client, get and edit endpoints
   Route::get('getAllClients', 'HomeController@getAllClients')->name('getAllClients')->middleware('scope:GIT_Admin');

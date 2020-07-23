@@ -2626,4 +2626,19 @@ class HomeController extends Controller
         return $message;
      }
 
+     /**
+     *Business logic
+     * deleteTrash completely delete a form in trash
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @param $code submission code
+     * @return void\Illuminate\Http\Response success or error message
+     * 
+     */
+     public function deleteTrash(Request $request, $deleteTrash)
+     {
+        $message = (new ClientController)->deleteTrash($request, $deleteTrash);
+        return $message;
+     }
+
 }    

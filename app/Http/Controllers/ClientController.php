@@ -1256,6 +1256,7 @@ class ClientController extends Controller
         ->select('submitted_forms_deleted.*','merchants.merchant_name AS merchant_name', 'merchants.nickname', 'forms.tnc',
         'users.name', 'users.email', 'forms.name AS form_name', 'forms.form_fields', 'forms.join_queue', 'forms.can_view','logo', 'require_signature')
         ->where('submitted_forms_deleted.client_id', $id)
+        ->where('deleted', '!=', 1)
         ->paginate(15);
       
         // return $getforms;a
@@ -1751,5 +1752,40 @@ class ClientController extends Controller
             return response()->json($response, 200);
         
         } 
-    }    
+    }  
+    
+     /**
+     * deleteTrash completely delete a form in trash
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @param $code submission code
+     * @return void\Illuminate\Http\Response success or error message
+     * 
+     */
+     public function deleteTrash(Request $request, $code)
+     {
+        $message = 'Ok';
+
+        try {
+            DB::table('submitted_forms_deleted')
+            ->where('submission_code', $code)
+            ->update(
+                [
+                    'deleted' => 1
+                ]
+            );
+
+            Log::channel('mysql')->info('Form with submission code: ' . $code .' deleted permanently.');
+            return response()->json([
+                'message' => $message
+            ], 200);
+        }catch(Exception $e) {
+            Log::channel('mysql')->error('Error deleting form with submission code: ' . $code);
+             $message = "Failed";
+             return response()->json([
+                'message' => $message
+            ], 400);
+         }      
+     }
+    
 }
