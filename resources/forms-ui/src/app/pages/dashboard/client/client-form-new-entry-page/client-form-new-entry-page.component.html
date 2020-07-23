@@ -74,7 +74,8 @@
                             <button type="button" class="btn btn-sm" (click)="editSignature()">
                               <i class="mdi mdi-pencil-outline"></i>
                             </button>
-                            <button *ngIf="!hasSignature" type="button" class="btn btn-sm" (click)="restoreSignature()">
+                            <button *ngIf="!hasSignature && signatureImageUrl.length != 0" type="button"
+                              class="btn btn-sm" (click)="restoreSignature()">
                               <i class="mdi mdi-restore-clock"></i>
                             </button>
                           </div>
@@ -94,7 +95,7 @@
                         <div class="card-body">
                           <div class="card-title">Terms & Condtions</div>
                           <div class="card-text">
-                            <p>By submitting this form, please be aware that the terms & conditions apply. Please accept or decline below.</p>
+                            <p>By submitting this form, please be aware that there are terms & conditions that apply. Please accept or decline below.</p>
                             <button class="btn btn-outline-primary" (click)="openTncDialog()">Read & Accept in order to submit form</button>
                           </div>
                         </div>
@@ -343,8 +344,8 @@
     <p>{{ tncContent }}</p>
   </div>
   <div class="modal-footer">
-    <button type="button" class="btn btn-outline-danger" (click)="modal.close('no')">Decline</button>
-    <button type="button" class="btn btn-primary" (click)="modal.close('yes')">Accept</button>
+    <button type="button" class="btn btn-outline-danger" (click)="declineTnc()">Decline</button>
+    <button type="button" class="btn btn-primary" (click)="acceptTnc()">Accept</button>
   </div>
 </ng-template>
 

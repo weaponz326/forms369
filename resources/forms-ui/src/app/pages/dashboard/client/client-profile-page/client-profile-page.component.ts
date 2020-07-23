@@ -156,6 +156,15 @@ export class ClientProfilePageComponent implements OnInit, AfterViewInit {
     }
   }
 
+  showAttachmentDeleteFailedAlert() {
+    Swal.fire({
+      title: 'Oops!',
+      text: 'Failed to delete attachment. Please try again!',
+      icon: 'error',
+      confirmButtonColor: 'Ok'
+    });
+  }
+
   initPinForm() {
     this.pinForm = this.fb.group({
       pin: ['', [Validators.minLength(4), Validators.required]]
@@ -625,22 +634,30 @@ export class ClientProfilePageComponent implements OnInit, AfterViewInit {
                 console.log('deleted');
                 this.deleting = false;
                 this.existingAttachments.splice(index, 1);
+                this.removeSignatureAfterDelete(key);
               }
               else {
                 console.log('deleted');
                 this.deleting = false;
-                alert('Failed to delete attachment. Please try again!');
+                this.showAttachmentDeleteFailedAlert();
               }
             },
             err => {
               console.log('error deleting file');
               this.deleting = false;
-              alert('Failed to delete attachment. Please try again!');
+              this.showAttachmentDeleteFailedAlert();
             }
           );
         }
       }
     );
+  }
+
+  removeSignatureAfterDelete(key: string) {
+    if (key == 'signature') {
+      this.hasSignature = false;
+      this.signatureImageUrl = '';
+    }
   }
 
   openModal(e: Event, url: string) {

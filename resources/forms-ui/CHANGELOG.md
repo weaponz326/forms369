@@ -107,5 +107,7 @@
     1. Bug fixes
     2. Terms & conditions added for forms.
     3. Signature introduced.
-    4. 
+    4. Branch selection before form gets filled.
+    5. Favorites introduced.
+    6. Deleted forms introduced.
     

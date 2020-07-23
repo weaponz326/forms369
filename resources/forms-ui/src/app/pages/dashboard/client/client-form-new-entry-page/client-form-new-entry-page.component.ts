@@ -47,6 +47,7 @@ export class ClientFormNewEntryPageComponent implements OnInit, AfterViewInit {
   documentUrl: string;
   pinMinimum: boolean;
   pinRequired: boolean;
+  acceptedTnc: boolean;
   hasSignature: boolean;
   updateProfile: boolean;
   submissionCode: string;
@@ -375,7 +376,6 @@ export class ClientFormNewEntryPageComponent implements OnInit, AfterViewInit {
         ok => {
           if (ok) {
             this.loading = false;
-            // this.created = true;
             if (this.status == 0) {
               this.showJoinQueueDialog();
             }
@@ -398,12 +398,7 @@ export class ClientFormNewEntryPageComponent implements OnInit, AfterViewInit {
     const user_data = this.getFormData();
     console.log(JSON.stringify(user_data));
     console.log('this form: ' + this.formBuilder.getFormUserData(user_data));
-    // !this.disableValidation
-    //   ? this.submitFormWithValidation(user_data)
-    //   : this.submitFormWithoutValidation(user_data);
 
-    // this.loading = true;
-    // handle signature first
     if (_.isEmpty(this.signatureDataURL)) {
       // signature wasn't changed, still using the same signature.
       !this.disableValidation
@@ -534,6 +529,7 @@ export class ClientFormNewEntryPageComponent implements OnInit, AfterViewInit {
           );
         }
         else {
+          this.loading = false;
           this.modalService.dismissAll();
         }
       }
@@ -541,35 +537,13 @@ export class ClientFormNewEntryPageComponent implements OnInit, AfterViewInit {
   }
 
   submit() {
-    this.loading = true;
-    const user_id = this.user.id.toString();
-    this.clientService.checkSubmittedFormStatus(user_id, this.form.form_code).then(
-      res => {
-        console.log('success');
-        if (res.submitted == 0) {
-          this.modalService.open(this.confirmDialog, { centered: true }).result.then(
-            result => {
-              if (result == 'yes') {
-                this.handlePinCode(true);
-              }
-              else if (result == 'no') {
-                this.handlePinCode(false);
-              }
-              else {
-                this.modalService.dismissAll();
-                this.loading = false;
-              }
-            }
-          );
-        }
-        else {
-          if (res.status == 0) {
-            this.showSubmissionOptionsDialog(res.code);
-          }
-          else if (res.status == 1) {
-            this.showMakeNewSubmissionDialog();
-          }
-          else {
+    if ((this.acceptedTnc && this.hasTnc) || !this.hasTnc) {
+      this.loading = true;
+      const user_id = this.user.id.toString();
+      this.clientService.checkSubmittedFormStatus(user_id, this.form.form_code).then(
+        res => {
+          console.log('success');
+          if (res.submitted == 0) {
             this.modalService.open(this.confirmDialog, { centered: true }).result.then(
               result => {
                 if (result == 'yes') {
@@ -585,12 +559,39 @@ export class ClientFormNewEntryPageComponent implements OnInit, AfterViewInit {
               }
             );
           }
+          else {
+            if (res.status == 0) {
+              this.showSubmissionOptionsDialog(res.code);
+            }
+            else if (res.status == 1) {
+              this.showMakeNewSubmissionDialog();
+            }
+            else {
+              this.modalService.open(this.confirmDialog, { centered: true }).result.then(
+                result => {
+                  if (result == 'yes') {
+                    this.handlePinCode(true);
+                  }
+                  else if (result == 'no') {
+                    this.handlePinCode(false);
+                  }
+                  else {
+                    this.modalService.dismissAll();
+                    this.loading = false;
+                  }
+                }
+              );
+            }
+          }
+        },
+        err => {
+          console.log('something went wrong');
         }
-      },
-      err => {
-        console.log('something went wrong');
-      }
-    );
+      );
+    }
+    else {
+      alert('Please accept or decline the terms & conditions to continue');
+    }
   }
 
   showMerchantBranchesDialog() {
@@ -1064,7 +1065,9 @@ export class ClientFormNewEntryPageComponent implements OnInit, AfterViewInit {
   }
 
   ok() {
-    this.router.navigateByUrl('/client/forms_filled');
+    this.saved == true
+      ? this.router.navigateByUrl('/client/forms_filled', { state: { form: this.form }})
+      : this.router.navigateByUrl('/client/forms_filled');
   }
 
   downloadDoc(url: string) {
@@ -1075,6 +1078,16 @@ export class ClientFormNewEntryPageComponent implements OnInit, AfterViewInit {
   download(url: string) {
     const file_url = this.endpointService.apiHost + 'storage/attachments/' + url;
     this.downloadService.download(file_url);
+  }
+
+  acceptTnc() {
+    this.acceptedTnc = true;
+    this.modalService.dismissAll();
+  }
+
+  declineTnc() {
+    this.modalService.dismissAll();
+    window.history.back();
   }
 
 }
