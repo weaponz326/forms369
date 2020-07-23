@@ -10,3 +10,12 @@
 select.form-control {
     color: #555555 !important;
 }
+
+.title-form {
+    font-size: 25px;
+    font-family: 'OpenSans_SemiBold';
+}
+
+.card.no-card {
+    border: none;
+}

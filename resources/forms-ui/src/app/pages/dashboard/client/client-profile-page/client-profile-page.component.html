@@ -159,6 +159,43 @@
                     </div>
                     <!-- /.Attachments -->
 
+                    <!-- Signature -->
+                    <div class="card">
+                      <div class="card-header" id="signature">
+                        <h2 class="mb-0">
+                          <button class="btn btn-link" type="button" data-toggle="collapse" data-target="#collapseSig"
+                            aria-expanded="true" aria-controls="collapseSig">
+                            Signature
+                          </button>
+                        </h2>
+                      </div>
+
+                      <div id="collapseSig" class="collapse" aria-labelledby="signature" data-parent="#accordionExample">
+                        <div class="card-body">
+                          <div *ngIf="!hasSignature" style="border: 1px solid #ddd; border-radius: 5px; margin-bottom: 15px;">
+                            <signature-pad #signaturePad [options]="signaturePadOptions"
+                              (onEndEvent)="signatureDrawComplete()"></signature-pad>
+                          </div>
+                          <div *ngIf="hasSignature" style="margin-bottom: 15px;">
+                            <img [src]="signatureImageUrl" alt="signature">
+                          </div>
+                          <div class="signature-buttons">
+                            <div class="row">
+                              <button *ngIf="!updating" type="submit" class="btn btn-primary btn-lg mr-2" (click)="save()">Save Changes</button>
+                              <button *ngIf="updating" class="btn btn-primary btn-lg mr-2" type="button" disabled>
+                                <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+                                <span class="sr-only">Please wait...</span>
+                              </button>
+                              &nbsp; &nbsp;
+                              <button *ngIf="hasSignature" class="btn btn-outline-primary btn-lg" (click)="editSignature()">Edit</button>
+                              <button *ngIf="!hasSignature"class="btn btn-outline-primary btn-lg" (click)="signatureClear()">Clear</button>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <!-- /.Signtaure -->
+
                     <div class="card" *ngFor="let section of allFormSections">
                       <div class="card-header" [id]="'header_' + section.id">
                         <h2 class="mb-0">

@@ -1,6 +1,6 @@
 {
   "name": "forms-ui",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
@@ -48,6 +48,7 @@
     "ngx-country-picker": "^2.1.0",
     "ngx-order-pipe": "^2.0.4",
     "ngx-page-scroll-core": "^7.0.0",
+    "ngx-signaturepad": "0.0.9",
     "pdfmake": "^0.1.64",
     "popper.js": "^1.16.0",
     "printd": "^1.4.1",

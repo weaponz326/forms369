@@ -360,7 +360,7 @@ module.exports = "<form>\n  <div class=\"dropdown\">\n    <button class=\"btn bt
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<div class=\"modal-header\">\n  <h4 class=\"modal-title\" id=\"modal-basic-title\">Join Queue</h4>\n</div>\n\n<div class=\"modal-body\">\n  <form [formGroup]=\"form\">\n    <div class=\"form-group\">\n      <select class=\"form-control form-control-lg\" formControlName=\"joinType\" (change)=\"onTimeSelect($event)\">\n        <option value=\"\" disabled>Choose Join Time</option>\n        <option value=\"now\">Join Now</option>\n        <option value=\"later\">Join Later</option>\n      </select>\n      <div *ngIf=\"submitted && f.joinType.errors\">\n        <p class=\"input-error\" *ngIf=\"f.joinType.errors.required\">Join time is required.</p>\n      </div>\n    </div>\n\n    <div class=\"form-group\" *ngIf=\"showTimer\">\n      <ngb-timepicker [meridian]=\"true\" [(ngModel)]=\"time\" formControlName=\"joinTime\"></ngb-timepicker>\n    </div>\n\n    <div class=\"form-group\">\n      <select class=\"form-control form-control-lg\" formControlName=\"queueService\" (change)=\"onServiceSelect($event)\">\n        <option value=\"\" disabled>Choose QMS Service</option>\n        <option *ngFor=\"let service of servicesList\" [value]=\"service.service_id\">\n          {{ service.name }}\n        </option>\n      </select>\n      <div *ngIf=\"submitted && f.queueService.errors\">\n        <p class=\"input-error\" *ngIf=\"f.queueService.errors.required\">QMS Service is required.</p>\n      </div>\n    </div>\n  </form>\n</div>\n\n<div class=\"modal-footer\">\n  <button type=\"button\" class=\"btn btn-primary\" (click)=\"skip()\">Skip</button>\n  <button type=\"button\" *ngIf=\"!loading\" class=\"btn btn-primary\" (click)=\"submit()\">Join</button>\n  <button type=\"button\" *ngIf=\"loading\" class=\"btn btn-block btn-primary btn-lg font-weight-medium auth-form-btn\" disabled>\n    <span class=\"spinner-border spinner-border-sm\" role=\"status\" aria-hidden=\"true\"></span> &nbsp; &nbsp;\n    Please wait...\n  </button>\n  <button type=\"button\" class=\"btn btn-outline-primary\" (click)=\"close()\">Cancel</button>\n</div>\n\n<ng-template #alreadyJoinQueue>\n  <app-already-joined-queue-dialog\n    [token]=\"token\"\n    [phone]=\"queueData.phone\"\n    [joinNow]=\"queueData.joinNow\"\n    [serviceId]=\"queueData.serviceId\"\n    [joinAtTime]=\"queueData.joinAtTime\"\n    [branchExtension]=\"branchExtension\"\n    (processCompleted)=\"doneProcessing($event)\">\n  </app-already-joined-queue-dialog>\n</ng-template>\n"
+module.exports = "<div class=\"modal-header\">\n  <h4 class=\"modal-title\" id=\"modal-basic-title\">Join Queue</h4>\n</div>\n\n<div class=\"modal-body\">\n  <form [formGroup]=\"form\">\n    <div class=\"form-group\">\n      <select class=\"form-control form-control-lg\" formControlName=\"joinType\" (change)=\"onTimeSelect($event)\">\n        <option value=\"\" disabled>Choose Join Time</option>\n        <option value=\"now\">Join Now</option>\n        <option value=\"later\">Join Later</option>\n      </select>\n      <div *ngIf=\"submitted && f.joinType.errors\">\n        <p class=\"input-error\" *ngIf=\"f.joinType.errors.required\">Join time is required.</p>\n      </div>\n    </div>\n\n    <div class=\"form-group\" *ngIf=\"showTimer\">\n      <ngb-timepicker [meridian]=\"true\" [(ngModel)]=\"time\" formControlName=\"joinTime\"></ngb-timepicker>\n      <p class=\"input-error\" *ngIf=\"showInvalidTimeError\">The selected time is less than the current time.</p>\n    </div>\n\n    <div class=\"form-group\">\n      <select class=\"form-control form-control-lg\" formControlName=\"queueService\" (change)=\"onServiceSelect($event)\">\n        <option value=\"\" disabled>Choose QMS Service</option>\n        <option *ngFor=\"let service of servicesList\" [value]=\"service.service_id\">\n          {{ service.name }}\n        </option>\n      </select>\n      <div *ngIf=\"submitted && f.queueService.errors\">\n        <p class=\"input-error\" *ngIf=\"f.queueService.errors.required\">QMS Service is required.</p>\n      </div>\n    </div>\n  </form>\n</div>\n\n<div class=\"modal-footer\">\n  <button type=\"button\" class=\"btn btn-primary\" (click)=\"skip()\">Skip</button>\n  <button type=\"button\" *ngIf=\"!loading\" class=\"btn btn-primary\" (click)=\"submit()\">Join</button>\n  <button type=\"button\" *ngIf=\"loading\" class=\"btn btn-block btn-primary btn-lg font-weight-medium auth-form-btn\" disabled>\n    <span class=\"spinner-border spinner-border-sm\" role=\"status\" aria-hidden=\"true\"></span> &nbsp; &nbsp;\n    Please wait...\n  </button>\n  <button type=\"button\" class=\"btn btn-outline-primary\" (click)=\"close()\">Cancel</button>\n</div>\n\n<ng-template #alreadyJoinQueue>\n  <app-already-joined-queue-dialog\n    [token]=\"token\"\n    [phone]=\"queueData.phone\"\n    [joinNow]=\"queueData.joinNow\"\n    [serviceId]=\"queueData.serviceId\"\n    [joinAtTime]=\"queueData.joinAtTime\"\n    [branchExtension]=\"branchExtension\"\n    (processCompleted)=\"doneProcessing($event)\">\n  </app-already-joined-queue-dialog>\n</ng-template>\n"
 
 /***/ }),
 
@@ -690,7 +690,7 @@ module.exports = "<div class=\"container-scroller\">\n  <app-navigation-bar></ap
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<div class=\"container-scroller\">\n  <app-navigation-bar></app-navigation-bar>\n  <div class=\"container-fluid page-body-wrapper\">\n    <app-side-bar></app-side-bar>\n    <div class=\"main-panel\">\n      <div class=\"content-wrapper\">\n        <div class=\"row\">\n          <div class=\"col-md-12 grid-margin\">\n            <div class=\"d-flex justify-content-between flex-wrap\">\n              <div class=\"d-flex align-items-end flex-wrap\">\n                <div class=\"mr-md-3 mr-xl-5\">\n                  <h2 class=\"page-title\">{{ form.form_name || form.name }}</h2>\n                </div>\n                <div class=\"d-flex\">\n                </div>\n              </div>\n              <div class=\"d-flex justify-content-between align-items-end flex-wrap\">\n              </div>\n            </div>\n          </div>\n        </div>\n\n        <div [hidden]=\"created || saved\" class=\"row\">\n          <div class=\"col-md-8 offset-md-2 grid-margin stretch-card\">\n            <div class=\"card\">\n              <div class=\"card-body\">\n                <p class=\"card-title\">{{ form.form_name || form.name }}</p>\n                <p class=\"text-muted\">All forms with <span class=\"text-danger\">*</span> are required and should be filled.</p>\n                <div class=\"card-text pt-5\">\n                  <form class=\"forms-sample\">\n                    <div class=\"form-builder-container\">\n                      <div id=\"form-render\"></div>\n                    </div>\n\n                    <div *ngIf=\"loadingAttachments\" class=\"row m-md-2\">\n                      <div class=\"col-md-12 col-sm-12 m-md-2\">\n                        <div class=\"d-flex justify-content-center\">\n                          <div class=\"spinner-border m-2\" style=\"width: 2rem; height: 2rem;\" role=\"status\">\n                            <span class=\"sr-only\">Loading...</span>\n                          </div>\n                        </div>\n                      </div>\n                    </div>\n\n                    <div class=\"attachments-section\" *ngIf=\"!loadingAttachments && showAttachments\">\n                      <div class=\"card mb-4\">\n                        <div class=\"card-body\">\n                          <h5 class=\"card-title\">Form Attachments / Documents</h5>\n                          <div class=\"row\" *ngFor=\"let file of existingAttachments\">\n                            <div class=\"col-11\" style=\"padding-right: 8px;\">\n                              <ol class=\"files-list\">\n                                <li class=\"file-item\">\n                                  <i class=\"mdi mdi-paperclip menu-icon\"></i>\n                                  <h5 class=\"file-link-title\"><strong>{{ transformToRealText(file.key) }}</strong></h5>\n                                  <a class=\"alert-link file-link\" (click)=\"openModal($event, file.url)\">{{ file.url }}</a>\n                                </li>\n                              </ol>\n                            </div>\n                            <div class=\"col-1\" style=\"padding-right: 3px; padding-left: 4px; margin-top: 7px;\">\n                              <button class=\"btn btn-primary btn-icon\" (click)=\"download(file.url)\">\n                                <i class=\"mdi mdi-download-outline\"></i>\n                              </button>\n                            </div>\n                          </div>\n                        </div>\n                      </div>\n                    </div>\n\n                    <div class=\"buttons-list\">\n                      <button *ngIf=\"loading\" class=\"btn btn-primary btn-lg mr-2\" type=\"button\" disabled>\n                        <span class=\"spinner-border spinner-border-sm\" role=\"status\" aria-hidden=\"true\"></span>\n                        <span class=\"sr-only\">Please wait...</span>\n                      </button>\n                      <button *ngIf=\"!loading\" type=\"submit\" class=\"btn btn-primary btn-lg mr-2\" (click)=\"submit()\">Submit</button>\n                      <button *ngIf=\"!loading\" type=\"submit\" class=\"btn btn-primary btn-lg mr-2\" (click)=\"saveAsDraft()\">Save as Draft</button>\n                      <button type=\"button\" class=\"btn btn-light btn-lg\" (click)=\"cancel()\">Cancel</button>\n                    </div>\n                  </form>\n                </div>\n              </div>\n            </div>\n          </div>\n        </div>\n\n        <div *ngIf=\"created\" class=\"row created-section\">\n          <div class=\"col-md-12 grid-margin\">\n            <div class=\"card text-center\">\n              <div class=\"card-body\">\n                <p class=\"card-title\">Form Completed Successfully</p>\n                <p class=\"text-muted\"></p>\n                <div class=\"card-text\">\n                  <i class=\"mdi mdi-shield-check-outline\" style=\"font-size: 12em;\"></i>\n                  <p class=\"text-muted\">\n                    Below is your generated code for processing.\n                  </p>\n                  <div class=\"code\">{{ submissionCode }}</div>\n                  <button class=\"btn btn-primary mr-2 hover-cursor\" type=\"button\" (click)=\"copy()\">\n                    <i class=\"mdi mdi-content-copy\" style=\"font-size: 20px;\"></i>\n                    <span class=\"sr-only\">Please wait...</span>\n                  </button>\n                  <button class=\"btn btn-primary mr-2 hover-cursor\" type=\"button\" (click)=\"ok()\">Ok</button>\n                </div>\n              </div>\n            </div>\n          </div>\n        </div>\n\n        <div *ngIf=\"saved\" class=\"row created-section\">\n          <div class=\"col-md-12 grid-margin\">\n            <div class=\"card text-center\">\n              <div class=\"card-body\">\n                <p class=\"card-title\">Form Saved Successfully</p>\n                <p class=\"text-muted\"></p>\n                <div class=\"card-text\">\n                  <i class=\"mdi mdi-shield-check-outline\" style=\"font-size: 12em;\"></i>\n                  <p class=\"text-muted\">Your form has been saved to drafts.</p>\n                  <button class=\"btn btn-primary mr-2 hover-cursor\" type=\"button\" (click)=\"ok()\">Ok</button>\n                </div>\n              </div>\n            </div>\n          </div>\n        </div>\n      </div>\n      <!-- content -->\n      <!-- footer -->\n      <app-footer-bar></app-footer-bar>\n      <!-- partial -->\n    </div>\n    <!-- main ends -->\n  </div>\n</div>\n\n<ng-template #confirm let-modal>\n  <div class=\"modal-header\">\n    <h4 class=\"modal-title\" id=\"modal-title\">Confirm Action</h4>\n    <button type=\"button\" class=\"close\" aria-describedby=\"modal-title\" (click)=\"modal.close('close')\">\n      <span aria-hidden=\"true\">&times;</span>\n    </button>\n  </div>\n  <div class=\"modal-body\">\n    <p><strong>Would you like to update your profile with the new details provided ?</strong></p>\n  </div>\n  <div class=\"modal-footer\">\n    <button type=\"button\" class=\"btn btn-outline-primary\" (click)=\"modal.close('no')\">No</button>\n    <button type=\"button\" class=\"btn btn-primary\" (click)=\"modal.close('yes')\">Yes</button>\n  </div>\n</ng-template>\n\n<ng-template #viewImgAttachment let-modal>\n  <div class=\"modal-header\">\n    <h5 class=\"modal-title\">Attachment File</h5>\n    <button type=\"button\" class=\"close\" aria-describedby=\"modal-title\" (click)=\"modal.close()\">\n      <span aria-hidden=\"true\">&times;</span>\n    </button>\n  </div>\n  <div class=\"modal-body\" style=\"padding: 0px;\">\n    <img [src]=\"imgUrl\" style=\"width: 100%;\">\n  </div>\n  <div class=\"modal-footer\">\n    <button type=\"button\" class=\"btn btn-primary\" (click)=\"modal.close()\">Close</button>\n  </div>\n</ng-template>\n\n<ng-template #viewDocAttachment let-modal>\n  <div class=\"modal-header\">\n    <h5 class=\"modal-title\">Attachment File</h5>\n    <button type=\"button\" class=\"close\" aria-describedby=\"modal-title\" (click)=\"modal.close()\">\n      <span aria-hidden=\"true\">&times;</span>\n    </button>\n  </div>\n  <div class=\"modal-body\">\n    <p>This document type cannot be viewed. Please download</p>\n  </div>\n  <div class=\"modal-footer\">\n    <button type=\"button\" class=\"btn btn-outline-primary\" (click)=\"modal.close()\">Close</button>\n    <button type=\"button\" class=\"btn btn-primary\" (click)=\"downloadDoc(documentUrl)\">Download</button>\n  </div>\n</ng-template>\n\n<ng-template #setPin let-modal>\n  <form [formGroup]=\"pinForm\" (ngSubmit)=\"createPin()\">\n    <div class=\"modal-header\">\n      <h5 class=\"modal-title text-uppercase\">Setup A New PIN</h5>\n      <button type=\"button\" class=\"close\" aria-describedby=\"modal-title\" (click)=\"modal.close()\">\n        <span aria-hidden=\"true\">&times;</span>\n      </button>\n    </div>\n    <div class=\"modal-body\">\n      <div class=\"form-group pin-form-group\">\n        <input type=\"tel\" class=\"form-control form-control-lg pin-control\" formControlName=\"pin\" placeholder=\"----\"\n          [ngClass]=\"{'input-control-error': submitted && f.pin.errors}\" maxlength=\"4\"\n          (keyup)=\"resolveStrCharacters($event)\">\n        <div *ngIf=\"submitted && f.pin.errors\">\n          <p class=\"input-error\" *ngIf=\"f.pin.errors.required\">PIN is required</p>\n          <p class=\"input-error\" *ngIf=\"f.pin.errors.minlength\">PIN must be 4 (four) digits.</p>\n        </div>\n      </div>\n    </div>\n    <div class=\"modal-footer\">\n      <button type=\"button\" class=\"btn btn-outline-primary\" (click)=\"modal.close()\">Close</button>\n      <button *ngIf=\"!isLoading\" type=\"submit\" class=\"btn btn-primary\">Create PIN</button>\n      <button *ngIf=\"isLoading\" type=\"button\" class=\"btn btn-block btn-primary font-weight-medium\" disabled>\n        <span class=\"spinner-border spinner-border-sm\" role=\"status\" aria-hidden=\"true\"></span> &nbsp; &nbsp;\n        Please wait...\n      </button>\n    </div>\n  </form>\n</ng-template>\n\n<ng-template #pin let-modal>\n  <form>\n    <div class=\"modal-header\">\n      <h5 class=\"modal-title text-uppercase\">Enter PIN To Submit Form</h5>\n      <button type=\"button\" class=\"close\" aria-describedby=\"modal-title\" (click)=\"modal.close()\">\n        <span aria-hidden=\"true\">&times;</span>\n      </button>\n    </div>\n    <div class=\"modal-body\">\n      <div class=\"form-group pin-form-group\">\n        <input type=\"tel\" class=\"form-control form-control-lg pin-control\" name=\"pinCode\" [(ngModel)]=\"pinCode\"\n          placeholder=\"----\" maxlength=\"4\" (keyup)=\"resolveStrCharacters($event)\" autofocus>\n        <div>\n          <p class=\"input-error\" *ngIf=\"pinRequired\">PIN is required</p>\n          <p class=\"input-error\" *ngIf=\"pinMinimum\">PIN must be 4 (four) digits.</p>\n        </div>\n      </div>\n    </div>\n    <div class=\"modal-footer\">\n      <button type=\"button\" class=\"btn btn-outline-primary\" (click)=\"modal.close()\">Close</button>\n      <button *ngIf=\"!isLoading\" type=\"submit\" class=\"btn btn-primary\" (click)=\"verifyPin()\">Submit</button>\n      <button *ngIf=\"isLoading\" type=\"button\" class=\"btn btn-block btn-primary font-weight-medium\" disabled>\n        <span class=\"spinner-border spinner-border-sm\" role=\"status\" aria-hidden=\"true\"></span> &nbsp; &nbsp;\n        Please wait...\n      </button>\n    </div>\n  </form>\n</ng-template>\n\n<ng-template #selectBranch let-modal>\n  <div class=\"modal-header\">\n    <h5 class=\"modal-title text-uppercase\">Select A Branch</h5>\n    <button type=\"button\" class=\"close\" aria-describedby=\"modal-title\" (click)=\"modal.close('no')\">\n      <span aria-hidden=\"true\">&times;</span>\n    </button>\n  </div>\n  <div class=\"modal-body\">\n    <div *ngIf=\"loadingBranches\">\n      <div class=\"col-md-12 col-sm-12 m-md-2\">\n        <div class=\"d-flex justify-content-center\">\n          <div class=\"spinner-border m-2\" style=\"width: 2rem; height: 2rem;\" role=\"status\">\n            <span class=\"sr-only\">Loading...</span>\n          </div>\n        </div>\n      </div>\n    </div>\n    <div *ngIf=\"!loadingBranches\">\n      <select class=\"form-control\" [(ngModel)]=\"branch_id\">\n        <option value=\"\" disabled>Select Branch</option>\n        <option *ngFor=\"let branch of branchesList\" [value]=\"branch.id\">\n          {{ branch.branch_name }}\n        </option>\n      </select>\n    </div>\n  </div>\n  <div class=\"modal-footer\">\n    <button type=\"button\" class=\"btn btn-outline-primary\" (click)=\"modal.close('no')\">Close</button>\n    <button type=\"button\" class=\"btn btn-primary\" (click)=\"closeBranchDialog()\">Next</button>\n  </div>\n</ng-template>\n\n<ng-template #submissionOptions let-modal>\n  <div class=\"modal-header\">\n    <h4 class=\"modal-title\" id=\"modal-title\">Confirm Action</h4>\n    <button type=\"button\" class=\"close\" aria-describedby=\"modal-title\" (click)=\"modal.close()\">\n      <span aria-hidden=\"true\">&times;</span>\n    </button>\n  </div>\n  <div class=\"modal-body\">\n    <p><strong>Similar form submission exists.</strong></p>\n  </div>\n  <div class=\"modal-footer\">\n    <button type=\"button\" class=\"btn btn-outline-primary\" (click)=\"modal.close('replace')\">Replace</button>\n    <button type=\"button\" class=\"btn btn-outline-primary\" (click)=\"modal.close('new')\">New Submission</button>\n  </div>\n</ng-template>\n\n<ng-template #newSubmission let-modal>\n  <div class=\"modal-header\">\n    <h4 class=\"modal-title\" id=\"modal-title\">Confirm Action</h4>\n    <button type=\"button\" class=\"close\" aria-describedby=\"modal-title\" (click)=\"modal.close()\">\n      <span aria-hidden=\"true\">&times;</span>\n    </button>\n  </div>\n  <div class=\"modal-body\">\n    <p><strong>There is a similar form sumission in-process. Would you like to make a new submission ?</strong></p>\n  </div>\n  <div class=\"modal-footer\">\n    <button type=\"button\" class=\"btn btn-outline-primary\" (click)=\"modal.close('no')\">No</button>\n    <button type=\"button\" class=\"btn btn-primary\" (click)=\"modal.close('yes')\">Yes</button>\n  </div>\n</ng-template>\n\n<ng-template #joinQueue let-modal>\n  <app-join-queue-dialog\n    [branchExtension]=\"branchExtension\"\n    (queueSkipped)=\"skipQueue($event)\"\n    (processCompleted)=\"queueJoined($event)\">\n  </app-join-queue-dialog>\n</ng-template>"
+module.exports = "<div class=\"container-scroller\">\n  <app-navigation-bar></app-navigation-bar>\n  <div class=\"container-fluid page-body-wrapper\">\n    <app-side-bar></app-side-bar>\n    <div class=\"main-panel\">\n      <div class=\"content-wrapper\">\n        <div class=\"row\">\n          <div class=\"col-md-12 grid-margin\">\n            <div class=\"d-flex justify-content-between flex-wrap\">\n              <div class=\"d-flex align-items-end flex-wrap\">\n                <div class=\"mr-md-3 mr-xl-5\">\n                  <h2 class=\"page-title\">{{ form.form_name || form.name }}</h2>\n                </div>\n                <div class=\"d-flex\">\n                </div>\n              </div>\n              <div class=\"d-flex justify-content-between align-items-end flex-wrap\">\n              </div>\n            </div>\n          </div>\n        </div>\n\n        <div [hidden]=\"created || saved\" class=\"row\">\n          <div class=\"col-md-8 offset-md-2 grid-margin stretch-card\">\n            <div class=\"card\">\n              <div class=\"card-body\">\n                <p class=\"card-title\">{{ form.form_name || form.name }}</p>\n                <p class=\"text-muted\">All forms with <span class=\"text-danger\">*</span> are required and should be filled.</p>\n                <div class=\"card-text pt-5\">\n                  <form class=\"forms-sample\">\n                    <div class=\"form-builder-container\">\n                      <div id=\"form-render\"></div>\n                    </div>\n\n                    <div *ngIf=\"loadingAttachments\" class=\"row m-md-2\">\n                      <div class=\"col-md-12 col-sm-12 m-md-2\">\n                        <div class=\"d-flex justify-content-center\">\n                          <div class=\"spinner-border m-2\" style=\"width: 2rem; height: 2rem;\" role=\"status\">\n                            <span class=\"sr-only\">Loading...</span>\n                          </div>\n                        </div>\n                      </div>\n                    </div>\n\n                    <div class=\"attachments-section\" *ngIf=\"!loadingAttachments && showAttachments\">\n                      <div class=\"card mb-4\">\n                        <div class=\"card-body\">\n                          <h5 class=\"card-title\">Form Attachments / Documents</h5>\n                          <div class=\"row\" *ngFor=\"let file of existingAttachments\">\n                            <div class=\"col-11\" style=\"padding-right: 8px;\">\n                              <ol class=\"files-list\">\n                                <li class=\"file-item\">\n                                  <i class=\"mdi mdi-paperclip menu-icon\"></i>\n                                  <h5 class=\"file-link-title\"><strong>{{ transformToRealText(file.key) }}</strong></h5>\n                                  <a class=\"alert-link file-link\" (click)=\"openModal($event, file.url)\">{{ file.url }}</a>\n                                </li>\n                              </ol>\n                            </div>\n                            <div class=\"col-1\" style=\"padding-right: 3px; padding-left: 4px; margin-top: 7px;\">\n                              <button class=\"btn btn-primary btn-icon\" (click)=\"download(file.url)\">\n                                <i class=\"mdi mdi-download-outline\"></i>\n                              </button>\n                            </div>\n                          </div>\n                        </div>\n                      </div>\n                    </div>\n\n                    <div *ngIf=\"requireSignature\" class=\"signature-section\">\n                      <div class=\"card\" style=\"margin-bottom: 15px;\">\n                        <div class=\"card-body\">\n                          <div class=\"card-title\">Signature</div>\n                          <div class=\"align-right\">\n                            <button type=\"button\" class=\"btn btn-sm\" (click)=\"editSignature()\">\n                              <i class=\"mdi mdi-pencil-outline\"></i>\n                            </button>\n                            <button *ngIf=\"!hasSignature && signatureImageUrl.length != 0\" type=\"button\"\n                              class=\"btn btn-sm\" (click)=\"restoreSignature()\">\n                              <i class=\"mdi mdi-restore-clock\"></i>\n                            </button>\n                          </div>\n                          <div *ngIf=\"!hasSignature\">\n                            <signature-pad #signaturePad [options]=\"signaturePadOptions\"\n                              (onEndEvent)=\"signatureDrawComplete()\"></signature-pad>\n                          </div>\n                          <div *ngIf=\"hasSignature\">\n                            <img [src]=\"signatureImageUrl\" alt=\"signature\">\n                          </div>\n                        </div>\n                      </div>\n                    </div>\n\n                    <div class=\"terms-conditions\" *ngIf=\"hasTnc\">\n                      <div class=\"card\">\n                        <div class=\"card-body\">\n                          <div class=\"card-title\">Terms & Condtions</div>\n                          <div class=\"card-text\">\n                            <p>By submitting this form, please be aware that there are terms & conditions that apply. Please accept or decline below.</p>\n                            <button class=\"btn btn-outline-primary\" (click)=\"openTncDialog()\">Read & Accept in order to submit form</button>\n                          </div>\n                        </div>\n                      </div>\n                    </div>\n\n                    <div class=\"buttons-list mt-4\">\n                      <button *ngIf=\"loading\" class=\"btn btn-primary btn-lg mr-2\" type=\"button\" disabled>\n                        <span class=\"spinner-border spinner-border-sm\" role=\"status\" aria-hidden=\"true\"></span>\n                        <span class=\"sr-only\">Please wait...</span>\n                      </button>\n                      <button *ngIf=\"!loading\" type=\"submit\" class=\"btn btn-primary btn-lg mr-2\" (click)=\"submit()\">Submit</button>\n                      <button *ngIf=\"!loading\" type=\"submit\" class=\"btn btn-outline-primary btn-lg mr-2\" (click)=\"saveAsDraft()\">Save as Draft</button>\n                      <button type=\"button\" class=\"btn btn-light btn-lg\" (click)=\"cancel()\">Cancel</button>\n                    </div>\n                  </form>\n                </div>\n              </div>\n            </div>\n          </div>\n        </div>\n\n        <div *ngIf=\"created\" class=\"row created-section\">\n          <div class=\"col-md-12 grid-margin\">\n            <div class=\"card text-center\">\n              <div class=\"card-body\">\n                <p class=\"card-title\">Form Completed Successfully</p>\n                <p class=\"text-muted\"></p>\n                <div class=\"card-text\">\n                  <i class=\"mdi mdi-shield-check-outline\" style=\"font-size: 12em;\"></i>\n                  <p class=\"text-muted\">\n                    Below is your generated code for processing.\n                  </p>\n                  <div class=\"code\">{{ submissionCode }}</div>\n                  <button class=\"btn btn-primary mr-2 hover-cursor\" type=\"button\" (click)=\"copy()\">\n                    <i class=\"mdi mdi-content-copy\" style=\"font-size: 20px;\"></i>\n                    <span class=\"sr-only\">Please wait...</span>\n                  </button>\n                  <button class=\"btn btn-primary mr-2 hover-cursor\" type=\"button\" (click)=\"ok()\">Ok</button>\n                </div>\n              </div>\n            </div>\n          </div>\n        </div>\n\n        <div *ngIf=\"saved\" class=\"row created-section\">\n          <div class=\"col-md-12 grid-margin\">\n            <div class=\"card text-center\">\n              <div class=\"card-body\">\n                <p class=\"card-title\">Form Saved Successfully</p>\n                <p class=\"text-muted\"></p>\n                <div class=\"card-text\">\n                  <i class=\"mdi mdi-shield-check-outline\" style=\"font-size: 12em;\"></i>\n                  <p class=\"text-muted\">Your form has been saved to drafts.</p>\n                  <button class=\"btn btn-primary mr-2 hover-cursor\" type=\"button\" (click)=\"ok()\">Ok</button>\n                </div>\n              </div>\n            </div>\n          </div>\n        </div>\n      </div>\n      <!-- content -->\n      <!-- footer -->\n      <app-footer-bar></app-footer-bar>\n      <!-- partial -->\n    </div>\n    <!-- main ends -->\n  </div>\n</div>\n\n<ng-template #confirm let-modal>\n  <div class=\"modal-header\">\n    <h4 class=\"modal-title\" id=\"modal-title\">Confirm Action</h4>\n    <button type=\"button\" class=\"close\" aria-describedby=\"modal-title\" (click)=\"modal.close('close')\">\n      <span aria-hidden=\"true\">&times;</span>\n    </button>\n  </div>\n  <div class=\"modal-body\">\n    <p><strong>Would you like to update your profile with the new details provided ?</strong></p>\n  </div>\n  <div class=\"modal-footer\">\n    <button type=\"button\" class=\"btn btn-outline-primary\" (click)=\"modal.close('no')\">No</button>\n    <button type=\"button\" class=\"btn btn-primary\" (click)=\"modal.close('yes')\">Yes</button>\n  </div>\n</ng-template>\n\n<ng-template #viewImgAttachment let-modal>\n  <div class=\"modal-header\">\n    <h5 class=\"modal-title\">Attachment File</h5>\n    <button type=\"button\" class=\"close\" aria-describedby=\"modal-title\" (click)=\"modal.close()\">\n      <span aria-hidden=\"true\">&times;</span>\n    </button>\n  </div>\n  <div class=\"modal-body\" style=\"padding: 0px;\">\n    <img [src]=\"imgUrl\" style=\"width: 100%;\">\n  </div>\n  <div class=\"modal-footer\">\n    <button type=\"button\" class=\"btn btn-primary\" (click)=\"modal.close()\">Close</button>\n  </div>\n</ng-template>\n\n<ng-template #viewDocAttachment let-modal>\n  <div class=\"modal-header\">\n    <h5 class=\"modal-title\">Attachment File</h5>\n    <button type=\"button\" class=\"close\" aria-describedby=\"modal-title\" (click)=\"modal.close()\">\n      <span aria-hidden=\"true\">&times;</span>\n    </button>\n  </div>\n  <div class=\"modal-body\">\n    <p>This document type cannot be viewed. Please download</p>\n  </div>\n  <div class=\"modal-footer\">\n    <button type=\"button\" class=\"btn btn-outline-primary\" (click)=\"modal.close()\">Close</button>\n    <button type=\"button\" class=\"btn btn-primary\" (click)=\"downloadDoc(documentUrl)\">Download</button>\n  </div>\n</ng-template>\n\n<ng-template #setPin let-modal>\n  <form [formGroup]=\"pinForm\" (ngSubmit)=\"createPin()\">\n    <div class=\"modal-header\">\n      <h5 class=\"modal-title text-uppercase\">Setup A New PIN</h5>\n      <button type=\"button\" class=\"close\" aria-describedby=\"modal-title\" (click)=\"modal.close()\">\n        <span aria-hidden=\"true\">&times;</span>\n      </button>\n    </div>\n    <div class=\"modal-body\">\n      <div class=\"form-group pin-form-group\">\n        <input type=\"tel\" class=\"form-control form-control-lg pin-control\" formControlName=\"pin\" placeholder=\"----\"\n          [ngClass]=\"{'input-control-error': submitted && f.pin.errors}\" maxlength=\"4\"\n          (keyup)=\"resolveStrCharacters($event)\">\n        <div *ngIf=\"submitted && f.pin.errors\">\n          <p class=\"input-error\" *ngIf=\"f.pin.errors.required\">PIN is required</p>\n          <p class=\"input-error\" *ngIf=\"f.pin.errors.minlength\">PIN must be 4 (four) digits.</p>\n        </div>\n      </div>\n    </div>\n    <div class=\"modal-footer\">\n      <button type=\"button\" class=\"btn btn-outline-primary\" (click)=\"modal.close()\">Close</button>\n      <button *ngIf=\"!isLoading\" type=\"submit\" class=\"btn btn-primary\">Create PIN</button>\n      <button *ngIf=\"isLoading\" type=\"button\" class=\"btn btn-block btn-primary font-weight-medium\" disabled>\n        <span class=\"spinner-border spinner-border-sm\" role=\"status\" aria-hidden=\"true\"></span> &nbsp; &nbsp;\n        Please wait...\n      </button>\n    </div>\n  </form>\n</ng-template>\n\n<ng-template #pin let-modal>\n  <form>\n    <div class=\"modal-header\">\n      <h5 class=\"modal-title text-uppercase\">Enter PIN To Submit Form</h5>\n      <button type=\"button\" class=\"close\" aria-describedby=\"modal-title\" (click)=\"modal.close()\">\n        <span aria-hidden=\"true\">&times;</span>\n      </button>\n    </div>\n    <div class=\"modal-body\">\n      <div class=\"form-group pin-form-group\">\n        <input type=\"tel\" class=\"form-control form-control-lg pin-control\" name=\"pinCode\" [(ngModel)]=\"pinCode\"\n          placeholder=\"----\" maxlength=\"4\" (keyup)=\"resolveStrCharacters($event)\" autofocus>\n        <div>\n          <p class=\"input-error\" *ngIf=\"pinRequired\">PIN is required</p>\n          <p class=\"input-error\" *ngIf=\"pinMinimum\">PIN must be 4 (four) digits.</p>\n        </div>\n      </div>\n    </div>\n    <div class=\"modal-footer\">\n      <button type=\"button\" class=\"btn btn-outline-primary\" (click)=\"modal.close()\">Close</button>\n      <button *ngIf=\"!isLoading\" type=\"submit\" class=\"btn btn-primary\" (click)=\"verifyPin()\">Submit</button>\n      <button *ngIf=\"isLoading\" type=\"button\" class=\"btn btn-block btn-primary font-weight-medium\" disabled>\n        <span class=\"spinner-border spinner-border-sm\" role=\"status\" aria-hidden=\"true\"></span> &nbsp; &nbsp;\n        Please wait...\n      </button>\n    </div>\n  </form>\n</ng-template>\n\n<ng-template #selectBranch let-modal>\n  <div class=\"modal-header\">\n    <h5 class=\"modal-title text-uppercase\">Select A Branch</h5>\n    <button type=\"button\" class=\"close\" aria-describedby=\"modal-title\" (click)=\"modal.close('no')\">\n      <span aria-hidden=\"true\">&times;</span>\n    </button>\n  </div>\n  <div class=\"modal-body\">\n    <div *ngIf=\"loadingBranches\">\n      <div class=\"col-md-12 col-sm-12 m-md-2\">\n        <div class=\"d-flex justify-content-center\">\n          <div class=\"spinner-border m-2\" style=\"width: 2rem; height: 2rem;\" role=\"status\">\n            <span class=\"sr-only\">Loading...</span>\n          </div>\n        </div>\n      </div>\n    </div>\n    <div *ngIf=\"!loadingBranches\">\n      <select class=\"form-control\" [(ngModel)]=\"branch_id\">\n        <option value=\"\" disabled>Select Branch</option>\n        <option *ngFor=\"let branch of branchesList\" [value]=\"branch.id\">\n          {{ branch.branch_name }}\n        </option>\n      </select>\n    </div>\n  </div>\n  <div class=\"modal-footer\">\n    <button type=\"button\" class=\"btn btn-outline-primary\" (click)=\"modal.close('no')\">Close</button>\n    <button type=\"button\" class=\"btn btn-primary\" (click)=\"closeBranchDialog()\">Next</button>\n  </div>\n</ng-template>\n\n<ng-template #submissionOptions let-modal>\n  <div class=\"modal-header\">\n    <h4 class=\"modal-title\" id=\"modal-title\">Confirm Action</h4>\n    <button type=\"button\" class=\"close\" aria-describedby=\"modal-title\" (click)=\"modal.close()\">\n      <span aria-hidden=\"true\">&times;</span>\n    </button>\n  </div>\n  <div class=\"modal-body\">\n    <p><strong>Similar form submission exists.</strong></p>\n  </div>\n  <div class=\"modal-footer\">\n    <button type=\"button\" class=\"btn btn-outline-primary\" (click)=\"modal.close('replace')\">Replace</button>\n    <button type=\"button\" class=\"btn btn-outline-primary\" (click)=\"modal.close('new')\">New Submission</button>\n  </div>\n</ng-template>\n\n<ng-template #newSubmission let-modal>\n  <div class=\"modal-header\">\n    <h4 class=\"modal-title\" id=\"modal-title\">Confirm Action</h4>\n    <button type=\"button\" class=\"close\" aria-describedby=\"modal-title\" (click)=\"modal.close()\">\n      <span aria-hidden=\"true\">&times;</span>\n    </button>\n  </div>\n  <div class=\"modal-body\">\n    <p><strong>There is a similar form sumission in-process. Would you like to make a new submission ?</strong></p>\n  </div>\n  <div class=\"modal-footer\">\n    <button type=\"button\" class=\"btn btn-outline-primary\" (click)=\"modal.close('no')\">No</button>\n    <button type=\"button\" class=\"btn btn-primary\" (click)=\"modal.close('yes')\">Yes</button>\n  </div>\n</ng-template>\n\n<ng-template #tncDialog let-modal>\n  <div class=\"modal-header\">\n    <h4 class=\"modal-title\" id=\"modal-title\">Terms & Condition</h4>\n  </div>\n  <div class=\"modal-body\" style=\"max-height: calc(70vh - 143px); overflow-y: auto;\">\n    <p>{{ tncContent }}</p>\n  </div>\n  <div class=\"modal-footer\">\n    <button type=\"button\" class=\"btn btn-outline-danger\" (click)=\"declineTnc()\">Decline</button>\n    <button type=\"button\" class=\"btn btn-primary\" (click)=\"acceptTnc()\">Accept</button>\n  </div>\n</ng-template>\n\n<ng-template #joinQueue let-modal>\n  <app-join-queue-dialog\n    [branchExtension]=\"branchExtension\"\n    (queueSkipped)=\"skipQueue($event)\"\n    (processCompleted)=\"queueJoined($event)\">\n  </app-join-queue-dialog>\n</ng-template>"
 
 /***/ }),
 
@@ -701,7 +701,7 @@ module.exports = "<div class=\"container-scroller\">\n  <app-navigation-bar></ap
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<div class=\"container-scroller\">\n  <app-navigation-bar></app-navigation-bar>\n  <div class=\"container-fluid page-body-wrapper\">\n    <app-side-bar></app-side-bar>\n    <div class=\"main-panel\">\n      <div class=\"content-wrapper\">\n        <div class=\"row\">\n          <div class=\"col-md-12 grid-margin\">\n            <div class=\"d-flex justify-content-between flex-wrap\">\n              <div class=\"d-flex align-items-end flex-wrap\">\n                <div class=\"mr-md-3 mr-xl-5\">\n                  <h2 class=\"page-title\">{{ form.form_name || form.name }}</h2>\n                </div>\n                <div class=\"d-flex\">\n                </div>\n              </div>\n              <div class=\"d-flex justify-content-between align-items-end flex-wrap\">\n              </div>\n            </div>\n          </div>\n        </div>\n\n        <div [hidden]=\"created || saved\" class=\"row\">\n          <div class=\"col-md-8 offset-md-2 grid-margin stretch-card\">\n            <div class=\"card\">\n              <div class=\"card-body\">\n                <p class=\"card-title\">{{ form.form_name || form.name }}</p>\n                <p class=\"text-muted\">All forms with <span class=\"text-danger\">*</span> are required and should be filled.</p>\n                <div class=\"card-text pt-5\">\n                  <form class=\"forms-sample\">\n                    <div class=\"form-builder-container\">\n                      <div id=\"form-render\"></div>\n                    </div>\n\n                    <div *ngIf=\"loadingAttachments\" class=\"row m-md-2\">\n                      <div class=\"col-md-12 col-sm-12 m-md-2\">\n                        <div class=\"d-flex justify-content-center\">\n                          <div class=\"spinner-border m-2\" style=\"width: 3rem; height: 3rem;\" role=\"status\">\n                            <span class=\"sr-only\">Loading...</span>\n                          </div>\n                        </div>\n                      </div>\n                    </div>\n\n                    <div class=\"attachments-section\" *ngIf=\"!loadingAttachments && showAttachments\">\n                      <div class=\"card mb-4\">\n                        <div class=\"card-body\">\n                        <h5 class=\"card-title\">Form Attachments / Documents</h5>\n                          <div class=\"row\" *ngFor=\"let file of existingAttachments\">\n                            <div class=\"col-11\" style=\"padding-right: 8px;\">\n                              <ol class=\"files-list\">\n                                <li class=\"file-item\">\n                                  <i class=\"mdi mdi-paperclip menu-icon\"></i>\n                                  <h5 class=\"file-link-title\"><strong>{{ transformToRealText(file.key) }}</strong></h5>\n                                  <a class=\"alert-link file-link\" (click)=\"openModal($event, file.url)\">{{ file.url }}</a>\n                                </li>\n                              </ol>\n                            </div>\n                            <div class=\"col-1\" style=\"padding-right: 3px; padding-left: 4px; margin-top: 7px;\">\n                              <button class=\"btn btn-primary btn-icon\" (click)=\"download(file.url)\">\n                                <i class=\"mdi mdi-download-outline\"></i>\n                              </button>\n                            </div>\n                          </div>\n                        </div>\n                      </div>\n                    </div>\n\n                    <div class=\"buttons-list\">\n                      <button *ngIf=\"loading\" class=\"btn btn-primary btn-lg mr-2\" type=\"button\" disabled>\n                        <span class=\"spinner-border spinner-border-sm\" role=\"status\" aria-hidden=\"true\"></span>\n                        <span class=\"sr-only\">Please wait...</span>\n                      </button>\n                      <button *ngIf=\"!loading\" type=\"submit\" class=\"btn btn-primary btn-lg mr-2\" (click)=\"submit()\">Submit</button>\n                      <button *ngIf=\"!loading\" type=\"submit\" class=\"btn btn-primary btn-lg mr-2\" (click)=\"saveAsDraft()\">Save as Draft</button>\n                      <button type=\"button\" class=\"btn btn-light btn-lg\" (click)=\"cancel()\">Cancel</button>\n                    </div>\n                  </form>\n                </div>\n              </div>\n            </div>\n          </div>\n        </div>\n\n        <div *ngIf=\"created\" class=\"row created-section\">\n          <div class=\"col-md-12 grid-margin\">\n            <div class=\"card text-center\">\n              <div class=\"card-body\">\n                <p class=\"card-title\">Form Completed Successfully</p>\n                <p class=\"text-muted\"></p>\n                <div class=\"card-text\">\n                  <i class=\"mdi mdi-shield-check-outline\" style=\"font-size: 12em;\"></i>\n                  <p class=\"text-muted\">\n                    Below is your generated code.\n                    Send this code to any {{ form.merchant_name }} branch to be processed.\n                  </p>\n                  <div class=\"code\">{{ submissionCode }}</div>\n                  <button class=\"btn btn-primary mr-2 hover-cursor\" type=\"button\" (click)=\"copy()\">\n                    <i class=\"mdi mdi-content-copy\" style=\"font-size: 20px;\"></i>\n                    <span class=\"sr-only\">Please wait...</span>\n                  </button>\n                  <button class=\"btn btn-primary mr-2 hover-cursor\" type=\"button\" (click)=\"ok()\">Ok</button>\n                </div>\n              </div>\n            </div>\n          </div>\n        </div>\n\n        <div *ngIf=\"saved\" class=\"row created-section\">\n          <div class=\"col-md-12 grid-margin\">\n            <div class=\"card text-center\">\n              <div class=\"card-body\">\n                <p class=\"card-title\">Form Saved Successfully</p>\n                <p class=\"text-muted\"></p>\n                <div class=\"card-text\">\n                  <i class=\"mdi mdi-shield-check-outline\" style=\"font-size: 12em;\"></i>\n                  <p class=\"text-muted\">Your form has been saved to drafts.</p>\n                  <button class=\"btn btn-primary mr-2 hover-cursor\" type=\"button\" (click)=\"ok()\">Ok</button>\n                </div>\n              </div>\n            </div>\n          </div>\n        </div>\n      </div>\n      <!-- content -->\n      <!-- footer -->\n      <app-footer-bar></app-footer-bar>\n      <!-- partial -->\n    </div>\n    <!-- main ends -->\n  </div>\n</div>\n\n<ng-template #confirm let-modal>\n  <div class=\"modal-header\">\n    <h4 class=\"modal-title\" id=\"modal-title\">Confirm Action</h4>\n    <button type=\"button\" class=\"close\" aria-describedby=\"modal-title\" (click)=\"modal.close('close')\">\n      <span aria-hidden=\"true\">&times;</span>\n    </button>\n  </div>\n  <div class=\"modal-body\">\n    <p><strong>Would you like to update your profile with the new details provided ?</strong></p>\n  </div>\n  <div class=\"modal-footer\">\n    <button type=\"button\" class=\"btn btn-outline-primary\" (click)=\"modal.close('no')\">No</button>\n    <button type=\"button\" class=\"btn btn-primary\" (click)=\"modal.close('yes')\">Yes</button>\n  </div>\n</ng-template>\n\n<ng-template #viewImgAttachment let-modal>\n  <div class=\"modal-header\">\n    <h5 class=\"modal-title\">Attachment File</h5>\n    <button type=\"button\" class=\"close\" aria-describedby=\"modal-title\" (click)=\"modal.close()\">\n      <span aria-hidden=\"true\">&times;</span>\n    </button>\n  </div>\n  <div class=\"modal-body\" style=\"padding: 0px;\">\n    <img [src]=\"imgUrl\" style=\"width: 100%;\">\n  </div>\n  <div class=\"modal-footer\">\n    <button type=\"button\" class=\"btn btn-primary\" (click)=\"modal.close()\">Close</button>\n  </div>\n</ng-template>\n\n<ng-template #viewDocAttachment let-modal>\n  <div class=\"modal-header\">\n    <h5 class=\"modal-title\">Attachment File</h5>\n    <button type=\"button\" class=\"close\" aria-describedby=\"modal-title\" (click)=\"modal.close()\">\n      <span aria-hidden=\"true\">&times;</span>\n    </button>\n  </div>\n  <div class=\"modal-body\">\n    <p>This document type cannot be viewed. Please download</p>\n  </div>\n  <div class=\"modal-footer\">\n    <button type=\"button\" class=\"btn btn-outline-primary\" (click)=\"modal.close()\">Close</button>\n    <button type=\"button\" class=\"btn btn-primary\" (click)=\"downloadDoc(documentUrl)\">Download</button>\n  </div>\n</ng-template>\n\n<ng-template #setPin let-modal>\n  <form [formGroup]=\"pinForm\" (ngSubmit)=\"createPin()\">\n    <div class=\"modal-header\">\n      <h5 class=\"modal-title text-uppercase\">Setup A New PIN</h5>\n      <button type=\"button\" class=\"close\" aria-describedby=\"modal-title\" (click)=\"modal.close()\">\n        <span aria-hidden=\"true\">&times;</span>\n      </button>\n    </div>\n    <div class=\"modal-body\">\n      <div class=\"form-group pin-form-group\">\n        <input type=\"tel\" class=\"form-control form-control-lg pin-control\" formControlName=\"pin\" placeholder=\"----\"\n          [ngClass]=\"{'input-control-error': submitted && f.pin.errors}\" maxlength=\"4\" (keyup)=\"resolveStrCharacters($event)\">\n        <div *ngIf=\"submitted && f.pin.errors\">\n          <p class=\"input-error\" *ngIf=\"f.pin.errors.required\">PIN is required</p>\n          <p class=\"input-error\" *ngIf=\"f.pin.errors.minlength\">PIN must be 4 (four) digits.</p>\n        </div>\n      </div>\n    </div>\n    <div class=\"modal-footer\">\n      <button type=\"button\" class=\"btn btn-outline-primary\" (click)=\"modal.close()\">Close</button>\n      <button *ngIf=\"!isLoading\" type=\"submit\" class=\"btn btn-primary\">Create PIN</button>\n      <button *ngIf=\"isLoading\" type=\"button\" class=\"btn btn-block btn-primary font-weight-medium\" disabled>\n        <span class=\"spinner-border spinner-border-sm\" role=\"status\" aria-hidden=\"true\"></span> &nbsp; &nbsp;\n        Please wait...\n      </button>`\n    </div>\n  </form>\n</ng-template>\n\n<ng-template #pin let-modal>\n  <form>\n    <div class=\"modal-header\">\n      <h5 class=\"modal-title text-uppercase\">Enter PIN To Submit Form</h5>\n      <button type=\"button\" class=\"close\" aria-describedby=\"modal-title\" (click)=\"modal.close()\">\n        <span aria-hidden=\"true\">&times;</span>\n      </button>\n    </div>\n    <div class=\"modal-body\">\n      <div class=\"form-group pin-form-group\">\n        <input type=\"tel\" class=\"form-control form-control-lg pin-control\" name=\"pinCode\" [(ngModel)]=\"pinCode\" \n          placeholder=\"----\" maxlength=\"4\" (keyup)=\"resolveStrCharacters($event)\" autofocus>\n        <div>\n          <p class=\"input-error\" *ngIf=\"pinRequired\">PIN is required</p>\n          <p class=\"input-error\" *ngIf=\"pinMinimum\">PIN must be 4 (four) digits.</p>\n        </div>\n      </div>\n    </div>\n    <div class=\"modal-footer\">\n      <button type=\"button\" class=\"btn btn-outline-primary\" (click)=\"modal.close()\">Close</button>\n      <button *ngIf=\"!isLoading\" type=\"submit\" class=\"btn btn-primary\" (click)=\"verifyPin()\">Submit</button>\n      <button *ngIf=\"isLoading\" type=\"button\" class=\"btn btn-block btn-primary font-weight-medium\" disabled>\n        <span class=\"spinner-border spinner-border-sm\" role=\"status\" aria-hidden=\"true\"></span> &nbsp; &nbsp;\n        Please wait...\n      </button>\n    </div>\n  </form>\n</ng-template>\n\n<ng-template #selectBranch let-modal>\n  <div class=\"modal-header\">\n    <h5 class=\"modal-title text-uppercase\">Select A Branch</h5>\n    <button type=\"button\" class=\"close\" aria-describedby=\"modal-title\" (click)=\"modal.close('no')\">\n      <span aria-hidden=\"true\">&times;</span>\n    </button>\n  </div>\n  <div class=\"modal-body\">\n    <div *ngIf=\"loadingBranches\">\n      <div class=\"col-md-12 col-sm-12 m-md-2\">\n        <div class=\"d-flex justify-content-center\">\n          <div class=\"spinner-border m-2\" style=\"width: 2rem; height: 2rem;\" role=\"status\">\n            <span class=\"sr-only\">Loading...</span>\n          </div>\n        </div>\n      </div>\n    </div>\n    <div *ngIf=\"!loadingBranches\">\n      <select class=\"form-control\" [(ngModel)]=\"branchId\">\n        <option value=\"\" disabled>Select Branch</option>\n        <option *ngFor=\"let branch of branchesList\" [value]=\"branch.id\">\n          {{ branch.branch_name }}\n        </option>\n      </select>\n    </div>\n  </div>\n  <div class=\"modal-footer\">\n    <button type=\"button\" class=\"btn btn-outline-primary\" (click)=\"modal.close('no')\">Close</button>\n    <button type=\"button\" class=\"btn btn-primary\" (click)=\"closeBranchDialog()\">Next</button>\n  </div>\n</ng-template>\n\n<ng-template #submissionOptions let-modal>\n  <div class=\"modal-header\">\n    <h4 class=\"modal-title\" id=\"modal-title\">Confirm Action</h4>\n    <button type=\"button\" class=\"close\" aria-describedby=\"modal-title\" (click)=\"modal.close()\">\n      <span aria-hidden=\"true\">&times;</span>\n    </button>\n  </div>\n  <div class=\"modal-body\">\n    <p><strong>Similar form submission exists.</strong></p>\n  </div>\n  <div class=\"modal-footer\">\n    <button type=\"button\" class=\"btn btn-outline-primary\" (click)=\"modal.close('replace')\">Replace</button>\n    <button type=\"button\" class=\"btn btn-outline-primary\" (click)=\"modal.close('new')\">New Submission</button>\n  </div>\n</ng-template>\n\n<ng-template #newSubmission let-modal>\n  <div class=\"modal-header\">\n    <h4 class=\"modal-title\" id=\"modal-title\">Confirm Action</h4>\n    <button type=\"button\" class=\"close\" aria-describedby=\"modal-title\" (click)=\"modal.close()\">\n      <span aria-hidden=\"true\">&times;</span>\n    </button>\n  </div>\n  <div class=\"modal-body\">\n    <p><strong>There is a similar form sumission in-process. Would you like to make a new submission ?</strong></p>\n  </div>\n  <div class=\"modal-footer\">\n    <button type=\"button\" class=\"btn btn-outline-primary\" (click)=\"modal.close('no')\">No</button>\n    <button type=\"button\" class=\"btn btn-primary\" (click)=\"modal.close('yes')\">Yes</button>\n  </div>\n</ng-template>\n\n<ng-template #joinQueue let-modal>\n  <app-join-queue-dialog\n    [branchExtension]=\"branchExtension\"\n    (queueSkipped)=\"skipQueue($event)\"\n    (processCompleted)=\"queueJoined($event)\">\n  </app-join-queue-dialog>\n</ng-template>"
+module.exports = "<div class=\"container-scroller\">\n  <app-navigation-bar></app-navigation-bar>\n  <div class=\"container-fluid page-body-wrapper\">\n    <app-side-bar></app-side-bar>\n    <div class=\"main-panel\">\n      <div class=\"content-wrapper\">\n        <div class=\"row\">\n          <div class=\"col-md-12 grid-margin\">\n            <div class=\"d-flex justify-content-between flex-wrap\">\n              <div class=\"d-flex align-items-end flex-wrap\">\n                <div class=\"mr-md-3 mr-xl-5\">\n                  <h2 class=\"page-title\">{{ form.form_name || form.name }}</h2>\n                </div>\n                <div class=\"d-flex\">\n                </div>\n              </div>\n              <div class=\"d-flex justify-content-between align-items-end flex-wrap\">\n              </div>\n            </div>\n          </div>\n        </div>\n\n        <div [hidden]=\"created || saved\" class=\"row\">\n          <div class=\"col-md-8 offset-md-2 grid-margin stretch-card\">\n            <div class=\"card\">\n              <div class=\"card-body\">\n                <p class=\"card-title\">{{ form.form_name || form.name }}</p>\n                <p class=\"text-muted\">All forms with <span class=\"text-danger\">*</span> are required and should be filled.</p>\n                <div class=\"card-text pt-5\">\n                  <form class=\"forms-sample\">\n                    <div class=\"form-builder-container\">\n                      <div id=\"form-render\"></div>\n                    </div>\n\n                    <div *ngIf=\"loadingAttachments\" class=\"row m-md-2\">\n                      <div class=\"col-md-12 col-sm-12 m-md-2\">\n                        <div class=\"d-flex justify-content-center\">\n                          <div class=\"spinner-border m-2\" style=\"width: 3rem; height: 3rem;\" role=\"status\">\n                            <span class=\"sr-only\">Loading...</span>\n                          </div>\n                        </div>\n                      </div>\n                    </div>\n\n                    <div class=\"attachments-section\" *ngIf=\"!loadingAttachments && showAttachments\">\n                      <div class=\"card mb-4\">\n                        <div class=\"card-body\">\n                        <h5 class=\"card-title\">Form Attachments / Documents</h5>\n                          <div class=\"row\" *ngFor=\"let file of existingAttachments\">\n                            <div class=\"col-11\" style=\"padding-right: 8px;\">\n                              <ol class=\"files-list\">\n                                <li class=\"file-item\">\n                                  <i class=\"mdi mdi-paperclip menu-icon\"></i>\n                                  <h5 class=\"file-link-title\"><strong>{{ transformToRealText(file.key) }}</strong></h5>\n                                  <a class=\"alert-link file-link\" (click)=\"openModal($event, file.url)\">{{ file.url }}</a>\n                                </li>\n                              </ol>\n                            </div>\n                            <div class=\"col-1\" style=\"padding-right: 3px; padding-left: 4px; margin-top: 7px;\">\n                              <button class=\"btn btn-primary btn-icon\" (click)=\"download(file.url)\">\n                                <i class=\"mdi mdi-download-outline\"></i>\n                              </button>\n                            </div>\n                          </div>\n                        </div>\n                      </div>\n                    </div>\n\n                    <div *ngIf=\"requireSignature\" class=\"signature-section\">\n                      <div class=\"card\" style=\"margin-bottom: 15px;\">\n                        <div class=\"card-body\">\n                          <div class=\"card-title\">Signature</div>\n                          <div class=\"align-right\">\n                            <button type=\"button\" class=\"btn btn-sm\" (click)=\"editSignature()\">\n                              <i class=\"mdi mdi-pencil-outline\"></i>\n                            </button>\n                            <button *ngIf=\"!hasSignature && signatureImageUrl.length != 0\"\n                              type=\"button\" class=\"btn btn-sm\" (click)=\"restoreSignature()\">\n                              <i class=\"mdi mdi-restore-clock\"></i>\n                            </button>\n                          </div>\n                          <div *ngIf=\"!hasSignature\">\n                            <signature-pad #signaturePad [options]=\"signaturePadOptions\"\n                              (onEndEvent)=\"signatureDrawComplete()\"></signature-pad>\n                          </div>\n                          <div *ngIf=\"hasSignature\">\n                            <img [src]=\"signatureImageUrl\" alt=\"signature\">\n                          </div>\n                        </div>\n                      </div>\n                    </div>\n\n                    <div class=\"terms-conditions\" *ngIf=\"hasTnc\">\n                      <div class=\"card\">\n                        <div class=\"card-body\">\n                          <div class=\"card-title\">Terms & Condtions</div>\n                          <div class=\"card-text\">\n                            <p>By submitting this form, please be aware that the terms & conditions apply. Please accept or decline below.</p>\n                            <button class=\"btn btn-outline-primary\" (click)=\"openTncDialog()\">Read & Accept in order to submit form</button>\n                          </div>\n                        </div>\n                      </div>\n                    </div>\n\n                    <div class=\"buttons-list mt-4\">\n                      <button *ngIf=\"loading\" class=\"btn btn-primary btn-lg mr-2\" type=\"button\" disabled>\n                        <span class=\"spinner-border spinner-border-sm\" role=\"status\" aria-hidden=\"true\"></span>\n                        <span class=\"sr-only\">Please wait...</span>\n                      </button>\n                      <button *ngIf=\"!loading\" type=\"submit\" class=\"btn btn-primary btn-lg mr-2\" (click)=\"submit()\">Submit</button>\n                      <button *ngIf=\"!loading\" type=\"submit\" class=\"btn btn-outline-primary btn-lg mr-2\" (click)=\"saveAsDraft()\">Save as Draft</button>\n                      <button type=\"button\" class=\"btn btn-light btn-lg\" (click)=\"cancel()\">Cancel</button>\n                    </div>\n                  </form>\n                </div>\n              </div>\n            </div>\n          </div>\n        </div>\n\n        <div *ngIf=\"created\" class=\"row created-section\">\n          <div class=\"col-md-12 grid-margin\">\n            <div class=\"card text-center\">\n              <div class=\"card-body\">\n                <p class=\"card-title\">Form Completed Successfully</p>\n                <p class=\"text-muted\"></p>\n                <div class=\"card-text\">\n                  <i class=\"mdi mdi-shield-check-outline\" style=\"font-size: 12em;\"></i>\n                  <p class=\"text-muted\">\n                    Below is your generated code.\n                    Send this code to any {{ form.merchant_name }} branch to be processed.\n                  </p>\n                  <div class=\"code\">{{ submissionCode }}</div>\n                  <button class=\"btn btn-primary mr-2 hover-cursor\" type=\"button\" (click)=\"copy()\">\n                    <i class=\"mdi mdi-content-copy\" style=\"font-size: 20px;\"></i>\n                    <span class=\"sr-only\">Please wait...</span>\n                  </button>\n                  <button class=\"btn btn-primary mr-2 hover-cursor\" type=\"button\" (click)=\"ok()\">Ok</button>\n                </div>\n              </div>\n            </div>\n          </div>\n        </div>\n\n        <div *ngIf=\"saved\" class=\"row created-section\">\n          <div class=\"col-md-12 grid-margin\">\n            <div class=\"card text-center\">\n              <div class=\"card-body\">\n                <p class=\"card-title\">Form Saved Successfully</p>\n                <p class=\"text-muted\"></p>\n                <div class=\"card-text\">\n                  <i class=\"mdi mdi-shield-check-outline\" style=\"font-size: 12em;\"></i>\n                  <p class=\"text-muted\">Your form has been saved to drafts.</p>\n                  <button class=\"btn btn-primary mr-2 hover-cursor\" type=\"button\" (click)=\"ok()\">Ok</button>\n                </div>\n              </div>\n            </div>\n          </div>\n        </div>\n      </div>\n      <!-- content -->\n      <!-- footer -->\n      <app-footer-bar></app-footer-bar>\n      <!-- partial -->\n    </div>\n    <!-- main ends -->\n  </div>\n</div>\n\n<ng-template #confirm let-modal>\n  <div class=\"modal-header\">\n    <h4 class=\"modal-title\" id=\"modal-title\">Confirm Action</h4>\n    <button type=\"button\" class=\"close\" aria-describedby=\"modal-title\" (click)=\"modal.close('close')\">\n      <span aria-hidden=\"true\">&times;</span>\n    </button>\n  </div>\n  <div class=\"modal-body\">\n    <p><strong>Would you like to update your profile with the new details provided ?</strong></p>\n  </div>\n  <div class=\"modal-footer\">\n    <button type=\"button\" class=\"btn btn-outline-primary\" (click)=\"modal.close('no')\">No</button>\n    <button type=\"button\" class=\"btn btn-primary\" (click)=\"modal.close('yes')\">Yes</button>\n  </div>\n</ng-template>\n\n<ng-template #viewImgAttachment let-modal>\n  <div class=\"modal-header\">\n    <h5 class=\"modal-title\">Attachment File</h5>\n    <button type=\"button\" class=\"close\" aria-describedby=\"modal-title\" (click)=\"modal.close()\">\n      <span aria-hidden=\"true\">&times;</span>\n    </button>\n  </div>\n  <div class=\"modal-body\" style=\"padding: 0px;\">\n    <img [src]=\"imgUrl\" style=\"width: 100%;\">\n  </div>\n  <div class=\"modal-footer\">\n    <button type=\"button\" class=\"btn btn-primary\" (click)=\"modal.close()\">Close</button>\n  </div>\n</ng-template>\n\n<ng-template #viewDocAttachment let-modal>\n  <div class=\"modal-header\">\n    <h5 class=\"modal-title\">Attachment File</h5>\n    <button type=\"button\" class=\"close\" aria-describedby=\"modal-title\" (click)=\"modal.close()\">\n      <span aria-hidden=\"true\">&times;</span>\n    </button>\n  </div>\n  <div class=\"modal-body\">\n    <p>This document type cannot be viewed. Please download</p>\n  </div>\n  <div class=\"modal-footer\">\n    <button type=\"button\" class=\"btn btn-outline-primary\" (click)=\"modal.close()\">Close</button>\n    <button type=\"button\" class=\"btn btn-primary\" (click)=\"downloadDoc(documentUrl)\">Download</button>\n  </div>\n</ng-template>\n\n<ng-template #setPin let-modal>\n  <form [formGroup]=\"pinForm\" (ngSubmit)=\"createPin()\">\n    <div class=\"modal-header\">\n      <h5 class=\"modal-title text-uppercase\">Setup A New PIN</h5>\n      <button type=\"button\" class=\"close\" aria-describedby=\"modal-title\" (click)=\"modal.close()\">\n        <span aria-hidden=\"true\">&times;</span>\n      </button>\n    </div>\n    <div class=\"modal-body\">\n      <div class=\"form-group pin-form-group\">\n        <input type=\"tel\" class=\"form-control form-control-lg pin-control\" formControlName=\"pin\" placeholder=\"----\"\n          [ngClass]=\"{'input-control-error': submitted && f.pin.errors}\" maxlength=\"4\" (keyup)=\"resolveStrCharacters($event)\">\n        <div *ngIf=\"submitted && f.pin.errors\">\n          <p class=\"input-error\" *ngIf=\"f.pin.errors.required\">PIN is required</p>\n          <p class=\"input-error\" *ngIf=\"f.pin.errors.minlength\">PIN must be 4 (four) digits.</p>\n        </div>\n      </div>\n    </div>\n    <div class=\"modal-footer\">\n      <button type=\"button\" class=\"btn btn-outline-primary\" (click)=\"modal.close()\">Close</button>\n      <button *ngIf=\"!isLoading\" type=\"submit\" class=\"btn btn-primary\">Create PIN</button>\n      <button *ngIf=\"isLoading\" type=\"button\" class=\"btn btn-block btn-primary font-weight-medium\" disabled>\n        <span class=\"spinner-border spinner-border-sm\" role=\"status\" aria-hidden=\"true\"></span> &nbsp; &nbsp;\n        Please wait...\n      </button>`\n    </div>\n  </form>\n</ng-template>\n\n<ng-template #pin let-modal>\n  <form>\n    <div class=\"modal-header\">\n      <h5 class=\"modal-title text-uppercase\">Enter PIN To Submit Form</h5>\n      <button type=\"button\" class=\"close\" aria-describedby=\"modal-title\" (click)=\"modal.close()\">\n        <span aria-hidden=\"true\">&times;</span>\n      </button>\n    </div>\n    <div class=\"modal-body\">\n      <div class=\"form-group pin-form-group\">\n        <input type=\"tel\" class=\"form-control form-control-lg pin-control\" name=\"pinCode\" [(ngModel)]=\"pinCode\" \n          placeholder=\"----\" maxlength=\"4\" (keyup)=\"resolveStrCharacters($event)\" autofocus>\n        <div>\n          <p class=\"input-error\" *ngIf=\"pinRequired\">PIN is required</p>\n          <p class=\"input-error\" *ngIf=\"pinMinimum\">PIN must be 4 (four) digits.</p>\n        </div>\n      </div>\n    </div>\n    <div class=\"modal-footer\">\n      <button type=\"button\" class=\"btn btn-outline-primary\" (click)=\"modal.close()\">Close</button>\n      <button *ngIf=\"!isLoading\" type=\"submit\" class=\"btn btn-primary\" (click)=\"verifyPin()\">Submit</button>\n      <button *ngIf=\"isLoading\" type=\"button\" class=\"btn btn-block btn-primary font-weight-medium\" disabled>\n        <span class=\"spinner-border spinner-border-sm\" role=\"status\" aria-hidden=\"true\"></span> &nbsp; &nbsp;\n        Please wait...\n      </button>\n    </div>\n  </form>\n</ng-template>\n\n<ng-template #selectBranch let-modal>\n  <div class=\"modal-header\">\n    <h5 class=\"modal-title text-uppercase\">Select A Branch</h5>\n    <button type=\"button\" class=\"close\" aria-describedby=\"modal-title\" (click)=\"modal.close('no')\">\n      <span aria-hidden=\"true\">&times;</span>\n    </button>\n  </div>\n  <div class=\"modal-body\">\n    <div *ngIf=\"loadingBranches\">\n      <div class=\"col-md-12 col-sm-12 m-md-2\">\n        <div class=\"d-flex justify-content-center\">\n          <div class=\"spinner-border m-2\" style=\"width: 2rem; height: 2rem;\" role=\"status\">\n            <span class=\"sr-only\">Loading...</span>\n          </div>\n        </div>\n      </div>\n    </div>\n    <div *ngIf=\"!loadingBranches\">\n      <select class=\"form-control\" [(ngModel)]=\"branchId\">\n        <option value=\"\" disabled>Select Branch</option>\n        <option *ngFor=\"let branch of branchesList\" [value]=\"branch.id\">\n          {{ branch.branch_name }}\n        </option>\n      </select>\n    </div>\n  </div>\n  <div class=\"modal-footer\">\n    <button type=\"button\" class=\"btn btn-outline-primary\" (click)=\"modal.close('no')\">Close</button>\n    <button type=\"button\" class=\"btn btn-primary\" (click)=\"closeBranchDialog()\">Next</button>\n  </div>\n</ng-template>\n\n<ng-template #submissionOptions let-modal>\n  <div class=\"modal-header\">\n    <h4 class=\"modal-title\" id=\"modal-title\">Confirm Action</h4>\n    <button type=\"button\" class=\"close\" aria-describedby=\"modal-title\" (click)=\"modal.close('close')\">\n      <span aria-hidden=\"true\">&times;</span>\n    </button>\n  </div>\n  <div class=\"modal-body\">\n    <p><strong>Similar form submission exists.</strong></p>\n  </div>\n  <div class=\"modal-footer\">\n    <button type=\"button\" class=\"btn btn-outline-primary\" (click)=\"modal.close('replace')\">Replace</button>\n    <button type=\"button\" class=\"btn btn-outline-primary\" (click)=\"modal.close('new')\">New Submission</button>\n  </div>\n</ng-template>\n\n<ng-template #newSubmission let-modal>\n  <div class=\"modal-header\">\n    <h4 class=\"modal-title\" id=\"modal-title\">Confirm Action</h4>\n    <button type=\"button\" class=\"close\" aria-describedby=\"modal-title\" (click)=\"modal.close()\">\n      <span aria-hidden=\"true\">&times;</span>\n    </button>\n  </div>\n  <div class=\"modal-body\">\n    <p><strong>There is a similar form sumission in-process. Would you like to make a new submission ?</strong></p>\n  </div>\n  <div class=\"modal-footer\">\n    <button type=\"button\" class=\"btn btn-outline-primary\" (click)=\"modal.close('no')\">No</button>\n    <button type=\"button\" class=\"btn btn-primary\" (click)=\"modal.close('yes')\">Yes</button>\n  </div>\n</ng-template>\n\n<ng-template #tncDialog let-modal>\n  <div class=\"modal-header\">\n    <h4 class=\"modal-title\" id=\"modal-title\">Terms & Condition</h4>\n  </div>\n  <div class=\"modal-body\" style=\"max-height: calc(70vh - 143px); overflow-y: auto;\">\n    <p>{{ tncContent }}</p>\n  </div>\n  <div class=\"modal-footer\">\n    <button type=\"button\" class=\"btn btn-outline-danger\" (click)=\"declineTnc()\">Decline</button>\n    <button type=\"button\" class=\"btn btn-primary\" (click)=\"acceptTnc()\">Accept</button>\n  </div>\n</ng-template>\n\n<ng-template #joinQueue let-modal>\n  <app-join-queue-dialog\n    [branchExtension]=\"branchExtension\"\n    (queueSkipped)=\"skipQueue($event)\"\n    (processCompleted)=\"queueJoined($event)\">\n  </app-join-queue-dialog>\n</ng-template>"
 
 /***/ }),
 
@@ -745,7 +745,7 @@ module.exports = "<div class=\"container-scroller\">\n  <app-navigation-bar></ap
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<div *ngIf=\"loading\" class=\"row m-md-5 text-center\">\n  <div class=\"col-md-12 col-sm-12 m-md-5\">\n    <div class=\"d-flex justify-content-center\">\n      <div class=\"spinner-border m-5\" style=\"width: 2rem; height: 2rem; color: #11498e\" role=\"status\">\n        <span class=\"sr-only\">Loading...</span>\n      </div>\n    </div>\n    <p><strong>Preparing for printing! Please wait ...</strong></p>\n  </div>\n</div>\n\n<div *ngIf=\"!loading\" class=\"toolbar\">\n  <button id=\"print-button\" class=\"btn btn-primary\" (click)=\"print()\">Print</button>\n</div>\n\n<div class=\"container\">\n  <!-- Little trick to center the inputs to the viewer -->\n  <div class=\"form-container\">\n    <form id=\"input-form\" [formGroup]=\"myForm\" novalidate>\n\n      <!-- Cycle through all the inputs -->\n      <div *ngFor=\"let input of inputList\">\n\n        <!-- Insert an input accordingly and get the style/position from the component -->\n        <input [type]=\"input.type\" [name]=\"input.name\" [value]=\"input.value\" [checked]=\"input.checked\"\n          [formControlName]=\"input.name\" [ngStyle]=\"getInputPosition(input)\">\n      </div>\n    </form>\n  </div>\n\n  <!-- Pdf Viewer -->\n  <pdf-viewer id=\"viewer\" [src]=\"pdfSrc\" (error)=\"onError($event)\" (on-progress)=\"onProgress($event)\"\n    (after-load-complete)=\"pdfFileLoadComplete($event)\">\n  </pdf-viewer>\n</div>\n"
+module.exports = "<div *ngIf=\"loading\" class=\"row m-md-5 text-center\">\n  <div class=\"col-md-12 col-sm-12 m-md-5\">\n    <div class=\"d-flex justify-content-center\">\n      <div class=\"spinner-border m-5\" style=\"width: 2rem; height: 2rem; color: #11498e\" role=\"status\">\n        <span class=\"sr-only\">Loading...</span>\n      </div>\n    </div>\n    <p><strong>Preparing for printing! Please wait ...</strong></p>\n  </div>\n</div>\n\n<div *ngIf=\"!loading\" class=\"toolbar\">\n  <button id=\"print-button\" class=\"btn btn-primary\" (click)=\"print()\">Print</button>\n</div>\n\n<div class=\"container\">\n  <!-- Little trick to center the inputs to the viewer -->\n  <div class=\"form-container\">\n    <form id=\"input-form\" [formGroup]=\"myForm\" novalidate>\n\n      <!-- Cycle through all the inputs -->\n      <div *ngFor=\"let input of inputList\">\n\n        <!-- Insert an input accordingly and get the style/position from the component -->\n        <input\n          [type]=\"input.type\"\n          [name]=\"input.name\"\n          [value]=\"input.value\"\n          [checked]=\"input.checked\"\n          [formControlName]=\"input.name\"\n          [ngStyle]=\"getInputPosition(input)\">\n      </div>\n    </form>\n  </div>\n\n  <!-- Pdf Viewer -->\n  <pdf-viewer\n    id=\"viewer\"\n    [src]=\"pdfSrc\"\n    (error)=\"onError($event)\"\n    (on-progress)=\"onProgress($event)\"\n    (after-load-complete)=\"pdfFileLoadComplete($event)\">\n  </pdf-viewer>\n\n  <div *ngIf=\"hasSignature\" class=\"signature\">\n    <img [src]=\"signatureImageUrl\" alt=\"signature\">\n  </div>\n</div>\n"
 
 /***/ }),
 
@@ -756,7 +756,7 @@ module.exports = "<div *ngIf=\"loading\" class=\"row m-md-5 text-center\">\n  <d
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<div class=\"view\">\n  <div *ngIf=\"loading\" class=\"row m-md-5 text-center\">\n    <div class=\"col-md-12 col-sm-12 m-md-5\">\n      <div class=\"d-flex justify-content-center\">\n        <div class=\"spinner-border m-5\" style=\"width: 2rem; height: 2rem; color: #11498e\" role=\"status\">\n          <span class=\"sr-only\">Loading...</span>\n        </div>\n      </div>\n      <p><strong>Preparing for download! Please wait ...</strong></p>\n    </div>\n  </div>\n\n  <div *ngIf=\"!loading\" class=\"container\" id=\"print-view\">\n    <div class=\"row\">\n      <div id=\"form-data\" #content class=\"col-8 offset-2\" style=\"background-color: #fff;\">\n        <div class=\"title-view\">\n          <h1>{{ form.form_name }}</h1>\n        </div>\n        <div class=\"row\" *ngFor=\"let item of clientFormData; let i=index\">\n          <div class=\"col-6\">\n            <h5><strong>{{ item.title }}</strong></h5>\n          </div>\n          <div class=\"col-6\">\n            <h5>{{ item.data }}</h5>\n          </div>\n        </div>\n      </div>\n    </div>\n  </div>\n</div>\n"
+module.exports = "<div class=\"view\">\n  <div *ngIf=\"loading\" class=\"row m-md-5 text-center\">\n    <div class=\"col-md-12 col-sm-12 m-md-5\">\n      <div class=\"d-flex justify-content-center\">\n        <div class=\"spinner-border m-5\" style=\"width: 2rem; height: 2rem; color: #11498e\" role=\"status\">\n          <span class=\"sr-only\">Loading...</span>\n        </div>\n      </div>\n      <p><strong>Preparing for download! Please wait ...</strong></p>\n    </div>\n  </div>\n\n  <div *ngIf=\"!loading\" class=\"container\" id=\"print-view\">\n    <div class=\"row\">\n      <div id=\"form-data\" #content class=\"col-8 offset-2\" style=\"background-color: #fff;\">\n        <div class=\"title-view\">\n          <h1>{{ form.form_name }}</h1>\n        </div>\n        <div class=\"row\" *ngFor=\"let item of clientFormData; let i=index\">\n          <div class=\"col-6\">\n            <h5><strong>{{ item.title }}</strong></h5>\n          </div>\n          <div class=\"col-6\">\n            <h5>{{ item.data }}</h5>\n          </div>\n        </div>\n      </div>\n\n      <div *ngIf=\"hasSignature\" class=\"signature\">\n        <img [src]=\"signatureImageUrl\" alt=\"signature\">\n      </div>\n    </div>\n  </div>\n</div>\n"
 
 /***/ }),
 
@@ -767,7 +767,7 @@ module.exports = "<div class=\"view\">\n  <div *ngIf=\"loading\" class=\"row m-m
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<div class=\"container-scroller\">\n  <app-navigation-bar></app-navigation-bar>\n  <div class=\"container-fluid page-body-wrapper\">\n    <app-side-bar></app-side-bar>\n    <div class=\"main-panel\">\n      <div class=\"content-wrapper\">\n        <div class=\"row\">\n          <div class=\"col-md-12 grid-margin\">\n            <div class=\"d-flex justify-content-between flex-wrap\">\n              <div class=\"d-flex align-items-end flex-wrap\">\n                <div class=\"mr-md-3 mr-xl-5\">\n                  <h2 class=\"page-title\">Profile</h2>\n                </div>\n                <div class=\"d-flex\">\n                </div>\n              </div>\n            </div>\n          </div>\n        </div>\n\n        <div *ngIf=\"loading\" class=\"row p-5\">\n          <div class=\"col-md-12\">\n            <div class=\"d-flex justify-content-center\">\n              <div class=\"spinner-border m-5\" style=\"width: 3rem; height: 3rem;\" role=\"status\">\n                <span class=\"sr-only\">Loading...</span>\n              </div>\n            </div>\n          </div>\n        </div>\n\n        <div *ngIf=\"!hasData && !loading\" class=\"row\">\n          <div class=\"col-lg-12 grid-margin stretch-card\">\n            <div class=\"card text-center pt-5 pb-5\">\n              <div class=\"card-body mt-5 mb-5\">\n                <h4 class=\"card-title\">No Data Found</h4>\n                <p class=\"card-description\">\n                  No user data found.\n                </p>\n                <div class=\"text-lg-center mt-5 mb-5\">\n                  <div class=\"card-text\">\n                    <i class=\"mdi mdi-account-card-details-outline\" style=\"font-size: 8em;\"></i>\n                  </div>\n                  <div class=\"card-text\">\n                    <h3>No Available Data</h3>\n                    <p class=\"text-muted\">\n                      You havent filled any form yet. All the data you provided will be displayed here once you fill a form.\n                    </p>\n                  </div>\n                </div>\n              </div>\n            </div>\n          </div>\n        </div>\n\n        <div *ngIf=\"hasError\" class=\"row\">\n          <div class=\"col-lg-12 grid-margin stretch-card\">\n            <div class=\"card text-center pt-5 pb-5\">\n              <div class=\"card-body mt-5 mb-5\">\n                <h4 class=\"card-title\">Error Ocuured</h4>\n                <p class=\"card-description\">\n                  Ooops! Something went wrong!\n                </p>\n                <div class=\"text-lg-center mt-5 mb-5\">\n                  <div class=\"card-text\">\n                    <i class=\"mdi mdi-close-network-outline\" style=\"font-size: 8em;\"></i>\n                  </div>\n                  <div class=\"card-text\">\n                    <h3>We couldn't find any forms</h3>\n                    <p class=\"text-muted\">You may not have internet connection or our servers maybe down.</p>\n                    <button class=\"btn btn-primary\" type=\"button\" (click)=\"retry()\">Retry</button>\n                  </div>\n                </div>\n              </div>\n            </div>\n          </div>\n        </div>\n\n        <div *ngIf=\"hasData && !loading\" class=\"row\">\n          <div class=\"col-md-8 col-sm-12 col-xs-12 col-lg-8 offset-md-2 grid-margin stretch-card\">\n            <div class=\"card\">\n              <div class=\"card-body\" style=\"padding-left: 0.2rem; padding-right: 0.2rem;\">\n                <h4 class=\"card-title pl-5\" *ngIf=\"!showOnlyPrimaryInfo\">Sections</h4>\n                <div class=\"card-text\">\n                  <div class=\"accordion\" id=\"accordionExample\">\n                    <div class=\"card\">\n                      <div class=\"card-header\" id=\"headingOne\">\n                        <h2 class=\"mb-0\">\n                          <button class=\"btn btn-link\" type=\"button\" data-toggle=\"collapse\" data-target=\"#collapseOne\"\n                            aria-expanded=\"true\" aria-controls=\"collapseOne\">\n                            Primary Information\n                          </button>\n                        </h2>\n                      </div>\n\n                      <div id=\"collapseOne\" class=\"collapse show\" aria-labelledby=\"headingOne\"\n                        data-parent=\"#accordionExample\">\n                        <div class=\"card-body\">\n                          <!-- Primary Information -->\n                          <div class=\"form-group\" *ngFor=\"let item of primaryUserData | keyvalue : returnZero\">\n                            <label><strong class=\"text-capitalize\">{{ transformToRealText(item.key) }}</strong></label>\n                            <input type=\"text\" id=\"{{ item.key }}\" class=\"form-control\" [value]=\"item.value\" disabled>\n                          </div>\n                          <!-- /.Primary Information -->\n                        </div>\n                      </div>\n                    </div>\n\n                    <!-- Attachments -->\n                    <div class=\"card\" *ngIf=\"!showOnlyPrimaryInfo\">\n                      <div class=\"card-header\" id=\"headingTwo\">\n                        <h2 class=\"mb-0\">\n                          <button class=\"btn btn-link\" type=\"button\" data-toggle=\"collapse\" data-target=\"#collapseTwo\"\n                            aria-expanded=\"true\" aria-controls=\"collapseTwo\">\n                            Form Attachments / Documents\n                          </button>\n                        </h2>\n                      </div>\n\n                      <div id=\"collapseTwo\" class=\"collapse\" aria-labelledby=\"headingTwo\"\n                        data-parent=\"#accordionExample\">\n                        <div class=\"card-body attachments-card\">\n                          <div class=\"text-center mt-4 pt-5\" *ngIf=\"existingAttachments.length == 0\">\n                            <h3>No Attachments</h3>\n                            <i class=\"mdi mdi-paperclip\" style=\"font-size: 6em;\"></i>\n                          </div>\n\n                          <div *ngIf=\"existingAttachments.length > 0\">\n                            <div class=\"row\" *ngFor=\"let file of existingAttachments; let i = index\">\n                              <div class=\"col-10\" style=\"padding-right: 8px;\">\n                                <ol class=\"files-list\">\n                                  <li class=\"file-item\">\n                                    <i class=\"mdi mdi-paperclip menu-icon\"></i>\n                                    <h5 class=\"file-link-title\"><strong>{{ transformToRealText(file.key) }}</strong>\n                                    </h5>\n                                    <a class=\"alert-link file-link\" (click)=\"openModal($event, file.url)\">{{ file.url }}</a>\n                                  </li>\n                                </ol>\n                              </div>\n                              <div class=\"col-2\" style=\"padding-right: 3px; padding-left: 4px; margin-top: 13px;\">\n                                <button class=\"btn btn-primary btn-icon mr-1\" (click)=\"download(file.url)\">\n                                  <i class=\"mdi mdi-download-outline\"></i>\n                                </button>\n                                <button class=\"btn btn-primary btn-icon\" (click)=\"delete(file.url, file.key, i)\">\n                                  <i class=\"mdi mdi-trash-can-outline\"></i>\n                                </button>\n                              </div>\n                            </div>\n                          </div>\n\n                          <div class=\"form-group mt-3\">\n                            <button *ngIf=\"!updating\" type=\"submit\" class=\"btn btn-primary btn-lg mr-2 mt-3\" (click)=\"save()\">Save Changes</button>\n                            <button *ngIf=\"updating\" class=\"btn btn-primary btn-lg mr-2\" type=\"button\" disabled>\n                              <span class=\"spinner-border spinner-border-sm\" role=\"status\" aria-hidden=\"true\"></span>\n                              <span class=\"sr-only\">Please wait...</span>\n                            </button>\n                          </div>\n                        </div>\n                      </div>\n                    </div>\n                    <!-- /.Attachments -->\n\n                    <div class=\"card\" *ngFor=\"let section of allFormSections\">\n                      <div class=\"card-header\" [id]=\"'header_' + section.id\">\n                        <h2 class=\"mb-0\">\n                          <button class=\"btn btn-link collapsed\" type=\"button\" data-toggle=\"collapse\"\n                            [attr.data-target]=\"'#section_' + section.id\" aria-expanded=\"false\"\n                            [attr.aria-controls]=\"'section_' + section.id\" style=\"text-align: left; padding-left: 1rem;\n                            padding-right: 1rem; font-size: 0.775rem;\">\n                            {{ section.heading }}\n                          </button>\n                        </h2>\n                      </div>\n                      <div [id]=\"'section_' + section.id\" class=\"collapse\"\n                        [attr.aria-labelledby]=\"'header_' + section.id\"\n                        data-parent=\"#accordionExample\">\n                        <div class=\"card-body\">\n                          <div class=\"form-group\" id=\"form-fields\" *ngFor=\"let item of section.form_fields\">\n                            <div *ngIf=\"item.type == 'text'\">\n                              <label><strong>{{ item.label }}</strong></label>\n                              <input type=\"{{ item.type }}\" id=\"{{ item.name }}\" name=\"{{ item.name }}\" class=\"form-control\">\n                            </div>\n\n                            <div *ngIf=\"item.type == 'textarea'\">\n                              <label><strong>{{ item.label }}</strong></label>\n                              <textarea id=\"{{ item.name }}\" name=\"{{ item.name }}\" class=\"form-control\"></textarea>\n                            </div>\n\n                            <div *ngIf=\"item.type == 'radio-group'\">\n                              <label><strong>{{ item.label }}</strong></label>\n                              <div style=\"width: 100%; float: left;\" *ngFor=\"let radio of item.values\">\n                                <input style=\"width: 3%; float: left; margin-right: 10px;\" type=\"radio\" id=\"{{ item.name }}\" name=\"{{ item.name }}\" class=\"form-control\">\n                                <p style=\"width: 80%; padding-top: 13px;\">{{ radio.label }}</p>\n                              </div>\n                            </div>\n\n                            <div *ngIf=\"item.type == 'checkbox-group'\">\n                              <label><strong>{{ item.label }}</strong></label>\n                              <div style=\"width: 100%; float: left;\" *ngFor=\"let checkbox of item.values\">\n                                <input style=\"width: 3%; float: left; margin-right: 10px;\" type=\"checkbox\" id=\"{{ item.name }}\" name=\"{{ item.name }}\" class=\"form-control\">\n                                <p style=\"width: 80%; padding-top: 13px;\">{{ checkbox.label }}</p>\n                              </div>\n                            </div>\n\n                            <div *ngIf=\"item.type == 'date'\">\n                              <label><strong>{{ item.label }}</strong></label>\n                              <input type=\"{{ item.type }}\" id=\"{{ item.name }}\" name=\"{{ item.name }}\" class=\"form-control\">\n                            </div>\n\n                            <div *ngIf=\"item.type == 'file'\">\n                              <label><strong>{{ item.label }}</strong></label>\n                              <input multiple type=\"{{ item.type }}\" id=\"{{ item.name }}\" name=\"{{ item.name }}\" class=\"form-control\">\n                            </div>\n\n                            <div *ngIf=\"item.type == 'header'\">\n                              <h4>{{ item.label }}</h4>\n                            </div>\n\n                            <div *ngIf=\"item.type == 'paragraph'\">\n                              <p>{{ item.label }}</p>\n                            </div>\n                          </div>\n\n                          <div class=\"form-group mt-3\">\n                            <button *ngIf=\"!updating\" type=\"submit\" class=\"btn btn-primary btn-lg mr-2 mt-3\" (click)=\"save()\">Save Changes</button>\n                            <button *ngIf=\"updating\" class=\"btn btn-primary btn-lg mr-2\" type=\"button\" disabled>\n                              <span class=\"spinner-border spinner-border-sm\" role=\"status\" aria-hidden=\"true\"></span>\n                              <span class=\"sr-only\">Please wait...</span>\n                            </button>\n                          </div>\n                        </div>\n                      </div>\n                    </div>\n                  </div>\n                </div>\n              </div>\n            </div>\n          </div>\n        </div>\n      </div>\n      <!-- footer -->\n      <app-footer-bar></app-footer-bar>\n      <!-- partial -->\n    </div>\n  </div>\n</div>\n\n\n<ng-template #confirm let-modal>\n  <div class=\"modal-header\">\n    <h4 class=\"modal-title\" id=\"modal-title\">Confirm Action</h4>\n    <button type=\"button\" class=\"close\" aria-describedby=\"modal-title\" (click)=\"modal.dismiss()\">\n      <span aria-hidden=\"true\">&times;</span>\n    </button>\n  </div>\n  <div class=\"modal-body\">\n    <p><strong>Are you sure you want to <span class=\"text-primary\">discard all the changes you've made</span> ?</strong>\n    </p>\n  </div>\n  <div class=\"modal-footer\">\n    <button type=\"button\" class=\"btn btn-outline-primary\" (click)=\"modal.dismiss('no')\">No</button>\n    <button type=\"button\" class=\"btn btn-primary\" (click)=\"modal.close('yes')\">Yes</button>\n  </div>\n</ng-template>\n\n<ng-template #viewImgAttachment let-modal>\n  <div class=\"modal-header\">\n    <h5 class=\"modal-title\">Attachment File</h5>\n    <button type=\"button\" class=\"close\" aria-describedby=\"modal-title\" (click)=\"modal.dismiss()\">\n      <span aria-hidden=\"true\">&times;</span>\n    </button>\n  </div>\n  <div class=\"modal-body\">\n    <img [src]=\"imgUrl\" style=\"width: 100%;\">\n  </div>\n  <div class=\"modal-footer\">\n    <button type=\"button\" class=\"btn btn-primary\" (click)=\"modal.close('no')\">Close</button>\n  </div>\n</ng-template>\n\n<ng-template #viewDocAttachment let-modal>\n  <div class=\"modal-header\">\n    <h5 class=\"modal-title\">Attachment File</h5>\n    <button type=\"button\" class=\"close\" aria-describedby=\"modal-title\" (click)=\"modal.dismiss('close')\">\n      <span aria-hidden=\"true\">&times;</span>\n    </button>\n  </div>\n  <div class=\"modal-body\">\n    <p>This is a document and cannot be viewed. Please download</p>\n  </div>\n  <div class=\"modal-footer\">\n    <button type=\"button\" class=\"btn btn-outline-primary\" (click)=\"modal.close('no')\">Close</button>\n    <button type=\"button\" class=\"btn btn-primary\" (click)=\"downloadDoc(documentUrl)\">Download</button>\n  </div>\n</ng-template>\n\n<ng-template #deleteAttachment let-modal>\n  <div class=\"modal-header\">\n    <h5 class=\"modal-title\">Delete Attachment</h5>\n    <button type=\"button\" class=\"close\" aria-describedby=\"modal-title\" (click)=\"modal.dismiss('close')\">\n      <span aria-hidden=\"true\">&times;</span>\n    </button>\n  </div>\n  <div class=\"modal-body\">\n    <p><strong>Are you sure you want to delete <span class=\"text-primary\">this attachment</span> ?</strong></p>\n    <p>Deleting this attachment is a permanently action <span class=\"text-danger\">and cannot be undone.</span></p>\n  </div>\n  <div class=\"modal-footer\">\n    <button type=\"button\" class=\"btn btn-outline-primary\" (click)=\"modal.close('yes')\">Yes</button>\n    <button type=\"button\" class=\"btn btn-primary\" (click)=\"modal.close('no')\">No</button>\n  </div>\n</ng-template>\n\n<ng-template #setPin let-modal=\"pinForm\">\n  <form [formGroup]=\"pinForm\" (ngSubmit)=\"createPin()\">\n    <div class=\"modal-header\">\n      <h5 class=\"modal-title text-uppercase font-weight-bold\">Setup A New PIN</h5>\n    </div>\n    <div class=\"modal-body\">\n      <div class=\"form-group pin-form-group\">\n        <input type=\"tel\" class=\"form-control form-control-lg pin-control\" formControlName=\"pin\" placeholder=\"----\"\n          [ngClass]=\"{'input-control-error': submitted && f.pin.errors}\" maxlength=\"4\"\n          (keyup)=\"resolveStrCharacters($event)\">\n        <div *ngIf=\"submitted && f.pin.errors\">\n          <p class=\"input-error\" *ngIf=\"f.pin.errors.required\">PIN is required</p>\n          <p class=\"input-error\" *ngIf=\"f.pin.errors.minlength\">PIN must be 4 (four) digits.</p>\n        </div>\n      </div>\n    </div>\n    <div class=\"modal-footer text-center\" style=\"display: block;\">\n      <button *ngIf=\"!isLoading\" type=\"button\" class=\"btn btn-light\" (click)=\"exit()\">Close</button>\n      <button *ngIf=\"!isLoading\" type=\"submit\" class=\"btn btn-primary\">Create PIN</button>\n      <button *ngIf=\"isLoading\" type=\"button\" class=\"btn btn-block btn-primary font-weight-medium\" disabled>\n        <span class=\"spinner-border spinner-border-sm\" role=\"status\" aria-hidden=\"true\"></span> &nbsp; &nbsp;\n        Please wait...\n      </button>\n    </div>\n  </form>\n</ng-template>\n\n<ng-template #pin let-modal>\n  <form>\n    <div class=\"modal-header\">\n      <h6 class=\"modal-title text-uppercase font-weight-bold\">Enter PIN</h6>\n    </div>\n    <div class=\"modal-body\">\n      <div class=\"form-group pin-form-group\">\n        <input type=\"tel\" class=\"form-control form-control-lg pin-control\" name=\"pinCode\" [(ngModel)]=\"pinCode\"\n          placeholder=\"----\" maxlength=\"4\" (keyup)=\"resolveStrCharacters_1($event)\" autofocus>\n        <div>\n          <p class=\"input-error\" *ngIf=\"pinRequired\">PIN is required</p>\n          <p class=\"input-error\" *ngIf=\"pinMinimum\">PIN must be 4 (four) digits.</p>\n        </div>\n      </div>\n    </div>\n    <div class=\"modal-footer text-center\" style=\"display: block;\">\n      <button *ngIf=\"!isLoading\" type=\"button\" class=\"btn btn-light\" (click)=\"exit()\">Close</button>\n      <button *ngIf=\"!isLoading\" type=\"submit\" class=\"btn btn-primary\" (click)=\"verifyPin()\">Submit</button>\n      <button *ngIf=\"isLoading\" type=\"button\" class=\"btn btn-block btn-primary font-weight-medium\" disabled>\n        <span class=\"spinner-border spinner-border-sm\" role=\"status\" aria-hidden=\"true\"></span> &nbsp; &nbsp;\n        Please wait...\n      </button>\n    </div>\n  </form>\n</ng-template>"
+module.exports = "<div class=\"container-scroller\">\n  <app-navigation-bar></app-navigation-bar>\n  <div class=\"container-fluid page-body-wrapper\">\n    <app-side-bar></app-side-bar>\n    <div class=\"main-panel\">\n      <div class=\"content-wrapper\">\n        <div class=\"row\">\n          <div class=\"col-md-12 grid-margin\">\n            <div class=\"d-flex justify-content-between flex-wrap\">\n              <div class=\"d-flex align-items-end flex-wrap\">\n                <div class=\"mr-md-3 mr-xl-5\">\n                  <h2 class=\"page-title\">Profile</h2>\n                </div>\n                <div class=\"d-flex\">\n                </div>\n              </div>\n            </div>\n          </div>\n        </div>\n\n        <div *ngIf=\"loading\" class=\"row p-5\">\n          <div class=\"col-md-12\">\n            <div class=\"d-flex justify-content-center\">\n              <div class=\"spinner-border m-5\" style=\"width: 3rem; height: 3rem;\" role=\"status\">\n                <span class=\"sr-only\">Loading...</span>\n              </div>\n            </div>\n          </div>\n        </div>\n\n        <div *ngIf=\"!hasData && !loading\" class=\"row\">\n          <div class=\"col-lg-12 grid-margin stretch-card\">\n            <div class=\"card text-center pt-5 pb-5\">\n              <div class=\"card-body mt-5 mb-5\">\n                <h4 class=\"card-title\">No Data Found</h4>\n                <p class=\"card-description\">\n                  No user data found.\n                </p>\n                <div class=\"text-lg-center mt-5 mb-5\">\n                  <div class=\"card-text\">\n                    <i class=\"mdi mdi-account-card-details-outline\" style=\"font-size: 8em;\"></i>\n                  </div>\n                  <div class=\"card-text\">\n                    <h3>No Available Data</h3>\n                    <p class=\"text-muted\">\n                      You havent filled any form yet. All the data you provided will be displayed here once you fill a form.\n                    </p>\n                  </div>\n                </div>\n              </div>\n            </div>\n          </div>\n        </div>\n\n        <div *ngIf=\"hasError\" class=\"row\">\n          <div class=\"col-lg-12 grid-margin stretch-card\">\n            <div class=\"card text-center pt-5 pb-5\">\n              <div class=\"card-body mt-5 mb-5\">\n                <h4 class=\"card-title\">Error Ocuured</h4>\n                <p class=\"card-description\">\n                  Ooops! Something went wrong!\n                </p>\n                <div class=\"text-lg-center mt-5 mb-5\">\n                  <div class=\"card-text\">\n                    <i class=\"mdi mdi-close-network-outline\" style=\"font-size: 8em;\"></i>\n                  </div>\n                  <div class=\"card-text\">\n                    <h3>We couldn't find any forms</h3>\n                    <p class=\"text-muted\">You may not have internet connection or our servers maybe down.</p>\n                    <button class=\"btn btn-primary\" type=\"button\" (click)=\"retry()\">Retry</button>\n                  </div>\n                </div>\n              </div>\n            </div>\n          </div>\n        </div>\n\n        <div *ngIf=\"hasData && !loading\" class=\"row\">\n          <div class=\"col-md-8 col-sm-12 col-xs-12 col-lg-8 offset-md-2 grid-margin stretch-card\">\n            <div class=\"card\">\n              <div class=\"card-body\" style=\"padding-left: 0.2rem; padding-right: 0.2rem;\">\n                <h4 class=\"card-title pl-5\" *ngIf=\"!showOnlyPrimaryInfo\">Sections</h4>\n                <div class=\"card-text\">\n                  <div class=\"accordion\" id=\"accordionExample\">\n                    <div class=\"card\">\n                      <div class=\"card-header\" id=\"headingOne\">\n                        <h2 class=\"mb-0\">\n                          <button class=\"btn btn-link\" type=\"button\" data-toggle=\"collapse\" data-target=\"#collapseOne\"\n                            aria-expanded=\"true\" aria-controls=\"collapseOne\">\n                            Primary Information\n                          </button>\n                        </h2>\n                      </div>\n\n                      <div id=\"collapseOne\" class=\"collapse show\" aria-labelledby=\"headingOne\"\n                        data-parent=\"#accordionExample\">\n                        <div class=\"card-body\">\n                          <!-- Primary Information -->\n                          <div class=\"form-group\" *ngFor=\"let item of primaryUserData | keyvalue : returnZero\">\n                            <label><strong class=\"text-capitalize\">{{ transformToRealText(item.key) }}</strong></label>\n                            <input type=\"text\" id=\"{{ item.key }}\" class=\"form-control\" [value]=\"item.value\" disabled>\n                          </div>\n                          <!-- /.Primary Information -->\n                        </div>\n                      </div>\n                    </div>\n\n                    <!-- Attachments -->\n                    <div class=\"card\" *ngIf=\"!showOnlyPrimaryInfo\">\n                      <div class=\"card-header\" id=\"headingTwo\">\n                        <h2 class=\"mb-0\">\n                          <button class=\"btn btn-link\" type=\"button\" data-toggle=\"collapse\" data-target=\"#collapseTwo\"\n                            aria-expanded=\"true\" aria-controls=\"collapseTwo\">\n                            Form Attachments / Documents\n                          </button>\n                        </h2>\n                      </div>\n\n                      <div id=\"collapseTwo\" class=\"collapse\" aria-labelledby=\"headingTwo\"\n                        data-parent=\"#accordionExample\">\n                        <div class=\"card-body attachments-card\">\n                          <div class=\"text-center mt-4 pt-5\" *ngIf=\"existingAttachments.length == 0\">\n                            <h3>No Attachments</h3>\n                            <i class=\"mdi mdi-paperclip\" style=\"font-size: 6em;\"></i>\n                          </div>\n\n                          <div *ngIf=\"existingAttachments.length > 0\">\n                            <div class=\"row\" *ngFor=\"let file of existingAttachments; let i = index\">\n                              <div class=\"col-10\" style=\"padding-right: 8px;\">\n                                <ol class=\"files-list\">\n                                  <li class=\"file-item\">\n                                    <i class=\"mdi mdi-paperclip menu-icon\"></i>\n                                    <h5 class=\"file-link-title\"><strong>{{ transformToRealText(file.key) }}</strong>\n                                    </h5>\n                                    <a class=\"alert-link file-link\" (click)=\"openModal($event, file.url)\">{{ file.url }}</a>\n                                  </li>\n                                </ol>\n                              </div>\n                              <div class=\"col-2\" style=\"padding-right: 3px; padding-left: 4px; margin-top: 13px;\">\n                                <button class=\"btn btn-primary btn-icon mr-1\" (click)=\"download(file.url)\">\n                                  <i class=\"mdi mdi-download-outline\"></i>\n                                </button>\n                                <button class=\"btn btn-primary btn-icon\" (click)=\"delete(file.url, file.key, i)\">\n                                  <i class=\"mdi mdi-trash-can-outline\"></i>\n                                </button>\n                              </div>\n                            </div>\n                          </div>\n\n                          <div class=\"form-group mt-3\">\n                            <button *ngIf=\"!updating\" type=\"submit\" class=\"btn btn-primary btn-lg mr-2 mt-3\" (click)=\"save()\">Save Changes</button>\n                            <button *ngIf=\"updating\" class=\"btn btn-primary btn-lg mr-2\" type=\"button\" disabled>\n                              <span class=\"spinner-border spinner-border-sm\" role=\"status\" aria-hidden=\"true\"></span>\n                              <span class=\"sr-only\">Please wait...</span>\n                            </button>\n                          </div>\n                        </div>\n                      </div>\n                    </div>\n                    <!-- /.Attachments -->\n\n                    <!-- Signature -->\n                    <div class=\"card\">\n                      <div class=\"card-header\" id=\"signature\">\n                        <h2 class=\"mb-0\">\n                          <button class=\"btn btn-link\" type=\"button\" data-toggle=\"collapse\" data-target=\"#collapseSig\"\n                            aria-expanded=\"true\" aria-controls=\"collapseSig\">\n                            Signature\n                          </button>\n                        </h2>\n                      </div>\n\n                      <div id=\"collapseSig\" class=\"collapse\" aria-labelledby=\"signature\" data-parent=\"#accordionExample\">\n                        <div class=\"card-body\">\n                          <div *ngIf=\"!hasSignature\" style=\"border: 1px solid #ddd; border-radius: 5px; margin-bottom: 15px;\">\n                            <signature-pad #signaturePad [options]=\"signaturePadOptions\"\n                              (onEndEvent)=\"signatureDrawComplete()\"></signature-pad>\n                          </div>\n                          <div *ngIf=\"hasSignature\" style=\"margin-bottom: 15px;\">\n                            <img [src]=\"signatureImageUrl\" alt=\"signature\">\n                          </div>\n                          <div class=\"signature-buttons\">\n                            <div class=\"row\">\n                              <button *ngIf=\"!updating\" type=\"submit\" class=\"btn btn-primary btn-lg mr-2\" (click)=\"save()\">Save Changes</button>\n                              <button *ngIf=\"updating\" class=\"btn btn-primary btn-lg mr-2\" type=\"button\" disabled>\n                                <span class=\"spinner-border spinner-border-sm\" role=\"status\" aria-hidden=\"true\"></span>\n                                <span class=\"sr-only\">Please wait...</span>\n                              </button>\n                              &nbsp; &nbsp;\n                              <button *ngIf=\"hasSignature\" class=\"btn btn-outline-primary btn-lg\" (click)=\"editSignature()\">Edit</button>\n                              <button *ngIf=\"!hasSignature\"class=\"btn btn-outline-primary btn-lg\" (click)=\"signatureClear()\">Clear</button>\n                            </div>\n                          </div>\n                        </div>\n                      </div>\n                    </div>\n                    <!-- /.Signtaure -->\n\n                    <div class=\"card\" *ngFor=\"let section of allFormSections\">\n                      <div class=\"card-header\" [id]=\"'header_' + section.id\">\n                        <h2 class=\"mb-0\">\n                          <button class=\"btn btn-link collapsed\" type=\"button\" data-toggle=\"collapse\"\n                            [attr.data-target]=\"'#section_' + section.id\" aria-expanded=\"false\"\n                            [attr.aria-controls]=\"'section_' + section.id\" style=\"text-align: left; padding-left: 1rem;\n                            padding-right: 1rem; font-size: 0.775rem;\">\n                            {{ section.heading }}\n                          </button>\n                        </h2>\n                      </div>\n                      <div [id]=\"'section_' + section.id\" class=\"collapse\"\n                        [attr.aria-labelledby]=\"'header_' + section.id\"\n                        data-parent=\"#accordionExample\">\n                        <div class=\"card-body\">\n                          <div class=\"form-group\" id=\"form-fields\" *ngFor=\"let item of section.form_fields\">\n                            <div *ngIf=\"item.type == 'text'\">\n                              <label><strong>{{ item.label }}</strong></label>\n                              <input type=\"{{ item.type }}\" id=\"{{ item.name }}\" name=\"{{ item.name }}\" class=\"form-control\">\n                            </div>\n\n                            <div *ngIf=\"item.type == 'textarea'\">\n                              <label><strong>{{ item.label }}</strong></label>\n                              <textarea id=\"{{ item.name }}\" name=\"{{ item.name }}\" class=\"form-control\"></textarea>\n                            </div>\n\n                            <div *ngIf=\"item.type == 'radio-group'\">\n                              <label><strong>{{ item.label }}</strong></label>\n                              <div style=\"width: 100%; float: left;\" *ngFor=\"let radio of item.values\">\n                                <input style=\"width: 3%; float: left; margin-right: 10px;\" type=\"radio\" id=\"{{ item.name }}\" name=\"{{ item.name }}\" class=\"form-control\">\n                                <p style=\"width: 80%; padding-top: 13px;\">{{ radio.label }}</p>\n                              </div>\n                            </div>\n\n                            <div *ngIf=\"item.type == 'checkbox-group'\">\n                              <label><strong>{{ item.label }}</strong></label>\n                              <div style=\"width: 100%; float: left;\" *ngFor=\"let checkbox of item.values\">\n                                <input style=\"width: 3%; float: left; margin-right: 10px;\" type=\"checkbox\" id=\"{{ item.name }}\" name=\"{{ item.name }}\" class=\"form-control\">\n                                <p style=\"width: 80%; padding-top: 13px;\">{{ checkbox.label }}</p>\n                              </div>\n                            </div>\n\n                            <div *ngIf=\"item.type == 'date'\">\n                              <label><strong>{{ item.label }}</strong></label>\n                              <input type=\"{{ item.type }}\" id=\"{{ item.name }}\" name=\"{{ item.name }}\" class=\"form-control\">\n                            </div>\n\n                            <div *ngIf=\"item.type == 'file'\">\n                              <label><strong>{{ item.label }}</strong></label>\n                              <input multiple type=\"{{ item.type }}\" id=\"{{ item.name }}\" name=\"{{ item.name }}\" class=\"form-control\">\n                            </div>\n\n                            <div *ngIf=\"item.type == 'header'\">\n                              <h4>{{ item.label }}</h4>\n                            </div>\n\n                            <div *ngIf=\"item.type == 'paragraph'\">\n                              <p>{{ item.label }}</p>\n                            </div>\n                          </div>\n\n                          <div class=\"form-group mt-3\">\n                            <button *ngIf=\"!updating\" type=\"submit\" class=\"btn btn-primary btn-lg mr-2 mt-3\" (click)=\"save()\">Save Changes</button>\n                            <button *ngIf=\"updating\" class=\"btn btn-primary btn-lg mr-2\" type=\"button\" disabled>\n                              <span class=\"spinner-border spinner-border-sm\" role=\"status\" aria-hidden=\"true\"></span>\n                              <span class=\"sr-only\">Please wait...</span>\n                            </button>\n                          </div>\n                        </div>\n                      </div>\n                    </div>\n                  </div>\n                </div>\n              </div>\n            </div>\n          </div>\n        </div>\n      </div>\n      <!-- footer -->\n      <app-footer-bar></app-footer-bar>\n      <!-- partial -->\n    </div>\n  </div>\n</div>\n\n\n<ng-template #confirm let-modal>\n  <div class=\"modal-header\">\n    <h4 class=\"modal-title\" id=\"modal-title\">Confirm Action</h4>\n    <button type=\"button\" class=\"close\" aria-describedby=\"modal-title\" (click)=\"modal.dismiss()\">\n      <span aria-hidden=\"true\">&times;</span>\n    </button>\n  </div>\n  <div class=\"modal-body\">\n    <p><strong>Are you sure you want to <span class=\"text-primary\">discard all the changes you've made</span> ?</strong>\n    </p>\n  </div>\n  <div class=\"modal-footer\">\n    <button type=\"button\" class=\"btn btn-outline-primary\" (click)=\"modal.dismiss('no')\">No</button>\n    <button type=\"button\" class=\"btn btn-primary\" (click)=\"modal.close('yes')\">Yes</button>\n  </div>\n</ng-template>\n\n<ng-template #viewImgAttachment let-modal>\n  <div class=\"modal-header\">\n    <h5 class=\"modal-title\">Attachment File</h5>\n    <button type=\"button\" class=\"close\" aria-describedby=\"modal-title\" (click)=\"modal.dismiss()\">\n      <span aria-hidden=\"true\">&times;</span>\n    </button>\n  </div>\n  <div class=\"modal-body\">\n    <img [src]=\"imgUrl\" style=\"width: 100%;\">\n  </div>\n  <div class=\"modal-footer\">\n    <button type=\"button\" class=\"btn btn-primary\" (click)=\"modal.close('no')\">Close</button>\n  </div>\n</ng-template>\n\n<ng-template #viewDocAttachment let-modal>\n  <div class=\"modal-header\">\n    <h5 class=\"modal-title\">Attachment File</h5>\n    <button type=\"button\" class=\"close\" aria-describedby=\"modal-title\" (click)=\"modal.dismiss('close')\">\n      <span aria-hidden=\"true\">&times;</span>\n    </button>\n  </div>\n  <div class=\"modal-body\">\n    <p>This is a document and cannot be viewed. Please download</p>\n  </div>\n  <div class=\"modal-footer\">\n    <button type=\"button\" class=\"btn btn-outline-primary\" (click)=\"modal.close('no')\">Close</button>\n    <button type=\"button\" class=\"btn btn-primary\" (click)=\"downloadDoc(documentUrl)\">Download</button>\n  </div>\n</ng-template>\n\n<ng-template #deleteAttachment let-modal>\n  <div class=\"modal-header\">\n    <h5 class=\"modal-title\">Delete Attachment</h5>\n    <button type=\"button\" class=\"close\" aria-describedby=\"modal-title\" (click)=\"modal.dismiss('close')\">\n      <span aria-hidden=\"true\">&times;</span>\n    </button>\n  </div>\n  <div class=\"modal-body\">\n    <p><strong>Are you sure you want to delete <span class=\"text-primary\">this attachment</span> ?</strong></p>\n    <p>Deleting this attachment is a permanently action <span class=\"text-danger\">and cannot be undone.</span></p>\n  </div>\n  <div class=\"modal-footer\">\n    <button type=\"button\" class=\"btn btn-outline-primary\" (click)=\"modal.close('yes')\">Yes</button>\n    <button type=\"button\" class=\"btn btn-primary\" (click)=\"modal.close('no')\">No</button>\n  </div>\n</ng-template>\n\n<ng-template #setPin let-modal=\"pinForm\">\n  <form [formGroup]=\"pinForm\" (ngSubmit)=\"createPin()\">\n    <div class=\"modal-header\">\n      <h5 class=\"modal-title text-uppercase font-weight-bold\">Setup A New PIN</h5>\n    </div>\n    <div class=\"modal-body\">\n      <div class=\"form-group pin-form-group\">\n        <input type=\"tel\" class=\"form-control form-control-lg pin-control\" formControlName=\"pin\" placeholder=\"----\"\n          [ngClass]=\"{'input-control-error': submitted && f.pin.errors}\" maxlength=\"4\"\n          (keyup)=\"resolveStrCharacters($event)\">\n        <div *ngIf=\"submitted && f.pin.errors\">\n          <p class=\"input-error\" *ngIf=\"f.pin.errors.required\">PIN is required</p>\n          <p class=\"input-error\" *ngIf=\"f.pin.errors.minlength\">PIN must be 4 (four) digits.</p>\n        </div>\n      </div>\n    </div>\n    <div class=\"modal-footer text-center\" style=\"display: block;\">\n      <button *ngIf=\"!isLoading\" type=\"button\" class=\"btn btn-light\" (click)=\"exit()\">Close</button>\n      <button *ngIf=\"!isLoading\" type=\"submit\" class=\"btn btn-primary\">Create PIN</button>\n      <button *ngIf=\"isLoading\" type=\"button\" class=\"btn btn-block btn-primary font-weight-medium\" disabled>\n        <span class=\"spinner-border spinner-border-sm\" role=\"status\" aria-hidden=\"true\"></span> &nbsp; &nbsp;\n        Please wait...\n      </button>\n    </div>\n  </form>\n</ng-template>\n\n<ng-template #pin let-modal>\n  <form>\n    <div class=\"modal-header\">\n      <h6 class=\"modal-title text-uppercase font-weight-bold\">Enter PIN</h6>\n    </div>\n    <div class=\"modal-body\">\n      <div class=\"form-group pin-form-group\">\n        <input type=\"tel\" class=\"form-control form-control-lg pin-control\" name=\"pinCode\" [(ngModel)]=\"pinCode\"\n          placeholder=\"----\" maxlength=\"4\" (keyup)=\"resolveStrCharacters_1($event)\" autofocus>\n        <div>\n          <p class=\"input-error\" *ngIf=\"pinRequired\">PIN is required</p>\n          <p class=\"input-error\" *ngIf=\"pinMinimum\">PIN must be 4 (four) digits.</p>\n        </div>\n      </div>\n    </div>\n    <div class=\"modal-footer text-center\" style=\"display: block;\">\n      <button *ngIf=\"!isLoading\" type=\"button\" class=\"btn btn-light\" (click)=\"exit()\">Close</button>\n      <button *ngIf=\"!isLoading\" type=\"submit\" class=\"btn btn-primary\" (click)=\"verifyPin()\">Submit</button>\n      <button *ngIf=\"isLoading\" type=\"button\" class=\"btn btn-block btn-primary font-weight-medium\" disabled>\n        <span class=\"spinner-border spinner-border-sm\" role=\"status\" aria-hidden=\"true\"></span> &nbsp; &nbsp;\n        Please wait...\n      </button>\n    </div>\n  </form>\n</ng-template>"
 
 /***/ }),
 
@@ -1196,7 +1196,7 @@ module.exports = "<div class=\"container-scroller\">\n  <app-navigation-bar></ap
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<div class=\"container-scroller\">\n  <app-navigation-bar></app-navigation-bar>\n  <div class=\"container-fluid page-body-wrapper\">\n    <app-side-bar></app-side-bar>\n    <div class=\"main-panel\">\n      <div class=\"content-wrapper\">\n\n        <div class=\"row top\">\n          <div class=\"col-md-12 grid-margin\">\n            <div class=\"d-flex justify-content-between flex-wrap\">\n              <div class=\"d-flex align-items-end flex-wrap\">\n                <div class=\"mr-md-3 mr-xl-5\">\n                  <h2>Setup a new form</h2>\n                  <p class=\"mb-md-0\">Design a new form here, just drag and drop the sections or click to add.</p>\n                </div>\n                <div class=\"d-flex\">\n                </div>\n              </div>\n              <div class=\"d-flex justify-content-between align-items-end flex-wrap\">\n              </div>\n            </div>\n          </div>\n        </div>\n\n        <div *ngIf=\"_loading\" class=\"row\">\n          <div class=\"col-md-12\">\n            <div class=\"d-flex justify-content-center pb-5 pt-5\">\n              <div class=\"spinner-border mt-5\" style=\"width: 6rem; height: 6rem;\" role=\"status\">\n                <span class=\"sr-only\">Loading...</span>\n              </div>\n            </div>\n          </div>\n        </div>\n\n        <div [hidden]=\"_loading || created\" class=\"row\">\n          <div class=\"col-md-12 grid-margin stretch-card\">\n            <div class=\"card\" style=\"height: 750px; overflow: scroll;\">\n              <div class=\"card-body\">\n                <p class=\"card-title\">Create New Form</p>\n                <p class=\"text-muted\">\n                  Drag and drop the form sections on your right onto the panel on the left to create your form.\n                  You can drag any of the form elements to your desired position to re-arrange the order of the\n                  form element. You can also click on a section to add it to your form.\n                </p>\n\n                <form [formGroup]=\"form\">\n                  <div class=\"row mt-4\">\n                    <div class=\"col-7\">\n                      <div class=\"form-group\">\n                        <input type=\"text\" formControlName=\"name\" class=\"form-control\" placeholder=\"Whats the name of your form ?\"\n                          [ngClass]=\"{'input-control-error': submitted && f.name.errors}\">\n                        <div *ngIf=\"submitted && f.name.errors\">\n                          <p class=\"input-error\" *ngIf=\"f.name.errors.required\">Form name is required</p>\n                        </div>\n                      </div>\n                    </div>\n                    <div class=\"col-5\">\n                      <div class=\"form-group\">\n                        <select class=\"form-control\" formControlName=\"merchant\" (change)=\"onMerchantSelect($event)\"\n                          [ngClass]=\"{'input-control-error': submitted && f.merchant.errors}\">\n                          <option value=\"\" disabled>Select Company</option>\n                          <option *ngFor=\"let company of allMerchantsList\" [value]=\"company.id\">\n                            {{ company.merchant_name }}\n                          </option>\n                        </select>\n                        <div *ngIf=\"submitted && f.merchant.errors\">\n                          <p class=\"input-error\" *ngIf=\"f.merchant.errors.required\">Company is required</p>\n                        </div>\n                      </div>\n                    </div>\n                    <div [ngClass]=\"{'col-4': showFileUpload, 'col-6': !showFileUpload || !showJoinQueue}\">\n                      <div class=\"form-group\">\n                        <select class=\"form-control\" formControlName=\"canView\" [ngClass]=\"{'input-control-error': submitted && f.canView.errors}\">\n                          <option value=\"\" disabled>Can View</option>\n                          <option value=\"0\">No</option>\n                          <option value=\"1\">Yes</option>\n                        </select>\n                      </div>\n                    </div>\n                    <div [ngClass]=\"{'col-4': showFileUpload && showJoinQueue, 'col-6': !showJoinQueue}\" *ngIf=\"showFileUpload\">\n                      <div class=\"form-group\">\n                        <input #pdfFile type=\"file\" accept=\"application/pdf\" (change)=\"inputFileChanged($event)\" class=\"file-upload-default\">\n                        <div class=\"input-group col-xs-12\">\n                          <input type=\"file\" style=\"overflow: hidden; height: 0px; width: 0px;\">\n                          <input type=\"text\" formControlName=\"pdf\" class=\"form-control file-upload-info\" placeholder=\"Upload File\" readonly>\n                          <span class=\"input-group-append\">\n                            <button class=\"file-upload-browse btn btn-primary\" type=\"button\" (click)=\"showFilePicker()\"\n                              style=\"padding: 9px 15px;\"><i class=\"mdi mdi-folder\"></i></button>\n                          </span>\n                        </div>\n                        <div *ngIf=\"submitted && f.pdf.errors\">\n                          <p class=\"input-error\" *ngIf=\"f.pdf.errors.required\">PDF file is required</p>\n                        </div>\n                      </div>\n                    </div>\n                    <div [ngClass]=\"{'col-4': showFileUpload && showJoinQueue, 'col-6': !showFileUpload && showJoinQueue}\" *ngIf=\"showJoinQueue\">\n                      <div class=\"form-group\">\n                        <select class=\"form-control\" formControlName=\"canJoin\"\n                          [ngClass]=\"{'input-control-error': submitted && f.canJoin.errors}\">\n                          <option value=\"\" disabled>Can Join Queue</option>\n                          <option value=\"0\">No</option>\n                          <option value=\"1\">Yes</option>\n                        </select>\n                        <div *ngIf=\"submitted && f.canJoin.errors\">\n                          <p class=\"input-error\" *ngIf=\"f.canJoin.errors.required\">Can Join Queue is required</p>\n                        </div>\n                      </div>\n                    </div>\n                  </div>\n\n                  <!-- form builder -->\n                  <div class=\"form-builder-container\">\n                    <div id=\"fb-editor\"></div>\n                  </div>\n                  <!-- /.end form builder -->\n\n                  <button type=\"submit\" *ngIf=\"!loading\" class=\"btn btn-primary mt-2 mr-1\" (click)=\"create()\">Create</button>\n                  <button type=\"submit\" *ngIf=\"!loading && !showFileUpload\" class=\"btn btn-primary mt-2 mr-1\" (click)=\"publish()\">Create & Publish</button>\n                  <button type=\"button\" *ngIf=\"loading\" class=\"btn btn-primary mr-2\" disabled>\n                    <span class=\"spinner-border spinner-border-sm\" role=\"status\" aria-hidden=\"true\"></span>&nbsp; &nbsp;\n                    Please wait...\n                  </button>\n                  <button type=\"button\" *ngIf=\"!loading\" class=\"btn btn-primary mt-2 mr-1\" (click)=\"reset()\">Reset</button>\n                </form>\n              </div>\n            </div>\n          </div>\n        </div>\n\n        <div *ngIf=\"created\" class=\"row\">\n          <div class=\"col-md-12 grid-margin\">\n            <div class=\"card pt-5 pb-5 text-center\">\n              <div class=\"card-body\">\n                <p class=\"card-title\">Success</p>\n                <p class=\"text-muted\"></p>\n                <div class=\"card-text\">\n                  <i class=\"mdi mdi-shield-check-outline text-primary\" style=\"font-size: 12em;\"></i>\n                  <h2>1 Form Created</h2>\n                  <h4>{{ formName }} Form has been created </h4>\n                  <p class=\"text-muted\">You have succesfully created a form</p>\n                </div>\n                <div class=\"card-text mt-4\">\n                  <button type=\"button\" class=\"btn btn-primary btn-lg btn-icon-text mr-2\" (click)=\"bringBackForm()\">\n                    <i class=\"mdi mdi-plus\"></i>\n                    Create New\n                  </button>\n                  <button type=\"button\" class=\"btn btn-primary btn-lg btn-icon-text mr-2\" (click)=\"preview()\">\n                    <i class=\"mdi mdi-eye\"></i>\n                    Preview\n                  </button>\n                  <button type=\"button\" class=\"btn btn-dark btn-lg btn-icon-text mr-2\" (click)=\"ok()\">\n                    <i class=\"mdi mdi-check\"></i>\n                    Ok\n                  </button>\n                </div>\n              </div>\n            </div>\n          </div>\n        </div>\n\n        <div *ngIf=\"uploadError\" class=\"row\">\n          <div class=\"col-md-12 grid-margin\">\n            <div class=\"card pt-5 pb-5 text-center\">\n              <div class=\"card-body\">\n                <p class=\"card-title\">Failed</p>\n                <p class=\"text-muted\"></p>\n                <div class=\"card-text\">\n                  <i class=\"mdi mdi-cloud-off-outline text-secondary\" style=\"font-size: 10em;\"></i>\n                  <h2>File Upload Failed</h2>\n                  <p class=\"text-muted\">\n                    Ooops! An error occured uploading your PDF. Please check to make sure the file is not corrupted.\n                    Also check if you have a stable internet connection or our server may be down.\n                  </p>\n                </div>\n                <div class=\"card-text mt-4\">\n                  <button type=\"button\" class=\"btn btn-primary btn-lg btn-icon-text mr-2\" (click)=\"ok1()\">\n                    Ok\n                  </button>\n                  <button type=\"button\" class=\"btn btn-primary btn-lg btn-icon-text mr-2\" (click)=\"retry()\">\n                    Retry\n                  </button>\n                </div>\n              </div>\n            </div>\n          </div>\n        </div>\n      </div>\n      <!-- footer -->\n      <app-footer-bar></app-footer-bar>\n      <!-- /.footer -->\n    </div>\n  </div>\n</div>"
+module.exports = "<div class=\"container-scroller\">\n  <app-navigation-bar></app-navigation-bar>\n  <div class=\"container-fluid page-body-wrapper\">\n    <app-side-bar></app-side-bar>\n    <div class=\"main-panel\">\n      <div class=\"content-wrapper\">\n\n        <div class=\"row top\">\n          <div class=\"col-md-12 grid-margin\">\n            <div class=\"d-flex justify-content-between flex-wrap\">\n              <div class=\"d-flex align-items-end flex-wrap\">\n                <div class=\"mr-md-3 mr-xl-5\">\n                  <h2>Setup a new form</h2>\n                  <p class=\"mb-md-0\">Design a new form here, just drag and drop the sections or click to add.</p>\n                </div>\n                <div class=\"d-flex\">\n                </div>\n              </div>\n              <div class=\"d-flex justify-content-between align-items-end flex-wrap\">\n              </div>\n            </div>\n          </div>\n        </div>\n\n        <div *ngIf=\"_loading\" class=\"row\">\n          <div class=\"col-md-12\">\n            <div class=\"d-flex justify-content-center pb-5 pt-5\">\n              <div class=\"spinner-border mt-5\" style=\"width: 6rem; height: 6rem;\" role=\"status\">\n                <span class=\"sr-only\">Loading...</span>\n              </div>\n            </div>\n          </div>\n        </div>\n\n        <div [hidden]=\"_loading || created\" class=\"row\">\n          <div class=\"col-md-12 grid-margin stretch-card\">\n            <div class=\"card\" style=\"height: 750px; overflow: scroll;\">\n              <div class=\"card-body\">\n                <p class=\"card-title\">Create New Form</p>\n                <p class=\"text-muted\">\n                  Drag and drop the form sections on your right onto the panel on the left to create your form.\n                  You can drag any of the form elements to your desired position to re-arrange the order of the\n                  form element. You can also click on a section to add it to your form.\n                </p>\n\n                <form [formGroup]=\"form\">\n                  <div class=\"row mt-4\">\n                    <div class=\"col-8 offset-2\">\n                      <div class=\"card\">\n                        <div class=\"card-body\">\n                          <div class=\"card-title\">Form Name</div>\n                          <div class=\"card-text\">\n                            <div class=\"form-group\">\n                              <input type=\"text\" formControlName=\"name\" class=\"form-control form-control-lg title-form\"\n                                placeholder=\"Whats the name of your form ?\"\n                                [ngClass]=\"{'input-control-error': submitted && f.name.errors}\">\n                              <div *ngIf=\"submitted && f.name.errors\">\n                                <p class=\"input-error\" *ngIf=\"f.name.errors.required\">Form name is required</p>\n                              </div>\n                            </div>\n                          </div>\n\n                          <div class=\"card-text\">\n                            <div class=\"row mt-4\">\n                              <div class=\"col-6\">\n                                <div class=\"card no-card\">\n                                  <div class=\"card-body\">\n                                    <div class=\"card-title\">View</div>\n                                    <div class=\"card-text\">\n                                      <div class=\"form-group\">\n                                        <select class=\"form-control\" formControlName=\"canView\"\n                                          [ngClass]=\"{'input-control-error': submitted && f.canView.errors}\">\n                                          <option value=\"\" disabled>Can View</option>\n                                          <option value=\"0\">No</option>\n                                          <option value=\"1\">Yes</option>\n                                        </select>\n                                      </div>\n                                    </div>\n                                  </div>\n                                </div>\n                              </div>\n                              <div class=\"col-6\">\n                                <div class=\"card no-card\">\n                                  <div class=\"card-body\">\n                                    <div class=\"card-title\">QMS Queue</div>\n                                    <div class=\"card-text\">\n                                      <div class=\"form-group\">\n                                        <select class=\"form-control\" formControlName=\"canJoin\"\n                                          [ngClass]=\"{'input-control-error': submitted && f.canJoin.errors}\">\n                                          <option value=\"\" disabled>Can Join Queue</option>\n                                          <option value=\"0\">No</option>\n                                          <option value=\"1\">Yes</option>\n                                        </select>\n                                        <div *ngIf=\"submitted && f.canJoin.errors\">\n                                          <p class=\"input-error\" *ngIf=\"f.canJoin.errors.required\">Can Join Queue is\n                                            required</p>\n                                        </div>\n                                      </div>\n                                    </div>\n                                  </div>\n                                </div>\n                              </div>\n                              <!-- <div class=\"col-1\"></div> -->\n                            </div>\n                          </div>\n                        </div>\n                      </div>\n                    </div>\n                  </div>\n\n                  <div class=\"row mt-4\">\n                    <div class=\"col-1\"></div>\n                    <div class=\"col-5\">\n                      <div class=\"card\">\n                        <div class=\"card-body\">\n                          <div class=\"card-title\">Company Name</div>\n                          <div class=\"card-text\">\n                            <div class=\"form-group\">\n                              <select class=\"form-control\" formControlName=\"merchant\"\n                                (change)=\"onMerchantSelect($event)\"\n                                [ngClass]=\"{'input-control-error': submitted && f.merchant.errors}\">\n                                <option value=\"\" disabled>Select Company</option>\n                                <option *ngFor=\"let company of allMerchantsList\" [value]=\"company.id\">\n                                  {{ company.merchant_name }}\n                                </option>\n                              </select>\n                              <div *ngIf=\"submitted && f.merchant.errors\">\n                                <p class=\"input-error\" *ngIf=\"f.merchant.errors.required\">Company is required</p>\n                              </div>\n                            </div>\n                          </div>\n\n                          <div class=\"card-text\" *ngIf=\"showFileUpload\">\n                            <div class=\"card-title\">PDF Upload</div>\n                            <div class=\"card-text\">\n                              <div class=\"form-group\">\n                                <input #pdfFile type=\"file\" accept=\"application/pdf\" (change)=\"inputFileChanged($event)\"\n                                  class=\"file-upload-default\">\n                                <div class=\"input-group col-xs-12\">\n                                  <input type=\"file\" style=\"overflow: hidden; height: 0px; width: 0px;\">\n                                  <input type=\"text\" formControlName=\"pdf\" class=\"form-control file-upload-info\"\n                                    placeholder=\"Upload File\" readonly>\n                                  <span class=\"input-group-append\">\n                                    <button class=\"file-upload-browse btn btn-primary\" type=\"button\"\n                                      (click)=\"showFilePicker()\" style=\"padding: 9px 15px;\"><i\n                                        class=\"mdi mdi-folder\"></i></button>\n                                  </span>\n                                </div>\n                                <div *ngIf=\"submitted && f.pdf.errors\">\n                                  <p class=\"input-error\" *ngIf=\"f.pdf.errors.required\">PDF file is required</p>\n                                </div>\n                              </div>\n                            </div>\n                          </div>\n                        </div>\n                      </div>\n                    </div>\n\n                    <div class=\"col-5\">\n                      <div class=\"card\">\n                        <div class=\"card-body\">\n                          <div class=\"card-title\">Terms & Conditions</div>\n                          <div class=\"card-text\">\n                            <div class=\"form-group\">\n                              <select class=\"form-control\" formControlName=\"hasTnc\"\n                                [ngClass]=\"{'input-control-error': submitted && f.hasTnc.errors}\" (change)=\"tncSelected($event)\">\n                                <option value=\"\" disabled>Has terms & Conditions</option>\n                                <option value=\"0\">No</option>\n                                <option value=\"1\">Yes</option>\n                              </select>\n                              <div *ngIf=\"submitted && f.hasTnc.errors\">\n                                <p class=\"input-error\" *ngIf=\"f.hasTnc.errors.required\">This options is required</p>\n                              </div>\n                            </div>\n                          </div>\n\n                          <div class=\"card-text\" *ngIf=\"showTncFileUpload\">\n                            <div class=\"card-title\">File Upload</div>\n                            <div class=\"card-text\">\n                              <div class=\"form-group\">\n                                <input #tncFile type=\"file\" accept=\"text/plain\" (change)=\"inputFileChanged_1($event)\"\n                                  class=\"file-upload-default\">\n                                <div class=\"input-group col-xs-12\">\n                                  <input type=\"file\" style=\"overflow: hidden; height: 0px; width: 0px;\">\n                                  <input type=\"text\" formControlName=\"tnc\" class=\"form-control file-upload-info\"\n                                    placeholder=\"Upload File\" readonly>\n                                  <span class=\"input-group-append\">\n                                    <button class=\"file-upload-browse btn btn-primary\" type=\"button\"\n                                      (click)=\"showFilePicker_1()\" style=\"padding: 9px 15px;\"><i\n                                        class=\"mdi mdi-folder\"></i></button>\n                                  </span>\n                                </div>\n                                <div *ngIf=\"submitted && f.tnc.errors\">\n                                  <p class=\"input-error\" *ngIf=\"f.tnc.errors.required\">TNC file is required</p>\n                                </div>\n                              </div>\n                            </div>\n                          </div>\n                        </div>\n                      </div>\n                    </div>\n                    <div class=\"col-1\"></div>\n                  </div>\n\n                  <!-- form builder -->\n                  <div class=\"form-builder-container mt-4\">\n                    <div id=\"fb-editor\"></div>\n                  </div>\n                  <!-- /.end form builder -->\n\n                  <button type=\"submit\" *ngIf=\"!loading\" class=\"btn btn-primary mt-2 mr-1\" (click)=\"create()\">Create</button>\n                  <button type=\"submit\" *ngIf=\"!loading && !showFileUpload\" class=\"btn btn-primary mt-2 mr-1\" (click)=\"publish()\">Create & Publish</button>\n                  <button type=\"button\" *ngIf=\"loading\" class=\"btn btn-primary mr-2\" disabled>\n                    <span class=\"spinner-border spinner-border-sm\" role=\"status\" aria-hidden=\"true\"></span>&nbsp; &nbsp;\n                    Please wait...\n                  </button>\n                  <button type=\"button\" *ngIf=\"!loading\" class=\"btn btn-primary mt-2 mr-1\" (click)=\"reset()\">Reset</button>\n                </form>\n              </div>\n            </div>\n          </div>\n        </div>\n\n        <div *ngIf=\"created\" class=\"row\">\n          <div class=\"col-md-12 grid-margin\">\n            <div class=\"card pt-5 pb-5 text-center\">\n              <div class=\"card-body\">\n                <p class=\"card-title\">Success</p>\n                <p class=\"text-muted\"></p>\n                <div class=\"card-text\">\n                  <i class=\"mdi mdi-shield-check-outline text-primary\" style=\"font-size: 12em;\"></i>\n                  <h2>1 Form Created</h2>\n                  <h4>{{ formName }} Form has been created </h4>\n                  <p class=\"text-muted\">You have succesfully created a form</p>\n                </div>\n                <div class=\"card-text mt-4\">\n                  <button type=\"button\" class=\"btn btn-primary btn-lg btn-icon-text mr-2\" (click)=\"bringBackForm()\">\n                    <i class=\"mdi mdi-plus\"></i>\n                    Create New\n                  </button>\n                  <button type=\"button\" class=\"btn btn-primary btn-lg btn-icon-text mr-2\" (click)=\"preview()\">\n                    <i class=\"mdi mdi-eye\"></i>\n                    Preview\n                  </button>\n                  <button type=\"button\" class=\"btn btn-dark btn-lg btn-icon-text mr-2\" (click)=\"ok()\">\n                    <i class=\"mdi mdi-check\"></i>\n                    Ok\n                  </button>\n                </div>\n              </div>\n            </div>\n          </div>\n        </div>\n\n        <div *ngIf=\"uploadError\" class=\"row\">\n          <div class=\"col-md-12 grid-margin\">\n            <div class=\"card pt-5 pb-5 text-center\">\n              <div class=\"card-body\">\n                <p class=\"card-title\">Failed</p>\n                <p class=\"text-muted\"></p>\n                <div class=\"card-text\">\n                  <i class=\"mdi mdi-cloud-off-outline text-secondary\" style=\"font-size: 10em;\"></i>\n                  <h2>File Upload Failed</h2>\n                  <p class=\"text-muted\">\n                    Ooops! An error occured uploading your PDF. Please check to make sure the file is not corrupted.\n                    Also check if you have a stable internet connection or our server may be down.\n                  </p>\n                </div>\n                <div class=\"card-text mt-4\">\n                  <button type=\"button\" class=\"btn btn-primary btn-lg btn-icon-text mr-2\" (click)=\"ok1()\">\n                    Ok\n                  </button>\n                  <button type=\"button\" class=\"btn btn-primary btn-lg btn-icon-text mr-2\" (click)=\"retry()\">\n                    Retry\n                  </button>\n                </div>\n              </div>\n            </div>\n          </div>\n        </div>\n      </div>\n      <!-- footer -->\n      <app-footer-bar></app-footer-bar>\n      <!-- /.footer -->\n    </div>\n  </div>\n</div>"
 
 /***/ }),
 
@@ -2538,146 +2538,149 @@ AppComponent = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "AppModule", function() { return AppModule; });
 /* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
-/* harmony import */ var _angular_platform_browser__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/platform-browser */ "./node_modules/@angular/platform-browser/fesm2015/platform-browser.js");
-/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm2015/core.js");
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm2015/core.js");
+/* harmony import */ var _angular_platform_browser__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @angular/platform-browser */ "./node_modules/@angular/platform-browser/fesm2015/platform-browser.js");
 /* harmony import */ var _angular_forms__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @angular/forms */ "./node_modules/@angular/forms/fesm2015/forms.js");
 /* harmony import */ var ngx_order_pipe__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ngx-order-pipe */ "./node_modules/ngx-order-pipe/fesm2015/ngx-order-pipe.js");
 /* harmony import */ var ngx_clipboard__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ngx-clipboard */ "./node_modules/ngx-clipboard/fesm2015/ngx-clipboard.js");
 /* harmony import */ var ng2_pdf_viewer__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ng2-pdf-viewer */ "./node_modules/ng2-pdf-viewer/fesm2015/ng2-pdf-viewer.js");
-/* harmony import */ var _ng_bootstrap_ng_bootstrap__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! @ng-bootstrap/ng-bootstrap */ "./node_modules/@ng-bootstrap/ng-bootstrap/fesm2015/ng-bootstrap.js");
-/* harmony import */ var _angular_common_http__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! @angular/common/http */ "./node_modules/@angular/common/fesm2015/http.js");
-/* harmony import */ var _app_routing_module__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ./app-routing.module */ "./src/app/app-routing.module.ts");
-/* harmony import */ var ngx_country_picker__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ngx-country-picker */ "./node_modules/ngx-country-picker/index.js");
-/* harmony import */ var ngx_page_scroll_core__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! ngx-page-scroll-core */ "./node_modules/ngx-page-scroll-core/fesm2015/ngx-page-scroll-core.js");
-/* harmony import */ var _angular_material_icon__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! @angular/material/icon */ "./node_modules/@angular/material/esm2015/icon.js");
-/* harmony import */ var _angular_material_input__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! @angular/material/input */ "./node_modules/@angular/material/esm2015/input.js");
-/* harmony import */ var _angular_material_core__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! @angular/material/core */ "./node_modules/@angular/material/esm2015/core.js");
-/* harmony import */ var _angular_material_datepicker__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(/*! @angular/material/datepicker */ "./node_modules/@angular/material/esm2015/datepicker.js");
-/* harmony import */ var _angular_material__WEBPACK_IMPORTED_MODULE_16__ = __webpack_require__(/*! @angular/material */ "./node_modules/@angular/material/esm2015/material.js");
-/* harmony import */ var _app_component__WEBPACK_IMPORTED_MODULE_17__ = __webpack_require__(/*! ./app.component */ "./src/app/app.component.ts");
-/* harmony import */ var _components_side_bar_side_bar_component__WEBPACK_IMPORTED_MODULE_18__ = __webpack_require__(/*! ./components/side-bar/side-bar.component */ "./src/app/components/side-bar/side-bar.component.ts");
-/* harmony import */ var _components_footer_bar_footer_bar_component__WEBPACK_IMPORTED_MODULE_19__ = __webpack_require__(/*! ./components/footer-bar/footer-bar.component */ "./src/app/components/footer-bar/footer-bar.component.ts");
-/* harmony import */ var _components_navigation_bar_navigation_bar_component__WEBPACK_IMPORTED_MODULE_20__ = __webpack_require__(/*! ./components/navigation-bar/navigation-bar.component */ "./src/app/components/navigation-bar/navigation-bar.component.ts");
+/* harmony import */ var ngx_signaturepad__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ngx-signaturepad */ "./node_modules/ngx-signaturepad/index.js");
+/* harmony import */ var ngx_signaturepad__WEBPACK_IMPORTED_MODULE_7___default = /*#__PURE__*/__webpack_require__.n(ngx_signaturepad__WEBPACK_IMPORTED_MODULE_7__);
+/* harmony import */ var _ng_bootstrap_ng_bootstrap__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! @ng-bootstrap/ng-bootstrap */ "./node_modules/@ng-bootstrap/ng-bootstrap/fesm2015/ng-bootstrap.js");
+/* harmony import */ var _angular_common_http__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! @angular/common/http */ "./node_modules/@angular/common/fesm2015/http.js");
+/* harmony import */ var _app_routing_module__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ./app-routing.module */ "./src/app/app-routing.module.ts");
+/* harmony import */ var ngx_country_picker__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! ngx-country-picker */ "./node_modules/ngx-country-picker/index.js");
+/* harmony import */ var ngx_page_scroll_core__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! ngx-page-scroll-core */ "./node_modules/ngx-page-scroll-core/fesm2015/ngx-page-scroll-core.js");
+/* harmony import */ var _angular_material_icon__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! @angular/material/icon */ "./node_modules/@angular/material/esm2015/icon.js");
+/* harmony import */ var _angular_material_input__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! @angular/material/input */ "./node_modules/@angular/material/esm2015/input.js");
+/* harmony import */ var _angular_material_core__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(/*! @angular/material/core */ "./node_modules/@angular/material/esm2015/core.js");
+/* harmony import */ var _angular_material_datepicker__WEBPACK_IMPORTED_MODULE_16__ = __webpack_require__(/*! @angular/material/datepicker */ "./node_modules/@angular/material/esm2015/datepicker.js");
+/* harmony import */ var _angular_material__WEBPACK_IMPORTED_MODULE_17__ = __webpack_require__(/*! @angular/material */ "./node_modules/@angular/material/esm2015/material.js");
+/* harmony import */ var _app_component__WEBPACK_IMPORTED_MODULE_18__ = __webpack_require__(/*! ./app.component */ "./src/app/app.component.ts");
+/* harmony import */ var _components_side_bar_side_bar_component__WEBPACK_IMPORTED_MODULE_19__ = __webpack_require__(/*! ./components/side-bar/side-bar.component */ "./src/app/components/side-bar/side-bar.component.ts");
+/* harmony import */ var _components_footer_bar_footer_bar_component__WEBPACK_IMPORTED_MODULE_20__ = __webpack_require__(/*! ./components/footer-bar/footer-bar.component */ "./src/app/components/footer-bar/footer-bar.component.ts");
 /* harmony import */ var _pages_login_page_login_page_component__WEBPACK_IMPORTED_MODULE_21__ = __webpack_require__(/*! ./pages/login-page/login-page.component */ "./src/app/pages/login-page/login-page.component.ts");
 /* harmony import */ var _pages_welcome_page_welcome_page_component__WEBPACK_IMPORTED_MODULE_22__ = __webpack_require__(/*! ./pages/welcome-page/welcome-page.component */ "./src/app/pages/welcome-page/welcome-page.component.ts");
 /* harmony import */ var _pages_register_page_register_page_component__WEBPACK_IMPORTED_MODULE_23__ = __webpack_require__(/*! ./pages/register-page/register-page.component */ "./src/app/pages/register-page/register-page.component.ts");
-/* harmony import */ var _pages_dashboard_git_admin_home_page_home_page_component__WEBPACK_IMPORTED_MODULE_24__ = __webpack_require__(/*! ./pages/dashboard/git-admin/home-page/home-page.component */ "./src/app/pages/dashboard/git-admin/home-page/home-page.component.ts");
-/* harmony import */ var _pages_dashboard_client_client_home_page_client_home_page_component__WEBPACK_IMPORTED_MODULE_25__ = __webpack_require__(/*! ./pages/dashboard/client/client-home-page/client-home-page.component */ "./src/app/pages/dashboard/client/client-home-page/client-home-page.component.ts");
-/* harmony import */ var _pages_dashboard_git_admin_create_form_page_create_form_page_component__WEBPACK_IMPORTED_MODULE_26__ = __webpack_require__(/*! ./pages/dashboard/git-admin/create-form-page/create-form-page.component */ "./src/app/pages/dashboard/git-admin/create-form-page/create-form-page.component.ts");
-/* harmony import */ var _pages_dashboard_client_client_form_merchants_page_client_form_merchants_page_component__WEBPACK_IMPORTED_MODULE_27__ = __webpack_require__(/*! ./pages/dashboard/client/client-form-merchants-page/client-form-merchants-page.component */ "./src/app/pages/dashboard/client/client-form-merchants-page/client-form-merchants-page.component.ts");
-/* harmony import */ var _pages_dashboard_client_client_list_forms_page_client_list_forms_page_component__WEBPACK_IMPORTED_MODULE_28__ = __webpack_require__(/*! ./pages/dashboard/client/client-list-forms-page/client-list-forms-page.component */ "./src/app/pages/dashboard/client/client-list-forms-page/client-list-forms-page.component.ts");
-/* harmony import */ var _pages_dashboard_front_desk_front_desk_home_page_front_desk_home_page_component__WEBPACK_IMPORTED_MODULE_29__ = __webpack_require__(/*! ./pages/dashboard/front-desk/front-desk-home-page/front-desk-home-page.component */ "./src/app/pages/dashboard/front-desk/front-desk-home-page/front-desk-home-page.component.ts");
-/* harmony import */ var _pages_dashboard_git_admin_create_company_page_create_company_page_component__WEBPACK_IMPORTED_MODULE_30__ = __webpack_require__(/*! ./pages/dashboard/git-admin/create-company-page/create-company-page.component */ "./src/app/pages/dashboard/git-admin/create-company-page/create-company-page.component.ts");
-/* harmony import */ var _pages_dashboard_git_admin_create_branch_page_create_branch_page_component__WEBPACK_IMPORTED_MODULE_31__ = __webpack_require__(/*! ./pages/dashboard/git-admin/create-branch-page/create-branch-page.component */ "./src/app/pages/dashboard/git-admin/create-branch-page/create-branch-page.component.ts");
-/* harmony import */ var _pages_dashboard_executive_executive_home_page_executive_home_page_component__WEBPACK_IMPORTED_MODULE_32__ = __webpack_require__(/*! ./pages/dashboard/executive/executive-home-page/executive-home-page.component */ "./src/app/pages/dashboard/executive/executive-home-page/executive-home-page.component.ts");
-/* harmony import */ var _pages_dashboard_executive_exec_submitted_forms_list_page_exec_submitted_forms_list_page_component__WEBPACK_IMPORTED_MODULE_33__ = __webpack_require__(/*! ./pages/dashboard/executive/exec-submitted-forms-list-page/exec-submitted-forms-list-page.component */ "./src/app/pages/dashboard/executive/exec-submitted-forms-list-page/exec-submitted-forms-list-page.component.ts");
-/* harmony import */ var _pages_dashboard_executive_exec_processed_forms_list_page_exec_processed_forms_list_page_component__WEBPACK_IMPORTED_MODULE_34__ = __webpack_require__(/*! ./pages/dashboard/executive/exec-processed-forms-list-page/exec-processed-forms-list-page.component */ "./src/app/pages/dashboard/executive/exec-processed-forms-list-page/exec-processed-forms-list-page.component.ts");
-/* harmony import */ var _pages_dashboard_executive_exec_in_processed_forms_list_page_exec_in_processed_forms_list_page_component__WEBPACK_IMPORTED_MODULE_35__ = __webpack_require__(/*! ./pages/dashboard/executive/exec-in-processed-forms-list-page/exec-in-processed-forms-list-page.component */ "./src/app/pages/dashboard/executive/exec-in-processed-forms-list-page/exec-in-processed-forms-list-page.component.ts");
-/* harmony import */ var _pages_dashboard_admin_admin_home_page_admin_home_page_component__WEBPACK_IMPORTED_MODULE_36__ = __webpack_require__(/*! ./pages/dashboard/admin/admin-home-page/admin-home-page.component */ "./src/app/pages/dashboard/admin/admin-home-page/admin-home-page.component.ts");
-/* harmony import */ var _pages_dashboard_client_client_forms_history_page_client_forms_history_page_component__WEBPACK_IMPORTED_MODULE_37__ = __webpack_require__(/*! ./pages/dashboard/client/client-forms-history-page/client-forms-history-page.component */ "./src/app/pages/dashboard/client/client-forms-history-page/client-forms-history-page.component.ts");
-/* harmony import */ var _pages_dashboard_client_client_forms_entry_page_client_forms_entry_page_component__WEBPACK_IMPORTED_MODULE_38__ = __webpack_require__(/*! ./pages/dashboard/client/client-forms-entry-page/client-forms-entry-page.component */ "./src/app/pages/dashboard/client/client-forms-entry-page/client-forms-entry-page.component.ts");
-/* harmony import */ var _pages_dashboard_front_desk_front_desk_view_form_page_front_desk_view_form_page_component__WEBPACK_IMPORTED_MODULE_39__ = __webpack_require__(/*! ./pages/dashboard/front-desk/front-desk-view-form-page/front-desk-view-form-page.component */ "./src/app/pages/dashboard/front-desk/front-desk-view-form-page/front-desk-view-form-page.component.ts");
-/* harmony import */ var _pages_dashboard_admin_admin_form_lists_page_admin_form_lists_page_component__WEBPACK_IMPORTED_MODULE_40__ = __webpack_require__(/*! ./pages/dashboard/admin/admin-form-lists-page/admin-form-lists-page.component */ "./src/app/pages/dashboard/admin/admin-form-lists-page/admin-form-lists-page.component.ts");
-/* harmony import */ var _pages_dashboard_admin_admin_form_edit_page_admin_form_edit_page_component__WEBPACK_IMPORTED_MODULE_41__ = __webpack_require__(/*! ./pages/dashboard/admin/admin-form-edit-page/admin-form-edit-page.component */ "./src/app/pages/dashboard/admin/admin-form-edit-page/admin-form-edit-page.component.ts");
-/* harmony import */ var _pages_dashboard_admin_admin_form_view_page_admin_form_view_page_component__WEBPACK_IMPORTED_MODULE_42__ = __webpack_require__(/*! ./pages/dashboard/admin/admin-form-view-page/admin-form-view-page.component */ "./src/app/pages/dashboard/admin/admin-form-view-page/admin-form-view-page.component.ts");
-/* harmony import */ var _pages_dashboard_git_admin_edit_form_page_edit_form_page_component__WEBPACK_IMPORTED_MODULE_43__ = __webpack_require__(/*! ./pages/dashboard/git-admin/edit-form-page/edit-form-page.component */ "./src/app/pages/dashboard/git-admin/edit-form-page/edit-form-page.component.ts");
-/* harmony import */ var _pages_dashboard_git_admin_edit_branch_page_edit_branch_page_component__WEBPACK_IMPORTED_MODULE_44__ = __webpack_require__(/*! ./pages/dashboard/git-admin/edit-branch-page/edit-branch-page.component */ "./src/app/pages/dashboard/git-admin/edit-branch-page/edit-branch-page.component.ts");
-/* harmony import */ var _pages_dashboard_git_admin_edit_company_page_edit_company_page_component__WEBPACK_IMPORTED_MODULE_45__ = __webpack_require__(/*! ./pages/dashboard/git-admin/edit-company-page/edit-company-page.component */ "./src/app/pages/dashboard/git-admin/edit-company-page/edit-company-page.component.ts");
-/* harmony import */ var _pages_dashboard_git_admin_view_admin_lists_page_view_admin_lists_page_component__WEBPACK_IMPORTED_MODULE_46__ = __webpack_require__(/*! ./pages/dashboard/git-admin/view-admin-lists-page/view-admin-lists-page.component */ "./src/app/pages/dashboard/git-admin/view-admin-lists-page/view-admin-lists-page.component.ts");
-/* harmony import */ var _pages_dashboard_git_admin_view_branch_lists_page_view_branch_lists_page_component__WEBPACK_IMPORTED_MODULE_47__ = __webpack_require__(/*! ./pages/dashboard/git-admin/view-branch-lists-page/view-branch-lists-page.component */ "./src/app/pages/dashboard/git-admin/view-branch-lists-page/view-branch-lists-page.component.ts");
-/* harmony import */ var _pages_dashboard_git_admin_view_company_lists_page_view_company_lists_page_component__WEBPACK_IMPORTED_MODULE_48__ = __webpack_require__(/*! ./pages/dashboard/git-admin/view-company-lists-page/view-company-lists-page.component */ "./src/app/pages/dashboard/git-admin/view-company-lists-page/view-company-lists-page.component.ts");
-/* harmony import */ var _pages_dashboard_git_admin_view_executive_lists_page_view_executive_lists_page_component__WEBPACK_IMPORTED_MODULE_49__ = __webpack_require__(/*! ./pages/dashboard/git-admin/view-executive-lists-page/view-executive-lists-page.component */ "./src/app/pages/dashboard/git-admin/view-executive-lists-page/view-executive-lists-page.component.ts");
-/* harmony import */ var _pages_dashboard_front_desk_front_desk_submitted_forms_list_page_front_desk_submitted_forms_list_page_component__WEBPACK_IMPORTED_MODULE_50__ = __webpack_require__(/*! ./pages/dashboard/front-desk/front-desk-submitted-forms-list-page/front-desk-submitted-forms-list-page.component */ "./src/app/pages/dashboard/front-desk/front-desk-submitted-forms-list-page/front-desk-submitted-forms-list-page.component.ts");
-/* harmony import */ var _pages_dashboard_front_desk_front_desk_processed_forms_list_page_front_desk_processed_forms_list_page_component__WEBPACK_IMPORTED_MODULE_51__ = __webpack_require__(/*! ./pages/dashboard/front-desk/front-desk-processed-forms-list-page/front-desk-processed-forms-list-page.component */ "./src/app/pages/dashboard/front-desk/front-desk-processed-forms-list-page/front-desk-processed-forms-list-page.component.ts");
-/* harmony import */ var _pages_dashboard_front_desk_front_desk_processing_forms_list_page_front_desk_processing_forms_list_page_component__WEBPACK_IMPORTED_MODULE_52__ = __webpack_require__(/*! ./pages/dashboard/front-desk/front-desk-processing-forms-list-page/front-desk-processing-forms-list-page.component */ "./src/app/pages/dashboard/front-desk/front-desk-processing-forms-list-page/front-desk-processing-forms-list-page.component.ts");
-/* harmony import */ var _pages_admin_register_page_admin_register_page_component__WEBPACK_IMPORTED_MODULE_53__ = __webpack_require__(/*! ./pages/admin-register-page/admin-register-page.component */ "./src/app/pages/admin-register-page/admin-register-page.component.ts");
-/* harmony import */ var _pages_dashboard_user_account_creator_user_account_creator_component__WEBPACK_IMPORTED_MODULE_54__ = __webpack_require__(/*! ./pages/dashboard/user-account-creator/user-account-creator.component */ "./src/app/pages/dashboard/user-account-creator/user-account-creator.component.ts");
-/* harmony import */ var _pages_dashboard_git_admin_create_user_page_create_user_page_component__WEBPACK_IMPORTED_MODULE_55__ = __webpack_require__(/*! ./pages/dashboard/git-admin/create-user-page/create-user-page.component */ "./src/app/pages/dashboard/git-admin/create-user-page/create-user-page.component.ts");
-/* harmony import */ var _pages_dashboard_git_admin_view_front_desk_lists_page_view_front_desk_lists_page_component__WEBPACK_IMPORTED_MODULE_56__ = __webpack_require__(/*! ./pages/dashboard/git-admin/view-front-desk-lists-page/view-front-desk-lists-page.component */ "./src/app/pages/dashboard/git-admin/view-front-desk-lists-page/view-front-desk-lists-page.component.ts");
-/* harmony import */ var _pages_dashboard_git_admin_view_company_admin_lists_page_view_company_admin_lists_page_component__WEBPACK_IMPORTED_MODULE_57__ = __webpack_require__(/*! ./pages/dashboard/git-admin/view-company-admin-lists-page/view-company-admin-lists-page.component */ "./src/app/pages/dashboard/git-admin/view-company-admin-lists-page/view-company-admin-lists-page.component.ts");
-/* harmony import */ var _pages_dashboard_git_admin_view_account_lists_page_view_account_lists_page_component__WEBPACK_IMPORTED_MODULE_58__ = __webpack_require__(/*! ./pages/dashboard/git-admin/view-account-lists-page/view-account-lists-page.component */ "./src/app/pages/dashboard/git-admin/view-account-lists-page/view-account-lists-page.component.ts");
-/* harmony import */ var _angular_platform_browser_animations__WEBPACK_IMPORTED_MODULE_59__ = __webpack_require__(/*! @angular/platform-browser/animations */ "./node_modules/@angular/platform-browser/fesm2015/animations.js");
-/* harmony import */ var _pages_dashboard_git_admin_view_branch_admin_lists_page_view_branch_admin_lists_page_component__WEBPACK_IMPORTED_MODULE_60__ = __webpack_require__(/*! ./pages/dashboard/git-admin/view-branch-admin-lists-page/view-branch-admin-lists-page.component */ "./src/app/pages/dashboard/git-admin/view-branch-admin-lists-page/view-branch-admin-lists-page.component.ts");
-/* harmony import */ var _pages_dashboard_git_admin_view_branch_executive_lists_page_view_branch_executive_lists_page_component__WEBPACK_IMPORTED_MODULE_61__ = __webpack_require__(/*! ./pages/dashboard/git-admin/view-branch-executive-lists-page/view-branch-executive-lists-page.component */ "./src/app/pages/dashboard/git-admin/view-branch-executive-lists-page/view-branch-executive-lists-page.component.ts");
-/* harmony import */ var _pages_dashboard_git_admin_edit_user_page_edit_user_page_component__WEBPACK_IMPORTED_MODULE_62__ = __webpack_require__(/*! ./pages/dashboard/git-admin/edit-user-page/edit-user-page.component */ "./src/app/pages/dashboard/git-admin/edit-user-page/edit-user-page.component.ts");
-/* harmony import */ var _pages_dashboard_user_account_editor_user_account_editor_component__WEBPACK_IMPORTED_MODULE_63__ = __webpack_require__(/*! ./pages/dashboard/user-account-editor/user-account-editor.component */ "./src/app/pages/dashboard/user-account-editor/user-account-editor.component.ts");
-/* harmony import */ var _pages_dashboard_git_admin_view_account_details_page_view_account_details_page_component__WEBPACK_IMPORTED_MODULE_64__ = __webpack_require__(/*! ./pages/dashboard/git-admin/view-account-details-page/view-account-details-page.component */ "./src/app/pages/dashboard/git-admin/view-account-details-page/view-account-details-page.component.ts");
-/* harmony import */ var _pages_dashboard_git_admin_view_company_details_page_view_company_details_page_component__WEBPACK_IMPORTED_MODULE_65__ = __webpack_require__(/*! ./pages/dashboard/git-admin/view-company-details-page/view-company-details-page.component */ "./src/app/pages/dashboard/git-admin/view-company-details-page/view-company-details-page.component.ts");
-/* harmony import */ var _pages_dashboard_git_admin_view_branch_details_page_view_branch_details_page_component__WEBPACK_IMPORTED_MODULE_66__ = __webpack_require__(/*! ./pages/dashboard/git-admin/view-branch-details-page/view-branch-details-page.component */ "./src/app/pages/dashboard/git-admin/view-branch-details-page/view-branch-details-page.component.ts");
-/* harmony import */ var _pages_dashboard_git_admin_view_form_lists_page_view_form_lists_page_component__WEBPACK_IMPORTED_MODULE_67__ = __webpack_require__(/*! ./pages/dashboard/git-admin/view-form-lists-page/view-form-lists-page.component */ "./src/app/pages/dashboard/git-admin/view-form-lists-page/view-form-lists-page.component.ts");
-/* harmony import */ var _pages_dashboard_git_admin_view_form_details_page_view_form_details_page_component__WEBPACK_IMPORTED_MODULE_68__ = __webpack_require__(/*! ./pages/dashboard/git-admin/view-form-details-page/view-form-details-page.component */ "./src/app/pages/dashboard/git-admin/view-form-details-page/view-form-details-page.component.ts");
-/* harmony import */ var _pages_dashboard_client_client_profile_page_client_profile_page_component__WEBPACK_IMPORTED_MODULE_69__ = __webpack_require__(/*! ./pages/dashboard/client/client-profile-page/client-profile-page.component */ "./src/app/pages/dashboard/client/client-profile-page/client-profile-page.component.ts");
-/* harmony import */ var _pages_dashboard_form_templates_add_template_page_add_template_page_component__WEBPACK_IMPORTED_MODULE_70__ = __webpack_require__(/*! ./pages/dashboard/form-templates/add-template-page/add-template-page.component */ "./src/app/pages/dashboard/form-templates/add-template-page/add-template-page.component.ts");
-/* harmony import */ var _pages_dashboard_form_templates_edit_template_page_edit_template_page_component__WEBPACK_IMPORTED_MODULE_71__ = __webpack_require__(/*! ./pages/dashboard/form-templates/edit-template-page/edit-template-page.component */ "./src/app/pages/dashboard/form-templates/edit-template-page/edit-template-page.component.ts");
-/* harmony import */ var _pages_dashboard_form_templates_list_template_page_list_template_page_component__WEBPACK_IMPORTED_MODULE_72__ = __webpack_require__(/*! ./pages/dashboard/form-templates/list-template-page/list-template-page.component */ "./src/app/pages/dashboard/form-templates/list-template-page/list-template-page.component.ts");
-/* harmony import */ var _pages_dashboard_form_templates_view_template_page_view_template_page_component__WEBPACK_IMPORTED_MODULE_73__ = __webpack_require__(/*! ./pages/dashboard/form-templates/view-template-page/view-template-page.component */ "./src/app/pages/dashboard/form-templates/view-template-page/view-template-page.component.ts");
-/* harmony import */ var _pages_dashboard_admin_admin_view_front_desks_page_admin_view_front_desks_page_component__WEBPACK_IMPORTED_MODULE_74__ = __webpack_require__(/*! ./pages/dashboard/admin/admin-view-front-desks-page/admin-view-front-desks-page.component */ "./src/app/pages/dashboard/admin/admin-view-front-desks-page/admin-view-front-desks-page.component.ts");
-/* harmony import */ var _pages_dashboard_admin_admin_view_branches_page_admin_view_branches_page_component__WEBPACK_IMPORTED_MODULE_75__ = __webpack_require__(/*! ./pages/dashboard/admin/admin-view-branches-page/admin-view-branches-page.component */ "./src/app/pages/dashboard/admin/admin-view-branches-page/admin-view-branches-page.component.ts");
-/* harmony import */ var _pages_dashboard_admin_admin_create_form_page_admin_create_form_page_component__WEBPACK_IMPORTED_MODULE_76__ = __webpack_require__(/*! ./pages/dashboard/admin/admin-create-form-page/admin-create-form-page.component */ "./src/app/pages/dashboard/admin/admin-create-form-page/admin-create-form-page.component.ts");
-/* harmony import */ var _pages_dashboard_admin_admin_create_user_page_admin_create_user_page_component__WEBPACK_IMPORTED_MODULE_77__ = __webpack_require__(/*! ./pages/dashboard/admin/admin-create-user-page/admin-create-user-page.component */ "./src/app/pages/dashboard/admin/admin-create-user-page/admin-create-user-page.component.ts");
-/* harmony import */ var _pages_dashboard_admin_admin_edit_user_page_admin_edit_user_page_component__WEBPACK_IMPORTED_MODULE_78__ = __webpack_require__(/*! ./pages/dashboard/admin/admin-edit-user-page/admin-edit-user-page.component */ "./src/app/pages/dashboard/admin/admin-edit-user-page/admin-edit-user-page.component.ts");
-/* harmony import */ var _pages_dashboard_admin_admin_view_account_details_page_admin_view_account_details_page_component__WEBPACK_IMPORTED_MODULE_79__ = __webpack_require__(/*! ./pages/dashboard/admin/admin-view-account-details-page/admin-view-account-details-page.component */ "./src/app/pages/dashboard/admin/admin-view-account-details-page/admin-view-account-details-page.component.ts");
-/* harmony import */ var _pages_dashboard_admin_admin_view_branch_details_page_admin_view_branch_details_page_component__WEBPACK_IMPORTED_MODULE_80__ = __webpack_require__(/*! ./pages/dashboard/admin/admin-view-branch-details-page/admin-view-branch-details-page.component */ "./src/app/pages/dashboard/admin/admin-view-branch-details-page/admin-view-branch-details-page.component.ts");
-/* harmony import */ var _pages_dashboard_git_admin_create_access_code_page_create_access_code_page_component__WEBPACK_IMPORTED_MODULE_81__ = __webpack_require__(/*! ./pages/dashboard/git-admin/create-access-code-page/create-access-code-page.component */ "./src/app/pages/dashboard/git-admin/create-access-code-page/create-access-code-page.component.ts");
-/* harmony import */ var _pages_auth_page_auth_page_component__WEBPACK_IMPORTED_MODULE_82__ = __webpack_require__(/*! ./pages/auth-page/auth-page.component */ "./src/app/pages/auth-page/auth-page.component.ts");
-/* harmony import */ var _pages_admin_login_page_admin_login_page_component__WEBPACK_IMPORTED_MODULE_83__ = __webpack_require__(/*! ./pages/admin-login-page/admin-login-page.component */ "./src/app/pages/admin-login-page/admin-login-page.component.ts");
-/* harmony import */ var _pages_dashboard_git_admin_create_section_page_create_section_page_component__WEBPACK_IMPORTED_MODULE_84__ = __webpack_require__(/*! ./pages/dashboard/git-admin/create-section-page/create-section-page.component */ "./src/app/pages/dashboard/git-admin/create-section-page/create-section-page.component.ts");
-/* harmony import */ var _pages_dashboard_git_admin_edit_section_page_edit_section_page_component__WEBPACK_IMPORTED_MODULE_85__ = __webpack_require__(/*! ./pages/dashboard/git-admin/edit-section-page/edit-section-page.component */ "./src/app/pages/dashboard/git-admin/edit-section-page/edit-section-page.component.ts");
-/* harmony import */ var _pages_dashboard_git_admin_view_sections_page_view_sections_page_component__WEBPACK_IMPORTED_MODULE_86__ = __webpack_require__(/*! ./pages/dashboard/git-admin/view-sections-page/view-sections-page.component */ "./src/app/pages/dashboard/git-admin/view-sections-page/view-sections-page.component.ts");
-/* harmony import */ var _pages_dashboard_git_admin_view_access_code_page_view_access_code_page_component__WEBPACK_IMPORTED_MODULE_87__ = __webpack_require__(/*! ./pages/dashboard/git-admin/view-access-code-page/view-access-code-page.component */ "./src/app/pages/dashboard/git-admin/view-access-code-page/view-access-code-page.component.ts");
-/* harmony import */ var _pages_dashboard_git_admin_edit_access_code_page_edit_access_code_page_component__WEBPACK_IMPORTED_MODULE_88__ = __webpack_require__(/*! ./pages/dashboard/git-admin/edit-access-code-page/edit-access-code-page.component */ "./src/app/pages/dashboard/git-admin/edit-access-code-page/edit-access-code-page.component.ts");
-/* harmony import */ var _pages_dashboard_front_desk_front_desk_preview_form_page_front_desk_preview_form_page_component__WEBPACK_IMPORTED_MODULE_89__ = __webpack_require__(/*! ./pages/dashboard/front-desk/front-desk-preview-form-page/front-desk-preview-form-page.component */ "./src/app/pages/dashboard/front-desk/front-desk-preview-form-page/front-desk-preview-form-page.component.ts");
-/* harmony import */ var _pages_dashboard_executive_exec_branches_list_page_exec_branches_list_page_component__WEBPACK_IMPORTED_MODULE_90__ = __webpack_require__(/*! ./pages/dashboard/executive/exec-branches-list-page/exec-branches-list-page.component */ "./src/app/pages/dashboard/executive/exec-branches-list-page/exec-branches-list-page.component.ts");
-/* harmony import */ var _pages_dashboard_executive_exec_accounts_list_page_exec_accounts_list_page_component__WEBPACK_IMPORTED_MODULE_91__ = __webpack_require__(/*! ./pages/dashboard/executive/exec-accounts-list-page/exec-accounts-list-page.component */ "./src/app/pages/dashboard/executive/exec-accounts-list-page/exec-accounts-list-page.component.ts");
-/* harmony import */ var _pages_dashboard_executive_exec_forms_list_page_exec_forms_list_page_component__WEBPACK_IMPORTED_MODULE_92__ = __webpack_require__(/*! ./pages/dashboard/executive/exec-forms-list-page/exec-forms-list-page.component */ "./src/app/pages/dashboard/executive/exec-forms-list-page/exec-forms-list-page.component.ts");
-/* harmony import */ var _pages_change_password_page_change_password_page_component__WEBPACK_IMPORTED_MODULE_93__ = __webpack_require__(/*! ./pages/change-password-page/change-password-page.component */ "./src/app/pages/change-password-page/change-password-page.component.ts");
-/* harmony import */ var _pages_client_auth_page_client_auth_page_component__WEBPACK_IMPORTED_MODULE_94__ = __webpack_require__(/*! ./pages/client-auth-page/client-auth-page.component */ "./src/app/pages/client-auth-page/client-auth-page.component.ts");
-/* harmony import */ var _pages_dashboard_front_desk_form_printing_page_form_printing_page_component__WEBPACK_IMPORTED_MODULE_95__ = __webpack_require__(/*! ./pages/dashboard/front-desk/form-printing-page/form-printing-page.component */ "./src/app/pages/dashboard/front-desk/form-printing-page/form-printing-page.component.ts");
-/* harmony import */ var _pages_forgot_password_page_forgot_password_page_component__WEBPACK_IMPORTED_MODULE_96__ = __webpack_require__(/*! ./pages/forgot-password-page/forgot-password-page.component */ "./src/app/pages/forgot-password-page/forgot-password-page.component.ts");
-/* harmony import */ var _pages_dashboard_front_desk_form_printing_default_page_form_printing_default_page_component__WEBPACK_IMPORTED_MODULE_97__ = __webpack_require__(/*! ./pages/dashboard/front-desk/form-printing-default-page/form-printing-default-page.component */ "./src/app/pages/dashboard/front-desk/form-printing-default-page/form-printing-default-page.component.ts");
-/* harmony import */ var _pages_not_found_page_not_found_page_component__WEBPACK_IMPORTED_MODULE_98__ = __webpack_require__(/*! ./pages/not-found-page/not-found-page.component */ "./src/app/pages/not-found-page/not-found-page.component.ts");
-/* harmony import */ var _pages_dashboard_admin_admin_view_branch_admins_page_admin_view_branch_admins_page_component__WEBPACK_IMPORTED_MODULE_99__ = __webpack_require__(/*! ./pages/dashboard/admin/admin-view-branch-admins-page/admin-view-branch-admins-page.component */ "./src/app/pages/dashboard/admin/admin-view-branch-admins-page/admin-view-branch-admins-page.component.ts");
-/* harmony import */ var _pages_dashboard_admin_admin_view_company_admins_page_admin_view_company_admins_page_component__WEBPACK_IMPORTED_MODULE_100__ = __webpack_require__(/*! ./pages/dashboard/admin/admin-view-company-admins-page/admin-view-company-admins-page.component */ "./src/app/pages/dashboard/admin/admin-view-company-admins-page/admin-view-company-admins-page.component.ts");
-/* harmony import */ var _pages_dashboard_admin_admin_view_branch_executives_page_admin_view_branch_executives_page_component__WEBPACK_IMPORTED_MODULE_101__ = __webpack_require__(/*! ./pages/dashboard/admin/admin-view-branch-executives-page/admin-view-branch-executives-page.component */ "./src/app/pages/dashboard/admin/admin-view-branch-executives-page/admin-view-branch-executives-page.component.ts");
-/* harmony import */ var _pages_dashboard_admin_admin_view_company_executives_page_admin_view_company_executives_page_component__WEBPACK_IMPORTED_MODULE_102__ = __webpack_require__(/*! ./pages/dashboard/admin/admin-view-company-executives-page/admin-view-company-executives-page.component */ "./src/app/pages/dashboard/admin/admin-view-company-executives-page/admin-view-company-executives-page.component.ts");
-/* harmony import */ var _pages_dashboard_front_desk_front_desk_clients_form_data_page_front_desk_clients_form_data_page_component__WEBPACK_IMPORTED_MODULE_103__ = __webpack_require__(/*! ./pages/dashboard/front-desk/front-desk-clients-form-data-page/front-desk-clients-form-data-page.component */ "./src/app/pages/dashboard/front-desk/front-desk-clients-form-data-page/front-desk-clients-form-data-page.component.ts");
-/* harmony import */ var _pages_invalid_confirmation_page_invalid_confirmation_page_component__WEBPACK_IMPORTED_MODULE_104__ = __webpack_require__(/*! ./pages/invalid-confirmation-page/invalid-confirmation-page.component */ "./src/app/pages/invalid-confirmation-page/invalid-confirmation-page.component.ts");
-/* harmony import */ var _pages_dashboard_front_desk_front_desk_clients_form_page_front_desk_clients_form_page_component__WEBPACK_IMPORTED_MODULE_105__ = __webpack_require__(/*! ./pages/dashboard/front-desk/front-desk-clients-form-page/front-desk-clients-form-page.component */ "./src/app/pages/dashboard/front-desk/front-desk-clients-form-page/front-desk-clients-form-page.component.ts");
-/* harmony import */ var _pages_dashboard_executive_exec_client_forms_page_exec_client_forms_page_component__WEBPACK_IMPORTED_MODULE_106__ = __webpack_require__(/*! ./pages/dashboard/executive/exec-client-forms-page/exec-client-forms-page.component */ "./src/app/pages/dashboard/executive/exec-client-forms-page/exec-client-forms-page.component.ts");
-/* harmony import */ var _pages_dashboard_executive_exec_clients_forms_data_page_exec_clients_forms_data_page_component__WEBPACK_IMPORTED_MODULE_107__ = __webpack_require__(/*! ./pages/dashboard/executive/exec-clients-forms-data-page/exec-clients-forms-data-page.component */ "./src/app/pages/dashboard/executive/exec-clients-forms-data-page/exec-clients-forms-data-page.component.ts");
-/* harmony import */ var _pages_dashboard_client_client_form_link_page_client_form_link_page_component__WEBPACK_IMPORTED_MODULE_108__ = __webpack_require__(/*! ./pages/dashboard/client/client-form-link-page/client-form-link-page.component */ "./src/app/pages/dashboard/client/client-form-link-page/client-form-link-page.component.ts");
-/* harmony import */ var _pages_dashboard_client_client_form_link_redirect_page_client_form_link_redirect_page_component__WEBPACK_IMPORTED_MODULE_109__ = __webpack_require__(/*! ./pages/dashboard/client/client-form-link-redirect-page/client-form-link-redirect-page.component */ "./src/app/pages/dashboard/client/client-form-link-redirect-page/client-form-link-redirect-page.component.ts");
-/* harmony import */ var _pages_reset_password_page_reset_password_page_component__WEBPACK_IMPORTED_MODULE_110__ = __webpack_require__(/*! ./pages/reset-password-page/reset-password-page.component */ "./src/app/pages/reset-password-page/reset-password-page.component.ts");
-/* harmony import */ var _pages_dashboard_client_client_settings_page_client_settings_page_component__WEBPACK_IMPORTED_MODULE_111__ = __webpack_require__(/*! ./pages/dashboard/client/client-settings-page/client-settings-page.component */ "./src/app/pages/dashboard/client/client-settings-page/client-settings-page.component.ts");
-/* harmony import */ var _pages_account_verified_page_account_verified_page_component__WEBPACK_IMPORTED_MODULE_112__ = __webpack_require__(/*! ./pages/account-verified-page/account-verified-page.component */ "./src/app/pages/account-verified-page/account-verified-page.component.ts");
-/* harmony import */ var _pages_email_reset_password_page_email_reset_password_page_component__WEBPACK_IMPORTED_MODULE_113__ = __webpack_require__(/*! ./pages/email-reset-password-page/email-reset-password-page.component */ "./src/app/pages/email-reset-password-page/email-reset-password-page.component.ts");
-/* harmony import */ var _pages_dashboard_front_desk_front_desk_rejected_forms_list_page_front_desk_rejected_forms_list_page_component__WEBPACK_IMPORTED_MODULE_114__ = __webpack_require__(/*! ./pages/dashboard/front-desk/front-desk-rejected-forms-list-page/front-desk-rejected-forms-list-page.component */ "./src/app/pages/dashboard/front-desk/front-desk-rejected-forms-list-page/front-desk-rejected-forms-list-page.component.ts");
-/* harmony import */ var _pages_dashboard_admin_admin_settings_page_admin_settings_page_component__WEBPACK_IMPORTED_MODULE_115__ = __webpack_require__(/*! ./pages/dashboard/admin/admin-settings-page/admin-settings-page.component */ "./src/app/pages/dashboard/admin/admin-settings-page/admin-settings-page.component.ts");
-/* harmony import */ var _pages_dashboard_executive_executive_printing_page_executive_printing_page_component__WEBPACK_IMPORTED_MODULE_116__ = __webpack_require__(/*! ./pages/dashboard/executive/executive-printing-page/executive-printing-page.component */ "./src/app/pages/dashboard/executive/executive-printing-page/executive-printing-page.component.ts");
-/* harmony import */ var _pages_dashboard_executive_executive_pdf_printing_page_executive_pdf_printing_page_component__WEBPACK_IMPORTED_MODULE_117__ = __webpack_require__(/*! ./pages/dashboard/executive/executive-pdf-printing-page/executive-pdf-printing-page.component */ "./src/app/pages/dashboard/executive/executive-pdf-printing-page/executive-pdf-printing-page.component.ts");
-/* harmony import */ var _pages_dashboard_client_client_printing_page_client_printing_page_component__WEBPACK_IMPORTED_MODULE_118__ = __webpack_require__(/*! ./pages/dashboard/client/client-printing-page/client-printing-page.component */ "./src/app/pages/dashboard/client/client-printing-page/client-printing-page.component.ts");
-/* harmony import */ var _pages_dashboard_client_client_pdf_printing_page_client_pdf_printing_page_component__WEBPACK_IMPORTED_MODULE_119__ = __webpack_require__(/*! ./pages/dashboard/client/client-pdf-printing-page/client-pdf-printing-page.component */ "./src/app/pages/dashboard/client/client-pdf-printing-page/client-pdf-printing-page.component.ts");
-/* harmony import */ var _pages_invalid_password_reset_page_invalid_password_reset_page_component__WEBPACK_IMPORTED_MODULE_120__ = __webpack_require__(/*! ./pages/invalid-password-reset-page/invalid-password-reset-page.component */ "./src/app/pages/invalid-password-reset-page/invalid-password-reset-page.component.ts");
-/* harmony import */ var _pages_dashboard_client_client_form_new_entry_page_client_form_new_entry_page_component__WEBPACK_IMPORTED_MODULE_121__ = __webpack_require__(/*! ./pages/dashboard/client/client-form-new-entry-page/client-form-new-entry-page.component */ "./src/app/pages/dashboard/client/client-form-new-entry-page/client-form-new-entry-page.component.ts");
-/* harmony import */ var _pages_dashboard_executive_exec_rejected_forms_list_page_exec_rejected_forms_list_page_component__WEBPACK_IMPORTED_MODULE_122__ = __webpack_require__(/*! ./pages/dashboard/executive/exec-rejected-forms-list-page/exec-rejected-forms-list-page.component */ "./src/app/pages/dashboard/executive/exec-rejected-forms-list-page/exec-rejected-forms-list-page.component.ts");
-/* harmony import */ var _pages_dashboard_executive_exec_view_account_details_page_exec_view_account_details_page_component__WEBPACK_IMPORTED_MODULE_123__ = __webpack_require__(/*! ./pages/dashboard/executive/exec-view-account-details-page/exec-view-account-details-page.component */ "./src/app/pages/dashboard/executive/exec-view-account-details-page/exec-view-account-details-page.component.ts");
-/* harmony import */ var _pages_dashboard_executive_exec_view_branch_admins_page_exec_view_branch_admins_page_component__WEBPACK_IMPORTED_MODULE_124__ = __webpack_require__(/*! ./pages/dashboard/executive/exec-view-branch-admins-page/exec-view-branch-admins-page.component */ "./src/app/pages/dashboard/executive/exec-view-branch-admins-page/exec-view-branch-admins-page.component.ts");
-/* harmony import */ var _pages_dashboard_executive_exec_view_company_admins_page_exec_view_company_admins_page_component__WEBPACK_IMPORTED_MODULE_125__ = __webpack_require__(/*! ./pages/dashboard/executive/exec-view-company-admins-page/exec-view-company-admins-page.component */ "./src/app/pages/dashboard/executive/exec-view-company-admins-page/exec-view-company-admins-page.component.ts");
-/* harmony import */ var _pages_dashboard_executive_exec_view_super_exectives_page_exec_view_super_exectives_page_component__WEBPACK_IMPORTED_MODULE_126__ = __webpack_require__(/*! ./pages/dashboard/executive/exec-view-super-exectives-page/exec-view-super-exectives-page.component */ "./src/app/pages/dashboard/executive/exec-view-super-exectives-page/exec-view-super-exectives-page.component.ts");
-/* harmony import */ var _pages_dashboard_executive_exec_view_branch_exectives_page_exec_view_branch_exectives_page_component__WEBPACK_IMPORTED_MODULE_127__ = __webpack_require__(/*! ./pages/dashboard/executive/exec-view-branch-exectives-page/exec-view-branch-exectives-page.component */ "./src/app/pages/dashboard/executive/exec-view-branch-exectives-page/exec-view-branch-exectives-page.component.ts");
-/* harmony import */ var _pages_dashboard_executive_exec_view_front_desks_page_exec_view_front_desks_page_component__WEBPACK_IMPORTED_MODULE_128__ = __webpack_require__(/*! ./pages/dashboard/executive/exec-view-front-desks-page/exec-view-front-desks-page.component */ "./src/app/pages/dashboard/executive/exec-view-front-desks-page/exec-view-front-desks-page.component.ts");
-/* harmony import */ var _components_forms_country_picker_forms_country_picker_component__WEBPACK_IMPORTED_MODULE_129__ = __webpack_require__(/*! ./components/forms-country-picker/forms-country-picker.component */ "./src/app/components/forms-country-picker/forms-country-picker.component.ts");
-/* harmony import */ var _pages_dashboard_client_client_favorite_forms_page_client_favorite_forms_page_component__WEBPACK_IMPORTED_MODULE_130__ = __webpack_require__(/*! ./pages/dashboard/client/client-favorite-forms-page/client-favorite-forms-page.component */ "./src/app/pages/dashboard/client/client-favorite-forms-page/client-favorite-forms-page.component.ts");
-/* harmony import */ var _pages_dashboard_client_client_suggest_merchant_page_client_suggest_merchant_page_component__WEBPACK_IMPORTED_MODULE_131__ = __webpack_require__(/*! ./pages/dashboard/client/client-suggest-merchant-page/client-suggest-merchant-page.component */ "./src/app/pages/dashboard/client/client-suggest-merchant-page/client-suggest-merchant-page.component.ts");
-/* harmony import */ var _pages_dashboard_client_client_deleted_forms_page_client_deleted_forms_page_component__WEBPACK_IMPORTED_MODULE_132__ = __webpack_require__(/*! ./pages/dashboard/client/client-deleted-forms-page/client-deleted-forms-page.component */ "./src/app/pages/dashboard/client/client-deleted-forms-page/client-deleted-forms-page.component.ts");
-/* harmony import */ var _pages_dashboard_git_admin_create_sector_page_create_sector_page_component__WEBPACK_IMPORTED_MODULE_133__ = __webpack_require__(/*! ./pages/dashboard/git-admin/create-sector-page/create-sector-page.component */ "./src/app/pages/dashboard/git-admin/create-sector-page/create-sector-page.component.ts");
-/* harmony import */ var _pages_dashboard_git_admin_view_sector_list_page_view_sector_list_page_component__WEBPACK_IMPORTED_MODULE_134__ = __webpack_require__(/*! ./pages/dashboard/git-admin/view-sector-list-page/view-sector-list-page.component */ "./src/app/pages/dashboard/git-admin/view-sector-list-page/view-sector-list-page.component.ts");
-/* harmony import */ var _pages_dashboard_git_admin_edit_sector_page_edit_sector_page_component__WEBPACK_IMPORTED_MODULE_135__ = __webpack_require__(/*! ./pages/dashboard/git-admin/edit-sector-page/edit-sector-page.component */ "./src/app/pages/dashboard/git-admin/edit-sector-page/edit-sector-page.component.ts");
-/* harmony import */ var _pages_reset_pin_page_reset_pin_page_component__WEBPACK_IMPORTED_MODULE_136__ = __webpack_require__(/*! ./pages/reset-pin-page/reset-pin-page.component */ "./src/app/pages/reset-pin-page/reset-pin-page.component.ts");
-/* harmony import */ var _pages_invalid_reset_pin_page_invalid_reset_pin_page_component__WEBPACK_IMPORTED_MODULE_137__ = __webpack_require__(/*! ./pages/invalid-reset-pin-page/invalid-reset-pin-page.component */ "./src/app/pages/invalid-reset-pin-page/invalid-reset-pin-page.component.ts");
-/* harmony import */ var _pages_invalid_link_page_invalid_link_page_component__WEBPACK_IMPORTED_MODULE_138__ = __webpack_require__(/*! ./pages/invalid-link-page/invalid-link-page.component */ "./src/app/pages/invalid-link-page/invalid-link-page.component.ts");
-/* harmony import */ var _components_join_queue_dialog_join_queue_dialog_component__WEBPACK_IMPORTED_MODULE_139__ = __webpack_require__(/*! ./components/join-queue-dialog/join-queue-dialog.component */ "./src/app/components/join-queue-dialog/join-queue-dialog.component.ts");
-/* harmony import */ var _components_already_joined_queue_dialog_already_joined_queue_dialog_component__WEBPACK_IMPORTED_MODULE_140__ = __webpack_require__(/*! ./components/already-joined-queue-dialog/already-joined-queue-dialog.component */ "./src/app/components/already-joined-queue-dialog/already-joined-queue-dialog.component.ts");
+/* harmony import */ var _components_navigation_bar_navigation_bar_component__WEBPACK_IMPORTED_MODULE_24__ = __webpack_require__(/*! ./components/navigation-bar/navigation-bar.component */ "./src/app/components/navigation-bar/navigation-bar.component.ts");
+/* harmony import */ var _pages_dashboard_git_admin_home_page_home_page_component__WEBPACK_IMPORTED_MODULE_25__ = __webpack_require__(/*! ./pages/dashboard/git-admin/home-page/home-page.component */ "./src/app/pages/dashboard/git-admin/home-page/home-page.component.ts");
+/* harmony import */ var _pages_dashboard_client_client_home_page_client_home_page_component__WEBPACK_IMPORTED_MODULE_26__ = __webpack_require__(/*! ./pages/dashboard/client/client-home-page/client-home-page.component */ "./src/app/pages/dashboard/client/client-home-page/client-home-page.component.ts");
+/* harmony import */ var _pages_dashboard_git_admin_create_form_page_create_form_page_component__WEBPACK_IMPORTED_MODULE_27__ = __webpack_require__(/*! ./pages/dashboard/git-admin/create-form-page/create-form-page.component */ "./src/app/pages/dashboard/git-admin/create-form-page/create-form-page.component.ts");
+/* harmony import */ var _pages_dashboard_client_client_form_merchants_page_client_form_merchants_page_component__WEBPACK_IMPORTED_MODULE_28__ = __webpack_require__(/*! ./pages/dashboard/client/client-form-merchants-page/client-form-merchants-page.component */ "./src/app/pages/dashboard/client/client-form-merchants-page/client-form-merchants-page.component.ts");
+/* harmony import */ var _pages_dashboard_client_client_list_forms_page_client_list_forms_page_component__WEBPACK_IMPORTED_MODULE_29__ = __webpack_require__(/*! ./pages/dashboard/client/client-list-forms-page/client-list-forms-page.component */ "./src/app/pages/dashboard/client/client-list-forms-page/client-list-forms-page.component.ts");
+/* harmony import */ var _pages_dashboard_front_desk_front_desk_home_page_front_desk_home_page_component__WEBPACK_IMPORTED_MODULE_30__ = __webpack_require__(/*! ./pages/dashboard/front-desk/front-desk-home-page/front-desk-home-page.component */ "./src/app/pages/dashboard/front-desk/front-desk-home-page/front-desk-home-page.component.ts");
+/* harmony import */ var _pages_dashboard_git_admin_create_company_page_create_company_page_component__WEBPACK_IMPORTED_MODULE_31__ = __webpack_require__(/*! ./pages/dashboard/git-admin/create-company-page/create-company-page.component */ "./src/app/pages/dashboard/git-admin/create-company-page/create-company-page.component.ts");
+/* harmony import */ var _pages_dashboard_git_admin_create_branch_page_create_branch_page_component__WEBPACK_IMPORTED_MODULE_32__ = __webpack_require__(/*! ./pages/dashboard/git-admin/create-branch-page/create-branch-page.component */ "./src/app/pages/dashboard/git-admin/create-branch-page/create-branch-page.component.ts");
+/* harmony import */ var _pages_dashboard_executive_executive_home_page_executive_home_page_component__WEBPACK_IMPORTED_MODULE_33__ = __webpack_require__(/*! ./pages/dashboard/executive/executive-home-page/executive-home-page.component */ "./src/app/pages/dashboard/executive/executive-home-page/executive-home-page.component.ts");
+/* harmony import */ var _pages_dashboard_executive_exec_submitted_forms_list_page_exec_submitted_forms_list_page_component__WEBPACK_IMPORTED_MODULE_34__ = __webpack_require__(/*! ./pages/dashboard/executive/exec-submitted-forms-list-page/exec-submitted-forms-list-page.component */ "./src/app/pages/dashboard/executive/exec-submitted-forms-list-page/exec-submitted-forms-list-page.component.ts");
+/* harmony import */ var _pages_dashboard_executive_exec_processed_forms_list_page_exec_processed_forms_list_page_component__WEBPACK_IMPORTED_MODULE_35__ = __webpack_require__(/*! ./pages/dashboard/executive/exec-processed-forms-list-page/exec-processed-forms-list-page.component */ "./src/app/pages/dashboard/executive/exec-processed-forms-list-page/exec-processed-forms-list-page.component.ts");
+/* harmony import */ var _pages_dashboard_executive_exec_in_processed_forms_list_page_exec_in_processed_forms_list_page_component__WEBPACK_IMPORTED_MODULE_36__ = __webpack_require__(/*! ./pages/dashboard/executive/exec-in-processed-forms-list-page/exec-in-processed-forms-list-page.component */ "./src/app/pages/dashboard/executive/exec-in-processed-forms-list-page/exec-in-processed-forms-list-page.component.ts");
+/* harmony import */ var _pages_dashboard_admin_admin_home_page_admin_home_page_component__WEBPACK_IMPORTED_MODULE_37__ = __webpack_require__(/*! ./pages/dashboard/admin/admin-home-page/admin-home-page.component */ "./src/app/pages/dashboard/admin/admin-home-page/admin-home-page.component.ts");
+/* harmony import */ var _pages_dashboard_client_client_forms_history_page_client_forms_history_page_component__WEBPACK_IMPORTED_MODULE_38__ = __webpack_require__(/*! ./pages/dashboard/client/client-forms-history-page/client-forms-history-page.component */ "./src/app/pages/dashboard/client/client-forms-history-page/client-forms-history-page.component.ts");
+/* harmony import */ var _pages_dashboard_client_client_forms_entry_page_client_forms_entry_page_component__WEBPACK_IMPORTED_MODULE_39__ = __webpack_require__(/*! ./pages/dashboard/client/client-forms-entry-page/client-forms-entry-page.component */ "./src/app/pages/dashboard/client/client-forms-entry-page/client-forms-entry-page.component.ts");
+/* harmony import */ var _pages_dashboard_front_desk_front_desk_view_form_page_front_desk_view_form_page_component__WEBPACK_IMPORTED_MODULE_40__ = __webpack_require__(/*! ./pages/dashboard/front-desk/front-desk-view-form-page/front-desk-view-form-page.component */ "./src/app/pages/dashboard/front-desk/front-desk-view-form-page/front-desk-view-form-page.component.ts");
+/* harmony import */ var _pages_dashboard_admin_admin_form_lists_page_admin_form_lists_page_component__WEBPACK_IMPORTED_MODULE_41__ = __webpack_require__(/*! ./pages/dashboard/admin/admin-form-lists-page/admin-form-lists-page.component */ "./src/app/pages/dashboard/admin/admin-form-lists-page/admin-form-lists-page.component.ts");
+/* harmony import */ var _pages_dashboard_admin_admin_form_edit_page_admin_form_edit_page_component__WEBPACK_IMPORTED_MODULE_42__ = __webpack_require__(/*! ./pages/dashboard/admin/admin-form-edit-page/admin-form-edit-page.component */ "./src/app/pages/dashboard/admin/admin-form-edit-page/admin-form-edit-page.component.ts");
+/* harmony import */ var _pages_dashboard_admin_admin_form_view_page_admin_form_view_page_component__WEBPACK_IMPORTED_MODULE_43__ = __webpack_require__(/*! ./pages/dashboard/admin/admin-form-view-page/admin-form-view-page.component */ "./src/app/pages/dashboard/admin/admin-form-view-page/admin-form-view-page.component.ts");
+/* harmony import */ var _pages_dashboard_git_admin_edit_form_page_edit_form_page_component__WEBPACK_IMPORTED_MODULE_44__ = __webpack_require__(/*! ./pages/dashboard/git-admin/edit-form-page/edit-form-page.component */ "./src/app/pages/dashboard/git-admin/edit-form-page/edit-form-page.component.ts");
+/* harmony import */ var _pages_dashboard_git_admin_edit_branch_page_edit_branch_page_component__WEBPACK_IMPORTED_MODULE_45__ = __webpack_require__(/*! ./pages/dashboard/git-admin/edit-branch-page/edit-branch-page.component */ "./src/app/pages/dashboard/git-admin/edit-branch-page/edit-branch-page.component.ts");
+/* harmony import */ var _pages_dashboard_git_admin_edit_company_page_edit_company_page_component__WEBPACK_IMPORTED_MODULE_46__ = __webpack_require__(/*! ./pages/dashboard/git-admin/edit-company-page/edit-company-page.component */ "./src/app/pages/dashboard/git-admin/edit-company-page/edit-company-page.component.ts");
+/* harmony import */ var _pages_dashboard_git_admin_view_admin_lists_page_view_admin_lists_page_component__WEBPACK_IMPORTED_MODULE_47__ = __webpack_require__(/*! ./pages/dashboard/git-admin/view-admin-lists-page/view-admin-lists-page.component */ "./src/app/pages/dashboard/git-admin/view-admin-lists-page/view-admin-lists-page.component.ts");
+/* harmony import */ var _pages_dashboard_git_admin_view_branch_lists_page_view_branch_lists_page_component__WEBPACK_IMPORTED_MODULE_48__ = __webpack_require__(/*! ./pages/dashboard/git-admin/view-branch-lists-page/view-branch-lists-page.component */ "./src/app/pages/dashboard/git-admin/view-branch-lists-page/view-branch-lists-page.component.ts");
+/* harmony import */ var _pages_dashboard_git_admin_view_company_lists_page_view_company_lists_page_component__WEBPACK_IMPORTED_MODULE_49__ = __webpack_require__(/*! ./pages/dashboard/git-admin/view-company-lists-page/view-company-lists-page.component */ "./src/app/pages/dashboard/git-admin/view-company-lists-page/view-company-lists-page.component.ts");
+/* harmony import */ var _pages_dashboard_git_admin_view_executive_lists_page_view_executive_lists_page_component__WEBPACK_IMPORTED_MODULE_50__ = __webpack_require__(/*! ./pages/dashboard/git-admin/view-executive-lists-page/view-executive-lists-page.component */ "./src/app/pages/dashboard/git-admin/view-executive-lists-page/view-executive-lists-page.component.ts");
+/* harmony import */ var _pages_dashboard_front_desk_front_desk_submitted_forms_list_page_front_desk_submitted_forms_list_page_component__WEBPACK_IMPORTED_MODULE_51__ = __webpack_require__(/*! ./pages/dashboard/front-desk/front-desk-submitted-forms-list-page/front-desk-submitted-forms-list-page.component */ "./src/app/pages/dashboard/front-desk/front-desk-submitted-forms-list-page/front-desk-submitted-forms-list-page.component.ts");
+/* harmony import */ var _pages_dashboard_front_desk_front_desk_processed_forms_list_page_front_desk_processed_forms_list_page_component__WEBPACK_IMPORTED_MODULE_52__ = __webpack_require__(/*! ./pages/dashboard/front-desk/front-desk-processed-forms-list-page/front-desk-processed-forms-list-page.component */ "./src/app/pages/dashboard/front-desk/front-desk-processed-forms-list-page/front-desk-processed-forms-list-page.component.ts");
+/* harmony import */ var _pages_dashboard_front_desk_front_desk_processing_forms_list_page_front_desk_processing_forms_list_page_component__WEBPACK_IMPORTED_MODULE_53__ = __webpack_require__(/*! ./pages/dashboard/front-desk/front-desk-processing-forms-list-page/front-desk-processing-forms-list-page.component */ "./src/app/pages/dashboard/front-desk/front-desk-processing-forms-list-page/front-desk-processing-forms-list-page.component.ts");
+/* harmony import */ var _pages_admin_register_page_admin_register_page_component__WEBPACK_IMPORTED_MODULE_54__ = __webpack_require__(/*! ./pages/admin-register-page/admin-register-page.component */ "./src/app/pages/admin-register-page/admin-register-page.component.ts");
+/* harmony import */ var _pages_dashboard_user_account_creator_user_account_creator_component__WEBPACK_IMPORTED_MODULE_55__ = __webpack_require__(/*! ./pages/dashboard/user-account-creator/user-account-creator.component */ "./src/app/pages/dashboard/user-account-creator/user-account-creator.component.ts");
+/* harmony import */ var _pages_dashboard_git_admin_create_user_page_create_user_page_component__WEBPACK_IMPORTED_MODULE_56__ = __webpack_require__(/*! ./pages/dashboard/git-admin/create-user-page/create-user-page.component */ "./src/app/pages/dashboard/git-admin/create-user-page/create-user-page.component.ts");
+/* harmony import */ var _pages_dashboard_git_admin_view_front_desk_lists_page_view_front_desk_lists_page_component__WEBPACK_IMPORTED_MODULE_57__ = __webpack_require__(/*! ./pages/dashboard/git-admin/view-front-desk-lists-page/view-front-desk-lists-page.component */ "./src/app/pages/dashboard/git-admin/view-front-desk-lists-page/view-front-desk-lists-page.component.ts");
+/* harmony import */ var _pages_dashboard_git_admin_view_company_admin_lists_page_view_company_admin_lists_page_component__WEBPACK_IMPORTED_MODULE_58__ = __webpack_require__(/*! ./pages/dashboard/git-admin/view-company-admin-lists-page/view-company-admin-lists-page.component */ "./src/app/pages/dashboard/git-admin/view-company-admin-lists-page/view-company-admin-lists-page.component.ts");
+/* harmony import */ var _pages_dashboard_git_admin_view_account_lists_page_view_account_lists_page_component__WEBPACK_IMPORTED_MODULE_59__ = __webpack_require__(/*! ./pages/dashboard/git-admin/view-account-lists-page/view-account-lists-page.component */ "./src/app/pages/dashboard/git-admin/view-account-lists-page/view-account-lists-page.component.ts");
+/* harmony import */ var _angular_platform_browser_animations__WEBPACK_IMPORTED_MODULE_60__ = __webpack_require__(/*! @angular/platform-browser/animations */ "./node_modules/@angular/platform-browser/fesm2015/animations.js");
+/* harmony import */ var _pages_dashboard_git_admin_view_branch_admin_lists_page_view_branch_admin_lists_page_component__WEBPACK_IMPORTED_MODULE_61__ = __webpack_require__(/*! ./pages/dashboard/git-admin/view-branch-admin-lists-page/view-branch-admin-lists-page.component */ "./src/app/pages/dashboard/git-admin/view-branch-admin-lists-page/view-branch-admin-lists-page.component.ts");
+/* harmony import */ var _pages_dashboard_git_admin_view_branch_executive_lists_page_view_branch_executive_lists_page_component__WEBPACK_IMPORTED_MODULE_62__ = __webpack_require__(/*! ./pages/dashboard/git-admin/view-branch-executive-lists-page/view-branch-executive-lists-page.component */ "./src/app/pages/dashboard/git-admin/view-branch-executive-lists-page/view-branch-executive-lists-page.component.ts");
+/* harmony import */ var _pages_dashboard_git_admin_edit_user_page_edit_user_page_component__WEBPACK_IMPORTED_MODULE_63__ = __webpack_require__(/*! ./pages/dashboard/git-admin/edit-user-page/edit-user-page.component */ "./src/app/pages/dashboard/git-admin/edit-user-page/edit-user-page.component.ts");
+/* harmony import */ var _pages_dashboard_user_account_editor_user_account_editor_component__WEBPACK_IMPORTED_MODULE_64__ = __webpack_require__(/*! ./pages/dashboard/user-account-editor/user-account-editor.component */ "./src/app/pages/dashboard/user-account-editor/user-account-editor.component.ts");
+/* harmony import */ var _pages_dashboard_git_admin_view_account_details_page_view_account_details_page_component__WEBPACK_IMPORTED_MODULE_65__ = __webpack_require__(/*! ./pages/dashboard/git-admin/view-account-details-page/view-account-details-page.component */ "./src/app/pages/dashboard/git-admin/view-account-details-page/view-account-details-page.component.ts");
+/* harmony import */ var _pages_dashboard_git_admin_view_company_details_page_view_company_details_page_component__WEBPACK_IMPORTED_MODULE_66__ = __webpack_require__(/*! ./pages/dashboard/git-admin/view-company-details-page/view-company-details-page.component */ "./src/app/pages/dashboard/git-admin/view-company-details-page/view-company-details-page.component.ts");
+/* harmony import */ var _pages_dashboard_git_admin_view_branch_details_page_view_branch_details_page_component__WEBPACK_IMPORTED_MODULE_67__ = __webpack_require__(/*! ./pages/dashboard/git-admin/view-branch-details-page/view-branch-details-page.component */ "./src/app/pages/dashboard/git-admin/view-branch-details-page/view-branch-details-page.component.ts");
+/* harmony import */ var _pages_dashboard_git_admin_view_form_lists_page_view_form_lists_page_component__WEBPACK_IMPORTED_MODULE_68__ = __webpack_require__(/*! ./pages/dashboard/git-admin/view-form-lists-page/view-form-lists-page.component */ "./src/app/pages/dashboard/git-admin/view-form-lists-page/view-form-lists-page.component.ts");
+/* harmony import */ var _pages_dashboard_git_admin_view_form_details_page_view_form_details_page_component__WEBPACK_IMPORTED_MODULE_69__ = __webpack_require__(/*! ./pages/dashboard/git-admin/view-form-details-page/view-form-details-page.component */ "./src/app/pages/dashboard/git-admin/view-form-details-page/view-form-details-page.component.ts");
+/* harmony import */ var _pages_dashboard_client_client_profile_page_client_profile_page_component__WEBPACK_IMPORTED_MODULE_70__ = __webpack_require__(/*! ./pages/dashboard/client/client-profile-page/client-profile-page.component */ "./src/app/pages/dashboard/client/client-profile-page/client-profile-page.component.ts");
+/* harmony import */ var _pages_dashboard_form_templates_add_template_page_add_template_page_component__WEBPACK_IMPORTED_MODULE_71__ = __webpack_require__(/*! ./pages/dashboard/form-templates/add-template-page/add-template-page.component */ "./src/app/pages/dashboard/form-templates/add-template-page/add-template-page.component.ts");
+/* harmony import */ var _pages_dashboard_form_templates_edit_template_page_edit_template_page_component__WEBPACK_IMPORTED_MODULE_72__ = __webpack_require__(/*! ./pages/dashboard/form-templates/edit-template-page/edit-template-page.component */ "./src/app/pages/dashboard/form-templates/edit-template-page/edit-template-page.component.ts");
+/* harmony import */ var _pages_dashboard_form_templates_list_template_page_list_template_page_component__WEBPACK_IMPORTED_MODULE_73__ = __webpack_require__(/*! ./pages/dashboard/form-templates/list-template-page/list-template-page.component */ "./src/app/pages/dashboard/form-templates/list-template-page/list-template-page.component.ts");
+/* harmony import */ var _pages_dashboard_form_templates_view_template_page_view_template_page_component__WEBPACK_IMPORTED_MODULE_74__ = __webpack_require__(/*! ./pages/dashboard/form-templates/view-template-page/view-template-page.component */ "./src/app/pages/dashboard/form-templates/view-template-page/view-template-page.component.ts");
+/* harmony import */ var _pages_dashboard_admin_admin_view_front_desks_page_admin_view_front_desks_page_component__WEBPACK_IMPORTED_MODULE_75__ = __webpack_require__(/*! ./pages/dashboard/admin/admin-view-front-desks-page/admin-view-front-desks-page.component */ "./src/app/pages/dashboard/admin/admin-view-front-desks-page/admin-view-front-desks-page.component.ts");
+/* harmony import */ var _pages_dashboard_admin_admin_view_branches_page_admin_view_branches_page_component__WEBPACK_IMPORTED_MODULE_76__ = __webpack_require__(/*! ./pages/dashboard/admin/admin-view-branches-page/admin-view-branches-page.component */ "./src/app/pages/dashboard/admin/admin-view-branches-page/admin-view-branches-page.component.ts");
+/* harmony import */ var _pages_dashboard_admin_admin_create_form_page_admin_create_form_page_component__WEBPACK_IMPORTED_MODULE_77__ = __webpack_require__(/*! ./pages/dashboard/admin/admin-create-form-page/admin-create-form-page.component */ "./src/app/pages/dashboard/admin/admin-create-form-page/admin-create-form-page.component.ts");
+/* harmony import */ var _pages_dashboard_admin_admin_create_user_page_admin_create_user_page_component__WEBPACK_IMPORTED_MODULE_78__ = __webpack_require__(/*! ./pages/dashboard/admin/admin-create-user-page/admin-create-user-page.component */ "./src/app/pages/dashboard/admin/admin-create-user-page/admin-create-user-page.component.ts");
+/* harmony import */ var _pages_dashboard_admin_admin_edit_user_page_admin_edit_user_page_component__WEBPACK_IMPORTED_MODULE_79__ = __webpack_require__(/*! ./pages/dashboard/admin/admin-edit-user-page/admin-edit-user-page.component */ "./src/app/pages/dashboard/admin/admin-edit-user-page/admin-edit-user-page.component.ts");
+/* harmony import */ var _pages_dashboard_admin_admin_view_account_details_page_admin_view_account_details_page_component__WEBPACK_IMPORTED_MODULE_80__ = __webpack_require__(/*! ./pages/dashboard/admin/admin-view-account-details-page/admin-view-account-details-page.component */ "./src/app/pages/dashboard/admin/admin-view-account-details-page/admin-view-account-details-page.component.ts");
+/* harmony import */ var _pages_dashboard_admin_admin_view_branch_details_page_admin_view_branch_details_page_component__WEBPACK_IMPORTED_MODULE_81__ = __webpack_require__(/*! ./pages/dashboard/admin/admin-view-branch-details-page/admin-view-branch-details-page.component */ "./src/app/pages/dashboard/admin/admin-view-branch-details-page/admin-view-branch-details-page.component.ts");
+/* harmony import */ var _pages_dashboard_git_admin_create_access_code_page_create_access_code_page_component__WEBPACK_IMPORTED_MODULE_82__ = __webpack_require__(/*! ./pages/dashboard/git-admin/create-access-code-page/create-access-code-page.component */ "./src/app/pages/dashboard/git-admin/create-access-code-page/create-access-code-page.component.ts");
+/* harmony import */ var _pages_auth_page_auth_page_component__WEBPACK_IMPORTED_MODULE_83__ = __webpack_require__(/*! ./pages/auth-page/auth-page.component */ "./src/app/pages/auth-page/auth-page.component.ts");
+/* harmony import */ var _pages_admin_login_page_admin_login_page_component__WEBPACK_IMPORTED_MODULE_84__ = __webpack_require__(/*! ./pages/admin-login-page/admin-login-page.component */ "./src/app/pages/admin-login-page/admin-login-page.component.ts");
+/* harmony import */ var _pages_dashboard_git_admin_create_section_page_create_section_page_component__WEBPACK_IMPORTED_MODULE_85__ = __webpack_require__(/*! ./pages/dashboard/git-admin/create-section-page/create-section-page.component */ "./src/app/pages/dashboard/git-admin/create-section-page/create-section-page.component.ts");
+/* harmony import */ var _pages_dashboard_git_admin_edit_section_page_edit_section_page_component__WEBPACK_IMPORTED_MODULE_86__ = __webpack_require__(/*! ./pages/dashboard/git-admin/edit-section-page/edit-section-page.component */ "./src/app/pages/dashboard/git-admin/edit-section-page/edit-section-page.component.ts");
+/* harmony import */ var _pages_dashboard_git_admin_view_sections_page_view_sections_page_component__WEBPACK_IMPORTED_MODULE_87__ = __webpack_require__(/*! ./pages/dashboard/git-admin/view-sections-page/view-sections-page.component */ "./src/app/pages/dashboard/git-admin/view-sections-page/view-sections-page.component.ts");
+/* harmony import */ var _pages_dashboard_git_admin_view_access_code_page_view_access_code_page_component__WEBPACK_IMPORTED_MODULE_88__ = __webpack_require__(/*! ./pages/dashboard/git-admin/view-access-code-page/view-access-code-page.component */ "./src/app/pages/dashboard/git-admin/view-access-code-page/view-access-code-page.component.ts");
+/* harmony import */ var _pages_dashboard_git_admin_edit_access_code_page_edit_access_code_page_component__WEBPACK_IMPORTED_MODULE_89__ = __webpack_require__(/*! ./pages/dashboard/git-admin/edit-access-code-page/edit-access-code-page.component */ "./src/app/pages/dashboard/git-admin/edit-access-code-page/edit-access-code-page.component.ts");
+/* harmony import */ var _pages_dashboard_front_desk_front_desk_preview_form_page_front_desk_preview_form_page_component__WEBPACK_IMPORTED_MODULE_90__ = __webpack_require__(/*! ./pages/dashboard/front-desk/front-desk-preview-form-page/front-desk-preview-form-page.component */ "./src/app/pages/dashboard/front-desk/front-desk-preview-form-page/front-desk-preview-form-page.component.ts");
+/* harmony import */ var _pages_dashboard_executive_exec_branches_list_page_exec_branches_list_page_component__WEBPACK_IMPORTED_MODULE_91__ = __webpack_require__(/*! ./pages/dashboard/executive/exec-branches-list-page/exec-branches-list-page.component */ "./src/app/pages/dashboard/executive/exec-branches-list-page/exec-branches-list-page.component.ts");
+/* harmony import */ var _pages_dashboard_executive_exec_accounts_list_page_exec_accounts_list_page_component__WEBPACK_IMPORTED_MODULE_92__ = __webpack_require__(/*! ./pages/dashboard/executive/exec-accounts-list-page/exec-accounts-list-page.component */ "./src/app/pages/dashboard/executive/exec-accounts-list-page/exec-accounts-list-page.component.ts");
+/* harmony import */ var _pages_dashboard_executive_exec_forms_list_page_exec_forms_list_page_component__WEBPACK_IMPORTED_MODULE_93__ = __webpack_require__(/*! ./pages/dashboard/executive/exec-forms-list-page/exec-forms-list-page.component */ "./src/app/pages/dashboard/executive/exec-forms-list-page/exec-forms-list-page.component.ts");
+/* harmony import */ var _pages_change_password_page_change_password_page_component__WEBPACK_IMPORTED_MODULE_94__ = __webpack_require__(/*! ./pages/change-password-page/change-password-page.component */ "./src/app/pages/change-password-page/change-password-page.component.ts");
+/* harmony import */ var _pages_client_auth_page_client_auth_page_component__WEBPACK_IMPORTED_MODULE_95__ = __webpack_require__(/*! ./pages/client-auth-page/client-auth-page.component */ "./src/app/pages/client-auth-page/client-auth-page.component.ts");
+/* harmony import */ var _pages_dashboard_front_desk_form_printing_page_form_printing_page_component__WEBPACK_IMPORTED_MODULE_96__ = __webpack_require__(/*! ./pages/dashboard/front-desk/form-printing-page/form-printing-page.component */ "./src/app/pages/dashboard/front-desk/form-printing-page/form-printing-page.component.ts");
+/* harmony import */ var _pages_forgot_password_page_forgot_password_page_component__WEBPACK_IMPORTED_MODULE_97__ = __webpack_require__(/*! ./pages/forgot-password-page/forgot-password-page.component */ "./src/app/pages/forgot-password-page/forgot-password-page.component.ts");
+/* harmony import */ var _pages_dashboard_front_desk_form_printing_default_page_form_printing_default_page_component__WEBPACK_IMPORTED_MODULE_98__ = __webpack_require__(/*! ./pages/dashboard/front-desk/form-printing-default-page/form-printing-default-page.component */ "./src/app/pages/dashboard/front-desk/form-printing-default-page/form-printing-default-page.component.ts");
+/* harmony import */ var _pages_not_found_page_not_found_page_component__WEBPACK_IMPORTED_MODULE_99__ = __webpack_require__(/*! ./pages/not-found-page/not-found-page.component */ "./src/app/pages/not-found-page/not-found-page.component.ts");
+/* harmony import */ var _pages_dashboard_admin_admin_view_branch_admins_page_admin_view_branch_admins_page_component__WEBPACK_IMPORTED_MODULE_100__ = __webpack_require__(/*! ./pages/dashboard/admin/admin-view-branch-admins-page/admin-view-branch-admins-page.component */ "./src/app/pages/dashboard/admin/admin-view-branch-admins-page/admin-view-branch-admins-page.component.ts");
+/* harmony import */ var _pages_dashboard_admin_admin_view_company_admins_page_admin_view_company_admins_page_component__WEBPACK_IMPORTED_MODULE_101__ = __webpack_require__(/*! ./pages/dashboard/admin/admin-view-company-admins-page/admin-view-company-admins-page.component */ "./src/app/pages/dashboard/admin/admin-view-company-admins-page/admin-view-company-admins-page.component.ts");
+/* harmony import */ var _pages_dashboard_admin_admin_view_branch_executives_page_admin_view_branch_executives_page_component__WEBPACK_IMPORTED_MODULE_102__ = __webpack_require__(/*! ./pages/dashboard/admin/admin-view-branch-executives-page/admin-view-branch-executives-page.component */ "./src/app/pages/dashboard/admin/admin-view-branch-executives-page/admin-view-branch-executives-page.component.ts");
+/* harmony import */ var _pages_dashboard_admin_admin_view_company_executives_page_admin_view_company_executives_page_component__WEBPACK_IMPORTED_MODULE_103__ = __webpack_require__(/*! ./pages/dashboard/admin/admin-view-company-executives-page/admin-view-company-executives-page.component */ "./src/app/pages/dashboard/admin/admin-view-company-executives-page/admin-view-company-executives-page.component.ts");
+/* harmony import */ var _pages_dashboard_front_desk_front_desk_clients_form_data_page_front_desk_clients_form_data_page_component__WEBPACK_IMPORTED_MODULE_104__ = __webpack_require__(/*! ./pages/dashboard/front-desk/front-desk-clients-form-data-page/front-desk-clients-form-data-page.component */ "./src/app/pages/dashboard/front-desk/front-desk-clients-form-data-page/front-desk-clients-form-data-page.component.ts");
+/* harmony import */ var _pages_invalid_confirmation_page_invalid_confirmation_page_component__WEBPACK_IMPORTED_MODULE_105__ = __webpack_require__(/*! ./pages/invalid-confirmation-page/invalid-confirmation-page.component */ "./src/app/pages/invalid-confirmation-page/invalid-confirmation-page.component.ts");
+/* harmony import */ var _pages_dashboard_front_desk_front_desk_clients_form_page_front_desk_clients_form_page_component__WEBPACK_IMPORTED_MODULE_106__ = __webpack_require__(/*! ./pages/dashboard/front-desk/front-desk-clients-form-page/front-desk-clients-form-page.component */ "./src/app/pages/dashboard/front-desk/front-desk-clients-form-page/front-desk-clients-form-page.component.ts");
+/* harmony import */ var _pages_dashboard_executive_exec_client_forms_page_exec_client_forms_page_component__WEBPACK_IMPORTED_MODULE_107__ = __webpack_require__(/*! ./pages/dashboard/executive/exec-client-forms-page/exec-client-forms-page.component */ "./src/app/pages/dashboard/executive/exec-client-forms-page/exec-client-forms-page.component.ts");
+/* harmony import */ var _pages_dashboard_executive_exec_clients_forms_data_page_exec_clients_forms_data_page_component__WEBPACK_IMPORTED_MODULE_108__ = __webpack_require__(/*! ./pages/dashboard/executive/exec-clients-forms-data-page/exec-clients-forms-data-page.component */ "./src/app/pages/dashboard/executive/exec-clients-forms-data-page/exec-clients-forms-data-page.component.ts");
+/* harmony import */ var _pages_dashboard_client_client_form_link_page_client_form_link_page_component__WEBPACK_IMPORTED_MODULE_109__ = __webpack_require__(/*! ./pages/dashboard/client/client-form-link-page/client-form-link-page.component */ "./src/app/pages/dashboard/client/client-form-link-page/client-form-link-page.component.ts");
+/* harmony import */ var _pages_dashboard_client_client_form_link_redirect_page_client_form_link_redirect_page_component__WEBPACK_IMPORTED_MODULE_110__ = __webpack_require__(/*! ./pages/dashboard/client/client-form-link-redirect-page/client-form-link-redirect-page.component */ "./src/app/pages/dashboard/client/client-form-link-redirect-page/client-form-link-redirect-page.component.ts");
+/* harmony import */ var _pages_reset_password_page_reset_password_page_component__WEBPACK_IMPORTED_MODULE_111__ = __webpack_require__(/*! ./pages/reset-password-page/reset-password-page.component */ "./src/app/pages/reset-password-page/reset-password-page.component.ts");
+/* harmony import */ var _pages_dashboard_client_client_settings_page_client_settings_page_component__WEBPACK_IMPORTED_MODULE_112__ = __webpack_require__(/*! ./pages/dashboard/client/client-settings-page/client-settings-page.component */ "./src/app/pages/dashboard/client/client-settings-page/client-settings-page.component.ts");
+/* harmony import */ var _pages_account_verified_page_account_verified_page_component__WEBPACK_IMPORTED_MODULE_113__ = __webpack_require__(/*! ./pages/account-verified-page/account-verified-page.component */ "./src/app/pages/account-verified-page/account-verified-page.component.ts");
+/* harmony import */ var _pages_email_reset_password_page_email_reset_password_page_component__WEBPACK_IMPORTED_MODULE_114__ = __webpack_require__(/*! ./pages/email-reset-password-page/email-reset-password-page.component */ "./src/app/pages/email-reset-password-page/email-reset-password-page.component.ts");
+/* harmony import */ var _pages_dashboard_front_desk_front_desk_rejected_forms_list_page_front_desk_rejected_forms_list_page_component__WEBPACK_IMPORTED_MODULE_115__ = __webpack_require__(/*! ./pages/dashboard/front-desk/front-desk-rejected-forms-list-page/front-desk-rejected-forms-list-page.component */ "./src/app/pages/dashboard/front-desk/front-desk-rejected-forms-list-page/front-desk-rejected-forms-list-page.component.ts");
+/* harmony import */ var _pages_dashboard_admin_admin_settings_page_admin_settings_page_component__WEBPACK_IMPORTED_MODULE_116__ = __webpack_require__(/*! ./pages/dashboard/admin/admin-settings-page/admin-settings-page.component */ "./src/app/pages/dashboard/admin/admin-settings-page/admin-settings-page.component.ts");
+/* harmony import */ var _pages_dashboard_executive_executive_printing_page_executive_printing_page_component__WEBPACK_IMPORTED_MODULE_117__ = __webpack_require__(/*! ./pages/dashboard/executive/executive-printing-page/executive-printing-page.component */ "./src/app/pages/dashboard/executive/executive-printing-page/executive-printing-page.component.ts");
+/* harmony import */ var _pages_dashboard_executive_executive_pdf_printing_page_executive_pdf_printing_page_component__WEBPACK_IMPORTED_MODULE_118__ = __webpack_require__(/*! ./pages/dashboard/executive/executive-pdf-printing-page/executive-pdf-printing-page.component */ "./src/app/pages/dashboard/executive/executive-pdf-printing-page/executive-pdf-printing-page.component.ts");
+/* harmony import */ var _pages_dashboard_client_client_printing_page_client_printing_page_component__WEBPACK_IMPORTED_MODULE_119__ = __webpack_require__(/*! ./pages/dashboard/client/client-printing-page/client-printing-page.component */ "./src/app/pages/dashboard/client/client-printing-page/client-printing-page.component.ts");
+/* harmony import */ var _pages_dashboard_client_client_pdf_printing_page_client_pdf_printing_page_component__WEBPACK_IMPORTED_MODULE_120__ = __webpack_require__(/*! ./pages/dashboard/client/client-pdf-printing-page/client-pdf-printing-page.component */ "./src/app/pages/dashboard/client/client-pdf-printing-page/client-pdf-printing-page.component.ts");
+/* harmony import */ var _pages_invalid_password_reset_page_invalid_password_reset_page_component__WEBPACK_IMPORTED_MODULE_121__ = __webpack_require__(/*! ./pages/invalid-password-reset-page/invalid-password-reset-page.component */ "./src/app/pages/invalid-password-reset-page/invalid-password-reset-page.component.ts");
+/* harmony import */ var _pages_dashboard_client_client_form_new_entry_page_client_form_new_entry_page_component__WEBPACK_IMPORTED_MODULE_122__ = __webpack_require__(/*! ./pages/dashboard/client/client-form-new-entry-page/client-form-new-entry-page.component */ "./src/app/pages/dashboard/client/client-form-new-entry-page/client-form-new-entry-page.component.ts");
+/* harmony import */ var _pages_dashboard_executive_exec_rejected_forms_list_page_exec_rejected_forms_list_page_component__WEBPACK_IMPORTED_MODULE_123__ = __webpack_require__(/*! ./pages/dashboard/executive/exec-rejected-forms-list-page/exec-rejected-forms-list-page.component */ "./src/app/pages/dashboard/executive/exec-rejected-forms-list-page/exec-rejected-forms-list-page.component.ts");
+/* harmony import */ var _pages_dashboard_executive_exec_view_account_details_page_exec_view_account_details_page_component__WEBPACK_IMPORTED_MODULE_124__ = __webpack_require__(/*! ./pages/dashboard/executive/exec-view-account-details-page/exec-view-account-details-page.component */ "./src/app/pages/dashboard/executive/exec-view-account-details-page/exec-view-account-details-page.component.ts");
+/* harmony import */ var _pages_dashboard_executive_exec_view_branch_admins_page_exec_view_branch_admins_page_component__WEBPACK_IMPORTED_MODULE_125__ = __webpack_require__(/*! ./pages/dashboard/executive/exec-view-branch-admins-page/exec-view-branch-admins-page.component */ "./src/app/pages/dashboard/executive/exec-view-branch-admins-page/exec-view-branch-admins-page.component.ts");
+/* harmony import */ var _pages_dashboard_executive_exec_view_company_admins_page_exec_view_company_admins_page_component__WEBPACK_IMPORTED_MODULE_126__ = __webpack_require__(/*! ./pages/dashboard/executive/exec-view-company-admins-page/exec-view-company-admins-page.component */ "./src/app/pages/dashboard/executive/exec-view-company-admins-page/exec-view-company-admins-page.component.ts");
+/* harmony import */ var _pages_dashboard_executive_exec_view_super_exectives_page_exec_view_super_exectives_page_component__WEBPACK_IMPORTED_MODULE_127__ = __webpack_require__(/*! ./pages/dashboard/executive/exec-view-super-exectives-page/exec-view-super-exectives-page.component */ "./src/app/pages/dashboard/executive/exec-view-super-exectives-page/exec-view-super-exectives-page.component.ts");
+/* harmony import */ var _pages_dashboard_executive_exec_view_branch_exectives_page_exec_view_branch_exectives_page_component__WEBPACK_IMPORTED_MODULE_128__ = __webpack_require__(/*! ./pages/dashboard/executive/exec-view-branch-exectives-page/exec-view-branch-exectives-page.component */ "./src/app/pages/dashboard/executive/exec-view-branch-exectives-page/exec-view-branch-exectives-page.component.ts");
+/* harmony import */ var _pages_dashboard_executive_exec_view_front_desks_page_exec_view_front_desks_page_component__WEBPACK_IMPORTED_MODULE_129__ = __webpack_require__(/*! ./pages/dashboard/executive/exec-view-front-desks-page/exec-view-front-desks-page.component */ "./src/app/pages/dashboard/executive/exec-view-front-desks-page/exec-view-front-desks-page.component.ts");
+/* harmony import */ var _components_forms_country_picker_forms_country_picker_component__WEBPACK_IMPORTED_MODULE_130__ = __webpack_require__(/*! ./components/forms-country-picker/forms-country-picker.component */ "./src/app/components/forms-country-picker/forms-country-picker.component.ts");
+/* harmony import */ var _pages_dashboard_client_client_favorite_forms_page_client_favorite_forms_page_component__WEBPACK_IMPORTED_MODULE_131__ = __webpack_require__(/*! ./pages/dashboard/client/client-favorite-forms-page/client-favorite-forms-page.component */ "./src/app/pages/dashboard/client/client-favorite-forms-page/client-favorite-forms-page.component.ts");
+/* harmony import */ var _pages_dashboard_client_client_suggest_merchant_page_client_suggest_merchant_page_component__WEBPACK_IMPORTED_MODULE_132__ = __webpack_require__(/*! ./pages/dashboard/client/client-suggest-merchant-page/client-suggest-merchant-page.component */ "./src/app/pages/dashboard/client/client-suggest-merchant-page/client-suggest-merchant-page.component.ts");
+/* harmony import */ var _pages_dashboard_client_client_deleted_forms_page_client_deleted_forms_page_component__WEBPACK_IMPORTED_MODULE_133__ = __webpack_require__(/*! ./pages/dashboard/client/client-deleted-forms-page/client-deleted-forms-page.component */ "./src/app/pages/dashboard/client/client-deleted-forms-page/client-deleted-forms-page.component.ts");
+/* harmony import */ var _pages_dashboard_git_admin_create_sector_page_create_sector_page_component__WEBPACK_IMPORTED_MODULE_134__ = __webpack_require__(/*! ./pages/dashboard/git-admin/create-sector-page/create-sector-page.component */ "./src/app/pages/dashboard/git-admin/create-sector-page/create-sector-page.component.ts");
+/* harmony import */ var _pages_dashboard_git_admin_view_sector_list_page_view_sector_list_page_component__WEBPACK_IMPORTED_MODULE_135__ = __webpack_require__(/*! ./pages/dashboard/git-admin/view-sector-list-page/view-sector-list-page.component */ "./src/app/pages/dashboard/git-admin/view-sector-list-page/view-sector-list-page.component.ts");
+/* harmony import */ var _pages_dashboard_git_admin_edit_sector_page_edit_sector_page_component__WEBPACK_IMPORTED_MODULE_136__ = __webpack_require__(/*! ./pages/dashboard/git-admin/edit-sector-page/edit-sector-page.component */ "./src/app/pages/dashboard/git-admin/edit-sector-page/edit-sector-page.component.ts");
+/* harmony import */ var _pages_reset_pin_page_reset_pin_page_component__WEBPACK_IMPORTED_MODULE_137__ = __webpack_require__(/*! ./pages/reset-pin-page/reset-pin-page.component */ "./src/app/pages/reset-pin-page/reset-pin-page.component.ts");
+/* harmony import */ var _pages_invalid_reset_pin_page_invalid_reset_pin_page_component__WEBPACK_IMPORTED_MODULE_138__ = __webpack_require__(/*! ./pages/invalid-reset-pin-page/invalid-reset-pin-page.component */ "./src/app/pages/invalid-reset-pin-page/invalid-reset-pin-page.component.ts");
+/* harmony import */ var _pages_invalid_link_page_invalid_link_page_component__WEBPACK_IMPORTED_MODULE_139__ = __webpack_require__(/*! ./pages/invalid-link-page/invalid-link-page.component */ "./src/app/pages/invalid-link-page/invalid-link-page.component.ts");
+/* harmony import */ var _components_join_queue_dialog_join_queue_dialog_component__WEBPACK_IMPORTED_MODULE_140__ = __webpack_require__(/*! ./components/join-queue-dialog/join-queue-dialog.component */ "./src/app/components/join-queue-dialog/join-queue-dialog.component.ts");
+/* harmony import */ var _components_already_joined_queue_dialog_already_joined_queue_dialog_component__WEBPACK_IMPORTED_MODULE_141__ = __webpack_require__(/*! ./components/already-joined-queue-dialog/already-joined-queue-dialog.component */ "./src/app/components/already-joined-queue-dialog/already-joined-queue-dialog.component.ts");
+
 
 
 
@@ -2823,159 +2826,160 @@ __webpack_require__.r(__webpack_exports__);
 let AppModule = class AppModule {
 };
 AppModule = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
-    Object(_angular_core__WEBPACK_IMPORTED_MODULE_2__["NgModule"])({
+    Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["NgModule"])({
         declarations: [
-            _app_component__WEBPACK_IMPORTED_MODULE_17__["AppComponent"],
-            _components_side_bar_side_bar_component__WEBPACK_IMPORTED_MODULE_18__["SideBarComponent"],
-            _components_footer_bar_footer_bar_component__WEBPACK_IMPORTED_MODULE_19__["FooterBarComponent"],
-            _components_navigation_bar_navigation_bar_component__WEBPACK_IMPORTED_MODULE_20__["NavigationBarComponent"],
+            _app_component__WEBPACK_IMPORTED_MODULE_18__["AppComponent"],
+            _components_side_bar_side_bar_component__WEBPACK_IMPORTED_MODULE_19__["SideBarComponent"],
+            _components_footer_bar_footer_bar_component__WEBPACK_IMPORTED_MODULE_20__["FooterBarComponent"],
+            _components_navigation_bar_navigation_bar_component__WEBPACK_IMPORTED_MODULE_24__["NavigationBarComponent"],
             _pages_login_page_login_page_component__WEBPACK_IMPORTED_MODULE_21__["LoginPageComponent"],
             _pages_welcome_page_welcome_page_component__WEBPACK_IMPORTED_MODULE_22__["WelcomePageComponent"],
             _pages_register_page_register_page_component__WEBPACK_IMPORTED_MODULE_23__["RegisterPageComponent"],
-            _pages_dashboard_git_admin_home_page_home_page_component__WEBPACK_IMPORTED_MODULE_24__["HomePageComponent"],
-            _pages_dashboard_git_admin_create_form_page_create_form_page_component__WEBPACK_IMPORTED_MODULE_26__["CreateFormPageComponent"],
-            _pages_dashboard_client_client_home_page_client_home_page_component__WEBPACK_IMPORTED_MODULE_25__["ClientHomePageComponent"],
-            _pages_dashboard_client_client_form_merchants_page_client_form_merchants_page_component__WEBPACK_IMPORTED_MODULE_27__["ClientFormMerchantsPageComponent"],
-            _pages_dashboard_client_client_list_forms_page_client_list_forms_page_component__WEBPACK_IMPORTED_MODULE_28__["ClientListFormsPageComponent"],
-            _pages_dashboard_front_desk_front_desk_home_page_front_desk_home_page_component__WEBPACK_IMPORTED_MODULE_29__["FrontDesktopHomePageComponent"],
-            _pages_dashboard_git_admin_create_company_page_create_company_page_component__WEBPACK_IMPORTED_MODULE_30__["CreateCompanyPageComponent"],
-            _pages_dashboard_git_admin_create_branch_page_create_branch_page_component__WEBPACK_IMPORTED_MODULE_31__["CreateBranchPageComponent"],
-            _pages_dashboard_executive_executive_home_page_executive_home_page_component__WEBPACK_IMPORTED_MODULE_32__["ExecutiveHomePageComponent"],
-            _pages_dashboard_executive_exec_submitted_forms_list_page_exec_submitted_forms_list_page_component__WEBPACK_IMPORTED_MODULE_33__["ExecSubmittedFormsListPageComponent"],
-            _pages_dashboard_executive_exec_processed_forms_list_page_exec_processed_forms_list_page_component__WEBPACK_IMPORTED_MODULE_34__["ExecProcessedFormsListPageComponent"],
-            _pages_dashboard_executive_exec_in_processed_forms_list_page_exec_in_processed_forms_list_page_component__WEBPACK_IMPORTED_MODULE_35__["ExecInProcessedFormsListPageComponent"],
-            _pages_dashboard_admin_admin_home_page_admin_home_page_component__WEBPACK_IMPORTED_MODULE_36__["AdminHomePageComponent"],
-            _pages_dashboard_client_client_forms_history_page_client_forms_history_page_component__WEBPACK_IMPORTED_MODULE_37__["ClientFormsHistoryPageComponent"],
-            _pages_dashboard_client_client_forms_entry_page_client_forms_entry_page_component__WEBPACK_IMPORTED_MODULE_38__["ClientFormsEntryPageComponent"],
-            _pages_dashboard_front_desk_front_desk_view_form_page_front_desk_view_form_page_component__WEBPACK_IMPORTED_MODULE_39__["FrontDeskViewFormPageComponent"],
-            _pages_dashboard_admin_admin_form_lists_page_admin_form_lists_page_component__WEBPACK_IMPORTED_MODULE_40__["AdminFormListsPageComponent"],
-            _pages_dashboard_admin_admin_form_edit_page_admin_form_edit_page_component__WEBPACK_IMPORTED_MODULE_41__["AdminFormEditPageComponent"],
-            _pages_dashboard_admin_admin_form_view_page_admin_form_view_page_component__WEBPACK_IMPORTED_MODULE_42__["AdminFormViewPageComponent"],
-            _pages_dashboard_git_admin_edit_form_page_edit_form_page_component__WEBPACK_IMPORTED_MODULE_43__["EditFormPageComponent"],
-            _pages_dashboard_git_admin_edit_branch_page_edit_branch_page_component__WEBPACK_IMPORTED_MODULE_44__["EditBranchPageComponent"],
-            _pages_dashboard_git_admin_edit_company_page_edit_company_page_component__WEBPACK_IMPORTED_MODULE_45__["EditCompanyPageComponent"],
-            _pages_dashboard_git_admin_view_admin_lists_page_view_admin_lists_page_component__WEBPACK_IMPORTED_MODULE_46__["ViewAdminListsPageComponent"],
-            _pages_dashboard_git_admin_view_branch_lists_page_view_branch_lists_page_component__WEBPACK_IMPORTED_MODULE_47__["ViewBranchListsPageComponent"],
-            _pages_dashboard_git_admin_view_company_lists_page_view_company_lists_page_component__WEBPACK_IMPORTED_MODULE_48__["ViewCompanyListsPageComponent"],
-            _pages_dashboard_git_admin_view_executive_lists_page_view_executive_lists_page_component__WEBPACK_IMPORTED_MODULE_49__["ViewExecutiveListsPageComponent"],
-            _pages_dashboard_front_desk_front_desk_submitted_forms_list_page_front_desk_submitted_forms_list_page_component__WEBPACK_IMPORTED_MODULE_50__["FrontDeskSubmittedFormsListPageComponent"],
-            _pages_dashboard_front_desk_front_desk_processed_forms_list_page_front_desk_processed_forms_list_page_component__WEBPACK_IMPORTED_MODULE_51__["FrontDeskProcessedFormsListPageComponent"],
-            _pages_dashboard_front_desk_front_desk_processing_forms_list_page_front_desk_processing_forms_list_page_component__WEBPACK_IMPORTED_MODULE_52__["FrontDeskProcessingFormsListPageComponent"],
-            _pages_admin_register_page_admin_register_page_component__WEBPACK_IMPORTED_MODULE_53__["AdminRegisterPageComponent"],
-            _pages_dashboard_user_account_creator_user_account_creator_component__WEBPACK_IMPORTED_MODULE_54__["UserAccountCreatorComponent"],
-            _pages_dashboard_git_admin_create_user_page_create_user_page_component__WEBPACK_IMPORTED_MODULE_55__["CreateUserAccountPageComponent"],
-            _pages_dashboard_git_admin_view_front_desk_lists_page_view_front_desk_lists_page_component__WEBPACK_IMPORTED_MODULE_56__["ViewFrontDeskListsPageComponent"],
-            _pages_dashboard_git_admin_view_company_admin_lists_page_view_company_admin_lists_page_component__WEBPACK_IMPORTED_MODULE_57__["ViewCompanyAdminListsPageComponent"],
-            _pages_dashboard_git_admin_view_account_lists_page_view_account_lists_page_component__WEBPACK_IMPORTED_MODULE_58__["ViewAccountListsPageComponent"],
-            _pages_dashboard_git_admin_view_branch_admin_lists_page_view_branch_admin_lists_page_component__WEBPACK_IMPORTED_MODULE_60__["ViewBranchAdminListsPageComponent"],
-            _pages_dashboard_git_admin_view_branch_executive_lists_page_view_branch_executive_lists_page_component__WEBPACK_IMPORTED_MODULE_61__["ViewBranchExecutiveListsPageComponent"],
-            _pages_dashboard_git_admin_edit_user_page_edit_user_page_component__WEBPACK_IMPORTED_MODULE_62__["EditUserPageComponent"],
-            _pages_dashboard_user_account_editor_user_account_editor_component__WEBPACK_IMPORTED_MODULE_63__["UserAccountEditorComponent"],
-            _pages_dashboard_git_admin_view_account_details_page_view_account_details_page_component__WEBPACK_IMPORTED_MODULE_64__["ViewAccountDetailsPageComponent"],
-            _pages_dashboard_git_admin_view_company_details_page_view_company_details_page_component__WEBPACK_IMPORTED_MODULE_65__["ViewCompanyDetailsPageComponent"],
-            _pages_dashboard_git_admin_view_branch_details_page_view_branch_details_page_component__WEBPACK_IMPORTED_MODULE_66__["ViewBranchDetailsPageComponent"],
-            _pages_dashboard_git_admin_view_form_lists_page_view_form_lists_page_component__WEBPACK_IMPORTED_MODULE_67__["ViewFormListsPageComponent"],
-            _pages_dashboard_git_admin_view_form_details_page_view_form_details_page_component__WEBPACK_IMPORTED_MODULE_68__["ViewFormDetailsPageComponent"],
-            _pages_dashboard_client_client_profile_page_client_profile_page_component__WEBPACK_IMPORTED_MODULE_69__["ClientProfilePageComponent"],
-            _pages_dashboard_form_templates_add_template_page_add_template_page_component__WEBPACK_IMPORTED_MODULE_70__["AddTemplatePageComponent"],
-            _pages_dashboard_form_templates_edit_template_page_edit_template_page_component__WEBPACK_IMPORTED_MODULE_71__["EditTemplatePageComponent"],
-            _pages_dashboard_form_templates_list_template_page_list_template_page_component__WEBPACK_IMPORTED_MODULE_72__["ListTemplatePageComponent"],
-            _pages_dashboard_form_templates_view_template_page_view_template_page_component__WEBPACK_IMPORTED_MODULE_73__["ViewTemplatePageComponent"],
-            _pages_dashboard_admin_admin_view_front_desks_page_admin_view_front_desks_page_component__WEBPACK_IMPORTED_MODULE_74__["AdminViewFrontDesksPageComponent"],
-            _pages_dashboard_admin_admin_view_branches_page_admin_view_branches_page_component__WEBPACK_IMPORTED_MODULE_75__["AdminViewBranchesPageComponent"],
-            _pages_dashboard_admin_admin_create_form_page_admin_create_form_page_component__WEBPACK_IMPORTED_MODULE_76__["AdminCreateFormPageComponent"],
-            _pages_dashboard_admin_admin_create_user_page_admin_create_user_page_component__WEBPACK_IMPORTED_MODULE_77__["AdminCreateUserPageComponent"],
-            _pages_dashboard_admin_admin_edit_user_page_admin_edit_user_page_component__WEBPACK_IMPORTED_MODULE_78__["AdminEditUserPageComponent"],
-            _pages_dashboard_admin_admin_view_account_details_page_admin_view_account_details_page_component__WEBPACK_IMPORTED_MODULE_79__["AdminViewAccountDetailsPageComponent"],
-            _pages_dashboard_admin_admin_view_branch_details_page_admin_view_branch_details_page_component__WEBPACK_IMPORTED_MODULE_80__["AdminViewBranchDetailsPageComponent"],
-            _pages_dashboard_git_admin_create_access_code_page_create_access_code_page_component__WEBPACK_IMPORTED_MODULE_81__["CreateAccessCodePageComponent"],
-            _pages_auth_page_auth_page_component__WEBPACK_IMPORTED_MODULE_82__["AuthPageComponent"],
-            _pages_admin_login_page_admin_login_page_component__WEBPACK_IMPORTED_MODULE_83__["AdminLoginPageComponent"],
-            _pages_dashboard_git_admin_create_section_page_create_section_page_component__WEBPACK_IMPORTED_MODULE_84__["CreateSectionPageComponent"],
-            _pages_dashboard_git_admin_edit_section_page_edit_section_page_component__WEBPACK_IMPORTED_MODULE_85__["EditSectionPageComponent"],
-            _pages_dashboard_git_admin_view_sections_page_view_sections_page_component__WEBPACK_IMPORTED_MODULE_86__["ViewSectionsPageComponent"],
-            _pages_dashboard_git_admin_view_access_code_page_view_access_code_page_component__WEBPACK_IMPORTED_MODULE_87__["ViewAccessCodePageComponent"],
-            _pages_dashboard_git_admin_edit_access_code_page_edit_access_code_page_component__WEBPACK_IMPORTED_MODULE_88__["EditAccessCodePageComponent"],
-            _pages_dashboard_front_desk_front_desk_preview_form_page_front_desk_preview_form_page_component__WEBPACK_IMPORTED_MODULE_89__["FrontDeskPreviewFormPageComponent"],
-            _pages_dashboard_executive_exec_branches_list_page_exec_branches_list_page_component__WEBPACK_IMPORTED_MODULE_90__["ExecBranchesListPageComponent"],
-            _pages_dashboard_executive_exec_accounts_list_page_exec_accounts_list_page_component__WEBPACK_IMPORTED_MODULE_91__["ExecAccountsListPageComponent"],
-            _pages_dashboard_executive_exec_forms_list_page_exec_forms_list_page_component__WEBPACK_IMPORTED_MODULE_92__["ExecFormsListPageComponent"],
-            _pages_change_password_page_change_password_page_component__WEBPACK_IMPORTED_MODULE_93__["ChangePasswordPageComponent"],
-            _pages_client_auth_page_client_auth_page_component__WEBPACK_IMPORTED_MODULE_94__["ClientAuthPageComponent"],
-            _pages_dashboard_front_desk_form_printing_page_form_printing_page_component__WEBPACK_IMPORTED_MODULE_95__["FormPrintingPageComponent"],
-            _pages_forgot_password_page_forgot_password_page_component__WEBPACK_IMPORTED_MODULE_96__["ForgotPasswordPageComponent"],
-            _pages_dashboard_front_desk_form_printing_default_page_form_printing_default_page_component__WEBPACK_IMPORTED_MODULE_97__["FormPrintingDefaultPageComponent"],
-            _pages_not_found_page_not_found_page_component__WEBPACK_IMPORTED_MODULE_98__["NotFoundPageComponent"],
-            _pages_dashboard_admin_admin_view_branch_admins_page_admin_view_branch_admins_page_component__WEBPACK_IMPORTED_MODULE_99__["AdminViewBranchAdminsPageComponent"],
-            _pages_dashboard_admin_admin_view_company_admins_page_admin_view_company_admins_page_component__WEBPACK_IMPORTED_MODULE_100__["AdminViewCompanyAdminsPageComponent"],
-            _pages_dashboard_admin_admin_view_branch_executives_page_admin_view_branch_executives_page_component__WEBPACK_IMPORTED_MODULE_101__["AdminViewBranchExecutivesPageComponent"],
-            _pages_dashboard_admin_admin_view_company_executives_page_admin_view_company_executives_page_component__WEBPACK_IMPORTED_MODULE_102__["AdminViewCompanyExecutivesPageComponent"],
-            _pages_dashboard_front_desk_front_desk_clients_form_data_page_front_desk_clients_form_data_page_component__WEBPACK_IMPORTED_MODULE_103__["FrontDeskClientsFormDataPageComponent"],
-            _pages_invalid_confirmation_page_invalid_confirmation_page_component__WEBPACK_IMPORTED_MODULE_104__["InvalidConfirmationPageComponent"],
-            _pages_dashboard_front_desk_front_desk_clients_form_page_front_desk_clients_form_page_component__WEBPACK_IMPORTED_MODULE_105__["FrontDeskClientsFormPageComponent"],
-            _pages_dashboard_executive_exec_client_forms_page_exec_client_forms_page_component__WEBPACK_IMPORTED_MODULE_106__["ExecClientFormsPageComponent"],
-            _pages_dashboard_executive_exec_clients_forms_data_page_exec_clients_forms_data_page_component__WEBPACK_IMPORTED_MODULE_107__["ExecClientsFormsDataPageComponent"],
-            _pages_dashboard_client_client_form_link_page_client_form_link_page_component__WEBPACK_IMPORTED_MODULE_108__["ClientFormLinkPageComponent"],
-            _pages_dashboard_client_client_form_link_redirect_page_client_form_link_redirect_page_component__WEBPACK_IMPORTED_MODULE_109__["ClientFormLinkRedirectPageComponent"],
-            _pages_reset_password_page_reset_password_page_component__WEBPACK_IMPORTED_MODULE_110__["ResetPasswordPageComponent"],
-            _pages_dashboard_client_client_settings_page_client_settings_page_component__WEBPACK_IMPORTED_MODULE_111__["ClientSettingsPageComponent"],
-            _pages_account_verified_page_account_verified_page_component__WEBPACK_IMPORTED_MODULE_112__["AccountVerifiedPageComponent"],
-            _pages_email_reset_password_page_email_reset_password_page_component__WEBPACK_IMPORTED_MODULE_113__["EmailResetPasswordPageComponent"],
-            _pages_dashboard_front_desk_front_desk_rejected_forms_list_page_front_desk_rejected_forms_list_page_component__WEBPACK_IMPORTED_MODULE_114__["FrontDeskRejectedFormsListPageComponent"],
-            _pages_dashboard_admin_admin_settings_page_admin_settings_page_component__WEBPACK_IMPORTED_MODULE_115__["AdminSettingsPageComponent"],
-            _pages_dashboard_executive_executive_printing_page_executive_printing_page_component__WEBPACK_IMPORTED_MODULE_116__["ExecutivePrintingPageComponent"],
-            _pages_dashboard_executive_executive_pdf_printing_page_executive_pdf_printing_page_component__WEBPACK_IMPORTED_MODULE_117__["ExecutivePdfPrintingPageComponent"],
-            _pages_dashboard_client_client_printing_page_client_printing_page_component__WEBPACK_IMPORTED_MODULE_118__["ClientPrintingPageComponent"],
-            _pages_dashboard_client_client_pdf_printing_page_client_pdf_printing_page_component__WEBPACK_IMPORTED_MODULE_119__["ClientPdfPrintingPageComponent"],
-            _pages_invalid_password_reset_page_invalid_password_reset_page_component__WEBPACK_IMPORTED_MODULE_120__["InvalidPasswordResetPageComponent"],
-            _pages_dashboard_client_client_form_new_entry_page_client_form_new_entry_page_component__WEBPACK_IMPORTED_MODULE_121__["ClientFormNewEntryPageComponent"],
-            _pages_dashboard_executive_exec_rejected_forms_list_page_exec_rejected_forms_list_page_component__WEBPACK_IMPORTED_MODULE_122__["ExecRejectedFormsListPageComponent"],
-            _pages_dashboard_executive_exec_view_account_details_page_exec_view_account_details_page_component__WEBPACK_IMPORTED_MODULE_123__["ExecViewAccountDetailsPageComponent"],
-            _pages_dashboard_executive_exec_view_branch_admins_page_exec_view_branch_admins_page_component__WEBPACK_IMPORTED_MODULE_124__["ExecViewBranchAdminsPageComponent"],
-            _pages_dashboard_executive_exec_view_company_admins_page_exec_view_company_admins_page_component__WEBPACK_IMPORTED_MODULE_125__["ExecViewCompanyAdminsPageComponent"],
-            _pages_dashboard_executive_exec_view_super_exectives_page_exec_view_super_exectives_page_component__WEBPACK_IMPORTED_MODULE_126__["ExecViewSuperExectivesPageComponent"],
-            _pages_dashboard_executive_exec_view_branch_exectives_page_exec_view_branch_exectives_page_component__WEBPACK_IMPORTED_MODULE_127__["ExecViewBranchExectivesPageComponent"],
-            _pages_dashboard_executive_exec_view_front_desks_page_exec_view_front_desks_page_component__WEBPACK_IMPORTED_MODULE_128__["ExecViewFrontDesksPageComponent"],
-            _components_forms_country_picker_forms_country_picker_component__WEBPACK_IMPORTED_MODULE_129__["FormsCountryPickerComponent"],
-            _pages_dashboard_client_client_favorite_forms_page_client_favorite_forms_page_component__WEBPACK_IMPORTED_MODULE_130__["ClientFavoriteFormsPageComponent"],
-            _pages_dashboard_client_client_suggest_merchant_page_client_suggest_merchant_page_component__WEBPACK_IMPORTED_MODULE_131__["ClientSuggestMerchantPageComponent"],
-            _pages_dashboard_client_client_deleted_forms_page_client_deleted_forms_page_component__WEBPACK_IMPORTED_MODULE_132__["ClientDeletedFormsPageComponent"],
-            _pages_dashboard_git_admin_create_sector_page_create_sector_page_component__WEBPACK_IMPORTED_MODULE_133__["CreateSectorPageComponent"],
-            _pages_dashboard_git_admin_view_sector_list_page_view_sector_list_page_component__WEBPACK_IMPORTED_MODULE_134__["ViewSectorListPageComponent"],
-            _pages_dashboard_git_admin_edit_sector_page_edit_sector_page_component__WEBPACK_IMPORTED_MODULE_135__["EditSectorPageComponent"],
-            _pages_reset_pin_page_reset_pin_page_component__WEBPACK_IMPORTED_MODULE_136__["ResetPinPageComponent"],
-            _pages_invalid_reset_pin_page_invalid_reset_pin_page_component__WEBPACK_IMPORTED_MODULE_137__["InvalidResetPinPageComponent"],
-            _pages_invalid_link_page_invalid_link_page_component__WEBPACK_IMPORTED_MODULE_138__["InvalidLinkPageComponent"],
-            _components_join_queue_dialog_join_queue_dialog_component__WEBPACK_IMPORTED_MODULE_139__["JoinQueueDialogComponent"],
-            _components_already_joined_queue_dialog_already_joined_queue_dialog_component__WEBPACK_IMPORTED_MODULE_140__["AlreadyJoinedQueueDialogComponent"],
+            _pages_dashboard_git_admin_home_page_home_page_component__WEBPACK_IMPORTED_MODULE_25__["HomePageComponent"],
+            _pages_dashboard_git_admin_create_form_page_create_form_page_component__WEBPACK_IMPORTED_MODULE_27__["CreateFormPageComponent"],
+            _pages_dashboard_client_client_home_page_client_home_page_component__WEBPACK_IMPORTED_MODULE_26__["ClientHomePageComponent"],
+            _pages_dashboard_client_client_form_merchants_page_client_form_merchants_page_component__WEBPACK_IMPORTED_MODULE_28__["ClientFormMerchantsPageComponent"],
+            _pages_dashboard_client_client_list_forms_page_client_list_forms_page_component__WEBPACK_IMPORTED_MODULE_29__["ClientListFormsPageComponent"],
+            _pages_dashboard_front_desk_front_desk_home_page_front_desk_home_page_component__WEBPACK_IMPORTED_MODULE_30__["FrontDesktopHomePageComponent"],
+            _pages_dashboard_git_admin_create_company_page_create_company_page_component__WEBPACK_IMPORTED_MODULE_31__["CreateCompanyPageComponent"],
+            _pages_dashboard_git_admin_create_branch_page_create_branch_page_component__WEBPACK_IMPORTED_MODULE_32__["CreateBranchPageComponent"],
+            _pages_dashboard_executive_executive_home_page_executive_home_page_component__WEBPACK_IMPORTED_MODULE_33__["ExecutiveHomePageComponent"],
+            _pages_dashboard_executive_exec_submitted_forms_list_page_exec_submitted_forms_list_page_component__WEBPACK_IMPORTED_MODULE_34__["ExecSubmittedFormsListPageComponent"],
+            _pages_dashboard_executive_exec_processed_forms_list_page_exec_processed_forms_list_page_component__WEBPACK_IMPORTED_MODULE_35__["ExecProcessedFormsListPageComponent"],
+            _pages_dashboard_executive_exec_in_processed_forms_list_page_exec_in_processed_forms_list_page_component__WEBPACK_IMPORTED_MODULE_36__["ExecInProcessedFormsListPageComponent"],
+            _pages_dashboard_admin_admin_home_page_admin_home_page_component__WEBPACK_IMPORTED_MODULE_37__["AdminHomePageComponent"],
+            _pages_dashboard_client_client_forms_history_page_client_forms_history_page_component__WEBPACK_IMPORTED_MODULE_38__["ClientFormsHistoryPageComponent"],
+            _pages_dashboard_client_client_forms_entry_page_client_forms_entry_page_component__WEBPACK_IMPORTED_MODULE_39__["ClientFormsEntryPageComponent"],
+            _pages_dashboard_front_desk_front_desk_view_form_page_front_desk_view_form_page_component__WEBPACK_IMPORTED_MODULE_40__["FrontDeskViewFormPageComponent"],
+            _pages_dashboard_admin_admin_form_lists_page_admin_form_lists_page_component__WEBPACK_IMPORTED_MODULE_41__["AdminFormListsPageComponent"],
+            _pages_dashboard_admin_admin_form_edit_page_admin_form_edit_page_component__WEBPACK_IMPORTED_MODULE_42__["AdminFormEditPageComponent"],
+            _pages_dashboard_admin_admin_form_view_page_admin_form_view_page_component__WEBPACK_IMPORTED_MODULE_43__["AdminFormViewPageComponent"],
+            _pages_dashboard_git_admin_edit_form_page_edit_form_page_component__WEBPACK_IMPORTED_MODULE_44__["EditFormPageComponent"],
+            _pages_dashboard_git_admin_edit_branch_page_edit_branch_page_component__WEBPACK_IMPORTED_MODULE_45__["EditBranchPageComponent"],
+            _pages_dashboard_git_admin_edit_company_page_edit_company_page_component__WEBPACK_IMPORTED_MODULE_46__["EditCompanyPageComponent"],
+            _pages_dashboard_git_admin_view_admin_lists_page_view_admin_lists_page_component__WEBPACK_IMPORTED_MODULE_47__["ViewAdminListsPageComponent"],
+            _pages_dashboard_git_admin_view_branch_lists_page_view_branch_lists_page_component__WEBPACK_IMPORTED_MODULE_48__["ViewBranchListsPageComponent"],
+            _pages_dashboard_git_admin_view_company_lists_page_view_company_lists_page_component__WEBPACK_IMPORTED_MODULE_49__["ViewCompanyListsPageComponent"],
+            _pages_dashboard_git_admin_view_executive_lists_page_view_executive_lists_page_component__WEBPACK_IMPORTED_MODULE_50__["ViewExecutiveListsPageComponent"],
+            _pages_dashboard_front_desk_front_desk_submitted_forms_list_page_front_desk_submitted_forms_list_page_component__WEBPACK_IMPORTED_MODULE_51__["FrontDeskSubmittedFormsListPageComponent"],
+            _pages_dashboard_front_desk_front_desk_processed_forms_list_page_front_desk_processed_forms_list_page_component__WEBPACK_IMPORTED_MODULE_52__["FrontDeskProcessedFormsListPageComponent"],
+            _pages_dashboard_front_desk_front_desk_processing_forms_list_page_front_desk_processing_forms_list_page_component__WEBPACK_IMPORTED_MODULE_53__["FrontDeskProcessingFormsListPageComponent"],
+            _pages_admin_register_page_admin_register_page_component__WEBPACK_IMPORTED_MODULE_54__["AdminRegisterPageComponent"],
+            _pages_dashboard_user_account_creator_user_account_creator_component__WEBPACK_IMPORTED_MODULE_55__["UserAccountCreatorComponent"],
+            _pages_dashboard_git_admin_create_user_page_create_user_page_component__WEBPACK_IMPORTED_MODULE_56__["CreateUserAccountPageComponent"],
+            _pages_dashboard_git_admin_view_front_desk_lists_page_view_front_desk_lists_page_component__WEBPACK_IMPORTED_MODULE_57__["ViewFrontDeskListsPageComponent"],
+            _pages_dashboard_git_admin_view_company_admin_lists_page_view_company_admin_lists_page_component__WEBPACK_IMPORTED_MODULE_58__["ViewCompanyAdminListsPageComponent"],
+            _pages_dashboard_git_admin_view_account_lists_page_view_account_lists_page_component__WEBPACK_IMPORTED_MODULE_59__["ViewAccountListsPageComponent"],
+            _pages_dashboard_git_admin_view_branch_admin_lists_page_view_branch_admin_lists_page_component__WEBPACK_IMPORTED_MODULE_61__["ViewBranchAdminListsPageComponent"],
+            _pages_dashboard_git_admin_view_branch_executive_lists_page_view_branch_executive_lists_page_component__WEBPACK_IMPORTED_MODULE_62__["ViewBranchExecutiveListsPageComponent"],
+            _pages_dashboard_git_admin_edit_user_page_edit_user_page_component__WEBPACK_IMPORTED_MODULE_63__["EditUserPageComponent"],
+            _pages_dashboard_user_account_editor_user_account_editor_component__WEBPACK_IMPORTED_MODULE_64__["UserAccountEditorComponent"],
+            _pages_dashboard_git_admin_view_account_details_page_view_account_details_page_component__WEBPACK_IMPORTED_MODULE_65__["ViewAccountDetailsPageComponent"],
+            _pages_dashboard_git_admin_view_company_details_page_view_company_details_page_component__WEBPACK_IMPORTED_MODULE_66__["ViewCompanyDetailsPageComponent"],
+            _pages_dashboard_git_admin_view_branch_details_page_view_branch_details_page_component__WEBPACK_IMPORTED_MODULE_67__["ViewBranchDetailsPageComponent"],
+            _pages_dashboard_git_admin_view_form_lists_page_view_form_lists_page_component__WEBPACK_IMPORTED_MODULE_68__["ViewFormListsPageComponent"],
+            _pages_dashboard_git_admin_view_form_details_page_view_form_details_page_component__WEBPACK_IMPORTED_MODULE_69__["ViewFormDetailsPageComponent"],
+            _pages_dashboard_client_client_profile_page_client_profile_page_component__WEBPACK_IMPORTED_MODULE_70__["ClientProfilePageComponent"],
+            _pages_dashboard_form_templates_add_template_page_add_template_page_component__WEBPACK_IMPORTED_MODULE_71__["AddTemplatePageComponent"],
+            _pages_dashboard_form_templates_edit_template_page_edit_template_page_component__WEBPACK_IMPORTED_MODULE_72__["EditTemplatePageComponent"],
+            _pages_dashboard_form_templates_list_template_page_list_template_page_component__WEBPACK_IMPORTED_MODULE_73__["ListTemplatePageComponent"],
+            _pages_dashboard_form_templates_view_template_page_view_template_page_component__WEBPACK_IMPORTED_MODULE_74__["ViewTemplatePageComponent"],
+            _pages_dashboard_admin_admin_view_front_desks_page_admin_view_front_desks_page_component__WEBPACK_IMPORTED_MODULE_75__["AdminViewFrontDesksPageComponent"],
+            _pages_dashboard_admin_admin_view_branches_page_admin_view_branches_page_component__WEBPACK_IMPORTED_MODULE_76__["AdminViewBranchesPageComponent"],
+            _pages_dashboard_admin_admin_create_form_page_admin_create_form_page_component__WEBPACK_IMPORTED_MODULE_77__["AdminCreateFormPageComponent"],
+            _pages_dashboard_admin_admin_create_user_page_admin_create_user_page_component__WEBPACK_IMPORTED_MODULE_78__["AdminCreateUserPageComponent"],
+            _pages_dashboard_admin_admin_edit_user_page_admin_edit_user_page_component__WEBPACK_IMPORTED_MODULE_79__["AdminEditUserPageComponent"],
+            _pages_dashboard_admin_admin_view_account_details_page_admin_view_account_details_page_component__WEBPACK_IMPORTED_MODULE_80__["AdminViewAccountDetailsPageComponent"],
+            _pages_dashboard_admin_admin_view_branch_details_page_admin_view_branch_details_page_component__WEBPACK_IMPORTED_MODULE_81__["AdminViewBranchDetailsPageComponent"],
+            _pages_dashboard_git_admin_create_access_code_page_create_access_code_page_component__WEBPACK_IMPORTED_MODULE_82__["CreateAccessCodePageComponent"],
+            _pages_auth_page_auth_page_component__WEBPACK_IMPORTED_MODULE_83__["AuthPageComponent"],
+            _pages_admin_login_page_admin_login_page_component__WEBPACK_IMPORTED_MODULE_84__["AdminLoginPageComponent"],
+            _pages_dashboard_git_admin_create_section_page_create_section_page_component__WEBPACK_IMPORTED_MODULE_85__["CreateSectionPageComponent"],
+            _pages_dashboard_git_admin_edit_section_page_edit_section_page_component__WEBPACK_IMPORTED_MODULE_86__["EditSectionPageComponent"],
+            _pages_dashboard_git_admin_view_sections_page_view_sections_page_component__WEBPACK_IMPORTED_MODULE_87__["ViewSectionsPageComponent"],
+            _pages_dashboard_git_admin_view_access_code_page_view_access_code_page_component__WEBPACK_IMPORTED_MODULE_88__["ViewAccessCodePageComponent"],
+            _pages_dashboard_git_admin_edit_access_code_page_edit_access_code_page_component__WEBPACK_IMPORTED_MODULE_89__["EditAccessCodePageComponent"],
+            _pages_dashboard_front_desk_front_desk_preview_form_page_front_desk_preview_form_page_component__WEBPACK_IMPORTED_MODULE_90__["FrontDeskPreviewFormPageComponent"],
+            _pages_dashboard_executive_exec_branches_list_page_exec_branches_list_page_component__WEBPACK_IMPORTED_MODULE_91__["ExecBranchesListPageComponent"],
+            _pages_dashboard_executive_exec_accounts_list_page_exec_accounts_list_page_component__WEBPACK_IMPORTED_MODULE_92__["ExecAccountsListPageComponent"],
+            _pages_dashboard_executive_exec_forms_list_page_exec_forms_list_page_component__WEBPACK_IMPORTED_MODULE_93__["ExecFormsListPageComponent"],
+            _pages_change_password_page_change_password_page_component__WEBPACK_IMPORTED_MODULE_94__["ChangePasswordPageComponent"],
+            _pages_client_auth_page_client_auth_page_component__WEBPACK_IMPORTED_MODULE_95__["ClientAuthPageComponent"],
+            _pages_dashboard_front_desk_form_printing_page_form_printing_page_component__WEBPACK_IMPORTED_MODULE_96__["FormPrintingPageComponent"],
+            _pages_forgot_password_page_forgot_password_page_component__WEBPACK_IMPORTED_MODULE_97__["ForgotPasswordPageComponent"],
+            _pages_dashboard_front_desk_form_printing_default_page_form_printing_default_page_component__WEBPACK_IMPORTED_MODULE_98__["FormPrintingDefaultPageComponent"],
+            _pages_not_found_page_not_found_page_component__WEBPACK_IMPORTED_MODULE_99__["NotFoundPageComponent"],
+            _pages_dashboard_admin_admin_view_branch_admins_page_admin_view_branch_admins_page_component__WEBPACK_IMPORTED_MODULE_100__["AdminViewBranchAdminsPageComponent"],
+            _pages_dashboard_admin_admin_view_company_admins_page_admin_view_company_admins_page_component__WEBPACK_IMPORTED_MODULE_101__["AdminViewCompanyAdminsPageComponent"],
+            _pages_dashboard_admin_admin_view_branch_executives_page_admin_view_branch_executives_page_component__WEBPACK_IMPORTED_MODULE_102__["AdminViewBranchExecutivesPageComponent"],
+            _pages_dashboard_admin_admin_view_company_executives_page_admin_view_company_executives_page_component__WEBPACK_IMPORTED_MODULE_103__["AdminViewCompanyExecutivesPageComponent"],
+            _pages_dashboard_front_desk_front_desk_clients_form_data_page_front_desk_clients_form_data_page_component__WEBPACK_IMPORTED_MODULE_104__["FrontDeskClientsFormDataPageComponent"],
+            _pages_invalid_confirmation_page_invalid_confirmation_page_component__WEBPACK_IMPORTED_MODULE_105__["InvalidConfirmationPageComponent"],
+            _pages_dashboard_front_desk_front_desk_clients_form_page_front_desk_clients_form_page_component__WEBPACK_IMPORTED_MODULE_106__["FrontDeskClientsFormPageComponent"],
+            _pages_dashboard_executive_exec_client_forms_page_exec_client_forms_page_component__WEBPACK_IMPORTED_MODULE_107__["ExecClientFormsPageComponent"],
+            _pages_dashboard_executive_exec_clients_forms_data_page_exec_clients_forms_data_page_component__WEBPACK_IMPORTED_MODULE_108__["ExecClientsFormsDataPageComponent"],
+            _pages_dashboard_client_client_form_link_page_client_form_link_page_component__WEBPACK_IMPORTED_MODULE_109__["ClientFormLinkPageComponent"],
+            _pages_dashboard_client_client_form_link_redirect_page_client_form_link_redirect_page_component__WEBPACK_IMPORTED_MODULE_110__["ClientFormLinkRedirectPageComponent"],
+            _pages_reset_password_page_reset_password_page_component__WEBPACK_IMPORTED_MODULE_111__["ResetPasswordPageComponent"],
+            _pages_dashboard_client_client_settings_page_client_settings_page_component__WEBPACK_IMPORTED_MODULE_112__["ClientSettingsPageComponent"],
+            _pages_account_verified_page_account_verified_page_component__WEBPACK_IMPORTED_MODULE_113__["AccountVerifiedPageComponent"],
+            _pages_email_reset_password_page_email_reset_password_page_component__WEBPACK_IMPORTED_MODULE_114__["EmailResetPasswordPageComponent"],
+            _pages_dashboard_front_desk_front_desk_rejected_forms_list_page_front_desk_rejected_forms_list_page_component__WEBPACK_IMPORTED_MODULE_115__["FrontDeskRejectedFormsListPageComponent"],
+            _pages_dashboard_admin_admin_settings_page_admin_settings_page_component__WEBPACK_IMPORTED_MODULE_116__["AdminSettingsPageComponent"],
+            _pages_dashboard_executive_executive_printing_page_executive_printing_page_component__WEBPACK_IMPORTED_MODULE_117__["ExecutivePrintingPageComponent"],
+            _pages_dashboard_executive_executive_pdf_printing_page_executive_pdf_printing_page_component__WEBPACK_IMPORTED_MODULE_118__["ExecutivePdfPrintingPageComponent"],
+            _pages_dashboard_client_client_printing_page_client_printing_page_component__WEBPACK_IMPORTED_MODULE_119__["ClientPrintingPageComponent"],
+            _pages_dashboard_client_client_pdf_printing_page_client_pdf_printing_page_component__WEBPACK_IMPORTED_MODULE_120__["ClientPdfPrintingPageComponent"],
+            _pages_invalid_password_reset_page_invalid_password_reset_page_component__WEBPACK_IMPORTED_MODULE_121__["InvalidPasswordResetPageComponent"],
+            _pages_dashboard_client_client_form_new_entry_page_client_form_new_entry_page_component__WEBPACK_IMPORTED_MODULE_122__["ClientFormNewEntryPageComponent"],
+            _pages_dashboard_executive_exec_rejected_forms_list_page_exec_rejected_forms_list_page_component__WEBPACK_IMPORTED_MODULE_123__["ExecRejectedFormsListPageComponent"],
+            _pages_dashboard_executive_exec_view_account_details_page_exec_view_account_details_page_component__WEBPACK_IMPORTED_MODULE_124__["ExecViewAccountDetailsPageComponent"],
+            _pages_dashboard_executive_exec_view_branch_admins_page_exec_view_branch_admins_page_component__WEBPACK_IMPORTED_MODULE_125__["ExecViewBranchAdminsPageComponent"],
+            _pages_dashboard_executive_exec_view_company_admins_page_exec_view_company_admins_page_component__WEBPACK_IMPORTED_MODULE_126__["ExecViewCompanyAdminsPageComponent"],
+            _pages_dashboard_executive_exec_view_super_exectives_page_exec_view_super_exectives_page_component__WEBPACK_IMPORTED_MODULE_127__["ExecViewSuperExectivesPageComponent"],
+            _pages_dashboard_executive_exec_view_branch_exectives_page_exec_view_branch_exectives_page_component__WEBPACK_IMPORTED_MODULE_128__["ExecViewBranchExectivesPageComponent"],
+            _pages_dashboard_executive_exec_view_front_desks_page_exec_view_front_desks_page_component__WEBPACK_IMPORTED_MODULE_129__["ExecViewFrontDesksPageComponent"],
+            _components_forms_country_picker_forms_country_picker_component__WEBPACK_IMPORTED_MODULE_130__["FormsCountryPickerComponent"],
+            _pages_dashboard_client_client_favorite_forms_page_client_favorite_forms_page_component__WEBPACK_IMPORTED_MODULE_131__["ClientFavoriteFormsPageComponent"],
+            _pages_dashboard_client_client_suggest_merchant_page_client_suggest_merchant_page_component__WEBPACK_IMPORTED_MODULE_132__["ClientSuggestMerchantPageComponent"],
+            _pages_dashboard_client_client_deleted_forms_page_client_deleted_forms_page_component__WEBPACK_IMPORTED_MODULE_133__["ClientDeletedFormsPageComponent"],
+            _pages_dashboard_git_admin_create_sector_page_create_sector_page_component__WEBPACK_IMPORTED_MODULE_134__["CreateSectorPageComponent"],
+            _pages_dashboard_git_admin_view_sector_list_page_view_sector_list_page_component__WEBPACK_IMPORTED_MODULE_135__["ViewSectorListPageComponent"],
+            _pages_dashboard_git_admin_edit_sector_page_edit_sector_page_component__WEBPACK_IMPORTED_MODULE_136__["EditSectorPageComponent"],
+            _pages_reset_pin_page_reset_pin_page_component__WEBPACK_IMPORTED_MODULE_137__["ResetPinPageComponent"],
+            _pages_invalid_reset_pin_page_invalid_reset_pin_page_component__WEBPACK_IMPORTED_MODULE_138__["InvalidResetPinPageComponent"],
+            _pages_invalid_link_page_invalid_link_page_component__WEBPACK_IMPORTED_MODULE_139__["InvalidLinkPageComponent"],
+            _components_join_queue_dialog_join_queue_dialog_component__WEBPACK_IMPORTED_MODULE_140__["JoinQueueDialogComponent"],
+            _components_already_joined_queue_dialog_already_joined_queue_dialog_component__WEBPACK_IMPORTED_MODULE_141__["AlreadyJoinedQueueDialogComponent"],
         ],
         imports: [
-            _angular_platform_browser__WEBPACK_IMPORTED_MODULE_1__["BrowserModule"],
+            _angular_platform_browser__WEBPACK_IMPORTED_MODULE_2__["BrowserModule"],
             _angular_forms__WEBPACK_IMPORTED_MODULE_3__["FormsModule"],
-            _angular_common_http__WEBPACK_IMPORTED_MODULE_8__["HttpClientModule"],
-            _app_routing_module__WEBPACK_IMPORTED_MODULE_9__["AppRoutingModule"],
+            _angular_common_http__WEBPACK_IMPORTED_MODULE_9__["HttpClientModule"],
+            _app_routing_module__WEBPACK_IMPORTED_MODULE_10__["AppRoutingModule"],
             ngx_order_pipe__WEBPACK_IMPORTED_MODULE_4__["OrderModule"],
             ngx_clipboard__WEBPACK_IMPORTED_MODULE_5__["ClipboardModule"],
             ng2_pdf_viewer__WEBPACK_IMPORTED_MODULE_6__["PdfViewerModule"],
-            _ng_bootstrap_ng_bootstrap__WEBPACK_IMPORTED_MODULE_7__["NgbModule"],
-            _ng_bootstrap_ng_bootstrap__WEBPACK_IMPORTED_MODULE_7__["NgbAlertModule"],
-            _ng_bootstrap_ng_bootstrap__WEBPACK_IMPORTED_MODULE_7__["NgbModalModule"],
-            _angular_material_icon__WEBPACK_IMPORTED_MODULE_12__["MatIconModule"],
-            _angular_material_input__WEBPACK_IMPORTED_MODULE_13__["MatInputModule"],
-            _angular_material__WEBPACK_IMPORTED_MODULE_16__["MatSelectModule"],
+            ngx_signaturepad__WEBPACK_IMPORTED_MODULE_7__["SignaturePadModule"],
+            _ng_bootstrap_ng_bootstrap__WEBPACK_IMPORTED_MODULE_8__["NgbModule"],
+            _ng_bootstrap_ng_bootstrap__WEBPACK_IMPORTED_MODULE_8__["NgbAlertModule"],
+            _ng_bootstrap_ng_bootstrap__WEBPACK_IMPORTED_MODULE_8__["NgbModalModule"],
+            _angular_material_icon__WEBPACK_IMPORTED_MODULE_13__["MatIconModule"],
+            _angular_material_input__WEBPACK_IMPORTED_MODULE_14__["MatInputModule"],
+            _angular_material__WEBPACK_IMPORTED_MODULE_17__["MatSelectModule"],
             _angular_forms__WEBPACK_IMPORTED_MODULE_3__["ReactiveFormsModule"],
-            _angular_material_datepicker__WEBPACK_IMPORTED_MODULE_15__["MatDatepickerModule"],
-            _angular_material_core__WEBPACK_IMPORTED_MODULE_14__["MatNativeDateModule"],
-            _angular_material__WEBPACK_IMPORTED_MODULE_16__["MatAutocompleteModule"],
-            ngx_country_picker__WEBPACK_IMPORTED_MODULE_10__["CountryPickerModule"].forRoot({
+            _angular_material_datepicker__WEBPACK_IMPORTED_MODULE_16__["MatDatepickerModule"],
+            _angular_material_core__WEBPACK_IMPORTED_MODULE_15__["MatNativeDateModule"],
+            _angular_material__WEBPACK_IMPORTED_MODULE_17__["MatAutocompleteModule"],
+            ngx_country_picker__WEBPACK_IMPORTED_MODULE_11__["CountryPickerModule"].forRoot({
                 baseUrl: 'assets/',
                 filename: 'countries.json'
             }),
-            _angular_platform_browser_animations__WEBPACK_IMPORTED_MODULE_59__["BrowserAnimationsModule"],
-            ngx_page_scroll_core__WEBPACK_IMPORTED_MODULE_11__["NgxPageScrollCoreModule"]
+            _angular_platform_browser_animations__WEBPACK_IMPORTED_MODULE_60__["BrowserAnimationsModule"],
+            ngx_page_scroll_core__WEBPACK_IMPORTED_MODULE_12__["NgxPageScrollCoreModule"]
         ],
         providers: [],
-        bootstrap: [_app_component__WEBPACK_IMPORTED_MODULE_17__["AppComponent"]]
+        bootstrap: [_app_component__WEBPACK_IMPORTED_MODULE_18__["AppComponent"]]
     })
 ], AppModule);
 
@@ -3249,8 +3253,11 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var src_app_services_logging_logging_service__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! src/app/services/logging/logging.service */ "./src/app/services/logging/logging.service.ts");
 /* harmony import */ var src_app_services_qms_qmsqueueing_service__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! src/app/services/qms/qmsqueueing.service */ "./src/app/services/qms/qmsqueueing.service.ts");
 /* harmony import */ var src_app_services_date_time_date_time_service__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! src/app/services/date-time/date-time.service */ "./src/app/services/date-time/date-time.service.ts");
-/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm2015/core.js");
-/* harmony import */ var src_app_services_storage_local_storage_service__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! src/app/services/storage/local-storage.service */ "./src/app/services/storage/local-storage.service.ts");
+/* harmony import */ var src_app_services_storage_local_storage_service__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! src/app/services/storage/local-storage.service */ "./src/app/services/storage/local-storage.service.ts");
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm2015/core.js");
+/* harmony import */ var moment__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! moment */ "./node_modules/moment/moment.js");
+/* harmony import */ var moment__WEBPACK_IMPORTED_MODULE_9___default = /*#__PURE__*/__webpack_require__.n(moment__WEBPACK_IMPORTED_MODULE_9__);
+
 
 
 
@@ -3269,8 +3276,8 @@ let JoinQueueDialogComponent = class JoinQueueDialogComponent {
         this.dateTimeService = dateTimeService;
         this.localStorage = localStorage;
         this.qmsQueueService = qmsQueueService;
-        this.queueSkipped = new _angular_core__WEBPACK_IMPORTED_MODULE_7__["EventEmitter"]();
-        this.processCompleted = new _angular_core__WEBPACK_IMPORTED_MODULE_7__["EventEmitter"]();
+        this.queueSkipped = new _angular_core__WEBPACK_IMPORTED_MODULE_8__["EventEmitter"]();
+        this.processCompleted = new _angular_core__WEBPACK_IMPORTED_MODULE_8__["EventEmitter"]();
         this.servicesList = [];
         this.user = this.localStorage.getUser();
         this.getBranchServices();
@@ -3321,15 +3328,31 @@ let JoinQueueDialogComponent = class JoinQueueDialogComponent {
         this.modalService.dismissAll();
         this.modalService.open(this.alreadyJoinQueueDialog, { centered: true, backdrop: 'static', keyboard: false });
     }
+    validateTime(time) {
+        const now = new Date();
+        if (time.getHours() >= now.getHours()) {
+            if (time.getMinutes() >= now.getMinutes()) {
+                this.showInvalidTimeError = false;
+                return true;
+            }
+            else {
+                this.showInvalidTimeError = true;
+                return false;
+            }
+        }
+        else {
+            this.showInvalidTimeError = true;
+            return false;
+        }
+    }
     resolveDate() {
         const now = new Date();
         const month = now.getMonth() + 1;
         const date = now.getFullYear().toString() + '-' + month.toString() + '-' + now.getDate().toString();
         const formatted_date = this.dateTimeService.getDatePart(date);
-        this.logger.log('formttated_:: ' + formatted_date);
         const fullDateTime = formatted_date + ' ' + this.joinTime.value.hour +
             ':' + this.joinTime.value.minute + ':' + now.getSeconds();
-        this.logger.log('submitted_join_at: ' + fullDateTime);
+        this.logger.log('submitted_join_at: ' + moment__WEBPACK_IMPORTED_MODULE_9__(fullDateTime).format('YYYY-MM-DD hh:mm:ss'));
         return fullDateTime;
     }
     getFormData() {
@@ -3380,14 +3403,41 @@ let JoinQueueDialogComponent = class JoinQueueDialogComponent {
         this.time = { hour: hour, minute: minute, second: 0 };
         this.logger.log('current time: ' + JSON.stringify(this.time));
     }
+    getSelectedDateTime() {
+        const now = new Date();
+        const date = now.getDate();
+        const year = now.getFullYear();
+        const month = now.getMonth() + 1;
+        const time = this.f.joinTime.value == 0 ? now : new Date(year, month, date, this.time.hour, this.time.minute, this.time.second);
+        this.logger.log('now: ::' + now.getTime());
+        this.logger.log('selected: ::' + time.getTime());
+        return time;
+    }
     submit() {
         this.submitted = true;
-        if (this.form.valid) {
-            this.logger.log('ok, continue ...');
-            this.joinQueue();
+        if (this.f.joinTime.value == 'now') {
+            if (this.form.valid) {
+                this.logger.log('ok, continue ...');
+                this.joinQueue();
+            }
+            else {
+                this.logger.log('ooops, invalid');
+            }
         }
         else {
-            this.logger.log('ooops, invalid');
+            const selectedTime = this.getSelectedDateTime();
+            if (this.validateTime(selectedTime)) {
+                if (this.form.valid) {
+                    this.logger.log('ok, continue ...');
+                    this.joinQueue();
+                }
+                else {
+                    this.logger.log('ooops, invalid');
+                }
+            }
+            else {
+                this.logger.log('am ___here');
+            }
         }
     }
     doneProcessing(data) {
@@ -3407,23 +3457,23 @@ JoinQueueDialogComponent.ctorParameters = () => [
     { type: src_app_services_logging_logging_service__WEBPACK_IMPORTED_MODULE_4__["LoggingService"] },
     { type: _angular_forms__WEBPACK_IMPORTED_MODULE_3__["FormBuilder"] },
     { type: src_app_services_date_time_date_time_service__WEBPACK_IMPORTED_MODULE_6__["DateTimeService"] },
-    { type: src_app_services_storage_local_storage_service__WEBPACK_IMPORTED_MODULE_8__["LocalStorageService"] },
+    { type: src_app_services_storage_local_storage_service__WEBPACK_IMPORTED_MODULE_7__["LocalStorageService"] },
     { type: src_app_services_qms_qmsqueueing_service__WEBPACK_IMPORTED_MODULE_5__["QMSQueueingService"] }
 ];
 tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
-    Object(_angular_core__WEBPACK_IMPORTED_MODULE_7__["Input"])()
+    Object(_angular_core__WEBPACK_IMPORTED_MODULE_8__["Input"])()
 ], JoinQueueDialogComponent.prototype, "branchExtension", void 0);
 tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
-    Object(_angular_core__WEBPACK_IMPORTED_MODULE_7__["Output"])()
+    Object(_angular_core__WEBPACK_IMPORTED_MODULE_8__["Output"])()
 ], JoinQueueDialogComponent.prototype, "queueSkipped", void 0);
 tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
-    Object(_angular_core__WEBPACK_IMPORTED_MODULE_7__["Output"])()
+    Object(_angular_core__WEBPACK_IMPORTED_MODULE_8__["Output"])()
 ], JoinQueueDialogComponent.prototype, "processCompleted", void 0);
 tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
-    Object(_angular_core__WEBPACK_IMPORTED_MODULE_7__["ViewChild"])('alreadyJoinQueue', { static: false })
+    Object(_angular_core__WEBPACK_IMPORTED_MODULE_8__["ViewChild"])('alreadyJoinQueue', { static: false })
 ], JoinQueueDialogComponent.prototype, "alreadyJoinQueueDialog", void 0);
 JoinQueueDialogComponent = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
-    Object(_angular_core__WEBPACK_IMPORTED_MODULE_7__["Component"])({
+    Object(_angular_core__WEBPACK_IMPORTED_MODULE_8__["Component"])({
         selector: 'app-join-queue-dialog',
         template: __webpack_require__(/*! raw-loader!./join-queue-dialog.component.html */ "./node_modules/raw-loader/index.js!./src/app/components/join-queue-dialog/join-queue-dialog.component.html"),
         providers: [_ng_bootstrap_ng_bootstrap__WEBPACK_IMPORTED_MODULE_2__["NgbTimepickerConfig"], src_app_services_qms_qmsqueueing_service__WEBPACK_IMPORTED_MODULE_5__["QMSQueueingService"]],
@@ -3727,7 +3777,7 @@ CompanyBranches.ctorParameters = () => [
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "Forms", function() { return Forms; });
 class Forms {
-    constructor(form_code, name, merchant_id, form_fields, created_by, updated_by, status, can_view, join_queue, created_at, updated_at, deleted_at, deleted_by) {
+    constructor(form_code, name, merchant_id, form_fields, created_by, updated_by, status, can_view, join_queue, tnc, created_at, updated_at, deleted_at, deleted_by) {
         this.form_code = form_code;
         this.name = name;
         this.merchant_id = merchant_id;
@@ -3737,6 +3787,7 @@ class Forms {
         this.status = status;
         this.can_view = can_view;
         this.join_queue = join_queue;
+        this.tnc = tnc;
         this.created_at = created_at;
         this.updated_at = updated_at;
         this.deleted_at = deleted_at;
@@ -3748,6 +3799,7 @@ Forms.ctorParameters = () => [
     { type: String },
     { type: Number },
     { type: undefined },
+    { type: Number },
     { type: Number },
     { type: Number },
     { type: Number },
@@ -7840,10 +7892,12 @@ let ClientFormNewEntryPageComponent = class ClientFormNewEntryPageComponent {
         this.pinCode = '';
         this.formFiles = 0;
         this.branch_id = '';
+        this.tncContent = '';
         this.branchesList = [];
         this.submissionCode = '';
         this.attachmentKeys = [];
         this.attachmentFiles = [];
+        this.signatureImageUrl = '';
         this.existingAttachments = [];
         this.disableValidation = false;
         this.form = history.state.form;
@@ -7851,13 +7905,17 @@ let ClientFormNewEntryPageComponent = class ClientFormNewEntryPageComponent {
         this.user = this.localStorage.getUser();
         console.log('form: ' + JSON.stringify(this.form));
         console.log('submission_code: ' + this.form.submission_code);
+        this.hasTnc = this.form.tnc == 1 ? true : false;
+        this.requireSignature = this.form.require_signature == 1 ? true : false;
         this.getFormAttachments(this.user.id.toString());
         this.checkIfUserHasFormPin();
         this.generateSubmissionCode();
+        this.getFormTncContent();
     }
     ngOnInit() {
         this.initPinForm();
         this.renderForm();
+        this.initSignatureOptions();
     }
     ngAfterViewInit() {
         this.showMerchantBranchesDialog();
@@ -7874,6 +7932,27 @@ let ClientFormNewEntryPageComponent = class ClientFormNewEntryPageComponent {
         this.clientService.generateFormSubmissionCode().then(code => {
             this.submissionCode = code;
         });
+    }
+    initSignatureOptions() {
+        this.signaturePadOptions = {
+            'minWidth': 3,
+            'canvasWidth': 800,
+            'canvasHeight': 300
+        };
+    }
+    signatureClear() {
+        this.signaturePad.clear();
+    }
+    signatureDrawComplete() {
+        console.log(this.signaturePad.toDataURL());
+        this.signatureDataURL = this.signaturePad.toDataURL();
+    }
+    editSignature() {
+        this.hasSignature = false;
+        this.signatureClear();
+    }
+    restoreSignature() {
+        this.hasSignature = !this.hasSignature;
     }
     resolveStrCharacters(e) {
         const regExp = new RegExp(/^\d*\.?\d*$/);
@@ -7957,6 +8036,9 @@ let ClientFormNewEntryPageComponent = class ClientFormNewEntryPageComponent {
             ? alert('Select a branch to continue')
             : this.selectBranchDialogRef.close();
     }
+    openTncDialog() {
+        this.modalService.open(this.tncDialog, { centered: true, backdrop: 'static', keyboard: false, size: 'lg' });
+    }
     appendOnChangeEventToFileInput() {
         const all_inputs = document.querySelectorAll('input');
         lodash__WEBPACK_IMPORTED_MODULE_1__["forEach"](all_inputs, (input) => {
@@ -8014,6 +8096,16 @@ let ClientFormNewEntryPageComponent = class ClientFormNewEntryPageComponent {
         });
         return fileInputElements;
     }
+    getFormTncContent() {
+        if (this.hasTnc) {
+            console.log('reading tnc content ...');
+            this.clientService.getFormTNC(this.form.form_code).then(content => {
+                this.tncContent = content;
+            }, error => {
+                console.log('tnc content getting error');
+            });
+        }
+    }
     submitFormAndAttachments(user_data, updateProfile) {
         console.log('is submitting');
         const form_submission_code = this.submissionCodeReplacement == null ||
@@ -8049,9 +8141,32 @@ let ClientFormNewEntryPageComponent = class ClientFormNewEntryPageComponent {
         const user_data = this.getFormData();
         console.log(JSON.stringify(user_data));
         console.log('this form: ' + this.formBuilder.getFormUserData(user_data));
-        !this.disableValidation
-            ? this.submitFormWithValidation(user_data)
-            : this.submitFormWithoutValidation(user_data);
+        if (lodash__WEBPACK_IMPORTED_MODULE_1__["isEmpty"](this.signatureDataURL)) {
+            // signature wasn't changed, still using the same signature.
+            !this.disableValidation
+                ? this.submitFormWithValidation(user_data)
+                : this.submitFormWithoutValidation(user_data);
+        }
+        else {
+            // signature was changed, we need to handle it.
+            const key = 'signature';
+            const sigImgFile = this.fileUploadService.convertBase64ToFile(this.signatureDataURL, 'signature.png');
+            if (this.updateProfile) {
+                this.clientService.uploadProfileAttachment(this.user.id.toString(), key, sigImgFile).then(ok => {
+                    !this.disableValidation
+                        ? this.submitFormWithValidation(user_data)
+                        : this.submitFormWithoutValidation(user_data);
+                }, err => {
+                    console.log('error uploading signature:update*');
+                });
+            }
+            else {
+                // don't update the profile with the new signature
+                !this.disableValidation
+                    ? this.submitFormWithValidation(user_data)
+                    : this.submitFormWithoutValidation(user_data);
+            }
+        }
     }
     submitFormWithValidation(user_data) {
         const unfilled = this.clientService.validateFormFilled(user_data);
@@ -8075,7 +8190,9 @@ let ClientFormNewEntryPageComponent = class ClientFormNewEntryPageComponent {
         this.submitFormAndAttachments(user_data, this.updateProfile);
     }
     queueJoined(data) {
-        data == true ? this.created = true : this.created = false;
+        this.loading = false;
+        alert(data);
+        this.created = data == true ? true : false;
     }
     skipQueue(e) {
         console.log('am here');
@@ -8136,37 +8253,18 @@ let ClientFormNewEntryPageComponent = class ClientFormNewEntryPageComponent {
                 });
             }
             else {
+                this.loading = false;
                 this.modalService.dismissAll();
             }
         });
     }
     submit() {
-        this.loading = true;
-        const user_id = this.user.id.toString();
-        this.clientService.checkSubmittedFormStatus(user_id, this.form.form_code).then(res => {
-            console.log('success');
-            if (res.submitted == 0) {
-                this.modalService.open(this.confirmDialog, { centered: true }).result.then(result => {
-                    if (result == 'yes') {
-                        this.handlePinCode(true);
-                    }
-                    else if (result == 'no') {
-                        this.handlePinCode(false);
-                    }
-                    else {
-                        this.modalService.dismissAll();
-                        this.loading = false;
-                    }
-                });
-            }
-            else {
-                if (res.status == 0) {
-                    this.showSubmissionOptionsDialog(res.code);
-                }
-                else if (res.status == 1) {
-                    this.showMakeNewSubmissionDialog();
-                }
-                else {
+        if ((this.acceptedTnc && this.hasTnc) || !this.hasTnc) {
+            this.loading = true;
+            const user_id = this.user.id.toString();
+            this.clientService.checkSubmittedFormStatus(user_id, this.form.form_code).then(res => {
+                console.log('success');
+                if (res.submitted == 0) {
                     this.modalService.open(this.confirmDialog, { centered: true }).result.then(result => {
                         if (result == 'yes') {
                             this.handlePinCode(true);
@@ -8180,10 +8278,35 @@ let ClientFormNewEntryPageComponent = class ClientFormNewEntryPageComponent {
                         }
                     });
                 }
-            }
-        }, err => {
-            console.log('something went wrong');
-        });
+                else {
+                    if (res.status == 0) {
+                        this.showSubmissionOptionsDialog(res.code);
+                    }
+                    else if (res.status == 1) {
+                        this.showMakeNewSubmissionDialog();
+                    }
+                    else {
+                        this.modalService.open(this.confirmDialog, { centered: true }).result.then(result => {
+                            if (result == 'yes') {
+                                this.handlePinCode(true);
+                            }
+                            else if (result == 'no') {
+                                this.handlePinCode(false);
+                            }
+                            else {
+                                this.modalService.dismissAll();
+                                this.loading = false;
+                            }
+                        });
+                    }
+                }
+            }, err => {
+                console.log('something went wrong');
+            });
+        }
+        else {
+            alert('Please accept or decline the terms & conditions to continue');
+        }
     }
     showMerchantBranchesDialog() {
         if (this.form.can_view == 0) {
@@ -8431,44 +8554,55 @@ let ClientFormNewEntryPageComponent = class ClientFormNewEntryPageComponent {
         // checking the formFiles variable's value.
         console.log('doing upload');
         const num_of_attachments = this.formFiles;
-        if (num_of_attachments > 1) {
-            console.log('will do multiple uploads');
-            for (let i = 0; i < num_of_attachments; i++) {
-                this.uploadFormFile(this.attachmentKeys[i], user_data, updateProfile, submission_code, i);
-            }
-        }
-        else {
-            console.log('will do single upload');
-            console.log('attachments length: ' + this.attachmentFiles.length);
-            if (this.attachmentFiles.length == 0) {
-                console.log('no attachment');
-                if (this.existingAttachments.length > 0) {
-                    this.existingUpload(user_data, updateProfile, submission_code);
+        const key = 'signature';
+        const sigImgFile = this.fileUploadService.convertBase64ToFile(this.signatureDataURL, 'signature.png');
+        this.clientService.uploadFormAttachments(this.user.id.toString(), this.form.form_code, submission_code, key, sigImgFile).then(done => {
+            if (done) {
+                if (num_of_attachments > 1) {
+                    console.log('will do multiple uploads');
+                    for (let i = 0; i < num_of_attachments; i++) {
+                        this.uploadFormFile(this.attachmentKeys[i], user_data, updateProfile, submission_code, i);
+                    }
                 }
                 else {
-                    const update = updateProfile ? 1 : 0;
-                    const filled_data = this.formBuilder.getFormUserData(user_data);
-                    const updated_data = this.clientService.getUpdatedClientFormData(JSON.parse(filled_data), this.clientProfile);
-                    this.clientService.submitForm(lodash__WEBPACK_IMPORTED_MODULE_1__["toString"](this.user.id), this.form.form_code, this.clientProfile, JSON.parse(updated_data), update, submission_code, this.status, this.branch_id).then(ok => {
-                        if (ok) {
-                            this.loading = false;
-                            this.status == 0 ? this.created = true : this.saved = true;
+                    console.log('will do single upload');
+                    console.log('attachments length: ' + this.attachmentFiles.length);
+                    if (this.attachmentFiles.length == 0) {
+                        console.log('no attachment');
+                        if (this.existingAttachments.length > 0) {
+                            this.existingUpload(user_data, updateProfile, submission_code);
                         }
                         else {
-                            this.loading = false;
-                            console.log('form submission failed');
+                            const update = updateProfile ? 1 : 0;
+                            const filled_data = this.formBuilder.getFormUserData(user_data);
+                            const updated_data = this.clientService.getUpdatedClientFormData(JSON.parse(filled_data), this.clientProfile);
+                            this.clientService.submitForm(lodash__WEBPACK_IMPORTED_MODULE_1__["toString"](this.user.id), this.form.form_code, this.clientProfile, JSON.parse(updated_data), update, submission_code, this.status, this.branch_id).then(ok => {
+                                if (ok) {
+                                    this.loading = false;
+                                    if (this.status == 0) {
+                                        this.showJoinQueueDialog();
+                                    }
+                                    else {
+                                        this.saved = true;
+                                    }
+                                }
+                                else {
+                                    this.loading = false;
+                                    console.log('form submission failed');
+                                }
+                            }, err => {
+                                this.loading = false;
+                                console.log('form submission error 6');
+                            });
                         }
-                    }, err => {
-                        this.loading = false;
-                        console.log('form submission error 6');
-                    });
+                    }
+                    else {
+                        console.log('has attachment');
+                        this.uploadFormFile(this.attachmentKeys[0], user_data, updateProfile, submission_code);
+                    }
                 }
             }
-            else {
-                console.log('has attachment');
-                this.uploadFormFile(this.attachmentKeys[0], user_data, updateProfile, submission_code);
-            }
-        }
+        });
     }
     getFormAttachments(user_id) {
         console.log('getting attchment for currrent fomr');
@@ -8479,6 +8613,10 @@ let ClientFormNewEntryPageComponent = class ClientFormNewEntryPageComponent {
                 const attachments = [];
                 lodash__WEBPACK_IMPORTED_MODULE_1__["forEach"](res, (doc) => {
                     console.log('doc: ' + JSON.stringify(doc));
+                    if (doc.key == 'signature') {
+                        this.hasSignature = true;
+                        this.signatureImageUrl = this.endpointService.storageHost + '/attachments/' + doc.url;
+                    }
                     attachments.push(doc);
                 });
                 this.setFormAttachments(attachments);
@@ -8570,7 +8708,9 @@ let ClientFormNewEntryPageComponent = class ClientFormNewEntryPageComponent {
         window.history.back();
     }
     ok() {
-        this.router.navigateByUrl('/client/forms_filled');
+        this.saved == true
+            ? this.router.navigateByUrl('/client/forms_filled', { state: { form: this.form } })
+            : this.router.navigateByUrl('/client/forms_filled');
     }
     downloadDoc(url) {
         this.docDialogRef.close();
@@ -8579,6 +8719,14 @@ let ClientFormNewEntryPageComponent = class ClientFormNewEntryPageComponent {
     download(url) {
         const file_url = this.endpointService.apiHost + 'storage/attachments/' + url;
         this.downloadService.download(file_url);
+    }
+    acceptTnc() {
+        this.acceptedTnc = true;
+        this.modalService.dismissAll();
+    }
+    declineTnc() {
+        this.modalService.dismissAll();
+        window.history.back();
     }
 };
 ClientFormNewEntryPageComponent.ctorParameters = () => [
@@ -8602,8 +8750,14 @@ tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
     Object(_angular_core__WEBPACK_IMPORTED_MODULE_15__["ViewChild"])('setPin', { static: false })
 ], ClientFormNewEntryPageComponent.prototype, "setPinDialog", void 0);
 tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
+    Object(_angular_core__WEBPACK_IMPORTED_MODULE_15__["ViewChild"])('tncDialog', { static: false })
+], ClientFormNewEntryPageComponent.prototype, "tncDialog", void 0);
+tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
     Object(_angular_core__WEBPACK_IMPORTED_MODULE_15__["ViewChild"])('confirm', { static: false })
 ], ClientFormNewEntryPageComponent.prototype, "confirmDialog", void 0);
+tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
+    Object(_angular_core__WEBPACK_IMPORTED_MODULE_15__["ViewChild"])('signaturePad', { static: false })
+], ClientFormNewEntryPageComponent.prototype, "signaturePad", void 0);
 tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
     Object(_angular_core__WEBPACK_IMPORTED_MODULE_15__["ViewChild"])('joinQueue', { static: false })
 ], ClientFormNewEntryPageComponent.prototype, "joinQueueDialog", void 0);
@@ -8707,25 +8861,29 @@ let ClientFormsEntryPageComponent = class ClientFormsEntryPageComponent {
         this.pinCode = '';
         this.formFiles = 0;
         this.branchId = '';
+        this.tncContent = '';
         this.branchesList = [];
         this.submissionCode = '';
         this.attachmentKeys = [];
         this.attachmentFiles = [];
+        this.signatureImageUrl = '';
         this.existingAttachments = [];
         this.form = history.state.form;
         this.form = this.reloader.resolveDataLoss(this.form);
         this.user = this.localStorage.getUser();
         console.log('form: ' + JSON.stringify(this.form));
         console.log('submission_code: ' + this.form.submission_code);
-        !lodash__WEBPACK_IMPORTED_MODULE_1__["isUndefined"](this.form.submission_code)
-            ? this.getFormAttachments(this.form.submission_code)
-            : this.getAttachmentsForCurrentForm(this.user.id.toString());
+        this.hasTnc = this.form.tnc == 1 ? true : false;
+        this.requireSignature = this.form.require_signature == 1 ? true : false;
+        this.getAttachmentsForCurrentForm(this.user.id.toString());
         this.checkIfUserHasFormPin();
         this.generateSubmissionCode();
+        this.getFormTncContent();
     }
     ngOnInit() {
         this.initPinForm();
         this.renderForm();
+        this.initSignatureOptions();
     }
     ngAfterViewInit() {
         this.showMerchantBranchesDialog();
@@ -8737,6 +8895,27 @@ let ClientFormsEntryPageComponent = class ClientFormsEntryPageComponent {
         this.pinForm = this.fb.group({
             pin: ['', [_angular_forms__WEBPACK_IMPORTED_MODULE_6__["Validators"].minLength(4), _angular_forms__WEBPACK_IMPORTED_MODULE_6__["Validators"].required]]
         });
+    }
+    initSignatureOptions() {
+        this.signaturePadOptions = {
+            'minWidth': 3,
+            'canvasWidth': 800,
+            'canvasHeight': 300
+        };
+    }
+    signatureClear() {
+        this.signaturePad.clear();
+    }
+    signatureDrawComplete() {
+        console.log(this.signaturePad.toDataURL());
+        this.signatureDataURL = this.signaturePad.toDataURL();
+    }
+    editSignature() {
+        this.hasSignature = false;
+        this.signatureClear();
+    }
+    restoreSignature() {
+        this.hasSignature = !this.hasSignature;
     }
     generateSubmissionCode() {
         this.clientService.generateFormSubmissionCode().then(code => {
@@ -8816,9 +8995,9 @@ let ClientFormsEntryPageComponent = class ClientFormsEntryPageComponent {
         this.branchId == 0 || this.branchId == null
             ? alert('Select a branch to continue')
             : this.selectBranchDialogRef.close();
-        // this.branchId == 0 || this.branchId == null
-        //   ? alert('Select a branch to continue')
-        //   : this.selectBranchDialogRef.close();
+    }
+    openTncDialog() {
+        this.modalService.open(this.tncDialog, { centered: true, backdrop: 'static', keyboard: false, size: 'lg' });
     }
     appendOnChangeEventToFileInput() {
         const all_inputs = document.querySelectorAll('input');
@@ -8838,6 +9017,11 @@ let ClientFormsEntryPageComponent = class ClientFormsEntryPageComponent {
                 this.hasFile = true;
                 this.formFiles += 1;
                 this.attachmentKeys.push(fields.name);
+            }
+            else {
+                if (this.hasSignature) {
+                    this.hasFile = true;
+                }
             }
         });
     }
@@ -8877,15 +9061,27 @@ let ClientFormsEntryPageComponent = class ClientFormsEntryPageComponent {
         });
         return fileInputElements;
     }
+    getFormTncContent() {
+        if (this.hasTnc) {
+            console.log('reading tnc content ...');
+            this.clientService.getFormTNC(this.form.form_code).then(content => {
+                this.tncContent = content;
+            }, error => {
+                console.log('tnc content getting error');
+            });
+        }
+    }
     submitFormAndAttachments(user_data, updateProfile) {
         console.log('is submitting');
         const form_submission_code = this.submissionCodeReplacement == null ||
             this.submissionCodeReplacement.length == 0 ||
             this.submissionCodeReplacement == undefined ? this.submissionCode : this.submissionCodeReplacement;
         if (this.hasFile) {
+            console.log('__________it has file ....');
             this.uploadFormAttachments(user_data, updateProfile, form_submission_code);
         }
         else {
+            console.log('___________it doesnt have file');
             const update = updateProfile ? 1 : 0;
             const filled_data = this.formBuilder.getFormUserData(user_data);
             const updated_data = this.clientService.getUpdatedClientFormData(JSON.parse(filled_data), this.clientProfile);
@@ -8986,6 +9182,7 @@ let ClientFormsEntryPageComponent = class ClientFormsEntryPageComponent {
                 });
             }
             else {
+                this.loading = false;
                 this.modalService.dismissAll();
             }
         });
@@ -9002,6 +9199,29 @@ let ClientFormsEntryPageComponent = class ClientFormsEntryPageComponent {
     }
     submitForm() {
         this.loading = true;
+        // handle signature first
+        if (lodash__WEBPACK_IMPORTED_MODULE_1__["isEmpty"](this.signatureDataURL)) {
+            // signature wasn't changed, still using the same signature.
+            this.handleFormSubmission();
+        }
+        else {
+            // signature was changed, we need to handle it.
+            const key = 'signature';
+            const sigImgFile = this.fileUploadService.convertBase64ToFile(this.signatureDataURL, 'signature.png');
+            if (this.updateProfile) {
+                this.clientService.uploadProfileAttachment(this.user.id.toString(), key, sigImgFile).then(ok => {
+                    this.handleFormSubmission();
+                }, err => {
+                    console.log('error uploading signature:update*');
+                });
+            }
+            else {
+                // don't update the profile with the new signature
+                this.handleFormSubmission();
+            }
+        }
+    }
+    handleFormSubmission() {
         const user_data = this.getFormData();
         console.log(JSON.stringify(user_data));
         console.log('this form: ' + this.formBuilder.getFormUserData(user_data));
@@ -9023,32 +9243,12 @@ let ClientFormsEntryPageComponent = class ClientFormsEntryPageComponent {
         }
     }
     submit() {
-        this.loading = true;
-        const user_id = this.user.id.toString();
-        this.clientService.checkSubmittedFormStatus(user_id, this.form.form_code).then(res => {
-            console.log('success');
-            if (res.submitted == 0) {
-                this.modalService.open(this.confirmDialog, { centered: true }).result.then(result => {
-                    if (result == 'yes') {
-                        this.handlePinCode(true);
-                    }
-                    else if (result == 'no') {
-                        this.handlePinCode(false);
-                    }
-                    else {
-                        this.modalService.dismissAll();
-                        this.loading = false;
-                    }
-                });
-            }
-            else {
-                if (res.status == 0) {
-                    this.showSubmissionOptionsDialog(res.code);
-                }
-                else if (res.status == 1) {
-                    this.showMakeNewSubmissionDialog();
-                }
-                else {
+        if ((this.acceptedTnc && this.hasTnc) || !this.hasTnc) {
+            this.loading = true;
+            const user_id = this.user.id.toString();
+            this.clientService.checkSubmittedFormStatus(user_id, this.form.form_code).then(res => {
+                console.log('success');
+                if (res.submitted == 0) {
                     this.modalService.open(this.confirmDialog, { centered: true }).result.then(result => {
                         if (result == 'yes') {
                             this.handlePinCode(true);
@@ -9062,10 +9262,35 @@ let ClientFormsEntryPageComponent = class ClientFormsEntryPageComponent {
                         }
                     });
                 }
-            }
-        }, err => {
-            console.log('something went wrong');
-        });
+                else {
+                    if (res.status == 0) {
+                        this.showSubmissionOptionsDialog(res.code);
+                    }
+                    else if (res.status == 1) {
+                        this.showMakeNewSubmissionDialog();
+                    }
+                    else {
+                        this.modalService.open(this.confirmDialog, { centered: true }).result.then(result => {
+                            if (result == 'yes') {
+                                this.handlePinCode(true);
+                            }
+                            else if (result == 'no') {
+                                this.handlePinCode(false);
+                            }
+                            else {
+                                this.modalService.dismissAll();
+                                this.loading = false;
+                            }
+                        });
+                    }
+                }
+            }, err => {
+                console.log('something went wrong');
+            });
+        }
+        else {
+            alert('Please accept or decline the terms & conditions to continue');
+        }
     }
     createPin() {
         this.submitted = true;
@@ -9242,6 +9467,24 @@ let ClientFormsEntryPageComponent = class ClientFormsEntryPageComponent {
             });
         }
     }
+    updateSignature(updateProfile) {
+        return new Promise((resolve, reject) => {
+            if (lodash__WEBPACK_IMPORTED_MODULE_1__["isEmpty"](this.signatureDataURL)) {
+                console.log('no signature was signed');
+                resolve(true);
+            }
+            else {
+                console.log('now uploading a new signature that was signed');
+                const key = 'signature';
+                const signatureImageFile = this.fileUploadService.convertBase64ToFile(this.signatureDataURL, 'signature.png');
+                this.clientService.uploadProfileAttachment(this.user.id.toString(), key, signatureImageFile).then(ok => {
+                    ok ? resolve(true) : resolve(false);
+                }, err => {
+                    reject(err);
+                });
+            }
+        });
+    }
     existingUpload(user_data, updateProfile, submission_code) {
         lodash__WEBPACK_IMPORTED_MODULE_1__["forEach"](this.existingAttachments, (attachment, i) => {
             const idx = attachment.url.lastIndexOf('.');
@@ -9253,6 +9496,9 @@ let ClientFormsEntryPageComponent = class ClientFormsEntryPageComponent {
                 const fileObj = this.fileUploadService.convertBase64ToFile(base64Str, filename);
                 this.uploadConvertedFormAttachment(attachment.key, fileObj, user_data, updateProfile, submission_code);
             });
+            const sigImgFile = this.fileUploadService.convertBase64ToFile(this.signatureDataURL, 'signature.png');
+            this.uploadConvertedFormAttachment('signature', sigImgFile, user_data, updateProfile, submission_code);
+            alert('______________uploading_________: ');
             if (i == this.existingAttachments.length - 1) {
                 console.log('we done uploading');
                 console.log('no upload');
@@ -9280,65 +9526,85 @@ let ClientFormsEntryPageComponent = class ClientFormsEntryPageComponent {
         // checking the formFiles variable's value.
         console.log('doing upload');
         const num_of_attachments = this.formFiles;
-        if (num_of_attachments > 1) {
-            console.log('will do multiple uploads');
-            for (let i = 0; i < num_of_attachments; i++) {
-                this.uploadFormFile(this.attachmentKeys[i], user_data, updateProfile, submission_code, i);
-            }
-        }
-        else {
-            console.log('will do single upload');
-            console.log('attachments length: ' + this.attachmentFiles.length);
-            if (this.attachmentFiles.length == 0) {
-                console.log('no attachment');
-                if (this.existingAttachments.length > 0) {
-                    this.existingUpload(user_data, updateProfile, submission_code);
+        // upload signature
+        const key = 'signature';
+        const sigImgFile = this.fileUploadService.convertBase64ToFile(this.signatureDataURL, 'signature.png');
+        this.clientService.uploadFormAttachments(this.user.id.toString(), this.form.form_code, submission_code, key, sigImgFile).then(done => {
+            if (done) {
+                if (num_of_attachments > 1) {
+                    console.log('will do multiple uploads');
+                    for (let i = 0; i < num_of_attachments; i++) {
+                        this.uploadFormFile(this.attachmentKeys[i], user_data, updateProfile, submission_code, i);
+                    }
                 }
                 else {
-                    const update = updateProfile ? 1 : 0;
-                    const filled_data = this.formBuilder.getFormUserData(user_data);
-                    const updated_data = this.clientService.getUpdatedClientFormData(JSON.parse(filled_data), this.clientProfile);
-                    this.clientService.submitForm(lodash__WEBPACK_IMPORTED_MODULE_1__["toString"](this.user.id), this.form.form_code, this.clientProfile, JSON.parse(updated_data), update, submission_code, this.status, this.branchId).then(ok => {
-                        if (ok) {
-                            this.loading = false;
-                            this.status == 0 ? this.created = true : this.saved = true;
+                    console.log('will do single upload');
+                    console.log('attachments length: ' + this.attachmentFiles.length);
+                    if (this.attachmentFiles.length == 0) {
+                        console.log('no attachment');
+                        if (this.existingAttachments.length > 0) {
+                            this.existingUpload(user_data, updateProfile, submission_code);
                         }
                         else {
-                            this.loading = false;
-                            console.log('form submission failed');
+                            const update = updateProfile ? 1 : 0;
+                            const filled_data = this.formBuilder.getFormUserData(user_data);
+                            const updated_data = this.clientService.getUpdatedClientFormData(JSON.parse(filled_data), this.clientProfile);
+                            this.clientService.submitForm(lodash__WEBPACK_IMPORTED_MODULE_1__["toString"](this.user.id), this.form.form_code, this.clientProfile, JSON.parse(updated_data), update, submission_code, this.status, this.branchId).then(ok => {
+                                if (ok) {
+                                    this.loading = false;
+                                    if (this.status == 0) {
+                                        this.showJoinQueueDialog();
+                                    }
+                                    else {
+                                        this.saved = true;
+                                    }
+                                }
+                                else {
+                                    this.loading = false;
+                                    console.log('form submission failed');
+                                }
+                            }, err => {
+                                this.loading = false;
+                                console.log('form submission error 6');
+                            });
                         }
-                    }, err => {
-                        this.loading = false;
-                        console.log('form submission error 6');
-                    });
+                    }
+                    else {
+                        console.log('has attachment');
+                        this.uploadFormFile(this.attachmentKeys[0], user_data, updateProfile, submission_code);
+                    }
                 }
             }
-            else {
-                console.log('has attachment');
-                this.uploadFormFile(this.attachmentKeys[0], user_data, updateProfile, submission_code);
-            }
-        }
+        }, err => { });
     }
-    getFormAttachments(form_code) {
-        this.loadingAttachments = true;
-        this.clientService.getFormAttachment(form_code).then(res => {
-            console.log('resssss: ' + JSON.stringify(res));
-            if (res.length > 0) {
-                this.showAttachments = true;
-                lodash__WEBPACK_IMPORTED_MODULE_1__["forEach"](res, (doc) => {
-                    console.log('doc: ' + JSON.stringify(doc));
-                    this.existingAttachments.push(doc);
-                });
-            }
-            else {
-                this.showAttachments = false;
-            }
-            this.loadingAttachments = false;
-        }, err => {
-            console.log('get_a_error: ' + JSON.stringify(err));
-            this.loadingAttachments = false;
-        });
-    }
+    // getFormAttachments(form_code: string) {
+    //   this.loadingAttachments = true;
+    //   console.log('getting form attachments');
+    //   this.clientService.getFormAttachment(form_code).then(
+    //     res => {
+    //       alert('resssss: ' + JSON.stringify(res));
+    //       if (res.length > 0) {
+    //         this.showAttachments = true;
+    //         _.forEach(res, (doc) => {
+    //           console.log('doc: ' + JSON.stringify(doc));
+    //           if (doc.key == 'signature') {
+    //             this.hasSignature = true;
+    //             this.signatureImageUrl = this.endpointService.apiHost + '/attachments/' + doc.url;
+    //           }
+    //           this.existingAttachments.push(doc);
+    //         });
+    //       }
+    //       else {
+    //         this.showAttachments =  false;
+    //       }
+    //       this.loadingAttachments = false;
+    //     },
+    //     err => {
+    //       console.log('get_a_error: ' + JSON.stringify(err));
+    //       this.loadingAttachments = false;
+    //     }
+    //   );
+    // }
     getAttachmentsForCurrentForm(user_id) {
         console.log('getting attchment for currrent fomr');
         this.loadingAttachments = true;
@@ -9348,6 +9614,10 @@ let ClientFormsEntryPageComponent = class ClientFormsEntryPageComponent {
                 const attachments = [];
                 lodash__WEBPACK_IMPORTED_MODULE_1__["forEach"](res, (doc) => {
                     console.log('doc: ' + JSON.stringify(doc));
+                    if (doc.key == 'signature') {
+                        this.hasSignature = true;
+                        this.signatureImageUrl = this.endpointService.storageHost + 'attachments/' + doc.url;
+                    }
                     attachments.push(doc);
                 });
                 this.getCurrentFormAttachmentsOnly(attachments);
@@ -9434,7 +9704,10 @@ let ClientFormsEntryPageComponent = class ClientFormsEntryPageComponent {
         window.history.back();
     }
     ok() {
-        this.router.navigateByUrl('/client/forms_filled');
+        // this.router.navigateByUrl('/client/forms_filled');
+        this.saved == true
+            ? this.router.navigateByUrl('/client/forms_filled', { state: { form: this.form } })
+            : this.router.navigateByUrl('/client/forms_filled');
     }
     downloadDoc(url) {
         this.docDialogRef.close();
@@ -9443,6 +9716,14 @@ let ClientFormsEntryPageComponent = class ClientFormsEntryPageComponent {
     download(url) {
         const file_url = this.endpointService.apiHost + 'storage/attachments/' + url;
         this.downloadService.download(file_url);
+    }
+    acceptTnc() {
+        this.acceptedTnc = true;
+        this.modalService.dismissAll();
+    }
+    declineTnc() {
+        this.modalService.dismissAll();
+        window.history.back();
     }
 };
 ClientFormsEntryPageComponent.ctorParameters = () => [
@@ -9466,8 +9747,14 @@ tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
     Object(_angular_core__WEBPACK_IMPORTED_MODULE_15__["ViewChild"])('setPin', { static: false })
 ], ClientFormsEntryPageComponent.prototype, "setPinDialog", void 0);
 tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
+    Object(_angular_core__WEBPACK_IMPORTED_MODULE_15__["ViewChild"])('tncDialog', { static: false })
+], ClientFormsEntryPageComponent.prototype, "tncDialog", void 0);
+tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
     Object(_angular_core__WEBPACK_IMPORTED_MODULE_15__["ViewChild"])('confirm', { static: false })
 ], ClientFormsEntryPageComponent.prototype, "confirmDialog", void 0);
+tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
+    Object(_angular_core__WEBPACK_IMPORTED_MODULE_15__["ViewChild"])('signaturePad', { static: false })
+], ClientFormsEntryPageComponent.prototype, "signaturePad", void 0);
 tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
     Object(_angular_core__WEBPACK_IMPORTED_MODULE_15__["ViewChild"])('joinQueue', { static: false })
 ], ClientFormsEntryPageComponent.prototype, "joinQueueDialog", void 0);
@@ -10502,10 +10789,12 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _angular_router__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @angular/router */ "./node_modules/@angular/router/fesm2015/router.js");
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm2015/core.js");
 /* harmony import */ var _angular_forms__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @angular/forms */ "./node_modules/@angular/forms/fesm2015/forms.js");
-/* harmony import */ var src_app_services_endpoint_endpoint_service__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! src/app/services/endpoint/endpoint.service */ "./src/app/services/endpoint/endpoint.service.ts");
-/* harmony import */ var src_app_services_reloader_reloading_service__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! src/app/services/reloader/reloading.service */ "./src/app/services/reloader/reloading.service.ts");
-/* harmony import */ var src_app_services_front_desk_front_desk_service__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! src/app/services/front-desk/front-desk.service */ "./src/app/services/front-desk/front-desk.service.ts");
-/* harmony import */ var src_app_services_storage_local_storage_service__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! src/app/services/storage/local-storage.service */ "./src/app/services/storage/local-storage.service.ts");
+/* harmony import */ var src_app_services_client_client_service__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! src/app/services/client/client.service */ "./src/app/services/client/client.service.ts");
+/* harmony import */ var src_app_services_endpoint_endpoint_service__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! src/app/services/endpoint/endpoint.service */ "./src/app/services/endpoint/endpoint.service.ts");
+/* harmony import */ var src_app_services_reloader_reloading_service__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! src/app/services/reloader/reloading.service */ "./src/app/services/reloader/reloading.service.ts");
+/* harmony import */ var src_app_services_front_desk_front_desk_service__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! src/app/services/front-desk/front-desk.service */ "./src/app/services/front-desk/front-desk.service.ts");
+/* harmony import */ var src_app_services_storage_local_storage_service__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! src/app/services/storage/local-storage.service */ "./src/app/services/storage/local-storage.service.ts");
+
 
 
 
@@ -10517,14 +10806,16 @@ __webpack_require__.r(__webpack_exports__);
 
 
 let ClientPdfPrintingPageComponent = class ClientPdfPrintingPageComponent {
-    constructor(router, _fb, reloader, endpointService, localStorage, frontDeskService) {
+    constructor(router, _fb, reloader, clientService, endpointService, localStorage, frontDeskService) {
         this.router = router;
         this._fb = _fb;
         this.reloader = reloader;
+        this.clientService = clientService;
         this.endpointService = endpointService;
         this.localStorage = localStorage;
         this.frontDeskService = frontDeskService;
         this.initVars();
+        this.getSignature();
     }
     ngOnInit() {
         this.myForm = this._fb.group({});
@@ -10673,6 +10964,26 @@ let ClientPdfPrintingPageComponent = class ClientPdfPrintingPageComponent {
             width: `${input.width}px`,
         };
     }
+    getSignature() {
+        const user_id = this.localStorage.getUser().id.toString();
+        this.clientService.getProfileFormAttachment(user_id).then(res => {
+            console.log('r__sss: ' + JSON.stringify(res));
+            if (res.length > 0) {
+                lodash__WEBPACK_IMPORTED_MODULE_1__["forEach"](res, (doc) => {
+                    console.log('doc: ' + JSON.stringify(doc));
+                    if (doc.key == 'signature') {
+                        this.hasSignature = true;
+                        this.signatureImageUrl = this.endpointService.storageHost + 'attachments/' + doc.url;
+                    }
+                });
+            }
+            else {
+                this.hasSignature = false;
+            }
+        }, err => {
+            console.log('get_a_error: ' + JSON.stringify(err));
+        });
+    }
     hidePrintButton() {
         const printBtn = document.getElementById('print-button');
         printBtn.style.display = 'none';
@@ -10689,10 +11000,11 @@ let ClientPdfPrintingPageComponent = class ClientPdfPrintingPageComponent {
 ClientPdfPrintingPageComponent.ctorParameters = () => [
     { type: _angular_router__WEBPACK_IMPORTED_MODULE_3__["Router"] },
     { type: _angular_forms__WEBPACK_IMPORTED_MODULE_5__["FormBuilder"] },
-    { type: src_app_services_reloader_reloading_service__WEBPACK_IMPORTED_MODULE_7__["ReloadingService"] },
-    { type: src_app_services_endpoint_endpoint_service__WEBPACK_IMPORTED_MODULE_6__["EndpointService"] },
-    { type: src_app_services_storage_local_storage_service__WEBPACK_IMPORTED_MODULE_9__["LocalStorageService"] },
-    { type: src_app_services_front_desk_front_desk_service__WEBPACK_IMPORTED_MODULE_8__["FrontDeskService"] }
+    { type: src_app_services_reloader_reloading_service__WEBPACK_IMPORTED_MODULE_8__["ReloadingService"] },
+    { type: src_app_services_client_client_service__WEBPACK_IMPORTED_MODULE_6__["ClientService"] },
+    { type: src_app_services_endpoint_endpoint_service__WEBPACK_IMPORTED_MODULE_7__["EndpointService"] },
+    { type: src_app_services_storage_local_storage_service__WEBPACK_IMPORTED_MODULE_10__["LocalStorageService"] },
+    { type: src_app_services_front_desk_front_desk_service__WEBPACK_IMPORTED_MODULE_9__["FrontDeskService"] }
 ];
 ClientPdfPrintingPageComponent = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
     Object(_angular_core__WEBPACK_IMPORTED_MODULE_4__["Component"])({
@@ -10713,7 +11025,7 @@ ClientPdfPrintingPageComponent = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = ".view {\n    padding: 5px;\n    margin: 5px;\n}\n\n.container {\n    border: 1px solid #ccc;\n}\n\n.row {\n    padding: 10px 2px;\n}\n\nh5 {\n    font-size: 13px;\n    text-transform: uppercase;\n}\n\n.container .col-8 {\n    padding-top: 10px;\n}\n\n.img-view, .title-view {\n    text-align: center;\n}\n\n.img-view > img {\n    width: 180px;\n    height: 180px;\n    margin-bottom: 25px;\n}\n\n.title-view h1 {\n    margin-bottom: 20px;\n}\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInNyYy9hcHAvcGFnZXMvZGFzaGJvYXJkL2NsaWVudC9jbGllbnQtcHJpbnRpbmctcGFnZS9jbGllbnQtcHJpbnRpbmctcGFnZS5jb21wb25lbnQuY3NzIl0sIm5hbWVzIjpbXSwibWFwcGluZ3MiOiJBQUFBO0lBQ0ksWUFBWTtJQUNaLFdBQVc7QUFDZjs7QUFFQTtJQUNJLHNCQUFzQjtBQUMxQjs7QUFFQTtJQUNJLGlCQUFpQjtBQUNyQjs7QUFFQTtJQUNJLGVBQWU7SUFDZix5QkFBeUI7QUFDN0I7O0FBRUE7SUFDSSxpQkFBaUI7QUFDckI7O0FBRUE7SUFDSSxrQkFBa0I7QUFDdEI7O0FBRUE7SUFDSSxZQUFZO0lBQ1osYUFBYTtJQUNiLG1CQUFtQjtBQUN2Qjs7QUFFQTtJQUNJLG1CQUFtQjtBQUN2QiIsImZpbGUiOiJzcmMvYXBwL3BhZ2VzL2Rhc2hib2FyZC9jbGllbnQvY2xpZW50LXByaW50aW5nLXBhZ2UvY2xpZW50LXByaW50aW5nLXBhZ2UuY29tcG9uZW50LmNzcyIsInNvdXJjZXNDb250ZW50IjpbIi52aWV3IHtcbiAgICBwYWRkaW5nOiA1cHg7XG4gICAgbWFyZ2luOiA1cHg7XG59XG5cbi5jb250YWluZXIge1xuICAgIGJvcmRlcjogMXB4IHNvbGlkICNjY2M7XG59XG5cbi5yb3cge1xuICAgIHBhZGRpbmc6IDEwcHggMnB4O1xufVxuXG5oNSB7XG4gICAgZm9udC1zaXplOiAxM3B4O1xuICAgIHRleHQtdHJhbnNmb3JtOiB1cHBlcmNhc2U7XG59XG5cbi5jb250YWluZXIgLmNvbC04IHtcbiAgICBwYWRkaW5nLXRvcDogMTBweDtcbn1cblxuLmltZy12aWV3LCAudGl0bGUtdmlldyB7XG4gICAgdGV4dC1hbGlnbjogY2VudGVyO1xufVxuXG4uaW1nLXZpZXcgPiBpbWcge1xuICAgIHdpZHRoOiAxODBweDtcbiAgICBoZWlnaHQ6IDE4MHB4O1xuICAgIG1hcmdpbi1ib3R0b206IDI1cHg7XG59XG5cbi50aXRsZS12aWV3IGgxIHtcbiAgICBtYXJnaW4tYm90dG9tOiAyMHB4O1xufSJdfQ== */"
+module.exports = ".view {\n    padding: 5px;\n    margin: 5px;\n}\n\n.container {\n    border: 1px solid #ccc;\n}\n\n.row {\n    padding: 10px 2px;\n}\n\nh5 {\n    font-size: 13px;\n    text-transform: uppercase;\n}\n\n.container .col-8 {\n    padding-top: 10px;\n}\n\n.img-view, .title-view {\n    text-align: center;\n}\n\n.img-view > img {\n    width: 180px;\n    height: 180px;\n    margin-bottom: 25px;\n}\n\n.title-view h1 {\n    margin-bottom: 20px;\n}\n\n.signature {\n    display: block;\n    margin: 0 auto;\n    padding-top: 42px;\n    padding-bottom: 30px;\n}\n\n.signature img {\n    height: 120px;\n}\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInNyYy9hcHAvcGFnZXMvZGFzaGJvYXJkL2NsaWVudC9jbGllbnQtcHJpbnRpbmctcGFnZS9jbGllbnQtcHJpbnRpbmctcGFnZS5jb21wb25lbnQuY3NzIl0sIm5hbWVzIjpbXSwibWFwcGluZ3MiOiJBQUFBO0lBQ0ksWUFBWTtJQUNaLFdBQVc7QUFDZjs7QUFFQTtJQUNJLHNCQUFzQjtBQUMxQjs7QUFFQTtJQUNJLGlCQUFpQjtBQUNyQjs7QUFFQTtJQUNJLGVBQWU7SUFDZix5QkFBeUI7QUFDN0I7O0FBRUE7SUFDSSxpQkFBaUI7QUFDckI7O0FBRUE7SUFDSSxrQkFBa0I7QUFDdEI7O0FBRUE7SUFDSSxZQUFZO0lBQ1osYUFBYTtJQUNiLG1CQUFtQjtBQUN2Qjs7QUFFQTtJQUNJLG1CQUFtQjtBQUN2Qjs7QUFFQTtJQUNJLGNBQWM7SUFDZCxjQUFjO0lBQ2QsaUJBQWlCO0lBQ2pCLG9CQUFvQjtBQUN4Qjs7QUFFQTtJQUNJLGFBQWE7QUFDakIiLCJmaWxlIjoic3JjL2FwcC9wYWdlcy9kYXNoYm9hcmQvY2xpZW50L2NsaWVudC1wcmludGluZy1wYWdlL2NsaWVudC1wcmludGluZy1wYWdlLmNvbXBvbmVudC5jc3MiLCJzb3VyY2VzQ29udGVudCI6WyIudmlldyB7XG4gICAgcGFkZGluZzogNXB4O1xuICAgIG1hcmdpbjogNXB4O1xufVxuXG4uY29udGFpbmVyIHtcbiAgICBib3JkZXI6IDFweCBzb2xpZCAjY2NjO1xufVxuXG4ucm93IHtcbiAgICBwYWRkaW5nOiAxMHB4IDJweDtcbn1cblxuaDUge1xuICAgIGZvbnQtc2l6ZTogMTNweDtcbiAgICB0ZXh0LXRyYW5zZm9ybTogdXBwZXJjYXNlO1xufVxuXG4uY29udGFpbmVyIC5jb2wtOCB7XG4gICAgcGFkZGluZy10b3A6IDEwcHg7XG59XG5cbi5pbWctdmlldywgLnRpdGxlLXZpZXcge1xuICAgIHRleHQtYWxpZ246IGNlbnRlcjtcbn1cblxuLmltZy12aWV3ID4gaW1nIHtcbiAgICB3aWR0aDogMTgwcHg7XG4gICAgaGVpZ2h0OiAxODBweDtcbiAgICBtYXJnaW4tYm90dG9tOiAyNXB4O1xufVxuXG4udGl0bGUtdmlldyBoMSB7XG4gICAgbWFyZ2luLWJvdHRvbTogMjBweDtcbn1cblxuLnNpZ25hdHVyZSB7XG4gICAgZGlzcGxheTogYmxvY2s7XG4gICAgbWFyZ2luOiAwIGF1dG87XG4gICAgcGFkZGluZy10b3A6IDQycHg7XG4gICAgcGFkZGluZy1ib3R0b206IDMwcHg7XG59XG5cbi5zaWduYXR1cmUgaW1nIHtcbiAgICBoZWlnaHQ6IDEyMHB4O1xufSJdfQ== */"
 
 /***/ }),
 
@@ -10730,24 +11042,34 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
 /* harmony import */ var lodash__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! lodash */ "./node_modules/lodash/lodash.js");
 /* harmony import */ var lodash__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(lodash__WEBPACK_IMPORTED_MODULE_1__);
-/* harmony import */ var src_app_services_reloader_reloading_service__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! src/app/services/reloader/reloading.service */ "./src/app/services/reloader/reloading.service.ts");
-/* harmony import */ var src_app_services_downloader_downloader_service__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! src/app/services/downloader/downloader.service */ "./src/app/services/downloader/downloader.service.ts");
-/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm2015/core.js");
+/* harmony import */ var src_app_services_client_client_service__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! src/app/services/client/client.service */ "./src/app/services/client/client.service.ts");
+/* harmony import */ var src_app_services_endpoint_endpoint_service__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! src/app/services/endpoint/endpoint.service */ "./src/app/services/endpoint/endpoint.service.ts");
+/* harmony import */ var src_app_services_reloader_reloading_service__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! src/app/services/reloader/reloading.service */ "./src/app/services/reloader/reloading.service.ts");
+/* harmony import */ var src_app_services_downloader_downloader_service__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! src/app/services/downloader/downloader.service */ "./src/app/services/downloader/downloader.service.ts");
+/* harmony import */ var src_app_services_storage_local_storage_service__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! src/app/services/storage/local-storage.service */ "./src/app/services/storage/local-storage.service.ts");
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm2015/core.js");
+
+
+
 
 
 
 
 
 let ClientPrintingPageComponent = class ClientPrintingPageComponent {
-    constructor(reloader, downloadService) {
+    constructor(reloader, clientService, endpointService, localStorage, downloadService) {
         this.reloader = reloader;
+        this.clientService = clientService;
+        this.endpointService = endpointService;
+        this.localStorage = localStorage;
         this.downloadService = downloadService;
         this.initVars();
+        this.getSignature();
     }
     ngOnInit() {
     }
     ngAfterViewInit() {
-        !this.form.print ? this.download() : null;
+        // !this.form.print ? this.download() : null;
     }
     initVars() {
         this.formKeys = [];
@@ -10789,6 +11111,26 @@ let ClientPrintingPageComponent = class ClientPrintingPageComponent {
             return text;
         }
     }
+    getSignature() {
+        const user_id = this.localStorage.getUser().id.toString();
+        this.clientService.getProfileFormAttachment(user_id).then(res => {
+            console.log('r__sss: ' + JSON.stringify(res));
+            if (res.length > 0) {
+                lodash__WEBPACK_IMPORTED_MODULE_1__["forEach"](res, (doc) => {
+                    console.log('doc: ' + JSON.stringify(doc));
+                    if (doc.key == 'signature') {
+                        this.hasSignature = true;
+                        this.signatureImageUrl = this.endpointService.storageHost + 'attachments/' + doc.url;
+                    }
+                });
+            }
+            else {
+                this.hasSignature = false;
+            }
+        }, err => {
+            console.log('get_a_error: ' + JSON.stringify(err));
+        });
+    }
     download() {
         const filename = 'forms369_' + this.form.form_code + '_data';
         this.downloadService.exportToPDF(this.content, filename);
@@ -10796,14 +11138,17 @@ let ClientPrintingPageComponent = class ClientPrintingPageComponent {
     }
 };
 ClientPrintingPageComponent.ctorParameters = () => [
-    { type: src_app_services_reloader_reloading_service__WEBPACK_IMPORTED_MODULE_2__["ReloadingService"] },
-    { type: src_app_services_downloader_downloader_service__WEBPACK_IMPORTED_MODULE_3__["DownloaderService"] }
+    { type: src_app_services_reloader_reloading_service__WEBPACK_IMPORTED_MODULE_4__["ReloadingService"] },
+    { type: src_app_services_client_client_service__WEBPACK_IMPORTED_MODULE_2__["ClientService"] },
+    { type: src_app_services_endpoint_endpoint_service__WEBPACK_IMPORTED_MODULE_3__["EndpointService"] },
+    { type: src_app_services_storage_local_storage_service__WEBPACK_IMPORTED_MODULE_6__["LocalStorageService"] },
+    { type: src_app_services_downloader_downloader_service__WEBPACK_IMPORTED_MODULE_5__["DownloaderService"] }
 ];
 tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
-    Object(_angular_core__WEBPACK_IMPORTED_MODULE_4__["ViewChild"])('content', { static: false })
+    Object(_angular_core__WEBPACK_IMPORTED_MODULE_7__["ViewChild"])('content', { static: false })
 ], ClientPrintingPageComponent.prototype, "content", void 0);
 ClientPrintingPageComponent = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
-    Object(_angular_core__WEBPACK_IMPORTED_MODULE_4__["Component"])({
+    Object(_angular_core__WEBPACK_IMPORTED_MODULE_7__["Component"])({
         selector: 'app-client-printing-page',
         template: __webpack_require__(/*! raw-loader!./client-printing-page.component.html */ "./node_modules/raw-loader/index.js!./src/app/pages/dashboard/client/client-printing-page/client-printing-page.component.html"),
         styles: [__webpack_require__(/*! ./client-printing-page.component.css */ "./src/app/pages/dashboard/client/client-printing-page/client-printing-page.component.css")]
@@ -10821,7 +11166,7 @@ ClientPrintingPageComponent = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = ".form-group {\n    margin-bottom: 0.5rem;\n}\n\n@media only screen \nand (min-device-width: 320px) \nand (max-device-width: 825px) {\n    .btn-lg {\n        padding: 1rem 1rem;\n    }\n\n    .pin-control {\n        font-size: 22px !important;\n        padding: 8px 10px !important;\n        font-family: 'OpenSans_Bold';\n        text-align: center !important;\n        letter-spacing: 15px !important;\n    }\n\n    .card-body.attachments-card {\n        padding-left: 2px;\n        padding-right: 2px;\n    }\n}\n\nli.file-item > i {\n    top: 17px;\n    left: 40px;\n    font-size: 20px;\n    position: absolute;\n}\n\nli.file-item a {\n    position: relative;\n    margin-left: 45px;\n}\n\nh5.file-link-title {\n    font-size: 0.85rem;\n    text-transform: capitalize;\n    margin-left: 45px;\n    margin-top: 9px;\n    margin-bottom: 0px;\n}\n\nol li {\n    line-height: 1.8;\n    white-space: pre-wrap;\n    word-break: break-word;\n}\n\nol.files-list {\n    list-style: none;\n    margin-bottom: 0rem;\n}\n\nli.file-item {\n    padding: 5px 10px;\n    margin: 4px 0px;\n    background-color: #eee;\n}\n\na:not([href]):not([tabindex]),\na:not([href]):not([tabindex]):hover {\n    cursor: pointer;\n    text-decoration: underline;\n    color: rgb(76, 131, 255);\n}\n\n.pin-control {\n    font-size: 35px;\n    text-align: center;\n    padding: 20px 20px;\n    letter-spacing: 14px;\n}\n\n.pin-form-group {\n    width: 50%;\n    margin: 0 auto;\n}\n\n.pin-control::-webkit-input-placeholder {\n    color: #bbb;\n}\n\n.pin-control::-moz-placeholder {\n    color: #bbb;\n}\n\n.pin-control::-ms-input-placeholder {\n    color: #bbb;\n}\n\n.pin-control::placeholder {\n    color: #bbb;\n}\n\n.sections-tabs .nav-link {\n    display: block;\n    padding: 1rem 1rem;\n}\n\n.sections-tabs .card .card-title {\n    padding-left: 20px;\n}\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInNyYy9hcHAvcGFnZXMvZGFzaGJvYXJkL2NsaWVudC9jbGllbnQtcHJvZmlsZS1wYWdlL2NsaWVudC1wcm9maWxlLXBhZ2UuY29tcG9uZW50LmNzcyJdLCJuYW1lcyI6W10sIm1hcHBpbmdzIjoiQUFBQTtJQUNJLHFCQUFxQjtBQUN6Qjs7QUFFQTs7O0lBR0k7UUFDSSxrQkFBa0I7SUFDdEI7O0lBRUE7UUFDSSwwQkFBMEI7UUFDMUIsNEJBQTRCO1FBQzVCLDRCQUE0QjtRQUM1Qiw2QkFBNkI7UUFDN0IsK0JBQStCO0lBQ25DOztJQUVBO1FBQ0ksaUJBQWlCO1FBQ2pCLGtCQUFrQjtJQUN0QjtBQUNKOztBQUVBO0lBQ0ksU0FBUztJQUNULFVBQVU7SUFDVixlQUFlO0lBQ2Ysa0JBQWtCO0FBQ3RCOztBQUVBO0lBQ0ksa0JBQWtCO0lBQ2xCLGlCQUFpQjtBQUNyQjs7QUFFQTtJQUNJLGtCQUFrQjtJQUNsQiwwQkFBMEI7SUFDMUIsaUJBQWlCO0lBQ2pCLGVBQWU7SUFDZixrQkFBa0I7QUFDdEI7O0FBRUE7SUFDSSxnQkFBZ0I7SUFDaEIscUJBQXFCO0lBQ3JCLHNCQUFzQjtBQUMxQjs7QUFFQTtJQUNJLGdCQUFnQjtJQUNoQixtQkFBbUI7QUFDdkI7O0FBRUE7SUFDSSxpQkFBaUI7SUFDakIsZUFBZTtJQUNmLHNCQUFzQjtBQUMxQjs7QUFFQTs7SUFFSSxlQUFlO0lBQ2YsMEJBQTBCO0lBQzFCLHdCQUF3QjtBQUM1Qjs7QUFFQTtJQUNJLGVBQWU7SUFDZixrQkFBa0I7SUFDbEIsa0JBQWtCO0lBQ2xCLG9CQUFvQjtBQUN4Qjs7QUFFQTtJQUNJLFVBQVU7SUFDVixjQUFjO0FBQ2xCOztBQUVBO0lBQ0ksV0FBVztBQUNmOztBQUZBO0lBQ0ksV0FBVztBQUNmOztBQUZBO0lBQ0ksV0FBVztBQUNmOztBQUZBO0lBQ0ksV0FBVztBQUNmOztBQUVBO0lBQ0ksY0FBYztJQUNkLGtCQUFrQjtBQUN0Qjs7QUFFQTtJQUNJLGtCQUFrQjtBQUN0QiIsImZpbGUiOiJzcmMvYXBwL3BhZ2VzL2Rhc2hib2FyZC9jbGllbnQvY2xpZW50LXByb2ZpbGUtcGFnZS9jbGllbnQtcHJvZmlsZS1wYWdlLmNvbXBvbmVudC5jc3MiLCJzb3VyY2VzQ29udGVudCI6WyIuZm9ybS1ncm91cCB7XG4gICAgbWFyZ2luLWJvdHRvbTogMC41cmVtO1xufVxuXG5AbWVkaWEgb25seSBzY3JlZW4gXG5hbmQgKG1pbi1kZXZpY2Utd2lkdGg6IDMyMHB4KSBcbmFuZCAobWF4LWRldmljZS13aWR0aDogODI1cHgpIHtcbiAgICAuYnRuLWxnIHtcbiAgICAgICAgcGFkZGluZzogMXJlbSAxcmVtO1xuICAgIH1cblxuICAgIC5waW4tY29udHJvbCB7XG4gICAgICAgIGZvbnQtc2l6ZTogMjJweCAhaW1wb3J0YW50O1xuICAgICAgICBwYWRkaW5nOiA4cHggMTBweCAhaW1wb3J0YW50O1xuICAgICAgICBmb250LWZhbWlseTogJ09wZW5TYW5zX0JvbGQnO1xuICAgICAgICB0ZXh0LWFsaWduOiBjZW50ZXIgIWltcG9ydGFudDtcbiAgICAgICAgbGV0dGVyLXNwYWNpbmc6IDE1cHggIWltcG9ydGFudDtcbiAgICB9XG5cbiAgICAuY2FyZC1ib2R5LmF0dGFjaG1lbnRzLWNhcmQge1xuICAgICAgICBwYWRkaW5nLWxlZnQ6IDJweDtcbiAgICAgICAgcGFkZGluZy1yaWdodDogMnB4O1xuICAgIH1cbn1cblxubGkuZmlsZS1pdGVtID4gaSB7XG4gICAgdG9wOiAxN3B4O1xuICAgIGxlZnQ6IDQwcHg7XG4gICAgZm9udC1zaXplOiAyMHB4O1xuICAgIHBvc2l0aW9uOiBhYnNvbHV0ZTtcbn1cblxubGkuZmlsZS1pdGVtIGEge1xuICAgIHBvc2l0aW9uOiByZWxhdGl2ZTtcbiAgICBtYXJnaW4tbGVmdDogNDVweDtcbn1cblxuaDUuZmlsZS1saW5rLXRpdGxlIHtcbiAgICBmb250LXNpemU6IDAuODVyZW07XG4gICAgdGV4dC10cmFuc2Zvcm06IGNhcGl0YWxpemU7XG4gICAgbWFyZ2luLWxlZnQ6IDQ1cHg7XG4gICAgbWFyZ2luLXRvcDogOXB4O1xuICAgIG1hcmdpbi1ib3R0b206IDBweDtcbn1cblxub2wgbGkge1xuICAgIGxpbmUtaGVpZ2h0OiAxLjg7XG4gICAgd2hpdGUtc3BhY2U6IHByZS13cmFwO1xuICAgIHdvcmQtYnJlYWs6IGJyZWFrLXdvcmQ7XG59XG5cbm9sLmZpbGVzLWxpc3Qge1xuICAgIGxpc3Qtc3R5bGU6IG5vbmU7XG4gICAgbWFyZ2luLWJvdHRvbTogMHJlbTtcbn1cblxubGkuZmlsZS1pdGVtIHtcbiAgICBwYWRkaW5nOiA1cHggMTBweDtcbiAgICBtYXJnaW46IDRweCAwcHg7XG4gICAgYmFja2dyb3VuZC1jb2xvcjogI2VlZTtcbn1cblxuYTpub3QoW2hyZWZdKTpub3QoW3RhYmluZGV4XSksXG5hOm5vdChbaHJlZl0pOm5vdChbdGFiaW5kZXhdKTpob3ZlciB7XG4gICAgY3Vyc29yOiBwb2ludGVyO1xuICAgIHRleHQtZGVjb3JhdGlvbjogdW5kZXJsaW5lO1xuICAgIGNvbG9yOiByZ2IoNzYsIDEzMSwgMjU1KTtcbn1cblxuLnBpbi1jb250cm9sIHtcbiAgICBmb250LXNpemU6IDM1cHg7XG4gICAgdGV4dC1hbGlnbjogY2VudGVyO1xuICAgIHBhZGRpbmc6IDIwcHggMjBweDtcbiAgICBsZXR0ZXItc3BhY2luZzogMTRweDtcbn1cblxuLnBpbi1mb3JtLWdyb3VwIHtcbiAgICB3aWR0aDogNTAlO1xuICAgIG1hcmdpbjogMCBhdXRvO1xufVxuXG4ucGluLWNvbnRyb2w6OnBsYWNlaG9sZGVyIHtcbiAgICBjb2xvcjogI2JiYjtcbn1cblxuLnNlY3Rpb25zLXRhYnMgLm5hdi1saW5rIHtcbiAgICBkaXNwbGF5OiBibG9jaztcbiAgICBwYWRkaW5nOiAxcmVtIDFyZW07XG59XG5cbi5zZWN0aW9ucy10YWJzIC5jYXJkIC5jYXJkLXRpdGxlIHtcbiAgICBwYWRkaW5nLWxlZnQ6IDIwcHg7XG59Il19 */"
+module.exports = ".form-group {\n    margin-bottom: 0.5rem;\n}\n\n@media only screen \nand (min-device-width: 320px) \nand (max-device-width: 825px) {\n    .btn-lg {\n        padding: 1rem 1rem;\n    }\n\n    .pin-control {\n        font-size: 22px !important;\n        padding: 8px 10px !important;\n        font-family: 'OpenSans_Bold';\n        text-align: center !important;\n        letter-spacing: 15px !important;\n    }\n\n    .card-body.attachments-card {\n        padding-left: 2px;\n        padding-right: 2px;\n    }\n}\n\nli.file-item > i {\n    top: 17px;\n    left: 40px;\n    font-size: 20px;\n    position: absolute;\n}\n\nli.file-item a {\n    position: relative;\n    margin-left: 45px;\n}\n\nh5.file-link-title {\n    font-size: 0.85rem;\n    text-transform: capitalize;\n    margin-left: 45px;\n    margin-top: 9px;\n    margin-bottom: 0px;\n}\n\nol li {\n    line-height: 1.8;\n    white-space: pre-wrap;\n    word-break: break-word;\n}\n\nol.files-list {\n    list-style: none;\n    margin-bottom: 0rem;\n}\n\nli.file-item {\n    padding: 5px 10px;\n    margin: 4px 0px;\n    background-color: #eee;\n}\n\na:not([href]):not([tabindex]),\na:not([href]):not([tabindex]):hover {\n    cursor: pointer;\n    text-decoration: underline;\n    color: rgb(76, 131, 255);\n}\n\n.pin-control {\n    font-size: 35px;\n    text-align: center;\n    padding: 20px 20px;\n    letter-spacing: 14px;\n}\n\n.pin-form-group {\n    width: 50%;\n    margin: 0 auto;\n}\n\n.pin-control::-webkit-input-placeholder {\n    color: #bbb;\n}\n\n.pin-control::-moz-placeholder {\n    color: #bbb;\n}\n\n.pin-control::-ms-input-placeholder {\n    color: #bbb;\n}\n\n.pin-control::placeholder {\n    color: #bbb;\n}\n\n.sections-tabs .nav-link {\n    display: block;\n    padding: 1rem 1rem;\n}\n\n.sections-tabs .card .card-title {\n    padding-left: 20px;\n}\n\n.btn-link {\n    font-size: 0.775rem;\n}\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInNyYy9hcHAvcGFnZXMvZGFzaGJvYXJkL2NsaWVudC9jbGllbnQtcHJvZmlsZS1wYWdlL2NsaWVudC1wcm9maWxlLXBhZ2UuY29tcG9uZW50LmNzcyJdLCJuYW1lcyI6W10sIm1hcHBpbmdzIjoiQUFBQTtJQUNJLHFCQUFxQjtBQUN6Qjs7QUFFQTs7O0lBR0k7UUFDSSxrQkFBa0I7SUFDdEI7O0lBRUE7UUFDSSwwQkFBMEI7UUFDMUIsNEJBQTRCO1FBQzVCLDRCQUE0QjtRQUM1Qiw2QkFBNkI7UUFDN0IsK0JBQStCO0lBQ25DOztJQUVBO1FBQ0ksaUJBQWlCO1FBQ2pCLGtCQUFrQjtJQUN0QjtBQUNKOztBQUVBO0lBQ0ksU0FBUztJQUNULFVBQVU7SUFDVixlQUFlO0lBQ2Ysa0JBQWtCO0FBQ3RCOztBQUVBO0lBQ0ksa0JBQWtCO0lBQ2xCLGlCQUFpQjtBQUNyQjs7QUFFQTtJQUNJLGtCQUFrQjtJQUNsQiwwQkFBMEI7SUFDMUIsaUJBQWlCO0lBQ2pCLGVBQWU7SUFDZixrQkFBa0I7QUFDdEI7O0FBRUE7SUFDSSxnQkFBZ0I7SUFDaEIscUJBQXFCO0lBQ3JCLHNCQUFzQjtBQUMxQjs7QUFFQTtJQUNJLGdCQUFnQjtJQUNoQixtQkFBbUI7QUFDdkI7O0FBRUE7SUFDSSxpQkFBaUI7SUFDakIsZUFBZTtJQUNmLHNCQUFzQjtBQUMxQjs7QUFFQTs7SUFFSSxlQUFlO0lBQ2YsMEJBQTBCO0lBQzFCLHdCQUF3QjtBQUM1Qjs7QUFFQTtJQUNJLGVBQWU7SUFDZixrQkFBa0I7SUFDbEIsa0JBQWtCO0lBQ2xCLG9CQUFvQjtBQUN4Qjs7QUFFQTtJQUNJLFVBQVU7SUFDVixjQUFjO0FBQ2xCOztBQUVBO0lBQ0ksV0FBVztBQUNmOztBQUZBO0lBQ0ksV0FBVztBQUNmOztBQUZBO0lBQ0ksV0FBVztBQUNmOztBQUZBO0lBQ0ksV0FBVztBQUNmOztBQUVBO0lBQ0ksY0FBYztJQUNkLGtCQUFrQjtBQUN0Qjs7QUFFQTtJQUNJLGtCQUFrQjtBQUN0Qjs7QUFFQTtJQUNJLG1CQUFtQjtBQUN2QiIsImZpbGUiOiJzcmMvYXBwL3BhZ2VzL2Rhc2hib2FyZC9jbGllbnQvY2xpZW50LXByb2ZpbGUtcGFnZS9jbGllbnQtcHJvZmlsZS1wYWdlLmNvbXBvbmVudC5jc3MiLCJzb3VyY2VzQ29udGVudCI6WyIuZm9ybS1ncm91cCB7XG4gICAgbWFyZ2luLWJvdHRvbTogMC41cmVtO1xufVxuXG5AbWVkaWEgb25seSBzY3JlZW4gXG5hbmQgKG1pbi1kZXZpY2Utd2lkdGg6IDMyMHB4KSBcbmFuZCAobWF4LWRldmljZS13aWR0aDogODI1cHgpIHtcbiAgICAuYnRuLWxnIHtcbiAgICAgICAgcGFkZGluZzogMXJlbSAxcmVtO1xuICAgIH1cblxuICAgIC5waW4tY29udHJvbCB7XG4gICAgICAgIGZvbnQtc2l6ZTogMjJweCAhaW1wb3J0YW50O1xuICAgICAgICBwYWRkaW5nOiA4cHggMTBweCAhaW1wb3J0YW50O1xuICAgICAgICBmb250LWZhbWlseTogJ09wZW5TYW5zX0JvbGQnO1xuICAgICAgICB0ZXh0LWFsaWduOiBjZW50ZXIgIWltcG9ydGFudDtcbiAgICAgICAgbGV0dGVyLXNwYWNpbmc6IDE1cHggIWltcG9ydGFudDtcbiAgICB9XG5cbiAgICAuY2FyZC1ib2R5LmF0dGFjaG1lbnRzLWNhcmQge1xuICAgICAgICBwYWRkaW5nLWxlZnQ6IDJweDtcbiAgICAgICAgcGFkZGluZy1yaWdodDogMnB4O1xuICAgIH1cbn1cblxubGkuZmlsZS1pdGVtID4gaSB7XG4gICAgdG9wOiAxN3B4O1xuICAgIGxlZnQ6IDQwcHg7XG4gICAgZm9udC1zaXplOiAyMHB4O1xuICAgIHBvc2l0aW9uOiBhYnNvbHV0ZTtcbn1cblxubGkuZmlsZS1pdGVtIGEge1xuICAgIHBvc2l0aW9uOiByZWxhdGl2ZTtcbiAgICBtYXJnaW4tbGVmdDogNDVweDtcbn1cblxuaDUuZmlsZS1saW5rLXRpdGxlIHtcbiAgICBmb250LXNpemU6IDAuODVyZW07XG4gICAgdGV4dC10cmFuc2Zvcm06IGNhcGl0YWxpemU7XG4gICAgbWFyZ2luLWxlZnQ6IDQ1cHg7XG4gICAgbWFyZ2luLXRvcDogOXB4O1xuICAgIG1hcmdpbi1ib3R0b206IDBweDtcbn1cblxub2wgbGkge1xuICAgIGxpbmUtaGVpZ2h0OiAxLjg7XG4gICAgd2hpdGUtc3BhY2U6IHByZS13cmFwO1xuICAgIHdvcmQtYnJlYWs6IGJyZWFrLXdvcmQ7XG59XG5cbm9sLmZpbGVzLWxpc3Qge1xuICAgIGxpc3Qtc3R5bGU6IG5vbmU7XG4gICAgbWFyZ2luLWJvdHRvbTogMHJlbTtcbn1cblxubGkuZmlsZS1pdGVtIHtcbiAgICBwYWRkaW5nOiA1cHggMTBweDtcbiAgICBtYXJnaW46IDRweCAwcHg7XG4gICAgYmFja2dyb3VuZC1jb2xvcjogI2VlZTtcbn1cblxuYTpub3QoW2hyZWZdKTpub3QoW3RhYmluZGV4XSksXG5hOm5vdChbaHJlZl0pOm5vdChbdGFiaW5kZXhdKTpob3ZlciB7XG4gICAgY3Vyc29yOiBwb2ludGVyO1xuICAgIHRleHQtZGVjb3JhdGlvbjogdW5kZXJsaW5lO1xuICAgIGNvbG9yOiByZ2IoNzYsIDEzMSwgMjU1KTtcbn1cblxuLnBpbi1jb250cm9sIHtcbiAgICBmb250LXNpemU6IDM1cHg7XG4gICAgdGV4dC1hbGlnbjogY2VudGVyO1xuICAgIHBhZGRpbmc6IDIwcHggMjBweDtcbiAgICBsZXR0ZXItc3BhY2luZzogMTRweDtcbn1cblxuLnBpbi1mb3JtLWdyb3VwIHtcbiAgICB3aWR0aDogNTAlO1xuICAgIG1hcmdpbjogMCBhdXRvO1xufVxuXG4ucGluLWNvbnRyb2w6OnBsYWNlaG9sZGVyIHtcbiAgICBjb2xvcjogI2JiYjtcbn1cblxuLnNlY3Rpb25zLXRhYnMgLm5hdi1saW5rIHtcbiAgICBkaXNwbGF5OiBibG9jaztcbiAgICBwYWRkaW5nOiAxcmVtIDFyZW07XG59XG5cbi5zZWN0aW9ucy10YWJzIC5jYXJkIC5jYXJkLXRpdGxlIHtcbiAgICBwYWRkaW5nLWxlZnQ6IDIwcHg7XG59XG5cbi5idG4tbGluayB7XG4gICAgZm9udC1zaXplOiAwLjc3NXJlbTtcbn0iXX0= */"
 
 /***/ }),
 
@@ -10848,7 +11193,9 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var src_app_services_downloader_downloader_service__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! src/app/services/downloader/downloader.service */ "./src/app/services/downloader/downloader.service.ts");
 /* harmony import */ var src_app_services_storage_local_storage_service__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! src/app/services/storage/local-storage.service */ "./src/app/services/storage/local-storage.service.ts");
 /* harmony import */ var src_app_services_form_builder_form_builder_service__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! src/app/services/form-builder/form-builder.service */ "./src/app/services/form-builder/form-builder.service.ts");
-/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm2015/core.js");
+/* harmony import */ var src_app_services_file_uploads_file_uploads_service__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! src/app/services/file-uploads/file-uploads.service */ "./src/app/services/file-uploads/file-uploads.service.ts");
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm2015/core.js");
+
 
 
 
@@ -10862,7 +11209,7 @@ __webpack_require__.r(__webpack_exports__);
 
 
 let ClientProfilePageComponent = class ClientProfilePageComponent {
-    constructor(fb, modalService, clientService, sectionService, formBuilder, endpointService, localStorage, downloadService) {
+    constructor(fb, modalService, clientService, sectionService, formBuilder, endpointService, localStorage, downloadService, fileUploadService) {
         this.fb = fb;
         this.modalService = modalService;
         this.clientService = clientService;
@@ -10871,6 +11218,7 @@ let ClientProfilePageComponent = class ClientProfilePageComponent {
         this.endpointService = endpointService;
         this.localStorage = localStorage;
         this.downloadService = downloadService;
+        this.fileUploadService = fileUploadService;
         this.pinCode = '';
         this.formFiles = 0;
         this.attachmentKeys = [];
@@ -10878,11 +11226,13 @@ let ClientProfilePageComponent = class ClientProfilePageComponent {
         this.attachmentFiles = [];
         this.duplicateFields = [];
         this.existingAttachments = [];
+        this.signatureImageUrl = '';
         this.user = this.localStorage.getUser();
         console.log('user_id: ' + this.user.id);
     }
     ngOnInit() {
         this.initPinForm();
+        this.initSignatureOptions();
     }
     ngAfterViewInit() {
         this.checkIfUserHasFormPin();
@@ -10946,10 +11296,36 @@ let ClientProfilePageComponent = class ClientProfilePageComponent {
             });
         }
     }
+    showAttachmentDeleteFailedAlert() {
+        sweetalert2__WEBPACK_IMPORTED_MODULE_2___default.a.fire({
+            title: 'Oops!',
+            text: 'Failed to delete attachment. Please try again!',
+            icon: 'error',
+            confirmButtonColor: 'Ok'
+        });
+    }
     initPinForm() {
         this.pinForm = this.fb.group({
             pin: ['', [_angular_forms__WEBPACK_IMPORTED_MODULE_4__["Validators"].minLength(4), _angular_forms__WEBPACK_IMPORTED_MODULE_4__["Validators"].required]]
         });
+    }
+    initSignatureOptions() {
+        this.signaturePadOptions = {
+            'minWidth': 3,
+            'canvasWidth': 800,
+            'canvasHeight': 300
+        };
+    }
+    signatureClear() {
+        this.signaturePad.clear();
+    }
+    signatureDrawComplete() {
+        console.log(this.signaturePad.toDataURL());
+        this.signatureDataURL = this.signaturePad.toDataURL();
+    }
+    editSignature() {
+        this.hasSignature = false;
+        this.signatureClear();
     }
     resolveStrCharacters(e) {
         const regExp = new RegExp(/^\d*\.?\d*$/);
@@ -11131,6 +11507,10 @@ let ClientProfilePageComponent = class ClientProfilePageComponent {
             if (res.length > 0) {
                 lodash__WEBPACK_IMPORTED_MODULE_1__["forEach"](res, (doc) => {
                     console.log('doc: ' + JSON.stringify(doc));
+                    if (doc.key == 'signature') {
+                        this.hasSignature = true;
+                        this.signatureImageUrl = this.endpointService.storageHost + '/attachments/' + doc.url;
+                    }
                     this.existingAttachments.push(doc);
                 });
             }
@@ -11224,6 +11604,24 @@ let ClientProfilePageComponent = class ClientProfilePageComponent {
             this.loading = false;
         });
     }
+    updateSignature() {
+        return new Promise((resolve, reject) => {
+            if (lodash__WEBPACK_IMPORTED_MODULE_1__["isEmpty"](this.signatureDataURL)) {
+                console.log('no signature was signed');
+                resolve(true);
+            }
+            else {
+                console.log('now uploading a new signature that was signed');
+                const key = 'signature';
+                const signatureImageFile = this.fileUploadService.convertBase64ToFile(this.signatureDataURL, 'signature.png');
+                this.clientService.uploadProfileAttachment(this.user.id, key, signatureImageFile).then(ok => {
+                    ok ? resolve(true) : resolve(false);
+                }, err => {
+                    reject(err);
+                });
+            }
+        });
+    }
     updateAttachments() {
         return new Promise((resolve, reject) => {
             if (this.attachmentFiles.length != 0) {
@@ -11265,8 +11663,23 @@ let ClientProfilePageComponent = class ClientProfilePageComponent {
                 console.log('uploading attachment has started');
                 this.updateAttachments().then(ok => {
                     if (ok) {
-                        this.updating = false;
-                        this.showUpdatedDialog(true);
+                        // now we uploasd the signature
+                        if (lodash__WEBPACK_IMPORTED_MODULE_1__["isEmpty"](this.signatureDataURL)) {
+                            this.updating = false;
+                            this.showUpdatedDialog(true);
+                        }
+                        else {
+                            this.updateSignature().then(done => {
+                                if (done) {
+                                    this.updating = false;
+                                    this.showUpdatedDialog(true);
+                                }
+                                else {
+                                    this.updating = false;
+                                    this.showUpdatedDialog(false);
+                                }
+                            });
+                        }
                     }
                     else {
                         this.updating = false;
@@ -11292,19 +11705,26 @@ let ClientProfilePageComponent = class ClientProfilePageComponent {
                         console.log('deleted');
                         this.deleting = false;
                         this.existingAttachments.splice(index, 1);
+                        this.removeSignatureAfterDelete(key);
                     }
                     else {
                         console.log('deleted');
                         this.deleting = false;
-                        alert('Failed to delete attachment. Please try again!');
+                        this.showAttachmentDeleteFailedAlert();
                     }
                 }, err => {
                     console.log('error deleting file');
                     this.deleting = false;
-                    alert('Failed to delete attachment. Please try again!');
+                    this.showAttachmentDeleteFailedAlert();
                 });
             }
         });
+    }
+    removeSignatureAfterDelete(key) {
+        if (key == 'signature') {
+            this.hasSignature = false;
+            this.signatureImageUrl = '';
+        }
     }
     openModal(e, url) {
         const index = url.lastIndexOf('.') + 1;
@@ -11379,28 +11799,32 @@ ClientProfilePageComponent.ctorParameters = () => [
     { type: src_app_services_form_builder_form_builder_service__WEBPACK_IMPORTED_MODULE_10__["FormBuilderService"] },
     { type: src_app_services_endpoint_endpoint_service__WEBPACK_IMPORTED_MODULE_7__["EndpointService"] },
     { type: src_app_services_storage_local_storage_service__WEBPACK_IMPORTED_MODULE_9__["LocalStorageService"] },
-    { type: src_app_services_downloader_downloader_service__WEBPACK_IMPORTED_MODULE_8__["DownloaderService"] }
+    { type: src_app_services_downloader_downloader_service__WEBPACK_IMPORTED_MODULE_8__["DownloaderService"] },
+    { type: src_app_services_file_uploads_file_uploads_service__WEBPACK_IMPORTED_MODULE_11__["FileUploadsService"] }
 ];
 tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
-    Object(_angular_core__WEBPACK_IMPORTED_MODULE_11__["ViewChild"])('pin', { static: false })
+    Object(_angular_core__WEBPACK_IMPORTED_MODULE_12__["ViewChild"])('pin', { static: false })
 ], ClientProfilePageComponent.prototype, "pinDialog", void 0);
 tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
-    Object(_angular_core__WEBPACK_IMPORTED_MODULE_11__["ViewChild"])('setPin', { static: false })
+    Object(_angular_core__WEBPACK_IMPORTED_MODULE_12__["ViewChild"])('setPin', { static: false })
 ], ClientProfilePageComponent.prototype, "setPinDialog", void 0);
 tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
-    Object(_angular_core__WEBPACK_IMPORTED_MODULE_11__["ViewChild"])('confirm', { static: false })
+    Object(_angular_core__WEBPACK_IMPORTED_MODULE_12__["ViewChild"])('signaturePad', { static: false })
+], ClientProfilePageComponent.prototype, "signaturePad", void 0);
+tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
+    Object(_angular_core__WEBPACK_IMPORTED_MODULE_12__["ViewChild"])('confirm', { static: false })
 ], ClientProfilePageComponent.prototype, "confirmDialog", void 0);
 tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
-    Object(_angular_core__WEBPACK_IMPORTED_MODULE_11__["ViewChild"])('viewImgAttachment', { static: false })
+    Object(_angular_core__WEBPACK_IMPORTED_MODULE_12__["ViewChild"])('viewImgAttachment', { static: false })
 ], ClientProfilePageComponent.prototype, "viewImgDialog", void 0);
 tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
-    Object(_angular_core__WEBPACK_IMPORTED_MODULE_11__["ViewChild"])('viewDocAttachment', { static: false })
+    Object(_angular_core__WEBPACK_IMPORTED_MODULE_12__["ViewChild"])('viewDocAttachment', { static: false })
 ], ClientProfilePageComponent.prototype, "viewDocDialog", void 0);
 tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
-    Object(_angular_core__WEBPACK_IMPORTED_MODULE_11__["ViewChild"])('deleteAttachment', { static: false })
+    Object(_angular_core__WEBPACK_IMPORTED_MODULE_12__["ViewChild"])('deleteAttachment', { static: false })
 ], ClientProfilePageComponent.prototype, "deleteFileDialog", void 0);
 ClientProfilePageComponent = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
-    Object(_angular_core__WEBPACK_IMPORTED_MODULE_11__["Component"])({
+    Object(_angular_core__WEBPACK_IMPORTED_MODULE_12__["Component"])({
         selector: 'app-client-profile-page',
         template: __webpack_require__(/*! raw-loader!./client-profile-page.component.html */ "./node_modules/raw-loader/index.js!./src/app/pages/dashboard/client/client-profile-page/client-profile-page.component.html"),
         styles: [__webpack_require__(/*! ./client-profile-page.component.css */ "./src/app/pages/dashboard/client/client-profile-page/client-profile-page.component.css")]
@@ -19330,7 +19754,7 @@ CreateCompanyPageComponent = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = ".form-builder-container {\n    padding-top: 1px;\n}\n\n.dropdown .dropdown-menu .dropdown-item {\n    font-size: .875rem;\n    padding: 1rem 1.5rem;\n}\n\nselect.form-control {\n    color: #555555 !important;\n}\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInNyYy9hcHAvcGFnZXMvZGFzaGJvYXJkL2dpdC1hZG1pbi9jcmVhdGUtZm9ybS1wYWdlL2NyZWF0ZS1mb3JtLXBhZ2UuY29tcG9uZW50LmNzcyJdLCJuYW1lcyI6W10sIm1hcHBpbmdzIjoiQUFBQTtJQUNJLGdCQUFnQjtBQUNwQjs7QUFFQTtJQUNJLGtCQUFrQjtJQUNsQixvQkFBb0I7QUFDeEI7O0FBRUE7SUFDSSx5QkFBeUI7QUFDN0IiLCJmaWxlIjoic3JjL2FwcC9wYWdlcy9kYXNoYm9hcmQvZ2l0LWFkbWluL2NyZWF0ZS1mb3JtLXBhZ2UvY3JlYXRlLWZvcm0tcGFnZS5jb21wb25lbnQuY3NzIiwic291cmNlc0NvbnRlbnQiOlsiLmZvcm0tYnVpbGRlci1jb250YWluZXIge1xuICAgIHBhZGRpbmctdG9wOiAxcHg7XG59XG5cbi5kcm9wZG93biAuZHJvcGRvd24tbWVudSAuZHJvcGRvd24taXRlbSB7XG4gICAgZm9udC1zaXplOiAuODc1cmVtO1xuICAgIHBhZGRpbmc6IDFyZW0gMS41cmVtO1xufVxuXG5zZWxlY3QuZm9ybS1jb250cm9sIHtcbiAgICBjb2xvcjogIzU1NTU1NSAhaW1wb3J0YW50O1xufSJdfQ== */"
+module.exports = ".form-builder-container {\n    padding-top: 1px;\n}\n\n.dropdown .dropdown-menu .dropdown-item {\n    font-size: .875rem;\n    padding: 1rem 1.5rem;\n}\n\nselect.form-control {\n    color: #555555 !important;\n}\n\n.title-form {\n    font-size: 25px;\n    font-family: 'OpenSans_SemiBold';\n}\n\n.card.no-card {\n    border: none;\n}\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInNyYy9hcHAvcGFnZXMvZGFzaGJvYXJkL2dpdC1hZG1pbi9jcmVhdGUtZm9ybS1wYWdlL2NyZWF0ZS1mb3JtLXBhZ2UuY29tcG9uZW50LmNzcyJdLCJuYW1lcyI6W10sIm1hcHBpbmdzIjoiQUFBQTtJQUNJLGdCQUFnQjtBQUNwQjs7QUFFQTtJQUNJLGtCQUFrQjtJQUNsQixvQkFBb0I7QUFDeEI7O0FBRUE7SUFDSSx5QkFBeUI7QUFDN0I7O0FBRUE7SUFDSSxlQUFlO0lBQ2YsZ0NBQWdDO0FBQ3BDOztBQUVBO0lBQ0ksWUFBWTtBQUNoQiIsImZpbGUiOiJzcmMvYXBwL3BhZ2VzL2Rhc2hib2FyZC9naXQtYWRtaW4vY3JlYXRlLWZvcm0tcGFnZS9jcmVhdGUtZm9ybS1wYWdlLmNvbXBvbmVudC5jc3MiLCJzb3VyY2VzQ29udGVudCI6WyIuZm9ybS1idWlsZGVyLWNvbnRhaW5lciB7XG4gICAgcGFkZGluZy10b3A6IDFweDtcbn1cblxuLmRyb3Bkb3duIC5kcm9wZG93bi1tZW51IC5kcm9wZG93bi1pdGVtIHtcbiAgICBmb250LXNpemU6IC44NzVyZW07XG4gICAgcGFkZGluZzogMXJlbSAxLjVyZW07XG59XG5cbnNlbGVjdC5mb3JtLWNvbnRyb2wge1xuICAgIGNvbG9yOiAjNTU1NTU1ICFpbXBvcnRhbnQ7XG59XG5cbi50aXRsZS1mb3JtIHtcbiAgICBmb250LXNpemU6IDI1cHg7XG4gICAgZm9udC1mYW1pbHk6ICdPcGVuU2Fuc19TZW1pQm9sZCc7XG59XG5cbi5jYXJkLm5vLWNhcmQge1xuICAgIGJvcmRlcjogbm9uZTtcbn0iXX0= */"
 
 /***/ }),
 
@@ -19350,8 +19774,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _angular_router__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @angular/router */ "./node_modules/@angular/router/fesm2015/router.js");
 /* harmony import */ var src_app_models_forms_model__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! src/app/models/forms.model */ "./src/app/models/forms.model.ts");
 /* harmony import */ var src_app_services_forms_forms_service__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! src/app/services/forms/forms.service */ "./src/app/services/forms/forms.service.ts");
-/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm2015/core.js");
-/* harmony import */ var _angular_forms__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! @angular/forms */ "./node_modules/@angular/forms/fesm2015/forms.js");
+/* harmony import */ var _angular_forms__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @angular/forms */ "./node_modules/@angular/forms/fesm2015/forms.js");
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm2015/core.js");
 /* harmony import */ var src_app_services_company_company_service__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! src/app/services/company/company.service */ "./src/app/services/company/company.service.ts");
 /* harmony import */ var src_app_services_form_builder_form_builder_service__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! src/app/services/form-builder/form-builder.service */ "./src/app/services/form-builder/form-builder.service.ts");
 
@@ -19427,10 +19851,12 @@ let CreateFormPageComponent = class CreateFormPageComponent {
     buildForm() {
         this.form = this._formBuilder.group({
             pdf: [''],
+            tnc: [''],
             canView: [''],
-            name: ['', _angular_forms__WEBPACK_IMPORTED_MODULE_6__["Validators"].required],
-            canJoin: ['', _angular_forms__WEBPACK_IMPORTED_MODULE_6__["Validators"].required],
-            merchant: ['', _angular_forms__WEBPACK_IMPORTED_MODULE_6__["Validators"].required]
+            name: ['', _angular_forms__WEBPACK_IMPORTED_MODULE_5__["Validators"].required],
+            hasTnc: ['', _angular_forms__WEBPACK_IMPORTED_MODULE_5__["Validators"].required],
+            canJoin: ['', _angular_forms__WEBPACK_IMPORTED_MODULE_5__["Validators"].required],
+            merchant: ['', _angular_forms__WEBPACK_IMPORTED_MODULE_5__["Validators"].required]
         });
     }
     checkIfQMSEnabled(merchant_id) {
@@ -19451,13 +19877,31 @@ let CreateFormPageComponent = class CreateFormPageComponent {
         this.handleUploadFileView(this.f.merchant.value);
         this.checkIfQMSEnabled(this.f.merchant.value);
     }
+    tncSelected(e) {
+        const selectedValue = this.f.hasTnc.value;
+        if (selectedValue == '1') {
+            this.showTncFileUpload = true;
+        }
+        else {
+            this.showTncFileUpload = false;
+        }
+    }
     inputFileChanged(ev) {
         const pdf_file = this.pdfFileElement.nativeElement;
         this.f.pdf.setValue(pdf_file.files[0].name);
         this.pdfFile = pdf_file.files[0];
     }
+    inputFileChanged_1(ev) {
+        const tnc_file = this.tncFileElement.nativeElement;
+        this.f.tnc.setValue(tnc_file.files[0].name);
+        this.tncFile = tnc_file.files[0];
+    }
     showFilePicker() {
         const element = this.pdfFileElement.nativeElement;
+        element.click();
+    }
+    showFilePicker_1() {
+        const element = this.tncFileElement.nativeElement;
         element.click();
     }
     handleUploadFileView(merchant_id) {
@@ -19487,6 +19931,21 @@ let CreateFormPageComponent = class CreateFormPageComponent {
         return this.formBuilder.actions.getData();
     }
     createForm() {
+        if (this.tncFile != null) {
+            alert('uploading');
+            this.formService.uploadFormTNC(this.formCode, this.tncFile).then(ok => {
+                this.createFormOnly();
+            }, err => {
+                this.loading = false;
+                this.created = false;
+                this.uploadError = true;
+            });
+        }
+        else {
+            this.createFormOnly();
+        }
+    }
+    createFormOnly() {
         const form = this.getForm();
         const formData = new src_app_models_forms_model__WEBPACK_IMPORTED_MODULE_3__["Forms"]();
         console.log('json: ' + JSON.stringify(form));
@@ -19501,6 +19960,7 @@ let CreateFormPageComponent = class CreateFormPageComponent {
             formData.status = this.toPublish ? 1 : 0;
             formData.join_queue = this.f.canJoin ? 1 : 0;
             formData.merchant_id = parseInt(this.f.merchant.value);
+            formData.tnc = this.f.hasTnc.value == '' ? 0 : this.f.hasTnc.value;
             formData.can_view = this.f.canView.value == '' ? 0 : this.f.canView.value;
             this.formService.createForm(formData).then(res => {
                 this.loading = false;
@@ -19604,16 +20064,19 @@ let CreateFormPageComponent = class CreateFormPageComponent {
 };
 CreateFormPageComponent.ctorParameters = () => [
     { type: _angular_router__WEBPACK_IMPORTED_MODULE_2__["Router"] },
-    { type: _angular_forms__WEBPACK_IMPORTED_MODULE_6__["FormBuilder"] },
+    { type: _angular_forms__WEBPACK_IMPORTED_MODULE_5__["FormBuilder"] },
     { type: src_app_services_forms_forms_service__WEBPACK_IMPORTED_MODULE_4__["FormsService"] },
     { type: src_app_services_company_company_service__WEBPACK_IMPORTED_MODULE_7__["CompanyService"] },
     { type: src_app_services_form_builder_form_builder_service__WEBPACK_IMPORTED_MODULE_8__["FormBuilderService"] }
 ];
 tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
-    Object(_angular_core__WEBPACK_IMPORTED_MODULE_5__["ViewChild"])('pdfFile', { static: false })
+    Object(_angular_core__WEBPACK_IMPORTED_MODULE_6__["ViewChild"])('tncFile', { static: false })
+], CreateFormPageComponent.prototype, "tncFileElement", void 0);
+tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
+    Object(_angular_core__WEBPACK_IMPORTED_MODULE_6__["ViewChild"])('pdfFile', { static: false })
 ], CreateFormPageComponent.prototype, "pdfFileElement", void 0);
 CreateFormPageComponent = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
-    Object(_angular_core__WEBPACK_IMPORTED_MODULE_5__["Component"])({
+    Object(_angular_core__WEBPACK_IMPORTED_MODULE_6__["Component"])({
         selector: 'app-create-form-page',
         template: __webpack_require__(/*! raw-loader!./create-form-page.component.html */ "./node_modules/raw-loader/index.js!./src/app/pages/dashboard/git-admin/create-form-page/create-form-page.component.html"),
         styles: [__webpack_require__(/*! ./create-form-page.component.css */ "./src/app/pages/dashboard/git-admin/create-form-page/create-form-page.component.css")]
@@ -28402,6 +28865,19 @@ let ClientService = class ClientService {
             });
         });
     }
+    getFormTNC(form_code) {
+        return new Promise((resolve, reject) => {
+            const headers = new _angular_common_http__WEBPACK_IMPORTED_MODULE_3__["HttpHeaders"]().set('Content-Type', 'text/plain; charset=utf-8');
+            const url = this.endpointService.apiHost + 'api/v1/gettncContent/' + form_code;
+            this.http.get(url, { headers: this.headers, responseType: 'text' }).subscribe(res => {
+                // console.log('___ress: ' + JSON.stringify(res));
+                resolve(res);
+            }, err => {
+                console.log('____error: ' + JSON.stringify(err));
+                reject(err);
+            });
+        });
+    }
 };
 ClientService.ctorParameters = () => [
     { type: _angular_common_http__WEBPACK_IMPORTED_MODULE_3__["HttpClient"] },
@@ -30240,6 +30716,26 @@ let FormsService = class FormsService {
                 console.log('response: ' + JSON.stringify(res));
                 const response = res;
                 if (lodash__WEBPACK_IMPORTED_MODULE_1__["toLower"](response.message) == 'ok') {
+                    resolve(true);
+                }
+                else {
+                    resolve(false);
+                }
+            }, err => {
+                console.log('error: ' + JSON.stringify(err));
+                reject(err);
+            });
+        });
+    }
+    uploadFormTNC(form_code, file) {
+        return new Promise((resolve, reject) => {
+            const form = new FormData();
+            const fileHeader = this.endpointService.headers(true);
+            const url = this.endpointService.apiHost + 'api/v1/uploadtnc/' + form_code;
+            form.set('tnc', file);
+            this.http.post(url, form, { headers: fileHeader }).subscribe(res => {
+                console.log('response: ' + JSON.stringify(res));
+                if (lodash__WEBPACK_IMPORTED_MODULE_1__["toLower"](res.message) == 'ok') {
                     resolve(true);
                 }
                 else {

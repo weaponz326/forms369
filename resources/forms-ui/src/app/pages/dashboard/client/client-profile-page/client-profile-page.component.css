@@ -91,3 +91,7 @@ a:not([href]):not([tabindex]):hover {
 .sections-tabs .card .card-title {
     padding-left: 20px;
 }
+
+.btn-link {
+    font-size: 0.775rem;
+}

@@ -6,8 +6,9 @@ import { NgbTimeStruct, NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { LoggingService } from 'src/app/services/logging/logging.service';
 import { QMSQueueingService } from 'src/app/services/qms/qmsqueueing.service';
 import { DateTimeService } from 'src/app/services/date-time/date-time.service';
-import { Component, OnInit, Input, ViewChild, TemplateRef, Output, EventEmitter } from '@angular/core';
 import { LocalStorageService } from 'src/app/services/storage/local-storage.service';
+import { Component, OnInit, Input, ViewChild, TemplateRef, Output, EventEmitter } from '@angular/core';
+import * as moment from 'moment';
 
 @Component({
   selector: 'app-join-queue-dialog',
@@ -26,6 +27,7 @@ export class JoinQueueDialogComponent implements OnInit {
   showTimer: boolean;
   time: NgbTimeStruct;
   servicesList: Array<any>;
+  showInvalidTimeError: boolean;
   @Input() branchExtension: any;
   @Output() queueSkipped = new EventEmitter();
   @Output() processCompleted = new EventEmitter();
@@ -98,15 +100,32 @@ export class JoinQueueDialogComponent implements OnInit {
     this.modalService.open(this.alreadyJoinQueueDialog, { centered: true, backdrop: 'static', keyboard: false });
   }
 
+  validateTime(time: Date) {
+    const now = new Date();
+    if (time.getHours() >= now.getHours()) {
+      if (time.getMinutes() >= now.getMinutes()) {
+        this.showInvalidTimeError = false;
+        return true;
+      }
+      else {
+        this.showInvalidTimeError = true;
+        return false;
+      }
+    }
+    else {
+      this.showInvalidTimeError = true;
+      return false;
+    }
+  }
+
   resolveDate() {
     const now = new Date();
     const month = now.getMonth() + 1;
     const date = now.getFullYear().toString() + '-' + month.toString() + '-' + now.getDate().toString();
     const formatted_date = this.dateTimeService.getDatePart(date);
-    this.logger.log('formttated_:: ' + formatted_date);
     const fullDateTime = formatted_date + ' ' + this.joinTime.value.hour +
       ':' + this.joinTime.value.minute + ':' + now.getSeconds();
-    this.logger.log('submitted_join_at: ' + fullDateTime);
+    this.logger.log('submitted_join_at: ' + moment(fullDateTime).format('YYYY-MM-DD hh:mm:ss'));
     return fullDateTime;
   }
 
@@ -185,14 +204,42 @@ export class JoinQueueDialogComponent implements OnInit {
     this.logger.log('current time: ' + JSON.stringify(this.time));
   }
 
+  getSelectedDateTime() {
+    const now = new Date();
+    const date = now.getDate();
+    const year = now.getFullYear();
+    const month = now.getMonth() + 1;
+    const time = this.f.joinTime.value == 0 ? now : new Date(year, month, date, this.time.hour, this.time.minute, this.time.second);
+    this.logger.log('now: ::' + now.getTime());
+    this.logger.log('selected: ::' + time.getTime());
+    return time;
+  }
+
   submit() {
     this.submitted = true;
-    if (this.form.valid) {
-      this.logger.log('ok, continue ...');
-      this.joinQueue();
+    if (this.f.joinTime.value == 'now') {
+      if (this.form.valid) {
+        this.logger.log('ok, continue ...');
+        this.joinQueue();
+      }
+      else {
+        this.logger.log('ooops, invalid');
+      }
     }
     else {
-      this.logger.log('ooops, invalid');
+      const selectedTime = this.getSelectedDateTime();
+      if (this.validateTime(selectedTime)) {
+        if (this.form.valid) {
+          this.logger.log('ok, continue ...');
+          this.joinQueue();
+        }
+        else {
+          this.logger.log('ooops, invalid');
+        }
+      }
+      else {
+        this.logger.log('am ___here');
+      }
     }
   }
 

@@ -66,13 +66,49 @@
                       </div>
                     </div>
 
-                    <div class="buttons-list">
+                    <div *ngIf="requireSignature" class="signature-section">
+                      <div class="card" style="margin-bottom: 15px;">
+                        <div class="card-body">
+                          <div class="card-title">Signature</div>
+                          <div class="align-right">
+                            <button type="button" class="btn btn-sm" (click)="editSignature()">
+                              <i class="mdi mdi-pencil-outline"></i>
+                            </button>
+                            <button *ngIf="!hasSignature && signatureImageUrl.length != 0"
+                              type="button" class="btn btn-sm" (click)="restoreSignature()">
+                              <i class="mdi mdi-restore-clock"></i>
+                            </button>
+                          </div>
+                          <div *ngIf="!hasSignature">
+                            <signature-pad #signaturePad [options]="signaturePadOptions"
+                              (onEndEvent)="signatureDrawComplete()"></signature-pad>
+                          </div>
+                          <div *ngIf="hasSignature">
+                            <img [src]="signatureImageUrl" alt="signature">
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+
+                    <div class="terms-conditions" *ngIf="hasTnc">
+                      <div class="card">
+                        <div class="card-body">
+                          <div class="card-title">Terms & Condtions</div>
+                          <div class="card-text">
+                            <p>By submitting this form, please be aware that the terms & conditions apply. Please accept or decline below.</p>
+                            <button class="btn btn-outline-primary" (click)="openTncDialog()">Read & Accept in order to submit form</button>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+
+                    <div class="buttons-list mt-4">
                       <button *ngIf="loading" class="btn btn-primary btn-lg mr-2" type="button" disabled>
                         <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
                         <span class="sr-only">Please wait...</span>
                       </button>
                       <button *ngIf="!loading" type="submit" class="btn btn-primary btn-lg mr-2" (click)="submit()">Submit</button>
-                      <button *ngIf="!loading" type="submit" class="btn btn-primary btn-lg mr-2" (click)="saveAsDraft()">Save as Draft</button>
+                      <button *ngIf="!loading" type="submit" class="btn btn-outline-primary btn-lg mr-2" (click)="saveAsDraft()">Save as Draft</button>
                       <button type="button" class="btn btn-light btn-lg" (click)="cancel()">Cancel</button>
                     </div>
                   </form>
@@ -271,7 +307,7 @@
 <ng-template #submissionOptions let-modal>
   <div class="modal-header">
     <h4 class="modal-title" id="modal-title">Confirm Action</h4>
-    <button type="button" class="close" aria-describedby="modal-title" (click)="modal.close()">
+    <button type="button" class="close" aria-describedby="modal-title" (click)="modal.close('close')">
       <span aria-hidden="true">&times;</span>
     </button>
   </div>
@@ -297,6 +333,19 @@
   <div class="modal-footer">
     <button type="button" class="btn btn-outline-primary" (click)="modal.close('no')">No</button>
     <button type="button" class="btn btn-primary" (click)="modal.close('yes')">Yes</button>
+  </div>
+</ng-template>
+
+<ng-template #tncDialog let-modal>
+  <div class="modal-header">
+    <h4 class="modal-title" id="modal-title">Terms & Condition</h4>
+  </div>
+  <div class="modal-body" style="max-height: calc(70vh - 143px); overflow-y: auto;">
+    <p>{{ tncContent }}</p>
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-outline-danger" (click)="declineTnc()">Decline</button>
+    <button type="button" class="btn btn-primary" (click)="acceptTnc()">Accept</button>
   </div>
 </ng-template>
 

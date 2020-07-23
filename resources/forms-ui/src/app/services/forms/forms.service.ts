@@ -274,6 +274,31 @@ export class FormsService {
     });
   }
 
+  uploadFormTNC(form_code: string, file: File): Promise<boolean> {
+    return new Promise((resolve, reject) => {
+      const form = new FormData();
+      const fileHeader = this.endpointService.headers(true);
+      const url = this.endpointService.apiHost + 'api/v1/uploadtnc/' + form_code;
+
+      form.set('tnc', file);
+      this.http.post<any>(url, form, { headers: fileHeader }).subscribe(
+        res => {
+          console.log('response: ' + JSON.stringify(res));
+          if (_.toLower(res.message) == 'ok') {
+            resolve(true);
+          }
+          else {
+            resolve(false);
+          }
+        },
+        err => {
+          console.log('error: ' + JSON.stringify(err));
+          reject(err);
+        }
+      );
+    });
+  }
+
   editFormPDF(merchant_id: string, form_code: string, pdf: File): Promise<boolean> {
     return new Promise((resolve, reject) => {
       const form = new FormData();

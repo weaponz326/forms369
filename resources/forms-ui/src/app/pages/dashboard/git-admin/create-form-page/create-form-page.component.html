@@ -45,71 +45,165 @@
 
                 <form [formGroup]="form">
                   <div class="row mt-4">
-                    <div class="col-7">
-                      <div class="form-group">
-                        <input type="text" formControlName="name" class="form-control" placeholder="Whats the name of your form ?"
-                          [ngClass]="{'input-control-error': submitted && f.name.errors}">
-                        <div *ngIf="submitted && f.name.errors">
-                          <p class="input-error" *ngIf="f.name.errors.required">Form name is required</p>
-                        </div>
-                      </div>
-                    </div>
-                    <div class="col-5">
-                      <div class="form-group">
-                        <select class="form-control" formControlName="merchant" (change)="onMerchantSelect($event)"
-                          [ngClass]="{'input-control-error': submitted && f.merchant.errors}">
-                          <option value="" disabled>Select Company</option>
-                          <option *ngFor="let company of allMerchantsList" [value]="company.id">
-                            {{ company.merchant_name }}
-                          </option>
-                        </select>
-                        <div *ngIf="submitted && f.merchant.errors">
-                          <p class="input-error" *ngIf="f.merchant.errors.required">Company is required</p>
-                        </div>
-                      </div>
-                    </div>
-                    <div [ngClass]="{'col-4': showFileUpload, 'col-6': !showFileUpload || !showJoinQueue}">
-                      <div class="form-group">
-                        <select class="form-control" formControlName="canView" [ngClass]="{'input-control-error': submitted && f.canView.errors}">
-                          <option value="" disabled>Can View</option>
-                          <option value="0">No</option>
-                          <option value="1">Yes</option>
-                        </select>
-                      </div>
-                    </div>
-                    <div [ngClass]="{'col-4': showFileUpload && showJoinQueue, 'col-6': !showJoinQueue}" *ngIf="showFileUpload">
-                      <div class="form-group">
-                        <input #pdfFile type="file" accept="application/pdf" (change)="inputFileChanged($event)" class="file-upload-default">
-                        <div class="input-group col-xs-12">
-                          <input type="file" style="overflow: hidden; height: 0px; width: 0px;">
-                          <input type="text" formControlName="pdf" class="form-control file-upload-info" placeholder="Upload File" readonly>
-                          <span class="input-group-append">
-                            <button class="file-upload-browse btn btn-primary" type="button" (click)="showFilePicker()"
-                              style="padding: 9px 15px;"><i class="mdi mdi-folder"></i></button>
-                          </span>
-                        </div>
-                        <div *ngIf="submitted && f.pdf.errors">
-                          <p class="input-error" *ngIf="f.pdf.errors.required">PDF file is required</p>
-                        </div>
-                      </div>
-                    </div>
-                    <div [ngClass]="{'col-4': showFileUpload && showJoinQueue, 'col-6': !showFileUpload && showJoinQueue}" *ngIf="showJoinQueue">
-                      <div class="form-group">
-                        <select class="form-control" formControlName="canJoin"
-                          [ngClass]="{'input-control-error': submitted && f.canJoin.errors}">
-                          <option value="" disabled>Can Join Queue</option>
-                          <option value="0">No</option>
-                          <option value="1">Yes</option>
-                        </select>
-                        <div *ngIf="submitted && f.canJoin.errors">
-                          <p class="input-error" *ngIf="f.canJoin.errors.required">Can Join Queue is required</p>
+                    <div class="col-8 offset-2">
+                      <div class="card">
+                        <div class="card-body">
+                          <div class="card-title">Form Name</div>
+                          <div class="card-text">
+                            <div class="form-group">
+                              <input type="text" formControlName="name" class="form-control form-control-lg title-form"
+                                placeholder="Whats the name of your form ?"
+                                [ngClass]="{'input-control-error': submitted && f.name.errors}">
+                              <div *ngIf="submitted && f.name.errors">
+                                <p class="input-error" *ngIf="f.name.errors.required">Form name is required</p>
+                              </div>
+                            </div>
+                          </div>
+
+                          <div class="card-text">
+                            <div class="row mt-4">
+                              <div class="col-6">
+                                <div class="card no-card">
+                                  <div class="card-body">
+                                    <div class="card-title">View</div>
+                                    <div class="card-text">
+                                      <div class="form-group">
+                                        <select class="form-control" formControlName="canView"
+                                          [ngClass]="{'input-control-error': submitted && f.canView.errors}">
+                                          <option value="" disabled>Can View</option>
+                                          <option value="0">No</option>
+                                          <option value="1">Yes</option>
+                                        </select>
+                                      </div>
+                                    </div>
+                                  </div>
+                                </div>
+                              </div>
+                              <div class="col-6">
+                                <div class="card no-card">
+                                  <div class="card-body">
+                                    <div class="card-title">QMS Queue</div>
+                                    <div class="card-text">
+                                      <div class="form-group">
+                                        <select class="form-control" formControlName="canJoin"
+                                          [ngClass]="{'input-control-error': submitted && f.canJoin.errors}">
+                                          <option value="" disabled>Can Join Queue</option>
+                                          <option value="0">No</option>
+                                          <option value="1">Yes</option>
+                                        </select>
+                                        <div *ngIf="submitted && f.canJoin.errors">
+                                          <p class="input-error" *ngIf="f.canJoin.errors.required">Can Join Queue is
+                                            required</p>
+                                        </div>
+                                      </div>
+                                    </div>
+                                  </div>
+                                </div>
+                              </div>
+                              <!-- <div class="col-1"></div> -->
+                            </div>
+                          </div>
                         </div>
                       </div>
                     </div>
                   </div>
 
+                  <div class="row mt-4">
+                    <div class="col-1"></div>
+                    <div class="col-5">
+                      <div class="card">
+                        <div class="card-body">
+                          <div class="card-title">Company Name</div>
+                          <div class="card-text">
+                            <div class="form-group">
+                              <select class="form-control" formControlName="merchant"
+                                (change)="onMerchantSelect($event)"
+                                [ngClass]="{'input-control-error': submitted && f.merchant.errors}">
+                                <option value="" disabled>Select Company</option>
+                                <option *ngFor="let company of allMerchantsList" [value]="company.id">
+                                  {{ company.merchant_name }}
+                                </option>
+                              </select>
+                              <div *ngIf="submitted && f.merchant.errors">
+                                <p class="input-error" *ngIf="f.merchant.errors.required">Company is required</p>
+                              </div>
+                            </div>
+                          </div>
+
+                          <div class="card-text" *ngIf="showFileUpload">
+                            <div class="card-title">PDF Upload</div>
+                            <div class="card-text">
+                              <div class="form-group">
+                                <input #pdfFile type="file" accept="application/pdf" (change)="inputFileChanged($event)"
+                                  class="file-upload-default">
+                                <div class="input-group col-xs-12">
+                                  <input type="file" style="overflow: hidden; height: 0px; width: 0px;">
+                                  <input type="text" formControlName="pdf" class="form-control file-upload-info"
+                                    placeholder="Upload File" readonly>
+                                  <span class="input-group-append">
+                                    <button class="file-upload-browse btn btn-primary" type="button"
+                                      (click)="showFilePicker()" style="padding: 9px 15px;"><i
+                                        class="mdi mdi-folder"></i></button>
+                                  </span>
+                                </div>
+                                <div *ngIf="submitted && f.pdf.errors">
+                                  <p class="input-error" *ngIf="f.pdf.errors.required">PDF file is required</p>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+
+                    <div class="col-5">
+                      <div class="card">
+                        <div class="card-body">
+                          <div class="card-title">Terms & Conditions</div>
+                          <div class="card-text">
+                            <div class="form-group">
+                              <select class="form-control" formControlName="hasTnc"
+                                [ngClass]="{'input-control-error': submitted && f.hasTnc.errors}" (change)="tncSelected($event)">
+                                <option value="" disabled>Has terms & Conditions</option>
+                                <option value="0">No</option>
+                                <option value="1">Yes</option>
+                              </select>
+                              <div *ngIf="submitted && f.hasTnc.errors">
+                                <p class="input-error" *ngIf="f.hasTnc.errors.required">This options is required</p>
+                              </div>
+                            </div>
+                          </div>
+
+                          <div class="card-text" *ngIf="showTncFileUpload">
+                            <div class="card-title">File Upload</div>
+                            <div class="card-text">
+                              <div class="form-group">
+                                <input #tncFile type="file" accept="text/plain" (change)="inputFileChanged_1($event)"
+                                  class="file-upload-default">
+                                <div class="input-group col-xs-12">
+                                  <input type="file" style="overflow: hidden; height: 0px; width: 0px;">
+                                  <input type="text" formControlName="tnc" class="form-control file-upload-info"
+                                    placeholder="Upload File" readonly>
+                                  <span class="input-group-append">
+                                    <button class="file-upload-browse btn btn-primary" type="button"
+                                      (click)="showFilePicker_1()" style="padding: 9px 15px;"><i
+                                        class="mdi mdi-folder"></i></button>
+                                  </span>
+                                </div>
+                                <div *ngIf="submitted && f.tnc.errors">
+                                  <p class="input-error" *ngIf="f.tnc.errors.required">TNC file is required</p>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="col-1"></div>
+                  </div>
+
                   <!-- form builder -->
-                  <div class="form-builder-container">
+                  <div class="form-builder-container mt-4">
                     <div id="fb-editor"></div>
                   </div>
                   <!-- /.end form builder -->
