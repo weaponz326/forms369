@@ -12,6 +12,8 @@ use Illuminate\Support\Facades\Log;
 use Response;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\File;
+use App\Notifications\SlackNotification;
+use Notification;
 class ClientController extends Controller
 {
     
@@ -240,8 +242,13 @@ class ClientController extends Controller
 
                 $status = (new AuthController)->sendsms($from,$mobile,$msg);
                 if($status){
+                    if($code == "69CEF"){
+                        Notification::route('slack', env('SLACK_HOOK'))->notify(new SlackNotification($sub_code));
+                    }
+                    //log and set success message
                     Log::channel('mysql')->info('Client  with id: ' . $id .' successsfully submitted form with code: '. $code);
                     $message = 'Ok';
+
                 }    
             }    
         }catch(Exception $e) {
