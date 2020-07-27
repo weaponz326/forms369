@@ -91,6 +91,16 @@ Route::get('invalid_password_link', function () {
     return View::make('index');
 })->name('invalid_password_link');
 
+Route::get('terms', function () {
+    View::addExtension('html', 'php');
+    return View::make('index');
+});
+
+Route::get('privacy', function () {
+    View::addExtension('html', 'php');
+    return View::make('index');
+});
+
 Route::get('git_admin', function () {
     View::addExtension('html', 'php');
     return View::make('index');

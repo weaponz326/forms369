@@ -1618,6 +1618,17 @@ module.exports = "<p>not-found-page works!</p>\n"
 
 /***/ }),
 
+/***/ "./node_modules/raw-loader/index.js!./src/app/pages/privacy-page/privacy-page.component.html":
+/*!******************************************************************************************!*\
+  !*** ./node_modules/raw-loader!./src/app/pages/privacy-page/privacy-page.component.html ***!
+  \******************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = "<p>privacy-page works!</p>\n"
+
+/***/ }),
+
 /***/ "./node_modules/raw-loader/index.js!./src/app/pages/register-page/register-page.component.html":
 /*!********************************************************************************************!*\
   !*** ./node_modules/raw-loader!./src/app/pages/register-page/register-page.component.html ***!
@@ -1648,6 +1659,17 @@ module.exports = "<div class=\"container-scroller\">\n  <div class=\"container-f
 /***/ (function(module, exports) {
 
 module.exports = "<div class=\"container-scroller\">\n  <div class=\"container-fluid page-body-wrapper full-page-wrapper\">\n    <div class=\"content-wrapper d-flex align-items-center auth px-0\">\n      <div class=\"row w-100 mx-0\">\n        <div class=\"col-lg-4 mx-auto\">\n          <div class=\"auth-form-light py-5 px-4 px-sm-5\">\n            <div class=\"text-center\">\n              <a routerLink=\"/\" class=\"brand-logo\">\n                <img src=\"./assets/images/logo1.png\" alt=\"logo\">\n              </a>\n            </div>\n\n            <!-- setup new password view -->\n            <h4 class=\"text-center\">Hello! Reset pin.</h4>\n            <h6 class=\"font-weight-normal text-center\">Please setup a new pin.</h6>\n            <form [formGroup]=\"form\" (ngSubmit)=\"create()\" class=\"pt-3\">\n              <div class=\"form-group\">\n                <input type=\"password\" class=\"form-control form-control-lg\" formControlName=\"pin\"\n                  placeholder=\"Enter Pin\" [ngClass]=\"{'input-control-error': submitted && f.pin.errors}\"\n                  maxlength=\"4\" (keyup)=\"resolveStrCharacters($event)\">\n                <div *ngIf=\"submitted && f.pin.errors\">\n                  <p class=\"input-error\" *ngIf=\"f.pin.errors.required\">Pin is required.</p>\n                  <p class=\"input-error\" *ngIf=\"f.pin.errors.minlength\">Pin must be 4 (four) digits.</p>\n                </div>\n              </div>\n              <div class=\"form-group\">\n                <input type=\"password\" class=\"form-control form-control-lg\" formControlName=\"cPin\"\n                  placeholder=\"Confirm Pin\" [ngClass]=\"{'input-control-error': submitted && f.cPin.errors}\"\n                  maxlength=\"4\" (keyup)=\"resolveStrCharacters_1($event)\">\n                <div *ngIf=\"submitted && f.cPin.errors\">\n                  <p class=\"input-error\" *ngIf=\"f.cPin.errors.unmatched\">Pin doesn't match.</p>\n                  <p class=\"input-error\" *ngIf=\"f.cPin.errors.required\">Confirmation pin is required.</p>\n                  <p class=\"input-error\" *ngIf=\"f.cPin.errors.minlength\">Pin must be 4 (four) digits.</p>\n                </div>\n              </div>\n              <div class=\"mt-3\">\n                <button type=\"submit\" *ngIf=\"!loading\" class=\"btn btn-block btn-primary btn-lg font-weight-medium auth-form-btn\">Change Password</button>\n                <button type=\"button\" *ngIf=\"loading\" class=\"btn btn-block btn-primary btn-lg font-weight-medium auth-form-btn\" disabled>\n                  <span class=\"spinner-border spinner-border-sm\" role=\"status\" aria-hidden=\"true\"></span> &nbsp; &nbsp;\n                  Please wait...\n                </button>\n              </div>\n            </form>\n            <!-- /.end setup new password view -->\n          </div>\n        </div>\n      </div>\n    </div>\n    <!-- content ends -->\n  </div>\n  <!-- page-body ends -->\n</div>\n"
+
+/***/ }),
+
+/***/ "./node_modules/raw-loader/index.js!./src/app/pages/terms-page/terms-page.component.html":
+/*!**************************************************************************************!*\
+  !*** ./node_modules/raw-loader!./src/app/pages/terms-page/terms-page.component.html ***!
+  \**************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = "<p>terms-page works!</p>\n"
 
 /***/ }),
 
@@ -1787,6 +1809,10 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _pages_reset_pin_page_reset_pin_page_component__WEBPACK_IMPORTED_MODULE_112__ = __webpack_require__(/*! ./pages/reset-pin-page/reset-pin-page.component */ "./src/app/pages/reset-pin-page/reset-pin-page.component.ts");
 /* harmony import */ var _pages_invalid_reset_pin_page_invalid_reset_pin_page_component__WEBPACK_IMPORTED_MODULE_113__ = __webpack_require__(/*! ./pages/invalid-reset-pin-page/invalid-reset-pin-page.component */ "./src/app/pages/invalid-reset-pin-page/invalid-reset-pin-page.component.ts");
 /* harmony import */ var _pages_invalid_link_page_invalid_link_page_component__WEBPACK_IMPORTED_MODULE_114__ = __webpack_require__(/*! ./pages/invalid-link-page/invalid-link-page.component */ "./src/app/pages/invalid-link-page/invalid-link-page.component.ts");
+/* harmony import */ var _pages_terms_page_terms_page_component__WEBPACK_IMPORTED_MODULE_115__ = __webpack_require__(/*! ./pages/terms-page/terms-page.component */ "./src/app/pages/terms-page/terms-page.component.ts");
+/* harmony import */ var _pages_privacy_page_privacy_page_component__WEBPACK_IMPORTED_MODULE_116__ = __webpack_require__(/*! ./pages/privacy-page/privacy-page.component */ "./src/app/pages/privacy-page/privacy-page.component.ts");
+
+
 
 
 
@@ -1966,6 +1992,14 @@ const routes = [
     {
         path: 'invalid_link',
         component: _pages_invalid_link_page_invalid_link_page_component__WEBPACK_IMPORTED_MODULE_114__["InvalidLinkPageComponent"]
+    },
+    {
+        path: 'privacy',
+        component: _pages_privacy_page_privacy_page_component__WEBPACK_IMPORTED_MODULE_116__["PrivacyPageComponent"]
+    },
+    {
+        path: 'terms',
+        component: _pages_terms_page_terms_page_component__WEBPACK_IMPORTED_MODULE_115__["TermsPageComponent"]
     },
     {
         path: 'git_admin',
@@ -2680,6 +2714,10 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _pages_invalid_link_page_invalid_link_page_component__WEBPACK_IMPORTED_MODULE_139__ = __webpack_require__(/*! ./pages/invalid-link-page/invalid-link-page.component */ "./src/app/pages/invalid-link-page/invalid-link-page.component.ts");
 /* harmony import */ var _components_join_queue_dialog_join_queue_dialog_component__WEBPACK_IMPORTED_MODULE_140__ = __webpack_require__(/*! ./components/join-queue-dialog/join-queue-dialog.component */ "./src/app/components/join-queue-dialog/join-queue-dialog.component.ts");
 /* harmony import */ var _components_already_joined_queue_dialog_already_joined_queue_dialog_component__WEBPACK_IMPORTED_MODULE_141__ = __webpack_require__(/*! ./components/already-joined-queue-dialog/already-joined-queue-dialog.component */ "./src/app/components/already-joined-queue-dialog/already-joined-queue-dialog.component.ts");
+/* harmony import */ var _pages_terms_page_terms_page_component__WEBPACK_IMPORTED_MODULE_142__ = __webpack_require__(/*! ./pages/terms-page/terms-page.component */ "./src/app/pages/terms-page/terms-page.component.ts");
+/* harmony import */ var _pages_privacy_page_privacy_page_component__WEBPACK_IMPORTED_MODULE_143__ = __webpack_require__(/*! ./pages/privacy-page/privacy-page.component */ "./src/app/pages/privacy-page/privacy-page.component.ts");
+
+
 
 
 
@@ -2951,6 +2989,8 @@ AppModule = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
             _pages_invalid_link_page_invalid_link_page_component__WEBPACK_IMPORTED_MODULE_139__["InvalidLinkPageComponent"],
             _components_join_queue_dialog_join_queue_dialog_component__WEBPACK_IMPORTED_MODULE_140__["JoinQueueDialogComponent"],
             _components_already_joined_queue_dialog_already_joined_queue_dialog_component__WEBPACK_IMPORTED_MODULE_141__["AlreadyJoinedQueueDialogComponent"],
+            _pages_terms_page_terms_page_component__WEBPACK_IMPORTED_MODULE_142__["TermsPageComponent"],
+            _pages_privacy_page_privacy_page_component__WEBPACK_IMPORTED_MODULE_143__["PrivacyPageComponent"],
         ],
         imports: [
             _angular_platform_browser__WEBPACK_IMPORTED_MODULE_2__["BrowserModule"],
@@ -26157,6 +26197,48 @@ NotFoundPageComponent = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
 
 /***/ }),
 
+/***/ "./src/app/pages/privacy-page/privacy-page.component.css":
+/*!***************************************************************!*\
+  !*** ./src/app/pages/privacy-page/privacy-page.component.css ***!
+  \***************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = "\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IiIsImZpbGUiOiJzcmMvYXBwL3BhZ2VzL3ByaXZhY3ktcGFnZS9wcml2YWN5LXBhZ2UuY29tcG9uZW50LmNzcyJ9 */"
+
+/***/ }),
+
+/***/ "./src/app/pages/privacy-page/privacy-page.component.ts":
+/*!**************************************************************!*\
+  !*** ./src/app/pages/privacy-page/privacy-page.component.ts ***!
+  \**************************************************************/
+/*! exports provided: PrivacyPageComponent */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "PrivacyPageComponent", function() { return PrivacyPageComponent; });
+/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm2015/core.js");
+
+
+let PrivacyPageComponent = class PrivacyPageComponent {
+    constructor() { }
+    ngOnInit() {
+    }
+};
+PrivacyPageComponent = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
+    Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Component"])({
+        selector: 'app-privacy-page',
+        template: __webpack_require__(/*! raw-loader!./privacy-page.component.html */ "./node_modules/raw-loader/index.js!./src/app/pages/privacy-page/privacy-page.component.html"),
+        styles: [__webpack_require__(/*! ./privacy-page.component.css */ "./src/app/pages/privacy-page/privacy-page.component.css")]
+    })
+], PrivacyPageComponent);
+
+
+
+/***/ }),
+
 /***/ "./src/app/pages/register-page/register-page.component.css":
 /*!*****************************************************************!*\
   !*** ./src/app/pages/register-page/register-page.component.css ***!
@@ -26611,6 +26693,48 @@ ResetPinPageComponent = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
         styles: [__webpack_require__(/*! ./reset-pin-page.component.css */ "./src/app/pages/reset-pin-page/reset-pin-page.component.css")]
     })
 ], ResetPinPageComponent);
+
+
+
+/***/ }),
+
+/***/ "./src/app/pages/terms-page/terms-page.component.css":
+/*!***********************************************************!*\
+  !*** ./src/app/pages/terms-page/terms-page.component.css ***!
+  \***********************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = "\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IiIsImZpbGUiOiJzcmMvYXBwL3BhZ2VzL3Rlcm1zLXBhZ2UvdGVybXMtcGFnZS5jb21wb25lbnQuY3NzIn0= */"
+
+/***/ }),
+
+/***/ "./src/app/pages/terms-page/terms-page.component.ts":
+/*!**********************************************************!*\
+  !*** ./src/app/pages/terms-page/terms-page.component.ts ***!
+  \**********************************************************/
+/*! exports provided: TermsPageComponent */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "TermsPageComponent", function() { return TermsPageComponent; });
+/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm2015/core.js");
+
+
+let TermsPageComponent = class TermsPageComponent {
+    constructor() { }
+    ngOnInit() {
+    }
+};
+TermsPageComponent = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
+    Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Component"])({
+        selector: 'app-terms-page',
+        template: __webpack_require__(/*! raw-loader!./terms-page.component.html */ "./node_modules/raw-loader/index.js!./src/app/pages/terms-page/terms-page.component.html"),
+        styles: [__webpack_require__(/*! ./terms-page.component.css */ "./src/app/pages/terms-page/terms-page.component.css")]
+    })
+], TermsPageComponent);
 
 
 
