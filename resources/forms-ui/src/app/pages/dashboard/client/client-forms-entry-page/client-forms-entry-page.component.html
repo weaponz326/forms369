@@ -296,6 +296,7 @@
           {{ branch.branch_name }}
         </option>
       </select>
+      <p class="input-error" *ngIf="noBranchSelected">Select a branch to continue</p>
     </div>
   </div>
   <div class="modal-footer">

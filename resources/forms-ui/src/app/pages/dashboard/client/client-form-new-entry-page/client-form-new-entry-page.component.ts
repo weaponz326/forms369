@@ -60,6 +60,7 @@ export class ClientFormNewEntryPageComponent implements OnInit, AfterViewInit {
   signatureImageUrl: string;
   docDialogRef: NgbModalRef;
   pinDialogRef: NgbModalRef;
+  noBranchSelected: boolean;
   disableValidation: boolean;
   loadingAttachments: boolean;
   setPinDialogRef: NgbModalRef;
@@ -269,7 +270,7 @@ export class ClientFormNewEntryPageComponent implements OnInit, AfterViewInit {
       }
     });
     this.branch_id == 0 || this.branch_id == null
-      ? alert('Select a branch to continue')
+      ? this.noBranchSelected = true
       : this.selectBranchDialogRef.close();
   }
 

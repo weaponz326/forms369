@@ -59,12 +59,13 @@ export class ClientFormsEntryPageComponent implements OnInit, AfterViewInit {
   signaturePadOptions: any;
   requireSignature: boolean;
   docDialogRef: NgbModalRef;
+  noBranchSelected: boolean;
+  signatureImageUrl: string;
   pinDialogRef: NgbModalRef;
   loadingAttachments: boolean;
   setPinDialogRef: NgbModalRef;
   attachmentFiles: Array<File>;
   attachmentKeys: Array<string>;
-  signatureImageUrl: string;
   existingAttachments: Array<any>;
   submissionCodeReplacement: string;
   selectBranchDialogRef: NgbModalRef;
@@ -258,7 +259,7 @@ export class ClientFormsEntryPageComponent implements OnInit, AfterViewInit {
       }
     });
     this.branchId == 0 || this.branchId == null
-      ? alert('Select a branch to continue')
+      ? this.noBranchSelected = true
       : this.selectBranchDialogRef.close();
   }
 
