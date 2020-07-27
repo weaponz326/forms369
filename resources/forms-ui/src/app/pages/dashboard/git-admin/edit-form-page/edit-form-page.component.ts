@@ -18,6 +18,7 @@ export class EditFormPageComponent implements OnInit {
 
   _form: any;
   pdfFile: File;
+  tncFile: File;
   form: FormGroup;
   formBuilder: any;
   created: boolean;
@@ -34,10 +35,13 @@ export class EditFormPageComponent implements OnInit {
   alertSuccess: boolean;
   isPublished: boolean;
   uploadError: boolean;
+  showJoinQueue: boolean;
   showFileUpload: boolean;
+  showTncFileUpload: boolean;
   allMerchantsList: Array<any>;
   loadingModalRef: NgbModalRef;
   @ViewChild('pdfFile', {static: false}) pdfFileElement: ElementRef;
+  @ViewChild('tncFile', { static: false }) tncFileElement: ElementRef;
   @ViewChild('status', {static: false}) statusModal: TemplateRef<any>;
   @ViewChild('loader', {static: false}) loadingModal: TemplateRef<any>;
   @ViewChild('publish', {static: false}) publishModal: TemplateRef<any>;
@@ -55,6 +59,7 @@ export class EditFormPageComponent implements OnInit {
     this.merchant = '';
     this.allMerchantsList = [];
     this._form = window.history.state.form;
+    console.log('the_____form: ' + JSON.stringify(this._form));
     this.resolveReloadDataLoss();
     this.isPublished = this._form.status == 1 ? true : false;
     this.getCompanies();
@@ -116,11 +121,15 @@ export class EditFormPageComponent implements OnInit {
   }
 
   buildForm() {
+    const canJoin = this._form.join_queue == null ? 0 : 1;
     this.form = this._formBuilder.group({
       pdf: [''],
+      tnc: [''],
       canView: [this._form.can_view],
-      merchant: ['', Validators.required],
+      canJoin: [canJoin, Validators.required],
       name: [this._form.name, Validators.required],
+      hasTnc: [this._form.tnc, Validators.required],
+      merchant: [this._form.mercant_name, Validators.required],
     });
   }
 
@@ -269,6 +278,34 @@ export class EditFormPageComponent implements OnInit {
     return this.formBuilder.actions.getData();
   }
 
+  editFormContent(form: any) {
+    const formData = new Forms();
+    formData.form_fields = form;
+    formData.name = this.f.name.value;
+    formData.form_code = this._form.form_code;
+    formData.status = _.toInteger(this.formStatus);
+    formData.merchant_id = parseInt(this.f.merchant.value);
+    formData.tnc = this.f.hasTnc.value == '' ? 0 : this.f.hasTnc.value;
+    formData.can_view = this.f.canView.value == '' ? 0 : this.f.canView.value;
+
+    this.formService.editForm(this._form.form_code, formData).then(
+      res => {
+        this.loading = false;
+        if (_.toLower(res.message) == 'ok') {
+          this.created = true;
+          this._form = formData;
+        }
+        else {
+          this.created = false;
+        }
+      },
+      err => {
+        this.loading = false;
+        this.created = false;
+      }
+    );
+  }
+
   editForm() {
     const form = this.getForm();
     if (form.length == 0) {
@@ -276,30 +313,21 @@ export class EditFormPageComponent implements OnInit {
       alert('Form field cannot be empty');
     }
     else {
-      const formData = new Forms();
-      formData.form_fields = form;
-      formData.name = this.f.name.value;
-      formData.form_code = this._form.form_code;
-      formData.status = _.toInteger(this.formStatus);
-      formData.merchant_id = parseInt(this.f.merchant.value);
-      formData.can_view = this.f.canView.value == '' ? 0 : this.f.canView.value;
-
-      this.formService.editForm(this._form.form_code, formData).then(
-        res => {
-          this.loading = false;
-          if (_.toLower(res.message) == 'ok') {
-            this.created = true;
-            this._form = formData;
+      if (this.tncFile != null) {
+        this.formService.uploadFormTNC(this._form.form_code, this.tncFile).then(
+          ok => {
+            if (ok) {
+              this.editFormContent(form);
+            }
+          },
+          err => {
+            console.log('error uploading tnc file');
           }
-          else {
-            this.created = false;
-          }
-        },
-        err => {
-          this.loading = false;
-          this.created = false;
-        }
-      );
+        );
+      }
+      else {
+        this.editFormContent(form);
+      }
     }
   }
 

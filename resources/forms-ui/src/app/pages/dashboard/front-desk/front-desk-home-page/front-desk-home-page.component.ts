@@ -203,6 +203,13 @@ export class FrontDesktopHomePageComponent implements OnInit {
     }
   }
 
+  handleCodeFormatting(e: any) {
+    if (this.f.code.value.length == 4) {
+      const val = this.f.code.value;
+      this.f.code.setValue(val + '-');
+    }
+  }
+
   cancel() {
     this.f.code.setValue('');
   }
