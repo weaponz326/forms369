@@ -243,7 +243,11 @@ class ClientController extends Controller
                 $status = (new AuthController)->sendsms($from,$mobile,$msg);
                 if($status){
                     if($code == "69CEF"){
-                        Notification::route('slack', env('SLACK_HOOK'))->notify(new SlackNotification($sub_code));
+                        $subject = $form_data['contact_subject'];
+                        $phone = $form_data['contact_phone'];
+                        $email = $form_data['contact_email'];
+                        $message = $form_data['contact_message'];
+                        Notification::route('slack', env('SLACK_HOOK'))->notify(new SlackNotification($sub_code, $subject, $phone, $email, $message));
                     }
                     //log and set success message
                     Log::channel('mysql')->info('Client  with id: ' . $id .' successsfully submitted form with code: '. $code);
