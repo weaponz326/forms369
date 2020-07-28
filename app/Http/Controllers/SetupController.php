@@ -14,6 +14,8 @@ use Illuminate\Support\Facades\File;
 use Illuminate\Contracts\Support\Jsonable;
 use Illuminate\Support\Facades\Log;
 use Response;
+use App\Notifications\SuggestMerchantSlackNotification;
+use Notification;
 class SetupController extends Controller
 {
 
@@ -336,6 +338,8 @@ class SetupController extends Controller
                     'country' => $country,
                 ]
             );
+
+            Notification::route('slack', env('SLACK_HOOK'))->notify(new SuggestMerchantSlackNotification($name, $country));
 
             Log::channel('mysql')->info('User with id: ' . $userid .' successsfully suggested ' . $name . ' as a new merchant.');
             $message = 'Ok';
