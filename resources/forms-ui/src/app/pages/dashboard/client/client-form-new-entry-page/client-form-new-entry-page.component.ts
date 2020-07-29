@@ -47,7 +47,6 @@ export class ClientFormNewEntryPageComponent implements OnInit, AfterViewInit {
   documentUrl: string;
   pinMinimum: boolean;
   pinRequired: boolean;
-  acceptedTnc: boolean;
   hasSignature: boolean;
   updateProfile: boolean;
   submissionCode: string;
@@ -115,7 +114,7 @@ export class ClientFormNewEntryPageComponent implements OnInit, AfterViewInit {
     console.log('form: ' + JSON.stringify(this.form));
     console.log('submission_code: ' + this.form.submission_code);
     this.hasTnc = this.form.tnc == 1 ? true : false;
-    this.requireSignature = this.form.require_signature == 1 ? true : false; 
+    this.requireSignature = this.form.require_signature == 1 ? true : false;
     this.getFormAttachments(this.user.id.toString());
     this.checkIfUserHasFormPin();
     this.generateSubmissionCode();
@@ -538,13 +537,35 @@ export class ClientFormNewEntryPageComponent implements OnInit, AfterViewInit {
   }
 
   submit() {
-    if ((this.acceptedTnc && this.hasTnc) || !this.hasTnc) {
-      this.loading = true;
-      const user_id = this.user.id.toString();
-      this.clientService.checkSubmittedFormStatus(user_id, this.form.form_code).then(
-        res => {
-          console.log('success');
-          if (res.submitted == 0) {
+    this.loading = true;
+    const user_id = this.user.id.toString();
+    this.clientService.checkSubmittedFormStatus(user_id, this.form.form_code).then(
+      res => {
+        console.log('success');
+        if (res.submitted == 0) {
+          this.modalService.open(this.confirmDialog, { centered: true }).result.then(
+            result => {
+              if (result == 'yes') {
+                this.handlePinCode(true);
+              }
+              else if (result == 'no') {
+                this.handlePinCode(false);
+              }
+              else {
+                this.modalService.dismissAll();
+                this.loading = false;
+              }
+            }
+          );
+        }
+        else {
+          if (res.status == 0) {
+            this.showSubmissionOptionsDialog(res.code);
+          }
+          else if (res.status == 1) {
+            this.showMakeNewSubmissionDialog();
+          }
+          else {
             this.modalService.open(this.confirmDialog, { centered: true }).result.then(
               result => {
                 if (result == 'yes') {
@@ -560,39 +581,12 @@ export class ClientFormNewEntryPageComponent implements OnInit, AfterViewInit {
               }
             );
           }
-          else {
-            if (res.status == 0) {
-              this.showSubmissionOptionsDialog(res.code);
-            }
-            else if (res.status == 1) {
-              this.showMakeNewSubmissionDialog();
-            }
-            else {
-              this.modalService.open(this.confirmDialog, { centered: true }).result.then(
-                result => {
-                  if (result == 'yes') {
-                    this.handlePinCode(true);
-                  }
-                  else if (result == 'no') {
-                    this.handlePinCode(false);
-                  }
-                  else {
-                    this.modalService.dismissAll();
-                    this.loading = false;
-                  }
-                }
-              );
-            }
-          }
-        },
-        err => {
-          console.log('something went wrong');
         }
-      );
-    }
-    else {
-      alert('Please accept or decline the terms & conditions to continue');
-    }
+      },
+      err => {
+        console.log('something went wrong');
+      }
+    );
   }
 
   showMerchantBranchesDialog() {
@@ -1082,7 +1076,6 @@ export class ClientFormNewEntryPageComponent implements OnInit, AfterViewInit {
   }
 
   acceptTnc() {
-    this.acceptedTnc = true;
     this.modalService.dismissAll();
   }
 

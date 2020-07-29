@@ -52,7 +52,7 @@
             <div class="card">
               <div class="card-body">
                 <p class="card-title">Change PIN</p>
-                <p class="text-muted">Update your form submission pin</p>
+                <p class="text-muted">Update your form submission pin.</p>
                 <div class="card-text pt-2">
                   <form [formGroup]="form" (ngSubmit)="changePin()">
                     <div class="form-group">
@@ -150,7 +150,7 @@
                 <div class="card-text pt-2">
                   <form [formGroup]="forgotPinForm" (ngSubmit)="forgotPin()">
                     <div class="form-group">
-                      <label>Old PIN</label>
+                      <label>Email Address</label>
                       <input type="tel" class="form-control form-control-lg" formControlName="email"
                         placeholder="Enter Email Address" [ngClass]="{'input-control-error': submitted2 && fpin.email.errors}">
                       <div *ngIf="submitted2 && fpin.email.errors">

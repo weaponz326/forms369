@@ -35,7 +35,7 @@ export class ResetPasswordPageComponent implements OnInit {
       title: 'Oops!',
       icon: 'error',
       text: 'Sorry!, We couldnt reset your password. Please make sure you have an active internet connection or our serevsr may be down.',
-      confirmButtonText: 'Arrrgh!, Ok'
+      confirmButtonText: 'Arrrgh!, Ok',
     });
   }
 
