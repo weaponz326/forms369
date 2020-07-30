@@ -1,3 +1,5 @@
+<ngx-loading-bar height="6"></ngx-loading-bar>
+
 <div class="container-scroller">
   <app-navigation-bar></app-navigation-bar>
   <div class="container-fluid page-body-wrapper">
@@ -76,7 +78,8 @@
           <div class="col-md-4 grid-margin stretch-card" *ngFor="let form of deletedCollection; let i=index">
             <div class="card hover-cursor">
               <div class="align-right">
-                <i class="mdi mdi-reload" placement="right" ngbTooltip="Restore Form" (click)="restore($event, form.submission_code, i)"></i>
+                <i class="mdi mdi-reload" placement="right" ngbTooltip="Restore Form" (click)="restore($event, form.submission_code, i)"></i> &nbsp;
+                <i class="mdi mdi-trash-can-outline" placement="right" ngbTooltip="Delete Permanently" (click)="delete($event, form.submission_code, i)"></i>
               </div>
               <div class="card-body">
                 <p class="card-title mr-3">{{ form.form_name }}</p>
@@ -141,6 +144,23 @@
   <div class="modal-body">
     <p><strong>Are you sure you want to restore <span class="text-primary">this form</span> ?</strong></p>
     <p>Restoring this form will be removed here and made available in your history.</p>
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-outline-primary" (click)="modal.close()">No</button>
+    <button type="button" class="btn btn-primary" (click)="modal.close('yes')">Yes</button>
+  </div>
+</ng-template>
+
+<ng-template #confirmDelete let-modal>
+  <div class="modal-header">
+    <h4 class="modal-title" id="modal-title">Delete Form</h4>
+    <button type="button" class="close" aria-describedby="modal-title" (click)="modal.close()">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <p><strong>Are you sure you want to delete <span class="text-primary">this form</span> ?</strong></p>
+    <p>Deleting this form will be lost forever.</p>
   </div>
   <div class="modal-footer">
     <button type="button" class="btn btn-outline-primary" (click)="modal.close()">No</button>

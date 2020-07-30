@@ -44,7 +44,10 @@ export class ResetPasswordPageComponent implements OnInit {
       title: 'Success',
       icon: 'success',
       text: 'Password reset was successful.',
-      confirmButtonText: 'Ok'
+      confirmButtonText: 'Ok',
+      onDestroy: () => {
+        this.router.navigateByUrl('/login');
+      }
     });
   }
 

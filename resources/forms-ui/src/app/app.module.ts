@@ -14,8 +14,10 @@ import { NgxPageScrollCoreModule } from 'ngx-page-scroll-core';
 
 import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule} from '@angular/material/input';
+import { LoadingBarModule } from '@ngx-loading-bar/core';
 import { MatNativeDateModule } from '@angular/material/core';
 import { MatDatepickerModule } from '@angular/material/datepicker';
+import { LoadingBarHttpClientModule } from '@ngx-loading-bar/http-client';
 import { MatAutocompleteModule, MatSelectModule } from '@angular/material';
 import { NgbModalModule, NgbAlertModule } from '@ng-bootstrap/ng-bootstrap';
 
@@ -293,6 +295,8 @@ import { PrivacyPageComponent } from './pages/privacy-page/privacy-page.componen
     MatDatepickerModule,
     MatNativeDateModule,
     MatAutocompleteModule,
+    LoadingBarHttpClientModule,
+    LoadingBarModule,
     CountryPickerModule.forRoot({
       baseUrl: 'assets/',
       filename: 'countries.json'

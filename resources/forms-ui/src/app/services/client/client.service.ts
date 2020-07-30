@@ -577,6 +577,22 @@ export class ClientService {
     });
   }
 
+  deleteTrashedForm(submission_code: string): Promise<any> {
+    return new Promise((resolve, reject) => {
+      const url = this.endpointService.apiHost + `api/v1/deleteTrash/${submission_code}`;
+      this.http.post<any>(url, {}, { headers: this.headers }).subscribe(
+        res => {
+          console.log('deleted_trash: ' + JSON.stringify(res));
+          resolve(res);
+        },
+        err => {
+          console.log('delete_trash_err: ' + JSON.stringify(err));
+          reject(err);
+        }
+      );
+    });
+  }
+
   /**
    * Validates a form to make sure all its requyired
    * fields have been filled by the client.
