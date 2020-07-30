@@ -76,8 +76,9 @@ export class ClientProfilePageComponent implements OnInit, AfterViewInit {
     this.allFormSections = [];
     this.attachmentFiles = [];
     this.duplicateFields = [];
-    this.existingAttachments = [];
+    this.signatureDataURL = '';
     this.signatureImageUrl = '';
+    this.existingAttachments = [];
     this.user = this.localStorage.getUser();
     console.log('user_id: ' + this.user.id);
   }
@@ -500,6 +501,10 @@ export class ClientProfilePageComponent implements OnInit, AfterViewInit {
         else {
           console.log('get new client data');
           this.hasData = true;
+          this.getFormAttachments(this.user.id);
+          _.forEach(res, (section) => {
+            this.allFormSections.push(section);
+          });
           this.getNewClientData();
           console.log('loading: ' + this.loading);
         }

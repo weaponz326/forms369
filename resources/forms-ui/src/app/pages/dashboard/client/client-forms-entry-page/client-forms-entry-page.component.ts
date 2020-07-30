@@ -115,7 +115,7 @@ export class ClientFormsEntryPageComponent implements OnInit, AfterViewInit {
     this.hasTnc = this.form.tnc == 1 ? true : false;
     this.requireSignature = this.form.require_signature == 1 ? true : false;
 
-    this.getAttachmentsForCurrentForm(this.form.submission_code);
+    this.getAttachments(this.form.submission_code);
     this.checkIfUserHasFormPin();
     this.generateSubmissionCode();
     this.getFormTncContent();
@@ -970,8 +970,8 @@ export class ClientFormsEntryPageComponent implements OnInit, AfterViewInit {
   //   );
   // }
 
-  getAttachmentsForCurrentForm(submission_code: string) {
-    console.log('getting attchment for currrent fomr');
+  getAttachments(submission_code: string) {
+    console.log('getting attchment for currrent form: ' + submission_code);
     this.loadingAttachments = true;
     this.clientService.getFormAttachment(submission_code).then(
       res => {

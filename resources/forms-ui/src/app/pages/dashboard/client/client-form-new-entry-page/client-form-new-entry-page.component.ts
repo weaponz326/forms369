@@ -751,6 +751,13 @@ export class ClientFormNewEntryPageComponent implements OnInit, AfterViewInit {
       ok => {
         if (ok) {
           console.log('file upload done');
+          if (updateProfile) {
+            this.clientService.uploadProfileAttachment(this.user.id.toString(), key, this.attachmentFiles[0]).then(
+              done => {},
+              err => {}
+            );
+          }
+
           const update = updateProfile ? 1 : 0;
           const filled_data = this.formBuilder.getFormUserData(user_data);
           const updated_data = this.clientService.getUpdatedClientFormData(JSON.parse(filled_data), this.clientProfile);
@@ -831,6 +838,14 @@ export class ClientFormNewEntryPageComponent implements OnInit, AfterViewInit {
       ok => {
         if (ok) {
           console.log('file upload done');
+
+          if (updateProfile) {
+            this.clientService.uploadProfileAttachment(this.user.id.toString(), key, this.attachmentFiles[0]).then(
+              done => { },
+              err => { }
+            );
+          }
+
           const update = updateProfile ? 1 : 0;
           const filled_data = this.formBuilder.getFormUserData(user_data);
           const updated_data = this.clientService.getUpdatedClientFormData(JSON.parse(filled_data), this.clientProfile);
@@ -891,6 +906,13 @@ export class ClientFormNewEntryPageComponent implements OnInit, AfterViewInit {
       this.clientService.uploadFormAttachments(this.user.id.toString(), this.form.form_code, submission_code, key, sigImgFile);
     }
 
+    if (updateProfile) {
+      this.clientService.uploadProfileAttachment(this.user.id.toString(), key, this.attachmentFiles[0]).then(
+        done => { },
+        err => { }
+      );
+    }
+
     if (num_of_attachments > 1) {
       console.log('will do multiple uploads');
       for (let i = 0; i < num_of_attachments; i++) {
@@ -940,11 +962,11 @@ export class ClientFormNewEntryPageComponent implements OnInit, AfterViewInit {
   }
 
   getFormAttachments(user_id: string) {
-    console.log('getting attchment for currrent fomr');
+    console.log('getting attachment for currrent fomr');
     this.loadingAttachments = true;
     this.clientService.getProfileFormAttachment(user_id).then(
       res => {
-        console.log('r__sss: ' + JSON.stringify(res));
+        console.log('res_attachments: ' + JSON.stringify(res));
         if (res.length > 0) {
           const attachments = [];
           _.forEach(res, (doc) => {
