@@ -239,6 +239,8 @@ class SetupController extends Controller
         $physical_address = $request->physical_address;
         $colors = $request->colors;
         $enabled_qms = $request->enabled_qms;
+        $client_id = $request->client_id;
+        $client_secret = $request->$client_secret;
 
         //get user creating the new merchant
         $user = $request->user();
@@ -267,7 +269,9 @@ class SetupController extends Controller
                     'nickname' => $nickname,
                     'physical_address' => $physical_address,
                     'colors' => $colors,
-                    'enabled_qms' => $enabled_qms
+                    'enabled_qms' => $enabled_qms,
+                    'client_id' => $client_id,
+                    'client_secret' => $client_secret
                 ]
             );
 
@@ -412,6 +416,8 @@ class SetupController extends Controller
         $physical_address = $request->physical_address;
         $colors = $request->colors;
         $enabled_qms = $request->enabled_qms;
+        $client_id = $request->client_id;
+        $client_secret = $request->$client_secret;
 
 
         //get user creating the new merchant
@@ -444,7 +450,9 @@ class SetupController extends Controller
                     'nickname' => $nickname,
                     'physical_address' => $physical_address,
                     'colors' => $colors,
-                    'enabled_qms' => $enabled_qms
+                    'enabled_qms' => $enabled_qms,
+                    'client_id' => $client_id,
+                    'client_secret' => $client_secret
                 ]
             );
 
@@ -2182,5 +2190,30 @@ class SetupController extends Controller
         return response()->json($response, 200);
 
     }
+
+    /**
+     * getQMSToken get token to use QMS apis
+     * @param  mixed $request
+     * @param  mixed $id id of the merchant
+     *
+     * @return void\Illuminate\Http\Response token
+     */
+     public function getQMSToken(Request $request, $id){
+        $merchantdetails = DB::table('merchants')
+        ->where('id', $id)
+        ->first();
+
+        $client_id = $merchantdetails->client_id;
+        $client_secret = $merchantdetails->client_secret;
+        $grant_type = "client_credentials";
+        $scope = "join-sandbox";
+
+        
+
+
+
+
+
+     }
 
 }
