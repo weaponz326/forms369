@@ -72,7 +72,7 @@
                   style="text-align: center; width: 20%; padding-left: 5px; padding-right: 5px;">
                 <div style="width: 78%;">
                   <input type="text" class="form-control" formControlName="phone"
-                    autocomplete="new-password" placeholder="24 123 1234" id="phone"
+                    autocomplete="new-password" placeholder="Phone Number" id="phone"
                     [ngClass]="{'input-control-error': submitted && f.phone.errors}" (keyup)="resolveStrCharacters($event)">
                 </div>
                 <div *ngIf="submitted && f.phone.errors">

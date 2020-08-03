@@ -404,7 +404,9 @@ export class ClientProfilePageComponent implements OnInit, AfterViewInit {
               this.hasSignature = true;
               this.signatureImageUrl = this.endpointService.storageHost + '/attachments/' + doc.url;
             }
-            this.existingAttachments.push(doc);
+            else {
+              this.existingAttachments.push(doc);
+            }
           });
         }
 

@@ -66,7 +66,11 @@ export class ClientService {
    * @param {string} code
    * @param {*} client_data
    * @param {*} form_data
-   * @returns {Promise<any>}
+   * @param {number} updateProfile
+   * @param {string} submission_code
+   * @param {number} status
+   * @param {number} branch_id
+   * @returns {Promise<boolean>}
    * @memberof ClientService
    */
   submitForm(id: string, code: string, client_data: any, form_data: any, updateProfile: number, submission_code: string, status: number, branch_id: number): Promise<boolean> {
@@ -288,21 +292,17 @@ export class ClientService {
               const form_field = element as HTMLInputElement;
               // we check if the element is a radio button, checkbox or and input field
               if (form_field.getAttribute('type') == 'radio') {
-                // this is a radio button.
-                const radio_label = form_field.nextElementSibling.textContent;
-                if (_.toLower(radio_label) == _.toLower(client_data[client])) {
-                  form_field.value = client_data[client];
-                  form_field.checked = true;
-                }
+                _.forEach(form.values, (value) => {
+                  const radio_label = form_field.nextSibling.textContent;
+                  if (_.toLower(radio_label) == _.toLower(client_data[client])) {
+                    form_field.value = client_data[client];
+                    form_field.checked = true;
+                  }
+                });
               }
               else {
                 // this is an input, check if a file input or a text input
-                if (form_field.type == 'file') {
-                  // do something
-                }
-                else {
-                  form_field.value = client_data[client];
-                }
+                form_field.value = client_data[client];
               }
             });
 
@@ -310,8 +310,10 @@ export class ClientService {
             // so we get it seperately before we process it.
             _.forEach(_element_names, (element) => {
               const form_field = element as HTMLInputElement;
-              if (form_field.getAttribute('type') == 'checkbox') {
-                const checkbox_label = form_field.nextElementSibling.textContent;
+              if (form_field.type == 'checkbox') {
+                // this is a checkbox.
+                // NOTE: Value is an array of data.
+                const checkbox_label = form_field.nextSibling.textContent;
                 console.log('check_lbl: ' + checkbox_label);
                 console.log('value: ' + client_data[client]);
                 // convert to array
@@ -324,7 +326,6 @@ export class ClientService {
                 });
               }
             });
-
           }
         });
       }

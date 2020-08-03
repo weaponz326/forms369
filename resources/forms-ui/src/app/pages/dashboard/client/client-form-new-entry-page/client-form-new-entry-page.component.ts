@@ -1099,13 +1099,4 @@ export class ClientFormNewEntryPageComponent implements OnInit, AfterViewInit {
     this.downloadService.download(file_url);
   }
 
-  acceptTnc() {
-    this.modalService.dismissAll();
-  }
-
-  declineTnc() {
-    this.modalService.dismissAll();
-    window.history.back();
-  }
-
 }

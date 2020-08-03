@@ -552,8 +552,19 @@ export class FormBuilderService {
     const user_form_data = {};
     _.forEach(form_data, (data) => {
       if (!_.isEmpty(data.userData)) {
-        user_form_data[data.name] = data.userData[0];
-        console.log('___userData__', data.userData[0]);
+        if (data.userData.length == 1) {
+          user_form_data[data.name] = data.userData[0];
+          console.log('___userData__', data.userData[0]);
+        }
+        else {
+          const values = [];
+          _.forEach(data.userData, (value) => {
+            values.push(value);
+            user_form_data[data.name] = values;
+          });
+
+          // user_form_data[data.name] = values;
+        }
       }
     });
 

@@ -533,8 +533,8 @@ export class ClientFormsEntryPageComponent implements OnInit, AfterViewInit {
 
   handleFormSubmission() {
     const user_data = this.getFormData();
-    console.log(JSON.stringify(user_data));
-    console.log('this form: ' + this.formBuilder.getFormUserData(user_data));
+    console.log('form_data: ' + JSON.stringify(user_data));
+    console.log('this_form: ' + this.formBuilder.getFormUserData(user_data));
     const unfilled = this.clientService.validateFormFilled(user_data);
     console.log('unfilled: ' + JSON.stringify(unfilled));
     if (unfilled.length != 0) {
@@ -849,10 +849,6 @@ export class ClientFormsEntryPageComponent implements OnInit, AfterViewInit {
         }
       );
 
-      const sigImgFile = this.fileUploadService.convertBase64ToFile(this.signatureDataURL, 'signature.png');
-      this.uploadConvertedFormAttachment('signature', sigImgFile, user_data, updateProfile, submission_code);
-      alert('______________uploading_________: ');
-
       if (i == this.existingAttachments.length - 1) {
         console.log('we done uploading');
         console.log('no upload');
@@ -970,8 +966,24 @@ export class ClientFormsEntryPageComponent implements OnInit, AfterViewInit {
   //   );
   // }
 
+  getSignature() {
+    this.clientService.getProfileFormAttachment(this.user.id.toString()).then(
+      res => {
+        if (res.length > 0) {
+          _.forEach(res, (doc) => {
+            if (doc.key == 'signature') {
+              this.hasSignature = true;
+              this.signatureImageUrl = this.endpointService.storageHost + 'attachments/' + doc.url;
+            }
+          });
+        }
+      },
+      err => {}
+    );
+  }
+
   getAttachments(submission_code: string) {
-    console.log('getting attchment for currrent form: ' + submission_code);
+    console.log('getting attachment for currrent form: ' + submission_code);
     this.loadingAttachments = true;
     this.clientService.getFormAttachment(submission_code).then(
       res => {
@@ -984,11 +996,15 @@ export class ClientFormsEntryPageComponent implements OnInit, AfterViewInit {
               this.hasSignature = true;
               this.signatureImageUrl = this.endpointService.storageHost + 'attachments/' + doc.url;
             }
-            attachments.push(doc);
+            else {
+              attachments.push(doc);
+            }
           });
+          this.signatureImageUrl.length == 0 ? this.getSignature() : null;
           this.getCurrentFormAttachmentsOnly(attachments);
         }
         else {
+          this.signatureImageUrl.length == 0 ? this.getSignature() : null;
           this.showAttachments =  false;
         }
 
@@ -1099,15 +1115,6 @@ export class ClientFormsEntryPageComponent implements OnInit, AfterViewInit {
   download(url: string) {
     const file_url = this.endpointService.apiHost + 'storage/attachments/' + url;
     this.downloadService.download(file_url);
-  }
-
-  acceptTnc() {
-    this.modalService.dismissAll();
-  }
-
-  declineTnc() {
-    this.modalService.dismissAll();
-    window.history.back();
   }
 
 }
