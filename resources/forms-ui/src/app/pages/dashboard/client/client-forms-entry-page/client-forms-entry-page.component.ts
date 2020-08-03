@@ -46,7 +46,6 @@ export class ClientFormsEntryPageComponent implements OnInit, AfterViewInit {
   pinForm: FormGroup;
   tncContent: string;
   documentUrl: string;
-  acceptedTnc: boolean;
   pinMinimum: boolean;
   pinRequired: boolean;
   updateProfile: boolean;
@@ -59,12 +58,13 @@ export class ClientFormsEntryPageComponent implements OnInit, AfterViewInit {
   signaturePadOptions: any;
   requireSignature: boolean;
   docDialogRef: NgbModalRef;
+  noBranchSelected: boolean;
+  signatureImageUrl: string;
   pinDialogRef: NgbModalRef;
   loadingAttachments: boolean;
   setPinDialogRef: NgbModalRef;
   attachmentFiles: Array<File>;
   attachmentKeys: Array<string>;
-  signatureImageUrl: string;
   existingAttachments: Array<any>;
   submissionCodeReplacement: string;
   selectBranchDialogRef: NgbModalRef;
@@ -104,6 +104,7 @@ export class ClientFormsEntryPageComponent implements OnInit, AfterViewInit {
     this.submissionCode = '';
     this.attachmentKeys = [];
     this.attachmentFiles = [];
+    this.signatureDataURL = '';
     this.signatureImageUrl = '';
     this.existingAttachments = [];
     this.form = history.state.form;
@@ -114,7 +115,7 @@ export class ClientFormsEntryPageComponent implements OnInit, AfterViewInit {
     this.hasTnc = this.form.tnc == 1 ? true : false;
     this.requireSignature = this.form.require_signature == 1 ? true : false;
 
-    this.getAttachmentsForCurrentForm(this.user.id.toString());
+    this.getAttachments(this.form.submission_code);
     this.checkIfUserHasFormPin();
     this.generateSubmissionCode();
     this.getFormTncContent();
@@ -258,7 +259,7 @@ export class ClientFormsEntryPageComponent implements OnInit, AfterViewInit {
       }
     });
     this.branchId == 0 || this.branchId == null
-      ? alert('Select a branch to continue')
+      ? this.noBranchSelected = true
       : this.selectBranchDialogRef.close();
   }
 
@@ -532,8 +533,8 @@ export class ClientFormsEntryPageComponent implements OnInit, AfterViewInit {
 
   handleFormSubmission() {
     const user_data = this.getFormData();
-    console.log(JSON.stringify(user_data));
-    console.log('this form: ' + this.formBuilder.getFormUserData(user_data));
+    console.log('form_data: ' + JSON.stringify(user_data));
+    console.log('this_form: ' + this.formBuilder.getFormUserData(user_data));
     const unfilled = this.clientService.validateFormFilled(user_data);
     console.log('unfilled: ' + JSON.stringify(unfilled));
     if (unfilled.length != 0) {
@@ -553,13 +554,35 @@ export class ClientFormsEntryPageComponent implements OnInit, AfterViewInit {
   }
 
   submit() {
-    if ((this.acceptedTnc && this.hasTnc) || !this.hasTnc) {
-      this.loading = true;
-      const user_id = this.user.id.toString();
-      this.clientService.checkSubmittedFormStatus(user_id, this.form.form_code).then(
-        res => {
-          console.log('success');
-          if (res.submitted == 0) {
+    this.loading = true;
+    const user_id = this.user.id.toString();
+    this.clientService.checkSubmittedFormStatus(user_id, this.form.form_code).then(
+      res => {
+        console.log('success');
+        if (res.submitted == 0) {
+          this.modalService.open(this.confirmDialog, { centered: true }).result.then(
+            result => {
+              if (result == 'yes') {
+                this.handlePinCode(true);
+              }
+              else if (result == 'no') {
+                this.handlePinCode(false);
+              }
+              else {
+                this.modalService.dismissAll();
+                this.loading = false;
+              }
+            }
+          );
+        }
+        else {
+          if (res.status == 0) {
+            this.showSubmissionOptionsDialog(res.code);
+          }
+          else if (res.status == 1) {
+            this.showMakeNewSubmissionDialog();
+          }
+          else {
             this.modalService.open(this.confirmDialog, { centered: true }).result.then(
               result => {
                 if (result == 'yes') {
@@ -575,39 +598,12 @@ export class ClientFormsEntryPageComponent implements OnInit, AfterViewInit {
               }
             );
           }
-          else {
-            if (res.status == 0) {
-              this.showSubmissionOptionsDialog(res.code);
-            }
-            else if (res.status == 1) {
-              this.showMakeNewSubmissionDialog();
-            }
-            else {
-              this.modalService.open(this.confirmDialog, { centered: true }).result.then(
-                result => {
-                  if (result == 'yes') {
-                    this.handlePinCode(true);
-                  }
-                  else if (result == 'no') {
-                    this.handlePinCode(false);
-                  }
-                  else {
-                    this.modalService.dismissAll();
-                    this.loading = false;
-                  }
-                }
-              );
-            }
-          }
-        },
-        err => {
-          console.log('something went wrong');
         }
-      );
-    }
-    else {
-      alert('Please accept or decline the terms & conditions to continue');
-    }
+      },
+      err => {
+        console.log('something went wrong');
+      }
+    );
   }
 
   createPin() {
@@ -853,10 +849,6 @@ export class ClientFormsEntryPageComponent implements OnInit, AfterViewInit {
         }
       );
 
-      const sigImgFile = this.fileUploadService.convertBase64ToFile(this.signatureDataURL, 'signature.png');
-      this.uploadConvertedFormAttachment('signature', sigImgFile, user_data, updateProfile, submission_code);
-      alert('______________uploading_________: ');
-
       if (i == this.existingAttachments.length - 1) {
         console.log('we done uploading');
         console.log('no upload');
@@ -891,60 +883,57 @@ export class ClientFormsEntryPageComponent implements OnInit, AfterViewInit {
 
     // upload signature
     const key = 'signature';
-    const sigImgFile = this.fileUploadService.convertBase64ToFile(this.signatureDataURL, 'signature.png');
-    this.clientService.uploadFormAttachments(this.user.id.toString(), this.form.form_code, submission_code, key, sigImgFile).then(
-      done => {
-        if (done) {
-          if (num_of_attachments > 1) {
-            console.log('will do multiple uploads');
-            for (let i = 0; i < num_of_attachments; i++) {
-              this.uploadFormFile(this.attachmentKeys[i], user_data, updateProfile, submission_code, i);
-            }
-          }
-          else {
-            console.log('will do single upload');
-            console.log('attachments length: ' + this.attachmentFiles.length);
-            if (this.attachmentFiles.length == 0) {
-              console.log('no attachment');
-              if (this.existingAttachments.length > 0) {
-                this.existingUpload(user_data, updateProfile, submission_code);
+    if (this.signatureDataURL.length > 0) {
+      const sigImgFile = this.fileUploadService.convertBase64ToFile(this.signatureDataURL, 'signature.png');
+      this.clientService.uploadFormAttachments(this.user.id.toString(), this.form.form_code, submission_code, key, sigImgFile);
+    }
+
+    if (num_of_attachments > 1) {
+      console.log('will do multiple uploads');
+      for (let i = 0; i < num_of_attachments; i++) {
+        this.uploadFormFile(this.attachmentKeys[i], user_data, updateProfile, submission_code, i);
+      }
+    }
+    else {
+      console.log('will do single upload');
+      console.log('attachments length: ' + this.attachmentFiles.length);
+      if (this.attachmentFiles.length == 0) {
+        console.log('no attachment');
+        if (this.existingAttachments.length > 0) {
+          this.existingUpload(user_data, updateProfile, submission_code);
+        }
+        else {
+          const update = updateProfile ? 1 : 0;
+          const filled_data = this.formBuilder.getFormUserData(user_data);
+          const updated_data = this.clientService.getUpdatedClientFormData(JSON.parse(filled_data), this.clientProfile);
+          this.clientService.submitForm(_.toString(this.user.id), this.form.form_code, this.clientProfile, JSON.parse(updated_data), update, submission_code, this.status, this.branchId).then(
+            ok => {
+              if (ok) {
+                this.loading = false;
+                if (this.status == 0) {
+                  this.showJoinQueueDialog();
+                }
+                else {
+                  this.saved = true;
+                }
               }
               else {
-                const update = updateProfile ? 1 : 0;
-                const filled_data = this.formBuilder.getFormUserData(user_data);
-                const updated_data = this.clientService.getUpdatedClientFormData(JSON.parse(filled_data), this.clientProfile);
-                this.clientService.submitForm(_.toString(this.user.id), this.form.form_code, this.clientProfile, JSON.parse(updated_data), update, submission_code, this.status, this.branchId).then(
-                  ok => {
-                    if (ok) {
-                      this.loading = false;
-                      if (this.status == 0) {
-                        this.showJoinQueueDialog();
-                      }
-                      else {
-                        this.saved = true;
-                      }
-                    }
-                    else {
-                      this.loading = false;
-                      console.log('form submission failed');
-                    }
-                  },
-                  err => {
-                    this.loading = false;
-                    console.log('form submission error 6');
-                  }
-                );
+                this.loading = false;
+                console.log('form submission failed');
               }
+            },
+            err => {
+              this.loading = false;
+              console.log('form submission error 6');
             }
-            else {
-              console.log('has attachment');
-              this.uploadFormFile(this.attachmentKeys[0], user_data, updateProfile, submission_code);
-            }
-          }
+          );
         }
-      },
-      err => {}
-    );
+      }
+      else {
+        console.log('has attachment');
+        this.uploadFormFile(this.attachmentKeys[0], user_data, updateProfile, submission_code);
+      }
+    }
   }
 
   // getFormAttachments(form_code: string) {
@@ -977,10 +966,26 @@ export class ClientFormsEntryPageComponent implements OnInit, AfterViewInit {
   //   );
   // }
 
-  getAttachmentsForCurrentForm(user_id: string) {
-    console.log('getting attchment for currrent fomr');
+  getSignature() {
+    this.clientService.getProfileFormAttachment(this.user.id.toString()).then(
+      res => {
+        if (res.length > 0) {
+          _.forEach(res, (doc) => {
+            if (doc.key == 'signature') {
+              this.hasSignature = true;
+              this.signatureImageUrl = this.endpointService.storageHost + 'attachments/' + doc.url;
+            }
+          });
+        }
+      },
+      err => {}
+    );
+  }
+
+  getAttachments(submission_code: string) {
+    console.log('getting attachment for currrent form: ' + submission_code);
     this.loadingAttachments = true;
-    this.clientService.getProfileFormAttachment(user_id).then(
+    this.clientService.getFormAttachment(submission_code).then(
       res => {
         console.log('r__sss: ' + JSON.stringify(res));
         if (res.length > 0) {
@@ -991,11 +996,15 @@ export class ClientFormsEntryPageComponent implements OnInit, AfterViewInit {
               this.hasSignature = true;
               this.signatureImageUrl = this.endpointService.storageHost + 'attachments/' + doc.url;
             }
-            attachments.push(doc);
+            else {
+              attachments.push(doc);
+            }
           });
+          this.signatureImageUrl.length == 0 ? this.getSignature() : null;
           this.getCurrentFormAttachmentsOnly(attachments);
         }
         else {
+          this.signatureImageUrl.length == 0 ? this.getSignature() : null;
           this.showAttachments =  false;
         }
 
@@ -1093,7 +1102,6 @@ export class ClientFormsEntryPageComponent implements OnInit, AfterViewInit {
   }
 
   ok() {
-    // this.router.navigateByUrl('/client/forms_filled');
     this.saved == true
       ? this.router.navigateByUrl('/client/forms_filled', { state: { form: this.form } })
       : this.router.navigateByUrl('/client/forms_filled');
@@ -1107,16 +1115,6 @@ export class ClientFormsEntryPageComponent implements OnInit, AfterViewInit {
   download(url: string) {
     const file_url = this.endpointService.apiHost + 'storage/attachments/' + url;
     this.downloadService.download(file_url);
-  }
-
-  acceptTnc() {
-    this.acceptedTnc = true;
-    this.modalService.dismissAll();
-  }
-
-  declineTnc() {
-    this.modalService.dismissAll();
-    window.history.back();
   }
 
 }

@@ -28,6 +28,7 @@ export class ClientDeletedFormsPageComponent implements OnInit {
   deletedCollection: Array<any>;
   allDeletedCollection: Array<any>;
   @ViewChild('confirm', { static: false }) confirmDialog: TemplateRef<any>;
+  @ViewChild('confirmDelete', { static: false }) confirmDeleteDialog: TemplateRef<any>;
 
   constructor(
     private router: Router,
@@ -127,6 +128,24 @@ export class ClientDeletedFormsPageComponent implements OnInit {
     );
   }
 
+  deleteForm(submission_code: string, index: number) {
+    this.clientService.deleteTrashedForm(submission_code).then(
+      ok => {
+        if (ok) {
+          this.deletedCollection.splice(index, 1);
+          this.hasData = this.deletedCollection.length == 0 ? false : true;
+        }
+        else {
+          this.showDeleteFailedAlert();
+        }
+      },
+      err => {
+        console.log('error restoring form');
+        this.showDeleteFailedAlert();
+      }
+    );
+  }
+
   restore(ev: Event, submission_code: string, index: number) {
     ev.stopPropagation();
     this.modalService.open(this.confirmDialog, { centered: true }).result.then(
@@ -134,6 +153,15 @@ export class ClientDeletedFormsPageComponent implements OnInit {
         if (result == 'yes') {
           this.restoreForm(submission_code, index);
         }
+      }
+    );
+  }
+
+  delete(e: Event, submission_code: string, index: number) {
+    e.stopPropagation();
+    this.modalService.open(this.confirmDeleteDialog, { centered: true }).result.then(
+      res => {
+        res == 'yes' ? this.deleteForm(submission_code, index) : null;
       }
     );
   }

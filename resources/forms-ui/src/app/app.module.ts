@@ -14,8 +14,10 @@ import { NgxPageScrollCoreModule } from 'ngx-page-scroll-core';
 
 import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule} from '@angular/material/input';
+import { LoadingBarModule } from '@ngx-loading-bar/core';
 import { MatNativeDateModule } from '@angular/material/core';
 import { MatDatepickerModule } from '@angular/material/datepicker';
+import { LoadingBarHttpClientModule } from '@ngx-loading-bar/http-client';
 import { MatAutocompleteModule, MatSelectModule } from '@angular/material';
 import { NgbModalModule, NgbAlertModule } from '@ng-bootstrap/ng-bootstrap';
 
@@ -143,6 +145,8 @@ import { InvalidResetPinPageComponent } from './pages/invalid-reset-pin-page/inv
 import { InvalidLinkPageComponent } from './pages/invalid-link-page/invalid-link-page.component';
 import { JoinQueueDialogComponent } from './components/join-queue-dialog/join-queue-dialog.component';
 import { AlreadyJoinedQueueDialogComponent } from './components/already-joined-queue-dialog/already-joined-queue-dialog.component';
+import { TermsPageComponent } from './pages/terms-page/terms-page.component';
+import { PrivacyPageComponent } from './pages/privacy-page/privacy-page.component';
 
 @NgModule({
   declarations: [
@@ -269,6 +273,8 @@ import { AlreadyJoinedQueueDialogComponent } from './components/already-joined-q
     InvalidLinkPageComponent,
     JoinQueueDialogComponent,
     AlreadyJoinedQueueDialogComponent,
+    TermsPageComponent,
+    PrivacyPageComponent,
   ],
   imports: [
     BrowserModule,
@@ -289,6 +295,8 @@ import { AlreadyJoinedQueueDialogComponent } from './components/already-joined-q
     MatDatepickerModule,
     MatNativeDateModule,
     MatAutocompleteModule,
+    LoadingBarHttpClientModule,
+    LoadingBarModule,
     CountryPickerModule.forRoot({
       baseUrl: 'assets/',
       filename: 'countries.json'

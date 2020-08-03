@@ -95,7 +95,7 @@
                         <div class="card-body">
                           <div class="card-title">Terms & Condtions</div>
                           <div class="card-text">
-                            <p>By submitting this form, please be aware that the terms & conditions apply. Please accept or decline below.</p>
+                            <p>By submitting this form, you accept this terms and conditions.</p>
                             <button class="btn btn-outline-primary" (click)="openTncDialog()">Read & Accept in order to submit form</button>
                           </div>
                         </div>
@@ -253,7 +253,7 @@
     </div>
     <div class="modal-body">
       <div class="form-group pin-form-group">
-        <input type="tel" class="form-control form-control-lg pin-control" name="pinCode" [(ngModel)]="pinCode" 
+        <input type="password" class="form-control form-control-lg pin-control" name="pinCode" [(ngModel)]="pinCode" 
           placeholder="----" maxlength="4" (keyup)="resolveStrCharacters($event)" autofocus>
         <div>
           <p class="input-error" *ngIf="pinRequired">PIN is required</p>
@@ -296,6 +296,7 @@
           {{ branch.branch_name }}
         </option>
       </select>
+      <p class="input-error" *ngIf="noBranchSelected">Select a branch to continue</p>
     </div>
   </div>
   <div class="modal-footer">
@@ -344,8 +345,7 @@
     <p>{{ tncContent }}</p>
   </div>
   <div class="modal-footer">
-    <button type="button" class="btn btn-outline-danger" (click)="declineTnc()">Decline</button>
-    <button type="button" class="btn btn-primary" (click)="acceptTnc()">Accept</button>
+    <button type="button" class="btn btn-outline-primary" (click)="modal.close()">Okay</button>
   </div>
 </ng-template>
 

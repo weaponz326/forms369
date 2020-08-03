@@ -114,6 +114,8 @@ import { ViewSectorListPageComponent } from './pages/dashboard/git-admin/view-se
 import { ResetPinPageComponent } from './pages/reset-pin-page/reset-pin-page.component';
 import { InvalidResetPinPageComponent } from './pages/invalid-reset-pin-page/invalid-reset-pin-page.component';
 import { InvalidLinkPageComponent } from './pages/invalid-link-page/invalid-link-page.component';
+import { TermsPageComponent } from './pages/terms-page/terms-page.component';
+import { PrivacyPageComponent } from './pages/privacy-page/privacy-page.component';
 
 const routes: Routes = [
   {
@@ -180,6 +182,14 @@ const routes: Routes = [
   {
     path: 'invalid_link',
     component: InvalidLinkPageComponent
+  },
+  {
+    path: 'privacy',
+    component: PrivacyPageComponent
+  },
+  {
+    path: 'terms',
+    component: TermsPageComponent
   },
   {
     path: 'git_admin',

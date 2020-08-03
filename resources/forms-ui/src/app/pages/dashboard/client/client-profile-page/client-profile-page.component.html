@@ -106,7 +106,7 @@
                     </div>
 
                     <!-- Attachments -->
-                    <div class="card" *ngIf="!showOnlyPrimaryInfo">
+                    <div class="card">
                       <div class="card-header" id="headingTwo">
                         <h2 class="mb-0">
                           <button class="btn btn-link" type="button" data-toggle="collapse" data-target="#collapseTwo"
@@ -339,7 +339,7 @@
   </div>
   <div class="modal-body">
     <p><strong>Are you sure you want to delete <span class="text-primary">this attachment</span> ?</strong></p>
-    <p>Deleting this attachment is a permanently action <span class="text-danger">and cannot be undone.</span></p>
+    <p>Deleting this attachment is a permanent action <span class="text-danger">and cannot be undone.</span></p>
   </div>
   <div class="modal-footer">
     <button type="button" class="btn btn-outline-primary" (click)="modal.close('yes')">Yes</button>
@@ -381,7 +381,7 @@
     </div>
     <div class="modal-body">
       <div class="form-group pin-form-group">
-        <input type="tel" class="form-control form-control-lg pin-control" name="pinCode" [(ngModel)]="pinCode"
+        <input type="password" class="form-control form-control-lg pin-control" name="pinCode" [(ngModel)]="pinCode"
           placeholder="----" maxlength="4" (keyup)="resolveStrCharacters_1($event)" autofocus>
         <div>
           <p class="input-error" *ngIf="pinRequired">PIN is required</p>
