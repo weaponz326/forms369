@@ -212,11 +212,11 @@ export class ClientProfilePageComponent implements OnInit, AfterViewInit {
 
   setProfileInformation() {
     this.primaryUserData = {
-      email: this.userData['email'],
-      phone: this.userData['phone'],
-      country: this.userData['country'],
-      lastname: this.userData['lastname'],
       firstname: this.userData['firstname'],
+      lastname: this.userData['lastname'],
+      country: this.userData['country'],
+      phone: this.userData['phone'],
+      email: this.userData['email'],
     };
   }
 
