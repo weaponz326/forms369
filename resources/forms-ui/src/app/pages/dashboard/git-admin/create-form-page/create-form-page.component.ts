@@ -117,7 +117,8 @@ export class CreateFormPageComponent implements OnInit {
       name: ['', Validators.required],
       hasTnc: ['', Validators.required],
       canJoin: ['', Validators.required],
-      merchant: ['', Validators.required]
+      merchant: ['', Validators.required],
+      signature: ['', Validators.required]
     });
   }
 
@@ -211,7 +212,7 @@ export class CreateFormPageComponent implements OnInit {
 
   createForm() {
     if (this.tncFile != null) {
-      alert('uploading');
+      console.log('uploading');
       this.formService.uploadFormTNC(this.formCode, this.tncFile).then(
         ok => {
           this.createFormOnly();
@@ -246,6 +247,7 @@ export class CreateFormPageComponent implements OnInit {
       formData.merchant_id = parseInt(this.f.merchant.value);
       formData.tnc = this.f.hasTnc.value == '' ? 0 : this.f.hasTnc.value;
       formData.can_view = this.f.canView.value == '' ? 0 : this.f.canView.value;
+      formData.require_signature = this.f.signature.value == '' ? 0 : this.f.signature.value;
 
       this.formService.createForm(formData).then(
         res => {

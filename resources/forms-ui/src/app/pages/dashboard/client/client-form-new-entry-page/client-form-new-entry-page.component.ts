@@ -456,7 +456,7 @@ export class ClientFormNewEntryPageComponent implements OnInit, AfterViewInit {
 
   queueJoined(data: any) {
     this.loading = false;
-    alert(data);
+    console.log(data);
     this.created = data == true ? true : false;
   }
 
@@ -791,7 +791,7 @@ export class ClientFormNewEntryPageComponent implements OnInit, AfterViewInit {
   }
 
   handleHasExistingAttachments(user_data: any, updateProfile: boolean, form_submission_code: string) {
-    alert('doing an existing upload');
+    console.log('doing an existing upload');
     if (this.existingAttachments.length > 0) {
       _.forEach(this.existingAttachments, (attachment, i) => {
         const idx = attachment.url.lastIndexOf('.');
@@ -897,7 +897,7 @@ export class ClientFormNewEntryPageComponent implements OnInit, AfterViewInit {
     // we can tell the number of attachments this form has by
     // checking the formFiles variable's value.
     console.log('doing upload');
-    alert('uploading form attachment');
+    console.log('uploading form attachment');
     const num_of_attachments = this.formFiles;
 
     const key = 'signature';

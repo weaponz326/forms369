@@ -130,6 +130,7 @@ export class EditFormPageComponent implements OnInit {
       name: [this._form.name, Validators.required],
       hasTnc: [this._form.tnc, Validators.required],
       merchant: [this._form.mercant_name, Validators.required],
+      signature: [this._form.require_signature, Validators.required]
     });
   }
 
@@ -148,14 +149,35 @@ export class EditFormPageComponent implements OnInit {
     this.handleUploadFileView(this.f.merchant.value);
   }
 
+  tncSelected(e: any) {
+    const selectedValue = this.f.hasTnc.value;
+    if (selectedValue == '1') {
+      this.showTncFileUpload = true;
+    }
+    else {
+      this.showTncFileUpload = false;
+    }
+  }
+
   inputFileChanged(ev: Event) {
     const pdf_file = this.pdfFileElement.nativeElement as HTMLInputElement;
     this.f.pdf.setValue(pdf_file.files[0].name);
     this.pdfFile = pdf_file.files[0];
   }
 
+  inputFileChanged_1(ev: Event) {
+    const tnc_file = this.tncFileElement.nativeElement as HTMLInputElement;
+    this.f.tnc.setValue(tnc_file.files[0].name);
+    this.tncFile = tnc_file.files[0];
+  }
+
   showFilePicker() {
     const element = this.pdfFileElement.nativeElement as HTMLInputElement;
+    element.click();
+  }
+
+  showFilePicker_1() {
+    const element = this.tncFileElement.nativeElement as HTMLInputElement;
     element.click();
   }
 
@@ -287,6 +309,7 @@ export class EditFormPageComponent implements OnInit {
     formData.merchant_id = parseInt(this.f.merchant.value);
     formData.tnc = this.f.hasTnc.value == '' ? 0 : this.f.hasTnc.value;
     formData.can_view = this.f.canView.value == '' ? 0 : this.f.canView.value;
+    formData.require_signature = this.f.signature.value == '' ? 0 : this.f.signature.value;
 
     this.formService.editForm(this._form.form_code, formData).then(
       res => {
