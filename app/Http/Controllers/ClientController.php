@@ -244,8 +244,8 @@ class ClientController extends Controller
                 if($status){
                     if($code == "69CEF"){
                         $subject = $form_data['contact_subject'];
-                        $phone = $form_data['contact_phone'];
-                        $email = $form_data['contact_email'];
+                        $phone = $form_data['phone'];
+                        $email = $form_data['email'];
                         $message = $form_data['contact_message'];
                         Notification::route('slack', env('SLACK_HOOK'))->notify(new SlackNotification($sub_code, $subject, $phone, $email, $message));
                     }

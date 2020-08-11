@@ -239,8 +239,8 @@ class SetupController extends Controller
         $physical_address = $request->physical_address;
         $colors = $request->colors;
         $enabled_qms = $request->enabled_qms;
-        $client_id = $request->client_id;
-        $client_secret = $request->$client_secret;
+        // $client_id = $request->client_id;
+        // $client_secret = $request->$client_secret;
 
         //get user creating the new merchant
         $user = $request->user();
@@ -269,9 +269,9 @@ class SetupController extends Controller
                     'nickname' => $nickname,
                     'physical_address' => $physical_address,
                     'colors' => $colors,
-                    'enabled_qms' => $enabled_qms,
-                    'client_id' => $client_id,
-                    'client_secret' => $client_secret
+                    // 'enabled_qms' => $enabled_qms,
+                    // 'client_id' => $client_id,
+                    // 'client_secret' => $client_secret
                 ]
             );
 
@@ -416,8 +416,8 @@ class SetupController extends Controller
         $physical_address = $request->physical_address;
         $colors = $request->colors;
         $enabled_qms = $request->enabled_qms;
-        $client_id = $request->client_id;
-        $client_secret = $request->$client_secret;
+        // $client_id = $request->client_id;
+        // $client_secret = $request->$client_secret;
 
 
         //get user creating the new merchant
@@ -450,9 +450,9 @@ class SetupController extends Controller
                     'nickname' => $nickname,
                     'physical_address' => $physical_address,
                     'colors' => $colors,
-                    'enabled_qms' => $enabled_qms,
-                    'client_id' => $client_id,
-                    'client_secret' => $client_secret
+                    // 'enabled_qms' => $enabled_qms,
+                    // 'client_id' => $client_id,
+                    // 'client_secret' => $client_secret
                 ]
             );
 
