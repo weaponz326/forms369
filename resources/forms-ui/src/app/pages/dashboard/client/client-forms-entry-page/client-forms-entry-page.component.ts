@@ -213,6 +213,19 @@ export class ClientFormsEntryPageComponent implements OnInit, AfterViewInit {
     });
   }
 
+  getPrimaryInfo() {
+    const user = this.localStorage.getUser();
+    const userDetails = {
+      email: user.email,
+      phone: user.phone,
+      country: user.country,
+      lastname: user.lastname,
+      firstname: user.firstname,
+    };
+
+    return userDetails;
+  }
+
   renderForm() {
     const formData = this.form.form_fields;
     this.checkIfHasFileUpload(formData);
@@ -226,7 +239,9 @@ export class ClientFormsEntryPageComponent implements OnInit, AfterViewInit {
 
   setFormData(data: any) {
     this.clientProfile = this.form.client_submitted_details;
-    this.clientService.autoFillFormData(data, this.clientProfile);
+    _.isNull(this.clientProfile) || _.isUndefined(this.clientProfile)
+      ? this.clientService.autoFillFormData(data, [this.getPrimaryInfo()])
+      : this.clientService.autoFillFormData(data, this.clientProfile);
   }
 
   getFormData() {

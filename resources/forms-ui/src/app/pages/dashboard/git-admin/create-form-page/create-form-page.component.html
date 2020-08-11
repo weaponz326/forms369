@@ -109,8 +109,8 @@
                   </div>
 
                   <div class="row mt-4">
-                    <div class="col-1"></div>
-                    <div class="col-5">
+                    <div class="col-2"></div>
+                    <div class="col-3">
                       <div class="card">
                         <div class="card-body">
                           <div class="card-title">Company Name</div>
@@ -142,8 +142,7 @@
                                     placeholder="Upload File" readonly>
                                   <span class="input-group-append">
                                     <button class="file-upload-browse btn btn-primary" type="button"
-                                      (click)="showFilePicker()" style="padding: 9px 15px;"><i
-                                        class="mdi mdi-folder"></i></button>
+                                      (click)="showFilePicker()" style="padding: 9px 15px;"><i class="mdi mdi-folder"></i></button>
                                   </span>
                                 </div>
                                 <div *ngIf="submitted && f.pdf.errors">
@@ -156,7 +155,7 @@
                       </div>
                     </div>
 
-                    <div class="col-5">
+                    <div class="col-3">
                       <div class="card">
                         <div class="card-body">
                           <div class="card-title">Terms & Conditions</div>
@@ -199,7 +198,29 @@
                         </div>
                       </div>
                     </div>
-                    <div class="col-1"></div>
+
+                    <div class="col-2">
+                      <div class="card">
+                        <div class="card-body">
+                          <div class="card-title">Requires Signature</div>
+                          <div class="card-text">
+                            <div class="form-group">
+                              <select class="form-control" formControlName="signature"
+                                [ngClass]="{'input-control-error': submitted && f.signature.errors}"
+                                (change)="tncSelected($event)">
+                                <option value="" disabled>Requires Signature</option>
+                                <option value="0">No</option>
+                                <option value="1">Yes</option>
+                              </select>
+                              <div *ngIf="submitted && f.signature.errors">
+                                <p class="input-error" *ngIf="f.signature.errors.required">This options is required</p>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="col-2"></div>
                   </div>
 
                   <!-- form builder -->

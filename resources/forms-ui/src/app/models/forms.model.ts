@@ -10,6 +10,7 @@ export class Forms {
         public can_view?: number,
         public join_queue?: number,
         public tnc?: number,
+        public require_signature?: number,
         public created_at?: string,
         public updated_at?: string,
         public deleted_at?: string,

@@ -156,7 +156,7 @@
     </div>
     <div class="modal-body">
       <div class="form-group pin-form-group">
-        <input type="tel" class="form-control form-control-lg pin-control" formControlName="pin" placeholder="----"
+        <input type="password" class="form-control form-control-lg pin-control" formControlName="pin" placeholder="----"
           [ngClass]="{'input-control-error': submitted && f.pin.errors}" maxlength="4"
           (keyup)="resolveStrCharacters($event)">
         <div *ngIf="submitted && f.pin.errors">
