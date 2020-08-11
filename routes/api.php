@@ -355,8 +355,10 @@ Route::group(['middleware' => ['auth:api'], 'prefix' => 'v1'], function(){
   Route::post('addressAbuseReport/{id}', 'HomeController@addressAbuseReport')->name('addressAbuseReport')->middleware('scope:GIT_Admin');
   Route::get('getAbuseReportDetails/{id}', 'HomeController@getAbuseReportDetails')->name('getAbuseReportDetails')->middleware('scope:GIT_Admin');
 
-});
 
+});
+//generate QMS access token
+Route::post('getQMSToken/{id}', 'HomeController@getQMSToken')->name('getQMSToken');
  
 
 

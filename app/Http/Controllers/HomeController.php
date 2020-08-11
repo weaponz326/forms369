@@ -2641,4 +2641,18 @@ class HomeController extends Controller
         return $message;
      }
 
+
+     /**
+     * getQMSToken get token to use QMS apis
+     * @param  mixed $request
+     * @param  mixed $id id of the merchant
+     *
+     * @return void\Illuminate\Http\Response token
+     */
+     public function getQMSToken(Request $request, $id)
+     {
+        $message = (new SetupController)->getQMSToken($request, $id);
+        return $message;
+     }
+
 }    
