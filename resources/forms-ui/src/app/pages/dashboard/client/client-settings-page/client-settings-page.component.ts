@@ -106,7 +106,7 @@ export class ClientSettingsPageComponent implements OnInit {
   showIncorrectPin() {
     Swal.fire({
       title: 'Oops!',
-      text: 'Sorry!. Incorrect current pin.',
+      text: 'Sorry! Incorrect current pin.',
       icon: 'warning',
       confirmButtonText: 'Ok'
     });
@@ -115,7 +115,7 @@ export class ClientSettingsPageComponent implements OnInit {
   showPinChangeFailed() {
     Swal.fire({
       title: 'Oops!',
-      text: 'Sorry!. Something went wrong, we couldn\'t change your PIN. Please check your internet connection or our servers may be down.',
+      text: 'Sorry! Something went wrong, we couldn\'t change your PIN. Please check your internet connection or our servers may be down.',
       icon: 'error',
       confirmButtonText: 'Ok'
     });
@@ -145,7 +145,7 @@ export class ClientSettingsPageComponent implements OnInit {
   showUpdatePasswordFailed() {
     Swal.fire({
       title: 'Oops!',
-      text: 'Sorry!. Password update failed. Please check your internet connection or our servers may be down.',
+      text: 'Sorry! Password update failed. Please check your internet connection or our servers may be down.',
       icon: 'error',
       confirmButtonText: 'Ok'
     });
@@ -154,7 +154,7 @@ export class ClientSettingsPageComponent implements OnInit {
   showSamePasswordAlert() {
     Swal.fire({
       title: 'Oops!',
-      text: 'Sorry!. Your new password cannot be the same as your current password.',
+      text: 'Sorry! Your new password cannot be the same as your current password.',
       icon: 'warning',
       confirmButtonText: 'Ok'
     });

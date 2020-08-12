@@ -40,7 +40,7 @@ export class ResetPinPageComponent implements OnInit {
     Swal.fire({
       title: 'Success',
       icon: 'success',
-      text: 'Pin reset was successful.',
+      text: 'Pin successfully changed.',
       confirmButtonText: 'Ok'
     });
   }

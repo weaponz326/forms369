@@ -135,7 +135,7 @@ export class FrontDeskService {
     });
   }
 
-  getSubmittedFormByStatusAndMerchant(status: number, merchant_id: string, page_url?: string): Promise<any> {
+  getSubmittedFormByStatusAndMerchant(status: number, merchant_id: string, page_url?: string): Promise<any[]> {
     return new Promise((resolve, reject) => {
       const url = !_.isUndefined(page_url)
         ? page_url
