@@ -64,7 +64,7 @@ class SuggestMerchantSlackNotification extends Notification
             ->from('Forms369')
             ->to('forms369_support')
             ->content('New Merchant Suggested.' ."\r\n".
-            'Merchant Name: '. $this->name . "\r\n" .
+            'Merchant Name: '. $this->merchant . "\r\n" .
             'Merchant Country: '. $this->country);
     }
 

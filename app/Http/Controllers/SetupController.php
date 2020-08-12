@@ -16,6 +16,9 @@ use Illuminate\Support\Facades\Log;
 use Response;
 use App\Notifications\SuggestMerchantSlackNotification;
 use Notification;
+use GuzzleHttp\Exception\GuzzleException;
+use GuzzleHttp\Client;
+
 class SetupController extends Controller
 {
 
@@ -2206,14 +2209,50 @@ class SetupController extends Controller
         $client_id = $merchantdetails->client_id;
         $client_secret = $merchantdetails->client_secret;
         $grant_type = "client_credentials";
-        $scope = "join-sandbox";
+        $scope = "join-queue";
 
+        $client = new Client();
+        try{
+            $response = $client->post('https://qms.gitlog.biz/oauth/token', [
+                'form_params' => [
+                    'grant_type' => $grant_type,
+                    'client_id' => $client_id,
+                    'client_secret' => $client_secret,
+                    'scope' => $scope,
+                ],
+            ]);
+    
+    
+            // $client_id = $merchantdetails->client_id;
+            // $client_secret = $merchantdetails->client_secret;
+            // $grant_type = "client_credentials";
+            // $scope = "join-queue";
+    
+            // $data = ['client_id' => $client_id,'client_secret' => $client_secret, 'scope' => $scope, 'grant_type' => $grant_type];
+    
+            // $client = new Client(); 
+            // $res = $client->request('POST','https://qms.gitlog.biz/oauth/token',[
+            //     'headers' => [
+            //     'Accept' => 'application/json',
+            //     'Content-type' => 'application/json']],
+            //     ['query' => $data]);
+    
+                $result = json_decode($response->getBody()->getContents());
+    
+                $token = $result->access_token;
+                $response = [
+                    'message' => $token
+                ];
+                return response()->json($response, 200);
+        } catch (RequestException $e){
+            $response = $this->StatusCodeHandling($e);
+            $response = [
+                'message' => $response
+            ];
+            return response()->json($response, 400);
+       
+        }
         
-
-
-
-
-
      }
 
 }

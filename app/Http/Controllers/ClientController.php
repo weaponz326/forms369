@@ -244,8 +244,8 @@ class ClientController extends Controller
                 if($status){
                     if($code == "69CEF"){
                         $subject = $form_data['contact_subject'];
-                        $phone = $form_data['contact_phone'];
-                        $email = $form_data['contact_email'];
+                        $phone = $form_data['phone'];
+                        $email = $form_data['email'];
                         $message = $form_data['contact_message'];
                         Notification::route('slack', env('SLACK_HOOK'))->notify(new SlackNotification($sub_code, $subject, $phone, $email, $message));
                     }
@@ -525,7 +525,7 @@ class ClientController extends Controller
             ->join('forms', 'forms.form_code', '=', 'form_id')
             ->join('merchants', 'merchants.id', '=', 'forms.merchant_id')
             ->select('submitted_forms.*','merchants.merchant_name AS merchant_name', 'merchants.nickname', 'forms.tnc',
-            'users.name', 'users.email', 'forms.name AS form_name', 'forms.form_fields', 'forms.join_queue', 'forms.can_view', 'logo', 'forms.require_siganture')
+            'users.name', 'users.email', 'forms.name AS form_name', 'forms.form_fields', 'forms.join_queue', 'forms.can_view', 'logo', 'forms.require_signature')
             ->where([
                 ['submitted_forms.client_id', $id],
                 ['submitted_forms.submission_code', 'like', '%'.$code.'%']
@@ -598,6 +598,7 @@ class ClientController extends Controller
  
          //search all submitted forms if user is on the all tab
          if($status == -1){
+            
              $getforms = DB::table('submitted_forms')
              ->join('users', 'users.id', '=', 'client_id')
              ->join('forms', 'forms.form_code', '=', 'form_id')
@@ -608,7 +609,8 @@ class ClientController extends Controller
                  ['submitted_forms.client_id', $id]
                 //  ['submitted_forms.status', '!=', 4]
              ])
-             ->whereBetween('submitted_at', [$startdate, $enddate])
+             ->whereBetween(DB::raw('DATE(submitted_at)'), array($startdate, $enddate))
+            //  ->whereBetween('submitted_at', [$startdate, $enddate])
              ->get();
            
          }else{
@@ -622,7 +624,8 @@ class ClientController extends Controller
                      ['submitted_forms.client_id', $id],
                      ['submitted_forms.status', $status]
                  ])
-                 ->whereBetween('submitted_at', [$startdate, $enddate])
+                 ->whereBetween(DB::raw('DATE(submitted_at)'), array($startdate, $enddate))
+                //  ->whereBetween('submitted_at', [$startdate, $enddate])
                  ->get();
        
          }
