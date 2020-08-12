@@ -13,6 +13,7 @@ use Response;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\File;
 use App\Notifications\SlackNotification;
+use App\Notifications\TnCMailNotification;
 use Notification;
 class ClientController extends Controller
 {
@@ -1800,6 +1801,41 @@ class ClientController extends Controller
                 'message' => $message
             ], 400);
          }      
+     }
+
+     /**
+     * emailTnC email TnC to client user
+     * @param  \Illuminate\Http\Request  $request
+     * @param $id of the client  who we are emailing the tnc to
+    * @return void\Illuminate\Http\Response error or success message
+     */
+     public function emailTnC(Request $request)
+     {
+        $this->validate($request, [
+            'form_name' => 'required',
+            'form_code' => 'required'
+        ]);
+
+        $form_name = $request->form_name;
+        $form_code = $request->form_code;
+
+        try {
+            //get user and send verification email
+            $user = $request->user();
+            
+            $user->notify(new TnCMailNotification($form_name, $form_code));
+
+            $message = "Ok";
+             return response()->json([
+                'message' => $message
+            ], 200);
+        }catch(Exception $e) {
+             $message = "Failed";
+             return response()->json([
+                'message' => $message
+            ], 400);
+         }      
+        
      }
     
 }

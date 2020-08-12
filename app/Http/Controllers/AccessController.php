@@ -339,4 +339,37 @@ class AccessController extends Controller
 
     }
 
+    /**
+     * deleteAccessCode delete an access code in the db
+     * @param  mixed $request
+     * @param  mixed $id
+     * @return \Illuminate\Http\Response success or error message
+     */
+     public function deleteAccessCode(Request $request, $id){
+
+        //get user creating the new merchant
+        $user = $request->user();
+        $userid = $user['id'];
+
+        try {
+
+            DB::table('accesscode')
+            ->where('id', $id)
+            ->delete();
+
+            $message = 'Ok';
+            Log::channel('mysql')->info('User with id: ' . $userid .' successsfully deleted an access code with id '. $id);
+
+        }catch(Exception $e) {
+            Log::channel('mysql')->error('User with id: ' . $userid .' unsuccesssfully deleted an access code with id '. $id);
+            $message = "Failed";
+        } 
+            
+        return response()->json([
+            'message' => $message
+        ]);
+
+    }
+
+
 }

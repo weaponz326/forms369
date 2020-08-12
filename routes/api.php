@@ -30,7 +30,7 @@ Route::post('login', 'HomeController@login')->name('login');
 
 Route::post('checkAccess', 'HomeController@checkAccess')->name('checkAccess');
 
-Route::post('login', 'HomeController@login')->name('login');
+// Route::post('login', 'HomeController@login')->name('login');
 Route::post('resetPassword/{id}', 'HomeController@resetPassword')->name('resetPassword');
 
 //check access code
@@ -67,6 +67,11 @@ Route::group(['middleware' => ['auth:api'], 'prefix' => 'v1'], function(){
     //reset user pin routes
     Route::post('forgotPin', 'HomeController@forgotPin')->name('forgotPin')->middleware('scope:GIT_Admin,forms_client');
     
+    //generate QMS access token
+    Route::post('getQMSToken/{id}', 'HomeController@getQMSToken')->name('getQMSToken')->middleware('scope:GIT_Admin,forms_client');
+    //email a form's t and c to a client user
+    Route::post('emailTnC', 'HomeController@emailTnC')->name('emailTnC')->middleware('scope:GIT_Admin,forms_client');
+
     //change user password
     Route::post('changePassword/{id}', 'HomeController@changePassword')->name('changePassword')->middleware('scope:GIT_Admin,forms_client');
 
@@ -293,7 +298,8 @@ Route::group(['middleware' => ['auth:api'], 'prefix' => 'v1'], function(){
   Route::post('deactivateAccessCode/{code}', 'HomeController@deactivateAccessCode')->name('deactivateAccessCode')->middleware('scope:GIT_Admin');
   Route::get('getAllCodes', 'HomeController@getAllCodes')->name('getAllCodes')->middleware('scope:GIT_Admin'); 
   Route::get('getAccessCodesByStatus/{active}', 'HomeController@getAccessCodesByStatus')->name('getAccessCodesByStatus')->middleware('scope:GIT_Admin'); 
-  Route::get('getAccessCodesDetails/{code}', 'HomeController@getAccessCodesDetails')->name('getAccessCodesDetails')->middleware('scope:GIT_Admin');                                    
+  Route::get('getAccessCodesDetails/{code}', 'HomeController@getAccessCodesDetails')->name('getAccessCodesDetails')->middleware('scope:GIT_Admin');
+  Route::post('deleteAccessCode/{id}', 'HomeController@deleteAccessCode')->name('deleteAccessCode')->middleware('scope:GIT_Admin');                                    
   
   //form sectiosn apis
   Route::post('createSection', 'HomeController@createSection')->name('createSection')->middleware('scope:GIT_Admin'); 
@@ -357,8 +363,7 @@ Route::group(['middleware' => ['auth:api'], 'prefix' => 'v1'], function(){
 
 
 });
-//generate QMS access token
-Route::post('getQMSToken/{id}', 'HomeController@getQMSToken')->name('getQMSToken');
+
  
 
 

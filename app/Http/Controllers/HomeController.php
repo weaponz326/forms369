@@ -1276,6 +1276,20 @@ class HomeController extends Controller
         return $message;
     }
 
+    /**
+     * emailTnC email TnC to client user
+     * @param  \Illuminate\Http\Request  $request
+     * @param $id of the client  who we are emailing the tnc to
+    * @return void\Illuminate\Http\Response error or success message
+     */
+     public function emailTnC(Request $request)
+     {
+        $message = (new ClientController)->emailTnC($request);
+        return $message;
+
+    }
+
+
      /**
      * addReview add a review to a rejected form
      *
@@ -2100,6 +2114,18 @@ class HomeController extends Controller
         $message = (new AccessController)->createAccessCode($request);
         return $message;
     }
+
+    /**
+     * deleteAccessCode delete an access code in the db
+     * @param  mixed $request
+     * @param  mixed $id
+     * @return \Illuminate\Http\Response success or error message
+     */
+     public function deleteAccessCode(Request $request, $id)
+     {
+        $message = (new AccessController)->deleteAccessCode($request, $id);
+        return $message;
+     }
 
     /**
      * Business logics to create a form section
