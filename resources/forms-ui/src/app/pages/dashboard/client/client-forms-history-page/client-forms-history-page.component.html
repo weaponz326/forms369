@@ -97,7 +97,7 @@
               <form *ngIf="isDateSearch">
                 <div class="form-group form-inline">
                   <div class="input-group">
-                    <input class="form-control date-search" [(ngModel)]="startDate" placeholder="Select Start Date" name="dp" ngbDatepicker #d="ngbDatepicker">
+                    <input class="form-control date-search" [(ngModel)]="startDate" placeholder="Select Start Date" name="startDate" ngbDatepicker #d="ngbDatepicker">
                     <div class="input-group-append">
                       <button class="btn btn-sm btn-outline-primary" (click)="d.toggle()" type="button">
                         <i class="mdi mdi-calendar-outline"></i>
@@ -106,7 +106,7 @@
                   </div>
                   <div style="width: 2px;"></div>
                   <div class="input-group">
-                    <input class="form-control date-search" [(ngModel)]="endDate" placeholder="Select Start Date" name="dp" ngbDatepicker #d1="ngbDatepicker">
+                    <input class="form-control date-search" [(ngModel)]="endDate" placeholder="Select End Date" name="endDate" ngbDatepicker #d1="ngbDatepicker">
                     <div class="input-group-append">
                       <button class="btn btn-sm btn-outline-primary" (click)="d1.toggle()" type="button">
                         <i class="mdi mdi-calendar-outline"></i>

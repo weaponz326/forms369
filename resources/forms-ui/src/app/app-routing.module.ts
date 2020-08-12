@@ -118,26 +118,11 @@ import { TermsPageComponent } from './pages/terms-page/terms-page.component';
 import { PrivacyPageComponent } from './pages/privacy-page/privacy-page.component';
 
 const routes: Routes = [
-  {
-    path: '',
-    component: WelcomePageComponent
-  },
-  {
-    path: 'login',
-    component: LoginPageComponent
-  },
-  {
-    path: 'auth',
-    component: AuthPageComponent
-  },
-  {
-    path: 'user_auth',
-    component: AdminLoginPageComponent
-  },
-  {
-    path: 'client_auth',
-    component: ClientAuthPageComponent
-  },
+  { path: '', component: WelcomePageComponent },
+  { path: 'login', component: LoginPageComponent },
+  { path: 'auth', component: AuthPageComponent },
+  { path: 'user_auth', component: AdminLoginPageComponent },
+  { path: 'client_auth', component: ClientAuthPageComponent },
   {
     path: 'register',
     component: RegisterPageComponent

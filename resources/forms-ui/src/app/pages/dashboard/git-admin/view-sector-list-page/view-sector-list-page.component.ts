@@ -45,6 +45,10 @@ export class ViewSectorListPageComponent implements OnInit {
     this.loadingModalRef.close();
   }
 
+  openNewSector() {
+    this.router.navigateByUrl('git_admin/create/sector');
+  }
+
   edit(ev: Event, sector: any) {
     ev.stopPropagation();
     this.router.navigateByUrl('git_admin/edit/sector', { state: { sector: sector } });
@@ -83,7 +87,6 @@ export class ViewSectorListPageComponent implements OnInit {
           this.hasData = true;
           this.loading = false;
           _.forEach(sectors, (sector) => {
-            sector.created_at = this.dateService.safeDateFormat(sector.created_at);
             this.sectorsList.push(sector);
           });
         }

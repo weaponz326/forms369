@@ -151,7 +151,7 @@
                   <form [formGroup]="forgotPinForm" (ngSubmit)="forgotPin()">
                     <div class="form-group">
                       <label>Email Address</label>
-                      <input type="tel" class="form-control form-control-lg" formControlName="email"
+                      <input type="email" class="form-control form-control-lg" formControlName="email"
                         placeholder="Enter Email Address" [ngClass]="{'input-control-error': submitted2 && fpin.email.errors}">
                       <div *ngIf="submitted2 && fpin.email.errors">
                         <p class="input-error" *ngIf="fpin.email.errors.required">Email address is required</p>
