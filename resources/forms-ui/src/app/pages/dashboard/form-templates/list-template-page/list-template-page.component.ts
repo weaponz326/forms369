@@ -1,8 +1,8 @@
-import { Component, OnInit, TemplateRef, ViewChild } from '@angular/core';
 import * as _ from 'lodash';
 import { Router } from '@angular/router';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { UserTypes } from 'src/app/enums/user-types.enum';
+import { Component, OnInit, TemplateRef, ViewChild } from '@angular/core';
 import { ListViewService } from 'src/app/services/view/list-view.service';
 import { TemplatesService } from 'src/app/services/templates/templates.service';
 import { LocalStorageService } from 'src/app/services/storage/local-storage.service';
@@ -22,12 +22,14 @@ export class ListTemplatePageComponent implements OnInit {
   hasNoData: boolean;
   isGitAdmin: boolean;
   sortingOrder: string;
+  searchOption: string;
   foundNoForm: boolean;
   loadingMore: boolean;
   hasMoreError: boolean;
   ascSortSelected: boolean;
   descSortSelected: boolean;
   templatesList: Array<any>;
+  allTemplatesList: Array<any>;
   @ViewChild('confirm', { static: false }) modalTemplateRef: TemplateRef<any>;
 
   constructor(
@@ -37,7 +39,10 @@ export class ListTemplatePageComponent implements OnInit {
     private localStorage: LocalStorageService,
     private templatesService: TemplatesService
   ) {
+    this.query = '';
+    this.searchOption = '';
     this.templatesList = [];
+    this.allTemplatesList = [];
     this.sortingBy = 'created';
     this.sortingOrder = this.listViewService.getSortOrder();
     this.viewMode = this.listViewService.getDesiredViewMode();
@@ -122,6 +127,38 @@ export class ListTemplatePageComponent implements OnInit {
     }
   }
 
+  searchByTemplateName() {
+    console.log('search by: ' + this.searchOption);
+    this.loading = true;
+    this.templatesService.findTemplate(this.query).then(
+      forms => {
+        if (forms.length == 0) {
+          this.loading = false;
+          this.foundNoForm = true;
+        }
+        else {
+          this.loading = false;
+          this.foundNoForm = false;
+          _.forEach(forms, (form) => {
+            this.templatesList.push(form);
+          });
+        }
+      },
+      err => {
+        this.hasError = true;
+        this.loading = false;
+      }
+    );
+  }
+
+  searchByTemplateCategory() {
+    _.forEach(this.allTemplatesList, (template) => {
+      if (_.toLower(template.category_name).includes(_.toLower(this.query))) {
+        this.templatesList.push(template);
+      }
+    });
+  }
+
   edit(ev: Event, form: any) {
     ev.stopPropagation();
     this.router.navigateByUrl('templates/edit', { state: { form: form }});
@@ -177,6 +214,7 @@ export class ListTemplatePageComponent implements OnInit {
             console.log(form);
             this.templatesList.push(form);
           });
+          this.allTemplatesList = this.templatesList;
         }
         else {
           this.hasNoData = true;
@@ -193,39 +231,31 @@ export class ListTemplatePageComponent implements OnInit {
 
   search(e: KeyboardEvent) {
     if (e.key == 'Enter') {
-      // we need to know whether the user is searching by a form code
-      // or the user is searching by a form name.
-      // First, check if its a form code.
-      console.log(this.query);
-      this.hasError = false;
-      this.templatesList = [];
-      this.loading = true;
-      this.templatesService.findTemplate(this.query).then(
-        forms => {
-          if (forms.length == 0) {
-            this.loading = false;
-            this.foundNoForm = true;
-          }
-          else {
-            this.loading = false;
-            this.foundNoForm = false;
-            _.forEach(forms, (form) => {
-              this.templatesList.push(form);
-            });
-          }
-        },
-        err => {
-          this.hasError = true;
-          this.loading = false;
+      if (this.query.length != 0) {
+        console.log(this.query);
+        this.hasMore = false;
+        this.hasError = false;
+        this.templatesList = [];
+
+        switch (this.searchOption) {
+          case 'name':
+            this.searchByTemplateName();
+            break;
+          case 'category':
+            this.searchByTemplateCategory();
+            break;
+          default:
+            break;
         }
-      );
-    }
-    else {
-      if (this.foundNoForm && this.query.length == 0) {
-        this.hasNoData = true;
-        this.foundNoForm = false;
-        console.log('hererer');
-        this.getAllTemplates();
+      }
+      else {
+        this.templatesList = this.allTemplatesList;
+        this.hasMore = this.checkIfHasMore();
+        if (this.foundNoForm && this.query.length == 0) {
+          this.hasNoData = false;
+          this.foundNoForm = false;
+          this.templatesList = this.allTemplatesList;
+        }
       }
     }
   }

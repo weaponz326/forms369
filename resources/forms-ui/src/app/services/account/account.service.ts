@@ -301,12 +301,9 @@ export class AccountService {
         res => {
           console.log('res______: ' + JSON.stringify(res));
           const response = res as any;
-          if (_.toLower(response.message) == 'ok') {
-            resolve(true);
-          }
-          else {
-            resolve(false);
-          }
+          _.toLower(response.message) == 'ok'
+            ? resolve(true)
+            : resolve(false);
         },
         err => {
           console.log('err_____: ' + JSON.stringify(err));
@@ -316,6 +313,24 @@ export class AccountService {
     });
   }
 
+  deleteAccessCode(id: string): Promise<boolean> {
+    return new Promise((resolve, reject) => {
+      const url = this.endpointService.apiHost + 'api/v1/deleteAccessCode/' + id;
+      this.http.post(url, {}, { headers: this.authHeaders }).subscribe(
+        res => {
+          console.log('res______: ' + JSON.stringify(res));
+          const response = res as any;
+          _.toLower(response.message) == 'ok'
+            ? resolve(true)
+            : resolve(false);
+        },
+        err => {
+          console.log('err_____: ' + JSON.stringify(err));
+          reject(err);
+        }
+      );
+    });
+  }
   /**
    * Gets details of a user account.
    *
