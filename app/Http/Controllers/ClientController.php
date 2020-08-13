@@ -15,6 +15,8 @@ use Illuminate\Support\Facades\File;
 use App\Notifications\SlackNotification;
 use App\Notifications\TnCMailNotification;
 use Notification;
+use GuzzleHttp\Exception\GuzzleException;
+use GuzzleHttp\Client;
 class ClientController extends Controller
 {
     

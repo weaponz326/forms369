@@ -26,6 +26,7 @@ Route::post('forgotPassword', 'HomeController@forgotPassword')->name('forgotPass
 Route::get('forgotpasswordlink/{token}', 'HomeController@confirmForgottenPassword')->name('forgotpasswordlink');
 
 //login user 
+Route::post('login', 'HomeController@login')->name('login')->middleware('client');
 Route::post('login', 'HomeController@login')->name('login');
 
 Route::post('checkAccess', 'HomeController@checkAccess')->name('checkAccess');

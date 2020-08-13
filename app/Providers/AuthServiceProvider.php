@@ -38,6 +38,7 @@ class AuthServiceProvider extends ServiceProvider
             'frontdesk' => 'View and manage clients submitted forms',
             'forms_client' => 'Submit forms',
             'institutional_client' => 'Manage institutional forms',
+            'client' => 'Grant access for third party apps',
         ]);
 
     }
