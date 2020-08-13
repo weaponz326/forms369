@@ -345,12 +345,18 @@
     <p>{{ tncContent }}</p>
   </div>
   <div class="modal-footer">
-    <button type="button" class="btn btn-outline-primary" (click)="modal.close()">Okay</button>
+    <button *ngIf="!isEmailing" type="button" class="btn btn-outline-primary" (click)="emailTnc()">Email Terms & Condition To Me</button>
+    <button *ngIf="isEmailing" type="button" class="btn btn-primary font-weight-medium" disabled>
+      <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span> &nbsp; &nbsp;
+      Please wait...
+    </button>
+    <button type="button" class="btn btn-outline-primary" (click)="modal.close()">Close</button>
   </div>
 </ng-template>
 
 <ng-template #joinQueue let-modal>
   <app-join-queue-dialog
+    [merchantId]="merchantId"
     [branchExtension]="branchExtension"
     (queueSkipped)="skipQueue($event)"
     (processCompleted)="queueJoined($event)">

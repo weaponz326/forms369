@@ -10,6 +10,8 @@ export class EndpointService {
   apiHost: string;
   qmsApiHost: string;
   storageHost: string;
+  clientID: number;
+  clientSecret: string;
   private localApiHost: string;
   private productionApiHost: string;
 
@@ -19,6 +21,10 @@ export class EndpointService {
     this.localApiHost = 'http://127.0.0.1:8000/';
     this.apiHost = window.origin == 'http://localhost:4200' ? this.localApiHost : this.productionApiHost;
     this.storageHost = window.origin == 'http://localhost:4200' ? this.apiHost + 'storage/' : this.productionApiHost + 'storage/';
+    this.clientID = window.origin == 'http://localhost:4200' ? 14 : 6;
+    this.clientSecret = window.origin == 'http://localhost:4200'
+      ? 'CFoa1NgOO9uMq73mE1Mc2Uy0svMTDDgcPygHriYX'
+      : 'RbnbY9yO5CVrDrDb33J6pUmlq661PuKhZaByTtIt';
   }
 
   /**
@@ -67,7 +73,7 @@ export class EndpointService {
     });
   }
 
-  qmsHeaders(token: string) {
+  setHeaders(token: string) {
     return new HttpHeaders({
       'Accept': 'application/json',
       'Content-Type': 'application/json',

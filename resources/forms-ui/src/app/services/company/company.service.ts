@@ -38,10 +38,12 @@ export class CompanyService {
       form.set('colors', merchant.colors);
       form.set('country', merchant.country);
       form.set('nickname', merchant.nickname);
+      form.set('client_id', merchant.client_id);
       form.set('can_print', merchant.can_print);
       form.set('small_logo', merchant.small_logo);
       form.set('enabled_qms', merchant.enabled_qms);
       form.set('merchant_name', merchant.merchant_name);
+      form.set('client_secret', merchant.client_secret);
       form.set('super_id', merchant.super_id.toString());
       form.set('admin_id', merchant.admin_id.toString());
       form.set('sector_id', merchant.sector_id.toString());
@@ -109,9 +111,11 @@ export class CompanyService {
             form.set('colors', merchant.colors);
             form.set('country', merchant.country);
             form.set('nickname', merchant.nickname);
+            form.set('client_id', merchant.client_id);
             form.set('can_print', merchant.can_print);
             form.set('enabled_qms', merchant.enabled_qms);
             form.set('status', merchant.status.toString());
+            form.set('client_secret', merchant.client_secret);
             form.set('merchant_name', merchant.merchant_name);
             form.set('super_id', merchant.super_id.toString());
             form.set('admin_id', merchant.admin_id.toString());

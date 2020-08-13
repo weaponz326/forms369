@@ -44,9 +44,11 @@ export class ClientFormsEntryPageComponent implements OnInit, AfterViewInit {
   submitted: boolean;
   isLoading: boolean;
   pinForm: FormGroup;
+  merchantId: string;
   tncContent: string;
   documentUrl: string;
   pinMinimum: boolean;
+  isEmailing: boolean;
   pinRequired: boolean;
   updateProfile: boolean;
   hasSignature: boolean;
@@ -61,6 +63,7 @@ export class ClientFormsEntryPageComponent implements OnInit, AfterViewInit {
   noBranchSelected: boolean;
   signatureImageUrl: string;
   pinDialogRef: NgbModalRef;
+  tncDialogRef: NgbModalRef;
   loadingAttachments: boolean;
   setPinDialogRef: NgbModalRef;
   attachmentFiles: Array<File>;
@@ -109,6 +112,8 @@ export class ClientFormsEntryPageComponent implements OnInit, AfterViewInit {
     this.existingAttachments = [];
     this.form = history.state.form;
     this.form = this.reloader.resolveDataLoss(this.form);
+    this.merchantId = this.form.merchant_id.toString();
+
     this.user = this.localStorage.getUser();
     console.log('form: ' + JSON.stringify(this.form));
     console.log('submission_code: ' + this.form.submission_code);
@@ -222,6 +227,27 @@ export class ClientFormsEntryPageComponent implements OnInit, AfterViewInit {
     });
   }
 
+  showTncEmailSuccessfulAlert() {
+    Swal.fire({
+      title: 'Email Sent',
+      text: 'The terms & conditions of this form has been successfully sent to your email.',
+      icon: 'success',
+      confirmButtonColor: 'Ok',
+      onDestroy: () => {
+        this.tncDialogRef.close();
+      }
+    });
+  }
+
+  showTncEmailFailedAlert() {
+    Swal.fire({
+      title: 'Email failed',
+      text: 'Emailing of the terms & d=conditions failed. Please check your internet connection and try again!.',
+      icon: 'error',
+      confirmButtonColor: 'Ok'
+    });
+  }
+
   getPrimaryInfo() {
     const user = this.localStorage.getUser();
     const userDetails = {
@@ -288,7 +314,7 @@ export class ClientFormsEntryPageComponent implements OnInit, AfterViewInit {
   }
 
   openTncDialog() {
-    this.modalService.open(this.tncDialog, { centered: true, backdrop: 'static', keyboard: false, size: 'lg' });
+    this.tncDialogRef = this.modalService.open(this.tncDialog, { centered: true, backdrop: 'static', keyboard: false, size: 'lg' });
   }
 
   appendOnChangeEventToFileInput() {
@@ -989,6 +1015,23 @@ export class ClientFormsEntryPageComponent implements OnInit, AfterViewInit {
           this.loading = false;
         }
       }
+    );
+  }
+
+  emailTnc() {
+    this.isEmailing = true;
+    this.clientService.emailTncFile(this.form.form_code, this.form.form_name || this.form.name).then(
+      sent => {
+        if (sent) {
+          this.isEmailing = false;
+          this.showTncEmailSuccessfulAlert();
+        }
+        else {
+          this.isEmailing = false;
+          this.showTncEmailFailedAlert();
+        }
+      },
+      err => { }
     );
   }
 

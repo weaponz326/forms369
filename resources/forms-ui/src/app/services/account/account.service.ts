@@ -19,6 +19,28 @@ export class AccountService {
     this.authHeaders = this.endpointService.headers();
   }
 
+  authorizeLogin(): Promise<any>{
+    return new Promise((resolve, reject) => {
+      const url = this.endpointService.apiHost + 'oauth/token';
+      const body = {
+        client_id: this.endpointService.clientID,
+        client_secret: this.endpointService.clientSecret,
+        grant_type: 'client_credentials',
+        scope: 'client'
+      };
+      this.http.post<any>(url, JSON.stringify(body), { headers: this.headers }).subscribe(
+        res => {
+          console.log('authorize_res: ' + JSON.stringify(res));
+          resolve(res.access_token);
+        },
+        err => {
+          console.log('err: ' + JSON.stringify(err));
+          reject(err);
+        }
+      );
+    });
+  }
+
   /**
    * Logs in a user.
    *
@@ -29,18 +51,24 @@ export class AccountService {
    */
   authenticate(username: string, password: string): Promise<any> {
     return new Promise((resolve, reject) => {
-      const url = this.endpointService.apiHost + 'api/login';
-      const body = { username: username, password: password };
-      this.http.post(url, JSON.stringify(body), { headers: this.headers }).subscribe(
-        res => {
-          console.log('res: ' + JSON.stringify(res));
-          resolve(res);
-        },
-        err => {
-          console.log('err: ' + JSON.stringify(err));
-          reject(err);
-        }
-      );
+      this.authorizeLogin().then(token => {
+        const headers = this.endpointService.setHeaders(token);
+        const url = this.endpointService.apiHost + 'api/login';
+        const body = { username: username, password: password };
+        this.http.post(url, JSON.stringify(body), { headers: headers }).subscribe(
+          res => {
+            console.log('res: ' + JSON.stringify(res));
+            resolve(res);
+          },
+          err => {
+            console.log('err: ' + JSON.stringify(err));
+            reject(err);
+          }
+        );
+      },
+      error => {
+        console.log('authorize_error: ' + JSON.stringify(error));
+      });
     });
   }
 
@@ -566,7 +594,7 @@ export class AccountService {
           console.log('err_: ' + JSON.stringify(err));
           reject(err);
         }
-      )
+      );
     });
   }
 
