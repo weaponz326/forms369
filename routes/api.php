@@ -361,8 +361,6 @@ Route::group(['middleware' => ['auth:api'], 'prefix' => 'v1'], function(){
   Route::get('getAbuseReportsByStatus/{status}', 'HomeController@getAbuseReportsByStatus')->name('getAbuseReportsByStatus')->middleware('scope:GIT_Admin');
   Route::post('addressAbuseReport/{id}', 'HomeController@addressAbuseReport')->name('addressAbuseReport')->middleware('scope:GIT_Admin');
   Route::get('getAbuseReportDetails/{id}', 'HomeController@getAbuseReportDetails')->name('getAbuseReportDetails')->middleware('scope:GIT_Admin');
-
-
 });
 
  

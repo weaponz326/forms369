@@ -353,7 +353,7 @@ class AccessController extends Controller
 
         try {
 
-            DB::table('accesscode')
+            DB::table('access')
             ->where('id', $id)
             ->delete();
 
