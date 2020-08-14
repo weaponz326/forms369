@@ -138,6 +138,7 @@
                     <i class="mdi mdi-dots-vertical"></i>
                   </button>
                   <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                    <a class="dropdown-item" (click)="print(form)">Print</a>
                     <a class="dropdown-item" *ngIf="form.form_status != 4" (click)="download(form)">Download</a>
                     <a class="dropdown-item" *ngIf="form.form_status == 3" (click)="openReview($event, form.submission_code)">Rejection Message</a>
                     <a class="dropdown-item text-danger" (click)="delete($event, form.submission_code, i)">Delete</a>

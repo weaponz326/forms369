@@ -116,6 +116,7 @@ import { InvalidResetPinPageComponent } from './pages/invalid-reset-pin-page/inv
 import { InvalidLinkPageComponent } from './pages/invalid-link-page/invalid-link-page.component';
 import { TermsPageComponent } from './pages/terms-page/terms-page.component';
 import { PrivacyPageComponent } from './pages/privacy-page/privacy-page.component';
+import { ClientPDFDownloadingPageComponent } from './pages/dashboard/client/client-pdfdownloading-page/client-pdfdownloading-page.component';
 
 const routes: Routes = [
   { path: '', component: WelcomePageComponent },
@@ -389,6 +390,11 @@ const routes: Routes = [
         path: 'printing',
         canActivate: [AuthGuard],
         component: ClientPrintingPageComponent
+      },
+      {
+        path: 'downloading',
+        canActivate: [AuthGuard],
+        component: ClientPDFDownloadingPageComponent
       },
       {
         path: 'suggest_merchant',

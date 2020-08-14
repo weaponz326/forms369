@@ -590,6 +590,10 @@ export class ClientFormsHistoryPageComponent implements OnInit {
     this.router.navigateByUrl('client/pdf_printing', { state: { form: form } });
   }
 
+  print(form: any) {
+    this.router.navigateByUrl('client/printing', { state: { form: form }});
+  }
+
   retry() {
     this.getAllHistory();
   }
