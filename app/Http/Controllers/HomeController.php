@@ -2681,4 +2681,16 @@ class HomeController extends Controller
         return $message;
      }
 
+     /**
+     * deleteAccessCode delete an access code in the db
+     * @param  mixed $request
+     * @param  mixed $id
+     * @return \Illuminate\Http\Response success or error message
+     */
+    public function initiatePayment(Request $request)
+    {
+        $message = (new PaymentController)->initiatePayment($request);
+        return $message;
+    }
+
 }    
