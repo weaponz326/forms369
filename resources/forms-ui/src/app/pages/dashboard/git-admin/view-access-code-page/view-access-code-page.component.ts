@@ -20,6 +20,7 @@ export class ViewAccessCodePageComponent implements OnInit {
   accessCodesList: Array<any>;
   loadingModalRef: NgbModalRef;
   @ViewChild('loader', {static: false}) loadingModal: TemplateRef<any>;
+  @ViewChild('confirmDelete', {static: false}) deleteModal: TemplateRef<any>;
   @ViewChild('confirmActivate', {static: false}) activateModal: TemplateRef<any>;
   @ViewChild('confirmDeactivate', {static: false}) deactivateModal: TemplateRef<any>;
 
@@ -38,6 +39,10 @@ export class ViewAccessCodePageComponent implements OnInit {
 
   open(code: any) {
     this.router.navigateByUrl('/git_admin/edit/access_code', { state: { code: code }});
+  }
+
+  openNewCode() {
+    this.router.navigateByUrl('/git_admin/create/access_code');
   }
 
   showLoadingModal() {
@@ -61,7 +66,7 @@ export class ViewAccessCodePageComponent implements OnInit {
           this.hasData = true;
           this.loading = false;
           _.forEach(codes, (code) => {
-            code.created_at = this.dateService.safeDateFormat(code.created_at);
+            code.created_at = code.created_at == null ? '' : this.dateService.safeDateFormat(code.created_at);
             this.accessCodesList.push(code);
           });
         }
@@ -98,6 +103,16 @@ export class ViewAccessCodePageComponent implements OnInit {
     );
   }
 
+  delete(id: number) {
+    this.modalService.open(this.deleteModal, { centered: true }).result.then(
+      result => {
+        if (result == 'delete') {
+          this.accessCodeDelete(id.toString());
+        }
+      }
+    );
+  }
+
   accessCodeActivate(code: string) {
     this.showLoadingModal();
     this.accountService.activateAccessCode(code).then(
@@ -114,6 +129,19 @@ export class ViewAccessCodePageComponent implements OnInit {
   accessCodeDeactivate(code: string) {
     this.showLoadingModal();
     this.accountService.deActivateAccessCode(code).then(
+      ok => {
+        if (ok) {
+          this.hideLoadingModal();
+          this.accessCodesList = [];
+          this.getAllAccessCodes();
+        }
+      }
+    );
+  }
+
+  accessCodeDelete(id: string) {
+    this.showLoadingModal();
+    this.accountService.deleteAccessCode(id).then(
       ok => {
         if (ok) {
           this.hideLoadingModal();

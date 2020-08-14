@@ -29,6 +29,7 @@ export class EditCompanyPageComponent implements OnInit {
   _loading: boolean;
   logoImage: string;
   submitted: boolean;
+  showQMSKeys: boolean;
   navigatedData: any;
   sectorList: Array<any>;
   companyAdminsList: Array<any>;
@@ -65,6 +66,7 @@ export class EditCompanyPageComponent implements OnInit {
     this.companyAdminEmailList = [];
     if (!_.isUndefined(this.navigatedData.can_print)) {
       this.canPrint = this.navigatedData.can_print == 1 ? true : false;
+      this.showQMSKeys = this.navigatedData.enabled_qms == 1 ? true : false;
     }
 
     this.initializeView();
@@ -125,9 +127,11 @@ export class EditCompanyPageComponent implements OnInit {
       logo: [''],
       smallLogoFile: [''],
       status: [merchant.status],
+      clientId: [merchant.client_id],
       enableQms: [merchant.enabled_qms],
       smallLogoName: [merchant.small_logo],
       address: [merchant.physical_address],
+      clientSecret: [merchant.client_secret],
       companyAdmin: ['', Validators.required],
       superExecutive: ['', Validators.required],
       country: [merchant.country, Validators.required],
@@ -171,6 +175,8 @@ export class EditCompanyPageComponent implements OnInit {
     this.enable_qms.setValue(e.target.value, {
       onlySelf: true
     });
+
+    this.f.enableQms.value == 1 ? this.showQMSKeys = true : this.showQMSKeys = false;
   }
 
   inputFileChanged(ev: Event) {
@@ -233,6 +239,8 @@ export class EditCompanyPageComponent implements OnInit {
       this.f.address.value,
       this.f.nickname.value,
       this.f.enableQms.value,
+      this.f.clientId.value,
+      this.f.clientScret.value,
       created_at,
       this.f.status.value,
       logo

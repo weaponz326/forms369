@@ -13,25 +13,18 @@ export class QMSQueueingService {
 
   constructor(private http: HttpClient, private logger: LoggingService, private endpointService: EndpointService) {}
 
-  authenticateQmsEndpoint(): Promise<string> {
+  authenticateQmsEndpoint(merchant_id: string): Promise<string> {
     return new Promise((resolve, reject) => {
-      const url = this.endpointService.qmsApiHost + 'oauth/token';
-      const headers = this.endpointService._headers();
+      const url = this.endpointService.apiHost + 'api/v1/getQMSToken/' + merchant_id;
+      const headers = this.endpointService.headers();
 
-      const body = {
-        'client_id': 11,
-        'scope': 'join-sandbox',
-        'grant_type': 'client_credentials',
-        'client_secret': 'WsvA3wt7GihECxlQPdz7vg4ItpdUqxhV1EpI30Xp'
-      };
-
-      this.http.post<any>(url, JSON.stringify(body), { headers: headers }).subscribe(
+      this.http.post<any>(url, {}, { headers: headers }).subscribe(
         res => {
-          this.logger.log('QMS_authentication: ' + JSON.stringify(res));
-          resolve(res.access_token);
+          this.logger.log('QMS_auth_token: ' + JSON.stringify(res));
+          resolve(res.message);
         },
         err => {
-          this.logger.log('QMS auth error: ' + JSON.stringify(err));
+          this.logger.log('QMS_auth_error: ' + JSON.stringify(err));
           reject(err);
         }
       );
@@ -40,10 +33,10 @@ export class QMSQueueingService {
 
   getBranchServices(token: string, branch_ext: string): Promise<any[]> {
     return new Promise((resolve, reject) => {
-      this.headers = this.endpointService.qmsHeaders(token);
+      this.headers = this.endpointService.setHeaders(token);
 
       const body = {'branch_ext': branch_ext};
-      const url = this.endpointService.qmsApiHost + 'api/sandbox/branch_services';
+      const url = this.endpointService.qmsApiHost + 'api/join/branch_services';
       this.http.post<any>(url, JSON.stringify(body), { headers: this.headers }).subscribe(
         res => {
           this.logger.log('qms_branch_services: ' + JSON.stringify(res));
@@ -59,10 +52,10 @@ export class QMSQueueingService {
 
   getCustomerServices(token: string, branch_ext: string): Promise<any[]> {
     return new Promise((resolve, reject) => {
-      this.headers = this.endpointService.qmsHeaders(token);
+      this.headers = this.endpointService.setHeaders(token);
 
       const body = { 'branch_ext': branch_ext };
-      const url = this.endpointService.qmsApiHost + 'api/sandbox/customer_services';
+      const url = this.endpointService.qmsApiHost + 'api/join/customer_services';
       this.http.post<any>(url, JSON.stringify(body), { headers: this.headers }).subscribe(
         res => {
           this.logger.log('qms_customer_services: ' + JSON.stringify(res));
@@ -89,8 +82,8 @@ export class QMSQueueingService {
         'single_service_id': queue.single_service_id,
         'multiple_services': queue.multiple_services,
       };
-      this.headers = this.endpointService.qmsHeaders(token);
-      const url = this.endpointService.qmsApiHost + 'api/sandbox/join_branch_queue';
+      this.headers = this.endpointService.setHeaders(token);
+      const url = this.endpointService.qmsApiHost + 'api/join/join_branch_queue';
       this.http.post<any>(url, JSON.stringify(body), { headers: this.headers }).subscribe(
         res => {
           this.logger.log('qms_add_queue ' + JSON.stringify(res));
@@ -110,8 +103,8 @@ export class QMSQueueingService {
         'branch_ext': branch_ext,
         'client_mobile': client_mobile
       };
-      this.headers = this.endpointService.qmsHeaders(token);
-      const url = this.endpointService.qmsApiHost + 'api/sandbox/cancel_request';
+      this.headers = this.endpointService.setHeaders(token);
+      const url = this.endpointService.qmsApiHost + 'api/join/cancel_request';
       this.http.post<any>(url, JSON.stringify(body), { headers: this.headers }).subscribe(
         res => {
           this.logger.log('qms_add_queue ' + JSON.stringify(res));

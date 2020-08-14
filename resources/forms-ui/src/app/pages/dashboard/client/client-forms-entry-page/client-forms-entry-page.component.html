@@ -84,7 +84,7 @@
                               (onEndEvent)="signatureDrawComplete()"></signature-pad>
                           </div>
                           <div *ngIf="hasSignature">
-                            <img [src]="signatureImageUrl" alt="signature">
+                            <img class="signature" [src]="signatureImageUrl" alt="signature">
                           </div>
                         </div>
                       </div>
@@ -95,8 +95,8 @@
                         <div class="card-body">
                           <div class="card-title">Terms & Condtions</div>
                           <div class="card-text">
-                            <p>By submitting this form, you accept this terms and conditions.</p>
-                            <button class="btn btn-outline-primary" (click)="openTncDialog()">Read & Accept in order to submit form</button>
+                            <p>By submitting this form, you accept its terms and conditions.</p>
+                            <button class="btn btn-outline-primary" (click)="openTncDialog()">Read Terms & Conditions</button>
                           </div>
                         </div>
                       </div>
@@ -345,12 +345,18 @@
     <p>{{ tncContent }}</p>
   </div>
   <div class="modal-footer">
-    <button type="button" class="btn btn-outline-primary" (click)="modal.close()">Okay</button>
+    <button *ngIf="!isEmailing" type="button" class="btn btn-outline-primary" (click)="emailTnc()">Email Terms & Condition To Me</button>
+    <button *ngIf="isEmailing" type="button" class="btn btn-primary font-weight-medium" disabled>
+      <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span> &nbsp; &nbsp;
+      Please wait...
+    </button>
+    <button type="button" class="btn btn-outline-primary" (click)="modal.close()">Close</button>
   </div>
 </ng-template>
 
 <ng-template #joinQueue let-modal>
   <app-join-queue-dialog
+    [merchantId]="merchantId"
     [branchExtension]="branchExtension"
     (queueSkipped)="skipQueue($event)"
     (processCompleted)="queueJoined($event)">

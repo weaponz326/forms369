@@ -1,0 +1,46 @@
+.view {
+    padding: 5px;
+    margin: 5px;
+}
+
+.container {
+    border: 1px solid #ccc;
+}
+
+.row {
+    padding: 10px 2px;
+}
+
+h5 {
+    font-size: 13px;
+    text-transform: uppercase;
+}
+
+.container .col-8 {
+    padding-top: 10px;
+}
+
+.img-view, .title-view {
+    text-align: center;
+}
+
+.img-view > img {
+    width: 180px;
+    height: 180px;
+    margin-bottom: 25px;
+}
+
+.title-view h1 {
+    margin-bottom: 20px;
+}
+
+.signature {
+    display: block;
+    margin: 0 auto;
+    padding-top: 42px;
+    padding-bottom: 30px;
+}
+
+.signature img {
+    height: 120px;
+}

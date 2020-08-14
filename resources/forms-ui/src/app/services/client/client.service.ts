@@ -163,6 +163,23 @@ export class ClientService {
     });
   }
 
+  emailTncFile(form_code: string, form_name: string): Promise<boolean> {
+    return new Promise((resolve, reject) => {
+      const url = this.endpointService.apiHost + 'api/v1/emailTnC';
+      const body = { form_code: form_code, form_name: form_name };
+      this.http.post<any>(url, JSON.stringify(body), { headers: this.headers }).subscribe(
+        res => {
+          _.toLower(res.message) == 'ok'
+            ? resolve(true)
+            : resolve(false);
+        },
+        err => {
+          reject(err);
+        }
+      );
+    });
+  }
+
   /**
    * Gets a list of all forms submitted by a client.
    *

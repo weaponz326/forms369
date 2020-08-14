@@ -1,3 +1,4 @@
+import * as moment from 'moment';
 import { Users } from 'src/app/models/users.model';
 import { AddToQueue } from 'src/app/models/add-to-queue.model';
 import { NgbTimepickerConfig } from '@ng-bootstrap/ng-bootstrap';
@@ -8,7 +9,6 @@ import { QMSQueueingService } from 'src/app/services/qms/qmsqueueing.service';
 import { DateTimeService } from 'src/app/services/date-time/date-time.service';
 import { LocalStorageService } from 'src/app/services/storage/local-storage.service';
 import { Component, OnInit, Input, ViewChild, TemplateRef, Output, EventEmitter } from '@angular/core';
-import * as moment from 'moment';
 
 @Component({
   selector: 'app-join-queue-dialog',
@@ -28,6 +28,7 @@ export class JoinQueueDialogComponent implements OnInit {
   time: NgbTimeStruct;
   servicesList: Array<any>;
   showInvalidTimeError: boolean;
+  @Input() merchantId: any;
   @Input() branchExtension: any;
   @Output() queueSkipped = new EventEmitter();
   @Output() processCompleted = new EventEmitter();
@@ -43,12 +44,12 @@ export class JoinQueueDialogComponent implements OnInit {
   ) {
     this.servicesList = [];
     this.user = this.localStorage.getUser();
-    this.getBranchServices();
   }
 
   ngOnInit() {
     this.time = { hour: 13, minute: 30, second: 0 };
     this.initForm();
+    this.getBranchServices();
   }
 
   public get f() {
@@ -154,7 +155,7 @@ export class JoinQueueDialogComponent implements OnInit {
   }
 
   getBranchServices() {
-    this.qmsQueueService.authenticateQmsEndpoint().then(
+    this.qmsQueueService.authenticateQmsEndpoint(this.merchantId).then(
       token => {
         this.token = token;
         this.qmsQueueService.getBranchServices(this.token, this.branchExtension).then(
@@ -166,7 +167,7 @@ export class JoinQueueDialogComponent implements OnInit {
               error => {}
             );
           },
-          error => { }
+          error => {}
         );
       },
       err => {

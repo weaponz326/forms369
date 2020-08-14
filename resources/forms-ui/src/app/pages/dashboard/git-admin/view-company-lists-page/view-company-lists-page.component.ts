@@ -1,6 +1,6 @@
-import { Component, OnInit } from '@angular/core';
 import * as _ from 'lodash';
 import { Router } from '@angular/router';
+import { Component, OnInit } from '@angular/core';
 import { Merchants } from 'src/app/models/merchants.model';
 import { CompanyService } from 'src/app/services/company/company.service';
 import { ListViewService } from 'src/app/services/view/list-view.service';

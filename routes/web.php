@@ -305,6 +305,11 @@ Route::get('client/deleted', function () {
     return View::make('index');
 });
 
+Route::get('client/downloading', function () {
+    View::addExtension('html', 'php');
+    return View::make('index');
+});
+
 Route::get('client/printing', function () {
     View::addExtension('html', 'php');
     return View::make('index');

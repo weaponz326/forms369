@@ -44,9 +44,11 @@ export class ClientFormsEntryPageComponent implements OnInit, AfterViewInit {
   submitted: boolean;
   isLoading: boolean;
   pinForm: FormGroup;
+  merchantId: string;
   tncContent: string;
   documentUrl: string;
   pinMinimum: boolean;
+  isEmailing: boolean;
   pinRequired: boolean;
   updateProfile: boolean;
   hasSignature: boolean;
@@ -61,6 +63,7 @@ export class ClientFormsEntryPageComponent implements OnInit, AfterViewInit {
   noBranchSelected: boolean;
   signatureImageUrl: string;
   pinDialogRef: NgbModalRef;
+  tncDialogRef: NgbModalRef;
   loadingAttachments: boolean;
   setPinDialogRef: NgbModalRef;
   attachmentFiles: Array<File>;
@@ -109,6 +112,8 @@ export class ClientFormsEntryPageComponent implements OnInit, AfterViewInit {
     this.existingAttachments = [];
     this.form = history.state.form;
     this.form = this.reloader.resolveDataLoss(this.form);
+    this.merchantId = this.form.merchant_id.toString();
+
     this.user = this.localStorage.getUser();
     console.log('form: ' + JSON.stringify(this.form));
     console.log('submission_code: ' + this.form.submission_code);
@@ -213,6 +218,36 @@ export class ClientFormsEntryPageComponent implements OnInit, AfterViewInit {
     });
   }
 
+  showRequiredFormFieldsAlert() {
+    Swal.fire({
+      title: 'Required Form Fields',
+      text: 'Kindly check to make sure you have filled all required fields.',
+      icon: 'error',
+      confirmButtonColor: 'Ok'
+    });
+  }
+
+  showTncEmailSuccessfulAlert() {
+    Swal.fire({
+      title: 'Email Sent',
+      text: 'The terms & conditions of this form has been successfully sent to your email.',
+      icon: 'success',
+      confirmButtonColor: 'Ok',
+      onDestroy: () => {
+        this.tncDialogRef.close();
+      }
+    });
+  }
+
+  showTncEmailFailedAlert() {
+    Swal.fire({
+      title: 'Email failed',
+      text: 'Emailing of the terms & d=conditions failed. Please check your internet connection and try again!.',
+      icon: 'error',
+      confirmButtonColor: 'Ok'
+    });
+  }
+
   getPrimaryInfo() {
     const user = this.localStorage.getUser();
     const userDetails = {
@@ -279,7 +314,7 @@ export class ClientFormsEntryPageComponent implements OnInit, AfterViewInit {
   }
 
   openTncDialog() {
-    this.modalService.open(this.tncDialog, { centered: true, backdrop: 'static', keyboard: false, size: 'lg' });
+    this.tncDialogRef = this.modalService.open(this.tncDialog, { centered: true, backdrop: 'static', keyboard: false, size: 'lg' });
   }
 
   appendOnChangeEventToFileInput() {
@@ -518,109 +553,6 @@ export class ClientFormsEntryPageComponent implements OnInit, AfterViewInit {
     }
   }
 
-  submitForm() {
-    this.loading = true;
-    // handle signature first
-    if (_.isEmpty(this.signatureDataURL)) {
-      // signature wasn't changed, still using the same signature.
-      this.handleFormSubmission();
-    }
-    else {
-      // signature was changed, we need to handle it.
-      const key = 'signature';
-      const sigImgFile = this.fileUploadService.convertBase64ToFile(this.signatureDataURL, 'signature.png');
-      if (this.updateProfile) {
-        this.clientService.uploadProfileAttachment(this.user.id.toString(), key, sigImgFile).then(
-          ok => {
-            this.handleFormSubmission();
-          },
-          err => {
-            console.log('error uploading signature:update*');
-          }
-        );
-      }
-      else {
-        // don't update the profile with the new signature
-        this.handleFormSubmission();
-      }
-    }
-  }
-
-  handleFormSubmission() {
-    const user_data = this.getFormData();
-    console.log('form_data: ' + JSON.stringify(user_data));
-    console.log('this_form: ' + this.formBuilder.getFormUserData(user_data));
-    const unfilled = this.clientService.validateFormFilled(user_data);
-    console.log('unfilled: ' + JSON.stringify(unfilled));
-    if (unfilled.length != 0) {
-      const fileFields = this.getExistingAttachments(unfilled);
-      console.log('fileFields: ' + JSON.stringify(fileFields));
-      if (fileFields.length == 0) {
-        this.loading = false;
-        this.clientService.highlightUnFilledFormFields(unfilled);
-      }
-      else {
-        this.submitFormAndAttachments(user_data, this.updateProfile);
-      }
-    }
-    else {
-      this.submitFormAndAttachments(user_data, this.updateProfile);
-    }
-  }
-
-  submit() {
-    this.loading = true;
-    const user_id = this.user.id.toString();
-    this.clientService.checkSubmittedFormStatus(user_id, this.form.form_code).then(
-      res => {
-        console.log('success');
-        if (res.submitted == 0) {
-          this.modalService.open(this.confirmDialog, { centered: true }).result.then(
-            result => {
-              if (result == 'yes') {
-                this.handlePinCode(true);
-              }
-              else if (result == 'no') {
-                this.handlePinCode(false);
-              }
-              else {
-                this.modalService.dismissAll();
-                this.loading = false;
-              }
-            }
-          );
-        }
-        else {
-          if (res.status == 0) {
-            this.showSubmissionOptionsDialog(res.code);
-          }
-          else if (res.status == 1) {
-            this.showMakeNewSubmissionDialog();
-          }
-          else {
-            this.modalService.open(this.confirmDialog, { centered: true }).result.then(
-              result => {
-                if (result == 'yes') {
-                  this.handlePinCode(true);
-                }
-                else if (result == 'no') {
-                  this.handlePinCode(false);
-                }
-                else {
-                  this.modalService.dismissAll();
-                  this.loading = false;
-                }
-              }
-            );
-          }
-        }
-      },
-      err => {
-        console.log('something went wrong');
-      }
-    );
-  }
-
   createPin() {
     this.submitted = true;
     const pin = this.f.pin.value;
@@ -826,28 +758,6 @@ export class ClientFormsEntryPageComponent implements OnInit, AfterViewInit {
         }
       );
     }
-  }
-
-  updateSignature(updateProfile: boolean): Promise<boolean> {
-    return new Promise((resolve, reject) => {
-      if (_.isEmpty(this.signatureDataURL)) {
-        console.log('no signature was signed');
-        resolve(true);
-      }
-      else {
-        console.log('now uploading a new signature that was signed');
-        const key = 'signature';
-        const signatureImageFile = this.fileUploadService.convertBase64ToFile(this.signatureDataURL, 'signature.png');
-        this.clientService.uploadProfileAttachment(this.user.id.toString(), key, signatureImageFile).then(
-          ok => {
-            ok ? resolve(true) : resolve(false);
-          },
-          err => {
-            reject(err);
-          }
-        );
-      }
-    });
   }
 
   existingUpload(user_data: any, updateProfile: boolean, submission_code: string) {
@@ -1106,6 +1016,127 @@ export class ClientFormsEntryPageComponent implements OnInit, AfterViewInit {
         }
       }
     );
+  }
+
+  emailTnc() {
+    this.isEmailing = true;
+    this.clientService.emailTncFile(this.form.form_code, this.form.form_name || this.form.name).then(
+      sent => {
+        if (sent) {
+          this.isEmailing = false;
+          this.showTncEmailSuccessfulAlert();
+        }
+        else {
+          this.isEmailing = false;
+          this.showTncEmailFailedAlert();
+        }
+      },
+      err => { }
+    );
+  }
+
+  submit() {
+    this.loading = true;
+
+    const user_data = this.getFormData();
+    console.log(JSON.stringify(user_data));
+    console.log('this form: ' + this.formBuilder.getFormUserData(user_data));
+
+    const unfilled = this.clientService.validateFormFilled(user_data);
+    console.log('unfilled: ' + JSON.stringify(unfilled));
+    if (unfilled.length != 0) {
+      const fileFields = this.getExistingAttachments(unfilled);
+      if (fileFields.length == 0) {
+        this.loading = false;
+        this.showRequiredFormFieldsAlert();
+        this.clientService.highlightUnFilledFormFields(unfilled);
+      }
+      else {
+        this.handleFormSubmission();
+      }
+    }
+    else {
+      this.handleFormSubmission();
+    }
+  }
+
+  handleFormSubmission() {
+    const user_id = this.user.id.toString();
+    this.clientService.checkSubmittedFormStatus(user_id, this.form.form_code).then(
+      res => {
+        console.log('success');
+        if (res.submitted == 0) {
+          this.modalService.open(this.confirmDialog, { centered: true }).result.then(
+            result => {
+              if (result == 'yes') {
+                this.handlePinCode(true);
+              }
+              else if (result == 'no') {
+                this.handlePinCode(false);
+              }
+              else {
+                this.modalService.dismissAll();
+                this.loading = false;
+              }
+            }
+          );
+        }
+        else {
+          if (res.status == 0) {
+            this.showSubmissionOptionsDialog(res.code);
+          }
+          else if (res.status == 1) {
+            this.showMakeNewSubmissionDialog();
+          }
+          else {
+            this.modalService.open(this.confirmDialog, { centered: true }).result.then(
+              result => {
+                if (result == 'yes') {
+                  this.handlePinCode(true);
+                }
+                else if (result == 'no') {
+                  this.handlePinCode(false);
+                }
+                else {
+                  this.modalService.dismissAll();
+                  this.loading = false;
+                }
+              }
+            );
+          }
+        }
+      },
+      err => {
+        console.log('something went wrong');
+      }
+    );
+  }
+
+  submitForm() {
+    const user_data = this.getFormData();
+    if (_.isEmpty(this.signatureDataURL)) {
+      // signature wasn't changed, still using the same signature.
+      this.submitFormAndAttachments(user_data, this.updateProfile);
+    }
+    else {
+      // signature was changed, we need to handle it.
+      const key = 'signature';
+      const sigImgFile = this.fileUploadService.convertBase64ToFile(this.signatureDataURL, 'signature.png');
+      if (this.updateProfile) {
+        this.clientService.uploadProfileAttachment(this.user.id.toString(), key, sigImgFile).then(
+          ok => {
+            this.submitFormAndAttachments(user_data, this.updateProfile);
+          },
+          err => {
+            console.log('error uploading signature:update*');
+          }
+        );
+      }
+      else {
+        // don't update the profile with the new signature
+        this.submitFormAndAttachments(user_data, this.updateProfile);
+      }
+    }
   }
 
   copy() {

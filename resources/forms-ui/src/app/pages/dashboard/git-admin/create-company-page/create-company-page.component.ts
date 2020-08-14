@@ -27,6 +27,7 @@ export class CreateCompanyPageComponent implements OnInit {
   _loading: boolean;
   logoImage: string;
   submitted: boolean;
+  showQMSKeys: boolean;
   sectorList: Array<any>;
   companyAdminsList: Array<any>;
   countriesList: Array<ICountry>;
@@ -108,7 +109,9 @@ export class CreateCompanyPageComponent implements OnInit {
     this.form = this.formBuilder.group({
       address: [''],
       enableQms: [''],
+      clientId: [''],
       smallLogoName: [''],
+      clientSecret: [''],
       smallLogoFile: [''],
       name: ['', Validators.required],
       logo: ['', Validators.required],
@@ -144,6 +147,8 @@ export class CreateCompanyPageComponent implements OnInit {
     this.enable_qms.setValue(e.target.value, {
       onlySelf: true
     });
+
+    this.f.enableQms.value == 1 ? this.showQMSKeys = true : this.showQMSKeys = false;
   }
 
   showFilePicker() {
@@ -216,7 +221,9 @@ export class CreateCompanyPageComponent implements OnInit {
       this.f.colorCode.value,
       this.f.address.value,
       this.f.nickname.value,
-      this.f.enableQms.value
+      this.f.enableQms.value,
+      this.f.clientId.value,
+      this.f.clientScret.value,
     );
 
     return merchant;

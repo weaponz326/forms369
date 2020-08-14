@@ -13,6 +13,8 @@ export class Merchants {
         public physical_address?: string,
         public nickname?: string,
         public enabled_qms?: string,
+        public client_id?: string,
+        public client_secret?: string,
         public updated_at?: string,
         public status?: number,
         public logo?: string,

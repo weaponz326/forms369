@@ -43,8 +43,10 @@ export class ClientFormNewEntryPageComponent implements OnInit, AfterViewInit {
   submitted: boolean;
   isLoading: boolean;
   pinForm: FormGroup;
+  merchantId: string;
   tncContent: string;
   documentUrl: string;
+  isEmailing: boolean;
   pinMinimum: boolean;
   pinRequired: boolean;
   hasSignature: boolean;
@@ -59,6 +61,7 @@ export class ClientFormNewEntryPageComponent implements OnInit, AfterViewInit {
   signatureImageUrl: string;
   docDialogRef: NgbModalRef;
   pinDialogRef: NgbModalRef;
+  tncDialogRef: NgbModalRef;
   noBranchSelected: boolean;
   disableValidation: boolean;
   loadingAttachments: boolean;
@@ -99,6 +102,7 @@ export class ClientFormNewEntryPageComponent implements OnInit, AfterViewInit {
     this.pinCode = '';
     this.formFiles = 0;
     this.branch_id = '';
+    this.merchantId = '';
     this.tncContent = '';
     this.branchesList = [];
     this.submissionCode = '';
@@ -110,6 +114,8 @@ export class ClientFormNewEntryPageComponent implements OnInit, AfterViewInit {
     this.disableValidation = false;
     this.form = history.state.form;
     this.form = this.reloader.resolveDataLoss(this.form);
+    this.merchantId = this.form.merchant_id.toString();
+    alert('m_id: ' + this.merchantId);
 
     this.user = this.localStorage.getUser();
     console.log('form: ' + JSON.stringify(this.form));
@@ -210,7 +216,37 @@ export class ClientFormNewEntryPageComponent implements OnInit, AfterViewInit {
       title: 'Oops!',
       text: 'Sorry! Wrong PIN entered. Please check and try again',
       icon: 'error',
-      confirmButtonColor: 'Arrrgh, Ok'
+      confirmButtonColor: 'Ok'
+    });
+  }
+
+  showRequiredFormFieldsAlert() {
+    Swal.fire({
+      title: 'Required Form Fields',
+      text: 'Kindly check to make sure you have filled all required fields.',
+      icon: 'error',
+      confirmButtonColor: 'Ok'
+    });
+  }
+
+  showTncEmailSuccessfulAlert() {
+    Swal.fire({
+      title: 'Email Sent',
+      text: 'The terms & conditions of this form has been successfully sent to your email.',
+      icon: 'success',
+      confirmButtonColor: 'Ok',
+      onDestroy: () => {
+        this.tncDialogRef.close();
+      }
+    });
+  }
+
+  showTncEmailFailedAlert() {
+    Swal.fire({
+      title: 'Email failed',
+      text: 'Emailing of the terms & d=conditions failed. Please check your internet connection and try again!.',
+      icon: 'error',
+      confirmButtonColor: 'Ok'
     });
   }
 
@@ -275,7 +311,7 @@ export class ClientFormNewEntryPageComponent implements OnInit, AfterViewInit {
   }
 
   openTncDialog() {
-    this.modalService.open(this.tncDialog, { centered: true, backdrop: 'static', keyboard: false, size: 'lg' });
+    this.tncDialogRef = this.modalService.open(this.tncDialog, { centered: true, backdrop: 'static', keyboard: false, size: 'lg' });
   }
 
   appendOnChangeEventToFileInput() {
@@ -395,65 +431,6 @@ export class ClientFormNewEntryPageComponent implements OnInit, AfterViewInit {
     }
   }
 
-  submitForm() {
-    const user_data = this.getFormData();
-    console.log(JSON.stringify(user_data));
-    console.log('this form: ' + this.formBuilder.getFormUserData(user_data));
-
-    if (_.isEmpty(this.signatureDataURL)) {
-      // signature wasn't changed, still using the same signature.
-      !this.disableValidation
-        ? this.submitFormWithValidation(user_data)
-        : this.submitFormWithoutValidation(user_data);
-    }
-    else {
-      // signature was changed, we need to handle it.
-      const key = 'signature';
-      const sigImgFile = this.fileUploadService.convertBase64ToFile(this.signatureDataURL, 'signature.png');
-      if (this.updateProfile) {
-        this.clientService.uploadProfileAttachment(this.user.id.toString(), key, sigImgFile).then(
-          ok => {
-            !this.disableValidation
-              ? this.submitFormWithValidation(user_data)
-              : this.submitFormWithoutValidation(user_data);
-          },
-          err => {
-            console.log('error uploading signature:update*');
-          }
-        );
-      }
-      else {
-        // don't update the profile with the new signature
-        !this.disableValidation
-          ? this.submitFormWithValidation(user_data)
-          : this.submitFormWithoutValidation(user_data);
-      }
-    }
-  }
-
-  submitFormWithValidation(user_data: any) {
-    const unfilled = this.clientService.validateFormFilled(user_data);
-    console.log('unfilled: ' + JSON.stringify(unfilled));
-    if (unfilled.length != 0) {
-      const fileFields = this.getExistingAttachments(unfilled);
-      console.log('fileFields: ' + JSON.stringify(fileFields));
-      if (fileFields.length == 0) {
-        this.loading = false;
-        this.clientService.highlightUnFilledFormFields(unfilled);
-      }
-      else {
-        this.submitFormAndAttachments(user_data, this.updateProfile);
-      }
-    }
-    else {
-      this.submitFormAndAttachments(user_data, this.updateProfile);
-    }
-  }
-
-  submitFormWithoutValidation(user_data: any) {
-    this.submitFormAndAttachments(user_data, this.updateProfile);
-  }
-
   queueJoined(data: any) {
     this.loading = false;
     console.log(data);
@@ -533,59 +510,6 @@ export class ClientFormNewEntryPageComponent implements OnInit, AfterViewInit {
           this.loading = false;
           this.modalService.dismissAll();
         }
-      }
-    );
-  }
-
-  submit() {
-    this.loading = true;
-    const user_id = this.user.id.toString();
-    this.clientService.checkSubmittedFormStatus(user_id, this.form.form_code).then(
-      res => {
-        console.log('success');
-        if (res.submitted == 0) {
-          this.modalService.open(this.confirmDialog, { centered: true }).result.then(
-            result => {
-              if (result == 'yes') {
-                this.handlePinCode(true);
-              }
-              else if (result == 'no') {
-                this.handlePinCode(false);
-              }
-              else {
-                this.modalService.dismissAll();
-                this.loading = false;
-              }
-            }
-          );
-        }
-        else {
-          if (res.status == 0) {
-            this.showSubmissionOptionsDialog(res.code);
-          }
-          else if (res.status == 1) {
-            this.showMakeNewSubmissionDialog();
-          }
-          else {
-            this.modalService.open(this.confirmDialog, { centered: true }).result.then(
-              result => {
-                if (result == 'yes') {
-                  this.handlePinCode(true);
-                }
-                else if (result == 'no') {
-                  this.handlePinCode(false);
-                }
-                else {
-                  this.modalService.dismissAll();
-                  this.loading = false;
-                }
-              }
-            );
-          }
-        }
-      },
-      err => {
-        console.log('something went wrong');
       }
     );
   }
@@ -1042,6 +966,48 @@ export class ClientFormNewEntryPageComponent implements OnInit, AfterViewInit {
     this.docDialogRef = this.modalService.open(this.viewDocDialog, { centered: true });
   }
 
+  emailTnc() {
+    this.isEmailing = true;
+    this.clientService.emailTncFile(this.form.form_code, this.form.form_name || this.form.name).then(
+      sent => {
+        if (sent) {
+          this.isEmailing = false;
+          this.showTncEmailSuccessfulAlert();
+        }
+        else {
+          this.isEmailing = false;
+          this.showTncEmailFailedAlert();
+        }
+      },
+      err => {}
+    );
+  }
+
+  submit() {
+    this.loading = true;
+
+    const user_data = this.getFormData();
+    console.log(JSON.stringify(user_data));
+    console.log('this form: ' + this.formBuilder.getFormUserData(user_data));
+
+    const unfilled = this.clientService.validateFormFilled(user_data);
+    console.log('unfilled: ' + JSON.stringify(unfilled));
+    if (unfilled.length != 0) {
+      const fileFields = this.getExistingAttachments(unfilled);
+      if (fileFields.length == 0) {
+        this.loading = false;
+        this.showRequiredFormFieldsAlert();
+        this.clientService.highlightUnFilledFormFields(unfilled);
+      }
+      else {
+        this.handleFormSubmission();
+      }
+    }
+    else {
+      this.handleFormSubmission();
+    }
+  }
+
   saveAsDraft() {
     this.status = 4;
     this.loading = true;
@@ -1070,6 +1036,85 @@ export class ClientFormNewEntryPageComponent implements OnInit, AfterViewInit {
     );
   }
 
+  handleFormSubmission() {
+    const user_id = this.user.id.toString();
+    this.clientService.checkSubmittedFormStatus(user_id, this.form.form_code).then(
+      res => {
+        console.log('success');
+        if (res.submitted == 0) {
+          this.modalService.open(this.confirmDialog, { centered: true }).result.then(
+            result => {
+              if (result == 'yes') {
+                this.handlePinCode(true);
+              }
+              else if (result == 'no') {
+                this.handlePinCode(false);
+              }
+              else {
+                this.modalService.dismissAll();
+                this.loading = false;
+              }
+            }
+          );
+        }
+        else {
+          if (res.status == 0) {
+            this.showSubmissionOptionsDialog(res.code);
+          }
+          else if (res.status == 1) {
+            this.showMakeNewSubmissionDialog();
+          }
+          else {
+            this.modalService.open(this.confirmDialog, { centered: true }).result.then(
+              result => {
+                if (result == 'yes') {
+                  this.handlePinCode(true);
+                }
+                else if (result == 'no') {
+                  this.handlePinCode(false);
+                }
+                else {
+                  this.modalService.dismissAll();
+                  this.loading = false;
+                }
+              }
+            );
+          }
+        }
+      },
+      err => {
+        console.log('something went wrong');
+      }
+    );
+  }
+
+  submitForm() {
+    const user_data = this.getFormData();
+    if (_.isEmpty(this.signatureDataURL)) {
+      // signature wasn't changed, still using the same signature.
+      this.submitFormAndAttachments(user_data, this.updateProfile);
+    }
+    else {
+      // signature was changed, we need to handle it.
+      const key = 'signature';
+      const sigImgFile = this.fileUploadService.convertBase64ToFile(this.signatureDataURL, 'signature.png');
+      if (this.updateProfile) {
+        this.clientService.uploadProfileAttachment(this.user.id.toString(), key, sigImgFile).then(
+          ok => {
+            this.submitFormAndAttachments(user_data, this.updateProfile);
+          },
+          err => {
+            console.log('error uploading signature:update*');
+          }
+        );
+      }
+      else {
+        // don't update the profile with the new signature
+        this.submitFormAndAttachments(user_data, this.updateProfile);
+      }
+    }
+  }
+
   showJoinQueueDialog() {
     this.modalService.open(this.joinQueueDialog, { centered: true, backdrop: 'static', keyboard: false  });
   }
@@ -1083,7 +1128,6 @@ export class ClientFormNewEntryPageComponent implements OnInit, AfterViewInit {
   }
 
   ok() {
-    // alert('saved: ' + this.saved);
     this.saved
       ? this.router.navigateByUrl('/client/forms_filled', { state: { form: this.form }})
       : this.router.navigateByUrl('/client/forms_filled');

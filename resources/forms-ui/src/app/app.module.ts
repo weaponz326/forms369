@@ -147,6 +147,7 @@ import { JoinQueueDialogComponent } from './components/join-queue-dialog/join-qu
 import { AlreadyJoinedQueueDialogComponent } from './components/already-joined-queue-dialog/already-joined-queue-dialog.component';
 import { TermsPageComponent } from './pages/terms-page/terms-page.component';
 import { PrivacyPageComponent } from './pages/privacy-page/privacy-page.component';
+import { ClientPDFDownloadingPageComponent } from './pages/dashboard/client/client-pdfdownloading-page/client-pdfdownloading-page.component';
 
 @NgModule({
   declarations: [
@@ -275,6 +276,7 @@ import { PrivacyPageComponent } from './pages/privacy-page/privacy-page.componen
     AlreadyJoinedQueueDialogComponent,
     TermsPageComponent,
     PrivacyPageComponent,
+    ClientPDFDownloadingPageComponent,
   ],
   imports: [
     BrowserModule,

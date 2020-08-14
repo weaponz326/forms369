@@ -16,7 +16,7 @@
                 </div>
               </div>
               <div class="d-flex justify-content-between align-items-end flex-wrap">
-                <button type="button" class="btn btn-light bg-white btn-icon mr-3 d-none d-md-block ">
+                <button type="button" class="btn btn-light bg-white btn-icon mr-3 d-none d-md-block" (click)="openNewCode()">
                   <i class="mdi mdi-plus text-muted"></i>
                 </button>
               </div>
@@ -117,6 +117,10 @@
                               (click)="deactivate(code.accesscode)">
                               <i class="mdi mdi-close text-danger"></i>
                             </button>
+                            <button type="button" class="btn btn-light bg-white btn-icon mr-1"
+                              (click)="delete(code.code_id)">
+                              <i class="mdi mdi-delete-outline text-danger"></i>
+                            </button>
                           </div>
                         </td>
                       </tr>
@@ -211,5 +215,24 @@
   <div class="modal-footer">
     <button type="button" class="btn btn-outline-secondary" (click)="modal.dismiss('cancel')">Cancel</button>
     <button type="button" class="btn btn-danger" (click)="modal.close('deactivate')">Deactivate</button>
+  </div>
+</ng-template>
+
+<ng-template #confirmDelete let-modal>
+  <div class="modal-header">
+    <h4 class="modal-title" id="modal-title">Delete Access Code ?</h4>
+    <button type="button" class="close" aria-describedby="modal-title" (click)="modal.dismiss('close')">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <p><strong>Are you sure you want to delete <span class="text-primary">this access code</span> ?</strong></p>
+    <p>Deleting an access code is a permanent action and cannot be undone.
+      <span class="text-danger">Please be sure before you continue.</span>
+    </p>
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-outline-secondary" (click)="modal.dismiss('close')">Cancel</button>
+    <button type="button" class="btn btn-danger" (click)="modal.close('delete')">Delete</button>
   </div>
 </ng-template>

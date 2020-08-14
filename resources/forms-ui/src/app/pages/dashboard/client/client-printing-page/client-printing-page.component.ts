@@ -1,21 +1,23 @@
-declare var $: any;
 import * as _ from 'lodash';
+import { Printd } from 'printd';
 import { ClientService } from 'src/app/services/client/client.service';
+import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
+import { CompanyService } from 'src/app/services/company/company.service';
 import { EndpointService } from 'src/app/services/endpoint/endpoint.service';
 import { ReloadingService } from 'src/app/services/reloader/reloading.service';
-import { DownloaderService } from 'src/app/services/downloader/downloader.service';
 import { LocalStorageService } from 'src/app/services/storage/local-storage.service';
-import { Component, OnInit, ViewChild, ElementRef, AfterViewInit } from '@angular/core';
 
 @Component({
   selector: 'app-client-printing-page',
   templateUrl: './client-printing-page.component.html',
   styleUrls: ['./client-printing-page.component.css']
 })
-export class ClientPrintingPageComponent implements OnInit, AfterViewInit {
+export class ClientPrintingPageComponent implements OnInit {
+
   form: any;
   client: any;
   logo: string;
+  isPrint: boolean;
   loading: boolean;
   hasError: boolean;
   hasSignature: boolean;
@@ -28,19 +30,16 @@ export class ClientPrintingPageComponent implements OnInit, AfterViewInit {
   constructor(
     private reloader: ReloadingService,
     private clientService: ClientService,
+    private companyService: CompanyService,
     private endpointService: EndpointService,
-    private localStorage: LocalStorageService,
-    private downloadService: DownloaderService,
+    private localService: LocalStorageService,
   ) {
     this.initVars();
+    this.getMerchant();
     this.getSignature();
   }
 
   ngOnInit() {
-  }
-
-  ngAfterViewInit() {
-    // !this.form.print ? this.download() : null;
   }
 
   initVars() {
@@ -53,6 +52,7 @@ export class ClientPrintingPageComponent implements OnInit, AfterViewInit {
     console.log('form: ' + JSON.stringify(this.form));
     this.form = this.reloader.resolveDataLoss(this.form);
 
+    this.isPrint = this.form.print == true || _.isUndefined(this.form.print) ? true : false;
     this.client = this.form.client_submitted_details;
     console.log('client: ' + JSON.stringify(this.client));
 
@@ -89,8 +89,25 @@ export class ClientPrintingPageComponent implements OnInit, AfterViewInit {
     }
   }
 
+  getMerchant() {
+    this.loading = true;
+    const merchant_id = this.form.merchant_id;
+    this.companyService.getCompany(merchant_id).then(
+      merchant => {
+        this.loading = false;
+        const merchant_logo = merchant[0].logo;
+        this.logo = this.endpointService.storageHost + merchant_logo;
+        alert('logo: ' + this.logo);
+      },
+      error => {
+        this.loading = false;
+        this.hasError = true;
+      }
+    );
+  }
+
   getSignature() {
-    const user_id = this.localStorage.getUser().id.toString();
+    const user_id = this.localService.getUser().id.toString();
     this.clientService.getProfileFormAttachment(user_id).then(
       res => {
         console.log('r__sss: ' + JSON.stringify(res));
@@ -113,9 +130,64 @@ export class ClientPrintingPageComponent implements OnInit, AfterViewInit {
     );
   }
 
-  download() {
-    const filename = 'forms369_' + this.form.form_code + '_data';
-    this.downloadService.exportToPDF(this.content, filename);
-    window.history.back();
+  printViewCss() {
+    const css = [
+      'https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css',
+      `h5 > strong {
+        font-size: 13px;
+        text-transform: uppercase;
+      }
+
+      .container .col-8 {
+        padding-top: 10px;
+      }
+
+      .img-view, .title-view {
+        text-align: center;
+      }
+
+      .img-view > img {
+        width: 180px;
+        height: 180px;
+        margin-bottom: 25px;
+      }
+
+      .title-view h1 {
+        margin-bottom: 40px;
+      }
+
+      .signature {
+        display: block;
+        margin: 0 auto;
+        padding-top: 42px;
+        padding-bottom: 30px;
+      }
+
+      .signature img {
+        height: 120px;
+      }
+    `];
+
+    return css;
+  }
+
+  printViewJs() {
+    const scripts = [`
+      const imgElement = document.querySelector('img');
+      console.log(imgElement.src);
+      const toReplace = '/front_desk';
+      imgElement.src = imgElement.src.replace(/toReplace/g, '');
+      console.log(imgElement.src);
+    `];
+
+    return scripts;
+  }
+
+  print() {
+    const styles = this.printViewCss();
+    const scripts = this.printViewJs();
+    const el = document.getElementById('print-view');
+    const d = new Printd();
+    d.print(el, styles, scripts);
   }
 }

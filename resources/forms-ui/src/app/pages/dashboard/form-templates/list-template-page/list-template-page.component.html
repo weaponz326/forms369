@@ -13,9 +13,6 @@
                   <p class="mb-md-0">Your administrative dashboard.</p>
                 </div>
                 <div class="d-flex">
-                  <!-- <i class="mdi mdi-home text-muted hover-cursor"></i>
-                  <p class="text-muted mb-0 hover-cursor">&nbsp;/&nbsp;Home&nbsp;/&nbsp;</p>
-                  <p class="text-primary mb-0 hover-cursor">View Forms</p> -->
                 </div>
               </div>
               <div class="d-flex justify-content-between align-items-end flex-wrap">
@@ -36,11 +33,18 @@
         </div>
 
         <div class="row mb-4">
-          <div class="col-12 col-md-8 offset-md-2">
+          <div class="col-md-3 mb-3 offset-md-1">
+            <select class="form-control" name="searchOption" [(ngModel)]="searchOption">
+              <option value="">Search By</option>
+              <option value="name">Template Name</option>
+              <option value="category">Template Category</option>
+            </select>
+          </div>
+          <div class="col-7 col-md-7">
             <div class="search-bar">
               <form>
                 <input type="text" class="search-form form-control" name="query" [(ngModel)]="query"
-                  placeholder="Search by name" aria-label="search" aria-describedby="search"
+                  placeholder="Search by name or by category" aria-label="search" aria-describedby="search"
                   (keydown)="search($event)">
               </form>
             </div>

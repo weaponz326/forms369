@@ -16,15 +16,6 @@
                 </div>
               </div>
               <div class="d-flex justify-content-between align-items-end flex-wrap">
-                <!-- <button type="button" class="btn btn-light bg-white btn-icon mr-3 d-none d-md-block ">
-                  <i class="mdi mdi-download text-muted"></i>
-                </button>
-                <button type="button" class="btn btn-light bg-white btn-icon mr-3 mt-2 mt-xl-0">
-                  <i class="mdi mdi-clock-outline text-muted"></i>
-                </button>
-                <button type="button" class="btn btn-light bg-white btn-icon mr-3 mt-2 mt-xl-0">
-                  <i class="mdi mdi-plus text-muted"></i>
-                </button> -->
               </div>
             </div>
           </div>
@@ -40,11 +31,6 @@
                     <div class="col-4 offset-4">
                       <img [src]="company.logo" class="logo mb-5" alt="logo">
                       <h3 class="display-4 font-weight-bold">{{ company.merchant_name }}</h3>
-                      <!-- <button *ngIf="!_loading" class="btn btn-outline-primary mr-2" [ngClass]="{'active': isActive}" (click)="toggleStatus()">Active</button>
-                      <button *ngIf="_loading" class="btn btn-primary" type="button" disabled>
-                        <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
-                        Loading...
-                      </button> -->
                       <button class="btn btn-outline-primary btn-icon-text" (click)="edit(company.id)">
                         <i class="mdi mdi-pencil-outline"></i>
                         Edit
@@ -89,6 +75,11 @@
                                       <td><strong>Can Print</strong></td>
                                       <td *ngIf="company.can_print == 0">No</td>
                                       <td *ngIf="company.can_print == 1">Yes</td>
+                                    </tr>
+                                    <tr class="hover-cursor">
+                                      <td><strong>QMS Status</strong></td>
+                                      <td *ngIf="company.enabled_qms == 0">No</td>
+                                      <td *ngIf="company.enabled_qms == 1">Yes</td>
                                     </tr>
                                     <tr class="hover-cursor">
                                       <td><strong>Status</strong></td>
