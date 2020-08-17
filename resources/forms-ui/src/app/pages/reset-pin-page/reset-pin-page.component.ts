@@ -12,6 +12,7 @@ import { ClientService } from 'src/app/services/client/client.service';
 export class ResetPinPageComponent implements OnInit {
   form: FormGroup;
   loading: boolean;
+  showForm: boolean;
   submitted: boolean;
 
   constructor(
@@ -20,6 +21,7 @@ export class ResetPinPageComponent implements OnInit {
   ) { }
 
   ngOnInit() {
+    this.showForm = true;
     this.buildForm();
   }
 
@@ -31,7 +33,7 @@ export class ResetPinPageComponent implements OnInit {
     Swal.fire({
       title: 'Oops!',
       icon: 'error',
-      text: 'Sorry!, We couldnt reset your pin. Please make sure you have an active internet connection or our serevsr may be down.',
+      text: 'Sorry!, We couldn\'t reset your pin. Please make sure you have an active internet connection or our serevsr may be down.',
       confirmButtonText: 'Ok'
     });
   }
@@ -41,7 +43,11 @@ export class ResetPinPageComponent implements OnInit {
       title: 'Success',
       icon: 'success',
       text: 'Pin successfully changed.',
-      confirmButtonText: 'Ok'
+      confirmButtonText: 'Ok',
+      onDestroy: () => {
+        this.form.reset();
+        this.showForm = false;
+      }
     });
   }
 

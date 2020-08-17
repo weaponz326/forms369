@@ -150,9 +150,13 @@ export class CreateFormPageComponent implements OnInit {
     const selectedValue = this.f.hasTnc.value;
     if (selectedValue == '1') {
       this.showTncFileUpload = true;
+      this.f.tnc.setValidators(Validators.required);
+      this.f.tnc.updateValueAndValidity();
     }
     else {
       this.showTncFileUpload = false;
+      this.f.tnc.clearValidators();
+      this.f.tnc.updateValueAndValidity();
     }
   }
 
@@ -239,34 +243,39 @@ export class CreateFormPageComponent implements OnInit {
       this.loading = false;
     }
     else {
-      formData.form_fields = form;
-      formData.name = this.f.name.value;
-      formData.form_code = this.formCode;
-      formData.status = this.toPublish ? 1 : 0;
-      formData.join_queue = this.f.canJoin ? 1 : 0;
-      formData.merchant_id = parseInt(this.f.merchant.value);
-      formData.tnc = this.f.hasTnc.value == '' ? 0 : this.f.hasTnc.value;
-      formData.can_view = this.f.canView.value == '' ? 0 : this.f.canView.value;
-      formData.require_signature = this.f.signature.value == '' ? 0 : this.f.signature.value;
+      if (this.form.valid) {
+        formData.form_fields = form;
+        formData.name = this.f.name.value;
+        formData.form_code = this.formCode;
+        formData.status = this.toPublish ? 1 : 0;
+        formData.join_queue = this.f.canJoin ? 1 : 0;
+        formData.merchant_id = parseInt(this.f.merchant.value);
+        formData.tnc = this.f.hasTnc.value == '' ? 0 : this.f.hasTnc.value;
+        formData.can_view = this.f.canView.value == '' ? 0 : this.f.canView.value;
+        formData.require_signature = this.f.signature.value == '' ? 0 : this.f.signature.value;
 
-      this.formService.createForm(formData).then(
-        res => {
-          this.loading = false;
-          this.toPublish = false;
-          if (_.toLower(res.message) == 'ok') {
-            this.created = true;
-            this.formName = formData.name;
-          }
-          else {
+        this.formService.createForm(formData).then(
+          res => {
+            this.loading = false;
+            this.toPublish = false;
+            if (_.toLower(res.message) == 'ok') {
+              this.created = true;
+              this.formName = formData.name;
+            }
+            else {
+              this.created = false;
+            }
+          },
+          err => {
+            this.loading = false;
             this.created = false;
+            this.toPublish = false;
           }
-        },
-        err => {
-          this.loading = false;
-          this.created = false;
-          this.toPublish = false;
-        }
-      );
+        );
+      }
+      else {
+        this.loading = false;
+      }
     }
   }
 

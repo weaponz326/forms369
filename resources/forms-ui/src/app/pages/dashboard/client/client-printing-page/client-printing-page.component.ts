@@ -2,7 +2,6 @@ import * as _ from 'lodash';
 import { Printd } from 'printd';
 import { ClientService } from 'src/app/services/client/client.service';
 import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
-import { CompanyService } from 'src/app/services/company/company.service';
 import { EndpointService } from 'src/app/services/endpoint/endpoint.service';
 import { ReloadingService } from 'src/app/services/reloader/reloading.service';
 import { LocalStorageService } from 'src/app/services/storage/local-storage.service';
@@ -30,12 +29,10 @@ export class ClientPrintingPageComponent implements OnInit {
   constructor(
     private reloader: ReloadingService,
     private clientService: ClientService,
-    private companyService: CompanyService,
     private endpointService: EndpointService,
     private localService: LocalStorageService,
   ) {
     this.initVars();
-    this.getMerchant();
     this.getSignature();
   }
 
@@ -51,6 +48,7 @@ export class ClientPrintingPageComponent implements OnInit {
     this.form = window.history.state.form;
     console.log('form: ' + JSON.stringify(this.form));
     this.form = this.reloader.resolveDataLoss(this.form);
+    this.logo = this.endpointService.storageHost + this.form.logo;
 
     this.isPrint = this.form.print == true || _.isUndefined(this.form.print) ? true : false;
     this.client = this.form.client_submitted_details;
@@ -87,23 +85,6 @@ export class ClientPrintingPageComponent implements OnInit {
     else {
       return text;
     }
-  }
-
-  getMerchant() {
-    this.loading = true;
-    const merchant_id = this.form.merchant_id;
-    this.companyService.getCompany(merchant_id).then(
-      merchant => {
-        this.loading = false;
-        const merchant_logo = merchant[0].logo;
-        this.logo = this.endpointService.storageHost + merchant_logo;
-        alert('logo: ' + this.logo);
-      },
-      error => {
-        this.loading = false;
-        this.hasError = true;
-      }
-    );
   }
 
   getSignature() {

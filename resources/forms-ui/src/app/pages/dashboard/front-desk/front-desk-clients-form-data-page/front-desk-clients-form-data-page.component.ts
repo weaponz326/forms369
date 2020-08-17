@@ -28,6 +28,7 @@ export class FrontDeskClientsFormDataPageComponent implements OnInit {
   hasMore: boolean;
   hasData: boolean;
   loading: boolean;
+  canView: boolean;
   hasError: boolean;
   submitted: boolean;
   documentUrl: string;
@@ -77,6 +78,7 @@ export class FrontDeskClientsFormDataPageComponent implements OnInit {
     this.user = this.localStorage.getUser();
     this.logging.log('form: ' + JSON.stringify(this.form));
     this.form = this.reloadService.resolveDataLoss(this.form);
+    this.canView = this.form.can_view == 1 ? true : false;
     this.getClientData();
   }
 
@@ -100,32 +102,39 @@ export class FrontDeskClientsFormDataPageComponent implements OnInit {
     this.tableHeaders = [];
     const form_fields = this.form.form_fields;
     const client_data_key = _.keys(res[0].client_submitted_details);
-    console.log('form_fields: ' + form_fields);
-    console.log('client_data_key: ' + client_data_key);
+    _.forEach(res, (data) => {
+      if (data.last_processed != null) {
+        console.log('form_fields: ' + form_fields);
+        console.log('client_data_key: ' + client_data_key);
 
-    _.forEach(form_fields, (field) => {
-      _.forEach(client_data_key, (client_key) => {
-        if (!_.isUndefined(field.name)) {
-          if (field.name == client_key) {
-            this.keys.push(client_key);
-            const key = this.transformText(client_key);
-            this.tableHeaders.push(key);
-          }
-        }
-      });
+        _.forEach(form_fields, (field) => {
+          _.forEach(client_data_key, (client_key) => {
+            if (!_.isUndefined(field.name)) {
+              if (field.name == client_key) {
+                this.keys.push(client_key);
+                const key = this.transformText(client_key);
+                this.tableHeaders.push(key);
+              }
+            }
+          });
+        });
+      }
     });
   }
 
   getDataBody(res: any) {
     let objArr = [];
     _.forEach(res, (data, i) => {
-      _.forEach(this.keys, (k) => {
-        objArr.push(data.client_submitted_details[k]);
-      });
-      objArr.push(moment(data.submitted_at).format('DD MMM YYYY hh:mm A'));
-      console.log(objArr);
-      this.tableContents.push(objArr);
-      objArr = [];
+      if (data.last_processed != null) {
+        _.forEach(this.keys, (k) => {
+          objArr.push(data.client_submitted_details[k]);
+        });
+        objArr.push(moment(data.submitted_at).format('DD MMM YYYY hh:mm A'));
+        console.log(objArr);
+        this.tableContents.push(objArr);
+        console.log('tbl_contents: ' + JSON.stringify(this.tableContents));
+        objArr = [];
+      }
     });
   }
 
@@ -140,14 +149,19 @@ export class FrontDeskClientsFormDataPageComponent implements OnInit {
           this.hasData = false;
         }
         else {
-          this.hasData = true;
           this.getDataHeaders(res);
-          this.getDataBody(res);
-          this.respondentData = res;
-          _.forEach(res, (data) => {
-            this.submittedFormData.push(data);
-            this.clientFormData.push(data.client_submitted_details);
-          });
+          if (this.tableHeaders.length == 0) {
+            this.hasData = false;
+          }
+          else {
+            this.hasData = true;
+            this.getDataBody(res);
+            this.respondentData = res;
+            _.forEach(res, (data) => {
+              this.submittedFormData.push(data);
+              this.clientFormData.push(data.client_submitted_details);
+            });
+          }
         }
       },
       err => {

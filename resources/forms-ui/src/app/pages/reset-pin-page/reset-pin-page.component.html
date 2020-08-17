@@ -1,7 +1,7 @@
 <div class="container-scroller">
   <div class="container-fluid page-body-wrapper full-page-wrapper">
     <div class="content-wrapper d-flex align-items-center auth px-0">
-      <div class="row w-100 mx-0">
+      <div class="row w-100 mx-0" *ngIf="showForm">
         <div class="col-lg-4 mx-auto">
           <div class="auth-form-light py-5 px-4 px-sm-5">
             <div class="text-center">
@@ -11,36 +11,41 @@
             </div>
 
             <!-- setup new password view -->
-            <h4 class="text-center">Hello! Reset pin.</h4>
-            <h6 class="font-weight-normal text-center">Please setup a new pin.</h6>
-            <form [formGroup]="form" (ngSubmit)="create()" class="pt-3">
-              <div class="form-group">
-                <input type="password" class="form-control form-control-lg" formControlName="pin"
-                  placeholder="Enter Pin" [ngClass]="{'input-control-error': submitted && f.pin.errors}"
-                  maxlength="4" (keyup)="resolveStrCharacters($event)">
-                <div *ngIf="submitted && f.pin.errors">
-                  <p class="input-error" *ngIf="f.pin.errors.required">Pin is required.</p>
-                  <p class="input-error" *ngIf="f.pin.errors.minlength">Pin must be 4 (four) digits.</p>
+            <div>
+              <h4 class="text-center">Hello! Reset pin.</h4>
+              <h6 class="font-weight-normal text-center">Please setup a new pin.</h6>
+              <form [formGroup]="form" (ngSubmit)="create()" class="pt-3">
+                <div class="form-group">
+                  <input type="password" class="form-control form-control-lg" formControlName="pin"
+                    placeholder="Enter Pin" [ngClass]="{'input-control-error': submitted && f.pin.errors}" maxlength="4"
+                    (keyup)="resolveStrCharacters($event)">
+                  <div *ngIf="submitted && f.pin.errors">
+                    <p class="input-error" *ngIf="f.pin.errors.required">Pin is required.</p>
+                    <p class="input-error" *ngIf="f.pin.errors.minlength">Pin must be 4 (four) digits.</p>
+                  </div>
                 </div>
-              </div>
-              <div class="form-group">
-                <input type="password" class="form-control form-control-lg" formControlName="cPin"
-                  placeholder="Confirm Pin" [ngClass]="{'input-control-error': submitted && f.cPin.errors}"
-                  maxlength="4" (keyup)="resolveStrCharacters_1($event)">
-                <div *ngIf="submitted && f.cPin.errors">
-                  <p class="input-error" *ngIf="f.cPin.errors.unmatched">Pin doesn't match.</p>
-                  <p class="input-error" *ngIf="f.cPin.errors.required">Confirmation pin is required.</p>
-                  <p class="input-error" *ngIf="f.cPin.errors.minlength">Pin must be 4 (four) digits.</p>
+                <div class="form-group">
+                  <input type="password" class="form-control form-control-lg" formControlName="cPin"
+                    placeholder="Confirm Pin" [ngClass]="{'input-control-error': submitted && f.cPin.errors}"
+                    maxlength="4" (keyup)="resolveStrCharacters_1($event)">
+                  <div *ngIf="submitted && f.cPin.errors">
+                    <p class="input-error" *ngIf="f.cPin.errors.unmatched">Pin doesn't match.</p>
+                    <p class="input-error" *ngIf="f.cPin.errors.required">Confirmation pin is required.</p>
+                    <p class="input-error" *ngIf="f.cPin.errors.minlength">Pin must be 4 (four) digits.</p>
+                  </div>
                 </div>
-              </div>
-              <div class="mt-3">
-                <button type="submit" *ngIf="!loading" class="btn btn-block btn-primary btn-lg font-weight-medium auth-form-btn">Reset Pin</button>
-                <button type="button" *ngIf="loading" class="btn btn-block btn-primary btn-lg font-weight-medium auth-form-btn" disabled>
-                  <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span> &nbsp; &nbsp;
-                  Please wait...
-                </button>
-              </div>
-            </form>
+                <div class="mt-3">
+                  <button type="submit" *ngIf="!loading"
+                    class="btn btn-block btn-primary btn-lg font-weight-medium auth-form-btn">Reset Pin</button>
+                  <button type="button" *ngIf="loading"
+                    class="btn btn-block btn-primary btn-lg font-weight-medium auth-form-btn" disabled>
+                    <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span> &nbsp;
+                    &nbsp;
+                    Please wait...
+                  </button>
+                </div>
+              </form>
+            </div>
             <!-- /.end setup new password view -->
           </div>
         </div>

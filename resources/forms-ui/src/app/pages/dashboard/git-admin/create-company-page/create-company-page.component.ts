@@ -223,7 +223,7 @@ export class CreateCompanyPageComponent implements OnInit {
       this.f.nickname.value,
       this.f.enableQms.value,
       this.f.clientId.value,
-      this.f.clientScret.value,
+      this.f.clientSecret.value,
     );
 
     return merchant;
