@@ -38,6 +38,7 @@ class PaymentController extends Controller
             CURLOPT_TIMEOUT => 30,
             CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
             CURLOPT_CUSTOMREQUEST => "POST",
+            CURLOPT_SSL_VERIFYPEER => false,
             CURLOPT_POSTFIELDS => $payload,
             CURLOPT_HTTPHEADER => array(
             "Authorization: Basic ".base64_encode('global5f341c8066d95:ZDhhNjI4YzU0MmQxOWI1YjY1Zjg3NGYzMjNjYjliZjA=')."",
@@ -52,9 +53,15 @@ class PaymentController extends Controller
         curl_close($curl);
 
         if ($err) {
-            return "cURL Error #:" . $err;
+            $response = [
+                'message' => $err
+            ];
+            return response()->json($response, 400);
         } else {
-            return $response;
+            $responses = [
+                'message' => json_decode($response)
+            ];
+            return response()->json($responses, 200);
         }
 
         // $client = new Client();
