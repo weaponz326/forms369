@@ -243,7 +243,7 @@ class SetupController extends Controller
         $colors = $request->colors;
         $enabled_qms = $request->enabled_qms;
         $client_id = $request->client_id;
-        $client_secret = $request->$client_secret;
+        $client_secret = $request->client_secret;
 
         //get user creating the new merchant
         $user = $request->user();
@@ -420,7 +420,7 @@ class SetupController extends Controller
         $colors = $request->colors;
         $enabled_qms = $request->enabled_qms;
         $client_id = $request->client_id;
-        $client_secret = $request->$client_secret;
+        $client_secret = $request->client_secret;
 
 
         //get user creating the new merchant
@@ -932,6 +932,8 @@ class SetupController extends Controller
             $merchantsdata['updated_at'] = $items->updated_at;
             $merchantsdata['colors'] = $items->colors;
             $merchantsdata['enabled_qms'] = $items->enabled_qms;
+            $merchantsdata['client_id'] = $items->client_id;
+            $merchantsdata['client_secret'] = $items->client_secret;
             return $merchantsdata;
          });
 
@@ -1106,6 +1108,8 @@ class SetupController extends Controller
             $merchantsdata['updated_at'] = $items->updated_at;
             $merchantsdata['colors'] = $items->colors;
             $merchantsdata['enabled_qms'] = $items->enabled_qms;
+            $merchantsdata['client_id'] = $items->client_id;
+            $merchantsdata['client_secret'] = $items->client_secret;
 
             return $merchantsdata;
          });
@@ -1172,6 +1176,8 @@ class SetupController extends Controller
             $merchantsdata['updated_at'] = $items->updated_at;
             $merchantsdata['colors'] = $items->colors;
             $merchantsdata['enabled_qms'] = $items->enabled_qms;
+            $merchantsdata['client_id'] = $items->client_id;
+            $merchantsdata['client_secret'] = $items->client_secret;
 
             return $merchantsdata;
          });
@@ -1225,6 +1231,8 @@ class SetupController extends Controller
             $merchantsdata['updated_at'] = $items->updated_at;
             $merchantsdata['colors'] = $items->colors;
             $merchantsdata['enabled_qms'] = $items->enabled_qms;
+            $merchantsdata['client_id'] = $items->client_id;
+            $merchantsdata['client_secret'] = $items->client_secret;
 
             return $merchantsdata;
          });
