@@ -1,11 +1,13 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 import { OrderModule } from 'ngx-order-pipe';
 import { ClipboardModule } from 'ngx-clipboard';
 import { PdfViewerModule } from 'ng2-pdf-viewer';
 import { SignaturePadModule } from 'ngx-signaturepad';
+import { NgxChartsModule } from '@swimlane/ngx-charts';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { HttpClientModule } from '@angular/common/http';
 import { AppRoutingModule } from './app-routing.module';
@@ -18,8 +20,8 @@ import { LoadingBarModule } from '@ngx-loading-bar/core';
 import { MatNativeDateModule } from '@angular/material/core';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { LoadingBarHttpClientModule } from '@ngx-loading-bar/http-client';
-import { MatAutocompleteModule, MatSelectModule } from '@angular/material';
 import { NgbModalModule, NgbAlertModule } from '@ng-bootstrap/ng-bootstrap';
+import { MatAutocompleteModule, MatSelectModule, MatTabsModule } from '@angular/material';
 
 import { AppComponent } from './app.component';
 import { SideBarComponent } from './components/side-bar/side-bar.component';
@@ -63,7 +65,6 @@ import { CreateUserAccountPageComponent } from './pages/dashboard/git-admin/crea
 import { ViewFrontDeskListsPageComponent } from './pages/dashboard/git-admin/view-front-desk-lists-page/view-front-desk-lists-page.component';
 import { ViewCompanyAdminListsPageComponent } from './pages/dashboard/git-admin/view-company-admin-lists-page/view-company-admin-lists-page.component';
 import { ViewAccountListsPageComponent } from './pages/dashboard/git-admin/view-account-lists-page/view-account-lists-page.component';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ViewBranchAdminListsPageComponent } from './pages/dashboard/git-admin/view-branch-admin-lists-page/view-branch-admin-lists-page.component';
 import { ViewBranchExecutiveListsPageComponent } from './pages/dashboard/git-admin/view-branch-executive-lists-page/view-branch-executive-lists-page.component';
 import { EditUserPageComponent } from './pages/dashboard/git-admin/edit-user-page/edit-user-page.component';
@@ -290,6 +291,8 @@ import { ClientPDFDownloadingPageComponent } from './pages/dashboard/client/clie
     NgbModule,
     NgbAlertModule,
     NgbModalModule,
+    NgxChartsModule,
+    MatTabsModule,
     MatIconModule,
     MatInputModule,
     MatSelectModule,

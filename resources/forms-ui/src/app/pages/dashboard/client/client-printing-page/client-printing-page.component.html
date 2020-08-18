@@ -15,26 +15,30 @@
   </div>
 
   <div *ngIf="!loading" class="container" id="print-view">
-    <div class="row" #content id="pdf-data" style="background-color: #fff;">
-      <div class="col-8 offset-2">
-        <div class="img-view" *ngIf="isPrint">
-          <img [src]="logo" alt="logo" class="img-fluid">
-        </div>
-        <div class="title-view">
-          <h1>{{ form.form_name }}</h1>
-        </div>
-        <div class="row" *ngFor="let item of clientFormData; let i=index">
-          <div class="col-6">
-            <h5><strong>{{ item.title }}</strong></h5>
+    <div #content id="pdf-data" style="background-color: #fff;">
+      <div class="row">
+        <div class="col-8 offset-2">
+          <div class="img-view" *ngIf="isPrint">
+            <img [src]="logo" alt="logo" class="img-fluid">
           </div>
-          <div class="col-6">
-            <h5>{{ item.data }}</h5>
+          <div class="title-view">
+            <h1>{{ form.form_name }}</h1>
+          </div>
+          <div class="row" *ngFor="let item of clientFormData; let i=index">
+            <div class="col-6">
+              <h5><strong>{{ item.title }}</strong></h5>
+            </div>
+            <div class="col-6">
+              <h5>{{ item.data }}</h5>
+            </div>
           </div>
         </div>
       </div>
 
-      <div *ngIf="hasSignature" class="signature">
-        <img [src]="signatureImageUrl" alt="signature">
+      <div class="text-center">
+        <div *ngIf="hasSignature" class="signature">
+          <img [src]="signatureImageUrl" alt="signature">
+        </div>
       </div>
     </div>
   </div>

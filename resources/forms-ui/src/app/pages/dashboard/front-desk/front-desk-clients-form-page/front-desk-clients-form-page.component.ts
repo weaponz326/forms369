@@ -6,6 +6,7 @@ import { FormsService } from 'src/app/services/forms/forms.service';
 import { ClientService } from 'src/app/services/client/client.service';
 import { LoggingService } from 'src/app/services/logging/logging.service';
 import { LocalStorageService } from 'src/app/services/storage/local-storage.service';
+import { EndpointService } from 'src/app/services/endpoint/endpoint.service';
 
 @Component({
   selector: 'app-front-desk-clients-form-page',
@@ -55,6 +56,7 @@ export class FrontDeskClientsFormPageComponent implements OnInit {
     this.formsService.getAllFormsByMerchant(this.user.merchant_id.toString()).then(
       res => {
         this.hasMore = this.checkIfHasMore();
+        console.log('___res: ' + JSON.stringify(res));
         if (res.length != 0) {
           this.hasData = true;
           _.forEach(res, (form) => {

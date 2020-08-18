@@ -895,6 +895,7 @@ export class ClientService {
   setFormSubmitPin(user_id: string, pin: string): Promise<boolean> {
     return new Promise((resolve, reject) => {
       const url = this.endpointService.apiHost + 'api/setPin/' + user_id + '/' + pin;
+      console.log('______url: ' + url);
       this.http.post(url, {}, { headers: this.headers }).subscribe(
         res => {
           console.log('res___: ' + JSON.stringify(res));

@@ -140,14 +140,13 @@ export class FrontDeskService {
       const url = !_.isUndefined(page_url)
         ? page_url
         : this.endpointService.apiHost + 'api/v1/getSubmittedFormByStatusAndMerchant/' + status + '/' + merchant_id;
-      this.http.get(url, { headers: this.headers }).subscribe(
+      this.http.get<any>(url, { headers: this.headers }).subscribe(
         res => {
           console.log('res: ' + JSON.stringify(res));
-          const response = res as any;
-          this.nextPaginationUrl = response.submitted_forms.next_page_url;
-          response.submitted_forms.length == 0
-            ? resolve(response.submitted_forms)
-            : resolve(response.submitted_forms.data);
+          this.nextPaginationUrl = res.submitted_forms.next_page_url;
+          // res.submitted_forms.length == 0
+          //   ? resolve(res.submitted_forms)
+          resolve(res.submitted_forms);
         },
         err => {
           console.log('err: ' + JSON.stringify(err));

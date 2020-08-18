@@ -115,7 +115,6 @@ export class ClientFormNewEntryPageComponent implements OnInit, AfterViewInit {
     this.form = history.state.form;
     this.form = this.reloader.resolveDataLoss(this.form);
     this.merchantId = this.form.merchant_id.toString();
-    alert('m_id: ' + this.merchantId);
 
     this.user = this.localStorage.getUser();
     console.log('form: ' + JSON.stringify(this.form));

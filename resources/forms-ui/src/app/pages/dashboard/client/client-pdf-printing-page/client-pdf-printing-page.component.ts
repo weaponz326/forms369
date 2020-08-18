@@ -59,9 +59,6 @@ export class ClientPdfPrintingPageComponent implements OnInit {
     this.frontDeskService.getPrintPDFFile(this.form.form_code, this.user.merchant_id.toString()).then(
       file => {
         if (_.isUndefined(file) || _.isNull(file)) {
-          // this.form.print == true
-          //   ? alert('No PDF file is available for this form. Redirecting you to do a default printing')
-          //   : alert('No PDF file is available for this form. Redirecting ...');
           this.router.navigateByUrl('client/downloading', { state: { form: this.form }, replaceUrl: true });
         }
         else {

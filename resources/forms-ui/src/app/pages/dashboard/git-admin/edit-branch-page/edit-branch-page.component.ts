@@ -120,6 +120,8 @@ export class EditBranchPageComponent implements OnInit {
       this.f.branchName.value,
       branch_super_id,
       brandh_admin_id,
+      this.f.address.value,
+      this.f.branchExt.value,
       this.f.status.value,
       branch_extension
     );
