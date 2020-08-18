@@ -562,8 +562,6 @@ export class FormBuilderService {
             values.push(value);
             user_form_data[data.name] = values;
           });
-
-          // user_form_data[data.name] = values;
         }
       }
     });
