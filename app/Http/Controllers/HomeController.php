@@ -2667,20 +2667,6 @@ class HomeController extends Controller
         return $message;
      }
 
-
-     /**
-     * getQMSToken get token to use QMS apis
-     * @param  mixed $request
-     * @param  mixed $id id of the merchant
-     *
-     * @return void\Illuminate\Http\Response token
-     */
-     public function getQMSToken(Request $request, $id)
-     {
-        $message = (new SetupController)->getQMSToken($request, $id);
-        return $message;
-     }
-
      /**
      * deleteAccessCode delete an access code in the db
      * @param  mixed $request
@@ -2692,5 +2678,70 @@ class HomeController extends Controller
         $message = (new PaymentController)->initiatePayment($request);
         return $message;
     }
+
+    /**
+     * getQMSToken get token to use QMS apis
+     * @param  mixed $request
+     * @param  mixed $id id of the merchant
+     *
+     * @return void\Illuminate\Http\Response token
+     */
+     public function getQMSToken(Request $request, $id)
+     {
+        $message = (new QueueController)->getQMSToken($request, $id);
+        return $message;
+     }
+
+     /**
+     * getQMSToken get token to use QMS apis
+     * @param  mixed $request
+     * @param  mixed $id id of the merchant
+     *
+     * @return void\Illuminate\Http\Response token
+     */
+     public function getQMSBranchServices(Request $request)
+     {
+        $message = (new QueueController)->getQMSBranchServices($request);
+        return $message;
+     }
+
+      /**
+     * getQMSCustomerServices get token to use QMS apis
+     * @param  mixed $request
+     * @param mixed $ext branch extension
+     * @param  mixed $id id of the merchant
+     *
+     * @return void\Illuminate\Http\Response token
+     */
+     public function getQMSCustomerServices(Request $request)
+     {
+        $message = (new QueueController)->getQMSCustomerServices($request);
+        return $message;
+     }
+
+     /**
+     * QMSJoinQueue join a queue
+     * @param  mixed $request
+     * @return void\Illuminate\Http\Response token
+     */
+     public function QMSJoinQueue(Request $request)
+     {
+        $message = (new QueueController)->QMSJoinQueue($request);
+        return $message;
+     }
+
+     /**
+     * QueueCancelRequest cancel queue request
+     * @param  mixed $request
+     * @param mixed $ext branch extension
+     * @param  mixed $id id of the merchant
+     *
+     * @return void\Illuminate\Http\Response token
+     */
+     public function QueueCancelRequest(Request $request)
+     {
+        $message = (new QueueController)->QueueCancelRequest($request);
+        return $message;
+     }
 
 }    

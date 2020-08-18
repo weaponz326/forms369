@@ -64,32 +64,5 @@ class PaymentController extends Controller
             return response()->json($responses, 200);
         }
 
-        // $client = new Client();
-        // try{
-        //     $response = $client->post('https://test.theteller.net/checkout/initiate', [
-        //         'form_params' => [
-        //             "merchant_id"=>"TTM-00004152", 
-        //             "transaction_id"=>$transaction_id,
-        //             "desc"=>"Payment Using Forms369", "amount"=>$amount,
-        //             "redirect_url"=>"https://forms369.com", "email"=>$email
-        //         ],
-        //         "Authorization: Basic ".base64_encode('global5f341c8066d95:ZDhhNjI4YzU0MmQxOWI1YjY1Zjg3NGYzMjNjYjliZjA=')."",
-        //         "Cache-Control: no-cache",
-        //     ]);
-    
-        //     $result = json_decode($response->getBody()->getContents());
-    
-        //     $response = [
-        //         'message' => $result
-        //     ];
-        //     return response()->json($response, 200);
-        // } catch (RequestException $e){
-        //     $response = $this->StatusCodeHandling($e);
-        //     $response = [
-        //         'message' => $response
-        //     ];
-        //     return response()->json($response, 400);
-       
-        // }
     }
 }

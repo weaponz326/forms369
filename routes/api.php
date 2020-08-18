@@ -71,9 +71,7 @@ Route::group(['middleware' => ['auth:api'], 'prefix' => 'v1'], function(){
 
     //reset user pin routes
     Route::post('forgotPin', 'HomeController@forgotPin')->name('forgotPin')->middleware('scope:GIT_Admin,forms_client');
-    
-    //generate QMS access token
-    Route::post('getQMSToken/{id}', 'HomeController@getQMSToken')->name('getQMSToken')->middleware('scope:GIT_Admin,forms_client');
+   
     //email a form's t and c to a client user
     Route::post('emailTnC', 'HomeController@emailTnC')->name('emailTnC')->middleware('scope:GIT_Admin,forms_client');
 
@@ -365,6 +363,14 @@ Route::group(['middleware' => ['auth:api'], 'prefix' => 'v1'], function(){
   Route::get('getAbuseReportsByStatus/{status}', 'HomeController@getAbuseReportsByStatus')->name('getAbuseReportsByStatus')->middleware('scope:GIT_Admin');
   Route::post('addressAbuseReport/{id}', 'HomeController@addressAbuseReport')->name('addressAbuseReport')->middleware('scope:GIT_Admin');
   Route::get('getAbuseReportDetails/{id}', 'HomeController@getAbuseReportDetails')->name('getAbuseReportDetails')->middleware('scope:GIT_Admin');
+
+  //generate QMS access token and other QMS APIs
+  Route::post('getQMSToken/{id}', 'HomeController@getQMSToken')->name('getQMSToken')->middleware('scope:GIT_Admin,forms_client');
+  Route::post('getQMSBranchServices', 'HomeController@getQMSBranchServices')->name('getQMSBranchServices')->middleware('scope:GIT_Admin,forms_client');
+  Route::post('getQMSCustomerServices', 'HomeController@getQMSCustomerServices')->name('getQMSCustomerServices')->middleware('scope:GIT_Admin,forms_client');
+  Route::post('QMSJoinQueue', 'HomeController@QMSJoinQueue')->name('QMSJoinQueue')->middleware('scope:GIT_Admin,forms_client');
+  Route::post('QueueCancelRequest', 'HomeController@QueueCancelRequest')->name('QueueCancelRequest')->middleware('scope:GIT_Admin,forms_client');
+    
 });
 
  
