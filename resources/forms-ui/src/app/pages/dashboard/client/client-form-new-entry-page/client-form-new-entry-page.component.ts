@@ -1115,6 +1115,19 @@ export class ClientFormNewEntryPageComponent implements OnInit, AfterViewInit {
   }
 
   showJoinQueueDialog() {
+    // This code is needed to track when the user is done with the qms dialogs
+    // so the form submit process can be completed ui-wise.
+    // The approriate way is to use @Output with an EventEmitter which is done
+    // but not working. This is just a quick fix because of time as of the time
+    // of writing this code. The correct solution needs to be provided.
+    setInterval(() => {
+      const done = sessionStorage.getItem('qms_join_event');
+      done == 'joined'
+        ? this.created = true
+        : null;
+    }, 1200);
+
+    // open dialogs.
     this.modalService.open(this.joinQueueDialog, { centered: true, backdrop: 'static', keyboard: false  });
   }
 

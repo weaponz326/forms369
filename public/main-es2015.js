@@ -1947,58 +1947,19 @@ const routes = [
     { path: 'auth', component: _pages_auth_page_auth_page_component__WEBPACK_IMPORTED_MODULE_61__["AuthPageComponent"] },
     { path: 'user_auth', component: _pages_admin_login_page_admin_login_page_component__WEBPACK_IMPORTED_MODULE_62__["AdminLoginPageComponent"] },
     { path: 'client_auth', component: _pages_client_auth_page_client_auth_page_component__WEBPACK_IMPORTED_MODULE_73__["ClientAuthPageComponent"] },
-    {
-        path: 'register',
-        component: _pages_register_page_register_page_component__WEBPACK_IMPORTED_MODULE_6__["RegisterPageComponent"]
-    },
-    {
-        path: 'forgot',
-        component: _pages_forgot_password_page_forgot_password_page_component__WEBPACK_IMPORTED_MODULE_75__["ForgotPasswordPageComponent"]
-    },
-    {
-        path: 'reset',
-        component: _pages_reset_password_page_reset_password_page_component__WEBPACK_IMPORTED_MODULE_88__["ResetPasswordPageComponent"]
-    },
-    {
-        path: 'reset_pin',
-        component: _pages_reset_pin_page_reset_pin_page_component__WEBPACK_IMPORTED_MODULE_112__["ResetPinPageComponent"]
-    },
-    {
-        path: 'master_register',
-        component: _pages_admin_register_page_admin_register_page_component__WEBPACK_IMPORTED_MODULE_36__["AdminRegisterPageComponent"]
-    },
-    {
-        path: 'change_password',
-        component: _pages_change_password_page_change_password_page_component__WEBPACK_IMPORTED_MODULE_72__["ChangePasswordPageComponent"]
-    },
-    {
-        path: 'valid_confirm_link',
-        component: _pages_account_verified_page_account_verified_page_component__WEBPACK_IMPORTED_MODULE_91__["AccountVerifiedPageComponent"]
-    },
-    {
-        path: 'invalid_confirm_link',
-        component: _pages_invalid_confirmation_page_invalid_confirmation_page_component__WEBPACK_IMPORTED_MODULE_82__["InvalidConfirmationPageComponent"]
-    },
-    {
-        path: 'invalid_password_link',
-        component: _pages_invalid_password_reset_page_invalid_password_reset_page_component__WEBPACK_IMPORTED_MODULE_97__["InvalidPasswordResetPageComponent"]
-    },
-    {
-        path: 'invalid_reset_pin',
-        component: _pages_invalid_reset_pin_page_invalid_reset_pin_page_component__WEBPACK_IMPORTED_MODULE_113__["InvalidResetPinPageComponent"]
-    },
-    {
-        path: 'invalid_link',
-        component: _pages_invalid_link_page_invalid_link_page_component__WEBPACK_IMPORTED_MODULE_114__["InvalidLinkPageComponent"]
-    },
-    {
-        path: 'privacy',
-        component: _pages_privacy_page_privacy_page_component__WEBPACK_IMPORTED_MODULE_116__["PrivacyPageComponent"]
-    },
-    {
-        path: 'terms',
-        component: _pages_terms_page_terms_page_component__WEBPACK_IMPORTED_MODULE_115__["TermsPageComponent"]
-    },
+    { path: 'register', component: _pages_register_page_register_page_component__WEBPACK_IMPORTED_MODULE_6__["RegisterPageComponent"] },
+    { path: 'forgot', component: _pages_forgot_password_page_forgot_password_page_component__WEBPACK_IMPORTED_MODULE_75__["ForgotPasswordPageComponent"] },
+    { path: 'reset', component: _pages_reset_password_page_reset_password_page_component__WEBPACK_IMPORTED_MODULE_88__["ResetPasswordPageComponent"] },
+    { path: 'reset_pin', component: _pages_reset_pin_page_reset_pin_page_component__WEBPACK_IMPORTED_MODULE_112__["ResetPinPageComponent"] },
+    { path: 'master_register', component: _pages_admin_register_page_admin_register_page_component__WEBPACK_IMPORTED_MODULE_36__["AdminRegisterPageComponent"] },
+    { path: 'change_password', component: _pages_change_password_page_change_password_page_component__WEBPACK_IMPORTED_MODULE_72__["ChangePasswordPageComponent"] },
+    { path: 'valid_confirm_link', component: _pages_account_verified_page_account_verified_page_component__WEBPACK_IMPORTED_MODULE_91__["AccountVerifiedPageComponent"] },
+    { path: 'invalid_confirm_link', component: _pages_invalid_confirmation_page_invalid_confirmation_page_component__WEBPACK_IMPORTED_MODULE_82__["InvalidConfirmationPageComponent"] },
+    { path: 'invalid_password_link', component: _pages_invalid_password_reset_page_invalid_password_reset_page_component__WEBPACK_IMPORTED_MODULE_97__["InvalidPasswordResetPageComponent"] },
+    { path: 'invalid_reset_pin', component: _pages_invalid_reset_pin_page_invalid_reset_pin_page_component__WEBPACK_IMPORTED_MODULE_113__["InvalidResetPinPageComponent"] },
+    { path: 'invalid_link', component: _pages_invalid_link_page_invalid_link_page_component__WEBPACK_IMPORTED_MODULE_114__["InvalidLinkPageComponent"] },
+    { path: 'privacy', component: _pages_privacy_page_privacy_page_component__WEBPACK_IMPORTED_MODULE_116__["PrivacyPageComponent"] },
+    { path: 'terms', component: _pages_terms_page_terms_page_component__WEBPACK_IMPORTED_MODULE_115__["TermsPageComponent"] },
     {
         path: 'git_admin',
         children: [
@@ -3096,14 +3057,17 @@ let AlreadyJoinedQueueDialogComponent = class AlreadyJoinedQueueDialogComponent 
     }
     joinQueue() {
         const queue_data = this.getFormData();
-        this.qmsQueueService.addCustomerToBranchQeueu(this.token, queue_data).then(res => {
+        this.qmsQueueService.addCustomerToBranchQueue(this.token, queue_data).then(res => {
             this.loading = false;
-            if (res.error == 0) {
+            if (res.message.error == 0) {
                 this.processCompleted.emit(true);
+                sessionStorage.setItem('qms_join_event', 'joined');
                 this.modalService.dismissAll();
             }
             else {
                 this.processCompleted.emit(false);
+                sessionStorage.setItem('qms_join_event', 'joined');
+                this.modalService.dismissAll();
             }
         }, err => {
             this.loading = false;
@@ -3427,9 +3391,14 @@ let JoinQueueDialogComponent = class JoinQueueDialogComponent {
         this.qmsQueueService.authenticateQmsEndpoint(this.merchantId).then(token => {
             this.token = token;
             this.qmsQueueService.getBranchServices(this.token, this.branchExtension).then(b_services => {
-                this.qmsQueueService.getCustomerServices(this.token, this.branchExtension).then(c_services => {
-                    this.servicesList = b_services.concat(c_services);
-                }, error => { });
+                console.log('___bs: ' + JSON.stringify(b_services));
+                this.servicesList = b_services;
+                // this.qmsQueueService.getCustomerServices(this.token, this.branchExtension).then(
+                //   c_services => {
+                //     this.servicesList = b_services.concat(c_services);
+                //   },
+                //   error => {}
+                // );
             }, error => { });
         }, err => {
             this.logger.log('errrrrrrror: ' + err);
@@ -3438,9 +3407,9 @@ let JoinQueueDialogComponent = class JoinQueueDialogComponent {
     joinQueue() {
         this.loading = true;
         const queue_data = this.getFormData();
-        this.qmsQueueService.addCustomerToBranchQeueu(this.token, queue_data).then(res => {
+        this.qmsQueueService.addCustomerToBranchQueue(this.token, queue_data).then(res => {
             this.loading = false;
-            if (res.error == 0) {
+            if (res.message.error == 0) {
                 this.modalService.dismissAll();
                 this.processCompleted.emit(true);
             }
@@ -8827,6 +8796,13 @@ let ClientFormNewEntryPageComponent = class ClientFormNewEntryPageComponent {
         }
     }
     showJoinQueueDialog() {
+        // this code is needed to track when 
+        setInterval(() => {
+            const done = sessionStorage.getItem('qms_join_event');
+            done == 'joined'
+                ? this.created = true
+                : null;
+        }, 1200);
         this.modalService.open(this.joinQueueDialog, { centered: true, backdrop: 'static', keyboard: false });
     }
     copy() {
@@ -31939,12 +31915,12 @@ let QMSQueueingService = class QMSQueueingService {
     }
     getBranchServices(token, branch_ext) {
         return new Promise((resolve, reject) => {
-            this.headers = this.endpointService.setHeaders(token);
-            const body = { 'branch_ext': branch_ext };
-            const url = this.endpointService.qmsApiHost + 'api/join/branch_services';
+            this.headers = this.endpointService.headers();
+            const body = { 'ext': branch_ext, 'token': token };
+            const url = this.endpointService.apiHost + 'api/v1/getQMSBranchServices';
             this.http.post(url, JSON.stringify(body), { headers: this.headers }).subscribe(res => {
                 this.logger.log('qms_branch_services: ' + JSON.stringify(res));
-                res.error == 0 ? resolve(res.data) : resolve([]);
+                res.message.error == 0 ? resolve(res.message.data) : resolve([]);
             }, err => {
                 this.logger.log('qms_branch_services_err: ' + JSON.stringify(err));
                 reject(err);
@@ -31953,9 +31929,9 @@ let QMSQueueingService = class QMSQueueingService {
     }
     getCustomerServices(token, branch_ext) {
         return new Promise((resolve, reject) => {
-            this.headers = this.endpointService.setHeaders(token);
-            const body = { 'branch_ext': branch_ext };
-            const url = this.endpointService.qmsApiHost + 'api/join/customer_services';
+            this.headers = this.endpointService.headers();
+            const body = { 'ext': branch_ext, 'token': token };
+            const url = this.endpointService.apiHost + 'api/vi/getQMSCustomerServices';
             this.http.post(url, JSON.stringify(body), { headers: this.headers }).subscribe(res => {
                 this.logger.log('qms_customer_services: ' + JSON.stringify(res));
                 res.error == 0 ? resolve(res.data) : resolve([]);
@@ -31965,12 +31941,13 @@ let QMSQueueingService = class QMSQueueingService {
             });
         });
     }
-    addCustomerToBranchQeueu(token, queue) {
+    addCustomerToBranchQueue(token, queue) {
         return new Promise((resolve, reject) => {
             const body = {
+                'token': token,
+                'ext': queue.branch_ext,
                 'join_now': queue.join_now,
                 'entry_src': queue.entry_src,
-                'branch_ext': queue.branch_ext,
                 'join_at_time': queue.join_at_time,
                 'service_type': queue.service_type,
                 'client_mobile': queue.client_mobile,
@@ -31978,8 +31955,8 @@ let QMSQueueingService = class QMSQueueingService {
                 'single_service_id': queue.single_service_id,
                 'multiple_services': queue.multiple_services,
             };
-            this.headers = this.endpointService.setHeaders(token);
-            const url = this.endpointService.qmsApiHost + 'api/join/join_branch_queue';
+            this.headers = this.endpointService.headers();
+            const url = this.endpointService.apiHost + 'api/v1/QMSJoinQueue';
             this.http.post(url, JSON.stringify(body), { headers: this.headers }).subscribe(res => {
                 this.logger.log('qms_add_queue ' + JSON.stringify(res));
                 resolve(res);
@@ -31992,11 +31969,12 @@ let QMSQueueingService = class QMSQueueingService {
     cancelQueueRequest(token, client_mobile, branch_ext) {
         return new Promise((resolve, reject) => {
             const body = {
-                'branch_ext': branch_ext,
+                'token': token,
+                'ext': branch_ext,
                 'client_mobile': client_mobile
             };
-            this.headers = this.endpointService.setHeaders(token);
-            const url = this.endpointService.qmsApiHost + 'api/join/cancel_request';
+            this.headers = this.endpointService.headers();
+            const url = this.endpointService.apiHost + 'api/v1/QueueCancelRequest';
             this.http.post(url, JSON.stringify(body), { headers: this.headers }).subscribe(res => {
                 this.logger.log('qms_add_queue ' + JSON.stringify(res));
                 resolve(res);

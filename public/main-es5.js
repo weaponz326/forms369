@@ -1947,58 +1947,19 @@ var routes = [
     { path: 'auth', component: _pages_auth_page_auth_page_component__WEBPACK_IMPORTED_MODULE_61__["AuthPageComponent"] },
     { path: 'user_auth', component: _pages_admin_login_page_admin_login_page_component__WEBPACK_IMPORTED_MODULE_62__["AdminLoginPageComponent"] },
     { path: 'client_auth', component: _pages_client_auth_page_client_auth_page_component__WEBPACK_IMPORTED_MODULE_73__["ClientAuthPageComponent"] },
-    {
-        path: 'register',
-        component: _pages_register_page_register_page_component__WEBPACK_IMPORTED_MODULE_6__["RegisterPageComponent"]
-    },
-    {
-        path: 'forgot',
-        component: _pages_forgot_password_page_forgot_password_page_component__WEBPACK_IMPORTED_MODULE_75__["ForgotPasswordPageComponent"]
-    },
-    {
-        path: 'reset',
-        component: _pages_reset_password_page_reset_password_page_component__WEBPACK_IMPORTED_MODULE_88__["ResetPasswordPageComponent"]
-    },
-    {
-        path: 'reset_pin',
-        component: _pages_reset_pin_page_reset_pin_page_component__WEBPACK_IMPORTED_MODULE_112__["ResetPinPageComponent"]
-    },
-    {
-        path: 'master_register',
-        component: _pages_admin_register_page_admin_register_page_component__WEBPACK_IMPORTED_MODULE_36__["AdminRegisterPageComponent"]
-    },
-    {
-        path: 'change_password',
-        component: _pages_change_password_page_change_password_page_component__WEBPACK_IMPORTED_MODULE_72__["ChangePasswordPageComponent"]
-    },
-    {
-        path: 'valid_confirm_link',
-        component: _pages_account_verified_page_account_verified_page_component__WEBPACK_IMPORTED_MODULE_91__["AccountVerifiedPageComponent"]
-    },
-    {
-        path: 'invalid_confirm_link',
-        component: _pages_invalid_confirmation_page_invalid_confirmation_page_component__WEBPACK_IMPORTED_MODULE_82__["InvalidConfirmationPageComponent"]
-    },
-    {
-        path: 'invalid_password_link',
-        component: _pages_invalid_password_reset_page_invalid_password_reset_page_component__WEBPACK_IMPORTED_MODULE_97__["InvalidPasswordResetPageComponent"]
-    },
-    {
-        path: 'invalid_reset_pin',
-        component: _pages_invalid_reset_pin_page_invalid_reset_pin_page_component__WEBPACK_IMPORTED_MODULE_113__["InvalidResetPinPageComponent"]
-    },
-    {
-        path: 'invalid_link',
-        component: _pages_invalid_link_page_invalid_link_page_component__WEBPACK_IMPORTED_MODULE_114__["InvalidLinkPageComponent"]
-    },
-    {
-        path: 'privacy',
-        component: _pages_privacy_page_privacy_page_component__WEBPACK_IMPORTED_MODULE_116__["PrivacyPageComponent"]
-    },
-    {
-        path: 'terms',
-        component: _pages_terms_page_terms_page_component__WEBPACK_IMPORTED_MODULE_115__["TermsPageComponent"]
-    },
+    { path: 'register', component: _pages_register_page_register_page_component__WEBPACK_IMPORTED_MODULE_6__["RegisterPageComponent"] },
+    { path: 'forgot', component: _pages_forgot_password_page_forgot_password_page_component__WEBPACK_IMPORTED_MODULE_75__["ForgotPasswordPageComponent"] },
+    { path: 'reset', component: _pages_reset_password_page_reset_password_page_component__WEBPACK_IMPORTED_MODULE_88__["ResetPasswordPageComponent"] },
+    { path: 'reset_pin', component: _pages_reset_pin_page_reset_pin_page_component__WEBPACK_IMPORTED_MODULE_112__["ResetPinPageComponent"] },
+    { path: 'master_register', component: _pages_admin_register_page_admin_register_page_component__WEBPACK_IMPORTED_MODULE_36__["AdminRegisterPageComponent"] },
+    { path: 'change_password', component: _pages_change_password_page_change_password_page_component__WEBPACK_IMPORTED_MODULE_72__["ChangePasswordPageComponent"] },
+    { path: 'valid_confirm_link', component: _pages_account_verified_page_account_verified_page_component__WEBPACK_IMPORTED_MODULE_91__["AccountVerifiedPageComponent"] },
+    { path: 'invalid_confirm_link', component: _pages_invalid_confirmation_page_invalid_confirmation_page_component__WEBPACK_IMPORTED_MODULE_82__["InvalidConfirmationPageComponent"] },
+    { path: 'invalid_password_link', component: _pages_invalid_password_reset_page_invalid_password_reset_page_component__WEBPACK_IMPORTED_MODULE_97__["InvalidPasswordResetPageComponent"] },
+    { path: 'invalid_reset_pin', component: _pages_invalid_reset_pin_page_invalid_reset_pin_page_component__WEBPACK_IMPORTED_MODULE_113__["InvalidResetPinPageComponent"] },
+    { path: 'invalid_link', component: _pages_invalid_link_page_invalid_link_page_component__WEBPACK_IMPORTED_MODULE_114__["InvalidLinkPageComponent"] },
+    { path: 'privacy', component: _pages_privacy_page_privacy_page_component__WEBPACK_IMPORTED_MODULE_116__["PrivacyPageComponent"] },
+    { path: 'terms', component: _pages_terms_page_terms_page_component__WEBPACK_IMPORTED_MODULE_115__["TermsPageComponent"] },
     {
         path: 'git_admin',
         children: [
@@ -3105,14 +3066,17 @@ var AlreadyJoinedQueueDialogComponent = /** @class */ (function () {
     AlreadyJoinedQueueDialogComponent.prototype.joinQueue = function () {
         var _this = this;
         var queue_data = this.getFormData();
-        this.qmsQueueService.addCustomerToBranchQeueu(this.token, queue_data).then(function (res) {
+        this.qmsQueueService.addCustomerToBranchQueue(this.token, queue_data).then(function (res) {
             _this.loading = false;
-            if (res.error == 0) {
+            if (res.message.error == 0) {
                 _this.processCompleted.emit(true);
+                sessionStorage.setItem('qms_join_event', 'joined');
                 _this.modalService.dismissAll();
             }
             else {
                 _this.processCompleted.emit(false);
+                sessionStorage.setItem('qms_join_event', 'joined');
+                _this.modalService.dismissAll();
             }
         }, function (err) {
             _this.loading = false;
@@ -3455,9 +3419,14 @@ var JoinQueueDialogComponent = /** @class */ (function () {
         this.qmsQueueService.authenticateQmsEndpoint(this.merchantId).then(function (token) {
             _this.token = token;
             _this.qmsQueueService.getBranchServices(_this.token, _this.branchExtension).then(function (b_services) {
-                _this.qmsQueueService.getCustomerServices(_this.token, _this.branchExtension).then(function (c_services) {
-                    _this.servicesList = b_services.concat(c_services);
-                }, function (error) { });
+                console.log('___bs: ' + JSON.stringify(b_services));
+                _this.servicesList = b_services;
+                // this.qmsQueueService.getCustomerServices(this.token, this.branchExtension).then(
+                //   c_services => {
+                //     this.servicesList = b_services.concat(c_services);
+                //   },
+                //   error => {}
+                // );
             }, function (error) { });
         }, function (err) {
             _this.logger.log('errrrrrrror: ' + err);
@@ -3467,9 +3436,9 @@ var JoinQueueDialogComponent = /** @class */ (function () {
         var _this = this;
         this.loading = true;
         var queue_data = this.getFormData();
-        this.qmsQueueService.addCustomerToBranchQeueu(this.token, queue_data).then(function (res) {
+        this.qmsQueueService.addCustomerToBranchQueue(this.token, queue_data).then(function (res) {
             _this.loading = false;
-            if (res.error == 0) {
+            if (res.message.error == 0) {
                 _this.modalService.dismissAll();
                 _this.processCompleted.emit(true);
             }
@@ -9017,6 +8986,19 @@ var ClientFormNewEntryPageComponent = /** @class */ (function () {
         }
     };
     ClientFormNewEntryPageComponent.prototype.showJoinQueueDialog = function () {
+        var _this = this;
+        // This code is needed to track when the user is done with the qms dialogs
+        // so the form submit process can be completed ui-wise.
+        // The approriate way is to use @Output with an EventEmitter which is done
+        // but not working. This is just a quick fix because of time as of the time
+        // of writing this code. The correct solution needs to be provided.
+        setInterval(function () {
+            var done = sessionStorage.getItem('qms_join_event');
+            done == 'joined'
+                ? _this.created = true
+                : null;
+        }, 1200);
+        // open dialogs.
         this.modalService.open(this.joinQueueDialog, { centered: true, backdrop: 'static', keyboard: false });
     };
     ClientFormNewEntryPageComponent.prototype.copy = function () {
@@ -32918,12 +32900,12 @@ var QMSQueueingService = /** @class */ (function () {
     QMSQueueingService.prototype.getBranchServices = function (token, branch_ext) {
         var _this = this;
         return new Promise(function (resolve, reject) {
-            _this.headers = _this.endpointService.setHeaders(token);
-            var body = { 'branch_ext': branch_ext };
-            var url = _this.endpointService.qmsApiHost + 'api/join/branch_services';
+            _this.headers = _this.endpointService.headers();
+            var body = { 'ext': branch_ext, 'token': token };
+            var url = _this.endpointService.apiHost + 'api/v1/getQMSBranchServices';
             _this.http.post(url, JSON.stringify(body), { headers: _this.headers }).subscribe(function (res) {
                 _this.logger.log('qms_branch_services: ' + JSON.stringify(res));
-                res.error == 0 ? resolve(res.data) : resolve([]);
+                res.message.error == 0 ? resolve(res.message.data) : resolve([]);
             }, function (err) {
                 _this.logger.log('qms_branch_services_err: ' + JSON.stringify(err));
                 reject(err);
@@ -32933,9 +32915,9 @@ var QMSQueueingService = /** @class */ (function () {
     QMSQueueingService.prototype.getCustomerServices = function (token, branch_ext) {
         var _this = this;
         return new Promise(function (resolve, reject) {
-            _this.headers = _this.endpointService.setHeaders(token);
-            var body = { 'branch_ext': branch_ext };
-            var url = _this.endpointService.qmsApiHost + 'api/join/customer_services';
+            _this.headers = _this.endpointService.headers();
+            var body = { 'ext': branch_ext, 'token': token };
+            var url = _this.endpointService.apiHost + 'api/vi/getQMSCustomerServices';
             _this.http.post(url, JSON.stringify(body), { headers: _this.headers }).subscribe(function (res) {
                 _this.logger.log('qms_customer_services: ' + JSON.stringify(res));
                 res.error == 0 ? resolve(res.data) : resolve([]);
@@ -32945,13 +32927,14 @@ var QMSQueueingService = /** @class */ (function () {
             });
         });
     };
-    QMSQueueingService.prototype.addCustomerToBranchQeueu = function (token, queue) {
+    QMSQueueingService.prototype.addCustomerToBranchQueue = function (token, queue) {
         var _this = this;
         return new Promise(function (resolve, reject) {
             var body = {
+                'token': token,
+                'ext': queue.branch_ext,
                 'join_now': queue.join_now,
                 'entry_src': queue.entry_src,
-                'branch_ext': queue.branch_ext,
                 'join_at_time': queue.join_at_time,
                 'service_type': queue.service_type,
                 'client_mobile': queue.client_mobile,
@@ -32959,8 +32942,8 @@ var QMSQueueingService = /** @class */ (function () {
                 'single_service_id': queue.single_service_id,
                 'multiple_services': queue.multiple_services,
             };
-            _this.headers = _this.endpointService.setHeaders(token);
-            var url = _this.endpointService.qmsApiHost + 'api/join/join_branch_queue';
+            _this.headers = _this.endpointService.headers();
+            var url = _this.endpointService.apiHost + 'api/v1/QMSJoinQueue';
             _this.http.post(url, JSON.stringify(body), { headers: _this.headers }).subscribe(function (res) {
                 _this.logger.log('qms_add_queue ' + JSON.stringify(res));
                 resolve(res);
@@ -32974,11 +32957,12 @@ var QMSQueueingService = /** @class */ (function () {
         var _this = this;
         return new Promise(function (resolve, reject) {
             var body = {
-                'branch_ext': branch_ext,
+                'token': token,
+                'ext': branch_ext,
                 'client_mobile': client_mobile
             };
-            _this.headers = _this.endpointService.setHeaders(token);
-            var url = _this.endpointService.qmsApiHost + 'api/join/cancel_request';
+            _this.headers = _this.endpointService.headers();
+            var url = _this.endpointService.apiHost + 'api/v1/QueueCancelRequest';
             _this.http.post(url, JSON.stringify(body), { headers: _this.headers }).subscribe(function (res) {
                 _this.logger.log('qms_add_queue ' + JSON.stringify(res));
                 resolve(res);

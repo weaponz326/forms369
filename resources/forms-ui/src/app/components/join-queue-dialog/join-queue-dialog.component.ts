@@ -160,12 +160,14 @@ export class JoinQueueDialogComponent implements OnInit {
         this.token = token;
         this.qmsQueueService.getBranchServices(this.token, this.branchExtension).then(
           b_services => {
-            this.qmsQueueService.getCustomerServices(this.token, this.branchExtension).then(
-              c_services => {
-                this.servicesList = b_services.concat(c_services);
-              },
-              error => {}
-            );
+            console.log('___bs: ' + JSON.stringify(b_services));
+            this.servicesList = b_services;
+            // this.qmsQueueService.getCustomerServices(this.token, this.branchExtension).then(
+            //   c_services => {
+            //     this.servicesList = b_services.concat(c_services);
+            //   },
+            //   error => {}
+            // );
           },
           error => {}
         );
@@ -179,10 +181,10 @@ export class JoinQueueDialogComponent implements OnInit {
   joinQueue() {
     this.loading = true;
     const queue_data = this.getFormData();
-    this.qmsQueueService.addCustomerToBranchQeueu(this.token, queue_data).then(
+    this.qmsQueueService.addCustomerToBranchQueue(this.token, queue_data).then(
       res => {
         this.loading = false;
-        if (res.error == 0) {
+        if (res.message.error == 0) {
           this.modalService.dismissAll();
           this.processCompleted.emit(true);
         }
