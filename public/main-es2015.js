@@ -767,7 +767,7 @@ module.exports = "<div class=\"view\">\n  <div *ngIf=\"loading\" class=\"row m-m
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<div class=\"view\">\n  <div *ngIf=\"loading\" class=\"row m-md-5 text-center\">\n    <div class=\"col-md-12 col-sm-12 m-md-5\">\n      <div class=\"d-flex justify-content-center\">\n        <div class=\"spinner-border m-5\" style=\"width: 2rem; height: 2rem; color: #11498e\" role=\"status\">\n          <span class=\"sr-only\">Loading...</span>\n        </div>\n      </div>\n      <p><strong>Preparing for printing! Please wait ...</strong></p>\n    </div>\n  </div>\n\n  <div *ngIf=\"!loading\" class=\"text-center mb-3\">\n    <button id=\"print-button\" class=\"btn btn-primary\" (click)=\"print()\">Print</button>\n  </div>\n\n  <div *ngIf=\"!loading\" class=\"container\" id=\"print-view\">\n    <div class=\"row\" #content id=\"pdf-data\" style=\"background-color: #fff;\">\n      <div class=\"col-8 offset-2\">\n        <div class=\"img-view\" *ngIf=\"isPrint\">\n          <img [src]=\"logo\" alt=\"logo\" class=\"img-fluid\">\n        </div>\n        <div class=\"title-view\">\n          <h1>{{ form.form_name }}</h1>\n        </div>\n        <div class=\"row\" *ngFor=\"let item of clientFormData; let i=index\">\n          <div class=\"col-6\">\n            <h5><strong>{{ item.title }}</strong></h5>\n          </div>\n          <div class=\"col-6\">\n            <h5>{{ item.data }}</h5>\n          </div>\n        </div>\n      </div>\n\n      <div *ngIf=\"hasSignature\" class=\"signature\">\n        <img [src]=\"signatureImageUrl\" alt=\"signature\">\n      </div>\n    </div>\n  </div>\n</div>"
+module.exports = "<div class=\"view\">\n  <div *ngIf=\"loading\" class=\"row m-md-5 text-center\">\n    <div class=\"col-md-12 col-sm-12 m-md-5\">\n      <div class=\"d-flex justify-content-center\">\n        <div class=\"spinner-border m-5\" style=\"width: 2rem; height: 2rem; color: #11498e\" role=\"status\">\n          <span class=\"sr-only\">Loading...</span>\n        </div>\n      </div>\n      <p><strong>Preparing for printing! Please wait ...</strong></p>\n    </div>\n  </div>\n\n  <div *ngIf=\"!loading\" class=\"text-center mb-3\">\n    <button id=\"print-button\" class=\"btn btn-primary\" (click)=\"print()\">Print</button>\n  </div>\n\n  <div *ngIf=\"!loading\" class=\"container\" id=\"print-view\">\n    <div #content id=\"pdf-data\" style=\"background-color: #fff;\">\n      <div class=\"row\">\n        <div class=\"col-8 offset-2\">\n          <div class=\"img-view\" *ngIf=\"isPrint\">\n            <img [src]=\"logo\" alt=\"logo\" class=\"img-fluid\">\n          </div>\n          <div class=\"title-view\">\n            <h1>{{ form.form_name }}</h1>\n          </div>\n          <div class=\"row\" *ngFor=\"let item of clientFormData; let i=index\">\n            <div class=\"col-6\">\n              <h5><strong>{{ item.title }}</strong></h5>\n            </div>\n            <div class=\"col-6\">\n              <h5>{{ item.data }}</h5>\n            </div>\n          </div>\n        </div>\n      </div>\n\n      <div class=\"text-center\">\n        <div *ngIf=\"hasSignature\" class=\"signature\">\n          <img [src]=\"signatureImageUrl\" alt=\"signature\">\n        </div>\n      </div>\n    </div>\n  </div>\n</div>"
 
 /***/ }),
 
@@ -877,7 +877,7 @@ module.exports = "<div class=\"container-scroller\">\n  <app-navigation-bar></ap
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<div class=\"container-scroller\">\n  <app-navigation-bar></app-navigation-bar>\n  <div class=\"container-fluid page-body-wrapper\">\n    <app-side-bar></app-side-bar>\n    <div class=\"main-panel\">\n      <div class=\"content-wrapper\">\n        <div class=\"row\">\n          <div class=\"col-md-12 grid-margin\">\n            <div class=\"d-flex justify-content-between flex-wrap\">\n              <div class=\"d-flex align-items-end flex-wrap\">\n                <div class=\"mr-md-3 mr-xl-5\">\n                  <h2>Processed Forms</h2>\n                  <p class=\"mb-md-0\">Your administrative dashboard.</p>\n                </div>\n                <div class=\"d-flex\">\n                </div>\n              </div>\n              <div class=\"d-flex justify-content-between align-items-end flex-wrap\">\n                <form [formGroup]=\"form\" (ngSubmit)=\"filter()\">\n                  <div class=\"form-group form-inline\" style=\"margin-bottom: -0.1rem;\">\n                    <div class=\"input-group\">\n                      <input class=\"form-control form-control-sm\" placeholder=\"Select Start Date\" name=\"dp\"\n                        formControlName=\"startDate\" ngbDatepicker #d=\"ngbDatepicker\" [ngClass]=\"{'input-control-error':\n                        submitted && f.startDate.errors}\">\n                      <div class=\"input-group-append\">\n                        <button class=\"btn btn-sm btn-outline-secondary\" (click)=\"d.toggle()\" type=\"button\">\n                          <i class=\"mdi mdi-calendar-outline\"></i>\n                        </button>\n                      </div>\n                    </div>\n                    <div class=\"input-group\">\n                      <input class=\"form-control form-control-sm\" placeholder=\"Select End Date\" name=\"dp\"\n                        formControlName=\"endDate\" ngbDatepicker #d1=\"ngbDatepicker\" [ngClass]=\"{'input-control-error':\n                        submitted && f.endDate.errors}\">\n                      <div class=\"input-group-append\">\n                        <button class=\"btn btn-sm btn-outline-secondary\" (click)=\"d1.toggle()\" type=\"button\">\n                          <i class=\"mdi mdi-calendar-outline\"></i>\n                        </button>\n                      </div>\n                    </div>\n                    <button type=\"submit\" class=\"btn btn-outline-primary btn-sm ml-2\">Filter</button>\n                  </div>\n                  <div class=\"form-group form-inline\">\n                    <div *ngIf=\"submitted && f.startDate.errors\" style=\"width: 43%;\">\n                      <p class=\"input-error\" *ngIf=\"f.startDate.errors.required\">Start date is required</p>\n                    </div>\n                    <div *ngIf=\"submitted && f.endDate.errors\">\n                      <p class=\"input-error\" *ngIf=\"f.endDate.errors.required\">End date is required</p>\n                    </div>\n                  </div>\n                </form>\n              </div>\n            </div>\n          </div>\n        </div>\n\n        <div class=\"row\">\n          <div class=\"col-8 col-md-8 offset-1 mb-3\">\n            <div class=\"search-bar\">\n              <form>\n                <input type=\"text\" class=\"search-form form-control\" name=\"query\" [(ngModel)]=\"query\"\n                  placeholder=\"Search by submission code or by form name\" aria-label=\"search\"\n                  aria-describedby=\"search\" (keypress)=\"search($event)\">\n              </form>\n            </div>\n          </div>\n          <div class=\"col-3 col-md-3\">\n            <button type=\"button\" class=\"btn btn-outline-primary btn-icon-text\" placement=\"top\"\n              ngbTooltip=\"Print Form\" (click)=\"showChart()\">\n              <i class=\"mdi mdi-chart-line\"></i> View Data In Chart Mode\n            </button>\n          </div>\n        </div>\n\n        <div *ngIf=\"loading\" class=\"row m-5\">\n          <div class=\"col-md-12 m-5\">\n            <div class=\"d-flex justify-content-center\">\n              <div class=\"spinner-border m-5\" style=\"width: 3rem; height: 3rem;\" role=\"status\">\n                <span class=\"sr-only\">Loading...</span>\n              </div>\n            </div>\n          </div>\n        </div>\n\n        <div *ngIf=\"!loading && !hasData && !foundNoForm\" class=\"row\">\n          <div class=\"col-lg-12 grid-margin stretch-card\">\n            <div class=\"card text-center pt-5 pb-5\">\n              <div class=\"card-body mt-5 mb-5\">\n                <h4 class=\"card-title\">No Data Found</h4>\n                <div class=\"text-lg-center mt-5 mb-5\">\n                  <div class=\"card-text\">\n                    <i class=\"mdi mdi-file-check-outline\" style=\"font-size: 8em;\"></i>\n                  </div>\n                  <div class=\"card-text\">\n                    <h3>No Available Processed Forms</h3>\n                    <p class=\"text-muted\">There are no processed forms yet!</p>\n                  </div>\n                </div>\n              </div>\n            </div>\n          </div>\n        </div>\n\n        <div *ngIf=\"foundNoForm && !loading\" class=\"row\">\n          <div class=\"col-lg-12 grid-margin stretch-card\">\n            <div class=\"card text-center pt-5 pb-5\">\n              <div class=\"card-body mt-5 mb-5\">\n                <h4 class=\"card-title\">No Search Result</h4>\n                <div class=\"text-lg-center mt-5 mb-5\">\n                  <div class=\"card-text\">\n                    <i class=\"mdi mdi-search-web\" style=\"font-size: 8em;\"></i>\n                  </div>\n                  <div class=\"card-text\">\n                    <h3>No Forms Found</h3>\n                    <p class=\"text-muted\">\n                      No form found based on your search criteria.\n                    </p>\n                  </div>\n                </div>\n              </div>\n            </div>\n          </div>\n        </div>\n\n        <div *ngIf=\"hasError\" class=\"row\">\n          <div class=\"col-lg-12 grid-margin stretch-card\">\n            <div class=\"card text-center pt-5 pb-5\">\n              <div class=\"card-body mt-5 mb-5\">\n                <h4 class=\"card-title\">Error Ocuured</h4>\n                <p class=\"card-description\">\n                  Ooops! Something went wrong!\n                </p>\n                <div class=\"text-lg-center mt-5 mb-5\">\n                  <div class=\"card-text\">\n                    <i class=\"mdi mdi-close-network-outline\" style=\"font-size: 8em;\"></i>\n                  </div>\n                  <div class=\"card-text\">\n                    <h3>We couldn't get your processed forms</h3>\n                    <p class=\"text-muted\">You may not have internet connection or our servers maybe down.</p>\n                    <button class=\"btn btn-primary\" type=\"button\" (click)=\"retry()\">Retry</button>\n                  </div>\n                </div>\n              </div>\n            </div>\n          </div>\n        </div>\n\n        <div *ngIf=\"!loading && hasData\" class=\"row\">\n          <div class=\"col-lg-12 grid-margin stretch-card\">\n            <div class=\"card\">\n              <div class=\"card-body\">\n                <div class=\"table-responsive\" *ngIf=\"showTable\">\n                  <table class=\"table table-hover\">\n                    <thead>\n                      <tr>\n                        <th><strong>Form Identifier</strong></th>\n                        <th><strong>Form Name.</strong></th>\n                        <th><strong>Submitted By</strong></th>\n                        <th><strong>Submitted On</strong></th>\n                        <th><strong>Processed On</strong></th>\n                        <th><strong>Action</strong></th>\n                      </tr>\n                    </thead>\n                    <tbody>\n                      <tr class=\"hover-cursor\" *ngFor=\"let form of processedFormsList\">\n                        <td>{{ form.form_code }}</td>\n                        <td>{{ form.form_name }}</td>\n                        <td>{{ form.client_name }}</td>\n                        <td>{{ form.submitted_at | date:'medium' }}</td>\n                        <td>{{ form.last_processed | date:'medium' }}</td>\n                        <td>\n                          <button type=\"button\" class=\"btn btn-light bg-white btn-icon\" placement=\"top\"\n                            ngbTooltip=\"Print Form\" (click)=\"print($event, form)\">\n                            <i class=\"mdi mdi-printer text-muted\"></i>\n                          </button>\n                        </td>\n                      </tr>\n                    </tbody>\n                  </table>\n                </div>\n\n                <div class=\"chart-view\" *ngIf=\"!showTable\">\n                  <div class=\"text-center\">\n                    <div class=\"container\">\n                      <div class=\"row mb-3\">\n                        <div class=\"col-12\">\n                          <div class=\"btn-group\" role=\"group\" aria-label=\"Chart Toolbar\">\n                            <button type=\"button\" class=\"btn btn-outline-primary\" (click)=\"showVerticalChart()\">Vertical Bar Chart</button>\n                            <button type=\"button\" class=\"btn btn-outline-primary\" (click)=\"showHorizontalChart()\">Horizontal Bar Chart</button>\n                            <button type=\"button\" class=\"btn btn-outline-primary\" (click)=\"showPieChart()\">Pie Chart</button>\n                            <button type=\"button\" class=\"btn btn-outline-primary\" (click)=\"showPieGrid()\">Pie Grid</button>\n                          </div>\n                        </div>\n                      </div>\n                    </div>\n                  </div>\n\n                  <ngx-charts-bar-vertical *ngIf=\"isVertical\"\n                    [legend]=\"true\"\n                    [xAxis]=\"true\"\n                    [yAxis]=\"true\"\n                    [view]=\"[600, 700]\"\n                    [results]=\"chartData\"\n                    [showXAxisLabel]=\"'Forms'\"\n                    [showYAxisLabel]=\"'Total No. Processed Forms'\"\n                  ></ngx-charts-bar-vertical>\n\n                  <ngx-charts-bar-horizontal *ngIf=\"isHorizontal\"\n                    [legend]=\"true\"\n                    [xAxis]=\"true\"\n                    [yAxis]=\"true\"\n                    [view]=\"[600, 700]\"\n                    [results]=\"chartData\"\n                    [showXAxisLabel]=\"'Forms'\"\n                    [showYAxisLabel]=\"'Total No. Processed Forms'\"\n                  ></ngx-charts-bar-horizontal>\n\n                  <ngx-charts-bar-horizontal *ngIf=\"isPie\"\n                    [legend]=\"true\"\n                    [xAxis]=\"true\"\n                    [yAxis]=\"true\"\n                    [view]=\"[600, 700]\"\n                    [results]=\"chartData\"\n                    [showXAxisLabel]=\"'Forms'\"\n                    [showYAxisLabel]=\"'Total No. Processed Forms'\"\n                  ></ngx-charts-bar-horizontal>\n\n                  <ngx-charts-bar-horizontal *ngIf=\"isPieGrid\"\n                    [legend]=\"true\"\n                    [xAxis]=\"true\"\n                    [yAxis]=\"true\"\n                    [view]=\"[600, 700]\"\n                    [results]=\"chartData\"\n                    [showXAxisLabel]=\"'Forms'\"\n                    [showYAxisLabel]=\"'Total No. Processed Forms'\"\n                  ></ngx-charts-bar-horizontal>\n                </div>\n              </div>\n            </div>\n          </div>\n        </div>\n\n        <div *ngIf=\"loadingMore\" class=\"row m-md-2\">\n          <div class=\"col-md-12 col-sm-12 m-md-2\">\n            <div class=\"d-flex justify-content-center\">\n              <div class=\"spinner-border m-2\" style=\"width: 2rem; height: 2rem;\" role=\"status\">\n                <span class=\"sr-only\">Loading...</span>\n              </div>\n            </div>\n          </div>\n        </div>\n\n        <div *ngIf=\"hasMoreError\" class=\"row m-md-2\">\n          <div class=\"col-md-8 col-sm-12 offset-md-2\">\n            <div class=\"alert alert-danger\" role=\"alert\">\n              <h4 class=\"alert-heading\">Connection Failed!</h4>\n              <p>\n                Oops!! Couldn't get you the rest of the data. Please make sure you have an active internet connection.\n                Maybe, our servers may be down.\n              </p>\n              <hr>\n              <p class=\"mb-0\">We are really sorry for this inconvenience. Please click on the load more button again.\n              </p>\n            </div>\n          </div>\n        </div>\n\n        <div *ngIf=\"hasMore\" class=\"row\">\n          <div class=\"col-md-4 col-sm-6 offset-sm-3 offset-lg-4\">\n            <div class=\"text-center\">\n              <button type=\"button\" class=\"btn btn-primary btn-rounded btn-fw\" (click)=\"loadMore()\">Load More</button>\n            </div>\n          </div>\n        </div>\n        \n      </div>\n    </div>\n  </div>\n</div>"
+module.exports = "<div class=\"container-scroller\">\n  <app-navigation-bar></app-navigation-bar>\n  <div class=\"container-fluid page-body-wrapper\">\n    <app-side-bar></app-side-bar>\n    <div class=\"main-panel\">\n      <div class=\"content-wrapper\">\n        <div class=\"row\">\n          <div class=\"col-md-12 grid-margin\">\n            <div class=\"d-flex justify-content-between flex-wrap\">\n              <div class=\"d-flex align-items-end flex-wrap\">\n                <div class=\"mr-md-3 mr-xl-5\">\n                  <h2>Processed Forms</h2>\n                  <p class=\"mb-md-0\">Your administrative dashboard.</p>\n                </div>\n                <div class=\"d-flex\">\n                </div>\n              </div>\n              <div class=\"d-flex justify-content-between align-items-end flex-wrap\">\n                <form [formGroup]=\"form\" (ngSubmit)=\"filter()\">\n                  <div class=\"form-group form-inline\" style=\"margin-bottom: -0.1rem;\">\n                    <div class=\"input-group\">\n                      <input class=\"form-control form-control-sm\" placeholder=\"Select Start Date\" name=\"dp\"\n                        formControlName=\"startDate\" ngbDatepicker #d=\"ngbDatepicker\" [ngClass]=\"{'input-control-error':\n                        submitted && f.startDate.errors}\">\n                      <div class=\"input-group-append\">\n                        <button class=\"btn btn-sm btn-outline-secondary\" (click)=\"d.toggle()\" type=\"button\">\n                          <i class=\"mdi mdi-calendar-outline\"></i>\n                        </button>\n                      </div>\n                    </div>\n                    <div class=\"input-group\">\n                      <input class=\"form-control form-control-sm\" placeholder=\"Select End Date\" name=\"dp\"\n                        formControlName=\"endDate\" ngbDatepicker #d1=\"ngbDatepicker\" [ngClass]=\"{'input-control-error':\n                        submitted && f.endDate.errors}\">\n                      <div class=\"input-group-append\">\n                        <button class=\"btn btn-sm btn-outline-secondary\" (click)=\"d1.toggle()\" type=\"button\">\n                          <i class=\"mdi mdi-calendar-outline\"></i>\n                        </button>\n                      </div>\n                    </div>\n                    <button type=\"submit\" class=\"btn btn-outline-primary btn-sm ml-2\">Filter</button>\n                  </div>\n                  <div class=\"form-group form-inline\">\n                    <div *ngIf=\"submitted && f.startDate.errors\" style=\"width: 43%;\">\n                      <p class=\"input-error\" *ngIf=\"f.startDate.errors.required\">Start date is required</p>\n                    </div>\n                    <div *ngIf=\"submitted && f.endDate.errors\">\n                      <p class=\"input-error\" *ngIf=\"f.endDate.errors.required\">End date is required</p>\n                    </div>\n                  </div>\n                </form>\n              </div>\n            </div>\n          </div>\n        </div>\n\n        <div class=\"row\">\n          <div class=\"col-8 col-md-8 offset-1 mb-3\">\n            <div class=\"search-bar\">\n              <form>\n                <input type=\"text\" class=\"search-form form-control\" name=\"query\" [(ngModel)]=\"query\"\n                  placeholder=\"Search by submission code or by form name\" aria-label=\"search\"\n                  aria-describedby=\"search\" (keypress)=\"search($event)\">\n              </form>\n            </div>\n          </div>\n          <div class=\"col-3 col-md-3\">\n            <button type=\"button\" class=\"btn btn-outline-primary btn-icon-text\" placement=\"top\"\n              ngbTooltip=\"Print Form\" (click)=\"showChart()\">\n              <i class=\"mdi mdi-chart-line\"></i> View Data In Chart Mode\n            </button>\n          </div>\n        </div>\n\n        <div *ngIf=\"loading\" class=\"row m-5\">\n          <div class=\"col-md-12 m-5\">\n            <div class=\"d-flex justify-content-center\">\n              <div class=\"spinner-border m-5\" style=\"width: 3rem; height: 3rem;\" role=\"status\">\n                <span class=\"sr-only\">Loading...</span>\n              </div>\n            </div>\n          </div>\n        </div>\n\n        <div *ngIf=\"!loading && !hasData && !foundNoForm\" class=\"row\">\n          <div class=\"col-lg-12 grid-margin stretch-card\">\n            <div class=\"card text-center pt-5 pb-5\">\n              <div class=\"card-body mt-5 mb-5\">\n                <h4 class=\"card-title\">No Data Found</h4>\n                <div class=\"text-lg-center mt-5 mb-5\">\n                  <div class=\"card-text\">\n                    <i class=\"mdi mdi-file-check-outline\" style=\"font-size: 8em;\"></i>\n                  </div>\n                  <div class=\"card-text\">\n                    <h3>No Available Processed Forms</h3>\n                    <p class=\"text-muted\">There are no processed forms yet!</p>\n                  </div>\n                </div>\n              </div>\n            </div>\n          </div>\n        </div>\n\n        <div *ngIf=\"foundNoForm && !loading\" class=\"row\">\n          <div class=\"col-lg-12 grid-margin stretch-card\">\n            <div class=\"card text-center pt-5 pb-5\">\n              <div class=\"card-body mt-5 mb-5\">\n                <h4 class=\"card-title\">No Search Result</h4>\n                <div class=\"text-lg-center mt-5 mb-5\">\n                  <div class=\"card-text\">\n                    <i class=\"mdi mdi-search-web\" style=\"font-size: 8em;\"></i>\n                  </div>\n                  <div class=\"card-text\">\n                    <h3>No Forms Found</h3>\n                    <p class=\"text-muted\">\n                      No form found based on your search criteria.\n                    </p>\n                  </div>\n                </div>\n              </div>\n            </div>\n          </div>\n        </div>\n\n        <div *ngIf=\"hasError\" class=\"row\">\n          <div class=\"col-lg-12 grid-margin stretch-card\">\n            <div class=\"card text-center pt-5 pb-5\">\n              <div class=\"card-body mt-5 mb-5\">\n                <h4 class=\"card-title\">Error Ocuured</h4>\n                <p class=\"card-description\">\n                  Ooops! Something went wrong!\n                </p>\n                <div class=\"text-lg-center mt-5 mb-5\">\n                  <div class=\"card-text\">\n                    <i class=\"mdi mdi-close-network-outline\" style=\"font-size: 8em;\"></i>\n                  </div>\n                  <div class=\"card-text\">\n                    <h3>We couldn't get your processed forms</h3>\n                    <p class=\"text-muted\">You may not have internet connection or our servers maybe down.</p>\n                    <button class=\"btn btn-primary\" type=\"button\" (click)=\"retry()\">Retry</button>\n                  </div>\n                </div>\n              </div>\n            </div>\n          </div>\n        </div>\n\n        <div *ngIf=\"!loading && hasData\" class=\"row\">\n          <div class=\"col-lg-12 grid-margin stretch-card\">\n            <div class=\"card\">\n              <div class=\"card-body\">\n                <div class=\"table-responsive\" *ngIf=\"showTable\">\n                  <table class=\"table table-hover\">\n                    <thead>\n                      <tr>\n                        <th><strong>Form Identifier</strong></th>\n                        <th><strong>Form Name.</strong></th>\n                        <th><strong>Submitted By</strong></th>\n                        <th><strong>Submitted On</strong></th>\n                        <th><strong>Processed On</strong></th>\n                        <th><strong>Action</strong></th>\n                      </tr>\n                    </thead>\n                    <tbody>\n                      <tr class=\"hover-cursor\" *ngFor=\"let form of processedFormsList\">\n                        <td>{{ form.form_code }}</td>\n                        <td>{{ form.form_name }}</td>\n                        <td>{{ form.client_name }}</td>\n                        <td>{{ form.submitted_at | date:'medium' }}</td>\n                        <td>{{ form.last_processed | date:'medium' }}</td>\n                        <td>\n                          <button type=\"button\" class=\"btn btn-light bg-white btn-icon\" placement=\"top\"\n                            ngbTooltip=\"Print Form\" (click)=\"print($event, form)\">\n                            <i class=\"mdi mdi-printer text-muted\"></i>\n                          </button>\n                        </td>\n                      </tr>\n                    </tbody>\n                  </table>\n                </div>\n\n                <div class=\"chart-view\" *ngIf=\"!showTable\">\n                  <div class=\"text-center\">\n                    <div class=\"container\">\n                      <div class=\"row mb-3\">\n                        <div class=\"col-12\">\n                          <div class=\"btn-group\" role=\"group\" aria-label=\"Chart Toolbar\">\n                            <button type=\"button\" class=\"btn btn-outline-primary\" [ngClass]=\"{'active': isVertical}\" (click)=\"showVerticalChart()\">Vertical Bar Chart</button>\n                            <button type=\"button\" class=\"btn btn-outline-primary\" [ngClass]=\"{'active': isHorizontal}\" (click)=\"showHorizontalChart()\">Horizontal Bar Chart</button>\n                            <button type=\"button\" class=\"btn btn-outline-primary\" [ngClass]=\"{'active': isPie}\" (click)=\"showPieChart()\">Pie Chart</button>\n                            <button type=\"button\" class=\"btn btn-outline-primary\" [ngClass]=\"{'active': isPieGrid}\" (click)=\"showPieGrid()\">Pie Grid</button>\n                          </div>\n                        </div>\n                      </div>\n                    </div>\n                  </div>\n\n                  <div class=\"text-center\">\n                    <ngx-charts-bar-vertical *ngIf=\"isVertical\"\n                    [legend]=\"true\"\n                    [xAxis]=\"true\"\n                    [yAxis]=\"true\"\n                    [view]=\"[600, 700]\"\n                    [results]=\"chartData\"\n                    [showXAxisLabel]=\"'Forms'\"\n                    [showYAxisLabel]=\"'Total No. Processed Forms'\"\n                  ></ngx-charts-bar-vertical>\n\n                  <ngx-charts-bar-horizontal *ngIf=\"isHorizontal\"\n                    [legend]=\"true\"\n                    [xAxis]=\"true\"\n                    [yAxis]=\"true\"\n                    [view]=\"[600, 700]\"\n                    [results]=\"chartData\"\n                    [showXAxisLabel]=\"'Forms'\"\n                    [showYAxisLabel]=\"'Total No. Processed Forms'\"\n                  ></ngx-charts-bar-horizontal>\n\n                  <ngx-charts-pie-chart *ngIf=\"isPie\"\n                    [legend]=\"true\"\n                    [view]=\"[600, 700]\"\n                    [results]=\"chartData\"\n                  ></ngx-charts-pie-chart>\n\n                  <ngx-charts-pie-grid *ngIf=\"isPieGrid\"\n                    [view]=\"[600, 700]\"\n                    [results]=\"chartData\"\n                  ></ngx-charts-pie-grid>\n                  </div>\n                </div>\n              </div>\n            </div>\n          </div>\n        </div>\n\n        <div *ngIf=\"loadingMore\" class=\"row m-md-2\">\n          <div class=\"col-md-12 col-sm-12 m-md-2\">\n            <div class=\"d-flex justify-content-center\">\n              <div class=\"spinner-border m-2\" style=\"width: 2rem; height: 2rem;\" role=\"status\">\n                <span class=\"sr-only\">Loading...</span>\n              </div>\n            </div>\n          </div>\n        </div>\n\n        <div *ngIf=\"hasMoreError\" class=\"row m-md-2\">\n          <div class=\"col-md-8 col-sm-12 offset-md-2\">\n            <div class=\"alert alert-danger\" role=\"alert\">\n              <h4 class=\"alert-heading\">Connection Failed!</h4>\n              <p>\n                Oops!! Couldn't get you the rest of the data. Please make sure you have an active internet connection.\n                Maybe, our servers may be down.\n              </p>\n              <hr>\n              <p class=\"mb-0\">We are really sorry for this inconvenience. Please click on the load more button again.\n              </p>\n            </div>\n          </div>\n        </div>\n\n        <div *ngIf=\"hasMore\" class=\"row\">\n          <div class=\"col-md-4 col-sm-6 offset-sm-3 offset-lg-4\">\n            <div class=\"text-center\">\n              <button type=\"button\" class=\"btn btn-primary btn-rounded btn-fw\" (click)=\"loadMore()\">Load More</button>\n            </div>\n          </div>\n        </div>\n        \n      </div>\n    </div>\n  </div>\n</div>"
 
 /***/ }),
 
@@ -1669,7 +1669,7 @@ module.exports = "<div class=\"container-scroller\">\n  <div class=\"container-f
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<div class=\"container-scroller\">\n  <div class=\"container-fluid page-body-wrapper full-page-wrapper\">\n    <div class=\"content-wrapper d-flex align-items-center auth px-0\">\n      <div class=\"row w-100 mx-0\">\n        <div class=\"col-lg-4 mx-auto\">\n          <div class=\"auth-form-light py-5 px-4 px-sm-5\">\n            <div class=\"text-center\">\n              <a routerLink=\"/\" class=\"brand-logo\">\n                <img src=\"./assets/images/logo1.png\" alt=\"logo\">\n              </a>\n            </div>\n\n            <!-- setup new password view -->\n            <div *ngIf=\"showForm\">\n              <h4 class=\"text-center\">Hello! Reset pin.</h4>\n              <h6 class=\"font-weight-normal text-center\">Please setup a new pin.</h6>\n              <form [formGroup]=\"form\" (ngSubmit)=\"create()\" class=\"pt-3\">\n                <div class=\"form-group\">\n                  <input type=\"password\" class=\"form-control form-control-lg\" formControlName=\"pin\"\n                    placeholder=\"Enter Pin\" [ngClass]=\"{'input-control-error': submitted && f.pin.errors}\" maxlength=\"4\"\n                    (keyup)=\"resolveStrCharacters($event)\">\n                  <div *ngIf=\"submitted && f.pin.errors\">\n                    <p class=\"input-error\" *ngIf=\"f.pin.errors.required\">Pin is required.</p>\n                    <p class=\"input-error\" *ngIf=\"f.pin.errors.minlength\">Pin must be 4 (four) digits.</p>\n                  </div>\n                </div>\n                <div class=\"form-group\">\n                  <input type=\"password\" class=\"form-control form-control-lg\" formControlName=\"cPin\"\n                    placeholder=\"Confirm Pin\" [ngClass]=\"{'input-control-error': submitted && f.cPin.errors}\"\n                    maxlength=\"4\" (keyup)=\"resolveStrCharacters_1($event)\">\n                  <div *ngIf=\"submitted && f.cPin.errors\">\n                    <p class=\"input-error\" *ngIf=\"f.cPin.errors.unmatched\">Pin doesn't match.</p>\n                    <p class=\"input-error\" *ngIf=\"f.cPin.errors.required\">Confirmation pin is required.</p>\n                    <p class=\"input-error\" *ngIf=\"f.cPin.errors.minlength\">Pin must be 4 (four) digits.</p>\n                  </div>\n                </div>\n                <div class=\"mt-3\">\n                  <button type=\"submit\" *ngIf=\"!loading\"\n                    class=\"btn btn-block btn-primary btn-lg font-weight-medium auth-form-btn\">Reset Pin</button>\n                  <button type=\"button\" *ngIf=\"loading\"\n                    class=\"btn btn-block btn-primary btn-lg font-weight-medium auth-form-btn\" disabled>\n                    <span class=\"spinner-border spinner-border-sm\" role=\"status\" aria-hidden=\"true\"></span> &nbsp;\n                    &nbsp;\n                    Please wait...\n                  </button>\n                </div>\n              </form>\n            </div>\n            <!-- /.end setup new password view -->\n          </div>\n        </div>\n      </div>\n    </div>\n    <!-- content ends -->\n  </div>\n  <!-- page-body ends -->\n</div>\n"
+module.exports = "<div class=\"container-scroller\">\n  <div class=\"container-fluid page-body-wrapper full-page-wrapper\">\n    <div class=\"content-wrapper d-flex align-items-center auth px-0\">\n      <div class=\"row w-100 mx-0\" *ngIf=\"showForm\">\n        <div class=\"col-lg-4 mx-auto\">\n          <div class=\"auth-form-light py-5 px-4 px-sm-5\">\n            <div class=\"text-center\">\n              <a routerLink=\"/\" class=\"brand-logo\">\n                <img src=\"./assets/images/logo1.png\" alt=\"logo\">\n              </a>\n            </div>\n\n            <!-- setup new password view -->\n            <div>\n              <h4 class=\"text-center\">Hello! Reset pin.</h4>\n              <h6 class=\"font-weight-normal text-center\">Please setup a new pin.</h6>\n              <form [formGroup]=\"form\" (ngSubmit)=\"create()\" class=\"pt-3\">\n                <div class=\"form-group\">\n                  <input type=\"password\" class=\"form-control form-control-lg\" formControlName=\"pin\"\n                    placeholder=\"Enter Pin\" [ngClass]=\"{'input-control-error': submitted && f.pin.errors}\" maxlength=\"4\"\n                    (keyup)=\"resolveStrCharacters($event)\">\n                  <div *ngIf=\"submitted && f.pin.errors\">\n                    <p class=\"input-error\" *ngIf=\"f.pin.errors.required\">Pin is required.</p>\n                    <p class=\"input-error\" *ngIf=\"f.pin.errors.minlength\">Pin must be 4 (four) digits.</p>\n                  </div>\n                </div>\n                <div class=\"form-group\">\n                  <input type=\"password\" class=\"form-control form-control-lg\" formControlName=\"cPin\"\n                    placeholder=\"Confirm Pin\" [ngClass]=\"{'input-control-error': submitted && f.cPin.errors}\"\n                    maxlength=\"4\" (keyup)=\"resolveStrCharacters_1($event)\">\n                  <div *ngIf=\"submitted && f.cPin.errors\">\n                    <p class=\"input-error\" *ngIf=\"f.cPin.errors.unmatched\">Pin doesn't match.</p>\n                    <p class=\"input-error\" *ngIf=\"f.cPin.errors.required\">Confirmation pin is required.</p>\n                    <p class=\"input-error\" *ngIf=\"f.cPin.errors.minlength\">Pin must be 4 (four) digits.</p>\n                  </div>\n                </div>\n                <div class=\"mt-3\">\n                  <button type=\"submit\" *ngIf=\"!loading\"\n                    class=\"btn btn-block btn-primary btn-lg font-weight-medium auth-form-btn\">Reset Pin</button>\n                  <button type=\"button\" *ngIf=\"loading\"\n                    class=\"btn btn-block btn-primary btn-lg font-weight-medium auth-form-btn\" disabled>\n                    <span class=\"spinner-border spinner-border-sm\" role=\"status\" aria-hidden=\"true\"></span> &nbsp;\n                    &nbsp;\n                    Please wait...\n                  </button>\n                </div>\n              </form>\n            </div>\n            <!-- /.end setup new password view -->\n          </div>\n        </div>\n      </div>\n    </div>\n    <!-- content ends -->\n  </div>\n  <!-- page-body ends -->\n</div>\n"
 
 /***/ }),
 
@@ -1947,58 +1947,19 @@ const routes = [
     { path: 'auth', component: _pages_auth_page_auth_page_component__WEBPACK_IMPORTED_MODULE_61__["AuthPageComponent"] },
     { path: 'user_auth', component: _pages_admin_login_page_admin_login_page_component__WEBPACK_IMPORTED_MODULE_62__["AdminLoginPageComponent"] },
     { path: 'client_auth', component: _pages_client_auth_page_client_auth_page_component__WEBPACK_IMPORTED_MODULE_73__["ClientAuthPageComponent"] },
-    {
-        path: 'register',
-        component: _pages_register_page_register_page_component__WEBPACK_IMPORTED_MODULE_6__["RegisterPageComponent"]
-    },
-    {
-        path: 'forgot',
-        component: _pages_forgot_password_page_forgot_password_page_component__WEBPACK_IMPORTED_MODULE_75__["ForgotPasswordPageComponent"]
-    },
-    {
-        path: 'reset',
-        component: _pages_reset_password_page_reset_password_page_component__WEBPACK_IMPORTED_MODULE_88__["ResetPasswordPageComponent"]
-    },
-    {
-        path: 'reset_pin',
-        component: _pages_reset_pin_page_reset_pin_page_component__WEBPACK_IMPORTED_MODULE_112__["ResetPinPageComponent"]
-    },
-    {
-        path: 'master_register',
-        component: _pages_admin_register_page_admin_register_page_component__WEBPACK_IMPORTED_MODULE_36__["AdminRegisterPageComponent"]
-    },
-    {
-        path: 'change_password',
-        component: _pages_change_password_page_change_password_page_component__WEBPACK_IMPORTED_MODULE_72__["ChangePasswordPageComponent"]
-    },
-    {
-        path: 'valid_confirm_link',
-        component: _pages_account_verified_page_account_verified_page_component__WEBPACK_IMPORTED_MODULE_91__["AccountVerifiedPageComponent"]
-    },
-    {
-        path: 'invalid_confirm_link',
-        component: _pages_invalid_confirmation_page_invalid_confirmation_page_component__WEBPACK_IMPORTED_MODULE_82__["InvalidConfirmationPageComponent"]
-    },
-    {
-        path: 'invalid_password_link',
-        component: _pages_invalid_password_reset_page_invalid_password_reset_page_component__WEBPACK_IMPORTED_MODULE_97__["InvalidPasswordResetPageComponent"]
-    },
-    {
-        path: 'invalid_reset_pin',
-        component: _pages_invalid_reset_pin_page_invalid_reset_pin_page_component__WEBPACK_IMPORTED_MODULE_113__["InvalidResetPinPageComponent"]
-    },
-    {
-        path: 'invalid_link',
-        component: _pages_invalid_link_page_invalid_link_page_component__WEBPACK_IMPORTED_MODULE_114__["InvalidLinkPageComponent"]
-    },
-    {
-        path: 'privacy',
-        component: _pages_privacy_page_privacy_page_component__WEBPACK_IMPORTED_MODULE_116__["PrivacyPageComponent"]
-    },
-    {
-        path: 'terms',
-        component: _pages_terms_page_terms_page_component__WEBPACK_IMPORTED_MODULE_115__["TermsPageComponent"]
-    },
+    { path: 'register', component: _pages_register_page_register_page_component__WEBPACK_IMPORTED_MODULE_6__["RegisterPageComponent"] },
+    { path: 'forgot', component: _pages_forgot_password_page_forgot_password_page_component__WEBPACK_IMPORTED_MODULE_75__["ForgotPasswordPageComponent"] },
+    { path: 'reset', component: _pages_reset_password_page_reset_password_page_component__WEBPACK_IMPORTED_MODULE_88__["ResetPasswordPageComponent"] },
+    { path: 'reset_pin', component: _pages_reset_pin_page_reset_pin_page_component__WEBPACK_IMPORTED_MODULE_112__["ResetPinPageComponent"] },
+    { path: 'master_register', component: _pages_admin_register_page_admin_register_page_component__WEBPACK_IMPORTED_MODULE_36__["AdminRegisterPageComponent"] },
+    { path: 'change_password', component: _pages_change_password_page_change_password_page_component__WEBPACK_IMPORTED_MODULE_72__["ChangePasswordPageComponent"] },
+    { path: 'valid_confirm_link', component: _pages_account_verified_page_account_verified_page_component__WEBPACK_IMPORTED_MODULE_91__["AccountVerifiedPageComponent"] },
+    { path: 'invalid_confirm_link', component: _pages_invalid_confirmation_page_invalid_confirmation_page_component__WEBPACK_IMPORTED_MODULE_82__["InvalidConfirmationPageComponent"] },
+    { path: 'invalid_password_link', component: _pages_invalid_password_reset_page_invalid_password_reset_page_component__WEBPACK_IMPORTED_MODULE_97__["InvalidPasswordResetPageComponent"] },
+    { path: 'invalid_reset_pin', component: _pages_invalid_reset_pin_page_invalid_reset_pin_page_component__WEBPACK_IMPORTED_MODULE_113__["InvalidResetPinPageComponent"] },
+    { path: 'invalid_link', component: _pages_invalid_link_page_invalid_link_page_component__WEBPACK_IMPORTED_MODULE_114__["InvalidLinkPageComponent"] },
+    { path: 'privacy', component: _pages_privacy_page_privacy_page_component__WEBPACK_IMPORTED_MODULE_116__["PrivacyPageComponent"] },
+    { path: 'terms', component: _pages_terms_page_terms_page_component__WEBPACK_IMPORTED_MODULE_115__["TermsPageComponent"] },
     {
         path: 'git_admin',
         children: [
@@ -3096,14 +3057,17 @@ let AlreadyJoinedQueueDialogComponent = class AlreadyJoinedQueueDialogComponent 
     }
     joinQueue() {
         const queue_data = this.getFormData();
-        this.qmsQueueService.addCustomerToBranchQeueu(this.token, queue_data).then(res => {
+        this.qmsQueueService.addCustomerToBranchQueue(this.token, queue_data).then(res => {
             this.loading = false;
-            if (res.error == 0) {
+            if (res.message.error == 0) {
                 this.processCompleted.emit(true);
+                sessionStorage.setItem('qms_join_event', 'joined');
                 this.modalService.dismissAll();
             }
             else {
                 this.processCompleted.emit(false);
+                sessionStorage.setItem('qms_join_event', 'joined');
+                this.modalService.dismissAll();
             }
         }, err => {
             this.loading = false;
@@ -3427,9 +3391,14 @@ let JoinQueueDialogComponent = class JoinQueueDialogComponent {
         this.qmsQueueService.authenticateQmsEndpoint(this.merchantId).then(token => {
             this.token = token;
             this.qmsQueueService.getBranchServices(this.token, this.branchExtension).then(b_services => {
-                this.qmsQueueService.getCustomerServices(this.token, this.branchExtension).then(c_services => {
-                    this.servicesList = b_services.concat(c_services);
-                }, error => { });
+                console.log('___bs: ' + JSON.stringify(b_services));
+                this.servicesList = b_services;
+                // this.qmsQueueService.getCustomerServices(this.token, this.branchExtension).then(
+                //   c_services => {
+                //     this.servicesList = b_services.concat(c_services);
+                //   },
+                //   error => {}
+                // );
             }, error => { });
         }, err => {
             this.logger.log('errrrrrrror: ' + err);
@@ -3438,9 +3407,9 @@ let JoinQueueDialogComponent = class JoinQueueDialogComponent {
     joinQueue() {
         this.loading = true;
         const queue_data = this.getFormData();
-        this.qmsQueueService.addCustomerToBranchQeueu(this.token, queue_data).then(res => {
+        this.qmsQueueService.addCustomerToBranchQueue(this.token, queue_data).then(res => {
             this.loading = false;
-            if (res.error == 0) {
+            if (res.message.error == 0) {
                 this.modalService.dismissAll();
                 this.processCompleted.emit(true);
             }
@@ -7993,7 +7962,6 @@ let ClientFormNewEntryPageComponent = class ClientFormNewEntryPageComponent {
         this.form = history.state.form;
         this.form = this.reloader.resolveDataLoss(this.form);
         this.merchantId = this.form.merchant_id.toString();
-        alert('m_id: ' + this.merchantId);
         this.user = this.localStorage.getUser();
         console.log('form: ' + JSON.stringify(this.form));
         console.log('submission_code: ' + this.form.submission_code);
@@ -8828,6 +8796,13 @@ let ClientFormNewEntryPageComponent = class ClientFormNewEntryPageComponent {
         }
     }
     showJoinQueueDialog() {
+        // this code is needed to track when 
+        setInterval(() => {
+            const done = sessionStorage.getItem('qms_join_event');
+            done == 'joined'
+                ? this.created = true
+                : null;
+        }, 1200);
         this.modalService.open(this.joinQueueDialog, { centered: true, backdrop: 'static', keyboard: false });
     }
     copy() {
@@ -10988,9 +10963,6 @@ let ClientPdfPrintingPageComponent = class ClientPdfPrintingPageComponent {
         this.user = this.localStorage.getUser();
         this.frontDeskService.getPrintPDFFile(this.form.form_code, this.user.merchant_id.toString()).then(file => {
             if (lodash__WEBPACK_IMPORTED_MODULE_1__["isUndefined"](file) || lodash__WEBPACK_IMPORTED_MODULE_1__["isNull"](file)) {
-                // this.form.print == true
-                //   ? alert('No PDF file is available for this form. Redirecting you to do a default printing')
-                //   : alert('No PDF file is available for this form. Redirecting ...');
                 this.router.navigateByUrl('client/downloading', { state: { form: this.form }, replaceUrl: true });
             }
             else {
@@ -11345,11 +11317,9 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var printd__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(printd__WEBPACK_IMPORTED_MODULE_2__);
 /* harmony import */ var src_app_services_client_client_service__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! src/app/services/client/client.service */ "./src/app/services/client/client.service.ts");
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm2015/core.js");
-/* harmony import */ var src_app_services_company_company_service__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! src/app/services/company/company.service */ "./src/app/services/company/company.service.ts");
-/* harmony import */ var src_app_services_endpoint_endpoint_service__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! src/app/services/endpoint/endpoint.service */ "./src/app/services/endpoint/endpoint.service.ts");
-/* harmony import */ var src_app_services_reloader_reloading_service__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! src/app/services/reloader/reloading.service */ "./src/app/services/reloader/reloading.service.ts");
-/* harmony import */ var src_app_services_storage_local_storage_service__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! src/app/services/storage/local-storage.service */ "./src/app/services/storage/local-storage.service.ts");
-
+/* harmony import */ var src_app_services_endpoint_endpoint_service__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! src/app/services/endpoint/endpoint.service */ "./src/app/services/endpoint/endpoint.service.ts");
+/* harmony import */ var src_app_services_reloader_reloading_service__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! src/app/services/reloader/reloading.service */ "./src/app/services/reloader/reloading.service.ts");
+/* harmony import */ var src_app_services_storage_local_storage_service__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! src/app/services/storage/local-storage.service */ "./src/app/services/storage/local-storage.service.ts");
 
 
 
@@ -11359,14 +11329,12 @@ __webpack_require__.r(__webpack_exports__);
 
 
 let ClientPrintingPageComponent = class ClientPrintingPageComponent {
-    constructor(reloader, clientService, companyService, endpointService, localService) {
+    constructor(reloader, clientService, endpointService, localService) {
         this.reloader = reloader;
         this.clientService = clientService;
-        this.companyService = companyService;
         this.endpointService = endpointService;
         this.localService = localService;
         this.initVars();
-        this.getMerchant();
         this.getSignature();
     }
     ngOnInit() {
@@ -11379,6 +11347,7 @@ let ClientPrintingPageComponent = class ClientPrintingPageComponent {
         this.form = window.history.state.form;
         console.log('form: ' + JSON.stringify(this.form));
         this.form = this.reloader.resolveDataLoss(this.form);
+        this.logo = this.endpointService.storageHost + this.form.logo;
         this.isPrint = this.form.print == true || lodash__WEBPACK_IMPORTED_MODULE_1__["isUndefined"](this.form.print) ? true : false;
         this.client = this.form.client_submitted_details;
         console.log('client: ' + JSON.stringify(this.client));
@@ -11411,19 +11380,6 @@ let ClientPrintingPageComponent = class ClientPrintingPageComponent {
         else {
             return text;
         }
-    }
-    getMerchant() {
-        this.loading = true;
-        const merchant_id = this.form.merchant_id;
-        this.companyService.getCompany(merchant_id).then(merchant => {
-            this.loading = false;
-            const merchant_logo = merchant[0].logo;
-            this.logo = this.endpointService.storageHost + merchant_logo;
-            alert('logo: ' + this.logo);
-        }, error => {
-            this.loading = false;
-            this.hasError = true;
-        });
     }
     getSignature() {
         const user_id = this.localService.getUser().id.toString();
@@ -11504,11 +11460,10 @@ let ClientPrintingPageComponent = class ClientPrintingPageComponent {
     }
 };
 ClientPrintingPageComponent.ctorParameters = () => [
-    { type: src_app_services_reloader_reloading_service__WEBPACK_IMPORTED_MODULE_7__["ReloadingService"] },
+    { type: src_app_services_reloader_reloading_service__WEBPACK_IMPORTED_MODULE_6__["ReloadingService"] },
     { type: src_app_services_client_client_service__WEBPACK_IMPORTED_MODULE_3__["ClientService"] },
-    { type: src_app_services_company_company_service__WEBPACK_IMPORTED_MODULE_5__["CompanyService"] },
-    { type: src_app_services_endpoint_endpoint_service__WEBPACK_IMPORTED_MODULE_6__["EndpointService"] },
-    { type: src_app_services_storage_local_storage_service__WEBPACK_IMPORTED_MODULE_8__["LocalStorageService"] }
+    { type: src_app_services_endpoint_endpoint_service__WEBPACK_IMPORTED_MODULE_5__["EndpointService"] },
+    { type: src_app_services_storage_local_storage_service__WEBPACK_IMPORTED_MODULE_7__["LocalStorageService"] }
 ];
 tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
     Object(_angular_core__WEBPACK_IMPORTED_MODULE_4__["ViewChild"])('content', { static: false })
@@ -11836,7 +11791,6 @@ let ClientProfilePageComponent = class ClientProfilePageComponent {
     }
     getAllClientData() {
         this.loading = true;
-        console.log('__________________getAllClient');
         this.formBuilder.getClientProvidedData(lodash__WEBPACK_IMPORTED_MODULE_1__["toString"](this.user.id)).then(res => {
             console.log('user_data: ' + JSON.stringify(res));
             if (!lodash__WEBPACK_IMPORTED_MODULE_1__["isEmpty"](res[0].client_details)) {
@@ -11844,7 +11798,9 @@ let ClientProfilePageComponent = class ClientProfilePageComponent {
                 this.loading = false;
                 this.userData = res[0].client_details[0];
                 this.setProfileInformation();
-                console.log('details: ' + this.userData);
+                console.log('___details__: ' + JSON.stringify(this.userData));
+                // this delay is needed. The code within doesnt run
+                // without the setTimeout.
                 setTimeout(() => {
                     this.clientService.fillClientProfileData(this.allFormSections, this.userData);
                     this.appendOnChangeEventToFileInput();
@@ -14119,16 +14075,28 @@ let ExecProcessedFormsListPageComponent = class ExecProcessedFormsListPageCompon
         this.showTable = !this.showTable;
     }
     showPieGrid() {
-        this.isPieGrid = !this.isPieGrid;
+        this.isPie = false;
+        this.isVertical = false;
+        this.isHorizontal = false;
+        this.isPieGrid = true;
     }
     showPieChart() {
-        this.isPie = !this.isPie;
+        this.isPieGrid = false;
+        this.isVertical = false;
+        this.isHorizontal = false;
+        this.isPie = true;
     }
     showVerticalChart() {
-        this.isVertical = !this.isVertical;
+        this.isPie = false;
+        this.isPieGrid = false;
+        this.isHorizontal = false;
+        this.isVertical = true;
     }
     showHorizontalChart() {
-        this.isHorizontal = !this.isHorizontal;
+        this.isPie = false;
+        this.isPieGrid = false;
+        this.isVertical = false;
+        this.isHorizontal = true;
     }
     checkIfHasMore() {
         return lodash__WEBPACK_IMPORTED_MODULE_1__["isEmpty"](this.frontDeskService.nextPaginationUrl) ? false : true;
@@ -14270,6 +14238,7 @@ let ExecProcessedFormsListPageComponent = class ExecProcessedFormsListPageCompon
             // Filter forms list.
             this.processedFormsList = lodash__WEBPACK_IMPORTED_MODULE_1__["filter"](this.processedFormsList, (form) => this.dateService.getDatePart(form.last_processed) >= start_date &&
                 this.dateService.getDatePart(form.last_processed) <= end_date);
+            this.generateChartDataByDate();
         }
     }
     generateChartData() {
@@ -14290,6 +14259,27 @@ let ExecProcessedFormsListPageComponent = class ExecProcessedFormsListPageCompon
     generateChartDataByDate() {
         // We generate the Chart based on the form processed and its count
         // only based on the start and end date selected by the user.
+        const chart_data = [];
+        const end = this.f.endDate.value;
+        const start = this.f.startDate.value;
+        // Bootstrap date picker returns single digit for months from Jan to Sept
+        // In order to allow us to compare against MYSQL which returns double digits
+        // for that, we convert the month accordingly.
+        const end_date = this.dateService.bootstrapDateFormat(end);
+        const start_date = this.dateService.bootstrapDateFormat(start);
+        const found_form = [...new Set(this.allProcessedFormsList.map(form => form.form_name))];
+        console.log('found_form: ' + JSON.stringify(found_form));
+        lodash__WEBPACK_IMPORTED_MODULE_1__["forEach"](found_form, (form) => {
+            const count = lodash__WEBPACK_IMPORTED_MODULE_1__["filter"](this.allProcessedFormsList, (f) => f.form_name == form &&
+                (this.dateService.getDatePart(form.submitted_at) >= start_date &&
+                    this.dateService.getDatePart(form.submitted_at) <= end_date));
+            chart_data.push({
+                name: form,
+                value: count.length
+            });
+        });
+        this.chartData = chart_data;
+        console.log('____chart_data: ' + JSON.stringify(chart_data));
     }
     retry() {
         this.hasError = false;
@@ -20344,9 +20334,13 @@ let CreateFormPageComponent = class CreateFormPageComponent {
         const selectedValue = this.f.hasTnc.value;
         if (selectedValue == '1') {
             this.showTncFileUpload = true;
+            this.f.tnc.setValidators(_angular_forms__WEBPACK_IMPORTED_MODULE_5__["Validators"].required);
+            this.f.tnc.updateValueAndValidity();
         }
         else {
             this.showTncFileUpload = false;
+            this.f.tnc.clearValidators();
+            this.f.tnc.updateValueAndValidity();
         }
     }
     inputFileChanged(ev) {
@@ -20417,30 +20411,35 @@ let CreateFormPageComponent = class CreateFormPageComponent {
             this.loading = false;
         }
         else {
-            formData.form_fields = form;
-            formData.name = this.f.name.value;
-            formData.form_code = this.formCode;
-            formData.status = this.toPublish ? 1 : 0;
-            formData.join_queue = this.f.canJoin ? 1 : 0;
-            formData.merchant_id = parseInt(this.f.merchant.value);
-            formData.tnc = this.f.hasTnc.value == '' ? 0 : this.f.hasTnc.value;
-            formData.can_view = this.f.canView.value == '' ? 0 : this.f.canView.value;
-            formData.require_signature = this.f.signature.value == '' ? 0 : this.f.signature.value;
-            this.formService.createForm(formData).then(res => {
-                this.loading = false;
-                this.toPublish = false;
-                if (lodash__WEBPACK_IMPORTED_MODULE_1__["toLower"](res.message) == 'ok') {
-                    this.created = true;
-                    this.formName = formData.name;
-                }
-                else {
+            if (this.form.valid) {
+                formData.form_fields = form;
+                formData.name = this.f.name.value;
+                formData.form_code = this.formCode;
+                formData.status = this.toPublish ? 1 : 0;
+                formData.join_queue = this.f.canJoin ? 1 : 0;
+                formData.merchant_id = parseInt(this.f.merchant.value);
+                formData.tnc = this.f.hasTnc.value == '' ? 0 : this.f.hasTnc.value;
+                formData.can_view = this.f.canView.value == '' ? 0 : this.f.canView.value;
+                formData.require_signature = this.f.signature.value == '' ? 0 : this.f.signature.value;
+                this.formService.createForm(formData).then(res => {
+                    this.loading = false;
+                    this.toPublish = false;
+                    if (lodash__WEBPACK_IMPORTED_MODULE_1__["toLower"](res.message) == 'ok') {
+                        this.created = true;
+                        this.formName = formData.name;
+                    }
+                    else {
+                        this.created = false;
+                    }
+                }, err => {
+                    this.loading = false;
                     this.created = false;
-                }
-            }, err => {
+                    this.toPublish = false;
+                });
+            }
+            else {
                 this.loading = false;
-                this.created = false;
-                this.toPublish = false;
-            });
+            }
         }
     }
     createFormWithPDF() {
@@ -21238,7 +21237,7 @@ let EditBranchPageComponent = class EditBranchPageComponent {
                 brandh_admin_id = admin.id;
             }
         });
-        const branch = new src_app_models_company_branches_model__WEBPACK_IMPORTED_MODULE_6__["CompanyBranches"](merchant_id, this.f.branchName.value, branch_super_id, brandh_admin_id, this.f.status.value, branch_extension);
+        const branch = new src_app_models_company_branches_model__WEBPACK_IMPORTED_MODULE_6__["CompanyBranches"](merchant_id, this.f.branchName.value, branch_super_id, brandh_admin_id, this.f.address.value, this.f.branchExt.value, this.f.status.value, branch_extension);
         return branch;
     }
     containErrors(data) {
@@ -26951,7 +26950,7 @@ let ResetPasswordPageComponent = class ResetPasswordPageComponent {
         sweetalert2__WEBPACK_IMPORTED_MODULE_3___default.a.fire({
             title: 'Success',
             icon: 'success',
-            text: 'Password reset was successful. You can login now.',
+            text: 'Password reset was successful. Login to continue.',
             confirmButtonText: 'Ok'
         });
     }
@@ -29006,7 +29005,7 @@ let ClientService = class ClientService {
      * Auto fills a client's profile with existing data.
      *
      * @param {Array<any>} form_sections
-     * @param {Array<any>} client_data
+     * @param {any} client_data
      * @memberof ClientService
      */
     fillClientProfileData(form_sections, client_data) {
@@ -29021,7 +29020,7 @@ let ClientService = class ClientService {
                         if (form.name == client) {
                             lodash__WEBPACK_IMPORTED_MODULE_1__["forEach"](element_names, (element) => {
                                 const form_field = element;
-                                // we check if the element is a radio button, checkbox or and input field
+                                // check if the element is a radio button, checkbox or and input field
                                 if (form_field.type == 'radio') {
                                     // this is a radio button.
                                     lodash__WEBPACK_IMPORTED_MODULE_1__["forEach"](form.values, (value) => {
@@ -29475,6 +29474,7 @@ let ClientService = class ClientService {
     setFormSubmitPin(user_id, pin) {
         return new Promise((resolve, reject) => {
             const url = this.endpointService.apiHost + 'api/setPin/' + user_id + '/' + pin;
+            console.log('______url: ' + url);
             this.http.post(url, {}, { headers: this.headers }).subscribe(res => {
                 console.log('res___: ' + JSON.stringify(res));
                 const response = res;
@@ -31150,7 +31150,6 @@ let FormBuilderService = class FormBuilderService {
                         values.push(value);
                         user_form_data[data.name] = values;
                     });
-                    // user_form_data[data.name] = values;
                 }
             }
         });
@@ -31916,12 +31915,12 @@ let QMSQueueingService = class QMSQueueingService {
     }
     getBranchServices(token, branch_ext) {
         return new Promise((resolve, reject) => {
-            this.headers = this.endpointService.setHeaders(token);
-            const body = { 'branch_ext': branch_ext };
-            const url = this.endpointService.qmsApiHost + 'api/join/branch_services';
+            this.headers = this.endpointService.headers();
+            const body = { 'ext': branch_ext, 'token': token };
+            const url = this.endpointService.apiHost + 'api/v1/getQMSBranchServices';
             this.http.post(url, JSON.stringify(body), { headers: this.headers }).subscribe(res => {
                 this.logger.log('qms_branch_services: ' + JSON.stringify(res));
-                res.error == 0 ? resolve(res.data) : resolve([]);
+                res.message.error == 0 ? resolve(res.message.data) : resolve([]);
             }, err => {
                 this.logger.log('qms_branch_services_err: ' + JSON.stringify(err));
                 reject(err);
@@ -31930,9 +31929,9 @@ let QMSQueueingService = class QMSQueueingService {
     }
     getCustomerServices(token, branch_ext) {
         return new Promise((resolve, reject) => {
-            this.headers = this.endpointService.setHeaders(token);
-            const body = { 'branch_ext': branch_ext };
-            const url = this.endpointService.qmsApiHost + 'api/join/customer_services';
+            this.headers = this.endpointService.headers();
+            const body = { 'ext': branch_ext, 'token': token };
+            const url = this.endpointService.apiHost + 'api/vi/getQMSCustomerServices';
             this.http.post(url, JSON.stringify(body), { headers: this.headers }).subscribe(res => {
                 this.logger.log('qms_customer_services: ' + JSON.stringify(res));
                 res.error == 0 ? resolve(res.data) : resolve([]);
@@ -31942,12 +31941,13 @@ let QMSQueueingService = class QMSQueueingService {
             });
         });
     }
-    addCustomerToBranchQeueu(token, queue) {
+    addCustomerToBranchQueue(token, queue) {
         return new Promise((resolve, reject) => {
             const body = {
+                'token': token,
+                'ext': queue.branch_ext,
                 'join_now': queue.join_now,
                 'entry_src': queue.entry_src,
-                'branch_ext': queue.branch_ext,
                 'join_at_time': queue.join_at_time,
                 'service_type': queue.service_type,
                 'client_mobile': queue.client_mobile,
@@ -31955,8 +31955,8 @@ let QMSQueueingService = class QMSQueueingService {
                 'single_service_id': queue.single_service_id,
                 'multiple_services': queue.multiple_services,
             };
-            this.headers = this.endpointService.setHeaders(token);
-            const url = this.endpointService.qmsApiHost + 'api/join/join_branch_queue';
+            this.headers = this.endpointService.headers();
+            const url = this.endpointService.apiHost + 'api/v1/QMSJoinQueue';
             this.http.post(url, JSON.stringify(body), { headers: this.headers }).subscribe(res => {
                 this.logger.log('qms_add_queue ' + JSON.stringify(res));
                 resolve(res);
@@ -31969,11 +31969,12 @@ let QMSQueueingService = class QMSQueueingService {
     cancelQueueRequest(token, client_mobile, branch_ext) {
         return new Promise((resolve, reject) => {
             const body = {
-                'branch_ext': branch_ext,
+                'token': token,
+                'ext': branch_ext,
                 'client_mobile': client_mobile
             };
-            this.headers = this.endpointService.setHeaders(token);
-            const url = this.endpointService.qmsApiHost + 'api/join/cancel_request';
+            this.headers = this.endpointService.headers();
+            const url = this.endpointService.apiHost + 'api/v1/QueueCancelRequest';
             this.http.post(url, JSON.stringify(body), { headers: this.headers }).subscribe(res => {
                 this.logger.log('qms_add_queue ' + JSON.stringify(res));
                 resolve(res);

@@ -356,7 +356,6 @@ export class ClientProfilePageComponent implements OnInit, AfterViewInit {
 
   getAllClientData() {
     this.loading = true;
-    console.log('__________________getAllClient');
     this.formBuilder.getClientProvidedData(_.toString(this.user.id)).then(
       res => {
         console.log('user_data: ' + JSON.stringify(res));
@@ -365,7 +364,9 @@ export class ClientProfilePageComponent implements OnInit, AfterViewInit {
           this.loading = false;
           this.userData = res[0].client_details[0];
           this.setProfileInformation();
-          console.log('details: ' + this.userData);
+          console.log('___details__: ' + JSON.stringify(this.userData));
+          // this delay is needed. The code within doesnt run
+          // without the setTimeout.
           setTimeout(() => {
             this.clientService.fillClientProfileData(this.allFormSections, this.userData);
             this.appendOnChangeEventToFileInput();

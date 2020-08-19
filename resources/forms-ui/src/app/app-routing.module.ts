@@ -124,59 +124,19 @@ const routes: Routes = [
   { path: 'auth', component: AuthPageComponent },
   { path: 'user_auth', component: AdminLoginPageComponent },
   { path: 'client_auth', component: ClientAuthPageComponent },
-  {
-    path: 'register',
-    component: RegisterPageComponent
-  },
-  {
-    path: 'forgot',
-    component: ForgotPasswordPageComponent
-  },
-  {
-    path: 'reset',
-    component: ResetPasswordPageComponent
-  },
-  {
-    path: 'reset_pin',
-    component: ResetPinPageComponent
-  },
-
-  {
-    path: 'master_register',
-    component: AdminRegisterPageComponent
-  },
-  {
-    path: 'change_password',
-    component: ChangePasswordPageComponent
-  },
-  {
-    path: 'valid_confirm_link',
-    component: AccountVerifiedPageComponent
-  },
-  {
-    path: 'invalid_confirm_link',
-    component: InvalidConfirmationPageComponent
-  },
-  {
-    path: 'invalid_password_link',
-    component: InvalidPasswordResetPageComponent
-  },
-  {
-    path: 'invalid_reset_pin',
-    component: InvalidResetPinPageComponent
-  },
-  {
-    path: 'invalid_link',
-    component: InvalidLinkPageComponent
-  },
-  {
-    path: 'privacy',
-    component: PrivacyPageComponent
-  },
-  {
-    path: 'terms',
-    component: TermsPageComponent
-  },
+  { path: 'register', component: RegisterPageComponent },
+  { path: 'forgot', component: ForgotPasswordPageComponent },
+  { path: 'reset', component: ResetPasswordPageComponent },
+  { path: 'reset_pin', component: ResetPinPageComponent },
+  { path: 'master_register', component: AdminRegisterPageComponent },
+  { path: 'change_password', component: ChangePasswordPageComponent },
+  { path: 'valid_confirm_link', component: AccountVerifiedPageComponent },
+  { path: 'invalid_confirm_link', component: InvalidConfirmationPageComponent },
+  { path: 'invalid_password_link', component: InvalidPasswordResetPageComponent },
+  { path: 'invalid_reset_pin', component: InvalidResetPinPageComponent },
+  { path: 'invalid_link', component: InvalidLinkPageComponent },
+  { path: 'privacy', component: PrivacyPageComponent },
+  { path: 'terms', component: TermsPageComponent },
   {
     path: 'git_admin',
     children: [

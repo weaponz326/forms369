@@ -53,15 +53,18 @@ export class AlreadyJoinedQueueDialogComponent implements OnInit {
 
   joinQueue() {
     const queue_data = this.getFormData();
-    this.qmsQueueService.addCustomerToBranchQeueu(this.token, queue_data).then(
+    this.qmsQueueService.addCustomerToBranchQueue(this.token, queue_data).then(
       res => {
         this.loading = false;
-        if (res.error == 0) {
+        if (res.message.error == 0) {
           this.processCompleted.emit(true);
+          sessionStorage.setItem('qms_join_event', 'joined');
           this.modalService.dismissAll();
         }
         else {
           this.processCompleted.emit(false);
+          sessionStorage.setItem('qms_join_event', 'joined');
+          this.modalService.dismissAll();
         }
       },
       err => {
