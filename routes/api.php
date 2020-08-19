@@ -20,14 +20,14 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 //register a user
 Route::post('registerUser', 'HomeController@createNewUser')->name('registerUser');
 Route::get('signup/activate/{token}', 'HomeController@signupActivate')->name('signup/activate');
-
+ 
 //reset user password routes
 Route::post('forgotPassword', 'HomeController@forgotPassword')->name('forgotPassword');
 Route::get('forgotpasswordlink/{token}', 'HomeController@confirmForgottenPassword')->name('forgotpasswordlink');
 
 //login user 
 Route::post('login', 'HomeController@login')->name('login')->middleware('client');
-Route::post('login', 'HomeController@login')->name('login');
+// Route::post('login', 'HomeController@login')->name('login');
 
 Route::post('checkAccess', 'HomeController@checkAccess')->name('checkAccess');
 
