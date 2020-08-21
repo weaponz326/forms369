@@ -26,8 +26,7 @@ Route::post('forgotPassword', 'HomeController@forgotPassword')->name('forgotPass
 Route::get('forgotpasswordlink/{token}', 'HomeController@confirmForgottenPassword')->name('forgotpasswordlink');
 
 //login user 
-Route::post('login', 'HomeController@login')->name('login')->middleware('client');
-// Route::post('login', 'HomeController@login')->name('login');
+Route::post('login', 'HomeController@login')->name('login');
 
 Route::post('checkAccess', 'HomeController@checkAccess')->name('checkAccess');
 
@@ -56,7 +55,7 @@ Route::post('setPin/{id}/{pin}', 'HomeController@setPin')->name('setPin');
 Route::get('initiatePayment', 'HomeController@initiatePayment')->name('initiatePayment');
 //protected routes 
 Route::group(['middleware' => ['auth:api'], 'prefix' => 'v1'], function(){
-
+    Route::post('login', 'HomeController@login')->name('login')->middleware('client');
     //initiate payment process with teller
     Route::post('initiatePayment', 'HomeController@initiatePayment')->name('initiatePayment')->middleware('scope:GIT_Admin,forms_client');
 
