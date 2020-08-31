@@ -92,6 +92,15 @@ export class ClientFormsHistoryPageComponent implements OnInit {
     });
   }
 
+  showMobileDownloadWarning() {
+    alert('this is a mobile device');
+    Swal.fire({
+      title: 'Download PDF\'s Via Mobile App',
+      icon: 'warning',
+      text: 'Sorry you cannot download'
+    });
+  }
+
   handleLoadMoreVisibility(list: Array<any>) {
     _.isNull(list) || _.isUndefined(list) || _.isEmpty(list) || list.length <= 15 ? this.hasMore = false : this.hasMore = true;
   }
@@ -584,10 +593,19 @@ export class ClientFormsHistoryPageComponent implements OnInit {
     );
   }
 
+  checkIfIsMobileDevice(form: any) {
+    console.log('width: ' + window.innerWidth);
+    const isMobile = window.innerWidth == 280 || (window.innerWidth > 280 && window.innerWidth < 1025) ? true : false;
+    isMobile
+      ? this.showMobileDownloadWarning()
+      : this.router.navigateByUrl('client/pdf_printing', { state: { form: form } });
+  }
+
   download(form: any) {
-    console.log('can_print: ' + this.user.can_print);
     console.log(form);
-    this.router.navigateByUrl('client/pdf_printing', { state: { form: form } });
+    console.log('can_print: ' + this.user.can_print);
+    this.checkIfIsMobileDevice(form);
+    // this.router.navigateByUrl('client/pdf_printing', { state: { form: form } });
   }
 
   print(form: any) {

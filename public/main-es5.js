@@ -360,7 +360,7 @@ module.exports = "<form>\n  <div class=\"dropdown\">\n    <button class=\"btn bt
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<div class=\"modal-header\">\n  <h4 class=\"modal-title\" id=\"modal-basic-title\">Join Queue</h4>\n</div>\n\n<div class=\"modal-body\">\n  <form [formGroup]=\"form\">\n    <div class=\"form-group\">\n      <select class=\"form-control form-control-lg\" formControlName=\"joinType\" (change)=\"onTimeSelect($event)\">\n        <option value=\"\" disabled>Choose Join Time</option>\n        <option value=\"now\">Join Now</option>\n        <option value=\"later\">Join Later</option>\n      </select>\n      <div *ngIf=\"submitted && f.joinType.errors\">\n        <p class=\"input-error\" *ngIf=\"f.joinType.errors.required\">Join time is required.</p>\n      </div>\n    </div>\n\n    <div class=\"form-group\" *ngIf=\"showTimer\">\n      <ngb-timepicker [meridian]=\"true\" [(ngModel)]=\"time\" formControlName=\"joinTime\"></ngb-timepicker>\n      <p class=\"input-error\" *ngIf=\"showInvalidTimeError\">The selected time is less than the current time.</p>\n    </div>\n\n    <div class=\"form-group\">\n      <select class=\"form-control form-control-lg\" formControlName=\"queueService\" (change)=\"onServiceSelect($event)\">\n        <option value=\"\" disabled>Choose QMS Service</option>\n        <option *ngFor=\"let service of servicesList\" [value]=\"service.service_id\">\n          {{ service.name }}\n        </option>\n      </select>\n      <div *ngIf=\"submitted && f.queueService.errors\">\n        <p class=\"input-error\" *ngIf=\"f.queueService.errors.required\">QMS Service is required.</p>\n      </div>\n    </div>\n  </form>\n</div>\n\n<div class=\"modal-footer\">\n  <button type=\"button\" class=\"btn btn-primary\" (click)=\"skip()\">Skip</button>\n  <button type=\"button\" *ngIf=\"!loading\" class=\"btn btn-primary\" (click)=\"submit()\">Join</button>\n  <button type=\"button\" *ngIf=\"loading\" class=\"btn btn-block btn-primary btn-lg font-weight-medium auth-form-btn\" disabled>\n    <span class=\"spinner-border spinner-border-sm\" role=\"status\" aria-hidden=\"true\"></span> &nbsp; &nbsp;\n    Please wait...\n  </button>\n  <button type=\"button\" class=\"btn btn-outline-primary\" (click)=\"skip()\">Cancel</button>\n</div>\n\n<ng-template #alreadyJoinQueue>\n  <app-already-joined-queue-dialog\n    [token]=\"token\"\n    [phone]=\"queueData.phone\"\n    [joinNow]=\"queueData.joinNow\"\n    [serviceId]=\"queueData.serviceId\"\n    [joinAtTime]=\"queueData.joinAtTime\"\n    [branchExtension]=\"branchExtension\"\n    (processCompleted)=\"doneProcessing($event)\">\n  </app-already-joined-queue-dialog>\n</ng-template>\n"
+module.exports = "<div class=\"modal-header\">\n  <h4 class=\"modal-title\" id=\"modal-basic-title\">Join Queue</h4>\n</div>\n\n<div class=\"modal-body\">\n  <form [formGroup]=\"form\">\n    <div class=\"form-group\">\n      <select class=\"form-control form-control-lg\" formControlName=\"joinType\" (change)=\"onTimeSelect($event)\">\n        <option value=\"\" disabled>Choose Join Time</option>\n        <option value=\"now\">Join Now</option>\n        <option value=\"later\">Join Later</option>\n      </select>\n      <div *ngIf=\"submitted && f.joinType.errors\">\n        <p class=\"input-error\" *ngIf=\"f.joinType.errors.required\">Join time is required.</p>\n      </div>\n    </div>\n\n    <div class=\"form-group\" *ngIf=\"showTimer\">\n      <ngb-timepicker [meridian]=\"true\" [(ngModel)]=\"time\" formControlName=\"joinTime\"></ngb-timepicker>\n      <p class=\"input-error\" *ngIf=\"showInvalidTimeError\">The selected time can not be less than the current time.</p>\n    </div>\n\n    <div class=\"form-group\">\n      <select class=\"form-control form-control-lg\" formControlName=\"queueService\" (change)=\"onServiceSelect($event)\">\n        <option value=\"\" disabled>Choose QMS Service</option>\n        <option *ngFor=\"let service of servicesList\" [value]=\"service.service_id\">\n          {{ service.name }}\n        </option>\n      </select>\n      <div *ngIf=\"submitted && f.queueService.errors\">\n        <p class=\"input-error\" *ngIf=\"f.queueService.errors.required\">QMS Service is required.</p>\n      </div>\n    </div>\n  </form>\n</div>\n\n<div class=\"modal-footer\">\n  <button type=\"button\" class=\"btn btn-primary\" (click)=\"skip()\">Skip</button>\n  <button type=\"button\" *ngIf=\"!loading\" class=\"btn btn-primary\" (click)=\"submit()\">Join</button>\n  <button type=\"button\" *ngIf=\"loading\" class=\"btn btn-block btn-primary btn-lg font-weight-medium auth-form-btn\" disabled>\n    <span class=\"spinner-border spinner-border-sm\" role=\"status\" aria-hidden=\"true\"></span> &nbsp; &nbsp;\n    Please wait...\n  </button>\n  <button type=\"button\" class=\"btn btn-outline-primary\" (click)=\"skip()\">Cancel</button>\n</div>\n\n<ng-template #alreadyJoinQueue>\n  <app-already-joined-queue-dialog\n    [token]=\"token\"\n    [phone]=\"queueData.phone\"\n    [joinNow]=\"queueData.joinNow\"\n    [serviceId]=\"queueData.serviceId\"\n    [joinAtTime]=\"queueData.joinAtTime\"\n    [branchExtension]=\"branchExtension\"\n    (processCompleted)=\"doneProcessing($event)\">\n  </app-already-joined-queue-dialog>\n</ng-template>\n"
 
 /***/ }),
 
@@ -756,7 +756,7 @@ module.exports = "<div *ngIf=\"loading\" class=\"row m-md-5 text-center\">\n  <d
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<div class=\"view\">\n  <div *ngIf=\"loading\" class=\"row m-md-5 text-center\">\n    <div class=\"col-md-12 col-sm-12 m-md-5\">\n      <div class=\"d-flex justify-content-center\">\n        <div class=\"spinner-border m-5\" style=\"width: 2rem; height: 2rem; color: #11498e\" role=\"status\">\n          <span class=\"sr-only\">Loading...</span>\n        </div>\n      </div>\n      <p><strong>Preparing for download! Please wait ...</strong></p>\n    </div>\n  </div>\n\n  <div *ngIf=\"!loading\" class=\"container\" id=\"print-view\">\n    <div class=\"row\">\n      <div id=\"form-data\" #content class=\"col-8 offset-2\" style=\"background-color: #fff;\">\n        <div class=\"title-view\">\n          <h1>{{ form.form_name }}</h1>\n        </div>\n        <div class=\"row\" *ngFor=\"let item of clientFormData; let i=index\">\n          <div class=\"col-6\">\n            <h5><strong>{{ item.title }}</strong></h5>\n          </div>\n          <div class=\"col-6\">\n            <h5>{{ item.data }}</h5>\n          </div>\n        </div>\n      </div>\n\n      <div *ngIf=\"hasSignature\" class=\"signature\">\n        <img [src]=\"signatureImageUrl\" alt=\"signature\">\n      </div>\n    </div>\n  </div>\n</div>\n"
+module.exports = "<div class=\"view\">\n  <div *ngIf=\"loading\" class=\"row m-md-5 text-center\">\n    <div class=\"col-md-12 col-sm-12 m-md-5\">\n      <div class=\"d-flex justify-content-center\">\n        <div class=\"spinner-border m-5\" style=\"width: 2rem; height: 2rem; color: #11498e\" role=\"status\">\n          <span class=\"sr-only\">Loading...</span>\n        </div>\n      </div>\n      <p><strong>Preparing for download! Please wait ...</strong></p>\n    </div>\n  </div>\n\n  <div *ngIf=\"!loading\" class=\"container\" id=\"print-view\">\n    <div class=\"row\">\n      <div id=\"form-data\" #content class=\"col-8 offset-2\" style=\"background-color: #fff;\">\n        <div class=\"title-view\">\n          <h1>{{ form.form_name }}</h1>\n        </div>\n        <div class=\"row\" *ngFor=\"let item of clientFormData; let i=index\">\n          <div class=\"col-6\">\n            <h5><strong>{{ item.title }}</strong></h5>\n          </div>\n          <div class=\"col-6\">\n            <h5>{{ item.data }}</h5>\n          </div>\n        </div>\n      </div>\n    </div>\n\n    <div class=\"text-center\">\n      <div *ngIf=\"hasSignature\" class=\"signature\">\n        <img [src]=\"signatureImageUrl\" alt=\"signature\">\n      </div>\n    </div>\n  </div>\n</div>\n"
 
 /***/ }),
 
@@ -1658,7 +1658,7 @@ module.exports = "<div class=\"container-scroller\">\n  <div class=\"container-f
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<div class=\"container-scroller\">\n  <div class=\"container-fluid page-body-wrapper full-page-wrapper\">\n    <div class=\"content-wrapper d-flex align-items-center auth px-0\">\n      <div class=\"row w-100 mx-0\">\n        <div class=\"col-lg-4 mx-auto\">\n          <div class=\"auth-form-light py-5 px-4 px-sm-5\">\n            <div class=\"text-center\">\n              <a routerLink=\"/\" class=\"brand-logo\">\n                <img src=\"./assets/images/logo1.png\" alt=\"logo\">\n              </a>\n            </div>\n            <div *ngIf=\"invalid\" class=\"mt-2 mb-5\">\n              <div class=\"alert alert-danger\" role=\"alert\">\n                <h3 class=\"alert-heading\">Hey there!</h3>\n                <p class=\"lead\"><strong>Your account has been deactivated.</strong></p>\n                <hr>\n                <p class=\"mb-0 lead\">Please contact your admin.</p>\n              </div>\n            </div>\n\n            <!-- setup new password view -->\n            <h4 class=\"text-center\">Hello! Reset password.</h4>\n            <h6 class=\"font-weight-normal text-center\">Please setup a new password.</h6>\n            <form [formGroup]=\"form\" (ngSubmit)=\"create()\" class=\"pt-3\">\n              <div class=\"form-group\">\n                <input type=\"password\" class=\"form-control form-control-lg\" formControlName=\"password\"\n                  placeholder=\"Enter Password\" [ngClass]=\"{'input-control-error': submitted && f.password.errors}\">\n                <div *ngIf=\"submitted && f.password.errors\">\n                  <p class=\"input-error\" *ngIf=\"f.password.errors.required\">Please enter a password to continue</p>\n                  <p class=\"input-error\" *ngIf=\"f.password.errors.minlength\">Must be more than 6 (six) characters</p>\n                </div>\n              </div>\n              <div class=\"form-group\">\n                <input type=\"password\" class=\"form-control form-control-lg\" formControlName=\"password2\"\n                  placeholder=\"Confirm Password\" [ngClass]=\"{'input-control-error': submitted && f.password2.errors}\">\n                <div *ngIf=\"submitted && f.password2.errors\">\n                  <p class=\"input-error\" *ngIf=\"f.password2.errors.unmatched\">Passwords do not match</p>\n                  <p class=\"input-error\" *ngIf=\"f.password2.errors.required\">Please enter a password to continue</p>\n                  <p class=\"input-error\" *ngIf=\"f.password2.errors.minlength\">Must be more than 6 (six) characters</p>\n                </div>\n              </div>\n              <div class=\"mt-3\">\n                <button type=\"submit\" *ngIf=\"!loading\"\n                  class=\"btn btn-block btn-primary btn-lg font-weight-medium auth-form-btn\">Change Password</button>\n                <button type=\"button\" *ngIf=\"loading\"\n                  class=\"btn btn-block btn-primary btn-lg font-weight-medium auth-form-btn\" disabled>\n                  <span class=\"spinner-border spinner-border-sm\" role=\"status\" aria-hidden=\"true\"></span> &nbsp;\n                  &nbsp;\n                  Please wait...\n                </button>\n              </div>\n            </form>\n            <!-- /.end setup new password view -->\n          </div>\n        </div>\n      </div>\n    </div>\n    <!-- content ends -->\n  </div>\n  <!-- page-body ends -->\n</div>\n"
+module.exports = "<div class=\"container-scroller\" *ngIf=\"showCompletedAlert\">\n  <div class=\"container-fluid page-body-wrapper full-page-wrapper\">\n    <div class=\"content-wrapper d-flex align-items-center auth px-0\">\n      <div class=\"row w-100 mx-0\">\n        <div class=\"col-lg-4 mx-auto\">\n          <div class=\"py-5 px-4 px-sm-5\">\n            <div class=\"text-center\">\n              <div class=\"alert alert-success\" role=\"alert\">\n                <h4 class=\"alert-heading\">Successful!</h4>\n                <p>You've successfully changed your password.</p>\n                <hr>\n                <p class=\"mb-0\">You've been signed out, kindly log back into your account using your new password.</p>\n              </div>\n            </div>\n          </div>\n        </div>\n      </div>\n    </div>\n  </div>\n</div>\n\n<div class=\"container-scroller\" *ngIf=\"!showCompletedAlert\">\n  <div class=\"container-fluid page-body-wrapper full-page-wrapper\">\n    <div class=\"content-wrapper d-flex align-items-center auth px-0\">\n      <div class=\"row w-100 mx-0\">\n        <div class=\"col-lg-4 mx-auto\">\n          <div class=\"auth-form-light py-5 px-4 px-sm-5\">\n            <div class=\"text-center\">\n              <a routerLink=\"/\" class=\"brand-logo\">\n                <img src=\"./assets/images/logo1.png\" alt=\"logo\">\n              </a>\n            </div>\n            <div *ngIf=\"invalid\" class=\"mt-2 mb-5\">\n              <div class=\"alert alert-danger\" role=\"alert\">\n                <h3 class=\"alert-heading\">Hey there!</h3>\n                <p class=\"lead\"><strong>Your account has been deactivated.</strong></p>\n                <hr>\n                <p class=\"mb-0 lead\">Please contact your admin.</p>\n              </div>\n            </div>\n\n            <!-- setup new password view -->\n            <h4 class=\"text-center\">Hello! Reset password.</h4>\n            <h6 class=\"font-weight-normal text-center\">Please setup a new password.</h6>\n            <form [formGroup]=\"form\" (ngSubmit)=\"create()\" class=\"pt-3\">\n              <div class=\"form-group\">\n                <input type=\"password\" class=\"form-control form-control-lg\" formControlName=\"password\"\n                  placeholder=\"Enter Password\" [ngClass]=\"{'input-control-error': submitted && f.password.errors}\">\n                <div *ngIf=\"submitted && f.password.errors\">\n                  <p class=\"input-error\" *ngIf=\"f.password.errors.required\">Please enter a password to continue</p>\n                  <p class=\"input-error\" *ngIf=\"f.password.errors.minlength\">Must be more than 6 (six) characters</p>\n                </div>\n              </div>\n              <div class=\"form-group\">\n                <input type=\"password\" class=\"form-control form-control-lg\" formControlName=\"password2\"\n                  placeholder=\"Confirm Password\" [ngClass]=\"{'input-control-error': submitted && f.password2.errors}\">\n                <div *ngIf=\"submitted && f.password2.errors\">\n                  <p class=\"input-error\" *ngIf=\"f.password2.errors.unmatched\">Passwords do not match</p>\n                  <p class=\"input-error\" *ngIf=\"f.password2.errors.required\">Please enter a password to continue</p>\n                  <p class=\"input-error\" *ngIf=\"f.password2.errors.minlength\">Must be more than 6 (six) characters</p>\n                </div>\n              </div>\n              <div class=\"mt-3\">\n                <button type=\"submit\" *ngIf=\"!loading\"\n                  class=\"btn btn-block btn-primary btn-lg font-weight-medium auth-form-btn\">Change Password</button>\n                <button type=\"button\" *ngIf=\"loading\"\n                  class=\"btn btn-block btn-primary btn-lg font-weight-medium auth-form-btn\" disabled>\n                  <span class=\"spinner-border spinner-border-sm\" role=\"status\" aria-hidden=\"true\"></span> &nbsp;\n                  &nbsp;\n                  Please wait...\n                </button>\n              </div>\n            </form>\n            <!-- /.end setup new password view -->\n          </div>\n        </div>\n      </div>\n    </div>\n    <!-- content ends -->\n  </div>\n  <!-- page-body ends -->\n</div>\n"
 
 /***/ }),
 
@@ -1669,7 +1669,7 @@ module.exports = "<div class=\"container-scroller\">\n  <div class=\"container-f
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<div class=\"container-scroller\">\n  <div class=\"container-fluid page-body-wrapper full-page-wrapper\">\n    <div class=\"content-wrapper d-flex align-items-center auth px-0\">\n      <div class=\"row w-100 mx-0\" *ngIf=\"showForm\">\n        <div class=\"col-lg-4 mx-auto\">\n          <div class=\"auth-form-light py-5 px-4 px-sm-5\">\n            <div class=\"text-center\">\n              <a routerLink=\"/\" class=\"brand-logo\">\n                <img src=\"./assets/images/logo1.png\" alt=\"logo\">\n              </a>\n            </div>\n\n            <!-- setup new password view -->\n            <div>\n              <h4 class=\"text-center\">Hello! Reset pin.</h4>\n              <h6 class=\"font-weight-normal text-center\">Please setup a new pin.</h6>\n              <form [formGroup]=\"form\" (ngSubmit)=\"create()\" class=\"pt-3\">\n                <div class=\"form-group\">\n                  <input type=\"password\" class=\"form-control form-control-lg\" formControlName=\"pin\"\n                    placeholder=\"Enter Pin\" [ngClass]=\"{'input-control-error': submitted && f.pin.errors}\" maxlength=\"4\"\n                    (keyup)=\"resolveStrCharacters($event)\">\n                  <div *ngIf=\"submitted && f.pin.errors\">\n                    <p class=\"input-error\" *ngIf=\"f.pin.errors.required\">Pin is required.</p>\n                    <p class=\"input-error\" *ngIf=\"f.pin.errors.minlength\">Pin must be 4 (four) digits.</p>\n                  </div>\n                </div>\n                <div class=\"form-group\">\n                  <input type=\"password\" class=\"form-control form-control-lg\" formControlName=\"cPin\"\n                    placeholder=\"Confirm Pin\" [ngClass]=\"{'input-control-error': submitted && f.cPin.errors}\"\n                    maxlength=\"4\" (keyup)=\"resolveStrCharacters_1($event)\">\n                  <div *ngIf=\"submitted && f.cPin.errors\">\n                    <p class=\"input-error\" *ngIf=\"f.cPin.errors.unmatched\">Pin doesn't match.</p>\n                    <p class=\"input-error\" *ngIf=\"f.cPin.errors.required\">Confirmation pin is required.</p>\n                    <p class=\"input-error\" *ngIf=\"f.cPin.errors.minlength\">Pin must be 4 (four) digits.</p>\n                  </div>\n                </div>\n                <div class=\"mt-3\">\n                  <button type=\"submit\" *ngIf=\"!loading\"\n                    class=\"btn btn-block btn-primary btn-lg font-weight-medium auth-form-btn\">Reset Pin</button>\n                  <button type=\"button\" *ngIf=\"loading\"\n                    class=\"btn btn-block btn-primary btn-lg font-weight-medium auth-form-btn\" disabled>\n                    <span class=\"spinner-border spinner-border-sm\" role=\"status\" aria-hidden=\"true\"></span> &nbsp;\n                    &nbsp;\n                    Please wait...\n                  </button>\n                </div>\n              </form>\n            </div>\n            <!-- /.end setup new password view -->\n          </div>\n        </div>\n      </div>\n    </div>\n    <!-- content ends -->\n  </div>\n  <!-- page-body ends -->\n</div>\n"
+module.exports = "<div class=\"container-scroller\" *ngIf=\"showCompletedAlert\">\n  <div class=\"container-fluid page-body-wrapper full-page-wrapper\">\n    <div class=\"content-wrapper d-flex align-items-center auth px-0\">\n      <div class=\"row w-100 mx-0\">\n        <div class=\"col-lg-4 mx-auto\">\n          <div class=\"py-5 px-4 px-sm-5\">\n            <div class=\"text-center\">\n              <div class=\"alert alert-success\" role=\"alert\">\n                <h4 class=\"alert-heading\">Successful!</h4>\n                <p>You've successfully changed your PIN.</p>\n              </div>\n            </div>\n          </div>\n        </div>\n      </div>\n    </div>\n  </div>\n</div>\n\n<div class=\"container-scroller\" *ngIf=\"!showCompletedAlert\">\n  <div class=\"container-fluid page-body-wrapper full-page-wrapper\">\n    <div class=\"content-wrapper d-flex align-items-center auth px-0\">\n      <div class=\"row w-100 mx-0\">\n        <div class=\"col-lg-4 mx-auto\">\n          <div class=\"auth-form-light py-5 px-4 px-sm-5\">\n            <div class=\"text-center\">\n              <a routerLink=\"/\" class=\"brand-logo\">\n                <img src=\"./assets/images/logo1.png\" alt=\"logo\">\n              </a>\n            </div>\n\n            <!-- setup new password view -->\n            <div>\n              <h4 class=\"text-center\">Hello! Reset pin.</h4>\n              <h6 class=\"font-weight-normal text-center\">Please setup a new pin.</h6>\n              <form [formGroup]=\"form\" (ngSubmit)=\"create()\" class=\"pt-3\">\n                <div class=\"form-group\">\n                  <input type=\"password\" class=\"form-control form-control-lg\" formControlName=\"pin\"\n                    placeholder=\"Enter Pin\" [ngClass]=\"{'input-control-error': submitted && f.pin.errors}\" maxlength=\"4\"\n                    (keyup)=\"resolveStrCharacters($event)\">\n                  <div *ngIf=\"submitted && f.pin.errors\">\n                    <p class=\"input-error\" *ngIf=\"f.pin.errors.required\">Pin is required.</p>\n                    <p class=\"input-error\" *ngIf=\"f.pin.errors.minlength\">Pin must be 4 (four) digits.</p>\n                  </div>\n                </div>\n                <div class=\"form-group\">\n                  <input type=\"password\" class=\"form-control form-control-lg\" formControlName=\"cPin\"\n                    placeholder=\"Confirm Pin\" [ngClass]=\"{'input-control-error': submitted && f.cPin.errors}\"\n                    maxlength=\"4\" (keyup)=\"resolveStrCharacters_1($event)\">\n                  <div *ngIf=\"submitted && f.cPin.errors\">\n                    <p class=\"input-error\" *ngIf=\"f.cPin.errors.unmatched\">Pin doesn't match.</p>\n                    <p class=\"input-error\" *ngIf=\"f.cPin.errors.required\">Confirmation pin is required.</p>\n                    <p class=\"input-error\" *ngIf=\"f.cPin.errors.minlength\">Pin must be 4 (four) digits.</p>\n                  </div>\n                </div>\n                <div class=\"mt-3\">\n                  <button type=\"submit\" *ngIf=\"!loading\"\n                    class=\"btn btn-block btn-primary btn-lg font-weight-medium auth-form-btn\">Reset Pin</button>\n                  <button type=\"button\" *ngIf=\"loading\"\n                    class=\"btn btn-block btn-primary btn-lg font-weight-medium auth-form-btn\" disabled>\n                    <span class=\"spinner-border spinner-border-sm\" role=\"status\" aria-hidden=\"true\"></span> &nbsp;\n                    &nbsp;\n                    Please wait...\n                  </button>\n                </div>\n              </form>\n            </div>\n            <!-- /.end setup new password view -->\n          </div>\n        </div>\n      </div>\n    </div>\n    <!-- content ends -->\n  </div>\n  <!-- page-body ends -->\n</div>\n"
 
 /***/ }),
 
@@ -10233,6 +10233,14 @@ var ClientFormsHistoryPageComponent = /** @class */ (function () {
             text: 'Failed to delete. Please check your internet connection and try again'
         });
     };
+    ClientFormsHistoryPageComponent.prototype.showMobileDownloadWarning = function () {
+        alert('this is a mobile device');
+        sweetalert2__WEBPACK_IMPORTED_MODULE_2___default.a.fire({
+            title: 'Download PDF\'s Via Mobile App',
+            icon: 'warning',
+            text: 'Sorry you cannot download'
+        });
+    };
     ClientFormsHistoryPageComponent.prototype.handleLoadMoreVisibility = function (list) {
         lodash__WEBPACK_IMPORTED_MODULE_1__["isNull"](list) || lodash__WEBPACK_IMPORTED_MODULE_1__["isUndefined"](list) || lodash__WEBPACK_IMPORTED_MODULE_1__["isEmpty"](list) || list.length <= 15 ? this.hasMore = false : this.hasMore = true;
     };
@@ -10670,10 +10678,18 @@ var ClientFormsHistoryPageComponent = /** @class */ (function () {
             }
         });
     };
+    ClientFormsHistoryPageComponent.prototype.checkIfIsMobileDevice = function (form) {
+        console.log('width: ' + window.innerWidth);
+        var isMobile = window.innerWidth == 280 || (window.innerWidth > 280 && window.innerWidth < 1025) ? true : false;
+        isMobile
+            ? this.showMobileDownloadWarning()
+            : this.router.navigateByUrl('client/pdf_printing', { state: { form: form } });
+    };
     ClientFormsHistoryPageComponent.prototype.download = function (form) {
-        console.log('can_print: ' + this.user.can_print);
         console.log(form);
-        this.router.navigateByUrl('client/pdf_printing', { state: { form: form } });
+        console.log('can_print: ' + this.user.can_print);
+        this.checkIfIsMobileDevice(form);
+        // this.router.navigateByUrl('client/pdf_printing', { state: { form: form } });
     };
     ClientFormsHistoryPageComponent.prototype.print = function (form) {
         this.router.navigateByUrl('client/printing', { state: { form: form } });
@@ -11622,7 +11638,7 @@ var ClientPrintingPageComponent = /** @class */ (function () {
         this.form = window.history.state.form;
         console.log('form: ' + JSON.stringify(this.form));
         this.form = this.reloader.resolveDataLoss(this.form);
-        this.logo = this.endpointService.storageHost + this.form.logo;
+        this.logo = this.form.logo;
         this.isPrint = this.form.print == true || lodash__WEBPACK_IMPORTED_MODULE_1__["isUndefined"](this.form.print) ? true : false;
         this.client = this.form.client_submitted_details;
         console.log('client: ' + JSON.stringify(this.client));
@@ -27750,11 +27766,15 @@ var ResetPasswordPageComponent = /** @class */ (function () {
         });
     };
     ResetPasswordPageComponent.prototype.showResetSuccessfulAlert = function () {
+        var _this = this;
         sweetalert2__WEBPACK_IMPORTED_MODULE_3___default.a.fire({
             title: 'Success',
             icon: 'success',
             text: 'Password reset was successful. Login to continue.',
-            confirmButtonText: 'Ok'
+            confirmButtonText: 'Ok',
+            onDestroy: function () {
+                _this.showCompletedAlert = true;
+            }
         });
     };
     ResetPasswordPageComponent.prototype.buildForm = function () {
@@ -27869,7 +27889,6 @@ var ResetPinPageComponent = /** @class */ (function () {
         this.clientService = clientService;
     }
     ResetPinPageComponent.prototype.ngOnInit = function () {
-        this.showForm = true;
         this.buildForm();
     };
     Object.defineProperty(ResetPinPageComponent.prototype, "f", {
@@ -27895,8 +27914,7 @@ var ResetPinPageComponent = /** @class */ (function () {
             text: 'Pin successfully changed.',
             confirmButtonText: 'Ok',
             onDestroy: function () {
-                _this.form.reset();
-                _this.showForm = false;
+                _this.showCompletedAlert = true;
             }
         });
     };
@@ -28081,9 +28099,9 @@ var WelcomePageComponent = /** @class */ (function () {
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "AccountService", function() { return AccountService; });
 /* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
-/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
-/* harmony import */ var lodash__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! lodash */ "./node_modules/lodash/lodash.js");
-/* harmony import */ var lodash__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(lodash__WEBPACK_IMPORTED_MODULE_2__);
+/* harmony import */ var lodash__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! lodash */ "./node_modules/lodash/lodash.js");
+/* harmony import */ var lodash__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(lodash__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
 /* harmony import */ var src_app_enums_user_types_enum__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! src/app/enums/user-types.enum */ "./src/app/enums/user-types.enum.ts");
 /* harmony import */ var _angular_common_http__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @angular/common/http */ "./node_modules/@angular/common/fesm5/http.js");
 /* harmony import */ var _endpoint_endpoint_service__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../endpoint/endpoint.service */ "./src/app/services/endpoint/endpoint.service.ts");
@@ -28179,7 +28197,7 @@ var AccountService = /** @class */ (function () {
             _this.http.post(url, {}, { headers: _this.headers }).subscribe(function (res) {
                 console.log('res: ' + JSON.stringify(res));
                 var response = res;
-                if (lodash__WEBPACK_IMPORTED_MODULE_2__["toLower"](response.message) == 'ok') {
+                if (lodash__WEBPACK_IMPORTED_MODULE_1__["toLower"](response.message) == 'ok') {
                     resolve(true);
                 }
                 else {
@@ -28233,7 +28251,7 @@ var AccountService = /** @class */ (function () {
             _this.http.post(url, body, { headers: _this.authHeaders }).subscribe(function (res) {
                 var response = res;
                 console.log('updated_password: ' + JSON.stringify(response));
-                if (lodash__WEBPACK_IMPORTED_MODULE_2__["toLower"](response.message) == 'ok') {
+                if (lodash__WEBPACK_IMPORTED_MODULE_1__["toLower"](response.message) == 'ok') {
                     resolve(true);
                 }
                 else {
@@ -28269,7 +28287,7 @@ var AccountService = /** @class */ (function () {
     };
     /**
      * Returns a list of all country codes. The country codes
-     * are a JSOn file stored locally in the assets directory.
+     * are a JSON file stored locally in the assets directory.
      *
      * @returns {Promise<any>}
      * @memberof AccountService
@@ -28295,7 +28313,7 @@ var AccountService = /** @class */ (function () {
         var _this = this;
         return new Promise(function (resolve, reject) {
             var headers = _this.endpointService.headers();
-            var url = !lodash__WEBPACK_IMPORTED_MODULE_2__["isUndefined"](page_url)
+            var url = !lodash__WEBPACK_IMPORTED_MODULE_1__["isUndefined"](page_url)
                 ? page_url
                 : _this.endpointService.apiHost + 'api/v1/getAllCodes';
             _this.http.get(url, { headers: headers }).subscribe(function (res) {
@@ -28321,7 +28339,7 @@ var AccountService = /** @class */ (function () {
         var _this = this;
         return new Promise(function (resolve, reject) {
             var headers = _this.endpointService.headers();
-            var url = !lodash__WEBPACK_IMPORTED_MODULE_2__["isUndefined"](page_url)
+            var url = !lodash__WEBPACK_IMPORTED_MODULE_1__["isUndefined"](page_url)
                 ? page_url
                 : _this.endpointService.apiHost + 'api/v1/getAccessCodesByStatus/' + status;
             _this.http.get(url, { headers: headers }).subscribe(function (res) {
@@ -28349,7 +28367,7 @@ var AccountService = /** @class */ (function () {
             _this.http.post(url, {}, { headers: _this.authHeaders }).subscribe(function (res) {
                 console.log('res____: ' + JSON.stringify(res));
                 var response = res;
-                if (lodash__WEBPACK_IMPORTED_MODULE_2__["toLower"](response.message) == 'ok') {
+                if (lodash__WEBPACK_IMPORTED_MODULE_1__["toLower"](response.message) == 'ok') {
                     resolve(true);
                 }
                 else {
@@ -28375,7 +28393,7 @@ var AccountService = /** @class */ (function () {
             _this.http.post(url, {}, { headers: _this.authHeaders }).subscribe(function (res) {
                 console.log('res______: ' + JSON.stringify(res));
                 var response = res;
-                lodash__WEBPACK_IMPORTED_MODULE_2__["toLower"](response.message) == 'ok'
+                lodash__WEBPACK_IMPORTED_MODULE_1__["toLower"](response.message) == 'ok'
                     ? resolve(true)
                     : resolve(false);
             }, function (err) {
@@ -28391,7 +28409,7 @@ var AccountService = /** @class */ (function () {
             _this.http.post(url, {}, { headers: _this.authHeaders }).subscribe(function (res) {
                 console.log('res______: ' + JSON.stringify(res));
                 var response = res;
-                lodash__WEBPACK_IMPORTED_MODULE_2__["toLower"](response.message) == 'ok'
+                lodash__WEBPACK_IMPORTED_MODULE_1__["toLower"](response.message) == 'ok'
                     ? resolve(true)
                     : resolve(false);
             }, function (err) {
@@ -28458,7 +28476,7 @@ var AccountService = /** @class */ (function () {
     AccountService.prototype.getAllUsersByMerchant = function (merchant_id, pagination_url) {
         var _this = this;
         return new Promise(function (resolve, reject) {
-            var url = !lodash__WEBPACK_IMPORTED_MODULE_2__["isUndefined"](pagination_url)
+            var url = !lodash__WEBPACK_IMPORTED_MODULE_1__["isUndefined"](pagination_url)
                 ? pagination_url
                 : _this.endpointService.apiHost + 'api/v1/getAllUsersByMerchant/' + merchant_id;
             _this.http.get(url, { headers: _this.endpointService.headers() }).subscribe(function (res) {
@@ -28488,7 +28506,7 @@ var AccountService = /** @class */ (function () {
             _this.http.post(url, JSON.stringify(user), { headers: _this.endpointService.headers() }).subscribe(function (res) {
                 var response = res;
                 console.log('response_edit: ' + JSON.stringify(res));
-                if (lodash__WEBPACK_IMPORTED_MODULE_2__["toLower"](response.message) == 'ok') {
+                if (lodash__WEBPACK_IMPORTED_MODULE_1__["toLower"](response.message) == 'ok') {
                     resolve(true);
                 }
                 else {
@@ -28512,7 +28530,7 @@ var AccountService = /** @class */ (function () {
             var url = _this.endpointService.apiHost + 'api/v1/enableUser/' + id;
             _this.http.post(url, {}, { headers: _this.endpointService.headers() }).subscribe(function (res) {
                 var response = res;
-                if (lodash__WEBPACK_IMPORTED_MODULE_2__["toLower"](response.message) == 'ok') {
+                if (lodash__WEBPACK_IMPORTED_MODULE_1__["toLower"](response.message) == 'ok') {
                     resolve(true);
                 }
                 else {
@@ -28536,7 +28554,7 @@ var AccountService = /** @class */ (function () {
             var url = _this.endpointService.apiHost + 'api/v1/disableUser/' + id;
             _this.http.post(url, {}, { headers: _this.endpointService.headers() }).subscribe(function (res) {
                 var response = res;
-                if (lodash__WEBPACK_IMPORTED_MODULE_2__["toLower"](response.message) == 'ok') {
+                if (lodash__WEBPACK_IMPORTED_MODULE_1__["toLower"](response.message) == 'ok') {
                     resolve(true);
                 }
                 else {
@@ -28588,7 +28606,7 @@ var AccountService = /** @class */ (function () {
             _this.http.post(url, JSON.stringify(body), { headers: _this.headers }).subscribe(function (res) {
                 console.log('res_: ' + JSON.stringify(res));
                 var response = res;
-                lodash__WEBPACK_IMPORTED_MODULE_2__["toLower"](response.message) == 'ok'
+                lodash__WEBPACK_IMPORTED_MODULE_1__["toLower"](response.message) == 'ok'
                     ? resolve(true)
                     : resolve(false);
             }, function (err) {
@@ -28605,7 +28623,7 @@ var AccountService = /** @class */ (function () {
             _this.http.post(url, JSON.stringify(body), { headers: _this.endpointService.headers() }).subscribe(function (res) {
                 console.log('res_: ' + JSON.stringify(res));
                 var response = res;
-                lodash__WEBPACK_IMPORTED_MODULE_2__["toLower"](response.message) == 'ok'
+                lodash__WEBPACK_IMPORTED_MODULE_1__["toLower"](response.message) == 'ok'
                     ? resolve(true)
                     : resolve(response.message);
             }, function (err) {
@@ -28647,7 +28665,7 @@ var AccountService = /** @class */ (function () {
             var url = _this.endpointService.apiHost + 'api/v1/deleteUser/' + id;
             _this.http.post(url, {}, { headers: header }).subscribe(function (res) {
                 var response = res;
-                lodash__WEBPACK_IMPORTED_MODULE_2__["toLower"](response.message) == 'ok'
+                lodash__WEBPACK_IMPORTED_MODULE_1__["toLower"](response.message) == 'ok'
                     ? resolve(true)
                     : resolve(false);
             }, function (err) {
@@ -28660,7 +28678,7 @@ var AccountService = /** @class */ (function () {
         { type: _endpoint_endpoint_service__WEBPACK_IMPORTED_MODULE_5__["EndpointService"] }
     ]; };
     AccountService = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
-        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Injectable"])({
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_2__["Injectable"])({
             providedIn: 'root'
         })
     ], AccountService);
