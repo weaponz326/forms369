@@ -1,5 +1,6 @@
 import * as _ from 'lodash';
 import { Printd } from 'printd';
+import { ClientService } from 'src/app/services/client/client.service';
 import { CompanyService } from 'src/app/services/company/company.service';
 import { EndpointService } from 'src/app/services/endpoint/endpoint.service';
 import { ReloadingService } from 'src/app/services/reloader/reloading.service';
@@ -20,13 +21,16 @@ export class FormPrintingDefaultPageComponent implements OnInit, AfterViewInit {
   isPrint: boolean;
   loading: boolean;
   hasError: boolean;
+  hasSignature: boolean;
   formKeys: Array<string>;
   formValues: Array<string>;
+  signatureImageUrl: string;
   clientFormData: Array<any>;
   @ViewChild('content', {static: false}) content: ElementRef;
 
   constructor(
     private reloader: ReloadingService,
+    private clientService: ClientService,
     private companyService: CompanyService,
     private endpointService: EndpointService,
     private localService: LocalStorageService,
@@ -102,6 +106,30 @@ export class FormPrintingDefaultPageComponent implements OnInit, AfterViewInit {
       error => {
         this.loading = false;
         this.hasError = true;
+      }
+    );
+  }
+
+  getSignature() {
+    const user_id = this.localService.getUser().id.toString();
+    this.clientService.getProfileFormAttachment(user_id).then(
+      res => {
+        console.log('r__sss: ' + JSON.stringify(res));
+        if (res.length > 0) {
+          _.forEach(res, (doc) => {
+            console.log('doc: ' + JSON.stringify(doc));
+            if (doc.key == 'signature') {
+              this.hasSignature = true;
+              this.signatureImageUrl = this.endpointService.storageHost + 'attachments/' + doc.url;
+            }
+          });
+        }
+        else {
+          this.hasSignature = false;
+        }
+      },
+      err => {
+        console.log('get_a_error: ' + JSON.stringify(err));
       }
     );
   }

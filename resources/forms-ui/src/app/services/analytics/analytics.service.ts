@@ -374,6 +374,13 @@ export class AnalyticsService {
     });
   }
 
+  /**
+   * Gets the total number of forms reversed
+   *
+   * @param {string} user_id
+   * @returns {Promise<any>}
+   * @memberof AnalyticsService
+   */
   getReversedFormsCount(user_id: string): Promise<any> {
     return new Promise((resolve, reject) => {
       const url = this.endpointService.apiHost + 'api/v1/getNumAllFormsProcessedByFrontDeskPerson/' + user_id + '/5';

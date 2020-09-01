@@ -146,7 +146,11 @@ export class FrontDesktopHomePageComponent implements OnInit {
   }
 
   getReversedFormsAnalytics(id: string) {
-    this.analyticService.getReversedFormsCount(id);
+    this.analyticService.getReversedFormsCount(id).then(
+      count => {
+        this.totalNoReversed = count;
+      }
+    );
   }
 
   getSubmittedFormsAnalytics(id: string) {
