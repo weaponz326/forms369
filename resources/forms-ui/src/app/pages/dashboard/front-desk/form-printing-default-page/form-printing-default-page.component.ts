@@ -18,6 +18,7 @@ export class FormPrintingDefaultPageComponent implements OnInit, AfterViewInit {
   form: any;
   client: any;
   logo: string;
+  clientId: string;
   isPrint: boolean;
   loading: boolean;
   hasError: boolean;
@@ -38,6 +39,7 @@ export class FormPrintingDefaultPageComponent implements OnInit, AfterViewInit {
   ) {
     this.initVars();
     this.getMerchant();
+    this.getSignature();
   }
 
   ngOnInit() {
@@ -56,6 +58,7 @@ export class FormPrintingDefaultPageComponent implements OnInit, AfterViewInit {
     this.form = window.history.state.form;
     console.log('form: ' + JSON.stringify(this.form));
     this.form = this.reloader.resolveDataLoss(this.form);
+    this.clientId = this.form.client_id;
 
     this.isPrint = this.form.print == true || _.isUndefined(this.form.print) ? true : false;
     this.client = this.form.client_submitted_details;
@@ -111,7 +114,7 @@ export class FormPrintingDefaultPageComponent implements OnInit, AfterViewInit {
   }
 
   getSignature() {
-    const user_id = this.localService.getUser().id.toString();
+    const user_id = this.clientId;
     this.clientService.getProfileFormAttachment(user_id).then(
       res => {
         console.log('r__sss: ' + JSON.stringify(res));
