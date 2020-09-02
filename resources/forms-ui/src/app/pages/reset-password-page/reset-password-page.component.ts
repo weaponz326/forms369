@@ -15,6 +15,7 @@ export class ResetPasswordPageComponent implements OnInit {
   loading: boolean;
   invalid: boolean;
   submitted: boolean;
+  showCompletedAlert: boolean;
 
   constructor(
     private router: Router,
@@ -44,7 +45,10 @@ export class ResetPasswordPageComponent implements OnInit {
       title: 'Success',
       icon: 'success',
       text: 'Password reset was successful. Login to continue.',
-      confirmButtonText: 'Ok'
+      confirmButtonText: 'Ok',
+      onDestroy: () => {
+        this.showCompletedAlert = true;
+      }
     });
   }
 

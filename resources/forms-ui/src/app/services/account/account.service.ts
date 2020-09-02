@@ -1,5 +1,5 @@
-import { Injectable } from '@angular/core';
 import * as _ from 'lodash';
+import { Injectable } from '@angular/core';
 import { Users } from 'src/app/models/users.model';
 import { UserTypes } from 'src/app/enums/user-types.enum';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
@@ -211,7 +211,7 @@ export class AccountService {
 
   /**
    * Returns a list of all country codes. The country codes
-   * are a JSOn file stored locally in the assets directory.
+   * are a JSON file stored locally in the assets directory.
    *
    * @returns {Promise<any>}
    * @memberof AccountService

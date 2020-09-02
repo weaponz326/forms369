@@ -33,5 +33,11 @@
         </div>
       </div>
     </div>
+
+    <div class="text-center">
+      <div *ngIf="hasSignature" class="signature">
+        <img [src]="signatureImageUrl" alt="signature">
+      </div>
+    </div>
   </div>
 </div>

@@ -66,6 +66,14 @@
                       </div>
                     </div>
 
+                    <div *ngIf="hasSignature" class="card" style="border: none;">
+                      <div class="card-body">
+                        <div style="margin-bottom: 15px;">
+                          <img class="signature" [src]="signatureImageUrl" alt="signature">
+                        </div>
+                      </div>
+                    </div>
+
                     <button *ngIf="loading" class="btn btn-primary btn-lg mr-2" type="button" disabled>
                       <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
                       <span class="sr-only">Please wait...</span>
@@ -92,7 +100,7 @@
                 <div class="card-text">
                   <i class="mdi mdi-shield-check-outline text-primary" style="font-size: 12em;"></i>
                   <h2>Form has been submitted for processing.</h2>
-                  <p class="text-muted">You have succesfully submitted this form for processing.</p>
+                  <p class="text-muted">You have submitted this form for processing.</p>
                 </div>
                 <div class="card-text mt-4">
                   <button type="button" class="btn btn-primary btn-lg mr-2" (click)="ok()">
@@ -114,7 +122,7 @@
                 <div class="card-text">
                   <i class="mdi mdi-shield-check-outline text-primary" style="font-size: 12em;"></i>
                   <h2>Form Has Been Completed.</h2>
-                  <p class="text-muted">You have succesfully completed processing this form.</p>
+                  <p class="text-muted">You have successfully processed this form..</p>
                 </div>
                 <div class="card-text mt-4">
                   <button type="button" class="btn btn-primary btn-lg mr-2" (click)="ok()">
@@ -136,7 +144,7 @@
                 <div class="card-text">
                   <i class="mdi mdi-shield-check-outline text-primary" style="font-size: 12em;"></i>
                   <h2>Form Has Been <strong class="text-danger">Rejected.</strong></h2>
-                  <p class="text-muted">This form has been succesfully rejected.</p>
+                  <p class="text-muted">This form has been rejected.</p>
                 </div>
                 <div class="card-text mt-4">
                   <button type="button" class="btn btn-primary btn-lg mr-2" (click)="ok()">

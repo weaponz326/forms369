@@ -33,3 +33,14 @@ h5 {
 .title-view h1 {
     margin-bottom: 20px;
 }
+
+.signature {
+    display: block;
+    margin: 0 auto;
+    padding-top: 42px;
+    padding-bottom: 30px;
+}
+
+.signature img {
+    height: 120px;
+}

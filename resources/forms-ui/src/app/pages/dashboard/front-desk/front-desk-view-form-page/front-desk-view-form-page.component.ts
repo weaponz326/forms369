@@ -1,4 +1,3 @@
-import { Component, OnInit, ViewChild, TemplateRef } from '@angular/core';
 declare var $: any;
 import * as _ from 'lodash';
 import { Router } from '@angular/router';
@@ -6,12 +5,13 @@ import { Users } from 'src/app/models/users.model';
 import { NgbModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { ClientService } from 'src/app/services/client/client.service';
+import { Component, OnInit, ViewChild, TemplateRef } from '@angular/core';
 import { EndpointService } from 'src/app/services/endpoint/endpoint.service';
+import { ReloadingService } from 'src/app/services/reloader/reloading.service';
 import { FrontDeskService } from 'src/app/services/front-desk/front-desk.service';
 import { DownloaderService } from 'src/app/services/downloader/downloader.service';
 import { LocalStorageService } from 'src/app/services/storage/local-storage.service';
 import { FormBuilderService } from 'src/app/services/form-builder/form-builder.service';
-import { ReloadingService } from 'src/app/services/reloader/reloading.service';
 
 @Component({
   selector: 'app-front-desk-view-form-page',
@@ -39,7 +39,10 @@ export class FrontDeskViewFormPageComponent implements OnInit {
   isProcessed: boolean;
   isProcessing: boolean;
   lastProcessed: string;
+  hasSignature: boolean;
   showAttachments: boolean;
+  requireSignature: boolean;
+  signatureImageUrl: string;
   docDialogRef: NgbModalRef;
   loadingAttachments: boolean;
   attachmentFiles: Array<File>;
@@ -64,9 +67,11 @@ export class FrontDeskViewFormPageComponent implements OnInit {
   ) {
     this.attachmentKeys = [];
     this.attachmentFiles = [];
+    this.signatureImageUrl = '';
     this.existingAttachments = [];
     this.form = window.history.state.form;
     this.form = this.reloader.resolveDataLoss(this.form);
+    this.requireSignature = this.form.require_signature == 1 ? true : false;
 
     this.formName = this.form.form_name;
     this.user = this.localStorage.getUser();
@@ -90,7 +95,7 @@ export class FrontDeskViewFormPageComponent implements OnInit {
   }
 
   ok() {
-    this.router.navigateByUrl('front_desk');
+    window.history.back();
   }
 
   renderForm() {
@@ -125,7 +130,6 @@ export class FrontDeskViewFormPageComponent implements OnInit {
   }
 
   disableFileInputField() {
-    // console.log('form_data: ' + JSON.stringify(this.form));
     const allInputFields = document.querySelectorAll('input');
     _.forEach(allInputFields, (field) => {
       if (field.type == 'file') {
@@ -152,6 +156,22 @@ export class FrontDeskViewFormPageComponent implements OnInit {
     });
   }
 
+  getSignature() {
+    this.clientService.getProfileFormAttachment(this.user.id.toString()).then(
+      res => {
+        if (res.length > 0) {
+          _.forEach(res, (doc) => {
+            if (doc.key == 'signature') {
+              this.hasSignature = true;
+              this.signatureImageUrl = this.endpointService.storageHost + 'attachments/' + doc.url;
+            }
+          });
+        }
+      },
+      err => { }
+    );
+  }
+
   getFormAttachments(form_code: string) {
     this.loadingAttachments = true;
     this.clientService.getFormAttachment(form_code).then(
@@ -160,12 +180,20 @@ export class FrontDeskViewFormPageComponent implements OnInit {
         if (res.length > 0) {
           this.showAttachments = true;
           _.forEach(res, (doc) => {
-            console.log('doc: ' + JSON.stringify(doc));
-            this.existingAttachments.push(doc);
+            if (doc.key == 'signature') {
+              this.hasSignature = true;
+              this.signatureImageUrl = this.endpointService.storageHost + 'attachments/' + doc.url;
+            }
+            else {
+              console.log('doc: ' + JSON.stringify(doc));
+              this.existingAttachments.push(doc);
+            }
           });
+          this.signatureImageUrl.length == 0 ? this.getSignature() : null;
         }
         else {
           this.showAttachments =  false;
+          this.signatureImageUrl.length == 0 ? this.getSignature() : null;
         }
 
         this.loadingAttachments = false;

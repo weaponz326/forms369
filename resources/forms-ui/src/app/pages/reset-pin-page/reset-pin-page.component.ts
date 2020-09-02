@@ -14,6 +14,7 @@ export class ResetPinPageComponent implements OnInit {
   loading: boolean;
   showForm: boolean;
   submitted: boolean;
+  showCompletedAlert: boolean;
 
   constructor(
     private formBuilder: FormBuilder,
@@ -21,13 +22,14 @@ export class ResetPinPageComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    this.showForm = true;
     this.buildForm();
   }
 
   public get f() {
     return this.form.controls;
   }
+
+
 
   showResetFailedAlert() {
     Swal.fire({
@@ -45,8 +47,7 @@ export class ResetPinPageComponent implements OnInit {
       text: 'Pin successfully changed.',
       confirmButtonText: 'Ok',
       onDestroy: () => {
-        this.form.reset();
-        this.showForm = false;
+        this.showCompletedAlert = true;
       }
     });
   }

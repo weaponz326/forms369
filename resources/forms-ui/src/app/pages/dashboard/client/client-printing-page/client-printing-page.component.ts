@@ -48,7 +48,7 @@ export class ClientPrintingPageComponent implements OnInit {
     this.form = window.history.state.form;
     console.log('form: ' + JSON.stringify(this.form));
     this.form = this.reloader.resolveDataLoss(this.form);
-    this.logo = this.endpointService.storageHost + this.form.logo;
+    this.logo = this.form.logo;
 
     this.isPrint = this.form.print == true || _.isUndefined(this.form.print) ? true : false;
     this.client = this.form.client_submitted_details;
