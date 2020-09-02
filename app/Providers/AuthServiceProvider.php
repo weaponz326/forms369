@@ -39,6 +39,7 @@ class AuthServiceProvider extends ServiceProvider
             'forms_client' => 'Submit forms',
             'institutional_client' => 'Manage institutional forms',
             'client' => 'Grant access for third party apps',
+            'forms_creator' => "Creates and manages forms",
         ]);
 
     }

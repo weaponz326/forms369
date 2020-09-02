@@ -125,7 +125,7 @@ Route::group(['middleware' => ['auth:api'], 'prefix' => 'v1'], function(){
     Route::get('getAllDeletedUsers', 'HomeController@getAllDeletedUsers')->name('getAllDeletedUsers')->middleware('scope:GIT_Admin');
     
     //merchant setup, view and update apis
-    Route::post('uploadImage', 'HomeController@imageUpload')->name('uploadImage')->middleware('scope:GIT_Admin,company_admin,branch_admin');
+    Route::post('uploadImage', 'HomeController@imageUpload')->name('uploadImage')->middleware('scope:GIT_Admin,company_admin,branch_admin,forms_creator');
     Route::post('createMerchant', 'HomeController@createMerchant')->name('createMerchant')->middleware('scope:GIT_Admin');
     Route::post('suggestMerchant', 'HomeController@suggestMerchant')->name('suggestMerchant')->middleware('scope:GIT_Admin,super_executive,company_admin,branch_executive,branch_admin,frontdesk,forms_client');
     Route::post('editMerchant/{id}', 'HomeController@editMerchant')->name('editMerchant')->middleware('scope:GIT_Admin,company_admin');
@@ -139,12 +139,12 @@ Route::group(['middleware' => ['auth:api'], 'prefix' => 'v1'], function(){
     Route::get('getNumActiveMerchants', 'HomeController@getNumActiveMerchants')->name('getNumActiveMerchants')->middleware('scope:GIT_Admin');
     Route::get('getNumInactiveMerchants', 'HomeController@getNumInactiveMerchants')->name('getNumInactiveMerchants')->middleware('scope:GIT_Admin');
     //get all merchants matching a search term
-    Route::get('getMerchantbyName/{term}/{country}/{sector}', 'HomeController@getMerchantbyName')->name('getMerchantbyName')->middleware('scope:GIT_Admin,forms_client');  
+    Route::get('getMerchantbyName/{term}/{country}/{sector}', 'HomeController@getMerchantbyName')->name('getMerchantbyName')->middleware('scope:GIT_Admin,forms_client,forms_creator');  
     
    //delete and recover forms apis 
-   Route::post('deleteForm/{id}', 'HomeController@deleteForm')->name('deleteForm')->middleware('scope:GIT_Admin,company_admin,branch_admin');
-   Route::post('recoverForm/{id}', 'HomeController@recoverForm')->name('recoverForm')->middleware('scope:GIT_Admin,company_admin,branch_admin');
-   Route::get('getAllDeletedFormsByMerchant/{id}', 'HomeController@getAllDeletedFormsByMerchant')->name('getAllDeletedFormsByMerchant')->middleware('scope:GIT_Admin,company_admin,branch_admin');
+   Route::post('deleteForm/{id}', 'HomeController@deleteForm')->name('deleteForm')->middleware('scope:GIT_Admin,company_admin,branch_admin,forms_creator');
+   Route::post('recoverForm/{id}', 'HomeController@recoverForm')->name('recoverForm')->middleware('scope:GIT_Admin,company_admin,branch_admin,forms_creator');
+   Route::get('getAllDeletedFormsByMerchant/{id}', 'HomeController@getAllDeletedFormsByMerchant')->name('getAllDeletedFormsByMerchant')->middleware('scope:GIT_Admin,company_admin,branch_admin,forms_creator');
 
    
 
@@ -168,18 +168,18 @@ Route::group(['middleware' => ['auth:api'], 'prefix' => 'v1'], function(){
     Route::get('getActiveCompanyBranches/{id}', 'HomeController@getActiveCompanyBranches')->name('getActiveCompanyBranches')->middleware('scope:GIT_Admin,company_admin,branch_admin,super_executive,branch_executive,forms_client');
     Route::get('getNumCompanyBranches/{id}', 'HomeController@getNumCompanyBranches')->name('getNumCompanyBranches')->middleware('scope:GIT_Admin,company_admin,branch_admin,super_executive,branch_executive');
     Route::get('getCompanyBranchDetails/{id}', 'HomeController@getCompanyBranchDetails')->name('getCompanyBranchDetails')->middleware('scope:GIT_Admin,super_executive,company_admin,branch_executive,branch_admin');
-    Route::get('QMSEnabled/{id}', 'HomeController@QMSEnabled')->name('QMSEnabled')->middleware('scope:GIT_Admin,super_executive,company_admin,branch_executive,branch_admin');
+    Route::get('QMSEnabled/{id}', 'HomeController@QMSEnabled')->name('QMSEnabled')->middleware('scope:GIT_Admin,super_executive,company_admin,branch_executive,branch_admin,forms_creator');
     
 
     //upload and edit form print document for a form apis
-    Route::post('uploadPrintFile/{merchant_id}/{code}', 'HomeController@uploadPrintFile')->name('uploadPrintFile')->middleware('scope:GIT_Admin,company_admin');
-    Route::post('editPrintFile/{merchant_id}/{code}', 'HomeController@editPrintFile')->name('editPrintFile')->middleware('scope:GIT_Admin,company_admin');
-    Route::get('getPrintFile/{merchant_id}/{code}', 'HomeController@getPrintFile')->name('getPrintFile')->middleware('scope:GIT_Admin,company_admin,branch_admin,frontdesk,super_executive,branch_executive,forms_client');
+    Route::post('uploadPrintFile/{merchant_id}/{code}', 'HomeController@uploadPrintFile')->name('uploadPrintFile')->middleware('scope:GIT_Admin,company_admin,forms_creator');
+    Route::post('editPrintFile/{merchant_id}/{code}', 'HomeController@editPrintFile')->name('editPrintFile')->middleware('scope:GIT_Admin,company_admin,forms_creator');
+    Route::get('getPrintFile/{merchant_id}/{code}', 'HomeController@getPrintFile')->name('getPrintFile')->middleware('scope:GIT_Admin,forms_creator,company_admin,branch_admin,frontdesk,super_executive,branch_executive,forms_client');
 
     //form attachments 
-    Route::post('uploadattachments/{client_id}/{form_code}/{sub_code}', 'HomeController@uploadattachments')->name('uploadattachments')->middleware('scope:GIT_Admin,forms_client');
-    Route::get('getAttachments/{sub_code}', 'HomeController@getAttachments')->name('getAttachments')->middleware('scope:GIT_Admin,forms_client,company_admin,branch_admin,frontdesk,super_executive,branch_executive');
-    Route::post('deleteAttachment/{client_id}/{key}/{name}/{sub_code}', 'HomeController@deleteAttachment')->name('deleteAttachment')->middleware('scope:GIT_Admin,forms_client,frontdesk');
+    Route::post('uploadattachments/{client_id}/{form_code}/{sub_code}', 'HomeController@uploadattachments')->name('uploadattachments')->middleware('scope:GIT_Admin,forms_client,forms_creator');
+    Route::get('getAttachments/{sub_code}', 'HomeController@getAttachments')->name('getAttachments')->middleware('scope:GIT_Admin,forms_client,forms_creator,company_admin,branch_admin,frontdesk,super_executive,branch_executive');
+    Route::post('deleteAttachment/{client_id}/{key}/{name}/{sub_code}', 'HomeController@deleteAttachment')->name('deleteAttachment')->middleware('scope:GIT_Admin,forms_creator,forms_client,frontdesk');
     
 
     //profile attachments 
@@ -202,21 +202,21 @@ Route::group(['middleware' => ['auth:api'], 'prefix' => 'v1'], function(){
     Route::get('Level3UserTypes', 'HomeController@getUserTypesLevel3')->name('Level3UserTypes')->middleware('scope:GIT_Admin,company_admin,branch_admin');
     
     //forms endpoints 
-    Route::post('createForm', 'HomeController@storeForm')->name('createForm')->middleware('scope:GIT_Admin,company_admin');
-    Route::get('getFormDetails/{id}', 'HomeController@getFormDetails')->name('getFormDetails')->middleware('scope:GIT_Admin,company_admin,branch_admin,branch_executive,super_executive,forms_client,frontdesk');
-    Route::get('getFormbyName/{term}/{country}/{sector}', 'HomeController@getFormbyName')->name('getFormbyName')->middleware('scope:GIT_Admin,company_admin,branch_admin,branch_executive,super_executive,forms_client,frontdesk');
-    Route::post('editForm/{code}', 'HomeController@editForm')->name('editForm')->middleware('scope:GIT_Admin,company_admin,branch_admin');
-    Route::post('changeFormStatus/{code}/{status}', 'HomeController@changeFormStatus')->name('changeFormStatus')->middleware('scope:GIT_Admin,company_admin,branch_admin');
-    Route::get('getAllForms', 'HomeController@getAllForms')->name('getAllForms')->middleware('scope:GIT_Admin,forms_client');
-    Route::get('getNumAllForms', 'HomeController@getNumAllForms')->name('getNumAllForms')->middleware('scope:GIT_Admin');
+    Route::post('createForm', 'HomeController@storeForm')->name('createForm')->middleware('scope:GIT_Admin,company_admin,forms_creator');
+    Route::get('getFormDetails/{id}', 'HomeController@getFormDetails')->name('getFormDetails')->middleware('scope:GIT_Admin,forms_creator,company_admin,branch_admin,branch_executive,super_executive,forms_client,frontdesk');
+    Route::get('getFormbyName/{term}/{country}/{sector}', 'HomeController@getFormbyName')->name('getFormbyName')->middleware('scope:GIT_Admin,forms_creator,company_admin,branch_admin,branch_executive,super_executive,forms_client,frontdesk');
+    Route::post('editForm/{code}', 'HomeController@editForm')->name('editForm')->middleware('scope:GIT_Admin,company_admin,forms_creator,branch_admin');
+    Route::post('changeFormStatus/{code}/{status}', 'HomeController@changeFormStatus')->name('changeFormStatus')->middleware('scope:GIT_Admin,forms_creator,company_admin,branch_admin');
+    Route::get('getAllForms', 'HomeController@getAllForms')->name('getAllForms')->middleware('scope:GIT_Admin,forms_client,forms_creator');
+    Route::get('getNumAllForms', 'HomeController@getNumAllForms')->name('getNumAllForms')->middleware('scope:GIT_Admin,forms_creator');
     Route::get('getAllFormsByStatus/{status}', 'HomeController@getAllFormsByStatus')->name('getAllFormsByStatus');
-    Route::get('getAllFormsByMerchant/{id}', 'HomeController@getAllFormsByMerchant')->name('getAllFormsByMerchant')->middleware('scope:GIT_Admin,company_admin,branch_admin,forms_client,super_executive,branch_executive,frontdesk');
-    Route::get('getAllFormsByMerchantApp/{id}', 'HomeController@getAllFormsByMerchantApp')->name('getAllFormsByMerchantApp')->middleware('scope:GIT_Admin,company_admin,branch_admin,forms_client,super_executive,branch_executive,frontdesk');
+    Route::get('getAllFormsByMerchant/{id}', 'HomeController@getAllFormsByMerchant')->name('getAllFormsByMerchant')->middleware('scope:GIT_Admin,forms_creator,company_admin,branch_admin,forms_client,super_executive,branch_executive,frontdesk');
+    Route::get('getAllFormsByMerchantApp/{id}', 'HomeController@getAllFormsByMerchantApp')->name('getAllFormsByMerchantApp')->middleware('scope:GIT_Admin,forms_creator,company_admin,branch_admin,forms_client,super_executive,branch_executive,frontdesk');
     Route::get('getAllFormsByStatusAndMerchant/{status}/{id}', 'HomeController@getAllFormsByStatusAndMerchant')->name('getAllFormsByStatusAndMerchant');
     //forms tnc attachment  
-    Route::post('uploadtnc/{form_code}', 'HomeController@uploadtnc')->name('uploadtnc')->middleware('scope:GIT_Admin,company_admin');
-    Route::get('gettncContent/{form_code}', 'HomeController@gettncContent')->name('gettncContent')->middleware('scope:GIT_Admin,company_admin,forms_client,branch_admin,super_executive,branch_executive');
-    Route::post('deleteTrash/{code}', 'HomeController@deleteTrash')->name('deleteTrash')->middleware('scope:GIT_Admin,company_admin,forms_client,branch_admin,super_executive,branch_executive');
+    Route::post('uploadtnc/{form_code}', 'HomeController@uploadtnc')->name('uploadtnc')->middleware('scope:GIT_Admin,company_admin,forms_creator');
+    Route::get('gettncContent/{form_code}', 'HomeController@gettncContent')->name('gettncContent')->middleware('scope:GIT_Admin,forms_creator,company_admin,forms_client,branch_admin,super_executive,branch_executive');
+    Route::post('deleteTrash/{code}', 'HomeController@deleteTrash')->name('deleteTrash')->middleware('scope:GIT_Admin,forms_creator,company_admin,forms_client,branch_admin,super_executive,branch_executive');
     
   //client, get and edit endpoints
   Route::get('getAllClients', 'HomeController@getAllClients')->name('getAllClients')->middleware('scope:GIT_Admin');
@@ -242,7 +242,7 @@ Route::group(['middleware' => ['auth:api'], 'prefix' => 'v1'], function(){
   Route::get('numFormsProcessedByFrontDeskPersonDaily/{id}/{status}', 'HomeController@numFormsProcessedByFrontDeskPersonDaily')->name('numFormsProcessedByFrontDeskPersonDaily')->middleware('scope:GIT_Admin,frontdesk,super_executive,branch_executive,company_admin,branch_admin');
 
   //check if form was submitted to the logged in frontdesk user's branch
-  Route::get('checkBranchSubmittedTo/{code}', 'HomeController@checkBranchSubmittedTo')->name('checkBranchSubmittedTo')->middleware('scope:GIT_Admin,frontdesk,super_executive,branch_executive,company_admin,branch_admin');
+  Route::get('checkBranchSubmittedTo/{code}', 'HomeController@checkBranchSubmittedTo')->name('checkBranchSubmittedTo')->middleware('scope:GIT_Admin,forms_creator,frontdesk,super_executive,branch_executive,company_admin,branch_admin');
   
   // searching for client submitted forms
   Route::get('findSubmittedFormByName/{id}/{form_name}/{status}', 'HomeController@findSubmittedFormByName')->name('findSubmittedFormByName')->middleware('scope:forms_client,GIT_Admin');
@@ -273,58 +273,58 @@ Route::group(['middleware' => ['auth:api'], 'prefix' => 'v1'], function(){
   
 
   //executives endpoints 
-  Route::get('getNumAllFormsByMerchant/{id}', 'HomeController@getNumAllFormsByMerchant')->name('getNumAllFormsByMerchant')->middleware('scope:GIT_Admin,branch_executive,super_executive,branch_admin,company_admin');                                     
-  Route::get('getNumAllFormsByStatusAndMerchant/{status}/{id}', 'HomeController@getNumAllFormsByStatusAndMerchant')->name('getNumAllFormsByStatusAndMerchant')->middleware('scope:GIT_Admin,branch_executive,super_executive');                                     
+  Route::get('getNumAllFormsByMerchant/{id}', 'HomeController@getNumAllFormsByMerchant')->name('getNumAllFormsByMerchant')->middleware('scope:GIT_Admin,forms_creator,branch_executive,super_executive,branch_admin,company_admin');                                     
+  Route::get('getNumAllFormsByStatusAndMerchant/{status}/{id}', 'HomeController@getNumAllFormsByStatusAndMerchant')->name('getNumAllFormsByStatusAndMerchant')->middleware('scope:GIT_Admin,forms_creator,branch_executive,super_executive');                                     
 
   //get merchant submitted forms by status: proccess, submitted, in_process
   //@param status and merchant_id
   Route::get('getNumSubmittedFormsByStatus/{status}/{id}', 'HomeController@getNumSubmittedFormsByStatus')->name('getNumSubmittedFormsByStatus')->middleware('scope:GIT_Admin,frontdesk,super_executive,branch_executive');   
   //@param status and branch_id                                  
   Route::get('getNumBranchProcessedFormsByStatus/{status}/{id}', 'HomeController@getNumBranchProcessedFormsByStatus')->name('getNumBranchProcessedFormsByStatus')->middleware('scope:GIT_Admin,super_executive,branch_executive');                                     
-  Route::get('viewRespondentData/{code}', 'HomeController@viewRespondentData')->name('viewRespondentData')->middleware('scope:GIT_Admin,super_executive,branch_executive,company_admin,branch_admin,frontdesk');                                     
+  Route::get('viewRespondentData/{code}', 'HomeController@viewRespondentData')->name('viewRespondentData')->middleware('scope:GIT_Admin,super_executive,forms_creator.branch_executive,company_admin,branch_admin,frontdesk');                                     
 
   
   //templates endpoints 
-  Route::post('createTemplate', 'HomeController@createTemplate')->name('createTemplate')->middleware('scope:GIT_Admin');                                     
-  Route::post('editTemplate/{id}', 'HomeController@editTemplate')->name('editTemplate')->middleware('scope:GIT_Admin');                                     
-  Route::get('getAllTemplates', 'HomeController@getAllTemplates')->name('getAllTemplates')->middleware('scope:GIT_Admin,company_admin,branch_admin');                                     
-  Route::post('deleteTemplate/{id}', 'HomeController@deleteTemplate')->name('deleteTemplate')->middleware('scope:GIT_Admin');                                     
+  Route::post('createTemplate', 'HomeController@createTemplate')->name('createTemplate')->middleware('scope:GIT_Admin,forms_creator');                                     
+  Route::post('editTemplate/{id}', 'HomeController@editTemplate')->name('editTemplate')->middleware('scope:GIT_Admin,forms_creator');                                     
+  Route::get('getAllTemplates', 'HomeController@getAllTemplates')->name('getAllTemplates')->middleware('scope:GIT_Admin,company_admin,branch_admin,forms_creator');                                     
+  Route::post('deleteTemplate/{id}', 'HomeController@deleteTemplate')->name('deleteTemplate')->middleware('scope:GIT_Admin,forms_creator');                                     
   //search template by name api
-  Route::get('searchTemplateByName/{term}', 'HomeController@searchTemplateByNameOrCategory')->name('searchTemplateByName')->middleware('scope:GIT_Admin,company_admin,branch_admin');
-  Route::get('getAllTemplatesbyCategory/{id}', 'HomeController@getAllTemplatesbyCategory')->name('getAllTemplatesbyCategory')->middleware('scope:GIT_Admin,company_admin,branch_admin');                                     
+  Route::get('searchTemplateByName/{term}', 'HomeController@searchTemplateByNameOrCategory')->name('searchTemplateByName')->middleware('scope:GIT_Admin,forms_creator,company_admin,branch_admin');
+  Route::get('getAllTemplatesbyCategory/{id}', 'HomeController@getAllTemplatesbyCategory')->name('getAllTemplatesbyCategory')->middleware('scope:GIT_Admin,forms_creator,company_admin,branch_admin');                                     
 
 
   //access code creation and checks apis 
-  Route::post('createAccessCode', 'HomeController@createAccessCode')->name('createAccessCode')->middleware('scope:GIT_Admin');                                     
-  Route::post('activateAccessCode/{code}', 'HomeController@activateAccessCode')->name('activateAccessCode')->middleware('scope:GIT_Admin');                                     
-  Route::post('deactivateAccessCode/{code}', 'HomeController@deactivateAccessCode')->name('deactivateAccessCode')->middleware('scope:GIT_Admin');
-  Route::get('getAllCodes', 'HomeController@getAllCodes')->name('getAllCodes')->middleware('scope:GIT_Admin'); 
-  Route::get('getAccessCodesByStatus/{active}', 'HomeController@getAccessCodesByStatus')->name('getAccessCodesByStatus')->middleware('scope:GIT_Admin'); 
-  Route::get('getAccessCodesDetails/{code}', 'HomeController@getAccessCodesDetails')->name('getAccessCodesDetails')->middleware('scope:GIT_Admin');
-  Route::post('deleteAccessCode/{id}', 'HomeController@deleteAccessCode')->name('deleteAccessCode')->middleware('scope:GIT_Admin');                                    
+  Route::post('createAccessCode', 'HomeController@createAccessCode')->name('createAccessCode')->middleware('scope:GIT_Admin,forms_creator');                                     
+  Route::post('activateAccessCode/{code}', 'HomeController@activateAccessCode')->name('activateAccessCode')->middleware('scope:GIT_Admin,forms_creator');                                     
+  Route::post('deactivateAccessCode/{code}', 'HomeController@deactivateAccessCode')->name('deactivateAccessCode')->middleware('scope:GIT_Admin,forms_creator');
+  Route::get('getAllCodes', 'HomeController@getAllCodes')->name('getAllCodes')->middleware('scope:GIT_Admin,forms_creator'); 
+  Route::get('getAccessCodesByStatus/{active}', 'HomeController@getAccessCodesByStatus')->name('getAccessCodesByStatus')->middleware('scope:GIT_Admin,forms_creator'); 
+  Route::get('getAccessCodesDetails/{code}', 'HomeController@getAccessCodesDetails')->name('getAccessCodesDetails')->middleware('scope:GIT_Admin,forms_creator');
+  Route::post('deleteAccessCode/{id}', 'HomeController@deleteAccessCode')->name('deleteAccessCode')->middleware('scope:GIT_Admin,forms_creator');                                    
   
   //form sectiosn apis
-  Route::post('createSection', 'HomeController@createSection')->name('createSection')->middleware('scope:GIT_Admin'); 
-  Route::post('editSection/{id}', 'HomeController@editSection')->name('editSection')->middleware('scope:GIT_Admin'); 
-  Route::get('getAllSections', 'HomeController@getAllSections')->name('getAllSections')->middleware('scope:GIT_Admin,company_admin,branch_admin,forms_client');
-  Route::post('deleteSection/{id}', 'HomeController@deleteSection')->name('deleteSection')->middleware('scope:GIT_Admin');  
-  Route::get('searchSectionByHeading/{term}', 'HomeController@searchSectionByHeading')->name('searchSectionByHeading')->middleware('scope:GIT_Admin,company_admin,branch_admin');
+  Route::post('createSection', 'HomeController@createSection')->name('createSection')->middleware('scope:GIT_Admin,forms_creator'); 
+  Route::post('editSection/{id}', 'HomeController@editSection')->name('editSection')->middleware('scope:GIT_Admin,forms_creator'); 
+  Route::get('getAllSections', 'HomeController@getAllSections')->name('getAllSections')->middleware('scope:GIT_Admin,company_admin,forms_creator,branch_admin,forms_client');
+  Route::post('deleteSection/{id}', 'HomeController@deleteSection')->name('deleteSection')->middleware('scope:GIT_Admin,forms_creator');  
+  Route::get('searchSectionByHeading/{term}', 'HomeController@searchSectionByHeading')->name('searchSectionByHeading')->middleware('scope:GIT_Admin,forms_creator,company_admin,branch_admin');
   
   
   //apis for drop down
-  Route::get('getMerchantsForDropdown', 'HomeController@getMerchantsForDropdown')->name('getMerchantsForDropdown')->middleware('scope:GIT_Admin,company_admin');
-  Route::get('getAllBranchesForDropdown', 'HomeController@getAllBranchesForDropdown')->name('getAllBranchesForDropdown')->middleware('scope:GIT_Admin,company_admin');
-  Route::get('getAllUsersByTypeForDropdown/{type_id}', 'HomeController@getAllUsersByTypeForDropdown')->name('getAllUsersByTypeForDropdown')->middleware('scope:GIT_Admin,company_admin,branch_admin');
+  Route::get('getMerchantsForDropdown', 'HomeController@getMerchantsForDropdown')->name('getMerchantsForDropdown')->middleware('scope:GIT_Admin,forms_creator,company_admin');
+  Route::get('getAllBranchesForDropdown', 'HomeController@getAllBranchesForDropdown')->name('getAllBranchesForDropdown')->middleware('scope:GIT_Admin,forms_creator,company_admin');
+  Route::get('getAllUsersByTypeForDropdown/{type_id}', 'HomeController@getAllUsersByTypeForDropdown')->name('getAllUsersByTypeForDropdown')->middleware('scope:GIT_Admin,forms_creator,company_admin,branch_admin');
 
   //template category
-  Route::post('createTemplateCategory', 'HomeController@createTemplateCategory')->name('createTemplateCategory')->middleware('scope:GIT_Admin');
-  Route::get('getAllTemplateCategories', 'HomeController@getAllTemplateCategories')->name('getAllTemplateCategories')->middleware('scope:GIT_Admin,company_admin,branch_admin');
+  Route::post('createTemplateCategory', 'HomeController@createTemplateCategory')->name('createTemplateCategory')->middleware('scope:GIT_Admin,forms_creator');
+  Route::get('getAllTemplateCategories', 'HomeController@getAllTemplateCategories')->name('getAllTemplateCategories')->middleware('scope:GIT_Admin,forms_creator,company_admin,branch_admin');
 
   //business/ merchant sector
-  Route::post('createBusinessSector', 'HomeController@createBusinessSector')->name('createBusinessSector')->middleware('scope:GIT_Admin');
-  Route::get('getAllBusinessSectors', 'HomeController@getAllBusinessSectors')->name('getAllBusinessSectors')->middleware('scope:GIT_Admin,company_admin,branch_admin,forms_client');
-  Route::post('editBusinessSector/{id}', 'HomeController@editBusinessSector')->name('editBusinessSector')->middleware('scope:GIT_Admin');
-  Route::post('deleteBusinessSector/{id}', 'HomeController@deleteBusinessSector')->name('deleteBusinessSector')->middleware('scope:GIT_Admin');
+  Route::post('createBusinessSector', 'HomeController@createBusinessSector')->name('createBusinessSector')->middleware('scope:GIT_Admin,forms_creator');
+  Route::get('getAllBusinessSectors', 'HomeController@getAllBusinessSectors')->name('getAllBusinessSectors')->middleware('scope:GIT_Admin,forms_creator,company_admin,branch_admin,forms_client');
+  Route::post('editBusinessSector/{id}', 'HomeController@editBusinessSector')->name('editBusinessSector')->middleware('scope:GIT_Admin,forms_creator');
+  Route::post('deleteBusinessSector/{id}', 'HomeController@deleteBusinessSector')->name('deleteBusinessSector')->middleware('scope:GIT_Admin,forms_creator');
 
   
   //reject forms reviews apis 
@@ -333,13 +333,13 @@ Route::group(['middleware' => ['auth:api'], 'prefix' => 'v1'], function(){
   Route::post('deleteFormReview/{code}', 'HomeController@deleteFormReview')->name('deleteFormReview')->middleware('scope:GIT_Admin,super_executive,branch_executive,company_admin,branch_admin,frontdesk');
  
   //can print
-  Route::post('candownload/{id}/{status}', 'HomeController@candownload')->name('candownload')->middleware('scope:GIT_Admin,company_admin,branch_admin');
+  Route::post('candownload/{id}/{status}', 'HomeController@candownload')->name('candownload')->middleware('scope:GIT_Admin,company_admin,branch_admin,forms_creator');
 
   //search for a form for a particular merchant and status based on a serach term
-  Route::get('getFormbyNameStatusAndMerchant/{term}/{status}/{id}', 'HomeController@getFormbyNameStatusAndMerchant')->name('getFormbyNameStatusAndMerchant')->middleware('scope:GIT_Admin,company_admin,branch_admin,super_executive,branch_executive,forms_client,frontdesk');
+  Route::get('getFormbyNameStatusAndMerchant/{term}/{status}/{id}', 'HomeController@getFormbyNameStatusAndMerchant')->name('getFormbyNameStatusAndMerchant')->middleware('scope:GIT_Admin,forms_creator,company_admin,branch_admin,super_executive,branch_executive,forms_client,frontdesk');
 
   //search for a form for a particular merchant based on a search term
-  Route::get('getFormbyNameAndMerchant/{term}/{id}', 'HomeController@getFormbyNameAndMerchant')->name('getFormbyNameAndMerchant')->middleware('scope:GIT_Admin,company_admin,branch_admin,super_executive,branch_executive');
+  Route::get('getFormbyNameAndMerchant/{term}/{id}', 'HomeController@getFormbyNameAndMerchant')->name('getFormbyNameAndMerchant')->middleware('scope:GIT_Admin,company_admin,forms_creator,branch_admin,super_executive,branch_executive');
 
   //search users under a user type and merchant matching a search term
   Route::get('getUserByTypeAndMerchant/{user_type}/{merchant_id}/{term}', 'HomeController@getUserByTypeAndMerchant')->name('getUserByTypeAndMerchant')->middleware('scope:GIT_Admin,company_admin,branch_admin,super_executive,branch_executive');
@@ -357,11 +357,11 @@ Route::group(['middleware' => ['auth:api'], 'prefix' => 'v1'], function(){
   Route::get('getRecentForms', 'HomeController@getRecentForms')->name('getRecentForms')->middleware('scope:GIT_Admin,forms_client');
 
   //abuse report endpoints 
-  Route::post('reportAbuse', 'HomeController@reportAbuse')->name('reportAbuse')->middleware('scope:GIT_Admin,company_admin,branch_admin,super_executive,branch_executive,frontdesk');
-  Route::get('getAllAbuseReports', 'HomeController@getAllAbuseReports')->name('getAllAbuseReports')->middleware('scope:GIT_Admin');
-  Route::get('getAbuseReportsByStatus/{status}', 'HomeController@getAbuseReportsByStatus')->name('getAbuseReportsByStatus')->middleware('scope:GIT_Admin');
-  Route::post('addressAbuseReport/{id}', 'HomeController@addressAbuseReport')->name('addressAbuseReport')->middleware('scope:GIT_Admin');
-  Route::get('getAbuseReportDetails/{id}', 'HomeController@getAbuseReportDetails')->name('getAbuseReportDetails')->middleware('scope:GIT_Admin');
+  Route::post('reportAbuse', 'HomeController@reportAbuse')->name('reportAbuse')->middleware('scope:GIT_Admin,company_admin,branch_admin,forms_creator,super_executive,branch_executive,frontdesk');
+  Route::get('getAllAbuseReports', 'HomeController@getAllAbuseReports')->name('getAllAbuseReports')->middleware('scope:GIT_Admin,forms_creator');
+  Route::get('getAbuseReportsByStatus/{status}', 'HomeController@getAbuseReportsByStatus')->name('getAbuseReportsByStatus')->middleware('scope:GIT_Admin,forms_creator');
+  Route::post('addressAbuseReport/{id}', 'HomeController@addressAbuseReport')->name('addressAbuseReport')->middleware('scope:GIT_Admin,forms_creator');
+  Route::get('getAbuseReportDetails/{id}', 'HomeController@getAbuseReportDetails')->name('getAbuseReportDetails')->middleware('scope:GIT_Admin,forms_creator');
 
   //generate QMS access token and other QMS APIs
   Route::post('getQMSToken/{id}', 'HomeController@getQMSToken')->name('getQMSToken')->middleware('scope:GIT_Admin,forms_client');

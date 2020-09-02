@@ -916,6 +916,11 @@ class AuthController extends Controller
 
             $tokenResult = $user->createToken('authToken', ['institutional_client']);
 
+        }elseif($user_type == 28)
+        {
+
+            $tokenResult = $user->createToken('authToken', ['forms_creator']);
+
         }elseif($user_type == 26)
         {
             Log::channel('mysql')->info('Client with id: ' . $id .' login initiated');
