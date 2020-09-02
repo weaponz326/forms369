@@ -41,7 +41,6 @@ export class FrontDeskViewFormPageComponent implements OnInit {
   lastProcessed: string;
   hasSignature: boolean;
   showAttachments: boolean;
-  requireSignature: boolean;
   signatureImageUrl: string;
   docDialogRef: NgbModalRef;
   loadingAttachments: boolean;
@@ -71,7 +70,6 @@ export class FrontDeskViewFormPageComponent implements OnInit {
     this.existingAttachments = [];
     this.form = window.history.state.form;
     this.form = this.reloader.resolveDataLoss(this.form);
-    this.requireSignature = this.form.require_signature == 1 ? true : false;
 
     this.formName = this.form.form_name;
     this.user = this.localStorage.getUser();
@@ -157,7 +155,7 @@ export class FrontDeskViewFormPageComponent implements OnInit {
   }
 
   getSignature() {
-    this.clientService.getProfileFormAttachment(this.user.id.toString()).then(
+    this.clientService.getProfileFormAttachment(this.form.client_id).then(
       res => {
         if (res.length > 0) {
           _.forEach(res, (doc) => {

@@ -28,3 +28,7 @@ a:not([href]):not([tabindex]):hover {
     text-decoration: underline;
     color: rgb(76, 131, 255);
 }
+
+.signature {
+    width: 100%;
+  }
