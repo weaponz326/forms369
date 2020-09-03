@@ -15,6 +15,7 @@ export class SideBarComponent implements OnInit {
   isExecutive: boolean;
   isFrontDesk: boolean;
   isBranchAdmin: boolean;
+  isFormCreator: boolean;
   isBranchSuperExec: boolean;
 
   constructor(
@@ -47,6 +48,9 @@ export class SideBarComponent implements OnInit {
         break;
       case UserTypes.SuperExecutive:
         this.isExecutive = true;
+        break;
+      case UserTypes.FormCreator:
+        this.isFormCreator = true;
         break;
       case UserTypes.BranchSuperExecutive:
         this.isBranchSuperExec = true;

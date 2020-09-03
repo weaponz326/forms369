@@ -117,6 +117,7 @@ import { InvalidLinkPageComponent } from './pages/invalid-link-page/invalid-link
 import { TermsPageComponent } from './pages/terms-page/terms-page.component';
 import { PrivacyPageComponent } from './pages/privacy-page/privacy-page.component';
 import { ClientPDFDownloadingPageComponent } from './pages/dashboard/client/client-pdfdownloading-page/client-pdfdownloading-page.component';
+import { ViewFormCreatorListsPageComponent } from './pages/dashboard/git-admin/view-form-creator-lists-page/view-form-creator-lists-page.component';
 
 const routes: Routes = [
   { path: '', component: WelcomePageComponent },
@@ -261,6 +262,10 @@ const routes: Routes = [
           {
             path: 'front_desk',
             component: ViewFrontDeskListsPageComponent
+          },
+          {
+            path: 'form_creators',
+            component: ViewFormCreatorListsPageComponent
           },
           {
             path: 'section',

@@ -149,6 +149,7 @@ import { AlreadyJoinedQueueDialogComponent } from './components/already-joined-q
 import { TermsPageComponent } from './pages/terms-page/terms-page.component';
 import { PrivacyPageComponent } from './pages/privacy-page/privacy-page.component';
 import { ClientPDFDownloadingPageComponent } from './pages/dashboard/client/client-pdfdownloading-page/client-pdfdownloading-page.component';
+import { ViewFormCreatorListsPageComponent } from './pages/dashboard/git-admin/view-form-creator-lists-page/view-form-creator-lists-page.component';
 
 @NgModule({
   declarations: [
@@ -278,6 +279,7 @@ import { ClientPDFDownloadingPageComponent } from './pages/dashboard/client/clie
     TermsPageComponent,
     PrivacyPageComponent,
     ClientPDFDownloadingPageComponent,
+    ViewFormCreatorListsPageComponent,
   ],
   imports: [
     BrowserModule,
