@@ -136,7 +136,10 @@ const routes: Routes = [
   { path: 'invalid_reset_pin', component: InvalidResetPinPageComponent },
   { path: 'invalid_link', component: InvalidLinkPageComponent },
   { path: 'privacy', component: PrivacyPageComponent },
-  { path: 'terms', component: TermsPageComponent },
+  {
+    path: 'terms',
+    component: TermsPageComponent
+  },
   {
     path: 'git_admin',
     children: [
@@ -608,6 +611,21 @@ const routes: Routes = [
           {
             path: 'branch',
             component: AdminViewBranchDetailsPageComponent
+          }
+        ]
+      }
+    ]
+  },
+  {
+    path: 'form-creator',
+    canActivate: [AuthGuard],
+    children: [
+      {
+        path: 'create',
+        children: [
+          {
+            path: 'form',
+            component: CreateFormPageComponent
           }
         ]
       }
