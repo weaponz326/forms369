@@ -125,6 +125,9 @@ export class AdminLoginPageComponent implements OnInit {
     else if (user_type == UserTypes.SuperExecutive) {
       this.router.navigateByUrl('/executive');
     }
+    else if (user_type == UserTypes.FormCreator) {
+      this.router.navigateByUrl('/form_creator');
+    }
     else {
       // alert('unknown user type');
     }

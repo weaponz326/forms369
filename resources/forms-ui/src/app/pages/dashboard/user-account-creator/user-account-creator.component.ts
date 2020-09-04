@@ -24,8 +24,8 @@ export class UserAccountCreatorComponent implements OnInit {
   loading: boolean;
   submitted: boolean;
   isGitAdmin: boolean;
-  isFrontDesk: boolean;
   isCompUser: boolean;
+  isFrontDesk: boolean;
   isCompAdmin: boolean;
   isSuperExec: boolean;
   branchesList: Array<any>;
@@ -51,12 +51,8 @@ export class UserAccountCreatorComponent implements OnInit {
     this.countriesList = [];
     this.branchNamesList = [];
     this.merchantNamesList = [];
-    this.isAdmin =
-      this.localStorage.getUser().usertype == UserTypes.GitAdmin ||
-      this.localStorage.getUser().usertype == UserTypes.FormCreator ? true : false;
-    this.isGitAdmin =
-      this.localStorage.getUser().usertype == UserTypes.GitAdmin ||
-      this.localStorage.getUser().usertype == UserTypes.FormCreator ? true : false;
+    this.isAdmin = this.localStorage.getUser().usertype == UserTypes.GitAdmin ? true : false;
+    this.isGitAdmin = this.localStorage.getUser().usertype == UserTypes.GitAdmin ? true : false;
 
     this.initializeView();
   }
@@ -124,7 +120,8 @@ export class UserAccountCreatorComponent implements OnInit {
       onlySelf: true
     });
 
-    this.isAdmin = this.f.userType.value == UserTypes.GitAdmin ? true : false;
+    this.isAdmin = this.f.userType.value == UserTypes.GitAdmin ||
+      this.f.userType.value == UserTypes.FormCreator ? true : false;
     this.isCompAdmin = this.f.userType.value == UserTypes.CompanyAdmin ? true : false;
     this.isSuperExec = this.f.userType.value == UserTypes.SuperExecutive  ? true : false;
     this.isFrontDesk =
@@ -141,7 +138,8 @@ export class UserAccountCreatorComponent implements OnInit {
       this.f.merchant.updateValueAndValidity();
     }
 
-    if (this.f.userType.value == UserTypes.GitAdmin || this.f.userType.value == UserTypes.BranchAdmin) {
+    if (this.f.userType.value == UserTypes.GitAdmin || this.f.userType.value == UserTypes.BranchAdmin ||
+      this.f.userType.value == UserTypes.FormCreator) {
       // remove validation of merchant and branch
       // so the account can be created.
       this.f.branch.clearValidators();

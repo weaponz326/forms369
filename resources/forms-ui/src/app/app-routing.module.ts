@@ -118,6 +118,7 @@ import { TermsPageComponent } from './pages/terms-page/terms-page.component';
 import { PrivacyPageComponent } from './pages/privacy-page/privacy-page.component';
 import { ClientPDFDownloadingPageComponent } from './pages/dashboard/client/client-pdfdownloading-page/client-pdfdownloading-page.component';
 import { ViewFormCreatorListsPageComponent } from './pages/dashboard/git-admin/view-form-creator-lists-page/view-form-creator-lists-page.component';
+import { FormCreatorHomePageComponent } from './pages/dashboard/form-creator/form-creator-home-page/form-creator-home-page.component';
 
 const routes: Routes = [
   { path: '', component: WelcomePageComponent },
@@ -264,7 +265,7 @@ const routes: Routes = [
             component: ViewFrontDeskListsPageComponent
           },
           {
-            path: 'form_creators',
+            path: 'form_creator',
             component: ViewFormCreatorListsPageComponent
           },
           {
@@ -622,15 +623,47 @@ const routes: Routes = [
     ]
   },
   {
-    path: 'form-creator',
+    path: 'form_creator',
     canActivate: [AuthGuard],
     children: [
+      {
+        path: '',
+        pathMatch: 'full',
+        component: FormCreatorHomePageComponent,
+        canActivate: [AuthGuard]
+      },
       {
         path: 'create',
         children: [
           {
             path: 'form',
             component: CreateFormPageComponent
+          },
+          {
+            path: 'section',
+            // component
+          }
+        ]
+      },
+      {
+        path: 'edit',
+        children: [
+          {
+            path: 'form',
+            component: EditFormPageComponent
+          }
+        ]
+      },
+      {
+        path: 'list',
+        children: [
+          {
+            path: 'forms',
+            component: ViewFormListsPageComponent
+          },
+          {
+            path: 'sections',
+            component: ViewSectionsPageComponent
           }
         ]
       }

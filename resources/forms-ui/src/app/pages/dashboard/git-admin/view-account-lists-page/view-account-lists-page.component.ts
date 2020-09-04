@@ -43,7 +43,7 @@ export class ViewAccountListsPageComponent implements OnInit {
   @Output() delete = new EventEmitter();
   @Output() dataLoaded = new EventEmitter();
   @Output() dataLoadedError = new EventEmitter();
-  
+
   @ViewChild('loader', { static: false }) loadingModal: TemplateRef<any>;
   @ViewChild('confirm', { static: false }) confirmModal: TemplateRef<any>;
 
@@ -179,6 +179,9 @@ export class ViewAccountListsPageComponent implements OnInit {
       case UserTypes.SuperExecutive:
         this.getSuperExecutiveAccounts();
         break;
+      case UserTypes.FormCreator:
+        this.getFormCreatorAccounts();
+        break;
       default:
         break;
     }
@@ -190,6 +193,35 @@ export class ViewAccountListsPageComponent implements OnInit {
       res => {
         const accounts = res as any;
         console.log('git_admin: ' + JSON.stringify(accounts));
+        this.loading = false;
+        this.dataLoaded.emit(accounts);
+        this.dataLoadedError.emit(null);
+        if (accounts.length > 0) {
+          this.hasNoData = false;
+          _.forEach(accounts, (admin) => {
+            this.collection.push(admin);
+          });
+          this.allCollection = _.reverse(this.collection);
+        }
+        else {
+          this.hasNoData = true;
+        }
+      },
+      err => {
+        this.loading = false;
+        this.hasError = true;
+        this.dataLoaded.emit(null);
+        this.dataLoadedError.emit(err);
+      }
+    );
+  }
+
+  getFormCreatorAccounts() {
+    this.loading = true;
+    this.adminService.getFormCreators().then(
+      res => {
+        const accounts = res as any;
+        console.log('form_creators: ' + JSON.stringify(accounts));
         this.loading = false;
         this.dataLoaded.emit(accounts);
         this.dataLoadedError.emit(null);
