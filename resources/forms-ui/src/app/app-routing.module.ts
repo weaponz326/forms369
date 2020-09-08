@@ -117,6 +117,8 @@ import { InvalidLinkPageComponent } from './pages/invalid-link-page/invalid-link
 import { TermsPageComponent } from './pages/terms-page/terms-page.component';
 import { PrivacyPageComponent } from './pages/privacy-page/privacy-page.component';
 import { ClientPDFDownloadingPageComponent } from './pages/dashboard/client/client-pdfdownloading-page/client-pdfdownloading-page.component';
+import { ViewFormCreatorListsPageComponent } from './pages/dashboard/git-admin/view-form-creator-lists-page/view-form-creator-lists-page.component';
+import { FormCreatorHomePageComponent } from './pages/dashboard/form-creator/form-creator-home-page/form-creator-home-page.component';
 
 const routes: Routes = [
   { path: '', component: WelcomePageComponent },
@@ -136,7 +138,10 @@ const routes: Routes = [
   { path: 'invalid_reset_pin', component: InvalidResetPinPageComponent },
   { path: 'invalid_link', component: InvalidLinkPageComponent },
   { path: 'privacy', component: PrivacyPageComponent },
-  { path: 'terms', component: TermsPageComponent },
+  {
+    path: 'terms',
+    component: TermsPageComponent
+  },
   {
     path: 'git_admin',
     children: [
@@ -258,6 +263,10 @@ const routes: Routes = [
           {
             path: 'front_desk',
             component: ViewFrontDeskListsPageComponent
+          },
+          {
+            path: 'form_creator',
+            component: ViewFormCreatorListsPageComponent
           },
           {
             path: 'section',
@@ -608,6 +617,53 @@ const routes: Routes = [
           {
             path: 'branch',
             component: AdminViewBranchDetailsPageComponent
+          }
+        ]
+      }
+    ]
+  },
+  {
+    path: 'form_creator',
+    canActivate: [AuthGuard],
+    children: [
+      {
+        path: '',
+        pathMatch: 'full',
+        component: FormCreatorHomePageComponent,
+        canActivate: [AuthGuard]
+      },
+      {
+        path: 'create',
+        children: [
+          {
+            path: 'form',
+            component: CreateFormPageComponent
+          },
+          {
+            path: 'section',
+            // component
+          }
+        ]
+      },
+      {
+        path: 'edit',
+        children: [
+          {
+            path: 'form',
+            component: EditFormPageComponent
+          }
+        ]
+      },
+      {
+        path: 'list',
+        children: [
+          {
+            path: 'forms',
+            component: ViewFormListsPageComponent
+          },
+          {
+            path: 'sections',
+            component: ViewSectionsPageComponent
           }
         ]
       }

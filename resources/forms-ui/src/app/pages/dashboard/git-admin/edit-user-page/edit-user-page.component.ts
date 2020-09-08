@@ -66,6 +66,10 @@ export class EditUserPageComponent implements OnInit {
         this.userType = 'GIT Admin';
         this.url = '/git_admin/lists/admin';
         break;
+      case UserTypes.FormCreator:
+        this.userType = 'Form Creator';
+        this.url = '/git_admin/lists/form_creator';
+        break;
       default:
         break;
     }

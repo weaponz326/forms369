@@ -42,6 +42,26 @@ export class AdminService {
     });
   }
 
+  getFormCreators(allowPagination?: boolean): Promise<any> {
+    return new Promise((resolve, reject) => {
+      const url = !_.isUndefined(allowPagination) || allowPagination
+        ? this.endpointService.apiHost + 'api/v1/getAllUsersByType/' + UserTypes.FormCreator
+        : this.endpointService.apiHost + 'api/v1/getAllUsersByTypeForDropdown/' + UserTypes.FormCreator;
+      this.http.get<any>(url, { headers: this.headers }).subscribe(
+        res => {
+          console.log('response: ' + JSON.stringify(res));
+          return !_.isUndefined(allowPagination) || allowPagination
+            ? resolve(res.users.data)
+            : resolve(res.users);
+        },
+        err => {
+          console.log('error: ' + JSON.stringify(err));
+          reject(err);
+        }
+      );
+    });
+  }
+
   /**
    * Returns a collection of all user accounts belonging to a merchant.
    *

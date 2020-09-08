@@ -7,8 +7,8 @@ import { OrderModule } from 'ngx-order-pipe';
 import { ClipboardModule } from 'ngx-clipboard';
 import { PdfViewerModule } from 'ng2-pdf-viewer';
 import { SignaturePadModule } from 'ngx-signaturepad';
-import { NgxChartsModule } from '@swimlane/ngx-charts';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { NgxChartsModule } from '@swimlane/ngx-charts';
 import { HttpClientModule } from '@angular/common/http';
 import { AppRoutingModule } from './app-routing.module';
 import { CountryPickerModule } from 'ngx-country-picker';
@@ -149,6 +149,8 @@ import { AlreadyJoinedQueueDialogComponent } from './components/already-joined-q
 import { TermsPageComponent } from './pages/terms-page/terms-page.component';
 import { PrivacyPageComponent } from './pages/privacy-page/privacy-page.component';
 import { ClientPDFDownloadingPageComponent } from './pages/dashboard/client/client-pdfdownloading-page/client-pdfdownloading-page.component';
+import { ViewFormCreatorListsPageComponent } from './pages/dashboard/git-admin/view-form-creator-lists-page/view-form-creator-lists-page.component';
+import { FormCreatorHomePageComponent } from './pages/dashboard/form-creator/form-creator-home-page/form-creator-home-page.component';
 
 @NgModule({
   declarations: [
@@ -278,6 +280,8 @@ import { ClientPDFDownloadingPageComponent } from './pages/dashboard/client/clie
     TermsPageComponent,
     PrivacyPageComponent,
     ClientPDFDownloadingPageComponent,
+    ViewFormCreatorListsPageComponent,
+    FormCreatorHomePageComponent,
   ],
   imports: [
     BrowserModule,

@@ -1,12 +1,12 @@
-import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 import * as _ from 'lodash';
 import { Observable } from 'rxjs';
 import { startWith, map } from 'rxjs/operators';
 import { Users } from 'src/app/models/users.model';
 import { UserTypes } from 'src/app/enums/user-types.enum';
-import { CountryPickerService, ICountry } from 'ngx-country-picker';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { CountryPickerService, ICountry } from 'ngx-country-picker';
 import { BranchService } from 'src/app/services/branch/branch.service';
+import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 import { CompanyService } from 'src/app/services/company/company.service';
 import { AccountService } from 'src/app/services/account/account.service';
 import { LocalStorageService } from 'src/app/services/storage/local-storage.service';
@@ -24,8 +24,8 @@ export class UserAccountCreatorComponent implements OnInit {
   loading: boolean;
   submitted: boolean;
   isGitAdmin: boolean;
-  isFrontDesk: boolean;
   isCompUser: boolean;
+  isFrontDesk: boolean;
   isCompAdmin: boolean;
   isSuperExec: boolean;
   branchesList: Array<any>;
@@ -46,9 +46,9 @@ export class UserAccountCreatorComponent implements OnInit {
     private localStorage: LocalStorageService,
     private countryPickerService: CountryPickerService
   ) {
-    this.countriesList = [];
     this.branchesList = [];
     this.merchantsList = [];
+    this.countriesList = [];
     this.branchNamesList = [];
     this.merchantNamesList = [];
     this.isAdmin = this.localStorage.getUser().usertype == UserTypes.GitAdmin ? true : false;
@@ -76,16 +76,16 @@ export class UserAccountCreatorComponent implements OnInit {
 
   buildForm() {
     this.form = this.formBuilder.group({
-      firstName: ['', Validators.required],
-      lastName: ['', Validators.required],
+      branch: ['', Validators.required],
       country: ['', Validators.required],
+      lastName: ['', Validators.required],
       username: ['', Validators.required],
       userType: ['', Validators.required],
-      branch: ['', Validators.required],
       merchant: ['', Validators.required],
+      firstName: ['', Validators.required],
       dialCode: ['233', Validators.required],
-      password: ['', [Validators.minLength(8), Validators.required]],
       emailAddress: ['', [Validators.email, Validators.required]],
+      password: ['', [Validators.minLength(8), Validators.required]],
       phone: ['', [Validators.maxLength(9), Validators.minLength(9), Validators.required]],
     });
   }
@@ -120,7 +120,8 @@ export class UserAccountCreatorComponent implements OnInit {
       onlySelf: true
     });
 
-    this.isAdmin = this.f.userType.value == UserTypes.GitAdmin ? true : false;
+    this.isAdmin = this.f.userType.value == UserTypes.GitAdmin ||
+      this.f.userType.value == UserTypes.FormCreator ? true : false;
     this.isCompAdmin = this.f.userType.value == UserTypes.CompanyAdmin ? true : false;
     this.isSuperExec = this.f.userType.value == UserTypes.SuperExecutive  ? true : false;
     this.isFrontDesk =
@@ -137,7 +138,8 @@ export class UserAccountCreatorComponent implements OnInit {
       this.f.merchant.updateValueAndValidity();
     }
 
-    if (this.f.userType.value == UserTypes.GitAdmin || this.f.userType.value == UserTypes.BranchAdmin) {
+    if (this.f.userType.value == UserTypes.GitAdmin || this.f.userType.value == UserTypes.BranchAdmin ||
+      this.f.userType.value == UserTypes.FormCreator) {
       // remove validation of merchant and branch
       // so the account can be created.
       this.f.branch.clearValidators();

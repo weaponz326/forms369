@@ -109,6 +109,12 @@
             </a>
           </li>
           <li class="nav-item">
+            <a class="nav-link" routerLink="/git_admin/lists/form_creator">
+              <i class="mdi mdi-file-account menu-icon"></i>
+              <span class="menu-title">Form Creators</span>
+            </a>
+          </li>
+          <li class="nav-item">
             <a class="nav-link" routerLink="/git_admin/lists/admin">
               <i class="mdi mdi-account-supervisor menu-icon"></i>
               <span class="menu-title">GIT Admins</span>
@@ -503,3 +509,74 @@
   </ul>
 </nav>
 <!-- /.executive -->
+
+<!-- form creator -->
+<nav *ngIf="isFormCreator" class="sidebar sidebar-offcanvas" id="sidebar">
+  <ul class="nav">
+    <li class="nav-item">
+      <a class="nav-link" routerLink="/form_creator">
+        <i class="mdi mdi-home menu-icon"></i>
+        <span class="menu-title">Home</span>
+      </a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link" routerLink="/form_creator/create/form">
+        <i class="mdi mdi-file-document-edit-outline menu-icon"></i>
+        <span class="menu-title">New Form</span>
+      </a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link" routerLink="/form_creator/lists/form">
+        <i class="mdi mdi-file-document-box-outline menu-icon"></i>
+        <span class="menu-title">All Forms</span>
+      </a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link" data-toggle="collapse" href="#template" aria-expanded="false" aria-controls="template">
+        <i class="mdi mdi-file-document-box-multiple-outline menu-icon"></i>
+        <span class="menu-title">Templates</span>
+        <i class="menu-arrow"></i>
+      </a>
+      <div class="collapse" id="template">
+        <ul class="nav flex-column sub-menu">
+          <li class="nav-item">
+            <a class="nav-link" routerLink="/templates/create">
+              <i class="mdi mdi-plus-outline menu-icon"></i>
+              <span class="menu-title">Create Template</span>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" routerLink="/templates/list">
+              <i class="mdi mdi-format-list-bulleted menu-icon"></i>
+              <span class="menu-title">All Templates</span>
+            </a>
+          </li>
+        </ul>
+      </div>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link" data-toggle="collapse" href="#section" aria-expanded="false" aria-controls="section">
+        <i class="mdi mdi-file-check-outline menu-icon"></i>
+        <span class="menu-title">Form Section</span>
+        <i class="menu-arrow"></i>
+      </a>
+      <div class="collapse" id="section">
+        <ul class="nav flex-column sub-menu">
+          <li class="nav-item">
+            <a class="nav-link" routerLink="/form_creator/create/section">
+              <i class="mdi mdi-plus menu-icon"></i>
+              <span class="menu-title">Create Section</span>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" routerLink="/form_creator/lists/section">
+              <i class="mdi mdi-desktop-mac menu-icon"></i>
+              <span class="menu-title">View Section</span>
+            </a>
+          </li>
+        </ul>
+      </div>
+    </li>
+  </ul>
+</nav>
+<!-- git-admin -->

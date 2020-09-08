@@ -1,4 +1,3 @@
-import { Component, OnInit, Output, EventEmitter, Input  } from '@angular/core';
 import * as _ from 'lodash';
 import { Observable } from 'rxjs';
 import { startWith, map } from 'rxjs/operators';
@@ -9,6 +8,7 @@ import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { BranchService } from 'src/app/services/branch/branch.service';
 import { CompanyService } from 'src/app/services/company/company.service';
 import { AccountService } from 'src/app/services/account/account.service';
+import { Component, OnInit, Output, EventEmitter, Input  } from '@angular/core';
 import { LocalStorageService } from 'src/app/services/storage/local-storage.service';
 
 @Component({
@@ -175,7 +175,7 @@ export class UserAccountEditorComponent implements OnInit {
           this.f.userType.value == UserTypes.BranchSuperExecutive ||
           this.f.userType.value == UserTypes.BranchAdmin ? true : false;
 
-        if (this.f.userType.value == UserTypes.GitAdmin) {
+        if (this.f.userType.value == UserTypes.GitAdmin || this.f.userType.value == UserTypes.FormCreator) {
           // remove validation of merchant and branch
           // so the account can be created.
           this.isGitAdmin = true;

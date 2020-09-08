@@ -69,6 +69,10 @@ export class CreateUserAccountPageComponent implements OnInit {
         this.userType = 'Super Executive';
         this.url = 'git_admin/lists/super_executive';
         break;
+      case UserTypes.FormCreator:
+        this.userType = 'Form Creator';
+        this.url = '/git_admin/lists/form_creator';
+        break;
       default:
         break;
     }
