@@ -24,7 +24,8 @@ class FrontDeskController extends Controller
         ->join('forms', 'forms.form_code', '=', 'form_id')
         ->join('merchants', 'merchants.id', '=', 'forms.merchant_id')
         ->select('submitted_forms.*','merchants.merchant_name AS merchant_name', 'merchants.nickname',
-        'users.name', 'users.email', 'forms.name AS form_name', 'forms.form_fields', 'forms.join_queue', 'forms.can_view', 'require_signature')
+        'users.name', 'users.email', 'forms.name AS form_name', 'forms.form_fields', 'forms.join_queue', 
+        'forms.can_view', 'require_signature', 'forms.require_payment')
         ->where('submitted_forms.status', '!=' , 4)
         ->orderBy('submitted_at', 'desc')
         ->paginate(15);
@@ -39,6 +40,7 @@ class FrontDeskController extends Controller
             $submittedformdata['form_fields'] = json_decode(Crypt::decryptString($items->form_fields));
             $submittedformdata['join_queue'] = $items->join_queue;
             $submittedformdata['require_signature'] = $items->require_signature;
+            $submittedformdata['require_payment'] = $items->require_payment;
             $submittedformdata['merchant_name'] = Crypt::decryptString($items->merchant_name);
             $submittedformdata['nickname'] = $items->nickname;
             $submittedformdata['client_id'] = $items->client_id;
@@ -77,7 +79,8 @@ class FrontDeskController extends Controller
         ->join('forms', 'forms.form_code', '=', 'form_id')
         ->join('merchants', 'merchants.id', '=', 'forms.merchant_id')
         ->select('submitted_forms.*','merchants.merchant_name AS merchant_name', 'merchants.nickname', 'forms.tnc',
-        'users.name', 'users.email', 'forms.name AS form_name', 'forms.form_fields', 'forms.join_queue', 'forms.can_view', 'require_signature')
+        'users.name', 'users.email', 'forms.name AS form_name', 'forms.form_fields', 'forms.join_queue', 
+        'forms.can_view', 'require_signature', 'forms.require_payment')
         ->where('merchants.id', $id)
         ->where('submitted_forms.status', '!=' , 4)
         ->orderBy('submitted_at', 'desc')
@@ -93,6 +96,7 @@ class FrontDeskController extends Controller
             $submittedformdata['form_fields'] = json_decode(Crypt::decryptString($items->form_fields));
             $submittedformdata['join_queue'] = $items->join_queue;
             $submittedformdata['require_signature'] = $items->require_signature;
+            $submittedformdata['require_payment'] = $items->require_payment;
             $submittedformdata['merchant_name'] = Crypt::decryptString($items->merchant_name);
             $submittedformdata['nickname'] = $items->nickname;
             $submittedformdata['client_id'] = $items->client_id;
@@ -130,7 +134,8 @@ class FrontDeskController extends Controller
         ->join('forms', 'forms.form_code', '=', 'form_id')
         ->join('merchants', 'merchants.id', '=', 'forms.merchant_id')
         ->select('submitted_forms.*','merchants.merchant_name AS merchant_name', 'merchants.nickname', 'forms.tnc',
-        'users.name', 'users.email', 'forms.name AS form_name', 'forms.form_fields', 'forms.join_queue','forms.can_view', 'require_signature')
+        'users.name', 'users.email', 'forms.name AS form_name', 'forms.form_fields', 'forms.join_queue',
+        'forms.can_view', 'require_signature', 'forms.require_payment')
         ->where('submission_code', $code)
         ->where('submitted_forms.status', '!=' , 4)
         ->get();
@@ -145,6 +150,7 @@ class FrontDeskController extends Controller
             $submittedformdata['form_fields'] = json_decode(Crypt::decryptString($items->form_fields));
             $submittedformdata['join_queue'] = $items->join_queue;
             $submittedformdata['require_signature'] = $items->require_signature;
+            $submittedformdata['require_payment'] = $items->require_payment;
             $submittedformdata['merchant_name'] = Crypt::decryptString($items->merchant_name);
             $submittedformdata['nickname'] = $items->nickname;
             $submittedformdata['client_id'] = $items->client_id;
@@ -184,7 +190,8 @@ class FrontDeskController extends Controller
         ->join('forms', 'forms.form_code', '=', 'form_id')
         ->join('merchants', 'merchants.id', '=', 'forms.merchant_id')
         ->select('submitted_forms.*','merchants.merchant_name AS merchant_name', 'merchants.nickname', 'forms.tnc',
-        'users.name', 'users.email', 'forms.name AS form_name', 'forms.form_fields', 'forms.join_queue', 'forms.can_view', 'require_signature')
+        'users.name', 'users.email', 'forms.name AS form_name', 'forms.form_fields', 'forms.join_queue', 
+        'forms.can_view', 'require_signature', 'forms.require_payment')
         ->where('submission_code', $code)
         ->where('forms.merchant_id', $id)
         ->whereNotIn('submitted_forms.status', [4, 5])
@@ -200,6 +207,7 @@ class FrontDeskController extends Controller
             $submittedformdata['form_fields'] = json_decode(Crypt::decryptString($items->form_fields));
             $submittedformdata['join_queue'] = $items->join_queue;
             $submittedformdata['require_signature'] = $items->require_signature;
+            $submittedformdata['require_payment'] = $items->require_payment;
             $submittedformdata['merchant_name'] = Crypt::decryptString($items->merchant_name);
             $submittedformdata['nickname'] = $items->nickname;
             $submittedformdata['client_id'] = $items->client_id;
@@ -304,7 +312,8 @@ class FrontDeskController extends Controller
         ->join('forms', 'forms.form_code', '=', 'form_id')
         ->join('merchants', 'merchants.id', '=', 'forms.merchant_id')
         ->select('submitted_forms.*','merchants.merchant_name AS merchant_name', 'merchants.nickname', 'forms.tnc',
-        'users.name', 'users.email', 'forms.name AS form_name', 'forms.form_fields', 'forms.join_queue', 'forms.can_view', 'require_signature')
+        'users.name', 'users.email', 'forms.name AS form_name', 'forms.form_fields', 'forms.join_queue', 
+        'forms.can_view', 'require_signature', 'forms.require_payment')
         ->where('submitted_forms.status', $status)
         ->where('merchants.id', $id)
         ->get();
@@ -315,7 +324,8 @@ class FrontDeskController extends Controller
             ->join('forms', 'forms.form_code', '=', 'form_id')
             ->join('merchants', 'merchants.id', '=', 'forms.merchant_id')
             ->select('submitted_forms_deleted.*','merchants.merchant_name AS merchant_name', 'merchants.nickname', 'forms.tnc',
-            'users.name', 'users.email', 'forms.name AS form_name', 'forms.form_fields', 'forms.join_queue', 'forms.can_view', 'require_signature')
+            'users.name', 'users.email', 'forms.name AS form_name', 'forms.form_fields', 'forms.join_queue', 
+            'forms.can_view', 'require_signature', 'forms.require_payment')
             ->where('submitted_forms_deleted.status', $status)
             ->where('merchants.id', $id)
             ->get();
@@ -331,6 +341,7 @@ class FrontDeskController extends Controller
             $submittedformdata['form_fields'] = json_decode(Crypt::decryptString($items->form_fields));
             $submittedformdata['join_queue'] = $items->join_queue;
             $submittedformdata['require_signature'] = $items->require_signature;
+            $submittedformdata['require_payment'] = $items->require_payment;
             $submittedformdata['merchant_name'] = Crypt::decryptString($items->merchant_name);
             $submittedformdata['nickname'] = $items->nickname;
             $submittedformdata['client_id'] = $items->client_id;
@@ -376,7 +387,8 @@ class FrontDeskController extends Controller
         ->join('forms', 'forms.form_code', '=', 'form_id')
         ->join('merchants', 'merchants.id', '=', 'forms.merchant_id')
         ->select('submitted_forms.*','merchants.merchant_name AS merchant_name', 'merchants.nickname', 'forms.tnc',
-        'users.name', 'users.email', 'forms.name AS form_name', 'forms.form_fields', 'forms.join_queue', 'forms.can_view', 'require_signature')
+        'users.name', 'users.email', 'forms.name AS form_name', 'forms.form_fields', 'forms.join_queue', 
+        'forms.can_view', 'require_signature', 'forms.require_payment')
         ->where([
             ['submitted_forms.status', $status],
             ['merchants.id', $id],
@@ -394,7 +406,8 @@ class FrontDeskController extends Controller
             ->join('forms', 'forms.form_code', '=', 'form_id')
             ->join('merchants', 'merchants.id', '=', 'forms.merchant_id')
             ->select('submitted_forms_deleted.*','merchants.merchant_name AS merchant_name', 'merchants.nickname', 'forms.tnc',
-            'users.name', 'users.email', 'forms.name AS form_name', 'forms.form_fields', 'forms.join_queue', 'forms.can_view', 'require_signature')
+            'users.name', 'users.email', 'forms.name AS form_name', 'forms.form_fields', 'forms.join_queue', 
+            'forms.can_view', 'require_signature', 'forms.require_payment')
             ->where([
                 ['submitted_forms_deleted.status', $status],
                 ['merchants.id', $id],
@@ -418,6 +431,7 @@ class FrontDeskController extends Controller
             $submittedformdata['form_fields'] = json_decode(Crypt::decryptString($items->form_fields));
             $submittedformdata['join_queue'] = $items->join_queue;
             $submittedformdata['require_signature'] = $items->require_signature;
+            $submittedformdata['require_payment'] = $items->require_payment;
             $submittedformdata['merchant_name'] = Crypt::decryptString($items->merchant_name);
             $submittedformdata['nickname'] = $items->nickname;
             $submittedformdata['client_id'] = $items->client_id;
@@ -540,7 +554,8 @@ class FrontDeskController extends Controller
         ->join('forms', 'forms.form_code', '=', 'form_id')
         ->join('merchants', 'merchants.id', '=', 'forms.merchant_id')
         ->select('submitted_forms.*','merchants.merchant_name AS merchant_name', 'merchants.nickname', 'forms.tnc',
-        'users.name', 'users.email', 'forms.name AS form_name', 'forms.form_fields', 'forms.join_queue', 'forms.can_view', 'require_signature')
+        'users.name', 'users.email', 'forms.name AS form_name', 'forms.form_fields', 'forms.join_queue', 
+        'forms.can_view', 'require_signature', 'forms.require_payment')
         ->where('submitted_forms.processed_by', $id)
         ->where('submitted_forms.status', $status)
         ->whereBetween('last_processed', [$startdate, $enddate])
@@ -556,6 +571,7 @@ class FrontDeskController extends Controller
             $submittedformdata['form_fields'] = json_decode(Crypt::decryptString($items->form_fields));
             $submittedformdata['join_queue'] = $items->join_queue;
             $submittedformdata['require_signature'] = $items->require_signature;
+            $submittedformdata['require_payment'] = $items->require_payment;
             $submittedformdata['can_view'] = $items->can_view;
             $submittedformdata['tnc'] = $items->tnc;
             $submittedformdata['merchant_name'] = Crypt::decryptString($items->merchant_name);
@@ -596,7 +612,8 @@ class FrontDeskController extends Controller
         ->join('forms', 'forms.form_code', '=', 'form_id')
         ->join('merchants', 'merchants.id', '=', 'forms.merchant_id')
         ->select('submitted_forms.*','merchants.merchant_name AS merchant_name', 'merchants.nickname', 'forms.tnc',
-        'users.name', 'users.email', 'forms.name AS form_name', 'forms.form_fields', 'forms.join_queue', 'forms.can_view', 'require_signature')
+        'users.name', 'users.email', 'forms.name AS form_name', 'forms.form_fields', 'forms.join_queue', 
+        'forms.can_view', 'require_signature', 'forms.require_payment')
         ->where('submitted_forms.processed_by', $id)
         ->where('submitted_forms.status', $status)
         ->whereDate('last_processed', $date)
@@ -612,6 +629,7 @@ class FrontDeskController extends Controller
             $submittedformdata['form_fields'] = json_decode(Crypt::decryptString($items->form_fields));
             $submittedformdata['join_queue'] = $items->join_queue;
             $submittedformdata['require_signature'] = $items->require_signature;
+            $submittedformdata['require_payment'] = $items->require_payment;
             $submittedformdata['can_view'] = $items->can_view;
             $submittedformdata['tnc'] = $items->tnc;
             $submittedformdata['merchant_name'] = Crypt::decryptString($items->merchant_name);
@@ -698,7 +716,8 @@ class FrontDeskController extends Controller
         ->join('forms', 'forms.form_code', '=', 'form_id')
         ->join('merchants', 'merchants.id', '=', 'forms.merchant_id')
         ->select('submitted_forms.*','merchants.merchant_name AS merchant_name', 'merchants.nickname', 'forms.tnc',
-        'users.name', 'users.email', 'forms.name AS form_name', 'forms.form_fields', 'forms.join_queue', 'forms.can_view', 'require_signature')
+        'users.name', 'users.email', 'forms.name AS form_name', 'forms.form_fields', 'forms.join_queue', 
+        'forms.can_view', 'require_signature', 'forms.require_payment')
         ->where('submitted_forms.status', $status)
         ->where('submitted_forms.processed_by', $id)
         ->paginate(15);
@@ -713,6 +732,7 @@ class FrontDeskController extends Controller
             $submittedformdata['form_fields'] = json_decode(Crypt::decryptString($items->form_fields));
             $submittedformdata['join_queue'] = $items->join_queue;
             $submittedformdata['require_signature'] = $items->require_signature;
+            $submittedformdata['require_payment'] = $items->require_payment;
             $submittedformdata['can_view'] = $items->can_view;
             $submittedformdata['tnc'] = $items->tnc;
             $submittedformdata['merchant_name'] = Crypt::decryptString($items->merchant_name);

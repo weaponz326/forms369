@@ -32,7 +32,8 @@ class FormsController extends Controller
             'merchant_id' => 'required',
             'form_code' => 'required|unique:forms',
             'status' => 'required',
-            'tnc' => 'required'
+            'tnc' => 'required',
+            'require_payment' => 'required'
         ]); 
        
 
@@ -45,6 +46,7 @@ class FormsController extends Controller
         $join_queue = $request->join_queue;
         $require_signature = $request->require_signature;
         $tnc = $request->tnc;
+        $require_payment = $request->require_payment;
 
         if($request->has('can_view'))
         {
@@ -77,7 +79,8 @@ class FormsController extends Controller
                     'can_view' => $can_view,
                     'join_queue' => $join_queue,
                     'require_signature' => $require_signature,
-                    'tnc' => $tnc
+                    'tnc' => $tnc,
+                    'require_payment'=> $require_payment
                 ]
             );
             $title = $request->name;
@@ -130,7 +133,8 @@ class FormsController extends Controller
             'merchant_id' => 'required',
             'form_code' => 'required',
             'status' => 'required',
-            'tnc' => 'required'
+            'tnc' => 'required',
+            'require_payment' => 'required'
         ]); 
        
 
@@ -143,6 +147,7 @@ class FormsController extends Controller
         $join_queue = $request->join_queue;
         $require_signature = $request->require_signature;
         $tnc = $request->tnc;
+        $require_payment = $request->require_payment;
         if($request->has('can_view'))
         {
             $can_view = $request->can_view;
@@ -175,7 +180,8 @@ class FormsController extends Controller
                     'can_view' => $can_view,
                     'join_queue' => $join_queue,
                     'require_signature' => $require_signature,
-                    'tnc' => $tnc
+                    'tnc' => $tnc,
+                    'require_payment'=> $require_payment
                 ]
             );
 
@@ -352,6 +358,7 @@ class FormsController extends Controller
             $formdata['tnc'] = $items->tnc;
             $formdata['join_queue'] = $items->join_queue;
             $formdata['require_signature'] = $items->require_signature;
+            $formdata['require_payment'] = $items->require_payment;
             $formdata['file_url'] = $items->url;
             $formdata['created_by'] = $items->created_by;
             $formdata['created_at'] = $items->created_at;
@@ -403,6 +410,7 @@ class FormsController extends Controller
             $formdata['tnc'] = $items->tnc;
             $formdata['join_queue'] = $items->join_queue;
             $formdata['require_signature'] = $items->require_signature;
+            $formdata['require_payment'] = $items->require_payment;
             $formdata['file_url'] = $items->url;
             $formdata['logo'] = $items->logo;
             $formdata['created_by'] = $items->created_by;
@@ -475,6 +483,7 @@ class FormsController extends Controller
             $formdata['tnc'] = $items->tnc;
             $formdata['join_queue'] = $items->join_queue;
             $formdata['require_signature'] = $items->require_signature;
+            $formdata['require_payment'] = $items->require_payment;
             $formdata['file_url'] = $items->url;
             $formdata['logo'] = $items->logo;
             $formdata['created_by'] = $items->created_by;
@@ -527,6 +536,7 @@ class FormsController extends Controller
             $formdata['tnc'] = $items->tnc;
             $formdata['join_queue'] = $items->join_queue;
             $formdata['require_signature'] = $items->require_signature;
+            $formdata['require_payment'] = $items->require_payment;
             $formdata['colors'] = $items->colors;
             $formdata['file_url'] = $items->url;
             $formdata['created_by'] = $items->created_by;
@@ -605,6 +615,7 @@ class FormsController extends Controller
             $formdata['tnc'] = $items->tnc;
             $formdata['join_queue'] = $items->join_queue;
             $formdata['require_signature'] = $items->require_signature;
+            $formdata['require_payment'] = $items->require_payment;
             $formdata['file_url'] = $items->url;
             $formdata['colors'] = $items->colors;
             $formdata['created_by'] = $items->created_by;
@@ -658,6 +669,7 @@ class FormsController extends Controller
             $formdata['tnc'] = $items->tnc;
             $formdata['join_queue'] = $items->join_queue;
             $formdata['require_signature'] = $items->require_signature;
+            $formdata['require_payment'] = $items->require_payment;
             $formdata['file_url'] = $items->url;
             $formdata['colors'] = $items->colors;
             $formdata['logo'] = $items->logo;
@@ -713,6 +725,7 @@ class FormsController extends Controller
             $formdata['tnc'] = $items->tnc;
             $formdata['join_queue'] = $items->join_queue;
             $formdata['require_signature'] = $items->require_signature;
+            $formdata['require_payment'] = $items->require_payment;
             $formdata['file_url'] = $items->url;
             $formdata['colors'] = $items->colors;
             $formdata['logo'] = $items->logo;
@@ -767,6 +780,7 @@ class FormsController extends Controller
             $formdata['tnc'] = $items->tnc;
             $formdata['join_queue'] = $items->join_queue;
             $formdata['require_signature'] = $items->require_signature;
+            $formdata['require_payment'] = $items->require_payment;
             $formdata['file_url'] = $items->url;
             $formdata['colors'] = $items->colors;
             $formdata['logo'] = $items->logo;
@@ -1081,6 +1095,7 @@ class FormsController extends Controller
             $formdata['tnc'] = $items->tnc;
             $formdata['join_queue'] = $items->join_queue;
             $formdata['require_signature'] = $items->require_signature;
+            $formdata['require_payment'] = $items->require_payment;
             $formdata['file_url'] = $items->url;
             $formdata['colors'] = $items->colors;
             $formdata['created_by'] = $items->created_by;
@@ -1139,6 +1154,7 @@ class FormsController extends Controller
             $formdata['tnc'] = $items->tnc;
             $formdata['join_queue'] = $items->join_queue;
             $formdata['require_signature'] = $items->require_signature;
+            $formdata['require_payment'] = $items->require_payment;
             $formdata['file_url'] = $items->url;
             $formdata['colors'] = $items->colors;
             $formdata['created_by'] = $items->created_by;
@@ -1193,6 +1209,7 @@ class FormsController extends Controller
             $formdata['tnc'] = $items->tnc;
             $formdata['join_queue'] = $items->join_queue;
             $formdata['require_signature'] = $items->require_signature;
+            $formdata['require_payment'] = $items->require_payment;
             $formdata['file_url'] = $items->url;
             $formdata['colors'] = $items->colors;
             $formdata['logo'] = $items->logo;
