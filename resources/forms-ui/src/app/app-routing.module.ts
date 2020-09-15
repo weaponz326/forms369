@@ -641,7 +641,7 @@ const routes: Routes = [
           },
           {
             path: 'section',
-            // component
+            component: CreateSectionPageComponent
           }
         ]
       },
@@ -651,6 +651,10 @@ const routes: Routes = [
           {
             path: 'form',
             component: EditFormPageComponent
+          },
+          {
+            path: 'section',
+            component: EditSectionPageComponent
           }
         ]
       },
