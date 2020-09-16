@@ -20,10 +20,16 @@ export class ExecInProcessedFormsListPageComponent implements OnInit {
   hasMore: boolean;
   loading: boolean;
   hasError: boolean;
+  showTable: boolean;
   submitted: boolean;
   loadingMore: boolean;
   foundNoForm: boolean;
   hasMoreError: boolean;
+  chartData: Array<any>;
+  isPie: boolean;
+  isPieGrid: boolean;
+  isVertical: boolean;
+  isHorizontal: boolean;
   processingFormsList: Array<any>;
   allProcessingFormsList: Array<any>;
 
@@ -35,6 +41,12 @@ export class ExecInProcessedFormsListPageComponent implements OnInit {
     private frontDeskService: FrontDeskService,
   ) {
     this.query = '';
+    this.chartData = [];
+    this.showTable = true;
+    this.isPie = false;
+    this.isPieGrid = false;
+    this.isVertical = true;
+    this.isHorizontal = false;
     this.processingFormsList = [];
     this.allProcessingFormsList = [];
     this.user = this.localStorage.getUser();
@@ -62,6 +74,38 @@ export class ExecInProcessedFormsListPageComponent implements OnInit {
     this.router.navigateByUrl('front_desk/print_form', { state: { form: form } });
   }
 
+  showChart() {
+    this.showTable = !this.showTable;
+  }
+
+  showPieGrid() {
+    this.isPie = false;
+    this.isVertical = false;
+    this.isHorizontal = false;
+    this.isPieGrid = true;
+  }
+
+  showPieChart() {
+    this.isPieGrid = false;
+    this.isVertical = false;
+    this.isHorizontal = false;
+    this.isPie = true;
+  }
+
+  showVerticalChart() {
+    this.isPie = false;
+    this.isPieGrid = false;
+    this.isHorizontal = false;
+    this.isVertical = true;
+  }
+
+  showHorizontalChart() {
+    this.isPie = false;
+    this.isPieGrid = false;
+    this.isVertical = false;
+    this.isHorizontal = true;
+  }
+
   checkIfHasMore() {
     return _.isEmpty(this.frontDeskService.nextPaginationUrl) ? false : true;
   }
@@ -80,6 +124,8 @@ export class ExecInProcessedFormsListPageComponent implements OnInit {
           });
           this.allProcessingFormsList = this.processingFormsList;
           this.loading = false;
+
+          this.generateChartData();
         }
         else {
           this.hasData = false;
@@ -222,7 +268,60 @@ export class ExecInProcessedFormsListPageComponent implements OnInit {
           this.dateService.getDatePart(form.submitted_at) >= start_date &&
           this.dateService.getDatePart(form.submitted_at) <= end_date
       );
+
+      this.generateChartDataByDate();
     }
+  }
+
+  generateChartData() {
+    // We generate the Chart based on the form processed and its count.
+    const chart_data = [];
+    const found_form = [...new Set(this.allProcessingFormsList.map(form => form.form_name))];
+    console.log('found_form: ' + JSON.stringify(found_form));
+
+    _.forEach(found_form, (form) => {
+      const count = _.filter(this.allProcessingFormsList, (f) => f.form_name == form);
+      chart_data.push({
+        name: form,
+        value: count.length
+      });
+    });
+
+    this.chartData = chart_data;
+    console.log('____chart_data: ' + JSON.stringify(chart_data));
+  }
+
+  generateChartDataByDate() {
+    // We generate the Chart based on the form processed and its count
+    // only based on the start and end date selected by the user.
+    const chart_data = [];
+    const end = this.f.endDate.value;
+    const start = this.f.startDate.value;
+
+    // Bootstrap date picker returns single digit for months from Jan to Sept
+    // In order to allow us to compare against MYSQL which returns double digits
+    // for that, we convert the month accordingly.
+    const end_date = this.dateService.bootstrapDateFormat(end);
+    const start_date = this.dateService.bootstrapDateFormat(start);
+
+    const found_form = [...new Set(this.allProcessingFormsList.map(form => form.form_name))];
+    console.log('found_form: ' + JSON.stringify(found_form));
+
+    _.forEach(found_form, (form) => {
+      const count = _.filter(
+        this.allProcessingFormsList,
+        (f) => f.form_name == form &&
+          (this.dateService.getDatePart(form.submitted_at) >= start_date &&
+            this.dateService.getDatePart(form.submitted_at) <= end_date)
+      );
+      chart_data.push({
+        name: form,
+        value: count.length
+      });
+    });
+
+    this.chartData = chart_data;
+    console.log('____chart_data: ' + JSON.stringify(chart_data));
   }
 
   retry() {

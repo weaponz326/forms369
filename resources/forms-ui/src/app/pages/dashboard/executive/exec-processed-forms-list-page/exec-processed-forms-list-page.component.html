@@ -197,35 +197,35 @@
 
                   <div class="text-center">
                     <ngx-charts-bar-vertical *ngIf="isVertical"
-                    [legend]="true"
-                    [xAxis]="true"
-                    [yAxis]="true"
-                    [view]="[600, 700]"
-                    [results]="chartData"
-                    [showXAxisLabel]="'Forms'"
-                    [showYAxisLabel]="'Total No. Processed Forms'"
-                  ></ngx-charts-bar-vertical>
+                      [legend]="true"
+                      [xAxis]="true"
+                      [yAxis]="true"
+                      [view]="[600, 700]"
+                      [results]="chartData"
+                      [showXAxisLabel]="'Forms'"
+                      [showYAxisLabel]="'Total No. Processed Forms'">
+                    </ngx-charts-bar-vertical>
 
                   <ngx-charts-bar-horizontal *ngIf="isHorizontal"
-                    [legend]="true"
                     [xAxis]="true"
                     [yAxis]="true"
+                    [legend]="true"
                     [view]="[600, 700]"
                     [results]="chartData"
                     [showXAxisLabel]="'Forms'"
-                    [showYAxisLabel]="'Total No. Processed Forms'"
-                  ></ngx-charts-bar-horizontal>
+                    [showYAxisLabel]="'Total No. Processed Forms'">
+                  </ngx-charts-bar-horizontal>
 
                   <ngx-charts-pie-chart *ngIf="isPie"
                     [legend]="true"
                     [view]="[600, 700]"
-                    [results]="chartData"
-                  ></ngx-charts-pie-chart>
+                    [results]="chartData">
+                  </ngx-charts-pie-chart>
 
                   <ngx-charts-pie-grid *ngIf="isPieGrid"
                     [view]="[600, 700]"
-                    [results]="chartData"
-                  ></ngx-charts-pie-grid>
+                    [results]="chartData">
+                  </ngx-charts-pie-grid>
                   </div>
                 </div>
               </div>
@@ -252,8 +252,7 @@
                 Maybe, our servers may be down.
               </p>
               <hr>
-              <p class="mb-0">We are really sorry for this inconvenience. Please click on the load more button again.
-              </p>
+              <p class="mb-0">We are really sorry for this inconvenience. Please click on the load more button again.</p>
             </div>
           </div>
         </div>
