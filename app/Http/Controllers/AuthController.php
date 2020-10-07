@@ -438,7 +438,8 @@ class AuthController extends Controller
      */
     protected function createOtherUser(Request $request, $id, $name, $table){
         //get logged in user
-        $user = $request->user();
+        // $user = $request->user();
+        $user = User::find($id);
         $userid = $user['id'];
 
         if($userid == NULL)
