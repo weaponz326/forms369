@@ -5,6 +5,9 @@ import { Merchants } from 'src/app/models/merchants.model';
 import { CompanyService } from 'src/app/services/company/company.service';
 import { ListViewService } from 'src/app/services/view/list-view.service';
 import { EndpointService } from 'src/app/services/endpoint/endpoint.service';
+import { LocalStorageService } from 'src/app/services/storage/local-storage.service';
+import { Users } from 'src/app/models/users.model';
+import { UserTypes } from 'src/app/enums/user-types.enum';
 
 @Component({
   selector: 'app-view-company-lists-page',
@@ -12,7 +15,7 @@ import { EndpointService } from 'src/app/services/endpoint/endpoint.service';
   styleUrls: ['./view-company-lists-page.component.css']
 })
 export class ViewCompanyListsPageComponent implements OnInit {
-
+  user: Users;
   loading: boolean;
   hasMore: boolean;
   viewMode: string;
@@ -21,6 +24,7 @@ export class ViewCompanyListsPageComponent implements OnInit {
   filterState: string;
   loadingMore: boolean;
   hasMoreError: boolean;
+  isFormCreator: boolean;
   companyList: Array<Merchants>;
   allCompanyList: Array<Merchants>;
   activeCompanyList: Array<Merchants>;
@@ -30,13 +34,16 @@ export class ViewCompanyListsPageComponent implements OnInit {
     private router: Router,
     private companyService: CompanyService,
     private endpointService: EndpointService,
-    private listViewService: ListViewService
+    private listViewService: ListViewService,
+    private localStorage: LocalStorageService
   ) {
     this.companyList = [];
     this.allCompanyList = [];
     this.activeCompanyList = [];
     this.inActiveCompanyList = [];
+    this.user = this.localStorage.getUser();
     this.viewMode = this.listViewService.getDesiredViewMode();
+    this.isFormCreator = this.user.usertype == UserTypes.FormCreator ? true : false;
 
     this.getCompanies();
   }
@@ -105,7 +112,9 @@ export class ViewCompanyListsPageComponent implements OnInit {
   }
 
   openBranch(company: any) {
-    this.router.navigateByUrl('/git_admin/lists/branch', { state: { company: company }});
+    if (!this.isFormCreator) {
+      this.router.navigateByUrl('/git_admin/lists/branch', { state: { company: company } });
+    }
   }
 
   openNewCompany() {

@@ -8,6 +8,7 @@ import { CompanyService } from 'src/app/services/company/company.service';
 import { SectorsService } from 'src/app/services/sectors/sectors.service';
 import { EndpointService } from 'src/app/services/endpoint/endpoint.service';
 import { LocalStorageService } from 'src/app/services/storage/local-storage.service';
+import { UserTypes } from 'src/app/enums/user-types.enum';
 
 @Component({
   selector: 'app-client-form-merchant-page',

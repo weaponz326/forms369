@@ -55,7 +55,7 @@
         </div>
 
         <div class="row">
-          <div class="col-12 col-md-8 offset-md-2 mb-3">
+          <div class="col-8 col-md-8 offset-1 mb-3">
             <div class="search-bar">
               <form>
                 <input type="text" class="search-form form-control" name="query" [(ngModel)]="query"
@@ -63,6 +63,12 @@
                   (keypress)="search($event)">
               </form>
             </div>
+          </div>
+          <div class="col-3 col-md-3">
+            <button type="button" class="btn btn-outline-primary btn-icon-text" placement="top" ngbTooltip="Print Form"
+              (click)="showChart()">
+              <i class="mdi mdi-chart-line"></i> View Data In Chart Mode
+            </button>
           </div>
         </div>
 
@@ -144,7 +150,7 @@
             <div class="card hover-cursor">
               <div class="card-body">
                 <div class="card-text">
-                  <div class="table-responsive">
+                  <div class="table-responsive" *ngIf="showTable">
                     <table class="table table-hover">
                       <thead>
                         <tr>
@@ -170,6 +176,56 @@
                         </tr>
                       </tbody>
                     </table>
+                  </div>
+
+                  <div class="chart-view" *ngIf="!showTable">
+                    <div class="text-center">
+                      <div class="container">
+                        <div class="row mb-3">
+                          <div class="col-12">
+                            <div class="btn-group" role="group" aria-label="Chart Toolbar">
+                              <button type="button" class="btn btn-outline-primary" [ngClass]="{'active': isVertical}" (click)="showVerticalChart()">Vertical Bar Chart</button>
+                              <button type="button" class="btn btn-outline-primary" [ngClass]="{'active': isHorizontal}" (click)="showHorizontalChart()">Horizontal Bar Chart</button>
+                              <button type="button" class="btn btn-outline-primary" [ngClass]="{'active': isPie}" (click)="showPieChart()">Pie Chart</button>
+                              <button type="button" class="btn btn-outline-primary" [ngClass]="{'active': isPieGrid}" (click)="showPieGrid()">Pie Grid</button>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+
+                    <div class="text-center">
+                      <ngx-charts-bar-vertical *ngIf="isVertical"
+                        [legend]="true"
+                        [xAxis]="true"
+                        [yAxis]="true"
+                        [view]="[600, 700]"
+                        [results]="chartData"
+                        [showXAxisLabel]="'Forms'"
+                        [showYAxisLabel]="'Total No. Processed Forms'">
+                      </ngx-charts-bar-vertical>
+
+                      <ngx-charts-bar-horizontal *ngIf="isHorizontal"
+                        [xAxis]="true"
+                        [yAxis]="true"
+                        [legend]="true"
+                        [view]="[600, 700]"
+                        [results]="chartData"
+                        [showXAxisLabel]="'Forms'"
+                        [showYAxisLabel]="'Total No. Processed Forms'">
+                      </ngx-charts-bar-horizontal>
+
+                      <ngx-charts-pie-chart *ngIf="isPie"
+                        [legend]="true"
+                        [view]="[600, 700]"
+                        [results]="chartData">
+                      </ngx-charts-pie-chart>
+
+                      <ngx-charts-pie-grid *ngIf="isPieGrid"
+                        [view]="[600, 700]"
+                        [results]="chartData">
+                      </ngx-charts-pie-grid>
+                    </div>
                   </div>
                 </div>
               </div>

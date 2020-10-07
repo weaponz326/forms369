@@ -798,17 +798,17 @@ if(false) {}
 
 /***/ 9:
 /*!************************************************************************************************************************************************************************************************************************************************************************************************************************************!*\
-  !*** multi ./node_modules/bootstrap/dist/css/bootstrap.min.css ./node_modules/ngx-bootstrap/datepicker/bs-datepicker.css ./node_modules/@angular/material/prebuilt-themes/deeppurple-amber.css ./src/assets/sass/form-builder.scss ./src/assets/sass/form-render.scss ./node_modules/animate.css/animate.min.css ./src/styles.css ***!
+  !*** multi ./node_modules/animate.css/animate.min.css ./node_modules/bootstrap/dist/css/bootstrap.min.css ./node_modules/ngx-bootstrap/datepicker/bs-datepicker.css ./node_modules/@angular/material/prebuilt-themes/deeppurple-amber.css ./src/assets/sass/form-builder.scss ./src/assets/sass/form-render.scss ./src/styles.css ***!
   \************************************************************************************************************************************************************************************************************************************************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
+__webpack_require__(/*! /Users/ralph/Desktop/Work/web/forms/resources/forms-ui/node_modules/animate.css/animate.min.css */"./node_modules/animate.css/animate.min.css");
 __webpack_require__(/*! /Users/ralph/Desktop/Work/web/forms/resources/forms-ui/node_modules/bootstrap/dist/css/bootstrap.min.css */"./node_modules/bootstrap/dist/css/bootstrap.min.css");
 __webpack_require__(/*! /Users/ralph/Desktop/Work/web/forms/resources/forms-ui/node_modules/ngx-bootstrap/datepicker/bs-datepicker.css */"./node_modules/ngx-bootstrap/datepicker/bs-datepicker.css");
 __webpack_require__(/*! /Users/ralph/Desktop/Work/web/forms/resources/forms-ui/node_modules/@angular/material/prebuilt-themes/deeppurple-amber.css */"./node_modules/@angular/material/prebuilt-themes/deeppurple-amber.css");
 __webpack_require__(/*! /Users/ralph/Desktop/Work/web/forms/resources/forms-ui/src/assets/sass/form-builder.scss */"./src/assets/sass/form-builder.scss");
 __webpack_require__(/*! /Users/ralph/Desktop/Work/web/forms/resources/forms-ui/src/assets/sass/form-render.scss */"./src/assets/sass/form-render.scss");
-__webpack_require__(/*! /Users/ralph/Desktop/Work/web/forms/resources/forms-ui/node_modules/animate.css/animate.min.css */"./node_modules/animate.css/animate.min.css");
 module.exports = __webpack_require__(/*! /Users/ralph/Desktop/Work/web/forms/resources/forms-ui/src/styles.css */"./src/styles.css");
 
 

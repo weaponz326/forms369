@@ -110,11 +110,13 @@
                           <img [src]="company.logo" class="img-fluid card-logo" alt="logo">
                           <br>
                           <div class="btn-group" role="group" aria-label="Basic example">
-                            <button type="button" class="btn btn-outline-primary" (click)="edit($event, company)">
+                            <button *ngIf="!isFormCreator" type="button" class="btn btn-outline-primary"
+                              (click)="edit($event, company)">
                               <i class="mdi mdi-pencil-outline"></i>
                               Edit
                             </button>
-                            <button type="button" class="btn btn-outline-primary" (click)="view($event, company)">
+                            <button *ngIf="!isFormCreator" type="button" class="btn btn-outline-primary"
+                              (click)="view($event, company)">
                               <i class="mdi mdi-pulse"></i>
                               View
                             </button>
@@ -145,11 +147,13 @@
                         </div>
                         <div class="col-4 mt--4">
                           <div class="btn-group mt-2" role="group" aria-label="Basic example">
-                            <button type="button" class="btn btn-outline-primary" (click)="edit($event, company)">
+                            <button *ngIf="!isFormCreator" type="button" class="btn btn-outline-primary"
+                              (click)="edit($event, company)">
                               <i class="mdi mdi-pencil-outline"></i>
                               Edit
                             </button>
-                            <button type="button" class="btn btn-outline-primary" (click)="view($event, company)">
+                            <button *ngIf="!isFormCreator" type="button" class="btn btn-outline-primary"
+                              (click)="view($event, company)">
                               <i class="mdi mdi-pulse"></i>
                               View
                             </button>
