@@ -385,4 +385,27 @@ export class FrontDeskService {
       );
     });
   }
+
+  reportAbuse(client_id: string, merchant_id: string, message: string): Promise<boolean> {
+    return new Promise((resolve, reject) => {
+      const url = this.endpointService.apiHost + 'api/v1/reportAbuse/';
+      const body = {
+        client_id: client_id,
+        merchant_id: merchant_id,
+        message: message
+      };
+      this.http.post<any>(url, JSON.stringify(body), { headers: this.headers }).subscribe(
+        res => {
+          console.log('res: ' + JSON.stringify(res));
+          _.toLower(res.message) == 'ok'
+            ? resolve(true)
+            : resolve(false);
+        },
+        err => {
+          console.log('error: ' + JSON.stringify(err));
+          reject(err);
+        }
+      );
+    });
+  }
 }
