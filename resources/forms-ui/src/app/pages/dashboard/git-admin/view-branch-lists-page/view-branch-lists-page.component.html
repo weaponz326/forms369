@@ -113,7 +113,7 @@
                         <p class="card-title">{{ branch.merchant_name }}</p>
                         <div class="card-text">
                           <h1 class="display-4 mb-4">{{ branch.branch_name }}</h1>
-                          <div class="btn-group" role="group" aria-label="Basic example">
+                          <div *ngIf="!isFormCreator" class="btn-group" role="group" aria-label="Basic example">
                             <button type="button" class="btn btn-outline-secondary" (click)="edit($event, branch)">
                               <i class="mdi mdi-pencil-outline"></i>
                               Edit
@@ -142,7 +142,7 @@
                           <h1 class="display-4 mb-1 mt-2">{{ branch.branch_name }}</h1>
                         </div>
                         <div class="col-4">
-                          <div class="btn-group mt-2" role="group" aria-label="Basic example">
+                          <div *ngIf="!isFormCreator" class="btn-group mt-2" role="group" aria-label="Basic example">
                             <button type="button" class="btn btn-outline-secondary" (click)="edit($event, branch)">
                               <i class="mdi mdi-pencil-outline"></i>
                               Edit

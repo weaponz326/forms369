@@ -138,10 +138,7 @@ const routes: Routes = [
   { path: 'invalid_reset_pin', component: InvalidResetPinPageComponent },
   { path: 'invalid_link', component: InvalidLinkPageComponent },
   { path: 'privacy', component: PrivacyPageComponent },
-  {
-    path: 'terms',
-    component: TermsPageComponent
-  },
+  { path: 'terms', component: TermsPageComponent },
   {
     path: 'git_admin',
     children: [

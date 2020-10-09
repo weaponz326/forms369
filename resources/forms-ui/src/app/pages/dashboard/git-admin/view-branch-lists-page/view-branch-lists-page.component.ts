@@ -4,6 +4,9 @@ import { Router } from '@angular/router';
 import { BranchService } from 'src/app/services/branch/branch.service';
 import { ListViewService } from 'src/app/services/view/list-view.service';
 import { EndpointService } from 'src/app/services/endpoint/endpoint.service';
+import { LocalStorageService } from 'src/app/services/storage/local-storage.service';
+import { Users } from 'src/app/models/users.model';
+import { UserTypes } from 'src/app/enums/user-types.enum';
 
 @Component({
   selector: 'app-view-branch-lists-page',
@@ -13,6 +16,7 @@ import { EndpointService } from 'src/app/services/endpoint/endpoint.service';
 })
 export class ViewBranchListsPageComponent implements OnInit {
 
+  user: Users;
   company: any;
   viewMode: string;
   loading: boolean;
@@ -22,17 +26,21 @@ export class ViewBranchListsPageComponent implements OnInit {
   filterState: string;
   loadingMore: boolean;
   hasMoreError: boolean;
+  isFormCreator: boolean;
   branchesList: Array<any>;
   allBranchesList: Array<any>;
 
   constructor(
     private router: Router,
     private branchService: BranchService,
-    private listViewService: ListViewService
+    private listViewService: ListViewService,
+    private localStorage: LocalStorageService
   ) {
     this.branchesList = [];
     this.allBranchesList = [];
+    this.user = this.localStorage.getUser();
     this.viewMode = this.listViewService.getDesiredViewMode();
+    this.isFormCreator = this.user.usertype == UserTypes.FormCreator ? true : false;
     this.getBranches();
   }
 
