@@ -12,6 +12,7 @@ import { FrontDeskService } from 'src/app/services/front-desk/front-desk.service
 import { DownloaderService } from 'src/app/services/downloader/downloader.service';
 import { LocalStorageService } from 'src/app/services/storage/local-storage.service';
 import { FormBuilderService } from 'src/app/services/form-builder/form-builder.service';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-front-desk-view-form-page',
@@ -36,6 +37,7 @@ export class FrontDeskViewFormPageComponent implements OnInit {
   _submitted: boolean;
   documentUrl: string;
   noteForm: FormGroup;
+  abuseForm: FormGroup;
   isProcessed: boolean;
   isProcessing: boolean;
   lastProcessed: string;
@@ -51,6 +53,7 @@ export class FrontDeskViewFormPageComponent implements OnInit {
   @ViewChild('rejectNote', { static: false }) rejectNoteModal: TemplateRef<any>;
   @ViewChild('viewImgAttachment', { static: false }) viewImgDialog: TemplateRef<any>;
   @ViewChild('viewDocAttachment', { static: false }) viewDocDialog: TemplateRef<any>;
+  @ViewChild('abuseReportMessage', { static: false }) abuseReportDialog: TemplateRef<any>;
 
   constructor(
     private router: Router,
@@ -79,6 +82,7 @@ export class FrontDeskViewFormPageComponent implements OnInit {
 
   ngOnInit() {
     this.initNoteForm();
+    this.initAbuseForm();
     this.renderForm();
   }
 
@@ -86,10 +90,36 @@ export class FrontDeskViewFormPageComponent implements OnInit {
     return this.noteForm.controls;
   }
 
+  public get _f() {
+    return this.abuseForm.controls;
+  }
+
   initNoteForm() {
     this.noteForm = this.fb.group({
       rejectionNote: ['', Validators.required]
     });
+  }
+
+  initAbuseForm() {
+    this.abuseForm = this.fb.group({
+      abuseMessage: ['', Validators.required]
+    });
+  }
+
+  showReportSuccessAlert() {
+    Swal.fire(
+      'Report Abuse',
+      'Report has been sent successfully.',
+      'success'
+    );
+  }
+
+  showReportFailedAlert() {
+    Swal.fire(
+      'Abuse Report',
+      'Report failed to send. Please check your internet connection and try again!.',
+      'success'
+    );
   }
 
   ok() {
@@ -317,7 +347,12 @@ export class FrontDeskViewFormPageComponent implements OnInit {
           this.completed = false;
           console.log('submit failed');
         }
-      });
+      }
+    );
+  }
+
+  reportAbuse() {
+    this.modalService.open(this.abuseReportDialog, { centered: true });
   }
 
   rejectForm() {
@@ -344,19 +379,54 @@ export class FrontDeskViewFormPageComponent implements OnInit {
                   this.modalService.dismissAll();
                   this.rejected = false;
                 }
+
+                this._submitted = false;
               }
             );
           }
           else {
             this.isLoading = false;
+            this._submitted = false;
             this.modalService.dismissAll();
             this.rejected = false;
           }
         },
         err => {
           this.isLoading = false;
+          this._submitted = false;
           this.modalService.dismissAll();
           this.rejected = false;
+        }
+      );
+    }
+  }
+
+  reportUser() {
+    this._submitted = true;
+    if (this.abuseForm.valid) {
+      this.isLoading = true;
+      const message = this._f.abuseMessage.value;
+      const client_id = this.form.client_id.toString();
+      const merchant_id = this.user.merchant_id.toString();
+      this.frontDeskService.reportAbuse(client_id, merchant_id, message).then(
+        ok => {
+          if (ok) {
+            this.isLoading = false;
+            this._submitted = false;
+            this.modalService.dismissAll();
+            this.showReportSuccessAlert();
+          }
+          else {
+            this.isLoading = false;
+            this._submitted = false;
+            this.modalService.dismissAll();
+            this.showReportFailedAlert();
+          }
+        },
+        err => {
+          this.isLoading = false;
+          this._submitted = false;
+          this.modalService.dismissAll();
         }
       );
     }

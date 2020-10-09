@@ -140,7 +140,7 @@ export class AccountService {
           resolve(res);
         },
         err => {
-          reject(err);``
+          reject(err);
         }
       );
     });

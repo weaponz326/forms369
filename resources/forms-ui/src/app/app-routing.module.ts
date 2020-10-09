@@ -119,6 +119,7 @@ import { PrivacyPageComponent } from './pages/privacy-page/privacy-page.componen
 import { ClientPDFDownloadingPageComponent } from './pages/dashboard/client/client-pdfdownloading-page/client-pdfdownloading-page.component';
 import { ViewFormCreatorListsPageComponent } from './pages/dashboard/git-admin/view-form-creator-lists-page/view-form-creator-lists-page.component';
 import { FormCreatorHomePageComponent } from './pages/dashboard/form-creator/form-creator-home-page/form-creator-home-page.component';
+import { ViewAbuseReportsPageComponent } from './pages/dashboard/git-admin/view-abuse-reports-page/view-abuse-reports-page.component';
 
 const routes: Routes = [
   { path: '', component: WelcomePageComponent },
@@ -272,6 +273,10 @@ const routes: Routes = [
           {
             path: 'access_code',
             component: ViewAccessCodePageComponent
+          },
+          {
+            path: 'abuse_report',
+            component: ViewAbuseReportsPageComponent
           }
         ]
       },

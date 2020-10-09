@@ -84,6 +84,7 @@
                       *ngIf="form.form_status == 0 || form.form_status == 1  || form.form_status == 2">
                       <button *ngIf="!loading && !isProcessed" type="submit" class="btn btn-danger btn-lg" (click)="reject()">Reject</button>
                     </div>
+                    <button *ngIf="!loading" type="submit" class="btn btn-warning btn-lg ml-2 mt-2" (click)="reportAbuse()">Report Abuse</button>
                   </form>
                 </div>
               </div>
@@ -228,6 +229,38 @@
         <div *ngIf="_submitted && f.rejectionNote.errors">
           <p class="input-error" *ngIf="f.rejectionNote.errors.required">
             Kindly provide a reason for rejecting this form.
+          </p>
+        </div>
+      </div>
+    </div>
+    <div class="modal-footer">
+      <button *ngIf="!isLoading" type="button" class="btn btn-outline-primary" (click)="modal.dismiss()">Close</button>
+      <button *ngIf="!isLoading" type="submit" class="btn btn-primary">Send</button>
+      <button *ngIf="isLoading" class="btn btn-primary btn-lg mr-2" type="button" disabled>
+        <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+        <span class="sr-only">Please wait...</span>
+      </button>
+    </div>
+  </form>
+</ng-template>
+
+<ng-template #abuseReportMessage let-modal>
+  <form [formGroup]="abuseForm" (ngSubmit)="reportUser()">
+    <div class="modal-header">
+      <h4 class="modal-title font-weight-bold text-uppercase" id="modal-title" style="font-size: 13px;">
+        Abuse Report Message
+      </h4>
+      <button type="button" class="close" aria-describedby="modal-title" (click)="modal.dismiss()">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+    <div class="modal-body">
+      <div class="form-group">
+        <textarea cols="30" rows="10" class="form-control" formControlName="abuseMessage"
+          [ngClass]="{'input-control-error': _submitted && _f.abuseMessage.errors}"></textarea>
+        <div *ngIf="_submitted && _f.abuseMessage.errors">
+          <p class="input-error" *ngIf="_f.abuseMessage.errors.required">
+            Kindly provide a reason why you want to report this user.
           </p>
         </div>
       </div>
