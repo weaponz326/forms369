@@ -1,13 +1,13 @@
 import * as _ from 'lodash';
 import { Router } from '@angular/router';
 import { Component, OnInit } from '@angular/core';
+import { Users } from 'src/app/models/users.model';
+import { UserTypes } from 'src/app/enums/user-types.enum';
 import { Merchants } from 'src/app/models/merchants.model';
 import { CompanyService } from 'src/app/services/company/company.service';
 import { ListViewService } from 'src/app/services/view/list-view.service';
 import { EndpointService } from 'src/app/services/endpoint/endpoint.service';
 import { LocalStorageService } from 'src/app/services/storage/local-storage.service';
-import { Users } from 'src/app/models/users.model';
-import { UserTypes } from 'src/app/enums/user-types.enum';
 
 @Component({
   selector: 'app-view-company-lists-page',
@@ -163,6 +163,7 @@ export class ViewCompanyListsPageComponent implements OnInit {
       err => {
         this.loading = false;
         this.hasError = true;
+        console.log('error_getting_comp: ' + err);
       }
     );
   }
