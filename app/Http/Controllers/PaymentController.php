@@ -80,18 +80,18 @@ class PaymentController extends Controller
      {
 
         $this->validate($request, [
-            'email' => 'required',
-            'amount' => 'required',
-            'processing_code' => 'required', //This is a transaction type identifier. 404000 is default for transfer to mobile money "000000" for card payment "000200" for mobile money payment
-            'r_switch' => 'required', //Account issuer or network on which the account to be debited resides. "VIS" for Visa "MAS" for MasterCard "MTN" for MTN "VDF" for Vodafone "ATL" for Airtel "TGO" for Tigo
+            'email' => 'required', //logged in user email
+            'amount' => 'required', //amount to be charged: gotten from the form body
+           'r_switch' => 'required', //Account issuer or network on which the account to be debited resides. "VIS" for Visa "MAS" for MasterCard "MTN" for MTN "VDF" for Vodafone "ATL" for Airtel "TGO" for Tigo
             'pan' => 'required', //card pan number on card
-            'exp_month' => 'required',
-            'exp_year' => 'required',
-            'cvv' => 'required',
-            'card_holder' => 'required'
+            'exp_month' => 'required', //exp_month provided by the user
+            'exp_year' => 'required', //exp_year provided by the user
+            'cvv' => 'required', //cvv provided by the user
+            'card_holder' => 'required', //card holder name provided by the user
+            'currency' => 'required'  //currency to be charged: gotten from the form body
         ]);
 
-        $processing_code = $request->processing_code;
+        $processing_code = "000000";
         $r_switch = $request->r_switch;
         $transaction_id = mt_rand(100000000000, 999999999999);
         $merchant_id = "TTM-00004152";
@@ -109,7 +109,7 @@ class PaymentController extends Controller
         $amount = str_pad($amount, 12, '0', STR_PAD_LEFT);
         // return $amount;
 
-        $currency = "GHS";
+        $currency = $request->currency;
         $card_holder = $request->card_holder;
         $email = $request->email;
         
@@ -118,6 +118,77 @@ class PaymentController extends Controller
          $payload = json_encode(["processing_code"=>$processing_code, "r-switch"=>$r_switch, "transaction_id"=>$transaction_id,
          "merchant_id"=>$merchant_id, "pan"=>$pan, "exp_month"=>$exp_month, "exp_year"=>$exp_year, "3d_url_response"=>$redirect_url,
          "cvv"=>$cvv, "desc"=>$desc, "amount"=>$amount, "currency"=>$currency, "card_holder"=>$card_holder, "customer_email"=>$email]);
+ 
+     
+         $curl = curl_init();
+ 
+         curl_setopt_array($curl, array(
+             CURLOPT_URL => "https://test.theteller.net/v1.1/transaction/process",
+             CURLOPT_RETURNTRANSFER => true,
+             CURLOPT_ENCODING => "",
+             CURLOPT_MAXREDIRS => 10,
+             CURLOPT_TIMEOUT => 30,
+             CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+             CURLOPT_CUSTOMREQUEST => "POST",
+             CURLOPT_SSL_VERIFYPEER => false,
+             CURLOPT_POSTFIELDS => $payload,
+             CURLOPT_HTTPHEADER => array(
+             "Authorization: Basic ".base64_encode('global5f341c8066d95:ZDhhNjI4YzU0MmQxOWI1YjY1Zjg3NGYzMjNjYjliZjA=')."",
+             "Cache-Control: no-cache",
+             "Content-Type: application/json"
+             ),
+         ));
+ 
+         $response = curl_exec($curl);
+         $err = curl_error($curl);
+ 
+         curl_close($curl);
+ 
+         if ($err) {
+             $response = [
+                 'message' => $err
+             ];
+             return response()->json($response, 400);
+         } else {
+             $responses = [
+                 'message' => json_decode($response)
+             ];
+             return response()->json($responses, 200);
+         }
+ 
+     }
+
+      /**
+     * collect payments directly from your web application #theteller mobile money
+     * @param  mixed $request
+     * @return \Illuminate\Http\Response success or error message
+     */
+     public function collectPaymentMoMo(Request $request)
+     {
+
+        $this->validate($request, [
+            'amount' => 'required', //amount to be charged: gotten from the form body
+            'r_switch' => 'required', //Account issuer or network on which the account to be debited resides. "VIS" for Visa "MAS" for MasterCard "MTN" for MTN "VDF" for Vodafone "ATL" for Airtel "TGO" for Tigo
+            'subscriber_number' =>'required' //subscriber's mobile money number eg.233500124824
+        ]);
+
+        //amount
+        $amount = $request->amount;
+        //format amount to 12 digits
+        $amount = $amount * 100;
+        $amount = str_pad($amount, 12, '0', STR_PAD_LEFT);
+        // return $amount;
+
+        $subscriber_number = $request->subscriber_number;
+        $processing_code = "000200";
+        $r_switch = $request->r_switch;
+        $voucher_code = $request->voucher_code;
+        $transaction_id = mt_rand(100000000000, 999999999999);
+        $merchant_id = "TTM-00004152";
+        $desc = "payment for a form on Forms369";
+         
+         $payload = json_encode(["processing_code"=>$processing_code, "r-switch"=>$r_switch, "transaction_id"=>$transaction_id,
+         "merchant_id"=>$merchant_id, "desc"=>$desc, "amount"=>$amount, "subscriber_number" =>$subscriber_number]);
  
      
          $curl = curl_init();
