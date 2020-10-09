@@ -18,6 +18,7 @@ use App\Notifications\SuggestMerchantSlackNotification;
 use Notification;
 use GuzzleHttp\Exception\GuzzleException;
 use GuzzleHttp\Client;
+use App\Notifications\SlackAbuseReportNotification;
 
 class SetupController extends Controller
 {
@@ -2049,6 +2050,7 @@ class SetupController extends Controller
                 ]
             ]);
 
+            Notification::route('slack', env('SLACK_HOOK'))->notify(new SlackAbuseReportNotification($client_id, $message, $userid));
             Log::channel('mysql')->info('User with id: ' . $userid .' successsfully reported user with id  ' . $client_id . ' for abuse.');
             $message = 'Ok';
 

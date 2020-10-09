@@ -491,18 +491,46 @@ class AuthController extends Controller
     }
 
 
-    //get user and send verification email
-    $user = User::find($id);
-    $test = false;
+    /**
+     * createOtherUser create other users, exec, branch exec, company admin and branch admin
+     *
+     * @param  mixed $request
+     * @param  mixed $id the id in the client table is a foreign and primary key
+     * @param  mixed $name the full name of the branch admin
+     * @param mixed $table sub table for the user being registered
+     *
+     * @return \Illuminate\Http\Response success or error message
+     */
+    protected function createOtherUser(Request $request, $id, $name, $table){
+        //get logged in user
+        // $user = $request->user();
+        $user = User::find($id);
+        $userid = $user['id'];
 
-    //make user that new email is unique
-    if ($email != $user['email']) {
+        if($userid == NULL)
+            $userid = 0;
 
-      $this->validate($request, [
-        'email' => 'required|email|unique:users'
-      ]);
+        $encryptedname = Crypt::encryptString($name);
+        $created_at = now();
 
-      $test = true;
+         //save new branch admin in the database
+         try {
+            DB::table($table)->insert(
+                [
+                    'id' => $id,
+                    'name' => $encryptedname, 
+                    'created_by' => $userid,
+                    'created_at' => $created_at
+                ]
+            );
+
+            $message = 'Ok';
+
+        }catch(Exception $e) {
+            $message = "Failed";
+        }   
+
+       return $message;
     }
 
     //make user that new username is unique

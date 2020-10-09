@@ -49,6 +49,7 @@ class FormsController extends Controller
         $tnc = $request->tnc;
         $require_payment = $request->require_payment;
         $amount = $request->amount;
+        $amount  = $amount;
 
         if($request->has('can_view'))
         {

@@ -22,6 +22,10 @@ class PaymentController extends Controller
         $email = $request->email;
         $amount = $request->amount;
 
+        //format number to 12 digits
+        $amount = $amount * 100;
+        $amount = str_pad($amount, 12, '0', STR_PAD_LEFT);
+
         $transaction_id = mt_rand(100000000000, 999999999999);
         $payload = json_encode(["merchant_id"=>"TTM-00004152", "transaction_id"=>$transaction_id,
         "desc"=>"Payment Using Forms369", "amount"=>$amount,
