@@ -58,6 +58,7 @@ Route::group(['middleware' => ['auth:api'], 'prefix' => 'v1'], function(){
   Route::post('login', 'HomeController@login')->name('login')->middleware('client');
   //initiate payment process with teller
   Route::post('initiatePayment', 'HomeController@initiatePayment')->name('initiatePayment')->middleware('scope:GIT_Admin,forms_client');
+  Route::post('collectPayment', 'HomeController@collectPayment')->name('collectPayment')->middleware('scope:GIT_Admin,forms_client');
 
   //generate unique code for user submitted form
   Route::get('generateSubCode', 'HomeController@generateSubCode')->name('generateSubCode')->middleware('scope:GIT_Admin,forms_client');

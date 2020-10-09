@@ -2667,17 +2667,28 @@ class HomeController extends Controller
         return $message;
      }
 
-     /**
-     * deleteAccessCode delete an access code in the db
+      /**
+     * initiate payment: redirect to theteller
      * @param  mixed $request
-     * @param  mixed $id
-     * @return \Illuminate\Http\Response success or error message
+     * @return \Illuminate\Http\Response success or error message with redirect url
      */
     public function initiatePayment(Request $request)
     {
         $message = (new PaymentController)->initiatePayment($request);
         return $message;
     }
+
+    /**
+     * collect payments directly from your web application #theteller
+     * @param  mixed $request
+
+     * @return \Illuminate\Http\Response success or error message
+     */
+     public function collectPayment(Request $request)
+     {
+         $message = (new PaymentController)->collectPayment($request);
+         return $message;
+     }
 
     /**
      * getQMSToken get token to use QMS apis

@@ -334,7 +334,7 @@ class ClientController extends Controller
         ->join('forms', 'forms.form_code', '=', 'form_id')
         ->join('merchants', 'merchants.id', '=', 'forms.merchant_id')
         // ->join('attachments','attachments.submission_code', '=', 'submitted_forms.submission_code')
-        ->select('submitted_forms.*','merchants.merchant_name AS merchant_name', 'merchants.nickname','merchants.id AS merchant_id', 'forms.tnc',
+        ->select('submitted_forms.*','merchants.merchant_name AS merchant_name', 'merchants.nickname','merchants.id AS merchant_id', 'forms.tnc', 'forms.currency', 'forms.amount',
         'users.name', 'users.email', 'forms.name AS form_name', 'forms.form_fields', 'forms.join_queue', 'forms.can_view', 'logo', 'forms.require_signature', 'forms.require_payment')
         ->where('submitted_forms.client_id', $id)
         ->orderBy('submitted_at', 'desc')
@@ -354,6 +354,8 @@ class ClientController extends Controller
             $submittedformdata['tnc'] = $items->tnc;
             $submittedformdata['require_signature'] = $items->require_signature;
             $submittedformdata['require_payment'] = $items->require_payment;
+            $submittedformdata['currency'] = $items->currency;
+            $submittedformdata['amount'] = $items->amount;
             $submittedformdata['merchant_name'] = Crypt::decryptString($items->merchant_name);
             $submittedformdata['merchant_id'] = $items->merchant_id;
             $submittedformdata['nickname'] = $items->nickname;
@@ -393,7 +395,7 @@ class ClientController extends Controller
         ->join('forms', 'forms.form_code', '=', 'form_id')
         ->join('merchants', 'merchants.id', '=', 'forms.merchant_id')
         // ->join('attachments','attachments.submission_code', '=', 'submitted_forms.submission_code')
-        ->select('submitted_forms.*','merchants.merchant_name AS merchant_name', 'merchants.nickname','merchants.id AS merchant_id', 'forms.tnc',
+        ->select('submitted_forms.*','merchants.merchant_name AS merchant_name', 'merchants.nickname','merchants.id AS merchant_id', 'forms.tnc', 'forms.currency', 'forms.amount',
         'users.name', 'users.email', 'forms.name AS form_name', 'forms.form_fields', 'forms.join_queue', 'forms.can_view', 'logo', 'forms.require_signature', 'forms.require_payment')
         ->where('submitted_forms.client_id', $id)
         // ->where('submitted_forms.status', '!=', 4)
@@ -414,6 +416,8 @@ class ClientController extends Controller
             $submittedformdata['tnc'] = $items->tnc;
             $submittedformdata['require_signature'] = $items->require_signature;
             $submittedformdata['require_payment'] = $items->require_payment;
+            $submittedformdata['currency'] = $items->currency;
+            $submittedformdata['amount'] = $items->amount;
             $submittedformdata['merchant_name'] = Crypt::decryptString($items->merchant_name);
             $submittedformdata['merchant_id'] = $items->merchant_id;
             $submittedformdata['nickname'] = $items->nickname;
@@ -456,7 +460,7 @@ class ClientController extends Controller
             ->join('merchants', 'merchants.id', '=', 'forms.merchant_id')
             ->select('submitted_forms.*','merchants.merchant_name AS merchant_name', 'merchants.nickname', 'forms.tnc',
             'users.name', 'users.email', 'forms.name AS form_name', 'forms.form_fields', 'forms.join_queue', 'forms.can_view', 
-            'logo', 'forms.require_signature', 'forms.require_signature')
+            'logo', 'forms.require_signature', 'forms.require_signature', 'forms.currency', 'forms.amount')
             ->where([
                 ['submitted_forms.client_id', $id],
                 ['forms.temps', 'like', '%'.$form_name.'%']
@@ -471,7 +475,7 @@ class ClientController extends Controller
                 ->join('merchants', 'merchants.id', '=', 'forms.merchant_id')
                 ->select('submitted_forms.*','merchants.merchant_name AS merchant_name', 'merchants.nickname', 'forms.tnc',
                 'users.name', 'users.email', 'forms.name AS form_name', 'forms.form_fields', 'forms.join_queue', 'forms.can_view', 
-                'logo', 'forms.require_signature', 'forms.require_payment')
+                'logo', 'forms.require_signature', 'forms.require_payment', 'forms.currency', 'forms.amount')
                 ->where([
                     ['submitted_forms.client_id', $id],
                     ['forms.temps', 'like', '%'.$form_name.'%'],
@@ -495,6 +499,8 @@ class ClientController extends Controller
             $submittedformdata['tnc'] = $items->tnc;
             $submittedformdata['require_signature'] = $items->require_signature;
             $submittedformdata['require_payment'] = $items->require_payment;
+            $submittedformdata['currency'] = $items->currency;
+            $submittedformdata['amount'] = $items->amount;
             $submittedformdata['merchant_name'] = Crypt::decryptString($items->merchant_name);
             $submittedformdata['nickname'] = $items->nickname;
             $submittedformdata['client_name'] = $items->name;
@@ -534,7 +540,7 @@ class ClientController extends Controller
             ->join('merchants', 'merchants.id', '=', 'forms.merchant_id')
             ->select('submitted_forms.*','merchants.merchant_name AS merchant_name', 'merchants.nickname', 'forms.tnc',
             'users.name', 'users.email', 'forms.name AS form_name', 'forms.form_fields', 'forms.join_queue', 'forms.can_view', 
-            'logo', 'forms.require_signature', 'forms.require_payment')
+            'logo', 'forms.require_signature', 'forms.require_payment', 'forms.currency', 'forms.amount')
             ->where([
                 ['submitted_forms.client_id', $id],
                 ['submitted_forms.submission_code', 'like', '%'.$code.'%']
@@ -548,7 +554,7 @@ class ClientController extends Controller
             ->join('merchants', 'merchants.id', '=', 'forms.merchant_id')
             ->select('submitted_forms.*','merchants.merchant_name AS merchant_name', 'merchants.nickname', 'forms.tnc',
             'users.name', 'users.email', 'forms.name AS form_name', 'forms.form_fields', 'forms.join_queue', 'forms.can_view', 
-            'logo', 'forms.require_signature', 'forms.require_payment')
+            'logo', 'forms.require_signature', 'forms.require_payment', 'forms.currency', 'forms.amount')
             ->where([
                 ['submitted_forms.client_id', $id],
                 ['submitted_forms.submission_code', 'like', '%'.$code.'%'],
@@ -572,6 +578,8 @@ class ClientController extends Controller
             $submittedformdata['tnc'] = $items->tnc;
             $submittedformdata['require_signature'] = $items->require_signature;
             $submittedformdata['require_payment'] = $items->require_payment;
+            $submittedformdata['currency'] = $items->currency;
+            $submittedformdata['amount'] = $items->amount;
             $submittedformdata['merchant_name'] = Crypt::decryptString($items->merchant_name);
             $submittedformdata['nickname'] = $items->nickname;
             $submittedformdata['client_name'] = $items->name;
@@ -616,7 +624,7 @@ class ClientController extends Controller
              ->join('merchants', 'merchants.id', '=', 'forms.merchant_id')
              ->select('submitted_forms.*','merchants.merchant_name AS merchant_name', 'merchants.nickname', 'forms.can_view', 'forms.tnc',
              'merchants.colors', 'users.name', 'users.email', 'forms.name AS form_name', 'forms.form_fields', 'forms.join_queue', 
-             'logo', 'forms.require_signature', 'forms.require_payment')
+             'logo', 'forms.require_signature', 'forms.require_payment', 'forms.currency', 'forms.amount')
              ->where([
                  ['submitted_forms.client_id', $id]
                 //  ['submitted_forms.status', '!=', 4]
@@ -632,7 +640,7 @@ class ClientController extends Controller
                  ->join('merchants', 'merchants.id', '=', 'forms.merchant_id')
                  ->select('submitted_forms.*','merchants.merchant_name AS merchant_name', 'merchants.nickname', 'forms.can_view', 'forms.tnc',
                  'merchants.colors', 'users.name', 'users.email', 'forms.name AS form_name', 'forms.form_fields', 'forms.join_queue', 
-                 'logo', 'forms.require_signature', 'forms.require_payment')
+                 'logo', 'forms.require_signature', 'forms.require_payment', 'forms.currency', 'forms.amount')
                  ->where([
                      ['submitted_forms.client_id', $id],
                      ['submitted_forms.status', $status]
@@ -657,6 +665,8 @@ class ClientController extends Controller
              $submittedformdata['tnc'] = $items->tnc;
              $submittedformdata['require_signature'] = $items->require_signature;
              $submittedformdata['require_payment'] = $items->require_payment;
+             $submittedformdata['currency'] = $items->currency;
+             $submittedformdata['amount'] = $items->amount;
              $submittedformdata['merchant_name'] = Crypt::decryptString($items->merchant_name);
              $submittedformdata['nickname'] = $items->nickname;
              $submittedformdata['client_name'] = $items->name;
@@ -721,7 +731,7 @@ class ClientController extends Controller
         ->join('merchants', 'merchants.id', '=', 'forms.merchant_id')
         ->select('submitted_forms.*','merchants.merchant_name AS merchant_name', 'merchants.nickname', 'forms.tnc',
         'users.name', 'users.email', 'forms.name AS form_name', 'forms.form_fields', 'forms.join_queue', 'forms.can_view', 
-        'logo', 'forms.require_signature', 'forms.require_payment')
+        'logo', 'forms.require_signature', 'forms.require_payment', 'forms.currency', 'forms.amount')
         ->where('submitted_forms.client_id', $id)
         ->where('submitted_forms.status', $status)
         ->orderBy('submitted_at', 'desc')
@@ -740,6 +750,8 @@ class ClientController extends Controller
             $submittedformdata['tnc'] = $items->tnc;
             $submittedformdata['require_signature'] = $items->require_signature;
             $submittedformdata['require_payment'] = $items->require_payment;
+            $submittedformdata['currency'] = $items->currency;
+            $submittedformdata['amount'] = $items->amount;
             $submittedformdata['merchant_name'] = Crypt::decryptString($items->merchant_name);
             $submittedformdata['nickname'] = $items->nickname;
             $submittedformdata['client_name'] = $items->name;
@@ -779,7 +791,7 @@ class ClientController extends Controller
         ->join('merchants', 'merchants.id', '=', 'forms.merchant_id')
         ->select('submitted_forms.*','merchants.merchant_name AS merchant_name', 'merchants.nickname', 'forms.tnc',
         'users.name', 'users.email', 'forms.name AS form_name', 'forms.form_fields', 'forms.join_queue', 
-        'forms.can_view','logo', 'require_signature', 'forms.require_payment')
+        'forms.can_view','logo', 'require_signature', 'forms.require_payment', 'forms.currency', 'forms.amount')
         ->where('submitted_forms.client_id', $id)
         ->where('submitted_forms.status', $status)
         ->orderBy('submitted_at', 'desc')
@@ -798,6 +810,8 @@ class ClientController extends Controller
             $submittedformdata['tnc'] = $items->tnc;
             $submittedformdata['require_signature'] = $items->require_signature;
             $submittedformdata['require_payment'] = $items->require_payment;
+            $submittedformdata['currency'] = $items->currency;
+            $submittedformdata['amount'] = $items->amount;
             $submittedformdata['merchant_name'] = Crypt::decryptString($items->merchant_name);
             $submittedformdata['nickname'] = $items->nickname;
             $submittedformdata['client_name'] = $items->name;
@@ -1287,7 +1301,7 @@ class ClientController extends Controller
         // ->join('attachments','attachments.submission_code', '=', 'submitted_forms.submission_code')
         ->select('submitted_forms_deleted.*','merchants.merchant_name AS merchant_name', 'merchants.nickname', 'forms.tnc',
         'users.name', 'users.email', 'forms.name AS form_name', 'forms.form_fields', 'forms.join_queue', 
-        'forms.can_view','logo', 'require_signature', 'forms.require_payment')
+        'forms.can_view','logo', 'require_signature', 'forms.require_payment', 'forms.currency', 'forms.amount')
         ->where('submitted_forms_deleted.client_id', $id)
         ->where('deleted', '!=', 1)
         ->paginate(15);
@@ -1306,6 +1320,8 @@ class ClientController extends Controller
             $submittedformdata['join_queue'] = $items->join_queue;
             $submittedformdata['require_signature'] = $items->require_signature;
             $submittedformdata['require_payment'] = $items->require_payment;
+            $submittedformdata['currency'] = $items->currency;
+            $submittedformdata['amount'] = $items->amount;
             $submittedformdata['merchant_name'] = Crypt::decryptString($items->merchant_name);
             $submittedformdata['nickname'] = $items->nickname;
             $submittedformdata['client_name'] = $items->name;
@@ -1613,7 +1629,7 @@ class ClientController extends Controller
          ->join('merchants', 'merchants.id', '=', 'forms.merchant_id')
          ->select('submitted_forms.*','merchants.merchant_name AS merchant_name', 'merchants.nickname', 'forms.tnc',
          'users.name', 'users.email', 'forms.name AS form_name', 'forms.form_fields', 'forms.join_queue', 
-         'forms.can_view', 'logo', 'require_signature', 'forms.require_payment')
+         'forms.can_view', 'logo', 'require_signature', 'forms.require_payment', 'forms.currency', 'forms.amount')
          ->where('merchants.id', $id)
          ->where('submitted_forms.status', $status)
          ->where('forms.temps', 'like', '%'.$term .'%')
@@ -1632,6 +1648,8 @@ class ClientController extends Controller
              $submittedformdata['join_queue'] = $items->join_queue;
              $submittedformdata['require_signature'] = $items->require_signature;
              $submittedformdata['require_payment'] = $items->require_payment;
+             $submittedformdata['currency'] = $items->currency;
+             $submittedformdata['amount'] = $items->amount;
              $submittedformdata['merchant_name'] = Crypt::decryptString($items->merchant_name);
              $submittedformdata['nickname'] = $items->nickname;
              $submittedformdata['client_name'] = $items->name;
@@ -1672,7 +1690,7 @@ class ClientController extends Controller
             ->join('merchants', 'merchants.id', '=', 'forms.merchant_id')
             ->select('submitted_forms.*','merchants.merchant_name AS merchant_name', 'merchants.nickname', 'forms.can_view', 'forms.tnc',
             'merchants.colors','users.name', 'users.email', 'forms.name AS form_name', 'forms.form_fields', 'forms.join_queue', 
-            'logo', 'require_signature', 'forms.require_payment')
+            'logo', 'require_signature', 'forms.require_payment', 'forms.currency', 'forms.amount')
             ->where('submitted_forms.client_id', $id)
             // ->where('submitted_forms.status', '!=', 4)
             ->where('merchants.temp', 'like', '%'.$term .'%')
@@ -1684,7 +1702,7 @@ class ClientController extends Controller
             ->join('merchants', 'merchants.id', '=', 'forms.merchant_id')
             ->select('submitted_forms.*','merchants.merchant_name AS merchant_name', 'merchants.nickname', 'forms.can_view', 'forms.tnc',
             'merchants.colors', 'users.name', 'users.email', 'forms.name AS form_name', 'forms.form_fields', 'forms.join_queue', 
-            'logo', 'require_signature', 'forms.require_payment')
+            'logo', 'require_signature', 'forms.require_payment', 'forms.currency', 'forms.amount')
             ->where('submitted_forms.client_id', $id)
             ->where('submitted_forms.status', $status)
             ->where('merchants.temp', 'like', '%'.$term .'%')
@@ -1704,6 +1722,8 @@ class ClientController extends Controller
              $submittedformdata['join_queue'] = $items->join_queue;
              $submittedformdata['require_signature'] = $items->require_signature;
              $submittedformdata['require_payment'] = $items->require_payment;
+             $submittedformdata['currency'] = $items->currency;
+             $submittedformdata['amount'] = $items->amount;
              $submittedformdata['merchant_name'] = Crypt::decryptString($items->merchant_name);
              $submittedformdata['nickname'] = $items->nickname;
              $submittedformdata['client_name'] = $items->name;

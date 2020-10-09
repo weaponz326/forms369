@@ -130,7 +130,7 @@ class ExecutiveController extends Controller
         ->join('merchants', 'merchants.id', '=', 'forms.merchant_id')
         ->select('submitted_forms.*','merchants.merchant_name AS merchant_name', 'merchants.nickname', 'forms.tnc',
         'users.name', 'users.email', 'forms.name AS form_name', 'forms.form_fields', 'forms.join_queue', 'forms.can_view', 
-        'require_signature', 'forms.require_payment', 'amount')
+        'require_signature', 'forms.require_payment', 'amount', 'forms.currency')
         ->where('submitted_forms.status', $status)
         ->where('merchants.id', $id)
         ->where('submitted_forms.form_id', $code)
@@ -149,8 +149,8 @@ class ExecutiveController extends Controller
             $submittedformdata['tnc'] = $items->tnc;
             $submittedformdata['require_signature'] = $items->require_signature;
             $submittedformdata['require_payment'] = $items->require_payment;
+            $submittedformdata['currency'] = $items->currency;
             $submittedformdata['amount'] = $items->amount;
-            $submittedformdata['paid'] = $items->paid;
             $submittedformdata['merchant_name'] = Crypt::decryptString($items->merchant_name);
             $submittedformdata['nickname'] = $items->nickname;
             $submittedformdata['client_id'] = $items->client_id;
