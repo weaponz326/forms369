@@ -12,10 +12,18 @@ select.form-control {
 }
 
 .title-form {
-    font-size: 25px;
+    font-size: 16px;
     font-family: 'OpenSans_SemiBold';
 }
 
 .card.no-card {
     border: none;
+}
+
+form .row > .col-6 .card > .card-body,
+form .row > .col-6 .card.no-card > .card-body {
+    padding-left: 0px;
+    padding-right: 0px;
+    padding-top: 8px;
+    padding-bottom: 8px;
 }

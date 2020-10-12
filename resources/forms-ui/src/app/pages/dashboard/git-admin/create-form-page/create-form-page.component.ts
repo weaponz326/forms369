@@ -114,8 +114,11 @@ export class CreateFormPageComponent implements OnInit {
       pdf: [''],
       tnc: [''],
       canView: [''],
+      currency: ['', Validators.required],
+      amount: ['', Validators.required],
       name: ['', Validators.required],
       hasTnc: ['', Validators.required],
+      hasPayment: ['', Validators.required],
       canJoin: ['', Validators.required],
       merchant: ['', Validators.required],
       signature: ['', Validators.required]
@@ -247,8 +250,11 @@ export class CreateFormPageComponent implements OnInit {
         formData.form_fields = form;
         formData.name = this.f.name.value;
         formData.form_code = this.formCode;
+        formData.amount = this.f.amount.value;
+        formData.currency = this.f.currency.value;
         formData.status = this.toPublish ? 1 : 0;
         formData.join_queue = this.f.canJoin ? 1 : 0;
+        formData.require_payment = this.f.hasPayment ? 1 : 0;
         formData.merchant_id = parseInt(this.f.merchant.value);
         formData.tnc = this.f.hasTnc.value == '' ? 0 : this.f.hasTnc.value;
         formData.can_view = this.f.canView.value == '' ? 0 : this.f.canView.value;
