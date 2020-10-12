@@ -2690,6 +2690,18 @@ class HomeController extends Controller
          return $message;
      }
 
+     /**
+     * collect payments directly from your web application #theteller MoMo
+     * @param  mixed $request
+
+     * @return \Illuminate\Http\Response success or error message
+     */
+     public function collectPaymentMoMo(Request $request)
+     {
+         $message = (new PaymentController)->collectPaymentMoMo($request);
+         return $message;
+     }
+
     /**
      * getQMSToken get token to use QMS apis
      * @param  mixed $request

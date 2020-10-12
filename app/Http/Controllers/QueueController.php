@@ -90,7 +90,8 @@ class QueueController extends Controller
             CURLOPT_HTTPHEADER => array(
             "Authorization: Bearer {$token}",
             "Cache-Control: no-cache",
-            "Content-Type: application/json"
+            "Content-Type: application/json",
+            "Accept: application/json"
             ),
         ));
 
@@ -147,7 +148,8 @@ class QueueController extends Controller
             CURLOPT_HTTPHEADER => array(
             "Authorization: Bearer {$token}",
             "Cache-Control: no-cache",
-            "Content-Type: application/json"
+            "Content-Type: application/json",
+            "Accept: application/json"
             ),
         ));
 
@@ -218,7 +220,8 @@ class QueueController extends Controller
             CURLOPT_HTTPHEADER => array(
             "Authorization: Bearer {$token}",
             "Cache-Control: no-cache",
-            "Content-Type: application/json"
+            "Content-Type: application/json", 
+            "Accept: application/json"
             ),
         ));
 
@@ -277,7 +280,8 @@ class QueueController extends Controller
             CURLOPT_HTTPHEADER => array(
             "Authorization: Bearer {$token}",
             "Cache-Control: no-cache",
-            "Content-Type: application/json"
+            "Content-Type: application/json",
+            "Accept: application/json"
             ),
         ));
 
