@@ -65,7 +65,7 @@ export class ViewAbuseReportsPageComponent implements OnInit {
       err => {
         this.loading = false;
         this.hasError = true;
-      }
+      } 
     );
   }
 
