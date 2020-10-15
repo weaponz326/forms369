@@ -129,7 +129,10 @@ export class EditFormPageComponent implements OnInit {
       canJoin: [canJoin, Validators.required],
       name: [this._form.name, Validators.required],
       hasTnc: [this._form.tnc, Validators.required],
+      amount: [this._form.amount, Validators.required],
+      currency: [this._form.currency, Validators.required],
       merchant: [this._form.mercant_name, Validators.required],
+      hasPayment: [this._form.require_payment, Validators.required],
       signature: [this._form.require_signature, Validators.required]
     });
   }
