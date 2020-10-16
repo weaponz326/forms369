@@ -114,14 +114,14 @@ export class CreateFormPageComponent implements OnInit {
       pdf: [''],
       tnc: [''],
       canView: [''],
-      currency: ['', Validators.required],
-      amount: ['', Validators.required],
       name: ['', Validators.required],
+      amount: ['', Validators.required],
       hasTnc: ['', Validators.required],
-      hasPayment: ['', Validators.required],
       canJoin: ['', Validators.required],
       merchant: ['', Validators.required],
-      signature: ['', Validators.required]
+      currency: ['', Validators.required],
+      signature: ['', Validators.required],
+      hasPayment: ['', Validators.required],
     });
   }
 

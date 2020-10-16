@@ -5,6 +5,7 @@ import { Forms } from 'src/app/models/forms.model';
 import { FormsService } from 'src/app/services/forms/forms.service';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
+import { CompanyService } from 'src/app/services/company/company.service';
 import { LocalStorageService } from 'src/app/services/storage/local-storage.service';
 import { FormBuilderService } from 'src/app/services/form-builder/form-builder.service';
 
@@ -16,6 +17,7 @@ import { FormBuilderService } from 'src/app/services/form-builder/form-builder.s
 export class AdminCreateFormPageComponent implements OnInit {
   template: any;
   pdfFile: File;
+  tncFile: File;
   form: FormGroup;
   formName: string;
   formBuilder: any;
@@ -30,20 +32,26 @@ export class AdminCreateFormPageComponent implements OnInit {
   uploadError: boolean;
   canPublishForm: boolean;
   showFileUpload: boolean;
+  showJoinQueue: boolean;
+  showTncFileUpload: boolean;
+  allMerchantsList: Array<any>;
+  @ViewChild('tncFile', { static: false }) tncFileElement: ElementRef;
   @ViewChild('pdfFile', { static: false }) pdfFileElement: ElementRef;
 
   constructor(
     private router: Router,
     private _formBuilder: FormBuilder,
     private formService: FormsService,
+    private companyService: CompanyService,
     private localStorage: LocalStorageService,
     private formBuilderService: FormBuilderService
   ) {
+    this.allMerchantsList = [];
     this.canPublishForm = true;
     this.merchant_id = this.localStorage.getUser().merchant_id;
-    console.log('merchant id: ' + this.merchant_id);
     this.template = window.history.state.template;
-    this.handleUploadFileView();
+    this.handleUploadFileView(this.merchant_id.toString());
+    this.getCompanies();
   }
 
   ngOnInit() {
@@ -54,9 +62,32 @@ export class AdminCreateFormPageComponent implements OnInit {
     this.handleFormRender();
   }
 
-  handleUploadFileView() {
+  getCompanies() {
+    this._loading = true;
+    this.companyService.getAllCompanyCollection().then(
+      res => {
+        console.log('all_comps: ' + JSON.stringify(res));
+        const merchants = res as any;
+        merchants.forEach((merchant: any) => {
+          this.allMerchantsList.push(merchant);
+        });
+        this._loading = false;
+      },
+      err => {
+        this._loading = false;
+        console.log('err_comps: ' + JSON.stringify(err));
+      }
+    );
+  }
+
+  handleUploadFileView(merchant_id: string) {
     console.log('handling can upload view');
-    this.showFileUpload = this.localStorage.getUser().can_print == 1 ? true : false;
+    _.forEach(this.allMerchantsList, (merchant, i) => {
+      if (merchant_id == merchant.id) {
+        this.showFileUpload = merchant.can_print == 1 ? true : false;
+        return;
+      }
+    });
   }
 
   handleFormRender() {
@@ -109,8 +140,16 @@ export class AdminCreateFormPageComponent implements OnInit {
   buildForm() {
     this.form = this._formBuilder.group({
       pdf: [''],
+      tnc: [''],
       canView: [''],
-      name: ['', Validators.required]
+      name: ['', Validators.required],
+      amount: ['', Validators.required],
+      hasTnc: ['', Validators.required],
+      canJoin: ['', Validators.required],
+      merchant: ['', Validators.required],
+      currency: ['', Validators.required],
+      signature: ['', Validators.required],
+      hasPayment: ['', Validators.required],
     });
   }
 
@@ -118,9 +157,44 @@ export class AdminCreateFormPageComponent implements OnInit {
     return this.form.controls;
   }
 
+  public get _merchant() {
+    return this.form.get('merchant');
+  }
+
   getForm() {
     return this.formBuilder.actions.getData();
   }
+
+  checkIfQMSEnabled(merchant_id: string) {
+    this.companyService.isQMSEnabled(merchant_id).then(
+      res => {
+        this.showJoinQueue = res ? true : false;
+      }
+    );
+  }
+
+  onMerchantSelect(e: any) {
+    this._merchant.setValue(e.target.value, {
+      onlySelf: true
+    });
+    this.handleUploadFileView(this.f.merchant.value);
+    this.checkIfQMSEnabled(this.f.merchant.value);
+  }
+
+  tncSelected(e: any) {
+    const selectedValue = this.f.hasTnc.value;
+    if (selectedValue == '1') {
+      this.showTncFileUpload = true;
+      this.f.tnc.setValidators(Validators.required);
+      this.f.tnc.updateValueAndValidity();
+    }
+    else {
+      this.showTncFileUpload = false;
+      this.f.tnc.clearValidators();
+      this.f.tnc.updateValueAndValidity();
+    }
+  }
+
 
   inputFileChanged(ev: Event) {
     const pdf_file = this.pdfFileElement.nativeElement as HTMLInputElement;
@@ -131,8 +205,19 @@ export class AdminCreateFormPageComponent implements OnInit {
     }
   }
 
+  inputFileChanged_1(ev: Event) {
+    const tnc_file = this.tncFileElement.nativeElement as HTMLInputElement;
+    this.f.tnc.setValue(tnc_file.files[0].name);
+    this.tncFile = tnc_file.files[0];
+  }
+
   showFilePicker() {
     const element = this.pdfFileElement.nativeElement as HTMLInputElement;
+    element.click();
+  }
+
+  showFilePicker_1() {
+    const element = this.tncFileElement.nativeElement as HTMLInputElement;
     element.click();
   }
 

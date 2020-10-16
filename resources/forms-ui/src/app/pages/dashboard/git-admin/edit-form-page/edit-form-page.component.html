@@ -256,6 +256,7 @@
                           <div class="row">
                             <div class="col-6">
                               <div class="form-group">
+                                <div class="card-title">Select Currency</div>
                                 <select class="form-control" formControlName="currency"
                                   [ngClass]="{'input-control-error': submitted && f.currency.errors}">
                                   <option value="" disabled>Select Currency</option>
@@ -270,6 +271,7 @@
 
                             <div class="col-6">
                               <div class="form-group">
+                                <div class="card-title">Amount</div>
                                 <input type="text" formControlName="amount" class="form-control"
                                   placeholder="Enter Amount"
                                   [ngClass]="{'input-control-error': submitted && f.amount.errors}">

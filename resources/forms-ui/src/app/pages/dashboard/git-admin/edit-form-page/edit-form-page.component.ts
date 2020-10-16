@@ -307,8 +307,11 @@ export class EditFormPageComponent implements OnInit {
     const formData = new Forms();
     formData.form_fields = form;
     formData.name = this.f.name.value;
+    formData.amount = this.f.amount.value;
     formData.form_code = this._form.form_code;
+    formData.currency = this.f.currency.value;
     formData.status = _.toInteger(this.formStatus);
+    formData.require_payment = this.f.hasPayment ? 1 : 0;
     formData.merchant_id = parseInt(this.f.merchant.value);
     formData.tnc = this.f.hasTnc.value == '' ? 0 : this.f.hasTnc.value;
     formData.can_view = this.f.canView.value == '' ? 0 : this.f.canView.value;
