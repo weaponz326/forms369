@@ -35,6 +35,7 @@ export class EditFormPageComponent implements OnInit {
   alertSuccess: boolean;
   isPublished: boolean;
   uploadError: boolean;
+  showPayment: boolean;
   showJoinQueue: boolean;
   showFileUpload: boolean;
   showTncFileUpload: boolean;
@@ -55,11 +56,9 @@ export class EditFormPageComponent implements OnInit {
     private companyService: CompanyService,
     private formBuilderService: FormBuilderService
   ) {
-    console.log('im constructor');
     this.merchant = '';
     this.allMerchantsList = [];
     this._form = window.history.state.form;
-    console.log('the_____form: ' + JSON.stringify(this._form));
     this.resolveReloadDataLoss();
     this.isPublished = this._form.status == 1 ? true : false;
     this.getCompanies();
@@ -193,6 +192,16 @@ export class EditFormPageComponent implements OnInit {
         return;
       }
     });
+  }
+
+  paymentSelected($e: any) {
+    const selectedValue = this.f.hasPayment.value;
+    if (selectedValue == 1) {
+      this.showPayment = true;
+    }
+    else {
+      this.showPayment = false;
+    }
   }
 
   publishForm() {

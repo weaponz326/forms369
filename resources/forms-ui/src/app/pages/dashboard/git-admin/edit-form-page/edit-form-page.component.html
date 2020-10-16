@@ -230,21 +230,20 @@
                             </div>
 
                             <div class="col-6">
-                              <div>
-                                <div class="card no-card">
-                                  <div class="card-body">
-                                    <div class="card-title">Requires Payment</div>
-                                    <div class="card-text">
-                                      <div class="form-group">
-                                        <select class="form-control" formControlName="hasPayment"
-                                          [ngClass]="{'input-control-error': submitted && f.hasPayment.errors}">
-                                          <option value="" disabled>Requires Payment</option>
-                                          <option value="0">No</option>
-                                          <option value="1">Yes</option>
-                                        </select>
-                                        <div *ngIf="submitted && f.hasPayment.errors">
-                                          <p class="input-error" *ngIf="f.hasPayment.errors.required">Require Payment is equired</p>
-                                        </div>
+                              <div class="card no-card">
+                                <div class="card-body">
+                                  <div class="card-title">Requires Payment</div>
+                                  <div class="card-text">
+                                    <div class="form-group">
+                                      <select class="form-control" formControlName="hasPayment"
+                                        [ngClass]="{'input-control-error': submitted && f.hasPayment.errors}"
+                                        (change)="paymentSelected($event)">
+                                        <option value="" disabled>Requires Payment</option>
+                                        <option value="0">No</option>
+                                        <option value="1">Yes</option>
+                                      </select>
+                                      <div *ngIf="submitted && f.hasPayment.errors">
+                                        <p class="input-error" *ngIf="f.hasPayment.errors.required">Require Payment is equired</p>
                                       </div>
                                     </div>
                                   </div>
@@ -253,7 +252,7 @@
                             </div>
                           </div>
 
-                          <div class="row">
+                          <div class="row" *ngIf="showPayment">
                             <div class="col-6">
                               <div class="form-group">
                                 <div class="card-title">Select Currency</div>

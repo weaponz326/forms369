@@ -28,6 +28,7 @@ export class CreateFormPageComponent implements OnInit {
   hasError: boolean;
   submitted: boolean;
   toPublish: boolean;
+  showPayment: boolean;
   uploadError: boolean;
   showJoinQueue: boolean;
   showFileUpload: boolean;
@@ -160,6 +161,16 @@ export class CreateFormPageComponent implements OnInit {
       this.showTncFileUpload = false;
       this.f.tnc.clearValidators();
       this.f.tnc.updateValueAndValidity();
+    }
+  }
+
+  paymentSelected($e: any) {
+    const selectedValue = this.f.hasPayment.value;
+    if (selectedValue == 1) {
+      this.showPayment = true;
+    }
+    else {
+      this.showPayment = false;
     }
   }
 

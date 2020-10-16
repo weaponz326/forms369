@@ -226,7 +226,8 @@
                                     <div class="card-text">
                                       <div class="form-group">
                                         <select class="form-control" formControlName="hasPayment"
-                                          [ngClass]="{'input-control-error': submitted && f.hasPayment.errors}">
+                                          [ngClass]="{'input-control-error': submitted && f.hasPayment.errors}"
+                                          (change)="paymentSelected($event)">
                                           <option value="" disabled>Requires Payment</option>
                                           <option value="0">No</option>
                                           <option value="1">Yes</option>
@@ -242,7 +243,7 @@
                             </div>
                           </div>
 
-                          <div class="row">
+                          <div class="row" *ngIf="showPayment">
                             <div class="col-6">
                               <div class="form-group">
                                 <select class="form-control" formControlName="currency"

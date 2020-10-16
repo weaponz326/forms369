@@ -1,4 +1,3 @@
-import { Component, OnInit, ViewChild, ElementRef, TemplateRef } from '@angular/core';
 declare var $: any;
 import * as _ from 'lodash';
 import { Router } from '@angular/router';
@@ -6,9 +5,11 @@ import { Forms } from 'src/app/models/forms.model';
 import { NgbModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
 import { FormsService } from 'src/app/services/forms/forms.service';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
-import { LocalStorageService } from 'src/app/services/storage/local-storage.service';
-import { FormBuilderService } from 'src/app/services/form-builder/form-builder.service';
 import { FrontDeskService } from 'src/app/services/front-desk/front-desk.service';
+import { LocalStorageService } from 'src/app/services/storage/local-storage.service';
+import { Component, OnInit, ViewChild, ElementRef, TemplateRef } from '@angular/core';
+import { FormBuilderService } from 'src/app/services/form-builder/form-builder.service';
+import { CompanyService } from 'src/app/services/company/company.service';
 
 @Component({
   selector: 'app-admin-form-edit-page',
@@ -17,6 +18,7 @@ import { FrontDeskService } from 'src/app/services/front-desk/front-desk.service
 })
 export class AdminFormEditPageComponent implements OnInit {
   _form: any;
+  tncFile: File;
   pdfFile: File;
   pdfName: string;
   form: FormGroup;
@@ -25,6 +27,7 @@ export class AdminFormEditPageComponent implements OnInit {
   loading: boolean;
   formName: string;
   formCode: string;
+  merchant: string;
   _loading: boolean;
   hasError: boolean;
   alertTitle: string;
@@ -34,32 +37,38 @@ export class AdminFormEditPageComponent implements OnInit {
   isPublished: boolean;
   uploadError: boolean;
   alertMessage: string;
+  showPayment: boolean;
   alertSuccess: boolean;
+  showJoinQueue: boolean;
   showFileUpload: boolean;
+  showTncFileUpload: boolean;
   loadingModalRef: NgbModalRef;
-  @ViewChild('status', {static: false}) statusModal: TemplateRef<any>;
+  allMerchantsList: Array<any>;
   @ViewChild('pdfFile', { static: false }) pdfFileElement: ElementRef;
-  @ViewChild('loader', {static: false}) loadingModal: TemplateRef<any>;
-  @ViewChild('publish', {static: false}) publishModal: TemplateRef<any>;
-  @ViewChild('unpublish', {static: false}) unPublishModal: TemplateRef<any>;
+  @ViewChild('tncFile', { static: false }) tncFileElement: ElementRef;
+  @ViewChild('status', { static: false}) statusModal: TemplateRef<any>;
+  @ViewChild('loader', { static: false }) loadingModal: TemplateRef<any>;
+  @ViewChild('publish', { static: false }) publishModal: TemplateRef<any>;
+  @ViewChild('unpublish', { static: false }) unPublishModal: TemplateRef<any>;
 
   constructor(
     private router: Router,
     private modalService: NgbModal,
     private _formBuilder: FormBuilder,
     private formService: FormsService,
+    private companyService: CompanyService,
     private localStorage: LocalStorageService,
     private frontDeskService: FrontDeskService,
     private formBuilderService: FormBuilderService
   ) {
     this._loading = true;
+    this.allMerchantsList = [];
     this._form = window.history.state.form;
     this.resolveReloadDataLoss();
     this.merchant_id = this.localStorage.getUser().merchant_id;
     this.isPublished = this._form.status == 1 ? true : false;
-    console.log('merchant id: ' + this.merchant_id);
-    this.handleUploadFileView();
     this.getPdfFile();
+    this.getCompanies();
   }
 
   /**
@@ -110,6 +119,28 @@ export class AdminFormEditPageComponent implements OnInit {
     );
   }
 
+  getCompanies() {
+    this._loading = true;
+    this.companyService.getAllCompanyCollection().then(
+      res => {
+        console.log('all_comps: ' + JSON.stringify(res));
+        const merchants = res as any;
+        merchants.forEach(merchant => {
+          this.allMerchantsList.push(merchant);
+        });
+        this.merchant = this._form.merchant_id;
+        this.f.merchant.setValue(this._form.merchant_id);
+        this._loading = false;
+
+        this.handleUploadFileView(this.f.merchant.value);
+      },
+      err => {
+        this._loading = false;
+        console.log('err_comps: ' + JSON.stringify(err));
+      }
+    );
+  }
+
   getPdfFile() {
     this.frontDeskService.getPrintPDFFile(this._form.form_code, this.merchant_id.toString()).then(
       file => {
@@ -124,9 +155,42 @@ export class AdminFormEditPageComponent implements OnInit {
     );
   }
 
-  handleUploadFileView() {
+  onMerchantSelect(e: any) {
+    this._merchant.setValue(e.target.value, {
+      onlySelf: true
+    });
+    this.handleUploadFileView(this.f.merchant.value);
+  }
+
+  tncSelected(e: any) {
+    const selectedValue = this.f.hasTnc.value;
+    if (selectedValue == '1') {
+      this.showTncFileUpload = true;
+    }
+    else {
+      this.showTncFileUpload = false;
+    }
+  }
+
+  paymentSelected($e: any) {
+    const selectedValue = this.f.hasPayment.value;
+    if (selectedValue == 1) {
+      this.showPayment = true;
+    }
+    else {
+      this.showPayment = false;
+    }
+  }
+
+  handleUploadFileView(merchant_id: string) {
     console.log('handling can upload view');
-    this.showFileUpload = this.localStorage.getUser().can_print == 1 ? true : false;
+    _.forEach(this.allMerchantsList, (merchant, i) => {
+      if (merchant_id == merchant.id) {
+        console.log('gotIT: ' + merchant.can_print);
+        this.showFileUpload = merchant.can_print == 1 ? true : false;
+        return;
+      }
+    });
   }
 
   showLoadingModal() {
@@ -138,15 +202,28 @@ export class AdminFormEditPageComponent implements OnInit {
   }
 
   buildForm() {
+    const canJoin = this._form.join_queue == null ? 0 : 1;
     this.form = this._formBuilder.group({
       pdf: [''],
+      tnc: [''],
       canView: [this._form.can_view],
-      name: [this._form.name, Validators.required]
+      canJoin: [canJoin, Validators.required],
+      name: [this._form.name, Validators.required],
+      hasTnc: [this._form.tnc, Validators.required],
+      amount: [this._form.amount, Validators.required],
+      currency: [this._form.currency, Validators.required],
+      merchant: [this._form.mercant_name, Validators.required],
+      hasPayment: [this._form.require_payment, Validators.required],
+      signature: [this._form.require_signature, Validators.required]
     });
   }
 
   public get f() {
     return this.form.controls;
+  }
+
+  public get _merchant() {
+    return this.form.get('merchant');
   }
 
   getForm() {
@@ -159,8 +236,19 @@ export class AdminFormEditPageComponent implements OnInit {
     this.pdfFile = pdf_file.files[0];
   }
 
+  inputFileChanged_1(ev: Event) {
+    const tnc_file = this.tncFileElement.nativeElement as HTMLInputElement;
+    this.f.tnc.setValue(tnc_file.files[0].name);
+    this.tncFile = tnc_file.files[0];
+  }
+
   showFilePicker() {
     const element = this.pdfFileElement.nativeElement as HTMLInputElement;
+    element.click();
+  }
+
+  showFilePicker_1() {
+    const element = this.tncFileElement.nativeElement as HTMLInputElement;
     element.click();
   }
 

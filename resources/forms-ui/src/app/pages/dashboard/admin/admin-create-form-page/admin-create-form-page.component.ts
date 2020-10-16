@@ -30,6 +30,7 @@ export class AdminCreateFormPageComponent implements OnInit {
   toPublish: boolean;
   merchant_id: number;
   uploadError: boolean;
+  showPayment: boolean;
   canPublishForm: boolean;
   showFileUpload: boolean;
   showJoinQueue: boolean;
@@ -195,6 +196,15 @@ export class AdminCreateFormPageComponent implements OnInit {
     }
   }
 
+  paymentSelected($e: any) {
+    const selectedValue = this.f.hasPayment.value;
+    if (selectedValue == 1) {
+      this.showPayment = true;
+    }
+    else {
+      this.showPayment = false;
+    }
+  }
 
   inputFileChanged(ev: Event) {
     const pdf_file = this.pdfFileElement.nativeElement as HTMLInputElement;
@@ -235,9 +245,15 @@ export class AdminCreateFormPageComponent implements OnInit {
       formData.form_fields = form;
       formData.name = this.f.name.value;
       formData.form_code = this.formCode;
-      formData.merchant_id = this.merchant_id;
+      formData.amount = this.f.amount.value;
+      formData.currency = this.f.currency.value;
       formData.status = this.toPublish ? 1 : 0;
+      formData.join_queue = this.f.canJoin ? 1 : 0;
+      formData.require_payment = this.f.hasPayment ? 1 : 0;
+      formData.merchant_id = parseInt(this.f.merchant.value);
+      formData.tnc = this.f.hasTnc.value == '' ? 0 : this.f.hasTnc.value;
       formData.can_view = this.f.canView.value == '' ? 0 : this.f.canView.value;
+      formData.require_signature = this.f.signature.value == '' ? 0 : this.f.signature.value;
 
       this.formService.createForm(formData).then(
         res => {
