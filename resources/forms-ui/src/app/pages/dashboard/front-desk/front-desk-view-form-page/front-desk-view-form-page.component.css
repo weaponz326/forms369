@@ -1,34 +1,38 @@
 li.file-item > i {
-    font-size: 20px;
-    margin-right: 10px;
-    top: 3px;
-    position: relative;
+  font-size: 20px;
+  margin-right: 10px;
+  top: 3px;
+  position: relative;
 }
 
 ol li {
-    line-height: 1.8;
-    white-space: pre-wrap;
-    word-break: break-word;
+  line-height: 1.8;
+  white-space: pre-wrap;
+  word-break: break-word;
 }
 
 ol.files-list {
-    list-style: none;
-    margin-bottom: 0rem;
+  list-style: none;
+  margin-bottom: 0rem;
 }
 
 li.file-item {
-    padding: 5px 10px;
-    margin: 4px 0px;
-    background-color: #eee;
+  padding: 5px 10px;
+  margin: 4px 0px;
+  background-color: #eee;
 }
 
 a:not([href]):not([tabindex]),
 a:not([href]):not([tabindex]):hover {
-    cursor: pointer;
-    text-decoration: underline;
-    color: rgb(76, 131, 255);
+  cursor: pointer;
+  text-decoration: underline;
+  color: rgb(76, 131, 255);
 }
 
 .signature {
-    width: 100%;
-  }
+  width: 100%;
+}
+
+.btn-warning {
+  color: white;
+}

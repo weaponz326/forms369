@@ -3,6 +3,7 @@ import { NgbModalRef, NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { Component, OnInit, ViewChild, TemplateRef } from '@angular/core';
 import { DateTimeService } from 'src/app/services/date-time/date-time.service';
 import { AbuseReportsService } from 'src/app/services/abuse-reports/abuse-reports.service';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-view-abuse-reports-page',
@@ -45,6 +46,22 @@ export class ViewAbuseReportsPageComponent implements OnInit {
     this.loadingModalRef.close();
   }
 
+  showAddressReportSuccessAlert() {
+    Swal.fire({
+      title: 'Successful',
+      text: 'This abuse report has been successfully addressed.',
+      icon: 'success'
+    });
+  }
+
+  showAddressReportFailedAlert() {
+    Swal.fire({
+      title: 'Failed',
+      text: 'Failed to address the abuse report. Please check your internet connection and try again!',
+      icon: 'error'
+    });
+  }
+
   getAbuseReports() {
     this.loading = true;
     this.abuseReportService.getAbuseReports().then(
@@ -74,19 +91,30 @@ export class ViewAbuseReportsPageComponent implements OnInit {
     this.modalService.open(this.readMessageModal, { centered: true });
   }
 
-  deactivate(code: string) {
-    this.modalService.open(this.deactivateModal, { centered: true }).result.then(
-      result => {
-        if (result == 'deactivate') {
-        }
+  address(id: string) {
+    this.addressReport(id);
+  }
+
+  addressReport(id: string) {
+    this.abuseReportService.addressAbuseReport(id).then(
+      ok => {
+        ok ? this.showAddressReportSuccessAlert() : this.showAddressReportFailedAlert();
+      },
+      err => {
+        console.log('error: ' + JSON.stringify(err));
+        this.showAddressReportFailedAlert();
       }
     );
+  }
+
+  deleteAccessReport() {
   }
 
   delete(id: number) {
     this.modalService.open(this.deleteModal, { centered: true }).result.then(
       result => {
         if (result == 'delete') {
+          this.deleteAccessReport();
         }
       }
     );

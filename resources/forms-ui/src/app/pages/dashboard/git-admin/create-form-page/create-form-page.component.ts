@@ -28,6 +28,7 @@ export class CreateFormPageComponent implements OnInit {
   hasError: boolean;
   submitted: boolean;
   toPublish: boolean;
+  showPayment: boolean;
   uploadError: boolean;
   showJoinQueue: boolean;
   showFileUpload: boolean;
@@ -114,14 +115,14 @@ export class CreateFormPageComponent implements OnInit {
       pdf: [''],
       tnc: [''],
       canView: [''],
-      currency: ['', Validators.required],
-      amount: ['', Validators.required],
       name: ['', Validators.required],
+      amount: ['', Validators.required],
       hasTnc: ['', Validators.required],
-      hasPayment: ['', Validators.required],
       canJoin: ['', Validators.required],
       merchant: ['', Validators.required],
-      signature: ['', Validators.required]
+      currency: ['', Validators.required],
+      signature: ['', Validators.required],
+      hasPayment: ['', Validators.required],
     });
   }
 
@@ -160,6 +161,16 @@ export class CreateFormPageComponent implements OnInit {
       this.showTncFileUpload = false;
       this.f.tnc.clearValidators();
       this.f.tnc.updateValueAndValidity();
+    }
+  }
+
+  paymentSelected($e: any) {
+    const selectedValue = this.f.hasPayment.value;
+    if (selectedValue == 1) {
+      this.showPayment = true;
+    }
+    else {
+      this.showPayment = false;
     }
   }
 
