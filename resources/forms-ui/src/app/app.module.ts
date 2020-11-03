@@ -152,6 +152,7 @@ import { ClientPDFDownloadingPageComponent } from './pages/dashboard/client/clie
 import { ViewFormCreatorListsPageComponent } from './pages/dashboard/git-admin/view-form-creator-lists-page/view-form-creator-lists-page.component';
 import { FormCreatorHomePageComponent } from './pages/dashboard/form-creator/form-creator-home-page/form-creator-home-page.component';
 import { ViewAbuseReportsPageComponent } from './pages/dashboard/git-admin/view-abuse-reports-page/view-abuse-reports-page.component';
+import { PaymentDialogComponent } from './components/payment-dialog/payment-dialog.component';
 
 @NgModule({
   declarations: [
@@ -284,6 +285,7 @@ import { ViewAbuseReportsPageComponent } from './pages/dashboard/git-admin/view-
     ViewFormCreatorListsPageComponent,
     FormCreatorHomePageComponent,
     ViewAbuseReportsPageComponent,
+    PaymentDialogComponent,
   ],
   imports: [
     BrowserModule,
