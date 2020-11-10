@@ -65,6 +65,13 @@ return [
             'emoji' => ':boom:',
             'level' => 'critical',
         ],
+        'slackError' => [
+            'driver' => 'slack',
+            'url' => env('SLACK_FORMS369_ERROR'),
+            'username' => 'forms369',
+            'emoji' => ':boom:',
+            'level' => 'error',
+        ],
 
         'papertrail' => [
             'driver' => 'monolog',
