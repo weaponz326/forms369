@@ -73,7 +73,7 @@ export class CreateBranchPageComponent implements OnInit {
     let merchant_id = 0;
     let branch_super_id = 0;
     let branch_admin_id = 0;
-    const branchExtension = this.f.branchExt.value.length == 0 ? null : this.f.branchExt.value;
+    const branchExtension = this.f.branchExt.value == null || this.f.branchExt.value.length == 0 ? null : this.f.branchExt.value;
     _.forEach(this.companiesList, (company) => {
       if (company.merchant_name == this.f.merchant.value) {
         console.log('cccccccccc: ' + company.id);

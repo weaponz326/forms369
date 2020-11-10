@@ -1,5 +1,6 @@
 declare var $: any;
 import * as _ from 'lodash';
+import Swal from 'sweetalert2';
 import { Router } from '@angular/router';
 import { Users } from 'src/app/models/users.model';
 import { NgbModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
@@ -12,7 +13,6 @@ import { FrontDeskService } from 'src/app/services/front-desk/front-desk.service
 import { DownloaderService } from 'src/app/services/downloader/downloader.service';
 import { LocalStorageService } from 'src/app/services/storage/local-storage.service';
 import { FormBuilderService } from 'src/app/services/form-builder/form-builder.service';
-import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-front-desk-view-form-page',
@@ -76,6 +76,7 @@ export class FrontDeskViewFormPageComponent implements OnInit {
 
     this.formName = this.form.form_name;
     this.user = this.localStorage.getUser();
+    this.hasSignature = this.form.require_signature == 1 ? true : false;
     console.log('form: ' + JSON.stringify(this.form));
     this.getFormAttachments(this.form.submission_code);
   }
@@ -209,19 +210,25 @@ export class FrontDeskViewFormPageComponent implements OnInit {
           this.showAttachments = true;
           _.forEach(res, (doc) => {
             if (doc.key == 'signature') {
-              this.hasSignature = true;
-              this.signatureImageUrl = this.endpointService.storageHost + 'attachments/' + doc.url;
+              if (this.hasSignature) {
+                this.hasSignature = true;
+                this.signatureImageUrl = this.endpointService.storageHost + 'attachments/' + doc.url;
+              }
             }
             else {
               console.log('doc: ' + JSON.stringify(doc));
               this.existingAttachments.push(doc);
             }
           });
-          this.signatureImageUrl.length == 0 ? this.getSignature() : null;
+          if (this.hasSignature) {
+            this.signatureImageUrl.length == 0 ? this.getSignature() : null;
+          }
         }
         else {
           this.showAttachments =  false;
-          this.signatureImageUrl.length == 0 ? this.getSignature() : null;
+          if (this.hasSignature) {
+            this.signatureImageUrl.length == 0 ? this.getSignature() : null;
+          }
         }
 
         this.loadingAttachments = false;

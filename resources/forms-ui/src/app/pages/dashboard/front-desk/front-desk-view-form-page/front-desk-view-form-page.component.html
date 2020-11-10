@@ -1,3 +1,5 @@
+<ngx-loading-bar></ngx-loading-bar>
+
 <div class="container-scroller">
   <app-navigation-bar></app-navigation-bar>
   <div class="container-fluid page-body-wrapper">
@@ -80,11 +82,10 @@
                     </button>
                     <button *ngIf="!loading && !isProcessed" type="submit" class="btn btn-primary btn-lg mr-2" (click)="complete()">Complete</button>
                     <button *ngIf="!loading && !isProcessed && !isProcessing" type="submit" class="btn btn-light btn-lg mr-2" (click)="process()">Processing</button>
-                    <div style="display: contents;"
-                      *ngIf="form.form_status == 0 || form.form_status == 1  || form.form_status == 2">
+                    <div style="display: contents;" *ngIf="form.form_status == 0 || form.form_status == 1  || form.form_status == 2">
                       <button *ngIf="!loading && !isProcessed" type="submit" class="btn btn-danger btn-lg" (click)="reject()">Reject</button>
                     </div>
-                    <button *ngIf="!loading" type="submit" class="btn btn-warning btn-lg ml-2 mt-2" (click)="reportAbuse()">Report Abuse</button>
+                    <button *ngIf="!loading && !isProcessed && !isProcessing" type="submit" class="btn btn-warning btn-lg ml-2 mt-2" (click)="reportAbuse()">Report Abuse</button>
                   </form>
                 </div>
               </div>

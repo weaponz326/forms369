@@ -35,6 +35,7 @@ export class EditFormPageComponent implements OnInit {
   alertSuccess: boolean;
   isPublished: boolean;
   uploadError: boolean;
+  showPayment: boolean;
   showJoinQueue: boolean;
   showFileUpload: boolean;
   showTncFileUpload: boolean;
@@ -55,11 +56,9 @@ export class EditFormPageComponent implements OnInit {
     private companyService: CompanyService,
     private formBuilderService: FormBuilderService
   ) {
-    console.log('im constructor');
     this.merchant = '';
     this.allMerchantsList = [];
     this._form = window.history.state.form;
-    console.log('the_____form: ' + JSON.stringify(this._form));
     this.resolveReloadDataLoss();
     this.isPublished = this._form.status == 1 ? true : false;
     this.getCompanies();
@@ -129,7 +128,10 @@ export class EditFormPageComponent implements OnInit {
       canJoin: [canJoin, Validators.required],
       name: [this._form.name, Validators.required],
       hasTnc: [this._form.tnc, Validators.required],
+      amount: [this._form.amount, Validators.required],
+      currency: [this._form.currency, Validators.required],
       merchant: [this._form.mercant_name, Validators.required],
+      hasPayment: [this._form.require_payment, Validators.required],
       signature: [this._form.require_signature, Validators.required]
     });
   }
@@ -190,6 +192,16 @@ export class EditFormPageComponent implements OnInit {
         return;
       }
     });
+  }
+
+  paymentSelected($e: any) {
+    const selectedValue = this.f.hasPayment.value;
+    if (selectedValue == 1) {
+      this.showPayment = true;
+    }
+    else {
+      this.showPayment = false;
+    }
   }
 
   publishForm() {
@@ -304,8 +316,11 @@ export class EditFormPageComponent implements OnInit {
     const formData = new Forms();
     formData.form_fields = form;
     formData.name = this.f.name.value;
+    formData.amount = this.f.amount.value;
     formData.form_code = this._form.form_code;
+    formData.currency = this.f.currency.value;
     formData.status = _.toInteger(this.formStatus);
+    formData.require_payment = this.f.hasPayment ? 1 : 0;
     formData.merchant_id = parseInt(this.f.merchant.value);
     formData.tnc = this.f.hasTnc.value == '' ? 0 : this.f.hasTnc.value;
     formData.can_view = this.f.canView.value == '' ? 0 : this.f.canView.value;

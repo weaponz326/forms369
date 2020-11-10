@@ -1,3 +1,4 @@
+import * as _ from 'lodash';
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { EndpointService } from '../endpoint/endpoint.service';
@@ -40,10 +41,10 @@ export class AbuseReportsService {
   getAbuseReportsByStatus(status: string): Promise<any[]> {
     return new Promise((resolve, reject) => {
       const url = this.endpointService.apiHost + 'api/v1/getAbuseReportsByStatus/' + status;
-      this.http.get(url, { headers: this.headers }).subscribe(
+      this.http.get<any>(url, { headers: this.headers }).subscribe(
         res => {
           console.log('res: ' + JSON.stringify(res));
-          // resolve(res);
+          resolve(res);
         },
         err => {
           console.log('error: ' + JSON.stringify(err));
@@ -57,13 +58,15 @@ export class AbuseReportsService {
    * Addresses/takes care of an abuse report.
    * @param id Abuse report ID.
    */
-  addressAbuseReport(id: string): Promise<any> {
+  addressAbuseReport(id: string): Promise<boolean> {
     return new Promise((resolve, reject) => {
       const url = this.endpointService.apiHost + 'api/v1/addressAbuseReport/' + id;
-      this.http.post(url, { headers: this.headers }).subscribe(
+      this.http.post<any>(url, {}, { headers: this.headers }).subscribe(
         res => {
           console.log('res: ' + JSON.stringify(res));
-          resolve(res);
+          _.toLower(res.message) == 'ok'
+            ? resolve(true)
+            : resolve(false);
         },
         err => {
           console.log('error: ' + JSON.stringify(err));

@@ -28,6 +28,7 @@ export class CreateFormPageComponent implements OnInit {
   hasError: boolean;
   submitted: boolean;
   toPublish: boolean;
+  showPayment: boolean;
   uploadError: boolean;
   showJoinQueue: boolean;
   showFileUpload: boolean;
@@ -115,10 +116,13 @@ export class CreateFormPageComponent implements OnInit {
       tnc: [''],
       canView: [''],
       name: ['', Validators.required],
+      amount: ['', Validators.required],
       hasTnc: ['', Validators.required],
       canJoin: ['', Validators.required],
       merchant: ['', Validators.required],
-      signature: ['', Validators.required]
+      currency: ['', Validators.required],
+      signature: ['', Validators.required],
+      hasPayment: ['', Validators.required],
     });
   }
 
@@ -157,6 +161,16 @@ export class CreateFormPageComponent implements OnInit {
       this.showTncFileUpload = false;
       this.f.tnc.clearValidators();
       this.f.tnc.updateValueAndValidity();
+    }
+  }
+
+  paymentSelected($e: any) {
+    const selectedValue = this.f.hasPayment.value;
+    if (selectedValue == 1) {
+      this.showPayment = true;
+    }
+    else {
+      this.showPayment = false;
     }
   }
 
@@ -247,8 +261,11 @@ export class CreateFormPageComponent implements OnInit {
         formData.form_fields = form;
         formData.name = this.f.name.value;
         formData.form_code = this.formCode;
+        formData.amount = this.f.amount.value;
+        formData.currency = this.f.currency.value;
         formData.status = this.toPublish ? 1 : 0;
         formData.join_queue = this.f.canJoin ? 1 : 0;
+        formData.require_payment = this.f.hasPayment ? 1 : 0;
         formData.merchant_id = parseInt(this.f.merchant.value);
         formData.tnc = this.f.hasTnc.value == '' ? 0 : this.f.hasTnc.value;
         formData.can_view = this.f.canView.value == '' ? 0 : this.f.canView.value;

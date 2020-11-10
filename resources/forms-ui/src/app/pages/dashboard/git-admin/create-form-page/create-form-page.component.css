@@ -1,21 +1,29 @@
 .form-builder-container {
-    padding-top: 1px;
+  padding-top: 1px;
 }
 
 .dropdown .dropdown-menu .dropdown-item {
-    font-size: .875rem;
-    padding: 1rem 1.5rem;
+  font-size: 0.875rem;
+  padding: 1rem 1.5rem;
 }
 
 select.form-control {
-    color: #555555 !important;
+  color: #555555 !important;
 }
 
 .title-form {
-    font-size: 25px;
-    font-family: 'OpenSans_SemiBold';
+  font-size: 16px;
+  font-family: "OpenSans_SemiBold";
 }
 
 .card.no-card {
-    border: none;
+  border: none;
+}
+
+form .row > .col-6 .card > .card-body,
+form .row > .col-6 .card.no-card > .card-body {
+  padding-left: 0px;
+  padding-right: 0px;
+  padding-top: 8px;
+  padding-bottom: 8px;
 }
