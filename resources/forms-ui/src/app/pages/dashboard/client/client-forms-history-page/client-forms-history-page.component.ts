@@ -266,7 +266,6 @@ export class ClientFormsHistoryPageComponent implements OnInit {
           this.allHistoryCollection = this.historyCollection;
           const moreUrl = this.clientService.nextPaginationUrl;
           _.isNull(moreUrl) ? this.hasMore = false : this.hasMore = true;
-          // this.hasMore ? this.handleLoadMoreVisibility(this.historyCollection) : null;
         }
         else {
           this.hasData = true;

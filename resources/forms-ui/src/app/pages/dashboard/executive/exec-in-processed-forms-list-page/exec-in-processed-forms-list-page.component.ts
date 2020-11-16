@@ -42,8 +42,8 @@ export class ExecInProcessedFormsListPageComponent implements OnInit {
   ) {
     this.query = '';
     this.chartData = [];
-    this.showTable = true;
     this.isPie = false;
+    this.showTable = true;
     this.isPieGrid = false;
     this.isVertical = true;
     this.isHorizontal = false;

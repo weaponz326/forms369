@@ -38,7 +38,6 @@ export class ExecProcessedFormsListPageComponent implements OnInit {
     private router: Router,
     private fb: FormBuilder,
     private dateService: DateTimeService,
-    private clientService: ClientService,
     private localStorage: LocalStorageService,
     private frontDeskService: FrontDeskService,
   ) {
