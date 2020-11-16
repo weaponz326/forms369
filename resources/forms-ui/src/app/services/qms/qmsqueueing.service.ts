@@ -98,6 +98,12 @@ export class QMSQueueingService {
     });
   }
 
+  /**
+   * Cancels a queue request.
+   * @param token Bearer Token.
+   * @param client_mobile The client's mobile number.
+   * @param branch_ext The branch's extension.
+   */
   cancelQueueRequest(token: string, client_mobile: string, branch_ext: string): Promise<any> {
     return new Promise((resolve, reject) => {
       const body = {

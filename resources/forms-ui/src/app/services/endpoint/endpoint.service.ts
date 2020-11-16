@@ -37,7 +37,6 @@ export class EndpointService {
    */
   headers(isUploadRequest?: boolean) {
     const token = sessionStorage.getItem('x-auth');
-    console.log('token____: ' + token);
     if (_.isUndefined(isUploadRequest) || !isUploadRequest) {
       const httpHeaders = new HttpHeaders({
         'Accept': 'application/json',
@@ -55,7 +54,6 @@ export class EndpointService {
 
       return httpHeaders;
     }
-    // return httpHeaders;
   }
 
   /**
@@ -73,6 +71,10 @@ export class EndpointService {
     });
   }
 
+  /**
+   * Set cheader with a specified token.
+   * @param token Token to set.
+   */
   setHeaders(token: string) {
     return new HttpHeaders({
       'Accept': 'application/json',

@@ -1,5 +1,5 @@
-import { Injectable } from '@angular/core';
 import * as _ from 'lodash';
+import { Injectable } from '@angular/core';
 import { UserTypes } from 'src/app/enums/user-types.enum';
 import { EndpointService } from '../endpoint/endpoint.service';
 import { HttpClient, HttpHeaders } from '@angular/common/http';

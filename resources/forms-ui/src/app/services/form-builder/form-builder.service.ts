@@ -18,8 +18,8 @@ export class FormBuilderService {
     this.formFieldClassName = 'form-control';
     this.disableClassName = {
       className: {
-          style: 'pointer-events: none'
-        }
+        style: 'pointer-events: none'
+      }
     };
   }
 
