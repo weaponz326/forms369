@@ -9,7 +9,9 @@ import { LocalStorageService } from '../storage/local-storage.service';
 export class PaymentService {
 
   headers: HttpHeaders;
-  constructor(private http: HttpClient, private localStorage: LocalStorageService, private endpointService: EndpointService) { }
+  constructor(private http: HttpClient, private localStorage: LocalStorageService, private endpointService: EndpointService) {
+    this.headers = this.endpointService.headers();
+  }
 
   makeCardPayment(amount: string, currency: string, issuer: string, card_number: string, exp_month: string, exp_year: string, cvv: string, card_holder: string): Promise<any> {
     return new Promise((resolve, reject) => {
@@ -29,9 +31,9 @@ export class PaymentService {
 
       console.log(body);
       this.http.post(url, JSON.stringify(body), { headers: this.headers }).subscribe(
-        res => {
+        (res: any) => {
           console.log('card_pay_success: ' + JSON.stringify(res));
-          resolve(res);
+          resolve(res.message);
         },
         err => {
           console.log('card_pay_err: ' + JSON.stringify(err));
@@ -52,9 +54,9 @@ export class PaymentService {
 
       console.log(body);
       this.http.post(url, JSON.stringify(body), { headers: this.headers }).subscribe(
-        res => {
+        (res: any) => {
           console.log('momo_pay_success: ' + JSON.stringify(res));
-          resolve(res);
+          resolve(res.message);
         },
         err => {
           console.log('momo_pay_err: ' + JSON.stringify(err));

@@ -56,7 +56,10 @@
             </div>
 
             <div class="form-group">
-              <input type="text" class="form-control form-control-lg" maxlength="16" formControlName="cardNumber" placeholder="Enter Card Number" aria-describedby="cHelp" [ngClass]="{'input-control-error': submittedCard && cf.cardNumber.errors}">
+              <input type="text" class="form-control form-control-lg" maxlength="16" formControlName="cardNumber"
+                placeholder="Enter Card Number" aria-describedby="cHelp"
+                [ngClass]="{'input-control-error': submittedCard && cf.cardNumber.errors}"
+                (keyup)="handleCardNumberFormatting($event)">
               <small id="cHelp" class="form-text text-muted">Enter your credit or debit card number here.</small>
               <div *ngIf="submittedCard && cf.cardNumber.errors">
                 <small class="form-text input-error" *ngIf="cf.cardNumber.errors.required">Card Number is required.</small>
@@ -110,7 +113,7 @@
           <div class="mobile-form">
             <form [formGroup]="mobileForm">
               <div class="form-group">
-                <input type="tel" class="form-control form-control-lg" maxlength="10" formControlName="phoneNumber" placeholder="Enter Phone Number" [ngClass]="{'input-control-error': submittedMobile && mf.phoneNumber.errors}">
+                <input type="tel" class="form-control form-control-lg" maxlength="10" formControlName="phoneNumber" placeholder="Enter Phone Number" (keyup)="ensureNumbersOnly($event)" [ngClass]="{'input-control-error': submittedMobile && mf.phoneNumber.errors}">
                 <div *ngIf="submittedMobile && mf.phoneNumber.errors">
                   <small class="form-text input-error" *ngIf="mf.phoneNumber.errors.required">Phone Number is required.</small>
                 </div>
@@ -203,7 +206,7 @@
             <button class="btn btn-light btn-lg" type="button" *ngIf="!isLoading" (click)="confirmDetails()">
               <i class="mdi mdi-arrow-right"></i>
             </button>
-            <button type="button" *ngIf="isLoading" class="btn btn-block btn-primary btn-lg font-weight-medium auth-form-btn" disabled>
+            <button type="button" *ngIf="isLoading" class="btn btn-primary btn-lg font-weight-medium" disabled>
               <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span> &nbsp; &nbsp;
               Please wait...
             </button>
@@ -214,16 +217,18 @@
     <mat-step label="Results">
       <div class="results-view">
         <div class="icon text-center">
-          <i class="mdi mdi-check-circle-outline"></i>
+          <i *ngIf="paymentStatus == 'approved'" class="mdi mdi-check-circle-outline" style="color: #2b9c2b;"></i>
+          <i *ngIf="paymentStatus != 'approved'" class="mdi mdi-close-circle-outline" style="color: #c73935;"></i>
         </div>
 
-        <div class="text-center">
-          <h1>Payment Successful</h1>
-          <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Eaque voluptatum, fugiat,squam laboriosam illo?</p>
+        <div class="text-center mb-5">
+          <h1 *ngIf="paymentStatus == 'approved'">Payment Successful</h1>
+          <h1 *ngIf="paymentStatus != 'approved'">Payment Failed</h1>
+          <p  *ngIf="paymentStatus == 'approved'">{{ transactionMessage }}. <br> TransactionId: {{ transactionIdentifier }}</p>
         </div>
 
-        <div class="form-group">
-          <div class="btn-controls">
+        <div class="form-group mt-5">
+          <div class="text-center">
             <button class="btn btn-light btn-lg" (click)="completePayment()">
               <i class="mdi mdi-arrow-right"></i>
             </button>

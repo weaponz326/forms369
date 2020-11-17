@@ -15,9 +15,13 @@ export class PaymentDialogComponent implements OnInit {
   cardIssuer: string;
   cardForm: FormGroup;
   mobileForm: FormGroup;
+  paymentStatus: string;
   mobileNetwork: string;
   submittedCard: boolean;
   submittedMobile: boolean;
+  transactionMessage: string;
+  transactionIdentifier: string;
+
   @Input() formName: string;
   @Input() formLogo: string;
   @Input() currency: string;
@@ -29,7 +33,10 @@ export class PaymentDialogComponent implements OnInit {
     private paymentService: PaymentService
   ) {
     this.isCard = false;
+    this.paymentStatus = '';
     this.mobileNetwork = 'MTN';
+    this.transactionMessage = '';
+    this.transactionIdentifier = '';
   }
 
   ngOnInit() {
@@ -75,6 +82,24 @@ export class PaymentDialogComponent implements OnInit {
       this.cardIssuer = 'MAS';    
   }
 
+  ensureNumbersOnly(e: KeyboardEvent) {
+    const phone = this.mf.phoneNumber.value;
+    const regExp = new RegExp(/^\d*\.?\d*$/);
+    if (!regExp.test(phone)) {
+      const value = phone.substring(0, phone.length - 1);
+      this.mf.phoneNumber.setValue(value);
+    }
+  }
+
+  handleCardNumberFormatting(e: any) {
+    if (this.cf.cardNumber.value.length == 4) {
+      const val = this.cf.cardNumber.value;
+      this.cf.cardNumber.setValue(val + ' ');
+    }
+  }
+
+  removeAllSpacesFromCardNumber(cardNumber: string) {}
+
   select(type: string) {
     this.isCard = type == 'card' ? true : false;
     this.matStepper.next();
@@ -108,16 +133,21 @@ export class PaymentDialogComponent implements OnInit {
   }
 
   cardPayment() {
+    this.isLoading = true;
+
     const amount = this.formPrice;
     const currency = this.currency;
     const issuer = this.cardIssuer;
     const cvv = this.cf.cvvCode.value;
-    const expYear = this.cf.expiration.value;
-    const expMonth = this.cf.expiration.value;
     const cardNumber = this.cf.cardNumber.value;
+    const expYear = this.cf.expiration.value.split('/')[1];
+    const expMonth = this.cf.expiration.value.split('/')[0];
     const cardHolder = this.cf.firstName.value + ' ' + this.cf.lastName.value;
     this.paymentService.makeCardPayment(amount, currency, issuer, cardNumber, expMonth, expYear, cvv, cardHolder).then(
       res => {
+        this.paymentStatus = res.status;
+        this.transactionMessage = res.reason;
+        this.transactionIdentifier = res.transaction_id;
         this.matStepper.next();
       },
       err => {}
@@ -126,12 +156,15 @@ export class PaymentDialogComponent implements OnInit {
 
   mobilePayment() {
     this.isLoading = true;
-    
+
     const amount = this.formPrice;
     const networkProvider = this.mobileNetwork;
     const phoneNumber = this.mf.phoneNumber.value;
     this.paymentService.makeMobileMoneyPayment(amount, networkProvider, phoneNumber).then(
       res => {
+        this.paymentStatus = res.status;
+        this.transactionMessage = res.reason;
+        this.transactionIdentifier = res.transaction_id;
         this.matStepper.next();
       },
       err => { }
