@@ -125,6 +125,9 @@
           <div class="col-md-4 grid-margin stretch-card" *ngFor="let form of formsList">
             <div class="card hover-cursor animated fadeInDown slow" (click)="open(form)">
               <div class="card-body">
+                <div class="text-center" *ngIf="form.require_payment == 1">
+                  <i class="mdi mdi-lock"></i>
+                </div>
                 <div class="form-container" [style.border-left-color]="form.colors">
                   <div class="form-title" [style.background-color]="form.colors">
                     <h4 style="line-height: 30px; margin-bottom: 0px;">{{ form.name }}</h4>

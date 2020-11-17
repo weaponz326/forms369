@@ -82,7 +82,10 @@
                 <i class="mdi mdi-trash-can-outline" placement="right" ngbTooltip="Delete Permanently" (click)="delete($event, form.submission_code, i)"></i>
               </div>
               <div class="card-body">
-                <p class="card-title mr-3">{{ form.form_name }}</p>
+                <p class="card-title mr-3">
+                  <i class="mdi mdi-lock" *ngIf="form.require_payment == 1"></i> &nbsp;
+                  {{ form.form_name }}
+                </p>
                 <img class="merchant-logo" [src]="form.logo" alt="Logo">
                 <h1 class="display-4">{{ form.submission_code }}</h1>
                 <div class="card-text">

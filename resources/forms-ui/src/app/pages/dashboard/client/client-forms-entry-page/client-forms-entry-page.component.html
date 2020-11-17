@@ -363,4 +363,11 @@
   </app-join-queue-dialog>
 </ng-template>
 
-<ng-template #paymentModal let-modal></ng-template>
+<ng-template #paymentModal let-modal>
+  <app-payment-dialog
+    [formLogo]="form.logo"
+    [formPrice]="form.amount"
+    [currency]="form.currency"
+    [formName]="form.form_name || form.name"
+   ></app-payment-dialog>
+</ng-template>

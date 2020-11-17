@@ -18,6 +18,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule} from '@angular/material/input';
 import { LoadingBarModule } from '@ngx-loading-bar/core';
 import { MatNativeDateModule } from '@angular/material/core';
+import { MatStepperModule } from '@angular/material/stepper';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { LoadingBarHttpClientModule } from '@ngx-loading-bar/http-client';
 import { NgbModalModule, NgbAlertModule } from '@ng-bootstrap/ng-bootstrap';
@@ -300,6 +301,7 @@ import { PaymentDialogComponent } from './components/payment-dialog/payment-dial
     NgbAlertModule,
     NgbModalModule,
     NgxChartsModule,
+    MatStepperModule,
     MatTabsModule,
     MatIconModule,
     MatInputModule,
