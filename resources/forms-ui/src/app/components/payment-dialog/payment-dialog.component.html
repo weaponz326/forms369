@@ -1,6 +1,6 @@
 <div class="container">
-  <mat-horizontal-stepper [linear]="false" #stepper>
-    <mat-step label="Method">
+  <mat-horizontal-stepper linear="true"  #stepper>
+    <mat-step label="Method" completed="false">
       <div class="method-view">
         <div class="row">
           <div class="container">
@@ -31,7 +31,7 @@
         </div>
       </div>
     </mat-step>
-    <mat-step label="Details">
+    <mat-step label="Details" completed="false">
       <div class="details-view">
         <!-- Credit Card -->
         <div class="card-view" *ngIf="isCard">
@@ -39,14 +39,16 @@
             <div class="form-group">
               <div class="row">
                 <div class="col">
-                  <input type="text" class="form-control form-control-lg" formControlName="firstName" placeholder="First Name" aria-describedby="fHelp" [ngClass]="{'input-control-error': submittedCard && cf.firstName.errors}">
+                  <input type="text" class="form-control form-control-lg" formControlName="firstName" placeholder="First Name"
+                    aria-describedby="fHelp" [ngClass]="{'input-control-error': submittedCard && cf.firstName.errors}">
                   <small id="fHelp" class="form-text text-muted">Provide the firstname on your credit or debit card.</small>
                   <div *ngIf="submittedCard && cf.firstName.errors">
                     <small class="form-text input-error" *ngIf="cf.firstName.errors.required">First Name is required.</small>
                   </div>
                 </div>
                 <div class="col">
-                  <input type="text" class="form-control form-control-lg" formControlName="lastName" placeholder="Last Name" aria-describedby="lHelp" [ngClass]="{'input-control-error': submittedCard && cf.lastName.errors}">
+                  <input type="text" class="form-control form-control-lg" formControlName="lastName" placeholder="Last Name"
+                    aria-describedby="lHelp" [ngClass]="{'input-control-error': submittedCard && cf.lastName.errors}">
                   <small id="lHelp" class="form-text text-muted">Provide the lastname on your credit or debit card.</small>
                   <div *ngIf="submittedCard && cf.lastName.errors">
                     <small class="form-text input-error" *ngIf="cf.lastName.errors.required">Last Name is required.</small>
@@ -56,7 +58,7 @@
             </div>
 
             <div class="form-group">
-              <input type="text" class="form-control form-control-lg" maxlength="16" formControlName="cardNumber"
+              <input type="text" class="form-control form-control-lg" maxlength="19" formControlName="cardNumber"
                 placeholder="Enter Card Number" aria-describedby="cHelp"
                 [ngClass]="{'input-control-error': submittedCard && cf.cardNumber.errors}"
                 (keyup)="handleCardNumberFormatting($event)">
@@ -69,14 +71,17 @@
             <div class="form-group">
                <div class="row">
                 <div class="col">
-                  <input type="text" class="form-control form-control-lg" maxlength="4" formControlName="cvvCode" placeholder="CVV2 Code" aria-describedby="cvvHelp" [ngClass]="{'input-control-error': submittedCard && cf.cvvCode.errors}">
+                  <input type="text" class="form-control form-control-lg" maxlength="4" formControlName="cvvCode"
+                    placeholder="CVV2 Code" aria-describedby="cvvHelp" [ngClass]="{'input-control-error': submittedCard && cf.cvvCode.errors}">
                   <small id="cvvHelp" class="form-text text-muted">Enter the security code at the back of your credit or debit card.</small>
                   <div *ngIf="submittedCard && cf.cvvCode.errors">
                     <small class="form-text input-error" *ngIf="cf.cvvCode.errors.required">Cvv2 Code is required.</small>
                   </div>
                 </div>
                 <div class="col">
-                  <input type="text" class="form-control form-control-lg" formControlName="expiration" placeholder="Expiration date (YY/MM)" aria-describedby="exHelp" [ngClass]="{'input-control-error': submittedCard && cf.expiration.errors}">
+                  <input type="text" class="form-control form-control-lg" formControlName="expiration" placeholder="Expiration date (YY/MM)"
+                    aria-describedby="exHelp" [ngClass]="{'input-control-error': submittedCard && cf.expiration.errors}"
+                  (keyup)="handleCardExpDate($event)">
                   <small id="exHelp" class="form-text text-muted">Provide your credit or debit card's expiration date</small>
                   <div *ngIf="submittedCard && cf.expiration.errors">
                     <small class="form-text input-error" *ngIf="cf.expiration.errors.required">Expiration is required.</small>
@@ -143,7 +148,7 @@
         <!-- /.Mobile Money -->
       </div>
     </mat-step>
-    <mat-step label="Confirm">
+    <mat-step label="Confirm" completed="false">
       <div class="confirmation-view">
         <div class="logo">
           <img [src]="formLogo" alt="" class="cricle-avatar">
@@ -214,7 +219,7 @@
         </div>
       </div>
     </mat-step>
-    <mat-step label="Results">
+    <mat-step label="Results" completed="false">
       <div class="results-view">
         <div class="icon text-center">
           <i *ngIf="paymentStatus == 'approved'" class="mdi mdi-check-circle-outline" style="color: #2b9c2b;"></i>
@@ -224,13 +229,24 @@
         <div class="text-center mb-5">
           <h1 *ngIf="paymentStatus == 'approved'">Payment Successful</h1>
           <h1 *ngIf="paymentStatus != 'approved'">Payment Failed</h1>
-          <p  *ngIf="paymentStatus == 'approved'">{{ transactionMessage }}. <br> TransactionId: {{ transactionIdentifier }}</p>
+          <p  *ngIf="paymentStatus == 'approved'">TransactionId: {{ transactionIdentifier }}</p>
+          <p>{{ transactionMessage }}.</p>
         </div>
 
         <div class="form-group mt-5">
           <div class="text-center">
-            <button class="btn btn-light btn-lg" (click)="completePayment()">
-              <i class="mdi mdi-arrow-right"></i>
+            <button class="btn btn-light btn-lg" *ngIf="paymentStatus != 'approved'" (click)="previousStep()">
+              <i class="mdi mdi-arrow-left"></i>
+            </button>
+
+            <div *ngIf="paymentStatus == 'approved'">
+              <button type="button" *ngIf="!isLoading" class="btn btn-light btn-lg" (click)="completePayment()">
+                <i class="mdi mdi-arrow-right"></i>
+              </button>
+            </div>
+            <button type="button" *ngIf="isLoading" class="btn btn-primary btn-lg font-weight-medium" disabled>
+              <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span> &nbsp; &nbsp;
+              Please wait...
             </button>
           </div>
         </div>

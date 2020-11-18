@@ -369,5 +369,6 @@
     [formPrice]="form.amount"
     [currency]="form.currency"
     [formName]="form.form_name || form.name"
+    (paymentCompleted)="submitForm()"
    ></app-payment-dialog>
 </ng-template>

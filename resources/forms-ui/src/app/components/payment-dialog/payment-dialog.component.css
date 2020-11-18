@@ -52,3 +52,7 @@ span.currency {
 .results-view .icon > i {
   font-size: 5em;
 }
+
+::ng-deep .mat-horizontal-stepper-header{
+  pointer-events: none !important;
+}

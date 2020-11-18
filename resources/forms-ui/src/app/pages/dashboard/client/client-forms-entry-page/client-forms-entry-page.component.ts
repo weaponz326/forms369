@@ -606,7 +606,7 @@ export class ClientFormsEntryPageComponent implements OnInit, AfterViewInit {
             this.pinCode = '';
             this.isLoading = false;
             this.pinDialogRef.close();
-            this.submitForm();
+            this.form.require_payment == 1 ? this.makePayments() : this.submitForm();
           }
           else {
             this.isLoading = false;
@@ -621,7 +621,11 @@ export class ClientFormsEntryPageComponent implements OnInit, AfterViewInit {
     }
   }
 
-   uploadConvertedFormAttachment(key: string, file: File, user_data: any, updateProfile: boolean, submission_code: string) {
+  makePayments() {
+    this.modalService.open(this.paymentDialog, { centered: true, backdrop: 'static', keyboard: false });
+  }
+
+   uploadConvertedFormAttachment(key: string, file: File, submission_code: string) {
     console.log('doing existing upload');
     console.log('form_code: ' + submission_code);
     console.log('key: ' + key);
@@ -734,7 +738,7 @@ export class ClientFormsEntryPageComponent implements OnInit, AfterViewInit {
         p.then(
           base64Str => {
             const fileObj = this.fileUploadService.convertBase64ToFile(base64Str, filename);
-            this.uploadConvertedFormAttachment(attachment.key, fileObj, user_data, updateProfile, form_submission_code);
+            this.uploadConvertedFormAttachment(attachment.key, fileObj, form_submission_code);
           }
         );
 
@@ -775,7 +779,7 @@ export class ClientFormsEntryPageComponent implements OnInit, AfterViewInit {
       p.then(
         base64Str => {
           const fileObj = this.fileUploadService.convertBase64ToFile(base64Str, filename);
-          this.uploadConvertedFormAttachment(attachment.key, fileObj, user_data, updateProfile, submission_code);
+          this.uploadConvertedFormAttachment(attachment.key, fileObj, submission_code);
         }
       );
 
@@ -1070,47 +1074,46 @@ export class ClientFormsEntryPageComponent implements OnInit, AfterViewInit {
     this.clientService.checkSubmittedFormStatus(user_id, this.form.form_code).then(
       res => {
         console.log('success');
-        this.modalService.open(this.paymentDialog, { centered: true });
-        // if (res.submitted == 0) {
-        //   this.modalService.open(this.confirmDialog, { centered: true }).result.then(
-        //     result => {
-        //       if (result == 'yes') {
-        //         this.handlePinCode(true);
-        //       }
-        //       else if (result == 'no') {
-        //         this.handlePinCode(false);
-        //       }
-        //       else {
-        //         this.modalService.dismissAll();
-        //         this.loading = false;
-        //       }
-        //     }
-        //   );
-        // }
-        // else {
-        //   if (res.status == 0) {
-        //     this.showSubmissionOptionsDialog(res.code);
-        //   }
-        //   else if (res.status == 1) {
-        //     this.showMakeNewSubmissionDialog();
-        //   }
-        //   else {
-        //     this.modalService.open(this.confirmDialog, { centered: true }).result.then(
-        //       result => {
-        //         if (result == 'yes') {
-        //           this.handlePinCode(true);
-        //         }
-        //         else if (result == 'no') {
-        //           this.handlePinCode(false);
-        //         }
-        //         else {
-        //           this.modalService.dismissAll();
-        //           this.loading = false;
-        //         }
-        //       }
-        //     );
-        //   }
-        // }
+        if (res.submitted == 0) {
+          this.modalService.open(this.confirmDialog, { centered: true }).result.then(
+            result => {
+              if (result == 'yes') {
+                this.handlePinCode(true);
+              }
+              else if (result == 'no') {
+                this.handlePinCode(false);
+              }
+              else {
+                this.modalService.dismissAll();
+                this.loading = false;
+              }
+            }
+          );
+        }
+        else {
+          if (res.status == 0) {
+            this.showSubmissionOptionsDialog(res.code);
+          }
+          else if (res.status == 1) {
+            this.showMakeNewSubmissionDialog();
+          }
+          else {
+            this.modalService.open(this.confirmDialog, { centered: true }).result.then(
+              result => {
+                if (result == 'yes') {
+                  this.handlePinCode(true);
+                }
+                else if (result == 'no') {
+                  this.handlePinCode(false);
+                }
+                else {
+                  this.modalService.dismissAll();
+                  this.loading = false;
+                }
+              }
+            );
+          }
+        }
       },
       err => {
         console.log('something went wrong');

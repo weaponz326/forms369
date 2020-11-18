@@ -1,7 +1,8 @@
 import { MatStepper } from '@angular/material';
-import { Component, Input, OnInit, ViewChild } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { PaymentService } from 'src/app/services/payments/payment.service';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
   selector: 'app-payment-dialog',
@@ -26,22 +27,29 @@ export class PaymentDialogComponent implements OnInit {
   @Input() formLogo: string;
   @Input() currency: string;
   @Input() formPrice: string;
+  @Output() paymentCompleted = new EventEmitter();
   @ViewChild('stepper', { static: false }) matStepper: MatStepper;
 
   constructor(
+    private ngbModal: NgbModal,
     private formBuilder: FormBuilder,
     private paymentService: PaymentService
   ) {
-    this.isCard = false;
-    this.paymentStatus = '';
-    this.mobileNetwork = 'MTN';
-    this.transactionMessage = '';
-    this.transactionIdentifier = '';
+    this.initVars();
   }
 
   ngOnInit() {
     this.initCardForm();
     this.initMobileForm();
+  }
+
+  private initVars() {
+    this.isCard = false;
+
+    this.paymentStatus = '';
+    this.mobileNetwork = 'MTN';
+    this.transactionMessage = '';
+    this.transactionIdentifier = '';
   }
 
   initCardForm() {
@@ -92,15 +100,25 @@ export class PaymentDialogComponent implements OnInit {
   }
 
   handleCardNumberFormatting(e: any) {
-    if (this.cf.cardNumber.value.length == 4) {
+    if (this.cf.cardNumber.value.length == 4 || this.cf.cardNumber.value.length == 9 || this.cf.cardNumber.value.length == 14) {
       const val = this.cf.cardNumber.value;
       this.cf.cardNumber.setValue(val + ' ');
     }
   }
 
-  removeAllSpacesFromCardNumber(cardNumber: string) {}
+  handleCardExpDate(e: any) {
+    if (this.cf.expiration.value.length == 2) {
+      const val = this.cf.expiration.value;
+      this.cf.expiration.setValue(val + '/');
+    }
+  }
+
+  removeAllSpacesFromCardNumber(cardNumber: string) {
+    return cardNumber.replace(/ /g, '');
+  }
 
   select(type: string) {
+    this.matStepper.selected.completed = true;
     this.isCard = type == 'card' ? true : false;
     this.matStepper.next();
   }
@@ -116,6 +134,7 @@ export class PaymentDialogComponent implements OnInit {
   submitCardDetails() {
     this.submittedCard = true;
     if (this.cardForm.valid) {
+      this.matStepper.selected.completed = true;
       this.checkCardIssuer();
       this.matStepper.next();
     }
@@ -124,6 +143,7 @@ export class PaymentDialogComponent implements OnInit {
   submitMobileDetails() {
     this.submittedMobile = true;
     if (this.mobileForm.valid) {
+      this.matStepper.selected.completed = true;
       this.matStepper.next();
     }
   }
@@ -139,18 +159,24 @@ export class PaymentDialogComponent implements OnInit {
     const currency = this.currency;
     const issuer = this.cardIssuer;
     const cvv = this.cf.cvvCode.value;
-    const cardNumber = this.cf.cardNumber.value;
+    const rawCard = this.cf.cardNumber.value;
     const expYear = this.cf.expiration.value.split('/')[1];
     const expMonth = this.cf.expiration.value.split('/')[0];
+    const cardNumber = this.removeAllSpacesFromCardNumber(rawCard);
     const cardHolder = this.cf.firstName.value + ' ' + this.cf.lastName.value;
     this.paymentService.makeCardPayment(amount, currency, issuer, cardNumber, expMonth, expYear, cvv, cardHolder).then(
       res => {
+        this.isLoading = false;
         this.paymentStatus = res.status;
         this.transactionMessage = res.reason;
         this.transactionIdentifier = res.transaction_id;
+
+        this.matStepper.selected.completed = true;
         this.matStepper.next();
       },
-      err => {}
+      err => {
+        this.isLoading = false;
+      }
     );
   }
 
@@ -162,17 +188,25 @@ export class PaymentDialogComponent implements OnInit {
     const phoneNumber = this.mf.phoneNumber.value;
     this.paymentService.makeMobileMoneyPayment(amount, networkProvider, phoneNumber).then(
       res => {
+        this.isLoading = false;
         this.paymentStatus = res.status;
         this.transactionMessage = res.reason;
         this.transactionIdentifier = res.transaction_id;
+
+        this.matStepper.selected.completed = true;
         this.matStepper.next();
       },
-      err => { }
+      err => {
+        this.isLoading = false;
+      }
     );
   }
 
   completePayment() {
-    
+    this.isLoading = true;
+    this.matStepper.selected.completed = true;
+    this.paymentCompleted.emit();
+    this.ngbModal.dismissAll();
   }
 
 }
