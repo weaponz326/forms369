@@ -28,10 +28,12 @@ export class JoinQueueDialogComponent implements OnInit {
   time: NgbTimeStruct;
   servicesList: Array<any>;
   showInvalidTimeError: boolean;
+
   @Input() merchantId: any;
   @Input() branchExtension: any;
   @Output() queueSkipped = new EventEmitter();
   @Output() processCompleted = new EventEmitter();
+
   @ViewChild('alreadyJoinQueue', { static: false }) alreadyJoinQueueDialog: TemplateRef<any>;
 
   constructor(
@@ -119,15 +121,21 @@ export class JoinQueueDialogComponent implements OnInit {
     }
   }
 
+  getDateTimeNow() {
+    const time = new Date();
+    return time.toLocaleString('en-US', { hour: 'numeric', minute: 'numeric', hour12: true });
+  }
+
   resolveDate() {
     const now = new Date();
     const month = now.getMonth() + 1;
     const date = now.getFullYear().toString() + '-' + month.toString() + '-' + now.getDate().toString();
     const formatted_date = this.dateTimeService.getDatePart(date);
-    const fullDateTime = formatted_date + ' ' + this.joinTime.value.hour +
-      ':' + this.joinTime.value.minute + ':' + now.getSeconds();
-    this.logger.log('submitted_join_at: ' + moment(fullDateTime).format('YYYY-MM-DD hh:mm:ss'));
-    return fullDateTime;
+    // const fullDateTime = formatted_date + ' ' + this.joinTime.value.hour +
+    //   ':' + this.joinTime.value.minute + ':' + now.getSeconds();
+    const fullDateTime = this.getDateTimeNow();
+    this.logger.log('submitted_join_at: ' + moment(fullDateTime).utc().format('YYYY-MM-DD h:mm:ss'));
+    return moment(fullDateTime).format('YYYY-MM-DD h:mm:ss');
   }
 
   getFormData() {
@@ -166,14 +174,18 @@ export class JoinQueueDialogComponent implements OnInit {
             //   c_services => {
             //     this.servicesList = b_services.concat(c_services);
             //   },
-            //   error => {}
+            //   error => {
+            //     console.log(error);
+            //   }
             // );
           },
-          error => {}
+          error => {
+            console.log(error);
+          }
         );
       },
       err => {
-        this.logger.log('errrrrrrror: ' + err);
+        this.logger.log(err);
       }
     );
   }

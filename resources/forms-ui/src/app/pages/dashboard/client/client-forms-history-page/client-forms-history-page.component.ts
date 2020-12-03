@@ -9,6 +9,7 @@ import { EndpointService } from 'src/app/services/endpoint/endpoint.service';
 import { DateTimeService } from 'src/app/services/date-time/date-time.service';
 import { ReloadingService } from 'src/app/services/reloader/reloading.service';
 import { LocalStorageService } from 'src/app/services/storage/local-storage.service';
+import * as moment from 'moment';
 
 @Component({
   selector: 'app-client-forms-history-page',
@@ -17,6 +18,7 @@ import { LocalStorageService } from 'src/app/services/storage/local-storage.serv
 })
 export class ClientFormsHistoryPageComponent implements OnInit {
   form: any;
+  now: any;
   user: Users;
   query: string;
   status: number;
@@ -61,6 +63,8 @@ export class ClientFormsHistoryPageComponent implements OnInit {
     this.processingHistoryCollection = [];
     this.form = this.reloader.resolveDataLoss(this.form);
     this.user = this.localStorageService.getUser();
+
+    this.now = moment(new Date(Date.now() - new Date().getTimezoneOffset() * 60000).toISOString().slice(0, 19).replace('T', ' ')).format('YYYY-MM-DD h:mm:ss');
 
     this.listenOnRouteChange(this.router);
   }

@@ -86,7 +86,10 @@
                 </div>
               </div>
               <div class="card-body" (click)="openFormEntry($event, form)">
-                <p class="card-title mr-3">{{ form.name }}</p>
+                <p class="card-title mr-3">
+                  <i class="mdi mdi-lock" *ngIf="form.require_payment == 1"></i> &nbsp;
+                  {{ form.name }}
+                </p>
                 <img class="merchant-logo" [src]="form.logo" alt="Logo">
               </div>
             </div>

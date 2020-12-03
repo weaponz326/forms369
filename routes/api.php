@@ -317,7 +317,7 @@ Route::group(['middleware' => ['auth:api'], 'prefix' => 'v1'], function(){
   //apis for drop down
   Route::get('getMerchantsForDropdown', 'HomeController@getMerchantsForDropdown')->name('getMerchantsForDropdown')->middleware('scope:GIT_Admin,forms_creator,company_admin');
   Route::get('getAllBranchesForDropdown', 'HomeController@getAllBranchesForDropdown')->name('getAllBranchesForDropdown')->middleware('scope:GIT_Admin,forms_creator,company_admin');
-  Route::get('getAllUsersByTypeForDropdown/{type_id}', 'HomeController@getAllUsersByTypeForDropdown')->name('getAllUsersByTypeForDropdown')->middleware('scope:GIT_Admin,forms_creator,company_admin,branch_admin');
+  Route::get('getAllUsersByTypeForDropdown/{type_id}', 'HomeController@getAllUsersByTypeForDropdown')->name('getAllUsersByTypeForDropdown')->middleware('scope:GIT_Admin,forms_creator,company_admin,branch_admin,frontdesk');
 
   //template category
   Route::post('createTemplateCategory', 'HomeController@createTemplateCategory')->name('createTemplateCategory')->middleware('scope:GIT_Admin,forms_creator');

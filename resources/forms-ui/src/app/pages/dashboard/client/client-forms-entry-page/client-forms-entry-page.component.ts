@@ -78,6 +78,7 @@ export class ClientFormsEntryPageComponent implements OnInit, AfterViewInit {
   @ViewChild('confirm', { static: false }) confirmDialog: TemplateRef<any>;
   @ViewChild('signaturePad', { static: false }) signaturePad: SignaturePad;
   @ViewChild('joinQueue', { static: false }) joinQueueDialog: TemplateRef<any>;
+  @ViewChild('paymentModal', { static: false }) paymentDialog: TemplateRef<any>;
   @ViewChild('selectBranch', { static: false }) selectBranchDialog: TemplateRef<any>;
   @ViewChild('viewImgAttachment', { static: false }) viewImgDialog: TemplateRef<any>;
   @ViewChild('viewDocAttachment', { static: false }) viewDocDialog: TemplateRef<any>;
@@ -605,7 +606,7 @@ export class ClientFormsEntryPageComponent implements OnInit, AfterViewInit {
             this.pinCode = '';
             this.isLoading = false;
             this.pinDialogRef.close();
-            this.submitForm();
+            this.form.require_payment == 1 ? this.makePayments() : this.submitForm();
           }
           else {
             this.isLoading = false;
@@ -620,7 +621,11 @@ export class ClientFormsEntryPageComponent implements OnInit, AfterViewInit {
     }
   }
 
-   uploadConvertedFormAttachment(key: string, file: File, user_data: any, updateProfile: boolean, submission_code: string) {
+  makePayments() {
+    this.modalService.open(this.paymentDialog, { centered: true, backdrop: 'static', keyboard: false });
+  }
+
+   uploadConvertedFormAttachment(key: string, file: File, submission_code: string) {
     console.log('doing existing upload');
     console.log('form_code: ' + submission_code);
     console.log('key: ' + key);
@@ -680,45 +685,7 @@ export class ClientFormsEntryPageComponent implements OnInit, AfterViewInit {
         );
       }
       else {
-        if (this.existingAttachments.length > 0) {
-          _.forEach(this.existingAttachments, (attachment, i) => {
-            const idx = attachment.url.lastIndexOf('.');
-            const extension = attachment.url.substr(idx);
-            const filename = Date.now().toString() + extension;
-            const attachmentHost = this.endpointService.storageHost + 'attachments/';
-            const p = this.fileUploadService.srcToBase64(attachmentHost + attachment.url);
-            p.then(
-              base64Str => {
-                const fileObj = this.fileUploadService.convertBase64ToFile(base64Str, filename);
-                this.uploadConvertedFormAttachment(attachment.key, fileObj, user_data, updateProfile, form_submission_code);
-              }
-            );
-
-            if (i == this.existingAttachments.length - 1) {
-              console.log('we done uploading');
-              console.log('no upload');
-              const update = updateProfile ? 1 : 0;
-              const filled_data = this.formBuilder.getFormUserData(user_data);
-              const updated_data = this.clientService.getUpdatedClientFormData(JSON.parse(filled_data), this.clientProfile);
-              this.clientService.submitForm(_.toString(this.user.id), this.form.form_code, this.clientProfile, JSON.parse(updated_data), update, form_submission_code, this.status, this.branchId).then(
-                ok => {
-                  if (ok) {
-                    this.loading = false;
-                    this.status == 0 ? this.created = true : this.saved = true;
-                  }
-                  else {
-                    this.loading = false;
-                    console.log('form submission failed');
-                  }
-                },
-                err => {
-                  this.loading = false;
-                  console.log('form submission error 3');
-                }
-              );
-            }
-          });
-        }
+        this.hashNoExistingAttachment(user_data, updateProfile, form_submission_code);
       }
     }
     else {
@@ -760,6 +727,48 @@ export class ClientFormsEntryPageComponent implements OnInit, AfterViewInit {
     }
   }
 
+  private hashNoExistingAttachment(user_data: any, updateProfile: boolean, form_submission_code: string) {
+    if (this.existingAttachments.length > 0) {
+      _.forEach(this.existingAttachments, (attachment, i) => {
+        const idx = attachment.url.lastIndexOf('.');
+        const extension = attachment.url.substr(idx);
+        const filename = Date.now().toString() + extension;
+        const attachmentHost = this.endpointService.storageHost + 'attachments/';
+        const p = this.fileUploadService.srcToBase64(attachmentHost + attachment.url);
+        p.then(
+          base64Str => {
+            const fileObj = this.fileUploadService.convertBase64ToFile(base64Str, filename);
+            this.uploadConvertedFormAttachment(attachment.key, fileObj, form_submission_code);
+          }
+        );
+
+        if (i == this.existingAttachments.length - 1) {
+          console.log('we done uploading');
+          console.log('no upload');
+          const update = updateProfile ? 1 : 0;
+          const filled_data = this.formBuilder.getFormUserData(user_data);
+          const updated_data = this.clientService.getUpdatedClientFormData(JSON.parse(filled_data), this.clientProfile);
+          this.clientService.submitForm(_.toString(this.user.id), this.form.form_code, this.clientProfile, JSON.parse(updated_data), update, form_submission_code, this.status, this.branchId).then(
+            ok => {
+              if (ok) {
+                this.loading = false;
+                this.status == 0 ? this.created = true : this.saved = true;
+              }
+              else {
+                this.loading = false;
+                console.log('form submission failed');
+              }
+            },
+            err => {
+              this.loading = false;
+              console.log('form submission error 3');
+            }
+          );
+        }
+      });
+    }
+  }
+
   existingUpload(user_data: any, updateProfile: boolean, submission_code: string) {
     _.forEach(this.existingAttachments, (attachment, i) => {
       const idx = attachment.url.lastIndexOf('.');
@@ -770,7 +779,7 @@ export class ClientFormsEntryPageComponent implements OnInit, AfterViewInit {
       p.then(
         base64Str => {
           const fileObj = this.fileUploadService.convertBase64ToFile(base64Str, filename);
-          this.uploadConvertedFormAttachment(attachment.key, fileObj, user_data, updateProfile, submission_code);
+          this.uploadConvertedFormAttachment(attachment.key, fileObj, submission_code);
         }
       );
 

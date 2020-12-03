@@ -78,6 +78,7 @@ export class ClientFormNewEntryPageComponent implements OnInit, AfterViewInit {
   @ViewChild('confirm', { static: false }) confirmDialog: TemplateRef<any>;
   @ViewChild('signaturePad', { static: false }) signaturePad: SignaturePad;
   @ViewChild('joinQueue', { static: false }) joinQueueDialog: TemplateRef<any>;
+  @ViewChild('paymentModal', { static: false }) paymentDialog: TemplateRef<any>;
   @ViewChild('selectBranch', { static: false }) selectBranchDialog: TemplateRef<any>;
   @ViewChild('viewImgAttachment', { static: false }) viewImgDialog: TemplateRef<any>;
   @ViewChild('viewDocAttachment', { static: false }) viewDocDialog: TemplateRef<any>;
@@ -593,7 +594,7 @@ export class ClientFormNewEntryPageComponent implements OnInit, AfterViewInit {
             this.pinCode = '';
             this.isLoading = false;
             this.pinDialogRef.close();
-            this.submitForm();
+            this.form.require_payment == 1 ? this.makePayments() : this.submitForm();
           }
           else {
             this.isLoading = false;
@@ -608,7 +609,11 @@ export class ClientFormNewEntryPageComponent implements OnInit, AfterViewInit {
     }
   }
 
-  uploadConvertedFormAttachment(key: string, file: File, user_data: any, updateProfile: boolean, submission_code: string) {
+  makePayments() {
+    this.modalService.open(this.paymentDialog, { centered: true, backdrop: 'static', keyboard: false });
+  }
+
+  uploadConvertedFormAttachment(key: string, file: File, submission_code: string) {
     console.log('doing existing upload');
     console.log('form_code: ' + submission_code);
     console.log('key: ' + key);
@@ -639,7 +644,7 @@ export class ClientFormNewEntryPageComponent implements OnInit, AfterViewInit {
       p.then(
         base64Str => {
           const fileObj = this.fileUploadService.convertBase64ToFile(base64Str, filename);
-          this.uploadConvertedFormAttachment(attachment.key, fileObj, user_data, updateProfile, submission_code);
+          this.uploadConvertedFormAttachment(attachment.key, fileObj, submission_code);
         }
       );
 
@@ -725,7 +730,7 @@ export class ClientFormNewEntryPageComponent implements OnInit, AfterViewInit {
         p.then(
           base64Str => {
             const fileObj = this.fileUploadService.convertBase64ToFile(base64Str, filename);
-            this.uploadConvertedFormAttachment(attachment.key, fileObj, user_data, updateProfile, form_submission_code);
+            this.uploadConvertedFormAttachment(attachment.key, fileObj, form_submission_code);
           }
         );
 

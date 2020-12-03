@@ -18,6 +18,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule} from '@angular/material/input';
 import { LoadingBarModule } from '@ngx-loading-bar/core';
 import { MatNativeDateModule } from '@angular/material/core';
+import { MatStepperModule } from '@angular/material/stepper';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { LoadingBarHttpClientModule } from '@ngx-loading-bar/http-client';
 import { NgbModalModule, NgbAlertModule } from '@ng-bootstrap/ng-bootstrap';
@@ -152,6 +153,7 @@ import { ClientPDFDownloadingPageComponent } from './pages/dashboard/client/clie
 import { ViewFormCreatorListsPageComponent } from './pages/dashboard/git-admin/view-form-creator-lists-page/view-form-creator-lists-page.component';
 import { FormCreatorHomePageComponent } from './pages/dashboard/form-creator/form-creator-home-page/form-creator-home-page.component';
 import { ViewAbuseReportsPageComponent } from './pages/dashboard/git-admin/view-abuse-reports-page/view-abuse-reports-page.component';
+import { PaymentDialogComponent } from './components/payment-dialog/payment-dialog.component';
 
 @NgModule({
   declarations: [
@@ -284,6 +286,7 @@ import { ViewAbuseReportsPageComponent } from './pages/dashboard/git-admin/view-
     ViewFormCreatorListsPageComponent,
     FormCreatorHomePageComponent,
     ViewAbuseReportsPageComponent,
+    PaymentDialogComponent,
   ],
   imports: [
     BrowserModule,
@@ -298,6 +301,7 @@ import { ViewAbuseReportsPageComponent } from './pages/dashboard/git-admin/view-
     NgbAlertModule,
     NgbModalModule,
     NgxChartsModule,
+    MatStepperModule,
     MatTabsModule,
     MatIconModule,
     MatInputModule,

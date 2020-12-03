@@ -1,0 +1,58 @@
+.method-view mat-icon {
+  font-size: 120px;
+  margin-top: 30px;
+}
+
+.card-view,
+.mobile-view {
+  margin-top: 20px;
+}
+
+span.currency {
+  font-size: 13px;
+}
+
+.confirmation-view {
+  padding-top: 15px;
+}
+
+.confirmation-view .logo {
+  text-align: center;
+  margin-top: 20px;
+  margin-bottom: 20px;
+}
+
+.confirmation-view .logo > img {
+  width: 90px;
+  height: 90px;
+  border-radius: 50%;
+}
+
+.confirmation-view .form-name,
+.confirmation-view .price {
+  text-align: center;
+}
+
+.btn-controls button:first-child {
+  float: left;
+}
+
+.btn-controls button:last-child {
+  float: right;
+}
+
+.table td {
+  font-size: 12px;
+}
+
+.results-view {
+  margin-top: 25px;
+}
+
+.results-view .icon > i {
+  font-size: 5em;
+}
+
+::ng-deep .mat-horizontal-stepper-header{
+  pointer-events: none !important;
+}

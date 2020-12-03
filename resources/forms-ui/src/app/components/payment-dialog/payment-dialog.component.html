@@ -1,0 +1,256 @@
+<div class="container">
+  <mat-horizontal-stepper linear="true"  #stepper>
+    <mat-step label="Method" completed="false">
+      <div class="method-view">
+        <div class="row">
+          <div class="container">
+            <div class="text-center mt-4 mb-4">
+              <h2>Pay {{ currency }} {{ formPrice }} with:</h2>
+            </div>
+          </div>
+          <div class="col-6">
+            <div class="card card-body" (click)="select('card')">
+              <div class="text-left">
+                <mat-icon fontSet="material-icons-outlined">credit_card</mat-icon>
+              </div>
+              <div class="text-left">
+                <h5>Credit/Debit Card</h5>
+              </div>
+            </div>
+          </div>
+          <div class="col-6">
+            <div class="card card-body" (click)="select('mobilemoney')">
+              <div class="text-left">
+                <mat-icon fontSet="material-icons-outlined">ad_units</mat-icon>
+              </div>
+              <div class="text-left">
+                <h5>Mobile Money</h5>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </mat-step>
+    <mat-step label="Details" completed="false">
+      <div class="details-view">
+        <!-- Credit Card -->
+        <div class="card-view" *ngIf="isCard">
+          <form [formGroup]="cardForm" (ngSubmit)="submitCardDetails()">
+            <div class="form-group">
+              <div class="row">
+                <div class="col">
+                  <input type="text" class="form-control form-control-lg" formControlName="firstName" placeholder="First Name"
+                    aria-describedby="fHelp" [ngClass]="{'input-control-error': submittedCard && cf.firstName.errors}">
+                  <small id="fHelp" class="form-text text-muted">Provide the firstname on your credit or debit card.</small>
+                  <div *ngIf="submittedCard && cf.firstName.errors">
+                    <small class="form-text input-error" *ngIf="cf.firstName.errors.required">First Name is required.</small>
+                  </div>
+                </div>
+                <div class="col">
+                  <input type="text" class="form-control form-control-lg" formControlName="lastName" placeholder="Last Name"
+                    aria-describedby="lHelp" [ngClass]="{'input-control-error': submittedCard && cf.lastName.errors}">
+                  <small id="lHelp" class="form-text text-muted">Provide the lastname on your credit or debit card.</small>
+                  <div *ngIf="submittedCard && cf.lastName.errors">
+                    <small class="form-text input-error" *ngIf="cf.lastName.errors.required">Last Name is required.</small>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="form-group">
+              <input type="text" class="form-control form-control-lg" maxlength="19" formControlName="cardNumber"
+                placeholder="Enter Card Number" aria-describedby="cHelp"
+                [ngClass]="{'input-control-error': submittedCard && cf.cardNumber.errors}"
+                (keyup)="handleCardNumberFormatting($event)">
+              <small id="cHelp" class="form-text text-muted">Enter your credit or debit card number here.</small>
+              <div *ngIf="submittedCard && cf.cardNumber.errors">
+                <small class="form-text input-error" *ngIf="cf.cardNumber.errors.required">Card Number is required.</small>
+              </div>
+            </div>
+
+            <div class="form-group">
+               <div class="row">
+                <div class="col">
+                  <input type="text" class="form-control form-control-lg" maxlength="4" formControlName="cvvCode"
+                    placeholder="CVV2 Code" aria-describedby="cvvHelp" [ngClass]="{'input-control-error': submittedCard && cf.cvvCode.errors}">
+                  <small id="cvvHelp" class="form-text text-muted">Enter the security code at the back of your credit or debit card.</small>
+                  <div *ngIf="submittedCard && cf.cvvCode.errors">
+                    <small class="form-text input-error" *ngIf="cf.cvvCode.errors.required">Cvv2 Code is required.</small>
+                  </div>
+                </div>
+                <div class="col">
+                  <input type="text" class="form-control form-control-lg" formControlName="expiration" placeholder="Expiration date (YY/MM)"
+                    aria-describedby="exHelp" [ngClass]="{'input-control-error': submittedCard && cf.expiration.errors}"
+                  (keyup)="handleCardExpDate($event)">
+                  <small id="exHelp" class="form-text text-muted">Provide your credit or debit card's expiration date</small>
+                  <div *ngIf="submittedCard && cf.expiration.errors">
+                    <small class="form-text input-error" *ngIf="cf.expiration.errors.required">Expiration is required.</small>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="form-group">
+              <div class="btn-controls">
+                <button class="btn btn-light btn-lg" (click)="previousStep()">
+                  <i class="mdi mdi-arrow-left"></i>
+                </button>
+
+                <button class="btn btn-light btn-lg" type="submit">
+                  <i class="mdi mdi-arrow-right"></i>
+                </button>
+              </div>
+            </div>
+          </form>
+        </div>
+        <!-- /.Credit Card -->
+
+        <!-- Mobile Money -->
+        <div class="momo-view mt-5" *ngIf="!isCard">
+          <div class="text-center mb-4">
+            <div class="btn-group" role="group" aria-label="Filter By">
+              <button type="button" class="btn btn-light" [ngClass]="{'active': mobileNetwork == 'MTN'}" (click)="selectNetwork('MTN')">MTN</button>
+              <button type="button" class="btn btn-light" [ngClass]="{'active': mobileNetwork == 'VDF'}" (click)="selectNetwork('VDF')">Vodafone</button>
+              <button type="button" class="btn btn-light" [ngClass]="{'active': mobileNetwork == 'ATL'}" (click)="selectNetwork('ATL')">Airtel TiGO</button>
+            </div>
+          </div>
+
+          <div class="mobile-form">
+            <form [formGroup]="mobileForm">
+              <div class="form-group">
+                <input type="tel" class="form-control form-control-lg" maxlength="10" formControlName="phoneNumber" placeholder="Enter Phone Number" (keyup)="ensureNumbersOnly($event)" [ngClass]="{'input-control-error': submittedMobile && mf.phoneNumber.errors}">
+                <div *ngIf="submittedMobile && mf.phoneNumber.errors">
+                  <small class="form-text input-error" *ngIf="mf.phoneNumber.errors.required">Phone Number is required.</small>
+                </div>
+              </div>
+
+              <div class="form-group" *ngIf="mobileNetwork == 'VDF'">
+                <input type="tel" class="form-control form-control-lg" formControlName="voucherPin" placeholder="Voucher Code" [ngClass]="{'input-control-error': submittedMobile && mf.voucherPin.errors}">
+                <div *ngIf="submittedMobile && mf.voucherPin.errors">
+                  <small class="form-text input-error" *ngIf="mf.voucherPin.errors.required">Voucher PIN is required.</small>
+                </div>
+              </div>
+
+              <div class="form-group">
+                <div class="btn-controls">
+                  <button class="btn btn-light btn-lg" (click)="previousStep()">
+                    <i class="mdi mdi-arrow-left"></i>
+                  </button>
+
+                  <button class="btn btn-light btn-lg" (click)="submitMobileDetails()">
+                    <i class="mdi mdi-arrow-right"></i>
+                  </button>
+                </div>
+              </div>
+            </form>
+          </div>
+        </div>
+        <!-- /.Mobile Money -->
+      </div>
+    </mat-step>
+    <mat-step label="Confirm" completed="false">
+      <div class="confirmation-view">
+        <div class="logo">
+          <img [src]="formLogo" alt="" class="cricle-avatar">
+        </div>
+
+        <div class="form-name">
+          <h3>{{ formName }}</h3>
+        </div>
+
+        <div class="price">
+          <h1><span class="currency">{{ currency }}</span> {{ formPrice }}</h1>
+        </div>
+
+        <div class="text-center mt-5 pt-5 mb-3" *ngIf="isCard">
+          <table class="table table-hover">
+            <thead>
+              <tr>
+                <td>Card Holder</td>
+                <td>Card Number</td>
+                <td>CVV Code</td>
+                <td>Expiration</td>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>{{ cf.firstName.value }} {{ cf.lastName.value }}</td>
+                <td>{{ cf.cardNumber.value }}</td>
+                <td>{{ cf.cvvCode.value }}</td>
+                <td>{{ cf.expiration.value }}</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <div class="text-center mt-4 mb-3" *ngIf="!isCard">
+          <table class="table table-hover">
+            <thead>
+              <tr>
+                <td>Network</td>
+                <td>Phone Number</td>
+                <td>Voucher PIN</td>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>{{ mobileNetwork }}</td>
+                <td>{{ mf.phoneNumber.value }}</td>
+                <td>{{ mf.voucherPin.value }}</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <div class="form-group">
+          <div class="btn-controls">
+            <button class="btn btn-light btn-lg" (click)="previousStep()">
+              <i class="mdi mdi-arrow-left"></i>
+            </button>
+
+            <button class="btn btn-light btn-lg" type="button" *ngIf="!isLoading" (click)="confirmDetails()">
+              <i class="mdi mdi-arrow-right"></i>
+            </button>
+            <button type="button" *ngIf="isLoading" class="btn btn-primary btn-lg font-weight-medium" disabled>
+              <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span> &nbsp; &nbsp;
+              Please wait...
+            </button>
+          </div>
+        </div>
+      </div>
+    </mat-step>
+    <mat-step label="Results" completed="false">
+      <div class="results-view">
+        <div class="icon text-center">
+          <i *ngIf="paymentStatus == 'approved'" class="mdi mdi-check-circle-outline" style="color: #2b9c2b;"></i>
+          <i *ngIf="paymentStatus != 'approved'" class="mdi mdi-close-circle-outline" style="color: #c73935;"></i>
+        </div>
+
+        <div class="text-center mb-5">
+          <h1 *ngIf="paymentStatus == 'approved'">Payment Successful</h1>
+          <h1 *ngIf="paymentStatus != 'approved'">Payment Failed</h1>
+          <p  *ngIf="paymentStatus == 'approved'">TransactionId: {{ transactionIdentifier }}</p>
+          <p>{{ transactionMessage }}.</p>
+        </div>
+
+        <div class="form-group mt-5">
+          <div class="text-center">
+            <button class="btn btn-light btn-lg" *ngIf="paymentStatus != 'approved'" (click)="previousStep()">
+              <i class="mdi mdi-arrow-left"></i>
+            </button>
+
+            <div *ngIf="paymentStatus == 'approved'">
+              <button type="button" *ngIf="!isLoading" class="btn btn-light btn-lg" (click)="completePayment()">
+                <i class="mdi mdi-arrow-right"></i>
+              </button>
+            </div>
+            <button type="button" *ngIf="isLoading" class="btn btn-primary btn-lg font-weight-medium" disabled>
+              <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span> &nbsp; &nbsp;
+              Please wait...
+            </button>
+          </div>
+        </div>
+      </div>
+    </mat-step>
+  </mat-horizontal-stepper>
+</div>
