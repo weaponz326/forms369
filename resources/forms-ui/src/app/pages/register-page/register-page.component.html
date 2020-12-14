@@ -67,18 +67,22 @@
                   <p class="input-error" *ngIf="f.emailAddress.errors.required">Email address is required</p>
                 </div>
               </div>
-              <div class="form-group row" style="margin-left: 0px;">
-                <input type="text" formControlName="dialCode" disabled class="form-control"
-                  style="text-align: center; width: 20%; padding-left: 5px; padding-right: 5px;">
-                <div style="width: 78%;">
-                  <input type="text" class="form-control" formControlName="phone"
-                    autocomplete="new-password" placeholder="Phone Number" id="phone"
-                    [ngClass]="{'input-control-error': submitted && f.phone.errors}" (keyup)="resolveStrCharacters($event)">
-                </div>
-                <div *ngIf="submitted && f.phone.errors">
-                  <p class="input-error" *ngIf="f.phone.errors.required">Phone number is required</p>
-                  <p class="input-error" *ngIf="f.phone.errors.minlength">Phone number cannot be less than 9 digits</p>
-                  <p class="input-error" *ngIf="f.phone.errors.maxlength">Phone number cannot exceed 9 digits. Don't start with 0</p>
+              <div class="form-group">
+                <div class="form-row" style="margin-left: -5px;">
+                  <div class="col-3">
+                    <input type="text" formControlName="dialCode" disabled class="form-control"
+                    style="text-align: center; padding-left: 5px; padding-right: 5px;">
+                  </div>
+                  <div class="col-9">
+                    <input type="text" class="form-control" formControlName="phone"
+                      autocomplete="new-password" placeholder="Phone Number" id="phone"
+                      [ngClass]="{'input-control-error': submitted && f.phone.errors}" (keyup)="resolveStrCharacters($event)">
+                    <div *ngIf="submitted && f.phone.errors">
+                      <p class="input-error" *ngIf="f.phone.errors.required">Phone number is required</p>
+                      <p class="input-error" *ngIf="f.phone.errors.minlength">Phone number cannot be less than 9 digits</p>
+                      <p class="input-error" *ngIf="f.phone.errors.maxlength">Phone number cannot exceed 9 digits. Don't start with 0</p>
+                    </div>
+                  </div>
                 </div>
               </div>
               <!-- <div class="form-group">

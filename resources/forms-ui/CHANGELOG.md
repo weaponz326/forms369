@@ -111,3 +111,7 @@
     5. Favorites introduced.
     6. Deleted forms introduced.
     
+# version 0.1.2
+    1. Updated to Angular 10
+    2. Removed unused node modules
+    3. 

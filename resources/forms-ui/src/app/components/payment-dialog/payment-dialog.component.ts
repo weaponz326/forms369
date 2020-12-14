@@ -1,8 +1,8 @@
-import { MatStepper } from '@angular/material';
-import { Component, EventEmitter, Input, OnInit, Output, ViewChild } from '@angular/core';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { MatStepper } from '@angular/material/stepper';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { PaymentService } from 'src/app/services/payments/payment.service';
-import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { Component, EventEmitter, Input, OnInit, Output, ViewChild } from '@angular/core';
 
 @Component({
   selector: 'app-payment-dialog',

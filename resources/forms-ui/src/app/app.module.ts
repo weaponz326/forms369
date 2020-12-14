@@ -8,21 +8,23 @@ import { ClipboardModule } from 'ngx-clipboard';
 import { PdfViewerModule } from 'ng2-pdf-viewer';
 import { SignaturePadModule } from 'ngx-signaturepad';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
-import { NgxChartsModule } from '@swimlane/ngx-charts';
+// import { NgxChartsModule } from '@swimlane/ngx-charts';
 import { HttpClientModule } from '@angular/common/http';
 import { AppRoutingModule } from './app-routing.module';
 import { CountryPickerModule } from 'ngx-country-picker';
-import { NgxPageScrollCoreModule } from 'ngx-page-scroll-core';
+// import { NgxPageScrollCoreModule } from 'ngx-page-scroll-core';
 
 import { MatIconModule } from '@angular/material/icon';
+import { MatTabsModule } from '@angular/material/tabs';
 import { MatInputModule} from '@angular/material/input';
 import { LoadingBarModule } from '@ngx-loading-bar/core';
+import { MatSelectModule } from '@angular/material/select';
 import { MatNativeDateModule } from '@angular/material/core';
 import { MatStepperModule } from '@angular/material/stepper';
 import { MatDatepickerModule } from '@angular/material/datepicker';
+import { MatAutocompleteModule } from '@angular/material/autocomplete';
 import { LoadingBarHttpClientModule } from '@ngx-loading-bar/http-client';
 import { NgbModalModule, NgbAlertModule } from '@ng-bootstrap/ng-bootstrap';
-import { MatAutocompleteModule, MatSelectModule, MatTabsModule } from '@angular/material';
 
 import { AppComponent } from './app.component';
 import { SideBarComponent } from './components/side-bar/side-bar.component';
@@ -300,7 +302,7 @@ import { PaymentDialogComponent } from './components/payment-dialog/payment-dial
     NgbModule,
     NgbAlertModule,
     NgbModalModule,
-    NgxChartsModule,
+    // NgxChartsModule,
     MatStepperModule,
     MatTabsModule,
     MatIconModule,
@@ -317,7 +319,7 @@ import { PaymentDialogComponent } from './components/payment-dialog/payment-dial
       filename: 'countries.json'
     }),
     BrowserAnimationsModule,
-    NgxPageScrollCoreModule
+    // NgxPageScrollCoreModule
   ],
   providers: [],
   bootstrap: [AppComponent]

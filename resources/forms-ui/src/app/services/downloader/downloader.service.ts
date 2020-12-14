@@ -63,7 +63,7 @@ export class DownloaderService {
    * @memberof DownloaderService
    */
   exportToPDF(content: ElementRef, filename: string) {
-    const doc = new jsPDF();
+    const doc = new jsPDF.jsPDF();
     const specialElementHandlers = {
       '#editor': (element, renderer) => {
         return true;
