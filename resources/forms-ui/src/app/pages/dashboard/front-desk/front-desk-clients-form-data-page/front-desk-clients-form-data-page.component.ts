@@ -345,6 +345,10 @@ export class FrontDeskClientsFormDataPageComponent implements OnInit {
     this.router.navigateByUrl('front_desk/print_form_default', { state: { form: print_data } });
   }
 
+  downloadDoc(url: string) {
+    this.downloadService.download(url);
+  }
+
   print(e: Event, index: number) {
     e.stopPropagation();
     const print_data = {

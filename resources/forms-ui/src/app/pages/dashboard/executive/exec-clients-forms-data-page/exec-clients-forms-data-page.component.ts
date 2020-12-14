@@ -339,6 +339,10 @@ export class ExecClientsFormsDataPageComponent implements OnInit {
     this.router.navigateByUrl('executive/pdf_printing', { state: { form: print_data } });
   }
 
+  downloadDoc(url: string) {
+    this.downloadService.download(url);
+  }
+
   print(e: Event, index: number) {
     e.stopPropagation();
     const print_data = {

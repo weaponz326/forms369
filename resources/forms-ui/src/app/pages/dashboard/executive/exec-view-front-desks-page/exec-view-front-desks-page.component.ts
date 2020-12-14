@@ -33,6 +33,12 @@ export class ExecViewFrontDesksPageComponent implements OnInit {
     this.router.navigateByUrl('admin/details/account', { state: { id: id } });
   }
 
+  edit(id: any) {
+    this.router.navigateByUrl('executive/edit/account', { state: { id: id }});
+  }
+
+  delete(ev: any) {}
+
   dataLoaded(ev: any) {
     if (_.isNull(ev)) {
       this.hasNoAccount = true;

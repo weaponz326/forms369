@@ -8,7 +8,7 @@ import { ClipboardModule } from 'ngx-clipboard';
 import { PdfViewerModule } from 'ng2-pdf-viewer';
 import { SignaturePadModule } from 'ngx-signaturepad';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
-// import { NgxChartsModule } from '@swimlane/ngx-charts';
+import { NgxChartsModule } from '@swimlane/ngx-charts';
 import { HttpClientModule } from '@angular/common/http';
 import { AppRoutingModule } from './app-routing.module';
 import { CountryPickerModule } from 'ngx-country-picker';
@@ -302,7 +302,7 @@ import { PaymentDialogComponent } from './components/payment-dialog/payment-dial
     NgbModule,
     NgbAlertModule,
     NgbModalModule,
-    // NgxChartsModule,
+    NgxChartsModule,
     MatStepperModule,
     MatTabsModule,
     MatIconModule,

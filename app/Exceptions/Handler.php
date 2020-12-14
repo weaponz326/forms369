@@ -35,9 +35,9 @@ class Handler extends ExceptionHandler
      */
     public function report(Exception $exception)
     {
-        Log::channel('slackError')->critical("Error: ". $exception->getMessage(). "\n File: ".$exception->getFile(). 
-        "\n Line: ". $exception->getLine(). "\n Exception: ". get_class($exception));
-        // parent::report($exception);
+        // Log::channel('slackError')->critical("Error: ". $exception->getMessage(). "\n File: ".$exception->getFile(). 
+        // "\n Line: ". $exception->getLine(). "\n Exception: ". get_class($exception));
+        parent::report($exception);
     }
 
     /**

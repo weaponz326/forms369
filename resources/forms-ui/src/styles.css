@@ -2,26 +2,27 @@
 @import url("assets/vendors/mdi/css/materialdesignicons.min.css");
 @import url("assets/vendors/base/vendor.bundle.base.css");
 @import url("assets/vendors/datatables.net-bs4/dataTables.bootstrap4.css");
+@import url('assets//css/materialdesignicons.min.css');
 @import url("assets/css/style.css");
 
 @font-face {
   font-family: "OpenSans_Regular";
-  src: url("./assets/fonts/open-sans/OpenSans-Regular.ttf");
+  src: url("/assets/fonts/open-sans/OpenSans-Regular.ttf");
 }
 
 @font-face {
   font-family: "OpenSans_Bold";
-  src: url("./assets/fonts/open-sans/OpenSans-Bold.ttf");
+  src: url("/assets/fonts/open-sans/OpenSans-Bold.ttf");
 }
 
 @font-face {
   font-family: "OpenSans_SemiBold";
-  src: url("./assets/fonts/open-sans/OpenSans-Semibold.ttf");
+  src: url("/assets/fonts/open-sans/OpenSans-Semibold.ttf");
 }
 
 @font-face {
   font-family: "ProductSans_Regular";
-  src: url("./assets/fonts/ProductSans-Bold_1b2049464dce1ac801cec1357c2e45b8.ttf");
+  src: url("/assets/fonts/ProductSans-Bold_1b2049464dce1ac801cec1357c2e45b8.ttf");
 }
 
 html,

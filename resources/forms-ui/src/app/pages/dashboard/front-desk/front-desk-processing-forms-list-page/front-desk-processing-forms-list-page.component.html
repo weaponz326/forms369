@@ -302,9 +302,9 @@
       </div>
     </div>
     <div class="modal-footer">
-      <button *ngIf="!isLoading" type="button" class="btn btn-outline-primary" (click)="modal.dismiss()">Cancel</button>
-      <button *ngIf="!isLoading" type="submit" class="btn btn-primary">Send</button>
-      <button *ngIf="isLoading" class="btn btn-primary btn-lg mr-2" type="button" disabled>
+      <button *ngIf="!loading" type="button" class="btn btn-outline-primary" (click)="modal.dismiss()">Cancel</button>
+      <button *ngIf="!loading" type="submit" class="btn btn-primary">Send</button>
+      <button *ngIf="loading" class="btn btn-primary btn-lg mr-2" type="button" disabled>
         <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
         <span class="sr-only">Please wait...</span>
       </button>

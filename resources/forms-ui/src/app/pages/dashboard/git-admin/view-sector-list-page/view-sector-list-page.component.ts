@@ -101,5 +101,8 @@ export class ViewSectorListPageComponent implements OnInit {
       }
     );
   }
+  retry() {
+    this.getAllSectors();
+  }
 
 }

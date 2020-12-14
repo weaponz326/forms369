@@ -105,7 +105,7 @@
                 <div *ngIf="viewMode == 'list'" class="row">
                   <div class="list-group" style="width: 100%;">
                     <div class="list-group-item hover-cursor list-group-item-action animated fadeInDown" *ngFor="let sector of sectorsList; let i=index">
-                      <div class="row" (click)="openForms(sector.id)">
+                      <div class="row">
                         <div class="col-8">
                           <span class="card-title mt-2">{{ sector.name }}</span>
                           <h1 class="display-4 mb-1 mt-2">{{ sector.name }}</h1>

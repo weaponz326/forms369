@@ -135,7 +135,7 @@
 
                 <div *ngIf="viewMode == 'grid'" class="row t-list">
                   <div class="col-md-4 grid-margin stretch-card" *ngFor="let template of templatesList; let i = index">
-                    <div class="card hover-cursor animated fadeInDown fast" (click)="view(template)">
+                    <div class="card hover-cursor animated fadeInDown fast" (click)="view($event, template)">
                       <div class="card-body">
                         <div class="card-text">
                           <h1 class="display-4 mb-4 mr-3">{{ template.name }}</h1>
@@ -176,7 +176,7 @@
                     <div class="list-group" style="width: 100%;">
                       <div class="list-group-item hover-cursor list-group-item-action animated fadeInDown"
                         *ngFor="let template of templatesList; let i = index">
-                        <div class="row" (click)="view(template)">
+                        <div class="row" (click)="view($event, template)">
                           <div [ngClass]="{'col-8': !isGitAdmin, 'col-6': isGitAdmin}">
                             <h1 class="display-4 mb-1 mt-2">{{ template.name }}</h1>
                           </div>

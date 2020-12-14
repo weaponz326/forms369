@@ -42,6 +42,10 @@ export class ClientFavoriteFormsPageComponent implements OnInit {
     this.router.navigateByUrl('/client/fill_form', { state: { form: form } });
   }
 
+  pickForm() {
+    this.router.navigateByUrl('/client/form_merchant');
+  }
+
   getAllFavorites() {
     this.loading = true;
     this.clientService.getAllFavoritesForms().then(

@@ -24,6 +24,7 @@ export class FrontDeskProcessingFormsListPageComponent implements OnInit {
   loading: boolean;
   hasError: boolean;
   submitted: boolean;
+  _submitted: boolean
   can_print: boolean;
   noteForm: FormGroup;
   foundNoForm: boolean;

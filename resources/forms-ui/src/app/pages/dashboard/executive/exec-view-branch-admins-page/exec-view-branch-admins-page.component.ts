@@ -32,6 +32,12 @@ export class ExecViewBranchAdminsPageComponent implements OnInit {
     this.router.navigateByUrl('executive/account_details', { state: { id: id } });
   }
 
+  edit(id: any) {
+    this.router.navigateByUrl('executive/edit/account', { state: { id: id }});
+  }
+
+  delete(ev: any) {}
+
   dataLoaded(ev: any) {
     if (_.isNull(ev)) {
       this.hasNoAccount = true;

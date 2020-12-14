@@ -3,6 +3,7 @@ import { Router } from '@angular/router';
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { SectorsService } from 'src/app/services/sectors/sectors.service';
+import { LocalStorageService } from 'src/app/services/storage/local-storage.service';
 
 @Component({
   selector: 'app-edit-sector-page',
@@ -15,14 +16,17 @@ export class EditSectorPageComponent implements OnInit {
   form: FormGroup;
   loading: boolean;
   created: boolean;
+  firstname: string;
   submitted: boolean;
 
   constructor(
     private router: Router,
     private fb: FormBuilder,
-    private sectorService: SectorsService
+    private sectorService: SectorsService,
+    private localStorageService: LocalStorageService
   ) {
     this.sector = window.history.state.sector;
+    this.firstname = this.localStorageService.getUser().firstname;
   }
 
   ngOnInit() {

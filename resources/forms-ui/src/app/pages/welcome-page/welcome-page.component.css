@@ -5,7 +5,7 @@ a.white-link {
 
 .banner {
   background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)),
-    url(./../../../assets/images/circle-pattern.jpg);
+    url(/assets/images/circle-pattern.jpg);
   background-size: cover;
   height: 100%;
 }
@@ -72,7 +72,7 @@ section.section-two .jumbotron {
 section.section-three {
   padding: 80px 0px;
   background: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.7)),
-    url(./../../../assets/images/night-skies.jpg);
+    url(/assets/images/night-skies.jpg);
 }
 
 section.section-three .jumbotron {
