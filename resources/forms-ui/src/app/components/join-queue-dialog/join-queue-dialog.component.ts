@@ -131,10 +131,9 @@ export class JoinQueueDialogComponent implements OnInit {
     const month = now.getMonth() + 1;
     const date = now.getFullYear().toString() + '-' + month.toString() + '-' + now.getDate().toString();
     const formatted_date = this.dateTimeService.getDatePart(date);
-    // const fullDateTime = formatted_date + ' ' + this.joinTime.value.hour +
-    //   ':' + this.joinTime.value.minute + ':' + now.getSeconds();
-    const fullDateTime = this.getDateTimeNow();
-    this.logger.log('submitted_join_at: ' + moment(fullDateTime).utc().format('YYYY-MM-DD h:mm:ss'));
+    const fullDateTime = formatted_date + ' ' + this.joinTime.value.hour +
+      ':' + this.joinTime.value.minute + ':' + now.getSeconds();
+    this.logger.log('submitted_join_at: ' + fullDateTime);
     return moment(fullDateTime).format('YYYY-MM-DD h:mm:ss');
   }
 

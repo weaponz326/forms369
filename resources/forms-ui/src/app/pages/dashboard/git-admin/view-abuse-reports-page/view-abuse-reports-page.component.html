@@ -92,7 +92,7 @@
                       </tr>
                     </thead>
                     <tbody>
-                      <tr class="hover-cursor" *ngFor="let report of abuseReportsList">
+                      <tr class="hover-cursor" *ngFor="let report of abuseReportsList; index as i;">
                         <td>{{ report.client_id }}</td>
                         <td>{{ report.merchant_id }}</td>
                         <td>
@@ -103,17 +103,13 @@
                         <td>
                           <div class="d-flex align-items-end flex-wrap">
                             <button type="button" class="btn btn-light bg-white btn-icon mr-1"
-                              (click)="readMessage(report.message)">
+                              (click)="readMessage(report.message)" ngbTooltip="View Abuse Report" placement="top">
                               <i class="mdi mdi-message-outline"></i>
                             </button>
                             <button type="button" class="btn btn-light bg-white btn-icon mr-1"
-                              (click)="address(report.id)">
+                              (click)="address(report.id, i)" ngbTooltip="Address Abuse" placement="top">
                               <i class="mdi mdi-wrench-outline"></i>
-                            </button>
-                            <button type="button" class="btn btn-light bg-white btn-icon mr-1"
-                              (click)="delete(report.report_id)">
-                              <i class="mdi mdi-delete-outline text-danger"></i>
-                            </button>
+                            </button> 
                           </div>
                         </td>
                       </tr>

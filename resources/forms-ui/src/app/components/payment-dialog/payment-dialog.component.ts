@@ -26,7 +26,7 @@ export class PaymentDialogComponent implements OnInit {
   @Input() formName: string;
   @Input() formLogo: string;
   @Input() currency: string;
-  @Input() formPrice: string;
+  @Input() formPrice: string; 
   @Output() paymentCompleted = new EventEmitter();
   @ViewChild('stepper', { static: false }) matStepper: MatStepper;
 

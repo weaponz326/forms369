@@ -8,9 +8,9 @@ import { HttpHeaders } from '@angular/common/http';
 export class EndpointService {
 
   apiHost: string;
+  clientID: number;
   qmsApiHost: string;
   storageHost: string;
-  clientID: number;
   clientSecret: string;
   private localApiHost: string;
   private productionApiHost: string;

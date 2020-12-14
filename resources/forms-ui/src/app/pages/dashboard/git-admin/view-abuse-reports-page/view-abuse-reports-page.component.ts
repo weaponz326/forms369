@@ -91,31 +91,25 @@ export class ViewAbuseReportsPageComponent implements OnInit {
     this.modalService.open(this.readMessageModal, { centered: true });
   }
 
-  address(id: string) {
-    this.addressReport(id);
+  address(id: string, index: number) {
+    this.addressReport(id, index);
   }
 
-  addressReport(id: string) {
+  addressReport(id: string, index: number) {
     this.abuseReportService.addressAbuseReport(id).then(
       ok => {
-        ok ? this.showAddressReportSuccessAlert() : this.showAddressReportFailedAlert();
+        if (ok) {
+          this.showAddressReportSuccessAlert();
+          const abuseItem = this.abuseReportsList[index];
+          abuseItem.status = 0;
+        }
+        else {
+          this.showAddressReportFailedAlert();
+        }
       },
       err => {
         console.log('error: ' + JSON.stringify(err));
         this.showAddressReportFailedAlert();
-      }
-    );
-  }
-
-  deleteAccessReport() {
-  }
-
-  delete(id: number) {
-    this.modalService.open(this.deleteModal, { centered: true }).result.then(
-      result => {
-        if (result == 'delete') {
-          this.deleteAccessReport();
-        }
       }
     );
   }
