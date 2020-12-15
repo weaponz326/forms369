@@ -114,4 +114,12 @@
 # version 0.1.2
     1. Updated to Angular 10
     2. Removed unused node modules
-    3. 
+    3. Added filtering options to executive dashboard from processed forms, rejected forms etc.
+    4. Introduced Charts for executive dashboard.
+    6. Payment option available for clients.
+    7. Bug fixes on front desk dashboard
+    8. Updated view for form setup.
+    9. Updated view for company setup
+   10. Updated view for branch setup.
+   11. Introduced abuse reports.
+   12.
