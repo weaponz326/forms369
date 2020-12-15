@@ -96,8 +96,8 @@
                         <td>{{ report.client_id }}</td>
                         <td>{{ report.merchant_id }}</td>
                         <td>
-                          <div *ngIf="report.status == 0" class="text-center text-success status-dot"></div>
-                          <div *ngIf="report.status == 1" class="text-center text-danger status-dot"></div>
+                          <div *ngIf="report.status == 1" class="text-center text-success status-dot"></div>
+                          <div *ngIf="report.status == 0" class="text-center text-danger status-dot"></div>
                         </td>
                         <td>{{ report.reported_at | date }}</td>
                         <td>
