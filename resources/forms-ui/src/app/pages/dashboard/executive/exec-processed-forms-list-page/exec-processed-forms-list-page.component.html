@@ -17,7 +17,7 @@
               </div>
               <div class="d-flex justify-content-between align-items-end flex-wrap">
                 <form [formGroup]="form" (ngSubmit)="filter()">
-                  <div class="form-group form-inline" style="margin-bottom: -0.1rem;">
+                  <div class="form-inline" style="margin-bottom: -0.1rem;">
                     <div class="input-group">
                       <input class="form-control form-control-sm" placeholder="Select Start Date" name="dp"
                         formControlName="startDate" ngbDatepicker #d="ngbDatepicker" [ngClass]="{'input-control-error':
@@ -40,7 +40,7 @@
                     </div>
                     <button type="submit" class="btn btn-outline-primary btn-sm ml-2">Filter</button>
                   </div>
-                  <div class="form-group form-inline">
+                  <div class="form-inline">
                     <div *ngIf="submitted && f.startDate.errors" style="width: 43%;">
                       <p class="input-error" *ngIf="f.startDate.errors.required">Start date is required</p>
                     </div>
@@ -65,9 +65,8 @@
             </div>
           </div>
           <div class="col-3 col-md-3">
-            <button type="button" class="btn btn-outline-primary btn-icon-text" placement="top"
-              ngbTooltip="Print Form" (click)="showChart()">
-              <i class="mdi mdi-chart-line"></i> View Data In Chart Mode
+            <button type="button" class="btn btn-outline-primary btn-icon-text" (click)="showChart()">
+              View Data In Chart Mode
             </button>
           </div>
         </div>

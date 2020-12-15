@@ -3,7 +3,6 @@ import { Router } from '@angular/router';
 import { Component, OnInit } from '@angular/core';
 import { Users } from 'src/app/models/users.model';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
-import { ClientService } from 'src/app/services/client/client.service';
 import { DateTimeService } from 'src/app/services/date-time/date-time.service';
 import { FrontDeskService } from 'src/app/services/front-desk/front-desk.service';
 import { LocalStorageService } from 'src/app/services/storage/local-storage.service';
@@ -177,7 +176,7 @@ export class ExecProcessedFormsListPageComponent implements OnInit {
         else {
           this.loading = false;
           this.foundNoForm = false;
-          console.log('forrrrrm: ' + JSON.stringify(forms));
+          console.log('form: ' + JSON.stringify(forms));
           _.forEach(forms, (form) => {
             this.processedFormsList.push(form);
           });
@@ -316,7 +315,7 @@ export class ExecProcessedFormsListPageComponent implements OnInit {
         (f) => f.form_name == form &&
           (this.dateService.getDatePart(form.submitted_at) >= start_date &&
           this.dateService.getDatePart(form.submitted_at) <= end_date)
-        );
+      );
       chart_data.push({
         name: form,
         value: count.length
