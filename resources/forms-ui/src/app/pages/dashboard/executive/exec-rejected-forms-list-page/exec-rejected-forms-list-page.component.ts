@@ -297,7 +297,7 @@ export class ExecRejectedFormsListPageComponent implements OnInit {
           this.dateService.getDatePart(form.last_processed) <= end_date
       );
 
-      this.generateChartDataByDate();
+      this.generateChartDataByDate(this.rejectedFormsList);
     }
   }
 
@@ -319,29 +319,15 @@ export class ExecRejectedFormsListPageComponent implements OnInit {
     console.log('____chart_data: ' + JSON.stringify(chart_data));
   }
 
-  generateChartDataByDate() {
+  generateChartDataByDate(formsList: any[]) {
     // We generate the Chart based on the form processed and its count
     // only based on the start and end date selected by the user.
     const chart_data = [];
-    const end = this.f.endDate.value;
-    const start = this.f.startDate.value;
-
-    // Bootstrap date picker returns single digit for months from Jan to Sept
-    // In order to allow us to compare against MYSQL which returns double digits
-    // for that, we convert the month accordingly.
-    const end_date = this.dateService.bootstrapDateFormat(end);
-    const start_date = this.dateService.bootstrapDateFormat(start);
-
-    const found_form = [...new Set(this.allRejectedFormsList.map(form => form.form_name))];
+    const found_form = [...new Set(formsList.map(form => form.form_name))];
     console.log('found_form: ' + JSON.stringify(found_form));
 
     _.forEach(found_form, (form) => {
-      const count = _.filter(
-        this.allRejectedFormsList,
-        (f) => f.form_name == form &&
-          (this.dateService.getDatePart(form.submitted_at) >= start_date &&
-            this.dateService.getDatePart(form.submitted_at) <= end_date)
-      );
+      const count = _.filter(formsList, (f) => f.form_name == form);
       chart_data.push({
         name: form,
         value: count.length
@@ -350,6 +336,11 @@ export class ExecRejectedFormsListPageComponent implements OnInit {
 
     this.chartData = chart_data;
     console.log('____chart_data: ' + JSON.stringify(chart_data));
+  }
+
+  reset() {
+    this.rejectedFormsList = this.allRejectedFormsList;
+    this.generateChartData(); // sets the chart for all the avialavle forms.
   }
 
   retry() {

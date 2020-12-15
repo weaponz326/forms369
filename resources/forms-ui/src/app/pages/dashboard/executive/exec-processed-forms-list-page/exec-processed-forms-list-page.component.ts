@@ -3,6 +3,7 @@ import { Router } from '@angular/router';
 import { Component, OnInit } from '@angular/core';
 import { Users } from 'src/app/models/users.model';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { LoggingService } from 'src/app/services/logging/logging.service';
 import { DateTimeService } from 'src/app/services/date-time/date-time.service';
 import { FrontDeskService } from 'src/app/services/front-desk/front-desk.service';
 import { LocalStorageService } from 'src/app/services/storage/local-storage.service';
@@ -36,6 +37,7 @@ export class ExecProcessedFormsListPageComponent implements OnInit {
   constructor(
     private router: Router,
     private fb: FormBuilder,
+    private logger: LoggingService,
     private dateService: DateTimeService,
     private localStorage: LocalStorageService,
     private frontDeskService: FrontDeskService,
@@ -220,26 +222,26 @@ export class ExecProcessedFormsListPageComponent implements OnInit {
       if (this.query.length != 0) {
         // we need to know whether the user is searching by a submission
         // code or by a form name. So first, check if its a submission code.
-        console.log(this.query);
+        this.logger.log(this.query);
         this.hasError = false;
         this.processedFormsList = [];
         this.allProcessedFormsList = [];
         if (this.query.length == 5 || this.query.length == 6) {
           // search by submission code.
-          console.log('searching by submission code');
+          this.logger.log('searching by submission code');
           this.searchByFormCode();
         }
         else {
           // search by form name.
-          console.log('searching by form name');
+          this.logger.log('searching by form name');
           this.searchByFormName();
         }
       }
       else {
-        console.log('resetting ...');
+        this.logger.log('resetting ...');
         this.hasData = true;
         this.foundNoForm = false;
-        console.log('hererereererere');
+        this.logger.log('hererereererere');
         this.getAllProcessedForms();
       }
     }
@@ -261,6 +263,7 @@ export class ExecProcessedFormsListPageComponent implements OnInit {
       // for that, we convert the month accordingly.
       const end_date = this.dateService.bootstrapDateFormat(end);
       const start_date = this.dateService.bootstrapDateFormat(start);
+
       console.log(start_date);
       console.log(end_date);
 
@@ -271,7 +274,7 @@ export class ExecProcessedFormsListPageComponent implements OnInit {
           this.dateService.getDatePart(form.last_processed) <= end_date
       );
 
-      this.generateChartDataByDate();
+      this.generateChartDataByDate(this.processedFormsList);
     }
   }
 
@@ -293,29 +296,15 @@ export class ExecProcessedFormsListPageComponent implements OnInit {
     console.log('____chart_data: ' + JSON.stringify(chart_data));
   }
 
-  generateChartDataByDate() {
+  generateChartDataByDate(formsList: any[]) {
     // We generate the Chart based on the form processed and its count
     // only based on the start and end date selected by the user.
     const chart_data = [];
-    const end = this.f.endDate.value;
-    const start = this.f.startDate.value;
-
-    // Bootstrap date picker returns single digit for months from Jan to Sept
-    // In order to allow us to compare against MYSQL which returns double digits
-    // for that, we convert the month accordingly.
-    const end_date = this.dateService.bootstrapDateFormat(end);
-    const start_date = this.dateService.bootstrapDateFormat(start);
-
-    const found_form = [...new Set(this.allProcessedFormsList.map(form => form.form_name))];
+    const found_form = [...new Set(formsList.map(form => form.form_name))];
     console.log('found_form: ' + JSON.stringify(found_form));
 
     _.forEach(found_form, (form) => {
-      const count = _.filter(
-        this.allProcessedFormsList,
-        (f) => f.form_name == form &&
-          (this.dateService.getDatePart(form.submitted_at) >= start_date &&
-          this.dateService.getDatePart(form.submitted_at) <= end_date)
-      );
+      const count = _.filter(formsList, (f) => f.form_name == form);
       chart_data.push({
         name: form,
         value: count.length
@@ -323,7 +312,12 @@ export class ExecProcessedFormsListPageComponent implements OnInit {
     });
 
     this.chartData = chart_data;
-    console.log('____chart_data: ' + JSON.stringify(chart_data));
+    console.log('chart_data: ' + JSON.stringify(chart_data));
+  }
+
+  reset() {
+    this.processedFormsList = this.allProcessedFormsList;
+    this.generateChartData(); // sets the chart for all the avialavle forms.
   }
 
   retry() {

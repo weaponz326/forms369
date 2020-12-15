@@ -55,7 +55,7 @@
         </div>
 
         <div class="row">
-          <div class="col-8 col-md-8 offset-1 mb-3">
+          <div class="col-7 col-md-7 mb-3">
             <div class="search-bar">
               <form>
                 <input type="text" class="search-form form-control" name="query" [(ngModel)]="query"
@@ -64,9 +64,14 @@
               </form>
             </div>
           </div>
-          <div class="col-3 col-md-3">
+          <div class="col-4 col-md-4">
             <button type="button" class="btn btn-outline-primary btn-icon-text" (click)="showChart()">
-              View Data In Chart Mode
+              <i class="mdi mdi-chart-line"></i> View Data In Chart Mode
+            </button>
+          </div>
+          <div class="col-1 col-md-1">
+            <button type="button" class="btn btn-outline-primary btn-icon-text" (click)="reset()">
+              <i class="mdi mdi-reload"></i>
             </button>
           </div>
         </div>
