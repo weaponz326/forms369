@@ -8,9 +8,9 @@
     "test": "ng test",
     "lint": "ng lint",
     "e2e": "ng e2e",
-    "dev": "ng build && rm -f ../../public/*.js && rm -f ../../public/*.css && rm -f ../../public/*.ico && cp dist/forms-ui/*.js ../../public/ && cp dist/forms-ui/*.ico ../../public/ && cp dist/forms-ui/index.html ../views/index.html && cp -a dist/forms-ui/assets/. ../../public/assets/",
+    "dev": "ng build && rm -f ../../public/*.js && rm -f ../../public/*.css && rm -f ../../public/*.ico && cp dist/forms-ui/*.js ../../public/ && cp dist/forms-ui/*.css ../../public/ && cp dist/forms-ui/*.ico ../../public/ && cp dist/forms-ui/index.html ../views/index.html && cp -a dist/forms-ui/assets/. ../../public/assets/",
     "prod": "ng build --prod && rm -f ../../public/*.js && rm -f ../../public/*.css && rm -f ../../public/*.ico && cp dist/forms-ui/*.js ../../public/ && cp dist/forms-ui/*.css ../../public/ && cp dist/forms-ui/*.ico ../../public/ && cp dist/forms-ui/index.html ../views/index.html && cp -a dist/forms-ui/assets/. ../../public/assets/",
-    "release": "ng build --prod --aot && rm -f ../../public/*.js && rm -f ../../public/*.css && rm -f ../../public/*.ico && cp dist/forms-ui/*.js ../../public/ && cp dist/forms-ui/*.ico ../../public/ && cp dist/forms-ui/index.html ../views/index.html && cp -a dist/forms-ui/assets/. ../../public/assets/"
+    "release": "ng build --prod --aot && rm -f ../../public/*.js && rm -f ../../public/*.css && rm -f ../../public/*.ico && cp dist/forms-ui/*.js ../../public/ && cp dist/forms-ui/*.css ../../public/ && cp dist/forms-ui/*.ico ../../public/ && cp dist/forms-ui/index.html ../views/index.html && cp -a dist/forms-ui/assets/. ../../public/assets/"
   },
   "private": true,
   "dependencies": {

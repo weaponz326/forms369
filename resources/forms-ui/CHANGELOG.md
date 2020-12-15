@@ -120,6 +120,6 @@
     7. Bug fixes on front desk dashboard
     8. Updated view for form setup.
     9. Updated view for company setup
-   10. Updated view for branch setup.
-   11. Introduced abuse reports.
-   12.
+    10. Updated view for branch setup.
+    11. Introduced abuse reports.
+    12.
