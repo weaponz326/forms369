@@ -101,7 +101,7 @@ export class ViewAbuseReportsPageComponent implements OnInit {
         if (ok) {
           this.showAddressReportSuccessAlert();
           const abuseItem = this.abuseReportsList[index];
-          abuseItem.status = 0;
+          abuseItem.status = 1;
         }
         else {
           this.showAddressReportFailedAlert();
