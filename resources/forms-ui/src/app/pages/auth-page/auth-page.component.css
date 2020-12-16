@@ -1,12 +1,12 @@
 .auth .brand-logo img {
-    width: 60px;
+  width: 60px;
 }
 
 p.lead {
-    line-height: 1.8rem;
+  line-height: 1.8rem;
 }
 
 .auth form .auth-form-btn {
-    height: 50px;
-    line-height: 1.2;
+  height: 50px;
+  line-height: 1.2;
 }

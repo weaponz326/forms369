@@ -32,7 +32,7 @@ export class AdminSettingsPageComponent implements OnInit {
     private logging: LoggingService,
     private adminService: AdminService,
     private localStorage: LocalStorageService,
-    private executiveService: ExecutiveService
+    private executiveService: ExecutiveService,
   ) {
     this.frontDeskLists = [];
     this.superExecLists = [];
@@ -63,7 +63,7 @@ export class AdminSettingsPageComponent implements OnInit {
       title: 'Oops!',
       icon: 'error',
       text: 'Failed to save settings. Please make sure you still have an active internet connection or our servers may be down.',
-      confirmButtonText: 'Arrrgh, Ok'
+      confirmButtonText: 'Ok'
     });
   }
 
@@ -72,7 +72,7 @@ export class AdminSettingsPageComponent implements OnInit {
     const user_type = UserTypes.FrontDesk;
     this.adminService.getAllUsersByMerchant(user_type, this.user.merchant_id.toString()).then(
       accounts => {
-        console.log('front_desk_comp: ' + JSON.stringify(accounts));
+        this.logging.log('front_desk_comp: ' + JSON.stringify(accounts));
         this.loading = false;
         if (accounts.length == 0) {
           this.hasFrontDesk = false;
@@ -95,7 +95,7 @@ export class AdminSettingsPageComponent implements OnInit {
     this.loading = true;
     this.executiveService.getCompanySuperExecutives(this.user.merchant_id.toString()).then(
       accounts => {
-        console.log('super_exec: ' + JSON.stringify(accounts));
+        this.logging.log('super_exec: ' + JSON.stringify(accounts));
         this.loading = false;
         if (accounts.length == 0) {
           this.hasSuperExecs = false;
@@ -118,7 +118,7 @@ export class AdminSettingsPageComponent implements OnInit {
     this.loading = true;
     this.executiveService.getCompanyBranchSuperExecutives(this.user.merchant_id.toString()).then(
       accounts => {
-        console.log('branch_super_exec: ' + JSON.stringify(accounts));
+        this.logging.log('branch_super_exec: ' + JSON.stringify(accounts));
         this.loading = false;
         if (accounts.length == 0) {
           this.hasBranchSuperExecs = false;

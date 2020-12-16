@@ -1,14 +1,14 @@
 .form-builder-container {
-    padding-top: 1px;
+  padding-top: 1px;
 }
 
 .dropdown .dropdown-menu .dropdown-item {
-    font-size: .875rem;
-    padding: 1rem 1.5rem;
+  font-size: .875rem;
+  padding: 1rem 1.5rem;
 }
 
 select.form-control {
-    color: #555555 !important;
+  color: #555555 !important;
 }
 
 .title-form {

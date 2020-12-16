@@ -11,13 +11,14 @@
 }
 
 #input-form {
-    position: relative;
-    z-index: 1;
+  position: relative;
+  z-index: 1;
 }
+
 #input-form input {
-    position: absolute;
-    border: none;
-    pointer-events: none;
-    background: transparent;
-    /* border: 1px solid red; */
+  position: absolute;
+  border: none;
+  pointer-events: none;
+  background: transparent;
+  /* border: 1px solid red; */
 }

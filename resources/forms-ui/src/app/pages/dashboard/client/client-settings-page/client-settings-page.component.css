@@ -1,39 +1,37 @@
 .pin-control {
-    font-size: 35px;
-    text-align: center;
-    padding: 20px 20px;
-    letter-spacing: 14px;
+  font-size: 35px;
+  text-align: center;
+  padding: 20px 20px;
+  letter-spacing: 14px;
 }
 
 .pin-form-group {
-    width: 50%;
-    margin: 0 auto;
+  width: 50%;
+  margin: 0 auto;
 }
 
 .pin-control::placeholder {
-    color: #bbb;
+  color: #bbb;
 }
 
 .input-error {
-    font-family: 'OpenSans_SemiBold';
+  font-family: 'OpenSans_SemiBold';
 }
 
 label {
-    font-family: 'OpenSans_SemiBold';
+  font-family: 'OpenSans_SemiBold';
 }
 
 .card-title {
-    font-family: 'OpenSans_Bold';
+  font-family: 'OpenSans_Bold';
 }
 
-@media only screen 
-and (min-device-width: 320px) 
-and (max-device-width: 825px) {
-    .pin-control {
-        font-size: 20px;
-        text-align: center;
-        padding: 10px 10px;
-        letter-spacing: 22px;
-        font-family: 'OpenSans_Bold';
-    }
+@media only screen and (min-device-width: 320px) and (max-device-width: 825px) {
+  .pin-control {
+    font-size: 20px;
+    text-align: center;
+    padding: 10px 10px;
+    letter-spacing: 22px;
+    font-family: 'OpenSans_Bold';
+  }
 }
