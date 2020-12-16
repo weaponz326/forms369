@@ -1,40 +1,38 @@
 .search-form {
-    border-radius: 30px;
+  border-radius: 30px;
 }
 
-@media only screen 
-and (min-device-width: 320px) 
-and (max-device-width: 825px) {
-    .grid-margin {
-        margin-bottom: .475rem;
-    }
-
-    .forms-list h3 {
-        font-size: 1.2rem;
-    }
+@media only screen and (min-device-width: 320px) and (max-device-width: 825px) {
+  .grid-margin {
+    margin-bottom: .475rem;
+  }
+  
+  .forms-list h3 {
+    font-size: 1.2rem;
+  }
 }
 
 .form-container {
-    border-left-width: 11px;
-    border-left-style: solid;
-    padding-top: 20px;
-    border-radius: 5px;
+  border-left-width: 11px;
+  border-left-style: solid;
+  padding-top: 20px;
+  border-radius: 5px;
 }
 
 .form-title {
-    color: #fff;
-    padding: 10px 20px;
-    border-top-right-radius: 40px;
-    border-bottom-right-radius: 40px;
+  color: #fff;
+  padding: 10px 20px;
+  border-top-right-radius: 40px;
+  border-bottom-right-radius: 40px;
 }
 
-.form-title > h4 {
-    font-size: 1rem;
-    text-transform: uppercase;
+.form-title>h4 {
+  font-size: 1rem;
+  text-transform: uppercase;
 }
 
-.form-logo > img {
-    width: 50px;
-    margin-top: 25px;
-    border-radius: 10px;
+.form-logo>img {
+  width: 50px;
+  margin-top: 25px;
+  border-radius: 10px;
 }
