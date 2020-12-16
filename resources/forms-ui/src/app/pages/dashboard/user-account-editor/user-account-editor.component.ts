@@ -20,10 +20,10 @@ export class UserAccountEditorComponent implements OnInit {
 
   id: string;
   form: FormGroup;
-  isGitAdmin: boolean;
   loading: boolean;
   userDetails: any;
-  submitted: boolean;
+  isGitAdmin: boolean;
+  submitted: boolean; 
   emailInUse: boolean;
   isCompAdmin: boolean;
   isFrontDesk: boolean;
