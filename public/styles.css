@@ -20436,25 +20436,25 @@ dl li {
   outline: 1px solid slategrey;
 }
 @font-face {
-  font-family: "OpenSans_Regular";
-  src: url("/assets/fonts/open-sans/OpenSans-Regular.ttf");
+  font-family: 'OpenSans_Regular';
+  src: url('/assets/fonts/open-sans/OpenSans-Regular.ttf');
 }
 @font-face {
-  font-family: "OpenSans_Bold";
-  src: url("/assets/fonts/open-sans/OpenSans-Bold.ttf");
+  font-family: 'OpenSans_Bold';
+  src: url('/assets/fonts/open-sans/OpenSans-Bold.ttf');
 }
 @font-face {
-  font-family: "OpenSans_SemiBold";
-  src: url("/assets/fonts/open-sans/OpenSans-Semibold.ttf");
+  font-family: 'OpenSans_SemiBold';
+  src: url('/assets/fonts/open-sans/OpenSans-Semibold.ttf');
 }
 @font-face {
-  font-family: "ProductSans_Regular";
-  src: url("/assets/fonts/ProductSans-Bold_1b2049464dce1ac801cec1357c2e45b8.ttf");
+  font-family: 'ProductSans_Regular';
+  src: url('/assets/fonts/ProductSans-Bold_1b2049464dce1ac801cec1357c2e45b8.ttf');
 }
 html,
 body {
   color: #555;
-  font-family: "OpenSans_Regular";
+  font-family: 'OpenSans_Regular';
 }
 h1,
 h2,
@@ -20462,10 +20462,10 @@ h3,
 h4,
 h5,
 h6 {
-  font-family: "OpenSans_Bold" !important;
+  font-family: 'OpenSans_Bold' !important;
 }
 .btn {
-  font-family: "OpenSans_Bold" !important;
+  font-family: 'OpenSans_Bold' !important;
 }
 .align-right {
   top: 10px;
