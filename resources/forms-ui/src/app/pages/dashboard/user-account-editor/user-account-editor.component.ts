@@ -17,8 +17,6 @@ import { LocalStorageService } from 'src/app/services/storage/local-storage.serv
   styleUrls: ['./user-account-editor.component.css']
 })
 export class UserAccountEditorComponent implements OnInit {
-
-  id: string;
   form: FormGroup;
   loading: boolean;
   userDetails: any;
@@ -30,7 +28,6 @@ export class UserAccountEditorComponent implements OnInit {
   oldPassword: string;
   newPassword: string;
   isSuperExec: boolean;
-  isBranchAdmin: boolean;
   branchesList: Array<any>;
   merchantsList: Array<any>;
   branchNamesList: Array<any>;
@@ -298,10 +295,10 @@ export class UserAccountEditorComponent implements OnInit {
     const user: Users = new Users();
     const phone = this.f.phone.value;
     const status = this.f.status.value;
+    const dCode = this.f.dialCode.value;
     const lname = this.f.lastName.value;
     const fname = this.f.firstName.value;
     const country = this.f.country.value;
-    const dCode = this.f.dialCode.value;
     const username = this.f.username.value;
     const password = this.f.password.value;
     const userType = this.f.userType.value;
@@ -367,7 +364,7 @@ export class UserAccountEditorComponent implements OnInit {
         user.branch_id = branch_id;
         user.merchant_id = merchant_id;
         console.log('must include _password: ' + password);
-      }
+      } 
 
       return user;
     }
