@@ -27,11 +27,11 @@
     1. Clients can now upload attachments.
     2. Front desks can now view attachments on submitted forms.
     3. PDF files for forms can be uploaded when creating a form.
-    4. GIT Admin can allow fornt desks to view submitted forms without form submission.
+    4. GIT Admin can allow front desks to view submitted forms without form submission.
     5. Default and PDF printing added.
 
 # version 0.0.4
-    1. A pin a required to submit form.
+    1. A pin is required to submit form.
     2. An option to change your form submit pin.
     3. Front desk can now make changes to a form submitted before processing it.
     4. Fixed all grammatical errors.
@@ -46,7 +46,7 @@
     6. Fixed UI issues in company admin.
     7. Now admins know what form they are editing, form name added and label added for form fields as well.
     8. Pin code is now required on client profile screen.
-    9. Front desk can view forms can now be processed. All the button are now available.
+    9. Front desk 'can view forms' can now be processed. All the button are now available.
     9. Rejection notes added to front desk. Now they can provide a reason for rejecting a form.
     10. Form builder now hides some of the field properties.
     11. All preview forms now displays the name of the form being previewed
@@ -113,13 +113,15 @@
     
 # version 0.1.2
     1. Updated to Angular 10
-    2. Removed unused node modules
+    2. Removed unused node modules.
     3. Added filtering options to executive dashboard from processed forms, rejected forms etc.
     4. Introduced Charts for executive dashboard.
     6. Payment option available for clients.
-    7. Bug fixes on front desk dashboard
+    7. Bug fixes on front desk dashboard.
     8. Updated view for form setup.
     9. Updated view for company setup
     10. Updated view for branch setup.
     11. Introduced abuse reports.
-    12.
+    12. 
+
+# version 0.2.0
